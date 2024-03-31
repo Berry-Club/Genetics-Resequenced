@@ -12,14 +12,13 @@ import net.minecraft.commands.Commands
 import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.network.chat.Component
 
-
-object AddGeneCommand : Command<CommandSourceStack> {
+object RemoveGeneCommand : Command<CommandSourceStack> {
 
     private const val GENE_ARGUMENT = "gene"
 
     fun register(): ArgumentBuilder<CommandSourceStack, *> {
         return Commands
-            .literal("addGene")
+            .literal("removeGene")
             .requires { it.hasPermission(2) }
             .then(
                 Commands.argument(GENE_ARGUMENT, StringArgumentType.string())
@@ -29,7 +28,7 @@ object AddGeneCommand : Command<CommandSourceStack> {
                             builder
                         )
                     }
-                    .executes(AddGeneCommand)
+                    .executes(RemoveGeneCommand)
             )
     }
 
@@ -39,46 +38,45 @@ object AddGeneCommand : Command<CommandSourceStack> {
         val geneArgument = StringArgumentType.getString(context, GENE_ARGUMENT)
 
         return when (geneArgument) {
-            "_all" -> addAll(context)
-            else -> addGene(context, geneArgument)
+            "_all" -> removeAll(context)
+            else -> removeGene(context, geneArgument)
         }
     }
 
-    private fun addGene(context: CommandContext<CommandSourceStack>, geneArgument: String): Int {
+    private fun removeGene(context: CommandContext<CommandSourceStack>, geneArgument: String): Int {
         val player = context.source.player ?: return 0
 
-        val geneToAdd = EnumGenes.valueOf(geneArgument)
+        val geneToRemove = EnumGenes.valueOf(geneArgument)
         val playerGenes = player.getGenes()
 
-        val success = playerGenes.addGene(geneToAdd)
+        val success = playerGenes.removeGene(geneToRemove)
 
         @Suppress("LiftReturnOrAssignment")
         if (success) {
             context.source.sendSuccess(
-                Component.literal("Added gene: ${geneToAdd.description}"),
+                Component.literal("Removed gene: ${geneToRemove.description}"),
                 false
             )
             return 1
         } else {
             context.source.sendFailure(
-                Component.literal("Failed to add gene: ${geneToAdd.description}")
+                Component.literal("Failed to remove gene: ${geneToRemove.description}")
             )
             return 0
         }
     }
 
-    private fun addAll(context: CommandContext<CommandSourceStack>): Int {
+    private fun removeAll(context: CommandContext<CommandSourceStack>): Int {
         val player = context.source.player ?: return 0
         val playerGenes = player.getGenes()
 
-        playerGenes.addAllGenes()
+        playerGenes.removeAllGenes()
 
         context.source.sendSuccess(
-            Component.literal("Added all genes!"),
+            Component.literal("Removed all genes!"),
             false
         )
         return 1
     }
-
 
 }

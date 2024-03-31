@@ -13,6 +13,7 @@ object ModCommands {
                 .then(AddGeneCommand.register())
                 .then(ListAllGenesCommand.register())
                 .then(ListGenesCommand.register())
+                .then(RemoveGeneCommand.register())
         )
     }
 
