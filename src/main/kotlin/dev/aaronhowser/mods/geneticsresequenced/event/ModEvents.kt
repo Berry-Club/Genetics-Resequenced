@@ -3,9 +3,11 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.CapabilityHandler
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneCapabilityProvider
+import dev.aaronhowser.mods.geneticsresequenced.commands.ModCommands
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.player.Player
 import net.minecraftforge.event.AttachCapabilitiesEvent
+import net.minecraftforge.event.RegisterCommandsEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
@@ -37,4 +39,8 @@ object ModEvents {
         }
     }
 
+    @SubscribeEvent
+    fun onRegisterCommandsEvent(event: RegisterCommandsEvent) {
+        ModCommands.register(event.dispatcher)
+    }
 }
