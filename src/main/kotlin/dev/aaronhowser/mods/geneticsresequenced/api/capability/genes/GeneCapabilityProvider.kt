@@ -18,7 +18,7 @@ object GeneCapabilityProvider : ICapabilityProvider, INBTSerializable<CompoundTa
 
     private fun createGenes(): Genes {
         if (this.genes == null) {
-            this.genes = Genes()
+            this.genes = Genes
         }
         return this.genes!!
     }
@@ -32,14 +32,12 @@ object GeneCapabilityProvider : ICapabilityProvider, INBTSerializable<CompoundTa
     }
 
     override fun serializeNBT(): CompoundTag {
-
         val compoundTag = CompoundTag()
-
-
-        TODO("Not yet implemented")
+        createGenes().saveNbt(compoundTag)
+        return compoundTag
     }
 
-    override fun deserializeNBT(nbt: CompoundTag?) {
-        TODO("Not yet implemented")
+    override fun deserializeNBT(nbt: CompoundTag) {
+        createGenes().loadNbt(nbt)
     }
 }
