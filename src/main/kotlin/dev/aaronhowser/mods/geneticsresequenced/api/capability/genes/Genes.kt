@@ -59,7 +59,7 @@ object Genes : IGenes {
 
         require(list.all { it is StringTag }) { "All genes must be strings" }
 
-        val strings = list.map { it.toString() }
+        val strings = list.map { it.asString }
         val listGenes = strings.map { EnumGenes.valueOf(it) }
 
         setGeneList(listGenes)
