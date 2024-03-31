@@ -14,10 +14,7 @@ java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
 println ("Java: ${System.getProperty('java.version')}, JVM: ${System.getProperty('java.vm.version')} (${System.getProperty('java.vendor')}), Arch: ${System.getProperty('os.arch')}")
 minecraft {
-    // Change to your preferred mappings
     mappings channel: 'official', version: '1.19.2'
-    // Add your AccessTransformer
-    // accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         client {
@@ -79,7 +76,6 @@ minecraft {
     }
 }
 
-// Include assets and data from data generators
 sourceSets.main.resources { srcDirs 'src/generated/resources/' }
 
 repositories {
@@ -91,7 +87,6 @@ repositories {
 }
 
 dependencies {
-    // Use the latest version of Minecraft Forge
     minecraft 'net.minecraftforge:forge:1.19.2-43.2.3'
 
     implementation 'thedarkcolour:kotlinforforge:3.12.0'
@@ -116,5 +111,5 @@ jar {
 }
 
 tasks.withType(JavaCompile).configureEach {
-    options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
+    options.encoding = 'UTF-8'
 }
