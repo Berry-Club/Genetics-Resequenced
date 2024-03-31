@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
-interface Gene {
+interface IGene {
 
     fun addGene(gene: EnumGenes)
     fun removeGene(gene: EnumGenes)
