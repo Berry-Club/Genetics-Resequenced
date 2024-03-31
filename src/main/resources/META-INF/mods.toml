@@ -3,21 +3,21 @@ loaderVersion="[3,)"
 license='MIT'
 
 [[mods]]
-modId="examplemod"
+modId="geneticsresequenced"
 version="${file.jarVersion}"
-displayName="ExampleMod"
-credits="The ExampleMod dev team"
-authors="ExampleModAuthor"
+displayName="Genetics Resequenced"
+#credits="The ExampleMod dev team"
+authors="aaronhowser1"
 description='''
 Example mod that uses Kotlin for Forge.
 '''
-[[dependencies.examplemod]]
+[[dependencies.geneticsresequenced]]
     modId="forge"
     mandatory=true
     versionRange="[41,)"
     ordering="NONE"
     side="BOTH"
-[[dependencies.examplemod]]
+[[dependencies.geneticsresequenced]]
     modId="minecraft"
     mandatory=true
     versionRange="[1.19,1.20)"

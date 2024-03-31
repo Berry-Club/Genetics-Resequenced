@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block
 
-import dev.aaronhowser.mods.geneticsresequenced.ExampleMod
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.material.Material
@@ -9,7 +9,7 @@ import net.minecraftforge.registries.ForgeRegistries
 import thedarkcolour.kotlinforforge.forge.registerObject
 
 object ModBlocks {
-    val REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCKS, ExampleMod.ID)
+    val REGISTRY = DeferredRegister.create(ForgeRegistries.BLOCKS, GeneticsResequenced.ID)
 
     // the returned ObjectHolderDelegate can be used as a property delegate
     // this is automatically registered by the deferred registry at the correct times
