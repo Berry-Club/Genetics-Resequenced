@@ -11,7 +11,7 @@ object ServerConfig {
 //    val allowGivingEntityGenes: Boolean
 
     val hardMode: ForgeConfigSpec.BooleanValue
-//    val bioilluminanceLightLevel: Double
+//    val bioluminescenceLightLevel: Double
 //    val thornsDamage:Double
 //    val clawsDamage: Double
 //    val clawsChange: Int
