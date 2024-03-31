@@ -21,7 +21,7 @@ enum class EnumGenes(
     MEATY_2("Meaty II", null, true),
     MORE_HEARTS_2("More Hearts II", null, true),
     INVISIBLE("Invisbility", null, true),
-    FLY("Flight", null, true),
+    FLIGHT("Flight", null, true),
     LUCK("Luck", null, true),
     SCARE_ZOMBIES("Scare Zombies", null, true),
     SCARE_SPIDERS("Scare Spiders", null, true),
@@ -36,30 +36,30 @@ enum class EnumGenes(
     EXPLOSIVE_EXIT("Explosive Exit"),
     FIRE_PROOF("Fire Proof"),
     ITEM_MAGNET("Item Magnet"),
-    JUMP_BOOST("Jump Boost", FLY),
+    JUMP_BOOST("Jump Boost", FLIGHT),
     MILKY("Milky"),
     MORE_HEARTS("More Hearts", MORE_HEARTS_2),
     NIGHT_VISION("Night Vision"),
     NO_FALL_DAMAGE("No Fall Damage"),
     PHOTOSYNTHESIS("Photosynthesis", THORNS),
-    POISON_PROOF("Poison Immunity"),
+    POISON_IMMUNITY("Poison Immunity"),
     RESISTANCE("Resistance", RESISTANCE_2),
     SAVE_INVENTORY("Save Inventory"),
     SCARE_CREEPERS("Scare Creepers", SCARE_ZOMBIES),
     SCARE_SKELETONS("Scare Skeletons", SCARE_SPIDERS),
     SHOOT_FIREBALLS("Shoot Fireballs"),
-    SLIMY("Slimy Death"),
+    SLIMY_DEATH("Slimy Death"),
     SPEED("Speed", SPEED_2),
     STRENGTH("Strength", STRENGTH_2),
-    TELEPORTER("Teleport", FLY),
+    TELEPORT("Teleport", FLIGHT),
     WATER_BREATHING("Water Breathing"),
     WOOLY("Wooly"),
     WITHER_HIT("Wither Hit"),
     WITHER_PROOF("Wither Proof"),
-    XP_MAGNET("XP Magmet"),
-    STEP_ASSIST("Step Assit"),
+    XP_MAGNET("XP Magnet"),
+    STEP_ASSIST("Step Assist"),
     INFINITY("Infinity"),
-    BIOLUMIN("Bioluminescence"),
+    BIOLUMINESCENCE("Bioluminescence"),
     CYBERNETIC("Cybernetic"),
     LAY_EGG("Lay Eggs"),
     MEATY("Meaty", MEATY_2),
@@ -108,8 +108,8 @@ enum class EnumGenes(
             MEATY_2 -> genes.hasGene(MEATY) || syringeGenes.hasGene(MEATY)
             MORE_HEARTS_2 -> genes.hasGene(MORE_HEARTS) || syringeGenes.hasGene(MORE_HEARTS)
             INVISIBLE -> true
-            FLY -> genes.hasGene(JUMP_BOOST) || genes.hasGene(TELEPORTER) || genes.hasGene(NO_FALL_DAMAGE) ||
-                    syringeGenes.hasGene(JUMP_BOOST) || syringeGenes.hasGene(TELEPORTER) || syringeGenes.hasGene(
+            FLIGHT -> genes.hasGene(JUMP_BOOST) || genes.hasGene(TELEPORT) || genes.hasGene(NO_FALL_DAMAGE) ||
+                    syringeGenes.hasGene(JUMP_BOOST) || syringeGenes.hasGene(TELEPORT) || syringeGenes.hasGene(
                 NO_FALL_DAMAGE
             )
 
@@ -127,12 +127,12 @@ enum class EnumGenes(
         return if (ServerConfig.hardMode.get()) 24 else when (gene) {
             STEP_ASSIST, JUMP_BOOST -> 10
             MILKY, WOOLY, MEATY, LAY_EGG, THORNS -> 12
-            EAT_GRASS, NIGHT_VISION, MOB_SIGHT, WATER_BREATHING, BIOLUMIN -> 16
+            EAT_GRASS, NIGHT_VISION, MOB_SIGHT, WATER_BREATHING, BIOLUMINESCENCE -> 16
             DRAGONS_BREATH, SCARE_CREEPERS, SCARE_SKELETONS, WITHER_HIT, SPEED, CLAWS, STRENGTH, EXPLOSIVE_EXIT -> 20
-            FIRE_PROOF, POISON_PROOF, SHOOT_FIREBALLS, TELEPORTER -> 24
+            FIRE_PROOF, POISON_IMMUNITY, SHOOT_FIREBALLS, TELEPORT -> 24
             EMERALD_HEART, NO_FALL_DAMAGE, NO_HUNGER, RESISTANCE, XP_MAGNET, ITEM_MAGNET, INFINITY, CYBERNETIC -> 30
             WITHER_PROOF, MORE_HEARTS, CLIMB_WALLS, SAVE_INVENTORY, PHOTOSYNTHESIS -> 40
-            REGENERATION, ENDER_DRAGON_HEALTH, SLIMY -> 60
+            REGENERATION, ENDER_DRAGON_HEALTH, SLIMY_DEATH -> 60
             else -> 22
         }
     }
