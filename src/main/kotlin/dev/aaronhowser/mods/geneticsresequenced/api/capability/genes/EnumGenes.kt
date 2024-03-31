@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+
 @Suppress("unused")
 enum class EnumGenes(
     val description: String,
@@ -122,7 +124,7 @@ enum class EnumGenes(
 
     fun getNumberNeeded(gene: EnumGenes): Int {
         if (gene.isMutation) return 50
-        return /*if (!GeneticsReborn.hardMode) 24 else*/ when (gene) {
+        return if (ServerConfig.hardMode.get()) 24 else when (gene) {
             STEP_ASSIST, JUMP_BOOST -> 10
             MILKY, WOOLY, MEATY, LAY_EGG, THORNS -> 12
             EAT_GRASS, NIGHT_VISION, MOB_SIGHT, WATER_BREATHING, BIOLUMIN -> 16
