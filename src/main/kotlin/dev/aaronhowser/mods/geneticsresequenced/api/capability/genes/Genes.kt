@@ -1,6 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.ListTag
+import net.minecraft.nbt.StringTag
+import net.minecraft.nbt.Tag
 
 object Genes : IGenes {
 
@@ -39,15 +42,25 @@ object Genes : IGenes {
         enumGenesList.addAll(genes)
     }
 
-    private const val NBT_KEY = "gene_ids"
+    private const val NBT_KEY = "genes"
 
     fun saveNbt(nbt: CompoundTag) {
-        val genes = enumGenesList.map { it.ordinal }.toIntArray()
-        nbt.putIntArray(NBT_KEY, genes)
+        val listTag = nbt.getList(NBT_KEY, Tag.TAG_STRING.toInt())
+
+        listTag.clear()
+        listTag.addAll(enumGenesList.map { StringTag.valueOf(it.name) })
+
+        nbt.put(NBT_KEY, listTag)
     }
 
     fun loadNbt(nbt: CompoundTag) {
-        val geneIds = nbt.getIntArray(NBT_KEY)
-        setGeneList(geneIds.map { EnumGenes.values()[it] })
+        val list: ListTag = nbt.getList(NBT_KEY, Tag.TAG_STRING.toInt())
+
+        require(list.all { it is StringTag }) { "All genes must be strings" }
+
+        val strings = list.map { it.toString() }
+        val listGenes = strings.map { EnumGenes.valueOf(it) }
+
+        setGeneList(listGenes)
     }
 }
