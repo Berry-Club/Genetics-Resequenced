@@ -21,7 +21,6 @@ object ModBusEvents {
     @SubscribeEvent
     fun onRegisterCapabilities(event: RegisterCapabilitiesEvent) {
         event.register(Genes::class.java)
-        println("Registered Genes Capability")
     }
 
 }

@@ -24,11 +24,6 @@ object ModEvents {
         if (playerHasCapability) return
 
         event.addCapability(CapabilityHandler.GENE_CAPABILITY_RL, GeneCapabilityProvider)
-
-        println("Attached Genes Capability")
-
-        println(player.persistentData.asString)
-
     }
 
     @SubscribeEvent
@@ -40,8 +35,6 @@ object ModEvents {
                 newGenes.setGeneList(oldGenes.getGeneList())
             }
         }
-
-        println("Cloned Genes")
     }
 
 }
