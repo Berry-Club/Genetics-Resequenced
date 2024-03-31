@@ -29,8 +29,6 @@ object GeneticsResequenced {
                 MOD_BUS.addListener(GeneticsResequenced::onServerSetup)
                 "test"
             })
-
-        println(obj)
     }
 
     private fun onClientSetup(event: FMLClientSetupEvent) {
