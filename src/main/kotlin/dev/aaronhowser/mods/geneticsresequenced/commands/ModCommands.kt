@@ -14,8 +14,6 @@ object ModCommands {
                 .then(ListAllGenesCommand.register())
                 .then(ListGenesCommand.register())
         )
-
-        dispatcher.register(Commands.literal("genes").redirect(modCommands))
     }
 
 
