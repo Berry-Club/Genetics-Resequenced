@@ -1,6 +1,6 @@
-package example.examplemod.block
+package dev.aaronhowser.mods.geneticsresequenced.block
 
-import example.examplemod.ExampleMod
+import dev.aaronhowser.mods.geneticsresequenced.ExampleMod
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.material.Material

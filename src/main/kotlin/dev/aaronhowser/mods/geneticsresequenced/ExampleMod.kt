@@ -1,6 +1,6 @@
-package example.examplemod
+package dev.aaronhowser.mods.geneticsresequenced
 
-import example.examplemod.block.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.block.ModBlocks
 import net.minecraft.client.Minecraft
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
@@ -33,11 +33,11 @@ object ExampleMod {
 
         val obj = runForDist(
             clientTarget = {
-                MOD_BUS.addListener(::onClientSetup)
+                MOD_BUS.addListener(ExampleMod::onClientSetup)
                 Minecraft.getInstance()
             },
             serverTarget = {
-                MOD_BUS.addListener(::onServerSetup)
+                MOD_BUS.addListener(ExampleMod::onServerSetup)
                 "test"
             })
 

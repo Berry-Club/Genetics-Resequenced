@@ -6,9 +6,9 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.21'
 }
 
-version = '1.0.0'
-group = 'example.examplemod'
-archivesBaseName = 'examplemod'
+version = mod_version
+group = group
+archivesBaseName = "geneticsresequenced-${mc_version}"
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
