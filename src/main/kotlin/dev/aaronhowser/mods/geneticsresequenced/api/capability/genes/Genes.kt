@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.ListTag
 import net.minecraft.nbt.StringTag
 import net.minecraft.nbt.Tag
+import net.minecraft.world.entity.LivingEntity
 
 object Genes : IGenes {
 
@@ -62,5 +63,11 @@ object Genes : IGenes {
         val listGenes = strings.map { EnumGenes.valueOf(it) }
 
         setGeneList(listGenes)
+    }
+
+    fun LivingEntity.getGenes(): IGenes {
+        return this.getCapability(GeneCapabilityProvider.GENE_CAPABILITY).orElseThrow {
+            IllegalStateException("Genes capability not present")
+        }
     }
 }

@@ -28,10 +28,11 @@ object ListAllGenesCommand : Command<CommandSourceStack> {
             val enumComponent = Component
                 .literal(gene.name)
                 .withStyle {
-                    it.withColor(ChatFormatting.DARK_AQUA)
-                    it.withUnderlined(true)
-                    it.withHoverEvent(HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Copy")))
-                    it.withClickEvent(ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, gene.name))
+                    it
+                        .withColor(ChatFormatting.DARK_AQUA)
+                        .withUnderlined(true)
+                        .withHoverEvent(HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Copy \"${gene.name}\"")))
+                        .withClickEvent(ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, gene.name))
                 }
 
             val descriptionComponent = Component
@@ -46,7 +47,7 @@ object ListAllGenesCommand : Command<CommandSourceStack> {
             messageComponent.append(lineComponent)
         }
 
-        context.source.sendSystemMessage(messageComponent)
+        context.source.sendSuccess(messageComponent, false)
         return 1
     }
 }
