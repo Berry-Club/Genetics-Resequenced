@@ -1,5 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.CapabilityHandler
+import net.minecraft.nbt.CompoundTag
+
 class Genes : IGenes {
 
     private val enumGenesList: MutableSet<EnumGenes> = mutableSetOf()
@@ -35,5 +38,15 @@ class Genes : IGenes {
     override fun setGeneList(genes: List<EnumGenes>) {
         enumGenesList.clear()
         enumGenesList.addAll(genes)
+    }
+
+    fun saveNbt(nbt: CompoundTag) {
+        val genes = enumGenesList.map { it.ordinal }.toIntArray()
+        nbt.putIntArray(CapabilityHandler.GENE_CAPABILITY_RL.toString(), genes)
+    }
+
+    fun loadNbt(nbt: CompoundTag) {
+        enumGenesList.clear()
+        val genes = nbt.getIntArray(CapabilityHandler.GENE_CAPABILITY_RL.toString())
     }
 }
