@@ -158,11 +158,7 @@ object ModEvents {
         val sound = if (event.target is Player && Random.nextFloat() < 0.05f) {
             SoundEvents.GOAT_SCREAMING_MILK
         } else {
-            if (Random.nextBoolean()) {
-                SoundEvents.COW_MILK
-            } else {
-                SoundEvents.GOAT_MILK
-            }
+            if (Random.nextBoolean()) SoundEvents.COW_MILK else SoundEvents.GOAT_MILK
         }
 
         event.level.playSound(
