@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced
 
-import dev.aaronhowser.mods.geneticsresequenced.block.ModBlocks
 import net.minecraft.client.Minecraft
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
@@ -18,7 +17,6 @@ object GeneticsResequenced {
     val LOGGER: Logger = LogManager.getLogger(ID)
 
     init {
-        ModBlocks.REGISTRY.register(MOD_BUS)
 
         val obj = runForDist(
             clientTarget = {
