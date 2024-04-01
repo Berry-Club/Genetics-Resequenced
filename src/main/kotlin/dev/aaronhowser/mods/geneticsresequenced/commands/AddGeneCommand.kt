@@ -19,6 +19,7 @@ object AddGeneCommand : Command<CommandSourceStack> {
 
     private const val GENE_ARGUMENT = "gene"
     private const val TARGET_ARGUMENT = "target"
+    private const val ALL = "_all"
 
     fun register(): ArgumentBuilder<CommandSourceStack, *> {
         return Commands
@@ -31,7 +32,7 @@ object AddGeneCommand : Command<CommandSourceStack> {
                         Commands.argument(GENE_ARGUMENT, StringArgumentType.string())
                             .suggests { ctx, builder ->
                                 SharedSuggestionProvider.suggest(
-                                    listOf("_all").plus(EnumGenes.values().map { it.name }),
+                                    EnumGenes.values().map { it.name }.plus(ALL),
                                     builder
                                 )
                             }
@@ -46,7 +47,7 @@ object AddGeneCommand : Command<CommandSourceStack> {
         val geneArgument = StringArgumentType.getString(context, GENE_ARGUMENT)
 
         return when (geneArgument) {
-            "_all" -> addAll(context)
+            ALL -> addAll(context)
             else -> addGene(context, geneArgument)
         }
     }
@@ -59,6 +60,15 @@ object AddGeneCommand : Command<CommandSourceStack> {
 
         val geneToAdd = EnumGenes.valueOf(geneArgument)
         val targetGenes = target.getGenes() ?: return 0
+
+        val alreadyHasGene = targetGenes.hasGene(geneToAdd)
+
+        if (alreadyHasGene) {
+            context.source.sendFailure(
+                Component.literal("Failed to add gene: ${geneToAdd.description} - Gene already present")
+            )
+            return 0
+        }
 
         val success = targetGenes.addGene(geneToAdd)
 
@@ -78,10 +88,10 @@ object AddGeneCommand : Command<CommandSourceStack> {
     }
 
     private fun addAll(context: CommandContext<CommandSourceStack>): Int {
-        val player = context.source.player ?: return 0
-        val playerGenes = player.getGenes() ?: return 0
+        val target = EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity ?: return 0
+        val targetGenes = target.getGenes() ?: return 0
 
-        playerGenes.addAllGenes()
+        targetGenes.addAllGenes()
 
         context.source.sendSuccess(
             Component.literal("Added all genes!"),

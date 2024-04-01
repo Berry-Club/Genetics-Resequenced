@@ -18,6 +18,7 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
 
     private const val GENE_ARGUMENT = "gene"
     private const val TARGET_ARGUMENT = "target"
+    private const val ALL = "_all"
 
     fun register(): ArgumentBuilder<CommandSourceStack, *> {
         return Commands
@@ -29,7 +30,7 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
                         Commands.argument(GENE_ARGUMENT, StringArgumentType.string())
                             .suggests { ctx, builder ->
                                 SharedSuggestionProvider.suggest(
-                                    listOf("_all").plus(EnumGenes.values().map { it.name }),
+                                    EnumGenes.values().map { it.name }.plus(ALL),
                                     builder
                                 )
                             }
@@ -44,7 +45,7 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
         val geneArgument = StringArgumentType.getString(context, GENE_ARGUMENT)
 
         return when (geneArgument) {
-            "_all" -> removeAll(context)
+            ALL -> removeAll(context)
             else -> removeGene(context, geneArgument)
         }
     }
@@ -54,6 +55,15 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
 
         val geneToRemove = EnumGenes.valueOf(geneArgument)
         val targetGenes = target.getGenes() ?: return 0
+
+        val doesNotHaveGene = !targetGenes.hasGene(geneToRemove)
+
+        if (doesNotHaveGene) {
+            context.source.sendFailure(
+                Component.literal("Failed to remove gene: ${geneToRemove.description} - Gene not present")
+            )
+            return 0
+        }
 
         val success = targetGenes.removeGene(geneToRemove)
 
@@ -73,10 +83,10 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
     }
 
     private fun removeAll(context: CommandContext<CommandSourceStack>): Int {
-        val player = context.source.player ?: return 0
-        val playerGenes = player.getGenes() ?: return 0
+        val target = EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity ?: return 0
+        val targetGenes = target.getGenes() ?: return 0
 
-        playerGenes.removeAllGenes()
+        targetGenes.removeAllGenes()
 
         context.source.sendSuccess(
             Component.literal("Removed all genes!"),
