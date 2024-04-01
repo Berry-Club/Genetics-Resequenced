@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.commands
 import com.mojang.brigadier.Command
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.network.chat.Component
@@ -19,7 +19,7 @@ object ListGenesCommand : Command<CommandSourceStack> {
     override fun run(context: CommandContext<CommandSourceStack>): Int {
 
         val player = context.source.player ?: return 0
-        val genes = player.getGenes().getGeneList()
+        val genes = player.getGenes()?.getGeneList() ?: return 0
 
         if (genes.isEmpty()) {
             context.source.sendSuccess(Component.literal("No genes found!"), false)

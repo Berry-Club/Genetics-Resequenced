@@ -18,7 +18,7 @@ object GenesCapabilityProvider : ICapabilityProvider, INBTSerializable<CompoundT
 
     private fun createGenes(): Genes {
         if (this.genes == null) {
-            this.genes = Genes
+            this.genes = Genes()
         }
         return this.genes!!
     }

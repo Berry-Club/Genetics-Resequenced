@@ -6,7 +6,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import com.mojang.brigadier.exceptions.CommandSyntaxException
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.SharedSuggestionProvider
@@ -47,7 +47,7 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
         val player = context.source.player ?: return 0
 
         val geneToRemove = EnumGenes.valueOf(geneArgument)
-        val playerGenes = player.getGenes()
+        val playerGenes = player.getGenes() ?: return 0
 
         val success = playerGenes.removeGene(geneToRemove)
 
@@ -68,7 +68,7 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
 
     private fun removeAll(context: CommandContext<CommandSourceStack>): Int {
         val player = context.source.player ?: return 0
-        val playerGenes = player.getGenes()
+        val playerGenes = player.getGenes() ?: return 0
 
         playerGenes.removeAllGenes()
 

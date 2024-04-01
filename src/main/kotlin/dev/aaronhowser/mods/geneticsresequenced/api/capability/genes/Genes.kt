@@ -6,7 +6,7 @@ import net.minecraft.nbt.StringTag
 import net.minecraft.nbt.Tag
 import net.minecraft.world.entity.LivingEntity
 
-object Genes : IGenes {
+class Genes : IGenes {
 
     private val enumGenesList: MutableSet<EnumGenes> = mutableSetOf()
 
@@ -43,8 +43,6 @@ object Genes : IGenes {
         enumGenesList.addAll(genes)
     }
 
-    private const val NBT_KEY = "genes"
-
     fun saveNbt(nbt: CompoundTag) {
         val listTag = nbt.getList(NBT_KEY, Tag.TAG_STRING.toInt())
 
@@ -65,13 +63,18 @@ object Genes : IGenes {
         setGeneList(listGenes)
     }
 
-    fun LivingEntity.getGenes(): IGenes? {
+    companion object {
 
-        if (!this.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).isPresent) return null
+        private const val NBT_KEY = "genes"
 
-        return this.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).orElseThrow {
-            IllegalStateException("Genes capability not present")
+        fun LivingEntity.getGenes(): IGenes? {
+
+            if (!this.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).isPresent) return null
+
+            return this.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).orElseThrow {
+                IllegalStateException("Genes capability not present")
+            }
+
         }
-
     }
 }
