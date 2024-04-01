@@ -37,8 +37,7 @@ object ModEvents {
     fun onAttachCapability(event: AttachCapabilitiesEvent<Entity>) {
         val entity = event.`object`
 
-        val entityHasCapability = entity.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).isPresent
-        if (entityHasCapability) return
+        if (entity !is LivingEntity) return
 
         event.addCapability(CapabilityHandler.GENE_CAPABILITY_RL, GenesCapabilityProvider)
     }
@@ -143,6 +142,7 @@ object ModEvents {
         )
     }
 
+    //TODO: Let this also be done by sneak right-clicking with a bucket if you have the gene
     private fun milky(event: PlayerInteractEvent.EntityInteract) {
 
         when (event.target) {
