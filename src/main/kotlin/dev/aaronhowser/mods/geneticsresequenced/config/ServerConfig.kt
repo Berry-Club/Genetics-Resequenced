@@ -6,9 +6,9 @@ object ServerConfig {
     val BUILDER = ForgeConfigSpec.Builder()
     val SPEC: ForgeConfigSpec
 
-//    val playerGeneSharing: Boolean
-//    val keepGenesOnDeath: Boolean
-//    val allowGivingEntityGenes: Boolean
+//    val playerGeneSharing: ForgeConfigSpec.BooleanValue
+    val keepGenesOnDeath: ForgeConfigSpec.BooleanValue
+//    val allowGivingEntityGenes: ForgeConfigSpec.BooleanValue
 
     val hardMode: ForgeConfigSpec.BooleanValue
 //    val bioluminescenceLightLevel: Double
@@ -23,6 +23,10 @@ object ServerConfig {
         hardMode = BUILDER
             .comment("Make earning traits harder, better balance when playing with Mods")
             .define("hardMode", false)
+
+        keepGenesOnDeath = BUILDER
+            .comment("Keep genes on death")
+            .define("keepGenesOnDeath", true)
 
         BUILDER.pop()
         SPEC = BUILDER.build()

@@ -7,6 +7,10 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
 import dev.aaronhowser.mods.geneticsresequenced.commands.ModCommands
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import net.minecraft.ChatFormatting
+import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.HoverEvent
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.Entity
@@ -23,6 +27,7 @@ import net.minecraft.world.level.block.Blocks
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.RegisterCommandsEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
+import net.minecraftforge.event.entity.player.PlayerEvent.PlayerRespawnEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
@@ -49,6 +54,40 @@ object ModEvents {
         event.original.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { oldGenes ->
             event.original.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { newGenes ->
                 newGenes.setGeneList(oldGenes.getGeneList())
+            }
+        }
+    }
+
+    @SubscribeEvent
+    fun onPlayerRespawn(event: PlayerRespawnEvent) {
+        if (!ServerConfig.keepGenesOnDeath.get()) {
+            val player = event.entity
+            val playerGenes = player.getGenes() ?: return
+
+            if (playerGenes.getGeneList().isNotEmpty()) {
+                val component = Component
+                    .literal("Genetics Resequenced")
+                    .withStyle {
+                        it
+                            .withColor(ChatFormatting.DARK_PURPLE)
+                            .withHoverEvent(
+                                HoverEvent(
+                                    HoverEvent.Action.SHOW_TEXT, Component
+                                        .literal(playerGenes.getGeneList().joinToString(", "))
+                                )
+                            )
+                    }
+                    .append(
+                        Component
+                            .literal(": Your genes have been removed on death.")
+                            .withStyle {
+                                it
+                                    .withColor(ChatFormatting.GRAY)
+                            }
+                    )
+                player.sendSystemMessage(component)
+
+                playerGenes.removeAllGenes()
             }
         }
     }
