@@ -187,7 +187,10 @@ object ModEvents {
 
     private fun eatGrass(event: PlayerInteractEvent.RightClickBlock) {
 
+        if (!event.itemStack.isEmpty) return
+
         val player = event.entity
+
         val isHungry = player.foodData.foodLevel < 20
         if (!isHungry) return
 
