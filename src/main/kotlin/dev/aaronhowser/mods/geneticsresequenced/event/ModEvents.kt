@@ -215,6 +215,43 @@ object ModEvents {
     }
 
     @SubscribeEvent
+    fun onUseItem(event: PlayerInteractEvent.RightClickItem) {
+        if (event.side.isClient) return
+        val player = event.entity
+        val genes = player.getGenes() ?: return
+
+        if (genes.hasGene(EnumGenes.MILKY)) milkyItem(event)
+
+    }
+
+    private fun milkyItem(event: PlayerInteractEvent.RightClickItem) {
+        val player = event.entity
+
+        if (!player.isCrouching) return
+
+        val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
+        if (!clickedWithBucket) return
+
+        event.itemStack.shrink(1)
+        player.addItem(ItemStack(Items.MILK_BUCKET))
+
+        val sound = if (Random.nextFloat() < 0.05f) {
+            SoundEvents.GOAT_SCREAMING_MILK
+        } else {
+            if (Random.nextBoolean()) SoundEvents.COW_MILK else SoundEvents.GOAT_MILK
+        }
+
+        event.level.playSound(
+            null,
+            player,
+            sound,
+            SoundSource.PLAYERS,
+            1.0f,
+            1.0f
+        )
+    }
+
+    @SubscribeEvent
     fun onInteractWithBlock(event: PlayerInteractEvent.RightClickBlock) {
         if (event.side.isClient) return
         val player = event.entity
