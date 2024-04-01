@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.commands
+package dev.aaronhowser.mods.geneticsresequenced.command
 
 import com.mojang.brigadier.Command
 import com.mojang.brigadier.arguments.StringArgumentType

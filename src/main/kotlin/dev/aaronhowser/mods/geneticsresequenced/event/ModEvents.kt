@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.CapabilityHandler
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
-import dev.aaronhowser.mods.geneticsresequenced.commands.ModCommands
+import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
