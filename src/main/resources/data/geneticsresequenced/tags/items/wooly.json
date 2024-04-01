@@ -1,5 +1,5 @@
 {
-  "__comment": "Items that count as Shears for the Wooly gene",
+  "__comment": "Items that count as Shears for the Wooly and Meaty Genes",
   "values": [
     {
       "id": "#forge:shears",

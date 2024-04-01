@@ -5,9 +5,12 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 
+@Suppress("MemberVisibilityCanBePrivate")
 object ModTags {
 
-    val SHEARS_TAG_RL: ResourceLocation = ResourceLocation(GeneticsResequenced.ID, "wooly")
-    val SHEARS_TAG: TagKey<Item> = TagKey.create(Registry.ITEM_REGISTRY, SHEARS_TAG_RL)
+    val WOOLY_TAG_RL = ResourceLocation(GeneticsResequenced.ID, "wooly")
+    val WOOLY_TAG: TagKey<Item> = TagKey.create(Registry.ITEM_REGISTRY, WOOLY_TAG_RL)
 
+    val FIREBALL_TAG_RL = ResourceLocation(GeneticsResequenced.ID, "fireball")
+    val FIREBALL_TAG: TagKey<Item> = TagKey.create(Registry.ITEM_REGISTRY, FIREBALL_TAG_RL)
 }
