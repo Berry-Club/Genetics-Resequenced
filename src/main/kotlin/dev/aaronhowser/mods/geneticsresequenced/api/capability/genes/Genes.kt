@@ -65,15 +65,13 @@ object Genes : IGenes {
         setGeneList(listGenes)
     }
 
-    @Suppress("LiftReturnOrAssignment")
     fun LivingEntity.getGenes(): IGenes? {
-        try {
-            return this.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).orElseThrow {
-                println("Genes capability not present")
-                IllegalStateException("Genes capability not present")
-            }
-        } catch (e: IllegalStateException) {
-            return null
+
+        if (!this.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).isPresent) return null
+
+        return this.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).orElseThrow {
+            IllegalStateException("Genes capability not present")
         }
+
     }
 }
