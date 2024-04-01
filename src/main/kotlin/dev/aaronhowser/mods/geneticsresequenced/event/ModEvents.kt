@@ -7,9 +7,16 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
 import dev.aaronhowser.mods.geneticsresequenced.commands.ModCommands
+import net.minecraft.sounds.SoundEvents
+import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.animal.Cow
+import net.minecraft.world.entity.animal.MushroomCow
+import net.minecraft.world.entity.animal.Sheep
+import net.minecraft.world.entity.animal.goat.Goat
 import net.minecraft.world.entity.item.ItemEntity
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.Blocks
@@ -60,17 +67,19 @@ object ModEvents {
         val target = event.target
         if (target !is LivingEntity) return
 
-        val genes = target.getGenes() ?: return
+        val targetGenes = target.getGenes() ?: return
 
-        println("Genes: ")
-        println(genes.getGeneList().joinToString(", ") { it.name })
-
-        if (genes.hasGene(EnumGenes.WOOLY)) wooly(event)
-        if (genes.hasGene(EnumGenes.MILKY)) milky(event)
-        if (genes.hasGene(EnumGenes.MEATY)) meaty(event)
+        if (targetGenes.hasGene(EnumGenes.WOOLY)) wooly(event)
+        if (targetGenes.hasGene(EnumGenes.MILKY)) milky(event)
+        if (targetGenes.hasGene(EnumGenes.MEATY)) meaty(event)
     }
 
     private fun wooly(event: PlayerInteractEvent.EntityInteract) {
+
+        when (event.target) {
+            is Sheep, is MushroomCow -> return
+        }
+
         val clickedWithShears = event.itemStack.`is`(ModTags.SHEARS_TAG)
         if (!clickedWithShears) return
 
@@ -117,6 +126,11 @@ object ModEvents {
     }
 
     private fun milky(event: PlayerInteractEvent.EntityInteract) {
+
+        when (event.target) {
+            is Cow, is Goat -> return
+        }
+
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
         if (!clickedWithBucket) return
 
