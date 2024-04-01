@@ -60,7 +60,10 @@ object ModEvents {
         val target = event.target
         if (target !is LivingEntity) return
 
-        val genes = target.getGenes()
+        val genes = target.getGenes() ?: return
+
+        println("Genes: ")
+        println(genes.getGeneList().joinToString(", ") { it.name })
 
         if (genes.hasGene(EnumGenes.WOOLY)) wooly(event)
         if (genes.hasGene(EnumGenes.MILKY)) milky(event)
