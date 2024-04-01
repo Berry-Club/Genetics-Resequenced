@@ -60,36 +60,40 @@ object ModEvents {
 
     @SubscribeEvent
     fun onPlayerRespawn(event: PlayerRespawnEvent) {
-        if (!ServerConfig.keepGenesOnDeath.get()) {
-            val player = event.entity
-            val playerGenes = player.getGenes() ?: return
+        handleKeepGenesOnDeath(event)
+    }
 
-            if (playerGenes.getGeneList().isNotEmpty()) {
-                val component = Component
-                    .literal("Genetics Resequenced")
+    private fun handleKeepGenesOnDeath(event: PlayerRespawnEvent) {
+        if (ServerConfig.keepGenesOnDeath.get()) return
+
+        val player = event.entity
+        val playerGenes = player.getGenes() ?: return
+
+        if (playerGenes.getGeneList().isEmpty()) return
+
+        val component = Component
+            .literal("Genetics Resequenced")
+            .withStyle {
+                it
+                    .withColor(ChatFormatting.DARK_PURPLE)
+                    .withHoverEvent(
+                        HoverEvent(
+                            HoverEvent.Action.SHOW_TEXT, Component
+                                .literal(playerGenes.getGeneList().joinToString(", "))
+                        )
+                    )
+            }
+            .append(
+                Component
+                    .literal(": Your genes have been removed on death.")
                     .withStyle {
                         it
-                            .withColor(ChatFormatting.DARK_PURPLE)
-                            .withHoverEvent(
-                                HoverEvent(
-                                    HoverEvent.Action.SHOW_TEXT, Component
-                                        .literal(playerGenes.getGeneList().joinToString(", "))
-                                )
-                            )
+                            .withColor(ChatFormatting.GRAY)
                     }
-                    .append(
-                        Component
-                            .literal(": Your genes have been removed on death.")
-                            .withStyle {
-                                it
-                                    .withColor(ChatFormatting.GRAY)
-                            }
-                    )
-                player.sendSystemMessage(component)
+            )
+        player.sendSystemMessage(component)
 
-                playerGenes.removeAllGenes()
-            }
-        }
+        playerGenes.removeAllGenes()
     }
 
     @SubscribeEvent
