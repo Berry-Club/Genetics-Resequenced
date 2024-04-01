@@ -96,7 +96,7 @@ enum class EnumGenes(
 
     var isActive: Boolean = true
 
-    fun canAddMutation(genes: IGenes, syringeGenes: IGenes): Boolean {
+    fun canAddMutation(genes: Genes, syringeGenes: Genes): Boolean {
         return when (this) {
             HASTE_2 -> genes.hasGene(HASTE) || syringeGenes.hasGene(HASTE)
             EFFICIENCY_4 -> genes.hasGene(EFFICIENCY) || syringeGenes.hasGene(EFFICIENCY)

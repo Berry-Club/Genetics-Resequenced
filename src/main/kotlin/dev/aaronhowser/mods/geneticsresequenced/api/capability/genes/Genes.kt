@@ -6,39 +6,39 @@ import net.minecraft.nbt.StringTag
 import net.minecraft.nbt.Tag
 import net.minecraft.world.entity.LivingEntity
 
-class Genes : IGenes {
+class Genes {
 
     private val enumGenesList: MutableSet<EnumGenes> = mutableSetOf()
 
-    override fun addGene(gene: EnumGenes): Boolean {
+    fun addGene(gene: EnumGenes): Boolean {
         return enumGenesList.add(gene)
     }
 
-    override fun removeGene(gene: EnumGenes): Boolean {
+    fun removeGene(gene: EnumGenes): Boolean {
         return enumGenesList.remove(gene)
     }
 
-    override fun hasGene(gene: EnumGenes): Boolean {
+    fun hasGene(gene: EnumGenes): Boolean {
         return enumGenesList.contains(gene)
     }
 
-    override fun removeAllGenes() {
+    fun removeAllGenes() {
         enumGenesList.clear()
     }
 
-    override fun addAllGenes() {
+    fun addAllGenes() {
         enumGenesList.addAll(EnumGenes.values())
     }
 
-    override fun getAmountOfGenes(): Int {
+    fun getAmountOfGenes(): Int {
         return enumGenesList.size
     }
 
-    override fun getGeneList(): List<EnumGenes> {
+    fun getGeneList(): List<EnumGenes> {
         return enumGenesList.toList()
     }
 
-    override fun setGeneList(genes: List<EnumGenes>) {
+    fun setGeneList(genes: List<EnumGenes>) {
         enumGenesList.clear()
         enumGenesList.addAll(genes)
     }
@@ -67,7 +67,7 @@ class Genes : IGenes {
 
         private const val NBT_KEY = "genes"
 
-        fun LivingEntity.getGenes(): IGenes? {
+        fun LivingEntity.getGenes(): Genes? {
 
             if (!this.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).isPresent) return null
 
