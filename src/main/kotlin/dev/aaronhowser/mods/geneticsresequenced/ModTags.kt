@@ -7,7 +7,7 @@ import net.minecraft.world.item.Item
 
 object ModTags {
 
-    val SHEARS_TAG_RL: ResourceLocation = ResourceLocation(GeneticsResequenced.ID, "shears")
+    val SHEARS_TAG_RL: ResourceLocation = ResourceLocation(GeneticsResequenced.ID, "wooly")
     val SHEARS_TAG: TagKey<Item> = TagKey.create(Registry.ITEM_REGISTRY, SHEARS_TAG_RL)
 
 }
