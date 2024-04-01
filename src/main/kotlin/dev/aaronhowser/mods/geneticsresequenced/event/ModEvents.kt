@@ -100,6 +100,15 @@ object ModEvents {
         )
 
         event.itemStack.hurtAndBreak(1, event.entity) { }
+
+        event.level.playSound(
+            null,
+            event.target,
+            SoundEvents.SHEEP_SHEAR,
+            event.target.soundSource,
+            1.0f,
+            1.0f
+        )
     }
 
     private fun meaty(event: PlayerInteractEvent.EntityInteract) {
@@ -123,6 +132,15 @@ object ModEvents {
         )
 
         event.itemStack.hurtAndBreak(1, event.entity) { }
+
+        event.level.playSound(
+            null,
+            event.target,
+            SoundEvents.SHEEP_SHEAR,
+            event.target.soundSource,
+            1.0f,
+            1.0f
+        )
     }
 
     private fun milky(event: PlayerInteractEvent.EntityInteract) {
@@ -136,6 +154,25 @@ object ModEvents {
 
         event.itemStack.shrink(1)
         event.entity.addItem(ItemStack(Items.MILK_BUCKET))
+
+        val sound = if (event.target is Player && Random.nextFloat() < 0.05f) {
+            SoundEvents.GOAT_SCREAMING_MILK
+        } else {
+            if (Random.nextBoolean()) {
+                SoundEvents.COW_MILK
+            } else {
+                SoundEvents.GOAT_MILK
+            }
+        }
+
+        event.level.playSound(
+            null,
+            event.target,
+            sound,
+            event.target.soundSource,
+            1.0f,
+            1.0f
+        )
     }
 
 }
