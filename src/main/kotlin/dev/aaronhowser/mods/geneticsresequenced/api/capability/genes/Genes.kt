@@ -6,6 +6,10 @@ import net.minecraft.nbt.StringTag
 import net.minecraft.nbt.Tag
 import net.minecraft.world.entity.LivingEntity
 
+//TODO:
+// This is universal for some reason, rather than per entity.
+// Either that, or all entities are set to have all capabilities, for some reason.
+// Either way, fix.
 class Genes {
 
     private val enumGenesList: MutableSet<EnumGenes> = mutableSetOf()
