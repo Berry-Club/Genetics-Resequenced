@@ -1,7 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced
 
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import net.minecraft.client.Minecraft
+import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.fml.config.ModConfig
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 import net.minecraftforge.fml.event.lifecycle.FMLDedicatedServerSetupEvent
 import org.apache.logging.log4j.Level
@@ -17,6 +20,10 @@ object GeneticsResequenced {
     val LOGGER: Logger = LogManager.getLogger(ID)
 
     init {
+
+        ModLoadingContext.get().apply {
+            registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC, "geneticsresequenced-server.toml")
+        }
 
         val obj = runForDist(
             clientTarget = {
