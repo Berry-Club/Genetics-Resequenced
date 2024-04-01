@@ -12,6 +12,7 @@ import net.minecraft.commands.Commands
 import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.network.chat.Component
+import net.minecraft.world.entity.LivingEntity
 
 object RemoveGeneCommand : Command<CommandSourceStack> {
 
@@ -49,12 +50,12 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
     }
 
     private fun removeGene(context: CommandContext<CommandSourceStack>, geneArgument: String): Int {
-        val player = context.source.player ?: return 0
+        val target = EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity ?: return 0
 
         val geneToRemove = EnumGenes.valueOf(geneArgument)
-        val playerGenes = player.getGenes() ?: return 0
+        val targetGenes = target.getGenes() ?: return 0
 
-        val success = playerGenes.removeGene(geneToRemove)
+        val success = targetGenes.removeGene(geneToRemove)
 
         @Suppress("LiftReturnOrAssignment")
         if (success) {
