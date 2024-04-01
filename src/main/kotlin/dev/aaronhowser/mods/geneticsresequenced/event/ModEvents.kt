@@ -11,6 +11,7 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.Blocks
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.RegisterCommandsEvent
@@ -61,9 +62,9 @@ object ModEvents {
 
         val genes = target.getGenes()
 
-//        if (genes.hasGene(EnumGenes.WOOLY))
-        wooly(event)
+        if (genes.hasGene(EnumGenes.WOOLY)) wooly(event)
         if (genes.hasGene(EnumGenes.MILKY)) milky(event)
+        if (genes.hasGene(EnumGenes.MEATY)) meaty(event)
     }
 
     private fun wooly(event: PlayerInteractEvent.EntityInteract) {
@@ -89,8 +90,35 @@ object ModEvents {
         event.itemStack.hurtAndBreak(1, event.entity) { }
     }
 
-    private fun milky(event: PlayerInteractEvent.EntityInteract) {
+    private fun meaty(event: PlayerInteractEvent.EntityInteract) {
+        val clickedWithShears = event.itemStack.`is`(ModTags.SHEARS_TAG)
+        if (!clickedWithShears) return
 
+        val porkItemStack = ItemStack(Items.PORKCHOP)
+
+        val porkEntity = ItemEntity(
+            event.level,
+            event.target.eyePosition.x,
+            event.target.eyePosition.y,
+            event.target.eyePosition.z,
+            porkItemStack
+        )
+        event.level.addFreshEntity(porkEntity)
+        porkEntity.setDeltaMovement(
+            Random.nextDouble(-0.05, 0.05),
+            Random.nextDouble(0.05, 0.1),
+            Random.nextDouble(-0.05, 0.05)
+        )
+
+        event.itemStack.hurtAndBreak(1, event.entity) { }
+    }
+
+    private fun milky(event: PlayerInteractEvent.EntityInteract) {
+        val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
+        if (!clickedWithBucket) return
+
+        event.itemStack.shrink(1)
+        event.entity.addItem(ItemStack(Items.MILK_BUCKET))
     }
 
 }
