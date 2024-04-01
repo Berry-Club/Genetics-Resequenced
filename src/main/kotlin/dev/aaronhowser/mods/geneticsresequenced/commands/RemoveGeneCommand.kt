@@ -10,25 +10,30 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Compa
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.SharedSuggestionProvider
+import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.network.chat.Component
 
 object RemoveGeneCommand : Command<CommandSourceStack> {
 
     private const val GENE_ARGUMENT = "gene"
+    private const val TARGET_ARGUMENT = "target"
 
     fun register(): ArgumentBuilder<CommandSourceStack, *> {
         return Commands
             .literal("removeGene")
             .requires { it.hasPermission(2) }
             .then(
-                Commands.argument(GENE_ARGUMENT, StringArgumentType.string())
-                    .suggests { ctx, builder ->
-                        SharedSuggestionProvider.suggest(
-                            listOf("_all").plus(EnumGenes.values().map { it.name }),
-                            builder
-                        )
-                    }
-                    .executes(RemoveGeneCommand)
+                Commands.argument(TARGET_ARGUMENT, EntityArgument.entity())
+                    .then(
+                        Commands.argument(GENE_ARGUMENT, StringArgumentType.string())
+                            .suggests { ctx, builder ->
+                                SharedSuggestionProvider.suggest(
+                                    listOf("_all").plus(EnumGenes.values().map { it.name }),
+                                    builder
+                                )
+                            }
+                            .executes(RemoveGeneCommand)
+                    )
             )
     }
 
