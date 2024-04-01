@@ -9,7 +9,7 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider
 import net.minecraftforge.common.util.INBTSerializable
 import net.minecraftforge.common.util.LazyOptional
 
-object GeneCapabilityProvider : ICapabilityProvider, INBTSerializable<CompoundTag> {
+object GenesCapabilityProvider : ICapabilityProvider, INBTSerializable<CompoundTag> {
 
     val GENE_CAPABILITY: Capability<Genes> = CapabilityManager.get(object : CapabilityToken<Genes>() {})
 

@@ -66,7 +66,7 @@ object Genes : IGenes {
     }
 
     fun LivingEntity.getGenes(): IGenes {
-        return this.getCapability(GeneCapabilityProvider.GENE_CAPABILITY).orElseThrow {
+        return this.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).orElseThrow {
             IllegalStateException("Genes capability not present")
         }
     }
