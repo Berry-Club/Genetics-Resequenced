@@ -116,6 +116,7 @@ object ModEvents {
         if (targetGenes.hasGene(EnumGenes.MEATY)) meaty(event)
     }
 
+    //TODO: Make these into recipes? Would be nice for packs or whatever
     private fun wooly(event: PlayerInteractEvent.EntityInteract) {
 
         when (event.target) {
