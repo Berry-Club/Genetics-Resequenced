@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.Mod
 @Mod.EventBusSubscriber(
     modid = GeneticsResequenced.ID
 )
-class OtherEvents {
+object OtherEvents {
 
     @SubscribeEvent
     fun onRegisterCommandsEvent(event: RegisterCommandsEvent) {

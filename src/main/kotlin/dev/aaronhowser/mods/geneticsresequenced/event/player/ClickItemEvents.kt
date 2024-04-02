@@ -17,7 +17,7 @@ import kotlin.random.Random
 @Mod.EventBusSubscriber(
     modid = GeneticsResequenced.ID
 )
-class ClickItemEvents {
+object ClickItemEvents {
 
     @SubscribeEvent
     fun onUseItem(event: PlayerInteractEvent.RightClickItem) {

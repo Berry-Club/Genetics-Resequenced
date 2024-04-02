@@ -23,7 +23,7 @@ import kotlin.random.Random
 @Mod.EventBusSubscriber(
     modid = GeneticsResequenced.ID
 )
-class ClickEntityEvents {
+object ClickEntityEvents {
 
     @SubscribeEvent
     fun onInteractEntity(event: PlayerInteractEvent.EntityInteract) {
