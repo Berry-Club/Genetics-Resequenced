@@ -9,9 +9,12 @@ import net.minecraftforge.common.capabilities.ICapabilityProvider
 import net.minecraftforge.common.util.INBTSerializable
 import net.minecraftforge.common.util.LazyOptional
 
-object GenesCapabilityProvider : ICapabilityProvider, INBTSerializable<CompoundTag> {
+class GenesCapabilityProvider : ICapabilityProvider, INBTSerializable<CompoundTag> {
 
-    val GENE_CAPABILITY: Capability<Genes> = CapabilityManager.get(object : CapabilityToken<Genes>() {})
+
+    companion object {
+        val GENE_CAPABILITY: Capability<Genes> = CapabilityManager.get(object : CapabilityToken<Genes>() {})
+    }
 
     private var genes: Genes? = null
     private final val optional: LazyOptional<Genes> = LazyOptional.of(this::createGenes)

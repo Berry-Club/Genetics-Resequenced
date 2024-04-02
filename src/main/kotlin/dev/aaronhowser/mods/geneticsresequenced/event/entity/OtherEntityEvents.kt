@@ -20,7 +20,7 @@ object OtherEntityEvents {
 
         if (entity !is LivingEntity) return
 
-        event.addCapability(CapabilityHandler.GENE_CAPABILITY_RL, GenesCapabilityProvider)
+        event.addCapability(CapabilityHandler.GENE_CAPABILITY_RL, GenesCapabilityProvider())
     }
 
 }
