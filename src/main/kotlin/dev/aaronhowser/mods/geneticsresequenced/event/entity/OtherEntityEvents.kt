@@ -16,8 +16,6 @@ object OtherEntityEvents {
 
     @SubscribeEvent
     fun onAttachCapability(event: AttachCapabilitiesEvent<Entity>) {
-        if (event.`object`.level.isClientSide) return
-
         val entity = event.`object`
 
         if (entity !is LivingEntity) return
