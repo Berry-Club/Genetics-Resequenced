@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.genebehavior.DeathGenes
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
@@ -45,34 +46,7 @@ object DeathEvents {
         if (entity.level.isClientSide) return
         if (entity !is Player) return
 
-        handleKeepInventory(entity)
-    }
-
-    private val playerInventoryMap = mutableMapOf<Player, List<ItemStack>>()
-
-    //TODO: Test with grave mods
-    private fun handleKeepInventory(player: Player) {
-        if (player.level.gameRules.getBoolean(GameRules.RULE_KEEPINVENTORY)) return
-
-        // If they're dying, save their inventory to the map and then clear it so graves etc don't dupe it
-        // If they're respawning, give them all the items in the saved map and remove them from the map
-        val playerIsRespawning = playerInventoryMap.containsKey(player)
-
-        if (playerIsRespawning) {
-            val items = playerInventoryMap[player] ?: return
-
-            items.forEach { itemStack: ItemStack ->
-                if (!player.inventory.add(itemStack)) {
-                    player.drop(itemStack, true)
-                }
-            }
-
-            playerInventoryMap.remove(player)
-        } else {
-            if (player.getGenes()?.hasGene(EnumGenes.KEEP_INVENTORY) != true) return
-            playerInventoryMap[player] = player.inventory.items + player.inventory.armor + player.inventory.offhand
-            player.inventory.clearContent()
-        }
+        DeathGenes.handleKeepInventory(entity)
     }
 
     @SubscribeEvent
@@ -80,7 +54,7 @@ object DeathEvents {
         if (event.entity.level.isClientSide) return
 
         handleKeepGenesOnDeath(event)
-        handleKeepInventory(event.entity)
+        DeathGenes.handleKeepInventory(event.entity)
     }
 
     private fun handleKeepGenesOnDeath(event: PlayerEvent.PlayerRespawnEvent) {
