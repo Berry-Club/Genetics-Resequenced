@@ -23,57 +23,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber
 object OtherPlayerEvents {
 
     @SubscribeEvent
-    fun onPlayerCloned(event: PlayerEvent.Clone) {
-        if (event.original.level.isClientSide) return
-        if (!event.isWasDeath) return
-
-        event.original.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { oldGenes ->
-            event.original.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { newGenes ->
-                newGenes.setGeneList(oldGenes.getGeneList())
-            }
-        }
-    }
-
-    @SubscribeEvent
-    fun onPlayerRespawn(event: PlayerRespawnEvent) {
-        if (event.entity.level.isClientSide) return
-        handleKeepGenesOnDeath(event)
-    }
-
-    private fun handleKeepGenesOnDeath(event: PlayerRespawnEvent) {
-        if (ServerConfig.keepGenesOnDeath.get()) return
-
-        val player = event.entity
-        val playerGenes = player.getGenes() ?: return
-
-        if (playerGenes.getGeneList().isEmpty()) return
-
-        val component = Component
-            .literal("Genetics Resequenced")
-            .withStyle {
-                it
-                    .withColor(ChatFormatting.DARK_PURPLE)
-                    .withHoverEvent(
-                        HoverEvent(
-                            HoverEvent.Action.SHOW_TEXT, Component
-                                .literal(playerGenes.getGeneList().joinToString(", "))
-                        )
-                    )
-            }
-            .append(
-                Component
-                    .literal(": Your genes have been removed on death.")
-                    .withStyle {
-                        it
-                            .withColor(ChatFormatting.GRAY)
-                    }
-            )
-        player.sendSystemMessage(component)
-
-        playerGenes.removeAllGenes()
-    }
-
-    @SubscribeEvent
     fun onInteractWithBlock(event: PlayerInteractEvent.RightClickBlock) {
         if (event.side.isClient) return
 
