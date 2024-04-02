@@ -19,11 +19,12 @@ object DeathEvents {
     @SubscribeEvent
     fun onPlayerCloned(event: PlayerEvent.Clone) {
         if (event.original.level.isClientSide) return
-        if (!event.isWasDeath) return
 
-        event.original.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { oldGenes ->
-            event.original.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { newGenes ->
-                newGenes.setGeneList(oldGenes.getGeneList())
+        if (event.isWasDeath) {
+            event.original.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { oldGenes ->
+                event.entity.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { newGenes ->
+                    newGenes.setGeneList(oldGenes.getGeneList())
+                }
             }
         }
     }
