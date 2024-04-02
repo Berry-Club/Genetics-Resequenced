@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.ListTag
 import net.minecraft.nbt.StringTag
@@ -58,7 +59,16 @@ class Genes {
         require(list.all { it is StringTag }) { "All genes must be strings" }
 
         val strings = list.map { it.asString }
-        val listGenes = strings.map { EnumGenes.valueOf(it) }
+
+        val listGenes: MutableList<EnumGenes> = mutableListOf()
+
+        for (string in strings) {
+            try {
+                listGenes.add(EnumGenes.valueOf(string))
+            } catch (e: IllegalArgumentException) {
+                GeneticsResequenced.LOGGER.error("An entity loaded with an invalid gene: $string")
+            }
+        }
 
         setGeneList(listGenes)
     }
