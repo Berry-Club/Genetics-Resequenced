@@ -61,7 +61,7 @@ object DeathEvents {
             playerInventoryMap[player]?.forEach { player.addItem(it) }
             playerInventoryMap.remove(player)
         } else {
-            if (player.getGenes()?.hasGene(EnumGenes.SAVE_INVENTORY) != true) return
+            if (player.getGenes()?.hasGene(EnumGenes.KEEP_INVENTORY) != true) return
             playerInventoryMap[player] = player.inventory.items.toList()
             player.inventory.clearContent()
         }

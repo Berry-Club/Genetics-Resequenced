@@ -66,7 +66,7 @@ class Genes {
             try {
                 listGenes.add(EnumGenes.valueOf(string))
             } catch (e: IllegalArgumentException) {
-                GeneticsResequenced.LOGGER.error("An entity loaded with an invalid gene: $string")
+                GeneticsResequenced.LOGGER.error("An entity loaded with an invalid gene \"$string\". Removing.")
             }
         }
 
