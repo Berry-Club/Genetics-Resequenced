@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.Mod
 @Mod.EventBusSubscriber(
     modid = GeneticsResequenced.ID
 )
-class EntityEvents {
+object EntityEvents {
 
     @SubscribeEvent
     fun onAttachCapability(event: AttachCapabilitiesEvent<Entity>) {
