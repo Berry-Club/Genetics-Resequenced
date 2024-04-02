@@ -42,10 +42,9 @@ object DeathEvents {
     fun onPlayerDeath(event: LivingDeathEvent) {
 
         val entity = event.entity
-
         if (entity.level.isClientSide) return
-        if (entity !is Player) return
 
+        DeathGenes.handleEmeraldHeart(event)
         DeathGenes.handleKeepInventory(entity)
     }
 
