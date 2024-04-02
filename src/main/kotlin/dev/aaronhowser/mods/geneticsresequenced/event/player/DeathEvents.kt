@@ -50,6 +50,7 @@ object DeathEvents {
 
     private val playerInventoryMap = mutableMapOf<Player, List<ItemStack>>()
 
+    //TODO: Test with grave mods
     private fun handleKeepInventory(player: Player) {
         if (player.level.gameRules.getBoolean(GameRules.RULE_KEEPINVENTORY)) return
 
@@ -58,11 +59,18 @@ object DeathEvents {
         val playerIsRespawning = playerInventoryMap.containsKey(player)
 
         if (playerIsRespawning) {
-            playerInventoryMap[player]?.forEach { player.addItem(it) }
+            val items = playerInventoryMap[player] ?: return
+
+            items.forEach { itemStack: ItemStack ->
+                if (!player.inventory.add(itemStack)) {
+                    player.drop(itemStack, true)
+                }
+            }
+
             playerInventoryMap.remove(player)
         } else {
             if (player.getGenes()?.hasGene(EnumGenes.KEEP_INVENTORY) != true) return
-            playerInventoryMap[player] = player.inventory.items.toList()
+            playerInventoryMap[player] = player.inventory.items + player.inventory.armor + player.inventory.offhand
             player.inventory.clearContent()
         }
     }
