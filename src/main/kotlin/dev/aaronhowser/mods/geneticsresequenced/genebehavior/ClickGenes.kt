@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
+import net.minecraft.client.Options
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.animal.Cow
@@ -19,8 +20,13 @@ import kotlin.random.Random
 object ClickGenes {
 
     //TODO: Make these into recipes? Would be nice for packs or whatever
-    fun wooly(event: PlayerInteractEvent.EntityInteract) {
 
+    /**
+     * TODO: Make this toggle the outer skin layers
+     *
+     * See [Options.toggleModelPart], but it's client only which means this will need a packet
+     */
+    fun wooly(event: PlayerInteractEvent.EntityInteract) {
         when (event.target) {
             is Sheep, is MushroomCow -> return
         }
