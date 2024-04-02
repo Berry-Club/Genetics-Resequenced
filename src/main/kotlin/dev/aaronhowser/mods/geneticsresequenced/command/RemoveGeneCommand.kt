@@ -7,6 +7,7 @@ import com.mojang.brigadier.context.CommandContext
 import com.mojang.brigadier.exceptions.CommandSyntaxException
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
+import net.minecraft.ChatFormatting
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.SharedSuggestionProvider
@@ -54,7 +55,24 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
         val target = EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity ?: return 0
 
         val geneToRemove = EnumGenes.valueOf(geneArgument)
-        val targetGenes = target.getGenes() ?: return 0
+        val targetGenes = target.getGenes()
+
+        if (targetGenes == null) {
+
+            val component = Component
+                .literal("An error has occurred! ")
+                .append(
+                    target.displayName.copy().append(
+                        Component
+                            .literal(" does not the required capability!")
+                            .withStyle(ChatFormatting.RESET)
+                    )
+                )
+
+            context.source.sendSuccess(component, false)
+
+            return 0
+        }
 
         val doesNotHaveGene = !targetGenes.hasGene(geneToRemove)
 

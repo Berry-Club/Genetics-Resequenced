@@ -4,6 +4,7 @@ import com.mojang.brigadier.Command
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
+import net.minecraft.ChatFormatting
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -27,7 +28,24 @@ object ListGenesCommand : Command<CommandSourceStack> {
     override fun run(context: CommandContext<CommandSourceStack>): Int {
 
         val target = EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity ?: return 0
-        val targetGenesList = target.getGenes()?.getGeneList() ?: return 0
+        val targetGenesList = target.getGenes()?.getGeneList()
+
+        if (targetGenesList == null) {
+
+            val component = Component
+                .literal("An error has occurred! ")
+                .append(
+                    target.displayName.copy().append(
+                        Component
+                            .literal(" does not the required capability!")
+                            .withStyle(ChatFormatting.RESET)
+                    )
+                )
+
+            context.source.sendSuccess(component, false)
+
+            return 0
+        }
 
         if (targetGenesList.isEmpty()) {
             context.source.sendSuccess(Component.literal("No genes found!"), false)
