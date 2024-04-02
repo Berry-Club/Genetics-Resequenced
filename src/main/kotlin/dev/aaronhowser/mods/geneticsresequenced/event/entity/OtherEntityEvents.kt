@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.event
+package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.CapabilityHandler
@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.Mod
 @Mod.EventBusSubscriber(
     modid = GeneticsResequenced.ID
 )
-object EntityEvents {
+object OtherEntityEvents {
 
     @SubscribeEvent
     fun onAttachCapability(event: AttachCapabilitiesEvent<Entity>) {
