@@ -3,6 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands
 import net.minecraftforge.event.RegisterCommandsEvent
+import net.minecraftforge.event.TickEvent
+import net.minecraftforge.event.TickEvent.ServerTickEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 
@@ -16,4 +18,8 @@ object OtherEvents {
         ModCommands.register(event.dispatcher)
     }
 
+    @SubscribeEvent
+    fun onServerTick(event: ServerTickEvent) {
+        if (event.phase == TickEvent.Phase.END) ModScheduler.tick++
+    }
 }
