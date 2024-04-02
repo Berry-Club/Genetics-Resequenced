@@ -9,6 +9,7 @@ import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
+import net.minecraft.world.level.Explosion
 import net.minecraft.world.level.GameRules
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import java.util.*
@@ -77,6 +78,52 @@ object DeathGenes {
         ModScheduler.scheduleTaskInTicks(EMERALD_HEART_COOLDOWN) {
             emeraldHeartCooldown.remove(entityUuid)
         }
+    }
+
+    private const val GUNPOWDER_REQUIRED = 5
+    private const val EXPLOSION_STRENGTH = 1f
+    fun handleExplosiveExit(event: LivingDeathEvent) {
+        val entity = event.entity
+        if (entity.getGenes()?.hasGene(EnumGenes.EXPLOSIVE_EXIT) != true) return
+
+        val shouldExplode = if (entity !is Player) {
+            true
+        } else {
+            val amountGunpowder = entity.inventory.items.sumBy { if (it.item == Items.GUNPOWDER) it.count else 0 }
+            amountGunpowder >= GUNPOWDER_REQUIRED
+        }
+
+        if (!shouldExplode) return
+
+        val blockInteraction = if (entity.level.levelData.gameRules.getBoolean(GameRules.RULE_MOBGRIEFING)) {
+            Explosion.BlockInteraction.BREAK
+        } else {
+            Explosion.BlockInteraction.NONE
+        }
+
+        entity.level.explode(
+            entity,
+            entity.x,
+            entity.y,
+            entity.z,
+            EXPLOSION_STRENGTH,
+            blockInteraction
+        )
+
+        if (entity is Player) {
+            var amountGunpowderRemoved = 0
+            for (stack in entity.inventory.items) {
+                if (stack.item != Items.GUNPOWDER) continue
+
+                while (stack.count > 0 && amountGunpowderRemoved < GUNPOWDER_REQUIRED) {
+                    stack.shrink(1)
+                    amountGunpowderRemoved++
+                }
+
+                if (amountGunpowderRemoved >= GUNPOWDER_REQUIRED) break
+            }
+        }
+
     }
 
 }

@@ -29,7 +29,7 @@ object DeathEvents {
 
         if (event.isWasDeath) {
             event.original.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { oldGenes ->
-                event.entity.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { newGenes ->
+                event.original.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { newGenes ->
                     newGenes.setGeneList(oldGenes.getGeneList())
                 }
             }
@@ -45,7 +45,8 @@ object DeathEvents {
         if (entity.level.isClientSide) return
 
         DeathGenes.handleEmeraldHeart(event)
-        DeathGenes.handleKeepInventory(entity)
+        DeathGenes.handleExplosiveExit(event)
+        DeathGenes.handleKeepInventory(entity)  // must be last
     }
 
     @SubscribeEvent
