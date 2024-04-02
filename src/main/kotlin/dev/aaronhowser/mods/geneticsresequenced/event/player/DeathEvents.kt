@@ -1,13 +1,19 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.GameRules
+import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
+import net.minecraftforge.eventbus.api.EventPriority
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 
@@ -29,10 +35,44 @@ object DeathEvents {
         }
     }
 
+    @SubscribeEvent(
+        priority = EventPriority.HIGHEST    //So that graves etc don't dupe contents if you have the save inventory gene
+    )
+    fun onPlayerDeath(event: LivingDeathEvent) {
+
+        val entity = event.entity
+
+        if (entity.level.isClientSide) return
+        if (entity !is Player) return
+
+        handleKeepInventory(entity)
+    }
+
+    private val playerInventoryMap = mutableMapOf<Player, List<ItemStack>>()
+
+    private fun handleKeepInventory(player: Player) {
+        if (player.level.gameRules.getBoolean(GameRules.RULE_KEEPINVENTORY)) return
+
+        // If they're dying, save their inventory to the map and then clear it so graves etc don't dupe it
+        // If they're respawning, give them all the items in the saved map and remove them from the map
+        val playerIsRespawning = playerInventoryMap.containsKey(player)
+
+        if (playerIsRespawning) {
+            playerInventoryMap[player]?.forEach { player.addItem(it) }
+            playerInventoryMap.remove(player)
+        } else {
+            if (player.getGenes()?.hasGene(EnumGenes.SAVE_INVENTORY) != true) return
+            playerInventoryMap[player] = player.inventory.items.toList()
+            player.inventory.clearContent()
+        }
+    }
+
     @SubscribeEvent
     fun onPlayerRespawn(event: PlayerEvent.PlayerRespawnEvent) {
         if (event.entity.level.isClientSide) return
+
         handleKeepGenesOnDeath(event)
+        handleKeepInventory(event.entity)
     }
 
     private fun handleKeepGenesOnDeath(event: PlayerEvent.PlayerRespawnEvent) {
