@@ -47,7 +47,7 @@ object AiChangeEvents {
 
         for (livingEntityClass: Class<out LivingEntity> in classesToRunFrom) {
             entity.goalSelector.addGoal(
-                3,
+                1,
                 AvoidEntityGoal(
                     entity,
                     livingEntityClass,
