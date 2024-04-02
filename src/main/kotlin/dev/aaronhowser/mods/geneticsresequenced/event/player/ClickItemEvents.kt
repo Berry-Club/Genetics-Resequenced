@@ -22,6 +22,7 @@ object ClickItemEvents {
     @SubscribeEvent
     fun onUseItem(event: PlayerInteractEvent.RightClickItem) {
         if (event.side.isClient) return
+
         val player = event.entity
         val genes = player.getGenes() ?: return
 

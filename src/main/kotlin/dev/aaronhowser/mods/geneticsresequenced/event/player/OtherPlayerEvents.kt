@@ -24,6 +24,7 @@ object OtherPlayerEvents {
 
     @SubscribeEvent
     fun onPlayerCloned(event: PlayerEvent.Clone) {
+        if (event.original.level.isClientSide) return
         if (!event.isWasDeath) return
 
         event.original.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { oldGenes ->
@@ -35,6 +36,7 @@ object OtherPlayerEvents {
 
     @SubscribeEvent
     fun onPlayerRespawn(event: PlayerRespawnEvent) {
+        if (event.entity.level.isClientSide) return
         handleKeepGenesOnDeath(event)
     }
 
@@ -74,6 +76,7 @@ object OtherPlayerEvents {
     @SubscribeEvent
     fun onInteractWithBlock(event: PlayerInteractEvent.RightClickBlock) {
         if (event.side.isClient) return
+
         val player = event.entity
 
         val genes = player.getGenes() ?: return
