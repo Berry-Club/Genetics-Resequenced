@@ -28,6 +28,12 @@ object AiChangeEvents {
         }
     }
 
+    // Making this a public mutable list so other mods (or even KubeJS etc maybe I think) can add other classes to include
+    @Suppress("MemberVisibilityCanBePrivate")
+    val classesToRunFrom: MutableList<Class<out LivingEntity>> = mutableListOf(
+        Player::class.java
+    )
+
     private fun attachScareTask(entity: PathfinderMob) {
 
         val scaredOf = when (entity) {
@@ -39,18 +45,20 @@ object AiChangeEvents {
             else -> return
         }
 
-        entity.goalSelector.addGoal(
-            3,
-            AvoidEntityGoal(
-                entity,
-                Player::class.java,
-                { otherEntity: LivingEntity -> otherEntity.getGenes()?.hasGene(scaredOf) == true },
-                6.0f,
-                1.0,
-                1.2,
-                EntitySelector.NO_SPECTATORS::test
+        for (livingEntityClass: Class<out LivingEntity> in classesToRunFrom) {
+            entity.goalSelector.addGoal(
+                3,
+                AvoidEntityGoal(
+                    entity,
+                    livingEntityClass,
+                    { otherEntity: LivingEntity -> otherEntity.getGenes()?.hasGene(scaredOf) == true },
+                    6.0f,
+                    1.0,
+                    1.2,
+                    EntitySelector.NO_SPECTATORS::test
+                )
             )
-        )
+        }
 
     }
 
