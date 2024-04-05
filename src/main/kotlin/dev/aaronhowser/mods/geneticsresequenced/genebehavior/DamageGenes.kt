@@ -2,13 +2,19 @@ package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.damagesource.IndirectEntityDamageSource
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
+import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.Mob
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.ItemStack
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.living.LivingDamageEvent
+import kotlin.random.Random
 
 object DamageGenes {
 
@@ -71,6 +77,25 @@ object DamageGenes {
 
         event.entity.removeEffect(MobEffects.POISON)
         event.isCanceled = true
+    }
+
+    fun handleThorns(event: LivingDamageEvent) {
+        val attacker = event.source.entity as? LivingEntity ?: return
+
+        val target = event.entity as? Mob ?: event.entity as? Player ?: return
+
+        if (target == attacker) return
+
+        val targetIsWearingChestplate = target.getItemBySlot(EquipmentSlot.CHEST) != ItemStack.EMPTY
+        if (targetIsWearingChestplate) return
+
+        if (Random.nextDouble() > ServerConfig.thornsChange.get()) return
+
+        attacker.hurt(DamageSource.thorns(target), ServerConfig.thornsDamage.get().toFloat())
+
+        if (target is Player) {
+            target.causeFoodExhaustion(ServerConfig.thornsHunger.get().toFloat())
+        }
     }
 
 }
