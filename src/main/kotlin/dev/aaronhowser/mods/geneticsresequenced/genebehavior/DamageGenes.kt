@@ -27,12 +27,12 @@ object DamageGenes {
         val genes = event.entity.getGenes()
         if (genes?.hasGene(EnumGenes.WITHER_PROOF) != true) return
 
+        event.entity.removeEffect(MobEffects.WITHER)
         event.isCanceled = true
     }
 
     fun handleWitherHit(event: LivingAttackEvent) {
-
-        // Make it not proc if it's an arrow or whatever
+        // Makes it not proc if it's an arrow or whatever
         if (event.source is IndirectEntityDamageSource) return
 
         val witherEffect = MobEffectInstance(
@@ -50,7 +50,6 @@ object DamageGenes {
     }
 
     fun handleFireProof(event: LivingDamageEvent) {
-
         val source = event.source
 
         if (!source.isFire) return
@@ -58,6 +57,18 @@ object DamageGenes {
         val genes = event.entity.getGenes()
         if (genes?.hasGene(EnumGenes.FIRE_PROOF) != true) return
 
+        event.isCanceled = true
+    }
+
+    fun handlePoisonProof(event: LivingDamageEvent) {
+        val source = event.source
+
+        if (!source.isMagic) return
+
+        val genes = event.entity.getGenes()
+        if (genes?.hasGene(EnumGenes.POISON_IMMUNITY) != true) return
+
+        event.entity.removeEffect(MobEffects.POISON)
         event.isCanceled = true
     }
 
