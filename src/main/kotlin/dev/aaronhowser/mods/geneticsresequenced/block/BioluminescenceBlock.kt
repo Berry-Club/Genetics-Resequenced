@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block
 
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.RandomSource
@@ -16,10 +17,11 @@ object BioluminescenceBlock :
             .air()
             .instabreak()
             .noLootTable()
-            .lightLevel { 15 }
+            .lightLevel { 10 }
     ) {
+
     override fun onPlace(pState: BlockState, pLevel: Level, pPos: BlockPos, pOldState: BlockState, pIsMoving: Boolean) {
-        pLevel.scheduleTick(pPos, this, 20 * 10)
+        pLevel.scheduleTick(pPos, this, ServerConfig.bioluminescenceDuration.get())
         super.onPlace(pState, pLevel, pPos, pOldState, pIsMoving)
     }
 

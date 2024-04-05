@@ -16,11 +16,13 @@ object ServerConfig {
     lateinit var thornsHunger: ForgeConfigSpec.DoubleValue
     lateinit var clawsChance: ForgeConfigSpec.DoubleValue
     lateinit var clawsDamage: ForgeConfigSpec.DoubleValue
+    lateinit var bioluminescenceDuration: ForgeConfigSpec.IntValue
 
     // Gene Cooldowns
     lateinit var woolyCooldown: ForgeConfigSpec.IntValue
     lateinit var meatyCooldown: ForgeConfigSpec.IntValue
     lateinit var milkyCooldown: ForgeConfigSpec.IntValue
+    lateinit var bioluminescenceCooldown: ForgeConfigSpec.IntValue
 
     init {
         generalConfigs()
@@ -75,6 +77,10 @@ object ServerConfig {
             .comment("How much damage should Bleeding deal")
             .defineInRange("clawsDamage", 8.0, 0.0, Double.MAX_VALUE)
 
+        bioluminescenceDuration = BUILDER
+            .comment("How long should the Bioluminescence gene last (in ticks)")
+            .defineInRange("bioluminescenceDuration", 20 * 30, 1, Int.MAX_VALUE)
+
         BUILDER.pop()
     }
 
@@ -92,6 +98,10 @@ object ServerConfig {
         milkyCooldown = BUILDER
             .comment("How many ticks to wait before someone with the Milky gene can be milked again")
             .defineInRange("milkyCooldown", 1, 1, Int.MAX_VALUE)
+
+        bioluminescenceCooldown = BUILDER
+            .comment("How often entities with the Bioluminescence gene should emit light (in ticks)")
+            .defineInRange("bioluminescenceCooldown", 10, 1, Int.MAX_VALUE)
 
         BUILDER.pop()
     }
