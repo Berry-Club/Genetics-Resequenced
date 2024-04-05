@@ -1,7 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.event.ModScheduler
 import net.minecraft.client.Options
+import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.animal.Cow
@@ -15,11 +18,14 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.Blocks
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
+import java.util.*
 import kotlin.random.Random
 
 object ClickGenes {
 
     //TODO: Make these into recipes? Would be nice for packs or whatever
+
+    private val recentlySheered = mutableSetOf<UUID>()
 
     /**
      * TODO: Make this toggle the outer skin layers
@@ -33,6 +39,16 @@ object ClickGenes {
 
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_TAG)
         if (!clickedWithShears) return
+
+        if (recentlySheered.contains(event.target.uuid)) {
+            event.entity.sendSystemMessage(Component.literal("This entity has already been sheared recently!"))
+            return
+        }
+
+        recentlySheered.add(event.target.uuid)
+        ModScheduler.scheduleTaskInTicks(ServerConfig.woolyCooldown.get()) {
+            recentlySheered.remove(event.target.uuid)
+        }
 
         val woolItemStack = ItemStack(Blocks.WHITE_WOOL)
 
@@ -62,9 +78,20 @@ object ClickGenes {
         )
     }
 
+    private val recentlyMeated = mutableSetOf<UUID>()
     fun meaty(event: PlayerInteractEvent.EntityInteract) {
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_TAG)
         if (!clickedWithShears) return
+
+        if (recentlyMeated.contains(event.target.uuid)) {
+            event.entity.sendSystemMessage(Component.literal("This entity has already been meated recently!"))
+            return
+        }
+
+        recentlyMeated.add(event.target.uuid)
+        ModScheduler.scheduleTaskInTicks(ServerConfig.meatyCooldown.get()) {
+            recentlyMeated.remove(event.target.uuid)
+        }
 
         val porkItemStack = ItemStack(Items.PORKCHOP)
 
@@ -94,6 +121,7 @@ object ClickGenes {
         )
     }
 
+    private val recentlyMilked = mutableSetOf<UUID>()
     fun milky(event: PlayerInteractEvent.EntityInteract) {
 
         when (event.target) {
@@ -102,6 +130,16 @@ object ClickGenes {
 
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
         if (!clickedWithBucket) return
+
+        if (recentlyMilked.contains(event.target.uuid)) {
+            event.entity.sendSystemMessage(Component.literal("This entity has already been milked recently!"))
+            return
+        }
+
+        recentlyMilked.add(event.target.uuid)
+        ModScheduler.scheduleTaskInTicks(ServerConfig.milkyCooldown.get()) {
+            recentlyMilked.remove(event.target.uuid)
+        }
 
         event.itemStack.shrink(1)
         event.entity.addItem(ItemStack(Items.MILK_BUCKET))
@@ -129,6 +167,13 @@ object ClickGenes {
 
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
         if (!clickedWithBucket) return
+
+        if (recentlyMilked.contains(player.uuid)) return
+
+        recentlyMilked.add(player.uuid)
+        ModScheduler.scheduleTaskInTicks(20 * 60 * 5) {
+            recentlyMilked.remove(player.uuid)
+        }
 
         event.itemStack.shrink(1)
         player.addItem(ItemStack(Items.MILK_BUCKET))
@@ -197,6 +242,8 @@ object ClickGenes {
             Blocks.WARPED_NYLIUM, Blocks.CRIMSON_NYLIUM -> Blocks.NETHERRACK
             else -> return
         }
+
+        recentlySheered.remove(player.uuid)
 
         event.level.setBlockAndUpdate(event.pos, blockAfter.defaultBlockState())
         player.foodData.eat(1, 0.1f)
