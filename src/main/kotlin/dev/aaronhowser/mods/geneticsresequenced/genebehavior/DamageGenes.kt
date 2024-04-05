@@ -23,8 +23,8 @@ object DamageGenes {
     fun handleNoFallDamage(event: LivingDamageEvent) {
         if (event.source != DamageSource.FALL) return
 
-        val genes = event.entity.getGenes()
-        if (genes?.hasGene(EnumGenes.NO_FALL_DAMAGE) != true) return
+        val genes = event.entity.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.NO_FALL_DAMAGE)) return
 
         event.isCanceled = true
     }
@@ -32,8 +32,8 @@ object DamageGenes {
     fun handleWitherProof(event: LivingDamageEvent) {
         if (event.source != DamageSource.WITHER) return
 
-        val genes = event.entity.getGenes()
-        if (genes?.hasGene(EnumGenes.WITHER_PROOF) != true) return
+        val genes = event.entity.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.WITHER_PROOF)) return
 
         event.entity.removeEffect(MobEffects.WITHER)
         event.isCanceled = true
@@ -51,8 +51,8 @@ object DamageGenes {
         if (!event.entity.canBeAffected(witherEffect)) return
 
         val attacker = event.source.entity as? LivingEntity ?: return
-        val genes = attacker.getGenes()
-        if (genes?.hasGene(EnumGenes.WITHER_HIT) != true) return
+        val genes = attacker.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.WITHER_HIT)) return
 
         event.entity.addEffect(witherEffect)
     }
@@ -62,8 +62,8 @@ object DamageGenes {
 
         if (!source.isFire) return
 
-        val genes = event.entity.getGenes()
-        if (genes?.hasGene(EnumGenes.FIRE_PROOF) != true) return
+        val genes = event.entity.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.FIRE_PROOF)) return
 
         event.entity.clearFire()
         event.isCanceled = true
@@ -75,8 +75,8 @@ object DamageGenes {
         if (!source.isMagic) return
         if (!event.entity.hasEffect(MobEffects.POISON)) return
 
-        val genes = event.entity.getGenes()
-        if (genes?.hasGene(EnumGenes.POISON_IMMUNITY) != true) return
+        val genes = event.entity.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.POISON_IMMUNITY)) return
 
         event.entity.removeEffect(MobEffects.POISON)
         event.isCanceled = true
@@ -86,11 +86,13 @@ object DamageGenes {
         val attacker = event.source.entity as? LivingEntity ?: return
 
         val target = event.entity as? Mob ?: event.entity as? Player ?: return
-
         if (target == attacker) return
 
         val targetIsWearingChestplate = !target.getItemBySlot(EquipmentSlot.CHEST).isEmpty
         if (targetIsWearingChestplate) return
+
+        val genes = target.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.THORNS)) return
 
         if (Random.nextDouble() > ServerConfig.thornsChange.get()) return
 
