@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -9,9 +8,6 @@ import dev.aaronhowser.mods.geneticsresequenced.genebehavior.DeathGenes
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
-import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.ItemStack
-import net.minecraft.world.level.GameRules
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.eventbus.api.EventPriority

@@ -49,4 +49,16 @@ object DamageGenes {
         event.entity.addEffect(witherEffect)
     }
 
+    fun handleFireProof(event: LivingDamageEvent) {
+
+        val source = event.source
+
+        if (!source.isFire) return
+
+        val genes = event.entity.getGenes()
+        if (genes?.hasGene(EnumGenes.FIRE_PROOF) != true) return
+
+        event.isCanceled = true
+    }
+
 }
