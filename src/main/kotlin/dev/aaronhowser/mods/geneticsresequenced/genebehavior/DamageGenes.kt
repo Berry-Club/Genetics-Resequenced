@@ -11,7 +11,6 @@ import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.ItemStack
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.living.LivingDamageEvent
 import kotlin.random.Random
@@ -71,6 +70,7 @@ object DamageGenes {
         val source = event.source
 
         if (!source.isMagic) return
+        if (!event.entity.hasEffect(MobEffects.POISON)) return
 
         val genes = event.entity.getGenes()
         if (genes?.hasGene(EnumGenes.POISON_IMMUNITY) != true) return
