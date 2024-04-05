@@ -24,10 +24,16 @@ object DeathEvents {
         if (event.original.level.isClientSide) return
 
         if (event.isWasDeath) {
-            event.original.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { oldGenes ->
-                event.original.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { newGenes ->
-                    newGenes.setGeneList(oldGenes.getGeneList())
+            event.original.apply {
+                reviveCaps()
+
+                getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { oldGenes ->
+                    event.entity.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { newGenes ->
+                        newGenes.setGeneList(oldGenes.getGeneList())
+                    }
                 }
+
+                invalidateCaps()
             }
         }
     }
