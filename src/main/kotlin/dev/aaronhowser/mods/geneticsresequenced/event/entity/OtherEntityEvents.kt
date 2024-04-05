@@ -4,11 +4,13 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.CapabilityHandler
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
 import dev.aaronhowser.mods.geneticsresequenced.genebehavior.DamageGenes
+import dev.aaronhowser.mods.geneticsresequenced.genebehavior.TickGenes
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.living.LivingDamageEvent
+import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 
@@ -45,6 +47,13 @@ object OtherEntityEvents {
         if (event.entity.level.isClientSide) return
 
         DamageGenes.handleWitherHit(event)
+    }
+
+    @SubscribeEvent
+    fun onLivingTick(event: LivingTickEvent) {
+        if (event.entity.level.isClientSide) return
+
+        TickGenes.handleBioluminescence(event.entity)
     }
 
 }

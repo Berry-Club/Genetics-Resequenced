@@ -17,8 +17,6 @@ class BioluminescenceBlockEntity(
         level?.apply {
             if (isClientSide) return
 
-            println("Time remaining: $timeRemaining")
-
             if (timeRemaining-- <= 0) {
                 removeBlockEntity(this@BioluminescenceBlockEntity.blockPos)
                 removeBlock(this@BioluminescenceBlockEntity.blockPos, false)
