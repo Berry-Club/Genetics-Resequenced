@@ -7,20 +7,27 @@ object ServerConfig {
     val SPEC: ForgeConfigSpec
 
     // General
-    val keepGenesOnDeath: ForgeConfigSpec.BooleanValue
-    val hardMode: ForgeConfigSpec.BooleanValue
+    lateinit var keepGenesOnDeath: ForgeConfigSpec.BooleanValue
+    lateinit var hardMode: ForgeConfigSpec.BooleanValue
 
     // Gene multipliers
-    val thornsChange: ForgeConfigSpec.DoubleValue
-    val thornsDamage: ForgeConfigSpec.DoubleValue
-    val thornsHunger: ForgeConfigSpec.DoubleValue
+    lateinit var thornsChange: ForgeConfigSpec.DoubleValue
+    lateinit var thornsDamage: ForgeConfigSpec.DoubleValue
+    lateinit var thornsHunger: ForgeConfigSpec.DoubleValue
 
     // Gene Cooldowns
-    val woolyCooldown: ForgeConfigSpec.IntValue
-    val meatyCooldown: ForgeConfigSpec.IntValue
-    val milkyCooldown: ForgeConfigSpec.IntValue
+    lateinit var woolyCooldown: ForgeConfigSpec.IntValue
+    lateinit var meatyCooldown: ForgeConfigSpec.IntValue
+    lateinit var milkyCooldown: ForgeConfigSpec.IntValue
 
     init {
+        generalConfigs()
+        geneConfigs()
+
+        SPEC = BUILDER.build()
+    }
+
+    private fun generalConfigs() {
         BUILDER.comment("General settings").push("general")
 
         hardMode = BUILDER
@@ -32,9 +39,18 @@ object ServerConfig {
             .define("keepGenesOnDeath", true)
 
         BUILDER.pop()
+    }
 
+    private fun geneConfigs() {
         BUILDER.comment("Genes").push("genes")
 
+        geneValueConfigs()
+        geneCooldownConfigs()
+
+        BUILDER.pop()
+    }
+
+    private fun geneValueConfigs() {
         BUILDER.comment("Values").push("values")
 
         thornsChange = BUILDER
@@ -50,7 +66,9 @@ object ServerConfig {
             .defineInRange("thornsHunger", 1.0, 0.0, Double.MAX_VALUE)
 
         BUILDER.pop()
+    }
 
+    private fun geneCooldownConfigs() {
         BUILDER.comment("Gene Cooldowns").push("cooldowns")
 
         woolyCooldown = BUILDER
@@ -66,9 +84,6 @@ object ServerConfig {
             .defineInRange("milkyCooldown", 1, 1, Int.MAX_VALUE)
 
         BUILDER.pop()
-
-        BUILDER.pop()
-
-        SPEC = BUILDER.build()
     }
+
 }
