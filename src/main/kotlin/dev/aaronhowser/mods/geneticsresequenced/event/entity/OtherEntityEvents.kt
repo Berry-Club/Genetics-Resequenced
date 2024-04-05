@@ -34,6 +34,7 @@ object OtherEntityEvents {
         DamageGenes.handleWitherProof(event)
         DamageGenes.handleFireProof(event)
         DamageGenes.handlePoisonProof(event)
+        DamageGenes.handleThorns(event)
     }
 
     @SubscribeEvent
