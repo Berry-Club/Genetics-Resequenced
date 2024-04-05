@@ -57,6 +57,7 @@ object DamageGenes {
         val genes = event.entity.getGenes()
         if (genes?.hasGene(EnumGenes.FIRE_PROOF) != true) return
 
+        event.entity.clearFire()
         event.isCanceled = true
     }
 
