@@ -1,17 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.block
 
-import dev.aaronhowser.mods.geneticsresequenced.blockentity.BioluminescenceBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.blockentity.ModBlockEntities
 import net.minecraft.core.BlockPos
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.util.RandomSource
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.EntityBlock
 import net.minecraft.world.level.block.LightBlock
-import net.minecraft.world.level.block.entity.BlockEntity
-import net.minecraft.world.level.block.entity.BlockEntityTicker
-import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.material.Material
 
+@Suppress("OVERRIDE_DEPRECATION")
 object BioluminescenceBlock :
     LightBlock(
         Properties
@@ -20,26 +17,15 @@ object BioluminescenceBlock :
             .instabreak()
             .noLootTable()
             .lightLevel { 15 }
-    ),
-    EntityBlock {
-
-    override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity? {
-        return ModBlockEntities.BIOLUMINESCENCE.get().create(blockPos, blockState)
+    ) {
+    override fun onPlace(pState: BlockState, pLevel: Level, pPos: BlockPos, pOldState: BlockState, pIsMoving: Boolean) {
+        pLevel.scheduleTick(pPos, this, 20 * 10)
+        super.onPlace(pState, pLevel, pPos, pOldState, pIsMoving)
     }
 
-    override fun <T : BlockEntity?> getTicker(
-        level: Level,
-        blockState: BlockState,
-        blockEntityType: BlockEntityType<T>
-    ): BlockEntityTicker<T>? {
-
-        if (level.isClientSide) return null
-
-        return BlockEntityTicker { _, _, _, blockEntity ->
-            if (blockEntity is BioluminescenceBlockEntity) {
-                blockEntity.tick()
-            }
-        }
-
+    override fun tick(pState: BlockState, pLevel: ServerLevel, pPos: BlockPos, pRandom: RandomSource) {
+        pLevel.removeBlock(pPos, false)
+        super.tick(pState, pLevel, pPos, pRandom)
     }
+
 }
