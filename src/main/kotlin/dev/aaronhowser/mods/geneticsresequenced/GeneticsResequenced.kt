@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced
 
+import dev.aaronhowser.mods.geneticsresequenced.block.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.blockentity.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.item.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potion.ModEffects
@@ -32,6 +34,8 @@ object GeneticsResequenced {
     init {
 
         ModEffects.REGISTRY.register(MOD_BUS)
+        ModBlocks.REGISTRY.register(MOD_BUS)
+        ModBlockEntities.REGISTRY.register(MOD_BUS)
         ModItems.REGISTRY.register(MOD_BUS)
 
         ModLoadingContext.get().apply {
