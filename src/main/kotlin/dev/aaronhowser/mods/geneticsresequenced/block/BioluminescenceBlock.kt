@@ -20,5 +20,26 @@ object BioluminescenceBlock :
             .instabreak()
             .noLootTable()
             .lightLevel { 15 }
-    ) {
+    ),
+    EntityBlock {
+
+    override fun newBlockEntity(blockPos: BlockPos, blockState: BlockState): BlockEntity? {
+        return ModBlockEntities.BIOLUMINESCENCE.get().create(blockPos, blockState)
+    }
+
+    override fun <T : BlockEntity?> getTicker(
+        level: Level,
+        blockState: BlockState,
+        blockEntityType: BlockEntityType<T>
+    ): BlockEntityTicker<T>? {
+
+        if (level.isClientSide) return null
+
+        return BlockEntityTicker { _, _, _, blockEntity ->
+            if (blockEntity is BioluminescenceBlockEntity) {
+                blockEntity.tick()
+            }
+        }
+
+    }
 }
