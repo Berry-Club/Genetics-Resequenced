@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.potion.ModEffects
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.damagesource.IndirectEntityDamageSource
 import net.minecraft.world.effect.MobEffectInstance
@@ -86,7 +87,7 @@ object DamageGenes {
 
         if (target == attacker) return
 
-        val targetIsWearingChestplate = target.getItemBySlot(EquipmentSlot.CHEST) != ItemStack.EMPTY
+        val targetIsWearingChestplate = !target.getItemBySlot(EquipmentSlot.CHEST).isEmpty
         if (targetIsWearingChestplate) return
 
         if (Random.nextDouble() > ServerConfig.thornsChange.get()) return
@@ -96,6 +97,34 @@ object DamageGenes {
         if (target is Player) {
             target.causeFoodExhaustion(ServerConfig.thornsHunger.get().toFloat())
         }
+    }
+
+    fun handleClaws(event: LivingDamageEvent) {
+        val attacker = event.source.entity as? LivingEntity ?: return
+
+        if (!attacker.mainHandItem.isEmpty) return
+
+        val genes = attacker.getGenes() ?: return
+
+        val clawsLevel = when {
+            genes.hasGene(EnumGenes.CLAWS_2) -> 2
+            genes.hasGene(EnumGenes.CLAWS) -> 1
+            else -> return
+        }
+
+        val chanceOfHappening = ServerConfig.clawsChance.get() * clawsLevel
+
+        if (Random.nextDouble() > chanceOfHappening) return
+
+        event.entity.addEffect(
+            MobEffectInstance(
+                ModEffects.BLEED,
+                6000,
+                0,
+                false,
+                true
+            )
+        )
     }
 
 }

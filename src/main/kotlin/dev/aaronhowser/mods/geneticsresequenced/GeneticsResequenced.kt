@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced
 
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.potion.ModEffects
 import net.minecraft.client.Minecraft
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
@@ -20,6 +21,8 @@ object GeneticsResequenced {
     val LOGGER: Logger = LogManager.getLogger(ID)
 
     init {
+
+        ModEffects.REGISTRY.register(MOD_BUS)
 
         ModLoadingContext.get().apply {
             registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC, "geneticsresequenced-server.toml")

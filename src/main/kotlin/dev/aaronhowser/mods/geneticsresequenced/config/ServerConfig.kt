@@ -10,10 +10,12 @@ object ServerConfig {
     lateinit var keepGenesOnDeath: ForgeConfigSpec.BooleanValue
     lateinit var hardMode: ForgeConfigSpec.BooleanValue
 
-    // Gene multipliers
+    // Gene values
     lateinit var thornsChange: ForgeConfigSpec.DoubleValue
     lateinit var thornsDamage: ForgeConfigSpec.DoubleValue
     lateinit var thornsHunger: ForgeConfigSpec.DoubleValue
+    lateinit var clawsChance: ForgeConfigSpec.DoubleValue
+    lateinit var clawsDamage: ForgeConfigSpec.DoubleValue
 
     // Gene Cooldowns
     lateinit var woolyCooldown: ForgeConfigSpec.IntValue
@@ -64,6 +66,14 @@ object ServerConfig {
         thornsHunger = BUILDER
             .comment("How much hunger to drain when a player's Thorns gene deals damage to an attacker")
             .defineInRange("thornsHunger", 1.0, 0.0, Double.MAX_VALUE)
+
+        clawsChance = BUILDER
+            .comment("What probability should the Claws gene have (doubled if the player has Claws 2 gene)")
+            .defineInRange("clawsOneChance", 0.33, 0.0, 1.0)
+
+        clawsDamage = BUILDER
+            .comment("How much damage should Bleeding deal")
+            .defineInRange("clawsDamage", 8.0, 0.0, Double.MAX_VALUE)
 
         BUILDER.pop()
     }
