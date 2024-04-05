@@ -1,8 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced
 
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.item.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potion.ModEffects
 import net.minecraft.client.Minecraft
+import net.minecraft.world.item.CreativeModeTab
+import net.minecraft.world.item.ItemStack
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig
@@ -20,9 +23,16 @@ object GeneticsResequenced {
 
     val LOGGER: Logger = LogManager.getLogger(ID)
 
+    val MOD_TAB: CreativeModeTab = object : CreativeModeTab(ID) {
+        override fun makeIcon(): ItemStack {
+            return ItemStack(ModItems.DRAGON_HEALTH_CRYSTAL)
+        }
+    }
+
     init {
 
         ModEffects.REGISTRY.register(MOD_BUS)
+        ModItems.REGISTRY.register(MOD_BUS)
 
         ModLoadingContext.get().apply {
             registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC, "geneticsresequenced-server.toml")

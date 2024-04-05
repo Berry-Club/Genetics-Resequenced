@@ -3,6 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.item.DragonHealthCrystal
+import dev.aaronhowser.mods.geneticsresequenced.item.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potion.ModEffects
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.damagesource.IndirectEntityDamageSource
@@ -125,6 +127,32 @@ object DamageGenes {
                 true
             )
         )
+    }
+
+    fun handleDragonHealth(event: LivingDamageEvent) {
+        if (event.isCanceled) return
+        val entity = event.entity
+
+        if (entity.level.isClientSide) return
+
+        val genes = entity.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.ENDER_DRAGON_HEALTH)) return
+
+        val items = entity.handSlots.toMutableList()
+        if (entity is Player) items += entity.inventory.items
+
+        val healthCrystal = items.find { it.item == ModItems.DRAGON_HEALTH_CRYSTAL } ?: return
+
+        val amountDamaged = event.amount
+        val crystalDurabilityRemaining = healthCrystal.maxDamage - healthCrystal.damageValue
+        val amountToBlock = minOf(amountDamaged.toInt(), crystalDurabilityRemaining)
+
+        healthCrystal.hurtAndBreak(amountToBlock, entity) {
+            DragonHealthCrystal.playBreakSound(it.level, it.x, it.y, it.z)
+        }
+
+        event.amount -= amountToBlock
+        if (event.amount == 0f) event.isCanceled = true
     }
 
 }
