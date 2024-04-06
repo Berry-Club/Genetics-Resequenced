@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.LightLayer
+import java.util.*
 import kotlin.math.max
 
 object TickGenes {
@@ -122,6 +123,8 @@ object TickGenes {
     private val recentlyMeated = mutableSetOf<LivingEntity>()
     private fun handleMeaty2(entity: LivingEntity) {
 
+        if (entity.tickCount % 40 != 0) return
+
         val isAbleToMeat = recentlyMeated.add(entity)
         if (!isAbleToMeat) return
         ModScheduler.scheduleTaskInTicks(ServerConfig.meaty2Cooldown.get()) {
@@ -144,6 +147,8 @@ object TickGenes {
     private val recentlyLaidEgg = mutableSetOf<LivingEntity>()
     private fun handleLayEgg(entity: LivingEntity) {
 
+        if (entity.tickCount % 40 != 0) return
+
         val isAbleToDropEgg = recentlyLaidEgg.add(entity)
         if (!isAbleToDropEgg) return
         ModScheduler.scheduleTaskInTicks(ServerConfig.eggCooldown.get()) {
@@ -164,6 +169,9 @@ object TickGenes {
     }
 
     fun handleMobSight(entity: LivingEntity) {
+
+        if (entity.tickCount % 40 != 0) return
+
         val genes = entity.getGenes() ?: return
         if (!genes.hasGene(EnumGenes.MOB_SIGHT)) return
 
@@ -183,6 +191,29 @@ object TickGenes {
         nearbyLivingEntities.forEach {
             it.addEffect(glowingEffect)
         }
+    }
+
+    private val flyablePlayers = mutableSetOf<UUID>()
+    fun handleFlight(player: Player) {
+
+        if (player.level.isClientSide) return
+        if (player.tickCount % 40 != 0) return
+        if (player.isCreative || player.isSpectator) return
+
+        val genes = player.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.FLIGHT)) {
+            if (flyablePlayers.contains(player.uuid)) {
+                player.abilities.mayfly = false
+                player.onUpdateAbilities()
+                flyablePlayers.remove(player.uuid)
+            }
+            return
+        }
+
+        player.abilities.mayfly = true
+        player.abilities.flying = true
+        player.onUpdateAbilities()
+        flyablePlayers.add(player.uuid)
     }
 
 }

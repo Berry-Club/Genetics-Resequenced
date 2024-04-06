@@ -24,7 +24,7 @@ object DamageGenes {
         if (event.source != DamageSource.FALL) return
 
         val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(EnumGenes.NO_FALL_DAMAGE)) return
+        if (!genes.hasGene(EnumGenes.NO_FALL_DAMAGE) && !genes.hasGene(EnumGenes.FLIGHT)) return
 
         event.isCanceled = true
     }

@@ -31,6 +31,7 @@ object OtherPlayerEvents {
         if (event.side.isClient) return
 
         TickGenes.handleNoHunger(event.player)
+        TickGenes.handleFlight(event.player)
     }
 
 }
