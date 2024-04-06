@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.effect.MobEffects
 
 @Suppress("unused")
 enum class EnumGenes(
@@ -95,6 +97,38 @@ enum class EnumGenes(
     ;
 
     var isActive: Boolean = true
+
+    fun getPotion(): MobEffectInstance? {
+        return when (this) {
+            HASTE -> MobEffectInstance(MobEffects.DIG_SPEED, 100, 0, true, false, true)
+            HASTE_2 -> MobEffectInstance(MobEffects.DIG_SPEED, 100, 1, true, false, true)
+            REGENERATION -> MobEffectInstance(MobEffects.REGENERATION, 100, 0, true, false, true)
+            REGENERATION_4 -> MobEffectInstance(MobEffects.REGENERATION, 100, 4, true, false, true)
+            SPEED -> MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100, 0, true, false, true)
+            SPEED_2 -> MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100, 1, true, false, true)
+            SPEED_4 -> MobEffectInstance(MobEffects.MOVEMENT_SPEED, 100, 3, true, false, true)
+            RESISTANCE -> MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 0, true, false, true)
+            RESISTANCE_2 -> MobEffectInstance(MobEffects.DAMAGE_RESISTANCE, 100, 2, true, false, true)
+            STRENGTH -> MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 0, true, false, true)
+            STRENGTH_2 -> MobEffectInstance(MobEffects.DAMAGE_BOOST, 100, 2, true, false, true)
+            INVISIBLE -> MobEffectInstance(MobEffects.INVISIBILITY, 100, 0, true, false, true)
+            LUCK -> MobEffectInstance(MobEffects.LUCK, 100, 0, true, false, true)
+            NIGHT_VISION -> MobEffectInstance(MobEffects.NIGHT_VISION, 100, 0, true, false, true)
+            POISON -> MobEffectInstance(MobEffects.POISON, 100, 0, true, false, true)
+            POISON_4 -> MobEffectInstance(MobEffects.POISON, 100, 4, true, false, true)
+            WEAKNESS -> MobEffectInstance(MobEffects.WEAKNESS, 100, 0, true, false, true)
+            BLINDNESS -> MobEffectInstance(MobEffects.BLINDNESS, 100, 0, true, false, true)
+            SLOWNESS -> MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 0, true, false, true)
+            SLOWNESS_4 -> MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 4, true, false, true)
+            SLOWNESS_6 -> MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 6, true, false, true)
+            NAUSEA -> MobEffectInstance(MobEffects.CONFUSION, 100, 0, true, false, true)
+            HUNGER -> MobEffectInstance(MobEffects.HUNGER, 100, 0, true, false, true)
+            CURSED -> MobEffectInstance(MobEffects.UNLUCK, 100, 0, true, false, true)
+            LEVITATION -> MobEffectInstance(MobEffects.LEVITATION, 100, 0, true, false, true)
+            MINING_WEAKNESS -> MobEffectInstance(MobEffects.DIG_SLOWDOWN, 100, 0, true, false, true)
+            else -> null
+        }
+    }
 
     fun canAddMutation(genes: Genes, syringeGenes: Genes): Boolean {
         return when (this) {

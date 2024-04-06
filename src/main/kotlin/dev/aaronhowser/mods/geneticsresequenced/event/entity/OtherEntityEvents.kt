@@ -51,9 +51,12 @@ object OtherEntityEvents {
 
     @SubscribeEvent
     fun onLivingTick(event: LivingTickEvent) {
-        if (event.entity.level.isClientSide) return
+        val entity = event.entity
 
-        TickGenes.handleBioluminescence(event.entity)
+        if (entity.level.isClientSide) return
+
+        TickGenes.handleBioluminescence(entity)
+        TickGenes.handleEffects(entity)
     }
 
 }
