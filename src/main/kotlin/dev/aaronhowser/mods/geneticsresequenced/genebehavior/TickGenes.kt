@@ -77,7 +77,6 @@ object TickGenes {
             when (gene) {
                 EnumGenes.WATER_BREATHING -> entity.airSupply = entity.maxAirSupply
                 EnumGenes.FLAME -> entity.setSecondsOnFire(5)
-                EnumGenes.MOB_SIGHT -> handleMobSight(entity)
                 EnumGenes.LAY_EGG -> handleLayEgg(entity)
                 EnumGenes.MEATY_2 -> handleMeaty2(entity)
                 else -> {}
@@ -164,11 +163,22 @@ object TickGenes {
         entity.level.addFreshEntity(eggEntity)
     }
 
-    private fun handleMobSight(entity: LivingEntity) {
-        val searchArea = entity.boundingBox.inflate(128.0)
+    fun handleMobSight(entity: LivingEntity) {
+        val genes = entity.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.MOB_SIGHT)) return
+
+        if (entity.tickCount % ServerConfig.mobSightCooldown.get() != 0) return
+
+        val searchArea = entity.boundingBox.inflate(ServerConfig.mobSightRadius.get())
         val nearbyLivingEntities = entity.level.getEntities(entity, searchArea).filterIsInstance<Mob>()
 
-        val glowingEffect = MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false)
+        val glowingEffect = MobEffectInstance(
+            MobEffects.GLOWING,
+            ServerConfig.mobSightCooldown.get() * 2,
+            0,
+            false,
+            false
+        )
 
         nearbyLivingEntities.forEach {
             it.addEffect(glowingEffect)

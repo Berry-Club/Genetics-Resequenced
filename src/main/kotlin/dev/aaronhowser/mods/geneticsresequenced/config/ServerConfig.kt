@@ -18,6 +18,7 @@ object ServerConfig {
     lateinit var clawsChance: ForgeConfigSpec.DoubleValue
     lateinit var clawsDamage: ForgeConfigSpec.DoubleValue
     lateinit var bioluminescenceDuration: ForgeConfigSpec.IntValue
+    lateinit var mobSightRadius: ForgeConfigSpec.DoubleValue
 
     // Gene Cooldowns
     lateinit var woolyCooldown: ForgeConfigSpec.IntValue
@@ -27,6 +28,7 @@ object ServerConfig {
     lateinit var meaty2Cooldown: ForgeConfigSpec.IntValue
     lateinit var eggCooldown: ForgeConfigSpec.IntValue
     lateinit var photosynthesisCooldown: ForgeConfigSpec.IntValue
+    lateinit var mobSightCooldown: ForgeConfigSpec.IntValue
 
     init {
         generalConfigs()
@@ -89,6 +91,10 @@ object ServerConfig {
             .comment("How long should the Bioluminescence gene last (in ticks)")
             .defineInRange("bioluminescenceDuration", 20 * 30, 1, Int.MAX_VALUE)
 
+        mobSightRadius = BUILDER
+            .comment("How far from the player should Mob Sight detect entities (in blocks)")
+            .defineInRange("mobSightRadius", 32.0, 1.0, Double.MAX_VALUE)
+
         BUILDER.pop()
     }
 
@@ -122,6 +128,10 @@ object ServerConfig {
         photosynthesisCooldown = BUILDER
             .comment("How often entities with the Photosynthesis gene should regain hunger (in ticks)")
             .defineInRange("photosynthesisCooldown", 20 * 30, 1, Int.MAX_VALUE)
+
+        mobSightCooldown = BUILDER
+            .comment("How often should the Mob Sight gene check for entities (in ticks)")
+            .defineInRange("mobSightCooldown", 20 * 30, 1, Int.MAX_VALUE)
 
         BUILDER.pop()
     }
