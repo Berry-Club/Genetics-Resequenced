@@ -26,11 +26,11 @@ object TickGenes {
         val genes = entity.getGenes() ?: return
         if (!genes.hasGene(EnumGenes.BIOLUMINESCENCE)) return
 
-        val feetBlock = entity.level.getBlockState(entity.blockPosition())
-        if (!feetBlock.isAir) return
+        val headBlock = entity.level.getBlockState(entity.blockPosition().above())
+        if (!headBlock.isAir) return
 
         entity.level.setBlockAndUpdate(
-            entity.blockPosition(),
+            entity.blockPosition().above(),
             ModBlocks.BIOLUMINESCENCE.defaultBlockState()
         )
     }
