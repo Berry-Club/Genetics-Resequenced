@@ -56,6 +56,7 @@ object OtherEntityEvents {
         if (entity.level.isClientSide) return
 
         TickGenes.handleBioluminescence(entity)
+        TickGenes.handlePhotosynthesis(entity)
         TickGenes.handleEffects(entity)
     }
 

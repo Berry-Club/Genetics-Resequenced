@@ -26,6 +26,7 @@ object ServerConfig {
     lateinit var bioluminescenceCooldown: ForgeConfigSpec.IntValue
     lateinit var meaty2Cooldown: ForgeConfigSpec.IntValue
     lateinit var eggCooldown: ForgeConfigSpec.IntValue
+    lateinit var photosynthesisCooldown: ForgeConfigSpec.IntValue
 
     init {
         generalConfigs()
@@ -117,6 +118,10 @@ object ServerConfig {
         bioluminescenceCooldown = BUILDER
             .comment("How often entities with the Bioluminescence gene should emit light (in ticks)")
             .defineInRange("bioluminescenceCooldown", 10, 1, Int.MAX_VALUE)
+
+        photosynthesisCooldown = BUILDER
+            .comment("How often entities with the Photosynthesis gene should regain hunger (in ticks)")
+            .defineInRange("photosynthesisCooldown", 20 * 30, 1, Int.MAX_VALUE)
 
         BUILDER.pop()
     }

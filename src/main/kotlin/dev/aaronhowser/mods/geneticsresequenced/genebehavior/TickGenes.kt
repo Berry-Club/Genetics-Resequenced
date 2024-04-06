@@ -35,6 +35,25 @@ object TickGenes {
         )
     }
 
+    fun handlePhotosynthesis(entity: LivingEntity) {
+        if (entity !is Player) return
+        if (entity.tickCount % ServerConfig.photosynthesisCooldown.get() != 0) return
+
+        val genes = entity.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.PHOTOSYNTHESIS)) return
+
+        val foodData = entity.foodData
+
+        if (!foodData.needsFood()) return
+
+        val inDirectSunlight = entity.level.canSeeSky(entity.blockPosition())
+        val isDay = entity.level.isDay
+        if (!inDirectSunlight || !isDay) return
+
+        foodData.eat(1, 0.5f)
+
+    }
+
     fun handleEffects(entity: LivingEntity) {
         if (entity.tickCount % 40 != 0) return
         if (entity !is Mob && entity !is Player) return
