@@ -29,6 +29,14 @@ object ModPacketHandler {
             TeleportPlayerPacket::decode,
             TeleportPlayerPacket::receiveMessage
         )
+
+        INSTANCE.registerMessage(
+            ++id,
+            FireballPacket::class.java,
+            FireballPacket::encode,
+            FireballPacket::decode,
+            FireballPacket::receiveMessage
+        )
     }
 
     fun messageNearbyPlayers(packet: ModPacket, serverLevel: ServerLevel, origin: Vec3, radius: Double) {

@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.controls.ModKeyMappings
+import dev.aaronhowser.mods.geneticsresequenced.packet.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.TeleportPlayerPacket
 import net.minecraftforge.api.distmarker.Dist
@@ -19,6 +20,10 @@ object ClientEvents {
     fun onKeyInputEvent(event: InputEvent.Key) {
         if (ModKeyMappings.TELEPORT.consumeClick()) {
             ModPacketHandler.messageServer(TeleportPlayerPacket())
+        }
+
+        if (ModKeyMappings.DRAGONS_BREATH.consumeClick()) {
+            ModPacketHandler.messageServer(FireballPacket())
         }
     }
 }

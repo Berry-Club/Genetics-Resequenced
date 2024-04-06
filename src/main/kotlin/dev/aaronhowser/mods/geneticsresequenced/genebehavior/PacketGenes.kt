@@ -1,10 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.ModScheduler
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.projectile.DragonFireball
 import net.minecraft.world.level.ClipContext
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.HitResult
@@ -18,6 +22,9 @@ object PacketGenes {
 
     @Suppress("MoveVariableDeclarationIntoWhen")
     fun teleport(player: ServerPlayer) {
+
+        val genes = (player as LivingEntity).getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.TELEPORT)) return
 
         if (recentTeleports.contains(player.uuid)) return
         recentTeleports.add(player.uuid)
@@ -59,6 +66,32 @@ object PacketGenes {
         if (footBlockIsSolid) destination = destination.add(0.0, 1.0, 0.0)
 
         player.teleportTo(destination.x, destination.y, destination.z)
+    }
+
+    private val recentFireballs = mutableSetOf<UUID>()
+
+    fun dragonBreath(player: ServerPlayer) {
+
+        val genes = (player as LivingEntity).getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.DRAGONS_BREATH)) return
+
+        if (recentFireballs.contains(player.uuid)) return
+        recentFireballs.add(player.uuid)
+        ModScheduler.scheduleTaskInTicks(ServerConfig.teleportCooldown.get()) {
+            recentFireballs.remove(player.uuid)
+        }
+
+        val entityDragonFireball = DragonFireball(
+            player.level,
+            player,
+            player.lookAngle.x,
+            player.lookAngle.y,
+            player.lookAngle.z
+        ).apply {
+            setPos(player.eyePosition)
+        }
+
+        player.level.addFreshEntity(entityDragonFireball)
     }
 
 }
