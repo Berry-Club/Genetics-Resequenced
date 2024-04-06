@@ -9,6 +9,7 @@ object ServerConfig {
     // General
     lateinit var keepGenesOnDeath: ForgeConfigSpec.BooleanValue
     lateinit var hardMode: ForgeConfigSpec.BooleanValue
+    lateinit var showEffectIcons: ForgeConfigSpec.BooleanValue
 
     // Gene values
     lateinit var thornsChange: ForgeConfigSpec.DoubleValue
@@ -41,6 +42,10 @@ object ServerConfig {
         keepGenesOnDeath = BUILDER
             .comment("Keep genes on death")
             .define("keepGenesOnDeath", true)
+
+        showEffectIcons = BUILDER
+            .comment("Show the icons for effects granted by genes")
+            .define("showEffectIcons", true)
 
         BUILDER.pop()
     }
