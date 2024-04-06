@@ -14,6 +14,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.LightLayer
+import kotlin.math.max
 
 object TickGenes {
 
@@ -51,7 +52,15 @@ object TickGenes {
         if (!inDirectSunlight || !isDay) return
 
         foodData.eat(1, 0.5f)
+    }
 
+    fun handleNoHunger(entity: Player) {
+        val genes = entity.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.NO_HUNGER)) return
+
+        val foodData = entity.foodData
+
+        foodData.foodLevel = max(foodData.foodLevel, 10)
     }
 
     fun handleEffects(entity: LivingEntity) {
