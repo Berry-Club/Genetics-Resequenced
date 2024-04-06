@@ -29,6 +29,7 @@ object ServerConfig {
     lateinit var eggCooldown: ForgeConfigSpec.IntValue
     lateinit var photosynthesisCooldown: ForgeConfigSpec.IntValue
     lateinit var mobSightCooldown: ForgeConfigSpec.IntValue
+    lateinit var teleportCooldown: ForgeConfigSpec.IntValue
 
     init {
         generalConfigs()
@@ -132,6 +133,10 @@ object ServerConfig {
         mobSightCooldown = BUILDER
             .comment("How often should the Mob Sight gene check for entities (in ticks)")
             .defineInRange("mobSightCooldown", 20 * 5, 1, Int.MAX_VALUE)
+
+        teleportCooldown = BUILDER
+            .comment("How many ticks to wait before someone with the Teleport gene can teleport again")
+            .defineInRange("teleportCooldown", 20, 1, Int.MAX_VALUE)
 
         BUILDER.pop()
     }

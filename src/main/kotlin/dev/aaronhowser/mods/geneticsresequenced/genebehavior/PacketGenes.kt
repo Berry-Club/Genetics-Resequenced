@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.event.ModScheduler
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerPlayer
@@ -8,11 +10,21 @@ import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 import thedarkcolour.kotlinforforge.forge.vectorutil.toVec3
+import java.util.*
 
 object PacketGenes {
 
+    private val recentTeleports = mutableSetOf<UUID>()
+
     @Suppress("MoveVariableDeclarationIntoWhen")
     fun teleport(player: ServerPlayer) {
+
+        if (recentTeleports.contains(player.uuid)) return
+        recentTeleports.add(player.uuid)
+        ModScheduler.scheduleTaskInTicks(ServerConfig.teleportCooldown.get()) {
+            recentTeleports.remove(player.uuid)
+        }
+
         val lookDirection = player.lookAngle.normalize().scale(10.0)
 
         val lookingAtBlock: BlockHitResult = player.level.clip(
