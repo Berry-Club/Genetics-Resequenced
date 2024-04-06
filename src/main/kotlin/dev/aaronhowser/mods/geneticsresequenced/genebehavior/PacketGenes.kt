@@ -25,7 +25,7 @@ object PacketGenes {
             recentTeleports.remove(player.uuid)
         }
 
-        val lookDirection = player.lookAngle.normalize().scale(10.0)
+        val lookDirection = player.lookAngle.normalize().scale(ServerConfig.teleportDistance.get())
 
         val lookingAtBlock: BlockHitResult = player.level.clip(
             ClipContext(

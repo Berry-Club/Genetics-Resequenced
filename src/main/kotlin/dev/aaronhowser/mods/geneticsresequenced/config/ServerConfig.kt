@@ -19,6 +19,7 @@ object ServerConfig {
     lateinit var clawsDamage: ForgeConfigSpec.DoubleValue
     lateinit var bioluminescenceDuration: ForgeConfigSpec.IntValue
     lateinit var mobSightRadius: ForgeConfigSpec.DoubleValue
+    lateinit var teleportDistance: ForgeConfigSpec.DoubleValue
 
     // Gene Cooldowns
     lateinit var woolyCooldown: ForgeConfigSpec.IntValue
@@ -95,6 +96,10 @@ object ServerConfig {
         mobSightRadius = BUILDER
             .comment("How far from the player should Mob Sight detect entities (in blocks)")
             .defineInRange("mobSightRadius", 32.0, 1.0, Double.MAX_VALUE)
+
+        teleportDistance = BUILDER
+            .comment("How far should the Teleport gene teleport the player, at maximum")
+            .defineInRange("teleportDistance", 10.0, 1.0, Double.MAX_VALUE)
 
         BUILDER.pop()
     }
