@@ -204,6 +204,7 @@ object TickGenes {
         if (!genes.hasGene(EnumGenes.FLIGHT)) {
             if (flyablePlayers.contains(player.uuid)) {
                 player.abilities.mayfly = false
+                player.abilities.flying = false
                 player.onUpdateAbilities()
                 flyablePlayers.remove(player.uuid)
             }
@@ -211,7 +212,6 @@ object TickGenes {
         }
 
         player.abilities.mayfly = true
-        player.abilities.flying = true
         player.onUpdateAbilities()
         flyablePlayers.add(player.uuid)
     }
