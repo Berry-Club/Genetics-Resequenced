@@ -87,6 +87,7 @@ object TickGenes {
 
         for (gene in potionGenes) {
             val potion = gene.getPotion() ?: continue
+            entity.removeEffect(potion.effect)
             entity.addEffect(potion)
         }
     }
