@@ -24,6 +24,8 @@ object ServerConfig {
     lateinit var meatyCooldown: ForgeConfigSpec.IntValue
     lateinit var milkyCooldown: ForgeConfigSpec.IntValue
     lateinit var bioluminescenceCooldown: ForgeConfigSpec.IntValue
+    lateinit var meaty2Cooldown: ForgeConfigSpec.IntValue
+    lateinit var eggCooldown: ForgeConfigSpec.IntValue
 
     init {
         generalConfigs()
@@ -99,6 +101,14 @@ object ServerConfig {
         meatyCooldown = BUILDER
             .comment("How many ticks to wait before someone with the Meaty gene can be sheared again")
             .defineInRange("meatyCooldown", 20 * 60, 1, Int.MAX_VALUE)
+
+        meaty2Cooldown = BUILDER
+            .comment("How many ticks to wait before someone with the Meaty 2 gene drops meat again")
+            .defineInRange("meaty2Cooldown", 20 * 60 * 5, 1, Int.MAX_VALUE)
+
+        eggCooldown = BUILDER
+            .comment("How many ticks to wait before someone with the Lay Egg gene lays an egg again")
+            .defineInRange("eggCooldown", 20 * 60 * 5, 1, Int.MAX_VALUE)
 
         milkyCooldown = BUILDER
             .comment("How many ticks to wait before someone with the Milky gene can be milked again")

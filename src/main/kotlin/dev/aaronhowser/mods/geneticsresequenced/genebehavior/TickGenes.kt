@@ -97,7 +97,7 @@ object TickGenes {
 
         val isAbleToMeat = recentlyMeated.add(entity)
         if (!isAbleToMeat) return
-        ModScheduler.scheduleTaskInTicks(20 * 60 * 5) {
+        ModScheduler.scheduleTaskInTicks(ServerConfig.meaty2Cooldown.get()) {
             recentlyMeated.remove(entity)
         }
 
@@ -119,7 +119,7 @@ object TickGenes {
 
         val isAbleToDropEgg = recentlyLaidEgg.add(entity)
         if (!isAbleToDropEgg) return
-        ModScheduler.scheduleTaskInTicks(20 * 60 * 5) {
+        ModScheduler.scheduleTaskInTicks(ServerConfig.eggCooldown.get()) {
             recentlyLaidEgg.remove(entity)
         }
 
