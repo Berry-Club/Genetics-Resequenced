@@ -131,7 +131,7 @@ enum class EnumGenes(
             else -> 0
         }
 
-        return MobEffectInstance(effect, 100, level, true, false, ServerConfig.showEffectIcons.get())
+        return MobEffectInstance(effect, 300, level, true, false, ServerConfig.showEffectIcons.get())
     }
 
     fun canAddMutation(genes: Genes, syringeGenes: Genes): Boolean {
