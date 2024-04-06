@@ -18,14 +18,9 @@ object ClickEntityEvents {
     fun onInteractEntity(event: PlayerInteractEvent.EntityInteract) {
         if (event.side.isClient) return
 
-        val target = event.target
-        if (target !is LivingEntity) return
-
-        val targetGenes = target.getGenes() ?: return
-
-        if (targetGenes.hasGene(EnumGenes.WOOLY)) ClickGenes.wooly(event)
-        if (targetGenes.hasGene(EnumGenes.MILKY)) ClickGenes.milky(event)
-        if (targetGenes.hasGene(EnumGenes.MEATY)) ClickGenes.meaty(event)
+        ClickGenes.wooly(event)
+        ClickGenes.milky(event)
+        ClickGenes.meaty(event)
     }
 
 }

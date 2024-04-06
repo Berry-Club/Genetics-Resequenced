@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.ModScheduler
 import net.minecraft.client.Options
@@ -17,6 +19,7 @@ import net.minecraft.world.entity.projectile.SmallFireball
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.Blocks
+import net.minecraftforge.event.entity.player.ArrowNockEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import java.util.*
 import kotlin.random.Random
@@ -36,6 +39,9 @@ object ClickGenes {
         when (event.target) {
             is Sheep, is MushroomCow -> return
         }
+
+        val genes = event.entity.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.WOOLY)) return
 
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_TAG)
         if (!clickedWithShears) return
@@ -80,6 +86,10 @@ object ClickGenes {
 
     private val recentlyMeated = mutableSetOf<UUID>()
     fun meaty(event: PlayerInteractEvent.EntityInteract) {
+
+        val genes = event.entity.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.MEATY)) return
+
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_TAG)
         if (!clickedWithShears) return
 
@@ -128,6 +138,9 @@ object ClickGenes {
             is Cow, is Goat -> return
         }
 
+        val genes = event.entity.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.MILKY)) return
+
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
         if (!clickedWithBucket) return
 
@@ -163,6 +176,9 @@ object ClickGenes {
     fun milkyItem(event: PlayerInteractEvent.RightClickItem) {
         val player = event.entity
 
+        val genes = player.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.MILKY)) return
+
         if (!player.isCrouching) return
 
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
@@ -196,6 +212,8 @@ object ClickGenes {
 
     fun shootFireball(event: PlayerInteractEvent.RightClickItem) {
         val player = event.entity
+        val genes = player.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.SHOOT_FIREBALLS)) return
 
         if (!player.isCrouching) return
         if (!event.itemStack.`is`(ModTags.FIREBALL_TAG)) return
@@ -231,6 +249,9 @@ object ClickGenes {
         if (!event.itemStack.isEmpty) return
 
         val player = event.entity
+        val genes = event.entity.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.EAT_GRASS)) return
+
 
         val isHungry = player.foodData.foodLevel < 20
         if (!isHungry) return

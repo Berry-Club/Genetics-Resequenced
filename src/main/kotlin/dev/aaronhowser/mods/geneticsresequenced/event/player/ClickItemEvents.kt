@@ -17,11 +17,8 @@ object ClickItemEvents {
     fun onUseItem(event: PlayerInteractEvent.RightClickItem) {
         if (event.side.isClient) return
 
-        val player = event.entity
-        val genes = player.getGenes() ?: return
-
-        if (genes.hasGene(EnumGenes.MILKY)) ClickGenes.milkyItem(event)
-        if (genes.hasGene(EnumGenes.SHOOT_FIREBALLS)) ClickGenes.shootFireball(event)
+        ClickGenes.milkyItem(event)
+        ClickGenes.shootFireball(event)
     }
 
 }

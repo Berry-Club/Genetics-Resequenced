@@ -19,11 +19,7 @@ object OtherPlayerEvents {
     fun onInteractWithBlock(event: PlayerInteractEvent.RightClickBlock) {
         if (event.side.isClient) return
 
-        val player = event.entity
-
-        val genes = player.getGenes() ?: return
-
-        if (genes.hasGene(EnumGenes.EAT_GRASS)) ClickGenes.eatGrass(event)
+        ClickGenes.eatGrass(event)
     }
 
     @SubscribeEvent
