@@ -5,13 +5,13 @@ import net.minecraft.core.BlockPos
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.RandomSource
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.LightBlock
+import net.minecraft.world.level.block.AirBlock
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.material.Material
 
 @Suppress("OVERRIDE_DEPRECATION")
 object BioluminescenceBlock :
-    LightBlock(
+    AirBlock(
         Properties
             .of(Material.AIR)
             .air()
