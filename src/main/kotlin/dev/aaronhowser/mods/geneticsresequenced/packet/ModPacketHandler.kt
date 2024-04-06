@@ -8,6 +8,7 @@ import net.minecraftforge.network.NetworkRegistry
 import net.minecraftforge.network.PacketDistributor
 import net.minecraftforge.network.simple.SimpleChannel
 
+@Suppress("INACCESSIBLE_TYPE")
 object ModPacketHandler {
 
     private const val PROTOCOL_VERSION = "1"
@@ -44,6 +45,10 @@ object ModPacketHandler {
             PacketDistributor.PLAYER.with { player },
             packet
         )
+    }
+
+    fun messageServer(packet: ModPacket) {
+        INSTANCE.sendToServer(packet)
     }
 
 }

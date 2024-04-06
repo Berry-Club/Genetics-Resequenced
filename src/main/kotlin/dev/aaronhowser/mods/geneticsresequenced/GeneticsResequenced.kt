@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.blockentity.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.item.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.potion.ModEffects
 import net.minecraft.client.Minecraft
 import net.minecraft.world.item.CreativeModeTab
@@ -32,32 +33,16 @@ object GeneticsResequenced {
     }
 
     init {
+        ModLoadingContext.get().apply {
+            registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC, "geneticsresequenced-server.toml")
+        }
 
         ModEffects.REGISTRY.register(MOD_BUS)
         ModBlocks.REGISTRY.register(MOD_BUS)
         ModBlockEntities.REGISTRY.register(MOD_BUS)
         ModItems.REGISTRY.register(MOD_BUS)
 
-        ModLoadingContext.get().apply {
-            registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC, "geneticsresequenced-server.toml")
-        }
-
-        val obj = runForDist(
-            clientTarget = {
-                MOD_BUS.addListener(GeneticsResequenced::onClientSetup)
-                Minecraft.getInstance()
-            },
-            serverTarget = {
-                MOD_BUS.addListener(GeneticsResequenced::onServerSetup)
-                "test"
-            })
+        ModPacketHandler.setup()
     }
 
-    private fun onClientSetup(event: FMLClientSetupEvent) {
-        LOGGER.log(Level.INFO, "Initializing client...")
-    }
-
-    private fun onServerSetup(event: FMLDedicatedServerSetupEvent) {
-        LOGGER.log(Level.INFO, "Server starting...")
-    }
 }
