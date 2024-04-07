@@ -3,7 +3,6 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.8.21'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.8.21'
     id 'org.parchmentmc.librarian.forgegradle' version '1.+'
-    id 'org.spongepowered.mixin' version '0.7.+'
 }
 
 version = mod_version
@@ -107,8 +106,6 @@ repositories {
 dependencies {
     minecraft 'net.minecraftforge:forge:1.19.2-43.2.3'
 
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-
     implementation 'thedarkcolour:kotlinforforge:3.12.0'
 
     // compile against the JEI API but do not include it at runtime
@@ -119,10 +116,6 @@ dependencies {
 
     // spark
     implementation fg.deobf("curse.maven:spark-361579:4505309")
-}
-
-mixin {
-    config 'mixins.geneticsresequenced.json'
 }
 
 compileKotlin {
