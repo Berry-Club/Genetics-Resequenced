@@ -30,7 +30,6 @@ object OtherPlayerEvents {
     @SubscribeEvent
     fun onPlayerTick(event: PlayerTickEvent) {
         TickGenes.handleNoHunger(event.player)
-        TickGenes.handleFlight(event.player)
         AttributeGenes.handleWallClimbing(event.player)     // Requires clientside handling
         TickGenes.handleItemMagnet(event.player)
     }
@@ -69,6 +68,8 @@ object OtherPlayerEvents {
                 Gene.STEP_ASSIST -> AttributeGenes.setStepAssist(entity, wasAdded)
 
                 Gene.WALL_CLIMBING -> AttributeGenes.setWallClimbing(entity, wasAdded)
+
+                Gene.FLIGHT -> TickGenes.handleFlight(entity)
 
                 else -> return
             }
