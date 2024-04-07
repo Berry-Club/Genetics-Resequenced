@@ -68,6 +68,8 @@ object OtherPlayerEvents {
 
                 Gene.STEP_ASSIST -> AttributeGenes.setStepAssist(entity, wasAdded)
 
+                Gene.WALL_CLIMBING -> AttributeGenes.setWallClimbing(entity, wasAdded)
+
                 else -> return
             }
         }
