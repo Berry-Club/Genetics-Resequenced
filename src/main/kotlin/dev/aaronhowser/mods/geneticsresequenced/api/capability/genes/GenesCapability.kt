@@ -75,17 +75,6 @@ class GenesCapability {
     }
 
     companion object {
-
         private const val NBT_KEY = "genes"
-
-        fun LivingEntity.getGenes(): GenesCapability? {
-
-            if (!this.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).isPresent) return null
-
-            return this.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).orElseThrow {
-                IllegalStateException("Genes capability not present")
-            }
-
-        }
     }
 }

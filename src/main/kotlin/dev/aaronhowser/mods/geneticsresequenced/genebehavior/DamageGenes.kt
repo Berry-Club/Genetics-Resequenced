@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.item.DragonHealthCrystal
 import dev.aaronhowser.mods.geneticsresequenced.item.ModItems
