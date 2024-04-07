@@ -9,16 +9,22 @@ import net.minecraft.client.Options
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
+import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.animal.Cow
 import net.minecraft.world.entity.animal.MushroomCow
 import net.minecraft.world.entity.animal.Sheep
 import net.minecraft.world.entity.animal.goat.Goat
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.entity.projectile.AbstractArrow
 import net.minecraft.world.entity.projectile.SmallFireball
+import net.minecraft.world.item.ArrowItem
+import net.minecraft.world.item.BowItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
+import net.minecraft.world.item.enchantment.Enchantments
 import net.minecraft.world.level.block.Blocks
+import net.minecraftforge.event.entity.player.ArrowLooseEvent
 import net.minecraftforge.event.entity.player.ArrowNockEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import java.util.*
@@ -289,5 +295,54 @@ object ClickGenes {
 
     }
 
+    fun handleInfinityStart(event: ArrowNockEvent) {
+        if (event.hasAmmo()) return
+
+        val genes = event.entity.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.INFINITY)) return
+
+        event.entity.startUsingItem(event.entity.usedItemHand)
+        event.action = InteractionResultHolder.success(event.bow)
+    }
+
+    /**
+     * @see BowItem.releaseUsing
+     * @see BowItem.getPowerForTime
+     */
+    fun handleInfinityEnd(event: ArrowLooseEvent) {
+        if (event.hasAmmo()) return
+
+        val player = event.entity
+
+        val genes = player.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.INFINITY)) return
+
+        val bowStack = event.bow
+
+        val charge = event.charge
+        var velocity = charge / 20.0f
+        velocity = ((velocity * velocity + velocity * 2.0f) / 3.0f).coerceAtMost(1.0f)
+
+        if (velocity < 0.1f) return
+
+        val arrowItem = Items.ARROW as ArrowItem
+        val arrowStack = arrowItem.defaultInstance
+        val abstractArrow = arrowItem.createArrow(player.level, arrowStack, player)
+        abstractArrow.shootFromRotation(player, player.xRot, player.yRot, 0.0f, velocity * 3.0f, 1.0f)
+
+        if (velocity == 1f) abstractArrow.isCritArrow = true
+
+        val powerLevel = bowStack.getEnchantmentLevel(Enchantments.POWER_ARROWS)
+        if (powerLevel > 0) abstractArrow.baseDamage += powerLevel * 0.5 + 0.5
+
+        val punchLevel = bowStack.getEnchantmentLevel(Enchantments.PUNCH_ARROWS)
+        if (punchLevel > 0) abstractArrow.knockback = punchLevel
+
+        if (bowStack.getEnchantmentLevel(Enchantments.FLAMING_ARROWS) > 0) abstractArrow.setSecondsOnFire(100)
+
+        abstractArrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY
+
+        player.level.addFreshEntity(abstractArrow)
+    }
 
 }
