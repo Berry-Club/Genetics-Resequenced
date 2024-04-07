@@ -63,11 +63,10 @@ class GenesCapability {
         val listGenes: MutableList<Gene> = mutableListOf()
 
         for (string in strings) {
-            val gene = Gene.REGISTRY.find { it.id == string }
-
-            if (gene != null) {
+            try {
+                val gene = Gene.valueOf(string)
                 listGenes.add(gene)
-            } else {
+            } catch (e: NoSuchElementException) {
                 GeneticsResequenced.LOGGER.error("An entity loaded with an invalid gene \"$string\". Removing.")
             }
         }

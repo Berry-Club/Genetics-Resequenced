@@ -106,7 +106,7 @@ class Gene(
         val CLAWS = Gene("CLAWS").setDescription("Claws").setMutatesInto(CLAWS_2).build()
         val HASTE = Gene("HASTE").setDescription("Haste").setMutatesInto(HASTE_2).build()
         val EFFICIENCY = Gene("EFFICIENCY").setDescription("Efficiency").setMutatesInto(EFFICIENCY_4).build()
-        val CLIMB_WALLS = Gene("CLIMB_WALLS").setDescription("Climb Walls").build()
+        val WALL_CLIMBING = Gene("WALL_CLIMBING").setDescription("Climb Walls").build()
         val MOB_SIGHT = Gene("MOB_SIGHT").setDescription("Mob Sight").build()
         val REGENERATION = Gene("REGENERATION").setDescription("Regeneration").setMutatesInto(REGENERATION_4).build()
 
@@ -205,7 +205,7 @@ class Gene(
             DRAGONS_BREATH, SCARE_CREEPERS, SCARE_SKELETONS, WITHER_HIT, SPEED, CLAWS, STRENGTH, EXPLOSIVE_EXIT -> 20
             FIRE_PROOF, POISON_IMMUNITY, SHOOT_FIREBALLS, TELEPORT -> 24
             EMERALD_HEART, NO_FALL_DAMAGE, NO_HUNGER, RESISTANCE, XP_MAGNET, ITEM_MAGNET, INFINITY, CYBERNETIC -> 30
-            WITHER_PROOF, MORE_HEARTS, CLIMB_WALLS, KEEP_INVENTORY, PHOTOSYNTHESIS -> 40
+            WITHER_PROOF, MORE_HEARTS, WALL_CLIMBING, KEEP_INVENTORY, PHOTOSYNTHESIS -> 40
             REGENERATION, ENDER_DRAGON_HEALTH, SLIMY_DEATH -> 60
             else -> 22
         }
