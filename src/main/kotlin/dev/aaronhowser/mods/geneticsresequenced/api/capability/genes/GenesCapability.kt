@@ -7,48 +7,48 @@ import net.minecraft.nbt.StringTag
 import net.minecraft.nbt.Tag
 import net.minecraft.world.entity.LivingEntity
 
-class Genes {
+class GenesCapability {
 
-    private val enumGenesList: MutableSet<EnumGenes> = mutableSetOf()
+    private val geneList: MutableSet<Gene> = mutableSetOf()
 
-    fun addGene(gene: EnumGenes): Boolean {
-        return enumGenesList.add(gene)
+    fun addGene(gene: Gene): Boolean {
+        return geneList.add(gene)
     }
 
-    fun removeGene(gene: EnumGenes): Boolean {
-        return enumGenesList.remove(gene)
+    fun removeGene(gene: Gene): Boolean {
+        return geneList.remove(gene)
     }
 
-    fun hasGene(gene: EnumGenes): Boolean {
-        return enumGenesList.contains(gene)
+    fun hasGene(gene: Gene): Boolean {
+        return geneList.contains(gene)
     }
 
     fun removeAllGenes() {
-        enumGenesList.clear()
+        geneList.clear()
     }
 
     fun addAllGenes() {
-        enumGenesList.addAll(EnumGenes.values())
+        geneList.addAll(Gene.REGISTRY)
     }
 
     fun getAmountOfGenes(): Int {
-        return enumGenesList.size
+        return geneList.size
     }
 
-    fun getGeneList(): List<EnumGenes> {
-        return enumGenesList.toList()
+    fun getGeneList(): List<Gene> {
+        return geneList.toList()
     }
 
-    fun setGeneList(genes: List<EnumGenes>) {
-        enumGenesList.clear()
-        enumGenesList.addAll(genes)
+    fun setGeneList(genes: List<Gene>) {
+        geneList.clear()
+        geneList.addAll(genes)
     }
 
     fun saveNbt(nbt: CompoundTag) {
         val listTag = nbt.getList(NBT_KEY, Tag.TAG_STRING.toInt())
 
         listTag.clear()
-        listTag.addAll(enumGenesList.map { StringTag.valueOf(it.name) })
+        listTag.addAll(geneList.map { StringTag.valueOf(it.id) })
 
         nbt.put(NBT_KEY, listTag)
     }
@@ -60,12 +60,14 @@ class Genes {
 
         val strings = list.map { it.asString }
 
-        val listGenes: MutableList<EnumGenes> = mutableListOf()
+        val listGenes: MutableList<Gene> = mutableListOf()
 
         for (string in strings) {
-            try {
-                listGenes.add(EnumGenes.valueOf(string))
-            } catch (e: IllegalArgumentException) {
+            val gene = Gene.REGISTRY.find { it.id == string }
+
+            if (gene != null) {
+                listGenes.add(gene)
+            } else {
                 GeneticsResequenced.LOGGER.error("An entity loaded with an invalid gene \"$string\". Removing.")
             }
         }
@@ -77,7 +79,7 @@ class Genes {
 
         private const val NBT_KEY = "genes"
 
-        fun LivingEntity.getGenes(): Genes? {
+        fun LivingEntity.getGenes(): GenesCapability? {
 
             if (!this.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).isPresent) return null
 

@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import net.minecraft.world.entity.EntitySelector
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PathfinderMob
@@ -23,10 +23,10 @@ object ScareGenes {
     fun attachScareTask(entity: PathfinderMob) {
 
         val scaredOf = when (entity) {
-            is Creeper -> EnumGenes.SCARE_CREEPERS
-            is Zombie -> EnumGenes.SCARE_ZOMBIES
-            is Skeleton -> EnumGenes.SCARE_SKELETONS
-            is Spider -> EnumGenes.SCARE_SPIDERS
+            is Creeper -> Gene.SCARE_CREEPERS
+            is Zombie -> Gene.SCARE_ZOMBIES
+            is Skeleton -> Gene.SCARE_SKELETONS
+            is Spider -> Gene.SCARE_SPIDERS
 
             else -> return
         }

@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability
 import dev.aaronhowser.mods.geneticsresequenced.attribute.ModAttributes
 import net.minecraft.world.entity.EntityType
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent
@@ -17,7 +17,7 @@ object ModBusEvents {
 
     @SubscribeEvent
     fun onRegisterCapabilities(event: RegisterCapabilitiesEvent) {
-        event.register(Genes::class.java)
+        event.register(GenesCapability::class.java)
     }
 
     @SubscribeEvent

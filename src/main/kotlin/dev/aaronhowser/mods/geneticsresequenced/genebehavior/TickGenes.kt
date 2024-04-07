@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.block.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.ModScheduler
@@ -26,7 +26,7 @@ object TickGenes {
         if (entity.level.getBrightness(LightLayer.BLOCK, entity.blockPosition()) > 8) return
 
         val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(EnumGenes.BIOLUMINESCENCE)) return
+        if (!genes.hasGene(Gene.BIOLUMINESCENCE)) return
 
         val headBlock = entity.level.getBlockState(entity.blockPosition().above())
         if (!headBlock.isAir) return
@@ -42,7 +42,7 @@ object TickGenes {
         if (entity.tickCount % ServerConfig.photosynthesisCooldown.get() != 0) return
 
         val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(EnumGenes.PHOTOSYNTHESIS)) return
+        if (!genes.hasGene(Gene.PHOTOSYNTHESIS)) return
 
         val foodData = entity.foodData
 
@@ -57,7 +57,7 @@ object TickGenes {
 
     fun handleNoHunger(entity: Player) {
         val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(EnumGenes.NO_HUNGER)) return
+        if (!genes.hasGene(Gene.NO_HUNGER)) return
 
         val foodData = entity.foodData
 
@@ -70,16 +70,16 @@ object TickGenes {
 
         val genes = entity.getGenes() ?: return
 
-        val potionGenes = mutableListOf<EnumGenes>()
+        val potionGenes = mutableListOf<Gene>()
 
         for (gene in genes.getGeneList()) {
             if (gene.getPotion() != null) potionGenes.add(gene)
 
             when (gene) {
-                EnumGenes.WATER_BREATHING -> entity.airSupply = entity.maxAirSupply
-                EnumGenes.FLAME -> entity.setSecondsOnFire(5)
-                EnumGenes.LAY_EGG -> handleLayEgg(entity)
-                EnumGenes.MEATY_2 -> handleMeaty2(entity)
+                Gene.WATER_BREATHING -> entity.airSupply = entity.maxAirSupply
+                Gene.FLAME -> entity.setSecondsOnFire(5)
+                Gene.LAY_EGG -> handleLayEgg(entity)
+                Gene.MEATY_2 -> handleMeaty2(entity)
                 else -> {}
             }
         }
@@ -87,23 +87,23 @@ object TickGenes {
         handlePotionGenes(entity, potionGenes)
     }
 
-    private fun handlePotionGenes(entity: LivingEntity, potionGenes: MutableList<EnumGenes>) {
+    private fun handlePotionGenes(entity: LivingEntity, potionGenes: MutableList<Gene>) {
 
         if (potionGenes.isEmpty()) return
 
         val potionLevels = mapOf(
-            EnumGenes.SPEED_4 to listOf(EnumGenes.SPEED, EnumGenes.SPEED_2),
-            EnumGenes.SPEED_2 to listOf(EnumGenes.SPEED),
-            EnumGenes.REGENERATION_4 to listOf(EnumGenes.REGENERATION),
-            EnumGenes.HASTE_2 to listOf(EnumGenes.HASTE),
-            EnumGenes.RESISTANCE_2 to listOf(EnumGenes.RESISTANCE),
-            EnumGenes.STRENGTH_2 to listOf(EnumGenes.STRENGTH),
-            EnumGenes.POISON_4 to listOf(EnumGenes.POISON),
-            EnumGenes.SLOWNESS_4 to listOf(EnumGenes.SLOWNESS),
-            EnumGenes.SLOWNESS_6 to listOf(EnumGenes.SLOWNESS, EnumGenes.SLOWNESS_4)
+            Gene.SPEED_4 to listOf(Gene.SPEED, Gene.SPEED_2),
+            Gene.SPEED_2 to listOf(Gene.SPEED),
+            Gene.REGENERATION_4 to listOf(Gene.REGENERATION),
+            Gene.HASTE_2 to listOf(Gene.HASTE),
+            Gene.RESISTANCE_2 to listOf(Gene.RESISTANCE),
+            Gene.STRENGTH_2 to listOf(Gene.STRENGTH),
+            Gene.POISON_4 to listOf(Gene.POISON),
+            Gene.SLOWNESS_4 to listOf(Gene.SLOWNESS),
+            Gene.SLOWNESS_6 to listOf(Gene.SLOWNESS, Gene.SLOWNESS_4)
         )
 
-        val genesToRemove = mutableListOf<EnumGenes>()
+        val genesToRemove = mutableListOf<Gene>()
 
         for (gene in potionGenes.toList()) {
             potionLevels[gene]?.let { redundantGenes ->
@@ -173,7 +173,7 @@ object TickGenes {
         if (entity.tickCount % 40 != 0) return
 
         val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(EnumGenes.MOB_SIGHT)) return
+        if (!genes.hasGene(Gene.MOB_SIGHT)) return
 
         if (entity.tickCount % ServerConfig.mobSightCooldown.get() != 0) return
 
@@ -201,7 +201,7 @@ object TickGenes {
         if (player.isCreative || player.isSpectator) return
 
         val genes = player.getGenes() ?: return
-        if (!genes.hasGene(EnumGenes.FLIGHT)) {
+        if (!genes.hasGene(Gene.FLIGHT)) {
             if (flyablePlayers.contains(player.uuid)) {
                 player.abilities.mayfly = false
                 player.abilities.flying = false

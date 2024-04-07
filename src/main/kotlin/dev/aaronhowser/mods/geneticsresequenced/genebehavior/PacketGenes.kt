@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.ModScheduler
 import net.minecraft.core.BlockPos
@@ -24,7 +24,7 @@ object PacketGenes {
     fun teleport(player: ServerPlayer) {
 
         val genes = (player as LivingEntity).getGenes() ?: return
-        if (!genes.hasGene(EnumGenes.TELEPORT)) return
+        if (!genes.hasGene(Gene.TELEPORT)) return
 
         if (recentTeleports.contains(player.uuid)) return
         recentTeleports.add(player.uuid)
@@ -73,7 +73,7 @@ object PacketGenes {
     fun dragonBreath(player: ServerPlayer) {
 
         val genes = (player as LivingEntity).getGenes() ?: return
-        if (!genes.hasGene(EnumGenes.DRAGONS_BREATH)) return
+        if (!genes.hasGene(Gene.DRAGONS_BREATH)) return
 
         if (recentFireballs.contains(player.uuid)) return
         recentFireballs.add(player.uuid)

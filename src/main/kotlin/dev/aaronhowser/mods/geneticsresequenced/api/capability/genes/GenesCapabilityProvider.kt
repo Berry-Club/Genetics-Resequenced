@@ -13,15 +13,15 @@ class GenesCapabilityProvider : ICapabilityProvider, INBTSerializable<CompoundTa
 
 
     companion object {
-        val GENE_CAPABILITY: Capability<Genes> = CapabilityManager.get(object : CapabilityToken<Genes>() {})
+        val GENE_CAPABILITY: Capability<GenesCapability> = CapabilityManager.get(object : CapabilityToken<GenesCapability>() {})
     }
 
-    private var genes: Genes? = null
-    private final val optional: LazyOptional<Genes> = LazyOptional.of(this::createGenes)
+    private var genes: GenesCapability? = null
+    private final val optional: LazyOptional<GenesCapability> = LazyOptional.of(this::createGenes)
 
-    private fun createGenes(): Genes {
+    private fun createGenes(): GenesCapability {
         if (this.genes == null) {
-            this.genes = Genes()
+            this.genes = GenesCapability()
         }
         return this.genes!!
     }

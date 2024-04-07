@@ -3,8 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.command
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.event.player.OtherPlayerEvents
 import net.minecraft.ChatFormatting
 import net.minecraft.commands.CommandSourceStack
@@ -29,7 +29,7 @@ object RemoveGeneCommand {
                 Commands.argument(GENE_ARGUMENT, StringArgumentType.string())
                     .suggests { ctx, builder ->
                         SharedSuggestionProvider.suggest(
-                            EnumGenes.values().map { it.name }.plus(ALL),
+                            Gene.REGISTRY.map { it.id }.plus(ALL),
                             builder
                         )
                     }
@@ -55,7 +55,7 @@ object RemoveGeneCommand {
             entity as? LivingEntity
         } ?: return 0
 
-        val geneToRemove = EnumGenes.valueOf(geneArgument)
+        val geneToRemove = Gene.valueOf(geneArgument)
         val targetGenes = target.getGenes()
 
         if (targetGenes == null) {

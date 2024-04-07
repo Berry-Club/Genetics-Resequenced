@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command
 import com.mojang.brigadier.Command
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import net.minecraft.ChatFormatting
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
@@ -23,16 +23,26 @@ object ListAllGenesCommand : Command<CommandSourceStack> {
 
         val messageComponent = Component.literal("Gene List:")
 
-        for (gene in EnumGenes.values()) {
+        for (gene in Gene.REGISTRY) {
+
+            val name = gene.id
+            val description = gene.description
+
+            println("${gene.id} - ${gene.description}")
 
             val enumComponent = Component
-                .literal(gene.name)
+                .literal(gene.id)
                 .withStyle {
                     it
                         .withColor(ChatFormatting.DARK_AQUA)
                         .withUnderlined(true)
-                        .withHoverEvent(HoverEvent(HoverEvent.Action.SHOW_TEXT, Component.literal("Copy \"${gene.name}\"")))
-                        .withClickEvent(ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, gene.name))
+                        .withHoverEvent(
+                            HoverEvent(
+                                HoverEvent.Action.SHOW_TEXT,
+                                Component.literal("Copy \"${gene.id}\"")
+                            )
+                        )
+                        .withClickEvent(ClickEvent(ClickEvent.Action.COPY_TO_CLIPBOARD, gene.id))
                 }
 
             val descriptionComponent = Component
