@@ -40,18 +40,10 @@ object ModPacketHandler {
 
         INSTANCE.registerMessage(
             ++id,
-            SetEfficiencyPacket::class.java,
-            SetEfficiencyPacket::encode,
-            SetEfficiencyPacket::decode,
-            SetEfficiencyPacket::receiveMessage
-        )
-
-        INSTANCE.registerMessage(
-            ++id,
-            SetWallClimbingPacket::class.java,
-            SetWallClimbingPacket::encode,
-            SetWallClimbingPacket::decode,
-            SetWallClimbingPacket::receiveMessage
+            GeneChangedPacket::class.java,
+            GeneChangedPacket::encode,
+            GeneChangedPacket::decode,
+            GeneChangedPacket::receiveMessage
         )
 
     }

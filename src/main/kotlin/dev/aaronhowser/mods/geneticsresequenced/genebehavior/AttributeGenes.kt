@@ -3,9 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.attribute.ModAttributes
+import dev.aaronhowser.mods.geneticsresequenced.packet.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
-import dev.aaronhowser.mods.geneticsresequenced.packet.SetEfficiencyPacket
-import dev.aaronhowser.mods.geneticsresequenced.packet.SetWallClimbingPacket
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.player.Player
@@ -18,7 +17,10 @@ object AttributeGenes {
         val attributes = player.attributes.getInstance(ModAttributes.EFFICIENCY) ?: return
         attributes.baseValue = newLevel.toDouble()
 
-        ModPacketHandler.messagePlayer(player as ServerPlayer, SetEfficiencyPacket(newLevel))
+        ModPacketHandler.messagePlayer(
+            player as ServerPlayer,
+            GeneChangedPacket(Gene.EFFICIENCY.id, newLevel != 0)
+        )
     }
 
     fun handleEfficiency(event: PlayerEvent.BreakSpeed) {
@@ -49,7 +51,10 @@ object AttributeGenes {
         val attributes = player.attributes.getInstance(ModAttributes.WALL_CLIMBING) ?: return
         attributes.baseValue = if (value) 1.0 else 0.0
 
-        ModPacketHandler.messagePlayer(player as ServerPlayer, SetWallClimbingPacket(value))
+        ModPacketHandler.messagePlayer(
+            player as ServerPlayer,
+            GeneChangedPacket(Gene.WALL_CLIMBING.id, value)
+        )
     }
 
     fun handleWallClimbing(player: Player) {
@@ -63,8 +68,7 @@ object AttributeGenes {
 
         // ONLY HAPPENS ON CLIENT?????
         if (player.horizontalCollision || player.minorHorizontalCollision) {
-            println(1)
-            player.setDeltaMovement(player.deltaMovement.x, 0.3, player.deltaMovement.z)
+            player.setDeltaMovement(player.deltaMovement.x, 0.288, player.deltaMovement.z)
             player.fallDistance = 0.0f
         }
 
