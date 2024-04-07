@@ -126,9 +126,6 @@ dependencies {
 mixin {
     add sourceSets.main, 'mixins.geneticsresequenced.refmap.json'
     config 'mixins.geneticsresequenced.json'
-
-    debug.verbose = true
-    debug.export = true
 }
 
 compileKotlin {
