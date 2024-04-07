@@ -37,6 +37,15 @@ object ModPacketHandler {
             FireballPacket::decode,
             FireballPacket::receiveMessage
         )
+
+        INSTANCE.registerMessage(
+            ++id,
+            SetEfficiencyPacket::class.java,
+            SetEfficiencyPacket::encode,
+            SetEfficiencyPacket::decode,
+            SetEfficiencyPacket::receiveMessage
+        )
+
     }
 
     fun messageNearbyPlayers(packet: ModPacket, serverLevel: ServerLevel, origin: Vec3, radius: Double) {
