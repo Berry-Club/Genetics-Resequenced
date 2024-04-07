@@ -4,48 +4,31 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced;
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.ExtensionKt;
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene;
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.common.ForgeHooks;
-import org.jetbrains.annotations.NotNull;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Optional;
-
-@Mixin(ForgeHooks.class)
+@Mixin(LivingEntity.class)
 public class WallClimbingMixin {
 
-    @Inject(
-            method = "isLivingOnLadder",
-            at = @At("HEAD"),
-            cancellable = true,
-            remap = false
-    )
-    private static void checkWallClimb(
-            @NotNull BlockState state,
-            @NotNull Level level,
-            @NotNull BlockPos pos,
-            @NotNull LivingEntity entity,
-            CallbackInfoReturnable<Optional<BlockPos>> cir
-    ) {
+    @Inject(method = "onClimbable", at = @At("HEAD"), cancellable = true)
+    public void checkWallClimb(CallbackInfoReturnable<Boolean> cir) {
+        System.out.println("Checking Wall Climbing");
         try {
-            if (!(entity instanceof Player)) return;
+            //noinspection DataFlowIssue
+            LivingEntity entity = (LivingEntity) (Object) this;
 
             GenesCapability genes = ExtensionKt.getGenes(entity);
-            assert genes != null;
             boolean hasWallClimbing = genes.hasGene(Gene.Companion.getWALL_CLIMBING());
 
             if (hasWallClimbing) {
-                cir.setReturnValue(Optional.of(pos));
+                System.out.println("Wall Climbing");
+                cir.setReturnValue(true);
             }
 
-        } catch (NullPointerException | ClassCastException | AssertionError e) {
+        } catch (NullPointerException | ClassCastException e) {
             GeneticsResequenced.INSTANCE.getLOGGER().error("Error in WallClimbingMixin");
             GeneticsResequenced.INSTANCE.getLOGGER().error(e);
         }
