@@ -21,5 +21,4 @@ object AiChangeEvents {
             ScareGenes.attachScareTask(entity)
         }
     }
-
 }

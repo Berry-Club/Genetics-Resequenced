@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.attribute.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.ModScheduler
 import net.minecraft.client.Options
@@ -26,6 +27,7 @@ import net.minecraft.world.item.enchantment.Enchantments
 import net.minecraft.world.level.block.Blocks
 import net.minecraftforge.event.entity.player.ArrowLooseEvent
 import net.minecraftforge.event.entity.player.ArrowNockEvent
+import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import java.util.*
 import kotlin.random.Random
@@ -293,6 +295,16 @@ object ClickGenes {
             1.0f
         )
 
+    }
+
+    fun handleEfficiency(event: PlayerEvent.BreakSpeed) {
+        val efficiencyAttribute = event.entity.attributes.getInstance(ModAttributes.EFFICIENCY_ATTRIBUTE) ?: return
+        if (efficiencyAttribute.value <= 0.0) return
+
+        val genes = event.entity.getGenes() ?: return
+        if (!genes.hasGene(EnumGenes.EFFICIENCY) && !genes.hasGene(EnumGenes.EFFICIENCY_4)) return
+
+        event.newSpeed *= efficiencyAttribute.value.toFloat()
     }
 
     fun handleInfinityStart(event: ArrowNockEvent) {
