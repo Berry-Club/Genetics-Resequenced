@@ -16,6 +16,7 @@ import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.LivingEntity
 
+@Suppress("MoveVariableDeclarationIntoWhen")
 object RemoveGeneCommand : Command<CommandSourceStack> {
 
     private const val GENE_ARGUMENT = "gene"
@@ -27,23 +28,24 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
             .literal("removeGene")
             .requires { it.hasPermission(2) }
             .then(
-                Commands.argument(TARGET_ARGUMENT, EntityArgument.entity())
+                Commands.argument(GENE_ARGUMENT, StringArgumentType.string())
+                    .suggests { ctx, builder ->
+                        SharedSuggestionProvider.suggest(
+                            EnumGenes.values().map { it.name }.plus(ALL),
+                            builder
+                        )
+                    }
                     .then(
-                        Commands.argument(GENE_ARGUMENT, StringArgumentType.string())
-                            .suggests { ctx, builder ->
-                                SharedSuggestionProvider.suggest(
-                                    EnumGenes.values().map { it.name }.plus(ALL),
-                                    builder
-                                )
-                            }
+                        Commands
+                            .argument(TARGET_ARGUMENT, EntityArgument.entity())
                             .executes(RemoveGeneCommand)
                     )
             )
+
     }
 
     @Throws(CommandSyntaxException::class)
     override fun run(context: CommandContext<CommandSourceStack>): Int {
-        @Suppress("MoveVariableDeclarationIntoWhen", "RedundantSuppression")
         val geneArgument = StringArgumentType.getString(context, GENE_ARGUMENT)
 
         return when (geneArgument) {

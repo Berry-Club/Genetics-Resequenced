@@ -30,15 +30,16 @@ object AddGeneCommand : Command<CommandSourceStack> {
             .requires { it.hasPermission(2) }
             .then(
                 Commands
-                    .argument(TARGET_ARGUMENT, EntityArgument.entity())
+                    .argument(GENE_ARGUMENT, StringArgumentType.string())
+                    .suggests { ctx, builder ->
+                        SharedSuggestionProvider.suggest(
+                            EnumGenes.values().map { it.name }.plus(ALL),
+                            builder
+                        )
+                    }
                     .then(
-                        Commands.argument(GENE_ARGUMENT, StringArgumentType.string())
-                            .suggests { ctx, builder ->
-                                SharedSuggestionProvider.suggest(
-                                    EnumGenes.values().map { it.name }.plus(ALL),
-                                    builder
-                                )
-                            }
+                        Commands
+                            .argument(TARGET_ARGUMENT, EntityArgument.entity())
                             .executes(AddGeneCommand)
                     )
             )
@@ -65,7 +66,6 @@ object AddGeneCommand : Command<CommandSourceStack> {
         val targetGenes = target.getGenes()
 
         if (targetGenes == null) {
-
             val component = Component
                 .literal("An error has occurred! ")
                 .append(
@@ -75,14 +75,11 @@ object AddGeneCommand : Command<CommandSourceStack> {
                             .withStyle(ChatFormatting.RESET)
                     )
                 )
-
             context.source.sendSuccess(component, false)
-
             return 0
         }
 
         val alreadyHasGene = targetGenes.hasGene(geneToAdd)
-
         if (alreadyHasGene) {
             context.source.sendFailure(
                 Component.literal("Failed to add gene: ${geneToAdd.description} - Gene already present")
