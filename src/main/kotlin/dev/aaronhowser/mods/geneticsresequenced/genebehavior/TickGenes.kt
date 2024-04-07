@@ -220,6 +220,8 @@ object TickGenes {
 
         if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 
+        if (player.tickCount % ServerConfig.itemMagnetCooldown.get() != 0) return
+
         val genes = player.getGenes() ?: return
         if (!genes.hasGene(Gene.ITEM_MAGNET)) return
 
@@ -236,26 +238,7 @@ object TickGenes {
             MinecraftForge.EVENT_BUS.post(pickupEvent)
 
             itemEntity.playerTouch(player)
-
-//            if (pickupEvent.isCanceled) continue
-//
-//            val itemStack = itemEntity.item
-//
-//            if (player.inventory.add(itemStack)) {
-//                itemEntity.remove(Entity.RemovalReason.KILLED)
-//
-//                player.level.playSound(
-//                    null,
-//                    player,
-//                    SoundEvents.ITEM_PICKUP,
-//                    SoundSource.AMBIENT,
-//                    0.15f,
-//                    (Random.nextFloat() - Random.nextFloat()) * 1.4f + 2.0f
-//                )
-//            }
-
         }
-
     }
 
 }

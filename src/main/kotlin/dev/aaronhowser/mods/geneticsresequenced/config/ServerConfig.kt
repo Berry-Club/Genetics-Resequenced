@@ -35,6 +35,7 @@ object ServerConfig {
     lateinit var teleportCooldown: ForgeConfigSpec.IntValue
     lateinit var noHungerCooldown: ForgeConfigSpec.IntValue
     lateinit var passivesCheckCooldown: ForgeConfigSpec.IntValue
+    lateinit var itemMagnetCooldown: ForgeConfigSpec.IntValue
 
     init {
         generalConfigs()
@@ -162,6 +163,10 @@ object ServerConfig {
         passivesCheckCooldown = BUILDER
             .comment("How often should passive genes (potions, Flame, Lay Egg, Meaty 2) be checked for effects (in ticks)")
             .defineInRange("passivesCheckCooldown", 20 * 2, 1, Int.MAX_VALUE)
+
+        itemMagnetCooldown = BUILDER
+            .comment("How often should the Item Magnet gene attract items (in ticks)")
+            .defineInRange("itemMagnetCooldown", 10, 1, Int.MAX_VALUE)
 
         BUILDER.pop()
     }
