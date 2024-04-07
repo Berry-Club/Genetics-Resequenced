@@ -59,6 +59,9 @@ object TickGenes {
     }
 
     fun handleNoHunger(entity: Player) {
+
+        if (entity.tickCount % ServerConfig.noHungerCooldown.get() != 0) return
+
         val genes = entity.getGenes() ?: return
         if (!genes.hasGene(Gene.NO_HUNGER)) return
 
@@ -68,7 +71,7 @@ object TickGenes {
     }
 
     fun handleEffects(entity: LivingEntity) {
-        if (entity.tickCount % 40 != 0) return
+        if (entity.tickCount % ServerConfig.passivesCheckCooldown.get() != 0) return
         if (entity !is Mob && entity !is Player) return
 
         val genes = entity.getGenes() ?: return
@@ -125,9 +128,6 @@ object TickGenes {
 
     private val recentlyMeated = mutableSetOf<LivingEntity>()
     private fun handleMeaty2(entity: LivingEntity) {
-
-        if (entity.tickCount % 40 != 0) return
-
         val isAbleToMeat = recentlyMeated.add(entity)
         if (!isAbleToMeat) return
         ModScheduler.scheduleTaskInTicks(ServerConfig.meaty2Cooldown.get()) {
@@ -149,9 +149,6 @@ object TickGenes {
 
     private val recentlyLaidEgg = mutableSetOf<LivingEntity>()
     private fun handleLayEgg(entity: LivingEntity) {
-
-        if (entity.tickCount % 40 != 0) return
-
         val isAbleToDropEgg = recentlyLaidEgg.add(entity)
         if (!isAbleToDropEgg) return
         ModScheduler.scheduleTaskInTicks(ServerConfig.eggCooldown.get()) {
@@ -173,7 +170,7 @@ object TickGenes {
 
     fun handleMobSight(entity: LivingEntity) {
 
-        if (entity.tickCount % 40 != 0) return
+        if (entity.tickCount % ServerConfig.mobSightCooldown.get() != 0) return
 
         val genes = entity.getGenes() ?: return
         if (!genes.hasGene(Gene.MOB_SIGHT)) return
@@ -200,7 +197,6 @@ object TickGenes {
     fun handleFlight(player: Player) {
 
         if (player.level.isClientSide) return
-        if (player.tickCount % 40 != 0) return
         if (player.isCreative || player.isSpectator) return
 
         val genes = player.getGenes() ?: return

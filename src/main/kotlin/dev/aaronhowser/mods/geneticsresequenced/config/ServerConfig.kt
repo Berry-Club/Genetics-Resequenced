@@ -33,6 +33,8 @@ object ServerConfig {
     lateinit var photosynthesisCooldown: ForgeConfigSpec.IntValue
     lateinit var mobSightCooldown: ForgeConfigSpec.IntValue
     lateinit var teleportCooldown: ForgeConfigSpec.IntValue
+    lateinit var noHungerCooldown: ForgeConfigSpec.IntValue
+    lateinit var passivesCheckCooldown: ForgeConfigSpec.IntValue
 
     init {
         generalConfigs()
@@ -152,6 +154,14 @@ object ServerConfig {
         teleportCooldown = BUILDER
             .comment("How many ticks to wait before someone with the Teleport gene can teleport again")
             .defineInRange("teleportCooldown", 20, 1, Int.MAX_VALUE)
+
+        noHungerCooldown = BUILDER
+            .comment("How many ticks to wait before someone with the No Hunger gene regains hunger again")
+            .defineInRange("noHungerCooldown", 20 * 4, 1, Int.MAX_VALUE)
+
+        passivesCheckCooldown = BUILDER
+            .comment("How often should passive genes (potions, Flame, Lay Egg, Meaty 2) be checked for effects (in ticks)")
+            .defineInRange("passivesCheckCooldown", 20 * 2, 1, Int.MAX_VALUE)
 
         BUILDER.pop()
     }
