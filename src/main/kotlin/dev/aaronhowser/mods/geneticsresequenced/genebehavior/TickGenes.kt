@@ -215,5 +215,4 @@ object TickGenes {
         player.onUpdateAbilities()
         flyablePlayers.add(player.uuid)
     }
-
 }

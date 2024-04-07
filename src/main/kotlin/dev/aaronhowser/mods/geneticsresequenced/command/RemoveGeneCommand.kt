@@ -7,6 +7,7 @@ import com.mojang.brigadier.context.CommandContext
 import com.mojang.brigadier.exceptions.CommandSyntaxException
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.event.player.OtherPlayerEvents
 import net.minecraft.ChatFormatting
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
@@ -64,7 +65,7 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
                 .append(
                     target.displayName.copy().append(
                         Component
-                            .literal(" does not the required capability!")
+                            .literal(" does not have the required capability!")
                             .withStyle(ChatFormatting.RESET)
                     )
                 )
@@ -91,6 +92,9 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
                 Component.literal("Removed gene: ${geneToRemove.description}"),
                 false
             )
+
+            OtherPlayerEvents.genesChanged(target, geneToRemove, false)
+
             return 1
         } else {
             context.source.sendFailure(
@@ -104,7 +108,10 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
         val target = EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity ?: return 0
         val targetGenes = target.getGenes() ?: return 0
 
-        targetGenes.removeAllGenes()
+        for (gene in targetGenes.getGeneList()) {
+            targetGenes.removeGene(gene)
+            OtherPlayerEvents.genesChanged(target, gene, false)
+        }
 
         context.source.sendSuccess(
             Component.literal("Removed all genes!"),

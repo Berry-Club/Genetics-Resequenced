@@ -7,6 +7,7 @@ import com.mojang.brigadier.context.CommandContext
 import com.mojang.brigadier.exceptions.CommandSyntaxException
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.event.player.OtherPlayerEvents
 import net.minecraft.ChatFormatting
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
@@ -16,6 +17,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.LivingEntity
 
 
+@Suppress("MoveVariableDeclarationIntoWhen")
 object AddGeneCommand : Command<CommandSourceStack> {
 
     private const val GENE_ARGUMENT = "gene"
@@ -96,6 +98,9 @@ object AddGeneCommand : Command<CommandSourceStack> {
                 Component.literal("Added gene: ${geneToAdd.description}"),
                 false
             )
+
+            OtherPlayerEvents.genesChanged(target, geneToAdd, true)
+
             return 1
         } else {
             context.source.sendFailure(
@@ -109,10 +114,14 @@ object AddGeneCommand : Command<CommandSourceStack> {
         val target = EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity ?: return 0
         val targetGenes = target.getGenes() ?: return 0
 
-        targetGenes.addAllGenes()
+        for (gene in EnumGenes.values()) {
+            if (gene.isNegative) continue
+            targetGenes.addGene(gene)
+            OtherPlayerEvents.genesChanged(target, gene, true)
+        }
 
         context.source.sendSuccess(
-            Component.literal("Added all genes!"),
+            Component.literal("Added all positive genes!"),
             false
         )
         return 1

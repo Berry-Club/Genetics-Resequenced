@@ -22,8 +22,6 @@ object ClickItemEvents {
 
     @SubscribeEvent
     fun onDigSpeed(event: PlayerEvent.BreakSpeed) {
-        if (event.entity.level.isClientSide) return
-
         ClickGenes.handleEfficiency(event)
     }
 

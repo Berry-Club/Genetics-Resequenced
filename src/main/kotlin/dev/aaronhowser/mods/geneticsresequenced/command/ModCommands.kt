@@ -7,6 +7,7 @@ import net.minecraft.commands.Commands
 
 object ModCommands {
 
+    // TODO: Allow you to skip the entity argument and just add the gene to yourself
     fun register(dispatcher: CommandDispatcher<CommandSourceStack>) {
         val modCommands = dispatcher.register(
             Commands.literal(GeneticsResequenced.ID)

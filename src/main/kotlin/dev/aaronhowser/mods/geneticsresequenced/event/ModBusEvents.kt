@@ -23,12 +23,12 @@ object ModBusEvents {
     @SubscribeEvent
     fun onEntityAttribute(event: EntityAttributeModificationEvent) {
 
-        if (!event.has(EntityType.PLAYER, ModAttributes.EFFICIENCY_ATTRIBUTE)) {
-            event.add(EntityType.PLAYER, ModAttributes.EFFICIENCY_ATTRIBUTE)
+        if (!event.has(EntityType.PLAYER, ModAttributes.EFFICIENCY)) {
+            event.add(EntityType.PLAYER, ModAttributes.EFFICIENCY)
         }
 
-        if (!event.has(EntityType.PLAYER, ModAttributes.CLIMBING_ATTRIBUTE)) {
-            event.add(EntityType.PLAYER, ModAttributes.CLIMBING_ATTRIBUTE)
+        if (!event.has(EntityType.PLAYER, ModAttributes.CLIMBING)) {
+            event.add(EntityType.PLAYER, ModAttributes.CLIMBING)
         }
 
     }

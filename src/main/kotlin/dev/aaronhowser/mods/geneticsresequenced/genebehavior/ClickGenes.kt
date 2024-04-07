@@ -297,14 +297,17 @@ object ClickGenes {
 
     }
 
+    fun setEfficiency(player: Player, newLevel: Int) {
+        val attributes = player.attributes.getInstance(ModAttributes.EFFICIENCY) ?: return
+        attributes.baseValue = newLevel.toDouble() + 1
+    }
+
     fun handleEfficiency(event: PlayerEvent.BreakSpeed) {
-        val efficiencyAttribute = event.entity.attributes.getInstance(ModAttributes.EFFICIENCY_ATTRIBUTE) ?: return
+        val efficiencyAttribute = event.entity.attributes.getInstance(ModAttributes.EFFICIENCY) ?: return
         if (efficiencyAttribute.value <= 0.0) return
 
-        val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(EnumGenes.EFFICIENCY) && !genes.hasGene(EnumGenes.EFFICIENCY_4)) return
-
-        event.newSpeed *= efficiencyAttribute.value.toFloat()
+        event.newSpeed *= efficiencyAttribute.value.toFloat() * 100
+        println("New speed: ${event.newSpeed}")
     }
 
     fun handleInfinityStart(event: ArrowNockEvent) {
