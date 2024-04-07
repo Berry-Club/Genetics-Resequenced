@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class WallClimbingMixin {
 
     @Inject(method = "onClimbable", at = @At("HEAD"), cancellable = true)
-    private void checkWallClimb(CallbackInfoReturnable<Boolean> cir) {
+    protected void checkWallClimb(CallbackInfoReturnable<Boolean> cir) {
         System.out.println("Checking Wall Climbing");
         try {
             //noinspection DataFlowIssue
