@@ -33,7 +33,6 @@ object OtherPlayerEvents {
 
         TickGenes.handleNoHunger(event.player)
         TickGenes.handleFlight(event.player)
-        AttributeGenes.handleWallClimbing(event.player)
     }
 
     @SubscribeEvent
