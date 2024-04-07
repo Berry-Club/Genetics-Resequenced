@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.command
 
-import com.mojang.brigadier.Command
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
@@ -9,9 +8,10 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.network.chat.Component
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
-object ListGenesCommand : Command<CommandSourceStack> {
+object ListGenesCommand {
 
     private const val TARGET_ARGUMENT = "target"
 
@@ -21,13 +21,19 @@ object ListGenesCommand : Command<CommandSourceStack> {
             .then(
                 Commands
                     .argument(TARGET_ARGUMENT, EntityArgument.entity())
-                    .executes(ListGenesCommand)
+                    .executes { cmd -> run(cmd, EntityArgument.getEntity(cmd, TARGET_ARGUMENT)) }
             )
+            .executes { cmd -> run(cmd) }
     }
 
-    override fun run(context: CommandContext<CommandSourceStack>): Int {
+    private fun run(context: CommandContext<CommandSourceStack>, entity: Entity? = null): Int {
 
-        val target = EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity ?: return 0
+        val target = if (entity == null) {
+            context.source.entity as? LivingEntity
+        } else {
+            entity as? LivingEntity
+        } ?: return 0
+
         val targetGenesList = target.getGenes()?.getGeneList()
 
         if (targetGenesList == null) {

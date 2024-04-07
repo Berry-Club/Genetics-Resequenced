@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.command
 
-import com.mojang.brigadier.Command
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
@@ -11,25 +10,19 @@ import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 
-object ListAllGenesCommand : Command<CommandSourceStack> {
+object ListAllGenesCommand {
 
     fun register(): ArgumentBuilder<CommandSourceStack, *> {
         return Commands
-            .literal("allGeneIds")
-            .executes(ListAllGenesCommand)
+            .literal("listAllGenes")
+            .executes { listAllGenes(it) }
     }
 
-    override fun run(context: CommandContext<CommandSourceStack>): Int {
+    private fun listAllGenes(context: CommandContext<CommandSourceStack>): Int {
 
         val messageComponent = Component.literal("Gene List:")
 
         for (gene in Gene.REGISTRY) {
-
-            val name = gene.id
-            val description = gene.description
-
-            println("${gene.id} - ${gene.description}")
-
             val enumComponent = Component
                 .literal(gene.id)
                 .withStyle {
