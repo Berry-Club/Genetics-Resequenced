@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.attribute.ModAttributes
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.packet.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import net.minecraft.server.level.ServerPlayer
@@ -68,7 +69,7 @@ object AttributeGenes {
 
         // ONLY HAPPENS ON CLIENT?????
         if (player.horizontalCollision || player.minorHorizontalCollision) {
-            player.setDeltaMovement(player.deltaMovement.x, 0.288, player.deltaMovement.z)
+            player.setDeltaMovement(player.deltaMovement.x, ServerConfig.wallClimbSpeed.get(), player.deltaMovement.z)
             player.fallDistance = 0.0f
         }
 

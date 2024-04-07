@@ -20,6 +20,7 @@ object ServerConfig {
     lateinit var bioluminescenceDuration: ForgeConfigSpec.IntValue
     lateinit var mobSightRadius: ForgeConfigSpec.DoubleValue
     lateinit var teleportDistance: ForgeConfigSpec.DoubleValue
+    lateinit var wallClimbSpeed: ForgeConfigSpec.DoubleValue
 
     // Gene Cooldowns
     lateinit var woolyCooldown: ForgeConfigSpec.IntValue
@@ -100,6 +101,10 @@ object ServerConfig {
         teleportDistance = BUILDER
             .comment("How far should the Teleport gene teleport the player, at maximum")
             .defineInRange("teleportDistance", 10.0, 1.0, Double.MAX_VALUE)
+
+        wallClimbSpeed = BUILDER
+            .comment("How fast should the player climb walls with the Wall Climbing gene")
+            .defineInRange("wallClimbSpeed", 0.144, 0.0, Double.MAX_VALUE)
 
         BUILDER.pop()
     }
