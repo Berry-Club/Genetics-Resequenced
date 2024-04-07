@@ -1,10 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.command
 
-import com.mojang.brigadier.Command
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import com.mojang.brigadier.exceptions.CommandSyntaxException
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.event.player.OtherPlayerEvents
@@ -14,11 +12,10 @@ import net.minecraft.commands.Commands
 import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.network.chat.Component
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
-
-@Suppress("MoveVariableDeclarationIntoWhen")
-object AddGeneCommand : Command<CommandSourceStack> {
+object AddGeneCommand {
 
     private const val GENE_ARGUMENT = "gene"
     private const val TARGET_ARGUMENT = "target"
@@ -40,31 +37,23 @@ object AddGeneCommand : Command<CommandSourceStack> {
                     .then(
                         Commands
                             .argument(TARGET_ARGUMENT, EntityArgument.entity())
-                            .executes(AddGeneCommand)
+                            .executes { cmd -> addGene(cmd, EntityArgument.getEntity(cmd, TARGET_ARGUMENT)) }
                     )
-                    .executes(AddGeneCommand)
+                    .executes { cmd -> addGene(cmd) }
             )
     }
 
-    @Throws(CommandSyntaxException::class)
-    override fun run(context: CommandContext<CommandSourceStack>): Int {
+    private fun addGene(context: CommandContext<CommandSourceStack>, entity: Entity? = null): Int {
 
         val geneArgument = StringArgumentType.getString(context, GENE_ARGUMENT)
 
-        return when (geneArgument) {
-            ALL -> addAll(context)
-            else -> addGene(context, geneArgument)
-        }
-    }
+        if (geneArgument == ALL) return addAll(context, entity)
 
-    private fun addGene(
-        context: CommandContext<CommandSourceStack>,
-        geneArgument: String
-    ): Int {
-        val target =
-            EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity
-                ?: context.source.entity as? LivingEntity
-                ?: return 0
+        val target = if (entity == null) {
+            context.source.entity as? LivingEntity
+        } else {
+            entity as? LivingEntity
+        } ?: return 0
 
         val geneToAdd = EnumGenes.valueOf(geneArgument)
         val targetGenes = target.getGenes()
@@ -111,11 +100,13 @@ object AddGeneCommand : Command<CommandSourceStack> {
         }
     }
 
-    private fun addAll(context: CommandContext<CommandSourceStack>): Int {
-        val target =
-            EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity
-                ?: context.source.entity as? LivingEntity
-                ?: return 0
+    private fun addAll(context: CommandContext<CommandSourceStack>, entity: Entity? = null): Int {
+        val target = if (entity == null) {
+            context.source.entity as? LivingEntity
+        } else {
+            entity as? LivingEntity
+        } ?: return 0
+
         val targetGenes = target.getGenes() ?: return 0
 
         for (gene in EnumGenes.values()) {

@@ -301,8 +301,7 @@ object ClickGenes {
         val attributes = player.attributes.getInstance(ModAttributes.EFFICIENCY) ?: return
         attributes.baseValue = newLevel.toDouble()
 
-        println("Set efficiency to $newLevel, baseLevel is now ${attributes.baseValue}, value is now ${attributes.value}")
-
+        println("Set efficiency to $newLevel, baseLevel is now ${attributes.baseValue}, value is now ${attributes.value}, then ${attributes.value}")
     }
 
     fun handleEfficiency(event: PlayerEvent.BreakSpeed) {
