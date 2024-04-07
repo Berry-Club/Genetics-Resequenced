@@ -114,13 +114,23 @@ object RemoveGeneCommand {
 
         val targetGenes = target.getGenes() ?: return 0
 
+        if (targetGenes.getGeneList().isEmpty()) {
+            context.source.sendSuccess(
+                Component.literal("No genes to remove!"),
+                false
+            )
+            return 1
+        }
+
+        val amountGenes = targetGenes.getGeneList().size
+
         for (gene in targetGenes.getGeneList()) {
             targetGenes.removeGene(gene)
             OtherPlayerEvents.genesChanged(target, gene, false)
         }
 
         context.source.sendSuccess(
-            Component.literal("Removed all genes!"),
+            Component.literal("Removed $amountGenes genes!"),
             false
         )
         return 1
