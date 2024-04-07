@@ -29,11 +29,9 @@ object OtherPlayerEvents {
 
     @SubscribeEvent
     fun onPlayerTick(event: PlayerTickEvent) {
-        if (event.side.isClient) return
-
         TickGenes.handleNoHunger(event.player)
         TickGenes.handleFlight(event.player)
-        AttributeGenes.handleWallClimbing(event.player)
+        AttributeGenes.handleWallClimbing(event.player)     // Requires clientside handling
     }
 
     @SubscribeEvent

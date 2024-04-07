@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet
 
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.attribute.ModAttributes
 import net.minecraft.client.Minecraft
 import net.minecraft.network.FriendlyByteBuf
@@ -29,6 +31,14 @@ class SetWallClimbingPacket(
 
         val player = Minecraft.getInstance().player
             ?: throw IllegalStateException("Received SetWallClimbingPacket without player!")
+
+        player.getGenes()?.apply {
+            if (enabled) {
+                addGene(Gene.WALL_CLIMBING)
+            } else {
+                removeGene(Gene.WALL_CLIMBING)
+            }
+        }
 
         player.attributes.getInstance(ModAttributes.WALL_CLIMBING)?.baseValue = if (enabled) 1.0 else 0.0
 

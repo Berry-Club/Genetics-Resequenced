@@ -46,6 +46,14 @@ object ModPacketHandler {
             SetEfficiencyPacket::receiveMessage
         )
 
+        INSTANCE.registerMessage(
+            ++id,
+            SetWallClimbingPacket::class.java,
+            SetWallClimbingPacket::encode,
+            SetWallClimbingPacket::decode,
+            SetWallClimbingPacket::receiveMessage
+        )
+
     }
 
     fun messageNearbyPlayers(packet: ModPacket, serverLevel: ServerLevel, origin: Vec3, radius: Double) {
