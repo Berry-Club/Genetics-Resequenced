@@ -297,18 +297,6 @@ object ClickGenes {
 
     }
 
-    fun setEfficiency(player: Player, newLevel: Int) {
-        val attributes = player.attributes.getInstance(ModAttributes.EFFICIENCY) ?: return
-        attributes.baseValue = newLevel.toDouble()
-    }
-
-    fun handleEfficiency(event: PlayerEvent.BreakSpeed) {
-        val efficiencyAttribute = event.entity.attributes.getInstance(ModAttributes.EFFICIENCY) ?: return
-        if (efficiencyAttribute.baseValue <= 0.0) return
-
-        event.newSpeed += (1 + efficiencyAttribute.baseValue * efficiencyAttribute.baseValue).toFloat()
-    }
-
     fun handleInfinityStart(event: ArrowNockEvent) {
         if (event.hasAmmo()) return
 
