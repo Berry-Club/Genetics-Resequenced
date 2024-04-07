@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.attribute.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.SetEfficiencyPacket
@@ -45,6 +47,23 @@ object AttributeGenes {
     fun setWallClimbing(player: Player, value: Boolean) {
         val attributes = player.attributes.getInstance(ModAttributes.WALL_CLIMBING) ?: return
         attributes.baseValue = if (value) 1.0 else 0.0
+    }
+
+    fun handleWallClimbing(player: Player) {
+
+        val wallClimbingAttribute = player.attributes.getInstance(ModAttributes.WALL_CLIMBING) ?: return
+        if (wallClimbingAttribute.baseValue <= 0.0) return
+
+        val genes = player.getGenes() ?: return
+        if (!genes.hasGene(Gene.WALL_CLIMBING)) return
+
+        if (player.horizontalCollision || player.minorHorizontalCollision) {
+            player.deltaMovement = player.deltaMovement.add(0.0, 0.2, 0.0)
+            println("Wall climbing")
+
+            player.onClimbable()
+        }
+
     }
 
 }
