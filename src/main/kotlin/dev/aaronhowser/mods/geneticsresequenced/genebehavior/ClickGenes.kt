@@ -300,19 +300,13 @@ object ClickGenes {
     fun setEfficiency(player: Player, newLevel: Int) {
         val attributes = player.attributes.getInstance(ModAttributes.EFFICIENCY) ?: return
         attributes.baseValue = newLevel.toDouble()
-
-        println("Set efficiency to $newLevel, baseLevel is now ${attributes.baseValue}, value is now ${attributes.value}, then ${attributes.value}")
     }
 
     fun handleEfficiency(event: PlayerEvent.BreakSpeed) {
         val efficiencyAttribute = event.entity.attributes.getInstance(ModAttributes.EFFICIENCY) ?: return
-        if (efficiencyAttribute.value <= 0.0) return
+        if (efficiencyAttribute.baseValue <= 0.0) return
 
-        println(efficiencyAttribute.value)
-
-//        println("Old newspeed: ${event.newSpeed}")
-        event.newSpeed += (1 + efficiencyAttribute.value * efficiencyAttribute.value).toFloat()
-//        println("New newspeed: ${event.newSpeed}")
+        event.newSpeed += (1 + efficiencyAttribute.baseValue * efficiencyAttribute.baseValue).toFloat()
     }
 
     fun handleInfinityStart(event: ArrowNockEvent) {
