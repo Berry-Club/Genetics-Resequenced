@@ -1,6 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
+  "refmap": "mixins.geneticsresequenced.refmap.json",
   "package": "dev.aaronhowser.mods.geneticsresequenced.mixin",
   "mixins": [
     "WallClimbingMixin"

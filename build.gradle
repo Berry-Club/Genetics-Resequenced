@@ -108,6 +108,8 @@ dependencies {
     minecraft 'net.minecraftforge:forge:1.19.2-43.2.3'
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+//    clientAnnotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+//    apiAnnotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 
     implementation 'thedarkcolour:kotlinforforge:3.12.0'
 
@@ -122,6 +124,7 @@ dependencies {
 }
 
 mixin {
+    add sourceSets.main, 'mixins.geneticsresequenced.refmap.json'
     config 'mixins.geneticsresequenced.json'
 }
 
