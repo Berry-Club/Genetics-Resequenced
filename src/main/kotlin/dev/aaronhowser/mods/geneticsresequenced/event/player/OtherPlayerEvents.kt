@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.EnumGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Genes.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.genebehavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.genebehavior.TickGenes
 import net.minecraft.world.entity.LivingEntity
@@ -48,8 +49,21 @@ object OtherPlayerEvents {
 
         if (entity is Player) {
             when (changedGene) {
-                EnumGenes.EFFICIENCY -> ClickGenes.setEfficiency(entity, if (wasAdded) 1 else 0)
-                EnumGenes.EFFICIENCY_4 -> ClickGenes.setEfficiency(entity, if (wasAdded) 4 else 0)
+                EnumGenes.EFFICIENCY -> {
+                    val entityGenes = entity.getGenes() ?: return
+                    if (entityGenes.hasGene(EnumGenes.EFFICIENCY_4)) return
+                    ClickGenes.setEfficiency(entity, if (wasAdded) 1 else 0)
+                }
+
+                EnumGenes.EFFICIENCY_4 -> {
+                    if (wasAdded) {
+                        ClickGenes.setEfficiency(entity, 4)
+                    } else {
+                        val entityGenes = entity.getGenes() ?: return
+                        val levelToSetTo = if (entityGenes.hasGene(EnumGenes.EFFICIENCY)) 1 else 0
+                        ClickGenes.setEfficiency(entity, levelToSetTo)
+                    }
+                }
 
                 else -> return
             }
