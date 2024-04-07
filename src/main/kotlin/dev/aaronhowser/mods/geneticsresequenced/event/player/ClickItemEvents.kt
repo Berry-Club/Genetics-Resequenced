@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.genebehavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.genebehavior.ClickGenes
 import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
@@ -22,7 +23,7 @@ object ClickItemEvents {
 
     @SubscribeEvent
     fun onDigSpeed(event: PlayerEvent.BreakSpeed) {
-        ClickGenes.handleEfficiency(event)
+        AttributeGenes.handleEfficiency(event)
     }
 
 }
