@@ -102,7 +102,6 @@ enum class EnumGenes(
 
         val effect = when (this) {
             HASTE, HASTE_2 -> MobEffects.DIG_SPEED
-            EFFICIENCY, EFFICIENCY_4 -> MobEffects.DIG_SPEED
             REGENERATION, REGENERATION_4 -> MobEffects.REGENERATION
             SPEED, SPEED_2, SPEED_4 -> MobEffects.MOVEMENT_SPEED
             RESISTANCE, RESISTANCE_2 -> MobEffects.DAMAGE_RESISTANCE
@@ -126,7 +125,7 @@ enum class EnumGenes(
 
         val level = when (this) {
             HASTE_2, REGENERATION_4, SPEED_2, RESISTANCE_2, STRENGTH_2 -> 1
-            SPEED_4, POISON_4, SLOWNESS_4, EFFICIENCY_4 -> 3
+            SPEED_4, POISON_4, SLOWNESS_4 -> 3
             SLOWNESS_6 -> 5
             else -> 0
         }
