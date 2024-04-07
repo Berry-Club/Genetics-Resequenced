@@ -42,6 +42,7 @@ object AddGeneCommand : Command<CommandSourceStack> {
                             .argument(TARGET_ARGUMENT, EntityArgument.entity())
                             .executes(AddGeneCommand)
                     )
+                    .executes(AddGeneCommand)
             )
     }
 
@@ -60,7 +61,10 @@ object AddGeneCommand : Command<CommandSourceStack> {
         context: CommandContext<CommandSourceStack>,
         geneArgument: String
     ): Int {
-        val target = EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity ?: return 0
+        val target =
+            EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity
+                ?: context.source.entity as? LivingEntity
+                ?: return 0
 
         val geneToAdd = EnumGenes.valueOf(geneArgument)
         val targetGenes = target.getGenes()

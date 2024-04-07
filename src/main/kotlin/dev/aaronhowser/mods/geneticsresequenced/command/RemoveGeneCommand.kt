@@ -40,6 +40,7 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
                             .argument(TARGET_ARGUMENT, EntityArgument.entity())
                             .executes(RemoveGeneCommand)
                     )
+                    .executes(RemoveGeneCommand)
             )
 
     }
@@ -55,7 +56,10 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
     }
 
     private fun removeGene(context: CommandContext<CommandSourceStack>, geneArgument: String): Int {
-        val target = EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity ?: return 0
+        val target =
+            EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity
+                ?: context.source.entity as? LivingEntity
+                ?: return 0
 
         val geneToRemove = EnumGenes.valueOf(geneArgument)
         val targetGenes = target.getGenes()
