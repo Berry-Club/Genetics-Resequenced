@@ -32,6 +32,7 @@ object OtherPlayerEvents {
         TickGenes.handleNoHunger(event.player)
         TickGenes.handleFlight(event.player)
         AttributeGenes.handleWallClimbing(event.player)     // Requires clientside handling
+        TickGenes.handleItemMagnet(event.player)
     }
 
     @SubscribeEvent

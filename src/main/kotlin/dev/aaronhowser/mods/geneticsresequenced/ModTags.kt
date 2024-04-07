@@ -13,4 +13,8 @@ object ModTags {
 
     val FIREBALL_TAG_RL = ResourceLocation(GeneticsResequenced.ID, "fireball")
     val FIREBALL_TAG: TagKey<Item> = TagKey.create(Registry.ITEM_REGISTRY, FIREBALL_TAG_RL)
+
+    val MAGNET_BLACKLIST_RL = ResourceLocation(GeneticsResequenced.ID, "magnet_blacklist")
+    val MAGNET_BLACKLIST: TagKey<Item> = TagKey.create(Registry.ITEM_REGISTRY, MAGNET_BLACKLIST_RL)
+
 }

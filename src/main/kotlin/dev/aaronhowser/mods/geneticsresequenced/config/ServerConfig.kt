@@ -21,6 +21,7 @@ object ServerConfig {
     lateinit var mobSightRadius: ForgeConfigSpec.DoubleValue
     lateinit var teleportDistance: ForgeConfigSpec.DoubleValue
     lateinit var wallClimbSpeed: ForgeConfigSpec.DoubleValue
+    lateinit var itemMagnetRadius: ForgeConfigSpec.DoubleValue
 
     // Gene Cooldowns
     lateinit var woolyCooldown: ForgeConfigSpec.IntValue
@@ -105,6 +106,10 @@ object ServerConfig {
         wallClimbSpeed = BUILDER
             .comment("How fast should the player climb walls with the Wall Climbing gene")
             .defineInRange("wallClimbSpeed", 0.144, 0.0, Double.MAX_VALUE)
+
+        itemMagnetRadius = BUILDER
+            .comment("How far should the Item Magnet gene attract items (in blocks)")
+            .defineInRange("itemMagnetRadius", 8.0, 1.0, Double.MAX_VALUE)
 
         BUILDER.pop()
     }

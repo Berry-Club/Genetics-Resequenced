@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehavior
 
+import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.block.ModBlocks
@@ -14,6 +15,8 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.LightLayer
+import net.minecraftforge.common.MinecraftForge
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent
 import java.util.*
 import kotlin.math.max
 
@@ -215,4 +218,48 @@ object TickGenes {
         player.onUpdateAbilities()
         flyablePlayers.add(player.uuid)
     }
+
+    //TODO: disable when using anti field orb
+    fun handleItemMagnet(player: Player) {
+
+        if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
+
+        val genes = player.getGenes() ?: return
+        if (!genes.hasGene(Gene.ITEM_MAGNET)) return
+
+        val nearbyItems = player.level.getEntitiesOfClass(
+            ItemEntity::class.java,
+            player.boundingBox.inflate(ServerConfig.itemMagnetRadius.get())
+        )
+
+        for (itemEntity in nearbyItems) {
+            if (itemEntity.item.count <= 0) continue
+            if (itemEntity.item.`is`(ModTags.MAGNET_BLACKLIST)) continue
+
+            val pickupEvent = EntityItemPickupEvent(player, itemEntity)
+            MinecraftForge.EVENT_BUS.post(pickupEvent)
+
+            itemEntity.playerTouch(player)
+
+//            if (pickupEvent.isCanceled) continue
+//
+//            val itemStack = itemEntity.item
+//
+//            if (player.inventory.add(itemStack)) {
+//                itemEntity.remove(Entity.RemovalReason.KILLED)
+//
+//                player.level.playSound(
+//                    null,
+//                    player,
+//                    SoundEvents.ITEM_PICKUP,
+//                    SoundSource.AMBIENT,
+//                    0.15f,
+//                    (Random.nextFloat() - Random.nextFloat()) * 1.4f + 2.0f
+//                )
+//            }
+
+        }
+
+    }
+
 }
