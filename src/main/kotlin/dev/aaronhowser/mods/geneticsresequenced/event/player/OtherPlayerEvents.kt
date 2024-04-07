@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.genebehavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.genebehavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.genebehavior.TickGenes
