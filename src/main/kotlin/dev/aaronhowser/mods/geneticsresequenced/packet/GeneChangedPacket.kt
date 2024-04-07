@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.attribute.ModAttributes
 import net.minecraft.client.Minecraft
+import net.minecraft.client.player.LocalPlayer
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraftforge.network.NetworkDirection
 import net.minecraftforge.network.NetworkEvent
@@ -46,11 +47,15 @@ class GeneChangedPacket(
             }
         }
 
+        handleAttributes(player, gene)
+    }
+
+    private fun handleAttributes(player: LocalPlayer, gene: Gene) {
         val attributeInstance = when (gene) {
             Gene.EFFICIENCY, Gene.EFFICIENCY_4 -> player.attributes.getInstance(ModAttributes.EFFICIENCY)
             Gene.WALL_CLIMBING -> player.attributes.getInstance(ModAttributes.WALL_CLIMBING)
             else -> null
-        }
+        } ?: return
 
         val newLevel = when (gene) {
             Gene.EFFICIENCY -> if (wasAdded) 1.0 else 0.0
@@ -69,12 +74,10 @@ class GeneChangedPacket(
 
             Gene.WALL_CLIMBING -> if (wasAdded) 1.0 else 0.0
 
-            else -> null
+            else -> throw IllegalStateException("Gene $gene went through the GeneChangedPacket but isn't handled!")
         }
 
-        if (attributeInstance != null && newLevel != null) {
-            attributeInstance.baseValue = newLevel
-        }
+        attributeInstance.baseValue = newLevel
 
     }
 }
