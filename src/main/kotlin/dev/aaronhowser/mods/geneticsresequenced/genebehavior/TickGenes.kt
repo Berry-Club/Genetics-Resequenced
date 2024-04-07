@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.ModScheduler
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
+import net.minecraft.world.entity.ExperienceOrb
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.item.ItemEntity
@@ -17,6 +18,7 @@ import net.minecraft.world.item.Items
 import net.minecraft.world.level.LightLayer
 import net.minecraftforge.common.MinecraftForge
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent
+import net.minecraftforge.event.entity.player.PlayerXpEvent
 import java.util.*
 import kotlin.math.max
 
@@ -217,7 +219,6 @@ object TickGenes {
 
     //TODO: disable when using anti field orb
     fun handleItemMagnet(player: Player) {
-
         if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 
         if (player.tickCount % ServerConfig.itemMagnetCooldown.get() != 0) return
@@ -236,8 +237,34 @@ object TickGenes {
 
             val pickupEvent = EntityItemPickupEvent(player, itemEntity)
             MinecraftForge.EVENT_BUS.post(pickupEvent)
+            if (pickupEvent.isCanceled) continue
 
             itemEntity.playerTouch(player)
+        }
+    }
+
+    //TODO: disable when using anti field orb
+    fun handleXpMagnet(player: Player) {
+        if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
+
+        if (player.tickCount % ServerConfig.xpMagnetCooldown.get() != 0) return
+
+        val genes = player.getGenes() ?: return
+        if (!genes.hasGene(Gene.XP_MAGNET)) return
+
+        val nearbyXpOrbs = player.level.getEntitiesOfClass(
+            ExperienceOrb::class.java,
+            player.boundingBox.inflate(ServerConfig.xpMagnetRadius.get())
+        )
+
+        for (xpOrb in nearbyXpOrbs) {
+
+            val pickupEvent = PlayerXpEvent.PickupXp(player, xpOrb)
+            MinecraftForge.EVENT_BUS.post(pickupEvent)
+            if (pickupEvent.isCanceled) continue
+
+            xpOrb.playerTouch(player)
+            player.takeXpDelay = 1
         }
     }
 

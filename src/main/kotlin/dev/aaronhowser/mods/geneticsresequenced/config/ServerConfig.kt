@@ -22,6 +22,7 @@ object ServerConfig {
     lateinit var teleportDistance: ForgeConfigSpec.DoubleValue
     lateinit var wallClimbSpeed: ForgeConfigSpec.DoubleValue
     lateinit var itemMagnetRadius: ForgeConfigSpec.DoubleValue
+    lateinit var xpMagnetRadius: ForgeConfigSpec.DoubleValue
 
     // Gene Cooldowns
     lateinit var woolyCooldown: ForgeConfigSpec.IntValue
@@ -36,6 +37,7 @@ object ServerConfig {
     lateinit var noHungerCooldown: ForgeConfigSpec.IntValue
     lateinit var passivesCheckCooldown: ForgeConfigSpec.IntValue
     lateinit var itemMagnetCooldown: ForgeConfigSpec.IntValue
+    lateinit var xpMagnetCooldown: ForgeConfigSpec.IntValue
 
     init {
         generalConfigs()
@@ -114,6 +116,10 @@ object ServerConfig {
             .comment("How far should the Item Magnet gene attract items (in blocks)")
             .defineInRange("itemMagnetRadius", 8.0, 1.0, Double.MAX_VALUE)
 
+        xpMagnetRadius = BUILDER
+            .comment("How far should the XP Magnet gene attract XP orbs (in blocks)")
+            .defineInRange("xpMagnetRadius", 8.0, 1.0, Double.MAX_VALUE)
+
         BUILDER.pop()
     }
 
@@ -167,6 +173,10 @@ object ServerConfig {
         itemMagnetCooldown = BUILDER
             .comment("How often should the Item Magnet gene attract items (in ticks)")
             .defineInRange("itemMagnetCooldown", 10, 1, Int.MAX_VALUE)
+
+        xpMagnetCooldown = BUILDER
+            .comment("How often should the XP Magnet gene attract XP orbs (in ticks)")
+            .defineInRange("xpMagnetCooldown", 10, 1, Int.MAX_VALUE)
 
         BUILDER.pop()
     }
