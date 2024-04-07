@@ -111,7 +111,10 @@ object RemoveGeneCommand : Command<CommandSourceStack> {
     }
 
     private fun removeAll(context: CommandContext<CommandSourceStack>): Int {
-        val target = EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity ?: return 0
+        val target =
+            EntityArgument.getEntity(context, TARGET_ARGUMENT) as? LivingEntity
+                ?: context.source.entity as? LivingEntity
+                ?: return 0
         val targetGenes = target.getGenes() ?: return 0
 
         for (gene in targetGenes.getGeneList()) {
