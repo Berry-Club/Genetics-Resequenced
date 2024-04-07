@@ -14,11 +14,11 @@ object ModAttributes {
 
     private const val EFFICIENCY_ATTRIBUTE_NAME = "geneticsresequenced.efficiency"
     val EFFICIENCY by REGISTRY.registerObject("efficiency") {
-        RangedAttribute(EFFICIENCY_ATTRIBUTE_NAME, 0.0, 0.0, 1.0)
+        RangedAttribute(EFFICIENCY_ATTRIBUTE_NAME, 0.0, 0.0, 10000.0)
     }
 
     private const val CLIMBING_ATTRIBUTE_NAME = "geneticsresequenced.climbing"
-    val CLIMBING by REGISTRY.registerObject("climbing") {
+    val WALL_CLIMBING by REGISTRY.registerObject("climbing") {
         RangedAttribute(CLIMBING_ATTRIBUTE_NAME, 0.0, 0.0, 1.0)
     }
 

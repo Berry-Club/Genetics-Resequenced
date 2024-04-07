@@ -66,6 +66,8 @@ object OtherPlayerEvents {
                     }
                 }
 
+                Gene.STEP_ASSIST -> AttributeGenes.setStepAssist(entity, wasAdded)
+
                 else -> return
             }
         }

@@ -27,8 +27,8 @@ object ModBusEvents {
             event.add(EntityType.PLAYER, ModAttributes.EFFICIENCY)
         }
 
-        if (!event.has(EntityType.PLAYER, ModAttributes.CLIMBING)) {
-            event.add(EntityType.PLAYER, ModAttributes.CLIMBING)
+        if (!event.has(EntityType.PLAYER, ModAttributes.WALL_CLIMBING)) {
+            event.add(EntityType.PLAYER, ModAttributes.WALL_CLIMBING)
         }
 
     }
