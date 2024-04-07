@@ -137,7 +137,7 @@ object ServerConfig {
 
         mobSightCooldown = BUILDER
             .comment("How often should the Mob Sight gene check for entities (in ticks)")
-            .defineInRange("mobSightCooldown", 20 * 5, 1, Int.MAX_VALUE)
+            .defineInRange("mobSightCooldown", 20 * 1, 1, Int.MAX_VALUE)
 
         teleportCooldown = BUILDER
             .comment("How many ticks to wait before someone with the Teleport gene can teleport again")

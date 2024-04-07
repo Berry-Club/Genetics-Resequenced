@@ -182,7 +182,7 @@ object TickGenes {
 
         val glowingEffect = MobEffectInstance(
             MobEffects.GLOWING,
-            ServerConfig.mobSightCooldown.get() * 2,
+            ServerConfig.mobSightCooldown.get() * 4,
             0,
             false,
             false
