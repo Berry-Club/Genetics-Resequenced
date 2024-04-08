@@ -1,5 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.ModTags
+import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.LivingEntity
@@ -21,13 +24,22 @@ object ScraperItem : Item(
         pUsedHand: InteractionHand
     ): InteractionResult {
 
+        if (pInteractionTarget.type.`is`(ModTags.SCRAPER_BLACKLIST)) {
+            if (pPlayer.level.isClientSide) return InteractionResult.FAIL
+            val component = Component.literal("This mob cannot be scraped.")
+            pPlayer.sendSystemMessage(component)
+            return InteractionResult.FAIL
+        }
+
         val organicStack = ItemStack(ModItems.ORGANIC_MATTER)
 
-        OrganicMatterItem.setMobId(
-            organicStack,
-            ForgeRegistries.ENTITY_TYPES.getKey(pInteractionTarget.type).toString()
-        )
-        OrganicMatterItem.setMobTranslationKey(organicStack, pInteractionTarget.type.toString())
+        val mobResourceLocation = ForgeRegistries.ENTITY_TYPES.getKey(pInteractionTarget.type)
+        if (mobResourceLocation == null) {
+            GeneticsResequenced.LOGGER.error("Failed to get mob id for ${pInteractionTarget.type}")
+            return InteractionResult.FAIL
+        }
+
+        OrganicMatterItem.setMobRl(organicStack, mobResourceLocation)
 
         if (!pPlayer.inventory.add(organicStack)) {
             pPlayer.drop(organicStack, false)

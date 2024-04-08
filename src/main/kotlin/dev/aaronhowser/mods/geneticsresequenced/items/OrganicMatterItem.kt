@@ -1,10 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
+import net.minecraftforge.registries.ForgeRegistries
 
 object OrganicMatterItem : Item(
     Properties()
@@ -12,24 +15,17 @@ object OrganicMatterItem : Item(
 ) {
 
     private const val MOB_ID_NBT = "MobId"
-    private const val MOB_TRANSLATION_KEY_NBT = "MobTranslationKey"
 
-    fun setMobId(itemStack: ItemStack, mobId: String) {
+    fun setMobRl(itemStack: ItemStack, mobId: ResourceLocation) {
         val tag = itemStack.orCreateTag
-        tag.putString(MOB_ID_NBT, mobId)
+        tag.putString(MOB_ID_NBT, mobId.toString())
     }
 
-    private fun getMobId(itemStack: ItemStack): String {
-        return itemStack.tag?.getString("MobId") ?: ""
-    }
+    private fun getEntityType(itemStack: ItemStack): EntityType<*>? {
+        val string = itemStack.tag?.getString(MOB_ID_NBT) ?: return null
+        val resourceLocation = ResourceLocation.tryParse(string) ?: return null
 
-    fun setMobTranslationKey(itemStack: ItemStack, mobTranslationKey: String) {
-        val tag = itemStack.orCreateTag
-        tag.putString(MOB_TRANSLATION_KEY_NBT, mobTranslationKey)
-    }
-
-    private fun getMobTranslationKey(itemStack: ItemStack): String {
-        return itemStack.tag?.getString("MobTranslationKey") ?: ""
+        return ForgeRegistries.ENTITY_TYPES.getValue(resourceLocation)
     }
 
     override fun appendHoverText(
@@ -38,11 +34,11 @@ object OrganicMatterItem : Item(
         pTooltipComponents: MutableList<Component>,
         pIsAdvanced: TooltipFlag
     ) {
-        val line1 = Component.literal("Mob ID: ${getMobId(pStack)}")
-        val line2 = Component.literal("Mob: ").append(Component.translatable(getMobTranslationKey(pStack)))
 
-        pTooltipComponents.add(line1)
-        pTooltipComponents.add(line2)
+        val entityType = getEntityType(pStack)
+        if (entityType != null) {
+            pTooltipComponents.add(entityType.getDescription())
+        }
 
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced)
     }
