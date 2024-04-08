@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
-import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 
