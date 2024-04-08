@@ -15,8 +15,7 @@ object AntiFieldOrbItem : Item(
 
     private const val ENABLED_NBT = "Enabled"
     private fun isEnabled(itemStack: ItemStack): Boolean {
-        val tag = itemStack.tag ?: return false
-        return tag.getBoolean(ENABLED_NBT)
+        return itemStack.tag?.getBoolean(ENABLED_NBT) ?: false
     }
 
     private fun toggleEnabled(itemStack: ItemStack) {

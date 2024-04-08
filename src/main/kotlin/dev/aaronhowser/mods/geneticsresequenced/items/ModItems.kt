@@ -27,4 +27,12 @@ object ModItems {
         AntiFieldOrbItem
     }
 
+    val SCRAPER by REGISTRY.registerObject("scraper") {
+        ScraperItem
+    }
+
+    val ORGANIC_MATTER by REGISTRY.registerObject("organic_matter") {
+        OrganicMatterItem
+    }
+
 }
