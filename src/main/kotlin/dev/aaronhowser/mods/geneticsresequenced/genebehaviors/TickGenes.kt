@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabi
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.events.ModScheduler
+import dev.aaronhowser.mods.geneticsresequenced.items.AntiFieldOrbItem
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.ExperienceOrb
@@ -226,6 +227,8 @@ object TickGenes {
         val genes = player.getGenes() ?: return
         if (!genes.hasGene(Gene.ITEM_MAGNET)) return
 
+        if (AntiFieldOrbItem.isActiveForPlayer(player)) return
+
         val nearbyItems = player.level.getEntitiesOfClass(
             ItemEntity::class.java,
             player.boundingBox.inflate(ServerConfig.itemMagnetRadius.get())
@@ -251,6 +254,8 @@ object TickGenes {
 
         val genes = player.getGenes() ?: return
         if (!genes.hasGene(Gene.XP_MAGNET)) return
+
+        if (AntiFieldOrbItem.isActiveForPlayer(player)) return
 
         val nearbyXpOrbs = player.level.getEntitiesOfClass(
             ExperienceOrb::class.java,

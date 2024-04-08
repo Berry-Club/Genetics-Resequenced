@@ -69,7 +69,11 @@ object AttributeGenes {
 
         // ONLY HAPPENS ON CLIENT?????
         if (player.horizontalCollision || player.minorHorizontalCollision) {
-            player.setDeltaMovement(player.deltaMovement.x, ServerConfig.wallClimbSpeed.get(), player.deltaMovement.z)
+            player.setDeltaMovement(
+                player.deltaMovement.x,
+                if (player.isCrouching) 0.0 else ServerConfig.wallClimbSpeed.get(),
+                player.deltaMovement.z
+            )
             player.fallDistance = 0.0f
         }
 

@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.item.Item
@@ -10,7 +9,7 @@ import net.minecraft.world.level.Level
 
 object DragonHealthCrystal : Item(
     Properties()
-        .tab(GeneticsResequenced.MOD_TAB)
+        .tab(ModItems.MOD_TAB)
         .defaultDurability(1000)
 ) {
 

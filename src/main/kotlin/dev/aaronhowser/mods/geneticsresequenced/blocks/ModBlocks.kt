@@ -12,7 +12,7 @@ import thedarkcolour.kotlinforforge.forge.registerObject
 
 object ModBlocks {
 
-    private val defaultItemProperties = Item.Properties().tab(GeneticsResequenced.MOD_TAB)
+    private val defaultItemProperties = Item.Properties().tab(ModItems.MOD_TAB)
 
     val REGISTRY: DeferredRegister<Block> =
         DeferredRegister.create(ForgeRegistries.BLOCKS, GeneticsResequenced.ID)
