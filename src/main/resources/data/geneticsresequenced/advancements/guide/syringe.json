@@ -1,24 +1,24 @@
 {
+  "parent": "geneticsresequenced:guide/root",
   "display": {
-    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
     "title": {
-      "translate": "itemGroup.geneticsresequenced"
+      "translate": "advancement.geneticsresequenced.syringe.title"
     },
     "description": {
-      "translate": "advancement.geneticsresequenced.scraper.desc"
+      "translate": "advancement.geneticsresequenced.syringe.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "geneticsresequenced:scraper"
+      "item": "geneticsresequenced:syringe"
     }
   },
   "criteria": {
-    "scraper": {
+    "syringe": {
       "conditions": {
         "items": [
           {
-            "tag": "geneticsresequenced:scraper"
+            "tag": "geneticsresequenced:syringe"
           }
         ]
       },
@@ -27,7 +27,7 @@
   },
   "requirements": [
     [
-      "scraper"
+      "syringe"
     ]
   ],
   "sends_telemetry_event": true

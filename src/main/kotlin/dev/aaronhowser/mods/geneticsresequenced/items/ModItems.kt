@@ -31,6 +31,10 @@ object ModItems {
         ScraperItem
     }
 
+    val SYRINGE by REGISTRY.registerObject("syringe") {
+        SyringeItem
+    }
+
     val ORGANIC_MATTER by REGISTRY.registerObject("organic_matter") {
         OrganicMatterItem
     }
