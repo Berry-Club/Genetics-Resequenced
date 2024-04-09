@@ -10,23 +10,25 @@ import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 import net.minecraftforge.registries.ForgeRegistries
 
-object EntityDnaItem : Item(
+class EntityDnaItem() : Item(
     Properties()
         .tab(ModItems.MOD_TAB)
 ) {
 
-    private const val MOB_ID_NBT = "MobId"
+    companion object {
+        private const val MOB_ID_NBT = "MobId"
 
-    fun setMobRl(itemStack: ItemStack, mobId: ResourceLocation) {
-        val tag = itemStack.orCreateTag
-        tag.putString(MOB_ID_NBT, mobId.toString())
-    }
+        fun setMobRl(itemStack: ItemStack, mobId: ResourceLocation) {
+            val tag = itemStack.orCreateTag
+            tag.putString(MOB_ID_NBT, mobId.toString())
+        }
 
-    private fun getEntityType(itemStack: ItemStack): EntityType<*>? {
-        val string = itemStack.tag?.getString(MOB_ID_NBT) ?: return null
-        val resourceLocation = ResourceLocation.tryParse(string) ?: return null
+        private fun getEntityType(itemStack: ItemStack): EntityType<*>? {
+            val string = itemStack.tag?.getString(MOB_ID_NBT) ?: return null
+            val resourceLocation = ResourceLocation.tryParse(string) ?: return null
 
-        return ForgeRegistries.ENTITY_TYPES.getValue(resourceLocation)
+            return ForgeRegistries.ENTITY_TYPES.getValue(resourceLocation)
+        }
     }
 
     override fun appendHoverText(

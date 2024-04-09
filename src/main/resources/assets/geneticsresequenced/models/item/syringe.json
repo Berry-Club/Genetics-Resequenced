@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "geneticsresequenced:item/dragon_health_crystal"
+    "layer0": "geneticsresequenced:item/glass_syringe"
   }
 }
