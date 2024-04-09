@@ -97,7 +97,6 @@ object TickGenes {
     }
 
     private fun handlePotionGenes(entity: LivingEntity, potionGenes: MutableList<Gene>) {
-
         if (potionGenes.isEmpty()) return
 
         val potionLevels = mapOf(
@@ -112,21 +111,26 @@ object TickGenes {
             Gene.SLOWNESS_6 to listOf(Gene.SLOWNESS, Gene.SLOWNESS_4)
         )
 
-        val genesToRemove = mutableListOf<Gene>()
+        val genesToSkip = mutableListOf<Gene>()
 
         for (gene in potionGenes.toList()) {
             potionLevels[gene]?.let { redundantGenes ->
-                genesToRemove.addAll(redundantGenes)
+                genesToSkip.addAll(redundantGenes)
             }
         }
 
-        potionGenes.removeAll(genesToRemove)
+        potionGenes.removeAll(genesToSkip)
 
         for (gene in potionGenes) {
             val potion = gene.getPotion() ?: continue
             entity.removeEffect(potion.effect)
             entity.addEffect(potion)
         }
+    }
+
+    fun handlePotionGeneRemoved(entity: LivingEntity, removedGene: Gene) {
+        val potion = removedGene.getPotion() ?: return
+        entity.removeEffect(potion.effect)
     }
 
     private val recentlyMeated = mutableSetOf<LivingEntity>()

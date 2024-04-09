@@ -72,8 +72,12 @@ object OtherPlayerEvents {
 
                 Gene.FLIGHT -> TickGenes.handleFlight(entity)
 
-                else -> return
+                else -> {}
             }
+        }
+
+        if (!wasAdded && changedGene.getPotion() != null) {
+            TickGenes.handlePotionGeneRemoved(entity, changedGene)
         }
 
     }
