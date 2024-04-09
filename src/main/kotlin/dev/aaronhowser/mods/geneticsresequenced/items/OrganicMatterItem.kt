@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
@@ -37,9 +38,11 @@ object OrganicMatterItem : Item(
 
         val entityType = getEntityType(pStack)
         if (entityType != null) {
-
-            val component = Component.literal("Mob: ")
-                .append(entityType.getDescription())
+            val component =
+                Component
+                    .empty()
+                    .append(entityType.getDescription())
+                    .withStyle { it.withColor(ChatFormatting.GRAY) }
 
             pTooltipComponents.add(component)
         }

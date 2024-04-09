@@ -1,10 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
+import net.minecraft.ChatFormatting
+import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
 object AntiFieldOrbItem : Item(
@@ -30,6 +33,20 @@ object AntiFieldOrbItem : Item(
 
     override fun isFoil(pStack: ItemStack): Boolean {
         return isEnabled(pStack)
+    }
+
+    override fun appendHoverText(
+        pStack: ItemStack,
+        pLevel: Level?,
+        pTooltipComponents: MutableList<Component>,
+        pIsAdvanced: TooltipFlag
+    ) {
+        pTooltipComponents.add(
+            Component
+                .translatable(if (isEnabled(pStack)) "tooltip.geneticsresequenced.antifield_active" else "tooltip.geneticsresequenced.antifield_inactive")
+                .withStyle { it.withColor(ChatFormatting.GRAY) }
+        )
+        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced)
     }
 
     fun isActiveForPlayer(player: Player): Boolean {

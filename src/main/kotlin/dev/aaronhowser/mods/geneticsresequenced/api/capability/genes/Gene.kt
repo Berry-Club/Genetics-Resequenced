@@ -45,7 +45,7 @@ class Gene(
                     .withHoverEvent(
                         HoverEvent(
                             HoverEvent.Action.SHOW_TEXT,
-                            Component.translatable("gene.geneticsresequenced.tooltip.copy_id", id)
+                            Component.translatable("tooltip.geneticsresequenced.copy_gene_id", id)
                         )
                     )
                     .withClickEvent(
