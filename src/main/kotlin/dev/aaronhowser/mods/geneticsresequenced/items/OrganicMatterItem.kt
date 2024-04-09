@@ -40,7 +40,7 @@ object OrganicMatterItem : Item(
         if (entityType != null) {
             val component =
                 Component
-                    .empty()
+                    .translatable("tooltip.geneticsresequenced.organic_matter")
                     .append(entityType.getDescription())
                     .withStyle { it.withColor(ChatFormatting.GRAY) }
 
