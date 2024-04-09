@@ -61,7 +61,7 @@ object ListGenesCommand {
         val messageComponent = target.displayName.copy().append(Component.literal("'s genes:"))
 
         for (gene in targetGenesList) {
-            val geneComponent = Component.literal("\n• ${gene.description}")
+            val geneComponent = Component.literal("\n• ").append(gene.getDescription())
             messageComponent.append(geneComponent)
         }
 

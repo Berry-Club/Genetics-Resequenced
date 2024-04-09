@@ -20,10 +20,10 @@ object ListAllGenesCommand {
 
     private fun listAllGenes(context: CommandContext<CommandSourceStack>): Int {
 
-        val messageComponent = Component.literal("Gene List:")
+        val messageComponent = Component.translatable("command.geneticsresequenced.geneList")
 
         for (gene in Gene.REGISTRY) {
-            val enumComponent = Component
+            val idComponent = Component
                 .literal(gene.id)
                 .withStyle {
                     it
@@ -39,12 +39,13 @@ object ListAllGenesCommand {
                 }
 
             val descriptionComponent = Component
-                .literal(" - ${gene.description}")
+                .literal(" - ")
+                .append(gene.getDescription())
                 .withStyle(ChatFormatting.GRAY)
 
             val lineComponent = Component
                 .literal("\n")
-                .append(enumComponent)
+                .append(idComponent)
                 .append(descriptionComponent)
 
             messageComponent.append(lineComponent)

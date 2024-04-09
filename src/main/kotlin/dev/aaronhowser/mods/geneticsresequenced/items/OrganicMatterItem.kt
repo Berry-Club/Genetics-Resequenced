@@ -37,7 +37,11 @@ object OrganicMatterItem : Item(
 
         val entityType = getEntityType(pStack)
         if (entityType != null) {
-            pTooltipComponents.add(entityType.getDescription())
+
+            val component = Component.literal("Mob: ")
+                .append(entityType.getDescription())
+
+            pTooltipComponents.add(component)
         }
 
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced)

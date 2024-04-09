@@ -74,28 +74,31 @@ object AddGeneCommand {
 
         val alreadyHasGene = targetGenes.hasGene(geneToAdd)
         if (alreadyHasGene) {
-            context.source.sendFailure(
-                Component.literal("Failed to add gene: ${geneToAdd.description} - Gene already present")
-            )
+
+            val component = Component.translatable("command.geneticsresequenced.add.fail.already_present")
+
+            context.source.sendFailure(component)
             return 0
         }
 
         val success = targetGenes.addGene(geneToAdd)
 
-        @Suppress("LiftReturnOrAssignment")
         if (success) {
-            context.source.sendSuccess(
-                Component.literal("Added gene: ${geneToAdd.description}"),
-                false
-            )
+            val component = Component
+                .translatable("command.geneticsresequenced.add.success")
+                .append(geneToAdd.getDescription())
+
+            context.source.sendSuccess(component, false)
 
             OtherPlayerEvents.genesChanged(target, geneToAdd, true)
 
             return 1
         } else {
-            context.source.sendFailure(
-                Component.literal("Failed to add gene: ${geneToAdd.description}")
-            )
+            val component = Component
+                .translatable("command.geneticsresequenced.add.fail.other")
+                .append(geneToAdd.getDescription())
+
+            context.source.sendFailure(component)
             return 0
         }
     }
@@ -116,7 +119,7 @@ object AddGeneCommand {
         }
 
         context.source.sendSuccess(
-            Component.literal("Added all positive genes!"),
+            Component.translatable("command.geneticsresequenced.add.success.all"),
             false
         )
         return 1

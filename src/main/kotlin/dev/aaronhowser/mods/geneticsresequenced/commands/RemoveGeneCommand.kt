@@ -78,18 +78,16 @@ object RemoveGeneCommand {
         val doesNotHaveGene = !targetGenes.hasGene(geneToRemove)
 
         if (doesNotHaveGene) {
-            context.source.sendFailure(
-                Component.literal("Failed to remove gene: ${geneToRemove.description} - Gene not present")
-            )
+            context.source.sendFailure(Component.translatable("command.geneticsresequenced.remove.fail.no_gene"))
             return 0
         }
 
         val success = targetGenes.removeGene(geneToRemove)
 
-        @Suppress("LiftReturnOrAssignment")
         if (success) {
             context.source.sendSuccess(
-                Component.literal("Removed gene: ${geneToRemove.description}"),
+                Component.translatable("command.geneticsresequenced.remove.success")
+                    .append(geneToRemove.getDescription()),
                 false
             )
 
@@ -97,9 +95,11 @@ object RemoveGeneCommand {
 
             return 1
         } else {
-            context.source.sendFailure(
-                Component.literal("Failed to remove gene: ${geneToRemove.description}")
-            )
+            val component = Component
+                .translatable("command.geneticsresequenced.remove.fail.other")
+                .append(geneToRemove.getDescription())
+
+            context.source.sendFailure(component)
             return 0
         }
     }
@@ -116,7 +116,7 @@ object RemoveGeneCommand {
 
         if (targetGenes.getGeneList().isEmpty()) {
             context.source.sendSuccess(
-                Component.literal("No genes to remove!"),
+                Component.translatable("command.geneticsresequenced.remove.fail.all"),
                 false
             )
             return 1
@@ -130,7 +130,7 @@ object RemoveGeneCommand {
         }
 
         context.source.sendSuccess(
-            Component.literal("Removed $amountGenes genes!"),
+            Component.translatable("command.geneticsresequenced.remove.success.all", amountGenes),
             false
         )
         return 1
