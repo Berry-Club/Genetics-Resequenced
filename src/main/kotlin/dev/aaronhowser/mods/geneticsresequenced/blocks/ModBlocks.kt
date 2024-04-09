@@ -21,6 +21,10 @@ object ModBlocks {
         BioluminescenceBlock
     }
 
+    val CELL_ANALYZER by register("cell_analyzer") {
+        CellAnalyzerBlock
+    }
+
     private fun register(
         name: String,
         itemProperties: Item.Properties = defaultItemProperties,

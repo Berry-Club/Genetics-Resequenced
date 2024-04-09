@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
@@ -9,7 +8,6 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
-import net.minecraftforge.registries.ForgeRegistries
 
 object ScraperItem : Item(
     Properties()
@@ -32,14 +30,9 @@ object ScraperItem : Item(
         }
 
         val organicStack = ItemStack(ModItems.ORGANIC_MATTER)
+        val mobSetSuccessful = EntityDnaItem.setMob(organicStack, pInteractionTarget.type)
 
-        val mobResourceLocation = ForgeRegistries.ENTITY_TYPES.getKey(pInteractionTarget.type)
-        if (mobResourceLocation == null) {
-            GeneticsResequenced.LOGGER.error("Failed to get mob id for ${pInteractionTarget.type}")
-            return InteractionResult.FAIL
-        }
-
-        EntityDnaItem.setMobRl(organicStack, mobResourceLocation)
+        if (!mobSetSuccessful) return InteractionResult.FAIL
 
         if (!pPlayer.inventory.add(organicStack)) {
             pPlayer.drop(organicStack, false)

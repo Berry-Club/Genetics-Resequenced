@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -18,12 +19,20 @@ class EntityDnaItem() : Item(
     companion object {
         private const val MOB_ID_NBT = "MobId"
 
-        fun setMobRl(itemStack: ItemStack, mobId: ResourceLocation) {
+        fun setMob(itemStack: ItemStack, entityType: EntityType<*>): Boolean {
+            val mobId = ForgeRegistries.ENTITY_TYPES.getKey(entityType)
+            if (mobId == null) {
+                GeneticsResequenced.LOGGER.error("Failed to get mob id for $entityType")
+                return false
+            }
+
             val tag = itemStack.orCreateTag
             tag.putString(MOB_ID_NBT, mobId.toString())
+
+            return true
         }
 
-        private fun getEntityType(itemStack: ItemStack): EntityType<*>? {
+        fun getEntityType(itemStack: ItemStack): EntityType<*>? {
             val string = itemStack.tag?.getString(MOB_ID_NBT) ?: return null
             val resourceLocation = ResourceLocation.tryParse(string) ?: return null
 

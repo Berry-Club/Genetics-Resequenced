@@ -2,10 +2,14 @@ package dev.aaronhowser.mods.geneticsresequenced.events
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.controls.ModKeyMappings
+import dev.aaronhowser.mods.geneticsresequenced.screens.CellAnalyzerScreen
+import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
+import net.minecraft.client.gui.screens.MenuScreens
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 
 @Mod.EventBusSubscriber(
     modid = GeneticsResequenced.ID,
@@ -18,6 +22,15 @@ object ClientModBusEvents {
     fun onKeyRegister(event: RegisterKeyMappingsEvent) {
         event.register(ModKeyMappings.DRAGONS_BREATH)
         event.register(ModKeyMappings.TELEPORT)
+    }
+
+    @SubscribeEvent
+    fun onClientSetup(event: FMLClientSetupEvent) {
+
+        MenuScreens.register(ModMenuTypes.CELL_ANALYZER.get()) { menu, inventory, title ->
+            CellAnalyzerScreen(menu, inventory, title)
+        }
+
     }
 
 }
