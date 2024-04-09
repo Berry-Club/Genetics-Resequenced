@@ -10,7 +10,7 @@ import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 import net.minecraftforge.registries.ForgeRegistries
 
-object OrganicMatterItem : Item(
+object EntityDnaItem : Item(
     Properties()
         .tab(ModItems.MOD_TAB)
 ) {

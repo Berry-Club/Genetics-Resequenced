@@ -39,7 +39,7 @@ object ScraperItem : Item(
             return InteractionResult.FAIL
         }
 
-        OrganicMatterItem.setMobRl(organicStack, mobResourceLocation)
+        EntityDnaItem.setMobRl(organicStack, mobResourceLocation)
 
         if (!pPlayer.inventory.add(organicStack)) {
             pPlayer.drop(organicStack, false)

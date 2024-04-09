@@ -36,7 +36,11 @@ object ModItems {
     }
 
     val ORGANIC_MATTER by REGISTRY.registerObject("organic_matter") {
-        OrganicMatterItem
+        EntityDnaItem
+    }
+
+    val CELL by REGISTRY.registerObject("cell") {
+        EntityDnaItem
     }
 
 }
