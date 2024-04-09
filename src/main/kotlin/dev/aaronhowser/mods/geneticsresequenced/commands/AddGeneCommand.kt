@@ -86,7 +86,7 @@ object AddGeneCommand {
         if (success) {
             val component = Component
                 .translatable("command.geneticsresequenced.add.success")
-                .append(geneToAdd.getDescription())
+                .append(geneToAdd.nameComponent)
 
             context.source.sendSuccess(component, false)
 
@@ -96,7 +96,7 @@ object AddGeneCommand {
         } else {
             val component = Component
                 .translatable("command.geneticsresequenced.add.fail.other")
-                .append(geneToAdd.getDescription())
+                .append(geneToAdd.nameComponent)
 
             context.source.sendFailure(component)
             return 0

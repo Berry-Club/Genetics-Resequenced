@@ -12,7 +12,9 @@
   "command.geneticsresequenced.remove.fail.all": "No genes to remove!",
   "command.geneticsresequenced.remove.fail.other": "Failed to remove gene: ",
   "command.geneticsresequenced.remove.success": "Successfully removed gene: ",
-  "command.geneticsresequenced.remove.success.all": "Removed %i genes!",
+  "command.geneticsresequenced.remove.success.all": "Removed %d genes!",
+
+  "gene.geneticsresequenced.tooltip.copy_id": "Click to copy ID: %s",
 
   "gene.geneticsresequenced.haste_2":"Haste II",
   "gene.geneticsresequenced.efficiency_4":"Efficiency IV",
