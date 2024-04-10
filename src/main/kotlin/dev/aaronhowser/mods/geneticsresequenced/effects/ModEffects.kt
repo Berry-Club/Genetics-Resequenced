@@ -12,8 +12,6 @@ object ModEffects {
     val REGISTRY: DeferredRegister<MobEffect> =
         DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, GeneticsResequenced.ID)
 
-    val BLEED by REGISTRY.registerObject("bleed") {
-        BleedEffect()
-    }
+    val BLEED by REGISTRY.registerObject("bleed") { BleedEffect() }
 
 }

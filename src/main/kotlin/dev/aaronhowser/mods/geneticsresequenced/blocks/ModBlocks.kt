@@ -17,13 +17,8 @@ object ModBlocks {
     val REGISTRY: DeferredRegister<Block> =
         DeferredRegister.create(ForgeRegistries.BLOCKS, GeneticsResequenced.ID)
 
-    val BIOLUMINESCENCE by register("bioluminescence") {
-        BioluminescenceBlock
-    }
-
-    val CELL_ANALYZER by register("cell_analyzer") {
-        CellAnalyzerBlock
-    }
+    val BIOLUMINESCENCE_BLOCK by register("bioluminescence") { BioluminescenceBlock }
+    val CELL_ANALYZER by register("cell_analyzer") { CellAnalyzerBlock }
 
     private fun register(
         name: String,

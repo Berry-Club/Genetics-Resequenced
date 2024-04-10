@@ -19,28 +19,11 @@ object ModItems {
     val REGISTRY: DeferredRegister<Item> =
         DeferredRegister.create(ForgeRegistries.ITEMS, GeneticsResequenced.ID)
 
-    val DRAGON_HEALTH_CRYSTAL by REGISTRY.registerObject("dragon_health_crystal") {
-        DragonHealthCrystal
-    }
-
-    val ANTI_FIELD_ORB by REGISTRY.registerObject("anti_field_orb") {
-        AntiFieldOrbItem
-    }
-
-    val SCRAPER by REGISTRY.registerObject("scraper") {
-        ScraperItem
-    }
-
-    val SYRINGE by REGISTRY.registerObject("syringe") {
-        SyringeItem
-    }
-
-    val ORGANIC_MATTER by REGISTRY.registerObject("organic_matter") {
-        EntityDnaItem()
-    }
-
-    val CELL by REGISTRY.registerObject("cell") {
-        EntityDnaItem()
-    }
+    val DRAGON_HEALTH_CRYSTAL by REGISTRY.registerObject("dragon_health_crystal") { DragonHealthCrystal }
+    val ANTI_FIELD_ORB by REGISTRY.registerObject("anti_field_orb") { AntiFieldOrbItem }
+    val SCRAPER by REGISTRY.registerObject("scraper") { ScraperItem }
+    val SYRINGE by REGISTRY.registerObject("syringe") { SyringeItem }
+    val ORGANIC_MATTER by REGISTRY.registerObject("organic_matter") { EntityDnaItem() }
+    val CELL by REGISTRY.registerObject("cell") { EntityDnaItem() }
 
 }
