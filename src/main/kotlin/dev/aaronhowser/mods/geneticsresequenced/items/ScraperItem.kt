@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -12,7 +13,7 @@ import net.minecraft.world.item.ItemStack
 object ScraperItem : Item(
     Properties()
         .tab(ModItems.MOD_TAB)
-        .stacksTo(1)
+        .defaultDurability(200)
 ) {
 
     override fun interactLivingEntity(
@@ -21,6 +22,8 @@ object ScraperItem : Item(
         pInteractionTarget: LivingEntity,
         pUsedHand: InteractionHand
     ): InteractionResult {
+
+        if (pInteractionTarget.hurtTime > 0) return InteractionResult.FAIL
 
         if (pInteractionTarget.type.`is`(ModTags.SCRAPER_BLACKLIST)) {
             if (pPlayer.level.isClientSide) return InteractionResult.FAIL
@@ -37,6 +40,10 @@ object ScraperItem : Item(
         if (!pPlayer.inventory.add(organicStack)) {
             pPlayer.drop(organicStack, false)
         }
+
+        //TODO: Enchantment to not damage the entity
+        pInteractionTarget.hurt(DamageSource.playerAttack(pPlayer), 1f)
+        pStack.hurtAndBreak(1, pPlayer) { pPlayer.broadcastBreakEvent(pUsedHand) }
 
         return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand)
     }
