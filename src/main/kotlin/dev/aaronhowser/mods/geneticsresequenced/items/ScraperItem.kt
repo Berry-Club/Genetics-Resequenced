@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
+import dev.aaronhowser.mods.geneticsresequenced.enchantments.ModEnchantments
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
@@ -24,6 +25,7 @@ object ScraperItem : Item(
     ): InteractionResult {
 
         if (pInteractionTarget.hurtTime > 0) return InteractionResult.FAIL
+        if (pPlayer.cooldowns.isOnCooldown(this)) return InteractionResult.FAIL
 
         if (pInteractionTarget.type.`is`(ModTags.SCRAPER_BLACKLIST)) {
             if (pPlayer.level.isClientSide) return InteractionResult.FAIL
@@ -41,8 +43,11 @@ object ScraperItem : Item(
             pPlayer.drop(organicStack, false)
         }
 
-        //TODO: Enchantment to not damage the entity
-        pInteractionTarget.hurt(DamageSource.playerAttack(pPlayer), 1f)
+        if (pStack.getEnchantmentLevel(ModEnchantments.DELICATE_TOUCH) == 0) {
+            pInteractionTarget.hurt(DamageSource.playerAttack(pPlayer), 1f)
+        } else {
+            pPlayer.cooldowns.addCooldown(this, 10)
+        }
         pStack.hurtAndBreak(1, pPlayer) { pPlayer.broadcastBreakEvent(pUsedHand) }
 
         return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand)

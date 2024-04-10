@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.blockentities.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.effects.ModEffects
+import dev.aaronhowser.mods.geneticsresequenced.enchantments.ModEnchantments
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
@@ -31,6 +32,7 @@ object GeneticsResequenced {
         ModBlocks.REGISTRY.register(MOD_BUS)
         ModBlockEntities.REGISTRY.register(MOD_BUS)
         ModItems.REGISTRY.register(MOD_BUS)
+        ModEnchantments.REGISTRY.register(MOD_BUS)
         ModMenuTypes.REGISTRY.register(MOD_BUS)
 
         ModPacketHandler.setup()
