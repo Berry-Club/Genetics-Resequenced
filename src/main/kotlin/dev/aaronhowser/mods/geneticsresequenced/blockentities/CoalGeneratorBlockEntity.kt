@@ -20,6 +20,7 @@ import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ForgeCapabilities
 import net.minecraftforge.common.util.LazyOptional
@@ -32,7 +33,7 @@ class CoalGeneratorBlockEntity(
     pPos: BlockPos,
     pBlockState: BlockState
 ) : BlockEntity(
-    ModBlockEntities.CELL_ANALYZER.get(),
+    ModBlockEntities.COAL_GENERATOR.get(),
     pPos,
     pBlockState
 ), MenuProvider {
@@ -120,27 +121,34 @@ class CoalGeneratorBlockEntity(
         Containers.dropContents(this.level!!, this.blockPos, inventory)
     }
 
-    private var ticksToBurnRemaining = 0
-        set(value) {
-            field = value.coerceAtLeast(0)
-        }
-
     // Client only
     fun setEnergy(energy: Int) {
         this.energyStorage.setEnergy(energy)
     }
 
     private val data = object : ContainerData {
+        private var _totalTicksToBurn = 0
+            set(value) {
+                field = value
+                _ticksToBurnRemaining = _ticksToBurnRemaining.coerceAtMost(value)
+            }
+        private var _ticksToBurnRemaining = 0
+            set(value) {
+                field = value.coerceIn(0, _totalTicksToBurn)
+            }
+
         override fun get(pIndex: Int): Int {
             return when (pIndex) {
-                REMAINING_TICKS_INDEX -> ticksToBurnRemaining
+                REMAINING_TICKS_INDEX -> _ticksToBurnRemaining
+                MAX_BURN_TIME_INDEX -> _totalTicksToBurn
                 else -> 0
             }
         }
 
         override fun set(pIndex: Int, pValue: Int) {
             when (pIndex) {
-                REMAINING_TICKS_INDEX -> ticksToBurnRemaining = pValue
+                REMAINING_TICKS_INDEX -> _ticksToBurnRemaining = pValue
+                MAX_BURN_TIME_INDEX -> _totalTicksToBurn = pValue
             }
         }
 
@@ -148,6 +156,18 @@ class CoalGeneratorBlockEntity(
             return SIMPLE_CONTAINER_SIZE
         }
     }
+
+    private var maxBurnTime: Int
+        get() = data.get(MAX_BURN_TIME_INDEX)
+        set(value) {
+            data.set(MAX_BURN_TIME_INDEX, value)
+        }
+
+    private var burnTimeRemaining: Int
+        get() = data.get(REMAINING_TICKS_INDEX)
+        set(value) {
+            data.set(REMAINING_TICKS_INDEX, value)
+        }
 
     companion object {
 
@@ -171,11 +191,15 @@ class CoalGeneratorBlockEntity(
         private fun tryToStartBurning(blockEntity: CoalGeneratorBlockEntity) {
 
             val inputItem = blockEntity.itemHandler.getStackInSlot(INPUT_SLOT)
-            val fuel = inputItem.getBurnTime(RecipeType.SMELTING)
+            val fuel = ForgeHooks.getBurnTime(inputItem, RecipeType.SMELTING)
 
-            if (fuel > 0) return
+            if (fuel <= 0) {
+                blockEntity.maxBurnTime = 0
+                return
+            }
 
-            blockEntity.data.set(REMAINING_TICKS_INDEX, fuel)
+            blockEntity.maxBurnTime = fuel
+            blockEntity.burnTimeRemaining = fuel
             blockEntity.itemHandler.extractItem(INPUT_SLOT, 1, false)
             blockEntity.setChanged()
         }
@@ -183,12 +207,12 @@ class CoalGeneratorBlockEntity(
         private fun generateEnergy(blockEntity: CoalGeneratorBlockEntity) {
             blockEntity.energyStorage.receiveEnergy(ENERGY_PER_TICK, false)
 
-            blockEntity.data.set(REMAINING_TICKS_INDEX, blockEntity.data.get(REMAINING_TICKS_INDEX) - 1)
+            blockEntity.burnTimeRemaining -= 1
             blockEntity.setChanged()
         }
 
         private fun isBurning(blockEntity: CoalGeneratorBlockEntity): Boolean {
-            return blockEntity.data.get(REMAINING_TICKS_INDEX) > 0
+            return blockEntity.burnTimeRemaining > 0
         }
 
         private fun hasRoomForEnergy(blockEntity: CoalGeneratorBlockEntity): Boolean {
@@ -197,7 +221,9 @@ class CoalGeneratorBlockEntity(
 
         private const val INVENTORY_NBT_KEY = "coal_generator.inventory"
 
-        const val SIMPLE_CONTAINER_SIZE = 1
+        // How many values are stored in the container data
+        // Here it's two: remaining ticks and max burn time
+        const val SIMPLE_CONTAINER_SIZE = 2
 
         const val ITEMSTACK_HANDLER_SIZE = 1
         const val INPUT_SLOT = 0
@@ -208,7 +234,8 @@ class CoalGeneratorBlockEntity(
         private const val MAX_TRANSFER = 256
         private const val ENERGY_PER_TICK = 32
 
-        private const val REMAINING_TICKS_INDEX = 0
+        const val REMAINING_TICKS_INDEX = 0
+        const val MAX_BURN_TIME_INDEX = 1
     }
 
 }

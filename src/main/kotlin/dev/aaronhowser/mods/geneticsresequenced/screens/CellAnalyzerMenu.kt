@@ -50,12 +50,22 @@ class CellAnalyzerMenu : AbstractContainerMenu {
         addDataSlots(containerData)
     }
 
+    private var progress: Int
+        get() = data.get(DATA_PROGRESS_INDEX)
+        set(value) {
+            data.set(DATA_PROGRESS_INDEX, value)
+        }
+
+    private var maxProgress: Int
+        get() = data.get(DATA_MAX_PROGRESS_INDEX)
+        set(value) {
+            data.set(DATA_MAX_PROGRESS_INDEX, value)
+        }
+
     val isCrafting
-        get() = data.get(0) > 0
+        get() = progress > 0
 
     fun getScaledProgress(): Int {
-        val progress = data.get(0)
-        val maxProgress = data.get(1)
         val progressArrowSize = CellAnalyzerScreen.ARROW_WIDTH
 
         return if (maxProgress == 0 || progress == 0) {
@@ -66,6 +76,9 @@ class CellAnalyzerMenu : AbstractContainerMenu {
     }
 
     companion object {
+
+        private const val DATA_PROGRESS_INDEX = 0
+        private const val DATA_MAX_PROGRESS_INDEX = 1
 
         private const val TOP_LEFT_INVENTORY_X = 8
         private const val TOP_LEFT_INVENTORY_Y = 84

@@ -47,18 +47,28 @@ class CoalGeneratorMenu : AbstractContainerMenu {
         addDataSlots(containerData)
     }
 
+    private var maxBurnTime: Int
+        get() = data.get(CoalGeneratorBlockEntity.MAX_BURN_TIME_INDEX)
+        set(value) {
+            data.set(CoalGeneratorBlockEntity.MAX_BURN_TIME_INDEX, value)
+        }
+
+    private var burnTimeRemaining: Int
+        get() = data.get(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX)
+        set(value) {
+            data.set(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX, value)
+        }
+
     val isBurning
-        get() = data.get(0) > 0
+        get() = burnTimeRemaining > 0
 
     fun getScaledProgress(): Int {
-        val progress = data.get(0)
-        val maxProgress = data.get(1)
         val progressArrowSize = CoalGeneratorScreen.ARROW_WIDTH
 
-        return if (maxProgress == 0 || progress == 0) {
+        return if (maxBurnTime == 0) {
             0
         } else {
-            progress * progressArrowSize / maxProgress
+            progressArrowSize - (burnTimeRemaining * progressArrowSize / maxBurnTime)
         }
     }
 
