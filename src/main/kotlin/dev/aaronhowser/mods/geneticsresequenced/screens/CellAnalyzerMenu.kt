@@ -100,7 +100,7 @@ class CellAnalyzerMenu : AbstractContainerMenu {
 
         // THIS YOU HAVE TO DEFINE!
         private const val TE_INVENTORY_SLOT_COUNT =
-            CellAnalyzerBlockEntity.SIMPLE_CONTAINER_SIZE // must be the number of slots you have!
+            CellAnalyzerBlockEntity.ITEMSTACK_HANDLER_SIZE // must be the number of slots you have!
     }
 
     override fun quickMoveStack(playerIn: Player, index: Int): ItemStack {
