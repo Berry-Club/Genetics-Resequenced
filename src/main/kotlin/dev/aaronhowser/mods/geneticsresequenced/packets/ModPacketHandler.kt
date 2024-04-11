@@ -9,6 +9,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.phys.Vec3
+import net.minecraftforge.network.NetworkDirection
 import net.minecraftforge.network.NetworkRegistry
 import net.minecraftforge.network.PacketDistributor
 import net.minecraftforge.network.simple.SimpleChannel
@@ -27,40 +28,31 @@ object ModPacketHandler {
     fun setup() {
         var id = 0
 
-        INSTANCE.registerMessage(
-            ++id,
-            TeleportPlayerPacket::class.java,
-            TeleportPlayerPacket::encode,
-            TeleportPlayerPacket::decode,
-            TeleportPlayerPacket::receiveMessage
-        )
+        INSTANCE.apply {
+            messageBuilder(TeleportPlayerPacket::class.java, ++id, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(TeleportPlayerPacket::encode)
+                .decoder(TeleportPlayerPacket::decode)
+                .consumerMainThread(TeleportPlayerPacket::receiveMessage)
+                .add()
 
-        INSTANCE.registerMessage(
-            ++id,
-            FireballPacket::class.java,
-            FireballPacket::encode,
-            FireballPacket::decode,
-            FireballPacket::receiveMessage
-        )
+            messageBuilder(FireballPacket::class.java, ++id, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(FireballPacket::encode)
+                .decoder(FireballPacket::decode)
+                .consumerMainThread(FireballPacket::receiveMessage)
+                .add()
 
-        INSTANCE.registerMessage(
-            ++id,
-            GeneChangedPacket::class.java,
-            GeneChangedPacket::encode,
-            GeneChangedPacket::decode,
-            GeneChangedPacket::receiveMessage
-        )
+            messageBuilder(EnergySyncPacket::class.java, ++id, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(EnergySyncPacket::encode)
+                .decoder(EnergySyncPacket::decode)
+                .consumerMainThread(EnergySyncPacket::receiveMessage)
+                .add()
 
-        INSTANCE.registerMessage(
-            ++id,
-            EnergySyncPacket::class.java,
-            EnergySyncPacket::encode,
-            EnergySyncPacket::decode,
-            EnergySyncPacket::receiveMessage
-        )
-
-        // INSTANCE.messageBuilder
-
+            messageBuilder(GeneChangedPacket::class.java, ++id, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(GeneChangedPacket::encode)
+                .decoder(GeneChangedPacket::decode)
+                .consumerMainThread(GeneChangedPacket::receiveMessage)
+                .add()
+        }
     }
 
     fun messageNearbyPlayers(packet: ModPacket, serverLevel: ServerLevel, origin: Vec3, radius: Double) {
