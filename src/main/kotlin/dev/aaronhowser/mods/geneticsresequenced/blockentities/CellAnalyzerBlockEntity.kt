@@ -2,7 +2,10 @@ package dev.aaronhowser.mods.geneticsresequenced.blockentities
 
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
+import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.EnergySyncPacket
 import dev.aaronhowser.mods.geneticsresequenced.screens.CellAnalyzerMenu
+import dev.aaronhowser.mods.geneticsresequenced.util.ModEnergyStorage
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.nbt.CompoundTag
@@ -21,6 +24,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.ForgeCapabilities
 import net.minecraftforge.common.util.LazyOptional
+import net.minecraftforge.energy.IEnergyStorage
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.ItemStackHandler
 
@@ -51,6 +55,16 @@ class CellAnalyzerBlockEntity(
 
     private var lazyItemHandler = LazyOptional.empty<IItemHandler>()
 
+    private val energyStorage: ModEnergyStorage = object : ModEnergyStorage(CAPACITY, MAX_TRANSFER) {
+        override fun onEnergyChanged() {
+            setChanged()
+
+            ModPacketHandler.messageAllPlayers(EnergySyncPacket(energy, blockPos))
+        }
+    }
+
+    private var lazyEnergyStorage = LazyOptional.empty<IEnergyStorage>()
+
     override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu? {
         return CellAnalyzerMenu(pContainerId, pPlayerInventory, this, this.data)
     }
@@ -60,31 +74,47 @@ class CellAnalyzerBlockEntity(
     }
 
     override fun <T : Any?> getCapability(cap: Capability<T>, side: Direction?): LazyOptional<T> {
-        if (cap == ForgeCapabilities.ITEM_HANDLER) {
-            return lazyItemHandler.cast()
-        }
+        return when (cap) {
+            ForgeCapabilities.ITEM_HANDLER -> getItemCapability(side).cast()
 
-        return super.getCapability(cap, side)
+            ForgeCapabilities.ENERGY -> getEnergyCapability(side).cast()
+
+            else -> super.getCapability(cap, side)
+        }
     }
+
+    private fun getItemCapability(side: Direction?): LazyOptional<IItemHandler> {
+        return lazyItemHandler.cast()
+    }
+
+    private fun getEnergyCapability(side: Direction?): LazyOptional<IEnergyStorage> {
+        return lazyEnergyStorage.cast()
+    }
+
+    fun getEnergyStorage(): IEnergyStorage = energyStorage
 
     override fun onLoad() {
         super.onLoad()
         lazyItemHandler = LazyOptional.of { itemHandler }
+        lazyEnergyStorage = LazyOptional.of { energyStorage }
     }
 
     override fun invalidateCaps() {
         super.invalidateCaps()
         lazyItemHandler.invalidate()
+        lazyEnergyStorage.invalidate()
     }
 
     override fun saveAdditional(pTag: CompoundTag) {
-        pTag.put(INVENTORY, itemHandler.serializeNBT())
+        pTag.put(INVENTORY_NBT_KEY, itemHandler.serializeNBT())
+        pTag.putInt(ENERGY_NBT_KEY, energyStorage.energyStored)
         super.saveAdditional(pTag)
     }
 
     override fun load(pTag: CompoundTag) {
         super.load(pTag)
-        itemHandler.deserializeNBT(pTag.getCompound(INVENTORY))
+        itemHandler.deserializeNBT(pTag.getCompound(INVENTORY_NBT_KEY))
+        energyStorage.setEnergy(pTag.getInt(ENERGY_NBT_KEY))
     }
 
     fun drops() {
@@ -102,7 +132,12 @@ class CellAnalyzerBlockEntity(
         progress = 0
     }
 
-    val data = object : ContainerData {
+    // Client only
+    fun setEnergy(energy: Int) {
+        this.energyStorage.setEnergy(energy)
+    }
+
+    private val data = object : ContainerData {
         override fun get(pIndex: Int): Int {
             return when (pIndex) {
                 PROGRESS_INDEX -> progress
@@ -134,6 +169,9 @@ class CellAnalyzerBlockEntity(
             if (level.isClientSide) return
 
             if (hasRecipe(blockEntity)) {
+
+                blockEntity.energyStorage.receiveEnergy(ENERGY_PER_TICK, false)
+
                 blockEntity.progress++
                 blockEntity.setChanged()
 
@@ -145,6 +183,15 @@ class CellAnalyzerBlockEntity(
                 blockEntity.setChanged()
             }
 
+        }
+
+        private fun extractEnergy(blockEntity: CellAnalyzerBlockEntity) {
+            if (blockEntity.energyStorage.energyStored < ENERGY_PER_TICK) return
+            blockEntity.energyStorage.extractEnergy(ENERGY_PER_TICK, false)
+        }
+
+        private fun hasEnoughEnergy(blockEntity: CellAnalyzerBlockEntity): Boolean {
+            return blockEntity.energyStorage.energyStored >= ENERGY_PER_TICK
         }
 
         private fun craftItem(blockEntity: CellAnalyzerBlockEntity) {
@@ -199,7 +246,7 @@ class CellAnalyzerBlockEntity(
             return mobAlreadyInSlot == mobToInsert
         }
 
-        private const val INVENTORY = "inventory"
+        private const val INVENTORY_NBT_KEY = "cell_analyzer.inventory"
         private const val PROGRESS_INDEX = 0
         private const val MAX_PROGRESS_INDEX = 1
 
@@ -209,6 +256,11 @@ class CellAnalyzerBlockEntity(
         private const val INPUT_SLOT = 0
         private const val OUTPUT_SLOT = 1
         private const val OVERCLOCK_SLOT = 2
+
+        private const val ENERGY_NBT_KEY = "cell_analyzer.energy"
+        private const val CAPACITY = 60_000
+        private const val MAX_TRANSFER = 256
+        private const val ENERGY_PER_TICK = 32
 
     }
 

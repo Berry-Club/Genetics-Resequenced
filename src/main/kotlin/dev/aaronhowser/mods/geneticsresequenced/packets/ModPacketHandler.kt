@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.packets
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.TeleportPlayerPacket
+import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.EnergySyncPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerLevel
@@ -50,6 +51,16 @@ object ModPacketHandler {
             GeneChangedPacket::receiveMessage
         )
 
+        INSTANCE.registerMessage(
+            ++id,
+            EnergySyncPacket::class.java,
+            EnergySyncPacket::encode,
+            EnergySyncPacket::decode,
+            EnergySyncPacket::receiveMessage
+        )
+
+        // INSTANCE.messageBuilder
+
     }
 
     fun messageNearbyPlayers(packet: ModPacket, serverLevel: ServerLevel, origin: Vec3, radius: Double) {
@@ -64,6 +75,13 @@ object ModPacketHandler {
     fun messagePlayer(player: ServerPlayer, packet: ModPacket) {
         INSTANCE.send(
             PacketDistributor.PLAYER.with { player },
+            packet
+        )
+    }
+
+    fun messageAllPlayers(packet: ModPacket) {
+        INSTANCE.send(
+            PacketDistributor.ALL.noArg(),
             packet
         )
     }

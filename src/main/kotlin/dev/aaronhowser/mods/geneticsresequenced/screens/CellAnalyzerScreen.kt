@@ -3,6 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.screens
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.PoseStack
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.screens.renderer.EnergyInfoArea
+import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.network.chat.Component
@@ -25,10 +27,35 @@ class CellAnalyzerScreen(
         const val ARROW_Y = 37
         const val ARROW_WIDTH = 24
         const val ARROW_HEIGHT = 17
+
+        const val ENERGY_TEXTURE_X = 177
+        const val ENERGY_TEXTURE_Y = 3
+        const val ENERGY_X = 9
+        const val ENERGY_Y = 22
+        const val ENERGY_WIDTH = 14
+        const val ENERGY_HEIGHT = 42
+
     }
+
+    private lateinit var energyInfoArea: EnergyInfoArea
 
     override fun init() {
         super.init()
+        assignInfoArea()
+    }
+
+    private fun assignInfoArea() {
+        val x = (width - imageWidth) / 2
+        val y = (height - imageHeight) / 2
+
+        energyInfoArea = EnergyInfoArea(
+            x + ENERGY_X,
+            y + ENERGY_Y,
+            menu.blockEntity.getEnergyStorage(),
+            ENERGY_WIDTH,
+            ENERGY_HEIGHT
+        )
+
     }
 
     override fun renderBg(pPoseStack: PoseStack, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
@@ -41,6 +68,45 @@ class CellAnalyzerScreen(
         blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight)
 
         renderProgressArrow(pPoseStack, x, y)
+        energyInfoArea.draw(pPoseStack)
+    }
+
+    override fun renderLabels(pPoseStack: PoseStack, pMouseX: Int, pMouseY: Int) {
+
+        val x = (width - imageWidth) / 2
+        val y = (height - imageHeight) / 2
+
+        renderEnergyAreaTooltip(pPoseStack, x, y, pMouseX, pMouseY)
+
+        super.renderLabels(pPoseStack, pMouseX, pMouseY)
+    }
+
+    private fun renderEnergyAreaTooltip(pPoseStack: PoseStack, x: Int, y: Int, pMouseX: Int, pMouseY: Int) {
+
+        if (isMouseOver(pMouseX, pMouseY, x, y, ENERGY_X, ENERGY_Y, ENERGY_WIDTH, ENERGY_HEIGHT)) {
+            renderTooltip(pPoseStack, energyInfoArea.tooltip, pMouseX - x, pMouseY - y)
+        }
+
+    }
+
+    private fun isMouseOver(
+        mouseX: Int,
+        mouseY: Int,
+        x: Int,
+        y: Int,
+        offsetX: Int,
+        offsetY: Int,
+        width: Int,
+        height: Int
+    ): Boolean {
+        return MouseUtil.isMouseOver(
+            mouseX.toDouble(),
+            mouseY.toDouble(),
+            x + offsetX,
+            y + offsetY,
+            width,
+            height
+        )
     }
 
     private fun renderProgressArrow(pPoseStack: PoseStack, x: Int, y: Int) {
