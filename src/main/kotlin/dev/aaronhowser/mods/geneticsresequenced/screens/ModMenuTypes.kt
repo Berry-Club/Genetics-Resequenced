@@ -20,4 +20,10 @@ object ModMenuTypes {
                 CellAnalyzerMenu(id, inv, buf)
             })
         }
+
+    val COAL_GENERATOR: RegistryObject<MenuType<CoalGeneratorMenu>> = REGISTRY.register("coal_generator_menu") {
+        IForgeMenuType.create(IContainerFactory { id, inv, buf ->
+            CoalGeneratorMenu(id, inv, buf)
+        })
+    }
 }

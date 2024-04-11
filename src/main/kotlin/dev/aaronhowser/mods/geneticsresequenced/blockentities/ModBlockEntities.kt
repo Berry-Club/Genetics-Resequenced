@@ -20,4 +20,12 @@ object ModBlockEntities {
         ).build(null)
     }
 
+    val COAL_GENERATOR: RegistryObject<BlockEntityType<CoalGeneratorBlockEntity>> =
+        REGISTRY.register("coal_generator") {
+            BlockEntityType.Builder.of(
+                { pos, state -> CoalGeneratorBlockEntity(pos, state) },
+                ModBlocks.COAL_GENERATOR
+            ).build(null)
+        }
+
 }

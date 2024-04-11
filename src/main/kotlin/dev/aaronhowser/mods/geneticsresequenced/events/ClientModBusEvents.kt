@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.events
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.controls.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.screens.CellAnalyzerScreen
+import dev.aaronhowser.mods.geneticsresequenced.screens.CoalGeneratorScreen
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import net.minecraft.client.gui.screens.MenuScreens
 import net.minecraftforge.api.distmarker.Dist
@@ -29,6 +30,9 @@ object ClientModBusEvents {
 
         MenuScreens.register(ModMenuTypes.CELL_ANALYZER.get()) { menu, inventory, title ->
             CellAnalyzerScreen(menu, inventory, title)
+        }
+        MenuScreens.register(ModMenuTypes.COAL_GENERATOR.get()) { menu, inventory, title ->
+            CoalGeneratorScreen(menu, inventory, title)
         }
 
     }
