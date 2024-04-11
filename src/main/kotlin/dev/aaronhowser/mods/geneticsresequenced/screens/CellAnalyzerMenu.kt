@@ -66,6 +66,10 @@ class CellAnalyzerMenu : AbstractContainerMenu {
     }
 
     companion object {
+
+        private const val TOP_LEFT_INVENTORY_X = 8
+        private const val TOP_LEFT_INVENTORY_Y = 84
+
         // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
         // must assign a slot number to each of the slots used by the GUI.
         // For this container, we can see both the tile inventory's slots as well as the player inventory slots and the hotbar.
@@ -137,17 +141,31 @@ class CellAnalyzerMenu : AbstractContainerMenu {
 
     // Adds the 27 slots of the player inventory
     private fun addPlayerInventory(playerInventory: Inventory) {
-        for (i in 0 until 3) {
-            for (l in 0 until 9) {
-                addSlot(Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 86 + i * 18))
+        for (row in 0 until 3) {
+            for (column in 0 until 9) {
+                addSlot(
+                    Slot(
+                        playerInventory,
+                        column + row * 9 + 9,
+                        TOP_LEFT_INVENTORY_X + column * 18,
+                        TOP_LEFT_INVENTORY_Y + row * 18
+                    )
+                )
             }
         }
     }
 
     // Adds the 9 slots of the player hotbar
     private fun addPlayerHotbar(playerInventory: Inventory) {
-        for (i in 0 until 8) {
-            addSlot(Slot(playerInventory, i, 8 + i * 18, 144))
+        for (column in 0 until 9) {
+            addSlot(
+                Slot(
+                    playerInventory,
+                    column,
+                    TOP_LEFT_INVENTORY_X + column * 18,
+                    TOP_LEFT_INVENTORY_Y + 4 + 3 * 18
+                )
+            )
         }
     }
 }
