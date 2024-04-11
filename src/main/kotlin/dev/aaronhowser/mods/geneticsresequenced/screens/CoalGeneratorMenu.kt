@@ -41,7 +41,7 @@ class CoalGeneratorMenu : AbstractContainerMenu {
         addPlayerHotbar(inventory)
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent { itemHandler ->
-            this.addSlot(SlotItemHandler(itemHandler, CoalGeneratorBlockEntity.INPUT_SLOT, 63, 36))
+            this.addSlot(SlotItemHandler(itemHandler, CoalGeneratorBlockEntity.INPUT_SLOT, 52, 34))
         }
 
         addDataSlots(containerData)
@@ -97,6 +97,7 @@ class CoalGeneratorMenu : AbstractContainerMenu {
             CoalGeneratorBlockEntity.SIMPLE_CONTAINER_SIZE // must be the number of slots you have!
     }
 
+    //FIXME: Crashes when you shift click items in
     override fun quickMoveStack(playerIn: Player, index: Int): ItemStack {
         val sourceSlot = slots.getOrNull(index)
         if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY //EMPTY_ITEM
