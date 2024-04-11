@@ -40,11 +40,11 @@ class CellAnalyzerScreen(
         if (menu.isCrafting) {
             blit(
                 pPoseStack,
-                x + 105,                // The x position of where the arrow will be
-                y + 33,                 // The y position of where the arrow will be
-                176,                // The x offset of where the arrow is in the texture
-                0,                  // The y offset of where the arrow is in the texture
-                8,                  // The width of the arrow
+                x + 83,                 // The x position of where the arrow will be
+                y + 37,                 // The y position of where the arrow will be
+                177,                // The x offset of where the arrow is in the texture
+                61,                 // The y offset of where the arrow is in the texture
+                24,                 // The width of the arrow
                 menu.getScaledProgress()    // How much of the arrow to render
             )
         }
