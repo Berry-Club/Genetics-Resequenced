@@ -56,7 +56,7 @@ class CellAnalyzerMenu : AbstractContainerMenu {
     fun getScaledProgress(): Int {
         val progress = data.get(0)
         val maxProgress = data.get(1)
-        val progressArrowSize = 24
+        val progressArrowSize = CellAnalyzerScreen.ARROW_WIDTH
 
         return if (maxProgress == 0 || progress == 0) {
             0

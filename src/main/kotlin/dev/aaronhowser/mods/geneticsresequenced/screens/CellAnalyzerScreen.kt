@@ -18,6 +18,13 @@ class CellAnalyzerScreen(
 
     companion object {
         val BACKGROUND_TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/cell_analyzer.png")
+
+        const val ARROW_TEXTURE_X = 177
+        const val ARROW_TEXTURE_Y = 61
+        const val ARROW_X = 83
+        const val ARROW_Y = 37
+        const val ARROW_WIDTH = 24
+        const val ARROW_HEIGHT = 17
     }
 
     override fun init() {
@@ -31,7 +38,7 @@ class CellAnalyzerScreen(
         val x = (width - imageWidth) / 2
         val y = (height - imageHeight) / 2
 
-        this.blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight)
+        blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight)
 
         renderProgressArrow(pPoseStack, x, y)
     }
@@ -40,12 +47,12 @@ class CellAnalyzerScreen(
         if (menu.isCrafting) {
             blit(
                 pPoseStack,
-                x + 83,                 // The x position of where the arrow will be
-                y + 37,                 // The y position of where the arrow will be
-                177,                // The x offset of where the arrow is in the texture
-                61,                 // The y offset of where the arrow is in the texture
-                24,                 // The width of the arrow
-                menu.getScaledProgress()    // How much of the arrow to render
+                x + ARROW_X,            // The x position of where the arrow will be
+                y + ARROW_Y,            // The y position of where the arrow will be
+                ARROW_TEXTURE_X,            // The x offset of where the arrow is in the texture
+                ARROW_TEXTURE_Y,               // The y offset of where the arrow is in the texture
+                menu.getScaledProgress(),   // The width of the arrow
+                71                  // The height of the arrow
             )
         }
     }
