@@ -47,7 +47,7 @@ class CellAnalyzerBlockEntity(
     }
 
     override fun getDisplayName(): Component {
-        return Component.literal("Cell Analyzer")
+        return Component.translatable("block.geneticsresequenced.cell_analyzer")
     }
 
     override fun <T : Any?> getCapability(cap: Capability<T>, side: Direction?): LazyOptional<T> {
