@@ -38,6 +38,15 @@ class CellAnalyzerBlockEntity(
         override fun onContentsChanged(slot: Int) {
             setChanged()
         }
+
+        override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
+            return when (slot) {
+                INPUT_SLOT -> stack.`is`(ModItems.ORGANIC_MATTER)
+                OUTPUT_SLOT -> false
+                OVERCLOCK_SLOT -> false
+                else -> false
+            }
+        }
     }
 
     private var lazyItemHandler = LazyOptional.empty<IItemHandler>()
