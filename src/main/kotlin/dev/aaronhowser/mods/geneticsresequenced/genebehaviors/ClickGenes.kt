@@ -247,7 +247,7 @@ object ClickGenes {
             1.0f
         )
 
-        event.itemStack.shrink(1)
+        if (!player.isCreative) event.itemStack.shrink(1)
     }
 
     fun eatGrass(event: PlayerInteractEvent.RightClickBlock) {
