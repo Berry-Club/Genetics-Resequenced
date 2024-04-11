@@ -41,7 +41,7 @@ class CoalGeneratorMenu : AbstractContainerMenu {
         addPlayerHotbar(inventory)
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent { itemHandler ->
-            this.addSlot(SlotItemHandler(itemHandler, 0, 63, 36))
+            this.addSlot(SlotItemHandler(itemHandler, CoalGeneratorBlockEntity.INPUT_SLOT, 63, 36))
         }
 
         addDataSlots(containerData)

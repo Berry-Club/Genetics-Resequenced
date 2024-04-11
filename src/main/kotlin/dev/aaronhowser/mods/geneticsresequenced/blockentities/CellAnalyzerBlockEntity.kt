@@ -252,9 +252,9 @@ class CellAnalyzerBlockEntity(
         const val SIMPLE_CONTAINER_SIZE = 2
         const val ITEMSTACK_HANDLER_SIZE = 3
 
-        private const val INPUT_SLOT = 0
-        private const val OUTPUT_SLOT = 1
-        private const val OVERCLOCK_SLOT = 2
+        const val INPUT_SLOT = 0
+        const val OUTPUT_SLOT = 1
+        const val OVERCLOCK_SLOT = 2
 
         private const val ENERGY_NBT_KEY = "cell_analyzer.energy"
         private const val CAPACITY = 60_000

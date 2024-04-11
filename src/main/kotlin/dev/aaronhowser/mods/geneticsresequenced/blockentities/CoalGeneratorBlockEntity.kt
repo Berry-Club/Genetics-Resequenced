@@ -200,7 +200,7 @@ class CoalGeneratorBlockEntity(
         const val SIMPLE_CONTAINER_SIZE = 1
 
         const val ITEMSTACK_HANDLER_SIZE = 1
-        private const val INPUT_SLOT = 0
+        const val INPUT_SLOT = 0
 
         private const val ENERGY_NBT_KEY = "coal_generator.energy"
 

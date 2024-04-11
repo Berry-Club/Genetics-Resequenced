@@ -42,9 +42,9 @@ class CellAnalyzerMenu : AbstractContainerMenu {
         addPlayerHotbar(inventory)
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent { itemHandler ->
-            this.addSlot(SlotItemHandler(itemHandler, 0, 63, 36))
-            this.addSlot(SlotItemHandler(itemHandler, 1, 110, 36))
-            this.addSlot(SlotItemHandler(itemHandler, 2, 149, 66))
+            this.addSlot(SlotItemHandler(itemHandler, CellAnalyzerBlockEntity.INPUT_SLOT, 63, 36))
+            this.addSlot(SlotItemHandler(itemHandler, CellAnalyzerBlockEntity.OUTPUT_SLOT, 110, 36))
+            this.addSlot(SlotItemHandler(itemHandler, CellAnalyzerBlockEntity.OVERCLOCK_SLOT, 149, 66))
         }
 
         addDataSlots(containerData)
