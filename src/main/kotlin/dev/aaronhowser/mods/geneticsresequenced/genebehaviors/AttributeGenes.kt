@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.attributes.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.packets.GeneChangedPacket
+import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.ai.attributes.AttributeModifier

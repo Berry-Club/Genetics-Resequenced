@@ -1,6 +1,7 @@
-package dev.aaronhowser.mods.geneticsresequenced.packets
+package dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server
 
 import dev.aaronhowser.mods.geneticsresequenced.genebehaviors.PacketGenes
+import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacket
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraftforge.network.NetworkEvent
 import java.util.function.Supplier
