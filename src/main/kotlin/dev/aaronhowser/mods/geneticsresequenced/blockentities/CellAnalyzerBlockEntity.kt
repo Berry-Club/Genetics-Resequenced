@@ -168,9 +168,8 @@ class CellAnalyzerBlockEntity(
         ) {
             if (level.isClientSide) return
 
-            if (hasRecipe(blockEntity)) {
-
-                blockEntity.energyStorage.receiveEnergy(ENERGY_PER_TICK, false)
+            if (hasRecipe(blockEntity) && hasEnoughEnergy(blockEntity)) {
+                extractEnergy(blockEntity)
 
                 blockEntity.progress++
                 blockEntity.setChanged()
