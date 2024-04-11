@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.genebehaviors
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.events.ModScheduler
+import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerPlayer

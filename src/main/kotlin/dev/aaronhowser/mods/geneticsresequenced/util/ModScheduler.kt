@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.events
+package dev.aaronhowser.mods.geneticsresequenced.util
 
 import com.google.common.collect.HashMultimap
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced

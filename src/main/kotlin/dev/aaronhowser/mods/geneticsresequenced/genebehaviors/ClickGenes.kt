@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.events.ModScheduler
+import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.client.Options
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents

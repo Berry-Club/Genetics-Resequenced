@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.events
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.commands.ModCommands
+import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraftforge.event.RegisterCommandsEvent
 import net.minecraftforge.event.TickEvent
 import net.minecraftforge.event.TickEvent.ServerTickEvent

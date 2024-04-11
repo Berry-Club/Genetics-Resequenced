@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.genebehaviors
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
-import dev.aaronhowser.mods.geneticsresequenced.events.ModScheduler
+import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.item.ItemEntity
