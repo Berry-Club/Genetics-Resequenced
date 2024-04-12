@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.blockentities
 
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
+import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.EnergySyncPacket
@@ -199,9 +200,7 @@ class CellAnalyzerBlockEntity(
             val inputItem = blockEntity.itemHandler.getStackInSlot(INPUT_SLOT)
             val inputEntity = EntityDnaItem.getEntityType(inputItem) ?: return
 
-            val outputItem = ItemStack(ModItems.CELL)
-            val mobSetSuccessful = EntityDnaItem.setMob(outputItem, inputEntity)
-            if (!mobSetSuccessful) return
+            val outputItem = ItemStack(ModItems.CELL).setMob(inputEntity) ?: return
 
             val amountAlreadyInOutput = blockEntity.itemHandler.getStackInSlot(OUTPUT_SLOT).count
             outputItem.count = amountAlreadyInOutput + 1
@@ -224,10 +223,7 @@ class CellAnalyzerBlockEntity(
 
             val mobType = EntityDnaItem.getEntityType(inputItemStack) ?: return false
 
-            val outputItem = ItemStack(ModItems.CELL)
-            val mobSetSuccessful = EntityDnaItem.setMob(outputItem, mobType)
-
-            if (!mobSetSuccessful) return false
+            val outputItem = ItemStack(ModItems.CELL).setMob(mobType) ?: return false
 
             return outputSlotHasRoom(inventory, outputItem)
         }

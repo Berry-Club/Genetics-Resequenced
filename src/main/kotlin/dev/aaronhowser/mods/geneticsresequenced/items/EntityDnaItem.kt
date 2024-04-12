@@ -16,7 +16,7 @@ import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 import net.minecraftforge.registries.ForgeRegistries
 
-class EntityDnaItem() : Item(
+class EntityDnaItem : Item(
     Properties()
         .tab(ModItems.MOD_TAB)
 ) {
@@ -25,6 +25,9 @@ class EntityDnaItem() : Item(
         private const val MOB_ID_NBT = "MobId"
 
         fun setMob(itemStack: ItemStack, entityType: EntityType<*>): Boolean {
+            if (itemStack.item !is EntityDnaItem) {
+                return false
+            }
             val mobId = ForgeRegistries.ENTITY_TYPES.getKey(entityType)
             if (mobId == null) {
                 GeneticsResequenced.LOGGER.error("Failed to get mob id for $entityType")
@@ -35,6 +38,14 @@ class EntityDnaItem() : Item(
             tag.putString(MOB_ID_NBT, mobId.toString())
 
             return true
+        }
+
+        fun ItemStack.setMob(entityType: EntityType<*>): ItemStack? {
+            return if (setMob(this, entityType)) {
+                this
+            } else {
+                null
+            }
         }
 
         fun getEntityType(itemStack: ItemStack): EntityType<*>? {
@@ -54,9 +65,8 @@ class EntityDnaItem() : Item(
 
         if (pPlayer.isCreative) {
 
-            val newStack = pStack.copy()
-            val setNewMobSucceeded = setMob(newStack, pInteractionTarget.type)
-            return if (setNewMobSucceeded) {
+            val newStack = pStack.copy().setMob(pInteractionTarget.type)
+            return if (newStack != null) {
                 pPlayer.setItemInHand(pUsedHand, newStack)
                 InteractionResult.SUCCESS
             } else {

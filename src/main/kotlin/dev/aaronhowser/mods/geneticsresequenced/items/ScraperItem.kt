@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.items
 
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.enchantments.ModEnchantments
+import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
@@ -34,10 +35,8 @@ object ScraperItem : Item(
             return InteractionResult.FAIL
         }
 
-        val organicStack = ItemStack(ModItems.ORGANIC_MATTER)
-        val mobSetSuccessful = EntityDnaItem.setMob(organicStack, pInteractionTarget.type)
-
-        if (!mobSetSuccessful) return InteractionResult.FAIL
+        val organicStack =
+            ItemStack(ModItems.ORGANIC_MATTER).setMob(pInteractionTarget.type) ?: return InteractionResult.FAIL
 
         if (!pPlayer.inventory.add(organicStack)) {
             pPlayer.drop(organicStack, false)
