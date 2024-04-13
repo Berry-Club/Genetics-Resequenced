@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.recipes.CellAnalyzerRecipe
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.drawable.IDrawable
+import mezz.jei.api.gui.drawable.IDrawableBuilder
 import mezz.jei.api.helpers.IGuiHelper
 import mezz.jei.api.recipe.IFocusGroup
 import mezz.jei.api.recipe.RecipeIngredientRole
@@ -21,10 +22,10 @@ class CellAnalyzerRecipeCategory(
 
     companion object {
         val UID = ResourceLocation(GeneticsResequenced.ID, CellAnalyzerRecipe.RECIPE_TYPE_NAME)
-        val TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/jei/cell_analyzer.png")
+        private val TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/jei/cell_analyzer.png")
     }
 
-    private val background: IDrawable = helper.createDrawable(TEXTURE, 0, 0, 100, 100)
+    private val background: IDrawableBuilder = helper.drawableBuilder(TEXTURE, 0, 0, 75, 28).setTextureSize(75, 28)
     private val icon: IDrawable =
         helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModBlocks.CELL_ANALYZER))
 
@@ -32,21 +33,21 @@ class CellAnalyzerRecipeCategory(
 
     override fun getTitle(): Component = Component.literal("Cell Analyzer")
 
-    override fun getBackground(): IDrawable = background
+    override fun getBackground(): IDrawable = background.build()
 
     override fun getIcon(): IDrawable = icon
 
     override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: CellAnalyzerRecipe, focuses: IFocusGroup) {
         builder.addSlot(
             RecipeIngredientRole.INPUT,
-            86,
-            15
+            6,
+            6
         ).addIngredients(recipe.ingredients.first())
 
         builder.addSlot(
             RecipeIngredientRole.OUTPUT,
-            86,
-            55
+            53,
+            6
         ).addItemStack(recipe.resultItem)
     }
 }
