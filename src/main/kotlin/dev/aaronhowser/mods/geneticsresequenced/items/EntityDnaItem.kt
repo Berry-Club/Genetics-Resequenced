@@ -28,20 +28,32 @@ class EntityDnaItem : Item(
             if (itemStack.item !is EntityDnaItem) {
                 return false
             }
-            val mobId = ForgeRegistries.ENTITY_TYPES.getKey(entityType)
-            if (mobId == null) {
+            val mobRL = ForgeRegistries.ENTITY_TYPES.getKey(entityType)
+            if (mobRL == null) {
                 GeneticsResequenced.LOGGER.error("Failed to get mob id for $entityType")
                 return false
             }
 
+            return setMob(itemStack, mobRL)
+        }
+
+        fun setMob(itemStack: ItemStack, entityRL: ResourceLocation): Boolean {
             val tag = itemStack.orCreateTag
-            tag.putString(MOB_ID_NBT, mobId.toString())
+            tag.putString(MOB_ID_NBT, entityRL.toString())
 
             return true
         }
 
         fun ItemStack.setMob(entityType: EntityType<*>): ItemStack? {
             return if (setMob(this, entityType)) {
+                this
+            } else {
+                null
+            }
+        }
+
+        fun ItemStack.setMob(entityRL: ResourceLocation): ItemStack? {
+            return if (setMob(this, entityRL)) {
                 this
             } else {
                 null
