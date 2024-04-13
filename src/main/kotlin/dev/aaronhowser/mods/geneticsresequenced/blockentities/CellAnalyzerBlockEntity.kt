@@ -1,10 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.blockentities
 
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.EnergySyncPacket
+import dev.aaronhowser.mods.geneticsresequenced.recipes.CellAnalyzerRecipe
 import dev.aaronhowser.mods.geneticsresequenced.screens.CellAnalyzerMenu
 import dev.aaronhowser.mods.geneticsresequenced.util.ModEnergyStorage
 import net.minecraft.core.BlockPos
@@ -28,6 +28,7 @@ import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.energy.IEnergyStorage
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.ItemStackHandler
+import java.util.*
 
 
 class CellAnalyzerBlockEntity(
@@ -195,12 +196,20 @@ class CellAnalyzerBlockEntity(
         }
 
         private fun craftItem(blockEntity: CellAnalyzerBlockEntity) {
-            if (!hasRecipe(blockEntity)) return
 
-            val inputItem = blockEntity.itemHandler.getStackInSlot(INPUT_SLOT)
-            val inputEntity = EntityDnaItem.getEntityType(inputItem) ?: return
+            val level = blockEntity.level ?: return
 
-            val outputItem = ItemStack(ModItems.CELL).setMob(inputEntity) ?: return
+            val inventory = SimpleContainer(blockEntity.itemHandler.slots)
+            for (i in 0 until blockEntity.itemHandler.slots) {
+                inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i))
+            }
+
+            val recipe: Optional<CellAnalyzerRecipe> =
+                level.recipeManager.getRecipeFor(CellAnalyzerRecipe.RECIPE_TYPE, inventory, level)
+
+            if (!recipe.isPresent) return
+
+            val outputItem = recipe.get().resultItem.copy()
 
             val amountAlreadyInOutput = blockEntity.itemHandler.getStackInSlot(OUTPUT_SLOT).count
             outputItem.count = amountAlreadyInOutput + 1
@@ -212,20 +221,17 @@ class CellAnalyzerBlockEntity(
         }
 
         private fun hasRecipe(blockEntity: CellAnalyzerBlockEntity): Boolean {
+            val level = blockEntity.level ?: return false
+
             val inventory = SimpleContainer(blockEntity.itemHandler.slots)
             for (i in 0 until blockEntity.itemHandler.slots) {
                 inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i))
             }
 
-            val inputItemStack = inventory.getItem(INPUT_SLOT)
+            val recipe: Optional<CellAnalyzerRecipe> =
+                level.recipeManager.getRecipeFor(CellAnalyzerRecipe.RECIPE_TYPE, inventory, level)
 
-            if (!inputItemStack.`is`(ModItems.ORGANIC_MATTER)) return false
-
-            val mobType = EntityDnaItem.getEntityType(inputItemStack) ?: return false
-
-            val outputItem = ItemStack(ModItems.CELL).setMob(mobType) ?: return false
-
-            return outputSlotHasRoom(inventory, outputItem)
+            return recipe.isPresent && outputSlotHasRoom(inventory, recipe.get().resultItem)
         }
 
         private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {

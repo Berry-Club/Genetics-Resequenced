@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.effects.ModEffects
 import dev.aaronhowser.mods.geneticsresequenced.enchantments.ModEnchantments
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
+import dev.aaronhowser.mods.geneticsresequenced.recipes.ModRecipes
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
@@ -32,6 +33,7 @@ object GeneticsResequenced {
         ModBlocks.REGISTRY.register(MOD_BUS)
         ModBlockEntities.REGISTRY.register(MOD_BUS)
         ModItems.REGISTRY.register(MOD_BUS)
+        ModRecipes.SERIALIZERS.register(MOD_BUS)
         ModEnchantments.REGISTRY.register(MOD_BUS)
         ModMenuTypes.REGISTRY.register(MOD_BUS)
 
