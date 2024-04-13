@@ -8,6 +8,7 @@ import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.Container
+import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.Recipe
@@ -26,9 +27,10 @@ class CellAnalyzerRecipe(
 
     companion object {
         fun getAllRecipes(): List<CellAnalyzerRecipe> {
-            return ForgeRegistries.ENTITY_TYPES.keys.map {
-                CellAnalyzerRecipe(it)
-            }
+            return ForgeRegistries.ENTITY_TYPES.values
+                .filter { it.category != MobCategory.MISC }
+                .mapNotNull { ForgeRegistries.ENTITY_TYPES.getKey(it) }
+                .map { CellAnalyzerRecipe(it) }
         }
 
         const val RECIPE_TYPE_NAME = "cell_analyzer"
