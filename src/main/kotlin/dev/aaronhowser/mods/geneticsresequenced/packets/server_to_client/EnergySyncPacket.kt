@@ -2,9 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client
 
 import dev.aaronhowser.mods.geneticsresequenced.blockentities.CellAnalyzerBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blockentities.CoalGeneratorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blockentities.DnaDecryptorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacket
 import dev.aaronhowser.mods.geneticsresequenced.screens.CellAnalyzerMenu
 import dev.aaronhowser.mods.geneticsresequenced.screens.CoalGeneratorMenu
+import dev.aaronhowser.mods.geneticsresequenced.screens.DnaDecryptorMenu
 import net.minecraft.client.Minecraft
 import net.minecraft.core.BlockPos
 import net.minecraft.network.FriendlyByteBuf
@@ -42,6 +44,7 @@ class EnergySyncPacket(
         when (blockEntity) {
             is CellAnalyzerBlockEntity -> handleCellAnalyzer(blockEntity)
             is CoalGeneratorBlockEntity -> handleCoalGenerator(blockEntity)
+            is DnaDecryptorBlockEntity -> handleDnaDecryptor(blockEntity)
         }
 
     }
@@ -59,6 +62,14 @@ class EnergySyncPacket(
         blockEntity.setEnergy(energy)
         val playerMenu = Minecraft.getInstance().player?.containerMenu
         if (playerMenu is CoalGeneratorMenu && playerMenu.blockEntity.blockPos == pos) {
+            blockEntity.setEnergy(energy)
+        }
+    }
+
+    private fun handleDnaDecryptor(blockEntity: DnaDecryptorBlockEntity) {
+        blockEntity.setEnergy(energy)
+        val playerMenu = Minecraft.getInstance().player?.containerMenu
+        if (playerMenu is DnaDecryptorMenu && playerMenu.blockEntity.blockPos == pos) {
             blockEntity.setEnergy(energy)
         }
     }
