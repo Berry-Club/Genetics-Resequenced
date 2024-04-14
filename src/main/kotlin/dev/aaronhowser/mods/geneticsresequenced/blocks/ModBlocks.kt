@@ -14,7 +14,7 @@ object ModBlocks {
 
     private val defaultItemProperties = Item.Properties().tab(ModItems.MOD_TAB)
 
-    val REGISTRY: DeferredRegister<Block> =
+    val BLOCK_REGISTRY: DeferredRegister<Block> =
         DeferredRegister.create(ForgeRegistries.BLOCKS, GeneticsResequenced.ID)
 
     val BIOLUMINESCENCE_BLOCK by register("bioluminescence") { BioluminescenceBlock }
@@ -27,9 +27,9 @@ object ModBlocks {
         itemProperties: Item.Properties = defaultItemProperties,
         supplier: () -> Block
     ): ObjectHolderDelegate<Block> {
-        val block = REGISTRY.registerObject(name, supplier)
+        val block = BLOCK_REGISTRY.registerObject(name, supplier)
 
-        ModItems.REGISTRY.register(name) {
+        ModItems.ITEM_REGISTRY.register(name) {
             BlockItem(
                 block.get(),
                 itemProperties

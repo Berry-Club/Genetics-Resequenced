@@ -16,15 +16,15 @@ object ModItems {
         }
     }
 
-    val REGISTRY: DeferredRegister<Item> =
+    val ITEM_REGISTRY: DeferredRegister<Item> =
         DeferredRegister.create(ForgeRegistries.ITEMS, GeneticsResequenced.ID)
 
-    val DRAGON_HEALTH_CRYSTAL by REGISTRY.registerObject("dragon_health_crystal") { DragonHealthCrystal }
-    val ANTI_FIELD_ORB by REGISTRY.registerObject("anti_field_orb") { AntiFieldOrbItem }
-    val SCRAPER by REGISTRY.registerObject("scraper") { ScraperItem }
-    val SYRINGE by REGISTRY.registerObject("syringe") { SyringeItem }
-    val ORGANIC_MATTER by REGISTRY.registerObject("organic_matter") { EntityDnaItem() }
-    val CELL by REGISTRY.registerObject("cell") { EntityDnaItem() }
-    val DNA_HELIX by REGISTRY.registerObject("dna_helix") { DnaHelixItem }
+    val DRAGON_HEALTH_CRYSTAL by ITEM_REGISTRY.registerObject("dragon_health_crystal") { DragonHealthCrystal }
+    val ANTI_FIELD_ORB by ITEM_REGISTRY.registerObject("anti_field_orb") { AntiFieldOrbItem }
+    val SCRAPER by ITEM_REGISTRY.registerObject("scraper") { ScraperItem }
+    val SYRINGE by ITEM_REGISTRY.registerObject("syringe") { SyringeItem }
+    val ORGANIC_MATTER by ITEM_REGISTRY.registerObject("organic_matter") { EntityDnaItem() }
+    val CELL by ITEM_REGISTRY.registerObject("cell") { EntityDnaItem() }
+    val DNA_HELIX by ITEM_REGISTRY.registerObject("dna_helix") { DnaHelixItem }
 
 }

@@ -9,9 +9,9 @@ import thedarkcolour.kotlinforforge.forge.registerObject
 @Suppress("unused")
 object ModEffects {
 
-    val REGISTRY: DeferredRegister<MobEffect> =
+    val EFFECT_REGISTRY: DeferredRegister<MobEffect> =
         DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, GeneticsResequenced.ID)
 
-    val BLEED by REGISTRY.registerObject("bleed") { BleedEffect() }
+    val BLEED by EFFECT_REGISTRY.registerObject("bleed") { BleedEffect() }
 
 }

@@ -10,18 +10,18 @@ import net.minecraftforge.registries.RegistryObject
 
 object ModMenuTypes {
 
-    val REGISTRY: DeferredRegister<MenuType<*>> =
+    val MENU_TYPE_RECIPE: DeferredRegister<MenuType<*>> =
         DeferredRegister.create(ForgeRegistries.MENU_TYPES, GeneticsResequenced.ID)
 
 
     val CELL_ANALYZER: RegistryObject<MenuType<CellAnalyzerMenu>> =
-        REGISTRY.register("cell_analyzer_menu") {
+        MENU_TYPE_RECIPE.register("cell_analyzer_menu") {
             IForgeMenuType.create(IContainerFactory { id, inv, buf ->
                 CellAnalyzerMenu(id, inv, buf)
             })
         }
 
-    val COAL_GENERATOR: RegistryObject<MenuType<CoalGeneratorMenu>> = REGISTRY.register("coal_generator_menu") {
+    val COAL_GENERATOR: RegistryObject<MenuType<CoalGeneratorMenu>> = MENU_TYPE_RECIPE.register("coal_generator_menu") {
         IForgeMenuType.create(IContainerFactory { id, inv, buf ->
             CoalGeneratorMenu(id, inv, buf)
         })

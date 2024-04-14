@@ -10,10 +10,10 @@ import net.minecraftforge.registries.RegistryObject
 
 object ModBlockEntities {
 
-    val REGISTRY: DeferredRegister<BlockEntityType<*>> =
+    val BLOCK_EVENT_REGISTRY: DeferredRegister<BlockEntityType<*>> =
         DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, GeneticsResequenced.ID)
 
-    val CELL_ANALYZER: RegistryObject<BlockEntityType<CellAnalyzerBlockEntity>> = REGISTRY.register("cell_analyzer") {
+    val CELL_ANALYZER: RegistryObject<BlockEntityType<CellAnalyzerBlockEntity>> = BLOCK_EVENT_REGISTRY.register("cell_analyzer") {
         BlockEntityType.Builder.of(
             { pos, state -> CellAnalyzerBlockEntity(pos, state) },
             ModBlocks.CELL_ANALYZER
@@ -21,7 +21,7 @@ object ModBlockEntities {
     }
 
     val COAL_GENERATOR: RegistryObject<BlockEntityType<CoalGeneratorBlockEntity>> =
-        REGISTRY.register("coal_generator") {
+        BLOCK_EVENT_REGISTRY.register("coal_generator") {
             BlockEntityType.Builder.of(
                 { pos, state -> CoalGeneratorBlockEntity(pos, state) },
                 ModBlocks.COAL_GENERATOR

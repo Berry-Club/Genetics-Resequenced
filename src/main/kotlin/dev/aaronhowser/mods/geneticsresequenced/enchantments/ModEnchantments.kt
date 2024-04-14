@@ -11,12 +11,12 @@ import thedarkcolour.kotlinforforge.forge.registerObject
 
 object ModEnchantments {
 
-    val REGISTRY: DeferredRegister<Enchantment> =
+    val ENCHANTMENT_REGISTRY: DeferredRegister<Enchantment> =
         DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, GeneticsResequenced.ID)
 
     val ScraperEnchantmentCategory: EnchantmentCategory =
         EnchantmentCategory.create("scraper_enchantments") { item: Item -> item is ScraperItem }
 
-    val DELICATE_TOUCH by REGISTRY.registerObject("delicate_touch") { DelicateTouchEnchantment }
+    val DELICATE_TOUCH by ENCHANTMENT_REGISTRY.registerObject("delicate_touch") { DelicateTouchEnchantment }
 
 }

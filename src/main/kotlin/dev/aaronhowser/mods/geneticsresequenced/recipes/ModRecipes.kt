@@ -8,13 +8,13 @@ import net.minecraftforge.registries.RegistryObject
 
 object ModRecipes {
 
-    val SERIALIZERS: DeferredRegister<RecipeSerializer<*>> =
+    val RECIPE_SERIALIZERS_REGISTRY: DeferredRegister<RecipeSerializer<*>> =
         DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, GeneticsResequenced.ID)
 
     val CELL_ANALYZER_SERIALIZER: RegistryObject<RecipeSerializer<CellAnalyzerRecipe>> =
-        SERIALIZERS.register(CellAnalyzerRecipe.RECIPE_TYPE_NAME) { CellAnalyzerRecipe.SERIALIZER }
+        RECIPE_SERIALIZERS_REGISTRY.register(CellAnalyzerRecipe.RECIPE_TYPE_NAME) { CellAnalyzerRecipe.SERIALIZER }
 
     val MOB_TO_GENE_SERIALIZER: RegistryObject<RecipeSerializer<MobToGeneRecipe>> =
-        SERIALIZERS.register(MobToGeneRecipe.RECIPE_TYPE_NAME) { MobToGeneRecipe.SERIALIZER }
+        RECIPE_SERIALIZERS_REGISTRY.register(MobToGeneRecipe.RECIPE_TYPE_NAME) { MobToGeneRecipe.SERIALIZER }
 
 }
