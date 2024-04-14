@@ -11,11 +11,14 @@ import net.minecraft.world.level.Level
 import net.minecraftforge.common.capabilities.ForgeCapabilities
 import net.minecraftforge.items.SlotItemHandler
 
-class CoalGeneratorMenu : AbstractContainerMenu {
+class CoalGeneratorMenu(
+    id: Int,
+    inventory: Inventory,
+    val blockEntity: CoalGeneratorBlockEntity,
+    private val containerData: ContainerData
+) : AbstractContainerMenu(ModMenuTypes.COAL_GENERATOR.get(), id) {
 
-    val blockEntity: CoalGeneratorBlockEntity
-    private val level: Level
-    private val data: ContainerData
+    private val level: Level = inventory.player.level
 
     constructor(id: Int, inventory: Inventory, extraData: FriendlyByteBuf) :
             this(
@@ -25,17 +28,8 @@ class CoalGeneratorMenu : AbstractContainerMenu {
                 SimpleContainerData(CoalGeneratorBlockEntity.SIMPLE_CONTAINER_SIZE)
             )
 
-    constructor(
-        id: Int,
-        inventory: Inventory,
-        blockEntity: CoalGeneratorBlockEntity,
-        containerData: ContainerData
-    ) : super(ModMenuTypes.COAL_GENERATOR.get(), id) {
+    init {
         checkContainerSize(inventory, CoalGeneratorBlockEntity.SIMPLE_CONTAINER_SIZE)
-
-        this.blockEntity = blockEntity
-        this.level = inventory.player.level
-        this.data = containerData
 
         addPlayerInventory(inventory)
         addPlayerHotbar(inventory)
@@ -48,15 +42,15 @@ class CoalGeneratorMenu : AbstractContainerMenu {
     }
 
     private var maxBurnTime: Int
-        get() = data.get(CoalGeneratorBlockEntity.MAX_BURN_TIME_INDEX)
+        get() = containerData.get(CoalGeneratorBlockEntity.MAX_BURN_TIME_INDEX)
         set(value) {
-            data.set(CoalGeneratorBlockEntity.MAX_BURN_TIME_INDEX, value)
+            containerData.set(CoalGeneratorBlockEntity.MAX_BURN_TIME_INDEX, value)
         }
 
     private var burnTimeRemaining: Int
-        get() = data.get(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX)
+        get() = containerData.get(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX)
         set(value) {
-            data.set(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX, value)
+            containerData.set(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX, value)
         }
 
     val isBurning
