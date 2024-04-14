@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks
 
 import dev.aaronhowser.mods.geneticsresequenced.blockentities.CellAnalyzerBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blockentities.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.util.BlockEntityHelper
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerPlayer
@@ -99,7 +101,10 @@ object CellAnalyzerBlock : HorizontalDirectionalBlock(Properties.of(Material.MET
         pState: BlockState,
         pBlockEntityType: BlockEntityType<T>
     ): BlockEntityTicker<T>? {
-        return null
+        return BlockEntityHelper.createTickerHelper(
+            pBlockEntityType,
+            ModBlockEntities.CELL_ANALYZER.get(),
+            CellAnalyzerBlockEntity::tick
+        )
     }
-
 }
