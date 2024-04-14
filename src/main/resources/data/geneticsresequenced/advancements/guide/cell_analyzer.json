@@ -1,0 +1,45 @@
+{
+  "parent": "geneticsresequenced:guide/root",
+  "display": {
+    "title": {
+      "translate": "advancement.geneticsresequenced.cell_analyzer.title"
+    },
+    "description": {
+      "translate": "advancement.geneticsresequenced.cell_analyzer.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "geneticsresequenced:cell_analyzer"
+    }
+  },
+  "criteria": {
+    "cell_analyzer": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "geneticsresequenced:cell_analyzer"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "cell": {
+      "conditions": {
+        "items": [
+          {
+            "item": "geneticsresequenced:cell"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "cell_analyzer",
+      "cell"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
