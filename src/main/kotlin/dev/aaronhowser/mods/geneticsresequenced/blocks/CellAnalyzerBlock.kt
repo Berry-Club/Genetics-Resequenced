@@ -68,7 +68,7 @@ object CellAnalyzerBlock : BaseEntityBlock(Properties.of(Material.METAL)) {
             throw IllegalStateException("Missing block entity")
         }
 
-        return super.use(pState, pLevel, pPos, pPlayer, pHand, pHit)
+        return InteractionResult.SUCCESS
     }
 
     override fun newBlockEntity(pPos: BlockPos, pState: BlockState): BlockEntity {
