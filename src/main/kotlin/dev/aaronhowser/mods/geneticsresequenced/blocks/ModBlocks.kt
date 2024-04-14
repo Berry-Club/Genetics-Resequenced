@@ -20,7 +20,6 @@ object ModBlocks {
     val BIOLUMINESCENCE_BLOCK by register("bioluminescence") { BioluminescenceBlock }
     val CELL_ANALYZER by register("cell_analyzer") { CellAnalyzerBlock }
     val COAL_GENERATOR by register("coal_generator") { CoalGeneratorBlock }
-    val DNA_DECRYPTOR by register("dna_decryptor") { DnaDecryptorBlock }
 
     private fun register(
         name: String,

@@ -26,11 +26,4 @@ object ModMenuTypes {
             CoalGeneratorMenu(id, inv, buf)
         })
     }
-
-    val DNA_DECRYPTOR: RegistryObject<MenuType<DnaDecryptorMenu>> = REGISTRY.register("dna_decryptor_menu") {
-        IForgeMenuType.create(IContainerFactory { id, inv, buf ->
-            DnaDecryptorMenu(id, inv, buf)
-        })
-    }
-
 }
