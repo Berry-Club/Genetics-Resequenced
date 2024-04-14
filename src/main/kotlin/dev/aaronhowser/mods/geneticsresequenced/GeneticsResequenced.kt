@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced
 
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.attributes.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.blockentities.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
@@ -38,6 +39,7 @@ object GeneticsResequenced {
         ModMenuTypes.MENU_TYPE_RECIPE.register(MOD_BUS)
 
         ModPacketHandler.setup()
+        MobGenesRegistry.registerDefaultGenes()
     }
 
 }
