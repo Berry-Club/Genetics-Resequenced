@@ -16,7 +16,7 @@ import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 import net.minecraftforge.registries.ForgeRegistries
 
-class EntityDnaItem : Item(
+open class EntityDnaItem : Item(
     Properties()
         .tab(ModItems.MOD_TAB)
 ) {

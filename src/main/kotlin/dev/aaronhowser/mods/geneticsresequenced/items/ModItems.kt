@@ -25,5 +25,6 @@ object ModItems {
     val SYRINGE by REGISTRY.registerObject("syringe") { SyringeItem }
     val ORGANIC_MATTER by REGISTRY.registerObject("organic_matter") { EntityDnaItem() }
     val CELL by REGISTRY.registerObject("cell") { EntityDnaItem() }
+    val DNA_HELIX by REGISTRY.registerObject("dna_helix") { DnaHelixItem }
 
 }

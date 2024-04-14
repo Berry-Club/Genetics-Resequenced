@@ -65,8 +65,8 @@ class Gene(
 
         val REGISTRY: MutableSet<Gene> = mutableSetOf()
 
-        fun valueOf(name: String): Gene {
-            return REGISTRY.first { it.id == name }
+        fun valueOf(searchedId: String): Gene {
+            return REGISTRY.first { it.id == searchedId }
         }
 
         //Mutations, must be first
