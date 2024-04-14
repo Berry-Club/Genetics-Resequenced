@@ -222,7 +222,6 @@ object TickGenes {
         flyablePlayers.add(player.uuid)
     }
 
-    //TODO: disable when using anti field orb
     fun handleItemMagnet(player: Player) {
         if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 
@@ -250,7 +249,6 @@ object TickGenes {
         }
     }
 
-    //TODO: disable when using anti field orb
     fun handleXpMagnet(player: Player) {
         if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 
