@@ -14,4 +14,7 @@ object ModRecipes {
     val CELL_ANALYZER_SERIALIZER: RegistryObject<RecipeSerializer<CellAnalyzerRecipe>> =
         SERIALIZERS.register(CellAnalyzerRecipe.RECIPE_TYPE_NAME) { CellAnalyzerRecipe.SERIALIZER }
 
+    val MOB_TO_GENE_SERIALIZER: RegistryObject<RecipeSerializer<MobToGeneRecipe>> =
+        SERIALIZERS.register(MobToGeneRecipe.RECIPE_TYPE_NAME) { MobToGeneRecipe.SERIALIZER }
+
 }
