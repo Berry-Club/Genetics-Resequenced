@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable",
+  "textures": {
+    "front": "geneticsresequenced:block/coal_generator_front_on",
+    "side": "geneticsresequenced:block/machine_side",
+    "top": "geneticsresequenced:block/machine_top",
+    "bottom": "geneticsresequenced:block/machine_bottom"
+  }
+}

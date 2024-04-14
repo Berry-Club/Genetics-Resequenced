@@ -28,14 +28,12 @@ import net.minecraftforge.network.NetworkHooks
 object CellAnalyzerBlock : HorizontalDirectionalBlock(Properties.of(Material.METAL)), EntityBlock {
 
     init {
-
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))
     }
 
     override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState {
         return defaultBlockState().setValue(FACING, pContext.horizontalDirection.opposite)
     }
-
 
     override fun createBlockStateDefinition(pBuilder: StateDefinition.Builder<Block, BlockState>) {
         super.createBlockStateDefinition(pBuilder)
