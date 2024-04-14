@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.genebehaviors
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.LivingEntity
@@ -49,8 +50,6 @@ object DeathGenes {
         }
     }
 
-    private const val EMERALD_HEART_COOLDOWN = 20 * 60 * 5      // 5 minutes, also TODO: Config
-
     // UUID because that's persistent across deaths and idk if Player is
     private val emeraldHeartCooldown = mutableSetOf<UUID>()
 
@@ -75,7 +74,7 @@ object DeathGenes {
 
         entity.inventory.add(ItemStack(Items.EMERALD, 1))
 
-        ModScheduler.scheduleTaskInTicks(EMERALD_HEART_COOLDOWN) {
+        ModScheduler.scheduleTaskInTicks(ServerConfig.emeraldHeartCooldown.get()) {
             emeraldHeartCooldown.remove(entityUuid)
         }
     }

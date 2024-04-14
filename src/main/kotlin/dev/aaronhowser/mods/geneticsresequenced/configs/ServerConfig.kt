@@ -38,6 +38,7 @@ object ServerConfig {
     lateinit var passivesCheckCooldown: ForgeConfigSpec.IntValue
     lateinit var itemMagnetCooldown: ForgeConfigSpec.IntValue
     lateinit var xpMagnetCooldown: ForgeConfigSpec.IntValue
+    lateinit var emeraldHeartCooldown: ForgeConfigSpec.IntValue
 
     init {
         generalConfigs()
@@ -177,6 +178,10 @@ object ServerConfig {
         xpMagnetCooldown = BUILDER
             .comment("How often should the XP Magnet gene attract XP orbs (in ticks)")
             .defineInRange("xpMagnetCooldown", 10, 1, Int.MAX_VALUE)
+
+        emeraldHeartCooldown = BUILDER
+            .comment("How many ticks to wait before the Emerald Heart gene can proc again")
+            .defineInRange("emeraldHeartCooldown", 20 * 60, 1, Int.MAX_VALUE)
 
         BUILDER.pop()
     }
