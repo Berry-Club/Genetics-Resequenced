@@ -12,11 +12,14 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities
 import net.minecraftforge.items.SlotItemHandler
 
 
-class CellAnalyzerMenu : AbstractContainerMenu {
+class CellAnalyzerMenu(
+    id: Int,
+    inventory: Inventory,
+    val blockEntity: CellAnalyzerBlockEntity,
+    private val containerData: ContainerData
+) : AbstractContainerMenu(ModMenuTypes.CELL_ANALYZER.get(), id) {
 
-    val blockEntity: CellAnalyzerBlockEntity
-    private val level: Level
-    private val data: ContainerData
+    private val level: Level = inventory.player.level
 
     constructor(id: Int, inventory: Inventory, extraData: FriendlyByteBuf) :
             this(
@@ -26,17 +29,8 @@ class CellAnalyzerMenu : AbstractContainerMenu {
                 SimpleContainerData(CellAnalyzerBlockEntity.SIMPLE_CONTAINER_SIZE)
             )
 
-    constructor(
-        id: Int,
-        inventory: Inventory,
-        blockEntity: CellAnalyzerBlockEntity,
-        containerData: ContainerData
-    ) : super(ModMenuTypes.CELL_ANALYZER.get(), id) {
+    init {
         checkContainerSize(inventory, CellAnalyzerBlockEntity.SIMPLE_CONTAINER_SIZE)
-
-        this.blockEntity = blockEntity
-        this.level = inventory.player.level
-        this.data = containerData
 
         addPlayerInventory(inventory)
         addPlayerHotbar(inventory)
@@ -51,15 +45,15 @@ class CellAnalyzerMenu : AbstractContainerMenu {
     }
 
     private var progress: Int
-        get() = data.get(DATA_PROGRESS_INDEX)
+        get() = containerData.get(DATA_PROGRESS_INDEX)
         set(value) {
-            data.set(DATA_PROGRESS_INDEX, value)
+            containerData.set(DATA_PROGRESS_INDEX, value)
         }
 
     private var maxProgress: Int
-        get() = data.get(DATA_MAX_PROGRESS_INDEX)
+        get() = containerData.get(DATA_MAX_PROGRESS_INDEX)
         set(value) {
-            data.set(DATA_MAX_PROGRESS_INDEX, value)
+            containerData.set(DATA_MAX_PROGRESS_INDEX, value)
         }
 
     val isCrafting
