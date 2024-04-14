@@ -7,10 +7,19 @@
   "item.geneticsresequenced.anti_field_orb": "Anti-Field Orb",
   "item.geneticsresequenced.scraper": "Scraper",
   "item.geneticsresequenced.syringe": "Empty Syringe",
+  "item.geneticsresequenced.dna_helix": "DNA Helix",
 
   "block.geneticsresequenced.bioluminescence": "Bioluminescence Glow",
   "block.geneticsresequenced.cell_analyzer": "Cell Analyzer",
   "block.geneticsresequenced.coal_generator": "Coal Generator",
+  "block.geneticsresequenced.dna_decryptor": "DNA Decryptor",
+  "block.geneticsresequenced.dna_extractor": "DNA Extractor",
+  "block.geneticsresequenced.air_dispersal": "Air Dispersal",
+  "block.geneticsresequenced.blood_purifier": "Blood Purifier",
+  "block.geneticsresequenced.cloning_machine": "Cloning Machine",
+  "block.geneticsresequenced.incubator": "Incubator",
+  "block.geneticsresequenced.plasmid_infuser": "Plasmid Infuser",
+  "block.geneticsresequenced.plasmid_injector": "Plasmid Injector",
 
   "enchantment.geneticsresequenced.delicate_touch": "Delicate Touch",
 

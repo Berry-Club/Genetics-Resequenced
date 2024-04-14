@@ -31,7 +31,7 @@ object GeneticsResequenced {
         ModAttributes.ATTRIBUTE_REGISTRY.register(MOD_BUS)
         ModEffects.EFFECT_REGISTRY.register(MOD_BUS)
         ModBlocks.BLOCK_REGISTRY.register(MOD_BUS)
-        ModBlockEntities.BLOCK_EVENT_REGISTRY.register(MOD_BUS)
+        ModBlockEntities.Block_ENTITY_REGISTRY.register(MOD_BUS)
         ModItems.ITEM_REGISTRY.register(MOD_BUS)
         ModRecipes.RECIPE_SERIALIZERS_REGISTRY.register(MOD_BUS)
         ModEnchantments.ENCHANTMENT_REGISTRY.register(MOD_BUS)
