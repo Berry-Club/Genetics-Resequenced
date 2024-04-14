@@ -27,6 +27,7 @@ import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.energy.IEnergyStorage
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.ItemStackHandler
+import kotlin.math.min
 
 @Suppress("UNUSED_PARAMETER")
 class CoalGeneratorBlockEntity(
@@ -179,6 +180,8 @@ class CoalGeneratorBlockEntity(
         ) {
             if (level.isClientSide) return
 
+            pushEnergyToAdjacent(blockEntity)
+
             if (!hasRoomForEnergy(blockEntity)) return
 
             if (isBurning(blockEntity)) {
@@ -217,6 +220,33 @@ class CoalGeneratorBlockEntity(
 
         private fun hasRoomForEnergy(blockEntity: CoalGeneratorBlockEntity): Boolean {
             return blockEntity.energyStorage.energyStored + ENERGY_PER_TICK <= blockEntity.energyStorage.maxEnergyStored
+        }
+
+        fun pushEnergyToAdjacent(blockEntity: CoalGeneratorBlockEntity) {
+            val energyStorage = blockEntity.energyStorage
+            val blockPos = blockEntity.blockPos
+            val level = blockEntity.level
+
+            if (energyStorage.energyStored <= 0) return
+            for (direction in Direction.values()) {
+                val neighborPos = blockPos.offset(direction.normal)
+                val neighborEntity = level?.getBlockEntity(neighborPos) ?: continue
+
+                val neighborEnergy: IEnergyStorage =
+                    neighborEntity.getCapability(ForgeCapabilities.ENERGY, direction.opposite).orElse(null) ?: continue
+                if (!neighborEnergy.canReceive()) continue
+
+                val energyToTransfer = min(
+                    neighborEnergy.receiveEnergy(MAX_TRANSFER, true),
+                    neighborEnergy.maxEnergyStored - neighborEnergy.energyStored
+                )
+
+                if (energyToTransfer <= 0) continue
+                neighborEnergy.receiveEnergy(
+                    energyStorage.extractEnergy(energyToTransfer, false),
+                    false
+                )
+            }
         }
 
         private const val INVENTORY_NBT_KEY = "coal_generator.inventory"
