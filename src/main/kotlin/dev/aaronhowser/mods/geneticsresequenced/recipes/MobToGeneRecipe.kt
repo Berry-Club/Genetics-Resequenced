@@ -1,26 +1,32 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipes
 
 import com.google.gson.JsonObject
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.Container
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.minecraftforge.registries.ForgeRegistries
+import mezz.jei.api.recipe.RecipeType as JEIRecipeType
 
 class MobToGeneRecipe(
-    private val mobResourceLocation: ResourceLocation,
+    mobResourceLocation: ResourceLocation,
     private val gene: Gene
 ) : Recipe<Container> {
 
+    private val mob: EntityType<*>? = ForgeRegistries.ENTITY_TYPES.getValue(mobResourceLocation)
     private val inputItem = ItemStack(ModItems.DNA_HELIX).setMob(id) ?: ItemStack.EMPTY
     private val outputItem = ItemStack(ModItems.DNA_HELIX).setGene(gene) ?: ItemStack.EMPTY
 
@@ -58,36 +64,36 @@ class MobToGeneRecipe(
                 TODO()
             }
         }
+
+        val JEI_RECIPE_TYPE: JEIRecipeType<MobToGeneRecipe> =
+            JEIRecipeType(
+                ResourceLocation(GeneticsResequenced.ID, RECIPE_TYPE_NAME),
+                MobToGeneRecipe::class.java
+            )
     }
 
     override fun matches(pContainer: Container, pLevel: Level): Boolean {
-
         if (pLevel.isClientSide) return false
 
-        TODO("Not yet implemented")
+        if (mob == null) return false
+
+        return MobGenesRegistry.getGenesForEntity(mob).contains(gene)
     }
 
-    override fun assemble(pContainer: Container): ItemStack {
-        TODO("Not yet implemented")
-    }
+    override fun assemble(pContainer: Container): ItemStack = outputItem.copy()
 
-    override fun canCraftInDimensions(pWidth: Int, pHeight: Int): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun canCraftInDimensions(pWidth: Int, pHeight: Int): Boolean = true
 
-    override fun getResultItem(): ItemStack {
-        TODO("Not yet implemented")
-    }
+    override fun getResultItem(): ItemStack = outputItem.copy()
 
-    override fun getId(): ResourceLocation {
-        TODO("Not yet implemented")
-    }
+    override fun getId(): ResourceLocation = ResourceLocation(GeneticsResequenced.ID, RECIPE_TYPE_NAME)
 
-    override fun getSerializer(): RecipeSerializer<*> {
-        TODO("Not yet implemented")
-    }
+    override fun getSerializer(): RecipeSerializer<*> = SERIALIZER
 
-    override fun getType(): RecipeType<*> {
-        TODO("Not yet implemented")
+    override fun getType(): RecipeType<*> = RECIPE_TYPE
+
+    override fun getIngredients(): NonNullList<Ingredient> {
+        val i = Ingredient.of(inputItem)
+        return NonNullList.of(i, i)
     }
 }

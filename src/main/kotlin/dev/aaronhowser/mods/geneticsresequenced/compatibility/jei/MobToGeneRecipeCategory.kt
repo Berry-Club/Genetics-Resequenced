@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
-import dev.aaronhowser.mods.geneticsresequenced.recipes.CellAnalyzerRecipe
+import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.recipes.MobToGeneRecipe
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.drawable.IDrawable
@@ -16,28 +16,28 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 
-class CellAnalyzerRecipeCategory(
+class MobToGeneRecipeCategory(
     helper: IGuiHelper
-) : IRecipeCategory<CellAnalyzerRecipe> {
+) : IRecipeCategory<MobToGeneRecipe> {
 
     companion object {
-        val UID = ResourceLocation(GeneticsResequenced.ID, CellAnalyzerRecipe.RECIPE_TYPE_NAME)
+        val UID = ResourceLocation(GeneticsResequenced.ID, MobToGeneRecipe.RECIPE_TYPE_NAME)
         private val TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/jei/cell_analyzer.png")
     }
 
     private val background: IDrawableBuilder = helper.drawableBuilder(TEXTURE, 0, 0, 75, 28).setTextureSize(75, 28)
     private val icon: IDrawable =
-        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModBlocks.CELL_ANALYZER))
+        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModItems.DNA_HELIX))
 
-    override fun getRecipeType(): RecipeType<CellAnalyzerRecipe> = GeneticsResequencedJeiPlugin.CELL_ANALYZER_TYPE
+    override fun getRecipeType(): RecipeType<MobToGeneRecipe> = GeneticsResequencedJeiPlugin.MOB_TO_GENE_TYPE
 
-    override fun getTitle(): Component = Component.translatable("aaaaaaa")
+    override fun getTitle(): Component = Component.translatable("aaaaaaaaaaaa")
 
     override fun getBackground(): IDrawable = background.build()
 
     override fun getIcon(): IDrawable = icon
 
-    override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: CellAnalyzerRecipe, focuses: IFocusGroup) {
+    override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: MobToGeneRecipe, focuses: IFocusGroup) {
         builder.addSlot(
             RecipeIngredientRole.INPUT,
             6,
