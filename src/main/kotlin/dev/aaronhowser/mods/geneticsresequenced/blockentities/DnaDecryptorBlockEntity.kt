@@ -32,7 +32,7 @@ class DnaDecryptorBlockEntity(
     override val energyNbtKey: String = "dna_decryptor.energy"
     override val energyMaximum: Int = 60_000
     override val energyTransferMaximum: Int = 256
-    override val energyPerTick: Int = 32
+    override val energyCostPerTick: Int = 32
 
     override val itemHandler: ItemStackHandler = object : ItemStackHandler(itemstackHandlerSize) {
         override fun onContentsChanged(slot: Int) {

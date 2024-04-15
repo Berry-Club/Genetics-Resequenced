@@ -46,17 +46,19 @@ abstract class CraftingMachine(
     abstract val energyNbtKey: String
     abstract val energyMaximum: Int
     abstract val energyTransferMaximum: Int
-    abstract val energyPerTick: Int
+    abstract val energyCostPerTick: Int
 
     abstract val itemHandler: ItemStackHandler
 
     protected var lazyItemHandler: LazyOptional<IItemHandler> = LazyOptional.empty()
 
-    protected val energyStorage: ModEnergyStorage = object : ModEnergyStorage(energyMaximum, energyTransferMaximum) {
-        override fun onEnergyChanged() {
-            setChanged()
+    protected val energyStorage: ModEnergyStorage by lazy {
+        object : ModEnergyStorage(energyMaximum, energyTransferMaximum) {
+            override fun onEnergyChanged() {
+                setChanged()
 
-            ModPacketHandler.messageAllPlayers(EnergySyncPacket(energy, blockPos))
+                ModPacketHandler.messageAllPlayers(EnergySyncPacket(energy, blockPos))
+            }
         }
     }
 

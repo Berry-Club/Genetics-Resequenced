@@ -1,45 +1,38 @@
 package dev.aaronhowser.mods.geneticsresequenced.blockentities
 
+import dev.aaronhowser.mods.geneticsresequenced.blockentities.base.CraftingMachine
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
-import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.EnergySyncPacket
 import dev.aaronhowser.mods.geneticsresequenced.screens.CellAnalyzerMenu
-import dev.aaronhowser.mods.geneticsresequenced.util.ModEnergyStorage
 import net.minecraft.core.BlockPos
-import net.minecraft.core.Direction
-import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
-import net.minecraft.world.Containers
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.SimpleContainer
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
-import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
-import net.minecraftforge.common.capabilities.Capability
-import net.minecraftforge.common.capabilities.ForgeCapabilities
-import net.minecraftforge.common.util.LazyOptional
-import net.minecraftforge.energy.IEnergyStorage
-import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.ItemStackHandler
 
 
 class CellAnalyzerBlockEntity(
     pPos: BlockPos,
     pBlockState: BlockState
-) : BlockEntity(
+) : CraftingMachine(
     ModBlockEntities.CELL_ANALYZER.get(),
     pPos,
     pBlockState
 ), MenuProvider {
+    override val inventoryNbtKey: String = "cell_analyzer.inventory"
+    override val energyNbtKey: String = "cell_analyzer.energy"
+    override val energyMaximum: Int = 60_000
+    override val energyTransferMaximum: Int = 256
+    override val energyCostPerTick: Int = 32
 
-    private val itemHandler: ItemStackHandler = object : ItemStackHandler(ITEMSTACK_HANDLER_SIZE) {
+    override val itemHandler: ItemStackHandler = object : ItemStackHandler(ITEMSTACK_HANDLER_SIZE) {
         override fun onContentsChanged(slot: Int) {
             setChanged()
         }
@@ -54,109 +47,12 @@ class CellAnalyzerBlockEntity(
         }
     }
 
-    private var lazyItemHandler = LazyOptional.empty<IItemHandler>()
-
-    private val energyStorage: ModEnergyStorage = object : ModEnergyStorage(CAPACITY, MAX_TRANSFER) {
-        override fun onEnergyChanged() {
-            setChanged()
-
-            ModPacketHandler.messageAllPlayers(EnergySyncPacket(energy, blockPos))
-        }
-    }
-
-    private var lazyEnergyStorage = LazyOptional.empty<IEnergyStorage>()
-
-    override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu? {
-        return CellAnalyzerMenu(pContainerId, pPlayerInventory, this, this.data)
+    override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
+        return CellAnalyzerMenu(pContainerId, pPlayerInventory, this, this.containerData)
     }
 
     override fun getDisplayName(): Component {
         return Component.translatable("block.geneticsresequenced.cell_analyzer")
-    }
-
-    override fun <T : Any?> getCapability(cap: Capability<T>, side: Direction?): LazyOptional<T> {
-        return when (cap) {
-            ForgeCapabilities.ITEM_HANDLER -> getItemCapability(side).cast()
-
-            ForgeCapabilities.ENERGY -> getEnergyCapability(side).cast()
-
-            else -> super.getCapability(cap, side)
-        }
-    }
-
-    private fun getItemCapability(side: Direction?): LazyOptional<IItemHandler> {
-        return lazyItemHandler.cast()
-    }
-
-    private fun getEnergyCapability(side: Direction?): LazyOptional<IEnergyStorage> {
-        return lazyEnergyStorage.cast()
-    }
-
-    fun getEnergyStorage(): IEnergyStorage = energyStorage
-
-    override fun onLoad() {
-        super.onLoad()
-        lazyItemHandler = LazyOptional.of { itemHandler }
-        lazyEnergyStorage = LazyOptional.of { energyStorage }
-    }
-
-    override fun invalidateCaps() {
-        super.invalidateCaps()
-        lazyItemHandler.invalidate()
-        lazyEnergyStorage.invalidate()
-    }
-
-    override fun saveAdditional(pTag: CompoundTag) {
-        pTag.put(INVENTORY_NBT_KEY, itemHandler.serializeNBT())
-        pTag.putInt(ENERGY_NBT_KEY, energyStorage.energyStored)
-        super.saveAdditional(pTag)
-    }
-
-    override fun load(pTag: CompoundTag) {
-        super.load(pTag)
-        itemHandler.deserializeNBT(pTag.getCompound(INVENTORY_NBT_KEY))
-        energyStorage.setEnergy(pTag.getInt(ENERGY_NBT_KEY))
-    }
-
-    fun drops() {
-        val inventory = SimpleContainer(itemHandler.slots)
-        for (i in 0 until itemHandler.slots) {
-            inventory.setItem(i, itemHandler.getStackInSlot(i))
-        }
-
-        Containers.dropContents(this.level!!, this.blockPos, inventory)
-    }
-
-    private var progress = 0
-    private var maxProgress = 20 * 4
-    private fun resetProgress() {
-        progress = 0
-    }
-
-    // Client only
-    fun setEnergy(energy: Int) {
-        this.energyStorage.setEnergy(energy)
-    }
-
-    private val data = object : ContainerData {
-        override fun get(pIndex: Int): Int {
-            return when (pIndex) {
-                PROGRESS_INDEX -> progress
-                MAX_PROGRESS_INDEX -> maxProgress
-                else -> 0
-            }
-        }
-
-        override fun set(pIndex: Int, pValue: Int) {
-            when (pIndex) {
-                PROGRESS_INDEX -> progress = pValue
-                MAX_PROGRESS_INDEX -> maxProgress = pValue
-            }
-        }
-
-        override fun getCount(): Int {
-            return SIMPLE_CONTAINER_SIZE
-        }
     }
 
     companion object {
