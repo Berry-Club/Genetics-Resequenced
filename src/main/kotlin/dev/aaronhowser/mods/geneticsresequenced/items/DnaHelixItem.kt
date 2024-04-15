@@ -67,8 +67,10 @@ object DnaHelixItem : EntityDnaItem() {
 
     //TODO: Remove this, put it in PlasmidItem instead
     override fun fillItemCategory(pCategory: CreativeModeTab, pItems: NonNullList<ItemStack>) {
-        pItems.add(ItemStack(this))
-        pItems.addAll(getAllGeneHelices())
+        if (pCategory == ModItems.MOD_TAB) {
+            pItems.add(ItemStack(this))
+            pItems.addAll(getAllGeneHelices())
+        }
     }
 
     override fun allowedIn(pCategory: CreativeModeTab): Boolean {
