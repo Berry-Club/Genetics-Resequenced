@@ -16,7 +16,8 @@ object DnaHelixItem : EntityDnaItem() {
     }
 
     fun getGene(itemStack: ItemStack): Gene? {
-        val string = itemStack.tag?.getString(GENE_ID_NBT) ?: return null
+        val string = itemStack.tag?.getString(GENE_ID_NBT)
+        if (string.isNullOrBlank()) return null
         return Gene.valueOf(string)
     }
 
@@ -47,7 +48,7 @@ object DnaHelixItem : EntityDnaItem() {
             pTooltipComponents.add(Component.literal("Gene: None")
                 .withStyle { it.withColor(ChatFormatting.GRAY) })
         } else {
-            pTooltipComponents.add(Component.literal("Gene: ${gene.id}")
+            pTooltipComponents.add(Component.literal("Gene: ").append(gene.nameComponent)
                 .withStyle { it.withColor(ChatFormatting.GRAY) })
         }
 

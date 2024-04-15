@@ -39,7 +39,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             CellAnalyzerRecipe.JEI_RECIPE_TYPE
         )
         registration.addRecipeCatalyst(
-            ItemStack(ModBlocks.CELL_ANALYZER),
+            ItemStack(ModBlocks.DNA_DECRYPTOR),
             MobToGeneRecipe.JEI_RECIPE_TYPE
         )
     }

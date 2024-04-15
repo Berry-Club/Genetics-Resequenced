@@ -145,7 +145,7 @@ class Gene(
         val SLIMY_DEATH = Gene("SLIMY_DEATH")
             .setTranslationKey("gene.geneticsresequenced.slimy_death").build()
         val SPEED = Gene("SPEED")
-            .setTranslationKey("gene.geneticsresequenced").setMutatesInto(SPEED_2).build()
+            .setTranslationKey("gene.geneticsresequenced.speed").setMutatesInto(SPEED_2).build()
         val STRENGTH = Gene("STRENGTH")
             .setTranslationKey("gene.geneticsresequenced.strength").setMutatesInto(STRENGTH_2).build()
         val TELEPORT = Gene("TELEPORT")
