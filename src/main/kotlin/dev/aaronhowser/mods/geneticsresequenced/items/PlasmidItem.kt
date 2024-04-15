@@ -1,0 +1,82 @@
+package dev.aaronhowser.mods.geneticsresequenced.items
+
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import net.minecraft.ChatFormatting
+import net.minecraft.network.chat.Component
+import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.level.Level
+
+object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
+
+    private val GENE_ID_NBT = "GeneId"
+    private val AMOUNT_NBT = "Amount"
+
+    fun hasGene(itemStack: ItemStack): Boolean {
+        return itemStack.tag?.contains(GENE_ID_NBT) ?: false
+    }
+
+    fun getGene(itemStack: ItemStack): Gene? {
+        val geneString = itemStack.tag?.getString(GENE_ID_NBT)
+        if (geneString.isNullOrBlank()) return null
+        return Gene.fromId(geneString)
+    }
+
+    fun setGene(itemStack: ItemStack, gene: Gene): Boolean {
+        val tag = itemStack.orCreateTag
+        tag.putString(GENE_ID_NBT, gene.id)
+        return true
+    }
+
+    fun getAmount(itemStack: ItemStack): Int {
+        return itemStack.tag?.getInt(AMOUNT_NBT) ?: 0
+    }
+
+    fun setAmount(itemStack: ItemStack, amount: Int): Boolean {
+        val tag = itemStack.orCreateTag
+        tag.putInt(AMOUNT_NBT, amount)
+        return true
+    }
+
+    fun isComplete(itemStack: ItemStack): Boolean {
+        val gene = getGene(itemStack) ?: return false
+        return getAmount(itemStack) >= gene.amountNeeded
+    }
+
+    override fun appendHoverText(
+        pStack: ItemStack,
+        pLevel: Level?,
+        pTooltipComponents: MutableList<Component>,
+        pIsAdvanced: TooltipFlag
+    ) {
+        val gene = getGene(pStack)
+
+        if (gene == null) {
+            pTooltipComponents.add(Component.literal("Empty Plasmid"))
+            return
+        }
+
+        val amountNeeded = gene.amountNeeded
+        val amount = getAmount(pStack)
+
+        pTooltipComponents.add(
+            Component
+                .literal("Plasmid containing gene:")
+                .withStyle { it.withColor(ChatFormatting.GRAY) }
+        )
+        pTooltipComponents.add(
+            gene
+                .nameComponent
+                .copy()
+                .withStyle { it.withColor(ChatFormatting.GRAY) }
+        )
+        pTooltipComponents.add(
+            Component
+                .literal("Amount: $amount / $amountNeeded")
+                .withStyle { it.withColor(ChatFormatting.GRAY) }
+        )
+
+    }
+
+}
