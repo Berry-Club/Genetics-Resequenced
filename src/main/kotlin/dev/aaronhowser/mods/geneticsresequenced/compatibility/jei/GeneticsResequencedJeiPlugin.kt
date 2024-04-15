@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.CellAnalyzerRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipes.DnaExtractorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipes.MobToGeneRecipe
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
@@ -27,6 +28,8 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
     companion object {
         val CELL_ANALYZER_TYPE: RecipeType<CellAnalyzerRecipe> =
             RecipeType(CellAnalyzerRecipeCategory.UID, CellAnalyzerRecipe::class.java)
+        val DNA_EXTRACTOR_TYPE: RecipeType<DnaExtractorRecipe> =
+            RecipeType(DnaExtractorRecipeCategory.UID, DnaExtractorRecipe::class.java)
         val MOB_TO_GENE_TYPE: RecipeType<MobToGeneRecipe> =
             RecipeType(MobToGeneRecipeCategory.UID, MobToGeneRecipe::class.java)
     }
@@ -37,7 +40,8 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
     override fun registerCategories(registration: IRecipeCategoryRegistration) {
         registration.addRecipeCategories(
             CellAnalyzerRecipeCategory(registration.jeiHelpers.guiHelper),
-            MobToGeneRecipeCategory(registration.jeiHelpers.guiHelper)
+            MobToGeneRecipeCategory(registration.jeiHelpers.guiHelper),
+            DnaExtractorRecipeCategory(registration.jeiHelpers.guiHelper)
         )
     }
 
@@ -50,11 +54,16 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             ItemStack(ModBlocks.DNA_DECRYPTOR),
             MobToGeneRecipe.JEI_RECIPE_TYPE
         )
+        registration.addRecipeCatalyst(
+            ItemStack(ModBlocks.DNA_EXTRACTOR),
+            DnaExtractorRecipe.JEI_RECIPE_TYPE
+        )
     }
 
     override fun registerRecipes(registration: IRecipeRegistration) {
         registration.addRecipes(CellAnalyzerRecipe.JEI_RECIPE_TYPE, CellAnalyzerRecipe.getAllRecipes())
         registration.addRecipes(MobToGeneRecipe.JEI_RECIPE_TYPE, MobToGeneRecipe.getAllRecipes())
+        registration.addRecipes(DnaExtractorRecipe.JEI_RECIPE_TYPE, DnaExtractorRecipe.getAllRecipes())
 
         mobGeneRecipes(registration)
     }
