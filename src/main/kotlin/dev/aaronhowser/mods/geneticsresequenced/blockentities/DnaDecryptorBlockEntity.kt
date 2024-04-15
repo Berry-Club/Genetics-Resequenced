@@ -1,7 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.blockentities
 
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.EnergySyncPacket
@@ -198,9 +199,7 @@ class DnaDecryptorBlockEntity(
             if (!hasRecipe(blockEntity)) return
 
             val inputItem = blockEntity.itemHandler.getStackInSlot(INPUT_SLOT)
-            val inputEntity = EntityDnaItem.getEntityType(inputItem) ?: return
-
-            val outputItem = ItemStack(ModItems.CELL).setMob(inputEntity) ?: return
+            val outputItem = getOutputFromInput(inputItem) ?: return
 
             val amountAlreadyInOutput = blockEntity.itemHandler.getStackInSlot(OUTPUT_SLOT).count
             outputItem.count = amountAlreadyInOutput + 1
@@ -217,15 +216,20 @@ class DnaDecryptorBlockEntity(
                 inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i))
             }
 
-            val inputItemStack = inventory.getItem(INPUT_SLOT)
+            if (!inventory.getItem(INPUT_SLOT).`is`(ModItems.DNA_HELIX)) return false
 
-            if (!inputItemStack.`is`(ModItems.ORGANIC_MATTER)) return false
-
-            val mobType = EntityDnaItem.getEntityType(inputItemStack) ?: return false
-
-            val outputItem = ItemStack(ModItems.CELL).setMob(mobType) ?: return false
+            val outputItem = getOutputFromInput(inventory.getItem(INPUT_SLOT)) ?: return false
 
             return outputSlotHasRoom(inventory, outputItem)
+        }
+
+        private fun getOutputFromInput(input: ItemStack): ItemStack? {
+            val mobType = EntityDnaItem.getEntityType(input) ?: return null
+            val genesFromMob = MobGenesRegistry.getGenesForEntity(mobType)
+            if (genesFromMob.isEmpty()) return null
+
+            val randomGene = genesFromMob.random()
+            return ItemStack(ModItems.DNA_HELIX).setGene(randomGene)
         }
 
         private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {
