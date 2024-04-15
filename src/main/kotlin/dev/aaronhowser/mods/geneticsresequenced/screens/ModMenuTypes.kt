@@ -27,6 +27,12 @@ object ModMenuTypes {
         })
     }
 
+    val DNA_EXTRACTOR: RegistryObject<MenuType<DnaExtractorMenu>> = MENU_TYPE_RECIPE.register("dna_extractor_menu") {
+        IForgeMenuType.create(IContainerFactory { id, inv, buf ->
+            DnaExtractorMenu(id, inv, buf)
+        })
+    }
+
     val DNA_DECRYPTOR: RegistryObject<MenuType<DnaDecryptorMenu>> = MENU_TYPE_RECIPE.register("dna_decryptor_menu") {
         IForgeMenuType.create(IContainerFactory { id, inv, buf ->
             DnaDecryptorMenu(id, inv, buf)

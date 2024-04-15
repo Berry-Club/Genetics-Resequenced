@@ -20,7 +20,7 @@ import net.minecraft.world.level.material.Material
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraftforge.network.NetworkHooks
 
-abstract class CraftingMachineBlock(
+open class CraftingMachineBlock(
     properties: Properties = Properties.of(Material.METAL),
     private val blockEntityType: Class<out CraftingMachineBlockEntity>
 ) : HorizontalDirectionalBlock(properties), EntityBlock {
@@ -57,6 +57,7 @@ abstract class CraftingMachineBlock(
         if (pState.block != pNewState.block) {
             val blockEntity = pLevel.getBlockEntity(pPos)
 
+            // god i fucking hate this this is so gross
             try {
                 val asType = blockEntityType.cast(blockEntity)
                 asType.drops()

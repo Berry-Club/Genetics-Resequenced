@@ -29,6 +29,14 @@ object ModBlockEntities {
             ).build(null)
         }
 
+    val DNA_EXTRACTOR: RegistryObject<BlockEntityType<DnaExtractorBlockEntity>> =
+        BLOCK_ENTITY_REGISTRY.register("dna_extractor") {
+            BlockEntityType.Builder.of(
+                { pos, state -> DnaExtractorBlockEntity(pos, state) },
+                ModBlocks.DNA_EXTRACTOR
+            ).build(null)
+        }
+
     val DNA_DECRYPTOR: RegistryObject<BlockEntityType<DnaDecryptorBlockEntity>> =
         BLOCK_ENTITY_REGISTRY.register("dna_decryptor") {
             BlockEntityType.Builder.of(
