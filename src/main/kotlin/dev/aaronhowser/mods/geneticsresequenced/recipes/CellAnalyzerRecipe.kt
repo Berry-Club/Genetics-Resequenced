@@ -19,11 +19,11 @@ import net.minecraftforge.registries.ForgeRegistries
 import mezz.jei.api.recipe.RecipeType as JEIRecipeType
 
 class CellAnalyzerRecipe(
-    private val id: ResourceLocation
+    private val entityResourceLocation: ResourceLocation
 ) : Recipe<Container> {
 
-    private val inputItem = ItemStack(ModItems.ORGANIC_MATTER).setMob(id) ?: ItemStack.EMPTY
-    private val outputItem = ItemStack(ModItems.CELL).setMob(id) ?: ItemStack.EMPTY
+    private val inputItem = ItemStack(ModItems.ORGANIC_MATTER).setMob(entityResourceLocation) ?: ItemStack.EMPTY
+    private val outputItem = ItemStack(ModItems.CELL).setMob(entityResourceLocation) ?: ItemStack.EMPTY
 
     companion object {
         fun getAllRecipes(): List<CellAnalyzerRecipe> {
@@ -67,7 +67,7 @@ class CellAnalyzerRecipe(
     override fun matches(pContainer: Container, pLevel: Level): Boolean {
         if (pLevel.isClientSide) return false
 
-        return ForgeRegistries.ENTITY_TYPES.containsKey(id)
+        return ForgeRegistries.ENTITY_TYPES.containsKey(entityResourceLocation)
     }
 
     override fun assemble(pContainer: Container): ItemStack = outputItem.copy()

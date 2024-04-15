@@ -27,6 +27,14 @@ object DnaHelixItem : EntityDnaItem() {
         return true
     }
 
+    fun ItemStack.setGene(gene: Gene): ItemStack? {
+        return if (setGene(this, gene)) {
+            this
+        } else {
+            null
+        }
+    }
+
     override fun appendHoverText(
         pStack: ItemStack,
         pLevel: Level?,
