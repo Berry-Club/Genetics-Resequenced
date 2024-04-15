@@ -7,6 +7,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.Containers
+import net.minecraft.world.MenuProvider
 import net.minecraft.world.SimpleContainer
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.level.block.entity.BlockEntity
@@ -24,7 +25,7 @@ import net.minecraftforge.items.ItemStackHandler
  * Note that this is only for basic crafting machines, ie, those that turn one thing into one other thing.
  */
 @Suppress("MemberVisibilityCanBePrivate")
-abstract class CraftingMachine(
+abstract class CraftingMachineBlockEntity(
     pType: BlockEntityType<*>,
     pPos: BlockPos,
     pBlockState: BlockState
@@ -32,7 +33,7 @@ abstract class CraftingMachine(
     pType,
     pPos,
     pBlockState
-) {
+), MenuProvider {
 
     abstract val inventoryNbtKey: String
 

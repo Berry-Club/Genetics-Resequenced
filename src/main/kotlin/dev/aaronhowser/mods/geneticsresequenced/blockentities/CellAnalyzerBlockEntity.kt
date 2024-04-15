@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.blockentities
 
-import dev.aaronhowser.mods.geneticsresequenced.blockentities.base.CraftingMachine
+import dev.aaronhowser.mods.geneticsresequenced.blockentities.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
@@ -21,7 +21,7 @@ import net.minecraftforge.items.ItemStackHandler
 class CellAnalyzerBlockEntity(
     pPos: BlockPos,
     pBlockState: BlockState
-) : CraftingMachine(
+) : CraftingMachineBlockEntity(
     ModBlockEntities.CELL_ANALYZER.get(),
     pPos,
     pBlockState

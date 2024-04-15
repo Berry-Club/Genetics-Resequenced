@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.blockentities
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
-import dev.aaronhowser.mods.geneticsresequenced.blockentities.base.CraftingMachine
+import dev.aaronhowser.mods.geneticsresequenced.blockentities.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
@@ -23,7 +23,7 @@ import net.minecraftforge.items.ItemStackHandler
 class DnaDecryptorBlockEntity(
     pPos: BlockPos,
     pBlockState: BlockState
-) : CraftingMachine(
+) : CraftingMachineBlockEntity(
     ModBlockEntities.DNA_DECRYPTOR.get(),
     pPos,
     pBlockState
