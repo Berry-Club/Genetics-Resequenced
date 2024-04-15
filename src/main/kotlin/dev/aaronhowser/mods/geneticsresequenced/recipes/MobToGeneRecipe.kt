@@ -27,7 +27,7 @@ class MobToGeneRecipe(
 ) : Recipe<Container> {
 
     private val mob: EntityType<*>? = ForgeRegistries.ENTITY_TYPES.getValue(mobResourceLocation)
-    private val inputItem = ItemStack(ModItems.DNA_HELIX).setMob(id) ?: ItemStack.EMPTY
+    private val inputItem = ItemStack(ModItems.DNA_HELIX).setMob(mobResourceLocation) ?: ItemStack.EMPTY
     private val outputItem = ItemStack(ModItems.DNA_HELIX).setGene(gene) ?: ItemStack.EMPTY
 
     companion object {

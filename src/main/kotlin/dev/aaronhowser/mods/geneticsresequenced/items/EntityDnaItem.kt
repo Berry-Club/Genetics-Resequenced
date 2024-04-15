@@ -40,7 +40,6 @@ open class EntityDnaItem : Item(
         fun setMob(itemStack: ItemStack, entityRL: ResourceLocation): Boolean {
             val tag = itemStack.orCreateTag
             tag.putString(MOB_ID_NBT, entityRL.toString())
-
             return true
         }
 

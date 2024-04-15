@@ -45,7 +45,7 @@ object DnaHelixItem : EntityDnaItem() {
         val gene = getGene(pStack)
 
         if (gene == null) {
-            pTooltipComponents.add(Component.literal("Gene: None")
+            pTooltipComponents.add(Component.literal("Gene: Unknown")
                 .withStyle { it.withColor(ChatFormatting.GRAY) })
         } else {
             pTooltipComponents.add(Component.literal("Gene: ").append(gene.nameComponent)
