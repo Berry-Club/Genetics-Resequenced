@@ -31,7 +31,7 @@ object DnaHelixItem : EntityDnaItem() {
     fun getGene(itemStack: ItemStack): Gene? {
         val string = itemStack.tag?.getString(GENE_ID_NBT)
         if (string.isNullOrBlank()) return null
-        return Gene.valueOf(string)
+        return Gene.fromId(string)
     }
 
     fun setGene(itemStack: ItemStack, gene: Gene): Boolean {

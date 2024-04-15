@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.attributes.ModAttributes
@@ -38,7 +39,8 @@ class GeneChangedPacket(
         val player = Minecraft.getInstance().player
             ?: throw IllegalStateException("Received SetWallClimbingPacket without player!")
 
-        val gene = Gene.valueOf(geneId)
+        val gene = Gene.fromId(geneId)
+            ?: throw IllegalStateException("Received SetWallClimbingPacket with invalid gene id!")
 
         player.getGenes()?.apply {
             if (wasAdded) {

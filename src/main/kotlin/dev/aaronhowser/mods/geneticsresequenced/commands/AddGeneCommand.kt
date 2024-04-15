@@ -55,7 +55,7 @@ object AddGeneCommand {
             entity as? LivingEntity
         } ?: return 0
 
-        val geneToAdd = Gene.valueOf(geneArgument)
+        val geneToAdd = Gene.fromId(geneArgument)!!
         val targetGenes = target.getGenes()
 
         if (targetGenes == null) {

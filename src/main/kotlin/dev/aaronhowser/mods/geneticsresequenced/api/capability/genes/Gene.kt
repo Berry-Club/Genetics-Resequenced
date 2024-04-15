@@ -79,8 +79,8 @@ class Gene(
         private val REGISTRY: MutableSet<Gene> = mutableSetOf()
         fun getRegistry(): List<Gene> = REGISTRY.sortedBy { it.id }
 
-        fun valueOf(searchedId: String): Gene {
-            return REGISTRY.first { it.id == searchedId }
+        fun fromId(searchedId: String): Gene? {
+            return REGISTRY.find { it.id == searchedId }
         }
 
         val HASTE_2 = Gene("HASTE_2")

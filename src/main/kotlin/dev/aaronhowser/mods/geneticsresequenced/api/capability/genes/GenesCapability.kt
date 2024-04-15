@@ -58,16 +58,16 @@ class GenesCapability {
 
         require(list.all { it is StringTag }) { "All genes must be strings" }
 
-        val strings = list.map { it.asString }
+        val geneCapabilityStrings = list.map { it.asString }
 
         val listGenes: MutableList<Gene> = mutableListOf()
 
-        for (string in strings) {
-            try {
-                val gene = Gene.valueOf(string)
+        for (geneId in geneCapabilityStrings) {
+            val gene = Gene.fromId(geneId)
+            if (gene != null) {
                 listGenes.add(gene)
-            } catch (e: NoSuchElementException) {
-                GeneticsResequenced.LOGGER.error("An entity loaded with an invalid gene \"$string\". Removing.")
+            } else {
+                GeneticsResequenced.LOGGER.error("An entity loaded with an invalid gene \"$geneId\". Removing.")
             }
         }
 

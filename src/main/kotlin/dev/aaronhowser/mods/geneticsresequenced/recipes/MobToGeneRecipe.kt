@@ -36,7 +36,7 @@ class MobToGeneRecipe(
             val mobGeneRegistry = MobGenesRegistry.getRegistry()
 
             val recipes = mutableListOf<MobToGeneRecipe>()
-            for ((entityType, genePossibilities) in mobGeneRegistry) {
+            for ((entityType: EntityType<*>, genePossibilities: Map<Gene?, Int>) in mobGeneRegistry) {
                 val entityId = ForgeRegistries.ENTITY_TYPES.getKey(entityType) ?: continue
 
                 val totalWeight = genePossibilities.values.sumOf { it }

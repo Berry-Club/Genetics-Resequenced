@@ -55,7 +55,7 @@ object RemoveGeneCommand {
             entity as? LivingEntity
         } ?: return 0
 
-        val geneToRemove = Gene.valueOf(geneArgument)
+        val geneToRemove = Gene.fromId(geneArgument)!!
         val targetGenes = target.getGenes()
 
         if (targetGenes == null) {
