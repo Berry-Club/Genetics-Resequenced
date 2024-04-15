@@ -72,7 +72,7 @@ class DnaDecryptorBlockEntity(
             if (hasRecipe(blockEntity) && hasEnoughEnergy(blockEntity)) {
                 extractEnergy(blockEntity)
 
-                blockEntity.progress++
+                blockEntity.progress += 1 + blockEntity.amountOfOverclockers
                 blockEntity.setChanged()
 
                 if (blockEntity.progress >= blockEntity.maxProgress) {

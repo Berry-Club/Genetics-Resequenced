@@ -55,6 +55,9 @@ abstract class CraftingMachine(
 
     protected var lazyItemHandler: LazyOptional<IItemHandler> = LazyOptional.empty()
 
+    val amountOfOverclockers: Int
+        get() = itemHandler.getStackInSlot(OVERCLOCK_SLOT_INDEX).count
+
     protected val energyStorage: ModEnergyStorage by lazy {
         object : ModEnergyStorage(energyMaximum, energyTransferMaximum) {
             override fun onEnergyChanged() {
