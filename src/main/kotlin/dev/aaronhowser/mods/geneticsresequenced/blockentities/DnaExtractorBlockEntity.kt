@@ -95,9 +95,7 @@ class DnaExtractorBlockEntity(
             if (!hasRecipe(blockEntity)) return
 
             val inputItem = blockEntity.itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
-            val inputEntity = EntityDnaItem.getEntityType(inputItem) ?: return
-
-            val outputItem = ItemStack(ModItems.CELL).setMob(inputEntity) ?: return
+            val outputItem = getOutputFromInput(inputItem) ?: return
 
             val amountAlreadyInOutput = blockEntity.itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX).count
             outputItem.count = amountAlreadyInOutput + 1
@@ -116,13 +114,16 @@ class DnaExtractorBlockEntity(
 
             val inputItemStack = inventory.getItem(INPUT_SLOT_INDEX)
 
-            if (!inputItemStack.`is`(ModItems.ORGANIC_MATTER)) return false
+            if (!inputItemStack.`is`(ModItems.CELL)) return false
 
-            val mobType = EntityDnaItem.getEntityType(inputItemStack) ?: return false
-
-            val outputItem = ItemStack(ModItems.CELL).setMob(mobType) ?: return false
+            val outputItem = getOutputFromInput(inputItemStack) ?: return false
 
             return outputSlotHasRoom(inventory, outputItem)
+        }
+
+        private fun getOutputFromInput(input: ItemStack): ItemStack? {
+            val mobType = EntityDnaItem.getEntityType(input) ?: return null
+            return ItemStack(ModItems.DNA_HELIX).setMob(mobType)
         }
 
         private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {
