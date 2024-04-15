@@ -26,5 +26,6 @@ object ModItems {
     val ORGANIC_MATTER by ITEM_REGISTRY.registerObject("organic_matter") { EntityDnaItem() }
     val CELL by ITEM_REGISTRY.registerObject("cell") { EntityDnaItem() }
     val DNA_HELIX by ITEM_REGISTRY.registerObject("dna_helix") { DnaHelixItem }
+    val OVERCLOCKER by ITEM_REGISTRY.registerObject("overclocker") { Item(Item.Properties().tab(MOD_TAB).stacksTo(8)) }
 
 }

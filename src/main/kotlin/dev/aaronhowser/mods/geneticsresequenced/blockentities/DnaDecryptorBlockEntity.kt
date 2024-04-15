@@ -42,8 +42,8 @@ class DnaDecryptorBlockEntity(
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
                 INPUT_SLOT_INDEX -> stack.`is`(ModItems.DNA_HELIX)
+                OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
                 OUTPUT_SLOT_INDEX -> false
-                OVERCLOCK_SLOT_INDEX -> false
                 else -> false
             }
         }
