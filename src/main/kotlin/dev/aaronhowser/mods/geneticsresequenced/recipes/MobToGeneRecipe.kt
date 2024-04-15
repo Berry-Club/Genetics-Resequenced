@@ -35,11 +35,11 @@ class MobToGeneRecipe(
             val mobGeneRegistry = MobGenesRegistry.getRegistry()
 
             val recipes = mutableListOf<MobToGeneRecipe>()
-            for ((entityType, genes) in mobGeneRegistry) {
+            for ((entityType, genePossibilities) in mobGeneRegistry) {
                 val entityId = ForgeRegistries.ENTITY_TYPES.getKey(entityType) ?: continue
 
-                for (gene in genes) {
-                    recipes.add(MobToGeneRecipe(entityId, gene))
+                for ((gene, weight) in genePossibilities) {
+                    recipes.add(MobToGeneRecipe(entityId, gene!!))
                 }
             }
 

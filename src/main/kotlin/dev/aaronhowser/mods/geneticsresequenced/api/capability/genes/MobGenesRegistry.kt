@@ -5,12 +5,12 @@ import net.minecraft.world.entity.EntityType
 
 object MobGenesRegistry {
 
-    private val mobGenes: MutableMap<EntityType<*>, MutableSet<Gene>> = mutableMapOf()
+    private val mobGenes: MutableMap<EntityType<*>, MutableMap<Gene?, Int>> = mutableMapOf()
 
-    fun addGenesToEntity(entityType: EntityType<*>, vararg genes: Gene) {
-        val geneList = mobGenes.getOrPut(entityType) { mutableSetOf() }
-        geneList.addAll(genes)
-        GeneticsResequenced.LOGGER.debug("Added genes to $entityType: ${genes.joinToString(", ") { it.id }}")
+    fun addGenesToEntity(entityType: EntityType<*>, weightToGeneMap: Map<Gene?, Int>) {
+        val geneList: MutableMap<Gene?, Int> = mobGenes[entityType] ?: mutableMapOf()
+        geneList.putAll(weightToGeneMap)
+        mobGenes[entityType] = geneList
     }
 
     fun removeGenesFromEntity(entityType: EntityType<*>, vararg genes: Gene) {
@@ -18,66 +18,276 @@ object MobGenesRegistry {
             GeneticsResequenced.LOGGER.warn("Tried to remove genes from $entityType, but it has no genes")
             return
         }
-        geneList.removeAll(genes.toSet())
-        GeneticsResequenced.LOGGER.debug("Removed genes from $entityType: ${genes.joinToString(", ")}")
+
+        genes.forEach { geneList.remove(key = it) }
     }
 
-    fun getGenesForEntity(entityType: EntityType<*>): Set<Gene> {
-        return mobGenes[entityType] ?: emptySet()
+    fun getGenesForEntity(entityType: EntityType<*>): Map<Gene?, Int> {
+        return mobGenes[entityType] ?: emptyMap()
     }
 
-    fun getRegistry(): Map<EntityType<*>, Set<Gene>> {
+    fun getRegistry(): Map<EntityType<*>, Map<Gene?, Int>> {
         return mobGenes.toMap()
     }
 
     fun registerDefaultGenes() {
         // Animals
-        addGenesToEntity(EntityType.VILLAGER, Gene.MOB_SIGHT, Gene.EMERALD_HEART, Gene.REGENERATION)
-        addGenesToEntity(EntityType.SHEEP, Gene.EAT_GRASS, Gene.WOOLY)
-        addGenesToEntity(EntityType.COW, Gene.EAT_GRASS, Gene.MILKY)
-        addGenesToEntity(EntityType.PIG, Gene.MEATY)
-        addGenesToEntity(EntityType.HORSE, Gene.JUMP_BOOST, Gene.STEP_ASSIST, Gene.SPEED)
-        addGenesToEntity(EntityType.CHICKEN, Gene.NO_FALL_DAMAGE, Gene.LAY_EGG)
-        addGenesToEntity(EntityType.BAT, Gene.MOB_SIGHT, Gene.NIGHT_VISION)
-        addGenesToEntity(EntityType.PARROT, Gene.NO_FALL_DAMAGE)
-        addGenesToEntity(EntityType.OCELOT, Gene.SPEED, Gene.SCARE_CREEPERS)
-        addGenesToEntity(EntityType.POLAR_BEAR, Gene.STRENGTH, Gene.CLAWS, Gene.STEP_ASSIST)
-        addGenesToEntity(EntityType.LLAMA, Gene.STRENGTH, Gene.STEP_ASSIST)
-        addGenesToEntity(EntityType.WOLF, Gene.SCARE_SKELETONS, Gene.NIGHT_VISION, Gene.NO_HUNGER)
-        addGenesToEntity(EntityType.RABBIT, Gene.JUMP_BOOST, Gene.SPEED)
-        addGenesToEntity(EntityType.FOX, Gene.SPEED, Gene.JUMP_BOOST, Gene.NIGHT_VISION)
-        addGenesToEntity(EntityType.SQUID, Gene.WATER_BREATHING)
-        addGenesToEntity(EntityType.GLOW_SQUID, Gene.WATER_BREATHING, Gene.BIOLUMINESCENCE)
-        addGenesToEntity(EntityType.DOLPHIN, Gene.WATER_BREATHING, Gene.SPEED, Gene.JUMP_BOOST)
-        addGenesToEntity(EntityType.IRON_GOLEM, Gene.MORE_HEARTS, Gene.REGENERATION, Gene.RESISTANCE)
+        addGenesToEntity(
+            EntityType.VILLAGER,
+            mapOf(
+                Gene.MOB_SIGHT to 1,
+                Gene.EMERALD_HEART to 1,
+                Gene.REGENERATION to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.SHEEP,
+            mapOf(
+                Gene.EAT_GRASS to 1,
+                Gene.WOOLY to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.COW,
+            mapOf(
+                Gene.EAT_GRASS to 1,
+                Gene.MILKY to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.PIG,
+            mapOf(Gene.MEATY to 1)
+        )
+        addGenesToEntity(
+            EntityType.HORSE,
+            mapOf(
+                Gene.JUMP_BOOST to 1,
+                Gene.STEP_ASSIST to 1, Gene.SPEED to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.CHICKEN,
+            mapOf(
+                Gene.NO_FALL_DAMAGE to 1,
+                Gene.LAY_EGG to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.BAT,
+            mapOf(
+                Gene.MOB_SIGHT to 1,
+                Gene.NIGHT_VISION to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.PARROT,
+            mapOf(Gene.NO_FALL_DAMAGE to 1)
+        )
+        addGenesToEntity(
+            EntityType.OCELOT,
+            mapOf(
+                Gene.SPEED to 1,
+                Gene.SCARE_CREEPERS to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.POLAR_BEAR,
+            mapOf(
+                Gene.STRENGTH to 1,
+                Gene.CLAWS to 1, Gene.STEP_ASSIST to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.LLAMA,
+            mapOf(
+                Gene.STRENGTH to 1,
+                Gene.STEP_ASSIST to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.WOLF,
+            mapOf(
+                Gene.SCARE_SKELETONS to 1,
+                Gene.NIGHT_VISION to 1, Gene.NO_HUNGER to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.RABBIT,
+            mapOf(
+                Gene.JUMP_BOOST to 1,
+                Gene.SPEED to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.FOX,
+            mapOf(
+                Gene.SPEED to 1,
+                Gene.JUMP_BOOST to 1,
+                Gene.NIGHT_VISION to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.SQUID,
+            mapOf(Gene.WATER_BREATHING to 1)
+        )
+        addGenesToEntity(
+            EntityType.GLOW_SQUID,
+            mapOf(
+                Gene.WATER_BREATHING to 1,
+                Gene.BIOLUMINESCENCE to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.DOLPHIN,
+            mapOf(
+                Gene.WATER_BREATHING to 1,
+                Gene.SPEED to 1,
+                Gene.JUMP_BOOST to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.IRON_GOLEM,
+            mapOf(
+                Gene.MORE_HEARTS to 1,
+                Gene.REGENERATION to 1,
+                Gene.RESISTANCE to 1
+            )
+        )
 
         //Overworld Hostiles
-        addGenesToEntity(EntityType.ZOMBIE, Gene.RESISTANCE)
-        addGenesToEntity(EntityType.CREEPER, Gene.EXPLOSIVE_EXIT)
-        addGenesToEntity(EntityType.SPIDER, Gene.NIGHT_VISION, Gene.WALL_CLIMBING)
-        addGenesToEntity(EntityType.CAVE_SPIDER, Gene.NIGHT_VISION, Gene.WALL_CLIMBING, Gene.POISON_IMMUNITY)
-        addGenesToEntity(EntityType.SLIME, Gene.NO_FALL_DAMAGE, Gene.SLIMY_DEATH)
-        addGenesToEntity(EntityType.GUARDIAN, Gene.WATER_BREATHING)
-        addGenesToEntity(EntityType.ELDER_GUARDIAN, Gene.MOB_SIGHT, Gene.WATER_BREATHING)
-        addGenesToEntity(EntityType.SKELETON, Gene.INFINITY)
-        addGenesToEntity(EntityType.SILVERFISH, Gene.HASTE, Gene.EFFICIENCY)
+        addGenesToEntity(
+            EntityType.ZOMBIE,
+            mutableMapOf(Gene.RESISTANCE to 1)
+        )
+        addGenesToEntity(
+            EntityType.CREEPER,
+            mutableMapOf(Gene.EXPLOSIVE_EXIT to 1)
+        )
+        addGenesToEntity(
+            EntityType.SPIDER,
+            mutableMapOf(
+                Gene.NIGHT_VISION to 1,
+                Gene.WALL_CLIMBING to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.CAVE_SPIDER,
+            mutableMapOf(
+                Gene.NIGHT_VISION to 1,
+                Gene.WALL_CLIMBING to 1,
+                Gene.POISON_IMMUNITY to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.SLIME,
+            mutableMapOf(
+                Gene.NO_FALL_DAMAGE to 1,
+                Gene.SLIMY_DEATH to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.GUARDIAN,
+            mutableMapOf(Gene.WATER_BREATHING to 1)
+        )
+        addGenesToEntity(
+            EntityType.ELDER_GUARDIAN,
+            mutableMapOf(
+                Gene.MOB_SIGHT to 1,
+                Gene.WATER_BREATHING to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.SKELETON,
+            mutableMapOf(Gene.INFINITY to 1)
+        )
+        addGenesToEntity(
+            EntityType.SILVERFISH,
+            mutableMapOf(
+                Gene.HASTE to 1,
+                Gene.EFFICIENCY to 1
+            )
+        )
 
         //End hostiles
-        addGenesToEntity(EntityType.ENDERMITE, Gene.KEEP_INVENTORY, Gene.ITEM_MAGNET, Gene.XP_MAGNET)
-        addGenesToEntity(EntityType.ENDERMAN, Gene.TELEPORT, Gene.MORE_HEARTS)
-        addGenesToEntity(EntityType.SHULKER, Gene.RESISTANCE, Gene.REGENERATION)
+        addGenesToEntity(
+            EntityType.ENDERMITE,
+            mutableMapOf(
+                Gene.KEEP_INVENTORY to 1,
+                Gene.ITEM_MAGNET to 1,
+                Gene.XP_MAGNET to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.ENDERMAN,
+            mutableMapOf(
+                Gene.TELEPORT to 1,
+                Gene.MORE_HEARTS to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.SHULKER,
+            mutableMapOf(
+                Gene.RESISTANCE to 1,
+                Gene.REGENERATION to 1
+            )
+        )
 
         //Nether hostiles
-        addGenesToEntity(EntityType.WITHER_SKELETON, Gene.WITHER_HIT, Gene.INFINITY)
-        addGenesToEntity(EntityType.BLAZE, Gene.SHOOT_FIREBALLS, Gene.FIRE_PROOF, Gene.BIOLUMINESCENCE)
-        addGenesToEntity(EntityType.GHAST, Gene.MOB_SIGHT, Gene.SHOOT_FIREBALLS)
-        addGenesToEntity(EntityType.ZOMBIFIED_PIGLIN, Gene.FIRE_PROOF, Gene.MEATY)
-        addGenesToEntity(EntityType.HOGLIN, Gene.MEATY)
-        addGenesToEntity(EntityType.PIGLIN, Gene.MEATY)
-        addGenesToEntity(EntityType.MAGMA_CUBE, Gene.FIRE_PROOF, Gene.BIOLUMINESCENCE)
+        addGenesToEntity(
+            EntityType.WITHER_SKELETON,
+            mutableMapOf(
+                Gene.WITHER_HIT to 1,
+                Gene.INFINITY to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.BLAZE,
+            mutableMapOf(
+                Gene.SHOOT_FIREBALLS to 1,
+                Gene.FIRE_PROOF to 1,
+                Gene.BIOLUMINESCENCE to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.GHAST,
+            mutableMapOf(
+                Gene.MOB_SIGHT to 1,
+                Gene.SHOOT_FIREBALLS to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.ZOMBIFIED_PIGLIN,
+            mutableMapOf(
+                Gene.FIRE_PROOF to 1,
+                Gene.MEATY to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.HOGLIN,
+            mutableMapOf(Gene.MEATY to 1)
+        )
+        addGenesToEntity(
+            EntityType.PIGLIN,
+            mutableMapOf(Gene.MEATY to 1)
+        )
+        addGenesToEntity(
+            EntityType.MAGMA_CUBE,
+            mutableMapOf(
+                Gene.FIRE_PROOF to 1,
+                Gene.BIOLUMINESCENCE to 1
+            )
+        )
+
         //Bosses
-        addGenesToEntity(EntityType.WITHER, Gene.WITHER_PROOF)
-        addGenesToEntity(EntityType.ENDER_DRAGON, Gene.DRAGONS_BREATH, Gene.ENDER_DRAGON_HEALTH, Gene.FLIGHT)
+        addGenesToEntity(EntityType.WITHER, mapOf(Gene.WITHER_PROOF to 1))
+        addGenesToEntity(
+            EntityType.ENDER_DRAGON,
+            mapOf(
+                Gene.DRAGONS_BREATH to 1,
+                Gene.ENDER_DRAGON_HEALTH to 1,
+                Gene.FLIGHT to 1
+            )
+        )
     }
 
 }

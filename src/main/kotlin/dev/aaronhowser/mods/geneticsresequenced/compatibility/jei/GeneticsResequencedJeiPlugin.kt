@@ -77,9 +77,16 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
                     .append(entityType.description)
                     .append(Component.literal(" has these traits:\n"))
 
-            for (gene in genes) {
+            val sumOfWeights = genes.values.sum()
+
+            for ((gene, weight) in genes) {
+                val chance = (weight.toDouble() / sumOfWeights.toDouble() * 100).toInt()
+
                 informationTextComponent.append(
-                    Component.literal("\n- ").append(gene.nameComponent)
+                    Component
+                        .literal("\n")
+                        .append(Component.literal("$chance% chance of "))
+                        .append(gene?.nameComponent ?: Component.literal("no gene"))
                 )
             }
 

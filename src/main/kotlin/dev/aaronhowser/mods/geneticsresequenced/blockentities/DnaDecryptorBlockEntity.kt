@@ -131,7 +131,7 @@ class DnaDecryptorBlockEntity(
 
             val gene: Gene
             if (blockEntity.nextGene == null) {
-                gene = genesFromMob.random()
+                gene = genesFromMob.map { it.key }.random()!!
                 blockEntity.nextGene = gene
             } else {
 
