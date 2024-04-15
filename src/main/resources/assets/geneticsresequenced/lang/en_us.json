@@ -8,6 +8,7 @@
   "item.geneticsresequenced.scraper": "Scraper",
   "item.geneticsresequenced.syringe": "Empty Syringe",
   "item.geneticsresequenced.dna_helix": "DNA Helix",
+  "item.geneticsresequenced.overclocker": "Overclocker",
 
   "block.geneticsresequenced.bioluminescence": "Bioluminescence Glow",
   "block.geneticsresequenced.cell_analyzer": "Cell Analyzer",
@@ -20,6 +21,8 @@
   "block.geneticsresequenced.incubator": "Incubator",
   "block.geneticsresequenced.plasmid_infuser": "Plasmid Infuser",
   "block.geneticsresequenced.plasmid_injector": "Plasmid Injector",
+
+  "effect.geneticsresequenced.bleed": "Bleed",
 
   "enchantment.geneticsresequenced.delicate_touch": "Delicate Touch",
 
