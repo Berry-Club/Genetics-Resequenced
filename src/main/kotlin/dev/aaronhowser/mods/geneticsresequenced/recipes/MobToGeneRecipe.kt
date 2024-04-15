@@ -19,7 +19,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.minecraftforge.registries.ForgeRegistries
-import mezz.jei.api.recipe.RecipeType as JEIRecipeType
 
 class MobToGeneRecipe(
     private val mobResourceLocation: ResourceLocation,
@@ -64,12 +63,6 @@ class MobToGeneRecipe(
                 TODO()
             }
         }
-
-        val JEI_RECIPE_TYPE: JEIRecipeType<MobToGeneRecipe> =
-            JEIRecipeType(
-                ResourceLocation(GeneticsResequenced.ID, RECIPE_TYPE_NAME),
-                MobToGeneRecipe::class.java
-            )
     }
 
     override fun matches(pContainer: Container, pLevel: Level): Boolean {

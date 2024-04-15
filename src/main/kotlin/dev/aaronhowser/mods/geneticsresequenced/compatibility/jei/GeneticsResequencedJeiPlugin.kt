@@ -48,22 +48,22 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
     override fun registerRecipeCatalysts(registration: IRecipeCatalystRegistration) {
         registration.addRecipeCatalyst(
             ItemStack(ModBlocks.CELL_ANALYZER),
-            CellAnalyzerRecipe.JEI_RECIPE_TYPE
+            CellAnalyzerRecipeCategory.recipeType
         )
         registration.addRecipeCatalyst(
             ItemStack(ModBlocks.DNA_DECRYPTOR),
-            MobToGeneRecipe.JEI_RECIPE_TYPE
+            MobToGeneRecipeCategory.recipeType
         )
         registration.addRecipeCatalyst(
             ItemStack(ModBlocks.DNA_EXTRACTOR),
-            DnaExtractorRecipe.JEI_RECIPE_TYPE
+            DnaExtractorRecipeCategory.recipeType
         )
     }
 
     override fun registerRecipes(registration: IRecipeRegistration) {
-        registration.addRecipes(CellAnalyzerRecipe.JEI_RECIPE_TYPE, CellAnalyzerRecipe.getAllRecipes())
-        registration.addRecipes(MobToGeneRecipe.JEI_RECIPE_TYPE, MobToGeneRecipe.getAllRecipes())
-        registration.addRecipes(DnaExtractorRecipe.JEI_RECIPE_TYPE, DnaExtractorRecipe.getAllRecipes())
+        registration.addRecipes(CellAnalyzerRecipeCategory.recipeType, CellAnalyzerRecipe.getAllRecipes())
+        registration.addRecipes(MobToGeneRecipeCategory.recipeType, MobToGeneRecipe.getAllRecipes())
+        registration.addRecipes(DnaExtractorRecipeCategory.recipeType, DnaExtractorRecipe.getAllRecipes())
 
         mobGeneRecipes(registration)
     }

@@ -6,7 +6,6 @@ import dev.aaronhowser.mods.geneticsresequenced.recipes.CellAnalyzerRecipe
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.drawable.IDrawable
-import mezz.jei.api.gui.drawable.IDrawableBuilder
 import mezz.jei.api.helpers.IGuiHelper
 import mezz.jei.api.recipe.IFocusGroup
 import mezz.jei.api.recipe.RecipeIngredientRole
@@ -21,6 +20,13 @@ class CellAnalyzerRecipeCategory(
 ) : IRecipeCategory<CellAnalyzerRecipe> {
 
     companion object {
+
+        val recipeType: RecipeType<CellAnalyzerRecipe> =
+            RecipeType(
+                ResourceLocation(GeneticsResequenced.ID, CellAnalyzerRecipe.RECIPE_TYPE_NAME),
+                CellAnalyzerRecipe::class.java
+            )
+
         val UID = ResourceLocation(GeneticsResequenced.ID, CellAnalyzerRecipe.RECIPE_TYPE_NAME)
         private val TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/cell_analyzer.png")
     }

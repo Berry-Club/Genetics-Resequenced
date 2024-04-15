@@ -16,7 +16,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.minecraftforge.registries.ForgeRegistries
-import mezz.jei.api.recipe.RecipeType as JEIRecipeType
 
 class CellAnalyzerRecipe(
     private val entityResourceLocation: ResourceLocation
@@ -51,11 +50,6 @@ class CellAnalyzerRecipe(
             }
         }
 
-        val JEI_RECIPE_TYPE: JEIRecipeType<CellAnalyzerRecipe> =
-            JEIRecipeType(
-                ResourceLocation(GeneticsResequenced.ID, RECIPE_TYPE_NAME),
-                CellAnalyzerRecipe::class.java
-            )
     }
 
     override fun getId(): ResourceLocation =

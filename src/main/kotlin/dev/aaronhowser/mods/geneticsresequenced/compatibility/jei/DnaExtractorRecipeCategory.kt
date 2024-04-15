@@ -20,6 +20,13 @@ class DnaExtractorRecipeCategory(
 ) : IRecipeCategory<DnaExtractorRecipe> {
 
     companion object {
+
+        val recipeType: RecipeType<DnaExtractorRecipe> =
+            RecipeType(
+                ResourceLocation(GeneticsResequenced.ID, DnaExtractorRecipe.RECIPE_TYPE_NAME),
+                DnaExtractorRecipe::class.java
+            )
+
         val UID = ResourceLocation(GeneticsResequenced.ID, DnaExtractorRecipe.RECIPE_TYPE_NAME)
         private val TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/dna_extractor.png")
     }

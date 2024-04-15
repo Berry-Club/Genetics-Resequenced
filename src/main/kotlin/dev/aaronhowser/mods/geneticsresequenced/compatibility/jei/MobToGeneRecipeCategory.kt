@@ -21,6 +21,12 @@ class MobToGeneRecipeCategory(
 ) : IRecipeCategory<MobToGeneRecipe> {
 
     companion object {
+        val recipeType: RecipeType<MobToGeneRecipe> =
+            RecipeType(
+                ResourceLocation(GeneticsResequenced.ID, MobToGeneRecipe.RECIPE_TYPE_NAME),
+                MobToGeneRecipe::class.java
+            )
+
         val UID = ResourceLocation(GeneticsResequenced.ID, MobToGeneRecipe.RECIPE_TYPE_NAME)
         private val TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/dna_decryptor.png")
     }

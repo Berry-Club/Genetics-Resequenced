@@ -16,7 +16,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.minecraftforge.registries.ForgeRegistries
-import mezz.jei.api.recipe.RecipeType as JEIRecipeType
 
 class DnaExtractorRecipe(
     private val entityResourceLocation: ResourceLocation
@@ -50,13 +49,6 @@ class DnaExtractorRecipe(
                 throw IllegalStateException("This recipe type does not support JSON serialization")
             }
         }
-
-        //FIXME: Does this crash if JEI isn't loaded?
-        val JEI_RECIPE_TYPE: JEIRecipeType<DnaExtractorRecipe> =
-            JEIRecipeType(
-                ResourceLocation(GeneticsResequenced.ID, RECIPE_TYPE_NAME),
-                DnaExtractorRecipe::class.java
-            )
     }
 
     override fun getId(): ResourceLocation =
