@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.recipes.MobToGeneRecipe
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.drawable.IDrawable
-import mezz.jei.api.gui.drawable.IDrawableBuilder
+import mezz.jei.api.gui.drawable.IDrawableStatic
 import mezz.jei.api.helpers.IGuiHelper
 import mezz.jei.api.recipe.IFocusGroup
 import mezz.jei.api.recipe.RecipeIngredientRole
@@ -22,18 +22,18 @@ class MobToGeneRecipeCategory(
 
     companion object {
         val UID = ResourceLocation(GeneticsResequenced.ID, MobToGeneRecipe.RECIPE_TYPE_NAME)
-        private val TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/jei/cell_analyzer.png")
+        private val TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/dna_decryptor.png")
     }
 
-    private val background: IDrawableBuilder = helper.drawableBuilder(TEXTURE, 0, 0, 75, 28).setTextureSize(75, 28)
+    private val background: IDrawableStatic = helper.createDrawable(TEXTURE, 57, 30, 75, 28)
     private val icon: IDrawable =
         helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModItems.DNA_HELIX))
 
     override fun getRecipeType(): RecipeType<MobToGeneRecipe> = GeneticsResequencedJeiPlugin.MOB_TO_GENE_TYPE
 
-    override fun getTitle(): Component = Component.translatable("aaaaaaaaaaaa")
+    override fun getTitle(): Component = Component.translatable("block.geneticsresequenced.dna_decryptor")
 
-    override fun getBackground(): IDrawable = background.build()
+    override fun getBackground(): IDrawable = background
 
     override fun getIcon(): IDrawable = icon
 

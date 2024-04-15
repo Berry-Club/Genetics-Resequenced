@@ -22,18 +22,18 @@ class CellAnalyzerRecipeCategory(
 
     companion object {
         val UID = ResourceLocation(GeneticsResequenced.ID, CellAnalyzerRecipe.RECIPE_TYPE_NAME)
-        private val TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/jei/cell_analyzer.png")
+        private val TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/cell_analyzer.png")
     }
 
-    private val background: IDrawableBuilder = helper.drawableBuilder(TEXTURE, 0, 0, 75, 28).setTextureSize(75, 28)
+    private val background: IDrawable = helper.createDrawable(TEXTURE, 57, 30, 75, 28)
     private val icon: IDrawable =
         helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModBlocks.CELL_ANALYZER))
 
     override fun getRecipeType(): RecipeType<CellAnalyzerRecipe> = GeneticsResequencedJeiPlugin.CELL_ANALYZER_TYPE
 
-    override fun getTitle(): Component = Component.translatable("aaaaaaa")
+    override fun getTitle(): Component = Component.translatable("block.geneticsresequenced.cell_analyzer")
 
-    override fun getBackground(): IDrawable = background.build()
+    override fun getBackground(): IDrawable = background
 
     override fun getIcon(): IDrawable = icon
 
