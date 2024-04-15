@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks
 
 import dev.aaronhowser.mods.geneticsresequenced.blockentities.DnaDecryptorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blockentities.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlock
 import dev.aaronhowser.mods.geneticsresequenced.util.BlockEntityHelper
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -12,8 +13,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.EntityBlock
-import net.minecraft.world.level.block.HorizontalDirectionalBlock
 import net.minecraft.world.level.block.RenderShape
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityTicker
@@ -24,74 +23,11 @@ import net.minecraft.world.level.material.Material
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraftforge.network.NetworkHooks
 
-object DnaDecryptorBlock : HorizontalDirectionalBlock(Properties.of(Material.METAL)), EntityBlock {
-
-    init {
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))
-    }
-
-    override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState {
-        return defaultBlockState().setValue(FACING, pContext.horizontalDirection.opposite)
-    }
-
-    override fun createBlockStateDefinition(pBuilder: StateDefinition.Builder<Block, BlockState>) {
-        super.createBlockStateDefinition(pBuilder)
-        pBuilder.add(FACING)
-    }
-
-    // BLOCK ENTITY STUFF BELOW
-
-    @Suppress("OVERRIDE_DEPRECATION")
-    override fun getRenderShape(pState: BlockState): RenderShape {
-        return RenderShape.MODEL
-    }
-
-    @Suppress("OVERRIDE_DEPRECATION")
-    override fun use(
-        pState: BlockState,
-        pLevel: Level,
-        pPos: BlockPos,
-        pPlayer: Player,
-        pHand: InteractionHand,
-        pHit: BlockHitResult
-    ): InteractionResult {
-
-        if (pLevel.isClientSide) {
-            return InteractionResult.sidedSuccess(pLevel.isClientSide)
-        }
-
-        val blockEntity = pLevel.getBlockEntity(pPos)
-        if (blockEntity is DnaDecryptorBlockEntity) {
-            NetworkHooks.openScreen(pPlayer as ServerPlayer, blockEntity, pPos)
-        } else {
-            throw IllegalStateException("Missing block entity")
-        }
-
-        return InteractionResult.SUCCESS
-    }
-
-    @Suppress("OVERRIDE_DEPRECATION")
-    override fun onRemove(
-        pState: BlockState,
-        pLevel: Level,
-        pPos: BlockPos,
-        pNewState: BlockState,
-        pIsMoving: Boolean
+object DnaDecryptorBlock :
+    CraftingMachineBlock(
+        Properties.of(Material.METAL),
+        DnaDecryptorBlockEntity::class.java
     ) {
-
-        if (pState.block != pNewState.block) {
-            val blockEntity = pLevel.getBlockEntity(pPos)
-            if (blockEntity is DnaDecryptorBlockEntity) {
-                blockEntity.drops()
-            }
-        }
-
-        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving)
-    }
-
-    override fun newBlockEntity(pPos: BlockPos, pState: BlockState): BlockEntity {
-        return DnaDecryptorBlockEntity(pPos, pState)
-    }
 
     override fun <T : BlockEntity> getTicker(
         pLevel: Level,

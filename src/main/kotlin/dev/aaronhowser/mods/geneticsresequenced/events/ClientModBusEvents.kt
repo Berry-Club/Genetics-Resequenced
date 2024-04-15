@@ -2,11 +2,13 @@ package dev.aaronhowser.mods.geneticsresequenced.events
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.controls.ModKeyMappings
-import dev.aaronhowser.mods.geneticsresequenced.screens.CellAnalyzerScreen
-import dev.aaronhowser.mods.geneticsresequenced.screens.CoalGeneratorScreen
-import dev.aaronhowser.mods.geneticsresequenced.screens.DnaDecryptorScreen
-import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
+import dev.aaronhowser.mods.geneticsresequenced.screens.*
 import net.minecraft.client.gui.screens.MenuScreens
+import net.minecraft.client.gui.screens.MenuScreens.ScreenConstructor
+import net.minecraft.client.gui.screens.Screen
+import net.minecraft.client.gui.screens.inventory.MenuAccess
+import net.minecraft.world.inventory.AbstractContainerMenu
+import net.minecraft.world.inventory.MenuType
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -29,15 +31,19 @@ object ClientModBusEvents {
     @SubscribeEvent
     fun onClientSetup(event: FMLClientSetupEvent) {
 
-        MenuScreens.register(ModMenuTypes.CELL_ANALYZER.get()) { menu, inventory, title ->
-            CellAnalyzerScreen(menu, inventory, title)
+        // Funky little function whose meaning is impossible to ascertain
+        fun <M : AbstractContainerMenu, U> registerScreen(
+            pType: MenuType<out M>,
+            pFactory: ScreenConstructor<M, U>
+        ) where U : Screen?, U : MenuAccess<M> {
+            MenuScreens.register(pType, pFactory)
         }
-        MenuScreens.register(ModMenuTypes.COAL_GENERATOR.get()) { menu, inventory, title ->
-            CoalGeneratorScreen(menu, inventory, title)
-        }
-        MenuScreens.register(ModMenuTypes.DNA_DECRYPTOR.get()) { menu, inventory, title ->
-            DnaDecryptorScreen(menu, inventory, title)
-        }
+
+        registerScreen(ModMenuTypes.CELL_ANALYZER.get(), ::CellAnalyzerScreen)
+        registerScreen(ModMenuTypes.COAL_GENERATOR.get(), ::CoalGeneratorScreen)
+        registerScreen(ModMenuTypes.DNA_EXTRACTOR.get(), ::DnaExtractorScreen)
+        registerScreen(ModMenuTypes.DNA_DECRYPTOR.get(), ::DnaDecryptorScreen)
+
 
     }
 
