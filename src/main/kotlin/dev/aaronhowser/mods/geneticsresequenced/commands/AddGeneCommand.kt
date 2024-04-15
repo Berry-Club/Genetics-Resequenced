@@ -30,7 +30,7 @@ object AddGeneCommand {
                     .argument(GENE_ARGUMENT, StringArgumentType.string())
                     .suggests { ctx, builder ->
                         SharedSuggestionProvider.suggest(
-                            Gene.REGISTRY.map { it.id }.plus(ALL),
+                            Gene.getRegistry().map { it.id }.plus(ALL),
                             builder
                         )
                     }
@@ -112,7 +112,7 @@ object AddGeneCommand {
 
         val targetGenes = target.getGenes() ?: return 0
 
-        for (gene in Gene.REGISTRY) {
+        for (gene in Gene.getRegistry()) {
             if (gene.isNegative) continue
             targetGenes.addGene(gene)
             OtherPlayerEvents.genesChanged(target, gene, true)

@@ -20,7 +20,7 @@ object DnaHelixItem : EntityDnaItem() {
     private const val GENE_ID_NBT = "GeneId"
 
     fun getAllGeneHelices(): List<ItemStack> {
-        return Gene.REGISTRY.map { gene -> ItemStack(this).setGene(gene)!! }
+        return Gene.getRegistry().map { gene -> ItemStack(this).setGene(gene)!! }
     }
 
     fun hasGene(itemStack: ItemStack): Boolean {

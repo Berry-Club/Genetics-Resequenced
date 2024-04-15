@@ -63,7 +63,8 @@ class Gene(
 
     companion object {
 
-        val REGISTRY: MutableSet<Gene> = mutableSetOf()
+        private val REGISTRY: MutableSet<Gene> = mutableSetOf()
+        fun getRegistry(): List<Gene> = REGISTRY.sortedBy { it.id }
 
         fun valueOf(searchedId: String): Gene {
             return REGISTRY.first { it.id == searchedId }

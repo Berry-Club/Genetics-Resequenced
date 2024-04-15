@@ -29,7 +29,7 @@ object RemoveGeneCommand {
                 Commands.argument(GENE_ARGUMENT, StringArgumentType.string())
                     .suggests { ctx, builder ->
                         SharedSuggestionProvider.suggest(
-                            Gene.REGISTRY.map { it.id }.plus(ALL),
+                            Gene.getRegistry().map { it.id }.plus(ALL),
                             builder
                         )
                     }
