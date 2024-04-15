@@ -1,8 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientHelper
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
+import net.minecraft.world.InteractionHand
+import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
@@ -36,6 +42,18 @@ object DnaHelixItem : EntityDnaItem() {
         }
     }
 
+    override fun interactLivingEntity(
+        pStack: ItemStack,
+        pPlayer: Player,
+        pInteractionTarget: LivingEntity,
+        pUsedHand: InteractionHand
+    ): InteractionResult {
+        return if (hasGene(pStack))
+            InteractionResult.PASS
+        else
+            super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand)
+    }
+
     override fun appendHoverText(
         pStack: ItemStack,
         pLevel: Level?,
@@ -47,12 +65,31 @@ object DnaHelixItem : EntityDnaItem() {
         if (gene == null) {
             pTooltipComponents.add(Component.literal("Gene: Unknown")
                 .withStyle { it.withColor(ChatFormatting.GRAY) })
+
+            val entity = getEntityType(pStack)
+            if (entity != null) {
+                pTooltipComponents.add(Component.literal("Entity: ").append(entity.description)
+                    .withStyle { it.withColor(ChatFormatting.GRAY) })
+            }
+
+            try {
+                val isCreative = pLevel?.isClientSide == true && ClientHelper.playerIsCreative()
+                if (isCreative) {
+                    val component =
+                        Component
+                            .translatable("tooltip.geneticsresequenced.dna_item.creative")
+                            .withStyle { it.withColor(ChatFormatting.GRAY) }
+
+                    pTooltipComponents.add(component)
+                }
+            } catch (e: Exception) {
+                GeneticsResequenced.LOGGER.error("EntityDnaItem isCreative check failed", e)
+            }
+
         } else {
             pTooltipComponents.add(Component.literal("Gene: ").append(gene.nameComponent)
                 .withStyle { it.withColor(ChatFormatting.GRAY) })
         }
-
-        super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced)
     }
 
 }
