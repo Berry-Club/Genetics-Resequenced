@@ -8,7 +8,6 @@ object ServerConfig {
 
     // General
     lateinit var keepGenesOnDeath: ForgeConfigSpec.BooleanValue
-    lateinit var hardMode: ForgeConfigSpec.BooleanValue
     lateinit var showEffectIcons: ForgeConfigSpec.BooleanValue
 
     // Gene values
@@ -49,10 +48,6 @@ object ServerConfig {
 
     private fun generalConfigs() {
         BUILDER.comment("General settings").push("general")
-
-        hardMode = BUILDER
-            .comment("Make earning traits harder, better balance when playing with Mods")
-            .define("hardMode", false)
 
         keepGenesOnDeath = BUILDER
             .comment("Keep genes on death")

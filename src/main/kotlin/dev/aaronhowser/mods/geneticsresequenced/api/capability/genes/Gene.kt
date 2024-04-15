@@ -407,7 +407,7 @@ class Gene(
 
     fun getNumberNeeded(gene: Gene): Int {
         if (gene.isMutation) return 50
-        return if (ServerConfig.hardMode.get()) 24 else when (gene) {
+        return when (gene) {
             STEP_ASSIST, JUMP_BOOST -> 10
             MILKY, WOOLY, MEATY, LAY_EGG, THORNS -> 12
             EAT_GRASS, NIGHT_VISION, MOB_SIGHT, WATER_BREATHING, BIOLUMINESCENCE -> 16
