@@ -4,11 +4,13 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientHelper
 import net.minecraft.ChatFormatting
+import net.minecraft.core.NonNullList
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
@@ -16,6 +18,10 @@ import net.minecraft.world.level.Level
 object DnaHelixItem : EntityDnaItem() {
 
     private const val GENE_ID_NBT = "GeneId"
+
+    fun getAllGeneHelices(): List<ItemStack> {
+        return Gene.REGISTRY.map { gene -> ItemStack(this).setGene(gene)!! }
+    }
 
     fun hasGene(itemStack: ItemStack): Boolean {
         return itemStack.tag?.contains(GENE_ID_NBT) ?: false
@@ -40,6 +46,12 @@ object DnaHelixItem : EntityDnaItem() {
         } else {
             null
         }
+    }
+
+    //TODO: Remove this, put it in PlasmidItem instead
+    override fun fillItemCategory(pCategory: CreativeModeTab, pItems: NonNullList<ItemStack>) {
+        super.fillItemCategory(pCategory, pItems)
+        pItems.addAll(getAllGeneHelices())
     }
 
     override fun interactLivingEntity(
