@@ -7,6 +7,7 @@ import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.drawable.IDrawable
 import mezz.jei.api.gui.drawable.IDrawableStatic
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView
 import mezz.jei.api.helpers.IGuiHelper
 import mezz.jei.api.recipe.IFocusGroup
 import mezz.jei.api.recipe.RecipeIngredientRole
@@ -55,5 +56,30 @@ class MobToGeneRecipeCategory(
             53,
             6
         ).addItemStack(recipe.resultItem)
+    }
+
+    override fun getTooltipStrings(
+        recipe: MobToGeneRecipe,
+        recipeSlotsView: IRecipeSlotsView,
+        mouseX: Double,
+        mouseY: Double
+    ): MutableList<Component> {
+
+        val mob = recipe.mob
+        val gene = recipe.gene
+        val chance = recipe.chance
+
+        val line1 = Component
+            .literal("Mob: ")
+            .append(mob!!.description)
+
+        val line2 = Component
+            .literal("Gene: ")
+            .append(gene?.nameComponent ?: Component.literal("Basic Gene"))
+
+        val line3 = Component
+            .literal("Chance: $chance%")
+
+        return mutableListOf(line1, line2, line3)
     }
 }

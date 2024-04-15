@@ -21,11 +21,12 @@ import net.minecraft.world.level.Level
 import net.minecraftforge.registries.ForgeRegistries
 
 class MobToGeneRecipe(
-    private val mobResourceLocation: ResourceLocation,
-    private val gene: Gene?
+    val mobResourceLocation: ResourceLocation,
+    val gene: Gene?,
+    val chance: Int = 100
 ) : Recipe<Container> {
 
-    private val mob: EntityType<*>? = ForgeRegistries.ENTITY_TYPES.getValue(mobResourceLocation)
+    val mob: EntityType<*>? = ForgeRegistries.ENTITY_TYPES.getValue(mobResourceLocation)
     private val inputItem = ItemStack(ModItems.DNA_HELIX).setMob(mobResourceLocation) ?: ItemStack.EMPTY
     private val outputItem = ItemStack(ModItems.DNA_HELIX).setGene(gene) ?: ItemStack.EMPTY
 
@@ -38,8 +39,11 @@ class MobToGeneRecipe(
             for ((entityType, genePossibilities) in mobGeneRegistry) {
                 val entityId = ForgeRegistries.ENTITY_TYPES.getKey(entityType) ?: continue
 
+                val totalWeight = genePossibilities.values.sumOf { it }
+
                 for ((gene, weight) in genePossibilities) {
-                    recipes.add(MobToGeneRecipe(entityId, gene))
+                    val chance = (weight / totalWeight.toDouble() * 100).toInt()
+                    recipes.add(MobToGeneRecipe(entityId, gene, chance))
                 }
             }
 
