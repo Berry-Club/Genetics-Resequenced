@@ -22,7 +22,7 @@ import net.minecraftforge.registries.ForgeRegistries
 import mezz.jei.api.recipe.RecipeType as JEIRecipeType
 
 class MobToGeneRecipe(
-    mobResourceLocation: ResourceLocation,
+    private val mobResourceLocation: ResourceLocation,
     private val gene: Gene
 ) : Recipe<Container> {
 
@@ -86,7 +86,11 @@ class MobToGeneRecipe(
 
     override fun getResultItem(): ItemStack = outputItem.copy()
 
-    override fun getId(): ResourceLocation = ResourceLocation(GeneticsResequenced.ID, RECIPE_TYPE_NAME)
+    override fun getId(): ResourceLocation =
+        ResourceLocation(
+            GeneticsResequenced.ID,
+            "$RECIPE_TYPE_NAME/${mobResourceLocation.toString().replace(':', '/')}/${gene.id.lowercase()}"
+        )
 
     override fun getSerializer(): RecipeSerializer<*> = SERIALIZER
 

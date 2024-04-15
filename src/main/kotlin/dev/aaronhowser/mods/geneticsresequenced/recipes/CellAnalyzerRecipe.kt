@@ -58,7 +58,11 @@ class CellAnalyzerRecipe(
             )
     }
 
-    override fun getId(): ResourceLocation = ResourceLocation(GeneticsResequenced.ID, RECIPE_TYPE_NAME)
+    override fun getId(): ResourceLocation =
+        ResourceLocation(
+            GeneticsResequenced.ID,
+            "$RECIPE_TYPE_NAME/${entityResourceLocation.toString().replace(':', '/')}"
+        )
 
     override fun getSerializer(): RecipeSerializer<*> = SERIALIZER
 
