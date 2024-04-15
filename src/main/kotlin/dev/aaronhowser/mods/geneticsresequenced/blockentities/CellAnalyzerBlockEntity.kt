@@ -39,9 +39,9 @@ class CellAnalyzerBlockEntity(
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
-                INPUT_SLOT -> stack.`is`(ModItems.ORGANIC_MATTER)
-                OUTPUT_SLOT -> false
-                OVERCLOCK_SLOT -> false
+                INPUT_SLOT_INDEX -> stack.`is`(ModItems.ORGANIC_MATTER)
+                OUTPUT_SLOT_INDEX -> false
+                OVERCLOCK_SLOT_INDEX -> false
                 else -> false
             }
         }
@@ -82,28 +82,28 @@ class CellAnalyzerBlockEntity(
         }
 
         private fun extractEnergy(blockEntity: CellAnalyzerBlockEntity) {
-            if (blockEntity.energyStorage.energyStored < ENERGY_PER_TICK) return
-            blockEntity.energyStorage.extractEnergy(ENERGY_PER_TICK, false)
+            if (blockEntity.energyStorage.energyStored < blockEntity.energyCostPerTick) return
+            blockEntity.energyStorage.extractEnergy(blockEntity.energyCostPerTick, false)
         }
 
         private fun hasEnoughEnergy(blockEntity: CellAnalyzerBlockEntity): Boolean {
-            return blockEntity.energyStorage.energyStored >= ENERGY_PER_TICK
+            return blockEntity.energyStorage.energyStored >= blockEntity.energyCostPerTick
         }
 
 
         private fun craftItem(blockEntity: CellAnalyzerBlockEntity) {
             if (!hasRecipe(blockEntity)) return
 
-            val inputItem = blockEntity.itemHandler.getStackInSlot(INPUT_SLOT)
+            val inputItem = blockEntity.itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
             val inputEntity = EntityDnaItem.getEntityType(inputItem) ?: return
 
             val outputItem = ItemStack(ModItems.CELL).setMob(inputEntity) ?: return
 
-            val amountAlreadyInOutput = blockEntity.itemHandler.getStackInSlot(OUTPUT_SLOT).count
+            val amountAlreadyInOutput = blockEntity.itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX).count
             outputItem.count = amountAlreadyInOutput + 1
 
-            blockEntity.itemHandler.extractItem(INPUT_SLOT, 1, false)
-            blockEntity.itemHandler.setStackInSlot(OUTPUT_SLOT, outputItem)
+            blockEntity.itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
+            blockEntity.itemHandler.setStackInSlot(OUTPUT_SLOT_INDEX, outputItem)
 
             blockEntity.resetProgress()
         }
@@ -114,7 +114,7 @@ class CellAnalyzerBlockEntity(
                 inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i))
             }
 
-            val inputItemStack = inventory.getItem(INPUT_SLOT)
+            val inputItemStack = inventory.getItem(INPUT_SLOT_INDEX)
 
             if (!inputItemStack.`is`(ModItems.ORGANIC_MATTER)) return false
 
@@ -126,7 +126,7 @@ class CellAnalyzerBlockEntity(
         }
 
         private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {
-            val outputSlot = inventory.getItem(OUTPUT_SLOT)
+            val outputSlot = inventory.getItem(OUTPUT_SLOT_INDEX)
 
             if (outputSlot.isEmpty) return true
 
@@ -137,23 +137,6 @@ class CellAnalyzerBlockEntity(
 
             return mobAlreadyInSlot == mobToInsert
         }
-
-        private const val INVENTORY_NBT_KEY = "cell_analyzer.inventory"
-        private const val PROGRESS_INDEX = 0
-        private const val MAX_PROGRESS_INDEX = 1
-
-        const val SIMPLE_CONTAINER_SIZE = 2
-        const val ITEMSTACK_HANDLER_SIZE = 3
-
-        const val INPUT_SLOT = 0
-        const val OUTPUT_SLOT = 1
-        const val OVERCLOCK_SLOT = 2
-
-        private const val ENERGY_NBT_KEY = "cell_analyzer.energy"
-        private const val CAPACITY = 60_000
-        private const val MAX_TRANSFER = 256
-        private const val ENERGY_PER_TICK = 32
-
     }
 
 }

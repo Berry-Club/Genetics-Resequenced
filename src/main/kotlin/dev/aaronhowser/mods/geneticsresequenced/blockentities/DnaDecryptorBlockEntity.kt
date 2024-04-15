@@ -34,16 +34,16 @@ class DnaDecryptorBlockEntity(
     override val energyTransferMaximum: Int = 256
     override val energyCostPerTick: Int = 32
 
-    override val itemHandler: ItemStackHandler = object : ItemStackHandler(itemstackHandlerSize) {
+    override val itemHandler: ItemStackHandler = object : ItemStackHandler(ITEMSTACK_HANDLER_SIZE) {
         override fun onContentsChanged(slot: Int) {
             setChanged()
         }
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
-                inputSlot -> stack.`is`(ModItems.DNA_HELIX)
-                outputSlot -> false
-                OVERCLOCK_SLOT -> false
+                INPUT_SLOT_INDEX -> stack.`is`(ModItems.DNA_HELIX)
+                OUTPUT_SLOT_INDEX -> false
+                OVERCLOCK_SLOT_INDEX -> false
                 else -> false
             }
         }
@@ -98,14 +98,14 @@ class DnaDecryptorBlockEntity(
         private fun craftItem(blockEntity: DnaDecryptorBlockEntity) {
             if (!hasRecipe(blockEntity)) return
 
-            val inputItem = blockEntity.itemHandler.getStackInSlot(INPUT_SLOT)
+            val inputItem = blockEntity.itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
             val outputItem = getOutputFromInput(inputItem, blockEntity) ?: return
 
-            val amountAlreadyInOutput = blockEntity.itemHandler.getStackInSlot(OUTPUT_SLOT).count
+            val amountAlreadyInOutput = blockEntity.itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX).count
             outputItem.count = amountAlreadyInOutput + 1
 
-            blockEntity.itemHandler.extractItem(INPUT_SLOT, 1, false)
-            blockEntity.itemHandler.setStackInSlot(OUTPUT_SLOT, outputItem)
+            blockEntity.itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
+            blockEntity.itemHandler.setStackInSlot(OUTPUT_SLOT_INDEX, outputItem)
 
             blockEntity.resetProgress()
             blockEntity.nextGene = null
@@ -117,9 +117,9 @@ class DnaDecryptorBlockEntity(
                 inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i))
             }
 
-            if (!inventory.getItem(INPUT_SLOT).`is`(ModItems.DNA_HELIX)) return false
+            if (!inventory.getItem(INPUT_SLOT_INDEX).`is`(ModItems.DNA_HELIX)) return false
 
-            val outputItem = getOutputFromInput(inventory.getItem(INPUT_SLOT), blockEntity) ?: return false
+            val outputItem = getOutputFromInput(inventory.getItem(INPUT_SLOT_INDEX), blockEntity) ?: return false
 
             return outputSlotHasRoom(inventory, outputItem)
         }
@@ -147,7 +147,7 @@ class DnaDecryptorBlockEntity(
         }
 
         private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {
-            val outputSlot = inventory.getItem(OUTPUT_SLOT)
+            val outputSlot = inventory.getItem(OUTPUT_SLOT_INDEX)
 
             if (outputSlot.isEmpty) return true
 
@@ -155,13 +155,6 @@ class DnaDecryptorBlockEntity(
 
             return DnaHelixItem.getGene(outputSlot) == DnaHelixItem.getGene(potentialOutput)
         }
-
-        const val SIMPLE_CONTAINER_SIZE = 2
-        const val ITEMSTACK_HANDLER_SIZE = 3
-
-        const val INPUT_SLOT = 0
-        const val OUTPUT_SLOT = 1
-        const val OVERCLOCK_SLOT = 2
 
         private const val ENERGY_PER_TICK = 32
 

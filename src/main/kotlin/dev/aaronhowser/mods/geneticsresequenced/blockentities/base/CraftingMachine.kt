@@ -36,12 +36,15 @@ abstract class CraftingMachine(
 
     abstract val inventoryNbtKey: String
 
-    val simpleContainerSize = 2
-    val itemstackHandlerSize = 3
 
-    val inputSlot = 0
-    val outputSlot = 1
-    val overclockSlot = 2
+    companion object {
+        const val SIMPLE_CONTAINER_SIZE = 2
+        const val ITEMSTACK_HANDLER_SIZE = 3
+
+        const val INPUT_SLOT_INDEX = 0
+        const val OUTPUT_SLOT_INDEX = 1
+        const val OVERCLOCK_SLOT_INDEX = 2
+    }
 
     abstract val energyNbtKey: String
     abstract val energyMaximum: Int
@@ -149,7 +152,7 @@ abstract class CraftingMachine(
         }
 
         override fun getCount(): Int {
-            return simpleContainerSize
+            return SIMPLE_CONTAINER_SIZE
         }
     }
 
