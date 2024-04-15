@@ -22,7 +22,7 @@ import net.minecraftforge.registries.ForgeRegistries
 
 class MobToGeneRecipe(
     private val mobResourceLocation: ResourceLocation,
-    private val gene: Gene
+    private val gene: Gene?
 ) : Recipe<Container> {
 
     private val mob: EntityType<*>? = ForgeRegistries.ENTITY_TYPES.getValue(mobResourceLocation)
@@ -39,7 +39,7 @@ class MobToGeneRecipe(
                 val entityId = ForgeRegistries.ENTITY_TYPES.getKey(entityType) ?: continue
 
                 for ((gene, weight) in genePossibilities) {
-                    recipes.add(MobToGeneRecipe(entityId, gene!!))
+                    recipes.add(MobToGeneRecipe(entityId, gene))
                 }
             }
 
@@ -79,11 +79,14 @@ class MobToGeneRecipe(
 
     override fun getResultItem(): ItemStack = outputItem.copy()
 
-    override fun getId(): ResourceLocation =
-        ResourceLocation(
+    override fun getId(): ResourceLocation {
+        val geneString = gene?.id?.lowercase() ?: "generic"
+
+        return ResourceLocation(
             GeneticsResequenced.ID,
-            "$RECIPE_TYPE_NAME/${mobResourceLocation.toString().replace(':', '/')}/${gene.id.lowercase()}"
+            "$RECIPE_TYPE_NAME/${mobResourceLocation.toString().replace(':', '/')}/$geneString"
         )
+    }
 
     override fun getSerializer(): RecipeSerializer<*> = SERIALIZER
 

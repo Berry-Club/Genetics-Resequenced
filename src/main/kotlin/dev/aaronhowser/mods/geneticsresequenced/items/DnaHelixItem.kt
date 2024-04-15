@@ -41,7 +41,11 @@ object DnaHelixItem : EntityDnaItem() {
         return true
     }
 
-    fun ItemStack.setGene(gene: Gene): ItemStack? {
+    fun ItemStack.setGene(gene: Gene?): ItemStack? {
+        if (gene == null) {
+            setGeneric(this)
+            return this
+        }
         return if (setGene(this, gene)) {
             this
         } else {
