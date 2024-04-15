@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.screens
 
 import dev.aaronhowser.mods.geneticsresequenced.blockentities.CellAnalyzerBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blockentities.base.CraftingMachine
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.entity.player.Inventory
@@ -26,19 +27,19 @@ class CellAnalyzerMenu(
                 id,
                 inventory,
                 inventory.player.level.getBlockEntity(extraData.readBlockPos()) as CellAnalyzerBlockEntity,
-                SimpleContainerData(CellAnalyzerBlockEntity.SIMPLE_CONTAINER_SIZE)
+                SimpleContainerData(CraftingMachine.SIMPLE_CONTAINER_SIZE)
             )
 
     init {
-        checkContainerSize(inventory, CellAnalyzerBlockEntity.SIMPLE_CONTAINER_SIZE)
+        checkContainerSize(inventory, CraftingMachine.SIMPLE_CONTAINER_SIZE)
 
         addPlayerInventory(inventory)
         addPlayerHotbar(inventory)
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent { itemHandler ->
-            this.addSlot(SlotItemHandler(itemHandler, CellAnalyzerBlockEntity.INPUT_SLOT, 63, 36))
-            this.addSlot(SlotItemHandler(itemHandler, CellAnalyzerBlockEntity.OUTPUT_SLOT, 110, 36))
-            this.addSlot(SlotItemHandler(itemHandler, CellAnalyzerBlockEntity.OVERCLOCK_SLOT, 149, 66))
+            this.addSlot(SlotItemHandler(itemHandler, CraftingMachine.INPUT_SLOT_INDEX, 63, 36))
+            this.addSlot(SlotItemHandler(itemHandler, CraftingMachine.OUTPUT_SLOT_INDEX, 110, 36))
+            this.addSlot(SlotItemHandler(itemHandler, CraftingMachine.OVERCLOCK_SLOT_INDEX, 149, 66))
         }
 
         addDataSlots(containerData)
@@ -94,7 +95,7 @@ class CellAnalyzerMenu(
 
         // THIS YOU HAVE TO DEFINE!
         private const val TE_INVENTORY_SLOT_COUNT =
-            CellAnalyzerBlockEntity.ITEMSTACK_HANDLER_SIZE // must be the number of slots you have!
+            CraftingMachine.ITEMSTACK_HANDLER_SIZE // must be the number of slots you have!
     }
 
     override fun quickMoveStack(playerIn: Player, index: Int): ItemStack {
