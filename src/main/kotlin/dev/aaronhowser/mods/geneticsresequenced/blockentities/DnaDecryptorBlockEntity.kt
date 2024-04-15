@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.blockentities
 
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
@@ -159,6 +161,8 @@ class DnaDecryptorBlockEntity(
         return Component.translatable("block.geneticsresequenced.dna_decryptor")
     }
 
+    var nextGene: Gene? = null
+
     companion object {
 
         fun tick(
@@ -199,7 +203,7 @@ class DnaDecryptorBlockEntity(
             if (!hasRecipe(blockEntity)) return
 
             val inputItem = blockEntity.itemHandler.getStackInSlot(INPUT_SLOT)
-            val outputItem = getOutputFromInput(inputItem) ?: return
+            val outputItem = getOutputFromInput(inputItem, blockEntity) ?: return
 
             val amountAlreadyInOutput = blockEntity.itemHandler.getStackInSlot(OUTPUT_SLOT).count
             outputItem.count = amountAlreadyInOutput + 1
@@ -208,6 +212,7 @@ class DnaDecryptorBlockEntity(
             blockEntity.itemHandler.setStackInSlot(OUTPUT_SLOT, outputItem)
 
             blockEntity.resetProgress()
+            blockEntity.nextGene = null
         }
 
         private fun hasRecipe(blockEntity: DnaDecryptorBlockEntity): Boolean {
@@ -218,18 +223,31 @@ class DnaDecryptorBlockEntity(
 
             if (!inventory.getItem(INPUT_SLOT).`is`(ModItems.DNA_HELIX)) return false
 
-            val outputItem = getOutputFromInput(inventory.getItem(INPUT_SLOT)) ?: return false
+            val outputItem = getOutputFromInput(inventory.getItem(INPUT_SLOT), blockEntity) ?: return false
 
             return outputSlotHasRoom(inventory, outputItem)
         }
 
-        private fun getOutputFromInput(input: ItemStack): ItemStack? {
+        private fun getOutputFromInput(input: ItemStack, blockEntity: DnaDecryptorBlockEntity): ItemStack? {
             val mobType = EntityDnaItem.getEntityType(input) ?: return null
             val genesFromMob = MobGenesRegistry.getGenesForEntity(mobType)
             if (genesFromMob.isEmpty()) return null
 
-            val randomGene = genesFromMob.random()
-            return ItemStack(ModItems.DNA_HELIX).setGene(randomGene)
+            val gene: Gene
+            if (blockEntity.nextGene == null) {
+                gene = genesFromMob.random()
+                blockEntity.nextGene = gene
+            } else {
+
+                if (!genesFromMob.contains(blockEntity.nextGene)) {
+                    blockEntity.nextGene = null
+                    return null
+                }
+
+                gene = blockEntity.nextGene!!
+            }
+
+            return ItemStack(ModItems.DNA_HELIX).setGene(gene)
         }
 
         private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {
@@ -239,10 +257,7 @@ class DnaDecryptorBlockEntity(
 
             if (outputSlot.count + potentialOutput.count > outputSlot.maxStackSize) return false
 
-            val mobAlreadyInSlot = EntityDnaItem.getEntityType(outputSlot) ?: return false
-            val mobToInsert = EntityDnaItem.getEntityType(potentialOutput) ?: return false
-
-            return mobAlreadyInSlot == mobToInsert
+            return DnaHelixItem.getGene(outputSlot) == DnaHelixItem.getGene(potentialOutput)
         }
 
         private const val INVENTORY_NBT_KEY = "dna_decryptor.inventory"
