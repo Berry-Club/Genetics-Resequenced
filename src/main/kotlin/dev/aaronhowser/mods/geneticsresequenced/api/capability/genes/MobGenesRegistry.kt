@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.world.entity.EntityType
 
 object MobGenesRegistry {
@@ -9,6 +10,16 @@ object MobGenesRegistry {
     fun addGenesToEntity(entityType: EntityType<*>, vararg genes: Gene) {
         val geneList = mobGenes.getOrPut(entityType) { mutableSetOf() }
         geneList.addAll(genes)
+        GeneticsResequenced.LOGGER.debug("Added genes to $entityType: ${genes.joinToString(", ") { it.id }}")
+    }
+
+    fun removeGenesFromEntity(entityType: EntityType<*>, vararg genes: Gene) {
+        val geneList = mobGenes[entityType] ?: run {
+            GeneticsResequenced.LOGGER.warn("Tried to remove genes from $entityType, but it has no genes")
+            return
+        }
+        geneList.removeAll(genes.toSet())
+        GeneticsResequenced.LOGGER.debug("Removed genes from $entityType: ${genes.joinToString(", ")}")
     }
 
     fun getGenesForEntity(entityType: EntityType<*>): Set<Gene> {
