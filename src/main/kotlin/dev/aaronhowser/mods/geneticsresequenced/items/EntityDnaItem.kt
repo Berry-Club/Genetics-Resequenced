@@ -22,7 +22,7 @@ open class EntityDnaItem : Item(
 ) {
 
     companion object {
-        private const val MOB_ID_NBT = "MobId"
+        const val MOB_ID_NBT = "MobId"
 
         fun hasMob(itemStack: ItemStack): Boolean = itemStack.tag?.contains(MOB_ID_NBT) ?: false
 

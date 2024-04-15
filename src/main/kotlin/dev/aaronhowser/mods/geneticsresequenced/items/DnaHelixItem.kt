@@ -18,6 +18,7 @@ import net.minecraft.world.level.Level
 object DnaHelixItem : EntityDnaItem() {
 
     private const val GENE_ID_NBT = "GeneId"
+    private const val GENERIC_NBT = "IsGeneric"
 
     fun getAllGeneHelices(): List<ItemStack> {
         return Gene.getRegistry().map { gene -> ItemStack(this).setGene(gene)!! }
@@ -36,7 +37,7 @@ object DnaHelixItem : EntityDnaItem() {
     fun setGene(itemStack: ItemStack, gene: Gene): Boolean {
         val tag = itemStack.orCreateTag
         tag.putString(GENE_ID_NBT, gene.id)
-
+        tag.remove(MOB_ID_NBT)
         return true
     }
 
@@ -46,6 +47,18 @@ object DnaHelixItem : EntityDnaItem() {
         } else {
             null
         }
+    }
+
+    fun setGeneric(itemStack: ItemStack): Boolean {
+        val tag = itemStack.orCreateTag
+        tag.remove(GENE_ID_NBT)
+        tag.remove(MOB_ID_NBT)
+        tag.putBoolean(GENERIC_NBT, true)
+        return true
+    }
+
+    fun isGeneric(itemStack: ItemStack): Boolean {
+        return itemStack.tag?.getBoolean(GENERIC_NBT) ?: false
     }
 
     //TODO: Remove this, put it in PlasmidItem instead
@@ -79,32 +92,46 @@ object DnaHelixItem : EntityDnaItem() {
         val gene = getGene(pStack)
 
         if (gene == null) {
-            pTooltipComponents.add(Component.literal("Gene: Unknown")
-                .withStyle { it.withColor(ChatFormatting.GRAY) })
-
-            val entity = getEntityType(pStack)
-            if (entity != null) {
-                pTooltipComponents.add(Component.literal("Entity: ").append(entity.description)
-                    .withStyle { it.withColor(ChatFormatting.GRAY) })
-            }
-
-            try {
-                val isCreative = pLevel?.isClientSide == true && ClientHelper.playerIsCreative()
-                if (isCreative) {
-                    val component =
-                        Component
-                            .translatable("tooltip.geneticsresequenced.dna_item.creative")
-                            .withStyle { it.withColor(ChatFormatting.GRAY) }
-
-                    pTooltipComponents.add(component)
-                }
-            } catch (e: Exception) {
-                GeneticsResequenced.LOGGER.error("EntityDnaItem isCreative check failed", e)
-            }
-
+            showNoGeneTooltips(pStack, pTooltipComponents, pLevel)
         } else {
             pTooltipComponents.add(Component.literal("Gene: ").append(gene.nameComponent)
                 .withStyle { it.withColor(ChatFormatting.GRAY) })
+        }
+    }
+
+    private fun showNoGeneTooltips(
+        pStack: ItemStack,
+        pTooltipComponents: MutableList<Component>,
+        pLevel: Level?
+    ) {
+
+        if (isGeneric(pStack)) {
+            pTooltipComponents.add(Component.literal("Gene: Basic Gene")
+                .withStyle { it.withColor(ChatFormatting.GRAY) })
+            return
+        }
+
+        pTooltipComponents.add(Component.literal("Gene: Unknown")
+            .withStyle { it.withColor(ChatFormatting.GRAY) })
+
+        val entity = getEntityType(pStack)
+        if (entity != null) {
+            pTooltipComponents.add(Component.literal("Entity: ").append(entity.description)
+                .withStyle { it.withColor(ChatFormatting.GRAY) })
+        }
+
+        try {
+            val isCreative = pLevel?.isClientSide == true && ClientHelper.playerIsCreative()
+            if (isCreative) {
+                val component =
+                    Component
+                        .translatable("tooltip.geneticsresequenced.dna_item.creative")
+                        .withStyle { it.withColor(ChatFormatting.GRAY) }
+
+                pTooltipComponents.add(component)
+            }
+        } catch (e: Exception) {
+            GeneticsResequenced.LOGGER.error("EntityDnaItem isCreative check failed", e)
         }
     }
 
