@@ -17,17 +17,17 @@ object ModBlocks {
     val BLOCK_REGISTRY: DeferredRegister<Block> =
         DeferredRegister.create(ForgeRegistries.BLOCKS, GeneticsResequenced.ID)
 
-    val COAL_GENERATOR by register("coal_generator") { CoalGeneratorBlock }
     val BIOLUMINESCENCE_BLOCK by register("bioluminescence") { BioluminescenceBlock }
+    val COAL_GENERATOR by register("coal_generator") { CoalGeneratorBlock }
     val CELL_ANALYZER by register("cell_analyzer") { CellAnalyzerBlock }
-    val DNA_DECRYPTOR by register("dna_decryptor") { DnaDecryptorBlock }
     val DNA_EXTRACTOR by register("dna_extractor") { DnaExtractorBlock }
-    val AIR_DISPERSAL by register("air_dispersal") { AirDispersalBlock }
+    val DNA_DECRYPTOR by register("dna_decryptor") { DnaDecryptorBlock }
     val BLOOD_PURIFIER by register("blood_purifier") { BloodPurifierBlock }
-    val CLONING_MACHINE by register("cloning_machine") { CloningMachineBlock }
-    val INCUBATOR by register("incubator") { IncubatorBlock }
     val PLASMID_INFUSER by register("plasmid_infuser") { PlasmidInfuserBlock }
     val PLASMID_INJECTOR by register("plasmid_injector") { PlasmidInjectorBlock }
+    val AIR_DISPERSAL by register("air_dispersal") { AirDispersalBlock }
+    val CLONING_MACHINE by register("cloning_machine") { CloningMachineBlock }
+    val INCUBATOR by register("incubator") { IncubatorBlock }
 
     private fun register(
         name: String,
