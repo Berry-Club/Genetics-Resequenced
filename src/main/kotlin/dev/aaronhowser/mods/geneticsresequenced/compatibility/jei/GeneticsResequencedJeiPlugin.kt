@@ -1,15 +1,20 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
+import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.CellAnalyzerRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipes.MobToGeneRecipe
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
+import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.registration.IRecipeCatalystRegistration
 import mezz.jei.api.registration.IRecipeCategoryRegistration
 import mezz.jei.api.registration.IRecipeRegistration
+import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 
@@ -47,6 +52,31 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
     override fun registerRecipes(registration: IRecipeRegistration) {
         registration.addRecipes(CellAnalyzerRecipe.JEI_RECIPE_TYPE, CellAnalyzerRecipe.getAllRecipes())
         registration.addRecipes(MobToGeneRecipe.JEI_RECIPE_TYPE, MobToGeneRecipe.getAllRecipes())
+
+        mobGeneRecipes(registration)
+    }
+
+    private fun mobGeneRecipes(registration: IRecipeRegistration) {
+        val allMobGenePairs = MobGenesRegistry.getRegistry().entries
+        for ((entityType, genes) in allMobGenePairs) {
+            val informationTextComponent =
+                Component
+                    .empty()
+                    .append(entityType.description)
+                    .append(Component.literal(" has these traits:\n"))
+
+            for (gene in genes) {
+                informationTextComponent.append(
+                    Component.literal("\n- ").append(gene.nameComponent)
+                )
+            }
+
+            registration.addIngredientInfo(
+                ItemStack(ModItems.DNA_HELIX).setMob(entityType)!!,
+                VanillaTypes.ITEM_STACK,
+                informationTextComponent
+            )
+        }
     }
 
 }
