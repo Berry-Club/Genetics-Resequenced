@@ -100,6 +100,7 @@ object DeathGenes {
             Explosion.BlockInteraction.NONE
         }
 
+        //TODO: Figure out how to make this not break items
         entity.level.explode(
             entity,
             entity.x,

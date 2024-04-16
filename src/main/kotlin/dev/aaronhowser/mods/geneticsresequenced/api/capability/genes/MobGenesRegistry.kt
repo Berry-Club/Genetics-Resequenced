@@ -285,8 +285,7 @@ object MobGenesRegistry {
             EntityType.WITHER_SKELETON,
             mutableMapOf(
                 null to 5,
-                DefaultGenes.WITHER_HIT to 1,
-                DefaultGenes.INFINITY to 1
+                DefaultGenes.WITHER_HIT to 1
             )
         )
         addGenesToEntity(

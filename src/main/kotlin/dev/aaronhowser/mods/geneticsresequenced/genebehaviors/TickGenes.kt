@@ -103,7 +103,7 @@ object TickGenes {
     private fun handlePotionGenes(entity: LivingEntity, potionGenes: MutableList<Gene>) {
         if (potionGenes.isEmpty()) return
 
-        val potionLevels = mapOf(
+        val mapOfGeneToInferiorGenes = mapOf(
             DefaultGenes.SPEED_4 to listOf(DefaultGenes.SPEED, DefaultGenes.SPEED_2),
             DefaultGenes.SPEED_2 to listOf(DefaultGenes.SPEED),
             DefaultGenes.REGENERATION_4 to listOf(DefaultGenes.REGENERATION),
@@ -118,7 +118,7 @@ object TickGenes {
         val genesToSkip = mutableListOf<Gene>()
 
         for (gene in potionGenes.toList()) {
-            potionLevels[gene]?.let { redundantGenes ->
+            mapOfGeneToInferiorGenes[gene]?.let { redundantGenes ->
                 genesToSkip.addAll(redundantGenes)
             }
         }
