@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.getGene
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
 import net.minecraft.ChatFormatting
 import net.minecraft.core.NonNullList
 import net.minecraft.network.chat.Component
@@ -12,42 +14,30 @@ import net.minecraft.world.level.Level
 
 object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
 
-    private val GENE_ID_NBT = "GeneId"
-    private val AMOUNT_NBT = "Amount"
+    private const val AMOUNT_NBT = "Amount"
 
-    fun hasGene(itemStack: ItemStack): Boolean {
-        return itemStack.tag?.contains(GENE_ID_NBT) ?: false
+    private fun ItemStack.getAmount(): Int {
+        if (!this.`is`(PlasmidItem)) throw IllegalArgumentException("ItemStack is not a PlasmidItem")
+        return this.tag?.getInt(AMOUNT_NBT) ?: 0
     }
 
-    fun getGene(itemStack: ItemStack): Gene? {
-        val geneString = itemStack.tag?.getString(GENE_ID_NBT)
-        if (geneString.isNullOrBlank()) return null
-        return Gene.fromId(geneString)
-    }
-
-    fun setGene(itemStack: ItemStack, gene: Gene): Boolean {
-        val tag = itemStack.orCreateTag
-        tag.putString(GENE_ID_NBT, gene.id)
-        return true
-    }
-
-    private fun getAmount(itemStack: ItemStack): Int {
-        return itemStack.tag?.getInt(AMOUNT_NBT) ?: 0
-    }
-
-    private fun setAmount(itemStack: ItemStack, amount: Int): Boolean {
-        val tag = itemStack.orCreateTag
+    fun ItemStack.setAmount(amount: Int): ItemStack {
+        if (!this.`is`(PlasmidItem)) throw IllegalArgumentException("ItemStack is not a PlasmidItem")
+        val tag = this.orCreateTag
         tag.putInt(AMOUNT_NBT, amount)
-        return true
+        return this
     }
 
-    fun increaseAmount(itemStack: ItemStack, amount: Int = 1) {
-        setAmount(itemStack, getAmount(itemStack) + amount)
+    fun ItemStack.increaseAmount(amount: Int = 1): ItemStack {
+        if (!this.`is`(PlasmidItem)) throw IllegalArgumentException("ItemStack is not a PlasmidItem")
+        this.setAmount(getAmount() + amount)
+        return this
     }
 
     fun isComplete(itemStack: ItemStack): Boolean {
-        val gene = getGene(itemStack) ?: return false
-        return getAmount(itemStack) >= gene.amountNeeded
+        if (!itemStack.`is`(PlasmidItem)) throw IllegalArgumentException("ItemStack is not a PlasmidItem")
+        val gene = itemStack.getGene() ?: return false
+        return itemStack.getAmount() >= gene.amountNeeded
     }
 
     override fun appendHoverText(
@@ -56,7 +46,7 @@ object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
         pTooltipComponents: MutableList<Component>,
         pIsAdvanced: TooltipFlag
     ) {
-        val gene = getGene(pStack)
+        val gene = pStack.getGene()
 
         if (gene == null) {
             pTooltipComponents.add(
@@ -68,7 +58,7 @@ object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
         }
 
         val amountNeeded = gene.amountNeeded
-        val amount = getAmount(pStack)
+        val amount = pStack.getAmount()
 
         pTooltipComponents.add(
             Component
@@ -94,9 +84,10 @@ object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
 
     private fun getAllPlasmids(): List<ItemStack> {
         return Gene.getRegistry().map { gene ->
-            val stack = ItemStack(this)
-            setGene(stack, gene)
-            setAmount(stack, gene.amountNeeded)
+            val stack =
+                ItemStack(PlasmidItem)
+                    .setGene(gene)
+                    .setAmount(gene.amountNeeded)
             stack
         }
     }

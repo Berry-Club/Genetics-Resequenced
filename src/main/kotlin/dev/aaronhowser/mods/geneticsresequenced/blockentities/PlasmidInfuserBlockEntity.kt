@@ -3,8 +3,10 @@ package dev.aaronhowser.mods.geneticsresequenced.blockentities
 import dev.aaronhowser.mods.geneticsresequenced.blockentities.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.isGeneric
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem
+import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem.increaseAmount
 import dev.aaronhowser.mods.geneticsresequenced.screens.PlasmidInfuserMenu
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
@@ -95,29 +97,28 @@ class PlasmidInfuserBlockEntity(
         private fun craftItem(blockEntity: PlasmidInfuserBlockEntity) {
             if (!hasRecipe(blockEntity)) return
 
-            val inputItem = blockEntity.itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
-            val outputItem = blockEntity.itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
+            val inputHelix = blockEntity.itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
+            val outputPlasmid = blockEntity.itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
-            val plasmidGene = PlasmidItem.getGene(outputItem)
-            val inputGene = inputItem.getGene()
+            val plasmidGene = outputPlasmid.getGene()
+            val inputGene = inputHelix.getGene()
 
             // If Plasmid is unset, set it to the Helix's gene and initialize the amount
             if (plasmidGene == null) {
                 if (inputGene == null) return
-                PlasmidItem.setGene(outputItem, inputGene)
-                PlasmidItem.increaseAmount(outputItem, 1)
+                outputPlasmid.setGene(inputGene).increaseAmount(1)
 
                 blockEntity.itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
                 return
             }
 
-            if (inputItem.isGeneric()) {
-                PlasmidItem.increaseAmount(outputItem)
+            if (inputHelix.isGeneric()) {
+                outputPlasmid.increaseAmount(1)
                 blockEntity.itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
                 return
             } else {
                 if (inputGene != plasmidGene) return
-                PlasmidItem.increaseAmount(outputItem, 2)
+                outputPlasmid.increaseAmount(2)
                 blockEntity.itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
             }
 
@@ -129,16 +130,16 @@ class PlasmidInfuserBlockEntity(
                 inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i))
             }
 
-            val inputItem = inventory.getItem(INPUT_SLOT_INDEX)
-            val outputItem = inventory.getItem(OUTPUT_SLOT_INDEX)
+            val inputHelix = inventory.getItem(INPUT_SLOT_INDEX)
+            val outputPlasmid = inventory.getItem(OUTPUT_SLOT_INDEX)
 
-            if (!inputItem.`is`(ModItems.DNA_HELIX) || !outputItem.`is`(ModItems.PLASMID)) return false
+            if (!inputHelix.`is`(ModItems.DNA_HELIX) || !outputPlasmid.`is`(ModItems.PLASMID)) return false
 
-            if (PlasmidItem.isComplete(outputItem)) return false
+            if (PlasmidItem.isComplete(outputPlasmid)) return false
 
-            val plasmidGene = PlasmidItem.getGene(outputItem)
-            val inputGene = inputItem.getGene()
-            val helixIsGeneric = inputItem.isGeneric()
+            val plasmidGene = outputPlasmid.getGene()
+            val inputGene = inputHelix.getGene()
+            val helixIsGeneric = inputHelix.isGeneric()
 
             // If the Plasmid is unset, it can only accept a Helix that's neither generic nor null
             if (plasmidGene == null) {
