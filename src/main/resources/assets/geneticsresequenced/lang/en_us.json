@@ -8,6 +8,7 @@
   "item.geneticsresequenced.scraper": "Scraper",
   "item.geneticsresequenced.syringe": "Empty Syringe",
   "item.geneticsresequenced.dna_helix": "DNA Helix",
+  "item.geneticsresequenced.plasmid": "Plasmid",
   "item.geneticsresequenced.overclocker": "Overclocker",
 
   "block.geneticsresequenced.bioluminescence": "Bioluminescence Glow",
@@ -32,6 +33,10 @@
   "tooltip.geneticsresequenced.dna_item.filled": "Cell type: ",
   "tooltip.geneticsresequenced.dna_item.empty": "Empty",
   "tooltip.geneticsresequenced.dna_item.creative": "Creative: Right-click mob to set.",
+  "tooltip.geneticsresequenced.plasmid.empty": "Empty Plasmid",
+  "tooltip.geneticsresequenced.plasmid.gene": "Contains Gene: ",
+  "tooltip.geneticsresequenced.plasmid.complete": "Plasmid is complete!",
+  "tooltip.geneticsresequenced.plasmid.amount": "Amount: %d/%d",
 
   "command.geneticsresequenced.geneList": "Gene List:",
   "command.geneticsresequenced.add.fail.already_present": "Failed to add gene as target already has it.",

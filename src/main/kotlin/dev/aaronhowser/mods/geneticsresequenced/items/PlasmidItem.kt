@@ -57,7 +57,11 @@ object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
         val gene = getGene(pStack)
 
         if (gene == null) {
-            pTooltipComponents.add(Component.literal("Empty Plasmid"))
+            pTooltipComponents.add(
+                Component
+                    .translatable("tooltip.geneticsresequenced.plasmid.empty")
+                    .withStyle { it.withColor(ChatFormatting.GRAY) }
+            )
             return
         }
 
@@ -66,26 +70,21 @@ object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
 
         pTooltipComponents.add(
             Component
-                .literal("Plasmid containing gene:")
+                .translatable("tooltip.geneticsresequenced.plasmid.gene")
                 .withStyle { it.withColor(ChatFormatting.GRAY) }
-        )
-        pTooltipComponents.add(
-            gene
-                .nameComponent
-                .copy()
-                .withStyle { it.withColor(ChatFormatting.GRAY) }
+                .append(gene.nameComponent)
         )
 
         if (isComplete(pStack)) {
             pTooltipComponents.add(
                 Component
-                    .literal("Plasmid is complete")
+                    .translatable("tooltip.geneticsresequenced.plasmid.complete")
                     .withStyle { it.withColor(ChatFormatting.GRAY) }
             )
         } else {
             pTooltipComponents.add(
                 Component
-                    .literal("Amount: $amount / $amountNeeded")
+                    .translatable("tooltip.geneticsresequenced.plasmid.amount", amount, amountNeeded)
                     .withStyle { it.withColor(ChatFormatting.GRAY) }
             )
         }
