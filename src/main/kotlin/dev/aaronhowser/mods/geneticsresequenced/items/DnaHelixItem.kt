@@ -33,7 +33,7 @@ object DnaHelixItem : EntityDnaItem() {
         }
 
         val tag = this.orCreateTag
-        tag.putString(GENE_ID_NBT, gene.id)
+        tag.putString(GENE_ID_NBT, gene.id.toString())
         tag.remove(MOB_ID_NBT)
         return this
     }

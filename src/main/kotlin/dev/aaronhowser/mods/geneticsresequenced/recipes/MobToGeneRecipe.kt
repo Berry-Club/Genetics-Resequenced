@@ -84,7 +84,7 @@ class MobToGeneRecipe(
     override fun getResultItem(): ItemStack = outputItem.copy()
 
     override fun getId(): ResourceLocation {
-        val geneString = gene?.id?.lowercase() ?: "generic"
+        val geneString = gene?.id?.toString()?.replace(":", "/") ?: "generic"
 
         return ResourceLocation(
             GeneticsResequenced.ID,

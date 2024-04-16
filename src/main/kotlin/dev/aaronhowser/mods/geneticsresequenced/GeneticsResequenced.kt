@@ -40,7 +40,7 @@ object GeneticsResequenced {
 
         ModPacketHandler.setup()
 
-        DefaultGenes.register()
+        DefaultGenes.registerGenes()
         MobGenesRegistry.registerDefaultGenes()
     }
 

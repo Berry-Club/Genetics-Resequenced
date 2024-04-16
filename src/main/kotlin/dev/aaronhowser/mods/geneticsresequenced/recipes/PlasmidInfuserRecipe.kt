@@ -74,9 +74,15 @@ class PlasmidInfuserRecipe(
 
     override fun getId(): ResourceLocation {
         return if (isGeneric) {
-            ResourceLocation(GeneticsResequenced.ID, "$RECIPE_TYPE_NAME/${gene.id.lowercase()}/generic")
+            ResourceLocation(
+                GeneticsResequenced.ID,
+                "$RECIPE_TYPE_NAME/${gene.id.toString().replace(":", "/")}/generic"
+            )
         } else {
-            ResourceLocation(GeneticsResequenced.ID, "$RECIPE_TYPE_NAME/${gene.id.lowercase()}")
+            ResourceLocation(
+                GeneticsResequenced.ID,
+                "$RECIPE_TYPE_NAME/${gene.id.toString().replace(":", "/")}"
+            )
         }
     }
 

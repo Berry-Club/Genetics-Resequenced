@@ -8,24 +8,25 @@ import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacket
 import net.minecraft.client.Minecraft
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.resources.ResourceLocation
 import net.minecraftforge.network.NetworkDirection
 import net.minecraftforge.network.NetworkEvent
 import java.util.function.Supplier
 
 class GeneChangedPacket(
-    private val geneId: String,
+    private val geneId: ResourceLocation,
     private val wasAdded: Boolean
 ) : ModPacket {
 
     override fun encode(buffer: FriendlyByteBuf) {
-        buffer.writeUtf(geneId)
+        buffer.writeResourceLocation(geneId)
         buffer.writeBoolean(wasAdded)
     }
 
     companion object {
         fun decode(buffer: FriendlyByteBuf): GeneChangedPacket {
             return GeneChangedPacket(
-                buffer.readUtf(),
+                buffer.readResourceLocation(),
                 buffer.readBoolean()
             )
         }

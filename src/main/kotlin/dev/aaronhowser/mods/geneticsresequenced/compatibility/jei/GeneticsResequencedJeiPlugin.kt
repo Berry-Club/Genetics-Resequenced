@@ -110,7 +110,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
     override fun registerItemSubtypes(registration: ISubtypeRegistration) {
         registration.registerSubtypeInterpreter(ModItems.PLASMID) { stack, _ ->
             val gene: Gene? = stack.getGene()
-            gene?.id ?: "no_gene"
+            gene?.id?.toString() ?: "no_gene"
         }
     }
 

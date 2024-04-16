@@ -48,7 +48,7 @@ class GenesCapability {
         val listTag = nbt.getList(NBT_KEY, Tag.TAG_STRING.toInt())
 
         listTag.clear()
-        listTag.addAll(geneList.map { StringTag.valueOf(it.id) })
+        listTag.addAll(geneList.map { StringTag.valueOf(it.id.toString()) })
 
         nbt.put(NBT_KEY, listTag)
     }

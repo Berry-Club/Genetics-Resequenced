@@ -4,20 +4,25 @@ import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectInstance
 
 @Suppress("unused")
 class Gene(
-    val id: String
+    val id: ResourceLocation
 ) {
 
     companion object {
         private val REGISTRY: MutableSet<Gene> = mutableSetOf()
         fun getRegistry(): List<Gene> = REGISTRY.sortedBy { it.id }
 
-        fun fromId(searchedId: String): Gene? {
+        fun fromId(searchedId: ResourceLocation): Gene? {
             return REGISTRY.find { it.id == searchedId }
+        }
+
+        fun fromId(searchedId: String): Gene? {
+            return REGISTRY.find { it.id.toString() == searchedId }
         }
     }
 
@@ -68,7 +73,7 @@ class Gene(
                     .withClickEvent(
                         ClickEvent(
                             ClickEvent.Action.COPY_TO_CLIPBOARD,
-                            id
+                            id.toString()
                         )
                     )
             }
