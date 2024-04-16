@@ -1,12 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.blockentities
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.blockentities.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
-import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.screens.PlasmidInfuserMenu
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
@@ -43,7 +40,7 @@ class PlasmidInfuserBlockEntity(
             return when (slot) {
                 INPUT_SLOT_INDEX -> stack.`is`(ModItems.DNA_HELIX)
                 OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
-                OUTPUT_SLOT_INDEX -> false
+                OUTPUT_SLOT_INDEX -> stack.`is`(ModItems.PLASMID)
                 else -> false
             }
         }
@@ -75,6 +72,7 @@ class PlasmidInfuserBlockEntity(
 
                 if (blockEntity.progress >= blockEntity.maxProgress) {
                     craftItem(blockEntity)
+                    blockEntity.resetProgress()
                 }
             } else {
                 blockEntity.resetProgress()
@@ -97,56 +95,60 @@ class PlasmidInfuserBlockEntity(
             if (!hasRecipe(blockEntity)) return
 
             val inputItem = blockEntity.itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
-            val outputItem = getOutputFromInput(inputItem, blockEntity) ?: return
+            val outputItem = blockEntity.itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
+
+            val plasmidGene = PlasmidItem.getGene(outputItem)
+            val inputGene = DnaHelixItem.getGene(inputItem)
+
+            // If Plasmid is unset, set it to the Helix's gene and initialize the amount
+            if (plasmidGene == null) {
+                if (inputGene == null) return
+                PlasmidItem.setGene(outputItem, inputGene)
+                PlasmidItem.increaseAmount(outputItem, 1)
+
+                blockEntity.itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
+                return
+            }
+
+            if (DnaHelixItem.isGeneric(inputItem)) {
+                PlasmidItem.increaseAmount(outputItem)
+                blockEntity.itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
+                return
+            } else {
+                if (inputGene != plasmidGene) return
+                PlasmidItem.increaseAmount(outputItem, 2)
+                blockEntity.itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
+            }
 
         }
 
         private fun hasRecipe(blockEntity: PlasmidInfuserBlockEntity): Boolean {
-
-            return false
-
             val inventory = SimpleContainer(blockEntity.itemHandler.slots)
             for (i in 0 until blockEntity.itemHandler.slots) {
                 inventory.setItem(i, blockEntity.itemHandler.getStackInSlot(i))
             }
 
-//            return outputSlotHasRoom(inventory, outputItem)
-        }
+            val inputItem = inventory.getItem(INPUT_SLOT_INDEX)
+            val outputItem = inventory.getItem(OUTPUT_SLOT_INDEX)
 
-        private fun getOutputFromInput(input: ItemStack, blockEntity: PlasmidInfuserBlockEntity): ItemStack? {
+            if (!inputItem.`is`(ModItems.DNA_HELIX) || !outputItem.`is`(ModItems.PLASMID)) return false
 
-            return null
+            if (PlasmidItem.isComplete(outputItem)) return false
 
-            val mobType = EntityDnaItem.getEntityType(input) ?: return null
-            val genesFromMob = MobGenesRegistry.getGenesForEntity(mobType)
-            if (genesFromMob.isEmpty()) return null
+            val plasmidGene = PlasmidItem.getGene(outputItem)
+            val inputGene = DnaHelixItem.getGene(inputItem)
+            val helixIsGeneric = DnaHelixItem.isGeneric(inputItem)
 
-//
-//            val gene: Gene
-//            if (blockEntity.nextGene == null) {
-//                gene = genesFromMob.map { it.key }.random()!!
-//                blockEntity.nextGene = gene
-//            } else {
-//
-//                if (!genesFromMob.contains(blockEntity.nextGene)) {
-//                    blockEntity.nextGene = null
-//                    return null
-//                }
-//
-//                gene = blockEntity.nextGene!!
-//            }
+            // If the Plasmid is unset, it can only accept a Helix that's neither generic nor null
+            if (plasmidGene == null) {
+                return !(helixIsGeneric || inputGene == null)
+            }
 
-//            return ItemStack(ModItems.DNA_HELIX).setGene(gene)
-        }
+            if (!helixIsGeneric) {
+                if (inputGene != plasmidGene) return false
+            }
 
-        private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {
-            val outputSlot = inventory.getItem(OUTPUT_SLOT_INDEX)
-
-            if (outputSlot.isEmpty) return true
-
-            if (outputSlot.count + potentialOutput.count > outputSlot.maxStackSize) return false
-
-            return DnaHelixItem.getGene(outputSlot) == DnaHelixItem.getGene(potentialOutput)
+            return true
         }
 
         private const val ENERGY_PER_TICK = 32

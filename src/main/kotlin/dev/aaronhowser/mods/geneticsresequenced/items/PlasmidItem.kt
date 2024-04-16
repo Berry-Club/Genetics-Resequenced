@@ -29,14 +29,18 @@ object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
         return true
     }
 
-    fun getAmount(itemStack: ItemStack): Int {
+    private fun getAmount(itemStack: ItemStack): Int {
         return itemStack.tag?.getInt(AMOUNT_NBT) ?: 0
     }
 
-    fun setAmount(itemStack: ItemStack, amount: Int): Boolean {
+    private fun setAmount(itemStack: ItemStack, amount: Int): Boolean {
         val tag = itemStack.orCreateTag
         tag.putInt(AMOUNT_NBT, amount)
         return true
+    }
+
+    fun increaseAmount(itemStack: ItemStack, amount: Int = 1) {
+        setAmount(itemStack, getAmount(itemStack) + amount)
     }
 
     fun isComplete(itemStack: ItemStack): Boolean {
@@ -71,12 +75,20 @@ object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
                 .copy()
                 .withStyle { it.withColor(ChatFormatting.GRAY) }
         )
-        pTooltipComponents.add(
-            Component
-                .literal("Amount: $amount / $amountNeeded")
-                .withStyle { it.withColor(ChatFormatting.GRAY) }
-        )
 
+        if (isComplete(pStack)) {
+            pTooltipComponents.add(
+                Component
+                    .literal("Plasmid is complete")
+                    .withStyle { it.withColor(ChatFormatting.GRAY) }
+            )
+        } else {
+            pTooltipComponents.add(
+                Component
+                    .literal("Amount: $amount / $amountNeeded")
+                    .withStyle { it.withColor(ChatFormatting.GRAY) }
+            )
+        }
     }
 
 }
