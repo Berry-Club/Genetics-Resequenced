@@ -38,4 +38,11 @@ object ModMenuTypes {
             DnaDecryptorMenu(id, inv, buf)
         })
     }
+
+    val PLASMID_INFUSER: RegistryObject<MenuType<PlasmidInfuserMenu>> = MENU_TYPE_RECIPE.register("plasma_infuser_menu") {
+        IForgeMenuType.create(IContainerFactory { id, inv, buf ->
+            PlasmidInfuserMenu(id, inv, buf)
+        })
+    }
+
 }

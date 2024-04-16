@@ -43,6 +43,7 @@ object ClientModBusEvents {
         registerScreen(ModMenuTypes.COAL_GENERATOR.get(), ::CoalGeneratorScreen)
         registerScreen(ModMenuTypes.DNA_EXTRACTOR.get(), ::DnaExtractorScreen)
         registerScreen(ModMenuTypes.DNA_DECRYPTOR.get(), ::DnaDecryptorScreen)
+        registerScreen(ModMenuTypes.PLASMID_INFUSER.get(), ::PlasmidInfuserScreen)
 
 
     }

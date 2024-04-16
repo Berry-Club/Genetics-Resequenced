@@ -45,4 +45,12 @@ object ModBlockEntities {
             ).build(null)
         }
 
+    val PLASMID_INFUSER: RegistryObject<BlockEntityType<PlasmidInfuserBlockEntity>> =
+        BLOCK_ENTITY_REGISTRY.register("plasmid_infuser") {
+            BlockEntityType.Builder.of(
+                { pos, state -> PlasmidInfuserBlockEntity(pos, state) },
+                ModBlocks.PLASMID_INFUSER
+            ).build(null)
+        }
+
 }
