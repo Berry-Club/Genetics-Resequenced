@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehaviors
 
+import dev.aaronhowser.mods.geneticsresequenced.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
@@ -47,7 +47,7 @@ object ClickGenes {
         }
 
         val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(Gene.WOOLY)) return
+        if (!genes.hasGene(DefaultGenes.WOOLY)) return
 
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_TAG)
         if (!clickedWithShears) return
@@ -94,7 +94,7 @@ object ClickGenes {
     fun meaty(event: PlayerInteractEvent.EntityInteract) {
 
         val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(Gene.MEATY)) return
+        if (!genes.hasGene(DefaultGenes.MEATY)) return
 
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_TAG)
         if (!clickedWithShears) return
@@ -145,7 +145,7 @@ object ClickGenes {
         }
 
         val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(Gene.MILKY)) return
+        if (!genes.hasGene(DefaultGenes.MILKY)) return
 
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
         if (!clickedWithBucket) return
@@ -183,7 +183,7 @@ object ClickGenes {
         val player = event.entity
 
         val genes = player.getGenes() ?: return
-        if (!genes.hasGene(Gene.MILKY)) return
+        if (!genes.hasGene(DefaultGenes.MILKY)) return
 
         if (!player.isCrouching) return
 
@@ -219,7 +219,7 @@ object ClickGenes {
     fun shootFireball(event: PlayerInteractEvent.RightClickItem) {
         val player = event.entity
         val genes = player.getGenes() ?: return
-        if (!genes.hasGene(Gene.SHOOT_FIREBALLS)) return
+        if (!genes.hasGene(DefaultGenes.SHOOT_FIREBALLS)) return
 
         if (!player.isCrouching) return
         if (!event.itemStack.`is`(ModTags.FIREBALL_TAG)) return
@@ -256,7 +256,7 @@ object ClickGenes {
 
         val player = event.entity
         val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(Gene.EAT_GRASS)) return
+        if (!genes.hasGene(DefaultGenes.EAT_GRASS)) return
 
 
         val isHungry = player.foodData.foodLevel < 20
@@ -299,7 +299,7 @@ object ClickGenes {
         if (event.hasAmmo()) return
 
         val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(Gene.INFINITY)) return
+        if (!genes.hasGene(DefaultGenes.INFINITY)) return
 
         event.entity.startUsingItem(event.entity.usedItemHand)
         event.action = InteractionResultHolder.success(event.bow)
@@ -315,7 +315,7 @@ object ClickGenes {
         val player = event.entity
 
         val genes = player.getGenes() ?: return
-        if (!genes.hasGene(Gene.INFINITY)) return
+        if (!genes.hasGene(DefaultGenes.INFINITY)) return
 
         val bowStack = event.bow
 

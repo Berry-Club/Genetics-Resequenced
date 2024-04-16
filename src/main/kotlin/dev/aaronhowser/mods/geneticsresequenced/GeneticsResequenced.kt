@@ -39,6 +39,8 @@ object GeneticsResequenced {
         ModMenuTypes.MENU_TYPE_RECIPE.register(MOD_BUS)
 
         ModPacketHandler.setup()
+
+        DefaultGenes.register()
         MobGenesRegistry.registerDefaultGenes()
     }
 

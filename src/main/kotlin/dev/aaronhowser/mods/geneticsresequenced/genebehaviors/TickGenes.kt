@@ -1,12 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehaviors
 
+import dev.aaronhowser.mods.geneticsresequenced.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.items.AntiFieldOrbItem
+import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.ExperienceOrb
@@ -32,7 +33,7 @@ object TickGenes {
         if (entity.level.getBrightness(LightLayer.BLOCK, entity.blockPosition()) > 8) return
 
         val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(Gene.BIOLUMINESCENCE)) return
+        if (!genes.hasGene(DefaultGenes.BIOLUMINESCENCE)) return
 
         val headBlock = entity.level.getBlockState(entity.blockPosition().above())
         if (!headBlock.isAir) return
@@ -48,7 +49,7 @@ object TickGenes {
         if (entity.tickCount % ServerConfig.photosynthesisCooldown.get() != 0) return
 
         val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(Gene.PHOTOSYNTHESIS)) return
+        if (!genes.hasGene(DefaultGenes.PHOTOSYNTHESIS)) return
 
         val foodData = entity.foodData
 
@@ -66,7 +67,7 @@ object TickGenes {
         if (entity.tickCount % ServerConfig.noHungerCooldown.get() != 0) return
 
         val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(Gene.NO_HUNGER)) return
+        if (!genes.hasGene(DefaultGenes.NO_HUNGER)) return
 
         val foodData = entity.foodData
 
@@ -85,10 +86,10 @@ object TickGenes {
             if (gene.getPotion() != null) potionGenes.add(gene)
 
             when (gene) {
-                Gene.WATER_BREATHING -> entity.airSupply = entity.maxAirSupply
-                Gene.FLAME -> entity.setSecondsOnFire(5)
-                Gene.LAY_EGG -> handleLayEgg(entity)
-                Gene.MEATY_2 -> handleMeaty2(entity)
+                DefaultGenes.WATER_BREATHING -> entity.airSupply = entity.maxAirSupply
+                DefaultGenes.FLAME -> entity.setSecondsOnFire(5)
+                DefaultGenes.LAY_EGG -> handleLayEgg(entity)
+                DefaultGenes.MEATY_2 -> handleMeaty2(entity)
                 else -> {}
             }
         }
@@ -100,15 +101,15 @@ object TickGenes {
         if (potionGenes.isEmpty()) return
 
         val potionLevels = mapOf(
-            Gene.SPEED_4 to listOf(Gene.SPEED, Gene.SPEED_2),
-            Gene.SPEED_2 to listOf(Gene.SPEED),
-            Gene.REGENERATION_4 to listOf(Gene.REGENERATION),
-            Gene.HASTE_2 to listOf(Gene.HASTE),
-            Gene.RESISTANCE_2 to listOf(Gene.RESISTANCE),
-            Gene.STRENGTH_2 to listOf(Gene.STRENGTH),
-            Gene.POISON_4 to listOf(Gene.POISON),
-            Gene.SLOWNESS_4 to listOf(Gene.SLOWNESS),
-            Gene.SLOWNESS_6 to listOf(Gene.SLOWNESS, Gene.SLOWNESS_4)
+            DefaultGenes.SPEED_4 to listOf(DefaultGenes.SPEED, DefaultGenes.SPEED_2),
+            DefaultGenes.SPEED_2 to listOf(DefaultGenes.SPEED),
+            DefaultGenes.REGENERATION_4 to listOf(DefaultGenes.REGENERATION),
+            DefaultGenes.HASTE_2 to listOf(DefaultGenes.HASTE),
+            DefaultGenes.RESISTANCE_2 to listOf(DefaultGenes.RESISTANCE),
+            DefaultGenes.STRENGTH_2 to listOf(DefaultGenes.STRENGTH),
+            DefaultGenes.POISON_4 to listOf(DefaultGenes.POISON),
+            DefaultGenes.SLOWNESS_4 to listOf(DefaultGenes.SLOWNESS),
+            DefaultGenes.SLOWNESS_6 to listOf(DefaultGenes.SLOWNESS, DefaultGenes.SLOWNESS_4)
         )
 
         val genesToSkip = mutableListOf<Gene>()
@@ -180,7 +181,7 @@ object TickGenes {
         if (entity.tickCount % ServerConfig.mobSightCooldown.get() != 0) return
 
         val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(Gene.MOB_SIGHT)) return
+        if (!genes.hasGene(DefaultGenes.MOB_SIGHT)) return
 
         if (entity.tickCount % ServerConfig.mobSightCooldown.get() != 0) return
 
@@ -207,7 +208,7 @@ object TickGenes {
         if (player.isCreative || player.isSpectator) return
 
         val genes = player.getGenes() ?: return
-        if (!genes.hasGene(Gene.FLIGHT)) {
+        if (!genes.hasGene(DefaultGenes.FLIGHT)) {
             if (flyablePlayers.contains(player.uuid)) {
                 player.abilities.mayfly = false
                 player.abilities.flying = false
@@ -228,7 +229,7 @@ object TickGenes {
         if (player.tickCount % ServerConfig.itemMagnetCooldown.get() != 0) return
 
         val genes = player.getGenes() ?: return
-        if (!genes.hasGene(Gene.ITEM_MAGNET)) return
+        if (!genes.hasGene(DefaultGenes.ITEM_MAGNET)) return
 
         if (AntiFieldOrbItem.isActiveForPlayer(player)) return
 
@@ -255,7 +256,7 @@ object TickGenes {
         if (player.tickCount % ServerConfig.xpMagnetCooldown.get() != 0) return
 
         val genes = player.getGenes() ?: return
-        if (!genes.hasGene(Gene.XP_MAGNET)) return
+        if (!genes.hasGene(DefaultGenes.XP_MAGNET)) return
 
         if (AntiFieldOrbItem.isActiveForPlayer(player)) return
 

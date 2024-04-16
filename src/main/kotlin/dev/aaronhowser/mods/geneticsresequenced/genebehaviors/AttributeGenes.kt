@@ -1,11 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehaviors
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.attributes.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
+import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.player.Player
@@ -20,7 +20,7 @@ object AttributeGenes {
 
         ModPacketHandler.messagePlayer(
             player as ServerPlayer,
-            GeneChangedPacket(Gene.EFFICIENCY.id, newLevel != 0)
+            GeneChangedPacket(DefaultGenes.EFFICIENCY.id, newLevel != 0)
         )
     }
 
@@ -54,7 +54,7 @@ object AttributeGenes {
 
         ModPacketHandler.messagePlayer(
             player as ServerPlayer,
-            GeneChangedPacket(Gene.WALL_CLIMBING.id, value)
+            GeneChangedPacket(DefaultGenes.WALL_CLIMBING.id, value)
         )
     }
 
@@ -65,7 +65,7 @@ object AttributeGenes {
         if (wallClimbingAttribute.baseValue <= 0.0) return
 
         val genes = player.getGenes() ?: return
-        if (!genes.hasGene(Gene.WALL_CLIMBING)) return
+        if (!genes.hasGene(DefaultGenes.WALL_CLIMBING)) return
 
         // ONLY HAPPENS ON CLIENT?????
         if (player.horizontalCollision || player.minorHorizontalCollision) {

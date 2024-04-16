@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehaviors
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
@@ -44,7 +44,7 @@ object DeathGenes {
 
             playerInventoryMap.remove(player)
         } else {
-            if (player.getGenes()?.hasGene(Gene.KEEP_INVENTORY) != true) return
+            if (player.getGenes()?.hasGene(DefaultGenes.KEEP_INVENTORY) != true) return
             playerInventoryMap[player] = player.inventory.items + player.inventory.armor + player.inventory.offhand
             player.inventory.clearContent()
         }
@@ -56,7 +56,7 @@ object DeathGenes {
     fun handleEmeraldHeart(event: LivingDeathEvent) {
 
         val entity = event.entity
-        if (entity.getGenes()?.hasGene(Gene.EMERALD_HEART) != true) return
+        if (entity.getGenes()?.hasGene(DefaultGenes.EMERALD_HEART) != true) return
 
         if (entity !is Player) {
             val itemEntity = ItemEntity(entity.level, entity.x, entity.y, entity.z, ItemStack(Items.EMERALD, 1))
@@ -83,7 +83,7 @@ object DeathGenes {
     private const val EXPLOSION_STRENGTH = 1f
     fun handleExplosiveExit(event: LivingDeathEvent) {
         val entity = event.entity
-        if (entity.getGenes()?.hasGene(Gene.EXPLOSIVE_EXIT) != true) return
+        if (entity.getGenes()?.hasGene(DefaultGenes.EXPLOSIVE_EXIT) != true) return
 
         val shouldExplode = if (entity !is Player) {
             true

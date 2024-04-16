@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.events.player
 
+import dev.aaronhowser.mods.geneticsresequenced.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
@@ -50,27 +51,27 @@ object OtherPlayerEvents {
 
         if (entity is Player) {
             when (changedGene) {
-                Gene.EFFICIENCY -> {
+                DefaultGenes.EFFICIENCY -> {
                     val entityGenes = entity.getGenes() ?: return
-                    if (entityGenes.hasGene(Gene.EFFICIENCY_4)) return
+                    if (entityGenes.hasGene(DefaultGenes.EFFICIENCY_4)) return
                     AttributeGenes.setEfficiency(entity, if (wasAdded) 1 else 0)
                 }
 
-                Gene.EFFICIENCY_4 -> {
+                DefaultGenes.EFFICIENCY_4 -> {
                     if (wasAdded) {
                         AttributeGenes.setEfficiency(entity, 4)
                     } else {
                         val entityGenes = entity.getGenes() ?: return
-                        val levelToSetTo = if (entityGenes.hasGene(Gene.EFFICIENCY)) 1 else 0
+                        val levelToSetTo = if (entityGenes.hasGene(DefaultGenes.EFFICIENCY)) 1 else 0
                         AttributeGenes.setEfficiency(entity, levelToSetTo)
                     }
                 }
 
-                Gene.STEP_ASSIST -> AttributeGenes.setStepAssist(entity, wasAdded)
+                DefaultGenes.STEP_ASSIST -> AttributeGenes.setStepAssist(entity, wasAdded)
 
-                Gene.WALL_CLIMBING -> AttributeGenes.setWallClimbing(entity, wasAdded)
+                DefaultGenes.WALL_CLIMBING -> AttributeGenes.setWallClimbing(entity, wasAdded)
 
-                Gene.FLIGHT -> TickGenes.handleFlight(entity)
+                DefaultGenes.FLIGHT -> TickGenes.handleFlight(entity)
 
                 else -> {}
             }

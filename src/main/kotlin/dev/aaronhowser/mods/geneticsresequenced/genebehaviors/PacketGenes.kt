@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.genebehaviors
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
@@ -24,7 +24,7 @@ object PacketGenes {
     fun teleport(player: ServerPlayer) {
 
         val genes = (player as LivingEntity).getGenes() ?: return
-        if (!genes.hasGene(Gene.TELEPORT)) return
+        if (!genes.hasGene(DefaultGenes.TELEPORT)) return
 
         if (recentTeleports.contains(player.uuid)) return
         recentTeleports.add(player.uuid)
@@ -73,7 +73,7 @@ object PacketGenes {
     fun dragonBreath(player: ServerPlayer) {
 
         val genes = (player as LivingEntity).getGenes() ?: return
-        if (!genes.hasGene(Gene.DRAGONS_BREATH)) return
+        if (!genes.hasGene(DefaultGenes.DRAGONS_BREATH)) return
 
         if (recentFireballs.contains(player.uuid)) return
         recentFireballs.add(player.uuid)

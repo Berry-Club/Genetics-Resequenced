@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.attributes.ModAttributes
@@ -55,19 +55,19 @@ class GeneChangedPacket(
 
     private fun handleAttributes(player: LocalPlayer, gene: Gene) {
         val attributeInstance = when (gene) {
-            Gene.EFFICIENCY, Gene.EFFICIENCY_4 -> player.attributes.getInstance(ModAttributes.EFFICIENCY)
-            Gene.WALL_CLIMBING -> player.attributes.getInstance(ModAttributes.WALL_CLIMBING)
+            DefaultGenes.EFFICIENCY, DefaultGenes.EFFICIENCY_4 -> player.attributes.getInstance(ModAttributes.EFFICIENCY)
+            DefaultGenes.WALL_CLIMBING -> player.attributes.getInstance(ModAttributes.WALL_CLIMBING)
             else -> null
         } ?: return
 
         val newLevel = when (gene) {
-            Gene.EFFICIENCY -> if (wasAdded) 1.0 else 0.0
+            DefaultGenes.EFFICIENCY -> if (wasAdded) 1.0 else 0.0
 
-            Gene.EFFICIENCY_4 -> {
+            DefaultGenes.EFFICIENCY_4 -> {
                 if (wasAdded) {
                     4.0
                 } else {
-                    if (player.getGenes()?.hasGene(Gene.EFFICIENCY) == true) {
+                    if (player.getGenes()?.hasGene(DefaultGenes.EFFICIENCY) == true) {
                         1.0
                     } else {
                         0.0
@@ -75,7 +75,7 @@ class GeneChangedPacket(
                 }
             }
 
-            Gene.WALL_CLIMBING -> if (wasAdded) 1.0 else 0.0
+            DefaultGenes.WALL_CLIMBING -> if (wasAdded) 1.0 else 0.0
 
             else -> throw IllegalStateException("Gene $gene went through the GeneChangedPacket but isn't handled!")
         }
