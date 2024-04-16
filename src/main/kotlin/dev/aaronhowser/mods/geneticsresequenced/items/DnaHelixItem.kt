@@ -20,10 +20,6 @@ object DnaHelixItem : EntityDnaItem() {
     private const val GENE_ID_NBT = "GeneId"
     private const val GENERIC_NBT = "IsGeneric"
 
-    fun getAllGeneHelices(): List<ItemStack> {
-        return Gene.getRegistry().map { gene -> ItemStack(this).setGene(gene)!! }
-    }
-
     fun hasGene(itemStack: ItemStack): Boolean {
         return itemStack.tag?.contains(GENE_ID_NBT) ?: false
     }
@@ -63,18 +59,6 @@ object DnaHelixItem : EntityDnaItem() {
 
     fun isGeneric(itemStack: ItemStack): Boolean {
         return itemStack.tag?.getBoolean(GENERIC_NBT) ?: false
-    }
-
-    //TODO: Remove this, put it in PlasmidItem instead
-    override fun fillItemCategory(pCategory: CreativeModeTab, pItems: NonNullList<ItemStack>) {
-        if (pCategory == ModItems.MOD_TAB) {
-            pItems.add(ItemStack(this))
-            pItems.addAll(getAllGeneHelices())
-        }
-    }
-
-    override fun allowedIn(pCategory: CreativeModeTab): Boolean {
-        return pCategory == ModItems.MOD_TAB
     }
 
     override fun interactLivingEntity(

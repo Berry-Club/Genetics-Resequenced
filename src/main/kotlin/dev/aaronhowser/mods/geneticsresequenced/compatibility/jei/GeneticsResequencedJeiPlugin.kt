@@ -99,7 +99,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
     }
 
     override fun registerItemSubtypes(registration: ISubtypeRegistration) {
-        registration.registerSubtypeInterpreter(ModItems.DNA_HELIX) { stack, _ ->
+        registration.registerSubtypeInterpreter(ModItems.PLASMID) { stack, _ ->
             val gene: Gene? = DnaHelixItem.getGene(stack)
             gene?.id ?: "no_gene"
         }

@@ -2,7 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.items
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import net.minecraft.ChatFormatting
+import net.minecraft.core.NonNullList
 import net.minecraft.network.chat.Component
+import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
@@ -88,6 +90,26 @@ object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
                     .withStyle { it.withColor(ChatFormatting.GRAY) }
             )
         }
+    }
+
+    private fun getAllPlasmids(): List<ItemStack> {
+        return Gene.getRegistry().map { gene ->
+            val stack = ItemStack(this)
+            setGene(stack, gene)
+            setAmount(stack, gene.amountNeeded)
+            stack
+        }
+    }
+
+    override fun fillItemCategory(pCategory: CreativeModeTab, pItems: NonNullList<ItemStack>) {
+        if (pCategory == ModItems.MOD_TAB) {
+            pItems.add(ItemStack(this))
+            pItems.addAll(getAllPlasmids())
+        }
+    }
+
+    override fun allowedIn(pCategory: CreativeModeTab): Boolean {
+        return pCategory == ModItems.MOD_TAB
     }
 
 }
