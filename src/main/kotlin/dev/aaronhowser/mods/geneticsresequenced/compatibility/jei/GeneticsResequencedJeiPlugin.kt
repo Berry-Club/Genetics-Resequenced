@@ -95,7 +95,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
                     Component
                         .literal("\n")
                         .append(Component.literal("$chance% chance of "))
-                        .append(gene?.nameComponent ?: Component.literal("no gene"))
+                        .append(gene?.nameComponent ?: Component.literal("Basic Gene"))
                 )
             }
 

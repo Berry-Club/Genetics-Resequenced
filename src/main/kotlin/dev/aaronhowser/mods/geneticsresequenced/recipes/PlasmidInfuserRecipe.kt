@@ -76,7 +76,7 @@ class PlasmidInfuserRecipe(
         return if (isGeneric) {
             ResourceLocation(
                 GeneticsResequenced.ID,
-                "$RECIPE_TYPE_NAME/${gene.id.toString().replace(":", "/")}/generic"
+                "$RECIPE_TYPE_NAME/${gene.id.toString().replace(":", "/")}_generic"
             )
         } else {
             ResourceLocation(
