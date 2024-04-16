@@ -6,7 +6,6 @@ import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.events.player.OtherPlayerEvents
-import net.minecraft.ChatFormatting
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.SharedSuggestionProvider
@@ -56,21 +55,7 @@ object AddGeneCommand {
         } ?: return 0
 
         val geneToAdd = Gene.fromId(geneArgument)!!
-        val targetGenes = target.getGenes()
-
-        if (targetGenes == null) {
-            val component = Component
-                .literal("An error has occurred! ")
-                .append(
-                    target.displayName.copy().append(
-                        Component
-                            .literal(" does not the required capability!")
-                            .withStyle(ChatFormatting.RESET)
-                    )
-                )
-            context.source.sendSuccess(component, false)
-            return 0
-        }
+        val targetGenes = target.getGenes()!!
 
         val alreadyHasGene = targetGenes.hasGene(geneToAdd)
         if (alreadyHasGene) {

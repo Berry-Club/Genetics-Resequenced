@@ -34,24 +34,7 @@ object ListGenesCommand {
             entity as? LivingEntity
         } ?: return 0
 
-        val targetGenesList = target.getGenes()?.getGeneList()
-
-        if (targetGenesList == null) {
-
-            val component = Component
-                .literal("An error has occurred! ")
-                .append(
-                    target.displayName.copy().append(
-                        Component
-                            .literal(" does not the required capability!")
-                            .withStyle(ChatFormatting.RESET)
-                    )
-                )
-
-            context.source.sendSuccess(component, false)
-
-            return 0
-        }
+        val targetGenesList = target.getGenes()!!.getGeneList()
 
         if (targetGenesList.isEmpty()) {
             context.source.sendSuccess(Component.literal("No genes found!"), false)
