@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "By default, you can get this gene from the following mobs:$(br2)• Blaze$(br)• Zombified Piglin$(br)• Magma Cube"
+      "text": "By default, you can get this gene from the following mobs:$(br)$(li)Blaze$(li)Zombified Piglin$(li)Magma Cube"
     }
   ]
 }

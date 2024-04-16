@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "By default, you can get this gene from the following mobs:$(br2)• Bat$(br)• Wolf$(br)• Fox$(br)• Spider$(br)• Cave Spider"
+      "text": "By default, you can get this gene from the following mobs:$(br)$(li)Bat$(li)Wolf$(li)Fox$(li)Spider$(li)Cave Spider"
     }
   ]
 }
