@@ -85,8 +85,8 @@ class Gene(
     var isActive: Boolean = true
 
     private var potionEffect: MobEffect? = null
-    private var potionLevel: Int = 0
-    private var potionDuration: Int = 0
+    private var potionLevel: Int = 1
+    private var potionDuration: Int = 300
 
     fun getPotion(): MobEffectInstance? {
         if (potionEffect == null) return null
@@ -94,7 +94,7 @@ class Gene(
         return MobEffectInstance(
             potionEffect!!,
             potionDuration,
-            potionLevel + 1,
+            potionLevel - 1,
             true,
             false,
             ServerConfig.showEffectIcons.get()
