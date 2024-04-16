@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Poison Immunity(0) Gene makes entities $(minor)immune to Poison$(0).$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)Poison Immunity$(0) Gene makes entities $(minor)immune to Poison$(0).$(br2)This Gene $(minor)can be given to mobs$(0)."
     },
     {
       "type": "patchouli:text",

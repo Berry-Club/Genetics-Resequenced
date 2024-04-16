@@ -1,0 +1,15 @@
+{
+  "name": "Water Breathing",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:water_bucket",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Water Breathing$(0) Gene gives entities the $(minor)Water Breathing effect$(0).$(br2)This Gene can be $(minor)mutated into Resistance 2$(0).$(br2)This Gene $(minor)can be given to mobs$(0)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, you can get this gene from the following mobs:$(br2)• Squid$(br)• Glow Squid$(br)• Dolphin$(br)• Guardian$(br)• Elder Guardian"
+    }
+  ]
+}

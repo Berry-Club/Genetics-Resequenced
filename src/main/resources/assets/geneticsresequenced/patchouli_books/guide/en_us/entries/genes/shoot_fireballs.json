@@ -1,0 +1,15 @@
+{
+  "name": "Shoot Fireballs",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:blaze_rod",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Shoot Fireballs(0) Gene allows players to $(minor)shoot small fireballs$(0) when a Blaze Rod is used.$(br2)This Gene $(minor)cannot be given to mobs$(0)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, you can get this gene from the following mobs:$(br2)• Blaze$(br)• Ghast"
+    }
+  ]
+}

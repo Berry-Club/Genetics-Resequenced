@@ -1,0 +1,15 @@
+{
+  "name": "Wither Hit",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:wither_rose",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Wither Hit$(0) Gene causes entities to $(minor)inflict Wither when melee attacking$(0).$(br2)This Gene $(minor)can be given to mobs$(0)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, you can get this gene from the following mobs:$(br2)• Wither Skeleton"
+    }
+  ]
+}
