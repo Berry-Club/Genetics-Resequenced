@@ -59,7 +59,10 @@ object TickGenes {
         val isDay = entity.level.isDay
         if (!inDirectSunlight || !isDay) return
 
-        foodData.eat(1, 0.5f)
+        foodData.eat(
+            ServerConfig.photoSynthesisHungerAmount.get(),
+            ServerConfig.photoSynthesisSaturationAmount.get().toFloat()
+        )
     }
 
     fun handleNoHunger(entity: Player) {
@@ -71,7 +74,7 @@ object TickGenes {
 
         val foodData = entity.foodData
 
-        foodData.foodLevel = max(foodData.foodLevel, 10)
+        foodData.foodLevel = max(foodData.foodLevel, ServerConfig.noHungerMinimum.get())
     }
 
     fun handleEffects(entity: LivingEntity) {

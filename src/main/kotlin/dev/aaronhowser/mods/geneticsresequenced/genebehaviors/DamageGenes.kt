@@ -94,12 +94,12 @@ object DamageGenes {
         val genes = target.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.THORNS)) return
 
-        if (Random.nextDouble() > ServerConfig.thornsChange.get()) return
+        if (Random.nextDouble() > ServerConfig.thornsChance.get()) return
 
         attacker.hurt(DamageSource.thorns(target), ServerConfig.thornsDamage.get().toFloat())
 
         if (target is Player) {
-            target.causeFoodExhaustion(ServerConfig.thornsHunger.get().toFloat())
+            target.causeFoodExhaustion(ServerConfig.thornsHungerDrain.get().toFloat())
         }
     }
 
