@@ -77,7 +77,7 @@ object PacketGenes {
 
         if (recentFireballs.contains(player.uuid)) return
         recentFireballs.add(player.uuid)
-        ModScheduler.scheduleTaskInTicks(ServerConfig.teleportCooldown.get()) {
+        ModScheduler.scheduleTaskInTicks(ServerConfig.dragonsBreathCooldown.get()) {
             recentFireballs.remove(player.uuid)
         }
 
