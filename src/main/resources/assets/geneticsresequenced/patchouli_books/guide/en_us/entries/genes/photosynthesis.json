@@ -1,0 +1,15 @@
+{
+  "name": "Photosynthesis",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:sunflower",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Photosynthesis$(0) Gene $(minor)feeds the player when they're in direct sunlight$(0).$(br2)This Gene $(bad)cannot be given to mobs$(0)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, you can get this gene from the following mobs:$(br2)• "
+    }
+  ]
+}
