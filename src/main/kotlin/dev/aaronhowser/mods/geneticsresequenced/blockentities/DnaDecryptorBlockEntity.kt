@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.blockentities
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.blockentities.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
@@ -155,7 +155,7 @@ class DnaDecryptorBlockEntity(
 
             if (outputSlot.count + potentialOutput.count > outputSlot.maxStackSize) return false
 
-            return DnaHelixItem.getGene(outputSlot) == DnaHelixItem.getGene(potentialOutput)
+            return outputSlot.getGene() == potentialOutput.getGene()
         }
 
         private const val ENERGY_PER_TICK = 32

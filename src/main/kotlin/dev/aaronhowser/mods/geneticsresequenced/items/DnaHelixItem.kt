@@ -4,13 +4,11 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientHelper
 import net.minecraft.ChatFormatting
-import net.minecraft.core.NonNullList
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
@@ -20,46 +18,35 @@ object DnaHelixItem : EntityDnaItem() {
     private const val GENE_ID_NBT = "GeneId"
     private const val GENERIC_NBT = "IsGeneric"
 
-    fun hasGene(itemStack: ItemStack): Boolean {
-        return itemStack.tag?.contains(GENE_ID_NBT) ?: false
-    }
 
-    fun getGene(itemStack: ItemStack): Gene? {
-        val string = itemStack.tag?.getString(GENE_ID_NBT)
+    fun ItemStack.hasGene(): Boolean = this.tag?.contains(GENE_ID_NBT) ?: false
+
+    fun ItemStack.getGene(): Gene? {
+        val string = this.tag?.getString(GENE_ID_NBT)
         if (string.isNullOrBlank()) return null
         return Gene.fromId(string)
     }
 
-    fun setGene(itemStack: ItemStack, gene: Gene): Boolean {
-        val tag = itemStack.orCreateTag
+    fun ItemStack.setGene(gene: Gene?): ItemStack {
+        if (gene == null) {
+            return this.setGeneric()
+        }
+
+        val tag = this.orCreateTag
         tag.putString(GENE_ID_NBT, gene.id)
         tag.remove(MOB_ID_NBT)
-        return true
+        return this
     }
 
-    fun ItemStack.setGene(gene: Gene?): ItemStack? {
-        if (gene == null) {
-            setGeneric(this)
-            return this
-        }
-        return if (setGene(this, gene)) {
-            this
-        } else {
-            null
-        }
-    }
-
-    fun setGeneric(itemStack: ItemStack): Boolean {
-        val tag = itemStack.orCreateTag
+    fun ItemStack.setGeneric(): ItemStack {
+        val tag = this.orCreateTag
         tag.remove(GENE_ID_NBT)
         tag.remove(MOB_ID_NBT)
         tag.putBoolean(GENERIC_NBT, true)
-        return true
+        return this
     }
 
-    fun isGeneric(itemStack: ItemStack): Boolean {
-        return itemStack.tag?.getBoolean(GENERIC_NBT) ?: false
-    }
+    fun ItemStack.isGeneric(): Boolean = this.tag?.getBoolean(GENERIC_NBT) ?: false
 
     override fun interactLivingEntity(
         pStack: ItemStack,
@@ -67,7 +54,7 @@ object DnaHelixItem : EntityDnaItem() {
         pInteractionTarget: LivingEntity,
         pUsedHand: InteractionHand
     ): InteractionResult {
-        return if (hasGene(pStack))
+        return if (pStack.hasGene())
             InteractionResult.PASS
         else
             super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand)
@@ -79,7 +66,7 @@ object DnaHelixItem : EntityDnaItem() {
         pTooltipComponents: MutableList<Component>,
         pIsAdvanced: TooltipFlag
     ) {
-        val gene = getGene(pStack)
+        val gene = pStack.getGene()
 
         if (gene == null) {
             showNoGeneTooltips(pStack, pTooltipComponents, pLevel)
@@ -95,7 +82,7 @@ object DnaHelixItem : EntityDnaItem() {
         pLevel: Level?
     ) {
 
-        if (isGeneric(pStack)) {
+        if (pStack.isGeneric()) {
             pTooltipComponents.add(Component.literal("Gene: Basic Gene")
                 .withStyle { it.withColor(ChatFormatting.GRAY) })
             return

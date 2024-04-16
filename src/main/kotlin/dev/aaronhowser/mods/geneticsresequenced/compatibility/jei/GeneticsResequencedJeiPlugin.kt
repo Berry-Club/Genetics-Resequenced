@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.CellAnalyzerRecipe
@@ -100,7 +100,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
 
     override fun registerItemSubtypes(registration: ISubtypeRegistration) {
         registration.registerSubtypeInterpreter(ModItems.PLASMID) { stack, _ ->
-            val gene: Gene? = DnaHelixItem.getGene(stack)
+            val gene: Gene? = stack.getGene()
             gene?.id ?: "no_gene"
         }
     }
