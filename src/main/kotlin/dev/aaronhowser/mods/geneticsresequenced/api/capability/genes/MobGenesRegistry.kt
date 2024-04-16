@@ -118,7 +118,6 @@ object MobGenesRegistry {
             EntityType.LLAMA,
             mapOf(
                 null to 5,
-                DefaultGenes.STRENGTH to 1,
                 DefaultGenes.STEP_ASSIST to 1
             )
         )
