@@ -1,11 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene_behaviors
 
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.mob_effects.ModEffects
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DragonHealthCrystal
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.mob_effects.ModEffects
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.damagesource.IndirectEntityDamageSource
 import net.minecraft.world.effect.MobEffectInstance
@@ -14,6 +14,7 @@ import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.Items
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.living.LivingDamageEvent
 import kotlin.random.Random
@@ -88,8 +89,9 @@ object DamageGenes {
         val target = event.entity as? Mob ?: event.entity as? Player ?: return
         if (target == attacker) return
 
-        val targetIsWearingChestplate = !target.getItemBySlot(EquipmentSlot.CHEST).isEmpty
-        if (targetIsWearingChestplate) return
+        val chestPlate = target.getItemBySlot(EquipmentSlot.CHEST)
+        val targetChestplateMissingOrLeather = chestPlate.isEmpty && chestPlate.`is`(Items.LEATHER_CHESTPLATE)
+        if (!targetChestplateMissingOrLeather) return
 
         val genes = target.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.THORNS)) return

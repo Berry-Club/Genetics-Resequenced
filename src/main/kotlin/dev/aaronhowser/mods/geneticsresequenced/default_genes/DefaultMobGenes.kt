@@ -107,7 +107,8 @@ object DefaultMobGenes {
             mapOf(
                 null to 5,
                 DefaultGenes.JUMP_BOOST to 1,
-                DefaultGenes.SPEED to 1
+                DefaultGenes.SPEED to 1,
+                DefaultGenes.LUCK to 1
             )
         )
         addGenesToEntity(
@@ -156,21 +157,21 @@ object DefaultMobGenes {
         //Overworld Hostiles
         addGenesToEntity(
             EntityType.ZOMBIE,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.RESISTANCE to 1
             )
         )
         addGenesToEntity(
             EntityType.CREEPER,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.EXPLOSIVE_EXIT to 1
             )
         )
         addGenesToEntity(
             EntityType.SPIDER,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.NIGHT_VISION to 1,
                 DefaultGenes.WALL_CLIMBING to 1
@@ -178,7 +179,7 @@ object DefaultMobGenes {
         )
         addGenesToEntity(
             EntityType.CAVE_SPIDER,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.NIGHT_VISION to 1,
                 DefaultGenes.WALL_CLIMBING to 1,
@@ -187,7 +188,7 @@ object DefaultMobGenes {
         )
         addGenesToEntity(
             EntityType.SLIME,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.NO_FALL_DAMAGE to 1,
                 DefaultGenes.SLIMY_DEATH to 1
@@ -195,7 +196,7 @@ object DefaultMobGenes {
         )
         addGenesToEntity(
             EntityType.GUARDIAN,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.MOB_SIGHT to 1,
                 DefaultGenes.WATER_BREATHING to 1
@@ -203,7 +204,7 @@ object DefaultMobGenes {
         )
         addGenesToEntity(
             EntityType.ELDER_GUARDIAN,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.MOB_SIGHT to 1,
                 DefaultGenes.WATER_BREATHING to 1
@@ -211,24 +212,31 @@ object DefaultMobGenes {
         )
         addGenesToEntity(
             EntityType.SKELETON,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.INFINITY to 1
             )
         )
         addGenesToEntity(
             EntityType.SILVERFISH,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.HASTE to 1,
                 DefaultGenes.EFFICIENCY to 1
+            )
+        )
+        addGenesToEntity(
+            EntityType.PHANTOM,
+            mapOf(
+                null to 5,
+                DefaultGenes.INVISIBLE to 1,
             )
         )
 
         //End hostiles
         addGenesToEntity(
             EntityType.ENDERMITE,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.KEEP_INVENTORY to 1,
                 DefaultGenes.ITEM_MAGNET to 1,
@@ -237,7 +245,7 @@ object DefaultMobGenes {
         )
         addGenesToEntity(
             EntityType.ENDERMAN,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.TELEPORT to 1,
                 DefaultGenes.MORE_HEARTS to 1
@@ -245,7 +253,7 @@ object DefaultMobGenes {
         )
         addGenesToEntity(
             EntityType.SHULKER,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.RESISTANCE to 1,
                 DefaultGenes.REGENERATION to 1
@@ -255,14 +263,14 @@ object DefaultMobGenes {
         //Nether hostiles
         addGenesToEntity(
             EntityType.WITHER_SKELETON,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.WITHER_HIT to 1
             )
         )
         addGenesToEntity(
             EntityType.BLAZE,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.SHOOT_FIREBALLS to 1,
                 DefaultGenes.FIRE_PROOF to 1,
@@ -271,14 +279,14 @@ object DefaultMobGenes {
         )
         addGenesToEntity(
             EntityType.GHAST,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.SHOOT_FIREBALLS to 1
             )
         )
         addGenesToEntity(
             EntityType.ZOMBIFIED_PIGLIN,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.FIRE_PROOF to 1,
                 DefaultGenes.MEATY to 1
@@ -286,21 +294,21 @@ object DefaultMobGenes {
         )
         addGenesToEntity(
             EntityType.HOGLIN,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.MEATY to 1
             )
         )
         addGenesToEntity(
             EntityType.PIGLIN,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.MEATY to 1
             )
         )
         addGenesToEntity(
             EntityType.MAGMA_CUBE,
-            mutableMapOf(
+            mapOf(
                 null to 5,
                 DefaultGenes.FIRE_PROOF to 1,
                 DefaultGenes.BIOLUMINESCENCE to 1
