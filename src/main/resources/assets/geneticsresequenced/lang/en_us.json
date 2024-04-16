@@ -1,6 +1,7 @@
 {
   "itemGroup.geneticsresequenced": "Genetics Resequenced",
 
+  "item.geneticsresequenced.guide_book": "Big Book of Genetics",
   "item.geneticsresequenced.dragon_health_crystal": "Dragon Health Crystal",
   "item.geneticsresequenced.organic_matter": "Organic Matter",
   "item.geneticsresequenced.cell": "Cell",
@@ -133,6 +134,7 @@
   "advancement.geneticsresequenced.syringe.title": "You'll Feel a Small Prick",
   "advancement.geneticsresequenced.syringe.desc": "Craft a Syringe.\nSyringes are used to extract blood from yourself.",
   "advancement.geneticsresequenced.cell_analyzer.title": "Cells at Work",
-  "advancement.geneticsresequenced.cell_analyzer.desc": "Craft a Cell Analyzer.\nCell Analyzers use FE to convert Organic Matter into Cells."
+  "advancement.geneticsresequenced.cell_analyzer.desc": "Craft a Cell Analyzer.\nCell Analyzers use FE to convert Organic Matter into Cells.",
 
+  "book.geneticsresequenced.landing_text": "Welcome to Genetics: Resequenced! This guide book will help you get started with the mod."
 }

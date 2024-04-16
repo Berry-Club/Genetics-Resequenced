@@ -1,0 +1,15 @@
+{
+  "name": "Fire Proof",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:flint_and_steel",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Fire Proof$(0) Gene causes entities to become $(minor)completely immune to burning damage$(0).$(br2)This Gene $(minor)can be given to mobs$(0)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, you can get this gene from the following mobs:$(br2)• Blaze$(br)• Zombified Piglin$(br)• Magma Cube"
+    }
+  ]
+}

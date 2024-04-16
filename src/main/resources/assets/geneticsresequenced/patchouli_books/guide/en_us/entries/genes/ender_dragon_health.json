@@ -1,0 +1,15 @@
+{
+  "name": "Ender Dragon Health",
+  "category": "geneticsresequenced:genes",
+  "icon": "geneticsresequenced:dragon_health_crystal",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Ender Dragon Health$(0) Gene allows players to $(minor)completely negate damage$() while a $(major)Dragon Health Crystal$(0) is in their inventory.$(br2)Any damage they would take is instead dealt to the Crystal's durability.$(br2)This Gene $(minor)cannot be given to mobs$(0)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, you can get this gene from the following mobs:$(br2)• Ender Dragon"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "item.geneticsresequenced.guide_book",
+  "landing_text": "book.geneticsresequenced.landing_text",
+  "version": 1,
+  "creative_tab": "geneticsresequenced",
+  "use_resource_pack": true,
+  "show_progress": false,
+  "macros": {
+    "$(major)": "$(d)",
+    "$(minor)": "$(9)"
+  }
+}

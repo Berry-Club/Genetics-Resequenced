@@ -1,0 +1,15 @@
+{
+  "name": "Explosive Exit",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:tnt",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Explosive Exit$(0) Gene causes entities to $(minor)explode upon death$(0).$(br2)If a player has this Gene, it takes 5 Gunpowder from their inventory.$(br2)This Gene $(minor)can be given to mobs$(0)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, you can get this gene from the following mobs:$(br2)• Creeper"
+    }
+  ]
+}
