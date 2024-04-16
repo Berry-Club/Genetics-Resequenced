@@ -33,18 +33,20 @@ class MobToGeneRecipe(
     companion object {
 
         fun getAllRecipes(): List<MobToGeneRecipe> {
-            val mobGeneRegistry = MobGenesRegistry.getRegistry()
 
+            val allEntityTypes = ForgeRegistries.ENTITY_TYPES.values
             val recipes = mutableListOf<MobToGeneRecipe>()
-            for ((entityType: EntityType<*>, genePossibilities: Map<Gene?, Int>) in mobGeneRegistry) {
-                val entityId = ForgeRegistries.ENTITY_TYPES.getKey(entityType) ?: continue
 
-                val totalWeight = genePossibilities.values.sumOf { it }
+            for (entityType in allEntityTypes) {
 
-                for ((gene, weight) in genePossibilities) {
+                val possibilities = MobGenesRegistry.getGenesForEntity(entityType)
+                val totalWeight = possibilities.values.sumOf { it }
+
+                for ((gene, weight) in possibilities) {
                     val chance = (weight / totalWeight.toDouble() * 100).toInt()
-                    recipes.add(MobToGeneRecipe(entityId, gene, chance))
+                    recipes.add(MobToGeneRecipe(ForgeRegistries.ENTITY_TYPES.getKey(entityType)!!, gene, chance))
                 }
+
             }
 
             return recipes
