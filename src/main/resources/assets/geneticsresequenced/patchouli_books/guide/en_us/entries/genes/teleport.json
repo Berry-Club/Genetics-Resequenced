@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Teleport$(0) Gene allows players to $(minor)teleport forward$(0) when the Teleport key (currently bound to $(k:key.geneticsresequenced.teleport)) is used.$(br2)This has a configurable cooldown, with the default being 1 second. The distance is also configurable, defaulting to 10 blocks.$(br2)This Gene $(minor)cannot be given to mobs$(0)."
+      "text": "The $(major)Teleport$(0) Gene allows players to $(minor)teleport forward$(0) when the Teleport key (currently bound to $(k:key.geneticsresequenced.teleport)) is used.$(br2)This has a configurable cooldown, with the default being 1 second. The distance is also configurable, defaulting to 10 blocks.$(br2)This Gene $(bad)cannot be given to mobs$(0)."
     },
     {
       "type": "patchouli:text",

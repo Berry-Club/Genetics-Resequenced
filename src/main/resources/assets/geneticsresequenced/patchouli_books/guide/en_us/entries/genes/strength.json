@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Strength(0) Gene gives entities the $(minor)Strength effect$(0).$(br2)This Gene can be $(minor)mutated into Strength 2$(0).$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)Strength$(0) Gene gives entities the $(minor)Strength effect$(0).$(br2)This Gene can be $(minor)mutated into Strength 2$(0).$(br2)This Gene $(minor)can be given to mobs$(0)."
     },
     {
       "type": "patchouli:text",

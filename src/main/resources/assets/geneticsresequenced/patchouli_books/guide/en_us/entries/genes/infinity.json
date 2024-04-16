@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Infinity(0) Gene allows players to $(minor)fire Arrows when none are in their inventory$(0).$(br2)This Gene $(minor)cannot be given to mobs$(0)."
+      "text": "The $(major)Infinity$(0) Gene allows players to $(minor)fire Arrows when none are in their inventory$(0).$(br2)This Gene $(bad)cannot be given to mobs$(0)."
     },
     {
       "type": "patchouli:text",

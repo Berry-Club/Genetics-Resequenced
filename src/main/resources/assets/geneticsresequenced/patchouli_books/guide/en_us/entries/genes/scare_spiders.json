@@ -1,11 +1,11 @@
 {
-  "name": "Scare Zombies",
+  "name": "Scare Spiders",
   "category": "geneticsresequenced:genes",
   "icon": "minecraft:spider_eye",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Scare Spiders(minor) Gene makes it so that $(minor)Spiders will run away from you$(0).$(br2)This Gene $(minor)cannot be given to mobs$(0)."
+      "text": "The $(major)Scare Spiders$(0) Gene makes it so that $(minor)Spiders will run away from you$(0).$(br2)This Gene $(bad)cannot be given to mobs$(0)."
     }
   ]
 }

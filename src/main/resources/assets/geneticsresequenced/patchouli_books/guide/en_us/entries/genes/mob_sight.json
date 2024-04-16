@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Mob Sight$(0) Gene occasionally $(minor)gives all nearby mobs the Glowing effect$(0).$(br2)Both the cooldown and radius are configurable, defaulting to 1 second and 32 blocks respectively."
+      "text": "The $(major)Mob Sight$(0) Gene occasionally $(minor)gives all nearby mobs the Glowing effect$(0).$(br2)Both the cooldown and radius are configurable, defaulting to 1 second and 32 blocks respectively.$(br2)This gene $(bad)cannot be given to mobs$(0)."
     },
     {
       "type": "patchouli:text",

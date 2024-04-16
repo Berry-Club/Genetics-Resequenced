@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)XP Attraction Field(0) Gene causes players to $(minor)grab XP Orbs from a much larger distance$(0).$(br2)This Gene is disabled when the player has an active $(major)Anti Field Orb$(0), or when sneaking.$(br2)This Gene $(minor)cannot be given to mobs$(0)."
+      "text": "The $(major)XP Attraction Field$(0) Gene causes players to $(minor)grab XP Orbs from a much larger distance$(0).$(br2)This Gene is disabled when the player has an active $(major)Anti Field Orb$(0), or when sneaking.$(br2)This Gene $(bad)cannot be given to mobs$(0)."
     },
     {
       "type": "patchouli:text",

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Jump Boost(0) Gene gives entities the $(minor)Jump Boost effect$(0).$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)Jump Boost$(0) Gene gives entities the $(minor)Jump Boost effect$(0).$(br2)This Gene $(minor)can be given to mobs$(0)."
     },
     {
       "type": "patchouli:text",

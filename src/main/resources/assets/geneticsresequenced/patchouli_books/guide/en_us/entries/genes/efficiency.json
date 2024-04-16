@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Efficiency$(0) Gene $(minor)makes players mine faster$(0). This stacks with enchantments and Haste.$(br2)Can be mutated into Efficiency 4.$(br2)This Gene $(minor)cannot be given to mobs$(0)."
+      "text": "The $(major)Efficiency$(0) Gene $(minor)makes players mine faster$(0). This stacks with enchantments and Haste.$(br2)Can be mutated into Efficiency 4.$(br2)This Gene $(bad)cannot be given to mobs$(0)."
     },
     {
       "type": "patchouli:text",
