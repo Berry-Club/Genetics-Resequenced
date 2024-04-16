@@ -109,7 +109,7 @@ class DnaDecryptorBlockEntity(
             blockEntity.itemHandler.setStackInSlot(OUTPUT_SLOT_INDEX, outputItem)
 
             blockEntity.resetProgress()
-            blockEntity.nextGene = null
+            blockEntity.isNextGeneSet = false
         }
 
         private fun hasRecipe(blockEntity: DnaDecryptorBlockEntity): Boolean {
@@ -142,7 +142,7 @@ class DnaDecryptorBlockEntity(
                     return null
                 }
 
-                gene = blockEntity.nextGene!!
+                gene = blockEntity.nextGene
             }
 
             return ItemStack(ModItems.DNA_HELIX).setGene(gene)
