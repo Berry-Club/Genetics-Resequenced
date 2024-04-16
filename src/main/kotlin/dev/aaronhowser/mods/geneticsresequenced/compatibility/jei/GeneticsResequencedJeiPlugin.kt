@@ -10,6 +10,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.CellAnalyzerRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipes.DnaExtractorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipes.MobToGeneRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipes.PlasmidInfuserRecipe
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
 import mezz.jei.api.constants.VanillaTypes
@@ -32,6 +33,8 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             RecipeType(DnaExtractorRecipeCategory.UID, DnaExtractorRecipe::class.java)
         val MOB_TO_GENE_TYPE: RecipeType<MobToGeneRecipe> =
             RecipeType(MobToGeneRecipeCategory.UID, MobToGeneRecipe::class.java)
+        val PLASMID_INFUSER_TYPE: RecipeType<PlasmidInfuserRecipe> =
+            RecipeType(PlasmidInfuserRecipeCategory.UID, PlasmidInfuserRecipe::class.java)
     }
 
     override fun getPluginUid(): ResourceLocation =
@@ -41,7 +44,8 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
         registration.addRecipeCategories(
             CellAnalyzerRecipeCategory(registration.jeiHelpers.guiHelper),
             MobToGeneRecipeCategory(registration.jeiHelpers.guiHelper),
-            DnaExtractorRecipeCategory(registration.jeiHelpers.guiHelper)
+            DnaExtractorRecipeCategory(registration.jeiHelpers.guiHelper),
+            PlasmidInfuserRecipeCategory(registration.jeiHelpers.guiHelper)
         )
     }
 
@@ -58,12 +62,17 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             ItemStack(ModBlocks.DNA_EXTRACTOR),
             DnaExtractorRecipeCategory.recipeType
         )
+        registration.addRecipeCatalyst(
+            ItemStack(ModBlocks.PLASMID_INFUSER),
+            PlasmidInfuserRecipeCategory.recipeType
+        )
     }
 
     override fun registerRecipes(registration: IRecipeRegistration) {
         registration.addRecipes(CellAnalyzerRecipeCategory.recipeType, CellAnalyzerRecipe.getAllRecipes())
         registration.addRecipes(MobToGeneRecipeCategory.recipeType, MobToGeneRecipe.getAllRecipes())
         registration.addRecipes(DnaExtractorRecipeCategory.recipeType, DnaExtractorRecipe.getAllRecipes())
+        registration.addRecipes(PlasmidInfuserRecipeCategory.recipeType, PlasmidInfuserRecipe.getAllRecipes())
 
         mobGeneRecipes(registration)
     }

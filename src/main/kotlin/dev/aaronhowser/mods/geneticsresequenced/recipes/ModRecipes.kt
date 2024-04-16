@@ -17,4 +17,7 @@ object ModRecipes {
     val MOB_TO_GENE_SERIALIZER: RegistryObject<RecipeSerializer<MobToGeneRecipe>> =
         RECIPE_SERIALIZERS_REGISTRY.register(MobToGeneRecipe.RECIPE_TYPE_NAME) { MobToGeneRecipe.SERIALIZER }
 
+    val PLASMID_SERIALIZER: RegistryObject<RecipeSerializer<PlasmidInfuserRecipe>> =
+        RECIPE_SERIALIZERS_REGISTRY.register(PlasmidInfuserRecipe.RECIPE_TYPE_NAME) { PlasmidInfuserRecipe.SERIALIZER }
+
 }
