@@ -17,6 +17,12 @@ minecraft {
 
     runs {
         client {
+
+            // https://github.com/VazkiiMods/Patchouli/tree/1.19.x?tab=readme-ov-file#mixin-troubleshooting-forge-only
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            // end of above comment
+
             workingDirectory project.file('run')
 
             property 'forge.logging.markers', 'REGISTRIES'
@@ -31,6 +37,12 @@ minecraft {
         }
 
         server {
+
+            // https://github.com/VazkiiMods/Patchouli/tree/1.19.x?tab=readme-ov-file#mixin-troubleshooting-forge-only
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+            // end of above comment
+
             workingDirectory project.file('run/server')
 
             property 'forge.logging.markers', 'REGISTRIES'
@@ -101,6 +113,7 @@ repositories {
         }
     }
 
+    maven { url 'https://maven.blamejared.com' }
 }
 
 dependencies {
@@ -116,6 +129,10 @@ dependencies {
 
     // spark
     implementation fg.deobf("curse.maven:spark-361579:4505309")
+
+    // patchouli
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:${patchouli_version}")
 }
 
 compileKotlin {
