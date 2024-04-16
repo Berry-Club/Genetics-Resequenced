@@ -1,0 +1,15 @@
+{
+  "name": "Claws",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:stone_sword",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Claws$(0) Gene causes entities to have a chance to $(minor)inflict Bleeding on empty-handed melee attacks$(0).$(br2)When mutated into Claws 2, the chance is doubled.$(br2)This Gene $(minor)can be given to mobs$(0)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, you can get this gene from the following mobs:$(br2)• Polar Bear"
+    }
+  ]
+}

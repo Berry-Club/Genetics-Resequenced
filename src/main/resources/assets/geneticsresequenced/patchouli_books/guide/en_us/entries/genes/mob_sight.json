@@ -1,0 +1,15 @@
+{
+  "name": "Mob Sight",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:golden_carrot",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Mob Sight$(0) Gene occasionally $(minor)gives all nearby mobs the Glowing effect$(0).$(br2)Both the cooldown and radius are configurable, defaulting to 1 second and 32 blocks respectively."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, you can get this gene from the following mobs:$(br2)• Guardian$(br)• Elder Guardian"
+    }
+  ]
+}
