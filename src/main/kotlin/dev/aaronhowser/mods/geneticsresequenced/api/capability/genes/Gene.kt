@@ -43,13 +43,7 @@ class Gene(
     val isMutation: Boolean
         get() = REGISTRY.any { it.mutatesInto == this }
 
-    var translationKey: String = ""
-        private set
-
-    fun setTranslationKey(translationKey: String): Gene {
-        this.translationKey = translationKey
-        return this
-    }
+    val translationKey: String = "gene.${id.namespace}.${id.path}"
 
     var amountNeeded: Int = -1
         private set
