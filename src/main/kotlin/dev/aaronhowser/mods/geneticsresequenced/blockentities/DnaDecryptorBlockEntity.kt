@@ -57,6 +57,7 @@ class DnaDecryptorBlockEntity(
         return Component.translatable("block.geneticsresequenced.dna_decryptor")
     }
 
+    var isNextGeneSet = false
     var nextGene: Gene? = null
 
     companion object {
@@ -129,14 +130,15 @@ class DnaDecryptorBlockEntity(
             val genesFromMob = MobGenesRegistry.getGenesForEntity(mobType)
             if (genesFromMob.isEmpty()) return null
 
-            val gene: Gene
-            if (blockEntity.nextGene == null) {
-                gene = genesFromMob.map { it.key }.random()!!
+            val gene: Gene?
+            if (!blockEntity.isNextGeneSet) {
+                gene = genesFromMob.map { it.key }.random()
                 blockEntity.nextGene = gene
+                blockEntity.isNextGeneSet = true
             } else {
 
                 if (!genesFromMob.contains(blockEntity.nextGene)) {
-                    blockEntity.nextGene = null
+                    blockEntity.isNextGeneSet = false
                     return null
                 }
 
