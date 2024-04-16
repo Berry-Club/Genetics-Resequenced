@@ -37,7 +37,6 @@ object MobGenesRegistry {
             EntityType.VILLAGER,
             mapOf(
                 null to 5,
-                DefaultGenes.MOB_SIGHT to 1,
                 DefaultGenes.EMERALD_HEART to 1,
                 DefaultGenes.REGENERATION to 1
             )
@@ -86,7 +85,6 @@ object MobGenesRegistry {
             EntityType.BAT,
             mapOf(
                 null to 5,
-                DefaultGenes.MOB_SIGHT to 1,
                 DefaultGenes.NIGHT_VISION to 1
             )
         )
@@ -225,6 +223,7 @@ object MobGenesRegistry {
             EntityType.GUARDIAN,
             mutableMapOf(
                 null to 5,
+                DefaultGenes.MOB_SIGHT to 1,
                 DefaultGenes.WATER_BREATHING to 1
             )
         )
@@ -300,7 +299,6 @@ object MobGenesRegistry {
             EntityType.GHAST,
             mutableMapOf(
                 null to 5,
-                DefaultGenes.MOB_SIGHT to 1,
                 DefaultGenes.SHOOT_FIREBALLS to 1
             )
         )
