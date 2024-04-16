@@ -1,5 +1,6 @@
-package dev.aaronhowser.mods.geneticsresequenced
+package dev.aaronhowser.mods.geneticsresequenced.default_genes
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffects
@@ -7,7 +8,7 @@ import net.minecraft.world.effect.MobEffects
 @Suppress("unused", "MemberVisibilityCanBePrivate")
 object DefaultGenes {
 
-    fun registerGenes() {
+    fun registerDefaultGenes() {
         // Doesn't do anything, but it loads the object which initializes the genes
     }
 

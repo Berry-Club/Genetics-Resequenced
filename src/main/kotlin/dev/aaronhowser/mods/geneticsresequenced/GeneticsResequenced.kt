@@ -1,10 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.attributes.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.blockentities.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultMobGenes
 import dev.aaronhowser.mods.geneticsresequenced.effects.ModEffects
 import dev.aaronhowser.mods.geneticsresequenced.enchantments.ModEnchantments
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
@@ -40,8 +41,8 @@ object GeneticsResequenced {
 
         ModPacketHandler.setup()
 
-        DefaultGenes.registerGenes()
-        MobGenesRegistry.registerDefaultGenes()
+        DefaultGenes.registerDefaultGenes()
+        DefaultMobGenes.registerDefaultGenes()
     }
 
 }
