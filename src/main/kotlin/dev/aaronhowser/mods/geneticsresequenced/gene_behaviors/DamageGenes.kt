@@ -1,9 +1,9 @@
-package dev.aaronhowser.mods.geneticsresequenced.genebehaviors
+package dev.aaronhowser.mods.geneticsresequenced.gene_behaviors
 
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.effects.ModEffects
+import dev.aaronhowser.mods.geneticsresequenced.mob_effects.ModEffects
 import dev.aaronhowser.mods.geneticsresequenced.items.DragonHealthCrystal
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import net.minecraft.world.damagesource.DamageSource

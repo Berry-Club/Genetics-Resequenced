@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.effects
+package dev.aaronhowser.mods.geneticsresequenced.mob_effects
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.world.effect.MobEffect

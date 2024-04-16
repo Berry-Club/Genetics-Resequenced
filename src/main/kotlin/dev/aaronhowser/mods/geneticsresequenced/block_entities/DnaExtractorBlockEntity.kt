@@ -1,6 +1,6 @@
-package dev.aaronhowser.mods.geneticsresequenced.blockentities
+package dev.aaronhowser.mods.geneticsresequenced.block_entities
 
-import dev.aaronhowser.mods.geneticsresequenced.blockentities.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entities.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems

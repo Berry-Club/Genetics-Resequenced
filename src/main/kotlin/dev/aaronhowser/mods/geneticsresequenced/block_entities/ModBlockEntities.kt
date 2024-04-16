@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.blockentities
+package dev.aaronhowser.mods.geneticsresequenced.block_entities
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks

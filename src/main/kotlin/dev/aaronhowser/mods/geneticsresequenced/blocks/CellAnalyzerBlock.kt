@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks
 
-import dev.aaronhowser.mods.geneticsresequenced.blockentities.CellAnalyzerBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.blockentities.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.block_entities.CellAnalyzerBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entities.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlock
 import dev.aaronhowser.mods.geneticsresequenced.util.BlockEntityHelper
 import net.minecraft.world.level.Level

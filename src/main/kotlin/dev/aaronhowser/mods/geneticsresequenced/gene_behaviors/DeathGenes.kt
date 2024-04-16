@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.genebehaviors
+package dev.aaronhowser.mods.geneticsresequenced.gene_behaviors
 
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes

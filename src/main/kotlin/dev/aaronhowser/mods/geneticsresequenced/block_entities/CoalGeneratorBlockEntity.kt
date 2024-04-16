@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.blockentities
+package dev.aaronhowser.mods.geneticsresequenced.block_entities
 
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.EnergySyncPacket

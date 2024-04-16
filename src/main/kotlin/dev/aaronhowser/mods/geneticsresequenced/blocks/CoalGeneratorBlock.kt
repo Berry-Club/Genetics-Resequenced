@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks
 
-import dev.aaronhowser.mods.geneticsresequenced.blockentities.CoalGeneratorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.blockentities.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.block_entities.CoalGeneratorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entities.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.util.BlockEntityHelper
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction

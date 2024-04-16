@@ -3,8 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.events.entity
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.CapabilityHandler
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
-import dev.aaronhowser.mods.geneticsresequenced.genebehaviors.DamageGenes
-import dev.aaronhowser.mods.geneticsresequenced.genebehaviors.TickGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene_behaviors.DamageGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene_behaviors.TickGenes
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraftforge.event.AttachCapabilitiesEvent

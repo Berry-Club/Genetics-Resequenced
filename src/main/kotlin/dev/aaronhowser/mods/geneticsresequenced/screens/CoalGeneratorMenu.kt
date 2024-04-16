@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.screens
 
-import dev.aaronhowser.mods.geneticsresequenced.blockentities.CoalGeneratorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entities.CoalGeneratorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.entity.player.Inventory

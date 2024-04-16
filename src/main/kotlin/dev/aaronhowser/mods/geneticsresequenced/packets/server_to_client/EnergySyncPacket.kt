@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client
 
-import dev.aaronhowser.mods.geneticsresequenced.blockentities.CoalGeneratorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.blockentities.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entities.CoalGeneratorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entities.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacket
 import dev.aaronhowser.mods.geneticsresequenced.screens.CellAnalyzerMenu
 import dev.aaronhowser.mods.geneticsresequenced.screens.CoalGeneratorMenu

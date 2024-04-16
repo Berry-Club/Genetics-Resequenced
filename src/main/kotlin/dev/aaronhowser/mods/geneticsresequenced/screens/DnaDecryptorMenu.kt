@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.screens
 
-import dev.aaronhowser.mods.geneticsresequenced.blockentities.DnaDecryptorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.blockentities.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entities.DnaDecryptorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entities.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.entity.player.Inventory

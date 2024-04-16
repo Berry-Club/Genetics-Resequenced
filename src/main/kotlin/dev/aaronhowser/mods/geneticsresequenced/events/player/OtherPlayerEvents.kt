@@ -4,9 +4,9 @@ import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
-import dev.aaronhowser.mods.geneticsresequenced.genebehaviors.AttributeGenes
-import dev.aaronhowser.mods.geneticsresequenced.genebehaviors.ClickGenes
-import dev.aaronhowser.mods.geneticsresequenced.genebehaviors.TickGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene_behaviors.AttributeGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene_behaviors.ClickGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene_behaviors.TickGenes
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraftforge.event.TickEvent.PlayerTickEvent
