@@ -79,36 +79,4 @@ object RemoveGeneCommand {
         }
     }
 
-    private fun removeAll(context: CommandContext<CommandSourceStack>, entity: Entity?): Int {
-
-        val target = if (entity == null) {
-            context.source.entity as? LivingEntity
-        } else {
-            entity as? LivingEntity
-        } ?: return 0
-
-        val targetGenes = target.getGenes() ?: return 0
-
-        if (targetGenes.getGeneList().isEmpty()) {
-            context.source.sendSuccess(
-                Component.translatable("command.geneticsresequenced.remove.fail.all"),
-                false
-            )
-            return 1
-        }
-
-        val amountGenes = targetGenes.getGeneList().size
-
-        for (gene in targetGenes.getGeneList()) {
-            targetGenes.removeGene(gene)
-            OtherPlayerEvents.genesChanged(target, gene, false)
-        }
-
-        context.source.sendSuccess(
-            Component.translatable("command.geneticsresequenced.remove.success.all", amountGenes),
-            false
-        )
-        return 1
-    }
-
 }

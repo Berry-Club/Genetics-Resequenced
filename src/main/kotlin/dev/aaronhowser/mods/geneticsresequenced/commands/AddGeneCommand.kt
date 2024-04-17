@@ -18,7 +18,6 @@ object AddGeneCommand {
 
     private const val GENE_ARGUMENT = "gene"
     private const val TARGET_ARGUMENT = "target"
-    private const val ALL = "_all"
 
     fun register(): ArgumentBuilder<CommandSourceStack, *> {
         return Commands
@@ -80,28 +79,5 @@ object AddGeneCommand {
             return 0
         }
     }
-
-    private fun addAll(context: CommandContext<CommandSourceStack>, entity: Entity? = null): Int {
-        val target = if (entity == null) {
-            context.source.entity as? LivingEntity
-        } else {
-            entity as? LivingEntity
-        } ?: return 0
-
-        val targetGenes = target.getGenes() ?: return 0
-
-        for (gene in Gene.getRegistry()) {
-            if (gene.isNegative) continue
-            targetGenes.addGene(gene)
-            OtherPlayerEvents.genesChanged(target, gene, true)
-        }
-
-        context.source.sendSuccess(
-            Component.translatable("command.geneticsresequenced.add.success.all"),
-            false
-        )
-        return 1
-    }
-
 
 }
