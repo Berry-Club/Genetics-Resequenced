@@ -8,8 +8,8 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabi
 import dev.aaronhowser.mods.geneticsresequenced.events.player.OtherPlayerEvents
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
-import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.commands.arguments.EntityArgument
+import net.minecraft.commands.arguments.ResourceLocationArgument
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
@@ -25,13 +25,9 @@ object RemoveGeneCommand {
             .literal("removeGene")
             .requires { it.hasPermission(2) }
             .then(
-                Commands.argument(GENE_ARGUMENT, StringArgumentType.string())
-                    .suggests { ctx, builder ->
-                        SharedSuggestionProvider.suggest(
-                            Gene.getRegistry().map { it.id.toString() }.plus(ALL),
-                            builder
-                        )
-                    }
+                Commands
+                    .argument(GENE_ARGUMENT, ResourceLocationArgument.id())
+                    .suggests(ModCommands.SUGGEST_GENE_RLS)
                     .then(
                         Commands
                             .argument(TARGET_ARGUMENT, EntityArgument.entity())
@@ -43,10 +39,7 @@ object RemoveGeneCommand {
     }
 
     private fun removeGene(context: CommandContext<CommandSourceStack>, entity: Entity? = null): Int {
-
-        val geneArgument = StringArgumentType.getString(context, GENE_ARGUMENT)
-
-        if (geneArgument == ALL) return removeAll(context, entity)
+        val geneArgument = ResourceLocationArgument.getId(context, GENE_ARGUMENT)
 
         val target = if (entity == null) {
             context.source.entity as? LivingEntity

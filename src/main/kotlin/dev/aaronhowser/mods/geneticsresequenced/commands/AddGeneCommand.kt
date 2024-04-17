@@ -1,15 +1,15 @@
 package dev.aaronhowser.mods.geneticsresequenced.commands
 
-import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.commands.ModCommands.SUGGEST_GENE_RLS
 import dev.aaronhowser.mods.geneticsresequenced.events.player.OtherPlayerEvents
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
-import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.commands.arguments.EntityArgument
+import net.minecraft.commands.arguments.ResourceLocationArgument
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
@@ -26,13 +26,8 @@ object AddGeneCommand {
             .requires { it.hasPermission(2) }
             .then(
                 Commands
-                    .argument(GENE_ARGUMENT, StringArgumentType.string())
-                    .suggests { ctx, builder ->
-                        SharedSuggestionProvider.suggest(
-                            Gene.getRegistry().map { it.id.toString() }.plus(ALL),
-                            builder
-                        )
-                    }
+                    .argument(GENE_ARGUMENT, ResourceLocationArgument.id())
+                    .suggests (SUGGEST_GENE_RLS)
                     .then(
                         Commands
                             .argument(TARGET_ARGUMENT, EntityArgument.entity())
@@ -44,9 +39,7 @@ object AddGeneCommand {
 
     private fun addGene(context: CommandContext<CommandSourceStack>, entity: Entity? = null): Int {
 
-        val geneArgument = StringArgumentType.getString(context, GENE_ARGUMENT)
-
-        if (geneArgument == ALL) return addAll(context, entity)
+        val geneArgument = ResourceLocationArgument.getId(context, GENE_ARGUMENT)
 
         val target = if (entity == null) {
             context.source.entity as? LivingEntity
