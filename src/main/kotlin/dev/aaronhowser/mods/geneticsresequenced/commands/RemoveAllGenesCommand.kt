@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.commands
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.events.player.OtherPlayerEvents
 import net.minecraft.commands.CommandSourceStack
@@ -25,10 +24,10 @@ object RemoveAllGenesCommand {
                     .argument(TARGET_ARGUMENT, EntityArgument.entity())
                     .executes { cmd -> removeAllGenes(cmd, EntityArgument.getEntity(cmd, TARGET_ARGUMENT)) }
             )
-            .executes { cmd -> removeAllGenes(cmd, null) }
+            .executes { cmd -> removeAllGenes(cmd) }
     }
 
-    private fun removeAllGenes(context: CommandContext<CommandSourceStack>, entity: Entity?): Int {
+    private fun removeAllGenes(context: CommandContext<CommandSourceStack>, entity: Entity? = null): Int {
 
         val target = if (entity == null) {
             context.source.entity as? LivingEntity
@@ -59,7 +58,6 @@ object RemoveAllGenesCommand {
         )
         return 1
     }
-
 
 
 }
