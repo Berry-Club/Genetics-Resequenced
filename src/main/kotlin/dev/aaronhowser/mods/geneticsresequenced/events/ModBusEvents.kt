@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.events
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability
 import dev.aaronhowser.mods.geneticsresequenced.attributes.ModAttributes
-import dev.aaronhowser.mods.geneticsresequenced.entities.FriendlySlime
+import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.entities.ModEntityTypes
 import net.minecraft.world.entity.EntityType
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent
@@ -25,7 +25,7 @@ object ModBusEvents {
 
     @SubscribeEvent
     fun onEntityAttributeCreation(event: EntityAttributeCreationEvent) {
-        event.put(ModEntityTypes.FRIENDLY_SLIME.get(), FriendlySlime.setAttributes())
+        event.put(ModEntityTypes.SUPPORT_SLIME.get(), SupportSlime.setAttributes())
     }
 
     @SubscribeEvent

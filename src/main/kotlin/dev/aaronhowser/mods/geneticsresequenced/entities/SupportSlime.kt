@@ -18,8 +18,8 @@ import net.minecraft.world.entity.monster.Slime
 import net.minecraft.world.level.Level
 import java.util.*
 
-class FriendlySlime(
-    pEntityType: EntityType<out FriendlySlime>,
+class SupportSlime(
+    pEntityType: EntityType<out SupportSlime>,
     pLevel: Level
 ) : Slime(pEntityType, pLevel) {
 
@@ -34,7 +34,7 @@ class FriendlySlime(
 
         const val OWNER_UUID_NBT = "OwnerUUID"
         val OWNER: EntityDataAccessor<Optional<UUID>> =
-            SynchedEntityData.defineId(FriendlySlime::class.java, EntityDataSerializers.OPTIONAL_UUID)
+            SynchedEntityData.defineId(SupportSlime::class.java, EntityDataSerializers.OPTIONAL_UUID)
     }
 
     override fun defineSynchedData() {

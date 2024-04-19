@@ -12,12 +12,12 @@ object ModEntityTypes {
     val ENTITY_TYPE_REGISTRY: DeferredRegister<EntityType<*>> =
         DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, GeneticsResequenced.ID)
 
-    val FRIENDLY_SLIME: RegistryObject<EntityType<FriendlySlime>> = ENTITY_TYPE_REGISTRY.register("friendly_slime") {
+    val SUPPORT_SLIME: RegistryObject<EntityType<SupportSlime>> = ENTITY_TYPE_REGISTRY.register("support_slime") {
         EntityType.Builder.of(
-            { type, world -> FriendlySlime(type, world) },
+            { type, world -> SupportSlime(type, world) },
             MobCategory.CREATURE
         )
             .sized(0.75f, 0.75f)
-            .build("friendly_slime")
+            .build("support_slime")
     }
 }

@@ -30,9 +30,9 @@ object ModItems {
     val OVERCLOCKER by ITEM_REGISTRY.registerObject("overclocker") { Item(Item.Properties().tab(MOD_TAB).stacksTo(8)) }
     val ANTI_FIELD_ORB by ITEM_REGISTRY.registerObject("anti_field_orb") { AntiFieldOrbItem }
     val DRAGON_HEALTH_CRYSTAL by ITEM_REGISTRY.registerObject("dragon_health_crystal") { DragonHealthCrystal }
-    val FRIENDLY_SLIME_SPAWN_EGG by ITEM_REGISTRY.registerObject("friendly_slime_spawn_egg") {
+    val FRIENDLY_SLIME_SPAWN_EGG by ITEM_REGISTRY.registerObject("support_slime_spawn_egg") {
         ForgeSpawnEggItem(
-            ModEntityTypes.FRIENDLY_SLIME,
+            ModEntityTypes.SUPPORT_SLIME,
             0x00FF00,
             0x0000FF,
             Item.Properties().tab(MOD_TAB)

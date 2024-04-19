@@ -55,7 +55,7 @@ object ClientModBusEvents {
 
     private fun registerRenderers() {
 
-        EntityRenderers.register(ModEntityTypes.FRIENDLY_SLIME.get(), ::FriendlySlimeRenderer)
+        EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::FriendlySlimeRenderer)
 
     }
 

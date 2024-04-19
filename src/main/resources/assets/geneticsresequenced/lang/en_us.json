@@ -11,7 +11,7 @@
   "item.geneticsresequenced.dna_helix": "DNA Helix",
   "item.geneticsresequenced.plasmid": "Plasmid",
   "item.geneticsresequenced.overclocker": "Overclocker",
-  "item.geneticsresequenced.friendly_slime_spawn_egg": "Friendly Slime Spawn Egg",
+  "item.geneticsresequenced.support_slime_spawn_egg": "Support Slime Spawn Egg",
 
   "block.geneticsresequenced.bioluminescence": "Bioluminescence Glow",
   "block.geneticsresequenced.cell_analyzer": "Cell Analyzer",
@@ -28,6 +28,8 @@
   "effect.geneticsresequenced.bleed": "Bleed",
 
   "enchantment.geneticsresequenced.delicate_touch": "Delicate Touch",
+
+  "entity.geneticsresequenced.support_slime": "Support Slime",
 
   "tooltip.geneticsresequenced.copy_gene_id": "Click to copy ID: %s",
   "tooltip.geneticsresequenced.antifield_active": "Active",

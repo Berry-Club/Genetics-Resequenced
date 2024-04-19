@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.entities.client
 
 import com.mojang.blaze3d.vertex.PoseStack
-import dev.aaronhowser.mods.geneticsresequenced.entities.FriendlySlime
+import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import net.minecraft.client.model.SlimeModel
 import net.minecraft.client.model.geom.ModelLayers
 import net.minecraft.client.renderer.MultiBufferSource
@@ -16,7 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn
 @OnlyIn(Dist.CLIENT)
 class FriendlySlimeRenderer(
     context: EntityRendererProvider.Context
-) : MobRenderer<FriendlySlime, SlimeModel<FriendlySlime>>
+) : MobRenderer<SupportSlime, SlimeModel<SupportSlime>>
     (
     context,
     SlimeModel(
@@ -29,7 +29,7 @@ class FriendlySlimeRenderer(
     }
 
     override fun render(
-        pEntity: FriendlySlime,
+        pEntity: SupportSlime,
         pEntityYaw: Float,
         pPartialTicks: Float,
         pMatrixStack: PoseStack,
@@ -41,7 +41,7 @@ class FriendlySlimeRenderer(
     }
 
     protected override fun scale(
-        pLivingEntity: FriendlySlime,
+        pLivingEntity: SupportSlime,
         pMatrixStack: PoseStack,
         pPartialTickTime: Float
     ) {
@@ -57,7 +57,7 @@ class FriendlySlimeRenderer(
     /**
      * Returns the location of an entity's texture.
      */
-    override fun getTextureLocation(pEntity: FriendlySlime): ResourceLocation {
+    override fun getTextureLocation(pEntity: SupportSlime): ResourceLocation {
         return SLIME_LOCATION
     }
 
