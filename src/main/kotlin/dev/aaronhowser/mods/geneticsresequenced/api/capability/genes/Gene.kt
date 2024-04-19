@@ -14,15 +14,15 @@ class Gene(
 ) {
 
     companion object {
-        private val REGISTRY: MutableSet<Gene> = mutableSetOf()
-        fun getRegistry(): List<Gene> = REGISTRY.sortedBy { it.id }
+        private val GENE_REGISTRY: MutableSet<Gene> = mutableSetOf()
+        fun getRegistry(): List<Gene> = GENE_REGISTRY.sortedBy { it.id }
 
         fun fromId(searchedId: ResourceLocation): Gene? {
-            return REGISTRY.find { it.id == searchedId }
+            return GENE_REGISTRY.find { it.id == searchedId }
         }
 
         fun fromId(searchedId: String): Gene? {
-            return REGISTRY.find { it.id.toString() == searchedId }
+            return GENE_REGISTRY.find { it.id.toString() == searchedId }
         }
     }
 
@@ -41,7 +41,7 @@ class Gene(
     }
 
     val isMutation: Boolean
-        get() = REGISTRY.any { it.mutatesInto == this }
+        get() = GENE_REGISTRY.any { it.mutatesInto == this }
 
     val translationKey: String = "gene.${id.namespace}.${id.path}"
 
@@ -78,7 +78,7 @@ class Gene(
             throw IllegalStateException("Gene $id is missing required fields")
         }
 
-        REGISTRY.add(this)
+        GENE_REGISTRY.add(this)
         return this
     }
 
