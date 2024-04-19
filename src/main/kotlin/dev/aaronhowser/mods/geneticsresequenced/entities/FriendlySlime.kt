@@ -37,7 +37,16 @@ class FriendlySlime(
             SynchedEntityData.defineId(FriendlySlime::class.java, EntityDataSerializers.OPTIONAL_UUID)
     }
 
+    override fun defineSynchedData() {
+        this.entityData.define(OWNER, Optional.empty())
+        super.defineSynchedData()
+    }
+
     override fun onAddedToWorld() {
+
+        if (level.isClientSide) {
+            return super.onAddedToWorld()
+        }
 
         val nearbyEntities: List<LivingEntity> = level.getEntitiesOfClass(
             LivingEntity::class.java,
@@ -65,11 +74,9 @@ class FriendlySlime(
     }
 
     private fun getOwner(): UUID? {
-        val entityData = entityData
-        val owner = entityData.get(OWNER)
-        return if (owner.isPresent) {
-            owner.get()
-        } else {
+        return try {
+            entityData.get(OWNER).orElse(null)
+        } catch (e: NullPointerException) {
             null
         }
     }
