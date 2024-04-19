@@ -10,6 +10,7 @@ import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal
@@ -32,9 +33,14 @@ class SupportSlime(
                 .build()
         }
 
-        const val OWNER_UUID_NBT = "OwnerUUID"
-        val OWNER: EntityDataAccessor<Optional<UUID>> =
+        private fun isMobAttackingOwner(mob: Mob, owner: UUID): Boolean {
+            return mob.target?.uuid == owner
+        }
+
+        private const val OWNER_UUID_NBT = "OwnerUUID"
+        private val OWNER: EntityDataAccessor<Optional<UUID>> =
             SynchedEntityData.defineId(SupportSlime::class.java, EntityDataSerializers.OPTIONAL_UUID)
+
     }
 
     override fun defineSynchedData() {
@@ -48,15 +54,15 @@ class SupportSlime(
             return super.onAddedToWorld()
         }
 
-        val nearbyEntities: List<LivingEntity> = level.getEntitiesOfClass(
+        val nearbyLivingEntities: List<LivingEntity> = level.getEntitiesOfClass(
             LivingEntity::class.java,
             boundingBox.inflate(16.0)
         ).sortedBy { it.distanceToSqr(this) }
 
-        for (entity in nearbyEntities) {
-            val genes: GenesCapability = entity.getGenes() ?: continue
+        for (livingEntity in nearbyLivingEntities) {
+            val genes: GenesCapability = livingEntity.getGenes() ?: continue
             if (genes.hasGene(DefaultGenes.SLIMY_DEATH)) {
-                setOwner(entity.uuid)
+                setOwner(livingEntity.uuid)
                 break
             }
         }
@@ -99,15 +105,21 @@ class SupportSlime(
     override fun registerGoals() {
         super.registerGoals()
 
+        fun shouldAttack(livingEntity: LivingEntity): Boolean {
+            val owner = getOwner() ?: return false
+            val mob = livingEntity as? Mob ?: return false
+            return isMobAttackingOwner(mob, owner)
+        }
+
         targetSelector.removeAllGoals()
 
         targetSelector.addGoal(
             1,
             NearestAttackableTargetGoal(
                 this,
-                LivingEntity::class.java,
+                Mob::class.java,
                 true
-            ) { true }
+            ) { livingEntity -> shouldAttack(livingEntity) }
         )
 
     }
