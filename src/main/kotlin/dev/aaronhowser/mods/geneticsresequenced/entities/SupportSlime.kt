@@ -51,7 +51,7 @@ class SupportSlime(
         val nearbyEntities: List<LivingEntity> = level.getEntitiesOfClass(
             LivingEntity::class.java,
             boundingBox.inflate(16.0)
-        )
+        ).sortedBy { it.distanceToSqr(this) }
 
         for (entity in nearbyEntities) {
             val genes: GenesCapability = entity.getGenes() ?: continue
