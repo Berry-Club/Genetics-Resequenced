@@ -8,6 +8,7 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
@@ -16,6 +17,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal
 import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.entity.monster.Slime
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import java.util.*
 
@@ -29,7 +31,7 @@ class SupportSlime(
             return Monster.createMobAttributes()
                 .add(Attributes.MAX_HEALTH, 10.0)
                 .add(Attributes.MOVEMENT_SPEED, 0.25)
-                .add(Attributes.ATTACK_DAMAGE, 2.0)
+                .add(Attributes.ATTACK_DAMAGE, 20.0)
                 .build()
         }
 
@@ -98,16 +100,30 @@ class SupportSlime(
         }
     }
 
+    override fun push(pEntity: Entity) {
+        super.push(pEntity)
+
+        val entity = pEntity as? LivingEntity ?: return
+        if (shouldSlimeAttackEntity(entity)) {
+            dealDamage(entity)
+        }
+    }
+
+    override fun dealDamage(pLivingEntity: LivingEntity) {
+        if (pLivingEntity is Player || pLivingEntity is SupportSlime) return
+        super.dealDamage(pLivingEntity)
+    }
+
+    private fun shouldSlimeAttackEntity(livingEntity: LivingEntity): Boolean {
+        val owner: UUID = getOwner() ?: return false
+        val mob: Mob = livingEntity as? Mob ?: return false
+
+        val mobIsAttackingOwner = mob.target?.uuid == owner
+        return mobIsAttackingOwner
+    }
+
     override fun registerGoals() {
         super.registerGoals()
-
-        fun shouldSlimeAttackEntity(livingEntity: LivingEntity): Boolean {
-            val owner: UUID = getOwner() ?: return false
-            val mob: Mob = livingEntity as? Mob ?: return false
-
-            val mobIsAttackingOwner = mob.target?.uuid == owner
-            return mobIsAttackingOwner
-        }
 
         targetSelector.removeAllGoals()
 
