@@ -33,10 +33,6 @@ class SupportSlime(
                 .build()
         }
 
-        private fun isMobAttackingOwner(mob: Mob, owner: UUID): Boolean {
-            return mob.target?.uuid == owner
-        }
-
         private const val OWNER_UUID_NBT = "OwnerUUID"
         private val OWNER: EntityDataAccessor<Optional<UUID>> =
             SynchedEntityData.defineId(SupportSlime::class.java, EntityDataSerializers.OPTIONAL_UUID)
@@ -105,10 +101,12 @@ class SupportSlime(
     override fun registerGoals() {
         super.registerGoals()
 
-        fun shouldAttack(livingEntity: LivingEntity): Boolean {
-            val owner = getOwner() ?: return false
-            val mob = livingEntity as? Mob ?: return false
-            return isMobAttackingOwner(mob, owner)
+        fun shouldSlimeAttackEntity(livingEntity: LivingEntity): Boolean {
+            val owner: UUID = getOwner() ?: return false
+            val mob: Mob = livingEntity as? Mob ?: return false
+
+            val mobIsAttackingOwner = mob.target?.uuid == owner
+            return mobIsAttackingOwner
         }
 
         targetSelector.removeAllGoals()
@@ -119,7 +117,7 @@ class SupportSlime(
                 this,
                 Mob::class.java,
                 true
-            ) { livingEntity -> shouldAttack(livingEntity) }
+            ) { livingEntity -> shouldSlimeAttackEntity(livingEntity) }
         )
 
     }
