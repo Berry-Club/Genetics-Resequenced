@@ -17,16 +17,16 @@ import thedarkcolour.kotlinforforge.forge.vectorutil.component3
 class AntiFieldBlock : Block(Properties.of(Material.METAL)) {
 
     init {
-        registerDefaultState(stateDefinition.any().setValue(ENABLED, false))
+        registerDefaultState(stateDefinition.any().setValue(DISABLED, false))
     }
 
     override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
-        return defaultBlockState().setValue(ENABLED, false)
+        return defaultBlockState().setValue(DISABLED, false)
     }
 
     override fun createBlockStateDefinition(pBuilder: StateDefinition.Builder<Block, BlockState>) {
         super.createBlockStateDefinition(pBuilder)
-        pBuilder.add(ENABLED)
+        pBuilder.add(DISABLED)
     }
 
     @Suppress("OVERRIDE_DEPRECATION")
@@ -40,22 +40,26 @@ class AntiFieldBlock : Block(Properties.of(Material.METAL)) {
     ) {
         val isPowered = pLevel.hasNeighborSignal(pPos)
 
-        if (pState.getValue(ENABLED) != isPowered) {
-            pLevel.setBlock(pPos, pState.setValue(ENABLED, isPowered), 2)
+        if (pState.getValue(DISABLED) != isPowered) {
+            pLevel.setBlock(pPos, pState.setValue(DISABLED, isPowered), 2)
         }
 
     }
 
     companion object {
-        val ENABLED: BooleanProperty = BlockStateProperties.ENABLED
+        val DISABLED: BooleanProperty = BlockStateProperties.POWERED
 
+        /**
+         * TODO:
+         * @see BlockPos.findClosestMatch
+         */
         fun antifieldNear(level: Level, location: BlockPos): Boolean {
             val (x, y, z) = location
 
             val searchRange = -5..5
             for (dX in searchRange) for (dY in searchRange) for (dZ in searchRange) {
                 val blockState = level.getBlockState(BlockPos(x + dX, y + dY, z + dZ))
-                if (blockState.block == ModBlocks.ANTIFIELD_BLOCK && blockState.getValue(ENABLED)) {
+                if (blockState.block == ModBlocks.ANTIFIELD_BLOCK && !blockState.getValue(DISABLED)) {
                     return true
                 }
             }

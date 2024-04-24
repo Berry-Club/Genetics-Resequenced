@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "powered=true": {
+      "model": "geneticsresequenced:block/antifield_block_inactive"
+    },
+    "powered=false": {
+      "model": "geneticsresequenced:block/antifield_block_active"
+    }
+  }
+}
