@@ -237,6 +237,7 @@ object ClickGenes {
     fun woolyItem(event: PlayerInteractEvent.RightClickItem) {
         val player = event.entity
 
+        if (!player.isCrouching) return
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
 
