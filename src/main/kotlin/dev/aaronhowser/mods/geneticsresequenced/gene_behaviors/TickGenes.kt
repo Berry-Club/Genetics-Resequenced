@@ -252,7 +252,7 @@ object TickGenes {
 
         for (itemEntity in nearbyItems) {
             if (itemEntity.item.count <= 0) continue
-            if (itemEntity.item.`is`(ModTags.MAGNET_BLACKLIST)) continue
+            if (itemEntity.item.`is`(ModTags.MAGNET_ITEM_BLACKLIST)) continue
 
             val pickupEvent = EntityItemPickupEvent(player, itemEntity)
             MinecraftForge.EVENT_BUS.post(pickupEvent)

@@ -28,7 +28,7 @@ object ScraperItem : Item(
         if (pInteractionTarget.hurtTime > 0) return InteractionResult.FAIL
         if (pPlayer.cooldowns.isOnCooldown(this)) return InteractionResult.FAIL
 
-        if (pInteractionTarget.type.`is`(ModTags.SCRAPER_BLACKLIST)) {
+        if (pInteractionTarget.type.`is`(ModTags.SCRAPER_ENTITY_BLACKLIST)) {
             if (pPlayer.level.isClientSide) return InteractionResult.FAIL
             val component = Component.literal("This mob cannot be scraped.")
             pPlayer.sendSystemMessage(component)

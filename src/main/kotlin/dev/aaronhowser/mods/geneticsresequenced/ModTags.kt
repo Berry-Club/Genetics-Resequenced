@@ -8,16 +8,16 @@ import net.minecraft.world.item.Item
 
 object ModTags {
 
-    val WOOLY_TAG: TagKey<Item> =
+    val WOOLY_ITEM_TAG: TagKey<Item> =
         TagKey.create(Registry.ITEM_REGISTRY, ResourceLocation(GeneticsResequenced.ID, "wooly"))
 
-    val FIREBALL_TAG: TagKey<Item> =
+    val FIREBALL_ITEM_TAG: TagKey<Item> =
         TagKey.create(Registry.ITEM_REGISTRY, ResourceLocation(GeneticsResequenced.ID, "fireball"))
 
-    val MAGNET_BLACKLIST: TagKey<Item> =
+    val MAGNET_ITEM_BLACKLIST: TagKey<Item> =
         TagKey.create(Registry.ITEM_REGISTRY, ResourceLocation(GeneticsResequenced.ID, "magnet_blacklist"))
 
-    val SCRAPER_BLACKLIST: TagKey<EntityType<*>> =
+    val SCRAPER_ENTITY_BLACKLIST: TagKey<EntityType<*>> =
         TagKey.create(Registry.ENTITY_TYPE_REGISTRY, ResourceLocation(GeneticsResequenced.ID, "scraper_blacklist"))
 
 }
