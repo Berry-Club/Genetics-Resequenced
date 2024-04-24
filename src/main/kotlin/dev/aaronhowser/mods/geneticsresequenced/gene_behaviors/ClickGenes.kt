@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
-import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.Options
 import net.minecraft.network.chat.Component
@@ -55,7 +54,7 @@ object ClickGenes {
         val genes = target.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.WOOLY)) return
 
-        val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_TAG)
+        val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
 
         val newlySheared = OtherUtil.tryAddToCooldown(
@@ -107,7 +106,7 @@ object ClickGenes {
         val genes = target.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.MEATY)) return
 
-        val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_TAG)
+        val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
 
         val newlyMeated = OtherUtil.tryAddToCooldown(
@@ -235,13 +234,59 @@ object ClickGenes {
         )
     }
 
+    fun woolyItem(event: PlayerInteractEvent.RightClickItem) {
+        val player = event.entity
+
+        val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
+        if (!clickedWithShears) return
+
+        val genes = player.getGenes() ?: return
+        if (!genes.hasGene(DefaultGenes.WOOLY)) return
+
+        val newlySheared = OtherUtil.tryAddToCooldown(
+            recentlySheered,
+            player,
+            DefaultGenes.WOOLY,
+            ServerConfig.woolyCooldown.get()
+        )
+
+        if (!newlySheared) return
+
+        val woolItemStack = ItemStack(Blocks.WHITE_WOOL)
+
+        val woolEntity = ItemEntity(
+            event.level,
+            player.eyePosition.x,
+            player.eyePosition.y,
+            player.eyePosition.z,
+            woolItemStack
+        )
+        event.level.addFreshEntity(woolEntity)
+        woolEntity.setDeltaMovement(
+            Random.nextDouble(-0.05, 0.05),
+            Random.nextDouble(0.05, 0.1),
+            Random.nextDouble(-0.05, 0.05)
+        )
+
+        event.itemStack.hurtAndBreak(1, player) { }
+
+        event.level.playSound(
+            null,
+            player,
+            SoundEvents.SHEEP_SHEAR,
+            SoundSource.PLAYERS,
+            1.0f,
+            1.0f
+        )
+    }
+
     fun shootFireball(event: PlayerInteractEvent.RightClickItem) {
         val player = event.entity
         val genes = player.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.SHOOT_FIREBALLS)) return
 
         if (!player.isCrouching) return
-        if (!event.itemStack.`is`(ModTags.FIREBALL_TAG)) return
+        if (!event.itemStack.`is`(ModTags.FIREBALL_ITEM_TAG)) return
 
         val lookVec = player.lookAngle
 
