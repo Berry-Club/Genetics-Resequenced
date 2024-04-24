@@ -18,7 +18,6 @@ import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal
 import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.entity.monster.Slime
-import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import java.util.*
 
@@ -129,8 +128,6 @@ class SupportSlime(
     override fun push(pEntity: Entity) {
         if (pEntity.uuid != getOwnerUuid()) super.push(pEntity)
     }
-
-    override fun playerTouch(pEntity: Player) {}
 
     override fun isDealsDamage(): Boolean = isEffectiveAi
 
