@@ -10,8 +10,23 @@ class SupportSlimeAttackGoal(
     private val mob: SupportSlime
 ) : Goal() {
     private var ticksUntilNextAttack = 0
+    private var lastCanUseCheck: Long = 0
 
-    override fun canUse(): Boolean = true
+    override fun canUse(): Boolean {
+        val currentTime = mob.level.gameTime
+        if (currentTime - lastCanUseCheck < 20) {
+            return false
+        }
+        lastCanUseCheck = currentTime
+
+        val target = mob.target
+        if (target == null || !target.isAlive) {
+            return false
+        }
+
+        val distanceToSqr = mob.distanceToSqr(target)
+        return getAttackReachSqr(target) >= distanceToSqr
+    }
 
     override fun start() {
         val target = mob.target as? Entity ?: return
