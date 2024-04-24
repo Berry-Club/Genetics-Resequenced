@@ -8,7 +8,7 @@ object ServerConfig {
 
     lateinit var keepGenesOnDeath: ForgeConfigSpec.BooleanValue
     lateinit var showEffectIcons: ForgeConfigSpec.BooleanValue
-
+    lateinit var minimumCooldownForNotification: ForgeConfigSpec.IntValue
 
     lateinit var bioluminescenceCooldown: ForgeConfigSpec.IntValue
     lateinit var bioluminescenceDuration: ForgeConfigSpec.IntValue
@@ -60,6 +60,10 @@ object ServerConfig {
         showEffectIcons = BUILDER
             .comment("Show the icons for effects granted by genes")
             .define("showEffectIcons", true)
+
+        minimumCooldownForNotification = BUILDER
+            .comment("When a cooldown ends, it notifies the player, unless the cooldown is shorter than this value (in ticks)")
+            .defineInRange("minimumCooldownForNotification", 20 * 60, 1, Int.MAX_VALUE)
 
         BUILDER.pop()
     }

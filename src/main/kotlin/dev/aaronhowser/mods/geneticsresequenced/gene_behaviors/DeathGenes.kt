@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.item.ItemEntity
@@ -15,7 +16,6 @@ import net.minecraft.world.level.Explosion
 import net.minecraft.world.level.GameRules
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import java.util.*
-import javax.swing.text.AbstractDocument.DefaultDocumentEvent
 import kotlin.random.Random
 
 object DeathGenes {
@@ -76,6 +76,10 @@ object DeathGenes {
 
         ModScheduler.scheduleTaskInTicks(ServerConfig.emeraldHeartCooldown.get()) {
             emeraldHeartCooldown.remove(entityUuid)
+
+            if (ServerConfig.emeraldHeartCooldown.get() > ServerConfig.minimumCooldownForNotification.get()) {
+                OtherUtil.tellCooldownEnded(entity, DefaultGenes.EMERALD_HEART)
+            }
         }
     }
 

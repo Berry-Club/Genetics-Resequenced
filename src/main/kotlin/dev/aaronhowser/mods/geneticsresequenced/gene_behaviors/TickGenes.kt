@@ -1,13 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene_behaviors
 
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.AntiFieldOrbItem
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.ExperienceOrb
@@ -143,6 +144,10 @@ object TickGenes {
         if (!isAbleToMeat) return
         ModScheduler.scheduleTaskInTicks(ServerConfig.meaty2Cooldown.get()) {
             recentlyMeated.remove(entity)
+
+            if (ServerConfig.meaty2Cooldown.get() > ServerConfig.minimumCooldownForNotification.get()) {
+                OtherUtil.tellCooldownEnded(entity, DefaultGenes.MEATY_2)
+            }
         }
 
         val luck = entity.activeEffects.find { it.effect == MobEffects.LUCK }?.amplifier ?: 0

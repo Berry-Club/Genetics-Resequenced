@@ -1,11 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene_behaviors
 
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.projectile.DragonFireball
@@ -30,6 +32,13 @@ object PacketGenes {
         recentTeleports.add(player.uuid)
         ModScheduler.scheduleTaskInTicks(ServerConfig.teleportCooldown.get()) {
             recentTeleports.remove(player.uuid)
+
+
+            val message = Component.empty()
+                .append(DefaultGenes.TELEPORT.nameComponent)
+                .append(Component.translatable("cooldown.geneticsresequenced.ended"))
+
+            player.sendSystemMessage(message)
         }
 
         val lookDirection = player.lookAngle.normalize().scale(ServerConfig.teleportDistance.get())
@@ -79,6 +88,10 @@ object PacketGenes {
         recentFireballs.add(player.uuid)
         ModScheduler.scheduleTaskInTicks(ServerConfig.dragonsBreathCooldown.get()) {
             recentFireballs.remove(player.uuid)
+
+            if (ServerConfig.dragonsBreathCooldown.get() > ServerConfig.minimumCooldownForNotification.get()) {
+                OtherUtil.tellCooldownEnded(player, DefaultGenes.DRAGONS_BREATH)
+            }
         }
 
         val entityDragonFireball = DragonFireball(

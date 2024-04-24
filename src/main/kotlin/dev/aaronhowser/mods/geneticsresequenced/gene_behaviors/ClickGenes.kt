@@ -1,15 +1,17 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene_behaviors
 
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.Options
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionResultHolder
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.animal.Cow
 import net.minecraft.world.entity.animal.MushroomCow
 import net.minecraft.world.entity.animal.Sheep
@@ -42,33 +44,41 @@ object ClickGenes {
      * See [Options.toggleModelPart], but it's client only which means this will need a packet
      */
     fun wooly(event: PlayerInteractEvent.EntityInteract) {
-        when (event.target) {
+
+        val target = event.target as? LivingEntity ?: return
+        val clicker = event.entity
+
+        when (target) {
             is Sheep, is MushroomCow -> return
         }
 
-        val genes = event.entity.getGenes() ?: return
+        val genes = target.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.WOOLY)) return
 
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_TAG)
         if (!clickedWithShears) return
 
-        if (recentlySheered.contains(event.target.uuid)) {
-            event.entity.sendSystemMessage(Component.literal("This entity has already been sheared recently!"))
+        if (recentlySheered.contains(target.uuid)) {
+            clicker.sendSystemMessage(Component.literal("This entity has already been sheared recently!"))
             return
         }
 
-        recentlySheered.add(event.target.uuid)
+        recentlySheered.add(target.uuid)
         ModScheduler.scheduleTaskInTicks(ServerConfig.woolyCooldown.get()) {
-            recentlySheered.remove(event.target.uuid)
+            recentlySheered.remove(target.uuid)
+
+            if (ServerConfig.woolyCooldown.get() > ServerConfig.minimumCooldownForNotification.get()) {
+                OtherUtil.tellCooldownEnded(target, DefaultGenes.WOOLY)
+            }
         }
 
         val woolItemStack = ItemStack(Blocks.WHITE_WOOL)
 
         val woolEntity = ItemEntity(
             event.level,
-            event.target.eyePosition.x,
-            event.target.eyePosition.y,
-            event.target.eyePosition.z,
+            target.eyePosition.x,
+            target.eyePosition.y,
+            target.eyePosition.z,
             woolItemStack
         )
         event.level.addFreshEntity(woolEntity)
@@ -78,13 +88,13 @@ object ClickGenes {
             Random.nextDouble(-0.05, 0.05)
         )
 
-        event.itemStack.hurtAndBreak(1, event.entity) { }
+        event.itemStack.hurtAndBreak(1, clicker) { }
 
         event.level.playSound(
             null,
-            event.target,
+            target,
             SoundEvents.SHEEP_SHEAR,
-            event.target.soundSource,
+            target.soundSource,
             1.0f,
             1.0f
         )
@@ -93,30 +103,35 @@ object ClickGenes {
     private val recentlyMeated = mutableSetOf<UUID>()
     fun meaty(event: PlayerInteractEvent.EntityInteract) {
 
-        val genes = event.entity.getGenes() ?: return
+        val target = event.target as? LivingEntity ?: return
+        val clicker = event.entity
+
+        val genes = target.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.MEATY)) return
 
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_TAG)
         if (!clickedWithShears) return
 
         if (recentlyMeated.contains(event.target.uuid)) {
-            event.entity.sendSystemMessage(Component.literal("This entity has already been meated recently!"))
+            clicker.sendSystemMessage(Component.literal("This entity has already been meated recently!"))
             return
         }
 
-        recentlyMeated.add(event.target.uuid)
+        recentlyMeated.add(target.uuid)
         ModScheduler.scheduleTaskInTicks(ServerConfig.meatyCooldown.get()) {
-            recentlyMeated.remove(event.target.uuid)
-        }
+            recentlyMeated.remove(target.uuid)
 
-        val porkItemStack = ItemStack(Items.PORKCHOP)
+            if (ServerConfig.meatyCooldown.get() > ServerConfig.minimumCooldownForNotification.get()) {
+                OtherUtil.tellCooldownEnded(target, DefaultGenes.MEATY)
+            }
+        }
 
         val porkEntity = ItemEntity(
             event.level,
-            event.target.eyePosition.x,
-            event.target.eyePosition.y,
-            event.target.eyePosition.z,
-            porkItemStack
+            target.eyePosition.x,
+            target.eyePosition.y,
+            target.eyePosition.z,
+            ItemStack(Items.PORKCHOP)
         )
         event.level.addFreshEntity(porkEntity)
         porkEntity.setDeltaMovement(
@@ -125,13 +140,13 @@ object ClickGenes {
             Random.nextDouble(-0.05, 0.05)
         )
 
-        event.itemStack.hurtAndBreak(1, event.entity) { }
+        event.itemStack.hurtAndBreak(1, clicker) { }
 
         event.level.playSound(
             null,
-            event.target,
+            target,
             SoundEvents.SHEEP_SHEAR,
-            event.target.soundSource,
+            target.soundSource,
             1.0f,
             1.0f
         )
@@ -140,30 +155,39 @@ object ClickGenes {
     private val recentlyMilked = mutableSetOf<UUID>()
     fun milky(event: PlayerInteractEvent.EntityInteract) {
 
-        when (event.target) {
+        val target = event.target as? LivingEntity ?: return
+        val clicker = event.entity
+
+        when (target) {
             is Cow, is Goat -> return
         }
 
-        val genes = event.entity.getGenes() ?: return
+        val genes = target.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.MILKY)) return
 
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
         if (!clickedWithBucket) return
 
-        if (recentlyMilked.contains(event.target.uuid)) {
-            event.entity.sendSystemMessage(Component.literal("This entity has already been milked recently!"))
+        if (recentlyMilked.contains(target.uuid)) {
+            clicker.sendSystemMessage(Component.literal("This entity has already been milked recently!"))
             return
         }
 
-        recentlyMilked.add(event.target.uuid)
+        target.sendSystemMessage(Component.literal("You have been milked!"))
+
+        recentlyMilked.add(target.uuid)
         ModScheduler.scheduleTaskInTicks(ServerConfig.milkyCooldown.get()) {
-            recentlyMilked.remove(event.target.uuid)
+            recentlyMilked.remove(target.uuid)
+
+            if (ServerConfig.milkyCooldown.get() > ServerConfig.minimumCooldownForNotification.get()) {
+                OtherUtil.tellCooldownEnded(target, DefaultGenes.MILKY)
+            }
         }
 
         event.itemStack.shrink(1)
-        event.entity.addItem(ItemStack(Items.MILK_BUCKET))
+        clicker.addItem(ItemStack(Items.MILK_BUCKET))
 
-        val sound = if (event.target is Player && Random.nextFloat() < 0.05f) {
+        val sound = if (target is Player && Random.nextFloat() < 0.05f) {
             SoundEvents.GOAT_SCREAMING_MILK
         } else {
             if (Random.nextBoolean()) SoundEvents.COW_MILK else SoundEvents.GOAT_MILK
@@ -171,9 +195,9 @@ object ClickGenes {
 
         event.level.playSound(
             null,
-            event.target,
+            target,
             sound,
-            event.target.soundSource,
+            target.soundSource,
             1.0f,
             1.0f
         )
@@ -182,19 +206,22 @@ object ClickGenes {
     fun milkyItem(event: PlayerInteractEvent.RightClickItem) {
         val player = event.entity
 
-        val genes = player.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.MILKY)) return
-
         if (!player.isCrouching) return
-
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
         if (!clickedWithBucket) return
+
+        val genes = player.getGenes() ?: return
+        if (!genes.hasGene(DefaultGenes.MILKY)) return
 
         if (recentlyMilked.contains(player.uuid)) return
 
         recentlyMilked.add(player.uuid)
-        ModScheduler.scheduleTaskInTicks(20 * 60 * 5) {
+        ModScheduler.scheduleTaskInTicks(ServerConfig.milkyCooldown.get()) {
             recentlyMilked.remove(player.uuid)
+
+            if (ServerConfig.milkyCooldown.get() > ServerConfig.minimumCooldownForNotification.get()) {
+                OtherUtil.tellCooldownEnded(player, DefaultGenes.MILKY)
+            }
         }
 
         event.itemStack.shrink(1)
@@ -258,7 +285,6 @@ object ClickGenes {
         val genes = event.entity.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.EAT_GRASS)) return
 
-
         val isHungry = player.foodData.foodLevel < 20
         if (!isHungry) return
 
@@ -269,8 +295,6 @@ object ClickGenes {
             Blocks.WARPED_NYLIUM, Blocks.CRIMSON_NYLIUM -> Blocks.NETHERRACK
             else -> return
         }
-
-        recentlySheered.remove(player.uuid)
 
         event.level.setBlockAndUpdate(event.pos, blockAfter.defaultBlockState())
         player.foodData.eat(1, 0.1f)
