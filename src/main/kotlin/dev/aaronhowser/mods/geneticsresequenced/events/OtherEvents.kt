@@ -21,6 +21,6 @@ object OtherEvents {
 
     @SubscribeEvent
     fun onServerTick(event: ServerTickEvent) {
-        if (event.phase == TickEvent.Phase.END) ModScheduler.tick++
+        if (event.phase == TickEvent.Phase.END) ModScheduler.currentTick++
     }
 }
