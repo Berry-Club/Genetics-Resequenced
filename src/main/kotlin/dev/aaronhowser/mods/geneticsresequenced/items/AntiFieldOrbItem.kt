@@ -10,7 +10,6 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
-//TODO: Add a block that does the same
 object AntiFieldOrbItem : Item(
     Properties()
         .tab(ModItems.MOD_TAB)
