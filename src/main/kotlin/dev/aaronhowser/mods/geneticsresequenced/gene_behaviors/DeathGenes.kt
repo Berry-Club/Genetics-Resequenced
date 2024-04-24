@@ -15,6 +15,7 @@ import net.minecraft.world.level.Explosion
 import net.minecraft.world.level.GameRules
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import java.util.*
+import javax.swing.text.AbstractDocument.DefaultDocumentEvent
 import kotlin.random.Random
 
 object DeathGenes {
@@ -158,6 +159,12 @@ object DeathGenes {
         slimyDeathCooldown.add(uuid)
         ModScheduler.scheduleTaskInTicks(ServerConfig.slimyDeathCooldown.get()) {
             slimyDeathCooldown.remove(uuid)
+
+            val message = Component.empty()
+                .append(DefaultGenes.SLIMY_DEATH.nameComponent)
+                .append(Component.translatable("cooldown.geneticsresequenced.ended"))
+
+            entity.sendSystemMessage(message)
         }
 
     }
