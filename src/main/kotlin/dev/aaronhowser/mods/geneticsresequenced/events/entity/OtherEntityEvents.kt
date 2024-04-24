@@ -42,6 +42,11 @@ object OtherEntityEvents {
     }
 
     @SubscribeEvent
+    fun onLivingDeath(event: LivingDeathEvent) {
+        DamageGenes.handleSlimyDeath(event)
+    }
+
+    @SubscribeEvent
     fun onAttack(event: LivingAttackEvent) {
         DamageGenes.handleWitherHit(event)
     }

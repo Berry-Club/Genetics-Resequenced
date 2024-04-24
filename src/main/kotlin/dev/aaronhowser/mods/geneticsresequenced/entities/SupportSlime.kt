@@ -28,6 +28,13 @@ class SupportSlime(
     pLevel: Level
 ) : Slime(pEntityType, pLevel) {
 
+    constructor(
+        level: Level,
+        ownerUuid: UUID
+    ) : this(ModEntityTypes.SUPPORT_SLIME.get(), level) {
+        setOwner(ownerUuid)
+    }
+
     companion object {
         fun setAttributes(): AttributeSupplier {
             return Monster.createMobAttributes()
@@ -54,6 +61,12 @@ class SupportSlime(
             return super.onAddedToWorld()
         }
 
+        if (getOwnerUuid() == null) setOwnerIfNotSet()
+
+        super.onAddedToWorld()
+    }
+
+    private fun setOwnerIfNotSet() {
         val nearbyLivingEntities: List<LivingEntity> = level.getEntitiesOfClass(
             LivingEntity::class.java,
             boundingBox.inflate(16.0)
@@ -71,8 +84,6 @@ class SupportSlime(
             this.remove(RemovalReason.DISCARDED)
             GeneticsResequenced.LOGGER.warn("Friendly Slime spawned without an owner!")
         }
-
-        super.onAddedToWorld()
     }
 
     private fun setOwner(ownerUuid: UUID) {
