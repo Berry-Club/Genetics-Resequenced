@@ -12,6 +12,7 @@ import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.Container
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.Recipe
@@ -34,7 +35,7 @@ class MobToGeneRecipe(
 
         fun getAllRecipes(): List<MobToGeneRecipe> {
 
-            val allEntityTypes = ForgeRegistries.ENTITY_TYPES.values
+            val allEntityTypes = ForgeRegistries.ENTITY_TYPES.values.filter { it.category != MobCategory.MISC }
             val recipes = mutableListOf<MobToGeneRecipe>()
 
             for (entityType in allEntityTypes) {
