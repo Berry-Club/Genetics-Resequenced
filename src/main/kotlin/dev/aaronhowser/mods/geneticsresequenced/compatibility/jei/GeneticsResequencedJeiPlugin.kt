@@ -21,7 +21,9 @@ import mezz.jei.api.registration.IRecipeRegistration
 import mezz.jei.api.registration.ISubtypeRegistration
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.item.ItemStack
+import net.minecraftforge.registries.ForgeRegistries
 
 @JeiPlugin
 class GeneticsResequencedJeiPlugin : IModPlugin {
@@ -74,10 +76,29 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
         registration.addRecipes(DnaExtractorRecipeCategory.recipeType, DnaExtractorRecipe.getAllRecipes())
         registration.addRecipes(PlasmidInfuserRecipeCategory.recipeType, PlasmidInfuserRecipe.getAllRecipes())
 
-        mobGeneRecipes(registration)
+        mobGeneInformationRecipes(registration)
+        organicMatterInformationRecipes(registration)
     }
 
-    private fun mobGeneRecipes(registration: IRecipeRegistration) {
+    private fun organicMatterInformationRecipes(registration: IRecipeRegistration) {
+        val allEntityTypes = ForgeRegistries.ENTITY_TYPES.values.filter { it.category != MobCategory.MISC }
+        for (entityType in allEntityTypes) {
+            val informationTextComponent = Component
+                .translatable("info.geneticsresequenced.organic_matter", entityType.description)
+
+            val organicMatterStack = ItemStack(ModItems.ORGANIC_MATTER).setMob(entityType)
+                ?: throw IllegalStateException("Failed to create ItemStack for Organic Matter")
+
+            registration.addIngredientInfo(
+                organicMatterStack,
+                VanillaTypes.ITEM_STACK,
+                informationTextComponent
+            )
+        }
+
+    }
+
+    private fun mobGeneInformationRecipes(registration: IRecipeRegistration) {
         val allMobGenePairs = MobGenesRegistry.getRegistry().entries
         for ((entityType, genes) in allMobGenePairs) {
             val informationTextComponent =
