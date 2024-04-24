@@ -1,8 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene_behaviors
 
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.LivingEntity
@@ -14,6 +15,7 @@ import net.minecraft.world.level.Explosion
 import net.minecraft.world.level.GameRules
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import java.util.*
+import kotlin.random.Random
 
 object DeathGenes {
 
@@ -22,7 +24,6 @@ object DeathGenes {
     // TODO: Test with grave mods
     // TODO: Probably voids items if the server ends between death and respawn. Maybe drop items in the world if that happens?
     fun handleKeepInventory(player: LivingEntity) {
-
         if (player !is Player) return
 
         if (player.level.gameRules.getBoolean(GameRules.RULE_KEEPINVENTORY)) return
@@ -50,9 +51,7 @@ object DeathGenes {
         }
     }
 
-    // UUID because that's persistent across deaths and idk if Player is
     private val emeraldHeartCooldown = mutableSetOf<UUID>()
-
     fun handleEmeraldHeart(event: LivingDeathEvent) {
 
         val entity = event.entity
@@ -122,6 +121,43 @@ object DeathGenes {
 
                 if (amountGunpowderRemoved >= GUNPOWDER_REQUIRED) break
             }
+        }
+
+    }
+
+    private val slimyDeathCooldown = mutableSetOf<UUID>()
+    fun handleSlimyDeath(event: LivingDeathEvent) {
+        if (event.isCanceled) return
+
+        val entity: LivingEntity = event.entity
+        val uuid = entity.uuid
+
+        if (uuid in slimyDeathCooldown) return
+
+        val genes = entity.getGenes() ?: return
+        if (!genes.hasGene(DefaultGenes.SLIMY_DEATH)) return
+
+        val amount = Random.nextInt(1, 4)
+
+        repeat(amount) {
+            val supportSlime = SupportSlime(entity.level, entity.uuid)
+
+            val randomNearbyPosition = entity.position().add(
+                Random.nextDouble(-1.0, 1.0),
+                0.0,
+                Random.nextDouble(-1.0, 1.0)
+            )
+
+            supportSlime.moveTo(randomNearbyPosition.x, randomNearbyPosition.y, randomNearbyPosition.z)
+            entity.level.addFreshEntity(supportSlime)
+        }
+
+        event.isCanceled = true
+        entity.health = entity.maxHealth * ServerConfig.slimyDeathHealthMultiplier.get().toFloat()
+
+        slimyDeathCooldown.add(uuid)
+        ModScheduler.scheduleTaskInTicks(ServerConfig.slimyDeathCooldown.get()) {
+            slimyDeathCooldown.remove(uuid)
         }
 
     }

@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.gene_behaviors
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
-import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.items.DragonHealthCrystal
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.mob_effects.ModEffects
@@ -18,7 +17,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Items
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.living.LivingDamageEvent
-import net.minecraftforge.event.entity.living.LivingDeathEvent
 import kotlin.random.Random
 
 object DamageGenes {
@@ -159,37 +157,6 @@ object DamageGenes {
 
         event.amount -= amountToBlock
         if (event.amount == 0f) event.isCanceled = true
-    }
-
-    fun handleSlimyDeath(event: LivingDeathEvent) {
-        if (event.isCanceled) return
-
-        val entity: LivingEntity = event.entity
-
-        val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.SLIMY_DEATH)) return
-
-        val amount = Random.nextInt(1, 4)
-
-        repeat(amount) {
-            val supportSlime = SupportSlime(entity.level, entity.uuid)
-
-            val randomNearbyPosition = entity.position().add(
-                Random.nextDouble(-1.0, 1.0),
-                0.0,
-                Random.nextDouble(-1.0, 1.0)
-            )
-
-            supportSlime.moveTo(randomNearbyPosition.x, randomNearbyPosition.y, randomNearbyPosition.z)
-            entity.level.addFreshEntity(supportSlime)
-        }
-
-        event.isCanceled = true
-        if (entity.level.isClientSide) {
-            println("client")
-        } else {
-            println("server")
-        }
     }
 
 }

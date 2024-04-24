@@ -30,6 +30,8 @@ object ServerConfig {
     lateinit var photosynthesisCooldown: ForgeConfigSpec.IntValue
     lateinit var photoSynthesisHungerAmount: ForgeConfigSpec.IntValue
     lateinit var photoSynthesisSaturationAmount: ForgeConfigSpec.DoubleValue
+    lateinit var slimyDeathCooldown: ForgeConfigSpec.IntValue
+    lateinit var slimyDeathHealthMultiplier: ForgeConfigSpec.DoubleValue
     lateinit var teleportCooldown: ForgeConfigSpec.IntValue
     lateinit var teleportDistance: ForgeConfigSpec.DoubleValue
     lateinit var thornsChance: ForgeConfigSpec.DoubleValue
@@ -136,6 +138,13 @@ object ServerConfig {
         photoSynthesisSaturationAmount = BUILDER
             .comment("How much saturation to regain when the Photosynthesis gene procs")
             .defineInRange("photoSynthesisSaturationAmount", 0.5, 0.0, Double.MAX_VALUE)
+
+        slimyDeathCooldown = BUILDER
+            .comment("How many ticks to wait before someone with the Slimy Death gene can spawn slimes again")
+            .defineInRange("slimyDeathCooldown", 20 * 60 * 10, 1, Int.MAX_VALUE)
+        slimyDeathHealthMultiplier = BUILDER
+            .comment("How much health should entities who survive via Slimy Death regain upon death, as a percentage of their max health")
+            .defineInRange("slimyDeathHealthMultiplier", 0.5, 0.0, 1.0)
 
         teleportCooldown = BUILDER
             .comment("How many ticks to wait before someone with the Teleport gene can teleport again")
