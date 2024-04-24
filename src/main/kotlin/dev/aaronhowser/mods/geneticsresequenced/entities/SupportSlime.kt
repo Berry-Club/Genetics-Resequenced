@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabi
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.entities.goals.SupportSlimeAttackGoal
+import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
@@ -78,22 +79,61 @@ class SupportSlime(
         entityData.set(OWNER, Optional.of(ownerUuid))
     }
 
-    private var ticksWithoutTarget = 0
-
     override fun tick() {
         super.tick()
+        checkIfShouldDespawn()
+    }
 
-        if (getOwnerUuid() == null) {
-            this.remove(RemovalReason.DISCARDED)
+    private var ticksWithoutTarget = 0
+    private var despawnAnimationPlaying = false
+
+    private fun checkIfShouldDespawn() {
+        if (despawnAnimationPlaying) return
+
+        val nearbyEntities = level.getEntities(
+            this,
+            boundingBox.inflate(16.0)
+        )
+
+        var areThereNearbyHostiles = false
+        var isOwnerNearby = false
+
+        for (entity in nearbyEntities) {
+            if (areThereNearbyHostiles && isOwnerNearby) break
+
+            if (entity.uuid == getOwnerUuid()) {
+                isOwnerNearby = true
+            }
+
+            if (entity is Mob && entity.target?.uuid == getOwnerUuid()) {
+                areThereNearbyHostiles = true
+            }
         }
 
-        if (target == null) {
-            ticksWithoutTarget++
-            if (ticksWithoutTarget > 20 * 30) {
-                this.remove(RemovalReason.DISCARDED)
-            }
-        } else {
+        if (!isOwnerNearby) {
+            despawn()
+        }
+
+        if (areThereNearbyHostiles) {
             ticksWithoutTarget = 0
+        } else {
+            ticksWithoutTarget++
+            if (ticksWithoutTarget > 20 * 10) {
+                despawn()
+            }
+        }
+    }
+
+    private fun despawn() {
+        despawnAnimationPlaying = true
+
+        if (size <= 1) {
+            this.remove(RemovalReason.DISCARDED)
+            return
+        }
+        setSize(size - 1, true)
+        ModScheduler.scheduleTaskInTicks(30) {
+            despawn()
         }
     }
 
@@ -139,9 +179,6 @@ class SupportSlime(
         val mob: Mob = livingEntity as? Mob ?: return false
 
         val mobIsAttackingOwner = mob.target?.uuid == owner
-        if (mobIsAttackingOwner) {
-            target = mob
-        }
         return mobIsAttackingOwner
     }
 
