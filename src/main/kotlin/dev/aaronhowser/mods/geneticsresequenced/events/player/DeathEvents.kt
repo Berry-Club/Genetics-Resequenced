@@ -39,12 +39,9 @@ object DeathEvents {
     @SubscribeEvent(
         priority = EventPriority.HIGHEST    //So that graves etc don't dupe contents if you have the save inventory gene
     )
-    fun onPlayerDeath(event: LivingDeathEvent) {
-        val entity = event.entity
-
-        DeathGenes.handleEmeraldHeart(event)
-        DeathGenes.handleExplosiveExit(event)
-        DeathGenes.handleKeepInventory(entity)  // must be last
+    fun keepInventory(event: LivingDeathEvent) {
+        if (event.isCanceled) return
+        DeathGenes.handleKeepInventory(event.entity)
     }
 
     @SubscribeEvent

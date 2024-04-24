@@ -44,7 +44,6 @@ object OtherPlayerEvents {
         ClickGenes.handleInfinityEnd(event)
     }
 
-
     fun genesChanged(entity: LivingEntity, changedGene: Gene, wasAdded: Boolean) {
 
         if (entity is Player) {

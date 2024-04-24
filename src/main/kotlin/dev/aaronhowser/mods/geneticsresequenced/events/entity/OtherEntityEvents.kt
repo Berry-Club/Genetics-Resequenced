@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.CapabilityHandler
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene_behaviors.DamageGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene_behaviors.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene_behaviors.TickGenes
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
@@ -43,7 +44,11 @@ object OtherEntityEvents {
 
     @SubscribeEvent
     fun onLivingDeath(event: LivingDeathEvent) {
-        DamageGenes.handleSlimyDeath(event)
+
+        DeathGenes.handleEmeraldHeart(event)
+        DeathGenes.handleExplosiveExit(event)
+        DeathGenes.handleSlimyDeath(event)
+        DeathGenes.handleKeepInventory(event.entity)  // must be last
     }
 
     @SubscribeEvent
