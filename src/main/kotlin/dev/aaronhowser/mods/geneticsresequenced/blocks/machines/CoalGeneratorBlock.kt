@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.blocks
+package dev.aaronhowser.mods.geneticsresequenced.blocks.machines
 
 import dev.aaronhowser.mods.geneticsresequenced.block_entities.CoalGeneratorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_entities.ModBlockEntities

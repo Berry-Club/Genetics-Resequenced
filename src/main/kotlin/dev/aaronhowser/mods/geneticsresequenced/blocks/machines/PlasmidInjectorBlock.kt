@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.blocks
+package dev.aaronhowser.mods.geneticsresequenced.blocks.machines
 
 import net.minecraft.core.Direction
 import net.minecraft.world.item.context.BlockPlaceContext

@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.blocks
+package dev.aaronhowser.mods.geneticsresequenced.blocks.machines
 
 import net.minecraft.core.Direction
 import net.minecraft.world.item.context.BlockPlaceContext
@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.material.Material
 
-object AirDispersalBlock : HorizontalDirectionalBlock(Properties.of(Material.METAL)) {
+object CloningMachineBlock : HorizontalDirectionalBlock(Properties.of(Material.METAL)) {
 
     init {
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))
