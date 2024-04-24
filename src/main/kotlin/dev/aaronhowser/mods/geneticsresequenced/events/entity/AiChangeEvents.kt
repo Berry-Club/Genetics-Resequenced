@@ -14,7 +14,6 @@ object AiChangeEvents {
 
     @SubscribeEvent
     fun onEntitySpawn(event: EntityJoinLevelEvent) {
-        if (event.level.isClientSide) return
         val entity = event.entity
 
         if (entity is Monster) {

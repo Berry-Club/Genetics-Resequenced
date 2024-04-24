@@ -13,8 +13,6 @@ object ClickEntityEvents {
 
     @SubscribeEvent
     fun onInteractEntity(event: PlayerInteractEvent.EntityInteract) {
-        if (event.side.isClient) return
-
         ClickGenes.wooly(event)
         ClickGenes.milky(event)
         ClickGenes.meaty(event)

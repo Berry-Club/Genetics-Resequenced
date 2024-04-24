@@ -10,6 +10,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.living.LivingDamageEvent
+import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
@@ -30,8 +31,6 @@ object OtherEntityEvents {
 
     @SubscribeEvent
     fun onLivingDamage(event: LivingDamageEvent) {
-        if (event.entity.level.isClientSide) return
-
         DamageGenes.handleNoFallDamage(event)
         DamageGenes.handleWitherProof(event)
         DamageGenes.handleFireProof(event)
@@ -44,16 +43,12 @@ object OtherEntityEvents {
 
     @SubscribeEvent
     fun onAttack(event: LivingAttackEvent) {
-        if (event.entity.level.isClientSide) return
-
         DamageGenes.handleWitherHit(event)
     }
 
     @SubscribeEvent
     fun onLivingTick(event: LivingTickEvent) {
         val entity = event.entity
-
-        if (entity.level.isClientSide) return
 
         TickGenes.handleBioluminescence(entity)
         TickGenes.handlePhotosynthesis(entity)

@@ -11,12 +11,10 @@ import net.minecraftforge.fml.common.Mod
 @Mod.EventBusSubscriber(
     modid = GeneticsResequenced.ID
 )
-object ClickItemEvents {
+object  ClickItemEvents {
 
     @SubscribeEvent
     fun onUseItem(event: PlayerInteractEvent.RightClickItem) {
-        if (event.side.isClient) return
-
         ClickGenes.milkyItem(event)
         ClickGenes.shootFireball(event)
     }

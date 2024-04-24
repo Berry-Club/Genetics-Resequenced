@@ -21,8 +21,6 @@ object DeathEvents {
 
     @SubscribeEvent
     fun onPlayerCloned(event: PlayerEvent.Clone) {
-        if (event.original.level.isClientSide) return
-
         if (event.isWasDeath) {
             event.original.apply {
                 reviveCaps()
@@ -42,9 +40,7 @@ object DeathEvents {
         priority = EventPriority.HIGHEST    //So that graves etc don't dupe contents if you have the save inventory gene
     )
     fun onPlayerDeath(event: LivingDeathEvent) {
-
         val entity = event.entity
-        if (entity.level.isClientSide) return
 
         DeathGenes.handleEmeraldHeart(event)
         DeathGenes.handleExplosiveExit(event)
@@ -53,8 +49,6 @@ object DeathEvents {
 
     @SubscribeEvent
     fun onPlayerRespawn(event: PlayerEvent.PlayerRespawnEvent) {
-        if (event.entity.level.isClientSide) return
-
         handleKeepGenesOnDeath(event)
         DeathGenes.handleKeepInventory(event.entity)
     }

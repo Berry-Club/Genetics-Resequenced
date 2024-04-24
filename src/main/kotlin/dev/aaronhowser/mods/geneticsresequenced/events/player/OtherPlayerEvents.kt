@@ -23,8 +23,6 @@ object OtherPlayerEvents {
 
     @SubscribeEvent
     fun onInteractWithBlock(event: PlayerInteractEvent.RightClickBlock) {
-        if (event.side.isClient) return
-
         ClickGenes.eatGrass(event)
     }
 
