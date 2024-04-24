@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks
 
+import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import net.minecraft.core.BlockPos
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.Level
@@ -9,9 +10,7 @@ import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.level.material.Material
-import thedarkcolour.kotlinforforge.forge.vectorutil.component1
-import thedarkcolour.kotlinforforge.forge.vectorutil.component2
-import thedarkcolour.kotlinforforge.forge.vectorutil.component3
+import java.util.*
 
 // Apparently blocks with special states need to be classes, not objects
 class AntiFieldBlock : Block(Properties.of(Material.METAL)) {
@@ -49,22 +48,16 @@ class AntiFieldBlock : Block(Properties.of(Material.METAL)) {
     companion object {
         val DISABLED: BooleanProperty = BlockStateProperties.POWERED
 
-        /**
-         * TODO:
-         * @see BlockPos.findClosestMatch
-         */
-        fun antifieldNear(level: Level, location: BlockPos): Boolean {
-            val (x, y, z) = location
-
-            val searchRange = -5..5
-            for (dX in searchRange) for (dY in searchRange) for (dZ in searchRange) {
-                val blockState = level.getBlockState(BlockPos(x + dX, y + dY, z + dZ))
-                if (blockState.block == ModBlocks.ANTIFIELD_BLOCK && !blockState.getValue(DISABLED)) {
-                    return true
-                }
+        fun getNearestAntifield(level: Level, location: BlockPos): Optional<BlockPos> {
+            val radius = ServerConfig.antifieldBlockRadius.get()
+            return BlockPos.findClosestMatch(location, radius, radius) { pos ->
+                val blockState = level.getBlockState(pos)
+                blockState.block == ModBlocks.ANTIFIELD_BLOCK && !blockState.getValue(DISABLED)
             }
+        }
 
-            return false
+        fun locationIsNearAntifield(level: Level, location: BlockPos): Boolean {
+            return getNearestAntifield(level, location).isPresent
         }
     }
 

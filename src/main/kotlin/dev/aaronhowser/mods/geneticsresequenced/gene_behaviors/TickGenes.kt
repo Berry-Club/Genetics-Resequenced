@@ -255,7 +255,7 @@ object TickGenes {
             if (itemEntity.item.count <= 0) continue
             if (itemEntity.item.`is`(ModTags.MAGNET_ITEM_BLACKLIST)) continue
 
-            if (AntiFieldBlock.antifieldNear(player.level, itemEntity.blockPosition())) continue
+            if (AntiFieldBlock.locationIsNearAntifield(player.level, itemEntity.blockPosition())) continue
 
             val pickupEvent = EntityItemPickupEvent(player, itemEntity)
             MinecraftForge.EVENT_BUS.post(pickupEvent)
@@ -281,7 +281,7 @@ object TickGenes {
         )
 
         for (xpOrb in nearbyXpOrbs) {
-            if (AntiFieldBlock.antifieldNear(player.level, xpOrb.blockPosition())) continue
+            if (AntiFieldBlock.locationIsNearAntifield(player.level, xpOrb.blockPosition())) continue
 
             val pickupEvent = PlayerXpEvent.PickupXp(player, xpOrb)
             MinecraftForge.EVENT_BUS.post(pickupEvent)
