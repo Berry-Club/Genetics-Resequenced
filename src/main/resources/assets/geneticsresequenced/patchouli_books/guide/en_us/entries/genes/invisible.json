@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Invisible$(0) Gene gives entities the $(minor)Invisible effect$(0).$(br2)$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)Invisible/$ Gene gives entities the $(minor)Invisible effect/$.$(br2)$(br2)This Gene $(minor)can be given to mobs/$."
     },
     {
       "type": "patchouli:text",

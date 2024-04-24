@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Milky$(0) Gene allows the entity to be $(minor)milked with a Bucket$(0). If a player has it, they can $(minor)milk themselves$(0) by sneak right-clicking with a Bucket.$(br2)This has a configurable cooldown, with the default being 1 tick.$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)Milky/$ Gene allows the entity to be $(minor)milked with a Bucket/$. If a player has it, they can $(minor)milk themselves/$ by sneak right-clicking with a Bucket.$(br2)This has a configurable cooldown, with the default being 1 tick.$(br2)This Gene $(minor)can be given to mobs/$."
     },
     {
       "type": "patchouli:text",

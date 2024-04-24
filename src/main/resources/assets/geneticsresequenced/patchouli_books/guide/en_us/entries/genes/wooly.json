@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Wooly$(0) Gene allows the entity to be $(minor)sheared for Wool$(0). If a player has it, they can $(minor)shear themselves$(0) by sneak right-clicking with Shears.$(br2)This has a configurable cooldown, with the default being 1 minute.$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)Wooly/$ Gene allows the entity to be $(minor)sheared for Wool/$. If a player has it, they can $(minor)shear themselves/$ by sneak right-clicking with Shears.$(br2)This has a configurable cooldown, with the default being 1 minute.$(br2)This Gene $(minor)can be given to mobs/$."
     },
     {
       "type": "patchouli:text",

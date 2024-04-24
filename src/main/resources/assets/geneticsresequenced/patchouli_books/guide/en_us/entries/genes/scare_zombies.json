@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Scare Zombies$(0) Gene makes it so that $(minor)Zombies will run away from you$(0).$(br2)This Gene $(bad)cannot be given to mobs$(0)."
+      "text": "The $(major)Scare Zombies/$ Gene makes it so that $(minor)Zombies will run away from you/$.$(br2)This Gene $(bad)cannot be given to mobs/$."
     }
   ]
 }

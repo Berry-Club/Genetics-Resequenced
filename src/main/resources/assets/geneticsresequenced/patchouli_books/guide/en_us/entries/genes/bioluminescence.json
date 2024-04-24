@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Bioluminescence$(0) Gene causes entities to $(minor)spawn light sources$(0) when in the dark.$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)Bioluminescence/$ Gene causes entities to $(minor)spawn light sources/$ when in the dark.$(br2)This Gene $(minor)can be given to mobs/$."
     },
     {
       "type": "patchouli:text",

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Keep Inventory$(0) Gene causes players to $(minor)keep their inventory upon death$(0).$(br2)This Gene $(bad)cannot be given to mobs$(0)."
+      "text": "The $(major)Keep Inventory/$ Gene causes players to $(minor)keep their inventory upon death/$.$(br2)This Gene $(bad)cannot be given to mobs/$."
     },
     {
       "type": "patchouli:text",

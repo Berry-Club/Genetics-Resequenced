@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Item Attraction Field$(0) Gene causes players to $(minor)grab items from a much larger distance$(0).$(br2)This Gene is disabled when the player has an active $(major)Anti Field Orb$(0), or when sneaking.$(br2)This Gene $(bad)cannot be given to mobs$(0)."
+      "text": "The $(major)Item Attraction Field/$ Gene causes players to $(minor)grab items from a much larger distance/$.$(br2)This Gene is disabled when the player has an active $(major)Anti Field Orb/$, or when sneaking.$(br2)This Gene $(bad)cannot be given to mobs/$."
     },
     {
       "type": "patchouli:text",

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Fire Proof$(0) Gene causes entities to become $(minor)completely immune to burning damage$(0).$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)Fire Proof/$ Gene causes entities to become $(minor)completely immune to burning damage/$.$(br2)This Gene $(minor)can be given to mobs/$."
     },
     {
       "type": "patchouli:text",

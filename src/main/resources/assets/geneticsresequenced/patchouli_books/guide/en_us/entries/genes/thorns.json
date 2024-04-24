@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Thorns$(0) Gene gives entities a chance to $(minor)damage melee attackers$(0). This uses up some hunger.$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)Thorns/$ Gene gives entities a chance to $(minor)damage melee attackers/$. This uses up some hunger.$(br2)This Gene $(minor)can be given to mobs/$."
     },
     {
       "type": "patchouli:text",

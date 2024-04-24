@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)No Fall Damage$(0) Gene $(minor)negates all fall damage$(0).$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)No Fall Damage/$ Gene $(minor)negates all fall damage/$.$(br2)This Gene $(minor)can be given to mobs/$."
     },
     {
       "type": "patchouli:text",

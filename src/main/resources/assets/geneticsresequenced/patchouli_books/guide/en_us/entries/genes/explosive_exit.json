@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Explosive Exit$(0) Gene causes entities to $(minor)explode upon death$(0).$(br2)If a player has this Gene, it takes 5 Gunpowder from their inventory.$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)Explosive Exit/$ Gene causes entities to $(minor)explode upon death/$.$(br2)If a player has this Gene, it takes 5 Gunpowder from their inventory.$(br2)This Gene $(minor)can be given to mobs/$."
     },
     {
       "type": "patchouli:text",

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Climb Walls$(0) Gene allows players to $(minor)climb walls$().$(br2)This Gene $(bad)cannot be given to mobs$(0)."
+      "text": "The $(major)Climb Walls/$ Gene allows players to $(minor)climb walls$().$(br2)This Gene $(bad)cannot be given to mobs/$."
     },
     {
       "type": "patchouli:text",

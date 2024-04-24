@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Photosynthesis$(0) Gene $(minor)feeds the player when they're in direct sunlight$(0).$(br2)This Gene $(bad)cannot be given to mobs$(0)."
+      "text": "The $(major)Photosynthesis/$ Gene $(minor)feeds the player when they're in direct sunlight/$.$(br2)This Gene $(bad)cannot be given to mobs/$."
     },
     {
       "type": "patchouli:text",

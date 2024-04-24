@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Speed$(0) Gene gives entities the $(minor)Speed effect$(0).$(br2)This Gene can be $(minor)mutated into Speed 2$(0) and $(minor)Speed 4$(0).$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)Speed/$ Gene gives entities the $(minor)Speed effect/$.$(br2)This Gene can be $(minor)mutated into Speed 2/$ and $(minor)Speed 4/$.$(br2)This Gene $(minor)can be given to mobs/$."
     },
     {
       "type": "patchouli:text",

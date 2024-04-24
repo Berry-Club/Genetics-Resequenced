@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)More Hearts$(0) Gene gives entities $(minor)10 extra hearts$(0). If the Gene is mutated, they instead get $(minor)20$(0).$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)More Hearts/$ Gene gives entities $(minor)10 extra hearts/$. If the Gene is mutated, they instead get $(minor)20/$.$(br2)This Gene $(minor)can be given to mobs/$."
     },
     {
       "type": "patchouli:text",

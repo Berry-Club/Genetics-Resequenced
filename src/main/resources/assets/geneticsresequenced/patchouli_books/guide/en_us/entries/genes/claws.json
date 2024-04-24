@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Claws$(0) Gene causes entities to have a chance to $(minor)inflict Bleeding on empty-handed melee attacks$(0).$(br2)When mutated into Claws 2, the chance is doubled.$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)Claws/$ Gene causes entities to have a chance to $(minor)inflict Bleeding on empty-handed melee attacks/$.$(br2)When mutated into Claws 2, the chance is doubled.$(br2)This Gene $(minor)can be given to mobs/$."
     },
     {
       "type": "patchouli:text",

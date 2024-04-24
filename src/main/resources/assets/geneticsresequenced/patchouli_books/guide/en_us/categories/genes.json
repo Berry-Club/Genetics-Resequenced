@@ -1,6 +1,6 @@
 {
   "name": "Genes",
-  "icon": "geneticsresequenced:textures/item/plasmid.png",
+  "icon": "geneticsresequenced:plasmid",
   "description": "All the Genes in the mod",
-  "sortnum": 1
+  "sortnum": 3
 }

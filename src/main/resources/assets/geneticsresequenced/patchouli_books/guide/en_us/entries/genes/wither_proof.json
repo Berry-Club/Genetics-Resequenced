@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Wither Proof$(0) Gene makes entities $(minor)immune to Wither$(0).$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)Wither Proof/$ Gene makes entities $(minor)immune to Wither/$.$(br2)This Gene $(minor)can be given to mobs/$."
     },
     {
       "type": "patchouli:text",

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Shoot Fireballs$(0) Gene allows players to $(minor)shoot small fireballs$(0) when a Blaze Rod is used.$(br2)This Gene $(bad)cannot be given to mobs$(0)."
+      "text": "The $(major)Shoot Fireballs/$ Gene allows players to $(minor)shoot small fireballs/$ when a Blaze Rod is used.$(br2)This Gene $(bad)cannot be given to mobs/$."
     },
     {
       "type": "patchouli:text",

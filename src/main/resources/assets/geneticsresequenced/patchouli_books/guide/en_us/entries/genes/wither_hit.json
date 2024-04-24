@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Wither Hit$(0) Gene causes entities to $(minor)inflict Wither when melee attacking$(0).$(br2)This Gene $(minor)can be given to mobs$(0)."
+      "text": "The $(major)Wither Hit/$ Gene causes entities to $(minor)inflict Wither when melee attacking/$.$(br2)This Gene $(minor)can be given to mobs/$."
     },
     {
       "type": "patchouli:text",

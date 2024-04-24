@@ -1,0 +1,18 @@
+{
+  "name": "Organic Matter",
+  "category": "geneticsresequenced:items",
+  "icon": "geneticsresequenced:organic_matter",
+  "sortnum": 2,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(major)Organic Matter/$"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:organic_matter",
+      "link_recipe": true,
+      "text": ""
+    }
+  ]
+}
