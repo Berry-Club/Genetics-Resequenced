@@ -15,6 +15,7 @@ object  ClickItemEvents {
 
     @SubscribeEvent
     fun onUseItem(event: PlayerInteractEvent.RightClickItem) {
+        ClickGenes.woolyItem(event)
         ClickGenes.milkyItem(event)
         ClickGenes.shootFireball(event)
     }
