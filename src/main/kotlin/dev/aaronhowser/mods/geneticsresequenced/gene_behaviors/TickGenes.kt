@@ -7,7 +7,6 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.AntiFieldOrbItem
-import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
@@ -138,17 +137,18 @@ object TickGenes {
         entity.removeEffect(potion.effect)
     }
 
-    private val recentlyMeated = mutableSetOf<LivingEntity>()
+    private val recentlyMeated = mutableSetOf<UUID>()
     private fun handleMeaty2(entity: LivingEntity) {
-        val isAbleToMeat = recentlyMeated.add(entity)
-        if (!isAbleToMeat) return
-        ModScheduler.scheduleTaskInTicks(ServerConfig.meaty2Cooldown.get()) {
-            recentlyMeated.remove(entity)
 
-            if (ServerConfig.meaty2Cooldown.get() > ServerConfig.minimumCooldownForNotification.get()) {
-                OtherUtil.tellCooldownEnded(entity, DefaultGenes.MEATY_2)
-            }
-        }
+        val newlyMeated = OtherUtil.tryAddToCooldown(
+            recentlyMeated,
+            entity,
+            DefaultGenes.MEATY_2,
+            ServerConfig.meaty2Cooldown.get(),
+            notifyPlayer = false
+        )
+
+        if (!newlyMeated) return
 
         val luck = entity.activeEffects.find { it.effect == MobEffects.LUCK }?.amplifier ?: 0
 
@@ -163,13 +163,17 @@ object TickGenes {
         entity.level.addFreshEntity(meatEntity)
     }
 
-    private val recentlyLaidEgg = mutableSetOf<LivingEntity>()
+    private val recentlyLaidEgg = mutableSetOf<UUID>()
     private fun handleLayEgg(entity: LivingEntity) {
-        val isAbleToDropEgg = recentlyLaidEgg.add(entity)
-        if (!isAbleToDropEgg) return
-        ModScheduler.scheduleTaskInTicks(ServerConfig.eggCooldown.get()) {
-            recentlyLaidEgg.remove(entity)
-        }
+
+        val hasNotRecentlyLainEgg = OtherUtil.tryAddToCooldown(
+            recentlyLaidEgg,
+            entity,
+            DefaultGenes.LAY_EGG,
+            ServerConfig.eggCooldown.get(),
+            notifyPlayer = false
+        )
+        if (!hasNotRecentlyLainEgg) return
 
         val luck = entity.activeEffects.find { it.effect == MobEffects.LUCK }?.amplifier ?: 0
 

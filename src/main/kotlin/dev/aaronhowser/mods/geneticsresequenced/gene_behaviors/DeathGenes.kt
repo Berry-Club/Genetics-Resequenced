@@ -64,23 +64,19 @@ object DeathGenes {
             return
         }
 
-        val entityUuid = entity.uuid
+        val wasNotOnCooldown = OtherUtil.tryAddToCooldown(
+            emeraldHeartCooldown,
+            entity,
+            DefaultGenes.EMERALD_HEART,
+            ServerConfig.emeraldHeartCooldown.get()
+        )
 
-        val isNotOnCooldown = emeraldHeartCooldown.add(entityUuid)
-        if (!isNotOnCooldown) {
+        if (!wasNotOnCooldown) {
             entity.sendSystemMessage(Component.literal("Emerald Heart is on cooldown!"))
             return
         }
 
         entity.inventory.add(ItemStack(Items.EMERALD, 1))
-
-        ModScheduler.scheduleTaskInTicks(ServerConfig.emeraldHeartCooldown.get()) {
-            emeraldHeartCooldown.remove(entityUuid)
-
-            if (ServerConfig.emeraldHeartCooldown.get() > ServerConfig.minimumCooldownForNotification.get()) {
-                OtherUtil.tellCooldownEnded(entity, DefaultGenes.EMERALD_HEART)
-            }
-        }
     }
 
     private const val GUNPOWDER_REQUIRED = 5

@@ -53,6 +53,7 @@
   "command.geneticsresequenced.remove.success": "Successfully removed gene: ",
   "command.geneticsresequenced.remove.success.all": "Removed %d genes!",
 
+  "cooldown.geneticsresequenced.started": " triggered! Cooldown started: %s",
   "cooldown.geneticsresequenced.ended": " has come off cooldown!",
 
   "gene.geneticsresequenced.haste_2":"Haste II",

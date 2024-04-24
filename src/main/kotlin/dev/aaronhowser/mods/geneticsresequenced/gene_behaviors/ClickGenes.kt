@@ -58,18 +58,16 @@ object ClickGenes {
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_TAG)
         if (!clickedWithShears) return
 
-        if (recentlySheered.contains(target.uuid)) {
+        val newlySheared = OtherUtil.tryAddToCooldown(
+            recentlySheered,
+            target,
+            DefaultGenes.WOOLY,
+            ServerConfig.woolyCooldown.get()
+        )
+
+        if (!newlySheared) {
             clicker.sendSystemMessage(Component.literal("This entity has already been sheared recently!"))
             return
-        }
-
-        recentlySheered.add(target.uuid)
-        ModScheduler.scheduleTaskInTicks(ServerConfig.woolyCooldown.get()) {
-            recentlySheered.remove(target.uuid)
-
-            if (ServerConfig.woolyCooldown.get() > ServerConfig.minimumCooldownForNotification.get()) {
-                OtherUtil.tellCooldownEnded(target, DefaultGenes.WOOLY)
-            }
         }
 
         val woolItemStack = ItemStack(Blocks.WHITE_WOOL)
@@ -112,18 +110,16 @@ object ClickGenes {
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_TAG)
         if (!clickedWithShears) return
 
-        if (recentlyMeated.contains(event.target.uuid)) {
+        val newlyMeated = OtherUtil.tryAddToCooldown(
+            recentlyMeated,
+            target,
+            DefaultGenes.MEATY,
+            ServerConfig.meatyCooldown.get()
+        )
+
+        if (!newlyMeated) {
             clicker.sendSystemMessage(Component.literal("This entity has already been meated recently!"))
             return
-        }
-
-        recentlyMeated.add(target.uuid)
-        ModScheduler.scheduleTaskInTicks(ServerConfig.meatyCooldown.get()) {
-            recentlyMeated.remove(target.uuid)
-
-            if (ServerConfig.meatyCooldown.get() > ServerConfig.minimumCooldownForNotification.get()) {
-                OtherUtil.tellCooldownEnded(target, DefaultGenes.MEATY)
-            }
         }
 
         val porkEntity = ItemEntity(
@@ -168,21 +164,19 @@ object ClickGenes {
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
         if (!clickedWithBucket) return
 
-        if (recentlyMilked.contains(target.uuid)) {
+        val newlyMilked = OtherUtil.tryAddToCooldown(
+            recentlyMilked,
+            target,
+            DefaultGenes.MILKY,
+            ServerConfig.milkyCooldown.get()
+        )
+
+        if (!newlyMilked) {
             clicker.sendSystemMessage(Component.literal("This entity has already been milked recently!"))
             return
         }
 
         target.sendSystemMessage(Component.literal("You have been milked!"))
-
-        recentlyMilked.add(target.uuid)
-        ModScheduler.scheduleTaskInTicks(ServerConfig.milkyCooldown.get()) {
-            recentlyMilked.remove(target.uuid)
-
-            if (ServerConfig.milkyCooldown.get() > ServerConfig.minimumCooldownForNotification.get()) {
-                OtherUtil.tellCooldownEnded(target, DefaultGenes.MILKY)
-            }
-        }
 
         event.itemStack.shrink(1)
         clicker.addItem(ItemStack(Items.MILK_BUCKET))
@@ -213,16 +207,14 @@ object ClickGenes {
         val genes = player.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.MILKY)) return
 
-        if (recentlyMilked.contains(player.uuid)) return
+        val newlyMilked = OtherUtil.tryAddToCooldown(
+            recentlyMilked,
+            player,
+            DefaultGenes.MILKY,
+            ServerConfig.milkyCooldown.get()
+        )
 
-        recentlyMilked.add(player.uuid)
-        ModScheduler.scheduleTaskInTicks(ServerConfig.milkyCooldown.get()) {
-            recentlyMilked.remove(player.uuid)
-
-            if (ServerConfig.milkyCooldown.get() > ServerConfig.minimumCooldownForNotification.get()) {
-                OtherUtil.tellCooldownEnded(player, DefaultGenes.MILKY)
-            }
-        }
+        if (!newlyMilked) return
 
         event.itemStack.shrink(1)
         player.addItem(ItemStack(Items.MILK_BUCKET))

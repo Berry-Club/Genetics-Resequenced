@@ -84,15 +84,14 @@ object PacketGenes {
         val genes = (player as LivingEntity).getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.DRAGONS_BREATH)) return
 
-        if (recentFireballs.contains(player.uuid)) return
-        recentFireballs.add(player.uuid)
-        ModScheduler.scheduleTaskInTicks(ServerConfig.dragonsBreathCooldown.get()) {
-            recentFireballs.remove(player.uuid)
+        val wasNotOnCooldown = OtherUtil.tryAddToCooldown(
+            recentFireballs,
+            player,
+            DefaultGenes.DRAGONS_BREATH,
+            ServerConfig.dragonsBreathCooldown.get()
+        )
 
-            if (ServerConfig.dragonsBreathCooldown.get() > ServerConfig.minimumCooldownForNotification.get()) {
-                OtherUtil.tellCooldownEnded(player, DefaultGenes.DRAGONS_BREATH)
-            }
-        }
+        if (!wasNotOnCooldown) return
 
         val entityDragonFireball = DragonFireball(
             player.level,
