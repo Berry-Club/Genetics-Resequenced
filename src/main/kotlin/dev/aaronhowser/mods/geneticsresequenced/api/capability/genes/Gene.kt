@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
@@ -54,23 +55,31 @@ class Gene(
     }
 
     val nameComponent: Component
-        get() = Component
-            .translatable(translationKey)
-            .withStyle {
-                it
-                    .withHoverEvent(
-                        HoverEvent(
-                            HoverEvent.Action.SHOW_TEXT,
-                            Component.translatable("tooltip.geneticsresequenced.copy_gene_id", id)
+        get() {
+            val component = Component
+                .translatable(translationKey)
+                .withStyle {
+                    it
+                        .withHoverEvent(
+                            HoverEvent(
+                                HoverEvent.Action.SHOW_TEXT,
+                                Component.translatable("tooltip.geneticsresequenced.copy_gene_id", id)
+                            )
                         )
-                    )
-                    .withClickEvent(
-                        ClickEvent(
-                            ClickEvent.Action.COPY_TO_CLIPBOARD,
-                            id.toString()
+                        .withClickEvent(
+                            ClickEvent(
+                                ClickEvent.Action.COPY_TO_CLIPBOARD,
+                                id.toString()
+                            )
                         )
-                    )
+                }
+
+            if (isNegative) {
+                component.withStyle { it.withColor(ChatFormatting.RED) }
             }
+
+            return component
+        }
 
     fun build(): Gene {
 

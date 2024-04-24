@@ -154,6 +154,16 @@ object DefaultMobGenes {
             )
         )
 
+        addGenesToEntity(
+            EntityType.PUFFERFISH,
+            mapOf(
+                null to 5,
+                DefaultGenes.POISON to 1,
+                DefaultGenes.WATER_BREATHING to 1,
+                DefaultGenes.THORNS to 1
+            )
+        )
+
         //Overworld Hostiles
         addGenesToEntity(
             EntityType.ZOMBIE,

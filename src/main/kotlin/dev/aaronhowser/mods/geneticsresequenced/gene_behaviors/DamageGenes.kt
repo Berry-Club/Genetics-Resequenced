@@ -90,7 +90,7 @@ object DamageGenes {
         if (target == attacker) return
 
         val chestPlate = target.getItemBySlot(EquipmentSlot.CHEST)
-        val targetChestplateMissingOrLeather = chestPlate.isEmpty && chestPlate.`is`(Items.LEATHER_CHESTPLATE)
+        val targetChestplateMissingOrLeather = chestPlate.isEmpty || chestPlate.`is`(Items.LEATHER_CHESTPLATE)
         if (!targetChestplateMissingOrLeather) return
 
         val genes = target.getGenes() ?: return

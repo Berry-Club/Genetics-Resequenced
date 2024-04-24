@@ -149,7 +149,7 @@ object ServerConfig {
             .defineInRange("thornsChance", 0.15, 0.0, 1.0)
         thornsDamage = BUILDER
             .comment("How much damage to deal back to the attacker when they hit a target with the Thorns gene")
-            .defineInRange("thornsDamage", 0.5, 0.0, Double.MAX_VALUE)
+            .defineInRange("thornsDamage", 1.5, 0.0, Double.MAX_VALUE)
         thornsHungerDrain = BUILDER
             .comment("How much hunger to drain when the Thorns gene deals damage")
             .defineInRange("thornsHungerDrain", 1.0, 0.0, Double.MAX_VALUE)
