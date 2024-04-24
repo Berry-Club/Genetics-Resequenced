@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene_behaviors
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.blocks.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
@@ -254,6 +255,8 @@ object TickGenes {
             if (itemEntity.item.count <= 0) continue
             if (itemEntity.item.`is`(ModTags.MAGNET_ITEM_BLACKLIST)) continue
 
+            if (AntiFieldBlock.antifieldNear(player.level, itemEntity.blockPosition())) continue
+
             val pickupEvent = EntityItemPickupEvent(player, itemEntity)
             MinecraftForge.EVENT_BUS.post(pickupEvent)
             if (pickupEvent.isCanceled) continue
@@ -278,6 +281,7 @@ object TickGenes {
         )
 
         for (xpOrb in nearbyXpOrbs) {
+            if (AntiFieldBlock.antifieldNear(player.level, xpOrb.blockPosition())) continue
 
             val pickupEvent = PlayerXpEvent.PickupXp(player, xpOrb)
             MinecraftForge.EVENT_BUS.post(pickupEvent)

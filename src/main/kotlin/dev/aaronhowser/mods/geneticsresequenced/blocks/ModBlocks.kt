@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+ import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.*
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.Item
@@ -28,6 +29,7 @@ object ModBlocks {
     val AIR_DISPERSAL by register("air_dispersal") { AirDispersalBlock }
     val CLONING_MACHINE by register("cloning_machine") { CloningMachineBlock }
     val INCUBATOR by register("incubator") { IncubatorBlock }
+    val ANTIFIELD_BLOCK by register("antifield_block") { AntiFieldBlock }
 
     private fun register(
         name: String,
