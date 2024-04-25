@@ -11,6 +11,8 @@ object ServerConfig {
     lateinit var minimumCooldownForNotification: ForgeConfigSpec.IntValue
     lateinit var antifieldBlockRadius: ForgeConfigSpec.IntValue
 
+    lateinit var coalGeneratorEnergyCapacity: ForgeConfigSpec.IntValue
+    lateinit var coalGeneratorEnergyTransferRate: ForgeConfigSpec.IntValue
     lateinit var coalGeneratorEnergyPerTick: ForgeConfigSpec.IntValue
 
     lateinit var bioluminescenceCooldown: ForgeConfigSpec.IntValue
@@ -79,6 +81,13 @@ object ServerConfig {
     private fun machineConfigs() {
         BUILDER.push("machines")
 
+        // If you change this, make sure to also change the Patchouli entry
+        coalGeneratorEnergyCapacity = BUILDER
+            .comment("How much energy should the Coal Generator be able to store")
+            .defineInRange("coalGeneratorEnergyCapacity", 60_000, 1, Int.MAX_VALUE)
+        coalGeneratorEnergyTransferRate = BUILDER
+            .comment("How much energy should the Coal Generator be able to transfer per tick")
+            .defineInRange("coalGeneratorEnergyTransferRate", 256, 1, Int.MAX_VALUE)
         coalGeneratorEnergyPerTick = BUILDER
             .comment("How much energy should the Coal Generator generate per tick (1 item takes 200 ticks to burn in a Furnace)")
             .defineInRange("coalGeneratorEnergyPerTick", 20, 1, Int.MAX_VALUE)

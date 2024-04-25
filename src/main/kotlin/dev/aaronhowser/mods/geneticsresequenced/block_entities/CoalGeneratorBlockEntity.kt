@@ -52,7 +52,10 @@ class CoalGeneratorBlockEntity(
 
     private var lazyItemHandler = LazyOptional.empty<IItemHandler>()
 
-    private val energyStorage: ModEnergyStorage = object : ModEnergyStorage(CAPACITY, MAX_TRANSFER) {
+    private val energyStorage: ModEnergyStorage = object : ModEnergyStorage(
+        ServerConfig.coalGeneratorEnergyCapacity.get(),
+        ServerConfig.coalGeneratorEnergyTransferRate.get()
+    ) {
         override fun onEnergyChanged() {
             setChanged()
 
@@ -238,7 +241,7 @@ class CoalGeneratorBlockEntity(
                 if (!neighborEnergy.canReceive()) continue
 
                 val energyToTransfer = min(
-                    neighborEnergy.receiveEnergy(MAX_TRANSFER, true),
+                    neighborEnergy.receiveEnergy(ServerConfig.coalGeneratorEnergyTransferRate.get(), true),
                     neighborEnergy.maxEnergyStored - neighborEnergy.energyStored
                 )
 
@@ -260,9 +263,6 @@ class CoalGeneratorBlockEntity(
         const val INPUT_SLOT = 0
 
         private const val ENERGY_NBT_KEY = "coal_generator.energy"
-
-        private const val CAPACITY = 60_000
-        private const val MAX_TRANSFER = 256
 
         val energyPerTick: Int
             get() = ServerConfig.coalGeneratorEnergyPerTick.get()
