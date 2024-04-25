@@ -30,7 +30,7 @@ object ScraperItem : Item(
 
         if (pInteractionTarget.type.`is`(ModTags.SCRAPER_ENTITY_BLACKLIST)) {
             if (pPlayer.level.isClientSide) return InteractionResult.FAIL
-            val component = Component.literal("This mob cannot be scraped.")
+            val component = Component.translatable("message.geneticsresequenced.scraper.cant_scrape")
             pPlayer.sendSystemMessage(component)
             return InteractionResult.FAIL
         }

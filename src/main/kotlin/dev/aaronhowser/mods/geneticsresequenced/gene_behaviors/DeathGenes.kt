@@ -72,7 +72,7 @@ object DeathGenes {
         )
 
         if (!wasNotOnCooldown) {
-            entity.sendSystemMessage(Component.literal("Emerald Heart is on cooldown!"))
+            entity.sendSystemMessage(Component.translatable("message.geneticsresequenced.emerald_heart.cooldown"))
             return
         }
 

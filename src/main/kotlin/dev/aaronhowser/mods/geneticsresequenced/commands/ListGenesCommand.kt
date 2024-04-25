@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.commands
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
-import net.minecraft.ChatFormatting
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -37,11 +36,11 @@ object ListGenesCommand {
         val targetGenesList = target.getGenes()!!.getGeneList()
 
         if (targetGenesList.isEmpty()) {
-            context.source.sendSuccess(Component.literal("No genes found!"), false)
+            context.source.sendSuccess(Component.translatable("command.geneticsresequenced.list.no_genes"), false)
             return 1
         }
 
-        val messageComponent = target.displayName.copy().append(Component.literal("'s genes:"))
+        val messageComponent = Component.translatable("command.geneticsresequenced.list.genes", target.displayName)
 
         for (gene in targetGenesList) {
             val geneComponent = Component.literal("\n• ").append(gene.nameComponent)

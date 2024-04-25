@@ -7,7 +7,6 @@ import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene_behaviors.DeathGenes
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.HoverEvent
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.eventbus.api.EventPriority
@@ -59,27 +58,12 @@ object DeathEvents {
         if (playerGenes.getGeneList().isEmpty()) return
 
         val component = Component
-            .literal("Genetics Resequenced")
+            .translatable("message.geneticsresequenced.death_gene_removal")
             .withStyle {
-                it
-                    .withColor(ChatFormatting.DARK_PURPLE)
-                    .withHoverEvent(
-                        HoverEvent(
-                            HoverEvent.Action.SHOW_TEXT, Component
-                                .literal(playerGenes.getGeneList().joinToString(", "))
-                        )
-                    )
+                it.withColor(ChatFormatting.GRAY)
             }
-            .append(
-                Component
-                    .literal(": Your genes have been removed on death.")
-                    .withStyle {
-                        it
-                            .withColor(ChatFormatting.GRAY)
-                    }
-            )
-        player.sendSystemMessage(component)
 
+        player.sendSystemMessage(component)
         playerGenes.removeAllGenes()
     }
 

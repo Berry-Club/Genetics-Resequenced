@@ -102,22 +102,21 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
         val allMobGenePairs = MobGenesRegistry.getRegistry().entries
         for ((entityType, genes) in allMobGenePairs) {
             val informationTextComponent =
-                Component
-                    .empty()
-                    .append(entityType.description)
-                    .append(Component.literal(" has these traits:\n"))
+                Component.translatable("info.geneticsresequenced.mob_gene.line1", entityType.description)
 
             val sumOfWeights = genes.values.sum()
 
             for ((gene, weight) in genes) {
                 val chance = (weight.toDouble() / sumOfWeights.toDouble() * 100).toInt()
 
-                informationTextComponent.append(
-                    Component
-                        .literal("\n")
-                        .append(Component.literal("$chance% chance of "))
-                        .append(gene?.nameComponent ?: Component.literal("Basic Gene"))
+                //FIXME: doesn't work
+                val component = Component.translatable(
+                    "info.geneticsresequenced.mob_gene.line2",
+                    chance,
+                    gene?.nameComponent ?: Gene.basicGeneComponent
                 )
+
+                informationTextComponent.append(component)
             }
 
             registration.addIngredientInfo(

@@ -5,6 +5,7 @@ import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
+import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectInstance
@@ -25,6 +26,10 @@ class Gene(
         fun fromId(searchedId: String): Gene? {
             return GENE_REGISTRY.find { it.id.toString() == searchedId }
         }
+
+        val basicGeneComponent: MutableComponent = Component.translatable("tooltip.geneticsresequenced.gene.basic")
+        val unknownGeneComponent: MutableComponent = Component.translatable("tooltip.geneticsresequenced.gene.unknown")
+
     }
 
     var isNegative: Boolean = false

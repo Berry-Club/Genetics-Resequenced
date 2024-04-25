@@ -65,7 +65,7 @@ object ClickGenes {
         )
 
         if (!newlySheared) {
-            clicker.sendSystemMessage(Component.literal("This entity has already been sheared recently!"))
+            clicker.sendSystemMessage(Component.translatable("message.geneticsresequenced.wooly.recent"))
             return
         }
 
@@ -117,7 +117,7 @@ object ClickGenes {
         )
 
         if (!newlyMeated) {
-            clicker.sendSystemMessage(Component.literal("This entity has already been meated recently!"))
+            clicker.sendSystemMessage(Component.translatable("message.geneticsresequenced.meaty.recent"))
             return
         }
 
@@ -171,11 +171,11 @@ object ClickGenes {
         )
 
         if (!newlyMilked) {
-            clicker.sendSystemMessage(Component.literal("This entity has already been milked recently!"))
+            clicker.sendSystemMessage(Component.translatable("message.geneticsresequenced.milk.recent"))
             return
         }
 
-        target.sendSystemMessage(Component.literal("You have been milked!"))
+        target.sendSystemMessage(Component.translatable("message.geneticsresequenced.milk.milked"))
 
         event.itemStack.shrink(1)
         clicker.addItem(ItemStack(Items.MILK_BUCKET))

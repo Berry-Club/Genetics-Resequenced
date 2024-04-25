@@ -13,6 +13,14 @@
   "item.geneticsresequenced.overclocker": "Overclocker",
   "item.geneticsresequenced.support_slime_spawn_egg": "Support Slime Spawn Egg",
 
+  "message.geneticsresequenced.scraper.cant_scrape": "This mob cannot be scraped.",
+  "message.geneticsresequenced.emerald_heart.cooldown": "Emerald Heart is on cooldown!",
+  "message.geneticsresequenced.death_gene_removal": "Death has reset your genes!",
+  "message.geneticsresequenced.wooly.recent": "This entity has already been sheared recently!",
+  "message.geneticsresequenced.meaty.recent": "This entity has already been meated recently!",
+  "message.geneticsresequenced.milk.recent": "This entity has already been milked recently!",
+  "message.geneticsresequenced.milk.milked": "You have been milked!",
+
   "block.geneticsresequenced.bioluminescence": "Bioluminescence Glow",
   "block.geneticsresequenced.cell_analyzer": "Cell Analyzer",
   "block.geneticsresequenced.coal_generator": "Coal Generator",
@@ -24,6 +32,7 @@
   "block.geneticsresequenced.incubator": "Incubator",
   "block.geneticsresequenced.plasmid_infuser": "Plasmid Infuser",
   "block.geneticsresequenced.plasmid_injector": "Plasmid Injector",
+  "block.geneticsresequenced.antifield_block": "Anti-field Block",
 
   "effect.geneticsresequenced.bleed": "Bleed",
 
@@ -31,6 +40,10 @@
 
   "entity.geneticsresequenced.support_slime": "Support Slime",
 
+  "tooltip.geneticsresequenced.gene": "Gene: %1$s",
+  "tooltip.geneticsresequenced.gene.basic": "Basic Gene",
+  "tooltip.geneticsresequenced.gene.unknown": "Unknown",
+  "tooltip.geneticsresequenced.helix_entity": "Entity: %1$s",
   "tooltip.geneticsresequenced.copy_gene_id": "Click to copy ID: %s",
   "tooltip.geneticsresequenced.antifield_active": "Active",
   "tooltip.geneticsresequenced.antifield_inactive": "Inactive",
@@ -52,11 +65,22 @@
   "command.geneticsresequenced.remove.fail.other": "Failed to remove gene: ",
   "command.geneticsresequenced.remove.success": "Successfully removed gene: ",
   "command.geneticsresequenced.remove.success.all": "Removed %d genes!",
+  "command.geneticsresequenced.list.no_genes": "No genes found!",
+  "command.geneticsresequenced.list.genes": "%1$s's genes:",
 
   "cooldown.geneticsresequenced.started": " triggered! Cooldown started: %s",
   "cooldown.geneticsresequenced.ended": " has come off cooldown!",
 
+  "recipe.geneticsresequenced.mob_gene.mob": "Mob: %1$s",
+  "recipe.geneticsresequenced.mob_gene.gene": "Gene: %1$s",
+  "recipe.geneticsresequenced.mob_gene.chance": "Chance: %d%%",
+  "recipe.geneticsresequenced.plasmid_infuser.points_required": "%1$s requires %d points of DNA.",
+  "recipe.geneticsresequenced.plasmid_infuser.basic": "Basic Genes = 1 point",
+  "recipe.geneticsresequenced.plasmid_infuser.matching": "Matching Genes = 2 points",
+
   "info.geneticsresequenced.organic_matter": "Acquired by clicking a %1$s with a Scraper.",
+  "info.geneticsresequenced.mob_gene.line1": "%1$s has these Genes:",
+  "info.geneticsresequenced.mob_gene.line2": "\n%d% of %1$s",
 
   "gene.geneticsresequenced.haste_2":"Haste II",
   "gene.geneticsresequenced.efficiency_4":"Efficiency IV",

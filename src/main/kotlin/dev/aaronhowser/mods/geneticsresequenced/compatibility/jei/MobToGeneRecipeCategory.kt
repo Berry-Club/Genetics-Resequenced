@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.MobToGeneRecipe
 import mezz.jei.api.constants.VanillaTypes
@@ -70,15 +71,13 @@ class MobToGeneRecipeCategory(
         val chance = recipe.chance
 
         val line1 = Component
-            .literal("Mob: ")
-            .append(mob!!.description)
+            .translatable("recipe.geneticsresequenced.mob_gene.mob", mob!!.description)
 
         val line2 = Component
-            .literal("Gene: ")
-            .append(gene?.nameComponent ?: Component.literal("Basic Gene"))
+            .translatable("recipe.geneticsresequenced.mob_gene.gene", gene?.nameComponent ?: Gene.basicGeneComponent)
 
         val line3 = Component
-            .literal("Chance: $chance%")
+            .translatable("recipe.geneticsresequenced.mob_gene.chance", chance)
 
         return mutableListOf(line1, line2, line3)
     }

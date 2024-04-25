@@ -39,7 +39,7 @@ class PlasmidInfuserRecipeCategory(
 
     override fun getRecipeType(): RecipeType<PlasmidInfuserRecipe> = GeneticsResequencedJeiPlugin.PLASMID_INFUSER_TYPE
 
-    override fun getTitle(): Component = Component.translatable("block.geneticsresequenced.dna_decryptor")
+    override fun getTitle(): Component = Component.translatable("block.geneticsresequenced.plasmid_infuser")
 
     override fun getBackground(): IDrawable = background
 
@@ -70,17 +70,15 @@ class PlasmidInfuserRecipeCategory(
         val amountNeeded = gene.amountNeeded
 
         val line1 = Component
-            .empty()
-            .append(gene.nameComponent)
-            .append(Component.literal(" requires $amountNeeded points of DNA."))
+            .translatable("recipe.geneticsresequenced.plasmid_infuser.points_required", gene.nameComponent, amountNeeded)
             .withStyle { it.withColor(ChatFormatting.GRAY) }
 
         val line2 = Component
-            .literal("Basic Genes = 1 point.")
+            .translatable("recipe.geneticsresequenced.plasmid_infuser.basic")
             .withStyle { it.withColor(ChatFormatting.GRAY) }
 
         val line3 = Component
-            .literal("Matching Genes = 2 points.")
+            .translatable("recipe.geneticsresequenced.plasmid_infuser.matching")
             .withStyle { it.withColor(ChatFormatting.GRAY) }
 
         return mutableListOf(line1, line2, line3)

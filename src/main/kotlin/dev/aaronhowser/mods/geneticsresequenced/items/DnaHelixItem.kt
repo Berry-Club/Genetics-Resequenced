@@ -71,7 +71,7 @@ object DnaHelixItem : EntityDnaItem() {
         if (gene == null) {
             showNoGeneTooltips(pStack, pTooltipComponents, pLevel)
         } else {
-            pTooltipComponents.add(Component.literal("Gene: ").append(gene.nameComponent)
+            pTooltipComponents.add(Component.translatable("tooltip.geneticsresequenced.gene", gene.nameComponent)
                 .withStyle { it.withColor(ChatFormatting.GRAY) })
         }
     }
@@ -83,17 +83,27 @@ object DnaHelixItem : EntityDnaItem() {
     ) {
 
         if (pStack.isGeneric()) {
-            pTooltipComponents.add(Component.literal("Gene: Basic Gene")
+            pTooltipComponents.add(Component.translatable(
+                "tooltip.geneticsresequenced.gene",
+                Gene.basicGeneComponent
+            )
                 .withStyle { it.withColor(ChatFormatting.GRAY) })
             return
         }
 
-        pTooltipComponents.add(Component.literal("Gene: Unknown")
-            .withStyle { it.withColor(ChatFormatting.GRAY) })
+        pTooltipComponents.add(
+            Component.translatable(
+                "tooltip.geneticsresequenced.gene",
+                Gene.unknownGeneComponent
+            )
+                .withStyle { it.withColor(ChatFormatting.GRAY) })
 
         val entity = getEntityType(pStack)
         if (entity != null) {
-            pTooltipComponents.add(Component.literal("Entity: ").append(entity.description)
+            pTooltipComponents.add(Component.translatable(
+                "tooltip.geneticsresequenced.helix_entity",
+                entity.description
+            )
                 .withStyle { it.withColor(ChatFormatting.GRAY) })
         }
 
