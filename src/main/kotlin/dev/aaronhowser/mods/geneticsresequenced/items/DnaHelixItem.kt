@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level
 object DnaHelixItem : EntityDnaItem() {
 
     private const val GENE_ID_NBT = "GeneId"
-    private const val GENERIC_NBT = "IsGeneric"
+    private const val BASIC_NBT = "IsBasic"
 
 
     fun ItemStack.hasGene(): Boolean = this.tag?.contains(GENE_ID_NBT) ?: false
@@ -29,7 +29,7 @@ object DnaHelixItem : EntityDnaItem() {
 
     fun ItemStack.setGene(gene: Gene?): ItemStack {
         if (gene == null) {
-            return this.setGeneric()
+            return this.setBasic()
         }
 
         val tag = this.orCreateTag
@@ -38,15 +38,15 @@ object DnaHelixItem : EntityDnaItem() {
         return this
     }
 
-    fun ItemStack.setGeneric(): ItemStack {
+    fun ItemStack.setBasic(): ItemStack {
         val tag = this.orCreateTag
         tag.remove(GENE_ID_NBT)
         tag.remove(MOB_ID_NBT)
-        tag.putBoolean(GENERIC_NBT, true)
+        tag.putBoolean(BASIC_NBT, true)
         return this
     }
 
-    fun ItemStack.isGeneric(): Boolean = this.tag?.getBoolean(GENERIC_NBT) ?: false
+    fun ItemStack.isBasic(): Boolean = this.tag?.getBoolean(BASIC_NBT) ?: false
 
     override fun interactLivingEntity(
         pStack: ItemStack,
@@ -82,7 +82,7 @@ object DnaHelixItem : EntityDnaItem() {
         pLevel: Level?
     ) {
 
-        if (pStack.isGeneric()) {
+        if (pStack.isBasic()) {
             pTooltipComponents.add(Component.translatable(
                 "tooltip.geneticsresequenced.gene",
                 Gene.basicGeneComponent

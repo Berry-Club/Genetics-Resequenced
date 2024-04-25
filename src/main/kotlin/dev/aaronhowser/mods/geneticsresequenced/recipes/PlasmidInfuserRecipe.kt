@@ -4,7 +4,7 @@ import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGeneric
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setBasic
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem.setAmount
 import net.minecraft.core.NonNullList
@@ -21,7 +21,7 @@ import kotlin.math.ceil
 
 class PlasmidInfuserRecipe(
     val gene: Gene,
-    val isGeneric: Boolean
+    val isBasic: Boolean
 ) : Recipe<Container> {
 
     private val inputItem: ItemStack
@@ -29,8 +29,8 @@ class PlasmidInfuserRecipe(
 
     init {
         @Suppress("LiftReturnOrAssignment")
-        if (isGeneric) {
-            val stack = ItemStack(ModItems.DNA_HELIX, gene.amountNeeded).setGeneric()
+        if (isBasic) {
+            val stack = ItemStack(ModItems.DNA_HELIX, gene.amountNeeded).setBasic()
             inputItem = stack
         } else {
             val amount = ceil(gene.amountNeeded.toDouble() / 2).toInt()
@@ -73,10 +73,10 @@ class PlasmidInfuserRecipe(
     }
 
     override fun getId(): ResourceLocation {
-        return if (isGeneric) {
+        return if (isBasic) {
             ResourceLocation(
                 GeneticsResequenced.ID,
-                "$RECIPE_TYPE_NAME/${gene.id.toString().replace(":", "/")}_generic"
+                "$RECIPE_TYPE_NAME/${gene.id.toString().replace(":", "/")}_basic"
             )
         } else {
             ResourceLocation(

@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block_entities
 
 import dev.aaronhowser.mods.geneticsresequenced.block_entities.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.getGene
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.isGeneric
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.isBasic
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem
@@ -112,7 +112,7 @@ class PlasmidInfuserBlockEntity(
                 return
             }
 
-            if (inputHelix.isGeneric()) {
+            if (inputHelix.isBasic()) {
                 outputPlasmid.increaseAmount(1)
                 blockEntity.itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
                 return
@@ -139,14 +139,14 @@ class PlasmidInfuserBlockEntity(
 
             val plasmidGene = outputPlasmid.getGene()
             val inputGene = inputHelix.getGene()
-            val helixIsGeneric = inputHelix.isGeneric()
+            val helixIsBasic = inputHelix.isBasic()
 
-            // If the Plasmid is unset, it can only accept a Helix that's neither generic nor null
+            // If the Plasmid is unset, it can only accept a Helix that's neither basic nor null
             if (plasmidGene == null) {
-                return !(helixIsGeneric || inputGene == null)
+                return !(helixIsBasic || inputGene == null)
             }
 
-            if (!helixIsGeneric) {
+            if (!helixIsBasic) {
                 if (inputGene != plasmidGene) return false
             }
 
