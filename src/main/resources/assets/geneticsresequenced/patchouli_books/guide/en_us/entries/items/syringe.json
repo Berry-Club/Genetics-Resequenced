@@ -1,0 +1,12 @@
+{
+  "name": "Syringe",
+  "category": "geneticsresequenced:items",
+  "icon": "geneticsresequenced:syringe",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

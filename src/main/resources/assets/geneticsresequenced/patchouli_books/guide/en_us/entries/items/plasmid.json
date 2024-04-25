@@ -1,0 +1,12 @@
+{
+  "name": "Plasmid",
+  "category": "geneticsresequenced:items",
+  "icon": "geneticsresequenced:plasmid",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}

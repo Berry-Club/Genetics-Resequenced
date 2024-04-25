@@ -1,0 +1,12 @@
+{
+  "name": "Overclocker",
+  "category": "geneticsresequenced:items",
+  "icon": "geneticsresequenced:overclocker",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": ""
+    }
+  ]
+}
