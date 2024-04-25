@@ -62,13 +62,29 @@ class CoalGeneratorMenu(
     val isBurning
         get() = burnTimeRemaining > 0
 
-    fun getScaledProgress(): Int {
+    fun getPercentDone(): Double {
+        if (maxBurnTime == 0) return 0.0
+
+        return 1.0 - burnTimeRemaining.toDouble() / maxBurnTime.toDouble()
+    }
+
+    fun getScaledFuelRemaining(): Int {
+        val fuelSize = CoalGeneratorScreen.BURN_HEIGHT
+
+        return if (maxBurnTime == 0) {
+            0
+        } else {
+            fuelSize - (fuelSize * getPercentDone()).toInt()
+        }
+    }
+
+    fun getScaledProgressArrow(): Int {
         val progressArrowSize = CoalGeneratorScreen.ARROW_WIDTH
 
         return if (maxBurnTime == 0) {
             0
         } else {
-            progressArrowSize - (burnTimeRemaining * progressArrowSize / maxBurnTime)
+            (progressArrowSize.toDouble() * getPercentDone()).toInt()
         }
     }
 

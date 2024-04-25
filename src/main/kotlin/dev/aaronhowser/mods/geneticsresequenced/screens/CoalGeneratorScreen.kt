@@ -74,6 +74,7 @@ class CoalGeneratorScreen(
         blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight)
 
         renderProgressArrow(pPoseStack, x, y)
+        renderBurnProgress(pPoseStack, x, y)
         energyInfoArea.draw(pPoseStack)
     }
 
@@ -123,8 +124,23 @@ class CoalGeneratorScreen(
                 y + ARROW_Y,                // The y position of where the arrow will be
                 ARROW_TEXTURE_X,                // The x offset of where the arrow is in the texture
                 ARROW_TEXTURE_Y,                // The y offset of where the arrow is in the texture
-                menu.getScaledProgress(),       // The width of the arrow
+                menu.getScaledProgressArrow(),       // The width of the arrow
                 ARROW_HEIGHT                    // The height of the arrow
+            )
+        }
+    }
+
+    //FIXME: The bottom disappears rather than the top
+    private fun renderBurnProgress(pPoseStack: PoseStack, x: Int, y: Int) {
+        if (menu.isBurning) {
+            blit(
+                pPoseStack,
+                x + BURN_X,
+                y + BURN_Y,
+                BURN_TEXTURE_X,
+                BURN_TEXTURE_Y,
+                BURN_WIDTH,
+                menu.getScaledFuelRemaining()
             )
         }
     }
