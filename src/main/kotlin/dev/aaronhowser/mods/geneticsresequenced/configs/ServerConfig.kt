@@ -81,7 +81,7 @@ object ServerConfig {
 
         coalGeneratorEnergyPerTick = BUILDER
             .comment("How much energy should the Coal Generator generate per tick (1 item takes 200 ticks to burn in a Furnace)")
-            .defineInRange("coalGeneratorEnergyPerTick", 32, 1, Int.MAX_VALUE)
+            .defineInRange("coalGeneratorEnergyPerTick", 60, 1, Int.MAX_VALUE)
 
         BUILDER.pop()
     }
