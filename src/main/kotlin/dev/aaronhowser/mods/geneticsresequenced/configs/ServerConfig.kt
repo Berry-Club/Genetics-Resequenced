@@ -11,6 +11,8 @@ object ServerConfig {
     lateinit var minimumCooldownForNotification: ForgeConfigSpec.IntValue
     lateinit var antifieldBlockRadius: ForgeConfigSpec.IntValue
 
+    lateinit var coalGeneratorEnergyPerTick: ForgeConfigSpec.IntValue
+
     lateinit var bioluminescenceCooldown: ForgeConfigSpec.IntValue
     lateinit var bioluminescenceDuration: ForgeConfigSpec.IntValue
     lateinit var clawsChance: ForgeConfigSpec.DoubleValue
@@ -46,6 +48,7 @@ object ServerConfig {
 
     init {
         generalConfigs()
+        machineConfigs()
         geneConfigs()
 
         SPEC = BUILDER.build()
@@ -69,6 +72,16 @@ object ServerConfig {
         antifieldBlockRadius = BUILDER
             .comment("How far should the Antifield Block prevent Item/XP Magnet Genes from working (in blocks)")
             .defineInRange("antifieldBlockRadius", 10, 1, Int.MAX_VALUE)
+
+        BUILDER.pop()
+    }
+
+    private fun machineConfigs() {
+        BUILDER.push("machines")
+
+        coalGeneratorEnergyPerTick = BUILDER
+            .comment("How much energy should the Coal Generator generate per tick (1 item takes 200 ticks to burn in a Furnace)")
+            .defineInRange("coalGeneratorEnergyPerTick", 32, 1, Int.MAX_VALUE)
 
         BUILDER.pop()
     }

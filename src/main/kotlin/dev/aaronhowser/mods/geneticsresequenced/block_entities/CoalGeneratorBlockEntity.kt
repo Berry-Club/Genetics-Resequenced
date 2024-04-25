@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_entities
 
+import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.EnergySyncPacket
 import dev.aaronhowser.mods.geneticsresequenced.screens.CoalGeneratorMenu
@@ -208,7 +209,7 @@ class CoalGeneratorBlockEntity(
         }
 
         private fun generateEnergy(blockEntity: CoalGeneratorBlockEntity) {
-            blockEntity.energyStorage.receiveEnergy(ENERGY_PER_TICK, false)
+            blockEntity.energyStorage.receiveEnergy(energyPerTick, false)
 
             blockEntity.burnTimeRemaining -= 1
             blockEntity.setChanged()
@@ -219,7 +220,7 @@ class CoalGeneratorBlockEntity(
         }
 
         private fun hasRoomForEnergy(blockEntity: CoalGeneratorBlockEntity): Boolean {
-            return blockEntity.energyStorage.energyStored + ENERGY_PER_TICK <= blockEntity.energyStorage.maxEnergyStored
+            return blockEntity.energyStorage.energyStored + energyPerTick <= blockEntity.energyStorage.maxEnergyStored
         }
 
         fun pushEnergyToAdjacent(blockEntity: CoalGeneratorBlockEntity) {
@@ -262,7 +263,9 @@ class CoalGeneratorBlockEntity(
 
         private const val CAPACITY = 60_000
         private const val MAX_TRANSFER = 256
-        private const val ENERGY_PER_TICK = 32
+
+        val energyPerTick: Int
+            get() = ServerConfig.coalGeneratorEnergyPerTick.get()
 
         const val REMAINING_TICKS_INDEX = 0
         const val MAX_BURN_TIME_INDEX = 1

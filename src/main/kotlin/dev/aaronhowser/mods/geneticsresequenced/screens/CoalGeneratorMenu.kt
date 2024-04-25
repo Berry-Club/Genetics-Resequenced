@@ -2,14 +2,20 @@ package dev.aaronhowser.mods.geneticsresequenced.screens
 
 import dev.aaronhowser.mods.geneticsresequenced.block_entities.CoalGeneratorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
+import net.minecraft.ChatFormatting
 import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.*
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
+import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.common.capabilities.ForgeCapabilities
+import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.items.SlotItemHandler
+import java.text.NumberFormat
 
 class CoalGeneratorMenu(
     id: Int,
@@ -67,6 +73,17 @@ class CoalGeneratorMenu(
     }
 
     companion object {
+
+        fun showFuelTooltip(event: ItemTooltipEvent) {
+            val itemStack = event.itemStack
+            val fuel = ForgeHooks.getBurnTime(itemStack, RecipeType.SMELTING)
+            if (fuel <= 0) return
+
+            val feProduced = CoalGeneratorBlockEntity.energyPerTick * fuel
+            val feString = NumberFormat.getNumberInstance().format(feProduced)
+
+            event.toolTip.add(Component.literal("$feString FE").withStyle { it.withColor(ChatFormatting.GRAY) })
+        }
 
         private const val TOP_LEFT_INVENTORY_X = 8
         private const val TOP_LEFT_INVENTORY_Y = 84
