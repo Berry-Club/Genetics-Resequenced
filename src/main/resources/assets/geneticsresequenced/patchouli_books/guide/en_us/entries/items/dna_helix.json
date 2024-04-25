@@ -1,0 +1,25 @@
+{
+  "name": "DNA Helix",
+  "category": "geneticsresequenced:items",
+  "icon": "geneticsresequenced:dna_helix",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(major)DNA Helices/$ contain genetic information. This can be either in the form of a $(minor)Gene/$, or an $(minor)Entity/$.$(br2)Freshly crafted, a DNA Helix contains only the Entity that the DNA came from."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Encrypted DNA Helix",
+      "item": "geneticsresequenced:dna_helix{MobId:'minecraft:cow'}",
+      "link_recipe": true,
+      "text": "This DNA Helix contains the genetic information of a $(minor)Cow/$, but the actual Gene it has is $(bad)unknown/$. To decrypt it, you'll need to pass it through a $(l:geneticsresequenced:blocks/dna_decrypter)DNA Decrypter/$."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Decrypted DNA Helix",
+      "item": "geneticsresequenced:dna_helix{GeneId:'geneticsresequenced:milky'}",
+      "text": "This DNA Helix has been decrypted, and now we can see it contains the $(l:geneticsresequenced:genes/milky)Milky/$ Gene."
+    }
+  ]
+}
