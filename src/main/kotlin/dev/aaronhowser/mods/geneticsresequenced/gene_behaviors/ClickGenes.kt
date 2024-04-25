@@ -33,15 +33,7 @@ import kotlin.random.Random
 
 object ClickGenes {
 
-    //TODO: Make these into recipes? Would be nice for packs or whatever
-
     private val recentlySheered = mutableSetOf<UUID>()
-
-    /**
-     * TODO: Make this toggle the outer skin layers
-     *
-     * See [Options.toggleModelPart], but it's client only which means this will need a packet
-     */
     fun wooly(event: PlayerInteractEvent.EntityInteract) {
 
         val target = event.target as? LivingEntity ?: return

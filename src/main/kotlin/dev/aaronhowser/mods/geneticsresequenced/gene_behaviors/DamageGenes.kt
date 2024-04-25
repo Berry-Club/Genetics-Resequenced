@@ -147,9 +147,9 @@ object DamageGenes {
 
         val healthCrystal = items.find { it.item == ModItems.DRAGON_HEALTH_CRYSTAL } ?: return
 
-        val amountDamaged = event.amount
+        val amountDamaged = event.amount.toInt()
         val crystalDurabilityRemaining = healthCrystal.maxDamage - healthCrystal.damageValue
-        val amountToBlock = minOf(amountDamaged.toInt(), crystalDurabilityRemaining)
+        val amountToBlock = minOf(amountDamaged, crystalDurabilityRemaining)
 
         healthCrystal.hurtAndBreak(amountToBlock, entity) {
             DragonHealthCrystal.playBreakSound(it.level, it.x, it.y, it.z)

@@ -5,6 +5,8 @@ import net.minecraft.sounds.SoundSource
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
+import net.minecraft.world.item.enchantment.Enchantment
+import net.minecraft.world.item.enchantment.Enchantments
 import net.minecraft.world.level.Level
 
 object DragonHealthCrystal : Item(
@@ -15,6 +17,13 @@ object DragonHealthCrystal : Item(
 
     override fun isValidRepairItem(pStack: ItemStack, pRepairCandidate: ItemStack): Boolean {
         return pRepairCandidate.`is`(Items.END_CRYSTAL)
+    }
+
+    override fun canApplyAtEnchantingTable(stack: ItemStack, enchantment: Enchantment): Boolean {
+        if (enchantment in listOf(Enchantments.UNBREAKING, Enchantments.MENDING, Enchantments.VANISHING_CURSE)) {
+            return false
+        }
+        return super.canApplyAtEnchantingTable(stack, enchantment)
     }
 
     fun playBreakSound(level: Level, x: Double, y: Double, z: Double) {
