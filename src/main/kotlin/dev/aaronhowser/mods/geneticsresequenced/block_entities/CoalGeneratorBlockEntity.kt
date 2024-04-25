@@ -205,9 +205,16 @@ class CoalGeneratorBlockEntity(
                 return
             }
 
+            val fuelReplacedItem = inputItem.craftingRemainingItem
+
             blockEntity.maxBurnTime = fuel
             blockEntity.burnTimeRemaining = fuel
             blockEntity.itemHandler.extractItem(INPUT_SLOT, 1, false)
+
+            if (!fuelReplacedItem.isEmpty) {
+                blockEntity.itemHandler.insertItem(INPUT_SLOT, fuelReplacedItem, false)
+            }
+
             blockEntity.setChanged()
         }
 
