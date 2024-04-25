@@ -6,7 +6,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Dragon Health Crystal/$ is part of the $(l:geneticsresequenced:genes/dragon_health)Dragon Health/$ Gene.$(br2)While you have that Gene, and while holding a Dragon Health Crystal, any incoming damage is negated and instead dealt to the Crystal."
+      "text": "The $(major)Dragon Health Crystal/$ is part of the $(l:geneticsresequenced:genes/ender_dragon_health)Ender Dragon Health/$ Gene.$(br2)While you have that Gene, and while holding a Dragon Health Crystal, any incoming damage is negated and instead dealt to the Crystal."
     },
     {
       "type": "patchouli:spotlight",
