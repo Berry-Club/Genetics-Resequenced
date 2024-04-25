@@ -1,0 +1,18 @@
+{
+  "name": "Dragon Health Crystal",
+  "category": "geneticsresequenced:items",
+  "icon": "geneticsresequenced:dragon_health_crystal",
+  "sortnum": 9,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Dragon Health Crystal/$ is part of the $(l:geneticsresequenced:genes/dragon_health)Dragon Health/$ Gene.$(br2)While you have that Gene, and while holding a Dragon Health Crystal, any incoming damage is negated and instead dealt to the Crystal."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:dragon_health_crystal",
+      "link_recipe": true,
+      "text": "A fresh Dragon Health Crystal has $(minor)1,000 durability/$.$(br2)Each half-heart deals 1 point of durability damage.$(br2)It can be repaired with End Crystals."
+    }
+  ]
+}

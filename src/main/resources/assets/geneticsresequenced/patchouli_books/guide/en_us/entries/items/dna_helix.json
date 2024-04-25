@@ -20,6 +20,12 @@
       "title": "Decrypted DNA Helix",
       "item": "geneticsresequenced:dna_helix{GeneId:'geneticsresequenced:milky'}",
       "text": "This DNA Helix has been decrypted, and now we can see it contains the $(l:geneticsresequenced:genes/milky)Milky/$ Gene."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "title": "Basic Gene",
+      "item": "geneticsresequenced:dna_helix{IsBasic:true}",
+      "text": "DNA Helices have a chance of being $(minor)Basic/$. This means that they $(bad)don't contain any Gene/$, but they can still contribute to $(l:geneticsresequenced:items/plasmid)Plasmids/$."
     }
   ]
 }
