@@ -79,14 +79,23 @@ class CoalGeneratorBlockEntity(
 
     private val burnTicksLeftNbtKey = "coal_generator.burn_ticks_left"
 
-    override fun load(pTag: CompoundTag) {
-        super.load(pTag)
-        burnTimeRemaining = pTag.getInt(burnTicksLeftNbtKey)
+    //FIXME: WHY???????
+    override fun saveAdditional(pTag: CompoundTag) {
+        println("Level is client: ${level?.isClientSide}")
+        val a = burnTimeRemaining
+        println("Burn time remaining before saving: $a")
+        pTag.putInt(burnTicksLeftNbtKey, burnTimeRemaining)
+        val t = pTag.getInt(burnTicksLeftNbtKey)
+        println("Burn time remaining after saving: $t")
+        super.saveAdditional(pTag)
     }
 
-    override fun saveAdditional(pTag: CompoundTag) {
-        super.saveAdditional(pTag)
-        pTag.putInt(burnTicksLeftNbtKey, burnTimeRemaining)
+    override fun load(pTag: CompoundTag) {
+        println("Level is client: ${level?.isClientSide}")
+        val t = pTag.getInt(burnTicksLeftNbtKey)
+        println("Loaded burn time: $t")
+        burnTimeRemaining = pTag.getInt(burnTicksLeftNbtKey)
+        super.load(pTag)
     }
 
     private var maxBurnTime: Int
