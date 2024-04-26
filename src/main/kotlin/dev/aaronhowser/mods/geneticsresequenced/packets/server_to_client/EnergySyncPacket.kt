@@ -1,10 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client
 
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.InventoryAndEnergyBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacket
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer.CellAnalyzerMenu
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorMenu
+import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.client.Minecraft
 import net.minecraft.core.BlockPos
 import net.minecraft.network.FriendlyByteBuf
@@ -40,25 +38,15 @@ class EnergySyncPacket(
         val blockEntity = Minecraft.getInstance().level?.getBlockEntity(pos)
 
         when (blockEntity) {
-            is CraftingMachineBlockEntity -> handleCraftingMachineBlockEntity(blockEntity)
-            is CoalGeneratorBlockEntity -> handleCoalGenerator(blockEntity)
+            is InventoryAndEnergyBlockEntity -> handleEnergyMenu(blockEntity)
         }
 
     }
 
-    private fun handleCraftingMachineBlockEntity(blockEntity: CraftingMachineBlockEntity) {
+    private fun handleEnergyMenu(blockEntity: InventoryAndEnergyBlockEntity) {
         blockEntity.setEnergy(energy)
         val playerMenu = Minecraft.getInstance().player?.containerMenu
-        // don't really understand why this one is here, kaupenjoe says it's needed so like whatever
-        if (playerMenu is CellAnalyzerMenu && playerMenu.blockEntity.blockPos == pos) {
-            blockEntity.setEnergy(energy)
-        }
-    }
-
-    private fun handleCoalGenerator(blockEntity: CoalGeneratorBlockEntity) {
-        blockEntity.setEnergy(energy)
-        val playerMenu = Minecraft.getInstance().player?.containerMenu
-        if (playerMenu is CoalGeneratorMenu && playerMenu.blockEntity.blockPos == pos) {
+        if (playerMenu is MachineMenu && playerMenu.blockEntity.blockPos == pos) {
             blockEntity.setEnergy(energy)
         }
     }

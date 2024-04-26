@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.InventoryAndEnergyBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component
@@ -34,6 +35,7 @@ class CoalGeneratorBlockEntity(
     override val energyMaximum: Int = ServerConfig.coalGeneratorEnergyCapacity.get()
     override val energyTransferMaximum: Int = ServerConfig.coalGeneratorEnergyTransferRate.get()
 
+    override val menuType: Class<out MachineMenu> = CoalGeneratorMenu::class.java
     override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
         return CoalGeneratorMenu(pContainerId, pPlayerInventory, this, this.data)
     }

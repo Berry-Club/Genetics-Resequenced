@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.base
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorBlockEntity.Companion.ITEMSTACK_HANDLER_SIZE
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.EnergySyncPacket
+import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.util.ModEnergyStorage
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -80,6 +81,8 @@ abstract class InventoryAndEnergyBlockEntity(
         return lazyEnergyStorage.cast()
     }
 
+    abstract val menuType: Class<out MachineMenu>
+
     // Client only
     fun setEnergy(energy: Int) {
         this.energyStorage.setEnergy(energy)
@@ -98,6 +101,8 @@ abstract class InventoryAndEnergyBlockEntity(
         super.onLoad()
         lazyItemHandler = LazyOptional.of { itemHandler }
         lazyEnergyStorage = LazyOptional.of { energyStorage }
+
+        ModPacketHandler.messageAllPlayers(EnergySyncPacket(energyStorage.energyStored, blockPos))
     }
 
     override fun invalidateCaps() {
@@ -120,8 +125,6 @@ abstract class InventoryAndEnergyBlockEntity(
 
         itemHandler.deserializeNBT(inventory)
         energyStorage.setEnergy(energy)
-
-        ModPacketHandler.messageAllPlayers(EnergySyncPacket(energy, blockPos))
     }
 
 }

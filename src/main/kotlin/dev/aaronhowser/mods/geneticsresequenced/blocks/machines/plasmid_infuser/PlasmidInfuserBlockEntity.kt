@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem.increaseAmount
+import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.world.MenuProvider
@@ -49,6 +50,7 @@ class PlasmidInfuserBlockEntity(
         }
     }
 
+    override val menuType: Class<out MachineMenu> = PlasmidInfuserMenu::class.java
     override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
         return PlasmidInfuserMenu(pContainerId, pPlayerInventory, this, this.containerData)
     }
