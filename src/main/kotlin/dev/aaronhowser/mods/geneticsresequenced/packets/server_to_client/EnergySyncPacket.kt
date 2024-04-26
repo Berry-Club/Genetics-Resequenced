@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client
 
-import dev.aaronhowser.mods.geneticsresequenced.blocks.base.InventoryAndEnergyBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.InventoryEnergyBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacket
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.client.Minecraft
@@ -38,12 +38,12 @@ class EnergySyncPacket(
         val blockEntity = Minecraft.getInstance().level?.getBlockEntity(pos)
 
         when (blockEntity) {
-            is InventoryAndEnergyBlockEntity -> handleEnergyMenu(blockEntity)
+            is InventoryEnergyBlockEntity -> handleEnergyMenu(blockEntity)
         }
 
     }
 
-    private fun handleEnergyMenu(blockEntity: InventoryAndEnergyBlockEntity) {
+    private fun handleEnergyMenu(blockEntity: InventoryEnergyBlockEntity) {
         blockEntity.setEnergy(energy)
         val playerMenu = Minecraft.getInstance().player?.containerMenu
         if (playerMenu is MachineMenu && playerMenu.blockEntity.blockPos == pos) {

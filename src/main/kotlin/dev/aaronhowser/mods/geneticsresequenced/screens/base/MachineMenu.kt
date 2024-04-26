@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.screens.base
 
-import dev.aaronhowser.mods.geneticsresequenced.blocks.base.InventoryAndEnergyBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.InventoryEnergyBlockEntity
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level
 
 abstract class MachineMenu(
     menuType: MenuType<*>,
-    val blockEntity: InventoryAndEnergyBlockEntity,
+    val blockEntity: InventoryEnergyBlockEntity,
     id: Int,
     inventory: Inventory
 ) : AbstractContainerMenu(menuType, id) {

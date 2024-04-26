@@ -1,15 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.base
 
 import net.minecraft.core.BlockPos
-import net.minecraft.nbt.CompoundTag
-import net.minecraft.world.Containers
 import net.minecraft.world.MenuProvider
-import net.minecraft.world.SimpleContainer
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
-import net.minecraftforge.common.util.LazyOptional
-import net.minecraftforge.energy.IEnergyStorage
 
 /**
  * Base class for all crafting machines.
@@ -20,7 +15,7 @@ abstract class CraftingMachineBlockEntity(
     pType: BlockEntityType<*>,
     pPos: BlockPos,
     pBlockState: BlockState
-) : InventoryAndEnergyBlockEntity(
+) : InventoryEnergyBlockEntity(
     pType,
     pPos,
     pBlockState

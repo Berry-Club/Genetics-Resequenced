@@ -21,7 +21,7 @@ import net.minecraftforge.energy.IEnergyStorage
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.ItemStackHandler
 
-abstract class InventoryAndEnergyBlockEntity(
+abstract class InventoryEnergyBlockEntity(
     blockEntityType: BlockEntityType<*>,
     pPos: BlockPos,
     pBlockState: BlockState
