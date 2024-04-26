@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.recipes.DnaExtractorRecipe
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.drawable.IDrawable
@@ -23,12 +24,12 @@ class DnaExtractorRecipeCategory(
 
         val recipeType: RecipeType<DnaExtractorRecipe> =
             RecipeType(
-                ResourceLocation(GeneticsResequenced.ID, DnaExtractorRecipe.RECIPE_TYPE_NAME),
+                OtherUtil.modResource(DnaExtractorRecipe.RECIPE_TYPE_NAME),
                 DnaExtractorRecipe::class.java
             )
 
-        val UID = ResourceLocation(GeneticsResequenced.ID, DnaExtractorRecipe.RECIPE_TYPE_NAME)
-        private val TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/dna_extractor.png")
+        val UID = OtherUtil.modResource(DnaExtractorRecipe.RECIPE_TYPE_NAME)
+        private val TEXTURE = OtherUtil.modResource("textures/gui/dna_extractor.png")
     }
 
     private val background: IDrawable = helper.createDrawable(TEXTURE, 57, 30, 75, 28)

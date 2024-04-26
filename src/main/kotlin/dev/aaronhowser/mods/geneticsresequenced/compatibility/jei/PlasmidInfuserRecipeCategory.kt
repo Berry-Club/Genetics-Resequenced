@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.recipes.PlasmidInfuserRecipe
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.drawable.IDrawable
@@ -25,12 +26,12 @@ class PlasmidInfuserRecipeCategory(
     companion object {
         val recipeType: RecipeType<PlasmidInfuserRecipe> =
             RecipeType(
-                ResourceLocation(GeneticsResequenced.ID, PlasmidInfuserRecipe.RECIPE_TYPE_NAME),
+                OtherUtil.modResource(PlasmidInfuserRecipe.RECIPE_TYPE_NAME),
                 PlasmidInfuserRecipe::class.java
             )
 
-        val UID = ResourceLocation(GeneticsResequenced.ID, PlasmidInfuserRecipe.RECIPE_TYPE_NAME)
-        private val TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/plasmid_infuser.png")
+        val UID = OtherUtil.modResource(PlasmidInfuserRecipe.RECIPE_TYPE_NAME)
+        private val TEXTURE = OtherUtil.modResource("textures/gui/plasmid_infuser.png")
     }
 
     private val background: IDrawableStatic = helper.createDrawable(TEXTURE, 57, 30, 75, 28)

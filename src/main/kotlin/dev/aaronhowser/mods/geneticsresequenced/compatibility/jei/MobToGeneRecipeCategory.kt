@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.MobToGeneRecipe
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.drawable.IDrawable
@@ -15,7 +15,6 @@ import mezz.jei.api.recipe.RecipeIngredientRole
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.IRecipeCategory
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 
 class MobToGeneRecipeCategory(
@@ -25,12 +24,12 @@ class MobToGeneRecipeCategory(
     companion object {
         val recipeType: RecipeType<MobToGeneRecipe> =
             RecipeType(
-                ResourceLocation(GeneticsResequenced.ID, MobToGeneRecipe.RECIPE_TYPE_NAME),
+                OtherUtil.modResource(MobToGeneRecipe.RECIPE_TYPE_NAME),
                 MobToGeneRecipe::class.java
             )
 
-        val UID = ResourceLocation(GeneticsResequenced.ID, MobToGeneRecipe.RECIPE_TYPE_NAME)
-        private val TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/dna_decryptor.png")
+        val UID = OtherUtil.modResource(MobToGeneRecipe.RECIPE_TYPE_NAME)
+        private val TEXTURE = OtherUtil.modResource("textures/gui/dna_decryptor.png")
     }
 
     private val background: IDrawableStatic = helper.createDrawable(TEXTURE, 57, 30, 75, 28)

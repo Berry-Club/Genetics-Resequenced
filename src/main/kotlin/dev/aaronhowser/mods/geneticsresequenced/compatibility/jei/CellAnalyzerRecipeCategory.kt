@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.recipes.CellAnalyzerRecipe
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.drawable.IDrawable
@@ -23,12 +24,12 @@ class CellAnalyzerRecipeCategory(
 
         val recipeType: RecipeType<CellAnalyzerRecipe> =
             RecipeType(
-                ResourceLocation(GeneticsResequenced.ID, CellAnalyzerRecipe.RECIPE_TYPE_NAME),
+                OtherUtil.modResource(CellAnalyzerRecipe.RECIPE_TYPE_NAME),
                 CellAnalyzerRecipe::class.java
             )
 
-        val UID = ResourceLocation(GeneticsResequenced.ID, CellAnalyzerRecipe.RECIPE_TYPE_NAME)
-        private val TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/cell_analyzer.png")
+        val UID = OtherUtil.modResource(CellAnalyzerRecipe.RECIPE_TYPE_NAME)
+        private val TEXTURE = OtherUtil.modResource("textures/gui/cell_analyzer.png")
     }
 
     private val background: IDrawable = helper.createDrawable(TEXTURE, 57, 30, 75, 28)

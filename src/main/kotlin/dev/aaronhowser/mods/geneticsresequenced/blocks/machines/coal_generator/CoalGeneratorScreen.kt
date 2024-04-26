@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.PoseStack
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.screens.renderer.EnergyInfoArea
 import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.network.chat.Component
@@ -18,7 +19,7 @@ class CoalGeneratorScreen(
 ) : AbstractContainerScreen<CoalGeneratorMenu>(pMenu, pPlayerInventory, pTitle) {
 
     companion object {
-        val BACKGROUND_TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/coal_generator.png")
+        val BACKGROUND_TEXTURE = OtherUtil.modResource("textures/gui/coal_generator.png")
 
         const val ARROW_TEXTURE_X = 177
         const val ARROW_TEXTURE_Y = 61

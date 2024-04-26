@@ -1,8 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
 import java.util.*
 
@@ -60,5 +62,7 @@ object OtherUtil {
 
         player.sendSystemMessage(message)
     }
+
+    fun modResource(path: String): ResourceLocation = ResourceLocation(GeneticsResequenced.ID, path)
 
 }

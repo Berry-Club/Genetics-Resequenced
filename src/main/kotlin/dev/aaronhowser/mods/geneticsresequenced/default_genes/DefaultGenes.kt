@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.default_genes
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffects
 
@@ -12,7 +13,7 @@ object DefaultGenes {
         // Doesn't do anything, but it loads the object which initializes the genes
     }
 
-    private fun registerGene(geneId: String): Gene = Gene(ResourceLocation(GeneticsResequenced.ID, geneId))
+    private fun registerGene(geneId: String): Gene = Gene(OtherUtil.modResource(geneId))
 
 
     // Mutations (must be initialized first because they're used in arguments in ones below)

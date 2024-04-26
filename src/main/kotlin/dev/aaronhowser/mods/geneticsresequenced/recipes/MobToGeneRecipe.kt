@@ -1,12 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipes
 
 import com.google.gson.JsonObject
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
@@ -89,8 +89,7 @@ class MobToGeneRecipe(
     override fun getId(): ResourceLocation {
         val geneString = gene?.id?.toString()?.replace(":", "/") ?: "basic"
 
-        return ResourceLocation(
-            GeneticsResequenced.ID,
+        return OtherUtil.modResource(
             "$RECIPE_TYPE_NAME/${mobResourceLocation.toString().replace(':', '/')}/$geneString"
         )
     }

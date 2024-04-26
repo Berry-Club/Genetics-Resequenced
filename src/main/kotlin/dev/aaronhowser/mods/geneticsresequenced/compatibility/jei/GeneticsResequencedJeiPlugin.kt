@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.recipes.CellAnalyzerRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipes.DnaExtractorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipes.MobToGeneRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipes.PlasmidInfuserRecipe
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
 import mezz.jei.api.constants.VanillaTypes
@@ -40,7 +41,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
     }
 
     override fun getPluginUid(): ResourceLocation =
-        ResourceLocation(GeneticsResequenced.ID, "jei_plugin")
+        OtherUtil.modResource("jei_plugin")
 
     override fun registerCategories(registration: IRecipeCategoryRegistration) {
         registration.addRecipeCategories(

@@ -1,11 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.packets
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.TeleportPlayerPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.EnergySyncPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
-import net.minecraft.resources.ResourceLocation
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.phys.Vec3
@@ -14,12 +13,11 @@ import net.minecraftforge.network.NetworkRegistry
 import net.minecraftforge.network.PacketDistributor
 import net.minecraftforge.network.simple.SimpleChannel
 
-@Suppress("INACCESSIBLE_TYPE")
 object ModPacketHandler {
 
     private const val PROTOCOL_VERSION = "1"
     private val INSTANCE: SimpleChannel = NetworkRegistry.newSimpleChannel(
-        ResourceLocation(GeneticsResequenced.ID, "main"),
+        OtherUtil.modResource("main"),
         { PROTOCOL_VERSION },
         { anObject: String -> PROTOCOL_VERSION == anObject },
         { anObject: String -> PROTOCOL_VERSION == anObject }

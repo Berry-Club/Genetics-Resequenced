@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipes
 
 import com.google.gson.JsonObject
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
@@ -53,10 +53,7 @@ class CellAnalyzerRecipe(
     }
 
     override fun getId(): ResourceLocation =
-        ResourceLocation(
-            GeneticsResequenced.ID,
-            "$RECIPE_TYPE_NAME/${entityResourceLocation.toString().replace(':', '/')}"
-        )
+        OtherUtil.modResource("$RECIPE_TYPE_NAME/${entityResourceLocation.toString().replace(':', '/')}")
 
     override fun getSerializer(): RecipeSerializer<*> = SERIALIZER
 
