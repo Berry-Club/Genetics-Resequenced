@@ -1,11 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
-import dev.aaronhowser.mods.geneticsresequenced.blocks.base.InventoryAndEnergyBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.InventoryEnergyBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.entity.player.Inventory
@@ -24,7 +25,7 @@ import kotlin.math.min
 class CoalGeneratorBlockEntity(
     pPos: BlockPos,
     pBlockState: BlockState
-) : InventoryAndEnergyBlockEntity(
+) : InventoryEnergyBlockEntity(
     ModBlockEntities.COAL_GENERATOR.get(),
     pPos,
     pBlockState
@@ -32,6 +33,7 @@ class CoalGeneratorBlockEntity(
 
     override val inventoryNbtKey: String = "coal_generator.inventory"
     override val energyNbtKey = "coal_generator.energy"
+
     override val energyMaximum: Int = ServerConfig.coalGeneratorEnergyCapacity.get()
     override val energyTransferMaximum: Int = ServerConfig.coalGeneratorEnergyTransferRate.get()
 
@@ -73,6 +75,18 @@ class CoalGeneratorBlockEntity(
         override fun getCount(): Int {
             return SIMPLE_CONTAINER_SIZE
         }
+    }
+
+    private val burnTicksLeftNbtKey = "coal_generator.burn_ticks_left"
+
+    override fun load(pTag: CompoundTag) {
+        super.load(pTag)
+        burnTimeRemaining = pTag.getInt(burnTicksLeftNbtKey)
+    }
+
+    override fun saveAdditional(pTag: CompoundTag) {
+        super.saveAdditional(pTag)
+        pTag.putInt(burnTicksLeftNbtKey, burnTimeRemaining)
     }
 
     private var maxBurnTime: Int

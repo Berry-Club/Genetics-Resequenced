@@ -120,11 +120,8 @@ abstract class InventoryEnergyBlockEntity(
     override fun load(pTag: CompoundTag) {
         super.load(pTag)
 
-        val inventory = pTag.getCompound(inventoryNbtKey)
-        val energy = pTag.getInt(energyNbtKey)
-
-        itemHandler.deserializeNBT(inventory)
-        energyStorage.setEnergy(energy)
+        itemHandler.deserializeNBT(pTag.getCompound(inventoryNbtKey))
+        energyStorage.setEnergy(pTag.getInt(energyNbtKey))
     }
 
 }
