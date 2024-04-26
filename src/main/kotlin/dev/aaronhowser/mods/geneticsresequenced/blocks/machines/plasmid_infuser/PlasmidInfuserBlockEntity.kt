@@ -1,13 +1,13 @@
-package dev.aaronhowser.mods.geneticsresequenced.block_entities
+package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser
 
-import dev.aaronhowser.mods.geneticsresequenced.block_entities.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.isBasic
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem.increaseAmount
-import dev.aaronhowser.mods.geneticsresequenced.screens.PlasmidInfuserMenu
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.world.MenuProvider

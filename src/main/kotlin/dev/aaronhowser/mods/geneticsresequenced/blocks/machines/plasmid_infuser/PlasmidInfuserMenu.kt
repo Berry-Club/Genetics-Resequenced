@@ -1,8 +1,9 @@
-package dev.aaronhowser.mods.geneticsresequenced.screens
+package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser
 
-import dev.aaronhowser.mods.geneticsresequenced.block_entities.DnaExtractorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_entities.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorScreen
+import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
@@ -12,12 +13,12 @@ import net.minecraft.world.level.Level
 import net.minecraftforge.common.capabilities.ForgeCapabilities
 import net.minecraftforge.items.SlotItemHandler
 
-class DnaExtractorMenu(
+class PlasmidInfuserMenu(
     id: Int,
     inventory: Inventory,
-    val blockEntity: DnaExtractorBlockEntity,
+    val blockEntity: PlasmidInfuserBlockEntity,
     private val containerData: ContainerData
-) : AbstractContainerMenu(ModMenuTypes.DNA_EXTRACTOR.get(), id) {
+) : AbstractContainerMenu(ModMenuTypes.PLASMID_INFUSER.get(), id) {
 
     private val level: Level = inventory.player.level
 
@@ -25,7 +26,7 @@ class DnaExtractorMenu(
             this(
                 id,
                 inventory,
-                inventory.player.level.getBlockEntity(extraData.readBlockPos()) as DnaExtractorBlockEntity,
+                inventory.player.level.getBlockEntity(extraData.readBlockPos()) as PlasmidInfuserBlockEntity,
                 SimpleContainerData(CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
             )
 
@@ -48,7 +49,7 @@ class DnaExtractorMenu(
         return stillValid(
             ContainerLevelAccess.create(level, blockEntity.blockPos),
             pPlayer,
-            ModBlocks.DNA_EXTRACTOR
+            ModBlocks.PLASMID_INFUSER
         )
     }
 
@@ -177,5 +178,6 @@ class DnaExtractorMenu(
         sourceSlot.onTake(playerIn, sourceStack)
         return copyOfSourceStack
     }
+
 
 }

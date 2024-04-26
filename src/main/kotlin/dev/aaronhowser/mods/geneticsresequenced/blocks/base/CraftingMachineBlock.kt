@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.base
 
-import dev.aaronhowser.mods.geneticsresequenced.block_entities.base.CraftingMachineBlockEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerPlayer

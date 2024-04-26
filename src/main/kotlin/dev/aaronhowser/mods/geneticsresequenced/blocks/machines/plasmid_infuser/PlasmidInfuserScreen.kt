@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.screens
+package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser
 
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.PoseStack

@@ -1,8 +1,8 @@
-package dev.aaronhowser.mods.geneticsresequenced.screens
+package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor
 
-import dev.aaronhowser.mods.geneticsresequenced.block_entities.PlasmidInfuserBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_entities.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
@@ -12,12 +12,12 @@ import net.minecraft.world.level.Level
 import net.minecraftforge.common.capabilities.ForgeCapabilities
 import net.minecraftforge.items.SlotItemHandler
 
-class PlasmidInfuserMenu(
+class DnaDecryptorMenu(
     id: Int,
     inventory: Inventory,
-    val blockEntity: PlasmidInfuserBlockEntity,
+    val blockEntity: DnaDecryptorBlockEntity,
     private val containerData: ContainerData
-) : AbstractContainerMenu(ModMenuTypes.PLASMID_INFUSER.get(), id) {
+) : AbstractContainerMenu(ModMenuTypes.DNA_DECRYPTOR.get(), id) {
 
     private val level: Level = inventory.player.level
 
@@ -25,7 +25,7 @@ class PlasmidInfuserMenu(
             this(
                 id,
                 inventory,
-                inventory.player.level.getBlockEntity(extraData.readBlockPos()) as PlasmidInfuserBlockEntity,
+                inventory.player.level.getBlockEntity(extraData.readBlockPos()) as DnaDecryptorBlockEntity,
                 SimpleContainerData(CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
             )
 
@@ -48,7 +48,7 @@ class PlasmidInfuserMenu(
         return stillValid(
             ContainerLevelAccess.create(level, blockEntity.blockPos),
             pPlayer,
-            ModBlocks.PLASMID_INFUSER
+            ModBlocks.DNA_DECRYPTOR
         )
     }
 
@@ -177,6 +177,5 @@ class PlasmidInfuserMenu(
         sourceSlot.onTake(playerIn, sourceStack)
         return copyOfSourceStack
     }
-
 
 }

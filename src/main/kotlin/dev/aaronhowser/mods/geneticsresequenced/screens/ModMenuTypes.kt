@@ -1,6 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced.screens
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer.CellAnalyzerMenu
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorMenu
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorMenu
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor.DnaExtractorMenu
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserMenu
 import net.minecraft.world.inventory.MenuType
 import net.minecraftforge.common.extensions.IForgeMenuType
 import net.minecraftforge.network.IContainerFactory
@@ -39,10 +44,11 @@ object ModMenuTypes {
         })
     }
 
-    val PLASMID_INFUSER: RegistryObject<MenuType<PlasmidInfuserMenu>> = MENU_TYPE_RECIPE.register("plasma_infuser_menu") {
-        IForgeMenuType.create(IContainerFactory { id, inv, buf ->
-            PlasmidInfuserMenu(id, inv, buf)
-        })
-    }
+    val PLASMID_INFUSER: RegistryObject<MenuType<PlasmidInfuserMenu>> =
+        MENU_TYPE_RECIPE.register("plasma_infuser_menu") {
+            IForgeMenuType.create(IContainerFactory { id, inv, buf ->
+                PlasmidInfuserMenu(id, inv, buf)
+            })
+        }
 
 }

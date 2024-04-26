@@ -1,9 +1,9 @@
-package dev.aaronhowser.mods.geneticsresequenced.block_entities
+package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator
 
+import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.EnergySyncPacket
-import dev.aaronhowser.mods.geneticsresequenced.screens.CoalGeneratorMenu
 import dev.aaronhowser.mods.geneticsresequenced.util.ModEnergyStorage
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction

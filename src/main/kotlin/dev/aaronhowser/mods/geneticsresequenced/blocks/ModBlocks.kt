@@ -1,7 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
- import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.*
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor.DnaExtractorBlock
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.*
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer.CellAnalyzerBlock
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorBlock
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorBlock
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserBlock
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.Item

@@ -1,8 +1,8 @@
-package dev.aaronhowser.mods.geneticsresequenced.screens
+package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer
 
-import dev.aaronhowser.mods.geneticsresequenced.block_entities.CellAnalyzerBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_entities.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player

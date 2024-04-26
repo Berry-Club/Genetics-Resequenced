@@ -1,11 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced.events
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorMenu
 import dev.aaronhowser.mods.geneticsresequenced.controls.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.TeleportPlayerPacket
-import dev.aaronhowser.mods.geneticsresequenced.screens.CoalGeneratorMenu
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.client.event.InputEvent

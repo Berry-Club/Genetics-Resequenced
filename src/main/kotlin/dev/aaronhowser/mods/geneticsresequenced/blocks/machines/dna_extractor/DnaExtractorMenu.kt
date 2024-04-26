@@ -1,8 +1,9 @@
-package dev.aaronhowser.mods.geneticsresequenced.screens
+package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor
 
-import dev.aaronhowser.mods.geneticsresequenced.block_entities.DnaDecryptorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_entities.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorScreen
+import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
@@ -12,12 +13,12 @@ import net.minecraft.world.level.Level
 import net.minecraftforge.common.capabilities.ForgeCapabilities
 import net.minecraftforge.items.SlotItemHandler
 
-class DnaDecryptorMenu(
+class DnaExtractorMenu(
     id: Int,
     inventory: Inventory,
-    val blockEntity: DnaDecryptorBlockEntity,
+    val blockEntity: DnaExtractorBlockEntity,
     private val containerData: ContainerData
-) : AbstractContainerMenu(ModMenuTypes.DNA_DECRYPTOR.get(), id) {
+) : AbstractContainerMenu(ModMenuTypes.DNA_EXTRACTOR.get(), id) {
 
     private val level: Level = inventory.player.level
 
@@ -25,7 +26,7 @@ class DnaDecryptorMenu(
             this(
                 id,
                 inventory,
-                inventory.player.level.getBlockEntity(extraData.readBlockPos()) as DnaDecryptorBlockEntity,
+                inventory.player.level.getBlockEntity(extraData.readBlockPos()) as DnaExtractorBlockEntity,
                 SimpleContainerData(CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
             )
 
@@ -48,7 +49,7 @@ class DnaDecryptorMenu(
         return stillValid(
             ContainerLevelAccess.create(level, blockEntity.blockPos),
             pPlayer,
-            ModBlocks.DNA_DECRYPTOR
+            ModBlocks.DNA_EXTRACTOR
         )
     }
 

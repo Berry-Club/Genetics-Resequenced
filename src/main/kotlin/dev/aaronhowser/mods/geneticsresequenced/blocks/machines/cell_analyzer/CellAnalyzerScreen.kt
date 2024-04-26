@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.screens
+package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer
 
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.PoseStack
@@ -11,33 +11,27 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Inventory
 
-class CoalGeneratorScreen(
-    pMenu: CoalGeneratorMenu,
+
+class CellAnalyzerScreen(
+    pMenu: CellAnalyzerMenu,
     pPlayerInventory: Inventory,
     pTitle: Component
-) : AbstractContainerScreen<CoalGeneratorMenu>(pMenu, pPlayerInventory, pTitle) {
+) : AbstractContainerScreen<CellAnalyzerMenu>(pMenu, pPlayerInventory, pTitle) {
 
     companion object {
-        val BACKGROUND_TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/coal_generator.png")
+        val BACKGROUND_TEXTURE = ResourceLocation(GeneticsResequenced.ID, "textures/gui/cell_analyzer.png")
 
         const val ARROW_TEXTURE_X = 177
         const val ARROW_TEXTURE_Y = 61
-        const val ARROW_X = 75
-        const val ARROW_Y = 35
+        const val ARROW_X = 83
+        const val ARROW_Y = 37
         const val ARROW_WIDTH = 24
         const val ARROW_HEIGHT = 17
 
-        const val BURN_TEXTURE_X = 177
-        const val BURN_TEXTURE_Y = 46
-        const val BURN_X = 53
-        const val BURN_Y = 54
-        const val BURN_WIDTH = 14
-        const val BURN_HEIGHT = 14
-
         const val ENERGY_TEXTURE_X = 177
         const val ENERGY_TEXTURE_Y = 3
-        const val ENERGY_X = 104
-        const val ENERGY_Y = 20
+        const val ENERGY_X = 9
+        const val ENERGY_Y = 22
         const val ENERGY_WIDTH = 14
         const val ENERGY_HEIGHT = 42
 
@@ -74,7 +68,6 @@ class CoalGeneratorScreen(
         blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight)
 
         renderProgressArrow(pPoseStack, x, y)
-        renderBurnProgress(pPoseStack, x, y)
         energyInfoArea.draw(pPoseStack)
     }
 
@@ -117,30 +110,15 @@ class CoalGeneratorScreen(
     }
 
     private fun renderProgressArrow(pPoseStack: PoseStack, x: Int, y: Int) {
-        if (menu.isBurning) {
+        if (menu.isCrafting) {
             blit(
                 pPoseStack,
-                x + ARROW_X,                // The x position of where the arrow will be
-                y + ARROW_Y,                // The y position of where the arrow will be
-                ARROW_TEXTURE_X,                // The x offset of where the arrow is in the texture
-                ARROW_TEXTURE_Y,                // The y offset of where the arrow is in the texture
-                menu.getScaledProgressArrow(),       // The width of the arrow
-                ARROW_HEIGHT                    // The height of the arrow
-            )
-        }
-    }
-
-    //FIXME: The bottom disappears rather than the top
-    private fun renderBurnProgress(pPoseStack: PoseStack, x: Int, y: Int) {
-        if (menu.isBurning) {
-            blit(
-                pPoseStack,
-                x + BURN_X,
-                y + BURN_Y,
-                BURN_TEXTURE_X,
-                BURN_TEXTURE_Y,
-                BURN_WIDTH,
-                menu.getScaledFuelRemaining()
+                x + ARROW_X,            // The x position of where the arrow will be
+                y + ARROW_Y,            // The y position of where the arrow will be
+                ARROW_TEXTURE_X,            // The x offset of where the arrow is in the texture
+                ARROW_TEXTURE_Y,               // The y offset of where the arrow is in the texture
+                menu.getScaledProgress(),   // The width of the arrow
+                71                  // The height of the arrow
             )
         }
     }
@@ -150,5 +128,4 @@ class CoalGeneratorScreen(
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick)
         renderTooltip(pPoseStack, pMouseX, pMouseY)
     }
-
 }

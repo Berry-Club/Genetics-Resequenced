@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced
 
 import dev.aaronhowser.mods.geneticsresequenced.attributes.ModAttributes
-import dev.aaronhowser.mods.geneticsresequenced.block_entities.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes

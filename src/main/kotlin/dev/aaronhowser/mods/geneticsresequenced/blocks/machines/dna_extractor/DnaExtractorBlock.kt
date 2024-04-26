@@ -1,7 +1,6 @@
-package dev.aaronhowser.mods.geneticsresequenced.blocks.machines
+package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor
 
-import dev.aaronhowser.mods.geneticsresequenced.block_entities.CellAnalyzerBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_entities.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlock
 import dev.aaronhowser.mods.geneticsresequenced.util.BlockEntityHelper
 import net.minecraft.world.level.Level
@@ -11,11 +10,10 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.material.Material
 
-object CellAnalyzerBlock :
-    CraftingMachineBlock(
-        Properties.of(Material.METAL),
-        CellAnalyzerBlockEntity::class.java
-    ) {
+object DnaExtractorBlock : CraftingMachineBlock(
+    Properties.of(Material.METAL),
+    DnaExtractorBlockEntity::class.java
+) {
 
     override fun <T : BlockEntity> getTicker(
         pLevel: Level,
@@ -24,8 +22,8 @@ object CellAnalyzerBlock :
     ): BlockEntityTicker<T>? {
         return BlockEntityHelper.createTickerHelper(
             pBlockEntityType,
-            ModBlockEntities.CELL_ANALYZER.get(),
-            CellAnalyzerBlockEntity::tick
+            ModBlockEntities.DNA_EXTRACTOR.get(),
+            DnaExtractorBlockEntity.Companion::tick
         )
     }
 
