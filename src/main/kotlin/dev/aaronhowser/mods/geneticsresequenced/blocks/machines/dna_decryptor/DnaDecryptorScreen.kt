@@ -51,7 +51,7 @@ class DnaDecryptorScreen(
         energyInfoArea = EnergyInfoArea(
             x + ENERGY_X,
             y + ENERGY_Y,
-            menu.blockEntity.getEnergyStorage(),
+            menu.blockEntity.energyStorage,
             ENERGY_WIDTH,
             ENERGY_HEIGHT
         )
