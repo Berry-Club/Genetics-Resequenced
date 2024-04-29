@@ -78,14 +78,17 @@ class CoalGeneratorBlockEntity(
     }
 
     private val burnTicksLeftNbtKey = "coal_generator.burn_ticks_left"
+    private val maxBurnTicksNbtKey = "coal_generator.max_burn_ticks"
 
     override fun saveAdditional(pTag: CompoundTag) {
         pTag.putInt(burnTicksLeftNbtKey, burnTimeRemaining)
+        pTag.putInt(maxBurnTicksNbtKey, maxBurnTime)
         super.saveAdditional(pTag)
     }
 
     override fun load(pTag: CompoundTag) {
         burnTimeRemaining = pTag.getInt(burnTicksLeftNbtKey)
+        maxBurnTime = pTag.getInt(maxBurnTicksNbtKey)
         super.load(pTag)
     }
 
