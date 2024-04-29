@@ -79,7 +79,6 @@ class CoalGeneratorBlockEntity(
 
     private val burnTicksLeftNbtKey = "coal_generator.burn_ticks_left"
 
-    //FIXME: WHY???????
     override fun saveAdditional(pTag: CompoundTag) {
         pTag.putInt(burnTicksLeftNbtKey, burnTimeRemaining)
         super.saveAdditional(pTag)
@@ -103,6 +102,7 @@ class CoalGeneratorBlockEntity(
             if (t == 0) {
                 println("Burn time is zero when it shouldn't be!")
                 println("Is client? ${level?.isClientSide}")
+                println(this)
             }
             return t
         }
@@ -110,6 +110,9 @@ class CoalGeneratorBlockEntity(
             println("Set to $value")
             data.set(REMAINING_TICKS_INDEX, value)
         }
+
+    override fun toString(): String =
+        "CoalGeneratorBlockEntity{pos=$blockPos}"
 
     private fun tryToStartBurning() {
 
