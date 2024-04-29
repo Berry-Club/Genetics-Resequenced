@@ -98,16 +98,9 @@ class CoalGeneratorBlockEntity(
     private var burnTimeRemaining: Int
         get() {
             val t = data.get(REMAINING_TICKS_INDEX)
-            println("Get $t")
-            if (t == 0) {
-                println("Burn time is zero when it shouldn't be!")
-                println("Is client? ${level?.isClientSide}")
-                println(this)
-            }
             return t
         }
         set(value) {
-            println("Set to $value")
             data.set(REMAINING_TICKS_INDEX, value)
         }
 
