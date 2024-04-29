@@ -57,7 +57,7 @@ object CoalGeneratorBlock : HorizontalDirectionalBlock(Properties.of(Material.ME
         if (pState.block != pNewState.block) {
             val blockEntity = pLevel.getBlockEntity(pPos)
             if (blockEntity is CoalGeneratorBlockEntity) {
-                blockEntity.drops()
+                blockEntity.dropDrops()
             }
         }
 

@@ -88,7 +88,7 @@ abstract class InventoryEnergyBlockEntity(
         this.energyStorage.setEnergy(energy)
     }
 
-    fun drops() {
+    fun dropDrops() {
         val inventory = SimpleContainer(itemHandler.slots)
         for (i in 0 until itemHandler.slots) {
             inventory.setItem(i, itemHandler.getStackInSlot(i))

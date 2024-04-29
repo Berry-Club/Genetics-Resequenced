@@ -59,7 +59,7 @@ open class CraftingMachineBlock(
             // god i fucking hate this this is so gross
             try {
                 val asType = blockEntityType.cast(blockEntity)
-                asType.drops()
+                asType.dropDrops()
             } catch (e: ClassCastException) {
                 /* Continue */
             }
