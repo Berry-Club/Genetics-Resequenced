@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorScreen
@@ -138,7 +139,7 @@ class PlasmidInfuserMenu(
                 return ItemStack.EMPTY
             }
         } else {
-            println("Invalid slotIndex:$index")
+            GeneticsResequenced.LOGGER.error("Invalid slotIndex: $index")
             return ItemStack.EMPTY
         }
         // If stack size == 0 (the entire stack was moved) set slot contents to null

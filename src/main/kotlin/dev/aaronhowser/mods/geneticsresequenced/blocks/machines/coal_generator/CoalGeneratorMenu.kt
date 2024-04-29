@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
@@ -157,7 +158,7 @@ class CoalGeneratorMenu(
                 return ItemStack.EMPTY
             }
         } else {
-            println("Invalid slotIndex:$index")
+            GeneticsResequenced.LOGGER.error("Invalid slotIndex: $index")
             return ItemStack.EMPTY
         }
         // If stack size == 0 (the entire stack was moved) set slot contents to null
