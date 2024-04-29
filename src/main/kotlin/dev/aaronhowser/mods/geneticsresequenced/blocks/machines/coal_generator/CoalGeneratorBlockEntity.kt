@@ -96,6 +96,7 @@ class CoalGeneratorBlockEntity(
         get() = data.get(MAX_BURN_TIME_INDEX)
         set(value) {
             data.set(MAX_BURN_TIME_INDEX, value)
+            setChanged()
         }
 
     private var burnTimeRemaining: Int
@@ -105,6 +106,7 @@ class CoalGeneratorBlockEntity(
         }
         set(value) {
             data.set(REMAINING_TICKS_INDEX, value)
+            setChanged()
         }
 
     override fun toString(): String =
