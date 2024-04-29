@@ -81,19 +81,11 @@ class CoalGeneratorBlockEntity(
 
     //FIXME: WHY???????
     override fun saveAdditional(pTag: CompoundTag) {
-        println("Level is client: ${level?.isClientSide}")
-        val a = burnTimeRemaining
-        println("Burn time remaining before saving: $a")
         pTag.putInt(burnTicksLeftNbtKey, burnTimeRemaining)
-        val t = pTag.getInt(burnTicksLeftNbtKey)
-        println("Burn time remaining after saving: $t")
         super.saveAdditional(pTag)
     }
 
     override fun load(pTag: CompoundTag) {
-        println("Level is client: ${level?.isClientSide}")
-        val t = pTag.getInt(burnTicksLeftNbtKey)
-        println("Loaded burn time: $t")
         burnTimeRemaining = pTag.getInt(burnTicksLeftNbtKey)
         super.load(pTag)
     }
@@ -105,10 +97,82 @@ class CoalGeneratorBlockEntity(
         }
 
     private var burnTimeRemaining: Int
-        get() = data.get(REMAINING_TICKS_INDEX)
+        get() {
+            val t = data.get(REMAINING_TICKS_INDEX)
+            println("Get $t")
+            if (t == 0) {
+                println("Burn time is zero when it shouldn't be!")
+                println("Is client? ${level?.isClientSide}")
+            }
+            return t
+        }
         set(value) {
+            println("Set to $value")
             data.set(REMAINING_TICKS_INDEX, value)
         }
+
+    private fun tryToStartBurning() {
+
+        val inputItem = itemHandler.getStackInSlot(INPUT_SLOT)
+        val fuel = ForgeHooks.getBurnTime(inputItem, RecipeType.SMELTING)
+
+        if (fuel <= 0) {
+            maxBurnTime = 0
+            return
+        }
+
+        val fuelReplacedItem = inputItem.craftingRemainingItem
+
+        maxBurnTime = fuel
+        burnTimeRemaining = fuel
+        itemHandler.extractItem(INPUT_SLOT, 1, false)
+
+        if (!fuelReplacedItem.isEmpty) {
+            itemHandler.insertItem(INPUT_SLOT, fuelReplacedItem, false)
+        }
+
+        setChanged()
+    }
+
+    private fun generateEnergy() {
+        energyStorage.receiveEnergy(energyPerTick, false)
+
+        burnTimeRemaining -= 1
+        setChanged()
+    }
+
+    val isBurning: Boolean
+        get() = burnTimeRemaining > 0
+
+    private fun hasRoomForEnergy(): Boolean {
+        val maxEnergy = energyStorage.maxEnergyStored
+        val currentEnergy = energyStorage.energyStored
+        return currentEnergy + energyPerTick <= maxEnergy
+    }
+
+    private fun pushEnergyToAdjacent() {
+
+        if (energyStorage.energyStored <= 0) return
+        for (direction in Direction.values()) {
+            val neighborPos = blockPos.offset(direction.normal)
+            val neighborEntity = level?.getBlockEntity(neighborPos) ?: continue
+
+            val neighborEnergy: IEnergyStorage =
+                neighborEntity.getCapability(ForgeCapabilities.ENERGY, direction.opposite).orElse(null) ?: continue
+            if (!neighborEnergy.canReceive()) continue
+
+            val energyToTransfer = min(
+                neighborEnergy.receiveEnergy(ServerConfig.coalGeneratorEnergyTransferRate.get(), true),
+                neighborEnergy.maxEnergyStored - neighborEnergy.energyStored
+            )
+
+            if (energyToTransfer <= 0) continue
+            neighborEnergy.receiveEnergy(
+                energyStorage.extractEnergy(energyToTransfer, false),
+                false
+            )
+        }
+    }
 
     companion object {
 
@@ -120,83 +184,19 @@ class CoalGeneratorBlockEntity(
         ) {
             if (level.isClientSide) return
 
-            pushEnergyToAdjacent(blockEntity)
+            blockEntity.apply {
+                pushEnergyToAdjacent()
 
-            if (!hasRoomForEnergy(blockEntity)) return
+                if (!hasRoomForEnergy()) return
 
-            if (isBurning(blockEntity)) {
-                generateEnergy(blockEntity)
-            } else {
-                tryToStartBurning(blockEntity)
+                if (isBurning) {
+                    generateEnergy()
+                } else {
+                    tryToStartBurning()
+                }
             }
         }
 
-        private fun tryToStartBurning(blockEntity: CoalGeneratorBlockEntity) {
-
-            val inputItem = blockEntity.itemHandler.getStackInSlot(INPUT_SLOT)
-            val fuel = ForgeHooks.getBurnTime(inputItem, RecipeType.SMELTING)
-
-            if (fuel <= 0) {
-                blockEntity.maxBurnTime = 0
-                return
-            }
-
-            val fuelReplacedItem = inputItem.craftingRemainingItem
-
-            blockEntity.maxBurnTime = fuel
-            blockEntity.burnTimeRemaining = fuel
-            blockEntity.itemHandler.extractItem(INPUT_SLOT, 1, false)
-
-            if (!fuelReplacedItem.isEmpty) {
-                blockEntity.itemHandler.insertItem(INPUT_SLOT, fuelReplacedItem, false)
-            }
-
-            blockEntity.setChanged()
-        }
-
-        private fun generateEnergy(blockEntity: CoalGeneratorBlockEntity) {
-            blockEntity.energyStorage.receiveEnergy(energyPerTick, false)
-
-            blockEntity.burnTimeRemaining -= 1
-            blockEntity.setChanged()
-        }
-
-        private fun isBurning(blockEntity: CoalGeneratorBlockEntity): Boolean {
-            return blockEntity.burnTimeRemaining > 0
-        }
-
-        private fun hasRoomForEnergy(blockEntity: CoalGeneratorBlockEntity): Boolean {
-            val maxEnergy = blockEntity.energyStorage.maxEnergyStored
-            val currentEnergy = blockEntity.energyStorage.energyStored
-            return currentEnergy + energyPerTick <= maxEnergy
-        }
-
-        fun pushEnergyToAdjacent(blockEntity: CoalGeneratorBlockEntity) {
-            val energyStorage = blockEntity.energyStorage
-            val blockPos = blockEntity.blockPos
-            val level = blockEntity.level
-
-            if (energyStorage.energyStored <= 0) return
-            for (direction in Direction.values()) {
-                val neighborPos = blockPos.offset(direction.normal)
-                val neighborEntity = level?.getBlockEntity(neighborPos) ?: continue
-
-                val neighborEnergy: IEnergyStorage =
-                    neighborEntity.getCapability(ForgeCapabilities.ENERGY, direction.opposite).orElse(null) ?: continue
-                if (!neighborEnergy.canReceive()) continue
-
-                val energyToTransfer = min(
-                    neighborEnergy.receiveEnergy(ServerConfig.coalGeneratorEnergyTransferRate.get(), true),
-                    neighborEnergy.maxEnergyStored - neighborEnergy.energyStored
-                )
-
-                if (energyToTransfer <= 0) continue
-                neighborEnergy.receiveEnergy(
-                    energyStorage.extractEnergy(energyToTransfer, false),
-                    false
-                )
-            }
-        }
 
         // How many values are stored in the container data
         // Here it's two: remaining ticks and max burn time
