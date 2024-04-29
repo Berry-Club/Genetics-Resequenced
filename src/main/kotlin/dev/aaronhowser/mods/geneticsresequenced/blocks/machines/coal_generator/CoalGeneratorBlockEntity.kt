@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.InventoryEnergyBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
@@ -50,7 +51,7 @@ class CoalGeneratorBlockEntity(
         private var _totalTicksToBurn = 0
             set(value) {
                 field = value
-                _ticksToBurnRemaining = _ticksToBurnRemaining.coerceAtMost(value)
+                _ticksToBurnRemaining = _ticksToBurnRemaining.coerceAtMost(_totalTicksToBurn)
             }
         private var _ticksToBurnRemaining = 0
             set(value) {
@@ -83,12 +84,38 @@ class CoalGeneratorBlockEntity(
     override fun saveAdditional(pTag: CompoundTag) {
         pTag.putInt(burnTicksLeftNbtKey, burnTimeRemaining)
         pTag.putInt(maxBurnTicksNbtKey, maxBurnTime)
+
+        GeneticsResequenced.LOGGER.debug(
+            """
+            Saving:
+            Burn time remaining:
+                - Actual: $burnTimeRemaining
+                - NBT: ${pTag.getInt(burnTicksLeftNbtKey)}
+            Max burn time:
+                - Actual: $maxBurnTime
+                - NBT: ${pTag.getInt(maxBurnTicksNbtKey)}
+            Entire tag:
+                - ${pTag.asString}
+        """.trimIndent()
+        )
+
         super.saveAdditional(pTag)
     }
 
     override fun load(pTag: CompoundTag) {
-        burnTimeRemaining = pTag.getInt(burnTicksLeftNbtKey)
         maxBurnTime = pTag.getInt(maxBurnTicksNbtKey)
+        burnTimeRemaining = pTag.getInt(burnTicksLeftNbtKey)
+
+        GeneticsResequenced.LOGGER.debug(
+            """
+            Loading:
+            Burn time remaining: $burnTimeRemaining
+            Max burn time: $maxBurnTime
+            Entire tag:
+                - ${pTag.asString}
+        """.trimIndent()
+        )
+
         super.load(pTag)
     }
 
