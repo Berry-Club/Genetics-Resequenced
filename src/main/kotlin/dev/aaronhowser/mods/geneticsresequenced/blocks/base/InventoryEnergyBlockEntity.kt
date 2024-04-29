@@ -83,8 +83,12 @@ abstract class InventoryEnergyBlockEntity(
 
     abstract val menuType: Class<out MachineMenu>
 
-    // Client only
+    /**
+     * @throws IllegalStateException if called on the server side
+     */
+    @Throws(IllegalStateException::class)
     fun setEnergy(energy: Int) {
+        if (level?.isClientSide == false) throw IllegalStateException("setEnergy called on server side")
         this.energyStorage.setEnergy(energy)
     }
 
