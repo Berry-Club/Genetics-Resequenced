@@ -11,33 +11,81 @@ import java.util.*
 @Suppress("MemberVisibilityCanBePrivate")
 object OtherUtil {
 
-    /**
-     * @param notifyPlayer If the player should be notified when the cooldown starts and ends. Preferably, only passive ones (like Lay Eggs and Meaty 2) should be false.
-     * @return true if the player was added to the cooldown, false if they were already on it
-     */
-    fun tryAddToCooldown(
-        cooldownMap: MutableSet<UUID>,
-        player: LivingEntity,
-        gene: Gene,
-        cooldownTicks: Int,
+    class GeneCooldown(
+        private val gene: Gene,
+        private val cooldownTicks: Int,
         notifyPlayer: Boolean = true
-    ): Boolean {
-        if (cooldownMap.contains(player.uuid)) return false
+    ) : MutableSet<UUID> {
+        private val cooldownMap: MutableSet<UUID> = mutableSetOf()
+        private val actuallyNotify = notifyPlayer && cooldownTicks >= ServerConfig.minimumCooldownForNotification.get()
 
-        val actuallyNotifyPlayer = if (notifyPlayer) {
-            cooldownTicks >= ServerConfig.minimumCooldownForNotification.get()
-        } else false
+        private var addedViaEntity = false
 
-        cooldownMap.add(player.uuid)
-        ModScheduler.scheduleTaskInTicks(cooldownTicks) {
-            if (player.uuid in cooldownMap) {
-                cooldownMap.remove(player.uuid)
-                if (actuallyNotifyPlayer) tellCooldownEnded(player, gene)
+        fun add(entity: LivingEntity): Boolean {
+
+            addedViaEntity = true
+
+            val success = add(entity.uuid)
+
+            if (success) {
+                onAddSucceed(entity)
+            } else {
+                onAddFail(entity)
+            }
+
+            return true
+        }
+
+        private fun onAddSucceed(entity: LivingEntity) {
+            if (actuallyNotify) tellCooldownStarted(entity, gene, cooldownTicks)
+
+            ModScheduler.scheduleTaskInTicks(cooldownTicks) {
+                if (entity.uuid in this) {
+                    remove(entity.uuid)
+                    if (actuallyNotify) tellCooldownEnded(entity, gene)
+                }
             }
         }
 
-        if (actuallyNotifyPlayer) tellCooldownStarted(player, gene, cooldownTicks)
-        return true
+        private fun onAddFail(entity: LivingEntity) {
+
+        }
+
+        fun remove(entity: LivingEntity): Boolean {
+            if (actuallyNotify) tellCooldownEnded(entity, gene)
+            return remove(entity.uuid)
+        }
+
+        override fun add(element: UUID): Boolean {
+            if (!addedViaEntity) throw UnsupportedOperationException(
+                "Cannot add UUIDs directly to GeneCooldown"
+            )
+
+            return cooldownMap.add(element)
+        }
+
+        override fun remove(element: UUID): Boolean {
+            return cooldownMap.remove(element)
+        }
+
+        override val size: Int = cooldownMap.size
+
+        override fun clear() = cooldownMap.clear()
+
+        override fun isEmpty(): Boolean = cooldownMap.isEmpty()
+
+        override fun iterator(): MutableIterator<UUID> = cooldownMap.iterator()
+
+        override fun retainAll(elements: Collection<UUID>): Boolean = cooldownMap.retainAll(elements.toSet())
+
+        override fun removeAll(elements: Collection<UUID>): Boolean = cooldownMap.removeAll(elements.toSet())
+
+        override fun containsAll(elements: Collection<UUID>): Boolean = cooldownMap.containsAll(elements)
+
+        override fun contains(element: UUID): Boolean = cooldownMap.contains(element)
+
+        override fun addAll(elements: Collection<UUID>): Boolean = cooldownMap.addAll(elements)
+
     }
 
     fun tellCooldownStarted(player: LivingEntity, gene: Gene, cooldownTicks: Int) {

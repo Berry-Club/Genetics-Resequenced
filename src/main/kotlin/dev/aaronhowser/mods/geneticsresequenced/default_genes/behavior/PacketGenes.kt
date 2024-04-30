@@ -77,19 +77,17 @@ object PacketGenes {
         player.teleportTo(destination.x, destination.y, destination.z)
     }
 
-    private val recentFireballs = mutableSetOf<UUID>()
+    private val recentFireballs = OtherUtil.GeneCooldown(
+        DefaultGenes.SHOOT_FIREBALLS,
+        ServerConfig.dragonsBreathCooldown.get()
+    )
 
     fun dragonBreath(player: ServerPlayer) {
 
         val genes = (player as LivingEntity).getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.DRAGONS_BREATH)) return
 
-        val wasNotOnCooldown = OtherUtil.tryAddToCooldown(
-            recentFireballs,
-            player,
-            DefaultGenes.DRAGONS_BREATH,
-            ServerConfig.dragonsBreathCooldown.get()
-        )
+        val wasNotOnCooldown = recentFireballs.add(player)
 
         if (!wasNotOnCooldown) return
 

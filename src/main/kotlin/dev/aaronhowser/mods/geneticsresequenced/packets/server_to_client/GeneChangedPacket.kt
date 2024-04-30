@@ -37,7 +37,7 @@ class GeneChangedPacket(
             throw IllegalStateException("Received SetWallClimbingPacket on wrong side!")
         }
 
-        val player = Minecraft.getInstance().player
+        val player: LocalPlayer = Minecraft.getInstance().player
             ?: throw IllegalStateException("Received SetWallClimbingPacket without player!")
 
         val gene = Gene.fromId(geneId)

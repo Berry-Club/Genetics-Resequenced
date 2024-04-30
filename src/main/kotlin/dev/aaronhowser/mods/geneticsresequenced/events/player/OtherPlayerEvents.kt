@@ -1,17 +1,21 @@
 package dev.aaronhowser.mods.geneticsresequenced.events.player
 
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.TickGenes
+import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
+import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraftforge.event.TickEvent.PlayerTickEvent
 import net.minecraftforge.event.entity.player.ArrowLooseEvent
 import net.minecraftforge.event.entity.player.ArrowNockEvent
+import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
@@ -44,7 +48,28 @@ object OtherPlayerEvents {
         ClickGenes.handleInfinityEnd(event)
     }
 
+    @SubscribeEvent
+    fun onLogIn(event: PlayerLoggedInEvent) {
+        val player = event.entity as? ServerPlayer ?: return
+        val genes = player.getGenes() ?: return
+
+        for (gene in genes.getGeneList()) {
+            ModPacketHandler.messagePlayer(
+                player,
+                GeneChangedPacket(gene.id, true)
+            )
+        }
+    }
+
     fun genesChanged(entity: LivingEntity, changedGene: Gene, wasAdded: Boolean) {
+
+        //TODO: Also sync OTHER ENTITY'S genes to the client
+        if (entity is ServerPlayer) {
+            ModPacketHandler.messagePlayer(
+                entity,
+                GeneChangedPacket(changedGene.id, wasAdded)
+            )
+        }
 
         if (entity is Player) {
             when (changedGene) {

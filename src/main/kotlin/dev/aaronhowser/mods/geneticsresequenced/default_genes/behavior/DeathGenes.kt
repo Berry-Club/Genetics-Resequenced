@@ -52,7 +52,11 @@ object DeathGenes {
         }
     }
 
-    private val emeraldHeartCooldown = mutableSetOf<UUID>()
+    private val emeraldHeartCooldown = OtherUtil.GeneCooldown(
+        DefaultGenes.EMERALD_HEART,
+        ServerConfig.emeraldHeartCooldown.get()
+    )
+
     fun handleEmeraldHeart(event: LivingDeathEvent) {
 
         val entity = event.entity
@@ -64,12 +68,7 @@ object DeathGenes {
             return
         }
 
-        val wasNotOnCooldown = OtherUtil.tryAddToCooldown(
-            emeraldHeartCooldown,
-            entity,
-            DefaultGenes.EMERALD_HEART,
-            ServerConfig.emeraldHeartCooldown.get()
-        )
+        val wasNotOnCooldown = emeraldHeartCooldown.add(entity)
 
         if (!wasNotOnCooldown) {
             entity.sendSystemMessage(Component.translatable("message.geneticsresequenced.emerald_heart.cooldown"))

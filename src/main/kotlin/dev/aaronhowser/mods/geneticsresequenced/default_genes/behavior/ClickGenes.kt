@@ -30,20 +30,30 @@ import net.minecraft.world.level.block.Blocks
 import net.minecraftforge.event.entity.player.ArrowLooseEvent
 import net.minecraftforge.event.entity.player.ArrowNockEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
-import java.util.*
 import kotlin.random.Random
 
 object ClickGenes {
 
     fun playerSkinSheared(player: LocalPlayer) {
         val options = Minecraft.getInstance().options
+        try {
+            val modelPartsField = options::class.java.getDeclaredField("modelParts")
+            modelPartsField.isAccessible = true
+            val modelParts = modelPartsField.get(options) as MutableSet<PlayerModelPart>
 
-        for (part in PlayerModelPart.values()) {
-            options.toggleModelPart(part, false)
+            for (part in modelParts) {
+                options.toggleModelPart(part, false)
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
     }
 
-    private val recentlySheered = mutableSetOf<UUID>()
+    private val recentlySheered = OtherUtil.GeneCooldown(
+        DefaultGenes.WOOLY,
+        ServerConfig.woolyCooldown.get()
+    )
+
     fun wooly(event: PlayerInteractEvent.EntityInteract) {
 
         val target = event.target as? LivingEntity ?: return
@@ -59,12 +69,7 @@ object ClickGenes {
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
 
-        val newlySheared = OtherUtil.tryAddToCooldown(
-            recentlySheered,
-            target,
-            DefaultGenes.WOOLY,
-            ServerConfig.woolyCooldown.get()
-        )
+        val newlySheared = recentlySheered.add(target)
 
         if (!newlySheared) {
             clicker.sendSystemMessage(Component.translatable("message.geneticsresequenced.wooly.recent"))
@@ -104,7 +109,11 @@ object ClickGenes {
 
     }
 
-    private val recentlyMeated = mutableSetOf<UUID>()
+    private val recentlyMeated = OtherUtil.GeneCooldown(
+        DefaultGenes.MEATY,
+        ServerConfig.meatyCooldown.get()
+    )
+
     fun meaty(event: PlayerInteractEvent.EntityInteract) {
 
         val target = event.target as? LivingEntity ?: return
@@ -116,12 +125,7 @@ object ClickGenes {
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
 
-        val newlyMeated = OtherUtil.tryAddToCooldown(
-            recentlyMeated,
-            target,
-            DefaultGenes.MEATY,
-            ServerConfig.meatyCooldown.get()
-        )
+        val newlyMeated = recentlyMeated.add(target)
 
         if (!newlyMeated) {
             clicker.sendSystemMessage(Component.translatable("message.geneticsresequenced.meaty.recent"))
@@ -154,7 +158,11 @@ object ClickGenes {
         )
     }
 
-    private val recentlyMilked = mutableSetOf<UUID>()
+    private val recentlyMilked = OtherUtil.GeneCooldown(
+        DefaultGenes.MILKY,
+        ServerConfig.milkyCooldown.get()
+    )
+
     fun milky(event: PlayerInteractEvent.EntityInteract) {
 
         val target = event.target as? LivingEntity ?: return
@@ -170,12 +178,7 @@ object ClickGenes {
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
         if (!clickedWithBucket) return
 
-        val newlyMilked = OtherUtil.tryAddToCooldown(
-            recentlyMilked,
-            target,
-            DefaultGenes.MILKY,
-            ServerConfig.milkyCooldown.get()
-        )
+        val newlyMilked = recentlyMilked.add(target)
 
         if (!newlyMilked) {
             clicker.sendSystemMessage(Component.translatable("message.geneticsresequenced.milk.recent"))
@@ -213,12 +216,7 @@ object ClickGenes {
         val genes = player.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.MILKY)) return
 
-        val newlyMilked = OtherUtil.tryAddToCooldown(
-            recentlyMilked,
-            player,
-            DefaultGenes.MILKY,
-            ServerConfig.milkyCooldown.get()
-        )
+        val newlyMilked = recentlyMilked.add(player)
 
         if (!newlyMilked) return
 
@@ -251,14 +249,14 @@ object ClickGenes {
         val genes = player.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.WOOLY)) return
 
-        val newlySheared = OtherUtil.tryAddToCooldown(
-            recentlySheered,
-            player,
-            DefaultGenes.WOOLY,
-            ServerConfig.woolyCooldown.get()
-        )
+        val newlySheared = recentlySheered.add(player)
 
         if (!newlySheared) return
+
+        if (player is LocalPlayer) {
+            playerSkinSheared(player)
+            return
+        }
 
         val woolItemStack = ItemStack(Blocks.WHITE_WOOL)
 
@@ -286,10 +284,6 @@ object ClickGenes {
             1.0f,
             1.0f
         )
-
-        if (player is LocalPlayer) {
-            playerSkinSheared(player)
-        }
     }
 
     fun shootFireball(event: PlayerInteractEvent.RightClickItem) {

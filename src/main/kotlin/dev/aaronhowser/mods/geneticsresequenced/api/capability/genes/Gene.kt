@@ -15,6 +15,8 @@ class Gene(
     val id: ResourceLocation
 ) {
 
+    override fun toString(): String = "Gene($id)"
+
     companion object {
         private val GENE_REGISTRY: MutableSet<Gene> = mutableSetOf()
         fun getRegistry(): List<Gene> = GENE_REGISTRY.sortedBy { it.id }

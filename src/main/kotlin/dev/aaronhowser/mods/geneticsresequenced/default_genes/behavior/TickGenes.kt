@@ -138,16 +138,15 @@ object TickGenes {
         entity.removeEffect(potion.effect)
     }
 
-    private val recentlyMeated = mutableSetOf<UUID>()
+    private val recentlyMeated2 = OtherUtil.GeneCooldown(
+        DefaultGenes.MEATY_2,
+        ServerConfig.meaty2Cooldown.get(),
+        notifyPlayer = false
+    )
+
     private fun handleMeaty2(entity: LivingEntity) {
 
-        val newlyMeated = OtherUtil.tryAddToCooldown(
-            recentlyMeated,
-            entity,
-            DefaultGenes.MEATY_2,
-            ServerConfig.meaty2Cooldown.get(),
-            notifyPlayer = false
-        )
+        val newlyMeated = recentlyMeated2.add(entity)
 
         if (!newlyMeated) return
 
@@ -164,16 +163,15 @@ object TickGenes {
         entity.level.addFreshEntity(meatEntity)
     }
 
-    private val recentlyLaidEgg = mutableSetOf<UUID>()
+    private val recentlyLaidEgg = OtherUtil.GeneCooldown(
+        DefaultGenes.LAY_EGG,
+        ServerConfig.eggCooldown.get(),
+        notifyPlayer = false
+    )
+
     private fun handleLayEgg(entity: LivingEntity) {
 
-        val hasNotRecentlyLainEgg = OtherUtil.tryAddToCooldown(
-            recentlyLaidEgg,
-            entity,
-            DefaultGenes.LAY_EGG,
-            ServerConfig.eggCooldown.get(),
-            notifyPlayer = false
-        )
+        val hasNotRecentlyLainEgg = recentlyLaidEgg.add(entity)
         if (!hasNotRecentlyLainEgg) return
 
         val luck = entity.activeEffects.find { it.effect == MobEffects.LUCK }?.amplifier ?: 0
