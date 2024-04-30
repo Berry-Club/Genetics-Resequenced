@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
@@ -111,18 +112,30 @@ class CoalGeneratorBlockEntity(
             setChanged()
         }
 
-    override fun toString(): String =
-        "CoalGeneratorBlockEntity{pos=$blockPos}"
-
     private fun tryToStartBurning() {
 
         val inputItem = itemHandler.getStackInSlot(INPUT_SLOT)
         val fuel = ForgeHooks.getBurnTime(inputItem, RecipeType.SMELTING)
 
         if (fuel <= 0) {
-            maxBurnTime = 0
-            return
+            stopBurning()
+        } else {
+            startBurning(inputItem, fuel)
         }
+
+        setChanged()
+    }
+
+    private fun stopBurning() {
+        maxBurnTime = 0
+        burnTimeRemaining = 0
+        val state = blockState.setValue(CoalGeneratorBlock.BURNING, false)
+        level?.setBlock(blockPos, state, 3)
+    }
+
+    private fun startBurning(inputItem: ItemStack, fuel: Int) {
+        val state = blockState.setValue(CoalGeneratorBlock.BURNING, true)
+        level?.setBlock(blockPos, state, 3)
 
         val fuelReplacedItem = inputItem.craftingRemainingItem
 
@@ -133,8 +146,6 @@ class CoalGeneratorBlockEntity(
         if (!fuelReplacedItem.isEmpty) {
             itemHandler.insertItem(INPUT_SLOT, fuelReplacedItem, false)
         }
-
-        setChanged()
     }
 
     private fun generateEnergy() {

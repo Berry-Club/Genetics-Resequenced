@@ -19,23 +19,33 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
+import net.minecraft.world.level.block.state.properties.BlockStateProperties
+import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.level.material.Material
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraftforge.network.NetworkHooks
 
-object CoalGeneratorBlock : HorizontalDirectionalBlock(Properties.of(Material.METAL)), EntityBlock {
+class CoalGeneratorBlock : HorizontalDirectionalBlock(Properties.of(Material.METAL)), EntityBlock {
+
+    companion object {
+        val BURNING: BooleanProperty = BlockStateProperties.LIT
+    }
 
     init {
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))
+        registerDefaultState(stateDefinition.any().setValue(BURNING, false))
     }
 
     override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState {
-        return defaultBlockState().setValue(FACING, pContext.horizontalDirection.opposite)
+        return defaultBlockState()
+            .setValue(FACING, pContext.horizontalDirection.opposite)
+            .setValue(BURNING, false)
     }
 
     override fun createBlockStateDefinition(pBuilder: StateDefinition.Builder<Block, BlockState>) {
         super.createBlockStateDefinition(pBuilder)
         pBuilder.add(FACING)
+        pBuilder.add(BURNING)
     }
 
     // BLOCK ENTITY STUFF BELOW

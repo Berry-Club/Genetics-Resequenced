@@ -24,7 +24,7 @@ object ModBlocks {
         DeferredRegister.create(ForgeRegistries.BLOCKS, GeneticsResequenced.ID)
 
     val BIOLUMINESCENCE_BLOCK by register("bioluminescence") { BioluminescenceBlock }
-    val COAL_GENERATOR by register("coal_generator") { CoalGeneratorBlock }
+    val COAL_GENERATOR by register("coal_generator") { CoalGeneratorBlock() }
     val CELL_ANALYZER by register("cell_analyzer") { CellAnalyzerBlock }
     val DNA_EXTRACTOR by register("dna_extractor") { DnaExtractorBlock }
     val DNA_DECRYPTOR by register("dna_decryptor") { DnaDecryptorBlock }
