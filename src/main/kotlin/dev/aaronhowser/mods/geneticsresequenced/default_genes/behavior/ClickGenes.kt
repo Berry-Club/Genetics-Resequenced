@@ -5,6 +5,8 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabi
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import net.minecraft.client.Minecraft
+import net.minecraft.client.player.LocalPlayer
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
@@ -16,6 +18,7 @@ import net.minecraft.world.entity.animal.Sheep
 import net.minecraft.world.entity.animal.goat.Goat
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.entity.player.PlayerModelPart
 import net.minecraft.world.entity.projectile.AbstractArrow
 import net.minecraft.world.entity.projectile.SmallFireball
 import net.minecraft.world.item.ArrowItem
@@ -31,6 +34,14 @@ import java.util.*
 import kotlin.random.Random
 
 object ClickGenes {
+
+    fun playerSkinSheared(player: LocalPlayer) {
+        val options = Minecraft.getInstance().options
+
+        for (part in PlayerModelPart.values()) {
+            options.toggleModelPart(part, false)
+        }
+    }
 
     private val recentlySheered = mutableSetOf<UUID>()
     fun wooly(event: PlayerInteractEvent.EntityInteract) {
@@ -86,6 +97,11 @@ object ClickGenes {
             1.0f,
             1.0f
         )
+
+        if (target is LocalPlayer) {
+            playerSkinSheared(target)
+        }
+
     }
 
     private val recentlyMeated = mutableSetOf<UUID>()
@@ -270,6 +286,10 @@ object ClickGenes {
             1.0f,
             1.0f
         )
+
+        if (player is LocalPlayer) {
+            playerSkinSheared(player)
+        }
     }
 
     fun shootFireball(event: PlayerInteractEvent.RightClickItem) {
