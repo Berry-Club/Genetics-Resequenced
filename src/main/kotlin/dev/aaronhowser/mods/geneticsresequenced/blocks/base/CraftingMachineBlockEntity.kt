@@ -3,7 +3,9 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.base
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.MenuProvider
+import net.minecraft.world.SimpleContainer
 import net.minecraft.world.inventory.ContainerData
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
@@ -83,6 +85,34 @@ abstract class CraftingMachineBlockEntity(
 
         override fun getCount(): Int {
             return SIMPLE_CONTAINER_SIZE
+        }
+    }
+
+    protected open fun hasEnoughEnergy(): Boolean {
+        return energyStorage.energyStored >= energyCostPerTick
+    }
+
+    protected open fun extractEnergy() {
+        if (energyStorage.energyStored < energyCostPerTick) return
+        energyStorage.extractEnergy(energyCostPerTick, false)
+    }
+
+    protected abstract fun hasRecipe(): Boolean
+    protected abstract fun craftItem()
+
+    open fun tick() {
+        if (hasRecipe() && hasEnoughEnergy()) {
+            extractEnergy()
+
+            progress += 1 + amountOfOverclockers
+            setChanged()
+
+            if (progress >= maxProgress) {
+                craftItem()
+            }
+        } else {
+            resetProgress()
+            setChanged()
         }
     }
 
