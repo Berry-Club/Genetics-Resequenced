@@ -62,7 +62,10 @@ object ModPacketHandler {
             decoder = GeneChangedPacket::decode
         )
 
-
+        buildMessage<ShearedPacket>(
+            direction = NetworkDirection.PLAY_TO_CLIENT,
+            decoder = ShearedPacket::decode
+        )
     }
 
     fun messageNearbyPlayers(packet: ModPacket, serverLevel: ServerLevel, origin: Vec3, radius: Double) {

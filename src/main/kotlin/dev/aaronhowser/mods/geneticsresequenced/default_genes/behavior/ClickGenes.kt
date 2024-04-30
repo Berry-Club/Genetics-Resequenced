@@ -4,10 +4,11 @@ import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientHelper
+import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
+import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.ShearedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.client.player.LocalPlayer
 import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionResultHolder
@@ -43,6 +44,8 @@ object ClickGenes {
 
         val target = event.target as? LivingEntity ?: return
         val clicker = event.entity
+
+        if (target.level.isClientSide) return
 
         when (target) {
             is Sheep, is MushroomCow -> return
@@ -88,8 +91,8 @@ object ClickGenes {
             1.0f
         )
 
-        if (target is LocalPlayer) {
-            ClientHelper.shearPlayerSkin()
+        if (target is ServerPlayer) {
+            ModPacketHandler.messagePlayer(target, ShearedPacket(removingSkin = true))
         }
 
     }
@@ -227,6 +230,8 @@ object ClickGenes {
     fun woolyItem(event: PlayerInteractEvent.RightClickItem) {
         val player = event.entity
 
+        if (player.level.isClientSide) return
+
         if (!player.isCrouching) return
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
@@ -237,11 +242,6 @@ object ClickGenes {
         val newlySheared = recentlySheered.add(player)
 
         if (!newlySheared) return
-
-        if (player.level.isClientSide) {
-            ClientHelper.shearPlayerSkin()
-            return
-        }
 
         val woolItemStack = ItemStack(Blocks.WHITE_WOOL)
 
@@ -269,6 +269,8 @@ object ClickGenes {
             1.0f,
             1.0f
         )
+
+        ModPacketHandler.messagePlayer(player as ServerPlayer, ShearedPacket(removingSkin = true))
     }
 
     fun shootFireball(event: PlayerInteractEvent.RightClickItem) {
