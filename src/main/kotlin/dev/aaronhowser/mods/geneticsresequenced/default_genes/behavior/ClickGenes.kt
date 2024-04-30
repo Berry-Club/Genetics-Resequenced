@@ -89,7 +89,7 @@ object ClickGenes {
         )
 
         if (target is LocalPlayer) {
-            ClientHelper.playerSkinSheared()
+            ClientHelper.shearPlayerSkin()
         }
 
     }
@@ -238,8 +238,8 @@ object ClickGenes {
 
         if (!newlySheared) return
 
-        if (player is LocalPlayer) {
-            ClientHelper.playerSkinSheared()
+        if (player.level.isClientSide) {
+            ClientHelper.shearPlayerSkin()
             return
         }
 

@@ -6,10 +6,12 @@ import dev.aaronhowser.mods.geneticsresequenced.controls.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.TeleportPlayerPacket
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientHelper
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.client.event.InputEvent
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
+import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 
@@ -38,6 +40,11 @@ object ClientEvents {
             is CoalGeneratorMenu -> CoalGeneratorMenu.showFuelTooltip(event)
             else -> return
         }
-
     }
+
+    @SubscribeEvent
+    fun onLeaveServer(event: PlayerLoggedOutEvent) {
+        ClientHelper.addSkinLayersBack()
+    }
+
 }
