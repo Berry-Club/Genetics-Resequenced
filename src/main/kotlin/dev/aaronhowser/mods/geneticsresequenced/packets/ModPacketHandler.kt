@@ -4,9 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.Firebal
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.TeleportPlayerPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.EnergySyncPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
-import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.ShearedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.phys.Vec3
@@ -25,47 +23,34 @@ object ModPacketHandler {
         { anObject: String -> PROTOCOL_VERSION == anObject }
     )
 
-    private var id = 0
-    private inline fun <reified T : ModPacket> buildMessage(
-        packetClass: Class<T> = T::class.java,
-        direction: NetworkDirection,
-        crossinline decoder: (buffer: FriendlyByteBuf) -> T,
-    ) {
-
-        INSTANCE.messageBuilder(packetClass, ++id, direction)
-            .encoder { packet, buffer -> packet.encode(buffer) }
-            .decoder { buffer -> decoder(buffer) }
-            .consumerMainThread { packet, context -> packet.receiveMessage(context) }
-            .add()
-
-    }
-
     fun setup() {
+        var id = 0
 
-        buildMessage<TeleportPlayerPacket>(
-            direction = NetworkDirection.PLAY_TO_SERVER,
-            decoder = TeleportPlayerPacket::decode
-        )
+        INSTANCE.apply {
+            messageBuilder(TeleportPlayerPacket::class.java, ++id, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(TeleportPlayerPacket::encode)
+                .decoder(TeleportPlayerPacket::decode)
+                .consumerMainThread(TeleportPlayerPacket::receiveMessage)
+                .add()
 
-        buildMessage<FireballPacket>(
-            direction = NetworkDirection.PLAY_TO_SERVER,
-            decoder = FireballPacket::decode
-        )
+            messageBuilder(FireballPacket::class.java, ++id, NetworkDirection.PLAY_TO_SERVER)
+                .encoder(FireballPacket::encode)
+                .decoder(FireballPacket::decode)
+                .consumerMainThread(FireballPacket::receiveMessage)
+                .add()
 
-        buildMessage<EnergySyncPacket>(
-            direction = NetworkDirection.PLAY_TO_CLIENT,
-            decoder = EnergySyncPacket::decode
-        )
+            messageBuilder(EnergySyncPacket::class.java, ++id, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(EnergySyncPacket::encode)
+                .decoder(EnergySyncPacket::decode)
+                .consumerMainThread(EnergySyncPacket::receiveMessage)
+                .add()
 
-        buildMessage<GeneChangedPacket>(
-            direction = NetworkDirection.PLAY_TO_CLIENT,
-            decoder = GeneChangedPacket::decode
-        )
-
-        buildMessage<ShearedPacket>(
-            direction = NetworkDirection.PLAY_TO_CLIENT,
-            decoder = ShearedPacket::decode
-        )
+            messageBuilder(GeneChangedPacket::class.java, ++id, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(GeneChangedPacket::encode)
+                .decoder(GeneChangedPacket::decode)
+                .consumerMainThread(GeneChangedPacket::receiveMessage)
+                .add()
+        }
     }
 
     fun messageNearbyPlayers(packet: ModPacket, serverLevel: ServerLevel, origin: Vec3, radius: Double) {
