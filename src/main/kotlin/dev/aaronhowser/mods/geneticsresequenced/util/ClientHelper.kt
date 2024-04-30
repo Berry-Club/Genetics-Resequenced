@@ -10,40 +10,29 @@ object ClientHelper {
     fun playerIsCreative(): Boolean = Minecraft.getInstance().player?.isCreative == true
     fun playerIsSpectator(): Boolean = Minecraft.getInstance().player?.isSpectator == true
 
-    private var removedSkinLayers: Set<PlayerModelPart> = emptySet()
     fun shearPlayerSkin() {
         val options = Minecraft.getInstance().options
-        try {
-            val modelPartsField = options::class.java.getDeclaredField("modelParts")
-            modelPartsField.isAccessible = true
+        val modelParts: Set<PlayerModelPart> = PlayerModelPart.values().toSet()
 
-            @Suppress("UNCHECKED_CAST")
-            removedSkinLayers = (modelPartsField.get(options) as MutableSet<PlayerModelPart>).toSet()
-
-            for (part in removedSkinLayers) {
-                options.toggleModelPart(part, false)
-            }
-
-            GeneticsResequenced.LOGGER.info("Sheared layers off player skin: ${removedSkinLayers.joinToString(", ")}")
-
-            val addLayersBackTask = { addSkinLayersBack() }
-
-            recentlySheered.cooldownEndedTasks.add(addLayersBackTask)
-
-        } catch (e: Exception) {
-            e.printStackTrace()
+        for (part in modelParts) {
+            options.toggleModelPart(part, false)
         }
+
+        GeneticsResequenced.LOGGER.info("Sheared player skin")
+
+        val addLayersBackTask = { addSkinLayersBack() }
+        recentlySheered.cooldownEndedTasks.add(addLayersBackTask)
     }
 
     fun addSkinLayersBack() {
         val options = Minecraft.getInstance().options
+        val modelParts: Set<PlayerModelPart> = PlayerModelPart.values().toSet()
 
-        for (part in removedSkinLayers) {
+        for (part in modelParts) {
             options.toggleModelPart(part, true)
         }
 
-        GeneticsResequenced.LOGGER.info("Added layers back to player skin: ${removedSkinLayers.joinToString(", ")}")
-        removedSkinLayers = emptySet()
+        GeneticsResequenced.LOGGER.info("Added layers back to player skin")
     }
 
 }
