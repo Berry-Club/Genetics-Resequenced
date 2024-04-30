@@ -10,34 +10,40 @@ object ClientHelper {
     fun playerIsCreative(): Boolean = Minecraft.getInstance().player?.isCreative == true
     fun playerIsSpectator(): Boolean = Minecraft.getInstance().player?.isSpectator == true
 
-    fun playerSkinSheared() {
+    private var removedSkinLayers: Set<PlayerModelPart> = emptySet()
+    fun shearPlayerSkin() {
         val options = Minecraft.getInstance().options
         try {
             val modelPartsField = options::class.java.getDeclaredField("modelParts")
             modelPartsField.isAccessible = true
 
             @Suppress("UNCHECKED_CAST")
-            val modelParts = (modelPartsField.get(options) as MutableSet<PlayerModelPart>).toSet()
+            removedSkinLayers = (modelPartsField.get(options) as MutableSet<PlayerModelPart>).toSet()
 
-            for (part in modelParts) {
+            for (part in removedSkinLayers) {
                 options.toggleModelPart(part, false)
             }
 
-            GeneticsResequenced.LOGGER.info("Sheared ${modelParts.size} layers off player skin")
+            GeneticsResequenced.LOGGER.info("Sheared ${removedSkinLayers.size} layers off player skin")
 
-            val addLayersBackTask = {
-                for (part in modelParts) {
-                    options.toggleModelPart(part, true)
-                }
-
-                GeneticsResequenced.LOGGER.info("Added ${modelParts.size} layers back to player skin")
-            }
+            val addLayersBackTask = { addSkinLayersBack() }
 
             recentlySheered.cooldownEndedTasks.add(addLayersBackTask)
 
         } catch (e: Exception) {
             e.printStackTrace()
         }
+    }
+
+    fun addSkinLayersBack() {
+        val options = Minecraft.getInstance().options
+
+        for (part in removedSkinLayers) {
+            options.toggleModelPart(part, true)
+        }
+        removedSkinLayers = emptySet()
+
+        GeneticsResequenced.LOGGER.info("Added ${removedSkinLayers.size} layers back to player skin")
     }
 
 }
