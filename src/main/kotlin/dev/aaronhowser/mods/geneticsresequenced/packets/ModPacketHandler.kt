@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.Firebal
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.TeleportPlayerPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.EnergySyncPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
+import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.ShearedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
@@ -49,6 +50,12 @@ object ModPacketHandler {
                 .encoder(GeneChangedPacket::encode)
                 .decoder(GeneChangedPacket::decode)
                 .consumerMainThread(GeneChangedPacket::receiveMessage)
+                .add()
+
+            messageBuilder(ShearedPacket::class.java, ++id, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(ShearedPacket::encode)
+                .decoder(ShearedPacket::decode)
+                .consumerMainThread(ShearedPacket::receiveMessage)
                 .add()
         }
     }
