@@ -35,7 +35,7 @@ object OtherUtil {
                 onAddFail(entity)
             }
 
-            return true
+            return success
         }
 
         private fun onAddSucceed(entity: LivingEntity) {
@@ -62,6 +62,9 @@ object OtherUtil {
             if (!addedViaEntity) throw UnsupportedOperationException(
                 "Cannot add UUIDs directly to GeneCooldown"
             )
+
+            val cooldown = uuidsOnCooldown
+            if (element in uuidsOnCooldown) return false
 
             return uuidsOnCooldown.add(element)
         }
