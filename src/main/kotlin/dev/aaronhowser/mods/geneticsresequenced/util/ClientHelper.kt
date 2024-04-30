@@ -24,7 +24,7 @@ object ClientHelper {
                 options.toggleModelPart(part, false)
             }
 
-            GeneticsResequenced.LOGGER.info("Sheared ${removedSkinLayers.size} layers off player skin")
+            GeneticsResequenced.LOGGER.info("Sheared layers off player skin: ${removedSkinLayers.joinToString(", ")}")
 
             val addLayersBackTask = { addSkinLayersBack() }
 
@@ -42,7 +42,7 @@ object ClientHelper {
             options.toggleModelPart(part, true)
         }
 
-        GeneticsResequenced.LOGGER.info("Added ${removedSkinLayers.size} layers back to player skin")
+        GeneticsResequenced.LOGGER.info("Added layers back to player skin: ${removedSkinLayers.joinToString(", ")}")
         removedSkinLayers = emptySet()
     }
 
