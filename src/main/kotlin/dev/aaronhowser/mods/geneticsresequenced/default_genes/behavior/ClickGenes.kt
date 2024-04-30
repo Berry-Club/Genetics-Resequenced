@@ -4,8 +4,8 @@ import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientHelper
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.client.Minecraft
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
@@ -18,7 +18,6 @@ import net.minecraft.world.entity.animal.Sheep
 import net.minecraft.world.entity.animal.goat.Goat
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.entity.player.PlayerModelPart
 import net.minecraft.world.entity.projectile.AbstractArrow
 import net.minecraft.world.entity.projectile.SmallFireball
 import net.minecraft.world.item.ArrowItem
@@ -32,24 +31,10 @@ import net.minecraftforge.event.entity.player.ArrowNockEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import kotlin.random.Random
 
+@Suppress("MemberVisibilityCanBePrivate")
 object ClickGenes {
 
-    fun playerSkinSheared(player: LocalPlayer) {
-        val options = Minecraft.getInstance().options
-        try {
-            val modelPartsField = options::class.java.getDeclaredField("modelParts")
-            modelPartsField.isAccessible = true
-            val modelParts = modelPartsField.get(options) as MutableSet<PlayerModelPart>
-
-            for (part in modelParts) {
-                options.toggleModelPart(part, false)
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-    }
-
-    private val recentlySheered = OtherUtil.GeneCooldown(
+    val recentlySheered = OtherUtil.GeneCooldown(
         DefaultGenes.WOOLY,
         ServerConfig.woolyCooldown.get()
     )
@@ -104,12 +89,12 @@ object ClickGenes {
         )
 
         if (target is LocalPlayer) {
-            playerSkinSheared(target)
+            ClientHelper.playerSkinSheared()
         }
 
     }
 
-    private val recentlyMeated = OtherUtil.GeneCooldown(
+    val recentlyMeated = OtherUtil.GeneCooldown(
         DefaultGenes.MEATY,
         ServerConfig.meatyCooldown.get()
     )
@@ -158,7 +143,7 @@ object ClickGenes {
         )
     }
 
-    private val recentlyMilked = OtherUtil.GeneCooldown(
+    val recentlyMilked = OtherUtil.GeneCooldown(
         DefaultGenes.MILKY,
         ServerConfig.milkyCooldown.get()
     )
@@ -254,7 +239,7 @@ object ClickGenes {
         if (!newlySheared) return
 
         if (player is LocalPlayer) {
-            playerSkinSheared(player)
+            ClientHelper.playerSkinSheared()
             return
         }
 

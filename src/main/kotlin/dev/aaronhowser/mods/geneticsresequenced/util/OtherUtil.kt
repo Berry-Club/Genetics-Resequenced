@@ -16,10 +16,12 @@ object OtherUtil {
         private val cooldownTicks: Int,
         notifyPlayer: Boolean = true
     ) : MutableSet<UUID> {
-        private val cooldownMap: MutableSet<UUID> = mutableSetOf()
+        private val uuidsOnCooldown: MutableSet<UUID> = mutableSetOf()
         private val actuallyNotify = notifyPlayer && cooldownTicks >= ServerConfig.minimumCooldownForNotification.get()
 
         private var addedViaEntity = false
+
+        val cooldownEndedTasks: MutableSet<() -> Unit> = mutableSetOf()
 
         fun add(entity: LivingEntity): Boolean {
 
@@ -40,10 +42,7 @@ object OtherUtil {
             if (actuallyNotify) tellCooldownStarted(entity, gene, cooldownTicks)
 
             ModScheduler.scheduleTaskInTicks(cooldownTicks) {
-                if (entity.uuid in this) {
-                    remove(entity.uuid)
-                    if (actuallyNotify) tellCooldownEnded(entity, gene)
-                }
+                remove(entity)
             }
         }
 
@@ -52,7 +51,10 @@ object OtherUtil {
         }
 
         fun remove(entity: LivingEntity): Boolean {
-            if (actuallyNotify) tellCooldownEnded(entity, gene)
+            if (entity.uuid in this) {
+                if (actuallyNotify) tellCooldownEnded(entity, gene)
+            }
+
             return remove(entity.uuid)
         }
 
@@ -61,31 +63,41 @@ object OtherUtil {
                 "Cannot add UUIDs directly to GeneCooldown"
             )
 
-            return cooldownMap.add(element)
+            return uuidsOnCooldown.add(element)
         }
 
         override fun remove(element: UUID): Boolean {
-            return cooldownMap.remove(element)
+            if (cooldownEndedTasks.isNotEmpty()) {
+                for (task in cooldownEndedTasks) {
+                    task()
+                }
+                GeneticsResequenced.LOGGER.debug("$this ran ${cooldownEndedTasks.size} tasks as it ended")
+            }
+
+            cooldownEndedTasks.clear()
+
+            return uuidsOnCooldown.remove(element)
         }
 
-        override val size: Int = cooldownMap.size
+        override val size: Int = uuidsOnCooldown.size
 
-        override fun clear() = cooldownMap.clear()
+        override fun clear() = uuidsOnCooldown.clear()
 
-        override fun isEmpty(): Boolean = cooldownMap.isEmpty()
+        override fun isEmpty(): Boolean = uuidsOnCooldown.isEmpty()
 
-        override fun iterator(): MutableIterator<UUID> = cooldownMap.iterator()
+        override fun iterator(): MutableIterator<UUID> = uuidsOnCooldown.iterator()
 
-        override fun retainAll(elements: Collection<UUID>): Boolean = cooldownMap.retainAll(elements.toSet())
+        override fun retainAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.retainAll(elements.toSet())
 
-        override fun removeAll(elements: Collection<UUID>): Boolean = cooldownMap.removeAll(elements.toSet())
+        override fun removeAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.removeAll(elements.toSet())
 
-        override fun containsAll(elements: Collection<UUID>): Boolean = cooldownMap.containsAll(elements)
+        override fun containsAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.containsAll(elements)
 
-        override fun contains(element: UUID): Boolean = cooldownMap.contains(element)
+        override fun contains(element: UUID): Boolean = uuidsOnCooldown.contains(element)
 
-        override fun addAll(elements: Collection<UUID>): Boolean = cooldownMap.addAll(elements)
+        override fun addAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.addAll(elements)
 
+        override fun toString(): String = "GeneCooldown($gene)"
     }
 
     fun tellCooldownStarted(player: LivingEntity, gene: Gene, cooldownTicks: Int) {
