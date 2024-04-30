@@ -1,11 +1,10 @@
-package dev.aaronhowser.mods.geneticsresequenced.gene_behaviors
+package dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.client.Options
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource

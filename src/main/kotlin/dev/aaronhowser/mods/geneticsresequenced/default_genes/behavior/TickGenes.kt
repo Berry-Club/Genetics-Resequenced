@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.gene_behaviors
+package dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
