@@ -27,8 +27,8 @@ class DnaExtractorBlockEntity(
     pBlockState
 ), MenuProvider {
 
-    override val inventoryNbtKey: String = "dna_extractor.inventory"
-    override val energyNbtKey: String = "dna_extractor.energy"
+    override val machineName: String = "dna_extractor"
+
     override val energyMaximum: Int = 60_000
     override val energyTransferMaximum: Int = 256
     override val energyCostPerTick: Int = 32

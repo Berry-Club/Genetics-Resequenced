@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.base
 
 import net.minecraft.core.BlockPos
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.level.block.entity.BlockEntityType
@@ -39,6 +40,25 @@ abstract class CraftingMachineBlockEntity(
     protected var maxProgress = 20 * 4
     protected fun resetProgress() {
         progress = 0
+    }
+
+    protected val progressNbtKey
+        get() = "${machineName}.progress"
+    protected val maxProgressNbtKey
+        get() = "${machineName}.max_progress"
+
+    override fun saveAdditional(pTag: CompoundTag) {
+        pTag.putInt(progressNbtKey, progress)
+        pTag.putInt(maxProgressNbtKey, maxProgress)
+
+        super.saveAdditional(pTag)
+    }
+
+    override fun load(pTag: CompoundTag) {
+        maxProgress = pTag.getInt(maxProgressNbtKey)
+        progress = pTag.getInt(progressNbtKey)
+
+        super.load(pTag)
     }
 
     protected val containerData = object : ContainerData {

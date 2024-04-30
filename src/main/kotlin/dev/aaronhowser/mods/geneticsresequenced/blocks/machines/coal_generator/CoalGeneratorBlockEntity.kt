@@ -32,8 +32,7 @@ class CoalGeneratorBlockEntity(
     pBlockState
 ), MenuProvider {
 
-    override val inventoryNbtKey: String = "coal_generator.inventory"
-    override val energyNbtKey = "coal_generator.energy"
+    override val machineName: String = "coal_generator"
 
     override val energyMaximum: Int = ServerConfig.coalGeneratorEnergyCapacity.get()
     override val energyTransferMaximum: Int = ServerConfig.coalGeneratorEnergyTransferRate.get()

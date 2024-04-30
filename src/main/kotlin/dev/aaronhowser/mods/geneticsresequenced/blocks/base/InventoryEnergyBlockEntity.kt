@@ -31,9 +31,13 @@ abstract class InventoryEnergyBlockEntity(
     pBlockState
 ) {
 
-    abstract val inventoryNbtKey: String
+    abstract val machineName: String
 
-    abstract val energyNbtKey: String
+    protected val inventoryNbtKey: String
+        get() = "${machineName}.inventory"
+    protected val energyNbtKey: String
+        get() = "${machineName}.energy"
+
     abstract val energyMaximum: Int
     abstract val energyTransferMaximum: Int
 

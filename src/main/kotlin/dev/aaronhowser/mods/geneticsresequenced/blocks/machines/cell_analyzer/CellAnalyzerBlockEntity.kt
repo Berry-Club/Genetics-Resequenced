@@ -27,8 +27,9 @@ class CellAnalyzerBlockEntity(
     pPos,
     pBlockState
 ), MenuProvider {
-    override val inventoryNbtKey: String = "cell_analyzer.inventory"
-    override val energyNbtKey: String = "cell_analyzer.energy"
+
+    override val machineName: String = "cell_analyzer"
+
     override val energyMaximum: Int = 60_000
     override val energyTransferMaximum: Int = 256
     override val energyCostPerTick: Int = 32

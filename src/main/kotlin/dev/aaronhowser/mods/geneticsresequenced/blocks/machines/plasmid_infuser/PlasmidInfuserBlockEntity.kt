@@ -29,8 +29,9 @@ class PlasmidInfuserBlockEntity(
     pPos,
     pBlockState
 ), MenuProvider {
-    override val inventoryNbtKey: String = "plasmid_infuser.inventory"
-    override val energyNbtKey: String = "plasmid_infuser.energy"
+
+    override val machineName: String = "plasmid_infuser"
+
     override val energyMaximum: Int = 60_000
     override val energyTransferMaximum: Int = 256
     override val energyCostPerTick: Int = 32
