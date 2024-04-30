@@ -8,6 +8,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
 import java.util.*
 
+@Suppress("MemberVisibilityCanBePrivate")
 object OtherUtil {
 
     /**
@@ -29,15 +30,17 @@ object OtherUtil {
 
         cooldownMap.add(player.uuid)
         ModScheduler.scheduleTaskInTicks(cooldownTicks) {
-            cooldownMap.remove(player.uuid)
-            if (actuallyNotifyPlayer) tellCooldownEnded(player, gene)
+            if (player.uuid in cooldownMap) {
+                cooldownMap.remove(player.uuid)
+                if (actuallyNotifyPlayer) tellCooldownEnded(player, gene)
+            }
         }
 
         if (actuallyNotifyPlayer) tellCooldownStarted(player, gene, cooldownTicks)
         return true
     }
 
-    private fun tellCooldownStarted(player: LivingEntity, gene: Gene, cooldownTicks: Int) {
+    fun tellCooldownStarted(player: LivingEntity, gene: Gene, cooldownTicks: Int) {
         val cooldownSeconds = cooldownTicks / 20
         val cooldownString: String
         if (cooldownSeconds > 60) {
@@ -55,7 +58,7 @@ object OtherUtil {
         player.sendSystemMessage(message)
     }
 
-    private fun tellCooldownEnded(player: LivingEntity, gene: Gene) {
+    fun tellCooldownEnded(player: LivingEntity, gene: Gene) {
         val message = Component.empty()
             .append(gene.nameComponent)
             .append(Component.translatable("cooldown.geneticsresequenced.ended"))

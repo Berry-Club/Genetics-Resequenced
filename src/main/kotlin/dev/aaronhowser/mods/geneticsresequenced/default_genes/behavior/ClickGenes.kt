@@ -322,7 +322,7 @@ object ClickGenes {
         val blockAfter = when (block) {
             Blocks.GRASS_BLOCK, Blocks.MYCELIUM -> Blocks.DIRT
             Blocks.WARPED_NYLIUM, Blocks.CRIMSON_NYLIUM -> Blocks.NETHERRACK
-            else -> return
+            else -> return  // If it's not grass or nylium, then you can't eat it, so return
         }
 
         event.level.setBlockAndUpdate(event.pos, blockAfter.defaultBlockState())
@@ -345,6 +345,11 @@ object ClickGenes {
             1.0f,
             1.0f
         )
+
+        if (player.uuid in recentlySheered) {
+            recentlySheered.remove(player.uuid)
+            OtherUtil.tellCooldownEnded(player, DefaultGenes.WOOLY)
+        }
 
     }
 
