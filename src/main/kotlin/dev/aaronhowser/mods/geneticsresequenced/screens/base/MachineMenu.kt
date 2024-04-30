@@ -25,7 +25,7 @@ abstract class MachineMenu(
     protected open val topLeftInventoryY = 84
 
     // Adds the 27 slots of the player inventory
-    protected fun addPlayerInventory(playerInventory: Inventory) {
+    protected open fun addPlayerInventory(playerInventory: Inventory) {
         for (row in 0 until 3) {
             for (column in 0 until 9) {
                 addSlot(
@@ -41,7 +41,7 @@ abstract class MachineMenu(
     }
 
     // Adds the 9 slots of the player hotbar
-    protected fun addPlayerHotbar(playerInventory: Inventory) {
+    protected open fun addPlayerHotbar(playerInventory: Inventory) {
         for (column in 0 until 9) {
             addSlot(
                 Slot(
@@ -52,10 +52,6 @@ abstract class MachineMenu(
                 )
             )
         }
-    }
-
-    companion object {
-
     }
 
 }
