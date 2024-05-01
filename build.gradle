@@ -15,7 +15,7 @@ println("Java: ${System.getProperty('java.version')}, JVM: ${System.getProperty(
 minecraft {
     mappings channel: 'parchment', version: parchment_version
 
-    accessTransformer = file("src/main/resources/META-INT/accesstransformer.cfg")
+    accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
 
     runs {
         client {
