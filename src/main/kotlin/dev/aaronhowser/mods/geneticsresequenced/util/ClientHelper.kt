@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.Options
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.world.entity.player.PlayerModelPart
-import net.minecraftforge.fml.util.ObfuscationReflectionHelper
 
 object ClientHelper {
 
