@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced
 import dev.aaronhowser.mods.geneticsresequenced.attributes.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.configs.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultMobGenes
@@ -29,6 +30,7 @@ object GeneticsResequenced {
     init {
         ModLoadingContext.get().apply {
             registerConfig(ModConfig.Type.SERVER, ServerConfig.SPEC, "geneticsresequenced-server.toml")
+            registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC, "geneticsresequenced-client.toml")
         }
 
         ModEntityTypes.ENTITY_TYPE_REGISTRY.register(MOD_BUS)

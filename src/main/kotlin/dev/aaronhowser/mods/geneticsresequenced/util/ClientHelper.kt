@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.configs.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.ClickGenes.recentlySheered
 import net.minecraft.client.Minecraft
 import net.minecraft.client.Options
@@ -19,23 +20,22 @@ object ClientHelper {
     private var removedSkinLayers: Set<PlayerModelPart> = emptySet()
 
     fun shearPlayerSkin() {
-        try {
-            val enabledModelParts = options.modelParts.toSet()
-            for (part in enabledModelParts) {
-                options.toggleModelPart(part, false)
-            }
-
-            removedSkinLayers = enabledModelParts
-
-            GeneticsResequenced.LOGGER.info("Sheared layers off player skin: ${removedSkinLayers.joinToString(", ")}")
-
-            val addLayersBackTask = { addSkinLayersBack() }
-
-            recentlySheered.cooldownEndedTasks.add(addLayersBackTask)
-
-        } catch (e: Exception) {
-            e.printStackTrace()
+        var enabledModelParts = options.modelParts.toSet()
+        if (!ClientConfig.woolyRemovesCape.get()) {
+            enabledModelParts = enabledModelParts.minus(PlayerModelPart.CAPE)
         }
+
+        for (part in enabledModelParts) {
+            options.toggleModelPart(part, false)
+        }
+
+        removedSkinLayers = enabledModelParts
+
+        GeneticsResequenced.LOGGER.info("Sheared layers off player skin: ${removedSkinLayers.joinToString(", ")}")
+
+        val addLayersBackTask = { addSkinLayersBack() }
+
+        recentlySheered.cooldownEndedTasks.add(addLayersBackTask)
     }
 
     fun addSkinLayersBack() {
