@@ -20,7 +20,7 @@ object ClientHelper {
 
     fun shearPlayerSkin() {
         try {
-            val enabledModelParts = options.modelParts
+            val enabledModelParts = options.modelParts.toSet()
             for (part in enabledModelParts) {
                 options.toggleModelPart(part, false)
             }
