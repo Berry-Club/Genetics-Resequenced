@@ -1,6 +1,12 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "geneticsresequenced:item/glass_syringe"
-  }
+    "layer0": "geneticsresequenced:item/glass_syringe_empty"
+  },
+  "overrides": [
+    {
+      "predicate": { "syringe_full": 1 },
+      "model": "geneticsresequenced:item/syringe_full"
+    }
+  ]
 }

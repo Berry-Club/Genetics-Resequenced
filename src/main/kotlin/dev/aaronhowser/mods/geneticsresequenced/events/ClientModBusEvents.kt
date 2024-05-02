@@ -9,15 +9,22 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.
 import dev.aaronhowser.mods.geneticsresequenced.controls.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.entities.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.entities.client.FriendlySlimeRenderer
+import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.gui.screens.MenuScreens
 import net.minecraft.client.gui.screens.MenuScreens.ScreenConstructor
 import net.minecraft.client.gui.screens.Screen
 import net.minecraft.client.gui.screens.inventory.MenuAccess
 import net.minecraft.client.renderer.entity.EntityRenderers
+import net.minecraft.client.renderer.item.ItemProperties
+import net.minecraft.client.renderer.item.ItemPropertyFunction
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.MenuType
+import net.minecraft.world.item.Item
 import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.client.event.ModelEvent
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
@@ -61,6 +68,21 @@ object ClientModBusEvents {
     private fun registerRenderers() {
 
         EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::FriendlySlimeRenderer)
+
+    }
+
+    @SubscribeEvent
+    fun onModelRegistry(event: ModelEvent.RegisterAdditional) {
+
+        val itemPropertyFunction = ItemPropertyFunction { stack, _, _, _ ->
+            if (SyringeItem.isFull(stack)) 1f else 0f
+        }
+
+        ItemProperties.register(
+            ModItems.SYRINGE as Item,
+            OtherUtil.modResource("syringe_full"),
+            itemPropertyFunction
+        )
 
     }
 
