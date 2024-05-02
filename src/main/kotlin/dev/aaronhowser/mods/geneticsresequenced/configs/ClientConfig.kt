@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.configs
 import net.minecraftforge.common.ForgeConfigSpec
 
 object ClientConfig {
-    val BUILDER = ForgeConfigSpec.Builder()
+    private val BUILDER = ForgeConfigSpec.Builder()
     val SPEC: ForgeConfigSpec
 
     lateinit var woolyRemovesCape: ForgeConfigSpec.BooleanValue
