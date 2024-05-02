@@ -13,15 +13,12 @@ object SyringeItem : Item(
     Properties()
         .tab(ModItems.MOD_TAB)
         .stacksTo(1)
-
 ) {
 
     fun isBeingUsed(syringeStack: ItemStack, entity: LivingEntity?): Boolean {
         if (entity == null) return false
 
-        val t = entity.useItem == syringeStack
-        println(t)
-        return t
+        return entity.useItem == syringeStack
     }
 
     fun isFull(syringeStack: ItemStack): Boolean {
@@ -36,7 +33,7 @@ object SyringeItem : Item(
         syringeStack.getOrCreateTag().putBoolean("dna", isFull)
     }
 
-    override fun getUseDuration(pStack: ItemStack): Int = 20
+    override fun getUseDuration(pStack: ItemStack): Int = 40
 
     override fun getUseAnimation(pStack: ItemStack): UseAnim = UseAnim.BOW
 
@@ -48,14 +45,21 @@ object SyringeItem : Item(
         return InteractionResultHolder.consume(itemStack)
     }
 
-    override fun releaseUsing(pStack: ItemStack, pLevel: Level, pLivingEntity: LivingEntity, pTimeCharged: Int) {
+    override fun releaseUsing(pStack: ItemStack, pLevel: Level, pLivingEntity: LivingEntity, pTimeLeft: Int) {
         if (pLivingEntity !is Player) return
+        if (pTimeLeft > 0) return
 
-        val t = isFull(pStack)
-
-        setFull(pStack, !t)
+        setFull(pStack, !isFull(pStack))
+        super.releaseUsing(pStack, pLevel, pLivingEntity, pTimeLeft)
     }
 
-    override fun useOnRelease(pStack: ItemStack): Boolean = true
+    override fun onUsingTick(stack: ItemStack?, player: LivingEntity?, count: Int) {
+        if (player !is Player) return
+        if (stack == null) return
+
+        if (count < 0) {
+            player.stopUsingItem()
+        }
+    }
 
 }
