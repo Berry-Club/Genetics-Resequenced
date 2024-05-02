@@ -45,21 +45,22 @@ object SyringeItem : Item(
         return InteractionResultHolder.consume(itemStack)
     }
 
-    override fun releaseUsing(pStack: ItemStack, pLevel: Level, pLivingEntity: LivingEntity, pTimeLeft: Int) {
-        if (pLivingEntity !is Player) return
-        if (pTimeLeft > 0) return
+    override fun onUsingTick(stack: ItemStack?, player: LivingEntity?, count: Int) {
+        if (stack == null) return
+        if (player == null) return
 
-        setFull(pStack, !isFull(pStack))
-        super.releaseUsing(pStack, pLevel, pLivingEntity, pTimeLeft)
+        if (count <= 1) {
+            player.stopUsingItem()
+            releaseUsing(stack, player.level, player, count)
+        }
     }
 
-    override fun onUsingTick(stack: ItemStack?, player: LivingEntity?, count: Int) {
-        if (player !is Player) return
-        if (stack == null) return
+    override fun releaseUsing(pStack: ItemStack, pLevel: Level, pLivingEntity: LivingEntity, pTimeLeft: Int) {
+        if (pLivingEntity !is Player) return
+        if (pTimeLeft > 1) return
 
-        if (count < 0) {
-            player.stopUsingItem()
-        }
+        setFull(pStack, !isFull(pStack))
+        pLivingEntity.cooldowns.addCooldown(this, 10)
     }
 
 }
