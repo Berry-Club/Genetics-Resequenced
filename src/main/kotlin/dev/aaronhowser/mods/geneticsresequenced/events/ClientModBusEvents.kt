@@ -74,14 +74,13 @@ object ClientModBusEvents {
     @SubscribeEvent
     fun onModelRegistry(event: ModelEvent.RegisterAdditional) {
 
-        val itemPropertyFunction = ItemPropertyFunction { stack, _, _, _ ->
-            if (SyringeItem.isFull(stack)) 1f else 0f
-        }
-
+        //TODO: See why this isn't working
         ItemProperties.register(
             ModItems.SYRINGE as Item,
             OtherUtil.modResource("syringe_full"),
-            itemPropertyFunction
+            ItemPropertyFunction { stack, _, _, _ ->
+                if (SyringeItem.isFull(stack)) 1f else 0f
+            }
         )
 
     }
