@@ -5,8 +5,25 @@
   },
   "overrides": [
     {
-      "predicate": { "syringe_full": 1 },
+      "predicate": {
+        "geneticsresequenced:full": 0,
+        "geneticsresequenced:injecting": 1
+      },
+      "model": "geneticsresequenced:item/syringe_flipped"
+    },
+    {
+      "predicate": {
+        "geneticsresequenced:full": 1,
+        "geneticsresequenced:injecting": 0
+      },
       "model": "geneticsresequenced:item/syringe_full"
+    },
+    {
+      "predicate": {
+        "geneticsresequenced:full": 1,
+        "geneticsresequenced:injecting": 1
+      },
+      "model": "geneticsresequenced:item/syringe_full_flipped"
     }
   ]
 }

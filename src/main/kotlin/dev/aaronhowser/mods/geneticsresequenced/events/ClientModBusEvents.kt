@@ -22,7 +22,6 @@ import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.client.renderer.item.ItemPropertyFunction
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.MenuType
-import net.minecraft.world.item.Item
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.client.event.ModelEvent
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent
@@ -74,12 +73,19 @@ object ClientModBusEvents {
     @SubscribeEvent
     fun onModelRegistry(event: ModelEvent.RegisterAdditional) {
 
-        //TODO: See why this isn't working
         ItemProperties.register(
-            ModItems.SYRINGE as Item,
-            OtherUtil.modResource("syringe_full"),
+            ModItems.SYRINGE,
+            OtherUtil.modResource("full"),
             ItemPropertyFunction { stack, _, _, _ ->
                 if (SyringeItem.isFull(stack)) 1f else 0f
+            }
+        )
+
+        ItemProperties.register(
+            ModItems.SYRINGE,
+            OtherUtil.modResource("injecting"),
+            ItemPropertyFunction { stack, _, entity, _ ->
+                if (SyringeItem.isBeingUsed(stack, entity)) 1f else 0f
             }
         )
 

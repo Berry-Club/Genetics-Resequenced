@@ -16,6 +16,14 @@ object SyringeItem : Item(
 
 ) {
 
+    fun isBeingUsed(syringeStack: ItemStack, entity: LivingEntity?): Boolean {
+        if (entity == null) return false
+
+        val t = entity.useItem == syringeStack
+        println(t)
+        return t
+    }
+
     fun isFull(syringeStack: ItemStack): Boolean {
         if (!syringeStack.`is`(SyringeItem)) return false
 
@@ -41,16 +49,11 @@ object SyringeItem : Item(
     }
 
     override fun releaseUsing(pStack: ItemStack, pLevel: Level, pLivingEntity: LivingEntity, pTimeCharged: Int) {
-
         if (pLivingEntity !is Player) return
 
-        if (isFull(pStack)) {
-            setFull(pStack, false)
-            println(isFull(pStack))
-        } else {
-            setFull(pStack, true)
-            println(isFull(pStack))
-        }
+        val t = isFull(pStack)
+
+        setFull(pStack, !t)
     }
 
     override fun useOnRelease(pStack: ItemStack): Boolean = true
