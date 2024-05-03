@@ -8,6 +8,7 @@
   "item.geneticsresequenced.anti_field_orb": "Anti-Field Orb",
   "item.geneticsresequenced.scraper": "Scraper",
   "item.geneticsresequenced.syringe": "Empty Syringe",
+  "item.geneticsresequenced.syringe.full": "Full Syringe",
   "item.geneticsresequenced.dna_helix": "DNA Helix",
   "item.geneticsresequenced.plasmid": "Plasmid",
   "item.geneticsresequenced.overclocker": "Overclocker",
@@ -54,6 +55,7 @@
   "tooltip.geneticsresequenced.plasmid.gene": "Contains Gene: ",
   "tooltip.geneticsresequenced.plasmid.complete": "Plasmid is complete!",
   "tooltip.geneticsresequenced.plasmid.amount": "Amount: %d/%d",
+  "tooltip.geneticsresequenced.syringe.contaminated": "Contaminated Blood",
 
   "command.geneticsresequenced.geneList": "Gene List:",
   "command.geneticsresequenced.add.fail.already_present": "Failed to add gene as target already has it.",
