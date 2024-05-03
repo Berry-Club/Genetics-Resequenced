@@ -54,7 +54,7 @@ class PlasmidInjectorBlockEntity(
     }
 
     override fun getDisplayName(): Component {
-        return Component.translatable("block.geneticsresequenced.plasmid_infuser")
+        return Component.translatable("block.geneticsresequenced.plasmid_injector")
     }
 
     override fun tick() {
