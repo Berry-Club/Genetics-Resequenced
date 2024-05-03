@@ -1,8 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.getUuidOrNull
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
+import net.minecraft.nbt.StringTag
+import net.minecraft.nbt.Tag
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
@@ -25,54 +30,7 @@ object SyringeItem : Item(
         .stacksTo(1)
 ) {
 
-    fun isBeingUsed(syringeStack: ItemStack, entity: LivingEntity?): Boolean {
-        if (entity == null) return false
-
-        return entity.useItem == syringeStack
-    }
-
-    private const val ENTITY_UUID_NBT_KEY = "entity"
-    private fun setEntity(syringeStack: ItemStack, entity: LivingEntity) {
-        if (!syringeStack.`is`(SyringeItem)) return
-
-        val tag = syringeStack.getOrCreateTag()
-
-        tag.putUUID(ENTITY_UUID_NBT_KEY, entity.uuid)
-        setContaminated(syringeStack, true)
-    }
-
-    private fun injectEntity(syringeStack: ItemStack, entity: LivingEntity) {
-        val entityDna = getEntity(syringeStack) ?: return
-        if (entity.uuid != entityDna) return
-
-        if (isContaminated(syringeStack)) {
-            entity.addEffect(MobEffectInstance(MobEffects.CONFUSION, 200))
-            entity.addEffect(MobEffectInstance(MobEffects.WITHER, 200))
-            setContaminated(syringeStack, false)
-        }
-
-        syringeStack.getOrCreateTag().remove(ENTITY_UUID_NBT_KEY)
-
-    }
-
-    private fun getEntity(syringeStack: ItemStack): UUID? {
-        if (!syringeStack.`is`(SyringeItem)) return null
-
-        return syringeStack.getOrCreateTag().getUuidOrNull(ENTITY_UUID_NBT_KEY)
-    }
-
-    fun hasBlood(syringeStack: ItemStack): Boolean {
-        return getEntity(syringeStack) != null
-    }
-
-    private const val CONTAMINATED_NBT_KEY = "contaminated"
-    fun isContaminated(syringeStack: ItemStack): Boolean {
-        return syringeStack.getOrCreateTag().getBoolean(CONTAMINATED_NBT_KEY)
-    }
-
-    fun setContaminated(syringeStack: ItemStack, contaminated: Boolean) {
-        syringeStack.getOrCreateTag().putBoolean(CONTAMINATED_NBT_KEY, contaminated)
-    }
+    // Regular item functions
 
     override fun getUseDuration(pStack: ItemStack): Int = 40
 
@@ -105,6 +63,11 @@ object SyringeItem : Item(
         } else {
             setEntity(pStack, pLivingEntity)
             pLivingEntity.hurt(DamageSource.WITHER, 1f)
+
+            val randomGene = Gene.getRegistry().random()
+            if (canAddGene(pStack, randomGene)) {
+                addGene(pStack, randomGene)
+            }
         }
 
         pLivingEntity.cooldowns.addCooldown(this, 10)
@@ -132,7 +95,130 @@ object SyringeItem : Item(
             )
         }
 
+        for (gene in getGenes(pStack)) {
+            pTooltipComponents.add(gene.nameComponent)
+        }
+
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced)
+    }
+
+    // Animation / model functions
+
+    fun isBeingUsed(syringeStack: ItemStack, entity: LivingEntity?): Boolean {
+        if (entity == null) return false
+
+        return entity.useItem == syringeStack
+    }
+
+    // Entity functions
+
+    private const val ENTITY_UUID_NBT_KEY = "entity"
+    private fun setEntity(syringeStack: ItemStack, entity: LivingEntity) {
+        if (!syringeStack.`is`(SyringeItem)) return
+
+        val tag = syringeStack.getOrCreateTag()
+
+        tag.putUUID(ENTITY_UUID_NBT_KEY, entity.uuid)
+        setContaminated(syringeStack, true)
+    }
+
+    private fun injectEntity(syringeStack: ItemStack, entity: LivingEntity) {
+        val entityDna = getEntity(syringeStack) ?: return
+        if (entity.uuid != entityDna) return
+
+        if (isContaminated(syringeStack)) {
+            entity.addEffect(MobEffectInstance(MobEffects.CONFUSION, 200))
+            entity.addEffect(MobEffectInstance(MobEffects.WITHER, 200))
+            setContaminated(syringeStack, false)
+        }
+
+        val genes = getGenes(syringeStack)
+        val entityGenes = entity.getGenes() ?: return
+
+        for (gene in genes) {
+            val success = entityGenes.addGene(gene)
+
+            if (!entity.level.isClientSide) {
+                val translateKey = if (success) {
+                    "message.geneticsresequenced.syringe.injected"
+                } else {
+                    "message.geneticsresequenced.syringe.failed"
+                }
+                entity.sendSystemMessage(
+                    Component.translatable(
+                        translateKey,
+                        gene.nameComponent
+                    )
+                )
+            }
+        }
+
+        syringeStack.getOrCreateTag().remove(ENTITY_UUID_NBT_KEY)
+        clearGenes(syringeStack)
+    }
+
+    private fun getEntity(syringeStack: ItemStack): UUID? {
+        if (!syringeStack.`is`(SyringeItem)) return null
+
+        return syringeStack.getOrCreateTag().getUuidOrNull(ENTITY_UUID_NBT_KEY)
+    }
+
+    fun hasBlood(syringeStack: ItemStack): Boolean {
+        return getEntity(syringeStack) != null
+    }
+
+    private const val CONTAMINATED_NBT_KEY = "contaminated"
+    private fun isContaminated(syringeStack: ItemStack): Boolean {
+        return syringeStack.getOrCreateTag().getBoolean(CONTAMINATED_NBT_KEY)
+    }
+
+    private fun setContaminated(syringeStack: ItemStack, contaminated: Boolean) {
+        if (contaminated) {
+            syringeStack.getOrCreateTag().putBoolean(CONTAMINATED_NBT_KEY, true)
+        } else {
+            syringeStack.getOrCreateTag().remove(CONTAMINATED_NBT_KEY)
+        }
+    }
+
+    // Gene functions
+
+    private const val GENE_LIST_NBT_KEY = "genes"
+
+    private fun getGenes(syringeStack: ItemStack): List<Gene> {
+        return syringeStack.getOrCreateTag()
+            .getList(GENE_LIST_NBT_KEY, Tag.TAG_STRING.toInt())
+            .mapNotNull { Gene.fromId(it.asString) }
+    }
+
+    private fun canAddGene(syringeStack: ItemStack, gene: Gene): Boolean {
+        return hasBlood(syringeStack) && !getGenes(syringeStack).contains(gene)
+    }
+
+    private fun addGene(syringeStack: ItemStack, vararg genes: Gene): Boolean {
+
+        if (!hasBlood(syringeStack)) return false
+
+        val geneList = getGenes(syringeStack).toMutableList()
+        geneList.addAll(genes.filter { canAddGene(syringeStack, it) })
+
+        GeneticsResequenced.LOGGER.debug(
+            "Could not add these genes to the syringe: ${genes.filterNot { canAddGene(syringeStack, it) }}"
+        )
+
+        val stringTags: List<StringTag> = geneList.map { StringTag.valueOf(it.id.toString()) }
+        val listTag = syringeStack
+            .getOrCreateTag()
+            .getList(GENE_LIST_NBT_KEY, Tag.TAG_STRING.toInt())
+
+        listTag.clear()
+        listTag.addAll(stringTags)
+
+        syringeStack.getOrCreateTag().put(GENE_LIST_NBT_KEY, listTag)
+        return true
+    }
+
+    private fun clearGenes(syringeStack: ItemStack) {
+        syringeStack.getOrCreateTag().remove(GENE_LIST_NBT_KEY)
     }
 
 }

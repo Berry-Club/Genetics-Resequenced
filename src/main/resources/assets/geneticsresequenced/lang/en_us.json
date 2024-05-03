@@ -21,6 +21,8 @@
   "message.geneticsresequenced.meaty.recent": "This entity has already been meated recently!",
   "message.geneticsresequenced.milk.recent": "This entity has already been milked recently!",
   "message.geneticsresequenced.milk.milked": "You have been milked!",
+  "message.geneticsresequenced.syringe.injected": "You have gained the %1$s Gene!",
+  "message.geneticsresequenced.syringe.failed": "You have failed to gain the %1$s Gene!",
 
   "block.geneticsresequenced.bioluminescence": "Bioluminescence Glow",
   "block.geneticsresequenced.cell_analyzer": "Cell Analyzer",
