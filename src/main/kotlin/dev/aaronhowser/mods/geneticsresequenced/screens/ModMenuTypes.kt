@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.C
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorMenu
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor.DnaExtractorMenu
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserMenu
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injector.PlasmidInjectorMenu
 import net.minecraft.world.inventory.MenuType
 import net.minecraftforge.common.extensions.IForgeMenuType
 import net.minecraftforge.network.IContainerFactory
@@ -48,6 +49,13 @@ object ModMenuTypes {
         MENU_TYPE_RECIPE.register("plasma_infuser_menu") {
             IForgeMenuType.create(IContainerFactory { id, inv, buf ->
                 PlasmidInfuserMenu(id, inv, buf)
+            })
+        }
+
+    val PLASMID_INJECTOR: RegistryObject<MenuType<PlasmidInjectorMenu>> =
+        MENU_TYPE_RECIPE.register("plasmid_injector_menu") {
+            IForgeMenuType.create(IContainerFactory { id, inv, buf ->
+                PlasmidInjectorMenu(id, inv, buf)
             })
         }
 

@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.C
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor.DnaExtractorScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserScreen
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injector.PlasmidInjectorScreen
 import dev.aaronhowser.mods.geneticsresequenced.controls.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.entities.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.entities.client.FriendlySlimeRenderer
@@ -45,7 +46,7 @@ object ClientModBusEvents {
     @SubscribeEvent
     fun onClientSetup(event: FMLClientSetupEvent) {
         registerScreens()
-        registerRenderers()
+        registerEntityRenderers()
     }
 
     private fun registerScreens() {
@@ -62,12 +63,11 @@ object ClientModBusEvents {
         registerScreen(ModMenuTypes.DNA_EXTRACTOR.get(), ::DnaExtractorScreen)
         registerScreen(ModMenuTypes.DNA_DECRYPTOR.get(), ::DnaDecryptorScreen)
         registerScreen(ModMenuTypes.PLASMID_INFUSER.get(), ::PlasmidInfuserScreen)
+        registerScreen(ModMenuTypes.PLASMID_INJECTOR.get(), ::PlasmidInjectorScreen)
     }
 
-    private fun registerRenderers() {
-
+    private fun registerEntityRenderers() {
         EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::FriendlySlimeRenderer)
-
     }
 
     @SubscribeEvent

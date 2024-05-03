@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer.Ce
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserBlock
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injector.PlasmidInjectorBlock
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.Item

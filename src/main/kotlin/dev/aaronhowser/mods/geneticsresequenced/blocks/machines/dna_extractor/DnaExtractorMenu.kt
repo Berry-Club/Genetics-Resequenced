@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorScreen
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.network.FriendlyByteBuf
@@ -12,9 +11,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.ContainerLevelAccess
 import net.minecraft.world.inventory.SimpleContainerData
-import net.minecraft.world.inventory.Slot
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.level.Level
 import net.minecraftforge.common.capabilities.ForgeCapabilities
 import net.minecraftforge.items.SlotItemHandler
 
@@ -77,7 +74,7 @@ class DnaExtractorMenu(
         get() = progress > 0
 
     fun getScaledProgress(): Int {
-        val progressArrowSize = DnaDecryptorScreen.ARROW_WIDTH
+        val progressArrowSize = DnaExtractorScreen.ARROW_WIDTH
 
         return if (maxProgress == 0 || progress == 0) {
             0

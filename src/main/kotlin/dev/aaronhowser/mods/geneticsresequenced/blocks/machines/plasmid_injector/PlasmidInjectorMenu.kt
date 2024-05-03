@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser
+package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injector
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
@@ -15,13 +15,13 @@ import net.minecraft.world.item.ItemStack
 import net.minecraftforge.common.capabilities.ForgeCapabilities
 import net.minecraftforge.items.SlotItemHandler
 
-class PlasmidInfuserMenu(
+class PlasmidInjectorMenu(
     id: Int,
     inventory: Inventory,
-    blockEntity: PlasmidInfuserBlockEntity,
+    blockEntity: PlasmidInjectorBlockEntity,
     private val containerData: ContainerData
 ) : MachineMenu(
-    ModMenuTypes.PLASMID_INFUSER.get(),
+    ModMenuTypes.PLASMID_INJECTOR.get(),
     blockEntity,
     id,
     inventory
@@ -31,7 +31,7 @@ class PlasmidInfuserMenu(
             this(
                 id,
                 inventory,
-                inventory.player.level.getBlockEntity(extraData.readBlockPos()) as PlasmidInfuserBlockEntity,
+                inventory.player.level.getBlockEntity(extraData.readBlockPos()) as PlasmidInjectorBlockEntity,
                 SimpleContainerData(CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
             )
 
@@ -50,11 +50,12 @@ class PlasmidInfuserMenu(
         addDataSlots(containerData)
     }
 
+
     override fun stillValid(pPlayer: Player): Boolean {
         return stillValid(
             ContainerLevelAccess.create(level, blockEntity.blockPos),
             pPlayer,
-            ModBlocks.PLASMID_INFUSER
+            ModBlocks.PLASMID_INJECTOR
         )
     }
 
@@ -74,7 +75,7 @@ class PlasmidInfuserMenu(
         get() = progress > 0
 
     fun getScaledProgress(): Int {
-        val progressArrowSize = PlasmidInfuserScreen.ARROW_WIDTH
+        val progressArrowSize = PlasmidInjectorScreen.ARROW_WIDTH
 
         return if (maxProgress == 0 || progress == 0) {
             0
@@ -150,6 +151,5 @@ class PlasmidInfuserMenu(
         sourceSlot.onTake(playerIn, sourceStack)
         return copyOfSourceStack
     }
-
 
 }
