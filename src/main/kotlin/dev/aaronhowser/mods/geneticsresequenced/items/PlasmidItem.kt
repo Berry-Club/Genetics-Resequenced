@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.items
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.core.NonNullList
 import net.minecraft.network.chat.Component
@@ -52,7 +53,7 @@ object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
             pTooltipComponents.add(
                 Component
                     .translatable("tooltip.geneticsresequenced.plasmid.empty")
-                    .withStyle { it.withColor(ChatFormatting.GRAY) }
+                    .withColor(ChatFormatting.GRAY)
             )
             return
         }
@@ -63,7 +64,7 @@ object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
         pTooltipComponents.add(
             Component
                 .translatable("tooltip.geneticsresequenced.plasmid.gene")
-                .withStyle { it.withColor(ChatFormatting.GRAY) }
+                .withColor(ChatFormatting.GRAY)
                 .append(gene.nameComponent)
         )
 
@@ -71,13 +72,13 @@ object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
             pTooltipComponents.add(
                 Component
                     .translatable("tooltip.geneticsresequenced.plasmid.complete")
-                    .withStyle { it.withColor(ChatFormatting.GRAY) }
+                    .withColor(ChatFormatting.GRAY)
             )
         } else {
             pTooltipComponents.add(
                 Component
                     .translatable("tooltip.geneticsresequenced.plasmid.amount", amount, amountNeeded)
-                    .withStyle { it.withColor(ChatFormatting.GRAY) }
+                    .withColor(ChatFormatting.GRAY)
             )
         }
     }

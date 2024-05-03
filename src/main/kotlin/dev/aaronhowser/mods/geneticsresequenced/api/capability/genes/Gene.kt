@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
@@ -82,7 +83,7 @@ class Gene(
                 }
 
             if (isNegative) {
-                component.withStyle { it.withColor(ChatFormatting.RED) }
+                component.withColor(ChatFormatting.RED)
             }
 
             return component

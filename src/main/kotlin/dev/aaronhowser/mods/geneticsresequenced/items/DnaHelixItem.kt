@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.items
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientHelper
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
@@ -71,8 +72,10 @@ object DnaHelixItem : EntityDnaItem() {
         if (gene == null) {
             showNoGeneTooltips(pStack, pTooltipComponents, pLevel)
         } else {
-            pTooltipComponents.add(Component.translatable("tooltip.geneticsresequenced.gene", gene.nameComponent)
-                .withStyle { it.withColor(ChatFormatting.GRAY) })
+            pTooltipComponents.add(
+                Component.translatable("tooltip.geneticsresequenced.gene", gene.nameComponent)
+                    .withColor(ChatFormatting.GRAY)
+            )
         }
     }
 
@@ -83,11 +86,13 @@ object DnaHelixItem : EntityDnaItem() {
     ) {
 
         if (pStack.isBasic()) {
-            pTooltipComponents.add(Component.translatable(
-                "tooltip.geneticsresequenced.gene",
-                Gene.basicGeneComponent
+            pTooltipComponents.add(
+                Component.translatable(
+                    "tooltip.geneticsresequenced.gene",
+                    Gene.basicGeneComponent
+                )
+                    .withColor(ChatFormatting.GRAY)
             )
-                .withStyle { it.withColor(ChatFormatting.GRAY) })
             return
         }
 
@@ -96,15 +101,18 @@ object DnaHelixItem : EntityDnaItem() {
                 "tooltip.geneticsresequenced.gene",
                 Gene.unknownGeneComponent
             )
-                .withStyle { it.withColor(ChatFormatting.GRAY) })
+                .withColor(ChatFormatting.GRAY)
+        )
 
         val entity = getEntityType(pStack)
         if (entity != null) {
-            pTooltipComponents.add(Component.translatable(
-                "tooltip.geneticsresequenced.helix_entity",
-                entity.description
+            pTooltipComponents.add(
+                Component.translatable(
+                    "tooltip.geneticsresequenced.helix_entity",
+                    entity.description
+                )
+                    .withColor(ChatFormatting.GRAY)
             )
-                .withStyle { it.withColor(ChatFormatting.GRAY) })
         }
 
         try {
@@ -113,7 +121,7 @@ object DnaHelixItem : EntityDnaItem() {
                 val component =
                     Component
                         .translatable("tooltip.geneticsresequenced.dna_item.creative")
-                        .withStyle { it.withColor(ChatFormatting.GRAY) }
+                        .withColor(ChatFormatting.GRAY)
 
                 pTooltipComponents.add(component)
             }

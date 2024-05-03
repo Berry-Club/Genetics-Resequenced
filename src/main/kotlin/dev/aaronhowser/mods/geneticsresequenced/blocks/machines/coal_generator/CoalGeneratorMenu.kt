@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.chat.Component
@@ -104,7 +105,7 @@ class CoalGeneratorMenu(
             val feProduced = CoalGeneratorBlockEntity.energyPerTick * fuel
             val feString = NumberFormat.getNumberInstance().format(feProduced)
 
-            event.toolTip.add(Component.literal("$feString FE").withStyle { it.withColor(ChatFormatting.GRAY) })
+            event.toolTip.add(Component.literal("$feString FE").withColor(ChatFormatting.GRAY))
         }
 
         // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons

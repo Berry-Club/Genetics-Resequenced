@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.items
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientHelper
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -105,14 +106,14 @@ open class EntityDnaItem : Item(
                 Component
                     .translatable("tooltip.geneticsresequenced.dna_item.filled")
                     .append(entityType.getDescription())
-                    .withStyle { it.withColor(ChatFormatting.GRAY) }
+                    .withColor(ChatFormatting.GRAY)
 
             pTooltipComponents.add(component)
         } else {
             pTooltipComponents.add(
                 Component
                     .translatable("tooltip.geneticsresequenced.dna_item.empty")
-                    .withStyle { it.withColor(ChatFormatting.GRAY) }
+                    .withColor(ChatFormatting.GRAY)
             )
         }
 
@@ -122,7 +123,7 @@ open class EntityDnaItem : Item(
                 val component =
                     Component
                         .translatable("tooltip.geneticsresequenced.dna_item.creative")
-                        .withStyle { it.withColor(ChatFormatting.GRAY) }
+                        .withColor(ChatFormatting.GRAY)
 
                 pTooltipComponents.add(component)
             }

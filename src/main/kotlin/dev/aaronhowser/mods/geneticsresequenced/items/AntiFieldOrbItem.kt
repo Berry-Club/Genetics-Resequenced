@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
@@ -44,7 +45,7 @@ object AntiFieldOrbItem : Item(
         pTooltipComponents.add(
             Component
                 .translatable(if (isEnabled(pStack)) "tooltip.geneticsresequenced.antifield_active" else "tooltip.geneticsresequenced.antifield_inactive")
-                .withStyle { it.withColor(ChatFormatting.GRAY) }
+                .withColor(ChatFormatting.GRAY)
         )
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced)
     }

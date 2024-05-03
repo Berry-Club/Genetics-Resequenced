@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabi
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.DeathGenes
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraftforge.event.entity.living.LivingDeathEvent
@@ -59,9 +60,7 @@ object DeathEvents {
 
         val component = Component
             .translatable("message.geneticsresequenced.death_gene_removal")
-            .withStyle {
-                it.withColor(ChatFormatting.GRAY)
-            }
+            .withColor(ChatFormatting.GRAY)
 
         player.sendSystemMessage(component)
         playerGenes.removeAllGenes()

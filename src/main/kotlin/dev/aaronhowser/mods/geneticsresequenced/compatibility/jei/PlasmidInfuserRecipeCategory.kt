@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.recipes.PlasmidInfuserRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.drawable.IDrawable
@@ -16,7 +16,6 @@ import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.IRecipeCategory
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 
 class PlasmidInfuserRecipeCategory(
@@ -71,16 +70,20 @@ class PlasmidInfuserRecipeCategory(
         val amountNeeded = gene.amountNeeded
 
         val line1 = Component
-            .translatable("recipe.geneticsresequenced.plasmid_infuser.points_required", gene.nameComponent, amountNeeded)
-            .withStyle { it.withColor(ChatFormatting.GRAY) }
+            .translatable(
+                "recipe.geneticsresequenced.plasmid_infuser.points_required",
+                gene.nameComponent,
+                amountNeeded
+            )
+            .withColor(ChatFormatting.GRAY)
 
         val line2 = Component
             .translatable("recipe.geneticsresequenced.plasmid_infuser.basic")
-            .withStyle { it.withColor(ChatFormatting.GRAY) }
+            .withColor(ChatFormatting.GRAY)
 
         val line3 = Component
             .translatable("recipe.geneticsresequenced.plasmid_infuser.matching")
-            .withStyle { it.withColor(ChatFormatting.GRAY) }
+            .withColor(ChatFormatting.GRAY)
 
         return mutableListOf(line1, line2, line3)
     }
