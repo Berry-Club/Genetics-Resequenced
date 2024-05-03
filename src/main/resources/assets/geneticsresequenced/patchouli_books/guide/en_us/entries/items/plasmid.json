@@ -6,7 +6,23 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "$(major)Plasmids/$, like $(l:geneticsresequenced:items/dna_helix)DNA Helices/$, contain genetic information. However, this only comes in the form of $(l:geneticsresequenced:genes)Genes/$."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:plasmid",
+      "link_recipe": true,
+      "text": "Plasmids default to $(bad)Empty/$, with no genetic information.$(br2)To set their Gene, use a $(l:geneticsresequenced:blocks/plasmid_infuser)Plasmid Infuser/$ to infuse DNA Helices into them."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:plasmid{GeneId:'geneticsresequenced:scare_creepers', Amount:1}",
+      "text": "This Plasmid has been infused with the $(l:geneticsresequenced:genes/scare_creepers)Scare Creepers/$ Gene.$(br2)Notice, however, that it $(bad)only contains 1 Gene Point/$.$(br2)Infusing more DNA Helices of the same Gene will add +2 Points each, while Basic Genes will add +1 each."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:plasmid{GeneId:'geneticsresequenced:scare_creepers', Amount:20}",
+      "text": "Once it's reached its maximum Gene Points required, the Plasmid will be marked $(minor)complete/$!$(br2)That means it's ready to be injected into a Syringe at the $(l:geneticsresequenced:blocks/plasmid_injector)Plasmid Injector/$."
     }
   ]
 }
