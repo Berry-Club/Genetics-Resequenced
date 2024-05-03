@@ -45,16 +45,16 @@ class GenesCapability {
     }
 
     fun saveNbt(nbt: CompoundTag) {
-        val listTag = nbt.getList(NBT_KEY, Tag.TAG_STRING.toInt())
+        val listTag = nbt.getList(GENES_NBT_KEY, Tag.TAG_STRING.toInt())
 
         listTag.clear()
         listTag.addAll(geneList.map { StringTag.valueOf(it.id.toString()) })
 
-        nbt.put(NBT_KEY, listTag)
+        nbt.put(GENES_NBT_KEY, listTag)
     }
 
     fun loadNbt(nbt: CompoundTag) {
-        val list: ListTag = nbt.getList(NBT_KEY, Tag.TAG_STRING.toInt())
+        val list: ListTag = nbt.getList(GENES_NBT_KEY, Tag.TAG_STRING.toInt())
 
         require(list.all { it is StringTag }) { "All genes must be strings" }
 
@@ -76,7 +76,7 @@ class GenesCapability {
 
     companion object {
 
-        private const val NBT_KEY = "genes"
+        private const val GENES_NBT_KEY = "genes"
 
         fun LivingEntity.getGenes(): GenesCapability? {
 
