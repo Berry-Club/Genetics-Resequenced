@@ -17,7 +17,7 @@ class GenesCapabilityProvider : ICapabilityProvider, INBTSerializable<CompoundTa
     }
 
     private var genes: GenesCapability? = null
-    private final val optional: LazyOptional<GenesCapability> = LazyOptional.of(this::createGenes)
+    private val optional: LazyOptional<GenesCapability> = LazyOptional.of(this::createGenes)
 
     private fun createGenes(): GenesCapability {
         if (this.genes == null) {

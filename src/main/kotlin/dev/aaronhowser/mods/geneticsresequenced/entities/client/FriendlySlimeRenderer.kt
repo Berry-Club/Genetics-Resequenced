@@ -40,7 +40,7 @@ class FriendlySlimeRenderer(
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight)
     }
 
-    protected override fun scale(
+    override fun scale(
         pLivingEntity: SupportSlime,
         pMatrixStack: PoseStack,
         pPartialTickTime: Float

@@ -87,7 +87,7 @@ object DeathGenes {
         val shouldExplode = if (entity !is Player) {
             true
         } else {
-            val amountGunpowder = entity.inventory.items.sumBy { if (it.item == Items.GUNPOWDER) it.count else 0 }
+            val amountGunpowder = entity.inventory.items.sumOf { if (it.item == Items.GUNPOWDER) it.count else 0 }
             amountGunpowder >= GUNPOWDER_REQUIRED
         }
 

@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injecto
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlock
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.util.BlockEntityHelper
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntity
