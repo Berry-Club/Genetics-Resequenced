@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabi
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.entities.goals.SupportSlimeAttackGoal
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.getUuidOrNull
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
@@ -158,9 +159,9 @@ class SupportSlime(
 
     override fun readAdditionalSaveData(pCompound: CompoundTag) {
         super.readAdditionalSaveData(pCompound)
-        if (pCompound.hasUUID(OWNER_UUID_NBT)) {
-            this.setOwner(pCompound.getUUID(OWNER_UUID_NBT))
-        }
+
+        val owner = pCompound.getUuidOrNull(OWNER_UUID_NBT) ?: return
+        setOwner(owner)
     }
 
     override fun addAdditionalSaveData(pCompound: CompoundTag) {

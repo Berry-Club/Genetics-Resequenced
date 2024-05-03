@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.util
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
@@ -130,5 +131,15 @@ object OtherUtil {
     }
 
     fun modResource(path: String): ResourceLocation = ResourceLocation(GeneticsResequenced.ID, path)
+
+    fun CompoundTag.getBooleanOrNull(key: String): Boolean? {
+        if (!this.contains(key)) return null
+        return this.getBoolean(key)
+    }
+
+    fun CompoundTag.getUuidOrNull(key: String): UUID? {
+        if (!this.contains(key)) return null
+        return this.getUUID(key)
+    }
 
 }
