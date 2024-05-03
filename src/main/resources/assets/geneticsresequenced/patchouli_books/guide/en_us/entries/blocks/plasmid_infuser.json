@@ -1,0 +1,18 @@
+{
+  "name": "Plasmid Infuser",
+  "category": "geneticsresequenced:blocks",
+  "icon": "geneticsresequenced:plasmid_infuser",
+  "sortnum": 5,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Plasmid Infuser/$ uses FE to infuse $(l:geneticsresequenced:items/dna_helix)DNA Helices/$ into a $(l:geneticsresequenced:items/plasmid)Plasmid/$.$(br2)Insert an empty Plasmid in the right slot, and a DNA Helix in the left slot.$(br2)The DNA Helix will be used up, and set the Plasmid's Gene to match the Helix's."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:plasmid_infuser",
+      "link_recipe": true,
+      "text": "Each Gene requires a certain amount of $(minor)DNA Points/$ for the Plasmid to be completed.$(br)$(li)Basic Genes are worth 1 point.$(li)Genes of the Plasmid's type are worth 2 points.$(br2)A Basic Gene cannot be the first one infused into a Plasmid."
+    }
+  ]
+}

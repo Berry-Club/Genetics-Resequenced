@@ -1,0 +1,18 @@
+{
+  "name": "DNA Decryptor",
+  "category": "geneticsresequenced:blocks",
+  "icon": "geneticsresequenced:dna_decryptor",
+  "sortnum": 4,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)DNA Decryptor/$ uses FE to decrypt $(l:geneticsresequenced:items/dna_helix)DNA Helices/$.$(br2)Every time DNA is decrypted, it will choose a weighted-random $(l:geneticsresequenced:genes)Gene/$, based on the Entity the Helix came from. This Gene is chosen at the start of the process."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:dna_decryptor",
+      "link_recipe": true,
+      "text": "If the DNA Helix in the output slot is of a different Gene, you'll have to remove it for the Decryptor to work."
+    }
+  ]
+}
