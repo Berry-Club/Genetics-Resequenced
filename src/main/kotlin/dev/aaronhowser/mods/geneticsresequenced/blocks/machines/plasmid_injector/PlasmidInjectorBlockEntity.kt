@@ -2,9 +2,10 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injecto
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserMenu
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem
+import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
@@ -39,8 +40,8 @@ class PlasmidInjectorBlockEntity(
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
-                INPUT_SLOT_INDEX -> stack.`is`(ModItems.PLASMID)
-                OUTPUT_SLOT_INDEX -> stack.`is`(ModItems.SYRINGE)
+                INPUT_SLOT_INDEX -> stack.`is`(ModItems.PLASMID) && PlasmidItem.isComplete(stack)
+                OUTPUT_SLOT_INDEX -> stack.`is`(ModItems.SYRINGE) && SyringeItem.hasBlood(stack)
                 OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
                 else -> false
             }
@@ -74,11 +75,26 @@ class PlasmidInjectorBlockEntity(
     }
 
     override fun hasRecipe(): Boolean {
-        return false
+        val plasmidStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
+        val syringeStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
+
+        if (!plasmidStack.`is`(PlasmidItem) || !syringeStack.`is`(SyringeItem)) return false
+
+        val plasmidGene = plasmidStack.getGene() ?: return false
+        if (!PlasmidItem.isComplete(plasmidStack)) return false
+
+        return SyringeItem.canAddGene(syringeStack, plasmidGene)
     }
 
     override fun craftItem() {
+        val plasmidStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
+        val syringeStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
+        val plasmidGene = plasmidStack.getGene() ?: return
+
+        itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
+
+        SyringeItem.addGene(syringeStack, plasmidGene)
     }
 
     companion object {

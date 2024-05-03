@@ -62,12 +62,7 @@ object SyringeItem : Item(
             injectEntity(pStack, pLivingEntity)
         } else {
             setEntity(pStack, pLivingEntity)
-            pLivingEntity.hurt(DamageSource.WITHER, 1f)
-
-            val randomGene = Gene.getRegistry().random()
-            if (canAddGene(pStack, randomGene)) {
-                addGene(pStack, randomGene)
-            }
+            pLivingEntity.hurt(DamageSource.MAGIC, 1f)
         }
 
         pLivingEntity.cooldowns.addCooldown(this, 10)
@@ -190,11 +185,7 @@ object SyringeItem : Item(
             .mapNotNull { Gene.fromId(it.asString) }
     }
 
-    private fun canAddGene(syringeStack: ItemStack, gene: Gene): Boolean {
-        return hasBlood(syringeStack) && !getGenes(syringeStack).contains(gene)
-    }
-
-    private fun addGene(syringeStack: ItemStack, vararg genes: Gene): Boolean {
+    fun addGene(syringeStack: ItemStack, vararg genes: Gene): Boolean {
 
         if (!hasBlood(syringeStack)) return false
 
@@ -215,6 +206,10 @@ object SyringeItem : Item(
 
         syringeStack.getOrCreateTag().put(GENE_LIST_NBT_KEY, listTag)
         return true
+    }
+
+    fun canAddGene(syringeStack: ItemStack, gene: Gene): Boolean {
+        return hasBlood(syringeStack) && !getGenes(syringeStack).contains(gene)
     }
 
     private fun clearGenes(syringeStack: ItemStack) {
