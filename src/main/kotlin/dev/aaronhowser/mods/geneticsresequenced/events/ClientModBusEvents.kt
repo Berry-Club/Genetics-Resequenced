@@ -77,7 +77,7 @@ object ClientModBusEvents {
             ModItems.SYRINGE,
             OtherUtil.modResource("full"),
             ItemPropertyFunction { stack, _, _, _ ->
-                if (SyringeItem.isFull(stack)) 1f else 0f
+                if (SyringeItem.hasBlood(stack)) 1f else 0f
             }
         )
 

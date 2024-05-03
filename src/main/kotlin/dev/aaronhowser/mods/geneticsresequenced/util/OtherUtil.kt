@@ -132,13 +132,8 @@ object OtherUtil {
 
     fun modResource(path: String): ResourceLocation = ResourceLocation(GeneticsResequenced.ID, path)
 
-    fun CompoundTag.getBooleanOrNull(key: String): Boolean? {
-        if (!this.contains(key)) return null
-        return this.getBoolean(key)
-    }
-
     fun CompoundTag.getUuidOrNull(key: String): UUID? {
-        if (!this.contains(key)) return null
+        if (!this.hasUUID(key)) return null
         return this.getUUID(key)
     }
 
