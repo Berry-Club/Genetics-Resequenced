@@ -34,7 +34,7 @@ object ClientEvents {
     }
 
     @SubscribeEvent
-    fun onItemTooltipEvent(event: ItemTooltipEvent) {
+    fun tooltip(event: ItemTooltipEvent) {
         val screen: AbstractContainerMenu = event.entity?.containerMenu ?: return
 
         when (screen) {
