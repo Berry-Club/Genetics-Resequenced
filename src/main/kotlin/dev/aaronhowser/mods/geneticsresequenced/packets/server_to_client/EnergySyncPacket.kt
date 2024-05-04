@@ -16,16 +16,17 @@ class EnergySyncPacket(
 ) : ModPacket {
 
     override fun encode(buffer: FriendlyByteBuf) {
+        println("Encoding a packet with energy: $energy and pos: $pos")
         buffer.writeInt(energy)
         buffer.writeBlockPos(pos)
     }
 
     companion object {
         fun decode(buffer: FriendlyByteBuf): EnergySyncPacket {
-            return EnergySyncPacket(
-                buffer.readInt(),
-                buffer.readBlockPos()
-            )
+            val energy = buffer.readInt()
+            val pos = buffer.readBlockPos()
+            println("Decoding a packet with energy: $energy and pos: $pos")
+            return EnergySyncPacket(energy, pos)
         }
     }
 
@@ -44,10 +45,10 @@ class EnergySyncPacket(
     }
 
     private fun handleEnergyMenu(blockEntity: InventoryEnergyBlockEntity) {
-        blockEntity.setEnergy(energy)
+        blockEntity.setClientEnergy(energy)
         val playerMenu = Minecraft.getInstance().player?.containerMenu
         if (playerMenu is MachineMenu && playerMenu.blockEntity.blockPos == pos) {
-            blockEntity.setEnergy(energy)
+            blockEntity.setClientEnergy(energy)
         }
     }
 }

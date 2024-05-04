@@ -91,7 +91,7 @@ abstract class InventoryEnergyBlockEntity(
      * @throws IllegalStateException if called on the server side
      */
     @Throws(IllegalStateException::class)
-    fun setEnergy(energy: Int) {
+    fun setClientEnergy(energy: Int) {
         if (level?.isClientSide == false) throw IllegalStateException("setEnergy called on server side")
         this.energyStorage.setEnergy(energy)
     }
@@ -110,7 +110,9 @@ abstract class InventoryEnergyBlockEntity(
         lazyItemHandler = LazyOptional.of { itemHandler }
         lazyEnergyStorage = LazyOptional.of { energyStorage }
 
-        ModPacketHandler.messageAllPlayers(EnergySyncPacket(energyStorage.energyStored, blockPos))
+        val energy = energyStorage.energyStored
+        ModPacketHandler.messageAllPlayers(EnergySyncPacket(energy, blockPos))
+
     }
 
     override fun invalidateCaps() {
