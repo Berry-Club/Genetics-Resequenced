@@ -50,20 +50,12 @@ object ClientModBusEvents {
     }
 
     private fun registerScreens() {
-        // Funky little function whose meaning is impossible to ascertain
-        fun <M : AbstractContainerMenu, U> registerScreen(
-            pType: MenuType<out M>,
-            pFactory: ScreenConstructor<M, U>
-        ) where U : Screen?, U : MenuAccess<M> {
-            MenuScreens.register(pType, pFactory)
-        }
-
-        registerScreen(ModMenuTypes.CELL_ANALYZER.get(), ::CellAnalyzerScreen)
-        registerScreen(ModMenuTypes.COAL_GENERATOR.get(), ::CoalGeneratorScreen)
-        registerScreen(ModMenuTypes.DNA_EXTRACTOR.get(), ::DnaExtractorScreen)
-        registerScreen(ModMenuTypes.DNA_DECRYPTOR.get(), ::DnaDecryptorScreen)
-        registerScreen(ModMenuTypes.PLASMID_INFUSER.get(), ::PlasmidInfuserScreen)
-        registerScreen(ModMenuTypes.PLASMID_INJECTOR.get(), ::PlasmidInjectorScreen)
+        MenuScreens.register(ModMenuTypes.CELL_ANALYZER.get(), ::CellAnalyzerScreen)
+        MenuScreens.register(ModMenuTypes.COAL_GENERATOR.get(), ::CoalGeneratorScreen)
+        MenuScreens.register(ModMenuTypes.DNA_EXTRACTOR.get(), ::DnaExtractorScreen)
+        MenuScreens.register(ModMenuTypes.DNA_DECRYPTOR.get(), ::DnaDecryptorScreen)
+        MenuScreens.register(ModMenuTypes.PLASMID_INFUSER.get(), ::PlasmidInfuserScreen)
+        MenuScreens.register(ModMenuTypes.PLASMID_INJECTOR.get(), ::PlasmidInjectorScreen)
     }
 
     private fun registerEntityRenderers() {
