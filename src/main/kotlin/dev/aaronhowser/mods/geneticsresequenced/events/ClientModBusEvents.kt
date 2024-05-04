@@ -51,12 +51,17 @@ object ClientModBusEvents {
 
     private fun registerScreens() {
         // Funky little function whose meaning is impossible to ascertain
-        fun <M : AbstractContainerMenu, U> registerScreen(
+        fun <
+                M : AbstractContainerMenu,
+                U
+                > registerScreen(
             pType: MenuType<out M>,
             pFactory: ScreenConstructor<M, U>
         ) where U : Screen?, U : MenuAccess<M> {
             MenuScreens.register(pType, pFactory)
         }
+
+        MenuScreens.register(ModMenuTypes.PLASMID_INJECTOR.get(), ::PlasmidInjectorScreen)
 
         registerScreen(ModMenuTypes.CELL_ANALYZER.get(), ::CellAnalyzerScreen)
         registerScreen(ModMenuTypes.COAL_GENERATOR.get(), ::CoalGeneratorScreen)

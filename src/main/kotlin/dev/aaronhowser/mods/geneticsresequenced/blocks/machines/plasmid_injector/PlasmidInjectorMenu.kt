@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
+import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineScreen
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
@@ -75,7 +76,7 @@ class PlasmidInjectorMenu(
         get() = progress > 0
 
     fun getScaledProgress(): Int {
-        val progressArrowSize = PlasmidInjectorScreen.ARROW_WIDTH
+        val progressArrowSize = MachineScreen.ARROW_WIDTH
 
         return if (maxProgress == 0 || progress == 0) {
             0
