@@ -36,6 +36,19 @@ class Gene(
         val basicGeneComponent: MutableComponent = Component.translatable("tooltip.geneticsresequenced.gene.basic")
         val unknownGeneComponent: MutableComponent = Component.translatable("tooltip.geneticsresequenced.gene.unknown")
 
+        fun register(geneBuilder: GeneBuilder): Gene {
+
+            val gene = Gene(
+                id = geneBuilder.id,
+                isNegative = geneBuilder.isNegative,
+                mutatesInto = geneBuilder.mutatesInto,
+                dnaPointsRequired = geneBuilder.dnaPointsRequired,
+                potionDetails = geneBuilder.potionDetails
+            )
+
+            GENE_REGISTRY.add(gene)
+            return gene
+        }
     }
 
     val isMutation: Boolean
@@ -70,16 +83,6 @@ class Gene(
 
             return component
         }
-
-    fun register(): Gene {
-
-        if (dnaPointsRequired == -1) {
-            throw IllegalStateException("Gene $id is missing required fields")
-        }
-
-        GENE_REGISTRY.add(this)
-        return this
-    }
 
     var isActive: Boolean = true
 

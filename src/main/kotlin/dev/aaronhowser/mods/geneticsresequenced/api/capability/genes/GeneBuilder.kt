@@ -7,18 +7,12 @@ class GeneBuilder(
     val id: ResourceLocation
 ) {
 
-    private var isNegative: Boolean = false
-    private var mutatesInto: Gene? = null
-    private var dnaPointsRequired: Int = -1
-    private var potionDetails: PotionDetails? = null
+    var isNegative: Boolean = false
+    var mutatesInto: Gene? = null
+    var dnaPointsRequired: Int = -1
+    var potionDetails: PotionDetails? = null
 
-    fun build(): Gene = Gene(
-        id = id,
-        isNegative = isNegative,
-        mutatesInto = mutatesInto,
-        dnaPointsRequired = dnaPointsRequired,
-        potionDetails = potionDetails
-    ).register()
+    fun build(): Gene = Gene.register(this)
 
     fun setNegative(): GeneBuilder {
         this.isNegative = true
