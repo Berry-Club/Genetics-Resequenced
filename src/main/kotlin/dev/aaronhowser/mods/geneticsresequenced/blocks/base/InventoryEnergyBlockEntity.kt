@@ -22,6 +22,7 @@ import net.minecraftforge.energy.IEnergyStorage
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.ItemStackHandler
 
+@Suppress("MemberVisibilityCanBePrivate")
 abstract class InventoryEnergyBlockEntity(
     blockEntityType: BlockEntityType<*>,
     pPos: BlockPos,
@@ -76,10 +77,12 @@ abstract class InventoryEnergyBlockEntity(
         }
     }
 
+    //TODO: Make it so that you can only extract from the bottom
     protected fun getItemCapability(side: Direction?): LazyOptional<IItemHandler> {
         return lazyItemHandler.cast()
     }
 
+    //TODO: Make it so you can't pull out of machines, and can't insert into generators
     protected fun getEnergyCapability(side: Direction?): LazyOptional<IEnergyStorage> {
         return lazyEnergyStorage.cast()
     }
@@ -90,7 +93,7 @@ abstract class InventoryEnergyBlockEntity(
      * @throws IllegalStateException if called on the server side
      */
     fun setClientEnergy(energy: Int) {
-        if (level?.isClientSide == false) throw IllegalStateException("setEnergy called on server side")
+        if (level?.isClientSide == false) throw IllegalStateException("setClientEnergy called on server side")
         this.energyStorage.setEnergy(energy)
     }
 

@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.material.Material
 
-object AirDispersalBlock : HorizontalDirectionalBlock(Properties.of(Material.METAL)) {
+object AirborneDispersalBlock : HorizontalDirectionalBlock(Properties.of(Material.METAL)) {
 
     init {
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))

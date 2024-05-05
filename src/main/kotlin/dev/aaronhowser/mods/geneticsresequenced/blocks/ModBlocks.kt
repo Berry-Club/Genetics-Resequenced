@@ -32,10 +32,10 @@ object ModBlocks {
     val BLOOD_PURIFIER by register("blood_purifier") { BloodPurifierBlock }
     val PLASMID_INFUSER by register("plasmid_infuser") { PlasmidInfuserBlock }
     val PLASMID_INJECTOR by register("plasmid_injector") { PlasmidInjectorBlock }
-    val AIR_DISPERSAL by register("air_dispersal") { AirDispersalBlock }
+    val AIRBORNE_DISPERSAL_DEVICE by register("airborne_dispersal_device") { AirborneDispersalBlock }
     val CLONING_MACHINE by register("cloning_machine") { CloningMachineBlock }
     val INCUBATOR by register("incubator") { IncubatorBlock }
-    val ANTIFIELD_BLOCK by register("antifield_block") { AntiFieldBlock() }
+    val ANTIFIELD_BLOCK by register("anti_field_block") { AntiFieldBlock() }
 
     private fun register(
         name: String,
