@@ -5,9 +5,11 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabi
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.entities.goals.SupportSlimeAttackGoal
+import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.getUuidOrNull
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.chat.Component
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
@@ -22,6 +24,7 @@ import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.entity.monster.Slime
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
+import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import java.util.*
 
 class SupportSlime(
@@ -49,6 +52,24 @@ class SupportSlime(
         private val OWNER: EntityDataAccessor<Optional<UUID>> =
             SynchedEntityData.defineId(SupportSlime::class.java, EntityDataSerializers.OPTIONAL_UUID)
 
+        fun spawnEggMessage(event: PlayerInteractEvent.RightClickBlock) {
+            if (event.side.isClient) return
+
+            val player = event.entity
+            val item = event.itemStack
+
+            if (!item.`is`(ModItems.FRIENDLY_SLIME_SPAWN_EGG)) return
+
+            val genes = player.getGenes() ?: return
+            if (genes.hasGene(DefaultGenes.SLIMY_DEATH)) return
+
+            player.sendSystemMessage(
+                Component.translatable(
+                    "message.geneticsresequenced.support_slime_creative",
+                    DefaultGenes.SLIMY_DEATH.nameComponent
+                )
+            )
+        }
     }
 
     override fun defineSynchedData() {
