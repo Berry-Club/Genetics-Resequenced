@@ -30,15 +30,15 @@ class PlasmidInfuserRecipe(
     init {
         @Suppress("LiftReturnOrAssignment")
         if (isBasic) {
-            val stack = ItemStack(ModItems.DNA_HELIX, gene.amountNeeded).setBasic()
+            val stack = ItemStack(ModItems.DNA_HELIX, gene.dnaPointsRequired).setBasic()
             inputItem = stack
         } else {
-            val amount = ceil(gene.amountNeeded.toDouble() / 2).toInt()
+            val amount = ceil(gene.dnaPointsRequired.toDouble() / 2).toInt()
             val stack = ItemStack(ModItems.DNA_HELIX, amount).setGene(gene)
             inputItem = stack
         }
 
-        val plasmidItem = ItemStack(ModItems.PLASMID).setGene(gene).setAmount(gene.amountNeeded)
+        val plasmidItem = ItemStack(ModItems.PLASMID).setGene(gene).setAmount(gene.dnaPointsRequired)
         outputItem = plasmidItem
     }
 

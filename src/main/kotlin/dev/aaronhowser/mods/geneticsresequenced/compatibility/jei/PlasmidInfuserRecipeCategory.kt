@@ -67,7 +67,7 @@ class PlasmidInfuserRecipeCategory(
     ): MutableList<Component> {
 
         val gene = recipe.gene
-        val amountNeeded = gene.amountNeeded
+        val amountNeeded = gene.dnaPointsRequired
 
         val line1 = Component
             .translatable(

@@ -8,12 +8,15 @@ import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectInstance
 
 @Suppress("unused")
 class Gene(
-    val id: ResourceLocation
+    val id: ResourceLocation,
+    val isNegative: Boolean = false,
+    val mutatesInto: Gene? = null,
+    val dnaPointsRequired: Int = -1,
+    private val potionDetails: GeneBuilder.PotionDetails? = null
 ) {
 
     override fun toString(): String = "Gene($id)"
@@ -35,32 +38,11 @@ class Gene(
 
     }
 
-    var isNegative: Boolean = false
-        private set
-
-    fun setNegative(): Gene {
-        this.isNegative = true
-        return this
-    }
-
-    private var mutatesInto: Gene? = null
-    fun setMutatesInto(mutatesInto: Gene): Gene {
-        this.mutatesInto = mutatesInto
-        return this
-    }
-
     val isMutation: Boolean
         get() = GENE_REGISTRY.any { it.mutatesInto == this }
 
+    @Suppress("MemberVisibilityCanBePrivate")
     val translationKey: String = "gene.${id.namespace}.${id.path}"
-
-    var amountNeeded: Int = -1
-        private set
-
-    fun setAmountNeeded(amountNeeded: Int): Gene {
-        this.amountNeeded = amountNeeded
-        return this
-    }
 
     val nameComponent: Component
         get() {
@@ -91,7 +73,7 @@ class Gene(
 
     fun build(): Gene {
 
-        if (amountNeeded == -1 || translationKey.isBlank()) {
+        if (dnaPointsRequired == -1) {
             throw IllegalStateException("Gene $id is missing required fields")
         }
 
@@ -101,32 +83,21 @@ class Gene(
 
     var isActive: Boolean = true
 
-    private var potionEffect: MobEffect? = null
-    private var potionLevel: Int = 1
-    private var potionDuration: Int = 300
-
     fun getPotion(): MobEffectInstance? {
-        if (potionEffect == null) return null
+        if (potionDetails == null) return null
+
+        val effect = potionDetails.effect
+        val duration = potionDetails.duration
+        val amplifier = potionDetails.level - 1
 
         return MobEffectInstance(
-            potionEffect!!,
-            potionDuration,
-            potionLevel - 1,
+            effect,
+            duration,
+            amplifier,
             true,
             false,
             ServerConfig.showEffectIcons.get()
         )
-    }
-
-    fun setPotion(
-        effect: MobEffect,
-        level: Int,
-        duration: Int = 300
-    ): Gene {
-        this.potionEffect = effect
-        this.potionLevel = level
-        this.potionDuration = duration
-        return this
     }
 
 //    fun canAddMutation(genes: GenesCapability, syringeGenes: GenesCapability): Boolean {

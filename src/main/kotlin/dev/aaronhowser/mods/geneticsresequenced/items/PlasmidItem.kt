@@ -38,7 +38,7 @@ object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
     fun isComplete(itemStack: ItemStack): Boolean {
         if (!itemStack.`is`(PlasmidItem)) throw IllegalArgumentException("ItemStack is not a PlasmidItem")
         val gene = itemStack.getGene() ?: return false
-        return itemStack.getAmount() >= gene.amountNeeded
+        return itemStack.getAmount() >= gene.dnaPointsRequired
     }
 
     override fun appendHoverText(
@@ -58,7 +58,7 @@ object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
             return
         }
 
-        val amountNeeded = gene.amountNeeded
+        val amountNeeded = gene.dnaPointsRequired
         val amount = pStack.getAmount()
 
         pTooltipComponents.add(
@@ -88,7 +88,7 @@ object PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
             val stack =
                 ItemStack(PlasmidItem)
                     .setGene(gene)
-                    .setAmount(gene.amountNeeded)
+                    .setAmount(gene.dnaPointsRequired)
             stack
         }
     }
