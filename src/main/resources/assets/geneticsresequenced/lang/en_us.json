@@ -82,7 +82,7 @@
   "recipe.geneticsresequenced.mob_gene.mob": "Mob: %1$s",
   "recipe.geneticsresequenced.mob_gene.gene": "Gene: %1$s",
   "recipe.geneticsresequenced.mob_gene.chance": "Chance: %d%%",
-  "recipe.geneticsresequenced.plasmid_infuser.points_required": "%1$s requires %d points of DNA.",
+  "recipe.geneticsresequenced.plasmid_infuser.points_required": "%1$s requires %2$d points of DNA.",
   "recipe.geneticsresequenced.plasmid_infuser.basic": "Basic Genes = 1 point",
   "recipe.geneticsresequenced.plasmid_infuser.matching": "Matching Genes = 2 points",
 
