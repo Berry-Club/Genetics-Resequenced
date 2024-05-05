@@ -1,13 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.base
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorBlockEntity.Companion.ITEMSTACK_HANDLER_SIZE
-import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
-import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.EnergySyncPacket
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.util.ModEnergyStorage
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.protocol.Packet
+import net.minecraft.network.protocol.game.ClientGamePacketListener
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.world.Containers
 import net.minecraft.world.SimpleContainer
 import net.minecraft.world.item.ItemStack
@@ -59,8 +60,6 @@ abstract class InventoryEnergyBlockEntity(
         object : ModEnergyStorage(energyMaximum, energyTransferMaximum) {
             override fun onEnergyChanged() {
                 setChanged()
-
-                ModPacketHandler.messageAllPlayers(EnergySyncPacket(energy, blockPos))
             }
         }
     }
@@ -90,10 +89,18 @@ abstract class InventoryEnergyBlockEntity(
     /**
      * @throws IllegalStateException if called on the server side
      */
-    @Throws(IllegalStateException::class)
     fun setClientEnergy(energy: Int) {
         if (level?.isClientSide == false) throw IllegalStateException("setEnergy called on server side")
         this.energyStorage.setEnergy(energy)
+    }
+
+    override fun getUpdateTag(): CompoundTag = saveWithoutMetadata()
+
+    override fun getUpdatePacket(): Packet<ClientGamePacketListener> = ClientboundBlockEntityDataPacket.create(this)
+
+    override fun setChanged() {
+        super.setChanged()
+        level?.sendBlockUpdated(blockPos, blockState, blockState, 3)
     }
 
     fun dropDrops() {
@@ -109,10 +116,6 @@ abstract class InventoryEnergyBlockEntity(
         super.onLoad()
         lazyItemHandler = LazyOptional.of { itemHandler }
         lazyEnergyStorage = LazyOptional.of { energyStorage }
-
-        val energy = energyStorage.energyStored
-        ModPacketHandler.messageAllPlayers(EnergySyncPacket(energy, blockPos))
-
     }
 
     override fun invalidateCaps() {
