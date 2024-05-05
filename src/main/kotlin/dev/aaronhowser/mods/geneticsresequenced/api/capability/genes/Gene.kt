@@ -71,7 +71,7 @@ class Gene(
             return component
         }
 
-    fun build(): Gene {
+    fun register(): Gene {
 
         if (dnaPointsRequired == -1) {
             throw IllegalStateException("Gene $id is missing required fields")

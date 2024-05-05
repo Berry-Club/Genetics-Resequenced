@@ -18,7 +18,7 @@ class GeneBuilder(
         mutatesInto = mutatesInto,
         dnaPointsRequired = dnaPointsRequired,
         potionDetails = potionDetails
-    )
+    ).register()
 
     fun setNegative(): GeneBuilder {
         this.isNegative = true
