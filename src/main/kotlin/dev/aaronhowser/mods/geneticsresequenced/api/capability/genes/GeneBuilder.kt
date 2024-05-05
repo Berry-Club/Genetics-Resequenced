@@ -12,7 +12,9 @@ class GeneBuilder(
     var dnaPointsRequired: Int = -1
     var potionDetails: PotionDetails? = null
 
-    fun build(): Gene = Gene.register(this)
+    fun build(): Gene {
+        return Gene.register(this)
+    }
 
     fun setNegative(): GeneBuilder {
         this.isNegative = true

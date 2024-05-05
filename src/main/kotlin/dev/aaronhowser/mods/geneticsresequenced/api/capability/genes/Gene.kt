@@ -38,7 +38,6 @@ class Gene(
         val unknownGeneComponent: MutableComponent = Component.translatable("tooltip.geneticsresequenced.gene.unknown")
 
         fun register(geneBuilder: GeneBuilder): Gene {
-
             val gene = Gene(
                 id = geneBuilder.id,
                 isNegative = geneBuilder.isNegative,
