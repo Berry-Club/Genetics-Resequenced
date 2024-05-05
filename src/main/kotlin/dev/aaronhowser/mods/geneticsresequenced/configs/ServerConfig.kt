@@ -15,6 +15,8 @@ object ServerConfig {
     lateinit var coalGeneratorEnergyTransferRate: ForgeConfigSpec.IntValue
     lateinit var coalGeneratorEnergyPerTick: ForgeConfigSpec.IntValue
 
+    lateinit var disabledGenes: ForgeConfigSpec.ConfigValue<List<String>>
+
     lateinit var bioluminescenceCooldown: ForgeConfigSpec.IntValue
     lateinit var bioluminescenceDuration: ForgeConfigSpec.IntValue
     lateinit var clawsChance: ForgeConfigSpec.DoubleValue
@@ -101,6 +103,10 @@ object ServerConfig {
 
     private fun geneConfigs() {
         BUILDER.push("genes")
+
+        disabledGenes = BUILDER
+            .comment("List of genes to disable.\nExample: [\"geneticsresequenced:wooly\",\"geneticsresequenced:lay_egg\"]")
+            .defineList("disabledGenes", listOf()) { it is String }
 
         bioluminescenceDuration = BUILDER
             .comment("How long should light sources from the Bioluminescence gene last (in ticks)")

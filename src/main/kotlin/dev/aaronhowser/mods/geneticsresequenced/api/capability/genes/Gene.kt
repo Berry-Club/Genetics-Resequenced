@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -49,6 +50,19 @@ class Gene(
             GENE_REGISTRY.add(gene)
             return gene
         }
+
+        fun checkDeactivationConfig() {
+            val disabledGenes = ServerConfig.disabledGenes.get()
+
+            for (disabledGene in disabledGenes) {
+                val gene = fromId(disabledGene)
+                if (gene == null) {
+                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")
+                } else {
+                    gene.deactivate()
+                }
+            }
+        }
     }
 
     val isMutation: Boolean
@@ -85,6 +99,12 @@ class Gene(
         }
 
     var isActive: Boolean = true
+        private set
+
+    private fun deactivate() {
+        isActive = false
+        GeneticsResequenced.LOGGER.info("Deactivated gene $id")
+    }
 
     fun getPotion(): MobEffectInstance? {
         if (potionDetails == null) return null
