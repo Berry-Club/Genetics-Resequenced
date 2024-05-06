@@ -23,6 +23,7 @@
   "message.geneticsresequenced.milk.milked": "You have been milked!",
   "message.geneticsresequenced.syringe.injected": "You have gained the %1$s Gene!",
   "message.geneticsresequenced.syringe.failed": "You have failed to gain the %1$s Gene!",
+  "message.geneticsresequenced.syringe.contaminated": "You can't inject yourself with Contaminated Blood!",
   "message.geneticsresequenced.support_slime_creative": "Support Slimes despawn with no owner! Give yourself the %1$s Gene to stop them from despawning!",
 
   "block.geneticsresequenced.bioluminescence": "Bioluminescence Glow",

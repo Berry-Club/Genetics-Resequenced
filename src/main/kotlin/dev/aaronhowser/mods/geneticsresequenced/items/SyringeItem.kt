@@ -12,8 +12,6 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.damagesource.DamageSource
-import net.minecraft.world.effect.MobEffectInstance
-import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -57,6 +55,15 @@ object SyringeItem : Item(
         if (pTimeLeft > 1) return
 
         if (pLivingEntity is FakePlayer) return
+
+        if (isContaminated(pStack)) {
+            if (!pLevel.isClientSide) {
+                pLivingEntity.sendSystemMessage(
+                    Component.translatable("message.geneticsresequenced.syringe.contaminated")
+                )
+            }
+            return
+        }
 
         if (hasBlood(pStack)) {
             injectEntity(pStack, pLivingEntity)
@@ -120,12 +127,6 @@ object SyringeItem : Item(
     private fun injectEntity(syringeStack: ItemStack, entity: LivingEntity) {
         val entityDna = getEntity(syringeStack) ?: return
         if (entity.uuid != entityDna) return
-
-        if (isContaminated(syringeStack)) {
-            entity.addEffect(MobEffectInstance(MobEffects.CONFUSION, 200))
-            entity.addEffect(MobEffectInstance(MobEffects.WITHER, 200))
-            setContaminated(syringeStack, false)
-        }
 
         val genes = getGenes(syringeStack)
         val entityGenes = entity.getGenes() ?: return

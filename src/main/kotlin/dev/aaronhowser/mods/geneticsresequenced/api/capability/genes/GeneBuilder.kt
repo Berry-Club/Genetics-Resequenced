@@ -41,7 +41,7 @@ class GeneBuilder(
         return this
     }
 
-    class PotionDetails(
+    data class PotionDetails(
         val effect: MobEffect,
         val level: Int,
         val duration: Int
