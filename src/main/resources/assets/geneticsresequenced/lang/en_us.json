@@ -172,6 +172,8 @@
   "gene.geneticsresequenced.black_death":"Black Death",
   "gene.geneticsresequenced.void_death":"Void Death",
 
+  "gene.geneticsresequenced.gene_disabled": " (Disabled)",
+
   "advancement.geneticsresequenced.scraper.desc": "Craft a Scraper.\n\nScrapers are used to get Organic Matter from mobs.\n\nCraft the Big Book of Genetics for a more detailed guide!",
   "advancement.geneticsresequenced.syringe.title": "You'll Feel a Small Prick",
   "advancement.geneticsresequenced.syringe.desc": "Craft a Syringe.\n\nSyringes are used to extract blood from yourself.",

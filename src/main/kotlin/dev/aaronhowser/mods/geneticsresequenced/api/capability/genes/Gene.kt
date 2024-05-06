@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
@@ -72,10 +71,18 @@ class Gene(
 
     val nameComponent: Component
         get() {
+
+            val color = if (isActive) {
+                if (isNegative) ChatFormatting.RED else ChatFormatting.GRAY
+            } else {
+                ChatFormatting.DARK_RED
+            }
+
             val component = Component
                 .translatable(translationKey)
                 .withStyle {
                     it
+                        .withColor(color)
                         .withHoverEvent(
                             HoverEvent(
                                 HoverEvent.Action.SHOW_TEXT,
@@ -90,13 +97,14 @@ class Gene(
                         )
                 }
 
-            if (isNegative) {
-                component.withColor(ChatFormatting.RED)
+            if (!isActive) {
+                component.append(Component.translatable("gene.geneticsresequenced.gene_disabled"))
             }
 
             return component
         }
 
+    //TODO: Implement this in the genes etc
     var isActive: Boolean = true
         private set
 
