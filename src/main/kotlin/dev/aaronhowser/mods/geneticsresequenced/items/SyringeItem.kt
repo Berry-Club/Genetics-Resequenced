@@ -115,6 +115,7 @@ object SyringeItem : Item(
     // Entity functions
 
     private const val ENTITY_UUID_NBT_KEY = "entity"
+
     @Suppress("MemberVisibilityCanBePrivate")
     fun setEntity(syringeStack: ItemStack, entity: LivingEntity) {
         if (!syringeStack.`is`(SyringeItem)) return
@@ -169,6 +170,10 @@ object SyringeItem : Item(
         return getEntity(syringeStack) != null
     }
 
+    //TODO:
+    // Make it so you have to clean needles each time
+    // maybe smelt it? maybe new sterilizer block?
+    // would have to be less inconvenient than just crafting a new Syringe
     private const val CONTAMINATED_NBT_KEY = "contaminated"
     fun isContaminated(syringeStack: ItemStack): Boolean {
         return syringeStack.getOrCreateTag().getBoolean(CONTAMINATED_NBT_KEY)

@@ -7,14 +7,17 @@ import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.TickGenes
+import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraftforge.event.TickEvent.PlayerTickEvent
 import net.minecraftforge.event.entity.player.ArrowLooseEvent
 import net.minecraftforge.event.entity.player.ArrowNockEvent
+import net.minecraftforge.event.entity.player.PlayerEvent.ItemPickupEvent
 import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -104,5 +107,16 @@ object OtherPlayerEvents {
         }
 
     }
+
+    @SubscribeEvent
+    fun onPickUpItem(event: ItemPickupEvent) {
+        val item = event.stack
+
+        if (item.`is`(ModItems.SYRINGE)) {
+            event.entity.hurt(DamageSource.CACTUS, 1.0f)
+        }
+
+    }
+
 
 }
