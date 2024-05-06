@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor
+package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.blood_purifier
 
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.PoseStack
@@ -10,14 +10,14 @@ import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
-class DnaDecryptorScreen(
-    pMenu: DnaDecryptorMenu,
+class BloodPurifierScreen(
+    pMenu: BloodPurifierMenu,
     pPlayerInventory: Inventory,
     pTitle: Component
-) : AbstractContainerScreen<DnaDecryptorMenu>(pMenu, pPlayerInventory, pTitle) {
+) : AbstractContainerScreen<BloodPurifierMenu>(pMenu, pPlayerInventory, pTitle) {
 
     companion object {
-        val BACKGROUND_TEXTURE = OtherUtil.modResource("textures/gui/dna_decryptor.png")
+        val BACKGROUND_TEXTURE = OtherUtil.modResource("textures/gui/basic_machine_bg.png")
 
         const val ARROW_TEXTURE_X = 177
         const val ARROW_TEXTURE_Y = 61

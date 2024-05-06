@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.blood_purifier.BloodPurifierBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer.CellAnalyzerBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorBlockEntity
@@ -63,6 +64,14 @@ object ModBlockEntities {
             BlockEntityType.Builder.of(
                 { pos, state -> PlasmidInjectorBlockEntity(pos, state) },
                 ModBlocks.PLASMID_INJECTOR
+            ).build(null)
+        }
+
+    val BLOOD_PURIFIER: RegistryObject<BlockEntityType<BloodPurifierBlockEntity>> =
+        BLOCK_ENTITY_REGISTRY.register("blood_purifier") {
+            BlockEntityType.Builder.of(
+                { pos, state -> BloodPurifierBlockEntity(pos, state) },
+                ModBlocks.BLOOD_PURIFIER
             ).build(null)
         }
 

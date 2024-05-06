@@ -60,4 +60,10 @@ object ModMenuTypes {
             })
         }
 
+    val BLOOD_PURIFIER: RegistryObject<MenuType<BloodPurifierMenu>> =
+        MENU_TYPE_REGISTRY.register("blood_purifier_menu") {
+            IForgeMenuType.create(IContainerFactory { id, inv, buf ->
+                BloodPurifierMenu(id, inv, buf)
+            })
+        }
 }

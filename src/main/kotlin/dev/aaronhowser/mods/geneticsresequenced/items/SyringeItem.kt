@@ -164,11 +164,11 @@ object SyringeItem : Item(
     }
 
     private const val CONTAMINATED_NBT_KEY = "contaminated"
-    private fun isContaminated(syringeStack: ItemStack): Boolean {
+    fun isContaminated(syringeStack: ItemStack): Boolean {
         return syringeStack.getOrCreateTag().getBoolean(CONTAMINATED_NBT_KEY)
     }
 
-    private fun setContaminated(syringeStack: ItemStack, contaminated: Boolean) {
+    fun setContaminated(syringeStack: ItemStack, contaminated: Boolean) {
         if (contaminated) {
             syringeStack.getOrCreateTag().putBoolean(CONTAMINATED_NBT_KEY, true)
         } else {

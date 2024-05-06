@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.events
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.blood_purifier.BloodPurifierScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer.CellAnalyzerScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorScreen
@@ -15,14 +16,9 @@ import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.gui.screens.MenuScreens
-import net.minecraft.client.gui.screens.MenuScreens.ScreenConstructor
-import net.minecraft.client.gui.screens.Screen
-import net.minecraft.client.gui.screens.inventory.MenuAccess
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.client.renderer.item.ItemPropertyFunction
-import net.minecraft.world.inventory.AbstractContainerMenu
-import net.minecraft.world.inventory.MenuType
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.client.event.ModelEvent
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent
@@ -56,6 +52,7 @@ object ClientModBusEvents {
         MenuScreens.register(ModMenuTypes.DNA_DECRYPTOR.get(), ::DnaDecryptorScreen)
         MenuScreens.register(ModMenuTypes.PLASMID_INFUSER.get(), ::PlasmidInfuserScreen)
         MenuScreens.register(ModMenuTypes.PLASMID_INJECTOR.get(), ::PlasmidInjectorScreen)
+        MenuScreens.register(ModMenuTypes.BLOOD_PURIFIER.get(), ::BloodPurifierScreen)
     }
 
     private fun registerEntityRenderers() {
