@@ -83,7 +83,6 @@ object ServerConfig {
     private fun machineConfigs() {
         BUILDER.push("machines")
 
-        // TODO: If you change this, make sure to also change the Patchouli entry
         coalGeneratorEnergyCapacity = BUILDER
             .comment("How much energy should the Coal Generator be able to store")
             .defineInRange("coalGeneratorEnergyCapacity", 100_000, 1, Int.MAX_VALUE)

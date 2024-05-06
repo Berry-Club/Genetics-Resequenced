@@ -15,6 +15,7 @@ import net.minecraft.world.item.Items
 import net.minecraft.world.level.Explosion
 import net.minecraft.world.level.GameRules
 import net.minecraftforge.event.entity.living.LivingDeathEvent
+import net.minecraftforge.event.level.ExplosionEvent
 import java.util.*
 import kotlin.random.Random
 
@@ -78,8 +79,10 @@ object DeathGenes {
         entity.inventory.add(ItemStack(Items.EMERALD, 1))
     }
 
+    private val recentlyExplodedEntities: MutableSet<UUID> = mutableSetOf()
+
     private const val GUNPOWDER_REQUIRED = 5
-    private const val EXPLOSION_STRENGTH = 1f
+    private const val EXPLOSION_STRENGTH = 3f
     fun handleExplosiveExit(event: LivingDeathEvent) {
         val entity = event.entity
         if (entity.getGenes()?.hasGene(DefaultGenes.EXPLOSIVE_EXIT) != true) return
@@ -93,21 +96,18 @@ object DeathGenes {
 
         if (!shouldExplode) return
 
-        val blockInteraction = if (entity.level.levelData.gameRules.getBoolean(GameRules.RULE_MOBGRIEFING)) {
-            Explosion.BlockInteraction.BREAK
-        } else {
-            Explosion.BlockInteraction.NONE
-        }
+        recentlyExplodedEntities.add(entity.uuid)
 
-        //TODO: Figure out how to make this not break items
         entity.level.explode(
             entity,
             entity.x,
             entity.y,
             entity.z,
             EXPLOSION_STRENGTH,
-            blockInteraction
+            Explosion.BlockInteraction.NONE
         )
+
+        recentlyExplodedEntities.remove(entity.uuid)
 
         if (entity is Player) {
             var amountGunpowderRemoved = 0
@@ -123,6 +123,16 @@ object DeathGenes {
             }
         }
 
+    }
+
+    fun explosiveExitDetonation(event: ExplosionEvent.Detonate) {
+        if (event.isCanceled) return
+
+        val exploderUuid = event.explosion.exploder?.uuid
+        if (exploderUuid !in recentlyExplodedEntities) return
+
+        event.affectedEntities.removeAll { it !is LivingEntity }
+        event.affectedBlocks.clear()
     }
 
     private val slimyDeathCooldown = mutableSetOf<UUID>()

@@ -113,7 +113,6 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             for ((gene, weight) in genes) {
                 val chance = (weight.toDouble() / sumOfWeights.toDouble() * 100).toInt()
 
-                //FIXME: doesn't work
                 val component = Component.translatable(
                     "info.geneticsresequenced.mob_gene.line2",
                     chance,

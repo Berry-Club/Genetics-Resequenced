@@ -13,6 +13,7 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.living.LivingDamageEvent
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent
+import net.minecraftforge.event.level.ExplosionEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 
@@ -64,6 +65,11 @@ object OtherEntityEvents {
         TickGenes.handlePhotosynthesis(entity)
         TickGenes.handleMobSight(entity)
         TickGenes.handleEffects(entity)
+    }
+
+    @SubscribeEvent
+    fun onDetonate(event: ExplosionEvent.Detonate) {
+        DeathGenes.explosiveExitDetonation(event)
     }
 
 }
