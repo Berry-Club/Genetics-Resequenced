@@ -12,6 +12,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.damagesource.DamageSource
+import net.minecraft.world.damagesource.EntityDamageSource
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -69,7 +70,7 @@ object SyringeItem : Item(
             injectEntity(pStack, pLivingEntity)
         } else {
             setEntity(pStack, pLivingEntity)
-            pLivingEntity.hurt(DamageSource.MAGIC, 1f)
+            pLivingEntity.hurt(damageSourceUse(pLivingEntity), 1f)
         }
 
         pLivingEntity.cooldowns.addCooldown(this, 10)
@@ -226,6 +227,26 @@ object SyringeItem : Item(
 
     private fun clearGenes(syringeStack: ItemStack) {
         syringeStack.getOrCreateTag().remove(GENE_LIST_NBT_KEY)
+    }
+
+    // Other stuff
+
+    fun damageSourceUse(player: Player?): DamageSource {
+        return if (player == null) {
+            DamageSource("syringe")
+        } else {
+            //TODO: Implement "%2$s" into the kill message
+            EntityDamageSource("syringe", player)
+        }
+    }
+
+    fun damageSourceDrop(player: Player?): DamageSource {
+        return if (player == null) {
+            DamageSource("syringeDrop")
+        } else {
+            //TODO: Implement "%2$s" into the kill message
+            EntityDamageSource("syringeDrop", player)
+        }
     }
 
 }

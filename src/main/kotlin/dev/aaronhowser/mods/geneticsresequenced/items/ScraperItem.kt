@@ -6,17 +6,57 @@ import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.se
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.damagesource.DamageSource
+import net.minecraft.world.damagesource.EntityDamageSource
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.Level
+import net.minecraftforge.common.util.FakePlayer
 
 object ScraperItem : Item(
     Properties()
         .tab(ModItems.MOD_TAB)
         .defaultDurability(200)
 ) {
+
+    private fun scrapeEntity(player: Player, stack: ItemStack, hand: InteractionHand, entity: LivingEntity): Boolean {
+        if (player.cooldowns.isOnCooldown(this)) return false
+        if (entity.hurtTime > 0) return false
+
+        val organicStack = ItemStack(ModItems.ORGANIC_MATTER).setMob(entity.type) ?: return false
+
+        if (!player.inventory.add(organicStack)) {
+            player.drop(organicStack, false)
+        }
+
+        // Only put on cooldown if the entity was not damaged
+        if (stack.getEnchantmentLevel(ModEnchantments.DELICATE_TOUCH) == 0) {
+            entity.hurt(damageSource(player), 1f)
+        } else {
+            player.cooldowns.addCooldown(this, 10)
+        }
+
+        stack.hurtAndBreak(1, player) { player.broadcastBreakEvent(hand) }
+
+        return true
+    }
+
+    override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
+
+        val stack = pPlayer.getItemInHand(pUsedHand)
+        if (!pPlayer.isCrouching || pPlayer is FakePlayer) return InteractionResultHolder.pass(stack)
+
+        val scrapeWorked = scrapeEntity(pPlayer, stack, pUsedHand, pPlayer)
+
+        return if (scrapeWorked) {
+            InteractionResultHolder.success(stack)
+        } else {
+            InteractionResultHolder.pass(stack)
+        }
+    }
 
     override fun interactLivingEntity(
         pStack: ItemStack,
@@ -25,9 +65,6 @@ object ScraperItem : Item(
         pUsedHand: InteractionHand
     ): InteractionResult {
 
-        if (pInteractionTarget.hurtTime > 0) return InteractionResult.FAIL
-        if (pPlayer.cooldowns.isOnCooldown(this)) return InteractionResult.FAIL
-
         if (pInteractionTarget.type.`is`(ModTags.SCRAPER_ENTITY_BLACKLIST)) {
             if (pPlayer.level.isClientSide) return InteractionResult.FAIL
             val component = Component.translatable("message.geneticsresequenced.scraper.cant_scrape")
@@ -35,21 +72,22 @@ object ScraperItem : Item(
             return InteractionResult.FAIL
         }
 
-        val organicStack =
-            ItemStack(ModItems.ORGANIC_MATTER).setMob(pInteractionTarget.type) ?: return InteractionResult.FAIL
-
-        if (!pPlayer.inventory.add(organicStack)) {
-            pPlayer.drop(organicStack, false)
-        }
-
-        if (pStack.getEnchantmentLevel(ModEnchantments.DELICATE_TOUCH) == 0) {
-            pInteractionTarget.hurt(DamageSource.playerAttack(pPlayer), 1f)
+        return if (scrapeEntity(pPlayer, pStack, pUsedHand, pInteractionTarget)) {
+            InteractionResult.SUCCESS
         } else {
-            pPlayer.cooldowns.addCooldown(this, 10)
+            InteractionResult.FAIL
         }
-        pStack.hurtAndBreak(1, pPlayer) { pPlayer.broadcastBreakEvent(pUsedHand) }
+    }
 
-        return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand)
+    // Other stuff
+
+    fun damageSource(player: Player?): DamageSource {
+        return if (player == null) {
+            DamageSource("scraper")
+        } else {
+            //TODO: Implement "%2$s" into the kill message
+            EntityDamageSource("scraper", player)
+        }
     }
 
 }

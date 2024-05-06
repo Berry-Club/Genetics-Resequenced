@@ -184,5 +184,9 @@
   "advancement.geneticsresequenced.plasmid_infuser.title": "Plasmid Infuser",
   "advancement.geneticsresequenced.plasmid_infuser.desc": "Craft a Plasmid Infuser.\n\nUse it to set a Plasmid's Gene using DNA Helices.",
 
+  "death.attack.scraper": "%1$s was scraped to the bone",
+  "death.attack.syringe": "%1$s died of blood loss",
+  "death.attack.syringeDrop": "%1$s stepped on a loose Syringe",
+
   "book.geneticsresequenced.landing_text": "Welcome to Genetics: Resequenced! This guide book will help you get started with the mod."
 }

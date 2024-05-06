@@ -8,10 +8,10 @@ import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.Attribute
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraftforge.event.TickEvent.PlayerTickEvent
@@ -113,10 +113,11 @@ object OtherPlayerEvents {
         val item = event.stack
 
         if (item.`is`(ModItems.SYRINGE)) {
-            event.entity.hurt(DamageSource.CACTUS, 1.0f)
+            val thrower = event.originalEntity.throwingEntity as? Player
+
+            event.entity.hurt(SyringeItem.damageSourceDrop(thrower), 1.0f)
         }
 
     }
-
 
 }
