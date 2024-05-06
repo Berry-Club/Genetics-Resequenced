@@ -6,7 +6,9 @@
       "conditions": {
         "items": [
           {
-            "item": "geneticsresequenced:cell_analyzer"
+            "items": [
+              "geneticsresequenced:cell_analyzer"
+            ]
           }
         ]
       }
@@ -16,7 +18,9 @@
       "conditions": {
         "items": [
           {
-            "item": "geneticsresequenced:cell"
+            "items": [
+              "geneticsresequenced:cell"
+            ]
           }
         ]
       }
