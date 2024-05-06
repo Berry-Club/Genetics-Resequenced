@@ -1,16 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.recipes.CellAnalyzerRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipes.DnaExtractorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipes.MobToGeneRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipes.PlasmidInfuserRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipes.*
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
@@ -22,8 +18,11 @@ import mezz.jei.api.registration.IRecipeRegistration
 import mezz.jei.api.registration.ISubtypeRegistration
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.Container
 import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.Recipe
+import net.minecraft.world.level.block.Block
 import net.minecraftforge.registries.ForgeRegistries
 
 @JeiPlugin
@@ -38,6 +37,8 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             RecipeType(MobToGeneRecipeCategory.UID, MobToGeneRecipe::class.java)
         val PLASMID_INFUSER_TYPE: RecipeType<PlasmidInfuserRecipe> =
             RecipeType(PlasmidInfuserRecipeCategory.UID, PlasmidInfuserRecipe::class.java)
+        val BLOOD_PURIFIER_TYPE: RecipeType<BloodPurifierRecipe> =
+            RecipeType(BloodPurifierRecipeCategory.UID, BloodPurifierRecipe::class.java)
     }
 
     override fun getPluginUid(): ResourceLocation =
@@ -48,27 +49,28 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             CellAnalyzerRecipeCategory(registration.jeiHelpers.guiHelper),
             MobToGeneRecipeCategory(registration.jeiHelpers.guiHelper),
             DnaExtractorRecipeCategory(registration.jeiHelpers.guiHelper),
-            PlasmidInfuserRecipeCategory(registration.jeiHelpers.guiHelper)
+            PlasmidInfuserRecipeCategory(registration.jeiHelpers.guiHelper),
+            BloodPurifierRecipeCategory(registration.jeiHelpers.guiHelper)
         )
     }
 
     override fun registerRecipeCatalysts(registration: IRecipeCatalystRegistration) {
-        registration.addRecipeCatalyst(
-            ItemStack(ModBlocks.CELL_ANALYZER),
-            CellAnalyzerRecipeCategory.recipeType
+
+        val blockRecipeTypeMap: Map<Block, RecipeType<out Recipe<Container>>> = mapOf(
+            ModBlocks.CELL_ANALYZER to CellAnalyzerRecipeCategory.recipeType,
+            ModBlocks.DNA_DECRYPTOR to MobToGeneRecipeCategory.recipeType,
+            ModBlocks.DNA_EXTRACTOR to DnaExtractorRecipeCategory.recipeType,
+            ModBlocks.PLASMID_INFUSER to PlasmidInfuserRecipeCategory.recipeType,
+            ModBlocks.BLOOD_PURIFIER to BloodPurifierRecipeCategory.recipeType
         )
-        registration.addRecipeCatalyst(
-            ItemStack(ModBlocks.DNA_DECRYPTOR),
-            MobToGeneRecipeCategory.recipeType
-        )
-        registration.addRecipeCatalyst(
-            ItemStack(ModBlocks.DNA_EXTRACTOR),
-            DnaExtractorRecipeCategory.recipeType
-        )
-        registration.addRecipeCatalyst(
-            ItemStack(ModBlocks.PLASMID_INFUSER),
-            PlasmidInfuserRecipeCategory.recipeType
-        )
+
+        for ((block, recipeType) in blockRecipeTypeMap) {
+            registration.addRecipeCatalyst(
+                ItemStack(block),
+                recipeType
+            )
+        }
+
     }
 
     override fun registerRecipes(registration: IRecipeRegistration) {
@@ -76,6 +78,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
         registration.addRecipes(MobToGeneRecipeCategory.recipeType, MobToGeneRecipe.getAllRecipes())
         registration.addRecipes(DnaExtractorRecipeCategory.recipeType, DnaExtractorRecipe.getAllRecipes())
         registration.addRecipes(PlasmidInfuserRecipeCategory.recipeType, PlasmidInfuserRecipe.getAllRecipes())
+        registration.addRecipes(BloodPurifierRecipeCategory.recipeType, BloodPurifierRecipe.getAllRecipes())
 
         mobGeneInformationRecipes(registration)
         organicMatterInformationRecipes(registration)

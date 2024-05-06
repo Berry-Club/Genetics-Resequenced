@@ -20,4 +20,7 @@ object ModRecipes {
     val PLASMID_SERIALIZER: RegistryObject<RecipeSerializer<PlasmidInfuserRecipe>> =
         RECIPE_SERIALIZERS_REGISTRY.register(PlasmidInfuserRecipe.RECIPE_TYPE_NAME) { PlasmidInfuserRecipe.SERIALIZER }
 
+    val BLOOD_PURIFIER_SERIALIZER: RegistryObject<RecipeSerializer<BloodPurifierRecipe>> =
+        RECIPE_SERIALIZERS_REGISTRY.register(BloodPurifierRecipe.RECIPE_TYPE_NAME) { BloodPurifierRecipe.SERIALIZER }
+
 }

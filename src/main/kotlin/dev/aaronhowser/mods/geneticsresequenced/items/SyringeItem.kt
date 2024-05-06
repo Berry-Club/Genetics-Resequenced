@@ -115,12 +115,18 @@ object SyringeItem : Item(
     // Entity functions
 
     private const val ENTITY_UUID_NBT_KEY = "entity"
-    private fun setEntity(syringeStack: ItemStack, entity: LivingEntity) {
+    @Suppress("MemberVisibilityCanBePrivate")
+    fun setEntity(syringeStack: ItemStack, entity: LivingEntity) {
+        if (!syringeStack.`is`(SyringeItem)) return
+        setEntity(syringeStack, entity.uuid)
+    }
+
+    fun setEntity(syringeStack: ItemStack, uuid: UUID) {
         if (!syringeStack.`is`(SyringeItem)) return
 
         val tag = syringeStack.getOrCreateTag()
 
-        tag.putUUID(ENTITY_UUID_NBT_KEY, entity.uuid)
+        tag.putUUID(ENTITY_UUID_NBT_KEY, uuid)
         setContaminated(syringeStack, true)
     }
 
