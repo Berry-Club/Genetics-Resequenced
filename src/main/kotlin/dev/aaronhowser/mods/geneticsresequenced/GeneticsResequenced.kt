@@ -41,7 +41,7 @@ object GeneticsResequenced {
         ModItems.ITEM_REGISTRY.register(MOD_BUS)
         ModRecipes.RECIPE_SERIALIZERS_REGISTRY.register(MOD_BUS)
         ModEnchantments.ENCHANTMENT_REGISTRY.register(MOD_BUS)
-        ModMenuTypes.MENU_TYPE_RECIPE.register(MOD_BUS)
+        ModMenuTypes.MENU_TYPE_REGISTRY.register(MOD_BUS)
 
         ModPacketHandler.setup()
 
