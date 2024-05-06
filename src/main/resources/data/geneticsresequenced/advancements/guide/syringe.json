@@ -1,5 +1,22 @@
 {
   "parent": "geneticsresequenced:guide/root",
+  "criteria": {
+    "syringe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "geneticsresequenced:syringe"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "syringe"
+    ]
+  ],
   "display": {
     "title": {
       "translate": "advancement.geneticsresequenced.syringe.title"
@@ -13,22 +30,5 @@
       "item": "geneticsresequenced:syringe"
     }
   },
-  "criteria": {
-    "syringe": {
-      "conditions": {
-        "items": [
-          {
-            "item": "geneticsresequenced:syringe"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    }
-  },
-  "requirements": [
-    [
-      "syringe"
-    ]
-  ],
   "sends_telemetry_event": true
 }

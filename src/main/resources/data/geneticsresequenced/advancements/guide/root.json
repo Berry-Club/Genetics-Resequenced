@@ -1,4 +1,21 @@
 {
+  "criteria": {
+    "scraper": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "geneticsresequenced:scraper"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "scraper"
+    ]
+  ],
   "display": {
     "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
     "title": {
@@ -13,22 +30,5 @@
       "item": "geneticsresequenced:scraper"
     }
   },
-  "criteria": {
-    "scraper": {
-      "conditions": {
-        "items": [
-          {
-            "tag": "geneticsresequenced:scraper"
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    }
-  },
-  "requirements": [
-    [
-      "scraper"
-    ]
-  ],
   "sends_telemetry_event": true
 }
