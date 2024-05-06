@@ -172,11 +172,17 @@
   "gene.geneticsresequenced.black_death":"Black Death",
   "gene.geneticsresequenced.void_death":"Void Death",
 
-  "advancement.geneticsresequenced.scraper.desc": "Craft a Scraper.\nScrapers are used to get Organic Matter from mobs.",
+  "advancement.geneticsresequenced.scraper.desc": "Craft a Scraper.\n\nScrapers are used to get Organic Matter from mobs.\n\nCraft the Big Book of Genetics for a more detailed guide!",
   "advancement.geneticsresequenced.syringe.title": "You'll Feel a Small Prick",
-  "advancement.geneticsresequenced.syringe.desc": "Craft a Syringe.\nSyringes are used to extract blood from yourself.",
+  "advancement.geneticsresequenced.syringe.desc": "Craft a Syringe.\n\nSyringes are used to extract blood from yourself.",
   "advancement.geneticsresequenced.cell_analyzer.title": "Cells at Work",
-  "advancement.geneticsresequenced.cell_analyzer.desc": "Craft a Cell Analyzer.\nCell Analyzers use FE to convert Organic Matter into Cells.",
+  "advancement.geneticsresequenced.cell_analyzer.desc": "Craft a Cell Analyzer.\n\nIt converts Organic Matter into Cells.",
+  "advancement.geneticsresequenced.dna_extractor.title": "DNA Extractor",
+  "advancement.geneticsresequenced.dna_extractor.desc": "Craft a DNA Extractor.\n\nIt converts Cells into encrypted DNA Helices.",
+  "advancement.geneticsresequenced.dna_decryptor.title": "DNA Decryptor",
+  "advancement.geneticsresequenced.dna_decryptor.desc": "Craft a DNA Decryptor.\n\nIt discovers what Gene is inside a DNA Helix.",
+  "advancement.geneticsresequenced.plasmid_infuser.title": "Plasmid Infuser",
+  "advancement.geneticsresequenced.plasmid_infuser.desc": "Craft a Plasmid Infuser.\n\nUse it to set a Plasmid's Gene using DNA Helices.",
 
   "book.geneticsresequenced.landing_text": "Welcome to Genetics: Resequenced! This guide book will help you get started with the mod."
 }
