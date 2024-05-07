@@ -98,8 +98,13 @@ class DnaDecryptorBlockEntity(
         if (genesFromMob.isEmpty()) return null
 
         val gene: Gene?
+
         if (!isNextGeneSet) {
-            gene = genesFromMob.mapNotNull { it.key }.filter { it.isActive }.random()
+            gene = genesFromMob
+                .map { it.key }
+                .filter { it == null || it.isActive }
+                .random()
+
             nextGene = gene
             isNextGeneSet = true
         } else {
