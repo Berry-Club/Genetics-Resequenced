@@ -24,6 +24,7 @@ object PacketGenes {
 
     @Suppress("MoveVariableDeclarationIntoWhen")
     fun teleport(player: ServerPlayer) {
+        if (!DefaultGenes.TELEPORT.isActive) return
 
         val genes = (player as LivingEntity).getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.TELEPORT)) return
@@ -83,6 +84,7 @@ object PacketGenes {
     )
 
     fun dragonBreath(player: ServerPlayer) {
+        if (!DefaultGenes.DRAGONS_BREATH.isActive) return
 
         val genes = (player as LivingEntity).getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.DRAGONS_BREATH)) return

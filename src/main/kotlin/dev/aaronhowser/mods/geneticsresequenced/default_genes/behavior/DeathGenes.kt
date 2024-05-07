@@ -25,7 +25,10 @@ object DeathGenes {
 
     // TODO: Test with grave mods
     // TODO: Probably voids items if the server ends between death and respawn. Maybe drop items in the world if that happens?
+    //TODO: CURIOS ETC
     fun handleKeepInventory(player: LivingEntity) {
+        if (!DefaultGenes.KEEP_INVENTORY.isActive) return
+
         if (player !is Player) return
 
         if (player.level.gameRules.getBoolean(GameRules.RULE_KEEPINVENTORY)) return
@@ -59,6 +62,7 @@ object DeathGenes {
     )
 
     fun handleEmeraldHeart(event: LivingDeathEvent) {
+        if (!DefaultGenes.EMERALD_HEART.isActive) return
 
         val entity = event.entity
         if (entity.getGenes()?.hasGene(DefaultGenes.EMERALD_HEART) != true) return
@@ -84,6 +88,8 @@ object DeathGenes {
     private const val GUNPOWDER_REQUIRED = 5
     private const val EXPLOSION_STRENGTH = 3f
     fun handleExplosiveExit(event: LivingDeathEvent) {
+        if (!DefaultGenes.EXPLOSIVE_EXIT.isActive) return
+
         val entity = event.entity
         if (entity.getGenes()?.hasGene(DefaultGenes.EXPLOSIVE_EXIT) != true) return
 
@@ -126,6 +132,7 @@ object DeathGenes {
     }
 
     fun explosiveExitDetonation(event: ExplosionEvent.Detonate) {
+        if (!DefaultGenes.EXPLOSIVE_EXIT.isActive) return
         if (event.isCanceled) return
 
         val exploderUuid = event.explosion.exploder?.uuid
@@ -137,6 +144,7 @@ object DeathGenes {
 
     private val slimyDeathCooldown = mutableSetOf<UUID>()
     fun handleSlimyDeath(event: LivingDeathEvent) {
+        if (!DefaultGenes.SLIMY_DEATH.isActive) return
         if (event.isCanceled) return
 
         val entity: LivingEntity = event.entity

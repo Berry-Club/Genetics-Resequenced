@@ -28,6 +28,7 @@ import kotlin.math.max
 object TickGenes {
 
     fun handleBioluminescence(entity: LivingEntity) {
+        if (!DefaultGenes.BIOLUMINESCENCE.isActive) return
 
         if (entity.tickCount % ServerConfig.bioluminescenceCooldown.get() != 0) return
 
@@ -46,6 +47,8 @@ object TickGenes {
     }
 
     fun handlePhotosynthesis(entity: LivingEntity) {
+        if (!DefaultGenes.PHOTOSYNTHESIS.isActive) return
+
         if (entity !is Player) return
         if (entity.tickCount % ServerConfig.photosynthesisCooldown.get() != 0) return
 
@@ -67,6 +70,7 @@ object TickGenes {
     }
 
     fun handleNoHunger(entity: Player) {
+        if (!DefaultGenes.NO_HUNGER.isActive) return
 
         if (entity.tickCount % ServerConfig.noHungerCooldown.get() != 0) return
 
@@ -78,7 +82,7 @@ object TickGenes {
         foodData.foodLevel = max(foodData.foodLevel, ServerConfig.noHungerMinimum.get())
     }
 
-    fun handleEffects(entity: LivingEntity) {
+    fun handleTickingGenes(entity: LivingEntity) {
         if (entity.tickCount % ServerConfig.passivesCheckCooldown.get() != 0) return
         if (entity !is Mob && entity !is Player) return
 
@@ -87,6 +91,8 @@ object TickGenes {
         val potionGenes = mutableListOf<Gene>()
 
         for (gene in genes.getGeneList()) {
+            if (!gene.isActive) continue
+
             if (gene.getPotion() != null) potionGenes.add(gene)
 
             when (gene) {
@@ -188,7 +194,7 @@ object TickGenes {
     }
 
     fun handleMobSight(entity: LivingEntity) {
-
+        if (!DefaultGenes.MOB_SIGHT.isActive) return
         if (entity.tickCount % ServerConfig.mobSightCooldown.get() != 0) return
 
         val genes = entity.getGenes() ?: return
@@ -214,6 +220,7 @@ object TickGenes {
 
     private val flyablePlayers = mutableSetOf<UUID>()
     fun handleFlight(player: Player) {
+        if (!DefaultGenes.FLIGHT.isActive) return
 
         if (player.level.isClientSide) return
         if (player.isCreative || player.isSpectator) return
@@ -235,6 +242,7 @@ object TickGenes {
     }
 
     fun handleItemMagnet(player: Player) {
+        if (!DefaultGenes.ITEM_MAGNET.isActive) return
         if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 
         if (player.tickCount % ServerConfig.itemMagnetCooldown.get() != 0) return
@@ -264,6 +272,7 @@ object TickGenes {
     }
 
     fun handleXpMagnet(player: Player) {
+        if (!DefaultGenes.XP_MAGNET.isActive) return
         if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 
         if (player.tickCount % ServerConfig.xpMagnetCooldown.get() != 0) return

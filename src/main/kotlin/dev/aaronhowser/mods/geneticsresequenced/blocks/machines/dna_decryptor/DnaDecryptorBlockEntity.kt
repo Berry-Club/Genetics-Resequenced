@@ -99,7 +99,7 @@ class DnaDecryptorBlockEntity(
 
         val gene: Gene?
         if (!isNextGeneSet) {
-            gene = genesFromMob.map { it.key }.random()
+            gene = genesFromMob.mapNotNull { it.key }.filter { it.isActive }.random()
             nextGene = gene
             isNextGeneSet = true
         } else {

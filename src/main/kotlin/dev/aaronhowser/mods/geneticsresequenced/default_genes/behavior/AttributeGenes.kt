@@ -25,6 +25,8 @@ object AttributeGenes {
     }
 
     fun handleEfficiency(event: PlayerEvent.BreakSpeed) {
+        if (!DefaultGenes.EFFICIENCY.isActive) return
+
         val efficiencyAttribute = event.entity.attributes.getInstance(ModAttributes.EFFICIENCY) ?: return
         if (efficiencyAttribute.baseValue <= 0.0) return
 
@@ -38,6 +40,8 @@ object AttributeGenes {
     )
 
     fun setStepAssist(player: Player, value: Boolean) {
+        if (!DefaultGenes.STEP_ASSIST.isActive) return
+
         val stepHeightAttribute = player.getAttribute(ForgeMod.STEP_HEIGHT_ADDITION.get()) ?: return
 
         if (value) {
@@ -60,6 +64,8 @@ object AttributeGenes {
 
     fun handleWallClimbing(player: Player) {
         if (!player.level.isClientSide) return
+
+        if (!DefaultGenes.WALL_CLIMBING.isActive) return
 
         val wallClimbingAttribute = player.attributes.getInstance(ModAttributes.WALL_CLIMBING) ?: return
         if (wallClimbingAttribute.baseValue <= 0.0) return

@@ -30,6 +30,7 @@ import net.minecraft.world.level.block.Blocks
 import net.minecraftforge.event.entity.player.ArrowLooseEvent
 import net.minecraftforge.event.entity.player.ArrowNockEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
+import org.lwjgl.system.Pointer.Default
 import kotlin.random.Random
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -41,6 +42,7 @@ object ClickGenes {
     )
 
     fun wooly(event: PlayerInteractEvent.EntityInteract) {
+        if (!DefaultGenes.WOOLY.isActive) return
 
         val target = event.target as? LivingEntity ?: return
         val clicker = event.entity
@@ -103,6 +105,7 @@ object ClickGenes {
     )
 
     fun meaty(event: PlayerInteractEvent.EntityInteract) {
+        if (!DefaultGenes.MEATY.isActive) return
 
         val target = event.target as? LivingEntity ?: return
         val clicker = event.entity
@@ -152,6 +155,7 @@ object ClickGenes {
     )
 
     fun milky(event: PlayerInteractEvent.EntityInteract) {
+        if (!DefaultGenes.MILKY.isActive) return
 
         val target = event.target as? LivingEntity ?: return
         val clicker = event.entity
@@ -195,6 +199,8 @@ object ClickGenes {
     }
 
     fun milkyItem(event: PlayerInteractEvent.RightClickItem) {
+        if (!DefaultGenes.MILKY.isActive) return
+
         val player = event.entity
 
         if (!player.isCrouching) return
@@ -228,6 +234,8 @@ object ClickGenes {
     }
 
     fun woolyItem(event: PlayerInteractEvent.RightClickItem) {
+        if (!DefaultGenes.WOOLY.isActive) return
+
         val player = event.entity
 
         if (player.level.isClientSide) return
@@ -274,6 +282,8 @@ object ClickGenes {
     }
 
     fun shootFireball(event: PlayerInteractEvent.RightClickItem) {
+        if (!DefaultGenes.SHOOT_FIREBALLS.isActive) return
+
         val player = event.entity
         val genes = player.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.SHOOT_FIREBALLS)) return
@@ -308,6 +318,7 @@ object ClickGenes {
     }
 
     fun eatGrass(event: PlayerInteractEvent.RightClickBlock) {
+        if (!DefaultGenes.EAT_GRASS.isActive) return
 
         if (!event.itemStack.isEmpty) return
 
@@ -355,6 +366,8 @@ object ClickGenes {
     }
 
     fun handleInfinityStart(event: ArrowNockEvent) {
+        if (!DefaultGenes.INFINITY.isActive) return
+
         if (event.hasAmmo()) return
 
         val genes = event.entity.getGenes() ?: return
@@ -369,6 +382,8 @@ object ClickGenes {
      * @see BowItem.getPowerForTime
      */
     fun handleInfinityEnd(event: ArrowLooseEvent) {
+        if (!DefaultGenes.INFINITY.isActive) return
+
         if (event.hasAmmo()) return
 
         val player = event.entity
