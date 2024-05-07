@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.events
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorMenu
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserMenu
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injector.PlasmidInjectorMenu
 import dev.aaronhowser.mods.geneticsresequenced.controls.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.FireballPacket
@@ -40,6 +41,7 @@ object ClientEvents {
         when (screen) {
             is CoalGeneratorMenu -> CoalGeneratorMenu.showFuelTooltip(event)
             is PlasmidInfuserMenu -> PlasmidInfuserMenu.showTooltip(event)
+            is PlasmidInjectorMenu -> PlasmidInjectorMenu.showTooltip(event)
             else -> return
         }
     }

@@ -40,9 +40,15 @@ class PlasmidInjectorBlockEntity(
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
-                INPUT_SLOT_INDEX -> stack.`is`(ModItems.PLASMID) && PlasmidItem.isComplete(stack)
-                OUTPUT_SLOT_INDEX -> stack.`is`(ModItems.SYRINGE) && SyringeItem.hasBlood(stack)
-                OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
+                INPUT_SLOT_INDEX ->
+                    stack.`is`(ModItems.PLASMID) && PlasmidItem.isComplete(stack)
+
+                OUTPUT_SLOT_INDEX ->
+                    stack.`is`(ModItems.SYRINGE) && SyringeItem.hasBlood(stack) && !SyringeItem.isContaminated(stack)
+
+                OVERCLOCK_SLOT_INDEX ->
+                    stack.`is`(ModItems.OVERCLOCKER)
+
                 else -> false
             }
         }

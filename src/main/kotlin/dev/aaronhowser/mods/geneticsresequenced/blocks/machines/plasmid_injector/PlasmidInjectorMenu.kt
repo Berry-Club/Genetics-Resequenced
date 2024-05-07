@@ -3,9 +3,14 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injecto
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
+import net.minecraft.ChatFormatting
 import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
@@ -13,6 +18,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess
 import net.minecraft.world.inventory.SimpleContainerData
 import net.minecraft.world.item.ItemStack
 import net.minecraftforge.common.capabilities.ForgeCapabilities
+import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.items.SlotItemHandler
 
 class PlasmidInjectorMenu(
@@ -85,6 +91,19 @@ class PlasmidInjectorMenu(
     }
 
     companion object {
+        fun showTooltip(event: ItemTooltipEvent) {
+            val hoverStack = event.itemStack
+            if (!hoverStack.`is`(ModItems.SYRINGE)) return
+
+            if (SyringeItem.isContaminated(hoverStack)) {
+                event.toolTip.add(
+                    2,
+                    Component
+                        .translatable("tooltip.geneticsresequenced.plasmid_injector.contaminated")
+                        .withColor(ChatFormatting.RED)
+                )
+            }
+        }
 
         private const val DATA_PROGRESS_INDEX = 0
         private const val DATA_MAX_PROGRESS_INDEX = 1

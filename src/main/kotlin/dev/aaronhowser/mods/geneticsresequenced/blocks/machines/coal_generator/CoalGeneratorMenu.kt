@@ -105,7 +105,9 @@ class CoalGeneratorMenu(
             val feProduced = CoalGeneratorBlockEntity.energyPerTick * fuel
             val feString = NumberFormat.getNumberInstance().format(feProduced)
 
-            event.toolTip.add(Component.literal("$feString FE").withColor(ChatFormatting.GRAY))
+            event.toolTip.add(
+                1, Component.literal("$feString FE").withColor(ChatFormatting.GRAY)
+            )
         }
 
         // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons

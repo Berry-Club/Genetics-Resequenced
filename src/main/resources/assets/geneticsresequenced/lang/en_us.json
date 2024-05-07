@@ -63,6 +63,7 @@
   "tooltip.geneticsresequenced.plasmid_infuser.basic_gene": "+1 DNA Point",
   "tooltip.geneticsresequenced.plasmid_infuser.matching_gene": "+2 DNA Points",
   "tooltip.geneticsresequenced.plasmid_infuser.different_gene": "Not applicable",
+  "tooltip.geneticsresequenced.plasmid_injector.contaminated": "You can't inject Genes into Contaminated Blood!",
 
   "command.geneticsresequenced.geneList": "Gene List:",
   "command.geneticsresequenced.add.fail.already_present": "Failed to add Gene as target already has it.",

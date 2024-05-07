@@ -118,7 +118,7 @@ class PlasmidInfuserMenu(
                     }
                 }.withColor(ChatFormatting.GRAY)
 
-            event.toolTip.add(component)
+            event.toolTip.add(2, component)
         }
 
         private const val DATA_PROGRESS_INDEX = 0
