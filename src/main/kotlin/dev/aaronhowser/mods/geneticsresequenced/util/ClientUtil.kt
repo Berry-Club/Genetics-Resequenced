@@ -8,9 +8,9 @@ import net.minecraft.client.Options
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.world.entity.player.PlayerModelPart
 
-object ClientHelper {
+object ClientUtil {
 
-    private val localPlayer: LocalPlayer? = Minecraft.getInstance().player
+    val localPlayer: LocalPlayer? = Minecraft.getInstance().player
 
     fun playerIsCreative(): Boolean = localPlayer?.isCreative == true
     fun playerIsSpectator(): Boolean = localPlayer?.isSpectator == true

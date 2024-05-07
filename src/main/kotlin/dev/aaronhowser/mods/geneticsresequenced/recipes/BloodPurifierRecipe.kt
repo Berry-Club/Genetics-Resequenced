@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf
@@ -14,15 +15,14 @@ import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
-import net.minecraftforge.registries.ForgeRegistries
-import java.util.*
 
 class BloodPurifierRecipe : Recipe<Container> {
 
     private val inputItem = ItemStack(ModItems.SYRINGE).apply {
-        val uuid = UUID.randomUUID()
-
-        SyringeItem.setEntity(this@apply, uuid)
+        SyringeItem.setEntity(
+            this,
+            ClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
+        )
     }
     private val outputItem = inputItem.copy().apply {
         SyringeItem.setContaminated(this@apply, false)

@@ -60,6 +60,7 @@
   "tooltip.geneticsresequenced.plasmid.complete": "Plasmid is complete!",
   "tooltip.geneticsresequenced.plasmid.amount": "Gene Points: %d/%d",
   "tooltip.geneticsresequenced.syringe.contaminated": "Contaminated Blood",
+  "tooltip.geneticsresequenced.syringe.blood_owner": "Blood: %1$s",
   "tooltip.geneticsresequenced.plasmid_infuser.basic_gene": "+1 DNA Point",
   "tooltip.geneticsresequenced.plasmid_infuser.matching_gene": "+2 DNA Points",
   "tooltip.geneticsresequenced.plasmid_infuser.different_gene": "Not applicable",

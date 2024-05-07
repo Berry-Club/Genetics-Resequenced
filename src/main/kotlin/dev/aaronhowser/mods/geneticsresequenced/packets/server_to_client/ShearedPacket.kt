@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client
 
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacket
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientHelper
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraftforge.network.NetworkDirection
 import net.minecraftforge.network.NetworkEvent
@@ -21,9 +21,9 @@ class ShearedPacket(
         }
 
         if (removingSkin) {
-            ClientHelper.shearPlayerSkin()
+            ClientUtil.shearPlayerSkin()
         } else {
-            ClientHelper.addSkinLayersBack()
+            ClientUtil.addSkinLayersBack()
         }
     }
 

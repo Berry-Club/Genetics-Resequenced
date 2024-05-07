@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.items
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientHelper
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
@@ -116,7 +116,7 @@ object DnaHelixItem : EntityDnaItem() {
         }
 
         try {
-            val isCreative = pLevel?.isClientSide == true && ClientHelper.playerIsCreative()
+            val isCreative = pLevel?.isClientSide == true && ClientUtil.playerIsCreative()
             if (isCreative) {
                 val component =
                     Component

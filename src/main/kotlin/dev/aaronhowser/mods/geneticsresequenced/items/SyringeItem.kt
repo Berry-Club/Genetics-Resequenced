@@ -90,6 +90,15 @@ object SyringeItem : Item(
         pTooltipComponents: MutableList<Component>,
         pIsAdvanced: TooltipFlag
     ) {
+        val bloodOwner = getEntityName(pStack)
+        if (hasBlood(pStack) && bloodOwner != null) {
+            pTooltipComponents.add(
+                Component.translatable(
+                    "tooltip.geneticsresequenced.syringe.blood_owner",
+                    bloodOwner
+                )
+            )
+        }
 
         if (isContaminated(pStack)) {
             pTooltipComponents.add(
@@ -116,20 +125,39 @@ object SyringeItem : Item(
     // Entity functions
 
     private const val ENTITY_UUID_NBT_KEY = "entity"
+    private const val ENTITY_NAME_NBT_KEY = "entityName"
 
     @Suppress("MemberVisibilityCanBePrivate")
     fun setEntity(syringeStack: ItemStack, entity: LivingEntity) {
-        if (!syringeStack.`is`(SyringeItem)) return
-        setEntity(syringeStack, entity.uuid)
+        if (!syringeStack.`is`(SyringeItem)) throw IllegalArgumentException("ItemStack is not a Syringe")
+        setEntityUuid(syringeStack, entity.uuid)
+
+        setEntityName(syringeStack, entity.name)
     }
 
-    fun setEntity(syringeStack: ItemStack, uuid: UUID) {
-        if (!syringeStack.`is`(SyringeItem)) return
+    fun setEntityUuid(syringeStack: ItemStack, uuid: UUID) {
+        if (!syringeStack.`is`(SyringeItem)) throw IllegalArgumentException("ItemStack is not a Syringe")
 
         val tag = syringeStack.getOrCreateTag()
 
         tag.putUUID(ENTITY_UUID_NBT_KEY, uuid)
         setContaminated(syringeStack, true)
+    }
+
+    private fun setEntityName(syringeStack: ItemStack, name: Component) {
+        if (!syringeStack.`is`(SyringeItem)) throw IllegalArgumentException("ItemStack is not a Syringe")
+
+        val tag = syringeStack.getOrCreateTag()
+        tag.putString(ENTITY_NAME_NBT_KEY, name.string)
+    }
+
+    private fun getEntityName(syringeStack: ItemStack): Component? {
+        if (!syringeStack.`is`(SyringeItem)) return null
+
+        val untranslatedName = syringeStack.getOrCreateTag().getString(ENTITY_NAME_NBT_KEY)
+        if (untranslatedName.isNullOrBlank()) return null
+
+        return Component.translatable(untranslatedName)
     }
 
     private fun injectEntity(syringeStack: ItemStack, entity: LivingEntity) {
