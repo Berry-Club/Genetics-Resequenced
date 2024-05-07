@@ -33,15 +33,21 @@ object GeneticsResequenced {
             registerConfig(ModConfig.Type.CLIENT, ClientConfig.SPEC, "geneticsresequenced-client.toml")
         }
 
-        ModEntityTypes.ENTITY_TYPE_REGISTRY.register(MOD_BUS)
-        ModAttributes.ATTRIBUTE_REGISTRY.register(MOD_BUS)
-        ModEffects.EFFECT_REGISTRY.register(MOD_BUS)
-        ModBlocks.BLOCK_REGISTRY.register(MOD_BUS)
-        ModBlockEntities.BLOCK_ENTITY_REGISTRY.register(MOD_BUS)
-        ModItems.ITEM_REGISTRY.register(MOD_BUS)
-        ModRecipes.RECIPE_SERIALIZERS_REGISTRY.register(MOD_BUS)
-        ModEnchantments.ENCHANTMENT_REGISTRY.register(MOD_BUS)
-        ModMenuTypes.MENU_TYPE_REGISTRY.register(MOD_BUS)
+        val registries = listOf(
+            ModEntityTypes.ENTITY_TYPE_REGISTRY,
+            ModAttributes.ATTRIBUTE_REGISTRY,
+            ModEffects.EFFECT_REGISTRY,
+            ModBlocks.BLOCK_REGISTRY,
+            ModBlockEntities.BLOCK_ENTITY_REGISTRY,
+            ModItems.ITEM_REGISTRY,
+            ModRecipes.RECIPE_SERIALIZERS_REGISTRY,
+            ModEnchantments.ENCHANTMENT_REGISTRY,
+            ModMenuTypes.MENU_TYPE_REGISTRY
+        )
+
+        for (registry in registries) {
+            registry.register(MOD_BUS)
+        }
 
         ModPacketHandler.setup()
 
