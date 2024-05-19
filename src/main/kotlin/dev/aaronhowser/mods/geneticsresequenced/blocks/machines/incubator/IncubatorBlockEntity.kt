@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.InventoryEnergyBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
@@ -43,7 +44,7 @@ class IncubatorBlockEntity(
         return Component.translatable("block.geneticsresequenced.incubator")
     }
 
-    override val amountOfItemSlots: Int = 5
+    override val amountOfItemSlots: Int = 6
     override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {
         override fun onContentsChanged(slot: Int) {
             setChanged()
@@ -58,6 +59,9 @@ class IncubatorBlockEntity(
                 RIGHT_BOTTLE_SLOT_INDEX -> PotionUtils.getPotion(stack) == Potions.WATER
 
                 CHORUS_SLOT_INDEX -> stack.`is`(Items.CHORUS_FRUIT)
+
+                OVERCLOCKER_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
+
                 else -> false
             }
         }
@@ -181,6 +185,7 @@ class IncubatorBlockEntity(
         const val MIDDLE_BOTTLE_SLOT_INDEX = 2
         const val RIGHT_BOTTLE_SLOT_INDEX = 3
         const val CHORUS_SLOT_INDEX = 4
+        const val OVERCLOCKER_SLOT_INDEX = 5
 
         private const val ENERGY_COST_PER_TICK = 10
 
