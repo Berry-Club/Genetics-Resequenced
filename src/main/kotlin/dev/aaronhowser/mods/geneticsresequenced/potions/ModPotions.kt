@@ -14,7 +14,7 @@ object ModPotions {
     val POTION_REGISTRY: DeferredRegister<Potion> =
         DeferredRegister.create(ForgeRegistries.POTIONS, GeneticsResequenced.ID)
 
-    //TODO: Remove splash, lingering, and arrow potions
+    //TODO: Remove splash, lingering, and arrow potions (apparently needs mixins >:( )
     //TODO: Recipes
     val SUBSTRATE by register("substrate") { Potion("substrate", MobEffectInstance(ModEffects.SUBSTRATE)) }
     val CELL_GROWTH by register("cell_growth") { Potion("cell_growth", MobEffectInstance(ModEffects.CELL_GROWTH)) }
