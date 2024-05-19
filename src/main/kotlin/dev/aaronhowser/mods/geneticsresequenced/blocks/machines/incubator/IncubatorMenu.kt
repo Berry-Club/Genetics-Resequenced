@@ -106,8 +106,6 @@ class IncubatorMenu(
         private const val TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT
     }
 
-    private val amountSlots = blockEntity.amountOfItemSlots
-
     override fun quickMoveStack(playerIn: Player, index: Int): ItemStack {
         val sourceSlot = slots.getOrNull(index)
         if (sourceSlot == null || !sourceSlot.hasItem()) return ItemStack.EMPTY //EMPTY_ITEM

@@ -11,9 +11,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.ContainerLevelAccess
 import net.minecraft.world.inventory.SimpleContainerData
-import net.minecraft.world.inventory.Slot
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.level.Level
 import net.minecraftforge.common.capabilities.ForgeCapabilities
 import net.minecraftforge.items.SlotItemHandler
 
@@ -99,10 +97,6 @@ class CellAnalyzerMenu(
         private const val VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT
         private const val VANILLA_FIRST_SLOT_INDEX = 0
         private const val TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT
-
-        // THIS YOU HAVE TO DEFINE!
-        private const val TE_INVENTORY_SLOT_COUNT =
-            CraftingMachineBlockEntity.ITEMSTACK_HANDLER_SIZE // must be the number of slots you have!
     }
 
     override fun quickMoveStack(playerIn: Player, index: Int): ItemStack {
@@ -117,13 +111,13 @@ class CellAnalyzerMenu(
             if (!moveItemStackTo(
                     sourceStack,
                     TE_INVENTORY_FIRST_SLOT_INDEX,
-                    TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT,
+                    TE_INVENTORY_FIRST_SLOT_INDEX + amountSlots,
                     false
                 )
             ) {
                 return ItemStack.EMPTY // EMPTY_ITEM
             }
-        } else if (index < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) {
+        } else if (index < TE_INVENTORY_FIRST_SLOT_INDEX + amountSlots) {
             // This is a TE slot so merge the stack into the players inventory
             if (!moveItemStackTo(
                     sourceStack,

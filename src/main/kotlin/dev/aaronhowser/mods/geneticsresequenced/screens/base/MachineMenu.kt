@@ -54,4 +54,6 @@ abstract class MachineMenu(
         }
     }
 
+    protected val amountSlots = blockEntity.amountOfItemSlots
+
 }
