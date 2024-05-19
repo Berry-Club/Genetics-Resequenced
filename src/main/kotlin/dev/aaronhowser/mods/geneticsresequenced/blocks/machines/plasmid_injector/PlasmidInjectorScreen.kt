@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injecto
 
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.PoseStack
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.screens.renderer.EnergyInfoArea
 import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -9,6 +10,9 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
+import net.minecraft.world.inventory.tooltip.TooltipComponent
+import net.minecraft.world.item.ItemStack
+import java.util.*
 
 class PlasmidInjectorScreen(
     pMenu: PlasmidInjectorMenu,
@@ -123,7 +127,41 @@ class PlasmidInjectorScreen(
     override fun render(pPoseStack: PoseStack, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
         renderBackground(pPoseStack)
         super.render(pPoseStack, pMouseX, pMouseY, pPartialTick)
-        renderTooltip(pPoseStack, pMouseX, pMouseY)
+
+        renderTooltip(
+            pPoseStack,
+            mutableListOf(),
+            Optional.empty(),
+            pMouseY,
+            pMouseY
+        )
+
     }
+
+    override fun renderTooltip(
+        pPoseStack: PoseStack,
+        pTooltips: MutableList<Component>,
+        pVisualTooltipComponent: Optional<TooltipComponent>,
+        pMouseX: Int,
+        pMouseY: Int
+    ) {
+        val hoveredSlot = this.hoveredSlot
+
+        val noCarriedItem =
+            this.menu.carried.isEmpty
+        val hoveringOverOverclockerSlot =
+            hoveredSlot != null && hoveredSlot.slotIndex == CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX
+        val hoveredSlotIsEmpty =
+            hoveredSlot != null && !hoveredSlot.hasItem()
+
+        if (noCarriedItem && hoveringOverOverclockerSlot && hoveredSlotIsEmpty) {
+            pTooltips.add(
+                Component.translatable("gui.geneticsresequenced.overclocker_slot")
+            )
+        }
+
+        super.renderTooltip(pPoseStack, pTooltips, pVisualTooltipComponent, pMouseX, pMouseY)
+    }
+
 
 }
