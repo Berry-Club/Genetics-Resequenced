@@ -37,12 +37,12 @@ object GeneticsResequenced {
         val registries = listOf(
             ModEntityTypes.ENTITY_TYPE_REGISTRY,
             ModAttributes.ATTRIBUTE_REGISTRY,
-            ModEffects.EFFECT_REGISTRY,
             ModBlocks.BLOCK_REGISTRY,
             ModBlockEntities.BLOCK_ENTITY_REGISTRY,
             ModItems.ITEM_REGISTRY,
             ModRecipes.RECIPE_SERIALIZERS_REGISTRY,
             ModEnchantments.ENCHANTMENT_REGISTRY,
+            ModEffects.EFFECT_REGISTRY,
             ModPotions.POTION_REGISTRY,
             ModMenuTypes.MENU_TYPE_REGISTRY
         )
