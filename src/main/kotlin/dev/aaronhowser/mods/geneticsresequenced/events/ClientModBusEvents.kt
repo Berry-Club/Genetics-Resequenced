@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer.Ce
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor.DnaExtractorScreen
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injector.PlasmidInjectorScreen
 import dev.aaronhowser.mods.geneticsresequenced.controls.ModKeyMappings
@@ -53,6 +54,7 @@ object ClientModBusEvents {
         MenuScreens.register(ModMenuTypes.PLASMID_INFUSER.get(), ::PlasmidInfuserScreen)
         MenuScreens.register(ModMenuTypes.PLASMID_INJECTOR.get(), ::PlasmidInjectorScreen)
         MenuScreens.register(ModMenuTypes.BLOOD_PURIFIER.get(), ::BloodPurifierScreen)
+        MenuScreens.register(ModMenuTypes.INCUBATOR.get(), ::IncubatorScreen)
     }
 
     private fun registerEntityRenderers() {

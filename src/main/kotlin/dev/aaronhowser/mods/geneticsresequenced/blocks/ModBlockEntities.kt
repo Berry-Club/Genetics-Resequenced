@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer.Ce
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor.DnaExtractorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injector.PlasmidInjectorBlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
@@ -72,6 +73,14 @@ object ModBlockEntities {
             BlockEntityType.Builder.of(
                 { pos, state -> BloodPurifierBlockEntity(pos, state) },
                 ModBlocks.BLOOD_PURIFIER
+            ).build(null)
+        }
+
+    val INCUBATOR: RegistryObject<BlockEntityType<IncubatorBlockEntity>> =
+        BLOCK_ENTITY_REGISTRY.register("incubator") {
+            BlockEntityType.Builder.of(
+                { pos, state -> IncubatorBlockEntity(pos, state) },
+                ModBlocks.INCUBATOR
             ).build(null)
         }
 

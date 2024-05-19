@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.AirborneDispersalBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.CloningMachineBlock
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.IncubatorBlock
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.blood_purifier.BloodPurifierBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer.CellAnalyzerBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorBlock
