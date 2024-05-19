@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
-import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.network.FriendlyByteBuf
@@ -32,19 +31,22 @@ class IncubatorMenu(
                 id,
                 inventory,
                 inventory.player.level.getBlockEntity(extraData.readBlockPos()) as IncubatorBlockEntity,
-                SimpleContainerData(CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
+                SimpleContainerData(IncubatorBlockEntity.SIMPLE_CONTAINER_SIZE)
             )
 
     init {
-        checkContainerSize(inventory, CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
+        checkContainerSize(inventory, IncubatorBlockEntity.SIMPLE_CONTAINER_SIZE)
 
         addPlayerInventory(inventory)
         addPlayerHotbar(inventory)
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent { itemHandler ->
-            this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 36))
-            this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 36))
-            this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 149, 66))
+            this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.TOP_SLOT_INDEX, 83, 15))
+            this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 49))
+            this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX, 83, 56))
+            this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX, 106, 49))
+            this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.CHORUS_SLOT_INDEX, 141, 32))
+            this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.OVERCLOCKER_SLOT_INDEX, 146, 67))
         }
 
         addDataSlots(containerData)
@@ -102,11 +104,9 @@ class IncubatorMenu(
         private const val VANILLA_SLOT_COUNT = HOTBAR_SLOT_COUNT + PLAYER_INVENTORY_SLOT_COUNT
         private const val VANILLA_FIRST_SLOT_INDEX = 0
         private const val TE_INVENTORY_FIRST_SLOT_INDEX = VANILLA_FIRST_SLOT_INDEX + VANILLA_SLOT_COUNT
-
-        // THIS YOU HAVE TO DEFINE!
-        private const val TE_INVENTORY_SLOT_COUNT =
-            CraftingMachineBlockEntity.ITEMSTACK_HANDLER_SIZE // must be the number of slots you have!
     }
+
+    private val amountSlots = blockEntity.amountOfItemSlots
 
     override fun quickMoveStack(playerIn: Player, index: Int): ItemStack {
         val sourceSlot = slots.getOrNull(index)
@@ -120,13 +120,13 @@ class IncubatorMenu(
             if (!moveItemStackTo(
                     sourceStack,
                     TE_INVENTORY_FIRST_SLOT_INDEX,
-                    TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT,
+                    TE_INVENTORY_FIRST_SLOT_INDEX + amountSlots,
                     false
                 )
             ) {
                 return ItemStack.EMPTY // EMPTY_ITEM
             }
-        } else if (index < TE_INVENTORY_FIRST_SLOT_INDEX + TE_INVENTORY_SLOT_COUNT) {
+        } else if (index < TE_INVENTORY_FIRST_SLOT_INDEX + amountSlots) {
             // This is a TE slot so merge the stack into the players inventory
             if (!moveItemStackTo(
                     sourceStack,

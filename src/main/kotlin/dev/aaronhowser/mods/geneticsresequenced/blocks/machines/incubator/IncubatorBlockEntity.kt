@@ -178,7 +178,8 @@ class IncubatorBlockEntity(
             blockEntity.tick()
         }
 
-        private const val REMAINING_TICKS_INDEX = 0
+        const val SIMPLE_CONTAINER_SIZE = 1
+        const val REMAINING_TICKS_INDEX = 0
 
         const val TOP_SLOT_INDEX = 0
         const val LEFT_BOTTLE_SLOT_INDEX = 1

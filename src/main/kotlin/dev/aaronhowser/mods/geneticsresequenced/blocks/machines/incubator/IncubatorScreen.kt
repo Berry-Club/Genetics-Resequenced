@@ -20,16 +20,33 @@ class IncubatorScreen(
         val BACKGROUND_TEXTURE = OtherUtil.modResource("textures/gui/incubator.png")
 
         const val ARROW_TEXTURE_X = 177
-        const val ARROW_TEXTURE_Y = 61
-        const val ARROW_X = 83
-        const val ARROW_Y = 37
-        const val ARROW_WIDTH = 24
-        const val ARROW_HEIGHT = 17
+        const val ARROW_TEXTURE_Y = 47
+        const val ARROW_X = 101
+        const val ARROW_Y = 14
+        const val ARROW_WIDTH = 9
+        const val ARROW_HEIGHT = 28
+
+        const val BUBBLES_TEXTURE_X = 186
+        const val BUBBLES_TEXTURE_Y = 47
+        const val BUBBLES_X = 67
+        const val BUBBLES_Y = 12
+        const val BUBBLES_WIDTH = 12
+        const val BUBBLES_HEIGHT = 29
+
+        const val FULL_FUEL_TEXTURE_X = 177
+        const val FULL_FUEL_TEXTURE_Y = 76
+        const val EMPTY_FUEL_TEXTURE_X = 177
+        const val EMPTY_FUEL_TEXTURE_Y = 81
+
+        const val FUEL_X = 64
+        const val FUEL_Y = 42
+        const val FUEL_WIDTH = 18
+        const val FUEL_HEIGHT = 4
 
         const val ENERGY_TEXTURE_X = 177
         const val ENERGY_TEXTURE_Y = 3
-        const val ENERGY_X = 9
-        const val ENERGY_Y = 22
+        const val ENERGY_X = 24
+        const val ENERGY_Y = 14
         const val ENERGY_WIDTH = 14
         const val ENERGY_HEIGHT = 42
 
