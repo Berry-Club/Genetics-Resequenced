@@ -14,6 +14,12 @@
   "item.geneticsresequenced.overclocker": "Overclocker",
   "item.geneticsresequenced.support_slime_spawn_egg": "Support Slime Spawn Egg",
 
+  "item.minecraft.potion.effect.substrate": "Potion of Substrate",
+  "item.minecraft.potion.effect.cell_growth": "Potion of Cell Growth",
+  "item.minecraft.potion.effect.mutation": "Potion of Mutation",
+  "item.minecraft.potion.effect.viral_agents": "Potion of Viral Agents",
+  "item.minecraft.potion.effect.the_cure": "Potion of The Cure",
+
   "message.geneticsresequenced.scraper.cant_scrape": "This mob cannot be scraped.",
   "message.geneticsresequenced.emerald_heart.cooldown": "Emerald Heart is on cooldown!",
   "message.geneticsresequenced.death_gene_removal": "Death has reset your Genes!",
@@ -40,6 +46,11 @@
   "block.geneticsresequenced.antifield_block": "Anti-field Block",
 
   "effect.geneticsresequenced.bleed": "Bleed",
+  "effect.geneticsresequenced.substrate": "Substrate",
+  "effect.geneticsresequenced.cell_growth": "Cell Growth",
+  "effect.geneticsresequenced.mutation": "Mutation",
+  "effect.geneticsresequenced.viral_agents": "Viral Agents",
+  "effect.geneticsresequenced.the_cure": "The Cure",
 
   "enchantment.geneticsresequenced.delicate_touch": "Delicate Touch",
 
