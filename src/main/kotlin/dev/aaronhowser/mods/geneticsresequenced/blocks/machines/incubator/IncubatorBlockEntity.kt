@@ -12,8 +12,12 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
+import net.minecraft.world.item.alchemy.PotionUtils
+import net.minecraft.world.item.alchemy.Potions
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry
 import net.minecraftforge.items.ItemStackHandler
 
 class IncubatorBlockEntity(
@@ -46,7 +50,16 @@ class IncubatorBlockEntity(
         }
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
-            return false
+            return when (slot) {
+                TOP_SLOT_INDEX -> true
+
+                LEFT_BOTTLE_SLOT_INDEX,
+                MIDDLE_BOTTLE_SLOT_INDEX,
+                RIGHT_BOTTLE_SLOT_INDEX -> PotionUtils.getPotion(stack) == Potions.WATER
+
+                CHORUS_SLOT_INDEX -> stack.`is`(Items.CHORUS_FRUIT)
+                else -> false
+            }
         }
     }
 
@@ -92,6 +105,62 @@ class IncubatorBlockEntity(
         super.load(pTag)
     }
 
+    private fun tick() {
+        if (!canBrew()) {
+            ticksRemaining = 0
+            return
+        }
+
+        energyStorage.extractEnergy(ENERGY_COST_PER_TICK, false)
+        ticksRemaining--
+
+        if (ticksRemaining <= 0) {
+            finishBrew()
+            return
+        }
+
+    }
+
+    private fun finishBrew() {
+
+        val topStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
+        val topPotion = PotionUtils.getPotion(topStack)
+
+        val bottleSlots = listOf(
+            LEFT_BOTTLE_SLOT_INDEX,
+            MIDDLE_BOTTLE_SLOT_INDEX,
+            RIGHT_BOTTLE_SLOT_INDEX
+        )
+
+        for (slotIndex in bottleSlots) {
+            val bottleStack = itemHandler.getStackInSlot(slotIndex)
+            val output = BrewingRecipeRegistry.getOutput(bottleStack, topStack)
+
+            if (!output.isEmpty) {
+                itemHandler.setStackInSlot(slotIndex, output)
+            }
+        }
+
+        topStack.shrink(1)
+        setChanged()
+    }
+
+    private fun canBrew(): Boolean {
+        if (energyStorage.energyStored < ENERGY_COST_PER_TICK) return false
+
+        val topSlotStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
+        val bottleStacks =
+            listOf(
+                itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX),
+                itemHandler.getStackInSlot(MIDDLE_BOTTLE_SLOT_INDEX),
+                itemHandler.getStackInSlot(RIGHT_BOTTLE_SLOT_INDEX)
+            )
+
+        return bottleStacks.any {
+            BrewingRecipeRegistry.hasOutput(it, topSlotStack)
+        }
+
+    }
 
     companion object {
 
@@ -102,9 +171,19 @@ class IncubatorBlockEntity(
             blockEntity: IncubatorBlockEntity
         ) {
             if (level.isClientSide) return
+            blockEntity.tick()
         }
 
         private const val REMAINING_TICKS_INDEX = 0
+
+        const val TOP_SLOT_INDEX = 0
+        const val LEFT_BOTTLE_SLOT_INDEX = 1
+        const val MIDDLE_BOTTLE_SLOT_INDEX = 2
+        const val RIGHT_BOTTLE_SLOT_INDEX = 3
+        const val CHORUS_SLOT_INDEX = 4
+
+        private const val ENERGY_COST_PER_TICK = 10
+
     }
 
 }
