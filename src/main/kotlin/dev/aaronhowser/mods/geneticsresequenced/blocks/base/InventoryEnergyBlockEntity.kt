@@ -43,17 +43,7 @@ abstract class InventoryEnergyBlockEntity(
     abstract val energyTransferMaximum: Int
 
     abstract val amountOfItemSlots: Int
-    open val itemHandler: ItemStackHandler by lazy {
-        object : ItemStackHandler(amountOfItemSlots) {
-            override fun onContentsChanged(slot: Int) {
-                setChanged()
-            }
-
-            override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
-                return true
-            }
-        }
-    }
+    abstract val itemHandler: ItemStackHandler
 
     protected var lazyItemHandler: LazyOptional<IItemHandler> = LazyOptional.empty()
 

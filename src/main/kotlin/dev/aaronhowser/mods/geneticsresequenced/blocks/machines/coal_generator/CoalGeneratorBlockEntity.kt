@@ -20,6 +20,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.common.capabilities.ForgeCapabilities
 import net.minecraftforge.energy.IEnergyStorage
+import net.minecraftforge.items.ItemStackHandler
 import kotlin.math.min
 
 @Suppress("UNUSED_PARAMETER")
@@ -48,6 +49,15 @@ class CoalGeneratorBlockEntity(
 
 
     override val amountOfItemSlots: Int = 1
+    override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {
+        override fun onContentsChanged(slot: Int) {
+            setChanged()
+        }
+
+        override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
+            return ForgeHooks.getBurnTime(stack, RecipeType.SMELTING) > 0
+        }
+    }
 
     private val data = object : ContainerData {
         private var _totalTicksToBurn = 0

@@ -11,8 +11,10 @@ import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraftforge.items.ItemStackHandler
 
 class IncubatorBlockEntity(
     pPos: BlockPos,
@@ -38,6 +40,16 @@ class IncubatorBlockEntity(
     }
 
     override val amountOfItemSlots: Int = 5
+    override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {
+        override fun onContentsChanged(slot: Int) {
+            setChanged()
+        }
+
+        override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
+            return false
+        }
+    }
+
     private val data = object : ContainerData {
 
         private var remainingTicks = 0
