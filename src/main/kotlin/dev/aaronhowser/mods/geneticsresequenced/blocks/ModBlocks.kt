@@ -39,7 +39,7 @@ object ModBlocks {
     val PLASMID_INJECTOR by register("plasmid_injector") { PlasmidInjectorBlock }
     val AIRBORNE_DISPERSAL_DEVICE by register("airborne_dispersal_device") { AirborneDispersalBlock }
     val CLONING_MACHINE by register("cloning_machine") { CloningMachineBlock }
-    val INCUBATOR by register("incubator") { IncubatorBlock }
+    val INCUBATOR by register("incubator") { IncubatorBlock() }
     val ANTIFIELD_BLOCK by register("anti_field_block") { AntiFieldBlock() }
 
     private fun register(
