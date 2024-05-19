@@ -34,7 +34,8 @@ class CellAnalyzerBlockEntity(
     override val energyTransferMaximum: Int = 256
     override val energyCostPerTick: Int = 32
 
-    override val itemHandler: ItemStackHandler = object : ItemStackHandler(ITEMSTACK_HANDLER_SIZE) {
+    override val amountOfItemSlots: Int = 3
+    override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {
         override fun onContentsChanged(slot: Int) {
             setChanged()
         }

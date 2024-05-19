@@ -37,6 +37,7 @@ class IncubatorBlockEntity(
         return Component.translatable("block.geneticsresequenced.incubator")
     }
 
+    override val amountOfItemSlots: Int = 5
     private val data = object : ContainerData {
 
         private var remainingTicks = 0

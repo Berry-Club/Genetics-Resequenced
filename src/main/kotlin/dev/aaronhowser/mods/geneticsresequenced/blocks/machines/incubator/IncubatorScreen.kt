@@ -65,7 +65,6 @@ class IncubatorScreen(
 
         blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight)
 
-        renderProgressArrow(pPoseStack, x, y)
         energyInfoArea.draw(pPoseStack)
     }
 
@@ -107,19 +106,6 @@ class IncubatorScreen(
         )
     }
 
-    private fun renderProgressArrow(pPoseStack: PoseStack, x: Int, y: Int) {
-        if (menu.isCrafting) {
-            blit(
-                pPoseStack,
-                x + ARROW_X,            // The x position of where the arrow will be
-                y + ARROW_Y,            // The y position of where the arrow will be
-                ARROW_TEXTURE_X,            // The x offset of where the arrow is in the texture
-                ARROW_TEXTURE_Y,               // The y offset of where the arrow is in the texture
-                menu.getScaledProgress(),   // The width of the arrow
-                71                  // The height of the arrow
-            )
-        }
-    }
 
     override fun render(pPoseStack: PoseStack, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
         renderBackground(pPoseStack)

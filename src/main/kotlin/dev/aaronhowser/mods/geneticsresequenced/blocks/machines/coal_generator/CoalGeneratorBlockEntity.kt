@@ -46,6 +46,9 @@ class CoalGeneratorBlockEntity(
         return Component.translatable("block.geneticsresequenced.coal_generator")
     }
 
+
+    override val amountOfItemSlots: Int = 1
+
     private val data = object : ContainerData {
         private var _totalTicksToBurn = 0
             set(value) {
@@ -215,7 +218,6 @@ class CoalGeneratorBlockEntity(
         // Here it's two: remaining ticks and max burn time
         const val SIMPLE_CONTAINER_SIZE = 2
 
-        const val ITEMSTACK_HANDLER_SIZE = 1
         const val INPUT_SLOT = 0
 
         val energyPerTick: Int

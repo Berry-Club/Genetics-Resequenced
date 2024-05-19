@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.base
 
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorBlockEntity.Companion.ITEMSTACK_HANDLER_SIZE
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.util.ModEnergyStorage
 import net.minecraft.core.BlockPos
@@ -43,8 +42,9 @@ abstract class InventoryEnergyBlockEntity(
     abstract val energyMaximum: Int
     abstract val energyTransferMaximum: Int
 
+    abstract val amountOfItemSlots: Int
     open val itemHandler: ItemStackHandler by lazy {
-        object : ItemStackHandler(ITEMSTACK_HANDLER_SIZE) {
+        object : ItemStackHandler(amountOfItemSlots) {
             override fun onContentsChanged(slot: Int) {
                 setChanged()
             }
