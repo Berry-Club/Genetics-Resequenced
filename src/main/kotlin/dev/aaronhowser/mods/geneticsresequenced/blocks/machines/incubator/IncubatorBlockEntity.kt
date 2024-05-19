@@ -52,7 +52,7 @@ class IncubatorBlockEntity(
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
-                TOP_SLOT_INDEX -> true
+                TOP_SLOT_INDEX -> BrewingRecipeRegistry.isValidIngredient(stack)
 
                 LEFT_BOTTLE_SLOT_INDEX,
                 MIDDLE_BOTTLE_SLOT_INDEX,
@@ -94,6 +94,8 @@ class IncubatorBlockEntity(
         set(value) {
             data.set(REMAINING_TICKS_INDEX, value)
         }
+    private val isBrewing: Boolean
+        get() = ticksRemaining > 0
 
     private val ticksRemainingNbtKey = "$machineName.ticksRemaining"
 
@@ -110,7 +112,10 @@ class IncubatorBlockEntity(
     }
 
     private fun tick() {
-        if (!canBrew()) {
+
+        if (!isBrewing && canBrew()) {
+            ticksRemaining = 20 * 5
+        } else if (!canBrew()) {
             ticksRemaining = 0
             return
         }
