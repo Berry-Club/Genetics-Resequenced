@@ -22,6 +22,8 @@ import thedarkcolour.kotlinforforge.forge.registerObject
 
 object ModBlocks {
 
+    //TODO: Make all blocks classes and not objects
+
     private val defaultItemProperties = Item.Properties().tab(ModItems.MOD_TAB)
 
     val BLOCK_REGISTRY: DeferredRegister<Block> =
