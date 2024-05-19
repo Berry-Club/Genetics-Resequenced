@@ -47,6 +47,8 @@ object DeathEvents {
     @SubscribeEvent
     fun onPlayerRespawn(event: PlayerEvent.PlayerRespawnEvent) {
         handleKeepGenesOnDeath(event)
+        removeNegativeGenesOnDeath(event)
+
         DeathGenes.handleKeepInventory(event.entity)
     }
 
@@ -64,6 +66,23 @@ object DeathEvents {
 
         player.sendSystemMessage(component)
         playerGenes.removeAllGenes()
+    }
+
+    private fun removeNegativeGenesOnDeath(event: PlayerEvent.PlayerRespawnEvent) {
+        val player = event.entity
+        val playerGenes = player.getGenes() ?: return
+
+        if (playerGenes.getGeneList().isEmpty()) return
+
+        val negativeGenes = playerGenes.getGeneList().filter { it.isNegative }
+        if (negativeGenes.isEmpty()) return
+
+        val component = Component
+            .translatable("message.geneticsresequenced.death_negative_gene_removal")
+            .withColor(ChatFormatting.GRAY)
+
+        player.sendSystemMessage(component)
+        playerGenes.removeGenes(negativeGenes)
     }
 
 }

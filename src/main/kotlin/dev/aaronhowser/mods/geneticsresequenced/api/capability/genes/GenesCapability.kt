@@ -15,8 +15,16 @@ class GenesCapability {
         return geneList.add(gene)
     }
 
+    fun addGenes(genes: Collection<Gene>) {
+        geneList.addAll(genes.toSet())
+    }
+
     fun removeGene(gene: Gene): Boolean {
         return geneList.remove(gene)
+    }
+
+    fun removeGenes(genes: Collection<Gene>) {
+        geneList.removeAll(genes.toSet())
     }
 
     fun hasGene(gene: Gene): Boolean {
