@@ -42,20 +42,10 @@ object ClientModBusEvents {
 
     @SubscribeEvent
     fun onClientSetup(event: FMLClientSetupEvent) {
-        registerScreens()
+        ModMenuTypes.registerScreens()
         registerEntityRenderers()
     }
 
-    private fun registerScreens() {
-        MenuScreens.register(ModMenuTypes.CELL_ANALYZER.get(), ::CellAnalyzerScreen)
-        MenuScreens.register(ModMenuTypes.COAL_GENERATOR.get(), ::CoalGeneratorScreen)
-        MenuScreens.register(ModMenuTypes.DNA_EXTRACTOR.get(), ::DnaExtractorScreen)
-        MenuScreens.register(ModMenuTypes.DNA_DECRYPTOR.get(), ::DnaDecryptorScreen)
-        MenuScreens.register(ModMenuTypes.PLASMID_INFUSER.get(), ::PlasmidInfuserScreen)
-        MenuScreens.register(ModMenuTypes.PLASMID_INJECTOR.get(), ::PlasmidInjectorScreen)
-        MenuScreens.register(ModMenuTypes.BLOOD_PURIFIER.get(), ::BloodPurifierScreen)
-        MenuScreens.register(ModMenuTypes.INCUBATOR.get(), ::IncubatorScreen)
-    }
 
     private fun registerEntityRenderers() {
         EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::FriendlySlimeRenderer)

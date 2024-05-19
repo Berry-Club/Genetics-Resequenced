@@ -2,13 +2,22 @@ package dev.aaronhowser.mods.geneticsresequenced.screens
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.blood_purifier.BloodPurifierMenu
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.blood_purifier.BloodPurifierScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer.CellAnalyzerMenu
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer.CellAnalyzerScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorMenu
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorMenu
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor.DnaExtractorMenu
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor.DnaExtractorScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorMenu
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserMenu
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injector.PlasmidInjectorMenu
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injector.PlasmidInjectorScreen
+import net.minecraft.client.gui.screens.MenuScreens
 import net.minecraft.world.inventory.MenuType
 import net.minecraftforge.common.extensions.IForgeMenuType
 import net.minecraftforge.network.IContainerFactory
@@ -74,4 +83,16 @@ object ModMenuTypes {
                 IncubatorMenu(id, inv, buf)
             })
         }
+
+    fun registerScreens() {
+        MenuScreens.register(CELL_ANALYZER.get(), ::CellAnalyzerScreen)
+        MenuScreens.register(COAL_GENERATOR.get(), ::CoalGeneratorScreen)
+        MenuScreens.register(DNA_EXTRACTOR.get(), ::DnaExtractorScreen)
+        MenuScreens.register(DNA_DECRYPTOR.get(), ::DnaDecryptorScreen)
+        MenuScreens.register(PLASMID_INFUSER.get(), ::PlasmidInfuserScreen)
+        MenuScreens.register(PLASMID_INJECTOR.get(), ::PlasmidInjectorScreen)
+        MenuScreens.register(BLOOD_PURIFIER.get(), ::BloodPurifierScreen)
+        MenuScreens.register(INCUBATOR.get(), ::IncubatorScreen)
+    }
+
 }
