@@ -4,8 +4,8 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.getGene
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu

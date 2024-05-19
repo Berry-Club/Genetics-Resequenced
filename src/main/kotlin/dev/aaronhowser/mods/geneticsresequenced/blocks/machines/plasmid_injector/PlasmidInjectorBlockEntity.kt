@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injecto
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.getGene
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
@@ -84,7 +84,7 @@ class PlasmidInjectorBlockEntity(
         val plasmidStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
         val syringeStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
-        if (!plasmidStack.`is`(PlasmidItem) || !syringeStack.`is`(SyringeItem)) return false
+        if (!plasmidStack.`is`(ModItems.PLASMID) || !syringeStack.`is`(ModItems.SYRINGE)) return false
 
         val plasmidGene = plasmidStack.getGene() ?: return false
         if (!PlasmidItem.isComplete(plasmidStack)) return false

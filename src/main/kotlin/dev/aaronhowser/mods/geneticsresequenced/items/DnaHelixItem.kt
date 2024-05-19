@@ -14,40 +14,41 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
-object DnaHelixItem : EntityDnaItem() {
+class DnaHelixItem : EntityDnaItem() {
 
-    private const val GENE_ID_NBT = "GeneId"
-    private const val BASIC_NBT = "IsBasic"
+    companion object {
+        private const val GENE_ID_NBT = "GeneId"
+        private const val BASIC_NBT = "IsBasic"
 
+        fun ItemStack.hasGene(): Boolean = this.tag?.contains(GENE_ID_NBT) ?: false
 
-    fun ItemStack.hasGene(): Boolean = this.tag?.contains(GENE_ID_NBT) ?: false
-
-    fun ItemStack.getGene(): Gene? {
-        val string = this.tag?.getString(GENE_ID_NBT)
-        if (string.isNullOrBlank()) return null
-        return Gene.fromId(string)
-    }
-
-    fun ItemStack.setGene(gene: Gene?): ItemStack {
-        if (gene == null) {
-            return this.setBasic()
+        fun ItemStack.getGene(): Gene? {
+            val string = this.tag?.getString(GENE_ID_NBT)
+            if (string.isNullOrBlank()) return null
+            return Gene.fromId(string)
         }
 
-        val tag = this.orCreateTag
-        tag.putString(GENE_ID_NBT, gene.id.toString())
-        tag.remove(MOB_ID_NBT)
-        return this
-    }
+        fun ItemStack.setGene(gene: Gene?): ItemStack {
+            if (gene == null) {
+                return this.setBasic()
+            }
 
-    fun ItemStack.setBasic(): ItemStack {
-        val tag = this.orCreateTag
-        tag.remove(GENE_ID_NBT)
-        tag.remove(MOB_ID_NBT)
-        tag.putBoolean(BASIC_NBT, true)
-        return this
-    }
+            val tag = this.orCreateTag
+            tag.putString(GENE_ID_NBT, gene.id.toString())
+            tag.remove(MOB_ID_NBT)
+            return this
+        }
 
-    fun ItemStack.isBasic(): Boolean = this.tag?.getBoolean(BASIC_NBT) ?: false
+        fun ItemStack.setBasic(): ItemStack {
+            val tag = this.orCreateTag
+            tag.remove(GENE_ID_NBT)
+            tag.remove(MOB_ID_NBT)
+            tag.putBoolean(BASIC_NBT, true)
+            return this
+        }
+
+        fun ItemStack.isBasic(): Boolean = this.tag?.getBoolean(BASIC_NBT) ?: false
+    }
 
     override fun interactLivingEntity(
         pStack: ItemStack,

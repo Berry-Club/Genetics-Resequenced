@@ -2,10 +2,10 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes
 
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setBasic
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setBasic
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem.setAmount
+import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem.Companion.setAmount
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf

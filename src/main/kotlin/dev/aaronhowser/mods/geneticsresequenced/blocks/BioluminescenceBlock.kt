@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.material.Material
 
 @Suppress("OVERRIDE_DEPRECATION")
-object BioluminescenceBlock :
+class BioluminescenceBlock :
     AirBlock(
         Properties
             .of(Material.AIR)

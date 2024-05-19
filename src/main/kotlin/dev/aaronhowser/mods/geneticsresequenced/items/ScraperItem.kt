@@ -16,32 +16,48 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraftforge.common.util.FakePlayer
 
-object ScraperItem : Item(
+class ScraperItem : Item(
     Properties()
         .tab(ModItems.MOD_TAB)
         .defaultDurability(200)
 ) {
 
-    private fun scrapeEntity(player: Player, stack: ItemStack, hand: InteractionHand, entity: LivingEntity): Boolean {
-        if (player.cooldowns.isOnCooldown(this)) return false
-        if (entity.hurtTime > 0) return false
+    companion object {
+        private fun scrapeEntity(
+            player: Player,
+            stack: ItemStack,
+            hand: InteractionHand,
+            entity: LivingEntity
+        ): Boolean {
+            if (player.cooldowns.isOnCooldown(ModItems.SCRAPER)) return false
+            if (entity.hurtTime > 0) return false
 
-        val organicStack = ItemStack(ModItems.ORGANIC_MATTER).setMob(entity.type) ?: return false
+            val organicStack = ItemStack(ModItems.ORGANIC_MATTER).setMob(entity.type) ?: return false
 
-        if (!player.inventory.add(organicStack)) {
-            player.drop(organicStack, false)
+            if (!player.inventory.add(organicStack)) {
+                player.drop(organicStack, false)
+            }
+
+            // Only put on cooldown if the entity was not damaged
+            if (stack.getEnchantmentLevel(ModEnchantments.DELICATE_TOUCH) == 0) {
+                entity.hurt(damageSource(player), 1f)
+            } else {
+                player.cooldowns.addCooldown(ModItems.SCRAPER, 10)
+            }
+
+            stack.hurtAndBreak(1, player) { player.broadcastBreakEvent(hand) }
+
+            return true
         }
 
-        // Only put on cooldown if the entity was not damaged
-        if (stack.getEnchantmentLevel(ModEnchantments.DELICATE_TOUCH) == 0) {
-            entity.hurt(damageSource(player), 1f)
-        } else {
-            player.cooldowns.addCooldown(this, 10)
+        fun damageSource(player: Player?): DamageSource {
+            return if (player == null) {
+                DamageSource("scraper")
+            } else {
+                //TODO: Implement "%2$s" into the kill message
+                EntityDamageSource("scraper", player)
+            }
         }
-
-        stack.hurtAndBreak(1, player) { player.broadcastBreakEvent(hand) }
-
-        return true
     }
 
     override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
@@ -76,17 +92,6 @@ object ScraperItem : Item(
             InteractionResult.SUCCESS
         } else {
             InteractionResult.FAIL
-        }
-    }
-
-    // Other stuff
-
-    fun damageSource(player: Player?): DamageSource {
-        return if (player == null) {
-            DamageSource("scraper")
-        } else {
-            //TODO: Implement "%2$s" into the kill message
-            EntityDamageSource("scraper", player)
         }
     }
 

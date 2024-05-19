@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.getGene
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu

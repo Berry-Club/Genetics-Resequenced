@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.setGene
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil

@@ -11,20 +11,27 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
-object AntiFieldOrbItem : Item(
+class AntiFieldOrbItem : Item(
     Properties()
         .tab(ModItems.MOD_TAB)
         .stacksTo(1)
 ) {
 
-    private const val ENABLED_NBT = "Enabled"
-    private fun isEnabled(itemStack: ItemStack): Boolean {
-        return itemStack.tag?.getBoolean(ENABLED_NBT) ?: false
-    }
+    companion object {
+        private const val ENABLED_NBT = "Enabled"
 
-    private fun toggleEnabled(itemStack: ItemStack) {
-        val tag = itemStack.orCreateTag
-        tag.putBoolean(ENABLED_NBT, !isEnabled(itemStack))
+        private fun isEnabled(itemStack: ItemStack): Boolean {
+            return itemStack.tag?.getBoolean(ENABLED_NBT) ?: false
+        }
+
+        private fun toggleEnabled(itemStack: ItemStack) {
+            val tag = itemStack.orCreateTag
+            tag.putBoolean(ENABLED_NBT, !isEnabled(itemStack))
+        }
+
+        fun isActiveForPlayer(player: Player): Boolean {
+            return player.inventory.items.any { it.item === ModItems.ANTI_FIELD_ORB && isEnabled(it) }
+        }
     }
 
     override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
@@ -48,10 +55,6 @@ object AntiFieldOrbItem : Item(
                 .withColor(ChatFormatting.GRAY)
         )
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced)
-    }
-
-    fun isActiveForPlayer(player: Player): Boolean {
-        return player.inventory.items.any { it.item === this && isEnabled(it) }
     }
 
 }

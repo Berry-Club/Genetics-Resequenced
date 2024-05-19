@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.material.Material
 
-object CellAnalyzerBlock :
+class CellAnalyzerBlock :
     CraftingMachineBlock(
         Properties.of(Material.METAL),
         CellAnalyzerBlockEntity::class.java

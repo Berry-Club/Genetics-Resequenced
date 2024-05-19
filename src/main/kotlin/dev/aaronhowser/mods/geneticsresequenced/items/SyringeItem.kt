@@ -23,11 +23,176 @@ import net.minecraft.world.level.Level
 import net.minecraftforge.common.util.FakePlayer
 import java.util.*
 
-object SyringeItem : Item(
+class SyringeItem : Item(
     Properties()
         .tab(ModItems.MOD_TAB)
         .stacksTo(1)
 ) {
+
+    companion object {
+        // Animation / model functions
+
+        fun isBeingUsed(syringeStack: ItemStack, entity: LivingEntity?): Boolean {
+            if (entity == null) return false
+
+            return entity.useItem == syringeStack
+        }
+
+        // Entity functions
+
+        private const val ENTITY_UUID_NBT_KEY = "entity"
+        private const val ENTITY_NAME_NBT_KEY = "entityName"
+
+        @Suppress("MemberVisibilityCanBePrivate")
+        fun setEntity(syringeStack: ItemStack, entity: LivingEntity) {
+            if (!syringeStack.`is`(ModItems.SYRINGE)) throw IllegalArgumentException("ItemStack is not a Syringe")
+            setEntityUuid(syringeStack, entity.uuid)
+
+            setEntityName(syringeStack, entity.name)
+        }
+
+        fun setEntityUuid(syringeStack: ItemStack, uuid: UUID) {
+            if (!syringeStack.`is`(ModItems.SYRINGE)) throw IllegalArgumentException("ItemStack is not a Syringe")
+
+            val tag = syringeStack.getOrCreateTag()
+
+            tag.putUUID(ENTITY_UUID_NBT_KEY, uuid)
+            setContaminated(syringeStack, true)
+        }
+
+        private fun setEntityName(syringeStack: ItemStack, name: Component) {
+            if (!syringeStack.`is`(ModItems.SYRINGE)) throw IllegalArgumentException("ItemStack is not a Syringe")
+
+            val tag = syringeStack.getOrCreateTag()
+            tag.putString(ENTITY_NAME_NBT_KEY, name.string)
+        }
+
+        private fun getEntityName(syringeStack: ItemStack): Component? {
+            if (!syringeStack.`is`(ModItems.SYRINGE)) return null
+
+            val untranslatedName = syringeStack.getOrCreateTag().getString(ENTITY_NAME_NBT_KEY)
+            if (untranslatedName.isNullOrBlank()) return null
+
+            return Component.translatable(untranslatedName)
+        }
+
+        private fun injectEntity(syringeStack: ItemStack, entity: LivingEntity) {
+            val entityDna = getEntity(syringeStack) ?: return
+            if (entity.uuid != entityDna) return
+
+            val genes = getGenes(syringeStack)
+            val entityGenes = entity.getGenes() ?: return
+
+            for (gene in genes) {
+                val success = entityGenes.addGene(gene)
+
+                if (!entity.level.isClientSide) {
+                    val translateKey = if (success) {
+                        "message.geneticsresequenced.syringe.injected"
+                    } else {
+                        "message.geneticsresequenced.syringe.failed"
+                    }
+                    entity.sendSystemMessage(
+                        Component.translatable(
+                            translateKey,
+                            gene.nameComponent
+                        )
+                    )
+                }
+            }
+
+            syringeStack.getOrCreateTag().remove(ENTITY_UUID_NBT_KEY)
+            clearGenes(syringeStack)
+        }
+
+        private fun getEntity(syringeStack: ItemStack): UUID? {
+            if (!syringeStack.`is`(ModItems.SYRINGE)) return null
+
+            return syringeStack.getOrCreateTag().getUuidOrNull(ENTITY_UUID_NBT_KEY)
+        }
+
+        fun hasBlood(syringeStack: ItemStack): Boolean {
+            return getEntity(syringeStack) != null
+        }
+
+        //TODO:
+        // Make it so you have to clean needles each time
+        // maybe smelt it? maybe new sterilizer block?
+        // would have to be less inconvenient than just crafting a new Syringe
+        private const val CONTAMINATED_NBT_KEY = "contaminated"
+        fun isContaminated(syringeStack: ItemStack): Boolean {
+            return syringeStack.getOrCreateTag().getBoolean(CONTAMINATED_NBT_KEY)
+        }
+
+        fun setContaminated(syringeStack: ItemStack, contaminated: Boolean) {
+            if (contaminated) {
+                syringeStack.getOrCreateTag().putBoolean(CONTAMINATED_NBT_KEY, true)
+            } else {
+                syringeStack.getOrCreateTag().remove(CONTAMINATED_NBT_KEY)
+            }
+        }
+
+        // Gene functions
+
+        private const val GENE_LIST_NBT_KEY = "genes"
+
+        private fun getGenes(syringeStack: ItemStack): List<Gene> {
+            return syringeStack.getOrCreateTag()
+                .getList(GENE_LIST_NBT_KEY, Tag.TAG_STRING.toInt())
+                .mapNotNull { Gene.fromId(it.asString) }
+        }
+
+        fun addGene(syringeStack: ItemStack, vararg genes: Gene): Boolean {
+
+            if (!hasBlood(syringeStack)) return false
+
+            val geneList = getGenes(syringeStack).toMutableList()
+            geneList.addAll(genes.filter { canAddGene(syringeStack, it) })
+
+            GeneticsResequenced.LOGGER.debug(
+                "Could not add these genes to the syringe: ${genes.filterNot { canAddGene(syringeStack, it) }}"
+            )
+
+            val stringTags: List<StringTag> = geneList.map { StringTag.valueOf(it.id.toString()) }
+            val listTag = syringeStack
+                .getOrCreateTag()
+                .getList(GENE_LIST_NBT_KEY, Tag.TAG_STRING.toInt())
+
+            listTag.clear()
+            listTag.addAll(stringTags)
+
+            syringeStack.getOrCreateTag().put(GENE_LIST_NBT_KEY, listTag)
+            return true
+        }
+
+        fun canAddGene(syringeStack: ItemStack, gene: Gene): Boolean {
+            return hasBlood(syringeStack) && !getGenes(syringeStack).contains(gene)
+        }
+
+        private fun clearGenes(syringeStack: ItemStack) {
+            syringeStack.getOrCreateTag().remove(GENE_LIST_NBT_KEY)
+        }
+
+        // Other stuff
+
+        fun damageSourceUse(player: Player?): DamageSource {
+            return if (player == null) {
+                DamageSource("syringe")
+            } else {
+                //TODO: Implement "%2$s" into the kill message
+                EntityDamageSource("syringe", player)
+            }
+        }
+
+        fun damageSourceDrop(player: Player?): DamageSource {
+            return if (player == null) {
+                DamageSource("syringeDrop")
+            } else {
+                //TODO: Implement "%2$s" into the kill message
+                EntityDamageSource("syringeDrop", player)
+            }
+        }
+    }
 
     // Regular item functions
 
@@ -112,169 +277,6 @@ object SyringeItem : Item(
         }
 
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced)
-    }
-
-    // Animation / model functions
-
-    fun isBeingUsed(syringeStack: ItemStack, entity: LivingEntity?): Boolean {
-        if (entity == null) return false
-
-        return entity.useItem == syringeStack
-    }
-
-    // Entity functions
-
-    private const val ENTITY_UUID_NBT_KEY = "entity"
-    private const val ENTITY_NAME_NBT_KEY = "entityName"
-
-    @Suppress("MemberVisibilityCanBePrivate")
-    fun setEntity(syringeStack: ItemStack, entity: LivingEntity) {
-        if (!syringeStack.`is`(SyringeItem)) throw IllegalArgumentException("ItemStack is not a Syringe")
-        setEntityUuid(syringeStack, entity.uuid)
-
-        setEntityName(syringeStack, entity.name)
-    }
-
-    fun setEntityUuid(syringeStack: ItemStack, uuid: UUID) {
-        if (!syringeStack.`is`(SyringeItem)) throw IllegalArgumentException("ItemStack is not a Syringe")
-
-        val tag = syringeStack.getOrCreateTag()
-
-        tag.putUUID(ENTITY_UUID_NBT_KEY, uuid)
-        setContaminated(syringeStack, true)
-    }
-
-    private fun setEntityName(syringeStack: ItemStack, name: Component) {
-        if (!syringeStack.`is`(SyringeItem)) throw IllegalArgumentException("ItemStack is not a Syringe")
-
-        val tag = syringeStack.getOrCreateTag()
-        tag.putString(ENTITY_NAME_NBT_KEY, name.string)
-    }
-
-    private fun getEntityName(syringeStack: ItemStack): Component? {
-        if (!syringeStack.`is`(SyringeItem)) return null
-
-        val untranslatedName = syringeStack.getOrCreateTag().getString(ENTITY_NAME_NBT_KEY)
-        if (untranslatedName.isNullOrBlank()) return null
-
-        return Component.translatable(untranslatedName)
-    }
-
-    private fun injectEntity(syringeStack: ItemStack, entity: LivingEntity) {
-        val entityDna = getEntity(syringeStack) ?: return
-        if (entity.uuid != entityDna) return
-
-        val genes = getGenes(syringeStack)
-        val entityGenes = entity.getGenes() ?: return
-
-        for (gene in genes) {
-            val success = entityGenes.addGene(gene)
-
-            if (!entity.level.isClientSide) {
-                val translateKey = if (success) {
-                    "message.geneticsresequenced.syringe.injected"
-                } else {
-                    "message.geneticsresequenced.syringe.failed"
-                }
-                entity.sendSystemMessage(
-                    Component.translatable(
-                        translateKey,
-                        gene.nameComponent
-                    )
-                )
-            }
-        }
-
-        syringeStack.getOrCreateTag().remove(ENTITY_UUID_NBT_KEY)
-        clearGenes(syringeStack)
-    }
-
-    private fun getEntity(syringeStack: ItemStack): UUID? {
-        if (!syringeStack.`is`(SyringeItem)) return null
-
-        return syringeStack.getOrCreateTag().getUuidOrNull(ENTITY_UUID_NBT_KEY)
-    }
-
-    fun hasBlood(syringeStack: ItemStack): Boolean {
-        return getEntity(syringeStack) != null
-    }
-
-    //TODO:
-    // Make it so you have to clean needles each time
-    // maybe smelt it? maybe new sterilizer block?
-    // would have to be less inconvenient than just crafting a new Syringe
-    private const val CONTAMINATED_NBT_KEY = "contaminated"
-    fun isContaminated(syringeStack: ItemStack): Boolean {
-        return syringeStack.getOrCreateTag().getBoolean(CONTAMINATED_NBT_KEY)
-    }
-
-    fun setContaminated(syringeStack: ItemStack, contaminated: Boolean) {
-        if (contaminated) {
-            syringeStack.getOrCreateTag().putBoolean(CONTAMINATED_NBT_KEY, true)
-        } else {
-            syringeStack.getOrCreateTag().remove(CONTAMINATED_NBT_KEY)
-        }
-    }
-
-    // Gene functions
-
-    private const val GENE_LIST_NBT_KEY = "genes"
-
-    private fun getGenes(syringeStack: ItemStack): List<Gene> {
-        return syringeStack.getOrCreateTag()
-            .getList(GENE_LIST_NBT_KEY, Tag.TAG_STRING.toInt())
-            .mapNotNull { Gene.fromId(it.asString) }
-    }
-
-    fun addGene(syringeStack: ItemStack, vararg genes: Gene): Boolean {
-
-        if (!hasBlood(syringeStack)) return false
-
-        val geneList = getGenes(syringeStack).toMutableList()
-        geneList.addAll(genes.filter { canAddGene(syringeStack, it) })
-
-        GeneticsResequenced.LOGGER.debug(
-            "Could not add these genes to the syringe: ${genes.filterNot { canAddGene(syringeStack, it) }}"
-        )
-
-        val stringTags: List<StringTag> = geneList.map { StringTag.valueOf(it.id.toString()) }
-        val listTag = syringeStack
-            .getOrCreateTag()
-            .getList(GENE_LIST_NBT_KEY, Tag.TAG_STRING.toInt())
-
-        listTag.clear()
-        listTag.addAll(stringTags)
-
-        syringeStack.getOrCreateTag().put(GENE_LIST_NBT_KEY, listTag)
-        return true
-    }
-
-    fun canAddGene(syringeStack: ItemStack, gene: Gene): Boolean {
-        return hasBlood(syringeStack) && !getGenes(syringeStack).contains(gene)
-    }
-
-    private fun clearGenes(syringeStack: ItemStack) {
-        syringeStack.getOrCreateTag().remove(GENE_LIST_NBT_KEY)
-    }
-
-    // Other stuff
-
-    fun damageSourceUse(player: Player?): DamageSource {
-        return if (player == null) {
-            DamageSource("syringe")
-        } else {
-            //TODO: Implement "%2$s" into the kill message
-            EntityDamageSource("syringe", player)
-        }
-    }
-
-    fun damageSourceDrop(player: Player?): DamageSource {
-        return if (player == null) {
-            DamageSource("syringeDrop")
-        } else {
-            //TODO: Implement "%2$s" into the kill message
-            EntityDamageSource("syringeDrop", player)
-        }
     }
 
 }

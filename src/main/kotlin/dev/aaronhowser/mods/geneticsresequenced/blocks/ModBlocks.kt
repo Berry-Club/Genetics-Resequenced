@@ -22,23 +22,21 @@ import thedarkcolour.kotlinforforge.forge.registerObject
 
 object ModBlocks {
 
-    //TODO: Make all blocks classes and not objects
-
     private val defaultItemProperties = Item.Properties().tab(ModItems.MOD_TAB)
 
     val BLOCK_REGISTRY: DeferredRegister<Block> =
         DeferredRegister.create(ForgeRegistries.BLOCKS, GeneticsResequenced.ID)
 
-    val BIOLUMINESCENCE_BLOCK by register("bioluminescence") { BioluminescenceBlock }
+    val BIOLUMINESCENCE_BLOCK by register("bioluminescence") { BioluminescenceBlock() }
     val COAL_GENERATOR by register("coal_generator") { CoalGeneratorBlock() }
-    val CELL_ANALYZER by register("cell_analyzer") { CellAnalyzerBlock }
-    val DNA_EXTRACTOR by register("dna_extractor") { DnaExtractorBlock }
-    val DNA_DECRYPTOR by register("dna_decryptor") { DnaDecryptorBlock }
-    val BLOOD_PURIFIER by register("blood_purifier") { BloodPurifierBlock }
-    val PLASMID_INFUSER by register("plasmid_infuser") { PlasmidInfuserBlock }
-    val PLASMID_INJECTOR by register("plasmid_injector") { PlasmidInjectorBlock }
-    val AIRBORNE_DISPERSAL_DEVICE by register("airborne_dispersal_device") { AirborneDispersalBlock }
-    val CLONING_MACHINE by register("cloning_machine") { CloningMachineBlock }
+    val CELL_ANALYZER by register("cell_analyzer") { CellAnalyzerBlock() }
+    val DNA_EXTRACTOR by register("dna_extractor") { DnaExtractorBlock() }
+    val DNA_DECRYPTOR by register("dna_decryptor") { DnaDecryptorBlock() }
+    val BLOOD_PURIFIER by register("blood_purifier") { BloodPurifierBlock() }
+    val PLASMID_INFUSER by register("plasmid_infuser") { PlasmidInfuserBlock() }
+    val PLASMID_INJECTOR by register("plasmid_injector") { PlasmidInjectorBlock() }
+    val AIRBORNE_DISPERSAL_DEVICE by register("airborne_dispersal_device") { AirborneDispersalBlock() }
+    val CLONING_MACHINE by register("cloning_machine") { CloningMachineBlock() }
     val INCUBATOR by register("incubator") { IncubatorBlock() }
     val ANTIFIELD_BLOCK by register("anti_field_block") { AntiFieldBlock() }
 
