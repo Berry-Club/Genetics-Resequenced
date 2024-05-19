@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
@@ -13,7 +12,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.ContainerLevelAccess
 import net.minecraft.world.inventory.SimpleContainerData
-import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.common.capabilities.ForgeCapabilities
@@ -98,15 +96,29 @@ class CoalGeneratorMenu(
     companion object {
         fun showFuelTooltip(event: ItemTooltipEvent) {
             val itemStack = event.itemStack
-            val fuel = ForgeHooks.getBurnTime(itemStack, RecipeType.SMELTING)
-            if (fuel <= 0) return
+            val fuelPer = ForgeHooks.getBurnTime(itemStack, RecipeType.SMELTING)
+            if (fuelPer <= 0) return
 
-            val feProduced = CoalGeneratorBlockEntity.energyPerTick * fuel
-            val feString = NumberFormat.getNumberInstance().format(feProduced)
+            val feProducedPer = CoalGeneratorBlockEntity.energyPerTick * fuelPer
+            val feStringPer = NumberFormat.getNumberInstance().format(feProducedPer)
 
             event.toolTip.add(
-                1, Component.literal("$feString FE").withColor(ChatFormatting.GRAY)
+                1, Component.literal("$feStringPer FE").withColor(ChatFormatting.GRAY)
             )
+
+            val amount = itemStack.count
+            if (amount > 1) {
+                val feProducedTotal = feProducedPer * amount
+                val feStringTotal = NumberFormat.getNumberInstance().format(feProducedTotal)
+
+                event.toolTip.add(
+                    2, Component.translatable(
+                        "tooltip.geneticsresequenced.coal_generator.total_fe",
+                        feStringTotal
+                    ).withColor(ChatFormatting.GRAY)
+                )
+            }
+
         }
     }
 
