@@ -30,7 +30,6 @@ import net.minecraft.world.level.block.Blocks
 import net.minecraftforge.event.entity.player.ArrowLooseEvent
 import net.minecraftforge.event.entity.player.ArrowNockEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
-import org.lwjgl.system.Pointer.Default
 import kotlin.random.Random
 
 @Suppress("MemberVisibilityCanBePrivate")
