@@ -9,11 +9,8 @@ import net.minecraftforge.fml.common.Mod
 object DataGenerators {
 
     /**
-     * When Patchouli is enabled in the gradle, runData crashes.
-     *
-     * Fix this by commenting out the patchouli part in the build.gradle.
-     *
-     * That's really gross but I cannot fucking be bothered to figure out a better way to do it.
+     * To actually generate this, run in gradle
+     *  Tasks/forgegradle runs/runData
      */
     @SubscribeEvent
     fun gatherData(event: GatherDataEvent) {
@@ -21,6 +18,8 @@ object DataGenerators {
         val helper = event.existingFileHelper
 
         generator.addProvider(true, ModRecipeProvider(generator))
+//        generator.addProvider(true, ModBlockLootTables())
+        generator.addProvider(true, ModBlockStateProvider(generator, helper))
         generator.addProvider(true, ModItemModelProvider(generator, helper))
 
     }

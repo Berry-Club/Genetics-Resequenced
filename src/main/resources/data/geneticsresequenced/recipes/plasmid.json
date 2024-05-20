@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "DDD",
+    "D D",
+    "DDD"
+  ],
+  "key": {
+    "D": {
+      "item": "geneticsresequenced:dna_helix"
+    }
+  },
+  "result": {
+    "item": "geneticsresequenced:plasmid"
+  }
+}

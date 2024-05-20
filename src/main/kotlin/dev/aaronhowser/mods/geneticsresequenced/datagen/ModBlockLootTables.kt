@@ -17,7 +17,7 @@ class ModBlockLootTables : BlockLoot() {
         dropSelf(ModBlocks.AIRBORNE_DISPERSAL_DEVICE.get())
         dropSelf(ModBlocks.CLONING_MACHINE.get())
         dropSelf(ModBlocks.INCUBATOR.get())
-        dropSelf(ModBlocks.ANTI_FIELD_BLOCK.get())
+        dropSelf(ModBlocks.ANTIFIELD_BLOCK.get())
 
         add(
             ModBlocks.BIOLUMINESCENCE_BLOCK.get(),

@@ -16,7 +16,7 @@ class ModBlockStateProvider(
     exFileHelper
 ) {
     override fun registerStatesAndModels() {
-//        blockWithItem(ModBlocks.ANTI_FIELD_BLOCK.get())
+        blockWithItem(ModBlocks.ANTIFIELD_BLOCK.get())
     }
 
     private fun blockWithItem(block: Block) {

@@ -48,7 +48,7 @@ object ModBlocks {
         register("cloning_machine") { CloningMachineBlock() }
     val INCUBATOR: RegistryObject<Block> =
         register("incubator") { IncubatorBlock() }
-    val ANTI_FIELD_BLOCK: RegistryObject<Block> =
+    val ANTIFIELD_BLOCK: RegistryObject<Block> =
         register("anti_field_block") { AntiFieldBlock() }
 
     private fun register(
