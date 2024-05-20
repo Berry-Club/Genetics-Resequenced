@@ -44,9 +44,9 @@ class PlasmidInfuserBlockEntity(
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
-                INPUT_SLOT_INDEX -> stack.`is`(ModItems.DNA_HELIX)
-                OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
-                OUTPUT_SLOT_INDEX -> stack.`is`(ModItems.PLASMID)
+                INPUT_SLOT_INDEX -> stack.`is`(ModItems.DNA_HELIX.get())
+                OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER.get())
+                OUTPUT_SLOT_INDEX -> stack.`is`(ModItems.PLASMID.get())
                 else -> false
             }
         }
@@ -117,7 +117,7 @@ class PlasmidInfuserBlockEntity(
         val inputHelix = inventory.getItem(INPUT_SLOT_INDEX)
         val outputPlasmid = inventory.getItem(OUTPUT_SLOT_INDEX)
 
-        if (!inputHelix.`is`(ModItems.DNA_HELIX) || !outputPlasmid.`is`(ModItems.PLASMID)) return false
+        if (!inputHelix.`is`(ModItems.DNA_HELIX.get()) || !outputPlasmid.`is`(ModItems.PLASMID.get())) return false
 
         if (PlasmidItem.isComplete(outputPlasmid)) return false
 

@@ -32,7 +32,7 @@ class CellAnalyzerRecipeCategory(
 
     private val background: IDrawable = helper.createDrawable(TEXTURE, 57, 30, 75, 28)
     private val icon: IDrawable =
-        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModBlocks.CELL_ANALYZER))
+        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModBlocks.CELL_ANALYZER.get()))
 
     override fun getRecipeType(): RecipeType<CellAnalyzerRecipe> = GeneticsResequencedJeiPlugin.CELL_ANALYZER_TYPE
 

@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level
 
 class BloodPurifierRecipe : Recipe<Container> {
 
-    private val inputItem = ItemStack(ModItems.SYRINGE).apply {
+    private val inputItem = ItemStack(ModItems.SYRINGE.get()).apply {
         SyringeItem.setEntity(
             this,
             ClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")

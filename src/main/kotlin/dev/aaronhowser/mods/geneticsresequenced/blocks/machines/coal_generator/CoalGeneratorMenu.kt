@@ -126,7 +126,7 @@ class CoalGeneratorMenu(
         return stillValid(
             ContainerLevelAccess.create(level, blockEntity.blockPos),
             pPlayer,
-            ModBlocks.COAL_GENERATOR
+            ModBlocks.COAL_GENERATOR.get()
         )
     }
 }

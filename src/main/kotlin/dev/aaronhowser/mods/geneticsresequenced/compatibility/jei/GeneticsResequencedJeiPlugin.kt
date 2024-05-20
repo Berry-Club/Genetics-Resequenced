@@ -57,11 +57,11 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
     override fun registerRecipeCatalysts(registration: IRecipeCatalystRegistration) {
 
         val blockRecipeTypeMap: Map<Block, RecipeType<out Recipe<Container>>> = mapOf(
-            ModBlocks.CELL_ANALYZER to CellAnalyzerRecipeCategory.recipeType,
-            ModBlocks.DNA_DECRYPTOR to MobToGeneRecipeCategory.recipeType,
-            ModBlocks.DNA_EXTRACTOR to DnaExtractorRecipeCategory.recipeType,
-            ModBlocks.PLASMID_INFUSER to PlasmidInfuserRecipeCategory.recipeType,
-            ModBlocks.BLOOD_PURIFIER to BloodPurifierRecipeCategory.recipeType
+            ModBlocks.CELL_ANALYZER.get() to CellAnalyzerRecipeCategory.recipeType,
+            ModBlocks.DNA_DECRYPTOR.get() to MobToGeneRecipeCategory.recipeType,
+            ModBlocks.DNA_EXTRACTOR.get() to DnaExtractorRecipeCategory.recipeType,
+            ModBlocks.PLASMID_INFUSER.get() to PlasmidInfuserRecipeCategory.recipeType,
+            ModBlocks.BLOOD_PURIFIER.get() to BloodPurifierRecipeCategory.recipeType
         )
 
         for ((block, recipeType) in blockRecipeTypeMap) {
@@ -90,7 +90,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             val informationTextComponent = Component
                 .translatable("info.geneticsresequenced.organic_matter", entityType.description)
 
-            val organicMatterStack = ItemStack(ModItems.ORGANIC_MATTER).setMob(entityType)
+            val organicMatterStack = ItemStack(ModItems.ORGANIC_MATTER.get()).setMob(entityType)
                 ?: throw IllegalStateException("Failed to create ItemStack for Organic Matter")
 
             registration.addIngredientInfo(
@@ -123,7 +123,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             }
 
             registration.addIngredientInfo(
-                ItemStack(ModItems.DNA_HELIX).setMob(entityType)!!,
+                ItemStack(ModItems.DNA_HELIX.get()).setMob(entityType)!!,
                 VanillaTypes.ITEM_STACK,
                 informationTextComponent
             )
@@ -131,7 +131,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
     }
 
     override fun registerItemSubtypes(registration: ISubtypeRegistration) {
-        registration.registerSubtypeInterpreter(ModItems.PLASMID) { stack, _ ->
+        registration.registerSubtypeInterpreter(ModItems.PLASMID.get()) { stack, _ ->
             val gene: Gene? = stack.getGene()
             gene?.id?.toString() ?: "no_gene"
         }

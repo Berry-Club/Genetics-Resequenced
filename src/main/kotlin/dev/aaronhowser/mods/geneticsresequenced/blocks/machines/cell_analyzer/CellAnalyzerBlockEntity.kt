@@ -42,8 +42,8 @@ class CellAnalyzerBlockEntity(
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
-                INPUT_SLOT_INDEX -> stack.`is`(ModItems.ORGANIC_MATTER)
-                OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
+                INPUT_SLOT_INDEX -> stack.`is`(ModItems.ORGANIC_MATTER.get())
+                OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER.get())
                 OUTPUT_SLOT_INDEX -> false
                 else -> false
             }
@@ -65,7 +65,7 @@ class CellAnalyzerBlockEntity(
         val inputItem = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
         val inputEntity = EntityDnaItem.getEntityType(inputItem) ?: return
 
-        val outputItem = ItemStack(ModItems.CELL).setMob(inputEntity) ?: return
+        val outputItem = ItemStack(ModItems.CELL.get()).setMob(inputEntity) ?: return
 
         val amountAlreadyInOutput = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX).count
         outputItem.count = amountAlreadyInOutput + 1
@@ -84,11 +84,11 @@ class CellAnalyzerBlockEntity(
 
         val inputItemStack = inventory.getItem(INPUT_SLOT_INDEX)
 
-        if (!inputItemStack.`is`(ModItems.ORGANIC_MATTER)) return false
+        if (!inputItemStack.`is`(ModItems.ORGANIC_MATTER.get())) return false
 
         val mobType = EntityDnaItem.getEntityType(inputItemStack) ?: return false
 
-        val outputItem = ItemStack(ModItems.CELL).setMob(mobType) ?: return false
+        val outputItem = ItemStack(ModItems.CELL.get()).setMob(mobType) ?: return false
 
         return outputSlotHasRoom(inventory, outputItem)
     }

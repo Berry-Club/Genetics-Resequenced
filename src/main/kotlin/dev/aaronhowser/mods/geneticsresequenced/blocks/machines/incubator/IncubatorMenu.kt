@@ -54,7 +54,7 @@ class IncubatorMenu(
         return stillValid(
             ContainerLevelAccess.create(level, blockEntity.blockPos),
             pPlayer,
-            ModBlocks.INCUBATOR
+            ModBlocks.INCUBATOR.get()
         )
     }
 

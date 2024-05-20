@@ -44,8 +44,8 @@ class DnaDecryptorBlockEntity(
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
-                INPUT_SLOT_INDEX -> stack.`is`(ModItems.DNA_HELIX)
-                OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
+                INPUT_SLOT_INDEX -> stack.`is`(ModItems.DNA_HELIX.get())
+                OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER.get())
                 OUTPUT_SLOT_INDEX -> false
                 else -> false
             }
@@ -86,7 +86,7 @@ class DnaDecryptorBlockEntity(
             inventory.setItem(i, itemHandler.getStackInSlot(i))
         }
 
-        if (!inventory.getItem(INPUT_SLOT_INDEX).`is`(ModItems.DNA_HELIX)) return false
+        if (!inventory.getItem(INPUT_SLOT_INDEX).`is`(ModItems.DNA_HELIX.get())) return false
 
         val outputItem = getOutputFromInput(inventory.getItem(INPUT_SLOT_INDEX)) ?: return false
 
@@ -118,7 +118,7 @@ class DnaDecryptorBlockEntity(
             gene = nextGene
         }
 
-        return ItemStack(ModItems.DNA_HELIX).setGene(gene)
+        return ItemStack(ModItems.DNA_HELIX.get()).setGene(gene)
     }
 
     private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {

@@ -112,7 +112,7 @@ object OtherPlayerEvents {
     fun onPickUpItem(event: ItemPickupEvent) {
         val item = event.stack
 
-        if (item.`is`(ModItems.SYRINGE)) {
+        if (item.`is`(ModItems.SYRINGE.get())) {
             val thrower = event.originalEntity.throwingEntity as? Player
 
             event.entity.hurt(SyringeItem.damageSourceDrop(thrower), 1.0f)

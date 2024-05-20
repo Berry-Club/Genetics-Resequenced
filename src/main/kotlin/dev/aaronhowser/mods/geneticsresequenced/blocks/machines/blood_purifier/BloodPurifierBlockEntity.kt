@@ -41,7 +41,7 @@ class BloodPurifierBlockEntity(
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
                 INPUT_SLOT_INDEX -> SyringeItem.hasBlood(stack)
-                OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
+                OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER.get())
                 OUTPUT_SLOT_INDEX -> false
                 else -> false
             }

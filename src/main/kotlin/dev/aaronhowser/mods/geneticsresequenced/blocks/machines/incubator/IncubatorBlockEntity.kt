@@ -36,7 +36,7 @@ class IncubatorBlockEntity(
     override val energyTransferMaximum: Int = 500
 
     override val menuType: Class<out MachineMenu> = IncubatorMenu::class.java
-    override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu? {
+    override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
         return IncubatorMenu(pContainerId, pPlayerInventory, this, this.data)
     }
 
@@ -60,7 +60,7 @@ class IncubatorBlockEntity(
 
                 CHORUS_SLOT_INDEX -> stack.`is`(Items.CHORUS_FRUIT)
 
-                OVERCLOCKER_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
+                OVERCLOCKER_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER.get())
 
                 else -> false
             }

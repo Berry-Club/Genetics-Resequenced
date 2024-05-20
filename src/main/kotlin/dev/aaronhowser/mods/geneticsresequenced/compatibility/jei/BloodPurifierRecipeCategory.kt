@@ -32,7 +32,7 @@ class BloodPurifierRecipeCategory(
 
     private val background: IDrawable = helper.createDrawable(TEXTURE, 57, 30, 75, 28)
     private val icon: IDrawable =
-        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModBlocks.BLOOD_PURIFIER))
+        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModBlocks.BLOOD_PURIFIER.get()))
 
     override fun getRecipeType(): RecipeType<BloodPurifierRecipe> = GeneticsResequencedJeiPlugin.BLOOD_PURIFIER_TYPE
 

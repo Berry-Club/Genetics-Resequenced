@@ -24,7 +24,7 @@ object ModBlockEntities {
         BLOCK_ENTITY_REGISTRY.register("cell_analyzer") {
             BlockEntityType.Builder.of(
                 { pos, state -> CellAnalyzerBlockEntity(pos, state) },
-                ModBlocks.CELL_ANALYZER
+                ModBlocks.CELL_ANALYZER.get()
             ).build(null)
         }
 
@@ -32,7 +32,7 @@ object ModBlockEntities {
         BLOCK_ENTITY_REGISTRY.register("coal_generator") {
             BlockEntityType.Builder.of(
                 { pos, state -> CoalGeneratorBlockEntity(pos, state) },
-                ModBlocks.COAL_GENERATOR
+                ModBlocks.COAL_GENERATOR.get()
             ).build(null)
         }
 
@@ -40,7 +40,7 @@ object ModBlockEntities {
         BLOCK_ENTITY_REGISTRY.register("dna_extractor") {
             BlockEntityType.Builder.of(
                 { pos, state -> DnaExtractorBlockEntity(pos, state) },
-                ModBlocks.DNA_EXTRACTOR
+                ModBlocks.DNA_EXTRACTOR.get()
             ).build(null)
         }
 
@@ -48,7 +48,7 @@ object ModBlockEntities {
         BLOCK_ENTITY_REGISTRY.register("dna_decryptor") {
             BlockEntityType.Builder.of(
                 { pos, state -> DnaDecryptorBlockEntity(pos, state) },
-                ModBlocks.DNA_DECRYPTOR
+                ModBlocks.DNA_DECRYPTOR.get()
             ).build(null)
         }
 
@@ -56,7 +56,7 @@ object ModBlockEntities {
         BLOCK_ENTITY_REGISTRY.register("plasmid_infuser") {
             BlockEntityType.Builder.of(
                 { pos, state -> PlasmidInfuserBlockEntity(pos, state) },
-                ModBlocks.PLASMID_INFUSER
+                ModBlocks.PLASMID_INFUSER.get()
             ).build(null)
         }
 
@@ -64,7 +64,7 @@ object ModBlockEntities {
         BLOCK_ENTITY_REGISTRY.register("plasmid_injector") {
             BlockEntityType.Builder.of(
                 { pos, state -> PlasmidInjectorBlockEntity(pos, state) },
-                ModBlocks.PLASMID_INJECTOR
+                ModBlocks.PLASMID_INJECTOR.get()
             ).build(null)
         }
 
@@ -72,7 +72,7 @@ object ModBlockEntities {
         BLOCK_ENTITY_REGISTRY.register("blood_purifier") {
             BlockEntityType.Builder.of(
                 { pos, state -> BloodPurifierBlockEntity(pos, state) },
-                ModBlocks.BLOOD_PURIFIER
+                ModBlocks.BLOOD_PURIFIER.get()
             ).build(null)
         }
 
@@ -80,7 +80,7 @@ object ModBlockEntities {
         BLOCK_ENTITY_REGISTRY.register("incubator") {
             BlockEntityType.Builder.of(
                 { pos, state -> IncubatorBlockEntity(pos, state) },
-                ModBlocks.INCUBATOR
+                ModBlocks.INCUBATOR.get()
             ).build(null)
         }
 

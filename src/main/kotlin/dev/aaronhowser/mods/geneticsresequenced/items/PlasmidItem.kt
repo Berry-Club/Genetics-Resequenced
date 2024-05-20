@@ -19,25 +19,25 @@ class PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
         private const val AMOUNT_NBT = "Amount"
 
         private fun ItemStack.getAmount(): Int {
-            if (!this.`is`(ModItems.PLASMID)) throw IllegalArgumentException("ItemStack is not a PlasmidItem")
+            if (!this.`is`(ModItems.PLASMID.get())) throw IllegalArgumentException("ItemStack is not a PlasmidItem")
             return this.tag?.getInt(AMOUNT_NBT) ?: 0
         }
 
         fun ItemStack.setAmount(amount: Int): ItemStack {
-            if (!this.`is`(ModItems.PLASMID)) throw IllegalArgumentException("ItemStack is not a PlasmidItem")
+            if (!this.`is`(ModItems.PLASMID.get())) throw IllegalArgumentException("ItemStack is not a PlasmidItem")
             val tag = this.orCreateTag
             tag.putInt(AMOUNT_NBT, amount)
             return this
         }
 
         fun ItemStack.increaseAmount(amount: Int = 1): ItemStack {
-            if (!this.`is`(ModItems.PLASMID)) throw IllegalArgumentException("ItemStack is not a PlasmidItem")
+            if (!this.`is`(ModItems.PLASMID.get())) throw IllegalArgumentException("ItemStack is not a PlasmidItem")
             this.setAmount(getAmount() + amount)
             return this
         }
 
         fun isComplete(itemStack: ItemStack): Boolean {
-            if (!itemStack.`is`(ModItems.PLASMID)) throw IllegalArgumentException("ItemStack is not a PlasmidItem")
+            if (!itemStack.`is`(ModItems.PLASMID.get())) throw IllegalArgumentException("ItemStack is not a PlasmidItem")
             val gene = itemStack.getGene() ?: return false
             return itemStack.getAmount() >= gene.dnaPointsRequired
         }
@@ -45,7 +45,7 @@ class PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
         private fun getAllPlasmids(): List<ItemStack> {
             return Gene.getRegistry().map { gene ->
                 val stack =
-                    ItemStack(ModItems.PLASMID)
+                    ItemStack(ModItems.PLASMID.get())
                         .setGene(gene)
                         .setAmount(gene.dnaPointsRequired)
                 stack

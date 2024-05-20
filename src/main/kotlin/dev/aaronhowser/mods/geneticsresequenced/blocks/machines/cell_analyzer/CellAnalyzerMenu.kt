@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
@@ -11,7 +10,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.ContainerLevelAccess
 import net.minecraft.world.inventory.SimpleContainerData
-import net.minecraft.world.item.ItemStack
 import net.minecraftforge.common.capabilities.ForgeCapabilities
 import net.minecraftforge.items.SlotItemHandler
 
@@ -85,7 +83,7 @@ class CellAnalyzerMenu(
         return stillValid(
             ContainerLevelAccess.create(level, blockEntity.blockPos),
             pPlayer,
-            ModBlocks.CELL_ANALYZER
+            ModBlocks.CELL_ANALYZER.get()
         )
     }
 

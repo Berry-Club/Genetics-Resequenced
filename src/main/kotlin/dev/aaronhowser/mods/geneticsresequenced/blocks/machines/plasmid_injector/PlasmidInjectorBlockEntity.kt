@@ -42,13 +42,13 @@ class PlasmidInjectorBlockEntity(
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
                 INPUT_SLOT_INDEX ->
-                    stack.`is`(ModItems.PLASMID) && PlasmidItem.isComplete(stack)
+                    stack.`is`(ModItems.PLASMID.get()) && PlasmidItem.isComplete(stack)
 
                 OUTPUT_SLOT_INDEX ->
-                    stack.`is`(ModItems.SYRINGE) && SyringeItem.hasBlood(stack) && !SyringeItem.isContaminated(stack)
+                    stack.`is`(ModItems.SYRINGE.get()) && SyringeItem.hasBlood(stack) && !SyringeItem.isContaminated(stack)
 
                 OVERCLOCK_SLOT_INDEX ->
-                    stack.`is`(ModItems.OVERCLOCKER)
+                    stack.`is`(ModItems.OVERCLOCKER.get())
 
                 else -> false
             }
@@ -85,7 +85,7 @@ class PlasmidInjectorBlockEntity(
         val plasmidStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
         val syringeStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
-        if (!plasmidStack.`is`(ModItems.PLASMID) || !syringeStack.`is`(ModItems.SYRINGE)) return false
+        if (!plasmidStack.`is`(ModItems.PLASMID.get()) || !syringeStack.`is`(ModItems.SYRINGE.get())) return false
 
         val plasmidGene = plasmidStack.getGene() ?: return false
         if (!PlasmidItem.isComplete(plasmidStack)) return false

@@ -34,7 +34,7 @@ class MobToGeneRecipeCategory(
 
     private val background: IDrawableStatic = helper.createDrawable(TEXTURE, 57, 30, 75, 28)
     private val icon: IDrawable =
-        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModItems.DNA_HELIX))
+        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModItems.DNA_HELIX.get()))
 
     override fun getRecipeType(): RecipeType<MobToGeneRecipe> = GeneticsResequencedJeiPlugin.MOB_TO_GENE_TYPE
 

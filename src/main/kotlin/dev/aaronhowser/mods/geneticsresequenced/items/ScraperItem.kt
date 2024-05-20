@@ -29,10 +29,10 @@ class ScraperItem : Item(
             hand: InteractionHand,
             entity: LivingEntity
         ): Boolean {
-            if (player.cooldowns.isOnCooldown(ModItems.SCRAPER)) return false
+            if (player.cooldowns.isOnCooldown(ModItems.SCRAPER.get())) return false
             if (entity.hurtTime > 0) return false
 
-            val organicStack = ItemStack(ModItems.ORGANIC_MATTER).setMob(entity.type) ?: return false
+            val organicStack = ItemStack(ModItems.ORGANIC_MATTER.get()).setMob(entity.type) ?: return false
 
             if (!player.inventory.add(organicStack)) {
                 player.drop(organicStack, false)
@@ -42,7 +42,7 @@ class ScraperItem : Item(
             if (stack.getEnchantmentLevel(ModEnchantments.DELICATE_TOUCH) == 0) {
                 entity.hurt(damageSource(player), 1f)
             } else {
-                player.cooldowns.addCooldown(ModItems.SCRAPER, 10)
+                player.cooldowns.addCooldown(ModItems.SCRAPER.get(), 10)
             }
 
             stack.hurtAndBreak(1, player) { player.broadcastBreakEvent(hand) }

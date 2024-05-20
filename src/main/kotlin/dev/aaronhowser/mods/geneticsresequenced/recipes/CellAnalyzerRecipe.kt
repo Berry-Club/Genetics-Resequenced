@@ -21,8 +21,8 @@ class CellAnalyzerRecipe(
     private val entityResourceLocation: ResourceLocation
 ) : Recipe<Container> {
 
-    private val inputItem = ItemStack(ModItems.ORGANIC_MATTER).setMob(entityResourceLocation) ?: ItemStack.EMPTY
-    private val outputItem = ItemStack(ModItems.CELL).setMob(entityResourceLocation) ?: ItemStack.EMPTY
+    private val inputItem = ItemStack(ModItems.ORGANIC_MATTER.get()).setMob(entityResourceLocation) ?: ItemStack.EMPTY
+    private val outputItem = ItemStack(ModItems.CELL.get()).setMob(entityResourceLocation) ?: ItemStack.EMPTY
 
     companion object {
         fun getAllRecipes(): List<CellAnalyzerRecipe> {

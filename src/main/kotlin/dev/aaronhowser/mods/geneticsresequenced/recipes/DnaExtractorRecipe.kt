@@ -22,8 +22,8 @@ class DnaExtractorRecipe(
     private val entityResourceLocation: ResourceLocation
 ) : Recipe<Container> {
 
-    private val inputItem = ItemStack(ModItems.CELL).setMob(entityResourceLocation) ?: ItemStack.EMPTY
-    private val outputItem = ItemStack(ModItems.DNA_HELIX).setMob(entityResourceLocation) ?: ItemStack.EMPTY
+    private val inputItem = ItemStack(ModItems.CELL.get()).setMob(entityResourceLocation) ?: ItemStack.EMPTY
+    private val outputItem = ItemStack(ModItems.DNA_HELIX.get()).setMob(entityResourceLocation) ?: ItemStack.EMPTY
 
     companion object {
         fun getAllRecipes(): List<DnaExtractorRecipe> {

@@ -32,7 +32,7 @@ class DnaExtractorRecipeCategory(
 
     private val background: IDrawable = helper.createDrawable(TEXTURE, 57, 30, 75, 28)
     private val icon: IDrawable =
-        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModBlocks.DNA_EXTRACTOR))
+        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModBlocks.DNA_EXTRACTOR.get()))
 
     override fun getRecipeType(): RecipeType<DnaExtractorRecipe> = GeneticsResequencedJeiPlugin.DNA_EXTRACTOR_TYPE
 

@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
@@ -16,7 +15,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.ContainerLevelAccess
 import net.minecraft.world.inventory.SimpleContainerData
-import net.minecraft.world.item.ItemStack
 import net.minecraftforge.common.capabilities.ForgeCapabilities
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.items.SlotItemHandler
@@ -60,7 +58,7 @@ class PlasmidInfuserMenu(
         return stillValid(
             ContainerLevelAccess.create(level, blockEntity.blockPos),
             pPlayer,
-            ModBlocks.PLASMID_INFUSER
+            ModBlocks.PLASMID_INFUSER.get()
         )
     }
 
@@ -93,7 +91,7 @@ class PlasmidInfuserMenu(
 
         fun showTooltip(event: ItemTooltipEvent) {
             val hoverStack = event.itemStack
-            if (!hoverStack.`is`(ModItems.DNA_HELIX)) return
+            if (!hoverStack.`is`(ModItems.DNA_HELIX.get())) return
 
             val hoverGene = hoverStack.getGene()
 
@@ -124,7 +122,6 @@ class PlasmidInfuserMenu(
         private const val DATA_PROGRESS_INDEX = 0
         private const val DATA_MAX_PROGRESS_INDEX = 1
     }
-
 
 
 }

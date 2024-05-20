@@ -58,7 +58,7 @@ class SupportSlime(
             val player = event.entity
             val item = event.itemStack
 
-            if (!item.`is`(ModItems.FRIENDLY_SLIME_SPAWN_EGG)) return
+            if (!item.`is`(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())) return
 
             val genes = player.getGenes() ?: return
             if (genes.hasGene(DefaultGenes.SLIMY_DEATH)) return

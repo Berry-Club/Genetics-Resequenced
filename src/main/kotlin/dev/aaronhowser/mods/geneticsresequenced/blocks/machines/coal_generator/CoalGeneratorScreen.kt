@@ -2,14 +2,12 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator
 
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.PoseStack
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.screens.renderer.EnergyInfoArea
 import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Inventory
 
 class CoalGeneratorScreen(

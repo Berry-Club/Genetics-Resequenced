@@ -35,7 +35,7 @@ class PlasmidInfuserRecipeCategory(
 
     private val background: IDrawableStatic = helper.createDrawable(TEXTURE, 57, 30, 75, 28)
     private val icon: IDrawable =
-        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModBlocks.PLASMID_INFUSER))
+        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModBlocks.PLASMID_INFUSER.get()))
 
     override fun getRecipeType(): RecipeType<PlasmidInfuserRecipe> = GeneticsResequencedJeiPlugin.PLASMID_INFUSER_TYPE
 

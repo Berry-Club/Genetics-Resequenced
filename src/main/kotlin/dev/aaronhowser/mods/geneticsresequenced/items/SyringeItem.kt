@@ -45,14 +45,14 @@ class SyringeItem : Item(
 
         @Suppress("MemberVisibilityCanBePrivate")
         fun setEntity(syringeStack: ItemStack, entity: LivingEntity) {
-            if (!syringeStack.`is`(ModItems.SYRINGE)) throw IllegalArgumentException("ItemStack is not a Syringe")
+            if (!syringeStack.`is`(ModItems.SYRINGE.get())) throw IllegalArgumentException("ItemStack is not a Syringe")
             setEntityUuid(syringeStack, entity.uuid)
 
             setEntityName(syringeStack, entity.name)
         }
 
         fun setEntityUuid(syringeStack: ItemStack, uuid: UUID) {
-            if (!syringeStack.`is`(ModItems.SYRINGE)) throw IllegalArgumentException("ItemStack is not a Syringe")
+            if (!syringeStack.`is`(ModItems.SYRINGE.get())) throw IllegalArgumentException("ItemStack is not a Syringe")
 
             val tag = syringeStack.getOrCreateTag()
 
@@ -61,14 +61,14 @@ class SyringeItem : Item(
         }
 
         private fun setEntityName(syringeStack: ItemStack, name: Component) {
-            if (!syringeStack.`is`(ModItems.SYRINGE)) throw IllegalArgumentException("ItemStack is not a Syringe")
+            if (!syringeStack.`is`(ModItems.SYRINGE.get())) throw IllegalArgumentException("ItemStack is not a Syringe")
 
             val tag = syringeStack.getOrCreateTag()
             tag.putString(ENTITY_NAME_NBT_KEY, name.string)
         }
 
         private fun getEntityName(syringeStack: ItemStack): Component? {
-            if (!syringeStack.`is`(ModItems.SYRINGE)) return null
+            if (!syringeStack.`is`(ModItems.SYRINGE.get())) return null
 
             val untranslatedName = syringeStack.getOrCreateTag().getString(ENTITY_NAME_NBT_KEY)
             if (untranslatedName.isNullOrBlank()) return null
@@ -106,7 +106,7 @@ class SyringeItem : Item(
         }
 
         private fun getEntity(syringeStack: ItemStack): UUID? {
-            if (!syringeStack.`is`(ModItems.SYRINGE)) return null
+            if (!syringeStack.`is`(ModItems.SYRINGE.get())) return null
 
             return syringeStack.getOrCreateTag().getUuidOrNull(ENTITY_UUID_NBT_KEY)
         }

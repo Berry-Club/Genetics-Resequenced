@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injector
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
@@ -16,7 +15,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.ContainerLevelAccess
 import net.minecraft.world.inventory.SimpleContainerData
-import net.minecraft.world.item.ItemStack
 import net.minecraftforge.common.capabilities.ForgeCapabilities
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.items.SlotItemHandler
@@ -61,7 +59,7 @@ class PlasmidInjectorMenu(
         return stillValid(
             ContainerLevelAccess.create(level, blockEntity.blockPos),
             pPlayer,
-            ModBlocks.PLASMID_INJECTOR
+            ModBlocks.PLASMID_INJECTOR.get()
         )
     }
 
@@ -93,7 +91,7 @@ class PlasmidInjectorMenu(
     companion object {
         fun showTooltip(event: ItemTooltipEvent) {
             val hoverStack = event.itemStack
-            if (!hoverStack.`is`(ModItems.SYRINGE)) return
+            if (!hoverStack.`is`(ModItems.SYRINGE.get())) return
 
             if (SyringeItem.isContaminated(hoverStack)) {
                 event.toolTip.add(

@@ -55,7 +55,7 @@ object ClientModBusEvents {
     fun onModelRegistry(event: ModelEvent.RegisterAdditional) {
 
         ItemProperties.register(
-            ModItems.SYRINGE,
+            ModItems.SYRINGE.get(),
             OtherUtil.modResource("full"),
             ItemPropertyFunction { stack, _, _, _ ->
                 if (SyringeItem.hasBlood(stack)) 1f else 0f
@@ -63,7 +63,7 @@ object ClientModBusEvents {
         )
 
         ItemProperties.register(
-            ModItems.SYRINGE,
+            ModItems.SYRINGE.get(),
             OtherUtil.modResource("injecting"),
             ItemPropertyFunction { stack, _, entity, _ ->
                 if (SyringeItem.isBeingUsed(stack, entity)) 1f else 0f

@@ -42,7 +42,7 @@ object TickGenes {
 
         entity.level.setBlockAndUpdate(
             entity.blockPosition().above(),
-            ModBlocks.BIOLUMINESCENCE_BLOCK.defaultBlockState()
+            ModBlocks.BIOLUMINESCENCE_BLOCK.get().defaultBlockState()
         )
     }
 
