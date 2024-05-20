@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "S": {
+      "item": "geneticsresequenced:syringe"
+    }
+  },
+  "pattern": [
+    "III",
+    "ISI",
+    "IRI"
+  ],
+  "result": {
+    "item": "geneticsresequenced:cell_analyzer"
+  }
+}

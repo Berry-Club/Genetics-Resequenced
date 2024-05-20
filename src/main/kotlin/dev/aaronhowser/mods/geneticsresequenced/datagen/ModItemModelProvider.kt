@@ -28,9 +28,8 @@ class ModItemModelProvider(
         simpleItem(ModItems.OVERCLOCKER)
         simpleItem(ModItems.ANTI_FIELD_ORB)
         simpleItem(ModItems.DRAGON_HEALTH_CRYSTAL)
-        simpleItem(ModItems.FRIENDLY_SLIME_SPAWN_EGG)
 
-        // Implement syringe later, it's way more complex
+        // Syringe and Spawn Egg purposefully excluded
     }
 
     private fun simpleItem(item: RegistryObject<out Item>): ItemModelBuilder {

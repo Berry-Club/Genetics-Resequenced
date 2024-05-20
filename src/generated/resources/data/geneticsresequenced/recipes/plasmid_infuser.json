@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "key": {
+    "D": {
+      "item": "minecraft:diamond"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "L": {
+      "item": "geneticsresequenced:plasmid"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    }
+  },
+  "pattern": [
+    "III",
+    "LPL",
+    "IDI"
+  ],
+  "result": {
+    "item": "geneticsresequenced:plasmid_infuser"
+  }
+}

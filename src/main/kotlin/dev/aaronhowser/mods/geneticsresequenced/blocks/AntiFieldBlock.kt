@@ -52,7 +52,7 @@ class AntiFieldBlock : Block(Properties.of(Material.METAL)) {
             val radius = ServerConfig.antifieldBlockRadius.get()
             return BlockPos.findClosestMatch(location, radius, radius) { pos ->
                 val blockState = level.getBlockState(pos)
-                blockState.block == ModBlocks.ANTIFIELD_BLOCK && !blockState.getValue(DISABLED)
+                blockState.block == ModBlocks.ANTI_FIELD_BLOCK && !blockState.getValue(DISABLED)
             }
         }
 
