@@ -20,13 +20,22 @@ object ModPotions {
     val POTION_REGISTRY: DeferredRegister<Potion> =
         DeferredRegister.create(ForgeRegistries.POTIONS, GeneticsResequenced.ID)
 
+    private fun addId(name: String): String {
+        return GeneticsResequenced.ID + "." + name
+    }
+
     //TODO: Remove splash, lingering, and arrow potions (apparently needs mixins >:( ) Maybe just tooltip them instead? Add a recipe back to regular potion?
     //TODO: Recipes
-    val SUBSTRATE by register("substrate") { Potion("substrate", MobEffectInstance(ModEffects.SUBSTRATE)) }
-    val CELL_GROWTH by register("cell_growth") { Potion("cell_growth", MobEffectInstance(ModEffects.CELL_GROWTH)) }
-    val MUTATION by register("mutation") { Potion("mutation", MobEffectInstance(ModEffects.MUTATION)) }
-    val VIRAL_AGENTS by register("viral_agents") { Potion("viral_agents", MobEffectInstance(ModEffects.VIRAL_AGENTS)) }
-    val THE_CURE by register("the_cure") { Potion("the_cure", MobEffectInstance(ModEffects.THE_CURE)) }
+    val SUBSTRATE
+            by register("substrate") { Potion(addId("substrate"), MobEffectInstance(ModEffects.SUBSTRATE)) }
+    val CELL_GROWTH
+            by register("cell_growth") { Potion(addId("cell_growth"), MobEffectInstance(ModEffects.CELL_GROWTH)) }
+    val MUTATION
+            by register("mutation") { Potion(addId("mutation"), MobEffectInstance(ModEffects.MUTATION)) }
+    val VIRAL_AGENTS
+            by register("viral_agents") { Potion(addId("viral_agents"), MobEffectInstance(ModEffects.VIRAL_AGENTS)) }
+    val THE_CURE
+            by register("the_cure") { Potion(addId("the_cure"), MobEffectInstance(ModEffects.THE_CURE)) }
 
     private fun register(
         name: String,
