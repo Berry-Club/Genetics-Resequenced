@@ -22,6 +22,7 @@ object DataGenerators {
 
         generator.addProvider(true, ModRecipeProvider(generator))
         generator.addProvider(true, ModItemModelProvider(generator, helper))
+        ModBlockLootTables.addTables()
 
     }
 
