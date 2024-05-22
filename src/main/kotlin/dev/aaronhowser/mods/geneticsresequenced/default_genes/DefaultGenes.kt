@@ -14,6 +14,11 @@ object DefaultGenes {
     private fun registerGene(geneId: String): GeneBuilder =
         GeneBuilder(OtherUtil.modResource(geneId))
 
+    //TODO: Make all basic genes use this instead of null
+    val BASIC = registerGene("basic")
+        .setDnaPointsRequired(0)
+        .build()
+
     // Mutations (must be initialized first because they're used in arguments in ones below)
 
     val CLAWS_2 = registerGene("claws_2")
