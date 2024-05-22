@@ -4,15 +4,17 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setBasic
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.ModEffects
-import dev.aaronhowser.mods.geneticsresequenced.recipes.BetterBrewingRecipe
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.PotionUtils
 import net.minecraft.world.item.alchemy.Potions
+import net.minecraft.world.item.crafting.Ingredient
+import net.minecraftforge.common.brewing.BrewingRecipe
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.registries.DeferredRegister
@@ -72,18 +74,49 @@ object ModPotions {
 
     fun addRecipes() {
 
+        fun potionStack(potion: Potion): ItemStack {
+            return PotionUtils.setPotion(ItemStack(Items.POTION), potion)
+        }
+
+        val mundanePotion = potionStack(Potions.MUNDANE)
+        val substratePotion = potionStack(SUBSTRATE)
+        val cellGrowthPotion = potionStack(CELL_GROWTH)
+        val mutationPotion = potionStack(MUTATION)
+        val viralAgentsPotion = potionStack(VIRAL_AGENTS)
+
         val basicHelix = ItemStack(ModItems.DNA_HELIX.get()).setBasic()
 
-        val substrateRecipe = BetterBrewingRecipe(
-            inputPotion = Potions.MUNDANE,
-            ingredient = ModItems.ORGANIC_MATTER.get().defaultInstance,
-            outputPotion = SUBSTRATE
+        val substrateRecipe = BrewingRecipe(
+            mundanePotion.ingredient,
+            ModItems.ORGANIC_MATTER.get().ingredient,
+            substratePotion
         )
-        val cellGrowthRecipe = BetterBrewingRecipe(SUBSTRATE, basicHelix, CELL_GROWTH)
+        val cellGrowthRecipe = BrewingRecipe(
+            substratePotion.ingredient,
+            basicHelix.ingredient,
+            cellGrowthPotion
+        )
+        val mutationRecipe = BrewingRecipe(
+            cellGrowthPotion.ingredient,
+            Items.FERMENTED_SPIDER_EYE.ingredient,
+            mutationPotion
+        )
+        val viralRecipe = BrewingRecipe(
+            mutationPotion.ingredient,
+            Items.CHORUS_FRUIT.ingredient,
+            viralAgentsPotion
+        )
 
         BrewingRecipeRegistry.addRecipe(substrateRecipe)
         BrewingRecipeRegistry.addRecipe(cellGrowthRecipe)
+        BrewingRecipeRegistry.addRecipe(mutationRecipe)
+        BrewingRecipeRegistry.addRecipe(viralRecipe)
 
     }
+
+    private val ItemStack.ingredient: Ingredient
+        get() = Ingredient.of(this)
+    private val Item.ingredient: Ingredient
+        get() = Ingredient.of(this)
 
 }
