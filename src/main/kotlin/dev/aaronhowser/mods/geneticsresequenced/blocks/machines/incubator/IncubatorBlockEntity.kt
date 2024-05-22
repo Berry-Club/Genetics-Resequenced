@@ -114,7 +114,7 @@ class IncubatorBlockEntity(
     private fun tick() {
 
         if (!isBrewing && canBrew()) {
-            ticksRemaining = 20 * 5
+            ticksRemaining = TICKS_PER
         } else if (!canBrew()) {
             ticksRemaining = 0
             return
@@ -194,7 +194,7 @@ class IncubatorBlockEntity(
         const val OVERCLOCKER_SLOT_INDEX = 5
 
         private const val ENERGY_COST_PER_TICK = 10
-
+        const val TICKS_PER = 20 * 5
     }
 
 }

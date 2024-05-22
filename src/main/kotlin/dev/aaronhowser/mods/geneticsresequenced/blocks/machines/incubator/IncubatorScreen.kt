@@ -50,6 +50,7 @@ class IncubatorScreen(
         const val ENERGY_WIDTH = 14
         const val ENERGY_HEIGHT = 42
 
+        private const val FAST_BUBBLE_SPEED = 4
     }
 
     private lateinit var energyInfoArea: EnergyInfoArea
@@ -81,6 +82,10 @@ class IncubatorScreen(
         val y = (height - imageHeight) / 2
 
         blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight)
+
+        renderFuel(pPoseStack, x, y)
+        renderProgressArrow(pPoseStack, x, y)
+        renderBubble(pPoseStack, x, y)
 
         energyInfoArea.draw(pPoseStack)
     }
@@ -123,6 +128,69 @@ class IncubatorScreen(
         )
     }
 
+    //FIXME: Make it fill up instead of emptying
+    private fun renderProgressArrow(pPoseStack: PoseStack, x: Int, y: Int) {
+        if (!menu.isCrafting) return
+
+        blit(
+            pPoseStack,
+            x + ARROW_X,
+            y + ARROW_Y,
+            ARROW_TEXTURE_X,
+            ARROW_TEXTURE_Y,
+            ARROW_WIDTH,
+            menu.getScaledProgress()
+        )
+
+    }
+
+    private var bubblePosProgress = 0
+    private var bubblePos = 0
+        set(value) {
+            field = value
+
+            val amountOverMax = bubblePos - BUBBLES_HEIGHT
+            if (amountOverMax > 0) {
+                field = amountOverMax
+            }
+        }
+
+    //FIXME: Make the bubbles go up instead of down
+    private fun renderBubble(pPoseStack: PoseStack, x: Int, y: Int) {
+        if (!menu.isCrafting) return
+
+        if (++bubblePosProgress % FAST_BUBBLE_SPEED == 0) {
+            bubblePos++
+            bubblePosProgress = 0
+        }
+
+        val amountBubbleToRender = BUBBLES_HEIGHT - bubblePos
+
+        blit(
+            pPoseStack,
+            x + BUBBLES_X,
+            y + BUBBLES_Y + (BUBBLES_HEIGHT - amountBubbleToRender),
+            BUBBLES_TEXTURE_X,
+            BUBBLES_TEXTURE_Y + (BUBBLES_HEIGHT - amountBubbleToRender),
+            BUBBLES_WIDTH,
+            amountBubbleToRender
+        )
+    }
+
+    private fun renderFuel(pPoseStack: PoseStack, x: Int, y: Int) {
+        val hasEnergy = menu.blockEntity.energyStorage.energyStored != 0
+
+        blit(
+            pPoseStack,
+            x + FUEL_X,
+            y + FUEL_Y,
+            if (hasEnergy) FULL_FUEL_TEXTURE_X else EMPTY_FUEL_TEXTURE_X,
+            if (hasEnergy) FULL_FUEL_TEXTURE_Y else EMPTY_FUEL_TEXTURE_Y,
+            FUEL_WIDTH,
+            FUEL_HEIGHT
+        )
+
+    }
 
     override fun render(pPoseStack: PoseStack, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
         renderBackground(pPoseStack)

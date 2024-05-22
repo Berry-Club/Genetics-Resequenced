@@ -64,28 +64,21 @@ class IncubatorMenu(
             containerData.set(DATA_PROGRESS_INDEX, value)
         }
 
-    private var maxProgress: Int
-        get() = containerData.get(DATA_MAX_PROGRESS_INDEX)
-        set(value) {
-            containerData.set(DATA_MAX_PROGRESS_INDEX, value)
-        }
-
     val isCrafting
         get() = progress > 0
 
     fun getScaledProgress(): Int {
-        val progressArrowSize = IncubatorScreen.ARROW_WIDTH
+        val progressArrowSize = IncubatorScreen.ARROW_HEIGHT
 
-        return if (maxProgress == 0 || progress == 0) {
+        return if (progress == 0) {
             0
         } else {
-            progress * progressArrowSize / maxProgress
+            progress * progressArrowSize / IncubatorBlockEntity.TICKS_PER
         }
     }
 
     companion object {
         private const val DATA_PROGRESS_INDEX = 0
-        private const val DATA_MAX_PROGRESS_INDEX = 1
     }
 
 }
