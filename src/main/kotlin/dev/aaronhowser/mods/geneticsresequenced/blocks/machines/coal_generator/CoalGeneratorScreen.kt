@@ -129,17 +129,17 @@ class CoalGeneratorScreen(
         }
     }
 
-    //FIXME: The bottom disappears rather than the top
     private fun renderBurnProgress(pPoseStack: PoseStack, x: Int, y: Int) {
         if (menu.isBurning) {
+            val fuelRemaining = menu.getScaledFuelRemaining()
             blit(
                 pPoseStack,
                 x + BURN_X,
-                y + BURN_Y,
+                y + BURN_Y + (BURN_HEIGHT - fuelRemaining),
                 BURN_TEXTURE_X,
-                BURN_TEXTURE_Y,
+                BURN_TEXTURE_Y + (BURN_HEIGHT - fuelRemaining),
                 BURN_WIDTH,
-                menu.getScaledFuelRemaining()
+                fuelRemaining
             )
         }
     }
