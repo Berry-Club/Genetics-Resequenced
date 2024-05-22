@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
@@ -43,13 +44,21 @@ class PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
         }
 
         private fun getAllPlasmids(): List<ItemStack> {
-            return Gene.getRegistry().map { gene ->
-                val stack =
-                    ItemStack(ModItems.PLASMID.get())
-                        .setGene(gene)
-                        .setAmount(gene.dnaPointsRequired)
-                stack
+
+            val geneRegistry = Gene.getRegistry()
+            val plasmids = mutableListOf<ItemStack>()
+
+            for (gene in geneRegistry) {
+                if (gene == DefaultGenes.BASIC) continue
+
+                val stack = ItemStack(ModItems.PLASMID.get())
+                    .setGene(gene)
+                    .setAmount(gene.dnaPointsRequired)
+
+                plasmids.add(stack)
             }
+
+            return plasmids
         }
     }
 

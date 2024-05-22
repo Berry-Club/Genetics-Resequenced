@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.items
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -18,7 +19,6 @@ class DnaHelixItem : EntityDnaItem() {
 
     companion object {
         private const val GENE_ID_NBT = "GeneId"
-        private const val BASIC_NBT = "IsBasic"
 
         fun ItemStack.hasGene(): Boolean = this.tag?.contains(GENE_ID_NBT) ?: false
 
@@ -40,14 +40,11 @@ class DnaHelixItem : EntityDnaItem() {
         }
 
         fun ItemStack.setBasic(): ItemStack {
-            val tag = this.orCreateTag
-            tag.remove(GENE_ID_NBT)
-            tag.remove(MOB_ID_NBT)
-            tag.putBoolean(BASIC_NBT, true)
+            this.setGene(DefaultGenes.BASIC)
             return this
         }
 
-        fun ItemStack.isBasic(): Boolean = this.tag?.getBoolean(BASIC_NBT) ?: false
+        fun ItemStack.isBasic(): Boolean = this.getGene() == DefaultGenes.BASIC
     }
 
     override fun interactLivingEntity(

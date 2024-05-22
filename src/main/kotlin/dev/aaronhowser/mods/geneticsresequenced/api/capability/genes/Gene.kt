@@ -33,8 +33,8 @@ class Gene(
             return GENE_REGISTRY.find { it.id.toString() == searchedId }
         }
 
-        val basicGeneComponent: MutableComponent = Component.translatable("tooltip.geneticsresequenced.gene.basic")
-        val unknownGeneComponent: MutableComponent = Component.translatable("tooltip.geneticsresequenced.gene.unknown")
+        val basicGeneComponent: MutableComponent = Component.translatable("gene.geneticsresequenced.basic")
+        val unknownGeneComponent: MutableComponent = Component.translatable("gene.geneticsresequenced.unknown")
 
         fun register(geneBuilder: GeneBuilder): Gene {
             val gene = Gene(

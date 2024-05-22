@@ -75,8 +75,6 @@
   "entity.geneticsresequenced.support_slime": "Support Slime",
 
   "tooltip.geneticsresequenced.gene": "Gene: %1$s",
-  "tooltip.geneticsresequenced.gene.basic": "Basic Gene",
-  "tooltip.geneticsresequenced.gene.unknown": "Unknown",
   "tooltip.geneticsresequenced.helix_entity": "Entity: %1$s",
   "tooltip.geneticsresequenced.copy_gene_id": "Click to copy ID: %s",
   "tooltip.geneticsresequenced.antifield_active": "Active",
@@ -123,6 +121,9 @@
   "info.geneticsresequenced.organic_matter": "Acquired by clicking a %1$s with a Scraper.",
   "info.geneticsresequenced.mob_gene.line1": "%1$s has these Genes:",
   "info.geneticsresequenced.mob_gene.line2": "\n%d% of %1$s",
+
+  "gene.geneticsresequenced.unknown": "Unknown",
+  "gene.geneticsresequenced.basic": "Basic Gene",
 
   "gene.geneticsresequenced.haste_2":"Haste II",
   "gene.geneticsresequenced.efficiency_4":"Efficiency IV",
