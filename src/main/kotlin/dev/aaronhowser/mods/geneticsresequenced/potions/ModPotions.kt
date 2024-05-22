@@ -4,17 +4,15 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setBasic
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.ModEffects
+import dev.aaronhowser.mods.geneticsresequenced.recipes.ComplexBrewingRecipe
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.effect.MobEffectInstance
-import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.PotionUtils
 import net.minecraft.world.item.alchemy.Potions
-import net.minecraft.world.item.crafting.Ingredient
-import net.minecraftforge.common.brewing.BrewingRecipe
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.registries.DeferredRegister
@@ -78,6 +76,8 @@ object ModPotions {
             return PotionUtils.setPotion(ItemStack(Items.POTION), potion)
         }
 
+
+        // Basic recipes
         val mundanePotion = potionStack(Potions.MUNDANE)
         val substratePotion = potionStack(SUBSTRATE)
         val cellGrowthPotion = potionStack(CELL_GROWTH)
@@ -86,24 +86,24 @@ object ModPotions {
 
         val basicHelix = ItemStack(ModItems.DNA_HELIX.get()).setBasic()
 
-        val substrateRecipe = BrewingRecipe(
-            mundanePotion.ingredient,
-            ModItems.ORGANIC_MATTER.get().ingredient,
+        val substrateRecipe = ComplexBrewingRecipe(
+            mundanePotion,
+            ModItems.ORGANIC_MATTER.get().defaultInstance,
             substratePotion
         )
-        val cellGrowthRecipe = BrewingRecipe(
-            substratePotion.ingredient,
-            basicHelix.ingredient,
+        val cellGrowthRecipe = ComplexBrewingRecipe(
+            substratePotion,
+            basicHelix,
             cellGrowthPotion
         )
-        val mutationRecipe = BrewingRecipe(
-            cellGrowthPotion.ingredient,
-            Items.FERMENTED_SPIDER_EYE.ingredient,
+        val mutationRecipe = ComplexBrewingRecipe(
+            cellGrowthPotion,
+            Items.FERMENTED_SPIDER_EYE.defaultInstance,
             mutationPotion
         )
-        val viralRecipe = BrewingRecipe(
-            mutationPotion.ingredient,
-            Items.CHORUS_FRUIT.ingredient,
+        val viralRecipe = ComplexBrewingRecipe(
+            mutationPotion,
+            Items.CHORUS_FRUIT.defaultInstance,
             viralAgentsPotion
         )
 
@@ -112,11 +112,15 @@ object ModPotions {
         BrewingRecipeRegistry.addRecipe(mutationRecipe)
         BrewingRecipeRegistry.addRecipe(viralRecipe)
 
+        //Substrate + Cell = More Cell
+        val substrateDuplicationRecipe = ComplexBrewingRecipe(
+            substratePotion,
+            ModItems.CELL.get().defaultInstance,
+            null,
+            ItemStack(ModItems.CELL.get(), 1)
+        )
+
     }
 
-    private val ItemStack.ingredient: Ingredient
-        get() = Ingredient.of(this)
-    private val Item.ingredient: Ingredient
-        get() = Ingredient.of(this)
 
 }
