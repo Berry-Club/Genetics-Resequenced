@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabi
 import dev.aaronhowser.mods.geneticsresequenced.attributes.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.entities.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
+import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import net.minecraft.world.entity.EntityType
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent
@@ -14,6 +15,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig
 import net.minecraftforge.fml.event.config.ModConfigEvent
+import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 
 @Mod.EventBusSubscriber(
     modid = GeneticsResequenced.ID,
@@ -51,5 +53,10 @@ object ModBusEvents {
         if (config.modId == GeneticsResequenced.ID && config.type == ModConfig.Type.SERVER) {
             Gene.checkDeactivationConfig()
         }
+    }
+
+    @SubscribeEvent
+    fun onCommonSetup(event: FMLCommonSetupEvent) {
+        ModPotions.addRecipes()
     }
 }

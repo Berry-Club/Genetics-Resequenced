@@ -1,14 +1,19 @@
 package dev.aaronhowser.mods.geneticsresequenced.potions
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setBasic
+import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.ModEffects
+import dev.aaronhowser.mods.geneticsresequenced.recipes.BetterBrewingRecipe
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.PotionUtils
 import net.minecraft.world.item.alchemy.Potions
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.ForgeRegistries
@@ -63,6 +68,22 @@ object ModPotions {
             Component.translatable("tooltip.geneticsresequenced.potion.ignore")
                 .withStyle { it.withColor(ChatFormatting.RED) }
         )
+    }
+
+    fun addRecipes() {
+
+        val basicHelix = ItemStack(ModItems.DNA_HELIX.get()).setBasic()
+
+        val substrateRecipe = BetterBrewingRecipe(
+            inputPotion = Potions.MUNDANE,
+            ingredient = ModItems.ORGANIC_MATTER.get().defaultInstance,
+            outputPotion = SUBSTRATE
+        )
+        val cellGrowthRecipe = BetterBrewingRecipe(SUBSTRATE, basicHelix, CELL_GROWTH)
+
+        BrewingRecipeRegistry.addRecipe(substrateRecipe)
+        BrewingRecipeRegistry.addRecipe(cellGrowthRecipe)
+
     }
 
 }
