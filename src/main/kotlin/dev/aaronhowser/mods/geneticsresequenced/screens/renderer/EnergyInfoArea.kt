@@ -30,8 +30,10 @@ class EnergyInfoArea(
         val stored = (height * (energy!!.energyStored / energy.maxEnergyStored.toFloat())).toInt()
         fillGradient(
             transform,
-            area.x, area.y + (height - stored),
-            area.x + area.width, area.y + area.height,
+            area.x,
+            area.y + (height - stored),
+            area.x + area.width,
+            area.y + area.height,
             -0x4aeb00, -0x9ff500
         )
     }
