@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.potions
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setBasic
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.ModEffects
 import dev.aaronhowser.mods.geneticsresequenced.recipes.ComplexBrewingRecipe
@@ -78,32 +78,33 @@ object ModPotions {
 
 
         // Basic recipes
-        val mundanePotion = potionStack(Potions.MUNDANE)
         val substratePotion = potionStack(SUBSTRATE)
         val cellGrowthPotion = potionStack(CELL_GROWTH)
         val mutationPotion = potionStack(MUTATION)
         val viralAgentsPotion = potionStack(VIRAL_AGENTS)
 
-        val basicHelix = ItemStack(ModItems.DNA_HELIX.get()).setBasic()
-
         val substrateRecipe = ComplexBrewingRecipe(
-            mundanePotion,
-            ModItems.ORGANIC_MATTER.get().defaultInstance,
-            substratePotion
+            Potions.MUNDANE,
+            ModItems.ORGANIC_MATTER.get(),
+            null,
+            cellGrowthPotion
         )
         val cellGrowthRecipe = ComplexBrewingRecipe(
-            substratePotion,
-            basicHelix,
+            SUBSTRATE,
+            ModItems.DNA_HELIX.get(),
+            DefaultGenes.BASIC,
             cellGrowthPotion
         )
         val mutationRecipe = ComplexBrewingRecipe(
-            cellGrowthPotion,
-            Items.FERMENTED_SPIDER_EYE.defaultInstance,
+            CELL_GROWTH,
+            Items.FERMENTED_SPIDER_EYE,
+            null,
             mutationPotion
         )
         val viralRecipe = ComplexBrewingRecipe(
-            mutationPotion,
-            Items.CHORUS_FRUIT.defaultInstance,
+            MUTATION,
+            Items.CHORUS_FRUIT,
+            null,
             viralAgentsPotion
         )
 
@@ -114,10 +115,10 @@ object ModPotions {
 
         //Substrate + Cell = More Cell
         val substrateDuplicationRecipe = ComplexBrewingRecipe(
-            substratePotion,
-            ModItems.CELL.get().defaultInstance,
+            SUBSTRATE,
+            ModItems.CELL.get(),
             null,
-            ItemStack(ModItems.CELL.get(), 1)
+            ModItems.CELL.get().defaultInstance
         )
 
     }
