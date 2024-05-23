@@ -136,7 +136,8 @@ class SyringeItem : Item(
 
         private const val GENE_LIST_NBT_KEY = "genes"
 
-        private fun getGenes(syringeStack: ItemStack): List<Gene> {
+        fun getGenes(syringeStack: ItemStack): List<Gene> {
+            if (!hasBlood(syringeStack)) return emptyList()
             return syringeStack.getOrCreateTag()
                 .getList(GENE_LIST_NBT_KEY, Tag.TAG_STRING.toInt())
                 .mapNotNull { Gene.fromId(it.asString) }
