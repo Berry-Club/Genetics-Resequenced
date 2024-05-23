@@ -1,10 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipes
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.alchemy.Potion
@@ -19,7 +22,7 @@ class ComplexBrewingRecipe : IBrewingRecipe {
     private val output: ItemStack
 
     private var inputGene: Gene? = null
-    private var inputCellType: String = ""
+    private var inputCellEntity: EntityType<*>? = null
 
     constructor(
         inputPotion: Potion,
@@ -33,6 +36,22 @@ class ComplexBrewingRecipe : IBrewingRecipe {
         this.output = outputStack
     }
 
+    constructor(
+        inputPotion: Potion,
+        ingredientItem: Item,
+        cellEntity: EntityType<*>,
+        geneOutput: Gene
+    ) {
+        this.inputPotion = inputPotion
+        this.ingredient = ingredientItem
+        this.inputCellEntity = cellEntity
+        this.inputGene = geneOutput
+
+        val outputCell = ItemStack(ModItems.CELL.get())
+        EntityDnaItem.setMob(outputCell, cellEntity)
+        this.output = outputCell
+    }
+
     // Holy fucking shit
     override fun isInput(pInput: ItemStack): Boolean {
 
@@ -42,9 +61,9 @@ class ComplexBrewingRecipe : IBrewingRecipe {
 
             var match: Any? = null
 
-            if (pInput.`is`(ModItems.CELL.get())) {
+            if (pInput.item == ModItems.CELL.get()) {
                 match = EntityDnaItem.getEntityType(pInput)
-            } else if (pInput.`is`(ModItems.DNA_HELIX.get())) {
+            } else if (pInput.item == ModItems.DNA_HELIX.get()) {
                 match = pInput.getGene()
             } else if (pInputPotion != Potions.EMPTY) {
                 match = pInput.getGene()
@@ -63,7 +82,7 @@ class ComplexBrewingRecipe : IBrewingRecipe {
                 return this.inputGene == match
             }
 
-            if (this.inputCellType.isEmpty()) {
+            if (this.inputCellEntity != null) {
 
                 when (pInputPotion) {
                     ModPotions.CELL_GROWTH -> {
@@ -83,19 +102,80 @@ class ComplexBrewingRecipe : IBrewingRecipe {
 
             } else {
                 if (pInputPotion == ModPotions.VIRAL_AGENTS) return true
-                if (this.inputCellType == match) return true
-                if (this.inputCellType == "*") return true
+                if (this.inputCellEntity == match) return true
+//                if (this.inputCellEntity == "*") return true
             }
         }
 
         return false
     }
 
-    override fun isIngredient(p0: ItemStack): Boolean {
-        TODO("Not yet implemented")
+    private val requiredGenes = setOf(
+        DefaultGenes.CURSED, DefaultGenes.POISON_4, DefaultGenes.WITHER, DefaultGenes.WEAKNESS,
+        DefaultGenes.BLINDNESS, DefaultGenes.SLOWNESS_6, DefaultGenes.NAUSEA, DefaultGenes.HUNGER,
+        DefaultGenes.FLAMBE, DefaultGenes.MINING_WEAKNESS, DefaultGenes.LEVITATION,
+        DefaultGenes.DEAD_CREEPERS, DefaultGenes.DEAD_UNDEAD, DefaultGenes.DEAD_HOSTILE, DefaultGenes.DEAD_OLD_AGE
+    )
+
+    override fun isIngredient(pIngredient: ItemStack): Boolean {
+        if (this.ingredient == ModItems.SYRINGE.get() && pIngredient.item == ModItems.SYRINGE.get()) {
+            //Special case - Black Death
+            val genes = SyringeItem.getGenes(pIngredient)
+            return requiredGenes.all { it in genes }
+        }
+
+        if (inputGene != null) {
+            return pIngredient.getGene() == inputGene
+        }
+
+        if (inputCellEntity != null) {
+            if (pIngredient.item == ModItems.DNA_HELIX.get()) {
+                return pIngredient.getGene() == inputGene
+            }
+        }
+
+        return pIngredient.item == this.ingredient
     }
 
-    override fun getOutput(p0: ItemStack, p1: ItemStack): ItemStack {
-        TODO("Not yet implemented")
+    override fun getOutput(pInput: ItemStack, pIngredient: ItemStack): ItemStack {
+
+        if (!isInput(pInput) || !isIngredient(pIngredient)) {
+            return ItemStack.EMPTY
+        }
+
+        val result = output.copy()
+
+        //this handles cell copying
+//        if (pIngredient.hasTagCompound() && recipeOutput.getItem() === GRItems.Cell) {
+//            result.setTagCompound(pIngredient.getTagCompound())
+//            result.getTagCompound().removeTag("forceGene")
+//            result.getTagCompound().removeTag("chance")
+//            return result
+//        }
+
+        val pInputPotion = PotionUtils.getPotion(pInput)
+
+        //Cell focus/mutation
+        if (this.output.item == ModItems.CELL.get() && pInputPotion in setOf(
+                ModPotions.CELL_GROWTH,
+                ModPotions.MUTATION
+            )
+        ) {
+            val pInputEntity = EntityDnaItem.getEntityType(pInput) ?: return ItemStack.EMPTY
+            EntityDnaItem.setMob(result, pInputEntity)
+
+            return result
+        }
+
+        val pIngredientHasEntity =
+            pIngredient.item == ModItems.CELL.get() && EntityDnaItem.getEntityType(pIngredient) != null
+        if (pIngredientHasEntity && pInputPotion in setOf(ModPotions.CELL_GROWTH, ModPotions.MUTATION)) {
+            val pIngredientEntity = EntityDnaItem.getEntityType(pIngredient) ?: return ItemStack.EMPTY
+            EntityDnaItem.setMob(result, pIngredientEntity)
+
+            return result
+        }
+
+        return result
     }
 }
