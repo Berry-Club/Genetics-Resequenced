@@ -128,6 +128,39 @@ class ComplexBrewingRecipe : IBrewingRecipe {
     }
 
     override fun getOutput(pInput: ItemStack, pIngredient: ItemStack): ItemStack {
+        if (!isInput(pInput) || !isIngredient(pIngredient)) return ItemStack.EMPTY
+
+        val result = output.copy()
+
+        // Handle cell copying
+        if (output.item == ModItems.CELL.get() && pIngredient.hasTag()) {
+            result.tag = pIngredient.tag
+//            result.getTagCompound().removeTag("forceGene")
+//            result.getTagCompound().removeTag("chance")
+            return result
+        }
+
+        val pInputPotion = PotionUtils.getPotion(pInput)
+
+        // Handle cell focus/mutation
+        if (
+            output.item == ModItems.CELL.get() &&
+            pInputPotion in listOf(ModPotions.CELL_GROWTH, ModPotions.MUTATION)
+        ) {
+            val inputEntity = EntityDnaItem.getEntityType(pInput) ?: return ItemStack.EMPTY
+            EntityDnaItem.setMob(result, inputEntity)
+        }
+
+        // Transfer cell info to potion
+        if (
+            pIngredient.item == ModItems.CELL.get() &&
+            EntityDnaItem.hasEntity(pIngredient) &&
+            pInputPotion in listOf(ModPotions.CELL_GROWTH, ModPotions.MUTATION)
+        ) {
+            val ingredientEntity = EntityDnaItem.getEntityType(pIngredient) ?: return ItemStack.EMPTY
+            EntityDnaItem.setMob(result, ingredientEntity)
+        }
+
         return output
     }
 }
