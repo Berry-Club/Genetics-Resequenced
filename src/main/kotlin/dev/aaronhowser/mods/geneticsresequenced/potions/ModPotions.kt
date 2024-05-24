@@ -3,6 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.potions
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
+import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.ModEffects
 import dev.aaronhowser.mods.geneticsresequenced.recipes.ComplexBrewingRecipe
@@ -63,14 +65,28 @@ object ModPotions {
         val itemPotion = PotionUtils.getPotion(stack)
         if (itemPotion == Potions.EMPTY) return
 
-        if (itemPotion !in modPotions) return
+        if (itemPotion in modPotions && stack.item != Items.POTION) {
+            event.toolTip.add(
+                Component.translatable("tooltip.geneticsresequenced.potion.ignore")
+                    .withStyle { it.withColor(ChatFormatting.RED) }
+            )
+        }
 
-        if (stack.`is`(Items.POTION)) return
+        val itemGene = stack.getGene()
+        val itemEntity = EntityDnaItem.getEntityType(stack)
 
-        event.toolTip.add(
-            Component.translatable("tooltip.geneticsresequenced.potion.ignore")
-                .withStyle { it.withColor(ChatFormatting.RED) }
-        )
+        if (itemGene != null) {
+            event.toolTip.add(
+                itemGene.nameComponent
+            )
+        }
+
+        if (itemEntity != null) {
+            event.toolTip.add(
+                itemEntity.description
+            )
+        }
+
     }
 
     fun addRecipes() {
@@ -124,12 +140,12 @@ object ModPotions {
         )
 
         BrewingRecipeRegistry.addRecipe(substrateDuplicationRecipe)
-        fun growthRecipe(item: Item, entityType: EntityType<*>, gene: Gene): ComplexBrewingRecipe {
+        fun growthRecipe(ingredient: Item, entityType: EntityType<*>, gene: Gene): ComplexBrewingRecipe {
             return ComplexBrewingRecipe(
-                CELL_GROWTH,
-                item,
-                entityType,
-                gene
+                inputPotion = CELL_GROWTH,
+                ingredientItem = ingredient,
+                cellEntity = entityType,
+                geneOutput = gene
             )
         }
 
@@ -200,6 +216,5 @@ object ModPotions {
         }
 
     }
-
 
 }
