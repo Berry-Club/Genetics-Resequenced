@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
@@ -21,7 +22,7 @@ class ComplexBrewingRecipe : IBrewingRecipe {
     private val output: ItemStack
 
     private var inputGene: Gene? = null
-    private var inputCellEntity: EntityType<*>? = null
+    private var ingredientCellEntity: EntityType<*>? = null
 
     constructor(
         inputPotion: Potion,
@@ -43,7 +44,7 @@ class ComplexBrewingRecipe : IBrewingRecipe {
     ) {
         this.inputPotion = inputPotion
         this.ingredient = ingredientItem
-        this.inputCellEntity = cellEntity
+        this.ingredientCellEntity = cellEntity
         this.inputGene = geneOutput
 
         val outputCell = ItemStack(ModItems.CELL.get())
@@ -51,39 +52,55 @@ class ComplexBrewingRecipe : IBrewingRecipe {
         this.output = outputCell
     }
 
+    //Input = the 3 potions at the bottom
     override fun isInput(pInput: ItemStack): Boolean {
         val pInputPotion = PotionUtils.getPotion(pInput)
 
-        if (inputPotion == Potions.EMPTY || pInputPotion != inputPotion) return false
+        if (inputPotion == Potions.EMPTY || inputPotion == Potions.EMPTY || pInputPotion != inputPotion) return false
 
         if (pInputPotion == ModPotions.SUBSTRATE) return true
 
-        when (pInput.item) {
-            ModItems.CELL.get() -> return handleCellInput(pInput, pInputPotion)
+        /**
+         * If pInput is a filled Cell, match is the EntityType of the Cell.
+         * If pInput is a DNA Helix, match is the Gene of the Helix.
+         * If pInput is a potion, match might be its Gene or EntityType, if it has one
+         */
+        var match: Any? = null
 
-            ModItems.DNA_HELIX.get() -> return handleDnaHelix(pInput, pInputPotion)
+        if (pInput.item == ModItems.CELL.get() && EntityDnaItem.hasEntity(pInput)) {
+            match = EntityDnaItem.getEntityType(pInput)
+        } else if (pInput.item == ModItems.DNA_HELIX.get() && pInput.hasGene()) {
+            match = pInput.getGene()
+        } else if (pInputPotion != Potions.EMPTY) {
+
+            if (pInput.hasGene()) {
+                match = pInput.getGene()
+            } else if (EntityDnaItem.hasEntity(pInput)) {
+                match = EntityDnaItem.getEntityType(pInput)
+            }
+
         }
 
-        return pInputPotion == inputPotion
-    }
-
-    private fun handleCellInput(pInput: ItemStack): Boolean {
-        if (inputCellEntity == null) return false
-        val pInputEntity = EntityDnaItem.getEntityType(pInput) ?: return false
-
-
-
-    }
-
-    private fun handleDnaHelix(pInput: ItemStack, pInputPotion: Potion): Boolean {
-        val pInputGene = pInput.getGene()
-
-        if (inputGene != null) {
+        if (this.inputGene != null) {
             val pInputIsViral = pInputPotion == ModPotions.VIRAL_AGENTS
-            if (pInputIsViral) return true
+            val pInputHasNoGenes = !pInput.hasGene()
+            if (pInputIsViral && pInputHasNoGenes) return true
+
+            if (pInput.getGene() == match) return true
         }
 
-        return inputGene == pInputGene
+        if (this.ingredientCellEntity == null) {
+            val pPotionStackEntity = EntityDnaItem.getEntityType(pInput)
+            val pPotionHasEntity = pPotionStackEntity != null
+
+            if (pInputPotion == ModPotions.CELL_GROWTH && pPotionHasEntity) return true
+            if (pInputPotion == ModPotions.MUTATION && pPotionHasEntity) return true
+            if (pInputPotion == Potions.MUNDANE) return true
+        }
+
+        if (pInputPotion == ModPotions.VIRAL_AGENTS) return true
+
+        return false
     }
 
     private val requiredGenes = setOf(

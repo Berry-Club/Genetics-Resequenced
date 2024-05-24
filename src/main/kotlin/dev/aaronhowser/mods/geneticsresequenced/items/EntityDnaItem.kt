@@ -25,7 +25,7 @@ open class EntityDnaItem : Item(
     companion object {
         const val MOB_ID_NBT = "MobId"
 
-        fun hasMob(itemStack: ItemStack): Boolean = itemStack.tag?.contains(MOB_ID_NBT) ?: false
+        fun hasEntity(itemStack: ItemStack): Boolean = itemStack.tag?.contains(MOB_ID_NBT) ?: false
 
         fun setMob(itemStack: ItemStack, entityType: EntityType<*>): Boolean {
             if (itemStack.item !is EntityDnaItem) {
@@ -63,7 +63,7 @@ open class EntityDnaItem : Item(
         }
 
         fun getEntityType(itemStack: ItemStack): EntityType<*>? {
-            if (!hasMob(itemStack)) return null
+            if (!hasEntity(itemStack)) return null
             val string = itemStack.tag?.getString(MOB_ID_NBT) ?: return null
             val resourceLocation = ResourceLocation.tryParse(string) ?: return null
 
