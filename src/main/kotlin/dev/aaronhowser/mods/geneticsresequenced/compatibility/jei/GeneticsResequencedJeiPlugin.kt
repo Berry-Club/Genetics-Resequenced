@@ -8,9 +8,11 @@ import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.get
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.*
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.GmoRecipePage
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
+import mezz.jei.api.constants.RecipeTypes
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.registration.IRecipeCatalystRegistration
@@ -24,6 +26,7 @@ import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.Blocks
 import net.minecraftforge.registries.ForgeRegistries
 
 @JeiPlugin
@@ -40,18 +43,24 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             RecipeType(PlasmidInfuserRecipeCategory.UID, PlasmidInfuserRecipe::class.java)
         val BLOOD_PURIFIER_TYPE: RecipeType<BloodPurifierRecipe> =
             RecipeType(BloodPurifierRecipeCategory.UID, BloodPurifierRecipe::class.java)
+
+        val GMO_RECIPE_PAGE_TYPE: RecipeType<GmoRecipePage> =
+            RecipeType(GmoRecipeCategory.UID, GmoRecipePage::class.java)
     }
 
     override fun getPluginUid(): ResourceLocation =
         OtherUtil.modResource("jei_plugin")
 
     override fun registerCategories(registration: IRecipeCategoryRegistration) {
+        val guiHelper = registration.jeiHelpers.guiHelper
+
         registration.addRecipeCategories(
-            CellAnalyzerRecipeCategory(registration.jeiHelpers.guiHelper),
-            MobToGeneRecipeCategory(registration.jeiHelpers.guiHelper),
-            DnaExtractorRecipeCategory(registration.jeiHelpers.guiHelper),
-            PlasmidInfuserRecipeCategory(registration.jeiHelpers.guiHelper),
-            BloodPurifierRecipeCategory(registration.jeiHelpers.guiHelper)
+            CellAnalyzerRecipeCategory(guiHelper),
+            MobToGeneRecipeCategory(guiHelper),
+            DnaExtractorRecipeCategory(guiHelper),
+            PlasmidInfuserRecipeCategory(guiHelper),
+            BloodPurifierRecipeCategory(guiHelper),
+            GmoRecipeCategory(guiHelper)
         )
     }
 
@@ -62,7 +71,10 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             ModBlocks.DNA_DECRYPTOR.get() to MobToGeneRecipeCategory.recipeType,
             ModBlocks.DNA_EXTRACTOR.get() to DnaExtractorRecipeCategory.recipeType,
             ModBlocks.PLASMID_INFUSER.get() to PlasmidInfuserRecipeCategory.recipeType,
-            ModBlocks.BLOOD_PURIFIER.get() to BloodPurifierRecipeCategory.recipeType
+            ModBlocks.BLOOD_PURIFIER.get() to BloodPurifierRecipeCategory.recipeType,
+
+            Blocks.BREWING_STAND to GmoRecipeCategory.recipeType,
+            ModBlocks.INCUBATOR.get() to GmoRecipeCategory.recipeType
         )
 
         for ((block, recipeType) in blockRecipeTypeMap) {
@@ -72,6 +84,11 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             )
         }
 
+        registration.addRecipeCatalyst(
+            ItemStack(ModBlocks.INCUBATOR.get()),
+            RecipeTypes.BREWING
+        )
+
     }
 
     override fun registerRecipes(registration: IRecipeRegistration) {
@@ -80,6 +97,8 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
         registration.addRecipes(DnaExtractorRecipeCategory.recipeType, DnaExtractorRecipe.getAllRecipes())
         registration.addRecipes(PlasmidInfuserRecipeCategory.recipeType, PlasmidInfuserRecipe.getAllRecipes())
         registration.addRecipes(BloodPurifierRecipeCategory.recipeType, BloodPurifierRecipe.getAllRecipes())
+
+        registration.addRecipes(GmoRecipeCategory.recipeType, GmoRecipePage.getAllRecipes())
 
         mobGeneInformationRecipes(registration)
         organicMatterInformationRecipes(registration)

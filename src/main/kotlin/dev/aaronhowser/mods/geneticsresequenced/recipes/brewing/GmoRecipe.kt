@@ -13,10 +13,10 @@ import net.minecraft.world.item.alchemy.PotionUtils
 import net.minecraftforge.common.brewing.IBrewingRecipe
 
 class GmoRecipe(
-    private val entityType: EntityType<*>,
-    private val ingredientItem: Item,
-    private val outputGene: Gene,
-    private val geneChance: Float
+    val entityType: EntityType<*>,
+    val ingredientItem: Item,
+    val outputGene: Gene,
+    val geneChance: Float
 ) : IBrewingRecipe {
 
     override fun isInput(pBottomSlot: ItemStack): Boolean {
