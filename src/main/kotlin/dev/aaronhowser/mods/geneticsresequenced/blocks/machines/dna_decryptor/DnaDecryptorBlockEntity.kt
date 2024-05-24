@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
@@ -98,12 +99,12 @@ class DnaDecryptorBlockEntity(
         val genesFromMob = MobGenesRegistry.getGenesForEntity(mobType)
         if (genesFromMob.isEmpty()) return null
 
-        val gene: Gene?
+        val gene: Gene
 
         if (!isNextGeneSet) {
             gene = genesFromMob
                 .map { it.key }
-                .filter { it == null || it.isActive }
+                .filter { it.isActive }
                 .random()
 
             nextGene = gene
@@ -115,7 +116,7 @@ class DnaDecryptorBlockEntity(
                 return null
             }
 
-            gene = nextGene
+            gene = DefaultGenes.BASIC
         }
 
         return ItemStack(ModItems.DNA_HELIX.get()).setGene(gene)

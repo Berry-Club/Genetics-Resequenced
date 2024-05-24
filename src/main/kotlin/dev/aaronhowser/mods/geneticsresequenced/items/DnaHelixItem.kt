@@ -28,11 +28,7 @@ class DnaHelixItem : EntityDnaItem() {
             return Gene.fromId(string)
         }
 
-        fun ItemStack.setGene(gene: Gene?): ItemStack {
-            if (gene == null) {
-                return this.setBasic()
-            }
-
+        fun ItemStack.setGene(gene: Gene): ItemStack {
             val tag = this.orCreateTag
             tag.putString(GENE_ID_NBT, gene.id.toString())
             tag.remove(MOB_ID_NBT)

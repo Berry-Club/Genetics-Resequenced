@@ -23,7 +23,7 @@ import net.minecraftforge.registries.ForgeRegistries
 
 class MobToGeneRecipe(
     val mobResourceLocation: ResourceLocation,
-    val gene: Gene?,
+    val gene: Gene,
     val chance: Int = 100
 ) : Recipe<Container> {
 
