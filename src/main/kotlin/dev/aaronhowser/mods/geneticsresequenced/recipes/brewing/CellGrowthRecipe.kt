@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
+import dev.aaronhowser.mods.geneticsresequenced.items.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import net.minecraft.world.entity.EntityType
@@ -36,12 +36,14 @@ class CellGrowthRecipe(
         if (!isInput(pBottomSlot)) return ItemStack.EMPTY
         if (!isIngredient(pTopSlot)) return ItemStack.EMPTY
 
-        //TODO: Make a new item, GeneticallyModifiedCell, that has parameters for gene and chance
-        val output = ModItems.CELL.get().defaultInstance
+        val output = ModItems.GMO_CELL.get().defaultInstance
 
-        output.setGene(outputGene)
-        EntityDnaItem.setMob(output, entityType)
-        output.getOrCreateTag().putFloat("gene_chance", geneChance)
+        GmoCell.setDetails(
+            output,
+            entityType,
+            outputGene,
+            geneChance
+        )
 
         return output
     }

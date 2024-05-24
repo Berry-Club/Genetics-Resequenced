@@ -78,24 +78,11 @@ class DnaHelixItem : EntityDnaItem() {
         pTooltipComponents: MutableList<Component>,
         pLevel: Level?
     ) {
-
-        if (pStack.isBasic()) {
-            pTooltipComponents.add(
-                Component.translatable(
-                    "tooltip.geneticsresequenced.gene",
-                    Gene.basicGeneComponent
-                )
-                    .withColor(ChatFormatting.GRAY)
-            )
-            return
-        }
-
         pTooltipComponents.add(
             Component.translatable(
                 "tooltip.geneticsresequenced.gene",
                 Gene.unknownGeneComponent
-            )
-                .withColor(ChatFormatting.GRAY)
+            ).withColor(ChatFormatting.GRAY)
         )
 
         val entity = getEntityType(pStack)

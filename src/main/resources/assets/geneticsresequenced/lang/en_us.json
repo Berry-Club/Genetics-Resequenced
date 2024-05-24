@@ -5,6 +5,7 @@
   "item.geneticsresequenced.dragon_health_crystal": "Dragon Health Crystal",
   "item.geneticsresequenced.organic_matter": "Organic Matter",
   "item.geneticsresequenced.cell": "Cell",
+  "item.geneticsresequenced.gmo_cell": "Genetically Modified Cell",
   "item.geneticsresequenced.anti_field_orb": "Anti-Field Orb",
   "item.geneticsresequenced.scraper": "Scraper",
   "item.geneticsresequenced.syringe": "Empty Syringe",
@@ -94,6 +95,7 @@
   "tooltip.geneticsresequenced.plasmid_injector.contaminated": "You can't inject Genes into Contaminated Blood!",
   "tooltip.geneticsresequenced.coal_generator.total_fe": "Stack total: %d FE",
   "tooltip.geneticsresequenced.potion.ignore": "Don't craft this! It does nothing!",
+  "tooltip.geneticsresequenced.gmo_cell.chance": "Chance: %d%%",
 
   "command.geneticsresequenced.geneList": "Gene List:",
   "command.geneticsresequenced.add.fail.already_present": "Failed to add Gene as target already has it.",

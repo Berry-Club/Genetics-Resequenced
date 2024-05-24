@@ -102,7 +102,7 @@ open class EntityDnaItem : Item(
             val component =
                 Component
                     .translatable("tooltip.geneticsresequenced.dna_item.filled")
-                    .append(entityType.getDescription())
+                    .append(entityType.description)
                     .withColor(ChatFormatting.GRAY)
 
             pTooltipComponents.add(component)
