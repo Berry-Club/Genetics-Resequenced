@@ -8,7 +8,9 @@ import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.set
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.ModEffects
-import dev.aaronhowser.mods.geneticsresequenced.recipes.ComplexBrewingRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.CellGrowthRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.SetCellGrowthEntityRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.SubstrateCellRecipe
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.effect.MobEffectInstance
@@ -114,14 +116,10 @@ object ModPotions {
         val mutationPotion = potionStack(MUTATION)
         val viralAgentsPotion = potionStack(VIRAL_AGENTS)
 
-        fun potIngredient(potion: Potion): Ingredient {
-            return Ingredient.of(potionStack(potion))
-        }
-
         val substrateRecipe = BrewingRecipe(
             Potions.MUNDANE.ingredient,
             ModItems.ORGANIC_MATTER.get().ingredient,
-            cellGrowthPotion
+            substratePotion
         )
         val cellGrowthRecipe = BrewingRecipe(
             SUBSTRATE.ingredient,
@@ -139,102 +137,81 @@ object ModPotions {
             viralAgentsPotion
         )
 
-//        BrewingRecipeRegistry.addRecipe(substrateRecipe)
-//        BrewingRecipeRegistry.addRecipe(cellGrowthRecipe)
-//        BrewingRecipeRegistry.addRecipe(mutationRecipe)
-//        BrewingRecipeRegistry.addRecipe(viralRecipe)
+        BrewingRecipeRegistry.addRecipe(substrateRecipe)
+        BrewingRecipeRegistry.addRecipe(cellGrowthRecipe)
+        BrewingRecipeRegistry.addRecipe(mutationRecipe)
+        BrewingRecipeRegistry.addRecipe(viralRecipe)
 
-        val substrateDuplicationRecipe = ComplexBrewingRecipe(
-            SUBSTRATE,
-            ModItems.CELL.get(),
-            null,
-            ModItems.CELL.get().defaultInstance
-        )
-//        BrewingRecipeRegistry.addRecipe(substrateDuplicationRecipe)
+        val substrateDuplicationRecipe = SubstrateCellRecipe()
+        BrewingRecipeRegistry.addRecipe(substrateDuplicationRecipe)
 
-        //FIXME: doesn't work
-        val setPcgEntityRecipe = ComplexBrewingRecipe(
-            CELL_GROWTH,
-            ModItems.CELL.get(),
-            null,
-            cellGrowthPotion
-        )
+        val setPcgEntityRecipe = SetCellGrowthEntityRecipe()
         BrewingRecipeRegistry.addRecipe(setPcgEntityRecipe)
 
-        fun growthRecipe(ingredient: Item, entityType: EntityType<*>, gene: Gene): ComplexBrewingRecipe {
-            return ComplexBrewingRecipe(
-                inputPotion = CELL_GROWTH,
-                ingredientItem = ingredient,
-                cellEntity = entityType,
-                geneOutput = gene
-            )
-        }
 
         val geneFocusBrews = listOf(
-            growthRecipe(Items.GLOWSTONE_DUST, EntityType.BLAZE, DefaultGenes.BIOLUMINESCENCE),
-            growthRecipe(Items.GLOWSTONE_DUST, EntityType.MAGMA_CUBE, DefaultGenes.BIOLUMINESCENCE),
-
-            growthRecipe(Items.EMERALD, EntityType.VILLAGER, DefaultGenes.EMERALD_HEART),
-            growthRecipe(Items.EMERALD, EntityType.SHULKER, DefaultGenes.KEEP_INVENTORY),
-
-            growthRecipe(Items.REDSTONE, EntityType.RABBIT, DefaultGenes.SPEED),
-            growthRecipe(Items.APPLE, EntityType.IRON_GOLEM, DefaultGenes.REGENERATION),
-            growthRecipe(Items.EGG, EntityType.CHICKEN, DefaultGenes.LAY_EGG),
-            growthRecipe(Items.PORKCHOP, EntityType.PIG, DefaultGenes.MEATY),
-            growthRecipe(Items.ENDER_PEARL, EntityType.ENDERMAN, DefaultGenes.TELEPORT),
-            growthRecipe(Items.IRON_INGOT, EntityType.ENDERMAN, DefaultGenes.ITEM_MAGNET),
-            growthRecipe(Items.GOLDEN_APPLE, EntityType.ENDERMAN, DefaultGenes.MORE_HEARTS),
-            growthRecipe(Items.GLOWSTONE_DUST, EntityType.SLIME, DefaultGenes.PHOTOSYNTHESIS)
+            CellGrowthRecipe(EntityType.BLAZE, Items.GLOWSTONE_DUST, DefaultGenes.BIOLUMINESCENCE, 0.5f),
+            CellGrowthRecipe(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, DefaultGenes.BIOLUMINESCENCE, 0.5f),
+            CellGrowthRecipe(EntityType.VILLAGER, Items.EMERALD, DefaultGenes.EMERALD_HEART, 0.5f),
+            CellGrowthRecipe(EntityType.SHULKER, Items.EMERALD, DefaultGenes.KEEP_INVENTORY, 0.5f),
+            CellGrowthRecipe(EntityType.RABBIT, Items.REDSTONE, DefaultGenes.SPEED, 0.5f),
+            CellGrowthRecipe(EntityType.IRON_GOLEM, Items.APPLE, DefaultGenes.REGENERATION, 0.5f),
+            CellGrowthRecipe(EntityType.CHICKEN, Items.EGG, DefaultGenes.LAY_EGG, 0.5f),
+            CellGrowthRecipe(EntityType.PIG, Items.PORKCHOP, DefaultGenes.MEATY, 0.5f),
+            CellGrowthRecipe(EntityType.ENDERMAN, Items.ENDER_PEARL, DefaultGenes.TELEPORT, 0.5f),
+            CellGrowthRecipe(EntityType.ENDERMAN, Items.IRON_INGOT, DefaultGenes.ITEM_MAGNET, 0.5f),
+            CellGrowthRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, DefaultGenes.MORE_HEARTS, 0.5f),
+            CellGrowthRecipe(EntityType.SLIME, Items.GLOWSTONE_DUST, DefaultGenes.PHOTOSYNTHESIS, 0.5f)
         )
         for (brew in geneFocusBrews) {
-//            BrewingRecipeRegistry.addRecipe(brew)
+            BrewingRecipeRegistry.addRecipe(brew)
         }
 
-        fun mutationBrew(item: Item, entityType: EntityType<*>, gene: Gene): ComplexBrewingRecipe {
-            return ComplexBrewingRecipe(
-                MUTATION,
-                item,
-                entityType,
-                gene
-            )
-        }
-
-        val mutationBrews = listOf(
-            mutationBrew(Items.FEATHER, EntityType.BAT, DefaultGenes.FLIGHT),
-            mutationBrew(Items.FEATHER, EntityType.PARROT, DefaultGenes.FLIGHT),
-
-            mutationBrew(Items.EMERALD, EntityType.POLAR_BEAR, DefaultGenes.STRENGTH),
-            mutationBrew(Items.EMERALD, EntityType.LLAMA, DefaultGenes.STRENGTH),
-            mutationBrew(Items.EMERALD, EntityType.RABBIT, DefaultGenes.LUCK),
-
-            mutationBrew(Items.DIAMOND, EntityType.SHULKER, DefaultGenes.RESISTANCE),
-            mutationBrew(Items.DIAMOND, EntityType.ZOMBIE, DefaultGenes.RESISTANCE),
-            mutationBrew(Items.DIAMOND, EntityType.POLAR_BEAR, DefaultGenes.CLAWS),
-            mutationBrew(Items.DIAMOND, EntityType.LLAMA, DefaultGenes.CLAWS),
-            mutationBrew(Items.DIAMOND, EntityType.WOLF, DefaultGenes.CLAWS),
-
-            mutationBrew(Items.REDSTONE, EntityType.RABBIT, DefaultGenes.SPEED_2),
-            mutationBrew(Items.REDSTONE, EntityType.OCELOT, DefaultGenes.SPEED_4),
-
-            mutationBrew(Items.IRON_INGOT, EntityType.RABBIT, DefaultGenes.HASTE),
-
-            mutationBrew(Items.REDSTONE, EntityType.SILVERFISH, DefaultGenes.EFFICIENCY),
-
-            mutationBrew(Items.SPIDER_EYE, EntityType.ZOMBIE, DefaultGenes.SCARE_CREEPERS),
-            mutationBrew(Items.SPIDER_EYE, EntityType.SPIDER, DefaultGenes.SCARE_SKELETONS),
-
-            mutationBrew(Items.REDSTONE, EntityType.ENDER_DRAGON, DefaultGenes.REGENERATION),
-
-            mutationBrew(Items.BLAZE_POWDER, EntityType.PIG, DefaultGenes.MEATY),
-
-            mutationBrew(Items.ENDER_EYE, EntityType.BAT, DefaultGenes.INVISIBLE),
-            mutationBrew(Items.ENDER_EYE, EntityType.SKELETON, DefaultGenes.INVISIBLE),
-
-            mutationBrew(Items.GOLDEN_APPLE, EntityType.ENDERMAN, DefaultGenes.MORE_HEARTS)
-        )
-        for (brew in mutationBrews) {
-//            BrewingRecipeRegistry.addRecipe(brew)
-        }
+//        fun mutationBrew(item: Item, entityType: EntityType<*>, gene: Gene): ComplexBrewingRecipe {
+//            return ComplexBrewingRecipe(
+//                MUTATION,
+//                item,
+//                entityType,
+//                gene
+//            )
+//        }
+//
+//        val mutationBrews = listOf(
+//            mutationBrew(Items.FEATHER, EntityType.BAT, DefaultGenes.FLIGHT),
+//            mutationBrew(Items.FEATHER, EntityType.PARROT, DefaultGenes.FLIGHT),
+//
+//            mutationBrew(Items.EMERALD, EntityType.POLAR_BEAR, DefaultGenes.STRENGTH),
+//            mutationBrew(Items.EMERALD, EntityType.LLAMA, DefaultGenes.STRENGTH),
+//            mutationBrew(Items.EMERALD, EntityType.RABBIT, DefaultGenes.LUCK),
+//
+//            mutationBrew(Items.DIAMOND, EntityType.SHULKER, DefaultGenes.RESISTANCE),
+//            mutationBrew(Items.DIAMOND, EntityType.ZOMBIE, DefaultGenes.RESISTANCE),
+//            mutationBrew(Items.DIAMOND, EntityType.POLAR_BEAR, DefaultGenes.CLAWS),
+//            mutationBrew(Items.DIAMOND, EntityType.LLAMA, DefaultGenes.CLAWS),
+//            mutationBrew(Items.DIAMOND, EntityType.WOLF, DefaultGenes.CLAWS),
+//
+//            mutationBrew(Items.REDSTONE, EntityType.RABBIT, DefaultGenes.SPEED_2),
+//            mutationBrew(Items.REDSTONE, EntityType.OCELOT, DefaultGenes.SPEED_4),
+//
+//            mutationBrew(Items.IRON_INGOT, EntityType.RABBIT, DefaultGenes.HASTE),
+//
+//            mutationBrew(Items.REDSTONE, EntityType.SILVERFISH, DefaultGenes.EFFICIENCY),
+//
+//            mutationBrew(Items.SPIDER_EYE, EntityType.ZOMBIE, DefaultGenes.SCARE_CREEPERS),
+//            mutationBrew(Items.SPIDER_EYE, EntityType.SPIDER, DefaultGenes.SCARE_SKELETONS),
+//
+//            mutationBrew(Items.REDSTONE, EntityType.ENDER_DRAGON, DefaultGenes.REGENERATION),
+//
+//            mutationBrew(Items.BLAZE_POWDER, EntityType.PIG, DefaultGenes.MEATY),
+//
+//            mutationBrew(Items.ENDER_EYE, EntityType.BAT, DefaultGenes.INVISIBLE),
+//            mutationBrew(Items.ENDER_EYE, EntityType.SKELETON, DefaultGenes.INVISIBLE),
+//
+//            mutationBrew(Items.GOLDEN_APPLE, EntityType.ENDERMAN, DefaultGenes.MORE_HEARTS)
+//        )
+//        for (brew in mutationBrews) {
+////            BrewingRecipeRegistry.addRecipe(brew)
+//        }
 
     }
 
