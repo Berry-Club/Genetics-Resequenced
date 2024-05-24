@@ -54,8 +54,8 @@ class ComplexBrewingRecipe : IBrewingRecipe {
     }
 
     //Input = the 3 potions at the bottom
-    override fun isInput(pInput: ItemStack): Boolean {
-        val pInputPotion = PotionUtils.getPotion(pInput)
+    override fun isInput(pBottomSlotStack: ItemStack): Boolean {
+        val pInputPotion = PotionUtils.getPotion(pBottomSlotStack)
 
         if (inputPotion == Potions.EMPTY || inputPotion == Potions.EMPTY || pInputPotion != inputPotion) return false
 
@@ -68,30 +68,30 @@ class ComplexBrewingRecipe : IBrewingRecipe {
          */
         var match: Any? = null
 
-        if (pInput.item == ModItems.CELL.get() && EntityDnaItem.hasEntity(pInput)) {
-            match = EntityDnaItem.getEntityType(pInput)
-        } else if (pInput.item == ModItems.DNA_HELIX.get() && pInput.hasGene()) {
-            match = pInput.getGene()
+        if (pBottomSlotStack.item == ModItems.CELL.get() && EntityDnaItem.hasEntity(pBottomSlotStack)) {
+            match = EntityDnaItem.getEntityType(pBottomSlotStack)
+        } else if (pBottomSlotStack.item == ModItems.DNA_HELIX.get() && pBottomSlotStack.hasGene()) {
+            match = pBottomSlotStack.getGene()
         } else if (pInputPotion != Potions.EMPTY) {
 
-            if (pInput.hasGene()) {
-                match = pInput.getGene()
-            } else if (EntityDnaItem.hasEntity(pInput)) {
-                match = EntityDnaItem.getEntityType(pInput)
+            if (pBottomSlotStack.hasGene()) {
+                match = pBottomSlotStack.getGene()
+            } else if (EntityDnaItem.hasEntity(pBottomSlotStack)) {
+                match = EntityDnaItem.getEntityType(pBottomSlotStack)
             }
 
         }
 
         if (this.inputGene != null) {
             val pInputIsViral = pInputPotion == ModPotions.VIRAL_AGENTS
-            val pInputHasNoGenes = !pInput.hasGene()
+            val pInputHasNoGenes = !pBottomSlotStack.hasGene()
             if (pInputIsViral && pInputHasNoGenes) return true
 
-            if (pInput.getGene() == match) return true
+            if (pBottomSlotStack.getGene() == match) return true
         }
 
         if (this.ingredientCellEntity == null) {
-            val pPotionStackEntity = EntityDnaItem.getEntityType(pInput)
+            val pPotionStackEntity = EntityDnaItem.getEntityType(pBottomSlotStack)
             val pPotionHasEntity = pPotionStackEntity != null
 
             if (pInputPotion == ModPotions.CELL_GROWTH && pPotionHasEntity) return true
@@ -112,52 +112,52 @@ class ComplexBrewingRecipe : IBrewingRecipe {
     )
 
     // The ingredient is the item in the top slot
-    override fun isIngredient(pIngredient: ItemStack): Boolean {
+    override fun isIngredient(pTopSlotStack: ItemStack): Boolean {
 
         // Black Death (requires that the ingredient is a Syringe with all the above genes)
-        if (this.ingredient == ModItems.SYRINGE.get() && pIngredient.item == ModItems.SYRINGE.get()) {
-            val pIngredientGenes = SyringeItem.getGenes(pIngredient)
+        if (this.ingredient == ModItems.SYRINGE.get() && pTopSlotStack.item == ModItems.SYRINGE.get()) {
+            val pIngredientGenes = SyringeItem.getGenes(pTopSlotStack)
             return requiredForBlackDeath.all { it in pIngredientGenes }
         }
 
-        if (inputGene != null && pIngredient.item == ModItems.DNA_HELIX) {
-            return pIngredient.getGene() == inputGene
+        if (inputGene != null && pTopSlotStack.item == ModItems.DNA_HELIX) {
+            return pTopSlotStack.getGene() == inputGene
         }
 
-        return pIngredient.item == ingredient
+        return pTopSlotStack.item == ingredient
     }
 
-    override fun getOutput(pInput: ItemStack, pIngredient: ItemStack): ItemStack {
-        if (!isInput(pInput) || !isIngredient(pIngredient)) return ItemStack.EMPTY
+    override fun getOutput(pBottomSlotStack: ItemStack, pTopSlotStack: ItemStack): ItemStack {
+        if (!isInput(pBottomSlotStack) || !isIngredient(pTopSlotStack)) return ItemStack.EMPTY
 
         val result = output.copy()
 
         // Handle cell copying
-        if (output.item == ModItems.CELL.get() && pIngredient.hasTag()) {
-            result.tag = pIngredient.tag
+        if (output.item == ModItems.CELL.get() && pTopSlotStack.hasTag()) {
+            result.tag = pTopSlotStack.tag
 //            result.getTagCompound().removeTag("forceGene")
 //            result.getTagCompound().removeTag("chance")
             return result
         }
 
-        val pInputPotion = PotionUtils.getPotion(pInput)
+        val pInputPotion = PotionUtils.getPotion(pBottomSlotStack)
 
         // Handle cell focus/mutation
         if (
             output.item == ModItems.CELL.get() &&
             pInputPotion in listOf(ModPotions.CELL_GROWTH, ModPotions.MUTATION)
         ) {
-            val inputEntity = EntityDnaItem.getEntityType(pInput) ?: return ItemStack.EMPTY
+            val inputEntity = EntityDnaItem.getEntityType(pBottomSlotStack) ?: return ItemStack.EMPTY
             EntityDnaItem.setMob(result, inputEntity)
         }
 
         // Transfer cell info to potion
         if (
-            pIngredient.item == ModItems.CELL.get() &&
-            EntityDnaItem.hasEntity(pIngredient) &&
+            pTopSlotStack.item == ModItems.CELL.get() &&
+            EntityDnaItem.hasEntity(pTopSlotStack) &&
             pInputPotion in listOf(ModPotions.CELL_GROWTH, ModPotions.MUTATION)
         ) {
-            val ingredientEntity = EntityDnaItem.getEntityType(pIngredient) ?: return ItemStack.EMPTY
+            val ingredientEntity = EntityDnaItem.getEntityType(pTopSlotStack) ?: return ItemStack.EMPTY
             EntityDnaItem.setMob(result, ingredientEntity)
         }
 
