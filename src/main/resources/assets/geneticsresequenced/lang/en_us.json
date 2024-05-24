@@ -80,7 +80,7 @@
   "tooltip.geneticsresequenced.copy_gene_id": "Click to copy ID: %s",
   "tooltip.geneticsresequenced.antifield_active": "Active",
   "tooltip.geneticsresequenced.antifield_inactive": "Inactive",
-  "tooltip.geneticsresequenced.dna_item.filled": "Cell type: ",
+  "tooltip.geneticsresequenced.dna_item.filled": "Cell type: %s",
   "tooltip.geneticsresequenced.dna_item.empty": "Empty",
   "tooltip.geneticsresequenced.dna_item.creative": "Creative: Right-click mob to set.",
   "tooltip.geneticsresequenced.plasmid.empty": "Empty Plasmid",

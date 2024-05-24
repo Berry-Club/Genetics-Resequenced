@@ -82,13 +82,17 @@ object ModPotions {
 
         if (itemGene != null) {
             event.toolTip.add(
-                itemGene.nameComponent
+                Component
+                    .translatable("tooltip.geneticsresequenced.gene", itemGene.nameComponent)
+                    .withStyle { it.withColor(ChatFormatting.GRAY) }
             )
         }
 
         if (itemEntity != null) {
             event.toolTip.add(
-                itemEntity.description
+                Component
+                    .translatable("tooltip.geneticsresequenced.dna_item.filled", itemEntity.description)
+                    .withStyle { it.withColor(ChatFormatting.GRAY) }
             )
         }
 

@@ -44,8 +44,7 @@ class GmoCell : Item(Properties().tab(ModItems.MOD_TAB)) {
         if (entityType != null) {
             val component =
                 Component
-                    .translatable("tooltip.geneticsresequenced.dna_item.filled")
-                    .append(entityType.description)
+                    .translatable("tooltip.geneticsresequenced.dna_item.filled", entityType.description)
                     .withColor(ChatFormatting.GRAY)
 
             pTooltipComponents.add(component)
