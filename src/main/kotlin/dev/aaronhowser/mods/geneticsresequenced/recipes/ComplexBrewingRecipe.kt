@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.get
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
@@ -103,14 +104,26 @@ class ComplexBrewingRecipe : IBrewingRecipe {
         return false
     }
 
-    private val requiredGenes = setOf(
+    private val requiredForBlackDeath = setOf(
         DefaultGenes.CURSED, DefaultGenes.POISON_4, DefaultGenes.WITHER, DefaultGenes.WEAKNESS,
         DefaultGenes.BLINDNESS, DefaultGenes.SLOWNESS_6, DefaultGenes.NAUSEA, DefaultGenes.HUNGER,
         DefaultGenes.FLAMBE, DefaultGenes.MINING_WEAKNESS, DefaultGenes.LEVITATION,
         DefaultGenes.DEAD_CREEPERS, DefaultGenes.DEAD_UNDEAD, DefaultGenes.DEAD_HOSTILE, DefaultGenes.DEAD_OLD_AGE
     )
 
+    // The ingredient is the item in the top slot
     override fun isIngredient(pIngredient: ItemStack): Boolean {
+
+        // Black Death (requires that the ingredient is a Syringe with all the above genes)
+        if (this.ingredient == ModItems.SYRINGE.get() && pIngredient.item == ModItems.SYRINGE.get()) {
+            val pIngredientGenes = SyringeItem.getGenes(pIngredient)
+            return requiredForBlackDeath.all { it in pIngredientGenes }
+        }
+
+        if (inputGene != null && pIngredient.item == ModItems.DNA_HELIX) {
+            return pIngredient.getGene() == inputGene
+        }
+
         return pIngredient.item == ingredient
     }
 
