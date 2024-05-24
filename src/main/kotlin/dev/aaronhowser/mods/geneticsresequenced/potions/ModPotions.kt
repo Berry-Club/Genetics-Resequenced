@@ -120,11 +120,10 @@ object ModPotions {
             SUBSTRATE,
             ModItems.CELL.get(),
             null,
-            ItemStack(ModItems.CELL.get(), 3)
+            ModItems.CELL.get().defaultInstance
         )
 
         BrewingRecipeRegistry.addRecipe(substrateDuplicationRecipe)
-
         fun growthRecipe(item: Item, entityType: EntityType<*>, gene: Gene): ComplexBrewingRecipe {
             return ComplexBrewingRecipe(
                 CELL_GROWTH,
