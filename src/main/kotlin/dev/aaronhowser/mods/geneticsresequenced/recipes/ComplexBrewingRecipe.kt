@@ -62,9 +62,9 @@ class ComplexBrewingRecipe : IBrewingRecipe {
         if (pInputPotion == ModPotions.SUBSTRATE) return true
 
         /**
-         * If pInput is a filled Cell, match is the EntityType of the Cell.
-         * If pInput is a DNA Helix, match is the Gene of the Helix.
-         * If pInput is a potion, match might be its Gene or EntityType, if it has one
+         * - If pBottomSlotStack is a filled Cell, match is the EntityType of the Cell.
+         * - If pBottomSlotStack is a DNA Helix, match is the Gene of the Helix.
+         * - If pBottomSlotStack is a potion, match might be its Gene or EntityType, if it has one
          */
         var match: Any? = null
 
@@ -128,13 +128,15 @@ class ComplexBrewingRecipe : IBrewingRecipe {
     }
 
     override fun getOutput(pBottomSlotStack: ItemStack, pTopSlotStack: ItemStack): ItemStack {
-        if (!isInput(pBottomSlotStack) || !isIngredient(pTopSlotStack)) return ItemStack.EMPTY
+        if (!isInput(pBottomSlotStack)) return ItemStack.EMPTY
+        if (!isIngredient(pTopSlotStack)) return ItemStack.EMPTY
 
         val result = output.copy()
 
         // Handle cell copying
         if (output.item == ModItems.CELL.get() && pTopSlotStack.hasTag()) {
-            result.tag = pTopSlotStack.tag
+            val pTopSlotEntity = EntityDnaItem.getEntityType(pTopSlotStack) ?: return ItemStack.EMPTY
+            EntityDnaItem.setMob(result, pTopSlotEntity)
 //            result.getTagCompound().removeTag("forceGene")
 //            result.getTagCompound().removeTag("chance")
             return result

@@ -138,8 +138,17 @@ object ModPotions {
             null,
             ModItems.CELL.get().defaultInstance
         )
-
         BrewingRecipeRegistry.addRecipe(substrateDuplicationRecipe)
+
+        //FIXME: doesnt work
+        val setPcgEntityRecipe = ComplexBrewingRecipe(
+            CELL_GROWTH,
+            ModItems.CELL.get(),
+            null,
+            ModItems.CELL.get().defaultInstance
+        )
+        BrewingRecipeRegistry.addRecipe(setPcgEntityRecipe)
+
         fun growthRecipe(ingredient: Item, entityType: EntityType<*>, gene: Gene): ComplexBrewingRecipe {
             return ComplexBrewingRecipe(
                 inputPotion = CELL_GROWTH,
