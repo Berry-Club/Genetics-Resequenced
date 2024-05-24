@@ -1,14 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.potions
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setBasic
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.ModEffects
-import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.CellGrowthRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.SetCellGrowthEntityRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.SubstrateCellRecipe
 import net.minecraft.ChatFormatting
@@ -24,6 +23,7 @@ import net.minecraft.world.item.alchemy.Potions
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraftforge.common.brewing.BrewingRecipe
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry
+import net.minecraftforge.common.brewing.IBrewingRecipe
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.ForgeRegistries
@@ -103,6 +103,8 @@ object ModPotions {
     private val Item.ingredient: Ingredient
         get() = Ingredient.of(ItemStack(this))
 
+    val allRecipes: MutableList<IBrewingRecipe> = mutableListOf()
+
     fun addRecipes() {
 
         fun potionStack(potion: Potion): ItemStack {
@@ -137,81 +139,66 @@ object ModPotions {
             viralAgentsPotion
         )
 
-        BrewingRecipeRegistry.addRecipe(substrateRecipe)
-        BrewingRecipeRegistry.addRecipe(cellGrowthRecipe)
-        BrewingRecipeRegistry.addRecipe(mutationRecipe)
-        BrewingRecipeRegistry.addRecipe(viralRecipe)
+        allRecipes.addAll(
+            listOf(
+                substrateRecipe,
+                cellGrowthRecipe,
+                mutationRecipe,
+                viralRecipe
+            )
+        )
 
         val substrateDuplicationRecipe = SubstrateCellRecipe()
-        BrewingRecipeRegistry.addRecipe(substrateDuplicationRecipe)
+        allRecipes.add(substrateDuplicationRecipe)
 
         val setPcgEntityRecipe = SetCellGrowthEntityRecipe()
-        BrewingRecipeRegistry.addRecipe(setPcgEntityRecipe)
+        allRecipes.add(setPcgEntityRecipe)
 
 
         val geneFocusBrews = listOf(
-            CellGrowthRecipe(EntityType.BLAZE, Items.GLOWSTONE_DUST, DefaultGenes.BIOLUMINESCENCE, 0.5f),
-            CellGrowthRecipe(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, DefaultGenes.BIOLUMINESCENCE, 0.5f),
-            CellGrowthRecipe(EntityType.VILLAGER, Items.EMERALD, DefaultGenes.EMERALD_HEART, 0.5f),
-            CellGrowthRecipe(EntityType.SHULKER, Items.EMERALD, DefaultGenes.KEEP_INVENTORY, 0.5f),
-            CellGrowthRecipe(EntityType.RABBIT, Items.REDSTONE, DefaultGenes.SPEED, 0.5f),
-            CellGrowthRecipe(EntityType.IRON_GOLEM, Items.APPLE, DefaultGenes.REGENERATION, 0.5f),
-            CellGrowthRecipe(EntityType.CHICKEN, Items.EGG, DefaultGenes.LAY_EGG, 0.5f),
-            CellGrowthRecipe(EntityType.PIG, Items.PORKCHOP, DefaultGenes.MEATY, 0.5f),
-            CellGrowthRecipe(EntityType.ENDERMAN, Items.ENDER_PEARL, DefaultGenes.TELEPORT, 0.5f),
-            CellGrowthRecipe(EntityType.ENDERMAN, Items.IRON_INGOT, DefaultGenes.ITEM_MAGNET, 0.5f),
-            CellGrowthRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, DefaultGenes.MORE_HEARTS, 0.5f),
-            CellGrowthRecipe(EntityType.SLIME, Items.GLOWSTONE_DUST, DefaultGenes.PHOTOSYNTHESIS, 0.5f)
+            GmoRecipe(EntityType.BLAZE, Items.GLOWSTONE_DUST, DefaultGenes.BIOLUMINESCENCE, 0.5f),
+            GmoRecipe(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, DefaultGenes.BIOLUMINESCENCE, 0.5f),
+            GmoRecipe(EntityType.VILLAGER, Items.EMERALD, DefaultGenes.EMERALD_HEART, 0.75f),
+            GmoRecipe(EntityType.SHULKER, Items.EMERALD, DefaultGenes.KEEP_INVENTORY, 0.5f),
+            GmoRecipe(EntityType.RABBIT, Items.REDSTONE, DefaultGenes.SPEED, 0.75f),
+            GmoRecipe(EntityType.IRON_GOLEM, Items.APPLE, DefaultGenes.REGENERATION, 0.75f),
+            GmoRecipe(EntityType.CHICKEN, Items.EGG, DefaultGenes.LAY_EGG, 0.75f),
+            GmoRecipe(EntityType.PIG, Items.PORKCHOP, DefaultGenes.MEATY, 0.75f),
+            GmoRecipe(EntityType.ENDERMAN, Items.ENDER_PEARL, DefaultGenes.TELEPORT, 0.75f),
+            GmoRecipe(EntityType.ENDERMAN, Items.IRON_INGOT, DefaultGenes.ITEM_MAGNET, 0.75f),
+            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, DefaultGenes.MORE_HEARTS, 0.75f),
+            GmoRecipe(EntityType.SLIME, Items.GLOWSTONE_DUST, DefaultGenes.PHOTOSYNTHESIS, 0.5f)
         )
-        for (brew in geneFocusBrews) {
-            BrewingRecipeRegistry.addRecipe(brew)
-        }
+        allRecipes.addAll(geneFocusBrews)
 
-//        fun mutationBrew(item: Item, entityType: EntityType<*>, gene: Gene): ComplexBrewingRecipe {
-//            return ComplexBrewingRecipe(
-//                MUTATION,
-//                item,
-//                entityType,
-//                gene
-//            )
-//        }
-//
-//        val mutationBrews = listOf(
-//            mutationBrew(Items.FEATHER, EntityType.BAT, DefaultGenes.FLIGHT),
-//            mutationBrew(Items.FEATHER, EntityType.PARROT, DefaultGenes.FLIGHT),
-//
-//            mutationBrew(Items.EMERALD, EntityType.POLAR_BEAR, DefaultGenes.STRENGTH),
-//            mutationBrew(Items.EMERALD, EntityType.LLAMA, DefaultGenes.STRENGTH),
-//            mutationBrew(Items.EMERALD, EntityType.RABBIT, DefaultGenes.LUCK),
-//
-//            mutationBrew(Items.DIAMOND, EntityType.SHULKER, DefaultGenes.RESISTANCE),
-//            mutationBrew(Items.DIAMOND, EntityType.ZOMBIE, DefaultGenes.RESISTANCE),
-//            mutationBrew(Items.DIAMOND, EntityType.POLAR_BEAR, DefaultGenes.CLAWS),
-//            mutationBrew(Items.DIAMOND, EntityType.LLAMA, DefaultGenes.CLAWS),
-//            mutationBrew(Items.DIAMOND, EntityType.WOLF, DefaultGenes.CLAWS),
-//
-//            mutationBrew(Items.REDSTONE, EntityType.RABBIT, DefaultGenes.SPEED_2),
-//            mutationBrew(Items.REDSTONE, EntityType.OCELOT, DefaultGenes.SPEED_4),
-//
-//            mutationBrew(Items.IRON_INGOT, EntityType.RABBIT, DefaultGenes.HASTE),
-//
-//            mutationBrew(Items.REDSTONE, EntityType.SILVERFISH, DefaultGenes.EFFICIENCY),
-//
-//            mutationBrew(Items.SPIDER_EYE, EntityType.ZOMBIE, DefaultGenes.SCARE_CREEPERS),
-//            mutationBrew(Items.SPIDER_EYE, EntityType.SPIDER, DefaultGenes.SCARE_SKELETONS),
-//
-//            mutationBrew(Items.REDSTONE, EntityType.ENDER_DRAGON, DefaultGenes.REGENERATION),
-//
-//            mutationBrew(Items.BLAZE_POWDER, EntityType.PIG, DefaultGenes.MEATY),
-//
-//            mutationBrew(Items.ENDER_EYE, EntityType.BAT, DefaultGenes.INVISIBLE),
-//            mutationBrew(Items.ENDER_EYE, EntityType.SKELETON, DefaultGenes.INVISIBLE),
-//
-//            mutationBrew(Items.GOLDEN_APPLE, EntityType.ENDERMAN, DefaultGenes.MORE_HEARTS)
-//        )
-//        for (brew in mutationBrews) {
-////            BrewingRecipeRegistry.addRecipe(brew)
-//        }
+        val mutationBrews = listOf(
+            GmoRecipe(EntityType.BAT, Items.FEATHER, DefaultGenes.FLIGHT, 0.75f),
+            GmoRecipe(EntityType.PARROT, Items.FEATHER, DefaultGenes.FLIGHT, 0.75f),
+            GmoRecipe(EntityType.POLAR_BEAR, Items.EMERALD, DefaultGenes.STRENGTH, 0.5f),
+            GmoRecipe(EntityType.LLAMA, Items.EMERALD, DefaultGenes.STRENGTH, 0.5f),
+            GmoRecipe(EntityType.RABBIT, Items.EMERALD, DefaultGenes.LUCK, 0.5f),
+            GmoRecipe(EntityType.SHULKER, Items.DIAMOND, DefaultGenes.RESISTANCE, 0.5f),
+            GmoRecipe(EntityType.ZOMBIE, Items.DIAMOND, DefaultGenes.RESISTANCE, 0.5f),
+            GmoRecipe(EntityType.POLAR_BEAR, Items.DIAMOND, DefaultGenes.CLAWS, 0.5f),
+            GmoRecipe(EntityType.LLAMA, Items.DIAMOND, DefaultGenes.CLAWS, 0.5f),
+            GmoRecipe(EntityType.WOLF, Items.DIAMOND, DefaultGenes.CLAWS, 0.5f),
+            GmoRecipe(EntityType.RABBIT, Items.REDSTONE, DefaultGenes.SPEED_2, 0.5f),
+            GmoRecipe(EntityType.OCELOT, Items.REDSTONE, DefaultGenes.SPEED_4, 0.5f),
+            GmoRecipe(EntityType.RABBIT, Items.IRON_INGOT, DefaultGenes.HASTE, 0.5f),
+            GmoRecipe(EntityType.SILVERFISH, Items.REDSTONE, DefaultGenes.EFFICIENCY, 0.5f),
+            GmoRecipe(EntityType.ZOMBIE, Items.SPIDER_EYE, DefaultGenes.SCARE_CREEPERS, 0.75f),
+            GmoRecipe(EntityType.SPIDER, Items.SPIDER_EYE, DefaultGenes.SCARE_SKELETONS, 0.75f),
+            GmoRecipe(EntityType.ENDER_DRAGON, Items.REDSTONE, DefaultGenes.REGENERATION, 0.5f),
+            GmoRecipe(EntityType.PIG, Items.BLAZE_POWDER, DefaultGenes.MEATY, 0.5f),
+            GmoRecipe(EntityType.BAT, Items.ENDER_EYE, DefaultGenes.INVISIBLE, 0.5f),
+            GmoRecipe(EntityType.SKELETON, Items.ENDER_EYE, DefaultGenes.INVISIBLE, 0.5f),
+            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, DefaultGenes.MORE_HEARTS, 0.5f)
+        )
+        allRecipes.addAll(mutationBrews)
+
+        for (recipe in allRecipes) {
+            BrewingRecipeRegistry.addRecipe(recipe)
+        }
 
     }
 
