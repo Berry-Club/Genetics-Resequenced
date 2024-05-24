@@ -1,6 +1,7 @@
-package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
+package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.recipes.PlasmidInfuserRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor

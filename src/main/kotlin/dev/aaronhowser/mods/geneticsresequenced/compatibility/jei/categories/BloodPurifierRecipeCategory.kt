@@ -1,7 +1,8 @@
-package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
+package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
-import dev.aaronhowser.mods.geneticsresequenced.recipes.CellAnalyzerRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.recipes.BloodPurifierRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
@@ -14,35 +15,35 @@ import mezz.jei.api.recipe.category.IRecipeCategory
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 
-class CellAnalyzerRecipeCategory(
+class BloodPurifierRecipeCategory(
     helper: IGuiHelper
-) : IRecipeCategory<CellAnalyzerRecipe> {
+) : IRecipeCategory<BloodPurifierRecipe> {
 
     companion object {
 
-        val recipeType: RecipeType<CellAnalyzerRecipe> =
+        val recipeType: RecipeType<BloodPurifierRecipe> =
             RecipeType(
-                OtherUtil.modResource(CellAnalyzerRecipe.RECIPE_TYPE_NAME),
-                CellAnalyzerRecipe::class.java
+                OtherUtil.modResource(BloodPurifierRecipe.RECIPE_TYPE_NAME),
+                BloodPurifierRecipe::class.java
             )
 
-        val UID = OtherUtil.modResource(CellAnalyzerRecipe.RECIPE_TYPE_NAME)
-        private val TEXTURE = OtherUtil.modResource("textures/gui/cell_analyzer.png")
+        val UID = OtherUtil.modResource(BloodPurifierRecipe.RECIPE_TYPE_NAME)
+        private val TEXTURE = OtherUtil.modResource("textures/gui/basic_machine_bg.png")
     }
 
     private val background: IDrawable = helper.createDrawable(TEXTURE, 57, 30, 75, 28)
     private val icon: IDrawable =
-        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModBlocks.CELL_ANALYZER.get()))
+        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModBlocks.BLOOD_PURIFIER.get()))
 
-    override fun getRecipeType(): RecipeType<CellAnalyzerRecipe> = GeneticsResequencedJeiPlugin.CELL_ANALYZER_TYPE
+    override fun getRecipeType(): RecipeType<BloodPurifierRecipe> = GeneticsResequencedJeiPlugin.BLOOD_PURIFIER_TYPE
 
-    override fun getTitle(): Component = Component.translatable("block.geneticsresequenced.cell_analyzer")
+    override fun getTitle(): Component = Component.translatable("block.geneticsresequenced.blood_purifier")
 
     override fun getBackground(): IDrawable = background
 
     override fun getIcon(): IDrawable = icon
 
-    override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: CellAnalyzerRecipe, focuses: IFocusGroup) {
+    override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: BloodPurifierRecipe, focuses: IFocusGroup) {
         builder.addSlot(
             RecipeIngredientRole.INPUT,
             6,

@@ -1,6 +1,7 @@
-package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
+package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.MobToGeneRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
