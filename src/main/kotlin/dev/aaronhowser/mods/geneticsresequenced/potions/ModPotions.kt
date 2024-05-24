@@ -130,8 +130,8 @@ object ModPotions {
             ModItems.CELL.get().defaultInstance
         )
 
-        BrewingRecipeRegistry.addRecipe(substrateDuplicationRecipe)
-        BrewingRecipeRegistry.addRecipe(cellGrowthDuplicationRecipe)
+//        BrewingRecipeRegistry.addRecipe(substrateDuplicationRecipe)
+//        BrewingRecipeRegistry.addRecipe(cellGrowthDuplicationRecipe)
 
         fun growthRecipe(item: Item, entityType: EntityType<*>, gene: Gene): ComplexBrewingRecipe {
             return ComplexBrewingRecipe(
@@ -144,7 +144,7 @@ object ModPotions {
 
         val geneFocusBrews = listOf(
             growthRecipe(Items.GLOWSTONE_DUST, EntityType.BLAZE, DefaultGenes.BIOLUMINESCENCE),
-            growthRecipe(Items.GLOWSTONE, EntityType.MAGMA_CUBE, DefaultGenes.BIOLUMINESCENCE),
+            growthRecipe(Items.GLOWSTONE_DUST, EntityType.MAGMA_CUBE, DefaultGenes.BIOLUMINESCENCE),
 
             growthRecipe(Items.EMERALD, EntityType.VILLAGER, DefaultGenes.EMERALD_HEART),
             growthRecipe(Items.EMERALD, EntityType.SHULKER, DefaultGenes.KEEP_INVENTORY),
@@ -159,7 +159,7 @@ object ModPotions {
             growthRecipe(Items.GLOWSTONE_DUST, EntityType.SLIME, DefaultGenes.PHOTOSYNTHESIS)
         )
         for (brew in geneFocusBrews) {
-            BrewingRecipeRegistry.addRecipe(brew)
+//            BrewingRecipeRegistry.addRecipe(brew)
         }
 
         fun mutationBrew(item: Item, entityType: EntityType<*>, gene: Gene): ComplexBrewingRecipe {
@@ -205,7 +205,7 @@ object ModPotions {
             mutationBrew(Items.GOLDEN_APPLE, EntityType.ENDERMAN, DefaultGenes.MORE_HEARTS)
         )
         for (brew in mutationBrews) {
-            BrewingRecipeRegistry.addRecipe(brew)
+//            BrewingRecipeRegistry.addRecipe(brew)
         }
 
     }

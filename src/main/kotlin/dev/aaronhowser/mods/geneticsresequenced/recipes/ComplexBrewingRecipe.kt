@@ -2,13 +2,16 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.PotionUtils
+import net.minecraft.world.item.alchemy.Potions
 import net.minecraftforge.common.brewing.IBrewingRecipe
 
 class ComplexBrewingRecipe : IBrewingRecipe {
@@ -50,7 +53,37 @@ class ComplexBrewingRecipe : IBrewingRecipe {
 
     override fun isInput(pInput: ItemStack): Boolean {
         val pInputPotion = PotionUtils.getPotion(pInput)
+
+        if (inputPotion == Potions.EMPTY || pInputPotion != inputPotion) return false
+
+        if (pInputPotion == ModPotions.SUBSTRATE) return true
+
+        when (pInput.item) {
+            ModItems.CELL.get() -> return handleCellInput(pInput, pInputPotion)
+
+            ModItems.DNA_HELIX.get() -> return handleDnaHelix(pInput, pInputPotion)
+        }
+
         return pInputPotion == inputPotion
+    }
+
+    private fun handleCellInput(pInput: ItemStack): Boolean {
+        if (inputCellEntity == null) return false
+        val pInputEntity = EntityDnaItem.getEntityType(pInput) ?: return false
+
+
+
+    }
+
+    private fun handleDnaHelix(pInput: ItemStack, pInputPotion: Potion): Boolean {
+        val pInputGene = pInput.getGene()
+
+        if (inputGene != null) {
+            val pInputIsViral = pInputPotion == ModPotions.VIRAL_AGENTS
+            if (pInputIsViral) return true
+        }
+
+        return inputGene == pInputGene
     }
 
     private val requiredGenes = setOf(
