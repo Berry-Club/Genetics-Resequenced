@@ -23,6 +23,7 @@ object ServerConfig {
     lateinit var clawsDamage: ForgeConfigSpec.DoubleValue
     lateinit var eggCooldown: ForgeConfigSpec.IntValue
     lateinit var emeraldHeartCooldown: ForgeConfigSpec.IntValue
+    lateinit var emeraldHeartChatChance: ForgeConfigSpec.DoubleValue
     lateinit var dragonsBreathCooldown: ForgeConfigSpec.IntValue
     lateinit var itemMagnetCooldown: ForgeConfigSpec.IntValue
     lateinit var itemMagnetRadius: ForgeConfigSpec.DoubleValue
@@ -128,6 +129,9 @@ object ServerConfig {
         emeraldHeartCooldown = BUILDER
             .comment("How many ticks to wait before the Emerald Heart gene can proc again")
             .defineInRange("emeraldHeartCooldown", 20 * 60, 1, Int.MAX_VALUE)
+        emeraldHeartChatChance = BUILDER
+            .comment("What probability should there be of making a Villager sound when you send a chat message with Emerald Heart?")
+            .defineInRange("emeraldHeartChatChance", 0.4, 0.0, 1.0)
 
         dragonsBreathCooldown = BUILDER
             .comment("How many ticks to wait before someone with the Dragon's Breath gene can breathe fire again")

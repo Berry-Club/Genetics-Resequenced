@@ -88,7 +88,6 @@ object DefaultGenes {
         .setDnaPointsRequired(30)
         .setMutatesInto(EFFICIENCY_4)
         .build()
-    //TODO: Make villager sounds when you chat
     val EMERALD_HEART = registerGene("emerald_heart")
         .setDnaPointsRequired(30)
         .build()

@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.events.player
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.ClickGenes
@@ -12,8 +13,10 @@ import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraftforge.event.ServerChatEvent
 import net.minecraftforge.event.TickEvent.PlayerTickEvent
 import net.minecraftforge.event.entity.player.ArrowLooseEvent
 import net.minecraftforge.event.entity.player.ArrowNockEvent
@@ -22,6 +25,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
+import kotlin.random.Random
 
 @EventBusSubscriber(
     modid = GeneticsResequenced.ID
@@ -116,6 +120,32 @@ object OtherPlayerEvents {
             val thrower = event.originalEntity.throwingEntity as? Player
 
             event.entity.hurt(SyringeItem.damageSourceDrop(thrower), 1.0f)
+        }
+
+    }
+
+    private val villagerSounds = listOf(
+        SoundEvents.VILLAGER_TRADE,
+        SoundEvents.VILLAGER_AMBIENT,
+        SoundEvents.VILLAGER_CELEBRATE
+    )
+
+    @SubscribeEvent
+    fun onChatMessage(event: ServerChatEvent.Submitted) {
+        if (Random.nextDouble() > ServerConfig.emeraldHeartChatChance.get()) return
+
+        val player = event.player
+        val genes = player.getGenes() ?: return
+
+        if (genes.hasGene(DefaultGenes.EMERALD_HEART)) {
+            player.level.playSound(
+                null,
+                player.blockPosition(),
+                villagerSounds.random(),
+                player.soundSource,
+                1f,
+                1f
+            )
         }
 
     }
