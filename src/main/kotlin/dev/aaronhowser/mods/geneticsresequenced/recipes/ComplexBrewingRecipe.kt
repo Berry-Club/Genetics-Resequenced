@@ -61,6 +61,10 @@ class ComplexBrewingRecipe : IBrewingRecipe {
 
         if (pInputPotion == ModPotions.SUBSTRATE) return true
 
+        if (ingredient == ModItems.CELL.get()) {
+            if (pInputPotion == ModPotions.CELL_GROWTH) return true
+        }
+
         /**
          * - If pBottomSlotStack is a filled Cell, match is the EntityType of the Cell.
          * - If pBottomSlotStack is a DNA Helix, match is the Gene of the Helix.
@@ -118,6 +122,10 @@ class ComplexBrewingRecipe : IBrewingRecipe {
         if (this.ingredient == ModItems.SYRINGE.get() && pTopSlotStack.item == ModItems.SYRINGE.get()) {
             val pIngredientGenes = SyringeItem.getGenes(pTopSlotStack)
             return requiredForBlackDeath.all { it in pIngredientGenes }
+        }
+
+        if (pTopSlotStack.item == ModItems.CELL.get()) {
+            return EntityDnaItem.hasEntity(pTopSlotStack)
         }
 
         if (inputGene != null && pTopSlotStack.item == ModItems.DNA_HELIX) {

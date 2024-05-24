@@ -127,10 +127,10 @@ object ModPotions {
             viralAgentsPotion
         )
 
-        BrewingRecipeRegistry.addRecipe(substrateRecipe)
-        BrewingRecipeRegistry.addRecipe(cellGrowthRecipe)
-        BrewingRecipeRegistry.addRecipe(mutationRecipe)
-        BrewingRecipeRegistry.addRecipe(viralRecipe)
+//        BrewingRecipeRegistry.addRecipe(substrateRecipe)
+//        BrewingRecipeRegistry.addRecipe(cellGrowthRecipe)
+//        BrewingRecipeRegistry.addRecipe(mutationRecipe)
+//        BrewingRecipeRegistry.addRecipe(viralRecipe)
 
         val substrateDuplicationRecipe = ComplexBrewingRecipe(
             SUBSTRATE,
@@ -138,14 +138,14 @@ object ModPotions {
             null,
             ModItems.CELL.get().defaultInstance
         )
-        BrewingRecipeRegistry.addRecipe(substrateDuplicationRecipe)
+//        BrewingRecipeRegistry.addRecipe(substrateDuplicationRecipe)
 
-        //FIXME: doesnt work
+        //FIXME: doesn't work
         val setPcgEntityRecipe = ComplexBrewingRecipe(
             CELL_GROWTH,
             ModItems.CELL.get(),
             null,
-            ModItems.CELL.get().defaultInstance
+            cellGrowthPotion
         )
         BrewingRecipeRegistry.addRecipe(setPcgEntityRecipe)
 
@@ -175,7 +175,7 @@ object ModPotions {
             growthRecipe(Items.GLOWSTONE_DUST, EntityType.SLIME, DefaultGenes.PHOTOSYNTHESIS)
         )
         for (brew in geneFocusBrews) {
-            BrewingRecipeRegistry.addRecipe(brew)
+//            BrewingRecipeRegistry.addRecipe(brew)
         }
 
         fun mutationBrew(item: Item, entityType: EntityType<*>, gene: Gene): ComplexBrewingRecipe {
@@ -221,7 +221,7 @@ object ModPotions {
             mutationBrew(Items.GOLDEN_APPLE, EntityType.ENDERMAN, DefaultGenes.MORE_HEARTS)
         )
         for (brew in mutationBrews) {
-            BrewingRecipeRegistry.addRecipe(brew)
+//            BrewingRecipeRegistry.addRecipe(brew)
         }
 
     }

@@ -28,9 +28,6 @@ open class EntityDnaItem : Item(
         fun hasEntity(itemStack: ItemStack): Boolean = itemStack.tag?.contains(MOB_ID_NBT) ?: false
 
         fun setMob(itemStack: ItemStack, entityType: EntityType<*>): Boolean {
-            if (itemStack.item !is EntityDnaItem) {
-                return false
-            }
             val mobRL = ForgeRegistries.ENTITY_TYPES.getKey(entityType)
             if (mobRL == null) {
                 GeneticsResequenced.LOGGER.error("Failed to get mob id for $entityType")
