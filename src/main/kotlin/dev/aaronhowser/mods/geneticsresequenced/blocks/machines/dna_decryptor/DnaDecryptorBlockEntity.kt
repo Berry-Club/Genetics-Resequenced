@@ -116,7 +116,11 @@ class DnaDecryptorBlockEntity(
                 return null
             }
 
-            gene = DefaultGenes.BASIC
+            if (nextGene != null) {
+                gene = nextGene!!
+            } else {
+                return null
+            }
         }
 
         return ItemStack(ModItems.DNA_HELIX.get()).setGene(gene)
