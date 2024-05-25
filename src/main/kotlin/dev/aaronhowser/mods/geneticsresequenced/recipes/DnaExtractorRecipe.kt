@@ -40,6 +40,25 @@ class DnaExtractorRecipe(
             return getRegularCellRecipes() + getGmoCellRecipes()
         }
 
+        private fun getRegularCellRecipes(): MutableList<DnaExtractorRecipe> {
+            val entityRls = ForgeRegistries.ENTITY_TYPES.values
+                .filter { it.category != MobCategory.MISC }
+                .mapNotNull { ForgeRegistries.ENTITY_TYPES.getKey(it) }
+
+            val recipes = mutableListOf<DnaExtractorRecipe>()
+
+            for (rl in entityRls) {
+                val inputItem = ItemStack(ModItems.CELL.get()).setMob(rl) ?: ItemStack.EMPTY
+                val outputItem = ItemStack(ModItems.DNA_HELIX.get()).setMob(rl) ?: ItemStack.EMPTY
+
+                if (inputItem.isEmpty || outputItem.isEmpty) continue
+
+                recipes.add(DnaExtractorRecipe(inputItem, outputItem))
+            }
+
+            return recipes
+        }
+
         private fun getGmoCellRecipes(): List<DnaExtractorRecipe> {
             val gmoRecipes = ModPotions.allRecipes.filterIsInstance<GmoRecipe>()
 
@@ -61,25 +80,6 @@ class DnaExtractorRecipe(
                     gmoRecipe.outputGene,
                     gmoRecipe.geneChance
                 )
-
-                recipes.add(DnaExtractorRecipe(inputItem, outputItem))
-            }
-
-            return recipes
-        }
-
-        private fun getRegularCellRecipes(): MutableList<DnaExtractorRecipe> {
-            val entityRls = ForgeRegistries.ENTITY_TYPES.values
-                .filter { it.category != MobCategory.MISC }
-                .mapNotNull { ForgeRegistries.ENTITY_TYPES.getKey(it) }
-
-            val recipes = mutableListOf<DnaExtractorRecipe>()
-
-            for (rl in entityRls) {
-                val inputItem = ItemStack(ModItems.CELL.get()).setMob(rl) ?: ItemStack.EMPTY
-                val outputItem = ItemStack(ModItems.DNA_HELIX.get()).setMob(rl) ?: ItemStack.EMPTY
-
-                if (inputItem.isEmpty || outputItem.isEmpty) continue
 
                 recipes.add(DnaExtractorRecipe(inputItem, outputItem))
             }

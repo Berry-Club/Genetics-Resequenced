@@ -42,8 +42,8 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             RecipeType(CellAnalyzerRecipeCategory.UID, CellAnalyzerRecipe::class.java)
         val DNA_EXTRACTOR_TYPE: RecipeType<DnaExtractorRecipe> =
             RecipeType(DnaExtractorRecipeCategory.UID, DnaExtractorRecipe::class.java)
-        val MOB_TO_GENE_TYPE: RecipeType<MobToGeneRecipe> =
-            RecipeType(MobToGeneRecipeCategory.UID, MobToGeneRecipe::class.java)
+        val DNA_DECRYPTOR_TYPE: RecipeType<DnaDecryptorRecipe> =
+            RecipeType(DnaDecryptorRecipeCategory.UID, DnaDecryptorRecipe::class.java)
         val PLASMID_INFUSER_TYPE: RecipeType<PlasmidInfuserRecipe> =
             RecipeType(PlasmidInfuserRecipeCategory.UID, PlasmidInfuserRecipe::class.java)
         val BLOOD_PURIFIER_TYPE: RecipeType<BloodPurifierRecipe> =
@@ -65,7 +65,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
 
         registration.addRecipeCategories(
             CellAnalyzerRecipeCategory(guiHelper),
-            MobToGeneRecipeCategory(guiHelper),
+            DnaDecryptorRecipeCategory(guiHelper),
             DnaExtractorRecipeCategory(guiHelper),
             PlasmidInfuserRecipeCategory(guiHelper),
             BloodPurifierRecipeCategory(guiHelper),
@@ -79,7 +79,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
 
         val blockRecipeTypeMap: MutableList<Pair<Block, RecipeType<out Recipe<Container>>>> = mutableListOf(
             ModBlocks.CELL_ANALYZER.get() to CellAnalyzerRecipeCategory.recipeType,
-            ModBlocks.DNA_DECRYPTOR.get() to MobToGeneRecipeCategory.recipeType,
+            ModBlocks.DNA_DECRYPTOR.get() to DnaDecryptorRecipeCategory.recipeType,
             ModBlocks.DNA_EXTRACTOR.get() to DnaExtractorRecipeCategory.recipeType,
             ModBlocks.PLASMID_INFUSER.get() to PlasmidInfuserRecipeCategory.recipeType,
             ModBlocks.BLOOD_PURIFIER.get() to BloodPurifierRecipeCategory.recipeType,
@@ -110,7 +110,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
 
     override fun registerRecipes(registration: IRecipeRegistration) {
         registration.addRecipes(CellAnalyzerRecipeCategory.recipeType, CellAnalyzerRecipe.getAllRecipes())
-        registration.addRecipes(MobToGeneRecipeCategory.recipeType, MobToGeneRecipe.getAllRecipes())
+        registration.addRecipes(DnaDecryptorRecipeCategory.recipeType, DnaDecryptorRecipe.getAllRecipes())
         registration.addRecipes(DnaExtractorRecipeCategory.recipeType, DnaExtractorRecipe.getAllRecipes())
         registration.addRecipes(PlasmidInfuserRecipeCategory.recipeType, PlasmidInfuserRecipe.getAllRecipes())
         registration.addRecipes(BloodPurifierRecipeCategory.recipeType, BloodPurifierRecipe.getAllRecipes())

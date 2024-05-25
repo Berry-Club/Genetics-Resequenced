@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.recipes.MobToGeneRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipes.DnaDecryptorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
@@ -18,18 +18,18 @@ import mezz.jei.api.recipe.category.IRecipeCategory
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 
-class MobToGeneRecipeCategory(
+class DnaDecryptorRecipeCategory(
     helper: IGuiHelper
-) : IRecipeCategory<MobToGeneRecipe> {
+) : IRecipeCategory<DnaDecryptorRecipe> {
 
     companion object {
-        val recipeType: RecipeType<MobToGeneRecipe> =
+        val recipeType: RecipeType<DnaDecryptorRecipe> =
             RecipeType(
-                OtherUtil.modResource(MobToGeneRecipe.RECIPE_TYPE_NAME),
-                MobToGeneRecipe::class.java
+                OtherUtil.modResource(DnaDecryptorRecipe.RECIPE_TYPE_NAME),
+                DnaDecryptorRecipe::class.java
             )
 
-        val UID = OtherUtil.modResource(MobToGeneRecipe.RECIPE_TYPE_NAME)
+        val UID = OtherUtil.modResource(DnaDecryptorRecipe.RECIPE_TYPE_NAME)
         private val TEXTURE = OtherUtil.modResource("textures/gui/dna_decryptor.png")
     }
 
@@ -37,7 +37,7 @@ class MobToGeneRecipeCategory(
     private val icon: IDrawable =
         helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModItems.DNA_HELIX.get()))
 
-    override fun getRecipeType(): RecipeType<MobToGeneRecipe> = GeneticsResequencedJeiPlugin.MOB_TO_GENE_TYPE
+    override fun getRecipeType(): RecipeType<DnaDecryptorRecipe> = GeneticsResequencedJeiPlugin.DNA_DECRYPTOR_TYPE
 
     override fun getTitle(): Component = Component.translatable("block.geneticsresequenced.dna_decryptor")
 
@@ -45,7 +45,7 @@ class MobToGeneRecipeCategory(
 
     override fun getIcon(): IDrawable = icon
 
-    override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: MobToGeneRecipe, focuses: IFocusGroup) {
+    override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: DnaDecryptorRecipe, focuses: IFocusGroup) {
         builder.addSlot(
             RecipeIngredientRole.INPUT,
             6,
@@ -60,13 +60,13 @@ class MobToGeneRecipeCategory(
     }
 
     override fun getTooltipStrings(
-        recipe: MobToGeneRecipe,
+        recipe: DnaDecryptorRecipe,
         recipeSlotsView: IRecipeSlotsView,
         mouseX: Double,
         mouseY: Double
     ): MutableList<Component> {
 
-        val mob = recipe.mob
+        val mob = recipe.entityType
         val gene = recipe.gene
         val chance = recipe.chance
 
