@@ -29,8 +29,10 @@ object ModItems {
         ITEM_REGISTRY.register("organic_matter") { EntityDnaItem() }
     val CELL: RegistryObject<EntityDnaItem> =
         ITEM_REGISTRY.register("cell") { EntityDnaItem() }
-    val GMO_CELL: RegistryObject<GmoCell> =
-        ITEM_REGISTRY.register("gmo_cell") { GmoCell() }
+    val GMO_CELL: RegistryObject<GmoItem> =
+        ITEM_REGISTRY.register("gmo_cell") { GmoItem() }
+    val GMO_DNA_HELIX: RegistryObject<GmoItem> =
+        ITEM_REGISTRY.register("gmo_dna_helix") { GmoItem() }
     val DNA_HELIX: RegistryObject<DnaHelixItem> =
         ITEM_REGISTRY.register("dna_helix") { DnaHelixItem() }
     val PLASMID: RegistryObject<PlasmidItem> =

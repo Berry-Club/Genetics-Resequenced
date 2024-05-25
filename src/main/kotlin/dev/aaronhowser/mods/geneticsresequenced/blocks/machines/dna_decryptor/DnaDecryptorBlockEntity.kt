@@ -8,7 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.items.GmoCell.Companion.getGeneChance
+import dev.aaronhowser.mods.geneticsresequenced.items.GmoItem.Companion.getGeneChance
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.core.BlockPos
@@ -47,8 +47,8 @@ class DnaDecryptorBlockEntity(
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
-                INPUT_SLOT_INDEX -> stack.`is`(ModItems.DNA_HELIX.get())
-                OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER.get())
+                INPUT_SLOT_INDEX -> stack.item == ModItems.DNA_HELIX.get() || stack.item == ModItems.GMO_DNA_HELIX.get()
+                OVERCLOCK_SLOT_INDEX -> stack.item == ModItems.OVERCLOCKER.get()
                 OUTPUT_SLOT_INDEX -> false
                 else -> false
             }
@@ -89,7 +89,8 @@ class DnaDecryptorBlockEntity(
             inventory.setItem(i, itemHandler.getStackInSlot(i))
         }
 
-        if (!inventory.getItem(INPUT_SLOT_INDEX).`is`(ModItems.DNA_HELIX.get())) return false
+        val inputItem = inventory.getItem(INPUT_SLOT_INDEX).item
+        if (inputItem != ModItems.DNA_HELIX.get() && inputItem != ModItems.GMO_DNA_HELIX.get()) return false
 
         val outputItem = getOutputFromInput(inventory.getItem(INPUT_SLOT_INDEX)) ?: return false
 
@@ -102,8 +103,8 @@ class DnaDecryptorBlockEntity(
         val gene: Gene
         if (!isNextGeneSet) {
             gene = when (input.item) {
-                ModItems.CELL.get() -> getGeneFromCell(input)
-                ModItems.GMO_CELL.get() -> getGeneFromGmoCell(input)
+                ModItems.DNA_HELIX.get() -> getGeneFromRegular(input)
+                ModItems.GMO_DNA_HELIX.get() -> getGeneFromGmo(input)
                 else -> throw IllegalStateException("Invalid item in input slot")
             }
 
@@ -122,7 +123,7 @@ class DnaDecryptorBlockEntity(
     }
 
     private fun getPossibleGenes(input: ItemStack): List<Gene> {
-        if (input.item == ModItems.GMO_CELL.get()) {
+        if (input.item == ModItems.GMO_DNA_HELIX.get()) {
             val gene = input.getGene() ?: return listOf(DefaultGenes.BASIC)
             return listOf(gene, DefaultGenes.BASIC)
         }
@@ -136,12 +137,12 @@ class DnaDecryptorBlockEntity(
             .filter { it.isActive }
     }
 
-    private fun getGeneFromCell(input: ItemStack): Gene {
+    private fun getGeneFromRegular(input: ItemStack): Gene {
         val possibleGenes = getPossibleGenes(input)
         return possibleGenes.random()
     }
 
-    private fun getGeneFromGmoCell(input: ItemStack): Gene {
+    private fun getGeneFromGmo(input: ItemStack): Gene {
         val gene = input.getGene() ?: return DefaultGenes.BASIC
         val chance = input.getGeneChance()
 

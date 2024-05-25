@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
-class GmoCell : Item(Properties().tab(ModItems.MOD_TAB)) {
+class GmoItem : Item(Properties().tab(ModItems.MOD_TAB)) {
 
     companion object {
 

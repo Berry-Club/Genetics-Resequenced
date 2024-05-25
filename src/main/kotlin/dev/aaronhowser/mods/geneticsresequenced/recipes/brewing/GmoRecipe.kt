@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.items.GmoCell
+import dev.aaronhowser.mods.geneticsresequenced.items.GmoItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import net.minecraft.world.entity.EntityType
@@ -38,7 +38,7 @@ class GmoRecipe(
 
         val output = ModItems.GMO_CELL.get().defaultInstance
 
-        GmoCell.setDetails(
+        GmoItem.setDetails(
             output,
             entityType,
             outputGene,
