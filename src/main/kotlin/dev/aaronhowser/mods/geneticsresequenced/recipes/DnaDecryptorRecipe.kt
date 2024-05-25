@@ -10,7 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.set
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.GmoItem
-import dev.aaronhowser.mods.geneticsresequenced.items.GmoItem.Companion.getGeneChance
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
@@ -155,8 +154,6 @@ class DnaDecryptorRecipe : Recipe<Container> {
     override fun matches(pContainer: Container, pLevel: Level): Boolean {
         if (pLevel.isClientSide) return false
 
-        if (entityType == null) return false
-
         return MobGenesRegistry.getGenesForEntity(entityType).contains(gene)
     }
 
@@ -168,9 +165,16 @@ class DnaDecryptorRecipe : Recipe<Container> {
 
     override fun getId(): ResourceLocation {
         val geneString = gene.id.toString().replace(":", "/")
+        val mobRlString = mobResourceLocation.toString().replace(':', '/')
+
+        var outString = "$mobRlString/$geneString"
+
+        if (inputItem.item == ModItems.GMO_DNA_HELIX.get()) {
+            outString += "/gmo"
+        }
 
         return OtherUtil.modResource(
-            "$RECIPE_TYPE_NAME/${mobResourceLocation.toString().replace(':', '/')}/$geneString"
+            "$RECIPE_TYPE_NAME/$outString"
         )
     }
 

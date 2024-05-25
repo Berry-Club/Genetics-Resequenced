@@ -23,7 +23,7 @@ import net.minecraftforge.registries.ForgeRegistries
 
 class DnaExtractorRecipe(
     private val inputItem: ItemStack,
-    private val outputItem: ItemStack,
+    private val outputItem: ItemStack
 ) : Recipe<Container> {
 
     private val entityResourceLocation: ResourceLocation
@@ -106,8 +106,15 @@ class DnaExtractorRecipe(
         }
     }
 
-    override fun getId(): ResourceLocation =
-        OtherUtil.modResource("$RECIPE_TYPE_NAME/${entityResourceLocation.toString().replace(':', '/')}")
+    override fun getId(): ResourceLocation {
+        var entityRlString = entityResourceLocation.toString().replace(':', '/')
+
+        if (inputItem.item == ModItems.GMO_CELL.get()) {
+            entityRlString += "/gmo"
+        }
+
+        return OtherUtil.modResource("$RECIPE_TYPE_NAME/$entityRlString")
+    }
 
     override fun getSerializer(): RecipeSerializer<*> = SERIALIZER
 
