@@ -4,10 +4,13 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.*
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.CellGrowthRecipeCategory
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.GmoRecipeCategory
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.*
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.CellGrowthRecipePage
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.GmoRecipePage
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.IModPlugin
@@ -44,8 +47,10 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
         val BLOOD_PURIFIER_TYPE: RecipeType<BloodPurifierRecipe> =
             RecipeType(BloodPurifierRecipeCategory.UID, BloodPurifierRecipe::class.java)
 
-        val INCUBATOR_RECIPE_TYPE: RecipeType<GmoRecipePage> =
-            RecipeType(IncubatorRecipeCategory.UID, GmoRecipePage::class.java)
+        val GMO_RECIPE_TYPE: RecipeType<GmoRecipePage> =
+            RecipeType(GmoRecipeCategory.UID, GmoRecipePage::class.java)
+        val CELL_GROWTH_RECIPE_TYPE: RecipeType<CellGrowthRecipePage> =
+            RecipeType(CellGrowthRecipeCategory.UID, CellGrowthRecipePage::class.java)
     }
 
     override fun getPluginUid(): ResourceLocation =
@@ -60,22 +65,29 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             DnaExtractorRecipeCategory(guiHelper),
             PlasmidInfuserRecipeCategory(guiHelper),
             BloodPurifierRecipeCategory(guiHelper),
-            IncubatorRecipeCategory(guiHelper)
+            GmoRecipeCategory(guiHelper),
+            CellGrowthRecipeCategory(guiHelper)
         )
     }
 
     override fun registerRecipeCatalysts(registration: IRecipeCatalystRegistration) {
 
-        val blockRecipeTypeMap: Map<Block, RecipeType<out Recipe<Container>>> = mapOf(
+        val blockRecipeTypeMap: MutableList<Pair<Block, RecipeType<out Recipe<Container>>>> = mutableListOf(
             ModBlocks.CELL_ANALYZER.get() to CellAnalyzerRecipeCategory.recipeType,
             ModBlocks.DNA_DECRYPTOR.get() to MobToGeneRecipeCategory.recipeType,
             ModBlocks.DNA_EXTRACTOR.get() to DnaExtractorRecipeCategory.recipeType,
             ModBlocks.PLASMID_INFUSER.get() to PlasmidInfuserRecipeCategory.recipeType,
             ModBlocks.BLOOD_PURIFIER.get() to BloodPurifierRecipeCategory.recipeType,
-
-            Blocks.BREWING_STAND to IncubatorRecipeCategory.recipeType,
-            ModBlocks.INCUBATOR.get() to IncubatorRecipeCategory.recipeType
         )
+
+        fun addIncubatorRecipeType(recipeType: RecipeType<out Recipe<Container>>) {
+            blockRecipeTypeMap.add(ModBlocks.INCUBATOR.get() to recipeType)
+            blockRecipeTypeMap.add(Blocks.BREWING_STAND to recipeType)
+        }
+
+        addIncubatorRecipeType(GmoRecipeCategory.recipeType)
+        addIncubatorRecipeType(CellGrowthRecipeCategory.recipeType)
+
 
         for ((block, recipeType) in blockRecipeTypeMap) {
             registration.addRecipeCatalyst(
@@ -98,7 +110,8 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
         registration.addRecipes(PlasmidInfuserRecipeCategory.recipeType, PlasmidInfuserRecipe.getAllRecipes())
         registration.addRecipes(BloodPurifierRecipeCategory.recipeType, BloodPurifierRecipe.getAllRecipes())
 
-        registration.addRecipes(IncubatorRecipeCategory.recipeType, GmoRecipePage.getAllRecipes())
+        registration.addRecipes(GmoRecipeCategory.recipeType, GmoRecipePage.getAllRecipes())
+        registration.addRecipes(CellGrowthRecipeCategory.recipeType, CellGrowthRecipePage.getAllRecipes())
 
         mobGeneInformationRecipes(registration)
         organicMatterInformationRecipes(registration)

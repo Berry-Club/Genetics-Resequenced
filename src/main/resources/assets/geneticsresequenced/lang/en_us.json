@@ -119,7 +119,8 @@
   "recipe.geneticsresequenced.plasmid_infuser.points_required": "%1$s requires %2$d points of DNA.",
   "recipe.geneticsresequenced.plasmid_infuser.basic": "Basic Genes = 1 point",
   "recipe.geneticsresequenced.plasmid_infuser.matching": "Matching Genes = 2 points",
-  "recipe.geneticsresequenced.gmo": "Incubating",
+  "recipe.geneticsresequenced.gmo": "GMO Cell Incubating",
+  "recipe.geneticsresequenced.cell_growth": "Cell Growth",
 
   "info.geneticsresequenced.organic_matter": "Acquired by clicking a %1$s with a Scraper.",
   "info.geneticsresequenced.mob_gene.line1": "%1$s has these Genes:",

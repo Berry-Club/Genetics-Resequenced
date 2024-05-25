@@ -1,6 +1,7 @@
-package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories
+package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.GmoRecipePage
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.constants.VanillaTypes
@@ -13,9 +14,8 @@ import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.IRecipeCategory
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
 
-class IncubatorRecipeCategory(
+class GmoRecipeCategory(
     helper: IGuiHelper
 ) : IRecipeCategory<GmoRecipePage> {
 
@@ -33,9 +33,9 @@ class IncubatorRecipeCategory(
 
     private val background: IDrawable = helper.createDrawable(TEXTURE, 0, 0, 100, 28)
     private val icon: IDrawable =
-        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(Items.BREWING_STAND))
+        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModItems.GMO_CELL.get()))
 
-    override fun getRecipeType(): RecipeType<GmoRecipePage> = GeneticsResequencedJeiPlugin.INCUBATOR_RECIPE_TYPE
+    override fun getRecipeType(): RecipeType<GmoRecipePage> = GeneticsResequencedJeiPlugin.GMO_RECIPE_TYPE
 
     override fun getTitle(): Component = Component.translatable("recipe.geneticsresequenced.gmo")
 
