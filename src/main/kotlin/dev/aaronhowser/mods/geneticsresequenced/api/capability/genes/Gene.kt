@@ -66,6 +66,9 @@ class Gene(
     val isMutation: Boolean
         get() = GENE_REGISTRY.any { it.mutatesInto == this }
 
+    val mutatesFrom: List<Gene>
+        get() = GENE_REGISTRY.filter { it.mutatesInto == this }
+
     @Suppress("MemberVisibilityCanBePrivate")
     val translationKey: String = "gene.${id.namespace}.${id.path}"
 

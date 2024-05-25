@@ -126,10 +126,19 @@ class DnaDecryptorBlockEntity(
         return ItemStack(ModItems.DNA_HELIX.get()).setGene(gene)
     }
 
+    private fun getPossibleGmoGenes(input: ItemStack): List<Gene> {
+        val idealGene = input.getGene() ?: return listOf(DefaultGenes.BASIC)
+
+        if (!idealGene.isMutation) {
+            return listOf(idealGene, DefaultGenes.BASIC)
+        }
+
+        return idealGene.mutatesFrom + idealGene
+    }
+
     private fun getPossibleGenes(input: ItemStack): List<Gene> {
         if (input.item == ModItems.GMO_DNA_HELIX.get()) {
-            val gene = input.getGene() ?: return listOf(DefaultGenes.BASIC)
-            return listOf(gene, DefaultGenes.BASIC)
+            return getPossibleGmoGenes(input)
         }
 
         val mobType = EntityDnaItem.getEntityType(input) ?: return listOf(DefaultGenes.BASIC)
@@ -147,10 +156,13 @@ class DnaDecryptorBlockEntity(
     }
 
     private fun getGeneFromGmo(input: ItemStack): Gene {
-        val gene = input.getGene() ?: return DefaultGenes.BASIC
+        val idealGene = input.getGene() ?: return DefaultGenes.BASIC
         val chance = input.getGeneChance()
 
-        return if (Random.nextFloat() < chance) gene else DefaultGenes.BASIC
+        if (Random.nextFloat() < chance) return idealGene
+
+        val possibleGenes = getPossibleGmoGenes(input) - idealGene
+        return possibleGenes.random()
     }
 
     private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {
