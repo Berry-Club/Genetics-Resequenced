@@ -2,8 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
+import dev.aaronhowser.mods.geneticsresequenced.items.GmoItem
+import dev.aaronhowser.mods.geneticsresequenced.items.GmoItem.Companion.getGeneChance
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.core.BlockPos
@@ -41,8 +44,8 @@ class DnaExtractorBlockEntity(
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
-                INPUT_SLOT_INDEX -> stack.`is`(ModItems.CELL.get())
-                OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER.get())
+                INPUT_SLOT_INDEX -> stack.item == ModItems.CELL.get() || stack.item == ModItems.GMO_CELL.get()
+                OVERCLOCK_SLOT_INDEX -> stack.item == ModItems.OVERCLOCKER.get()
                 OUTPUT_SLOT_INDEX -> false
                 else -> false
             }
@@ -82,7 +85,8 @@ class DnaExtractorBlockEntity(
 
         val inputItemStack = inventory.getItem(INPUT_SLOT_INDEX)
 
-        if (!inputItemStack.`is`(ModItems.CELL.get())) return false
+        val inputItem = inputItemStack.item
+        if (inputItem != ModItems.CELL.get() && inputItem != ModItems.GMO_CELL.get()) return false
 
         val outputItem = getOutputFromInput(inputItemStack) ?: return false
 
@@ -91,7 +95,17 @@ class DnaExtractorBlockEntity(
 
     private fun getOutputFromInput(input: ItemStack): ItemStack? {
         val mobType = EntityDnaItem.getEntityType(input) ?: return null
-        return ItemStack(ModItems.DNA_HELIX.get()).setMob(mobType)
+
+        if (input.item == ModItems.CELL.get()) {
+            return ItemStack(ModItems.DNA_HELIX.get()).setMob(mobType)
+        } else {
+            val gmoItem = ItemStack(ModItems.GMO_DNA_HELIX.get())
+            val gene = input.getGene() ?: return null
+            val chance = input.getGeneChance()
+
+            GmoItem.setDetails(gmoItem, mobType, gene, chance)
+            return gmoItem
+        }
     }
 
     private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {
