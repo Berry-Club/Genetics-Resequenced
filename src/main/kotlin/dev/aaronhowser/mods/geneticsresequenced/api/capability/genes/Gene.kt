@@ -74,9 +74,14 @@ class Gene(
 
     val nameComponent: Component
         get() {
-
             val color = if (isActive) {
-                if (isNegative) ChatFormatting.RED else ChatFormatting.GRAY
+                if (isNegative) {
+                    ChatFormatting.RED
+                } else if (isMutation) {
+                    ChatFormatting.DARK_PURPLE
+                } else {
+                    ChatFormatting.GRAY
+                }
             } else {
                 ChatFormatting.DARK_RED
             }
