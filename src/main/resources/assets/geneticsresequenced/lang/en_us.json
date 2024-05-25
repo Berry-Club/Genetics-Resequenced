@@ -96,6 +96,7 @@
   "tooltip.geneticsresequenced.coal_generator.total_fe": "Stack total: %d FE",
   "tooltip.geneticsresequenced.potion.ignore": "Don't craft this! It does nothing!",
   "tooltip.geneticsresequenced.gmo_cell.chance": "Chance: %d%%",
+  "tooltip.geneticsresequenced.substrate_recipe": "Each Organic Substrate is replaced with a copy of the Cell.",
 
   "command.geneticsresequenced.geneList": "Gene List:",
   "command.geneticsresequenced.add.fail.already_present": "Failed to add Gene as target already has it.",
@@ -121,6 +122,7 @@
   "recipe.geneticsresequenced.plasmid_infuser.matching": "Matching Genes = 2 points",
   "recipe.geneticsresequenced.gmo": "GMO Cell Incubating",
   "recipe.geneticsresequenced.cell_growth": "Cell Growth",
+  "recipe.geneticsresequenced.substrate": "Substrate Cell Duplication",
 
   "info.geneticsresequenced.organic_matter": "Acquired by clicking a %1$s with a Scraper.",
   "info.geneticsresequenced.mob_gene.line1": "%1$s has these Genes:",

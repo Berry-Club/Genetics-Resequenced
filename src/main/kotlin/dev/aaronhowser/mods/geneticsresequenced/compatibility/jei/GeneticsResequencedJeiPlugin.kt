@@ -6,12 +6,14 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.*
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.CellGrowthRecipeCategory
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.GmoRecipeCategory
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.SubstrateCellRecipeCategory
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.*
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.CellGrowthRecipePage
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.GmoRecipePage
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.SubstrateCellRecipePage
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
@@ -51,6 +53,8 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             RecipeType(GmoRecipeCategory.UID, GmoRecipePage::class.java)
         val CELL_GROWTH_RECIPE_TYPE: RecipeType<CellGrowthRecipePage> =
             RecipeType(CellGrowthRecipeCategory.UID, CellGrowthRecipePage::class.java)
+        val SUBSTRATE_CELL_RECIPE_TYPE: RecipeType<SubstrateCellRecipePage> =
+            RecipeType(SubstrateCellRecipeCategory.UID, SubstrateCellRecipePage::class.java)
     }
 
     override fun getPluginUid(): ResourceLocation =
@@ -66,7 +70,8 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             PlasmidInfuserRecipeCategory(guiHelper),
             BloodPurifierRecipeCategory(guiHelper),
             GmoRecipeCategory(guiHelper),
-            CellGrowthRecipeCategory(guiHelper)
+            CellGrowthRecipeCategory(guiHelper),
+            SubstrateCellRecipeCategory(guiHelper)
         )
     }
 
@@ -87,7 +92,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
 
         addIncubatorRecipeType(GmoRecipeCategory.recipeType)
         addIncubatorRecipeType(CellGrowthRecipeCategory.recipeType)
-
+        addIncubatorRecipeType(SubstrateCellRecipeCategory.recipeType)
 
         for ((block, recipeType) in blockRecipeTypeMap) {
             registration.addRecipeCatalyst(
@@ -112,6 +117,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
 
         registration.addRecipes(GmoRecipeCategory.recipeType, GmoRecipePage.getAllRecipes())
         registration.addRecipes(CellGrowthRecipeCategory.recipeType, CellGrowthRecipePage.getAllRecipes())
+        registration.addRecipes(SubstrateCellRecipeCategory.recipeType, SubstrateCellRecipePage.getAllRecipes())
 
         mobGeneInformationRecipes(registration)
         organicMatterInformationRecipes(registration)

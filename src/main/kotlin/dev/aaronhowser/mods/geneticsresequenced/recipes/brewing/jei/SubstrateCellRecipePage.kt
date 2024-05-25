@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem.Companion.setAmount
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.NonNullList
@@ -26,9 +25,13 @@ class SubstrateCellRecipePage(
     private val entityType: EntityType<*>,
 ) : Recipe<Container> {
 
-    private val cellGrowth = PotionUtils.setPotion(ItemStack(Items.POTION), ModPotions.CELL_GROWTH)
+    private val cellGrowth = PotionUtils.setPotion(ItemStack(Items.POTION), ModPotions.SUBSTRATE).apply {
+        count = 3
+    }
     private val cell = ItemStack(ModItems.CELL.get()).setMob(entityType) ?: ItemStack.EMPTY
-    private val outputCell = cell.copy().setAmount(3)
+    private val outputCell = cell.copy().apply {
+        count = 3
+    }
 
     companion object {
         fun getAllRecipes(): List<SubstrateCellRecipePage> {
