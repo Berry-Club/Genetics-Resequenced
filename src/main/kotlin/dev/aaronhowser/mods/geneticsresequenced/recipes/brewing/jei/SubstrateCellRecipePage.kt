@@ -2,16 +2,16 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei
 
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
-import dev.aaronhowser.mods.geneticsresequenced.items.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem.Companion.setAmount
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
-import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.Container
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.PotionUtils
@@ -20,60 +20,43 @@ import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
+import net.minecraftforge.registries.ForgeRegistries
 
-class GmoRecipePage(
+class SubstrateCellRecipePage(
     private val entityType: EntityType<*>,
-    private val ingredientInput: ItemStack,
-    private val cellOutput: ItemStack
 ) : Recipe<Container> {
 
-    private val cellGrowthPotion: ItemStack
-        get() {
-            val potion = ItemStack(Items.POTION)
-            PotionUtils.setPotion(potion, ModPotions.CELL_GROWTH)
-            potion.setMob(entityType)
-            return potion
-        }
+    private val cellGrowth = PotionUtils.setPotion(ItemStack(Items.POTION), ModPotions.CELL_GROWTH)
+    private val cell = ItemStack(ModItems.CELL.get()).setMob(entityType) ?: ItemStack.EMPTY
+    private val outputCell = cell.copy().setAmount(3)
 
     companion object {
-        fun getAllRecipes(): List<GmoRecipePage> {
+        fun getAllRecipes(): List<SubstrateCellRecipePage> {
+            val allLivingEntities = ForgeRegistries.ENTITY_TYPES.values.filter { it.category != MobCategory.MISC }
 
-            val allPotionRecipes = ModPotions.allRecipes
-            val gmoRecipes = allPotionRecipes.filterIsInstance<GmoRecipe>()
+            val recipes = mutableListOf<SubstrateCellRecipePage>()
 
-            val recipePages = mutableListOf<GmoRecipePage>()
-
-            for (recipe in gmoRecipes) {
-                val ingredient = recipe.ingredientItem.defaultInstance
-
-                val output = ModItems.GMO_CELL.get().defaultInstance
-                GmoCell.setDetails(
-                    output,
-                    recipe.entityType,
-                    recipe.outputGene,
-                    recipe.geneChance
-                )
-
-                recipePages.add(GmoRecipePage(recipe.entityType, ingredient, output))
+            for (entityType in allLivingEntities) {
+                recipes.add(SubstrateCellRecipePage(entityType))
             }
 
-            return recipePages
+            return recipes
         }
 
-        const val RECIPE_TYPE_NAME = "gmo_recipe"
+        const val RECIPE_TYPE_NAME = "substrate_dupe"
 
-        val RECIPE_TYPE = object : RecipeType<GmoRecipePage> {}
+        val RECIPE_TYPE = object : RecipeType<SubstrateCellRecipePage> {}
 
-        val SERIALIZER = object : RecipeSerializer<GmoRecipePage> {
-            override fun fromJson(pRecipeId: ResourceLocation, pSerializedRecipe: JsonObject): GmoRecipePage {
+        val SERIALIZER = object : RecipeSerializer<SubstrateCellRecipePage> {
+            override fun fromJson(pRecipeId: ResourceLocation, pSerializedRecipe: JsonObject): SubstrateCellRecipePage {
                 throw IllegalStateException("This recipe type does not support JSON serialization")
             }
 
-            override fun fromNetwork(pRecipeId: ResourceLocation, pBuffer: FriendlyByteBuf): GmoRecipePage? {
+            override fun fromNetwork(pRecipeId: ResourceLocation, pBuffer: FriendlyByteBuf): SubstrateCellRecipePage? {
                 throw IllegalStateException("This recipe type does not support JSON serialization")
             }
 
-            override fun toNetwork(pBuffer: FriendlyByteBuf, pRecipe: GmoRecipePage) {
+            override fun toNetwork(pBuffer: FriendlyByteBuf, pRecipe: SubstrateCellRecipePage) {
                 throw IllegalStateException("This recipe type does not support JSON serialization")
             }
         }
@@ -95,16 +78,16 @@ class GmoRecipePage(
         return !pLevel.isClientSide
     }
 
-    override fun assemble(pContainer: Container): ItemStack = cellOutput.copy()
+    override fun assemble(pContainer: Container): ItemStack = outputCell.copy()
 
     override fun canCraftInDimensions(pWidth: Int, pHeight: Int): Boolean = true
 
-    override fun getResultItem(): ItemStack = cellOutput.copy()
+    override fun getResultItem(): ItemStack = outputCell.copy()
 
     override fun getIngredients(): NonNullList<Ingredient> {
 
-        val first = Ingredient.of(cellGrowthPotion)
-        val second = Ingredient.of(ingredientInput)
+        val first = Ingredient.of(cellGrowth)
+        val second = Ingredient.of(cell)
 
         // WHY THE HELL DOES NonNullList.of WORK LIKE THAT??
         return NonNullList.of(first, first, second)

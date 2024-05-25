@@ -15,7 +15,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 
-class GmoRecipeCategory(
+class IncubatorRecipeCategory(
     helper: IGuiHelper
 ) : IRecipeCategory<GmoRecipePage> {
 
@@ -35,7 +35,7 @@ class GmoRecipeCategory(
     private val icon: IDrawable =
         helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(Items.BREWING_STAND))
 
-    override fun getRecipeType(): RecipeType<GmoRecipePage> = GeneticsResequencedJeiPlugin.GMO_RECIPE_PAGE_TYPE
+    override fun getRecipeType(): RecipeType<GmoRecipePage> = GeneticsResequencedJeiPlugin.INCUBATOR_RECIPE_TYPE
 
     override fun getTitle(): Component = Component.translatable("recipe.geneticsresequenced.gmo")
 

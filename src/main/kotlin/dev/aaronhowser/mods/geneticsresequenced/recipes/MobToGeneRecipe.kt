@@ -22,7 +22,7 @@ import net.minecraft.world.level.Level
 import net.minecraftforge.registries.ForgeRegistries
 
 class MobToGeneRecipe(
-    val mobResourceLocation: ResourceLocation,
+    private val mobResourceLocation: ResourceLocation,
     val gene: Gene,
     val chance: Int = 100
 ) : Recipe<Container> {
@@ -87,7 +87,7 @@ class MobToGeneRecipe(
     override fun getResultItem(): ItemStack = outputItem.copy()
 
     override fun getId(): ResourceLocation {
-        val geneString = gene?.id?.toString()?.replace(":", "/") ?: "basic"
+        val geneString = gene.id.toString().replace(":", "/")
 
         return OtherUtil.modResource(
             "$RECIPE_TYPE_NAME/${mobResourceLocation.toString().replace(':', '/')}/$geneString"

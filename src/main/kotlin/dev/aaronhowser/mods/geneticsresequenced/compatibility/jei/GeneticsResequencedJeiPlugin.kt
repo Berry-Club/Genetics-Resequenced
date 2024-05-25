@@ -44,8 +44,8 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
         val BLOOD_PURIFIER_TYPE: RecipeType<BloodPurifierRecipe> =
             RecipeType(BloodPurifierRecipeCategory.UID, BloodPurifierRecipe::class.java)
 
-        val GMO_RECIPE_PAGE_TYPE: RecipeType<GmoRecipePage> =
-            RecipeType(GmoRecipeCategory.UID, GmoRecipePage::class.java)
+        val INCUBATOR_RECIPE_TYPE: RecipeType<GmoRecipePage> =
+            RecipeType(IncubatorRecipeCategory.UID, GmoRecipePage::class.java)
     }
 
     override fun getPluginUid(): ResourceLocation =
@@ -60,7 +60,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             DnaExtractorRecipeCategory(guiHelper),
             PlasmidInfuserRecipeCategory(guiHelper),
             BloodPurifierRecipeCategory(guiHelper),
-            GmoRecipeCategory(guiHelper)
+            IncubatorRecipeCategory(guiHelper)
         )
     }
 
@@ -73,8 +73,8 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             ModBlocks.PLASMID_INFUSER.get() to PlasmidInfuserRecipeCategory.recipeType,
             ModBlocks.BLOOD_PURIFIER.get() to BloodPurifierRecipeCategory.recipeType,
 
-            Blocks.BREWING_STAND to GmoRecipeCategory.recipeType,
-            ModBlocks.INCUBATOR.get() to GmoRecipeCategory.recipeType
+            Blocks.BREWING_STAND to IncubatorRecipeCategory.recipeType,
+            ModBlocks.INCUBATOR.get() to IncubatorRecipeCategory.recipeType
         )
 
         for ((block, recipeType) in blockRecipeTypeMap) {
@@ -98,7 +98,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
         registration.addRecipes(PlasmidInfuserRecipeCategory.recipeType, PlasmidInfuserRecipe.getAllRecipes())
         registration.addRecipes(BloodPurifierRecipeCategory.recipeType, BloodPurifierRecipe.getAllRecipes())
 
-        registration.addRecipes(GmoRecipeCategory.recipeType, GmoRecipePage.getAllRecipes())
+        registration.addRecipes(IncubatorRecipeCategory.recipeType, GmoRecipePage.getAllRecipes())
 
         mobGeneInformationRecipes(registration)
         organicMatterInformationRecipes(registration)
