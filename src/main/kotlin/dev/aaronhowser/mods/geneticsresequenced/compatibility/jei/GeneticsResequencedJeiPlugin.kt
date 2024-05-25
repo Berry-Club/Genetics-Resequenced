@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.inc
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.GmoRecipeCategory
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.SubstrateCellRecipeCategory
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
+import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.*
@@ -19,6 +20,7 @@ import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
 import mezz.jei.api.constants.RecipeTypes
 import mezz.jei.api.constants.VanillaTypes
+import mezz.jei.api.ingredients.subtypes.IIngredientSubtypeInterpreter
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.registration.IRecipeCatalystRegistration
 import mezz.jei.api.registration.IRecipeCategoryRegistration
@@ -27,6 +29,7 @@ import mezz.jei.api.registration.ISubtypeRegistration
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.Container
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Recipe
@@ -170,10 +173,49 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
     }
 
     override fun registerItemSubtypes(registration: ISubtypeRegistration) {
-        registration.registerSubtypeInterpreter(ModItems.PLASMID.get()) { stack, _ ->
-            val gene: Gene? = stack.getGene()
-            gene?.id?.toString() ?: "no_gene"
-        }
+
+        registration.registerSubtypeInterpreter(
+            ModItems.ORGANIC_MATTER.get(),
+            IIngredientSubtypeInterpreter<ItemStack> { stack, _ ->
+                val entityType: EntityType<*>? = EntityDnaItem.getEntityType(stack)
+                entityType?.toShortString() ?: "no_entity"
+            })
+
+        registration.registerSubtypeInterpreter(
+            ModItems.CELL.get(),
+            IIngredientSubtypeInterpreter<ItemStack> { stack, _ ->
+                val entityType: EntityType<*>? = EntityDnaItem.getEntityType(stack)
+                entityType?.toShortString() ?: "no_entity"
+            })
+
+        registration.registerSubtypeInterpreter(
+            ModItems.GMO_CELL.get(),
+            IIngredientSubtypeInterpreter<ItemStack> { stack, _ ->
+                val entityType: EntityType<*>? = EntityDnaItem.getEntityType(stack)
+                entityType?.toShortString() ?: "no_entity"
+            })
+
+        registration.registerSubtypeInterpreter(
+            ModItems.PLASMID.get(),
+            IIngredientSubtypeInterpreter<ItemStack> { stack, _ ->
+                val gene: Gene? = stack.getGene()
+                gene?.id?.toString() ?: "no_gene"
+            })
+
+        registration.registerSubtypeInterpreter(
+            ModItems.DNA_HELIX.get(),
+            IIngredientSubtypeInterpreter<ItemStack> { stack, _ ->
+                val gene: Gene? = stack.getGene()
+                gene?.id?.toString() ?: "no_gene"
+            })
+
+        registration.registerSubtypeInterpreter(
+            ModItems.GMO_DNA_HELIX.get(),
+            IIngredientSubtypeInterpreter<ItemStack> { stack, _ ->
+                val gene: Gene? = stack.getGene()
+                gene?.id?.toString() ?: "no_gene"
+            })
+
     }
 
 }
