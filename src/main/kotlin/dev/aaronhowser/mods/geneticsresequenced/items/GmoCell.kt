@@ -33,7 +33,6 @@ class GmoCell : Item(Properties().tab(ModItems.MOD_TAB)) {
 
         fun ItemStack.getGeneChance(): Float {
             return this.getOrCreateTag().getFloat(CHANCE_NBT_KEY)
-
         }
 
     }
