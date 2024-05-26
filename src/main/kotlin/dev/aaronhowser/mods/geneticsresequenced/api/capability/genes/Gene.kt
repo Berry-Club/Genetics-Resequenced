@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
@@ -57,10 +58,18 @@ class Gene(
                 if (gene == null) {
                     GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")
                 } else {
+                    require(gene !in requiredGenes) {
+                        "Tried to disable gene $disabledGene, but it is required for the mod to function!"
+                    }
+
                     gene.deactivate()
                 }
             }
         }
+
+        private val requiredGenes = setOf(
+            DefaultGenes.BASIC
+        )
     }
 
     val isMutation: Boolean
