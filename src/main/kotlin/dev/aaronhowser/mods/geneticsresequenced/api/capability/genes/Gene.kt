@@ -57,13 +57,16 @@ class Gene(
                 val gene = fromId(disabledGene)
                 if (gene == null) {
                     GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")
-                } else {
-                    require(gene !in requiredGenes) {
-                        "Tried to disable gene $disabledGene, but it is required for the mod to function!"
-                    }
-
-                    gene.deactivate()
+                    continue
                 }
+
+                if (gene in requiredGenes) {
+                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it is required for the mod to function!")
+                    continue
+                }
+
+                gene.deactivate()
+
             }
         }
 
