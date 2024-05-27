@@ -114,6 +114,7 @@
   "command.geneticsresequenced.remove.success.all": "Removed %d Genes!",
   "command.geneticsresequenced.list.no_genes": "No Genes found!",
   "command.geneticsresequenced.list.genes": "%1$s's Genes:",
+  "command.geneticsresequenced.remove_nearby_lights.success": "Removed %d nearby bioluminescence light sources.",
 
   "cooldown.geneticsresequenced.started": " triggered! Cooldown started: %s",
   "cooldown.geneticsresequenced.ended": " has come off cooldown!",
