@@ -47,7 +47,6 @@ class SyringeItem : Item(
         fun setEntity(syringeStack: ItemStack, entity: LivingEntity) {
             if (!syringeStack.`is`(ModItems.SYRINGE.get())) throw IllegalArgumentException("ItemStack is not a Syringe")
             setEntityUuid(syringeStack, entity.uuid)
-
             setEntityName(syringeStack, entity.name)
         }
 
@@ -87,7 +86,7 @@ class SyringeItem : Item(
 
                 if (entity !is Player && !gene.canMobsHave) {
                     entity.sendSystemMessage(
-                        Component.translatable("message.geneticsresequenced.syringe.cannot_inject")
+                        Component.translatable("message.geneticsresequenced.syringe.failed.mobs_cant_have", gene)
                     )
                     continue
                 }
