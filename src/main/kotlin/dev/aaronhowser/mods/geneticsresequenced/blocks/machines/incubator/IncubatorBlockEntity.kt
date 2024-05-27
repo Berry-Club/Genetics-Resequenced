@@ -1,21 +1,18 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
-import dev.aaronhowser.mods.geneticsresequenced.blocks.base.InventoryEnergyBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
-import net.minecraft.world.MenuProvider
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
-import net.minecraft.world.item.alchemy.PotionUtils
-import net.minecraft.world.item.alchemy.Potions
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry
@@ -24,11 +21,11 @@ import net.minecraftforge.items.ItemStackHandler
 class IncubatorBlockEntity(
     pPos: BlockPos,
     pBlockState: BlockState
-) : InventoryEnergyBlockEntity(
+) : CraftingMachineBlockEntity(
     ModBlockEntities.INCUBATOR.get(),
     pPos,
     pBlockState
-), MenuProvider {
+) {
 
     override val machineName: String = "coal_generator"
 
@@ -99,6 +96,8 @@ class IncubatorBlockEntity(
 
     private val ticksRemainingNbtKey = "$machineName.ticksRemaining"
 
+    override val energyCostPerTick = 10
+
     override fun saveAdditional(pTag: CompoundTag) {
         pTag.putInt(ticksRemainingNbtKey, ticksRemaining)
 
@@ -111,29 +110,28 @@ class IncubatorBlockEntity(
         super.load(pTag)
     }
 
-    private fun tick() {
+    override fun tick() {
 
-        if (!isBrewing && canBrew()) {
+        if (!isBrewing && hasRecipe()) {
             ticksRemaining = TICKS_PER
-        } else if (!canBrew()) {
+        } else if (!hasRecipe()) {
             ticksRemaining = 0
             return
         }
 
-        energyStorage.extractEnergy(ENERGY_COST_PER_TICK, false)
-        ticksRemaining--
+        energyStorage.extractEnergy(energyCostPerTick, false)
+        ticksRemaining -= 1 + itemHandler.getStackInSlot(OVERCLOCKER_SLOT_INDEX).count
 
         if (ticksRemaining <= 0) {
-            finishBrew()
+            craftItem()
             return
         }
 
     }
 
-    private fun finishBrew() {
+    override fun craftItem() {
 
         val topStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
-        val topPotion = PotionUtils.getPotion(topStack)
 
         val bottleSlots = listOf(
             LEFT_BOTTLE_SLOT_INDEX,
@@ -154,8 +152,8 @@ class IncubatorBlockEntity(
         setChanged()
     }
 
-    private fun canBrew(): Boolean {
-        if (energyStorage.energyStored < ENERGY_COST_PER_TICK) return false
+    override fun hasRecipe(): Boolean {
+        if (energyStorage.energyStored < energyCostPerTick) return false
 
         val topSlotStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
         val bottleStacks =
@@ -193,7 +191,6 @@ class IncubatorBlockEntity(
         const val CHORUS_SLOT_INDEX = 4
         const val OVERCLOCKER_SLOT_INDEX = 5
 
-        private const val ENERGY_COST_PER_TICK = 10
         const val TICKS_PER = 20 * 5
     }
 
