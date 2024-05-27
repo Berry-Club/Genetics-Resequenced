@@ -60,12 +60,12 @@ class MetalSyringeItem : SyringeItem() {
         pUsedHand: InteractionHand
     ): InteractionResult {
 
-        //FIXME: Doesn't work in creative? Breakpointing shows that the NBT is saved, but afterwards the item doesn't have the NBT
+        val realStack = pPlayer.getItemInHand(pUsedHand)
 
-        return if (hasBlood(pStack)) {
-            tryInjectBlood(pStack, pPlayer, pInteractionTarget)
+        return if (hasBlood(realStack)) {
+            tryInjectBlood(realStack, pPlayer, pInteractionTarget)
         } else {
-        extractBlood(pStack, pInteractionTarget)
+            extractBlood(realStack, pInteractionTarget)
         }
     }
 
