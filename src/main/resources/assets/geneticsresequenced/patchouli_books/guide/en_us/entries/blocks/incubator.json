@@ -1,0 +1,18 @@
+{
+  "name": "Incubator",
+  "category": "geneticsresequenced:blocks",
+  "icon": "geneticsresequenced:incubator",
+  "sortnum": 8,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Incubator/$ is effectively a $(minor)faster Brewing Stand/$. It runs at $(minor)twice the speed/$, but $(bad)costs FE/$ instead of Blaze Powder."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:incubator",
+      "link_recipe": true,
+      "text": "It speed can be increased even further with $(l:geneticsresequenced:items/overclocker)Overclockers/$."
+    }
+  ]
+}
