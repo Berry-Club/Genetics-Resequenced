@@ -103,6 +103,8 @@
   "tooltip.geneticsresequenced.substrate_recipe": "Each Organic Substrate is replaced with a copy of the Cell.",
 
   "command.geneticsresequenced.geneList": "Gene List:",
+  "command.geneticsresequenced.add.success.multiple": "Added %1$s to %2$d entities!",
+  "command.geneticsresequenced.add.fail.multiple": "Failed to add %1$s to %2$d entities!",
   "command.geneticsresequenced.add.fail.already_present": "Failed to add Gene as target already has it.",
   "command.geneticsresequenced.add.fail.other": "Failed to add Gene: ",
   "command.geneticsresequenced.add.success": "Added Gene: ",

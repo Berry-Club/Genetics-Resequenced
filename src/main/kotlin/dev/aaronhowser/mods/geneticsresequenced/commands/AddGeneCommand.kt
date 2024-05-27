@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.commands
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.commands.ModCommands.SUGGEST_GENE_RLS
@@ -30,60 +31,79 @@ object AddGeneCommand {
                     .suggests(SUGGEST_GENE_RLS)
                     .then(
                         Commands
-                            .argument(TARGET_ARGUMENT, EntityArgument.entity())
-                            .executes { cmd -> addGene(cmd, EntityArgument.getEntity(cmd, TARGET_ARGUMENT)) }
+                            .argument(TARGET_ARGUMENT, EntityArgument.entities())
+                            .executes { cmd -> addGene(cmd, EntityArgument.getEntities(cmd, TARGET_ARGUMENT)) }
                     )
                     .executes { cmd -> addGene(cmd) }
             )
     }
 
-    private fun addGene(context: CommandContext<CommandSourceStack>, entity: Entity? = null): Int {
+    private fun addGene(
+        context: CommandContext<CommandSourceStack>,
+        entities: MutableCollection<out Entity>? = null
+    ): Int {
 
         val geneArgument = ResourceLocationArgument.getId(context, GENE_ARGUMENT)
 
-        val target = if (entity == null) {
-            context.source.entity as? LivingEntity
-        } else {
-            entity as? LivingEntity
-        } ?: return 0
+        val targets: List<LivingEntity?> =
+            entities?.map { it as? LivingEntity } ?: listOf(context.source.entity as? LivingEntity)
 
         val geneToAdd = Gene.fromId(geneArgument)!!
+
+        var amountSuccess = 0
+        var amountFail = 0
+        for (target in targets) {
+            if (target == null) continue
+            val geneAdded = addGeneToTarget(target, geneToAdd)
+            if (geneAdded == 1) amountSuccess++ else amountFail++
+        }
+
+        if (amountSuccess != 0) {
+            val component = Component.translatable(
+                "command.geneticsresequenced.add.success.multiple",
+                geneToAdd.nameComponent,
+                amountSuccess
+            )
+            context.source.sendSuccess(component, false)
+        }
+
+        if (amountFail != 0) {
+            val component = Component.translatable(
+                "command.geneticsresequenced.add.fail.multiple",
+                geneToAdd.nameComponent,
+                amountFail
+            )
+            context.source.sendFailure(component)
+        }
+
+        return 1
+    }
+
+    private fun addGeneToTarget(
+        target: LivingEntity,
+        geneToAdd: Gene,
+    ): Int {
         val targetGenes = target.getGenes()!!
 
         val alreadyHasGene = targetGenes.hasGene(geneToAdd)
         if (alreadyHasGene) {
-            val component = Component.translatable("command.geneticsresequenced.add.fail.already_present")
-
-            context.source.sendFailure(component)
+            GeneticsResequenced.LOGGER.info("Tried to add gene ${geneToAdd.id} to ${target.name.string}, but they already have it!")
             return 0
         }
 
         val cantAddToMob = target !is Player && !geneToAdd.canMobsHave
         if (cantAddToMob) {
-            val component = Component.translatable("command.geneticsresequenced.add.fail.mob")
-
-            context.source.sendFailure(component)
+            GeneticsResequenced.LOGGER.info("Tried to add gene ${geneToAdd.id} to ${target.name.string}, but they can't have it!")
             return 0
         }
 
         val success = targetGenes.addGene(geneToAdd)
 
         if (success) {
-            val component = Component
-                .translatable("command.geneticsresequenced.add.success")
-                .append(geneToAdd.nameComponent)
-
-            context.source.sendSuccess(component, false)
-
             OtherPlayerEvents.genesChanged(target, geneToAdd, true)
 
             return 1
         } else {
-            val component = Component
-                .translatable("command.geneticsresequenced.add.fail.other")
-                .append(geneToAdd.nameComponent)
-
-            context.source.sendFailure(component)
             return 0
         }
     }
