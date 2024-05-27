@@ -6,7 +6,12 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "The $(major)Syringe/$ is used to $(minor)extract and inject blood/$. Simply hold right-click, and the process will end automatically.$(br2)The reason you'd $(o)want/$ to extract blood is that that's what carries completed $(l:geneticsresequenced:items/plasmid)Plasmids/$ back into your body."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:syringe",
+      "text": "When you extract blood, it'll be $(bad)contaminated/$. You'll need to clean it up in the $(l:geneticsresequenced:blocks/blood_purifier)Blood Purifier/$ before it can be used.$(br2)Plasmids are added in the $(l:geneticsresequenced:blocks/plasmid_injector)Plasmid Injector/$."
     }
   ]
 }
