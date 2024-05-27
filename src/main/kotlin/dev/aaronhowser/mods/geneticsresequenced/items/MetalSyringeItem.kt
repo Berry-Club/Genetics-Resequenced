@@ -46,6 +46,14 @@ class MetalSyringeItem : SyringeItem() {
                 return InteractionResult.PASS
             }
 
+            val genes = getGenes(pStack)
+            val badGenes = genes.filter { !it.canMobsHave }
+            for (badGene in badGenes) {
+                val component =
+                    Component.translatable("message.geneticsresequenced.syringe.failed.mobs_cant_have", badGene.nameComponent)
+                sendMessage(component)
+            }
+
             injectEntity(pStack, pInteractionTarget)
             return InteractionResult.SUCCESS
         }

@@ -35,7 +35,7 @@ open class SyringeItem : Item(
             return this == ModItems.SYRINGE.get() || this == ModItems.METAL_SYRINGE.get()
         }
 
-        private fun ItemStack.isSyringe(): Boolean = item.isSyringe()
+        fun ItemStack.isSyringe(): Boolean = item.isSyringe()
 
         // Animation / model functions
 
@@ -93,9 +93,6 @@ open class SyringeItem : Item(
             for (gene in genes) {
 
                 if (entity !is Player && !gene.canMobsHave) {
-                    entity.sendSystemMessage(
-                        Component.translatable("message.geneticsresequenced.syringe.failed.mobs_cant_have", gene)
-                    )
                     continue
                 }
 
