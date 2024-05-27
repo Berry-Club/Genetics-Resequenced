@@ -133,7 +133,7 @@ class DnaDecryptorBlockEntity(
             return listOf(idealGene, DefaultGenes.BASIC)
         }
 
-        return idealGene.mutatesFrom + idealGene
+        return idealGene.requiredGenes.toList() + idealGene
     }
 
     private fun getPossibleGenes(input: ItemStack): List<Gene> {
