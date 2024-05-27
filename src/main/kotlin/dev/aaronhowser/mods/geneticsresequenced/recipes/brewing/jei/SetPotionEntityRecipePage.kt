@@ -37,8 +37,11 @@ class SetPotionEntityRecipePage(
 
             val recipes = mutableListOf<SetPotionEntityRecipePage>()
 
+            // Iterates twice on purpose, so it does all Growth and then all Mutation
             for (entityType in allLivingEntities) {
                 recipes.add(SetPotionEntityRecipePage(entityType))
+            }
+            for (entityType in allLivingEntities) {
                 recipes.add(SetPotionEntityRecipePage(entityType, true))
             }
 
