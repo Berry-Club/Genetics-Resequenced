@@ -15,8 +15,8 @@ import net.minecraft.world.effect.MobEffectInstance
 class Gene(
     val id: ResourceLocation,
     val isNegative: Boolean = false,
-    val mutatesInto: Gene? = null,
-    val dnaPointsRequired: Int = -1,
+    val dnaPointsRequired: Int,
+    val requiredGenes: Set<Gene>,
     private val potionDetails: GeneBuilder.PotionDetails? = null
 ) {
 
@@ -37,13 +37,19 @@ class Gene(
         val basicGeneComponent: MutableComponent = Component.translatable("gene.geneticsresequenced.basic")
         val unknownGeneComponent: MutableComponent = Component.translatable("gene.geneticsresequenced.unknown")
 
-        fun register(geneBuilder: GeneBuilder): Gene {
+        fun register(
+            id: ResourceLocation,
+            isNegative: Boolean,
+            dnaPointsRequired: Int,
+            requiredGenes: Set<Gene>,
+            potionDetails: GeneBuilder.PotionDetails?
+        ): Gene {
             val gene = Gene(
-                id = geneBuilder.id,
-                isNegative = geneBuilder.isNegative,
-                mutatesInto = geneBuilder.mutatesInto,
-                dnaPointsRequired = geneBuilder.dnaPointsRequired,
-                potionDetails = geneBuilder.potionDetails
+                id = id,
+                isNegative = isNegative,
+                dnaPointsRequired = dnaPointsRequired,
+                requiredGenes = requiredGenes,
+                potionDetails = potionDetails
             )
 
             GENE_REGISTRY.add(gene)
@@ -76,10 +82,7 @@ class Gene(
     }
 
     val isMutation: Boolean
-        get() = GENE_REGISTRY.any { it.mutatesInto == this }
-
-    val mutatesFrom: List<Gene>
-        get() = GENE_REGISTRY.filter { it.mutatesInto == this }
+        get() = requiredGenes.isNotEmpty()
 
     @Suppress("MemberVisibilityCanBePrivate")
     val translationKey: String = "gene.${id.namespace}.${id.path}"
@@ -148,6 +151,13 @@ class Gene(
             false,
             ServerConfig.showEffectIcons.get()
         )
+    }
+
+    fun canBeAdded(targetGenes: GenesCapability): Boolean {
+        if (targetGenes.hasGene(this)) return false
+        if (!isMutation) return true
+
+        return requiredGenes.all { targetGenes.hasGene(it) }
     }
 
 //    fun canAddMutation(genes: GenesCapability, syringeGenes: GenesCapability): Boolean {

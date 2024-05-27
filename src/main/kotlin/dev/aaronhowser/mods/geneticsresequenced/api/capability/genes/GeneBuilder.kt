@@ -7,22 +7,17 @@ class GeneBuilder(
     val id: ResourceLocation
 ) {
 
-    var isNegative: Boolean = false
-    var mutatesInto: Gene? = null
-    var dnaPointsRequired: Int = -1
-    var potionDetails: PotionDetails? = null
+    private var isNegative: Boolean = false
+    private var dnaPointsRequired: Int = -1
+    private var requiredGenes: MutableSet<Gene> = mutableSetOf()
+    private var potionDetails: PotionDetails? = null
 
     fun build(): Gene {
-        return Gene.register(this)
+        return Gene.register(id, isNegative, dnaPointsRequired, requiredGenes, potionDetails)
     }
 
     fun setNegative(): GeneBuilder {
         this.isNegative = true
-        return this
-    }
-
-    fun setMutatesInto(mutatesInto: Gene): GeneBuilder {
-        this.mutatesInto = mutatesInto
         return this
     }
 
@@ -31,12 +26,16 @@ class GeneBuilder(
         return this
     }
 
+    fun addRequiredGenes(vararg gene: Gene): GeneBuilder {
+        requiredGenes.addAll(gene)
+        return this
+    }
+
     fun setPotion(
         effect: MobEffect,
         level: Int,
         duration: Int = 300
     ): GeneBuilder {
-
         potionDetails = PotionDetails(effect, level, duration)
         return this
     }
