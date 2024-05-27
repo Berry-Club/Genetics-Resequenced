@@ -193,7 +193,7 @@ object TickGenes {
         entity.level.addFreshEntity(eggEntity)
     }
 
-    fun handleMobSight(entity: LivingEntity) {
+    fun handleMobSight(entity: Player) {
         if (!DefaultGenes.MOB_SIGHT.isActive) return
         if (entity.tickCount % ServerConfig.mobSightCooldown.get() != 0) return
 

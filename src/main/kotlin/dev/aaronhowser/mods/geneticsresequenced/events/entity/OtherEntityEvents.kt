@@ -63,7 +63,6 @@ object OtherEntityEvents {
 
         TickGenes.handleBioluminescence(entity)
         TickGenes.handlePhotosynthesis(entity)
-        TickGenes.handleMobSight(entity)
         TickGenes.handleTickingGenes(entity)
     }
 
