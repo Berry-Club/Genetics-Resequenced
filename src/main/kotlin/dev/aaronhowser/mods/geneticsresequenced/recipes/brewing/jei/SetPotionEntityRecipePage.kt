@@ -21,22 +21,25 @@ import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.minecraftforge.registries.ForgeRegistries
 
-class CellGrowthRecipePage(
+class SetPotionEntityRecipePage(
     private val entityType: EntityType<*>,
+    private val isMutation: Boolean = false
 ) : Recipe<Container> {
 
-    private val unsetPotion = PotionUtils.setPotion(ItemStack(Items.POTION), ModPotions.CELL_GROWTH)
+    private val potionType = if (isMutation) ModPotions.MUTATION else ModPotions.CELL_GROWTH
+    private val unsetPotion = PotionUtils.setPotion(ItemStack(Items.POTION), potionType)
     private val cell = ItemStack(ModItems.CELL.get()).setMob(entityType) ?: ItemStack.EMPTY
     private val setPotion = unsetPotion.copy().setMob(entityType) ?: ItemStack.EMPTY
 
     companion object {
-        fun getAllRecipes(): List<CellGrowthRecipePage> {
+        fun getAllRecipes(): List<SetPotionEntityRecipePage> {
             val allLivingEntities = ForgeRegistries.ENTITY_TYPES.values.filter { it.category != MobCategory.MISC }
 
-            val recipes = mutableListOf<CellGrowthRecipePage>()
+            val recipes = mutableListOf<SetPotionEntityRecipePage>()
 
             for (entityType in allLivingEntities) {
-                recipes.add(CellGrowthRecipePage(entityType))
+                recipes.add(SetPotionEntityRecipePage(entityType))
+                recipes.add(SetPotionEntityRecipePage(entityType, true))
             }
 
             return recipes
@@ -44,18 +47,24 @@ class CellGrowthRecipePage(
 
         const val RECIPE_TYPE_NAME = "set_cell_growth"
 
-        val RECIPE_TYPE = object : RecipeType<CellGrowthRecipePage> {}
+        val RECIPE_TYPE = object : RecipeType<SetPotionEntityRecipePage> {}
 
-        val SERIALIZER = object : RecipeSerializer<CellGrowthRecipePage> {
-            override fun fromJson(pRecipeId: ResourceLocation, pSerializedRecipe: JsonObject): CellGrowthRecipePage {
+        val SERIALIZER = object : RecipeSerializer<SetPotionEntityRecipePage> {
+            override fun fromJson(
+                pRecipeId: ResourceLocation,
+                pSerializedRecipe: JsonObject
+            ): SetPotionEntityRecipePage {
                 throw IllegalStateException("This recipe type does not support JSON serialization")
             }
 
-            override fun fromNetwork(pRecipeId: ResourceLocation, pBuffer: FriendlyByteBuf): CellGrowthRecipePage? {
+            override fun fromNetwork(
+                pRecipeId: ResourceLocation,
+                pBuffer: FriendlyByteBuf
+            ): SetPotionEntityRecipePage? {
                 throw IllegalStateException("This recipe type does not support JSON serialization")
             }
 
-            override fun toNetwork(pBuffer: FriendlyByteBuf, pRecipe: CellGrowthRecipePage) {
+            override fun toNetwork(pBuffer: FriendlyByteBuf, pRecipe: SetPotionEntityRecipePage) {
                 throw IllegalStateException("This recipe type does not support JSON serialization")
             }
         }

@@ -8,14 +8,14 @@ import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.PotionUtils
 import net.minecraftforge.common.brewing.IBrewingRecipe
 
-class SetCellGrowthEntityRecipe : IBrewingRecipe {
+class SetPotionEntityRecipe : IBrewingRecipe {
 
     override fun isInput(pBottomSlot: ItemStack): Boolean {
         if (pBottomSlot.item != Items.POTION) return false
         if (EntityDnaItem.hasEntity(pBottomSlot)) return false
 
         val inputPotion = PotionUtils.getPotion(pBottomSlot)
-        return inputPotion == ModPotions.CELL_GROWTH
+        return inputPotion == ModPotions.CELL_GROWTH || inputPotion == ModPotions.MUTATION
     }
 
     override fun isIngredient(pTopSlot: ItemStack): Boolean {

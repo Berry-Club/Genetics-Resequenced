@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.in
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
-import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.CellGrowthRecipePage
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.SetPotionEntityRecipePage
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
@@ -17,19 +17,19 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.PotionUtils
 
-class CellGrowthRecipeCategory(
+class SetPotionEntityRecipeCategory(
     helper: IGuiHelper
-) : IRecipeCategory<CellGrowthRecipePage> {
+) : IRecipeCategory<SetPotionEntityRecipePage> {
 
     companion object {
 
-        val recipeType: RecipeType<CellGrowthRecipePage> =
+        val recipeType: RecipeType<SetPotionEntityRecipePage> =
             RecipeType(
-                OtherUtil.modResource(CellGrowthRecipePage.RECIPE_TYPE_NAME),
-                CellGrowthRecipePage::class.java
+                OtherUtil.modResource(SetPotionEntityRecipePage.RECIPE_TYPE_NAME),
+                SetPotionEntityRecipePage::class.java
             )
 
-        val UID = OtherUtil.modResource(CellGrowthRecipePage.RECIPE_TYPE_NAME)
+        val UID = OtherUtil.modResource(SetPotionEntityRecipePage.RECIPE_TYPE_NAME)
         private val TEXTURE = OtherUtil.modResource("textures/gui/two_to_one.png")
     }
 
@@ -40,8 +40,8 @@ class CellGrowthRecipeCategory(
             PotionUtils.setPotion(ItemStack(Items.POTION), ModPotions.CELL_GROWTH)
         )
 
-    override fun getRecipeType(): RecipeType<CellGrowthRecipePage> =
-        GeneticsResequencedJeiPlugin.CELL_GROWTH_RECIPE_TYPE
+    override fun getRecipeType(): RecipeType<SetPotionEntityRecipePage> =
+        GeneticsResequencedJeiPlugin.SET_POTION_ENTITY_RECIPE_TYPE
 
     override fun getTitle(): Component = Component.translatable("recipe.geneticsresequenced.cell_growth")
 
@@ -49,7 +49,7 @@ class CellGrowthRecipeCategory(
 
     override fun getIcon(): IDrawable = icon
 
-    override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: CellGrowthRecipePage, focuses: IFocusGroup) {
+    override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: SetPotionEntityRecipePage, focuses: IFocusGroup) {
 
         val firstIngredient = recipe.ingredients[0]
         val secondIngredient = recipe.ingredients[1]

@@ -16,14 +16,17 @@ class GmoRecipe(
     val entityType: EntityType<*>,
     val ingredientItem: Item,
     val outputGene: Gene,
-    val geneChance: Float
+    val geneChance: Float,
+    isMutation: Boolean = false
 ) : IBrewingRecipe {
+
+    private val requiredPotion = if (isMutation) ModPotions.MUTATION else ModPotions.CELL_GROWTH
 
     override fun isInput(pBottomSlot: ItemStack): Boolean {
         if (pBottomSlot.item != Items.POTION) return false
 
         val inputPotion = PotionUtils.getPotion(pBottomSlot)
-        if (inputPotion != ModPotions.CELL_GROWTH) return false
+        if (inputPotion != requiredPotion) return false
 
         return EntityDnaItem.getEntityType(pBottomSlot) == entityType
     }
