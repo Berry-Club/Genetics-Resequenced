@@ -17,10 +17,10 @@ class GmoRecipe(
     val ingredientItem: Item,
     val outputGene: Gene,
     val geneChance: Float,
-    val isMutation: Boolean = false
+    isMutation: Boolean = false
 ) : IBrewingRecipe {
 
-    private val requiredPotion = if (isMutation) ModPotions.MUTATION else ModPotions.CELL_GROWTH
+    val requiredPotion = if (isMutation) ModPotions.MUTATION else ModPotions.CELL_GROWTH
 
     override fun isInput(pBottomSlot: ItemStack): Boolean {
         if (pBottomSlot.item != Items.POTION) return false

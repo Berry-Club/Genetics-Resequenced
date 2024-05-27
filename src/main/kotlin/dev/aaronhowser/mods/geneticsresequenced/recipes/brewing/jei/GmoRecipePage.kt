@@ -22,45 +22,37 @@ import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 
 class GmoRecipePage(
-    private val entityType: EntityType<*>,
-    private val ingredientInput: ItemStack,
-    private val cellOutput: ItemStack,
-    isMutation: Boolean
+    val recipe: GmoRecipe
 ) : Recipe<Container> {
 
-    private val potionType = if (isMutation) ModPotions.MUTATION else ModPotions.CELL_GROWTH
+    private val entityType: EntityType<*> = recipe.entityType
+    private val ingredientInput: ItemStack = recipe.ingredientItem.defaultInstance
+    private val cellOutput: ItemStack
+        get() {
+            val output = ModItems.GMO_CELL.get().defaultInstance
+            GmoItem.setDetails(
+                output,
+                entityType,
+                recipe.outputGene,
+                recipe.geneChance
+            )
+            return output
+        }
 
     private val potionStack: ItemStack
         get() {
             val potion = ItemStack(Items.POTION)
-            PotionUtils.setPotion(potion, potionType)
+            PotionUtils.setPotion(potion, recipe.requiredPotion)
             potion.setMob(entityType)
             return potion
         }
 
     companion object {
         fun getAllRecipes(): List<GmoRecipePage> {
-
             val allPotionRecipes = ModPotions.allRecipes
             val gmoRecipes = allPotionRecipes.filterIsInstance<GmoRecipe>()
 
-            val recipePages = mutableListOf<GmoRecipePage>()
-
-            for (recipe in gmoRecipes) {
-                val ingredient = recipe.ingredientItem.defaultInstance
-
-                val output = ModItems.GMO_CELL.get().defaultInstance
-                GmoItem.setDetails(
-                    output,
-                    recipe.entityType,
-                    recipe.outputGene,
-                    recipe.geneChance
-                )
-
-                recipePages.add(GmoRecipePage(recipe.entityType, ingredient, output, recipe.isMutation))
-            }
-
-            return recipePages
+            return gmoRecipes.map { GmoRecipePage(it) }
         }
 
         const val RECIPE_TYPE_NAME = "gmo_recipe"

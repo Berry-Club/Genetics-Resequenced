@@ -23,7 +23,7 @@ import net.minecraftforge.registries.ForgeRegistries
 
 class SetPotionEntityRecipePage(
     private val entityType: EntityType<*>,
-    private val isMutation: Boolean = false
+    isMutation: Boolean = false
 ) : Recipe<Container> {
 
     private val potionType = if (isMutation) ModPotions.MUTATION else ModPotions.CELL_GROWTH
