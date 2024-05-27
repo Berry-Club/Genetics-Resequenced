@@ -13,6 +13,7 @@ import net.minecraft.commands.arguments.ResourceLocationArgument
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.player.Player
 
 object AddGeneCommand {
 
@@ -26,7 +27,7 @@ object AddGeneCommand {
             .then(
                 Commands
                     .argument(GENE_ARGUMENT, ResourceLocationArgument.id())
-                    .suggests (SUGGEST_GENE_RLS)
+                    .suggests(SUGGEST_GENE_RLS)
                     .then(
                         Commands
                             .argument(TARGET_ARGUMENT, EntityArgument.entity())
@@ -51,8 +52,15 @@ object AddGeneCommand {
 
         val alreadyHasGene = targetGenes.hasGene(geneToAdd)
         if (alreadyHasGene) {
-
             val component = Component.translatable("command.geneticsresequenced.add.fail.already_present")
+
+            context.source.sendFailure(component)
+            return 0
+        }
+
+        val cantAddToMob = target !is Player && !geneToAdd.canMobsHave
+        if (cantAddToMob) {
+            val component = Component.translatable("command.geneticsresequenced.add.fail.mob")
 
             context.source.sendFailure(component)
             return 0

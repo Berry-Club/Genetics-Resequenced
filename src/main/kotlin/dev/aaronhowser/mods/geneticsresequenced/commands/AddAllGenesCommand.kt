@@ -11,6 +11,7 @@ import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.player.Player
 
 object AddAllGenesCommand {
 
@@ -39,6 +40,8 @@ object AddAllGenesCommand {
 
         for (gene in Gene.getRegistry()) {
             if (gene.isNegative) continue
+            if (target !is Player && !gene.canMobsHave) continue
+
             targetGenes.addGene(gene)
             OtherPlayerEvents.genesChanged(target, gene, true)
         }
