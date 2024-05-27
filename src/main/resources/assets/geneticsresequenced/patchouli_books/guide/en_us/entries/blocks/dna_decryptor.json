@@ -6,13 +6,13 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)DNA Decryptor/$ uses FE to decrypt $(l:geneticsresequenced:items/dna_helix)DNA Helices/$.$(br2)Every time DNA is decrypted, it will choose a weighted-random $(l:geneticsresequenced:genes)Gene/$, based on the Entity the Helix came from. This Gene is chosen at the start of the process."
+      "text": "The $(major)DNA Decryptor/$ uses FE to decrypt $(l:geneticsresequenced:items/dna_helix)DNA Helices/$.$(br2)Every time DNA is decrypted, it will choose a $(l:geneticsresequenced:genes)Gene/$, based on the Entity the Helix came from.$(br2)This Gene is weighted, some Genes have a higher chance than others. The Gene is chosen at the start of the process."
     },
     {
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:dna_decryptor",
       "link_recipe": true,
-      "text": "If the DNA Helix in the output slot is of a different Gene, you'll have to remove it for the Decryptor to work."
+      "text": "If the Decryptor isn't working and there's a DNA Helix in the output slot, try taking it out. The next Gene may be of a different type, which means it can't stack with the one in the output slot."
     }
   ]
 }

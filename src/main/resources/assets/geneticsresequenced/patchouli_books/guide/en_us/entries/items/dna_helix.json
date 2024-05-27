@@ -13,7 +13,7 @@
       "title": "Encrypted DNA Helix",
       "item": "geneticsresequenced:dna_helix{MobId:'minecraft:cow'}",
       "link_recipe": true,
-      "text": "This DNA Helix contains the genetic information of a $(minor)Cow/$, but the actual Gene it has is $(bad)unknown/$. To decrypt it, you'll need to pass it through a $(l:geneticsresequenced:blocks/dna_decrypter)DNA Decrypter/$."
+      "text": "This DNA Helix contains the genetic information of a $(minor)Cow/$, but the actual Gene it has is $(bad)unknown/$. To decrypt it, you'll need to pass it through a $(l:geneticsresequenced:blocks/dna_decryptor)DNA Decryptor/$."
     },
     {
       "type": "patchouli:spotlight",

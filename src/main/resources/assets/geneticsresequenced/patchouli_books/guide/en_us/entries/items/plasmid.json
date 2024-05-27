@@ -6,13 +6,13 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "$(major)Plasmids/$, like $(l:geneticsresequenced:items/dna_helix)DNA Helices/$, contain genetic information. However, this only comes in the form of $(l:geneticsresequenced:genes)Genes/$."
+      "text": "$(major)Plasmids/$ are the vehicle that carries $(l:geneticsresequenced:genes)Genes/$.$(br2)Plasmids default as $(bad)empty/$, with no genetic information.$(br2)To begin, use a $(l:geneticsresequenced:blocks/plasmid_infuser)Plasmid Infuser/$ to infuse a decrypted DNA Helix into them.$(br2)This will set the Plasmid's Gene."
     },
     {
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:plasmid",
       "link_recipe": true,
-      "text": "Plasmids default to $(bad)Empty/$, with no genetic information.$(br2)To set their Gene, use a $(l:geneticsresequenced:blocks/plasmid_infuser)Plasmid Infuser/$ to infuse DNA Helices into them."
+      "text": "Plasmids require a certain amount of $(minor)Gene Points/$ to be complete.$(br2)The amount of Gene Points required depends on the Plasmid's Gene. $(minor)More advanced Genes cost more Points./$"
     },
     {
       "type": "patchouli:spotlight",

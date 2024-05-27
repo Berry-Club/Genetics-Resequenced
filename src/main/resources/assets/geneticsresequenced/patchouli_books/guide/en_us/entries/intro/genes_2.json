@@ -1,0 +1,46 @@
+{
+  "name": "Getting Genes",
+  "category": "geneticsresequenced:intro",
+  "icon": "geneticsresequenced:cell",
+  "sortnum": 1,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Getting Genes is a rather involved process."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:scraper",
+      "text": "First, you'll need the $(l:geneticsresequenced:items/scraper)Scraper/$. This tool can be used on entities to collect $(l:geneticsresequenced:items/organic_matter)Organic Matter/$ from them.$(br2)The Organic Matter will have the entity's type attached. This is what decides what Genes you can get from it."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:cell{MobId:\"minecraft:sheep\"}",
+      "text": "Craft a $(l:geneticsresequenced:blocks/cell_analyzer)Cell Analyzer/$, and process the Organic Matter through it. This will create a $(l:geneticsresequenced:items/cell)Cell/$.$(br2)Like the Organic Matter, this has the entity's type attached."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:dna_helix{MobId:\"minecraft:sheep\"}",
+      "text": "Craft a $(l:geneticsresequenced:blocks/dna_extractor)DNA Extractor/$, and process the Cell through it. This will create a $(l:geneticsresequenced:items/dna_helix)DNA Helix/$, which carries an unknown Gene.$(br2)To find out what Gene it is, you'll need to process it through a $(l:geneticsresequenced:blocks/dna_decryptor)DNA Decryptor/$."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:dna_helix{GeneId:\"geneticsresequenced:eat_grass\"}",
+      "text": "Some entities have $(minor)several Genes/$ that they can give. This is a weighted choice, with some Genes being more common than others.$(br2)You can see the chance of each in JEI.$(br2)All DNA Helices have a chance of being $(bad)Basic/$, which contains no Gene.$(br2)This does not make it useless, however. We'll come back to that in a moment."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:plasmid{GeneId:\"geneticsresequenced:eat_grass\",Amount:1000}",
+      "text": "Now that you have some decrypted DNA Helices, you have to inject them into a $(l:geneticsresequenced:items/plasmid)Plasmid/$.$(br2)This is done at the $(l:geneticsresequenced:blocks/plasmid_infuser)Plasmid Infuser/$.$(br2)For more information on that, see the Plasmid's page, linked above."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:syringe",
+      "text": "Craft a $(l:geneticsresequenced:items/syringe)Syringe/$, and use it to extract some of your own blood.$(br2)Pass it through a $(l:geneticsresequenced:blocks/blood_purifier)Blood Purifier/$ to decontaminate it.$(br2)Then, you can combine it and the completed Plasmid in a $(l:geneticsresequenced:blocks/plasmid_injector)Plasmid Injector/$ to add the Gene to the Syringe."
+    },
+    {
+      "type": "text",
+      "text": "You can add as many Genes to the Syringe as you like. When you're ready, $(minor)inject the blood back into yourself/$ to gain all the Genes!$(br2)Be warned, some Genes may $(bad)require other Genes/$ to be able to be injected. These Genes are called $(l:geneticsresequenced:intro/mutation)Mutations/$. Trying to inject them without the requisite Genes will result in dire consequences."
+    }
+  ]
+}
