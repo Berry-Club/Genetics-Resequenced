@@ -63,7 +63,7 @@
   "block.geneticsresequenced.incubator": "Incubator",
   "block.geneticsresequenced.plasmid_infuser": "Plasmid Infuser",
   "block.geneticsresequenced.plasmid_injector": "Plasmid Injector",
-  "block.geneticsresequenced.antifield_block": "Anti-field Block",
+  "block.geneticsresequenced.anti_field_block": "Anti-Field Block",
 
   "effect.geneticsresequenced.bleed": "Bleed",
   "effect.geneticsresequenced.substrate": "Substrate",
