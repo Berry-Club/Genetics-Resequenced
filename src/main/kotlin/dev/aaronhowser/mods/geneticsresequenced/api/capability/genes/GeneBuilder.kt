@@ -8,6 +8,7 @@ class GeneBuilder(
 ) {
 
     private var isNegative: Boolean = false
+    private var canMobsHave: Boolean = false
     private var dnaPointsRequired: Int = -1
     private var mutatesInto: Gene? = null
     private var potionDetails: PotionDetails? = null
@@ -16,6 +17,7 @@ class GeneBuilder(
         return Gene.register(
             id,
             isNegative,
+            canMobsHave,
             dnaPointsRequired,
             mutatesInto,
             potionDetails
@@ -24,6 +26,11 @@ class GeneBuilder(
 
     fun setNegative(): GeneBuilder {
         this.isNegative = true
+        return this
+    }
+
+    fun allowMobs(): GeneBuilder {
+        this.canMobsHave = true
         return this
     }
 

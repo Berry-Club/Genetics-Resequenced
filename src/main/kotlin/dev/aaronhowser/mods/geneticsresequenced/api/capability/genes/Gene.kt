@@ -14,7 +14,8 @@ import net.minecraft.world.effect.MobEffectInstance
 @Suppress("unused")
 class Gene(
     val id: ResourceLocation,
-    val isNegative: Boolean = false,
+    val isNegative: Boolean,
+    val canMobsHave: Boolean,
     val dnaPointsRequired: Int,
     val mutatesInto: Gene?,
     private val potionDetails: GeneBuilder.PotionDetails? = null
@@ -39,6 +40,7 @@ class Gene(
         fun register(
             id: ResourceLocation,
             isNegative: Boolean,
+            canMobsHave: Boolean,
             dnaPointsRequired: Int,
             mutatesInto: Gene?,
             potionDetails: GeneBuilder.PotionDetails?
@@ -46,6 +48,7 @@ class Gene(
             val gene = Gene(
                 id = id,
                 isNegative = isNegative,
+                canMobsHave = canMobsHave,
                 dnaPointsRequired = dnaPointsRequired,
                 mutatesInto = mutatesInto,
                 potionDetails = potionDetails
