@@ -1,13 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.*
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.CellGrowthRecipeCategory
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.GmoRecipeCategory
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.SubstrateCellRecipeCategory
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.*
@@ -155,7 +153,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
                 val component = Component.translatable(
                     "info.geneticsresequenced.mob_gene.line2",
                     chance,
-                    gene?.nameComponent ?: Gene.basicGeneComponent
+                    gene.nameComponent
                 )
 
                 informationTextComponent.append(component)
@@ -170,10 +168,14 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
     }
 
     override fun registerItemSubtypes(registration: ISubtypeRegistration) {
-        registration.registerSubtypeInterpreter(ModItems.PLASMID.get()) { stack, _ ->
-            val gene: Gene? = stack.getGene()
-            gene?.id?.toString() ?: "no_gene"
-        }
+
+        registration.useNbtForSubtypes(
+            ModItems.PLASMID.get(),
+            ModItems.DNA_HELIX.get(),
+            ModItems.GMO_DNA_HELIX.get(),
+            ModItems.GMO_CELL.get()
+        )
+
     }
 
 }
