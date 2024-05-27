@@ -32,7 +32,6 @@ class GeneBuilder(
         return this
     }
 
-
     fun setMutatesInto(gene: Gene): GeneBuilder {
         mutatesInto = gene
         return this

@@ -297,25 +297,25 @@ object DefaultGenes {
         .setNegative()
         .build()
 
-    fun setDefaultGenes() {
-        val map: Map<Gene, Set<Gene>> = mapOf(
-            CLAWS_2 to setOf(CLAWS),
-            EFFICIENCY_4 to setOf(EFFICIENCY),
-            FLIGHT to setOf(TELEPORT, JUMP_BOOST, NO_FALL_DAMAGE),
-            HASTE_2 to setOf(HASTE),
-            MEATY_2 to setOf(MEATY),
-            MORE_HEARTS_2 to setOf(MORE_HEARTS),
-            REGENERATION_4 to setOf(REGENERATION),
-            RESISTANCE_2 to setOf(RESISTANCE),
-            SPEED_2 to setOf(SPEED),
-            SPEED_4 to setOf(SPEED_2),
-            STRENGTH_2 to setOf(STRENGTH),
-            SCARE_ZOMBIES to setOf(SCARE_CREEPERS),
-            SCARE_SPIDERS to setOf(SCARE_SKELETONS),
-            PHOTOSYNTHESIS to setOf(THORNS)
-        )
+    val defaultGeneRequirements: MutableMap<Gene, Set<Gene>> = mutableMapOf(
+        CLAWS_2 to setOf(CLAWS),
+        EFFICIENCY_4 to setOf(EFFICIENCY),
+        FLIGHT to setOf(TELEPORT, JUMP_BOOST, NO_FALL_DAMAGE),
+        HASTE_2 to setOf(HASTE),
+        MEATY_2 to setOf(MEATY),
+        MORE_HEARTS_2 to setOf(MORE_HEARTS),
+        REGENERATION_4 to setOf(REGENERATION),
+        RESISTANCE_2 to setOf(RESISTANCE),
+        SPEED_2 to setOf(SPEED),
+        SPEED_4 to setOf(SPEED_2),
+        STRENGTH_2 to setOf(STRENGTH),
+        SCARE_ZOMBIES to setOf(SCARE_CREEPERS),
+        SCARE_SPIDERS to setOf(SCARE_SKELETONS),
+        PHOTOSYNTHESIS to setOf(THORNS)
+    )
 
-        for ((gene, requiredGenes) in map) {
+    fun setGeneRequirements() {
+        for ((gene: Gene, requiredGenes: Set<Gene>) in defaultGeneRequirements) {
             gene.addRequiredGenes(requiredGenes)
         }
     }

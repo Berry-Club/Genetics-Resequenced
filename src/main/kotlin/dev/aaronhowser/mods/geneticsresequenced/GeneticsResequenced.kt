@@ -52,7 +52,7 @@ object GeneticsResequenced {
         ModPacketHandler.setup()
 
         DefaultGenes.registerDefaultGenes()
-        DefaultGenes.setDefaultGenes()
+        DefaultGenes.setGeneRequirements()
         DefaultMobGenes.registerDefaultGenes()
     }
 

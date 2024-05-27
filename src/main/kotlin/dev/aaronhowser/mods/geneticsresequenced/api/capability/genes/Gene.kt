@@ -90,7 +90,7 @@ class Gene(
         requiredGenes.addAll(genes)
     }
 
-    fun removeRequiredGenes(vararg genes: Gene) {
+    fun removeRequiredGenes(genes: Collection<Gene>) {
         requiredGenes.removeAll(genes.toSet())
     }
 
