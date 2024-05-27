@@ -117,54 +117,8 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
         registration.addRecipes(CellGrowthRecipeCategory.recipeType, CellGrowthRecipePage.getAllRecipes())
         registration.addRecipes(SubstrateCellRecipeCategory.recipeType, SubstrateCellRecipePage.getAllRecipes())
 
-        mobGeneInformationRecipes(registration)
-        organicMatterInformationRecipes(registration)
-    }
-
-    private fun organicMatterInformationRecipes(registration: IRecipeRegistration) {
-        val allEntityTypes = ForgeRegistries.ENTITY_TYPES.values.filter { it.category != MobCategory.MISC }
-        for (entityType in allEntityTypes) {
-            val informationTextComponent = Component
-                .translatable("info.geneticsresequenced.organic_matter", entityType.description)
-
-            val organicMatterStack = ItemStack(ModItems.ORGANIC_MATTER.get()).setMob(entityType)
-                ?: throw IllegalStateException("Failed to create ItemStack for Organic Matter")
-
-            registration.addIngredientInfo(
-                organicMatterStack,
-                VanillaTypes.ITEM_STACK,
-                informationTextComponent
-            )
-        }
-
-    }
-
-    private fun mobGeneInformationRecipes(registration: IRecipeRegistration) {
-        val allMobGenePairs = MobGenesRegistry.getRegistry().entries
-        for ((entityType, genes) in allMobGenePairs) {
-            val informationTextComponent =
-                Component.translatable("info.geneticsresequenced.mob_gene.line1", entityType.description)
-
-            val sumOfWeights = genes.values.sum()
-
-            for ((gene, weight) in genes) {
-                val chance = (weight.toDouble() / sumOfWeights.toDouble() * 100).toInt()
-
-                val component = Component.translatable(
-                    "info.geneticsresequenced.mob_gene.line2",
-                    chance,
-                    gene.nameComponent
-                )
-
-                informationTextComponent.append(component)
-            }
-
-            registration.addIngredientInfo(
-                ItemStack(ModItems.DNA_HELIX.get()).setMob(entityType)!!,
-                VanillaTypes.ITEM_STACK,
-                informationTextComponent
-            )
-        }
+        InformationRecipes.organicMatter(registration)
+        InformationRecipes.mobGenes(registration)
     }
 
     override fun registerItemSubtypes(registration: ISubtypeRegistration) {
