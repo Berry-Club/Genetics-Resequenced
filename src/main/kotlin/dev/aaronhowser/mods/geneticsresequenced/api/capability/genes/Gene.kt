@@ -83,8 +83,11 @@ class Gene(
 
     private val requiredGenes: MutableSet<Gene> = mutableSetOf()
 
+    val mutatesFrom: Set<Gene>
+        get() = GENE_REGISTRY.filter { it.mutatesInto == this }.toSet()
+
     val isMutation: Boolean
-        get() = requiredGenes.isNotEmpty()
+        get() = mutatesFrom.isNotEmpty()
 
     fun addRequiredGenes(genes: Collection<Gene>) {
         requiredGenes.addAll(genes)

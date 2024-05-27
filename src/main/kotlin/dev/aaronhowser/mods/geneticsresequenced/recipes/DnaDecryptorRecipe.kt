@@ -126,7 +126,7 @@ class DnaDecryptorRecipe : Recipe<Container> {
 
                 val chanceBad = 100 - chanceGood
                 if (gmoRecipe.outputGene.isMutation) {
-                    val mutatesFrom = gmoRecipe.outputGene.getRequiredGenes()
+                    val mutatesFrom = gmoRecipe.outputGene.mutatesFrom
                     for (gene in mutatesFrom) {
                         val outputItemBad = ModItems.DNA_HELIX.get().defaultInstance.setGene(gene)
                         recipes.add(DnaDecryptorRecipe(inputItem, outputItemBad, chanceBad))
