@@ -71,10 +71,10 @@ class DnaDecryptorRecipeCategory(
         val chance = recipe.chance
 
         val line1 = Component
-            .translatable("recipe.geneticsresequenced.mob_gene.mob", mob!!.description)
+            .translatable("recipe.geneticsresequenced.mob_gene.mob", mob.description)
 
         val line2 = Component
-            .translatable("recipe.geneticsresequenced.mob_gene.gene", gene?.nameComponent ?: Gene.basicGeneComponent)
+            .translatable("recipe.geneticsresequenced.mob_gene.gene", gene.nameComponent)
 
         val line3 = Component
             .translatable("recipe.geneticsresequenced.mob_gene.chance", chance)
