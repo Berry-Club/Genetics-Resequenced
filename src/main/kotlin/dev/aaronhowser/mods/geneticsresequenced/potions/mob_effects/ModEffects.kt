@@ -14,11 +14,11 @@ object ModEffects {
         DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, GeneticsResequenced.ID)
 
     val BLEED by register("bleed") { BleedEffect() }
-    val SUBSTRATE by register("substrate") { DoNothingEffect("substrate", 0x00FF00) }
-    val CELL_GROWTH by register("cell_growth") { DoNothingEffect("cell_growth", 0x00FF00) }
-    val MUTATION by register("mutation") { DoNothingEffect("mutation", 0x00FF00) }
-    val VIRAL_AGENTS by register("viral_agents") { DoNothingEffect("viral_agents", 0x440000, true) }
-    val THE_CURE by register("the_cure") { DoNothingEffect("the_cure", 0x0000FF) }
+    val SUBSTRATE by register("substrate") { DoNothingEffect("substrate", 0x17661e) }
+    val CELL_GROWTH by register("cell_growth") { DoNothingEffect("cell_growth", 0x95eb34) }
+    val MUTATION by register("mutation") { DoNothingEffect("mutation", 0x5c0d30) }
+    val VIRAL_AGENTS by register("viral_agents") { DoNothingEffect("viral_agents", 0xd18e1b, true) }
+    val THE_CURE by register("the_cure") { DoNothingEffect("the_cure", 0xa83283) }
 
     private fun register(
         name: String,
