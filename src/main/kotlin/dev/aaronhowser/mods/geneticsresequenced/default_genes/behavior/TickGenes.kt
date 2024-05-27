@@ -200,8 +200,6 @@ object TickGenes {
         val genes = entity.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.MOB_SIGHT)) return
 
-        if (entity.tickCount % ServerConfig.mobSightCooldown.get() != 0) return
-
         val searchArea = entity.boundingBox.inflate(ServerConfig.mobSightRadius.get())
         val nearbyLivingEntities = entity.level.getEntities(entity, searchArea).filterIsInstance<Mob>()
 
