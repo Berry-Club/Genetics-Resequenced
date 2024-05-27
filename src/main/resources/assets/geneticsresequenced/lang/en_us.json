@@ -108,7 +108,6 @@
   "command.geneticsresequenced.add.fail.already_present": "Failed to add Gene as target already has it.",
   "command.geneticsresequenced.add.fail.other": "Failed to add Gene: ",
   "command.geneticsresequenced.add.success": "Added Gene: ",
-  "command.geneticsresequenced.add.success.all": "Added all positive Genes!",
   "command.geneticsresequenced.remove.fail.no_gene": "Failed to remove Gene as target does not have it.",
   "command.geneticsresequenced.remove.fail.all": "No Genes to remove!",
   "command.geneticsresequenced.remove.fail.other": "Failed to remove Gene: ",
@@ -117,6 +116,8 @@
   "command.geneticsresequenced.list.no_genes": "No Genes found!",
   "command.geneticsresequenced.list.genes": "%1$s's Genes:",
   "command.geneticsresequenced.remove_nearby_lights.success": "Removed %d nearby bioluminescence light sources.",
+  "command.geneticsresequenced.add.success.all": "Added all positive genes to %d entities!",
+  "command.geneticsresequenced.add.fail.all": "Failed to add all positives genes to %d entities!",
 
   "cooldown.geneticsresequenced.started": " triggered! Cooldown started: %s",
   "cooldown.geneticsresequenced.ended": " has come off cooldown!",

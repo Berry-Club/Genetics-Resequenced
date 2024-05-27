@@ -55,7 +55,7 @@ object AddGeneCommand {
         for (target in targets) {
             if (target == null) continue
             val geneAdded = addGeneToTarget(target, geneToAdd)
-            if (geneAdded == 1) amountSuccess++ else amountFail++
+            if (geneAdded) amountSuccess++ else amountFail++
         }
 
         if (amountSuccess != 0) {
@@ -82,19 +82,19 @@ object AddGeneCommand {
     private fun addGeneToTarget(
         target: LivingEntity,
         geneToAdd: Gene,
-    ): Int {
+    ): Boolean {
         val targetGenes = target.getGenes()!!
 
         val alreadyHasGene = targetGenes.hasGene(geneToAdd)
         if (alreadyHasGene) {
             GeneticsResequenced.LOGGER.info("Tried to add gene ${geneToAdd.id} to ${target.name.string}, but they already have it!")
-            return 0
+            return false
         }
 
         val cantAddToMob = target !is Player && !geneToAdd.canMobsHave
         if (cantAddToMob) {
             GeneticsResequenced.LOGGER.info("Tried to add gene ${geneToAdd.id} to ${target.name.string}, but they can't have it!")
-            return 0
+            return false
         }
 
         val success = targetGenes.addGene(geneToAdd)
@@ -102,9 +102,9 @@ object AddGeneCommand {
         if (success) {
             OtherPlayerEvents.genesChanged(target, geneToAdd, true)
 
-            return 1
+            return true
         } else {
-            return 0
+            return false
         }
     }
 

@@ -23,20 +23,44 @@ object AddAllGenesCommand {
             .requires { it.hasPermission(2) }
             .then(
                 Commands
-                    .argument(TARGET_ARGUMENT, EntityArgument.entity())
-                    .executes { cmd -> addAllGenes(cmd, EntityArgument.getEntity(cmd, TARGET_ARGUMENT)) }
+                    .argument(TARGET_ARGUMENT, EntityArgument.entities())
+                    .executes { cmd -> addAllGenes(cmd, EntityArgument.getEntities(cmd, TARGET_ARGUMENT)) }
             )
             .executes { cmd -> addAllGenes(cmd) }
     }
 
-    private fun addAllGenes(context: CommandContext<CommandSourceStack>, entity: Entity? = null): Int {
-        val target = if (entity == null) {
-            context.source.entity as? LivingEntity
-        } else {
-            entity as? LivingEntity
-        } ?: return 0
+    private fun addAllGenes(
+        context: CommandContext<CommandSourceStack>,
+        entities: MutableCollection<out Entity>? = null
+    ): Int {
 
-        val targetGenes = target.getGenes() ?: return 0
+        val targets: List<LivingEntity?> =
+            entities?.map { it as? LivingEntity } ?: listOf(context.source.entity as? LivingEntity)
+
+        var amountSuccess = 0
+        var amountFail = 0
+        for (target in targets) {
+            if (target == null) continue
+            if (addAllGenesToTarget(target)) amountSuccess++ else amountFail++
+        }
+
+        if (amountSuccess != 0) {
+            context.source.sendSuccess(
+                Component.translatable("command.geneticsresequenced.add.success.all", amountSuccess),
+                false
+            )
+        }
+        if (amountFail != 0) {
+            context.source.sendFailure(
+                Component.translatable("command.geneticsresequenced.add.fail.all", amountFail)
+            )
+        }
+
+        return 1
+    }
+
+    private fun addAllGenesToTarget(target: LivingEntity): Boolean {
+        val targetGenes = target.getGenes() ?: return false
 
         for (gene in Gene.getRegistry()) {
             if (gene.isNegative) continue
@@ -46,11 +70,8 @@ object AddAllGenesCommand {
             OtherPlayerEvents.genesChanged(target, gene, true)
         }
 
-        context.source.sendSuccess(
-            Component.translatable("command.geneticsresequenced.add.success.all"),
-            false
-        )
-        return 1
+        return true
     }
+
 
 }
