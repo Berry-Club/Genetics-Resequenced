@@ -1,14 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.events
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.blood_purifier.BloodPurifierScreen
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer.CellAnalyzerScreen
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorScreen
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorScreen
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor.DnaExtractorScreen
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorScreen
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserScreen
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injector.PlasmidInjectorScreen
 import dev.aaronhowser.mods.geneticsresequenced.controls.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.entities.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.entities.client.FriendlySlimeRenderer
@@ -16,7 +8,6 @@ import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.client.gui.screens.MenuScreens
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.client.renderer.item.ItemPropertyFunction
@@ -67,6 +58,14 @@ object ClientModBusEvents {
             OtherUtil.modResource("injecting"),
             ItemPropertyFunction { stack, _, entity, _ ->
                 if (SyringeItem.isBeingUsed(stack, entity)) 1f else 0f
+            }
+        )
+
+        ItemProperties.register(
+            ModItems.METAL_SYRINGE.get(),
+            OtherUtil.modResource("full"),
+            ItemPropertyFunction { stack, _, _, _ ->
+                if (SyringeItem.hasBlood(stack)) 1f else 0f
             }
         )
 

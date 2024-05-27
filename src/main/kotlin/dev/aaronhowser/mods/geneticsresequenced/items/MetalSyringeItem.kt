@@ -73,4 +73,12 @@ class MetalSyringeItem : SyringeItem() {
         return InteractionResultHolder.pass(pPlayer.getItemInHand(pUsedHand))
     }
 
+    override fun getName(pStack: ItemStack): Component {
+        return if (hasBlood(pStack)) {
+            Component.translatable("item.geneticsresequenced.metal_syringe.full")
+        } else {
+            super.getName(pStack)
+        }
+    }
+
 }
