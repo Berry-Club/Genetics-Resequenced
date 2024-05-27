@@ -26,7 +26,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:dna_helix{GeneId:\"geneticsresequenced:eat_grass\"}",
-      "text": "Some entities have $(minor)several Genes/$ that they can give. This is a weighted choice, with some Genes being more common than others.$(br2)You can see the chance of each in JEI.$(br2)All DNA Helices have a chance of being $(bad)Basic/$, which contains no Gene.$(br2)This does not make it useless, however. We'll come back to that in a moment."
+      "text": "Some entities have $(minor)several Genes/$ that they can give. This is a weighted choice, with some Genes being more common than others.$(br2)You can see the chance of each in JEI.$(br2)All DNA Helices have a chance of being $(bad)Basic/$, which contains no Gene.$(br2)This does not make it useless, however."
     },
     {
       "type": "patchouli:spotlight",
@@ -40,7 +40,7 @@
     },
     {
       "type": "text",
-      "text": "You can add as many Genes to the Syringe as you like. When you're ready, $(minor)inject the blood back into yourself/$ to gain all the Genes!$(br2)Be warned, some Genes may $(bad)require other Genes/$ to be able to be injected. These Genes are called $(l:geneticsresequenced:intro/mutation)Mutations/$. Trying to inject them without the requisite Genes will result in dire consequences."
+      "text": "You can add as many Genes to the Syringe as you like. When you're ready, $(minor)inject the blood back into yourself/$ to gain all the Genes!$(br2)Be warned, some Genes may $(bad)require other Genes/$ to be able to be injected. These Genes are called $(l:geneticsresequenced:intro/mutation)Mutations/$. Trying to inject them without the requisite Genes will result in dire consequences.$(br2)You can see what Genes are required in the Gene's Plasmid's JEI info page."
     }
   ]
 }
