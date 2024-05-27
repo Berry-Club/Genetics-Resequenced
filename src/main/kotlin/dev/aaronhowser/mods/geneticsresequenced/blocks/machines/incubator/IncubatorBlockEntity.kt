@@ -56,7 +56,7 @@ class IncubatorBlockEntity(
 
                 LEFT_BOTTLE_SLOT_INDEX,
                 MIDDLE_BOTTLE_SLOT_INDEX,
-                RIGHT_BOTTLE_SLOT_INDEX -> PotionUtils.getPotion(stack) == Potions.WATER
+                RIGHT_BOTTLE_SLOT_INDEX -> BrewingRecipeRegistry.isValidInput(stack)
 
                 CHORUS_SLOT_INDEX -> stack.`is`(Items.CHORUS_FRUIT)
 
