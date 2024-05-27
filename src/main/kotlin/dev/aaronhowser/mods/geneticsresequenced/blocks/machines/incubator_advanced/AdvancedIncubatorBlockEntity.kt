@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator
+package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
@@ -18,23 +18,23 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry
 import net.minecraftforge.items.ItemStackHandler
 
-class IncubatorBlockEntity(
+class AdvancedIncubatorBlockEntity(
     pPos: BlockPos,
     pBlockState: BlockState
 ) : CraftingMachineBlockEntity(
-    ModBlockEntities.INCUBATOR.get(),
+    ModBlockEntities.ADVANCED_INCUBATOR.get(),
     pPos,
     pBlockState
 ) {
 
-    override val machineName: String = "incubator"
+    override val machineName: String = "coal_generator"
 
     override val energyMaximum: Int = 50_000
     override val energyTransferMaximum: Int = 500
 
-    override val menuType: Class<out MachineMenu> = IncubatorMenu::class.java
+    override val menuType: Class<out MachineMenu> = AdvancedIncubatorMenu::class.java
     override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
-        return IncubatorMenu(pContainerId, pPlayerInventory, this, this.data)
+        return AdvancedIncubatorMenu(pContainerId, pPlayerInventory, this, this.data)
     }
 
     override fun getDisplayName(): Component {
@@ -175,7 +175,7 @@ class IncubatorBlockEntity(
             level: Level,
             blockPos: BlockPos,
             blockState: BlockState,
-            blockEntity: IncubatorBlockEntity
+            blockEntity: AdvancedIncubatorBlockEntity
         ) {
             if (level.isClientSide) return
             blockEntity.tick()

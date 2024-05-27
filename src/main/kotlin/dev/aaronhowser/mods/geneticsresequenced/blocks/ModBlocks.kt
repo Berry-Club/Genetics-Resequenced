@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.C
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor.DnaExtractorBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorBlock
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced.AdvancedIncubatorBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injector.PlasmidInjectorBlock
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
@@ -48,6 +49,8 @@ object ModBlocks {
         register("cloning_machine") { CloningMachineBlock() }
     val INCUBATOR: RegistryObject<Block> =
         register("incubator") { IncubatorBlock() }
+    val ADVANCED_INCUBATOR: RegistryObject<Block> =
+        register("advanced_incubator") { AdvancedIncubatorBlock() }
     val ANTIFIELD_BLOCK: RegistryObject<Block> =
         register("anti_field_block") { AntiFieldBlock() }
 

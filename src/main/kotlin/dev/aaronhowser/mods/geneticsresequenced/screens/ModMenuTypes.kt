@@ -11,6 +11,8 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.Dn
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor.DnaExtractorMenu
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor.DnaExtractorScreen
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced.AdvancedIncubatorMenu
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced.AdvancedIncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserMenu
@@ -84,6 +86,13 @@ object ModMenuTypes {
             })
         }
 
+    val ADVANCED_INCUBATOR: RegistryObject<MenuType<AdvancedIncubatorMenu>> =
+        MENU_TYPE_REGISTRY.register("advanced_incubator") {
+            IForgeMenuType.create(IContainerFactory { id, inv, buf ->
+                AdvancedIncubatorMenu(id, inv, buf)
+            })
+        }
+
     fun registerScreens() {
         MenuScreens.register(CELL_ANALYZER.get(), ::CellAnalyzerScreen)
         MenuScreens.register(COAL_GENERATOR.get(), ::CoalGeneratorScreen)
@@ -93,6 +102,7 @@ object ModMenuTypes {
         MenuScreens.register(PLASMID_INJECTOR.get(), ::PlasmidInjectorScreen)
         MenuScreens.register(BLOOD_PURIFIER.get(), ::BloodPurifierScreen)
         MenuScreens.register(INCUBATOR.get(), ::IncubatorScreen)
+        MenuScreens.register(ADVANCED_INCUBATOR.get(), ::AdvancedIncubatorScreen)
     }
 
 }

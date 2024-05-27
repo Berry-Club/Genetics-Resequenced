@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.C
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor.DnaExtractorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced.AdvancedIncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injector.PlasmidInjectorBlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
@@ -80,6 +81,14 @@ object ModBlockEntities {
         BLOCK_ENTITY_REGISTRY.register("incubator") {
             BlockEntityType.Builder.of(
                 { pos, state -> IncubatorBlockEntity(pos, state) },
+                ModBlocks.INCUBATOR.get()
+            ).build(null)
+        }
+
+    val ADVANCED_INCUBATOR: RegistryObject<BlockEntityType<AdvancedIncubatorBlockEntity>> =
+        BLOCK_ENTITY_REGISTRY.register("advanced_incubator") {
+            BlockEntityType.Builder.of(
+                { pos, state -> AdvancedIncubatorBlockEntity(pos, state) },
                 ModBlocks.INCUBATOR.get()
             ).build(null)
         }
