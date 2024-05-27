@@ -97,7 +97,7 @@ object TickGenes {
 
             when (gene) {
                 DefaultGenes.WATER_BREATHING -> entity.airSupply = entity.maxAirSupply
-                DefaultGenes.FLAMBE -> entity.setSecondsOnFire(5)
+                DefaultGenes.FLAMBE -> entity.setSecondsOnFire(ServerConfig.passivesCheckCooldown.get() * 2)
                 DefaultGenes.LAY_EGG -> handleLayEgg(entity)
                 DefaultGenes.MEATY_2 -> handleMeaty2(entity)
                 else -> {}
