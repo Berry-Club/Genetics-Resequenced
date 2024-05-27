@@ -1,12 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.*
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.CellGrowthRecipeCategory
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.GmoRecipeCategory
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.SubstrateCellRecipeCategory
-import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.*
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.CellGrowthRecipePage
@@ -16,21 +14,17 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
 import mezz.jei.api.constants.RecipeTypes
-import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.registration.IRecipeCatalystRegistration
 import mezz.jei.api.registration.IRecipeCategoryRegistration
 import mezz.jei.api.registration.IRecipeRegistration
 import mezz.jei.api.registration.ISubtypeRegistration
-import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.Container
-import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
-import net.minecraftforge.registries.ForgeRegistries
 
 @JeiPlugin
 class GeneticsResequencedJeiPlugin : IModPlugin {
@@ -119,6 +113,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
 
         InformationRecipes.organicMatter(registration)
         InformationRecipes.mobGenes(registration)
+        InformationRecipes.requiredGenes(registration)
     }
 
     override fun registerItemSubtypes(registration: ISubtypeRegistration) {

@@ -43,6 +43,12 @@ class PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
             return itemStack.getAmount() >= gene.dnaPointsRequired
         }
 
+        fun Gene.getPlasmid(): ItemStack {
+            return ItemStack(ModItems.PLASMID.get())
+                .setGene(this)
+                .setAmount(this.dnaPointsRequired)
+        }
+
         private fun getAllPlasmids(): List<ItemStack> {
 
             val geneRegistry = Gene.getRegistry()
@@ -51,10 +57,7 @@ class PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
             for (gene in geneRegistry) {
                 if (gene == DefaultGenes.BASIC) continue
 
-                val stack = ItemStack(ModItems.PLASMID.get())
-                    .setGene(gene)
-                    .setAmount(gene.dnaPointsRequired)
-
+                val stack = gene.getPlasmid()
                 plasmids.add(stack)
             }
 

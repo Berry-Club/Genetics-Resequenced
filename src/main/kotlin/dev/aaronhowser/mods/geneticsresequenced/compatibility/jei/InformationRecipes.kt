@@ -1,8 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem.Companion.getPlasmid
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.registration.IRecipeRegistration
 import net.minecraft.network.chat.Component
@@ -56,6 +58,32 @@ object InformationRecipes {
                 informationTextComponent
             )
         }
+    }
+
+    fun requiredGenes(registration: IRecipeRegistration) {
+        val allGenes = Gene.getRegistry()
+
+        for (gene in allGenes) {
+            val requiredGenes = gene.getRequiredGenes()
+            if (requiredGenes.isEmpty()) continue
+
+            val component = Component.empty()
+
+            val line1 = Component.translatable("info.geneticsresequenced.requires_genes")
+            component.append(line1)
+
+            for (requiredGene in requiredGenes) {
+                val line = Component.literal(" • ").append(requiredGene.nameComponent)
+                component.append(Component.literal("\n")).append(line)
+            }
+
+            registration.addIngredientInfo(
+                gene.getPlasmid(),
+                VanillaTypes.ITEM_STACK,
+                component
+            )
+        }
+
     }
 
 }
