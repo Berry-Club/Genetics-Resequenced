@@ -10,6 +10,7 @@ import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.ModEffects
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.SetPotionEntityRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.SubstrateCellRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.VirusRecipe
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.effect.MobEffectInstance
@@ -199,6 +200,33 @@ object ModPotions {
             GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, DefaultGenes.MORE_HEARTS, 0.5f, true)
         )
         allRecipes.addAll(mutationBrews)
+
+        val virusBrews = listOf(
+            VirusRecipe(DefaultGenes.POISON_IMMUNITY, DefaultGenes.POISON),
+            VirusRecipe(DefaultGenes.WITHER_HIT, DefaultGenes.POISON_4),
+            VirusRecipe(DefaultGenes.WITHER_PROOF, DefaultGenes.WITHER),
+            VirusRecipe(DefaultGenes.STRENGTH, DefaultGenes.WEAKNESS),
+            VirusRecipe(DefaultGenes.NIGHT_VISION, DefaultGenes.BLINDNESS),
+            VirusRecipe(DefaultGenes.SPEED, DefaultGenes.SLOWNESS),
+            VirusRecipe(DefaultGenes.SPEED_2, DefaultGenes.SLOWNESS_4),
+            VirusRecipe(DefaultGenes.SPEED_4, DefaultGenes.SLOWNESS_6),
+            VirusRecipe(DefaultGenes.FLIGHT, DefaultGenes.SLOWNESS_6),
+            VirusRecipe(DefaultGenes.MILKY, DefaultGenes.NAUSEA),
+            VirusRecipe(DefaultGenes.MEATY, DefaultGenes.NAUSEA),
+            VirusRecipe(DefaultGenes.LAY_EGG, DefaultGenes.NAUSEA),
+            VirusRecipe(DefaultGenes.NO_HUNGER, DefaultGenes.HUNGER),
+            VirusRecipe(DefaultGenes.FIRE_PROOF, DefaultGenes.FLAMBE),
+            VirusRecipe(DefaultGenes.LUCK, DefaultGenes.CURSED),
+            VirusRecipe(DefaultGenes.HASTE, DefaultGenes.MINING_WEAKNESS),
+//            VirusRecipe(DefaultGenes.EMERALD_HEART, convert villager to zombie),
+            VirusRecipe(DefaultGenes.SCARE_CREEPERS, DefaultGenes.DEAD_CREEPERS),
+            VirusRecipe(DefaultGenes.SCARE_SKELETONS, DefaultGenes.DEAD_UNDEAD),
+            VirusRecipe(DefaultGenes.SCARE_ZOMBIES, DefaultGenes.DEAD_UNDEAD),
+//            VirusRecipe(DefaultGenes.RESISTANCE, instant death to passive mobs),
+            VirusRecipe(DefaultGenes.DRAGONS_BREATH, DefaultGenes.DEAD_HOSTILE),
+//            VirusRecipe(syringe with all negative effects, DefaultGenes.DEAD_ALL)
+        )
+        allRecipes.addAll(virusBrews)
 
         for (recipe in allRecipes) {
             BrewingRecipeRegistry.addRecipe(recipe)
