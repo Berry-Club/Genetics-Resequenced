@@ -24,13 +24,16 @@ import net.minecraft.world.level.Level
 class GmoRecipePage(
     private val entityType: EntityType<*>,
     private val ingredientInput: ItemStack,
-    private val cellOutput: ItemStack
+    private val cellOutput: ItemStack,
+    isMutation: Boolean
 ) : Recipe<Container> {
 
-    private val cellGrowthPotion: ItemStack
+    private val potionType = if (isMutation) ModPotions.MUTATION else ModPotions.CELL_GROWTH
+
+    private val potionStack: ItemStack
         get() {
             val potion = ItemStack(Items.POTION)
-            PotionUtils.setPotion(potion, ModPotions.CELL_GROWTH)
+            PotionUtils.setPotion(potion, potionType)
             potion.setMob(entityType)
             return potion
         }
@@ -54,7 +57,7 @@ class GmoRecipePage(
                     recipe.geneChance
                 )
 
-                recipePages.add(GmoRecipePage(recipe.entityType, ingredient, output))
+                recipePages.add(GmoRecipePage(recipe.entityType, ingredient, output, recipe.isMutation))
             }
 
             return recipePages
@@ -103,7 +106,7 @@ class GmoRecipePage(
 
     override fun getIngredients(): NonNullList<Ingredient> {
 
-        val first = Ingredient.of(cellGrowthPotion)
+        val first = Ingredient.of(potionStack)
         val second = Ingredient.of(ingredientInput)
 
         // WHY THE HELL DOES NonNullList.of WORK LIKE THAT??

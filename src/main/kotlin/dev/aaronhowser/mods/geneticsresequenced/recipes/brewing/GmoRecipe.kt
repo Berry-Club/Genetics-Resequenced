@@ -17,7 +17,7 @@ class GmoRecipe(
     val ingredientItem: Item,
     val outputGene: Gene,
     val geneChance: Float,
-    isMutation: Boolean = false
+    val isMutation: Boolean = false
 ) : IBrewingRecipe {
 
     private val requiredPotion = if (isMutation) ModPotions.MUTATION else ModPotions.CELL_GROWTH
