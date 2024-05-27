@@ -235,66 +235,74 @@ object DefaultGenes {
 
     val CLAWS_2: Gene = registerGene("claws_2")
         .setDnaPointsRequired(50)
-        .addRequiredGenes(CLAWS)
         .build()
     val EFFICIENCY_4: Gene = registerGene("efficiency_4")
         .setDnaPointsRequired(50)
-        .addRequiredGenes(EFFICIENCY)
         .build()
     val FLIGHT: Gene = registerGene("flight")
         .setDnaPointsRequired(50)
-        .addRequiredGenes(TELEPORT, JUMP_BOOST, NO_FALL_DAMAGE)
         .build()
     val HASTE_2: Gene = registerGene("haste_2")
         .setDnaPointsRequired(50)
-        .addRequiredGenes(HASTE)
         .setPotion(MobEffects.DIG_SPEED, 2)
         .build()
     val MEATY_2: Gene = registerGene("meaty_2")
         .setDnaPointsRequired(50)
-        .addRequiredGenes(MEATY)
         .build()
     val MORE_HEARTS_2: Gene = registerGene("more_hearts_2")
         .setDnaPointsRequired(50)
-        .addRequiredGenes(MORE_HEARTS)
         .build()
     val REGENERATION_4: Gene = registerGene("regeneration_4")
         .setDnaPointsRequired(50)
-        .addRequiredGenes(REGENERATION)
         .setPotion(MobEffects.REGENERATION, 4)
         .build()
     val RESISTANCE_2: Gene = registerGene("resistance_2")
         .setDnaPointsRequired(50)
-        .addRequiredGenes(RESISTANCE)
         .setPotion(MobEffects.DAMAGE_RESISTANCE, 2)
         .build()
     val SPEED_2: Gene = registerGene("speed_2")
         .setDnaPointsRequired(50)
-        .addRequiredGenes(SPEED)
         .setPotion(MobEffects.MOVEMENT_SPEED, 2)
         .build()
     val SPEED_4: Gene = registerGene("speed_4")
         .setDnaPointsRequired(50)
         .setPotion(MobEffects.MOVEMENT_SPEED, 4)
-        .addRequiredGenes(SPEED_2)
         .build()
     val STRENGTH_2: Gene = registerGene("strength_2")
         .setDnaPointsRequired(50)
-        .addRequiredGenes(STRENGTH)
         .setPotion(MobEffects.DAMAGE_BOOST, 2)
         .build()
     val SCARE_ZOMBIES: Gene = registerGene("scare_zombies")
         .setDnaPointsRequired(50)
-        .addRequiredGenes(SCARE_CREEPERS)
         .build()
     val SCARE_SPIDERS: Gene = registerGene("scare_spiders")
         .setDnaPointsRequired(50)
-        .addRequiredGenes(SCARE_SKELETONS)
         .build()
     val PHOTOSYNTHESIS: Gene = registerGene("photosynthesis")
         .setDnaPointsRequired(40)
-        .addRequiredGenes(THORNS)
         .build()
 
+    fun setDefaultGenes() {
+        val map: Map<Gene, Set<Gene>> = mapOf(
+            CLAWS_2 to setOf(CLAWS),
+            EFFICIENCY_4 to setOf(EFFICIENCY),
+            FLIGHT to setOf(TELEPORT, JUMP_BOOST, NO_FALL_DAMAGE),
+            HASTE_2 to setOf(HASTE),
+            MEATY_2 to setOf(MEATY),
+            MORE_HEARTS_2 to setOf(MORE_HEARTS),
+            REGENERATION_4 to setOf(REGENERATION),
+            RESISTANCE_2 to setOf(RESISTANCE),
+            SPEED_2 to setOf(SPEED),
+            SPEED_4 to setOf(SPEED_2),
+            STRENGTH_2 to setOf(STRENGTH),
+            SCARE_ZOMBIES to setOf(SCARE_CREEPERS),
+            SCARE_SPIDERS to setOf(SCARE_SKELETONS),
+            PHOTOSYNTHESIS to setOf(THORNS)
+        )
+
+        for ((gene, requiredGenes) in map) {
+            gene.addRequiredGenes(requiredGenes)
+        }
+    }
 
 }

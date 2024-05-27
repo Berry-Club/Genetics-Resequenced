@@ -9,11 +9,17 @@ class GeneBuilder(
 
     private var isNegative: Boolean = false
     private var dnaPointsRequired: Int = -1
-    private var requiredGenes: MutableSet<Gene> = mutableSetOf()
+    private var mutatesInto: Gene? = null
     private var potionDetails: PotionDetails? = null
 
     fun build(): Gene {
-        return Gene.register(id, isNegative, dnaPointsRequired, requiredGenes, potionDetails)
+        return Gene.register(
+            id,
+            isNegative,
+            dnaPointsRequired,
+            mutatesInto,
+            potionDetails
+        )
     }
 
     fun setNegative(): GeneBuilder {
@@ -26,8 +32,9 @@ class GeneBuilder(
         return this
     }
 
-    fun addRequiredGenes(vararg gene: Gene): GeneBuilder {
-        requiredGenes.addAll(gene)
+
+    fun setMutatesInto(gene: Gene): GeneBuilder {
+        mutatesInto = gene
         return this
     }
 

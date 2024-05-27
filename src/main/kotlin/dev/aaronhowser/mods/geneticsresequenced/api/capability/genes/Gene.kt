@@ -16,7 +16,7 @@ class Gene(
     val id: ResourceLocation,
     val isNegative: Boolean = false,
     val dnaPointsRequired: Int,
-    val requiredGenes: Set<Gene>,
+    val mutatesInto: Gene?,
     private val potionDetails: GeneBuilder.PotionDetails? = null
 ) {
 
@@ -41,14 +41,14 @@ class Gene(
             id: ResourceLocation,
             isNegative: Boolean,
             dnaPointsRequired: Int,
-            requiredGenes: Set<Gene>,
+            mutatesInto: Gene?,
             potionDetails: GeneBuilder.PotionDetails?
         ): Gene {
             val gene = Gene(
                 id = id,
                 isNegative = isNegative,
                 dnaPointsRequired = dnaPointsRequired,
-                requiredGenes = requiredGenes,
+                mutatesInto = mutatesInto,
                 potionDetails = potionDetails
             )
 
@@ -81,8 +81,22 @@ class Gene(
         )
     }
 
+    private val requiredGenes: MutableSet<Gene> = mutableSetOf()
+
     val isMutation: Boolean
         get() = requiredGenes.isNotEmpty()
+
+    fun addRequiredGenes(genes: Collection<Gene>) {
+        requiredGenes.addAll(genes)
+    }
+
+    fun removeRequiredGenes(vararg genes: Gene) {
+        requiredGenes.removeAll(genes.toSet())
+    }
+
+    fun getRequiredGenes(): Set<Gene> {
+        return requiredGenes.toSet()
+    }
 
     @Suppress("MemberVisibilityCanBePrivate")
     val translationKey: String = "gene.${id.namespace}.${id.path}"
