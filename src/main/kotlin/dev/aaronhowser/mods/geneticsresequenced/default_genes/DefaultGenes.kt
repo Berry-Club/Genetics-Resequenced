@@ -76,10 +76,12 @@ object DefaultGenes {
 
     //Standard list
     val BIOLUMINESCENCE: Gene = registerGene("bioluminescence")
+        .allowMobs()
         .setDnaPointsRequired(16)
         .build()
     val CLAWS: Gene = registerGene("claws")
         .setDnaPointsRequired(20)
+        .allowMobs()
         .setMutatesInto(CLAWS_2)
         .build()
     val DRAGONS_BREATH: Gene = registerGene("dragons_breath")
