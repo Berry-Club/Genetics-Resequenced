@@ -84,6 +84,14 @@ class SyringeItem : Item(
             val entityGenes = entity.getGenes() ?: return
 
             for (gene in genes) {
+
+                if (entity !is Player && !gene.canMobsHave) {
+                    entity.sendSystemMessage(
+                        Component.translatable("message.geneticsresequenced.syringe.cannot_inject")
+                    )
+                    continue
+                }
+
                 val success = entityGenes.addGene(gene)
 
                 if (!entity.level.isClientSide) {
@@ -148,10 +156,12 @@ class SyringeItem : Item(
             if (!hasBlood(syringeStack)) return false
 
             val geneList = getGenes(syringeStack).toMutableList()
-            geneList.addAll(genes.filter { canAddGene(syringeStack, it) })
+            val genesCanAdd = genes.filter { canAddGene(syringeStack, it) }
+            geneList.addAll(genesCanAdd)
 
+            val genesCantAdd = genes.filterNot { canAddGene(syringeStack, it) }
             GeneticsResequenced.LOGGER.debug(
-                "Could not add these genes to the syringe: ${genes.filterNot { canAddGene(syringeStack, it) }}"
+                "Could not add these genes to the syringe: ${genesCantAdd.joinToString { "," }}"
             )
 
             val stringTags: List<StringTag> = geneList.map { StringTag.valueOf(it.id.toString()) }
