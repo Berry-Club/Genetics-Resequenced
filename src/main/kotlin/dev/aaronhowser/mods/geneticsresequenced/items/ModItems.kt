@@ -25,6 +25,8 @@ object ModItems {
         ITEM_REGISTRY.register("scraper") { ScraperItem() }
     val SYRINGE: RegistryObject<SyringeItem> =
         ITEM_REGISTRY.register("syringe") { SyringeItem() }
+    val METAL_SYRINGE: RegistryObject<MetalSyringeItem> =
+        ITEM_REGISTRY.register("metal_syringe") { MetalSyringeItem() }
     val ORGANIC_MATTER: RegistryObject<EntityDnaItem> =
         ITEM_REGISTRY.register("organic_matter") { EntityDnaItem() }
     val CELL: RegistryObject<EntityDnaItem> =

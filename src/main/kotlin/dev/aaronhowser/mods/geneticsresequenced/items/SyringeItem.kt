@@ -23,13 +23,20 @@ import net.minecraft.world.level.Level
 import net.minecraftforge.common.util.FakePlayer
 import java.util.*
 
-class SyringeItem : Item(
+open class SyringeItem : Item(
     Properties()
         .tab(ModItems.MOD_TAB)
         .stacksTo(1)
 ) {
 
     companion object {
+
+        private fun Item.isSyringe(): Boolean {
+            return this == ModItems.SYRINGE.get() || this == ModItems.METAL_SYRINGE.get()
+        }
+
+        private fun ItemStack.isSyringe(): Boolean = item.isSyringe()
+
         // Animation / model functions
 
         fun isBeingUsed(syringeStack: ItemStack, entity: LivingEntity?): Boolean {
@@ -45,13 +52,13 @@ class SyringeItem : Item(
 
         @Suppress("MemberVisibilityCanBePrivate")
         fun setEntity(syringeStack: ItemStack, entity: LivingEntity) {
-            if (!syringeStack.`is`(ModItems.SYRINGE.get())) throw IllegalArgumentException("ItemStack is not a Syringe")
+            if (!syringeStack.isSyringe()) throw IllegalArgumentException("ItemStack is not a Syringe")
             setEntityUuid(syringeStack, entity.uuid)
             setEntityName(syringeStack, entity.name)
         }
 
         fun setEntityUuid(syringeStack: ItemStack, uuid: UUID) {
-            if (!syringeStack.`is`(ModItems.SYRINGE.get())) throw IllegalArgumentException("ItemStack is not a Syringe")
+            if (!syringeStack.isSyringe()) throw IllegalArgumentException("ItemStack is not a Syringe")
 
             val tag = syringeStack.getOrCreateTag()
 
@@ -59,15 +66,15 @@ class SyringeItem : Item(
             setContaminated(syringeStack, true)
         }
 
-        private fun setEntityName(syringeStack: ItemStack, name: Component) {
-            if (!syringeStack.`is`(ModItems.SYRINGE.get())) throw IllegalArgumentException("ItemStack is not a Syringe")
+        protected fun setEntityName(syringeStack: ItemStack, name: Component) {
+            if (!syringeStack.isSyringe()) throw IllegalArgumentException("ItemStack is not a Syringe")
 
             val tag = syringeStack.getOrCreateTag()
             tag.putString(ENTITY_NAME_NBT_KEY, name.string)
         }
 
-        private fun getEntityName(syringeStack: ItemStack): Component? {
-            if (!syringeStack.`is`(ModItems.SYRINGE.get())) return null
+        fun getEntityName(syringeStack: ItemStack): Component? {
+            if (!syringeStack.isSyringe()) return null
 
             val untranslatedName = syringeStack.getOrCreateTag().getString(ENTITY_NAME_NBT_KEY)
             if (untranslatedName.isNullOrBlank()) return null
@@ -75,7 +82,8 @@ class SyringeItem : Item(
             return Component.translatable(untranslatedName)
         }
 
-        private fun injectEntity(syringeStack: ItemStack, entity: LivingEntity) {
+        @JvmStatic
+        protected fun injectEntity(syringeStack: ItemStack, entity: LivingEntity) {
             val entityDna = getEntity(syringeStack) ?: return
             if (entity.uuid != entityDna) return
 
@@ -113,7 +121,7 @@ class SyringeItem : Item(
         }
 
         private fun getEntity(syringeStack: ItemStack): UUID? {
-            if (!syringeStack.`is`(ModItems.SYRINGE.get())) return null
+            if (!syringeStack.isSyringe()) return null
 
             return syringeStack.getOrCreateTag().getUuidOrNull(ENTITY_UUID_NBT_KEY)
         }
