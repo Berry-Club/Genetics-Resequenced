@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setBasic
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.ModEffects
@@ -122,6 +123,7 @@ object ModPotions {
         val cellGrowthPotion = potionStack(CELL_GROWTH)
         val mutationPotion = potionStack(MUTATION)
         val viralAgentsPotion = potionStack(VIRAL_AGENTS)
+        val curePotion = potionStack(THE_CURE)
 
         val substrateRecipe = BrewingRecipe(
             Potions.MUNDANE.ingredient,
@@ -143,13 +145,19 @@ object ModPotions {
             Items.CHORUS_FRUIT.ingredient,
             viralAgentsPotion
         )
+        val cureRecipe = BrewingRecipe(
+            VIRAL_AGENTS.ingredient,
+            ModItems.DNA_HELIX.get().defaultInstance.setGene(DefaultGenes.EMERALD_HEART).ingredient,
+            curePotion
+        )
 
         allRecipes.addAll(
             listOf(
                 substrateRecipe,
                 cellGrowthRecipe,
                 mutationRecipe,
-                viralRecipe
+                viralRecipe,
+                cureRecipe
             )
         )
 
@@ -224,7 +232,7 @@ object ModPotions {
             VirusRecipe(DefaultGenes.SCARE_ZOMBIES, DefaultGenes.DEAD_UNDEAD),
 //            VirusRecipe(DefaultGenes.RESISTANCE, instant death to passive mobs),
             VirusRecipe(DefaultGenes.DRAGONS_BREATH, DefaultGenes.DEAD_HOSTILE),
-//            VirusRecipe(syringe with all negative effects, DefaultGenes.DEAD_ALL)
+//            VirusRecipe(syringe with all negative effects, DefaultGenes.DEAD_ALL),
         )
         allRecipes.addAll(virusBrews)
 
