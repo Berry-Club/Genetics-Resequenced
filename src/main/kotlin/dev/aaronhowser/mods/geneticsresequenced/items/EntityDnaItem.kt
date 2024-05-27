@@ -25,7 +25,7 @@ open class EntityDnaItem : Item(
     companion object {
         const val MOB_ID_NBT = "MobId"
 
-        fun hasEntity(itemStack: ItemStack): Boolean = itemStack.tag?.contains(MOB_ID_NBT) ?: false
+        fun hasEntity(itemStack: ItemStack): Boolean = itemStack.getOrCreateTag().contains(MOB_ID_NBT)
 
         fun setMob(itemStack: ItemStack, entityType: EntityType<*>): Boolean {
             val mobRL = ForgeRegistries.ENTITY_TYPES.getKey(entityType)

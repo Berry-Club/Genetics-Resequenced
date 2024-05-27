@@ -120,7 +120,8 @@ open class SyringeItem : Item(
             clearGenes(syringeStack)
         }
 
-        private fun getEntity(syringeStack: ItemStack): UUID? {
+        @JvmStatic
+        protected fun getEntity(syringeStack: ItemStack): UUID? {
             if (!syringeStack.isSyringe()) return null
 
             return syringeStack.getOrCreateTag().getUuidOrNull(ENTITY_UUID_NBT_KEY)

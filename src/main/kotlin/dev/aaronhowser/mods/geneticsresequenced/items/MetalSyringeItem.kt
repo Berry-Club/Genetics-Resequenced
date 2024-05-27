@@ -19,24 +19,30 @@ class MetalSyringeItem : SyringeItem() {
             pInteractionTarget: LivingEntity
         ): InteractionResult {
 
-            val stackEntity = EntityDnaItem.getEntityType(pStack)
-            val targetEntity = pInteractionTarget.type
-            if (stackEntity == null || targetEntity != stackEntity) {
+            val stackEntityUuid = getEntity(pStack)
+            val targetEntityUuid = pInteractionTarget.uuid
+            if (stackEntityUuid == null || targetEntityUuid != stackEntityUuid) {
                 return InteractionResult.PASS
             }
 
-            val bloodOwner = getEntityName(pStack)
-            val entityName = pInteractionTarget.name
+            fun sendMessage(message: Component) {
+                if (!pPlayer.level.isClientSide) {
+                    pPlayer.sendSystemMessage(message)
+                }
+            }
+
+            val bloodOwner = getEntityName(pStack)?.string
+            val entityName = pInteractionTarget.name.string
             if (bloodOwner != entityName) {
                 val component =
                     Component.translatable("message.geneticsresequenced.syringe.blood_mismatch", bloodOwner, entityName)
-                pPlayer.sendSystemMessage(component)
+                sendMessage(component)
                 return InteractionResult.PASS
             }
 
             if (isContaminated(pStack)) {
-                val component = Component.translatable("message.geneticsresequenced.syringe.contaminated")
-                pPlayer.sendSystemMessage(component)
+                val component = Component.translatable("message.geneticsresequenced.metal_syringe.contaminated")
+                sendMessage(component)
                 return InteractionResult.PASS
             }
 
