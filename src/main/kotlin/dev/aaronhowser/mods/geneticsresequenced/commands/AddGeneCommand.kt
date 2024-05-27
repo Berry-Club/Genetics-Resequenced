@@ -19,7 +19,7 @@ import net.minecraft.world.entity.player.Player
 object AddGeneCommand {
 
     private const val GENE_ARGUMENT = "gene"
-    private const val TARGET_ARGUMENT = "target"
+    private const val TARGET_ARGUMENT = "targets"
 
     fun register(): ArgumentBuilder<CommandSourceStack, *> {
         return Commands
@@ -60,7 +60,7 @@ object AddGeneCommand {
 
         if (amountSuccess != 0) {
             val component = Component.translatable(
-                "command.geneticsresequenced.add.success.multiple",
+                "command.geneticsresequenced.add_gene.success",
                 geneToAdd.nameComponent,
                 amountSuccess
             )
@@ -69,7 +69,7 @@ object AddGeneCommand {
 
         if (amountFail != 0) {
             val component = Component.translatable(
-                "command.geneticsresequenced.add.fail.multiple",
+                "command.geneticsresequenced.add_gene.fail",
                 geneToAdd.nameComponent,
                 amountFail
             )

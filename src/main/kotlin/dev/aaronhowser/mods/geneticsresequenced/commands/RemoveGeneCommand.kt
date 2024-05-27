@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.commands
 
-import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
@@ -17,8 +16,7 @@ import net.minecraft.world.entity.LivingEntity
 object RemoveGeneCommand {
 
     private const val GENE_ARGUMENT = "gene"
-    private const val TARGET_ARGUMENT = "target"
-    private const val ALL = "_all"
+    private const val TARGET_ARGUMENT = "targets"
 
     fun register(): ArgumentBuilder<CommandSourceStack, *> {
         return Commands
@@ -30,52 +28,70 @@ object RemoveGeneCommand {
                     .suggests(ModCommands.SUGGEST_GENE_RLS)
                     .then(
                         Commands
-                            .argument(TARGET_ARGUMENT, EntityArgument.entity())
-                            .executes { cmd -> removeGene(cmd, EntityArgument.getEntity(cmd, TARGET_ARGUMENT)) }
+                            .argument(TARGET_ARGUMENT, EntityArgument.entities())
+                            .executes { cmd -> removeGene(cmd, EntityArgument.getEntities(cmd, TARGET_ARGUMENT)) }
                     )
                     .executes { cmd -> removeGene(cmd) }
             )
 
     }
 
-    private fun removeGene(context: CommandContext<CommandSourceStack>, entity: Entity? = null): Int {
+    private fun removeGene(
+        context: CommandContext<CommandSourceStack>,
+        entities: MutableCollection<out Entity>? = null
+    ): Int {
         val geneArgument = ResourceLocationArgument.getId(context, GENE_ARGUMENT)
 
-        val target = if (entity == null) {
-            context.source.entity as? LivingEntity
-        } else {
-            entity as? LivingEntity
-        } ?: return 0
+        val targets: List<LivingEntity?> =
+            entities?.map { it as? LivingEntity } ?: listOf(context.source.entity as? LivingEntity)
 
         val geneToRemove = Gene.fromId(geneArgument)!!
+
+        var amountSuccess = 0
+        var amountFail = 0
+        for (target in targets) {
+            if (target == null) continue
+            val success = removeGeneFromTarget(target, geneToRemove)
+
+            if (success) amountSuccess++ else amountFail++
+        }
+
+        if (amountSuccess != 0) {
+            val component = Component.translatable(
+                "command.geneticsresequenced.remove_gene.success",
+                amountSuccess,
+                geneToRemove.nameComponent
+            )
+            context.source.sendSuccess(component, true)
+        }
+        if (amountFail != 0) {
+            val component = Component.translatable(
+                "command.geneticsresequenced.remove_gene.fail",
+                amountFail,
+                geneToRemove.nameComponent
+            )
+            context.source.sendSuccess(component, true)
+        }
+
+        return 1
+    }
+
+    private fun removeGeneFromTarget(target: LivingEntity, geneToRemove: Gene): Boolean {
         val targetGenes = target.getGenes()!!
 
         val doesNotHaveGene = !targetGenes.hasGene(geneToRemove)
 
         if (doesNotHaveGene) {
-            context.source.sendFailure(Component.translatable("command.geneticsresequenced.remove.fail.no_gene"))
-            return 0
+            return false
         }
 
         val success = targetGenes.removeGene(geneToRemove)
 
         if (success) {
-            context.source.sendSuccess(
-                Component.translatable("command.geneticsresequenced.remove.success")
-                    .append(geneToRemove.nameComponent),
-                false
-            )
-
             OtherPlayerEvents.genesChanged(target, geneToRemove, false)
-
-            return 1
+            return true
         } else {
-            val component = Component
-                .translatable("command.geneticsresequenced.remove.fail.other")
-                .append(geneToRemove.nameComponent)
-
-            context.source.sendFailure(component)
-            return 0
+            return false
         }
     }
 
