@@ -46,13 +46,13 @@ object AddAllGenesCommand {
 
         if (amountSuccess != 0) {
             context.source.sendSuccess(
-                Component.translatable("command.geneticsresequenced.add_gene.success.all", amountSuccess),
+                Component.translatable("command.geneticsresequenced.add_all.success", amountSuccess),
                 false
             )
         }
         if (amountFail != 0) {
             context.source.sendFailure(
-                Component.translatable("command.geneticsresequenced.add_gene.fail.all", amountFail)
+                Component.translatable("command.geneticsresequenced.add_all.fail", amountFail)
             )
         }
 

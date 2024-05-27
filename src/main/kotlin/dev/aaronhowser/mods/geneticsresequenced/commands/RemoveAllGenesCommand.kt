@@ -13,7 +13,7 @@ import net.minecraft.world.entity.LivingEntity
 
 object RemoveAllGenesCommand {
 
-    private const val TARGET_ARGUMENT = "target"
+    private const val TARGET_ARGUMENT = "targets"
 
     fun register(): ArgumentBuilder<CommandSourceStack, *> {
         return Commands
@@ -21,42 +21,52 @@ object RemoveAllGenesCommand {
             .requires { it.hasPermission(2) }
             .then(
                 Commands
-                    .argument(TARGET_ARGUMENT, EntityArgument.entity())
-                    .executes { cmd -> removeAllGenes(cmd, EntityArgument.getEntity(cmd, TARGET_ARGUMENT)) }
+                    .argument(TARGET_ARGUMENT, EntityArgument.entities())
+                    .executes { cmd -> removeAllGenes(cmd, EntityArgument.getEntities(cmd, TARGET_ARGUMENT)) }
             )
             .executes { cmd -> removeAllGenes(cmd) }
     }
 
-    private fun removeAllGenes(context: CommandContext<CommandSourceStack>, entity: Entity? = null): Int {
+    private fun removeAllGenes(
+        context: CommandContext<CommandSourceStack>,
+        entities: MutableCollection<out Entity>? = null
+    ): Int {
 
-        val target = if (entity == null) {
-            context.source.entity as? LivingEntity
-        } else {
-            entity as? LivingEntity
-        } ?: return 0
+        val targets: List<LivingEntity?> =
+            entities?.map { it as? LivingEntity } ?: listOf(context.source.entity as? LivingEntity)
 
-        val targetGenes = target.getGenes() ?: return 0
-
-        if (targetGenes.getGeneList().isEmpty()) {
-            context.source.sendSuccess(
-                Component.translatable("command.geneticsresequenced.remove.fail.all"),
-                false
-            )
-            return 1
+        var amountSuccess = 0
+        var amountFail = 0
+        for (target in targets) {
+            if (target == null) continue
+            if (removeAllGenesFromTarget(target)) amountSuccess++ else amountFail++
         }
 
-        val amountGenes = targetGenes.getGeneList().size
+        if (amountSuccess != 0) {
+            context.source.sendSuccess(
+                Component.translatable("command.geneticsresequenced.remove_all.success", amountSuccess),
+                false
+            )
+        }
+
+        if (amountFail != 0) {
+            context.source.sendFailure(
+                Component.translatable("command.geneticsresequenced.remove_all.fail", amountFail)
+            )
+        }
+
+        return 1
+    }
+
+    private fun removeAllGenesFromTarget(target: LivingEntity): Boolean {
+        val targetGenes = target.getGenes() ?: return false
 
         for (gene in targetGenes.getGeneList()) {
             targetGenes.removeGene(gene)
             OtherPlayerEvents.genesChanged(target, gene, false)
         }
 
-        context.source.sendSuccess(
-            Component.translatable("command.geneticsresequenced.remove.success.all", amountGenes),
-            false
-        )
-        return 1
+        return true
     }
 
 
