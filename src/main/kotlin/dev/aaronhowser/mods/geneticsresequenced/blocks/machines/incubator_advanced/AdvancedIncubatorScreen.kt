@@ -17,7 +17,7 @@ class AdvancedIncubatorScreen(
 ) : AbstractContainerScreen<AdvancedIncubatorMenu>(pMenu, pPlayerInventory, pTitle) {
 
     companion object {
-        val BACKGROUND_TEXTURE = OtherUtil.modResource("textures/gui/incubator.png")
+        val BACKGROUND_TEXTURE = OtherUtil.modResource("textures/gui/advanced_incubator.png")
 
         const val ARROW_TEXTURE_X = 177
         const val ARROW_TEXTURE_Y = 47

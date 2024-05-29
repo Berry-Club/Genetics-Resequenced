@@ -27,7 +27,7 @@ class AdvancedIncubatorBlockEntity(
     pBlockState
 ) {
 
-    override val machineName: String = "coal_generator"
+    override val machineName: String = "advanced_incubator"
 
     override val energyMaximum: Int = 50_000
     override val energyTransferMaximum: Int = 500
@@ -37,7 +37,7 @@ class AdvancedIncubatorBlockEntity(
     }
 
     override fun getDisplayName(): Component {
-        return Component.translatable("block.geneticsresequenced.incubator")
+        return Component.translatable("block.geneticsresequenced.advanced_incubator")
     }
 
     override val amountOfItemSlots: Int = 6

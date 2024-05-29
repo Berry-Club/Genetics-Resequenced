@@ -1,8 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.network.FriendlyByteBuf
@@ -31,22 +29,22 @@ class AdvancedIncubatorMenu(
                 id,
                 inventory,
                 inventory.player.level.getBlockEntity(extraData.readBlockPos()) as AdvancedIncubatorBlockEntity,
-                SimpleContainerData(IncubatorBlockEntity.SIMPLE_CONTAINER_SIZE)
+                SimpleContainerData(AdvancedIncubatorBlockEntity.SIMPLE_CONTAINER_SIZE)
             )
 
     init {
-        checkContainerSize(inventory, IncubatorBlockEntity.SIMPLE_CONTAINER_SIZE)
+        checkContainerSize(inventory, AdvancedIncubatorBlockEntity.SIMPLE_CONTAINER_SIZE)
 
         addPlayerInventory(inventory)
         addPlayerHotbar(inventory)
 
         this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent { itemHandler ->
-            this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.TOP_SLOT_INDEX, 83, 15))
-            this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 49))
-            this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX, 83, 56))
-            this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX, 106, 49))
-            this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.CHORUS_SLOT_INDEX, 141, 32))
-            this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.OVERCLOCKER_SLOT_INDEX, 146, 67))
+            this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX, 83, 15))
+            this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 49))
+            this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX, 83, 56))
+            this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX, 106, 49))
+            this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.CHORUS_SLOT_INDEX, 141, 32))
+            this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.OVERCLOCKER_SLOT_INDEX, 146, 67))
         }
 
         addDataSlots(containerData)
@@ -56,7 +54,7 @@ class AdvancedIncubatorMenu(
         return stillValid(
             ContainerLevelAccess.create(level, blockEntity.blockPos),
             pPlayer,
-            ModBlocks.INCUBATOR.get()
+            ModBlocks.ADVANCED_INCUBATOR.get()
         )
     }
 
@@ -70,12 +68,12 @@ class AdvancedIncubatorMenu(
         get() = progress > 0
 
     fun getScaledProgress(): Int {
-        val progressArrowSize = IncubatorScreen.ARROW_HEIGHT
+        val progressArrowSize = AdvancedIncubatorScreen.ARROW_HEIGHT
 
         return if (progress == 0) {
             0
         } else {
-            progress * progressArrowSize / IncubatorBlockEntity.TICKS_PER
+            progress * progressArrowSize / AdvancedIncubatorBlockEntity.TICKS_PER
         }
     }
 
