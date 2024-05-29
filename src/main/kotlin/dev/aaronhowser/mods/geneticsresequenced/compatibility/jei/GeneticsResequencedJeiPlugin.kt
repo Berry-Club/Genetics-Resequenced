@@ -84,6 +84,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
 
         fun addIncubatorRecipeType(recipeType: RecipeType<out Recipe<Container>>) {
             blockRecipeTypeMap.add(ModBlocks.INCUBATOR.get() to recipeType)
+            blockRecipeTypeMap.add(ModBlocks.ADVANCED_INCUBATOR.get() to recipeType)
             blockRecipeTypeMap.add(Blocks.BREWING_STAND to recipeType)
         }
 
