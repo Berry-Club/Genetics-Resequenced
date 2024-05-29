@@ -48,7 +48,6 @@ class BloodPurifierBlockEntity(
         }
     }
 
-    override val menuType: Class<out MachineMenu> = BloodPurifierMenu::class.java
     override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
         return BloodPurifierMenu(pContainerId, pPlayerInventory, this, this.containerData)
     }

@@ -50,7 +50,6 @@ class CellAnalyzerBlockEntity(
         }
     }
 
-    override val menuType: Class<out MachineMenu> = CellAnalyzerMenu::class.java
     override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
         return CellAnalyzerMenu(pContainerId, pPlayerInventory, this, this.containerData)
     }

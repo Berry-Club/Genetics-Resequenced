@@ -55,7 +55,6 @@ class DnaDecryptorBlockEntity(
         }
     }
 
-    override val menuType: Class<out MachineMenu> = DnaDecryptorMenu::class.java
     override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
         return DnaDecryptorMenu(pContainerId, pPlayerInventory, this, this.containerData)
     }

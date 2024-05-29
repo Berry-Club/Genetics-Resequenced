@@ -38,7 +38,6 @@ class CoalGeneratorBlockEntity(
     override val energyMaximum: Int = ServerConfig.coalGeneratorEnergyCapacity.get()
     override val energyTransferMaximum: Int = ServerConfig.coalGeneratorEnergyTransferRate.get()
 
-    override val menuType: Class<out MachineMenu> = CoalGeneratorMenu::class.java
     override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
         return CoalGeneratorMenu(pContainerId, pPlayerInventory, this, this.data)
     }

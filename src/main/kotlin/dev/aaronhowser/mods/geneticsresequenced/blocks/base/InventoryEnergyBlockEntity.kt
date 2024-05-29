@@ -77,9 +77,6 @@ abstract class InventoryEnergyBlockEntity(
         return lazyEnergyStorage.cast()
     }
 
-    //TODO: Can this be removed? Apparently no uses?
-    abstract val menuType: Class<out MachineMenu>
-
     /**
      * @throws IllegalStateException if called on the server side
      */

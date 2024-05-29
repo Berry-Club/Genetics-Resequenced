@@ -32,7 +32,6 @@ class IncubatorBlockEntity(
     override val energyMaximum: Int = 50_000
     override val energyTransferMaximum: Int = 500
 
-    override val menuType: Class<out MachineMenu> = IncubatorMenu::class.java
     override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
         return IncubatorMenu(pContainerId, pPlayerInventory, this, this.data)
     }

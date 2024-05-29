@@ -56,7 +56,6 @@ class PlasmidInjectorBlockEntity(
         }
     }
 
-    override val menuType: Class<out MachineMenu> = PlasmidInjectorMenu::class.java
     override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
         return PlasmidInjectorMenu(pContainerId, pPlayerInventory, this, this.containerData)
     }
