@@ -1,97 +1,19 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlock
 import dev.aaronhowser.mods.geneticsresequenced.util.BlockEntityHelper
-import net.minecraft.core.BlockPos
-import net.minecraft.core.Direction
-import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.InteractionHand
-import net.minecraft.world.InteractionResult
-import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.EntityBlock
-import net.minecraft.world.level.block.HorizontalDirectionalBlock
-import net.minecraft.world.level.block.RenderShape
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
-import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.material.Material
-import net.minecraft.world.phys.BlockHitResult
-import net.minecraftforge.network.NetworkHooks
 
-class IncubatorBlock : HorizontalDirectionalBlock(Properties.of(Material.METAL)), EntityBlock {
-
-    init {
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))
-    }
-
-    override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState {
-        return defaultBlockState()
-            .setValue(FACING, pContext.horizontalDirection.opposite)
-    }
-
-    override fun createBlockStateDefinition(pBuilder: StateDefinition.Builder<Block, BlockState>) {
-        super.createBlockStateDefinition(pBuilder)
-        pBuilder.add(FACING)
-    }
-
-    // BLOCK ENTITY STUFF BELOW
-
-    @Suppress("OVERRIDE_DEPRECATION")
-    override fun getRenderShape(pState: BlockState): RenderShape {
-        return RenderShape.MODEL
-    }
-
-    @Suppress("OVERRIDE_DEPRECATION")
-    override fun onRemove(
-        pState: BlockState,
-        pLevel: Level,
-        pPos: BlockPos,
-        pNewState: BlockState,
-        pIsMoving: Boolean
-    ) {
-
-        if (pState.block != pNewState.block) {
-            val blockEntity = pLevel.getBlockEntity(pPos)
-            if (blockEntity is IncubatorBlockEntity) {
-                blockEntity.dropDrops()
-            }
-        }
-
-        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving)
-    }
-
-    override fun newBlockEntity(pPos: BlockPos, pState: BlockState): BlockEntity {
-        return IncubatorBlockEntity(pPos, pState)
-    }
-
-    @Suppress("OVERRIDE_DEPRECATION")
-    override fun use(
-        pState: BlockState,
-        pLevel: Level,
-        pPos: BlockPos,
-        pPlayer: Player,
-        pHand: InteractionHand,
-        pHit: BlockHitResult
-    ): InteractionResult {
-
-        if (pLevel.isClientSide) {
-            return InteractionResult.sidedSuccess(pLevel.isClientSide)
-        }
-
-        val blockEntity = pLevel.getBlockEntity(pPos)
-        if (blockEntity is IncubatorBlockEntity) {
-            NetworkHooks.openScreen(pPlayer as ServerPlayer, blockEntity, pPos)
-        } else {
-            throw IllegalStateException("Missing block entity")
-        }
-
-        return InteractionResult.SUCCESS
-    }
+class IncubatorBlock : CraftingMachineBlock(
+    Properties.of(Material.METAL),
+    IncubatorBlockEntity::class.java
+) {
 
     override fun <T : BlockEntity> getTicker(
         pLevel: Level,
@@ -101,7 +23,7 @@ class IncubatorBlock : HorizontalDirectionalBlock(Properties.of(Material.METAL))
         return BlockEntityHelper.createTickerHelper(
             pBlockEntityType,
             ModBlockEntities.INCUBATOR.get(),
-            IncubatorBlockEntity::tick
+            IncubatorBlockEntity.Companion::tick
         )
     }
 
