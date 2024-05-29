@@ -87,42 +87,44 @@ class AdvancedIncubatorBlockEntity(
         }
     }
 
+    private val ticksRemainingNbtKey = "$machineName.ticksRemaining"
     private var ticksRemaining: Int
         get() = data.get(REMAINING_TICKS_INDEX)
         set(value) {
             data.set(REMAINING_TICKS_INDEX, value)
         }
 
+    private val isHighTemperatureNbtKey = "$machineName.isHighTemperature"
     private var isHighTemperature: Boolean
         get() = data.get(IS_HIGH_TEMPERATURE_INDEX) == 1
         set(value) {
             data.set(IS_HIGH_TEMPERATURE_INDEX, if (value) 1 else 0)
         }
 
-    fun toggleTemperature() {
-        isHighTemperature = !isHighTemperature
-    }
-
     private val isBrewing: Boolean
         get() = ticksRemaining > 0
-
-    private val ticksRemainingNbtKey = "$machineName.ticksRemaining"
 
     override val energyCostPerTick = 10
 
     override fun saveAdditional(pTag: CompoundTag) {
         pTag.putInt(ticksRemainingNbtKey, ticksRemaining)
+        pTag.putBoolean(isHighTemperatureNbtKey, isHighTemperature)
 
         super.saveAdditional(pTag)
     }
 
     override fun load(pTag: CompoundTag) {
         ticksRemaining = pTag.getInt(ticksRemainingNbtKey)
+        isHighTemperature = pTag.getBoolean(isHighTemperatureNbtKey)
 
         super.load(pTag)
     }
 
     override fun tick() {
+
+        if (isHighTemperature) {
+            println("High temperature")
+        }
 
         if (!isBrewing && hasRecipe()) {
             ticksRemaining = TICKS_PER
