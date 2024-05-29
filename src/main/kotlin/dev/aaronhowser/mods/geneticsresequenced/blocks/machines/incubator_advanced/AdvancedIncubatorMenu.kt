@@ -15,7 +15,7 @@ import net.minecraftforge.items.SlotItemHandler
 class AdvancedIncubatorMenu(
     id: Int,
     inventory: Inventory,
-    blockEntity: AdvancedIncubatorBlockEntity,
+    override val blockEntity: AdvancedIncubatorBlockEntity,
     private val containerData: ContainerData
 ) : MachineMenu(
     ModMenuTypes.ADVANCED_INCUBATOR.get(),
@@ -75,6 +75,10 @@ class AdvancedIncubatorMenu(
         } else {
             progress * progressArrowSize / AdvancedIncubatorBlockEntity.TICKS_PER
         }
+    }
+
+    fun toggleTemperature() {
+        blockEntity.toggleTemperature()
     }
 
     companion object {

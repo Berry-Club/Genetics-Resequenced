@@ -12,7 +12,7 @@ import net.minecraft.world.level.Level
 
 abstract class MachineMenu(
     menuType: MenuType<*>,
-    val blockEntity: InventoryEnergyBlockEntity,
+    open val blockEntity: InventoryEnergyBlockEntity,
     id: Int,
     inventory: Inventory
 ) : AbstractContainerMenu(menuType, id) {

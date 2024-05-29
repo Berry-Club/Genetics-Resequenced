@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advan
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
@@ -66,10 +65,12 @@ class AdvancedIncubatorBlockEntity(
     private val data = object : ContainerData {
 
         private var remainingTicks = 0
+        private var isHighTemperature = false
 
         override fun get(pIndex: Int): Int {
             return when (pIndex) {
                 REMAINING_TICKS_INDEX -> remainingTicks
+                IS_HIGH_TEMPERATURE_INDEX -> if (isHighTemperature) 1 else 0
                 else -> 0
             }
         }
@@ -77,11 +78,12 @@ class AdvancedIncubatorBlockEntity(
         override fun set(pIndex: Int, pValue: Int) {
             when (pIndex) {
                 REMAINING_TICKS_INDEX -> remainingTicks = pValue
+                IS_HIGH_TEMPERATURE_INDEX -> isHighTemperature = pValue == 1
             }
         }
 
         override fun getCount(): Int {
-            return 1
+            return SIMPLE_CONTAINER_SIZE
         }
     }
 
@@ -90,6 +92,17 @@ class AdvancedIncubatorBlockEntity(
         set(value) {
             data.set(REMAINING_TICKS_INDEX, value)
         }
+
+    private var isHighTemperature: Boolean
+        get() = data.get(IS_HIGH_TEMPERATURE_INDEX) == 1
+        set(value) {
+            data.set(IS_HIGH_TEMPERATURE_INDEX, if (value) 1 else 0)
+        }
+
+    fun toggleTemperature() {
+        isHighTemperature = !isHighTemperature
+    }
+
     private val isBrewing: Boolean
         get() = ticksRemaining > 0
 
@@ -180,8 +193,9 @@ class AdvancedIncubatorBlockEntity(
             blockEntity.tick()
         }
 
-        const val SIMPLE_CONTAINER_SIZE = 1
+        const val SIMPLE_CONTAINER_SIZE = 2
         const val REMAINING_TICKS_INDEX = 0
+        const val IS_HIGH_TEMPERATURE_INDEX = 1
 
         const val TOP_SLOT_INDEX = 0
         const val LEFT_BOTTLE_SLOT_INDEX = 1

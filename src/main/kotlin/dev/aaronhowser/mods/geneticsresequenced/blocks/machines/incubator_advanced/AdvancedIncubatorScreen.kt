@@ -33,10 +33,10 @@ class AdvancedIncubatorScreen(
         const val BUBBLES_WIDTH = 12
         const val BUBBLES_HEIGHT = 29
 
-        const val FULL_FUEL_TEXTURE_X = 177
-        const val FULL_FUEL_TEXTURE_Y = 76
-        const val EMPTY_FUEL_TEXTURE_X = 177
-        const val EMPTY_FUEL_TEXTURE_Y = 81
+        const val HIGH_HEAT_TEXTURE_X = 177
+        const val HIGH_HEAT_TEXTURE_Y = 76
+        const val LOW_HEAT_TEXTURE_X = 177
+        const val LOW_HEAT_TEXTURE_Y = 81
 
         const val FUEL_X = 64
         const val FUEL_Y = 42
@@ -49,6 +49,11 @@ class AdvancedIncubatorScreen(
         const val ENERGY_Y = 14
         const val ENERGY_WIDTH = 14
         const val ENERGY_HEIGHT = 42
+
+        const val TEMP_BUTTON_LEFT = 43
+        const val TEMP_BUTTON_TOP = 12
+        const val TEMP_BUTTON_WIDTH = 40
+        const val TEMP_BUTTON_HEIGHT = 35
 
         private const val FAST_BUBBLE_SPEED = 4
     }
@@ -83,7 +88,7 @@ class AdvancedIncubatorScreen(
 
         blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight)
 
-        renderFuel(pPoseStack, x, y)
+        renderHeat(pPoseStack, x, y)
         renderProgressArrow(pPoseStack, x, y)
         renderBubble(pPoseStack, x, y)
 
@@ -102,10 +107,51 @@ class AdvancedIncubatorScreen(
 
     private fun renderEnergyAreaTooltip(pPoseStack: PoseStack, x: Int, y: Int, pMouseX: Int, pMouseY: Int) {
 
-        if (isMouseOver(pMouseX, pMouseY, x, y, ENERGY_X, ENERGY_Y, ENERGY_WIDTH, ENERGY_HEIGHT)) {
+        if (isMouseOverEnergy(pMouseX, pMouseY, x, y)) {
             renderTooltip(pPoseStack, energyInfoArea.tooltip, pMouseX - x, pMouseY - y)
         }
 
+        if (isMouseOverTemperature(pMouseX, pMouseY, x, y)) {
+            val component = Component.translatable("gui.geneticsresequenced.advanced_incubator.temperature")
+
+            renderTooltip(pPoseStack, component, pMouseX - x, pMouseY - y)
+        }
+
+    }
+
+    override fun mouseClicked(pMouseX: Double, pMouseY: Double, pButton: Int): Boolean {
+
+        if (isMouseOverTemperature(pMouseX.toInt(), pMouseY.toInt(), leftPos, topPos)) {
+            menu.toggleTemperature()
+        }
+
+        return super.mouseClicked(pMouseX, pMouseY, pButton)
+    }
+
+    private fun isMouseOverTemperature(mouseX: Int, mouseY: Int, x: Int, y: Int): Boolean {
+        return isMouseOver(
+            mouseX,
+            mouseY,
+            x,
+            y,
+            TEMP_BUTTON_LEFT,
+            TEMP_BUTTON_TOP,
+            TEMP_BUTTON_WIDTH,
+            TEMP_BUTTON_HEIGHT
+        )
+    }
+
+    private fun isMouseOverEnergy(mouseX: Int, mouseY: Int, x: Int, y: Int): Boolean {
+        return isMouseOver(
+            mouseX,
+            mouseY,
+            x,
+            y,
+            ENERGY_X,
+            ENERGY_Y,
+            ENERGY_WIDTH,
+            ENERGY_HEIGHT
+        )
     }
 
     private fun isMouseOver(
@@ -177,15 +223,15 @@ class AdvancedIncubatorScreen(
         )
     }
 
-    private fun renderFuel(pPoseStack: PoseStack, x: Int, y: Int) {
+    private fun renderHeat(pPoseStack: PoseStack, x: Int, y: Int) {
         val hasEnergy = menu.blockEntity.energyStorage.energyStored != 0
 
         blit(
             pPoseStack,
             x + FUEL_X,
             y + FUEL_Y,
-            if (hasEnergy) FULL_FUEL_TEXTURE_X else EMPTY_FUEL_TEXTURE_X,
-            if (hasEnergy) FULL_FUEL_TEXTURE_Y else EMPTY_FUEL_TEXTURE_Y,
+            if (hasEnergy) HIGH_HEAT_TEXTURE_X else LOW_HEAT_TEXTURE_X,
+            if (hasEnergy) HIGH_HEAT_TEXTURE_Y else LOW_HEAT_TEXTURE_Y,
             FUEL_WIDTH,
             FUEL_HEIGHT
         )
