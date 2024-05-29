@@ -16,9 +16,6 @@ import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.IRecipeCategory
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
-import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
-import net.minecraft.world.item.alchemy.PotionUtils
 
 class SubstrateCellRecipeCategory(
     helper: IGuiHelper
@@ -40,7 +37,7 @@ class SubstrateCellRecipeCategory(
     private val icon: IDrawable =
         helper.createDrawableIngredient(
             VanillaTypes.ITEM_STACK,
-            PotionUtils.setPotion(ItemStack(Items.POTION), ModPotions.SUBSTRATE)
+            ModPotions.substratePotionStack
         )
 
     override fun getRecipeType(): RecipeType<SubstrateCellRecipePage> =

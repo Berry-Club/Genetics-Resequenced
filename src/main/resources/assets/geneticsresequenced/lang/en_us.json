@@ -127,6 +127,7 @@
   "recipe.geneticsresequenced.gmo": "GMO Cell Incubating",
   "recipe.geneticsresequenced.cell_growth": "Cell Growth",
   "recipe.geneticsresequenced.substrate": "Substrate Cell Duplication",
+  "recipe.geneticsresequenced.virus": "Virus Cultivation",
 
   "info.geneticsresequenced.organic_matter": "Acquired by clicking a %1$s with a Scraper.",
   "info.geneticsresequenced.mob_gene.line1": "%1$s has these Genes:",

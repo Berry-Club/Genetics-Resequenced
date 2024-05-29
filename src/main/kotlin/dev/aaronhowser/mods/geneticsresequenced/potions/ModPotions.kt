@@ -111,44 +111,42 @@ object ModPotions {
 
     val allRecipes: MutableList<IBrewingRecipe> = mutableListOf()
 
+    fun potionStack(potion: Potion): ItemStack {
+        return PotionUtils.setPotion(ItemStack(Items.POTION), potion)
+    }
+
+    val substratePotionStack by lazy { potionStack(SUBSTRATE) }
+    val cellGrowthPotionStack by lazy { potionStack(CELL_GROWTH) }
+    val mutationPotionStack by lazy { potionStack(MUTATION) }
+    val viralAgentsPotionStack by lazy { potionStack(VIRAL_AGENTS) }
+    val curePotionStack by lazy { potionStack(THE_CURE) }
+
     fun addRecipes() {
-
-        fun potionStack(potion: Potion): ItemStack {
-            return PotionUtils.setPotion(ItemStack(Items.POTION), potion)
-        }
-
-
-        // Basic recipes
-        val substratePotion = potionStack(SUBSTRATE)
-        val cellGrowthPotion = potionStack(CELL_GROWTH)
-        val mutationPotion = potionStack(MUTATION)
-        val viralAgentsPotion = potionStack(VIRAL_AGENTS)
-        val curePotion = potionStack(THE_CURE)
 
         val substrateRecipe = BrewingRecipe(
             Potions.MUNDANE.ingredient,
             ModItems.ORGANIC_MATTER.get().ingredient,
-            substratePotion
+            substratePotionStack
         )
         val cellGrowthRecipe = BrewingRecipe(
             SUBSTRATE.ingredient,
             ModItems.DNA_HELIX.get().defaultInstance.setBasic().ingredient,
-            cellGrowthPotion
+            cellGrowthPotionStack
         )
         val mutationRecipe = BrewingRecipe(
             CELL_GROWTH.ingredient,
             Items.FERMENTED_SPIDER_EYE.ingredient,
-            mutationPotion
+            mutationPotionStack
         )
         val viralRecipe = BrewingRecipe(
             MUTATION.ingredient,
             Items.CHORUS_FRUIT.ingredient,
-            viralAgentsPotion
+            viralAgentsPotionStack
         )
         val cureRecipe = BrewingRecipe(
             VIRAL_AGENTS.ingredient,
             ModItems.DNA_HELIX.get().defaultInstance.setGene(DefaultGenes.EMERALD_HEART).ingredient,
-            curePotion
+            curePotionStack
         )
 
         allRecipes.addAll(

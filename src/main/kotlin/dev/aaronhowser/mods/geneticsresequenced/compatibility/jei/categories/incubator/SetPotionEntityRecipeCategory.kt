@@ -37,7 +37,7 @@ class SetPotionEntityRecipeCategory(
     private val icon: IDrawable =
         helper.createDrawableIngredient(
             VanillaTypes.ITEM_STACK,
-            PotionUtils.setPotion(ItemStack(Items.POTION), ModPotions.CELL_GROWTH)
+            ModPotions.cellGrowthPotionStack
         )
 
     override fun getRecipeType(): RecipeType<SetPotionEntityRecipePage> =

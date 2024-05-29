@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
-import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.VirusRecipePage
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.constants.VanillaTypes
@@ -13,7 +13,6 @@ import mezz.jei.api.recipe.RecipeIngredientRole
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.IRecipeCategory
 import net.minecraft.network.chat.Component
-import net.minecraft.world.item.ItemStack
 
 class VirusRecipeCategory(
     helper: IGuiHelper
@@ -32,12 +31,14 @@ class VirusRecipeCategory(
     }
 
     private val background: IDrawable = helper.createDrawable(TEXTURE, 0, 0, 100, 28)
-    private val icon: IDrawable =
-        helper.createDrawableIngredient(VanillaTypes.ITEM_STACK, ItemStack(ModItems.GMO_CELL.get()))
+    private val icon: IDrawable = helper.createDrawableIngredient(
+        VanillaTypes.ITEM_STACK,
+        ModPotions.viralAgentsPotionStack
+    )
 
     override fun getRecipeType(): RecipeType<VirusRecipePage> = GeneticsResequencedJeiPlugin.VIRUS_RECIPE_TYPE
 
-    override fun getTitle(): Component = Component.translatable("recipe.geneticsresequenced.gmo")
+    override fun getTitle(): Component = Component.translatable("recipe.geneticsresequenced.virus")
 
     override fun getBackground(): IDrawable = background
 
