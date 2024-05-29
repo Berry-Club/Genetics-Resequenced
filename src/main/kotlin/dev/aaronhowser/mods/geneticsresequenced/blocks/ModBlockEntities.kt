@@ -89,7 +89,7 @@ object ModBlockEntities {
         BLOCK_ENTITY_REGISTRY.register("advanced_incubator") {
             BlockEntityType.Builder.of(
                 { pos, state -> AdvancedIncubatorBlockEntity(pos, state) },
-                ModBlocks.INCUBATOR.get()
+                ModBlocks.ADVANCED_INCUBATOR.get()
             ).build(null)
         }
 
