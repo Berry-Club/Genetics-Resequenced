@@ -112,7 +112,8 @@ class AdvancedIncubatorScreen(
         }
 
         if (isMouseOverTemperature(pMouseX, pMouseY, x, y)) {
-            val component = Component.translatable("gui.geneticsresequenced.advanced_incubator.temperature")
+            val setTemp = if (menu.isHighTemperature) "set_low" else "set_high"
+            val component = Component.translatable("tooltip.geneticsresequenced.advanced_incubator.$setTemp")
 
             renderTooltip(pPoseStack, component, pMouseX - x, pMouseY - y)
         }
@@ -225,13 +226,17 @@ class AdvancedIncubatorScreen(
 
     private fun renderHeat(pPoseStack: PoseStack, x: Int, y: Int) {
         val hasEnergy = menu.blockEntity.energyStorage.energyStored != 0
+        if (!hasEnergy) return
+
+        val textureX = if (menu.isHighTemperature) HIGH_HEAT_TEXTURE_X else LOW_HEAT_TEXTURE_X
+        val textureY = if (menu.isHighTemperature) HIGH_HEAT_TEXTURE_Y else LOW_HEAT_TEXTURE_Y
 
         blit(
             pPoseStack,
             x + FUEL_X,
             y + FUEL_Y,
-            if (hasEnergy) HIGH_HEAT_TEXTURE_X else LOW_HEAT_TEXTURE_X,
-            if (hasEnergy) HIGH_HEAT_TEXTURE_Y else LOW_HEAT_TEXTURE_Y,
+            textureX,
+            textureY,
             FUEL_WIDTH,
             FUEL_HEIGHT
         )

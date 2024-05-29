@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced.AdvancedIncubatorBlockEntity.Companion.IS_HIGH_TEMPERATURE_INDEX
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.network.FriendlyByteBuf
@@ -15,7 +16,7 @@ import net.minecraftforge.items.SlotItemHandler
 class AdvancedIncubatorMenu(
     id: Int,
     inventory: Inventory,
-    override val blockEntity: AdvancedIncubatorBlockEntity,
+    blockEntity: AdvancedIncubatorBlockEntity,
     private val containerData: ContainerData
 ) : MachineMenu(
     ModMenuTypes.ADVANCED_INCUBATOR.get(),
@@ -64,6 +65,12 @@ class AdvancedIncubatorMenu(
             containerData.set(DATA_PROGRESS_INDEX, value)
         }
 
+    var isHighTemperature: Boolean
+        get() = containerData.get(IS_HIGH_TEMPERATURE_INDEX) == 1
+        private set(value) {
+            containerData.set(IS_HIGH_TEMPERATURE_INDEX, if (value) 1 else 0)
+        }
+
     val isCrafting
         get() = progress > 0
 
@@ -78,7 +85,7 @@ class AdvancedIncubatorMenu(
     }
 
     fun toggleTemperature() {
-        blockEntity.toggleTemperature()
+        isHighTemperature = !isHighTemperature
     }
 
     companion object {

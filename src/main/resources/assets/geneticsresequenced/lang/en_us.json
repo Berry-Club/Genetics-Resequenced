@@ -64,6 +64,7 @@
   "block.geneticsresequenced.blood_purifier": "Blood Purifier",
   "block.geneticsresequenced.cloning_machine": "Cloning Machine",
   "block.geneticsresequenced.incubator": "Incubator",
+  "block.geneticsresequenced.advanced_incubator": "Advanced Incubator",
   "block.geneticsresequenced.plasmid_infuser": "Plasmid Infuser",
   "block.geneticsresequenced.plasmid_injector": "Plasmid Injector",
   "block.geneticsresequenced.anti_field_block": "Anti-Field Block",
@@ -101,6 +102,8 @@
   "tooltip.geneticsresequenced.potion.ignore": "Don't craft this! It does nothing!",
   "tooltip.geneticsresequenced.gmo_cell.chance": "Chance: %d%%",
   "tooltip.geneticsresequenced.substrate_recipe": "Each Organic Substrate is replaced with a copy of the Cell.",
+  "tooltip.geneticsresequenced.advanced_incubator.set_high": "Set temperature to high",
+  "tooltip.geneticsresequenced.advanced_incubator.set_low": "Set temperature to low",
 
   "command.geneticsresequenced.geneList": "Gene List:",
   "command.geneticsresequenced.list.no_genes": "No Genes found!",
