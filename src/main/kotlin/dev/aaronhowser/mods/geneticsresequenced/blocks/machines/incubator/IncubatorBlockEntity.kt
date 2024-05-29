@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
@@ -12,7 +11,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry
@@ -40,7 +38,7 @@ class IncubatorBlockEntity(
         return Component.translatable("block.geneticsresequenced.incubator")
     }
 
-    override val amountOfItemSlots: Int = 6
+    override val amountOfItemSlots: Int = 5
     override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {
         override fun onContentsChanged(slot: Int) {
             setChanged()
@@ -53,8 +51,6 @@ class IncubatorBlockEntity(
                 LEFT_BOTTLE_SLOT_INDEX,
                 MIDDLE_BOTTLE_SLOT_INDEX,
                 RIGHT_BOTTLE_SLOT_INDEX -> BrewingRecipeRegistry.isValidInput(stack)
-
-                CHORUS_SLOT_INDEX -> stack.`is`(Items.CHORUS_FRUIT)
 
                 OVERCLOCKER_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER.get())
 
@@ -187,8 +183,7 @@ class IncubatorBlockEntity(
         const val LEFT_BOTTLE_SLOT_INDEX = 1
         const val MIDDLE_BOTTLE_SLOT_INDEX = 2
         const val RIGHT_BOTTLE_SLOT_INDEX = 3
-        const val CHORUS_SLOT_INDEX = 4
-        const val OVERCLOCKER_SLOT_INDEX = 5
+        const val OVERCLOCKER_SLOT_INDEX = 4
 
         const val TICKS_PER = 20 * 5
     }
