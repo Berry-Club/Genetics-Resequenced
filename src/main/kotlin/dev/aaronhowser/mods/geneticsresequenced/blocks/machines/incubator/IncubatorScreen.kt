@@ -33,15 +33,13 @@ class IncubatorScreen(
         const val BUBBLES_WIDTH = 12
         const val BUBBLES_HEIGHT = 29
 
-        const val FULL_FUEL_TEXTURE_X = 177
-        const val FULL_FUEL_TEXTURE_Y = 76
-        const val EMPTY_FUEL_TEXTURE_X = 177
-        const val EMPTY_FUEL_TEXTURE_Y = 81
+        const val HIGH_HEAT_TEXTURE_X = 177
+        const val HIGH_HEAT_TEXTURE_Y = 76
 
-        const val FUEL_X = 64
-        const val FUEL_Y = 42
-        const val FUEL_WIDTH = 18
-        const val FUEL_HEIGHT = 4
+        const val HEAT_X = 64
+        const val HEAT_Y = 42
+        const val HEAT_WIDTH = 18
+        const val HEAT_HEIGHT = 4
 
         const val ENERGY_TEXTURE_X = 177
         const val ENERGY_TEXTURE_Y = 3
@@ -83,7 +81,7 @@ class IncubatorScreen(
 
         blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight)
 
-        renderFuel(pPoseStack, x, y)
+        renderHeat(pPoseStack, x, y)
         renderProgressArrow(pPoseStack, x, y)
         renderBubble(pPoseStack, x, y)
 
@@ -177,18 +175,20 @@ class IncubatorScreen(
         )
     }
 
-    private fun renderFuel(pPoseStack: PoseStack, x: Int, y: Int) {
+    private fun renderHeat(pPoseStack: PoseStack, x: Int, y: Int) {
         val hasEnergy = menu.blockEntity.energyStorage.energyStored != 0
 
-        blit(
-            pPoseStack,
-            x + FUEL_X,
-            y + FUEL_Y,
-            if (hasEnergy) FULL_FUEL_TEXTURE_X else EMPTY_FUEL_TEXTURE_X,
-            if (hasEnergy) FULL_FUEL_TEXTURE_Y else EMPTY_FUEL_TEXTURE_Y,
-            FUEL_WIDTH,
-            FUEL_HEIGHT
-        )
+        if (hasEnergy) {
+            blit(
+                pPoseStack,
+                x + HEAT_X,
+                y + HEAT_Y,
+                HIGH_HEAT_TEXTURE_X,
+                HIGH_HEAT_TEXTURE_Y,
+                HEAT_WIDTH,
+                HEAT_HEIGHT
+            )
+        }
 
     }
 
