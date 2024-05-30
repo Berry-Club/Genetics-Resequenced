@@ -65,12 +65,12 @@ class AdvancedIncubatorBlockEntity(
     private val data = object : ContainerData {
 
         private var remainingTicks = 0
-        private var isHighTemperature = false
+        private var isHighTemperature = 0
 
         override fun get(pIndex: Int): Int {
             return when (pIndex) {
                 REMAINING_TICKS_INDEX -> remainingTicks
-                IS_HIGH_TEMPERATURE_INDEX -> if (isHighTemperature) 1 else 0
+                IS_HIGH_TEMPERATURE_INDEX -> isHighTemperature
                 else -> 0
             }
         }
@@ -78,8 +78,9 @@ class AdvancedIncubatorBlockEntity(
         override fun set(pIndex: Int, pValue: Int) {
             when (pIndex) {
                 REMAINING_TICKS_INDEX -> remainingTicks = pValue
-                IS_HIGH_TEMPERATURE_INDEX -> isHighTemperature = pValue == 1
+                IS_HIGH_TEMPERATURE_INDEX -> isHighTemperature = pValue
             }
+            setChanged()
         }
 
         override fun getCount(): Int {
