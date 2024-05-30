@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.packets
 
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.FireballPacket
-import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.GuiPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.TeleportPlayerPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.ShearedPacket
@@ -38,12 +37,6 @@ object ModPacketHandler {
                 .encoder(FireballPacket::encode)
                 .decoder(FireballPacket::decode)
                 .consumerMainThread(FireballPacket::receiveMessage)
-                .add()
-
-            messageBuilder(GuiPacket::class.java, ++id, NetworkDirection.PLAY_TO_SERVER)
-                .encoder(GuiPacket::encode)
-                .decoder(GuiPacket::decode)
-                .consumerMainThread(GuiPacket::receiveMessage)
                 .add()
 
             messageBuilder(GeneChangedPacket::class.java, ++id, NetworkDirection.PLAY_TO_CLIENT)

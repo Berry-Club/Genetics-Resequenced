@@ -96,7 +96,7 @@ class AdvancedIncubatorBlockEntity(
         }
 
     private val isHighTemperatureNbtKey = "$machineName.isHighTemperature"
-    var isHighTemperature: Boolean
+    private var isHighTemperature: Boolean
         get() = data.get(IS_HIGH_TEMPERATURE_INDEX) == 1
         set(value) {
             data.set(IS_HIGH_TEMPERATURE_INDEX, if (value) 1 else 0)
@@ -122,6 +122,10 @@ class AdvancedIncubatorBlockEntity(
     }
 
     override fun tick() {
+
+        if (isHighTemperature) {
+            println("High temperature")
+        }
 
         if (!isBrewing && hasRecipe()) {
             ticksRemaining = TICKS_PER
