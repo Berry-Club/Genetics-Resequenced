@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advan
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced.AdvancedIncubatorBlockEntity.Companion.IS_HIGH_TEMPERATURE_INDEX
+import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
+import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.GuiPacket
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.network.FriendlyByteBuf
@@ -68,7 +70,7 @@ class AdvancedIncubatorMenu(
     var isHighTemperature: Boolean
         get() = containerData.get(IS_HIGH_TEMPERATURE_INDEX) == 1
         private set(value) {
-            containerData.set(IS_HIGH_TEMPERATURE_INDEX, if (value) 1 else 0)
+            ModPacketHandler.messageServer(GuiPacket(blockEntity.blockPos, value))
         }
 
     val isCrafting
