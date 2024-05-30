@@ -123,7 +123,8 @@ class AdvancedIncubatorScreen(
     override fun mouseClicked(pMouseX: Double, pMouseY: Double, pButton: Int): Boolean {
 
         if (isMouseOverTemperature(pMouseX.toInt(), pMouseY.toInt(), leftPos, topPos)) {
-            menu.toggleTemperature()
+            this.minecraft?.gameMode?.handleInventoryButtonClick(this.menu.containerId, 1)
+            return true
         }
 
         return super.mouseClicked(pMouseX, pMouseY, pButton)

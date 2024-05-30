@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanc
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
@@ -84,7 +85,18 @@ class AdvancedIncubatorMenu(
         }
     }
 
-    fun toggleTemperature() {
+    override fun clickMenuButton(pPlayer: Player, pId: Int): Boolean {
+        if (pPlayer is ServerPlayer) {
+            if (pId == 1) {
+                toggleTemperature()
+                return true
+            }
+        }
+
+        return false
+    }
+
+    private fun toggleTemperature() {
         isHighTemperature = !isHighTemperature
     }
 
