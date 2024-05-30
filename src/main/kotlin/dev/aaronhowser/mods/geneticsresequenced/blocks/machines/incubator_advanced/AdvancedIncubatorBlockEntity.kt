@@ -65,12 +65,10 @@ class AdvancedIncubatorBlockEntity(
     private val data = object : ContainerData {
 
         private var remainingTicks = 0
-        private var isHighTemperature = false
 
         override fun get(pIndex: Int): Int {
             return when (pIndex) {
                 REMAINING_TICKS_INDEX -> remainingTicks
-                IS_HIGH_TEMPERATURE_INDEX -> if (isHighTemperature) 1 else 0
                 else -> 0
             }
         }
@@ -78,7 +76,6 @@ class AdvancedIncubatorBlockEntity(
         override fun set(pIndex: Int, pValue: Int) {
             when (pIndex) {
                 REMAINING_TICKS_INDEX -> remainingTicks = pValue
-                IS_HIGH_TEMPERATURE_INDEX -> isHighTemperature = pValue == 1
             }
         }
 
@@ -95,10 +92,10 @@ class AdvancedIncubatorBlockEntity(
         }
 
     private val isHighTemperatureNbtKey = "$machineName.isHighTemperature"
-    private var isHighTemperature: Boolean
-        get() = data.get(IS_HIGH_TEMPERATURE_INDEX) == 1
+    var isHighTemperature: Boolean = false
         set(value) {
-            data.set(IS_HIGH_TEMPERATURE_INDEX, if (value) 1 else 0)
+            field = value
+            setChanged()
         }
 
     private val isBrewing: Boolean
@@ -195,9 +192,8 @@ class AdvancedIncubatorBlockEntity(
             blockEntity.tick()
         }
 
-        const val SIMPLE_CONTAINER_SIZE = 2
+        const val SIMPLE_CONTAINER_SIZE = 1
         const val REMAINING_TICKS_INDEX = 0
-        const val IS_HIGH_TEMPERATURE_INDEX = 1
 
         const val TOP_SLOT_INDEX = 0
         const val LEFT_BOTTLE_SLOT_INDEX = 1
