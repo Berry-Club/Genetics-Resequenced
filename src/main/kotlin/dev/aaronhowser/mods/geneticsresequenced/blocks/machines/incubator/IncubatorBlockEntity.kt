@@ -105,6 +105,9 @@ class IncubatorBlockEntity(
         super.load(pTag)
     }
 
+    override val amountOfOverclockers: Int
+        get() = itemHandler.getStackInSlot(OVERCLOCKER_SLOT_INDEX).count
+
     override fun tick() {
 
         if (!isBrewing && hasRecipe()) {
@@ -115,7 +118,7 @@ class IncubatorBlockEntity(
         }
 
         energyStorage.extractEnergy(energyCostPerTick, false)
-        ticksRemaining -= 1 + itemHandler.getStackInSlot(OVERCLOCKER_SLOT_INDEX).count
+        ticksRemaining -= 1 + amountOfOverclockers
 
         if (ticksRemaining <= 0) {
             craftItem()

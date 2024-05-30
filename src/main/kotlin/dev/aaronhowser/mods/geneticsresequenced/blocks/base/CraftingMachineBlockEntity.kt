@@ -35,7 +35,7 @@ abstract class CraftingMachineBlockEntity(
 
     abstract val energyCostPerTick: Int
 
-    val amountOfOverclockers: Int
+    open val amountOfOverclockers: Int
         get() = itemHandler.getStackInSlot(OVERCLOCK_SLOT_INDEX).count
 
     protected var progress = 0
