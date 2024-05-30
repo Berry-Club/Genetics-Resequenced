@@ -15,6 +15,14 @@ class ShearedPacket(
         buffer.writeBoolean(removingSkin)
     }
 
+    companion object {
+        fun decode(buffer: FriendlyByteBuf): ShearedPacket {
+            return ShearedPacket(
+                buffer.readBoolean()
+            )
+        }
+    }
+
     override fun receiveMessage(context: Supplier<NetworkEvent.Context>) {
         require(context.get().direction == NetworkDirection.PLAY_TO_CLIENT) {
             "Received ShearedPacket on wrong side!"
@@ -25,11 +33,7 @@ class ShearedPacket(
         } else {
             ClientUtil.addSkinLayersBack()
         }
-    }
 
-    companion object {
-        fun decode(buffer: FriendlyByteBuf): ShearedPacket {
-            return ShearedPacket(removingSkin = buffer.readBoolean())
-        }
+        context.get().packetHandled = true
     }
 }

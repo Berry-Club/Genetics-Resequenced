@@ -52,6 +52,8 @@ class GeneChangedPacket(
         }
 
         handleAttributes(player, gene)
+
+        context.get().packetHandled = true
     }
 
     private fun handleAttributes(player: LocalPlayer, gene: Gene) {
