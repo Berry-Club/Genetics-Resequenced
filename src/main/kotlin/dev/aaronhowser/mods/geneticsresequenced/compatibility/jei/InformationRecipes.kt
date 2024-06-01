@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
@@ -21,7 +22,11 @@ object InformationRecipes {
                 .translatable("info.geneticsresequenced.organic_matter", entityType.description)
 
             val organicMatterStack = ItemStack(ModItems.ORGANIC_MATTER.get()).setMob(entityType)
-                ?: throw IllegalStateException("Failed to create ItemStack for Organic Matter")
+
+            if (organicMatterStack == null) {
+                GeneticsResequenced.LOGGER.error("Failed to create organic matter stack for entity type: $entityType")
+                continue
+            }
 
             registration.addIngredientInfo(
                 organicMatterStack,
