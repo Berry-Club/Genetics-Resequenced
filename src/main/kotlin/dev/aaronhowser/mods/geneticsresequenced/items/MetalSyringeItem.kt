@@ -4,7 +4,11 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.InteractionResultHolder
+import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.effect.MobEffects
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
@@ -19,7 +23,7 @@ class MetalSyringeItem : SyringeItem() {
             pInteractionTarget: LivingEntity
         ): InteractionResult {
 
-            val stackEntityUuid = getEntity(pStack)
+            val stackEntityUuid = getEntityUuid(pStack)
             val targetEntityUuid = pInteractionTarget.uuid
             if (stackEntityUuid == null || targetEntityUuid != stackEntityUuid) {
                 return InteractionResult.PASS
@@ -50,7 +54,10 @@ class MetalSyringeItem : SyringeItem() {
             val badGenes = genes.filter { !it.canMobsHave }
             for (badGene in badGenes) {
                 val component =
-                    Component.translatable("message.geneticsresequenced.syringe.failed.mobs_cant_have", badGene.nameComponent)
+                    Component.translatable(
+                        "message.geneticsresequenced.syringe.failed.mobs_cant_have",
+                        badGene.nameComponent
+                    )
                 sendMessage(component)
             }
 
@@ -81,6 +88,29 @@ class MetalSyringeItem : SyringeItem() {
         } else {
             extractBlood(realStack, pInteractionTarget)
         }
+    }
+
+    override fun inventoryTick(pStack: ItemStack, pLevel: Level, pEntity: Entity, pSlotId: Int, pIsSelected: Boolean) {
+        if (!pIsSelected) return
+        if (pEntity !is Player) return
+
+        if (pEntity.tickCount % 40 != 0) return
+
+        if (!hasBlood(pStack)) return
+
+        val entityUuid = getEntityUuid(pStack)
+
+        val nearbyEntities =
+            pLevel.getNearbyEntities(
+                LivingEntity::class.java,
+                TargetingConditions.DEFAULT,
+                pEntity,
+                pEntity.boundingBox.inflate(50.0)
+            )
+
+        val target = nearbyEntities.find { it.uuid == entityUuid }
+
+        target?.addEffect(MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false, false))
     }
 
     override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {

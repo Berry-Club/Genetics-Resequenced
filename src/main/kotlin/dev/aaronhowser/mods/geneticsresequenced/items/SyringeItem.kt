@@ -87,8 +87,8 @@ open class SyringeItem : Item(
 
         @JvmStatic
         protected fun injectEntity(syringeStack: ItemStack, entity: LivingEntity) {
-            val entityDna = getEntity(syringeStack) ?: return
-            if (entity.uuid != entityDna) return
+            val syringeEntityUuid = getEntityUuid(syringeStack) ?: return
+            if (entity.uuid != syringeEntityUuid) return
 
             val genes = getGenes(syringeStack)
             val entityGenes = entity.getGenes() ?: return
@@ -121,14 +121,14 @@ open class SyringeItem : Item(
         }
 
         @JvmStatic
-        protected fun getEntity(syringeStack: ItemStack): UUID? {
+        protected fun getEntityUuid(syringeStack: ItemStack): UUID? {
             if (!syringeStack.isSyringe()) return null
 
             return syringeStack.getOrCreateTag().getUuidOrNull(ENTITY_UUID_NBT_KEY)
         }
 
         fun hasBlood(syringeStack: ItemStack): Boolean {
-            return getEntity(syringeStack) != null
+            return getEntityUuid(syringeStack) != null
         }
 
         private const val CONTAMINATED_NBT_KEY = "contaminated"
