@@ -146,7 +146,6 @@ class Gene(
             return component
         }
 
-    //TODO: Implement this in the genes etc
     var isActive: Boolean = true
         private set
 

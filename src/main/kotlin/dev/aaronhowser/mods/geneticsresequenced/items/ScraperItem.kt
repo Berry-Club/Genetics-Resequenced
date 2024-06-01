@@ -40,7 +40,7 @@ class ScraperItem : Item(
 
             // Only put on cooldown if the entity was not damaged
             if (stack.getEnchantmentLevel(ModEnchantments.DELICATE_TOUCH) == 0) {
-                entity.hurt(damageSource(player), 1f)
+                entity.hurt(damageSourceScraper(player), 1f)
             } else {
                 player.cooldowns.addCooldown(ModItems.SCRAPER.get(), 10)
             }
@@ -50,7 +50,8 @@ class ScraperItem : Item(
             return true
         }
 
-        fun damageSource(player: Player?): DamageSource {
+        @Suppress("MemberVisibilityCanBePrivate")
+        fun damageSourceScraper(player: Player?): DamageSource {
             return if (player == null) {
                 DamageSource("scraper")
             } else {
