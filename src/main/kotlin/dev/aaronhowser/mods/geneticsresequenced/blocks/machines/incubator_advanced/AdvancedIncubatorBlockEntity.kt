@@ -125,7 +125,7 @@ class AdvancedIncubatorBlockEntity(
 
 
     override val amountOfOverclockers: Int
-        get() = itemHandler.getStackInSlot(IncubatorBlockEntity.OVERCLOCKER_SLOT_INDEX).count
+        get() = itemHandler.getStackInSlot(OVERCLOCKER_SLOT_INDEX).count
 
     private var subticks = 0
     override fun tick() {
@@ -141,6 +141,7 @@ class AdvancedIncubatorBlockEntity(
             energyStorage.extractEnergy(energyCostPerTick, false)
             ticksRemaining -= 1 + amountOfOverclockers
         } else {
+            val amountOfOverclockers = amountOfOverclockers
             subticks += 1 + amountOfOverclockers
 
             val subticksOverMax = subticks - lowTempTickFactor
