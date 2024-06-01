@@ -147,15 +147,15 @@ class DnaDecryptorRecipe : Recipe<Container> {
 
         val SERIALIZER = object : RecipeSerializer<DnaDecryptorRecipe> {
             override fun fromJson(pRecipeId: ResourceLocation, pSerializedRecipe: JsonObject): DnaDecryptorRecipe {
-                TODO()
+                throw IllegalStateException("This recipe type does not support JSON serialization")
             }
 
             override fun fromNetwork(pRecipeId: ResourceLocation, pBuffer: FriendlyByteBuf): DnaDecryptorRecipe? {
-                TODO()
+                throw IllegalStateException("This recipe type does not support JSON serialization")
             }
 
             override fun toNetwork(pBuffer: FriendlyByteBuf, pRecipe: DnaDecryptorRecipe) {
-                TODO()
+                throw IllegalStateException("This recipe type does not support JSON serialization")
             }
         }
     }
