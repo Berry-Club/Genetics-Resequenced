@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
@@ -8,7 +9,6 @@ import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.ProjectileUtil
 import net.minecraft.world.item.ItemStack
@@ -102,19 +102,10 @@ class MetalSyringeItem : SyringeItem() {
 
         if (!hasBlood(pStack)) return
 
-        val entityUuid = getEntityUuid(pStack)
+        val entityUuid = getEntityUuid(pStack) ?: return
+        val target = OtherUtil.getEntityFromUuid(entityUuid, pEntity) ?: return
 
-        val nearbyEntities =
-            pLevel.getNearbyEntities(
-                LivingEntity::class.java,
-                TargetingConditions.DEFAULT,
-                pEntity,
-                pEntity.boundingBox.inflate(50.0)
-            )
-
-        val target = nearbyEntities.find { it.uuid == entityUuid }
-
-        target?.addEffect(MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false, false))
+        target.addEffect(MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false, false))
     }
 
     override fun getUseDuration(pStack: ItemStack): Int = 40
