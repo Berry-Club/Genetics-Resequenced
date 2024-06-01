@@ -103,7 +103,7 @@ class MetalSyringeItem : SyringeItem() {
         if (!hasBlood(pStack)) return
 
         val entityUuid = getEntityUuid(pStack) ?: return
-        val target = OtherUtil.getEntityFromUuid(entityUuid, pEntity) ?: return
+        val target = OtherUtil.getNearbyEntityFromUuid(entityUuid, pEntity) ?: return
 
         target.addEffect(MobEffectInstance(MobEffects.GLOWING, 100, 0, false, false, false))
     }

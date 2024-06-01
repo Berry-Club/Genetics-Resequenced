@@ -22,15 +22,15 @@ object OtherUtil {
     fun MutableComponent.withColor(color: ChatFormatting): MutableComponent = this.withStyle { it.withColor(color) }
 
     private val entityUuidMap: MutableMap<UUID, LivingEntity> = mutableMapOf()
-    fun getEntityFromUuid(uuid: UUID, pLivingEntity: LivingEntity): LivingEntity? {
+    fun getNearbyEntityFromUuid(uuid: UUID, searchAroundEntity: LivingEntity): LivingEntity? {
         val mappedValue = entityUuidMap[uuid]
         if (mappedValue != null) return mappedValue
 
-        val nearbyEntities = pLivingEntity.level.getNearbyEntities(
+        val nearbyEntities = searchAroundEntity.level.getNearbyEntities(
             LivingEntity::class.java,
             TargetingConditions.DEFAULT,
-            pLivingEntity,
-            pLivingEntity.boundingBox.inflate(50.0)
+            searchAroundEntity,
+            searchAroundEntity.boundingBox.inflate(50.0)
         )
 
         for (entity in nearbyEntities) {
