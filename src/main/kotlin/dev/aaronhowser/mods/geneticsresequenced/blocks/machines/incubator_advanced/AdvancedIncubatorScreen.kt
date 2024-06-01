@@ -56,6 +56,7 @@ class AdvancedIncubatorScreen(
         const val TEMP_BUTTON_HEIGHT = 35
 
         private const val FAST_BUBBLE_SPEED = 4
+        private const val SLOW_BUBBLE_SPEED = 40
     }
 
     private lateinit var energyInfoArea: EnergyInfoArea
@@ -207,7 +208,10 @@ class AdvancedIncubatorScreen(
     private fun renderBubble(pPoseStack: PoseStack, x: Int, y: Int) {
         if (!menu.isCrafting) return
 
-        if (++bubblePosProgress % FAST_BUBBLE_SPEED == 0) {
+        val speed = if (menu.isHighTemperature) FAST_BUBBLE_SPEED else SLOW_BUBBLE_SPEED
+
+        bubblePosProgress++
+        if (bubblePosProgress % speed == 0) {
             bubblePos++
             bubblePosProgress = 0
         }
