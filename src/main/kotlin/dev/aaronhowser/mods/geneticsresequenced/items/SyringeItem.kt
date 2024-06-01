@@ -13,6 +13,8 @@ import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.damagesource.EntityDamageSource
+import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -57,6 +59,7 @@ open class SyringeItem : Item(
             setEntityName(syringeStack, entity.name)
         }
 
+        @Suppress("MemberVisibilityCanBePrivate")
         fun setEntityUuid(syringeStack: ItemStack, uuid: UUID) {
             if (!syringeStack.isSyringe()) throw IllegalArgumentException("ItemStack is not a Syringe")
 
@@ -128,10 +131,6 @@ open class SyringeItem : Item(
             return getEntity(syringeStack) != null
         }
 
-        //TODO:
-        // Make it so you have to clean needles each time
-        // maybe smelt it? maybe new sterilizer block?
-        // would have to be less inconvenient than just crafting a new Syringe
         private const val CONTAMINATED_NBT_KEY = "contaminated"
         fun isContaminated(syringeStack: ItemStack): Boolean {
             return syringeStack.getOrCreateTag().getBoolean(CONTAMINATED_NBT_KEY)
@@ -148,7 +147,6 @@ open class SyringeItem : Item(
         // Gene functions
 
         private const val GENE_LIST_NBT_KEY = "genes"
-
         fun getGenes(syringeStack: ItemStack): List<Gene> {
             if (!hasBlood(syringeStack)) return emptyList()
             return syringeStack.getOrCreateTag()
@@ -157,7 +155,6 @@ open class SyringeItem : Item(
         }
 
         fun addGene(syringeStack: ItemStack, vararg genes: Gene): Boolean {
-
             if (!hasBlood(syringeStack)) return false
 
             val geneList = getGenes(syringeStack).toMutableList()
@@ -251,10 +248,14 @@ open class SyringeItem : Item(
             injectEntity(pStack, pLivingEntity)
         } else {
             setEntity(pStack, pLivingEntity)
-            pLivingEntity.hurt(damageSourceUse(pLivingEntity), 1f)
         }
 
-        pLivingEntity.cooldowns.addCooldown(this, 10)
+        pLivingEntity.apply {
+            hurt(damageSourceUse(pLivingEntity), 1f)
+            addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
+
+            cooldowns.addCooldown(ModItems.SYRINGE.get(), 10)
+        }
     }
 
     override fun getName(pStack: ItemStack): Component {
