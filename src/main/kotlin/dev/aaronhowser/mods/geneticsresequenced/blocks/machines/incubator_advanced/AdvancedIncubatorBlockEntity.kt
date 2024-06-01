@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advan
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
@@ -130,7 +131,7 @@ class AdvancedIncubatorBlockEntity(
     override fun tick() {
 
         if (!isBrewing && hasRecipe()) {
-            ticksRemaining = TICKS_PER
+            ticksRemaining = IncubatorBlockEntity.ticksPerBrew
         } else if (!hasRecipe()) {
             ticksRemaining = 0
             return
@@ -142,7 +143,7 @@ class AdvancedIncubatorBlockEntity(
         } else {
             subticks += 1 + amountOfOverclockers
 
-            val subticksOverMax = subticks - SUBTICKS_PER_TICK
+            val subticksOverMax = subticks - lowTempTickFactor
             if (subticksOverMax >= 0) {
                 subticks = subticksOverMax
                 energyStorage.extractEnergy(energyCostPerTick, false)
@@ -220,9 +221,8 @@ class AdvancedIncubatorBlockEntity(
         const val CHORUS_SLOT_INDEX = 4
         const val OVERCLOCKER_SLOT_INDEX = 5
 
-        const val TICKS_PER = 20 * 5
-
-        const val SUBTICKS_PER_TICK = 20
+        val lowTempTickFactor: Int
+            get() = ServerConfig.incubatorLowTempTickFactor.get()
     }
 
 }

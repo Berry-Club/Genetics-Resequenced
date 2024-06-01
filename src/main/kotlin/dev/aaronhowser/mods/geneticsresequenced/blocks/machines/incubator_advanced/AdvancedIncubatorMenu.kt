@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced.AdvancedIncubatorBlockEntity.Companion.IS_HIGH_TEMPERATURE_INDEX
 import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
@@ -81,7 +82,7 @@ class AdvancedIncubatorMenu(
         return if (progress == 0) {
             0
         } else {
-            progress * progressArrowSize / AdvancedIncubatorBlockEntity.TICKS_PER
+            progress * progressArrowSize / IncubatorBlockEntity.ticksPerBrew
         }
     }
 

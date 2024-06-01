@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
@@ -111,7 +112,7 @@ class IncubatorBlockEntity(
     override fun tick() {
 
         if (!isBrewing && hasRecipe()) {
-            ticksRemaining = TICKS_PER
+            ticksRemaining = ticksPerBrew
         } else if (!hasRecipe()) {
             ticksRemaining = 0
             return
@@ -188,7 +189,8 @@ class IncubatorBlockEntity(
         const val RIGHT_BOTTLE_SLOT_INDEX = 3
         const val OVERCLOCKER_SLOT_INDEX = 4
 
-        const val TICKS_PER = 20 * 5
+        val ticksPerBrew: Int
+            get() = ServerConfig.incubatorTicksPerBrew.get()
     }
 
 }

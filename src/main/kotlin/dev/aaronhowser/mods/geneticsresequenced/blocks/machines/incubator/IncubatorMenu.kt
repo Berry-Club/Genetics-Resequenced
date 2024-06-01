@@ -72,7 +72,7 @@ class IncubatorMenu(
         return if (progress == 0) {
             0
         } else {
-            progress * progressArrowSize / IncubatorBlockEntity.TICKS_PER
+            progress * progressArrowSize / IncubatorBlockEntity.ticksPerBrew
         }
     }
 
