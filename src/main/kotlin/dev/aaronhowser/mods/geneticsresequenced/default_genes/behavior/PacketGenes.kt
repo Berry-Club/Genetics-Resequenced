@@ -3,8 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.util.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component
@@ -78,7 +78,7 @@ object PacketGenes {
         player.teleportTo(destination.x, destination.y, destination.z)
     }
 
-    private val recentFireballs = OtherUtil.GeneCooldown(
+    private val recentFireballs = GeneCooldown(
         DefaultGenes.SHOOT_FIREBALLS,
         ServerConfig.dragonsBreathCooldown.get()
     )

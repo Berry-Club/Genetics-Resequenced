@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.AntiFieldOrbItem
+import dev.aaronhowser.mods.geneticsresequenced.util.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
@@ -144,7 +145,7 @@ object TickGenes {
         entity.removeEffect(potion.effect)
     }
 
-    private val recentlyMeated2 = OtherUtil.GeneCooldown(
+    private val recentlyMeated2 = GeneCooldown(
         DefaultGenes.MEATY_2,
         ServerConfig.meaty2Cooldown.get(),
         notifyPlayer = false
@@ -169,7 +170,7 @@ object TickGenes {
         entity.level.addFreshEntity(meatEntity)
     }
 
-    private val recentlyLaidEgg = OtherUtil.GeneCooldown(
+    private val recentlyLaidEgg = GeneCooldown(
         DefaultGenes.LAY_EGG,
         ServerConfig.eggCooldown.get(),
         notifyPlayer = false

@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.ShearedPacket
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.GeneCooldown
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
@@ -35,7 +35,7 @@ import kotlin.random.Random
 @Suppress("MemberVisibilityCanBePrivate")
 object ClickGenes {
 
-    val recentlySheered = OtherUtil.GeneCooldown(
+    val recentlySheered = GeneCooldown(
         DefaultGenes.WOOLY,
         ServerConfig.woolyCooldown.get()
     )
@@ -98,7 +98,7 @@ object ClickGenes {
 
     }
 
-    val recentlyMeated = OtherUtil.GeneCooldown(
+    val recentlyMeated = GeneCooldown(
         DefaultGenes.MEATY,
         ServerConfig.meatyCooldown.get()
     )
@@ -148,7 +148,7 @@ object ClickGenes {
         )
     }
 
-    val recentlyMilked = OtherUtil.GeneCooldown(
+    val recentlyMilked = GeneCooldown(
         DefaultGenes.MILKY,
         ServerConfig.milkyCooldown.get()
     )
@@ -359,7 +359,7 @@ object ClickGenes {
 
         if (player.uuid in recentlySheered) {
             recentlySheered.remove(player.uuid)
-            OtherUtil.tellCooldownEnded(player, DefaultGenes.WOOLY)
+            GeneCooldown.tellCooldownEnded(player, DefaultGenes.WOOLY)
         }
 
     }

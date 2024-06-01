@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabi
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
+import dev.aaronhowser.mods.geneticsresequenced.util.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.chat.Component
@@ -56,7 +57,7 @@ object DeathGenes {
         }
     }
 
-    private val emeraldHeartCooldown = OtherUtil.GeneCooldown(
+    private val emeraldHeartCooldown = GeneCooldown(
         DefaultGenes.EMERALD_HEART,
         ServerConfig.emeraldHeartCooldown.get()
     )
