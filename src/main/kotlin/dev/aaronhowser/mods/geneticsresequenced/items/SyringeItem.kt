@@ -188,7 +188,7 @@ open class SyringeItem : Item(
 
         // Other stuff
 
-        fun damageSourceUse(player: Player?): DamageSource {
+        fun damageSourceUseSyringe(player: Player?): DamageSource {
             return if (player == null) {
                 DamageSource("syringe")
             } else {
@@ -197,7 +197,7 @@ open class SyringeItem : Item(
             }
         }
 
-        fun damageSourceDrop(player: Player?): DamageSource {
+        fun damageSourceStepOnSyringe(player: Player?): DamageSource {
             return if (player == null) {
                 DamageSource("syringeDrop")
             } else {
@@ -251,7 +251,7 @@ open class SyringeItem : Item(
         }
 
         pLivingEntity.apply {
-            hurt(damageSourceUse(pLivingEntity), 1f)
+            hurt(damageSourceUseSyringe(pLivingEntity), 1f)
             addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
 
             cooldowns.addCooldown(ModItems.SYRINGE.get(), 10)

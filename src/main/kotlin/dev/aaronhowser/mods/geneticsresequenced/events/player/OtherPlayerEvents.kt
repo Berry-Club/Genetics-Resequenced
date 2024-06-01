@@ -120,7 +120,7 @@ object OtherPlayerEvents {
         if (item.`is`(ModItems.SYRINGE.get())) {
             val thrower = event.originalEntity.throwingEntity as? Player
 
-            event.entity.hurt(SyringeItem.damageSourceDrop(thrower), 1.0f)
+            event.entity.hurt(SyringeItem.damageSourceStepOnSyringe(thrower), 1.0f)
         }
 
     }
