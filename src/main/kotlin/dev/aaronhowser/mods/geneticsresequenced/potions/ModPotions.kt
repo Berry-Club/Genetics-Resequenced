@@ -225,11 +225,11 @@ object ModPotions {
             VirusRecipe(DefaultGenes.LUCK, DefaultGenes.CURSED),
             VirusRecipe(DefaultGenes.HASTE, DefaultGenes.MINING_WEAKNESS),
 //            VirusRecipe(DefaultGenes.EMERALD_HEART, convert villager to zombie),
-            VirusRecipe(DefaultGenes.SCARE_CREEPERS, DefaultGenes.DEAD_CREEPERS),
-            VirusRecipe(DefaultGenes.SCARE_SKELETONS, DefaultGenes.DEAD_UNDEAD),
-            VirusRecipe(DefaultGenes.SCARE_ZOMBIES, DefaultGenes.DEAD_UNDEAD),
+            VirusRecipe(DefaultGenes.SCARE_CREEPERS, DefaultGenes.GREEN_DEATH),
+            VirusRecipe(DefaultGenes.SCARE_SKELETONS, DefaultGenes.UN_UNDEATH),
+            VirusRecipe(DefaultGenes.SCARE_ZOMBIES, DefaultGenes.UN_UNDEATH),
 //            VirusRecipe(DefaultGenes.RESISTANCE, instant death to passive mobs),
-            VirusRecipe(DefaultGenes.DRAGONS_BREATH, DefaultGenes.DEAD_HOSTILE),
+            VirusRecipe(DefaultGenes.DRAGONS_BREATH, DefaultGenes.WHITE_DEATH),
 //            VirusRecipe(syringe with all negative effects, DefaultGenes.DEAD_ALL),
         )
         allRecipes.addAll(virusBrews)

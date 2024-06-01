@@ -9,13 +9,14 @@ import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.AntiFieldOrbItem
 import dev.aaronhowser.mods.geneticsresequenced.util.GeneCooldown
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
-import net.minecraft.world.entity.ExperienceOrb
-import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.Mob
+import net.minecraft.world.entity.*
 import net.minecraft.world.entity.item.ItemEntity
+import net.minecraft.world.entity.monster.Creeper
+import net.minecraft.world.entity.monster.Zombie
+import net.minecraft.world.entity.monster.piglin.Piglin
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -101,12 +102,39 @@ object TickGenes {
                 DefaultGenes.FLAMBE -> entity.setSecondsOnFire(ServerConfig.passivesCheckCooldown.get() * 2)
                 DefaultGenes.LAY_EGG -> handleLayEgg(entity)
                 DefaultGenes.MEATY_2 -> handleMeaty2(entity)
-                else -> {}
+
+                DefaultGenes.GREEN_DEATH,
+                DefaultGenes.UN_UNDEATH,
+                DefaultGenes.GRAY_DEATH,
+                DefaultGenes.WHITE_DEATH,
+                DefaultGenes.BLACK_DEATH -> {
+                    handleDeathGenes(entity, gene)
+                }
             }
         }
 
         handlePotionGenes(entity, potionGenes)
     }
+
+    private fun handleDeathGenes(entity: LivingEntity, gene: Gene) {
+        if (gene == DefaultGenes.BLACK_DEATH) {
+            entity.hurt(virusDamageSource, entity.maxHealth * 1000)
+            entity.kill()
+        }
+
+        val entityPredicate: (LivingEntity) -> Boolean = when (gene) {
+            DefaultGenes.GREEN_DEATH -> { it -> it is Creeper }
+            DefaultGenes.UN_UNDEATH -> { it -> it.type.category == MobType.UNDEAD }
+            DefaultGenes.GRAY_DEATH -> { it -> it is AgeableMob || it is Zombie || it is Piglin }
+            DefaultGenes.WHITE_DEATH -> { it -> it.type.category == MobCategory.MONSTER }
+            else -> return
+        }
+
+        if (!entityPredicate(entity)) return
+        entity.hurt(virusDamageSource, maxOf(entity.health / 2, 2f))
+    }
+
+    private val virusDamageSource = DamageSource("virus")
 
     private fun handlePotionGenes(entity: LivingEntity, potionGenes: MutableList<Gene>) {
         if (potionGenes.isEmpty()) return
