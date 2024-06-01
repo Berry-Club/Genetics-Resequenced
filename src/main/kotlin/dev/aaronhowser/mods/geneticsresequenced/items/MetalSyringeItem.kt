@@ -142,6 +142,12 @@ class MetalSyringeItem : SyringeItem() {
             useFullSyringe(pStack, pLivingEntity, targetEntity, pLevel)
         } else {
             extractBlood(pStack, targetEntity)
+
+            targetEntity.apply {
+                hurt(damageSourceUseSyringe(pLivingEntity), 1f)
+                addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
+            }
+
         }
 
     }
