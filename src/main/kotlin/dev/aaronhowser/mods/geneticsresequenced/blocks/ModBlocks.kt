@@ -1,8 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.AirborneDispersalBlock
-import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.CloningMachineBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.blood_purifier.BloodPurifierBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer.CellAnalyzerBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorBlock
@@ -43,10 +41,6 @@ object ModBlocks {
         register("plasmid_infuser") { PlasmidInfuserBlock() }
     val PLASMID_INJECTOR: RegistryObject<Block> =
         register("plasmid_injector") { PlasmidInjectorBlock() }
-    val AIRBORNE_DISPERSAL_DEVICE: RegistryObject<Block> =
-        register("airborne_dispersal_device") { AirborneDispersalBlock() }
-    val CLONING_MACHINE: RegistryObject<Block> =
-        register("cloning_machine") { CloningMachineBlock() }
     val INCUBATOR: RegistryObject<Block> =
         register("incubator") { IncubatorBlock() }
     val ADVANCED_INCUBATOR: RegistryObject<Block> =
