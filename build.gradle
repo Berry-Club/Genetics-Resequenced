@@ -146,6 +146,9 @@ dependencies {
     compileOnly(fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}:api"))
     // Use the full Curios API jar at runtime
     runtimeOnly(fg.deobf("top.theillusivec4.curios:curios-forge:${curios_version}"))
+
+    // angel ring (just a random curio mod)
+    implementation fg.deobf("curse.maven:angel-ring-333396:4765479")
 }
 
 compileKotlin {
