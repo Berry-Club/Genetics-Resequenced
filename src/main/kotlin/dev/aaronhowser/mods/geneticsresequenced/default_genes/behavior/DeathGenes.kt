@@ -1,12 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.curios.CuriosKeepInventory
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.util.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.item.ItemEntity
@@ -17,6 +17,7 @@ import net.minecraft.world.level.Explosion
 import net.minecraft.world.level.GameRules
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.level.ExplosionEvent
+import net.minecraftforge.fml.ModList
 import java.util.*
 import kotlin.random.Random
 
@@ -26,14 +27,13 @@ object DeathGenes {
 
     // TODO: Test with grave mods
     // TODO: Probably voids items if the server ends between death and respawn. Maybe drop items in the world if that happens?
-    //TODO: CURIOS ETC
     fun handleKeepInventory(player: LivingEntity) {
         if (!DefaultGenes.KEEP_INVENTORY.isActive) return
 
         if (player !is Player) return
 
+        if (player.level.isClientSide) return
         if (player.level.gameRules.getBoolean(GameRules.RULE_KEEPINVENTORY)) return
-
         if (player.level.levelData.isHardcore) return
 
         // If they're dying, save their inventory to the map and then clear it so graves etc don't dupe it
@@ -50,10 +50,14 @@ object DeathGenes {
             }
 
             playerInventoryMap.remove(player)
+
+            if (ModList.get().isLoaded("curios")) CuriosKeepInventory.loadPlayerCurios(player)
         } else {
             if (player.getGenes()?.hasGene(DefaultGenes.KEEP_INVENTORY) != true) return
             playerInventoryMap[player] = player.inventory.items + player.inventory.armor + player.inventory.offhand
             player.inventory.clearContent()
+
+            if (ModList.get().isLoaded("curios")) CuriosKeepInventory.savePlayerCurios(player)
         }
     }
 
