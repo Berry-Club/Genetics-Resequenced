@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import net.minecraft.core.BlockPos
@@ -15,6 +16,8 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry
+import net.minecraftforge.common.util.LazyOptional
+import net.minecraftforge.items.IItemHandlerModifiable
 import net.minecraftforge.items.ItemStackHandler
 
 class IncubatorBlockEntity(
@@ -59,6 +62,13 @@ class IncubatorBlockEntity(
             }
         }
     }
+
+    override val upItemHandler: LazyOptional<WrappedHandler> = ingredientHandler(itemHandler)
+    override val downItemHandler: LazyOptional<WrappedHandler> = outputHandler(itemHandler)
+    override val backItemHandler: LazyOptional<WrappedHandler> = inputHandler(itemHandler)
+    override val frontItemHandler: LazyOptional<WrappedHandler> = inputHandler(itemHandler)
+    override val rightItemHandler: LazyOptional<WrappedHandler> = inputHandler(itemHandler)
+    override val leftItemHandler: LazyOptional<WrappedHandler> = inputHandler(itemHandler)
 
     private val data = object : ContainerData {
 
@@ -169,6 +179,30 @@ class IncubatorBlockEntity(
     }
 
     companion object {
+
+        fun ingredientHandler(itemHandler: IItemHandlerModifiable): LazyOptional<WrappedHandler> = LazyOptional.of {
+            WrappedHandler(
+                itemHandler,
+                canExtract = { slotId -> slotId == OUTPUT_SLOT_INDEX },
+                canInsert = { slotId, stack -> slotId == TOP_SLOT_INDEX }
+            )
+        }
+
+        fun inputHandler(itemHandler: IItemHandlerModifiable): LazyOptional<WrappedHandler> = LazyOptional.of {
+            WrappedHandler(
+                itemHandler,
+                canExtract = { slotId -> slotId == OUTPUT_SLOT_INDEX },
+                canInsert = { slotId, stack -> slotId == LEFT_BOTTLE_SLOT_INDEX || slotId == MIDDLE_BOTTLE_SLOT_INDEX || slotId == RIGHT_BOTTLE_SLOT_INDEX }
+            )
+        }
+
+        fun outputHandler(itemHandler: IItemHandlerModifiable): LazyOptional<WrappedHandler> = LazyOptional.of {
+            WrappedHandler(
+                itemHandler,
+                canExtract = { slotId -> slotId == OUTPUT_SLOT_INDEX },
+                canInsert = { slotId, stack -> false }
+            )
+        }
 
         fun tick(
             level: Level,

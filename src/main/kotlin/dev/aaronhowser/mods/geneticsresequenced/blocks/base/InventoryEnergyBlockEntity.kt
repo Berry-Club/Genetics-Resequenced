@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.base
 
-import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.util.ModEnergyStorage
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -10,7 +9,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.world.Containers
 import net.minecraft.world.SimpleContainer
-import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.block.HorizontalDirectionalBlock
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
@@ -47,6 +46,23 @@ abstract class InventoryEnergyBlockEntity(
 
     protected var lazyItemHandler: LazyOptional<IItemHandler> = LazyOptional.empty()
 
+    protected abstract val upItemHandler: LazyOptional<WrappedHandler>
+    protected abstract val downItemHandler: LazyOptional<WrappedHandler>
+    protected abstract val backItemHandler: LazyOptional<WrappedHandler>
+    protected abstract val frontItemHandler: LazyOptional<WrappedHandler>
+    protected abstract val rightItemHandler: LazyOptional<WrappedHandler>
+    protected abstract val leftItemHandler: LazyOptional<WrappedHandler>
+
+    private val directionWrappedHandlerMap: Map<Direction, LazyOptional<WrappedHandler>>
+        get() = mapOf(
+            Direction.DOWN to downItemHandler,
+            Direction.UP to upItemHandler,
+            Direction.NORTH to backItemHandler,
+            Direction.SOUTH to frontItemHandler,
+            Direction.EAST to rightItemHandler,
+            Direction.WEST to leftItemHandler
+        )
+
     val energyStorage: ModEnergyStorage by lazy {
         object : ModEnergyStorage(energyMaximum, energyTransferMaximum) {
             override fun onEnergyChanged() {
@@ -67,13 +83,44 @@ abstract class InventoryEnergyBlockEntity(
         }
     }
 
-    //TODO: Make it so that you can only extract from the bottom
-    protected fun getItemCapability(side: Direction?): LazyOptional<IItemHandler> {
-        return lazyItemHandler.cast()
+    protected open fun getItemCapability(side: Direction?): LazyOptional<IItemHandler> {
+        if (side == null) return lazyItemHandler.cast()
+
+        if (side == Direction.UP) return upItemHandler.cast()
+        if (side == Direction.DOWN) return downItemHandler.cast()
+
+        val directionFacing = this.blockState.getValue(HorizontalDirectionalBlock.FACING)
+
+        return when (directionFacing) {
+            Direction.NORTH -> directionWrappedHandlerMap[side.opposite]!!.cast()
+            Direction.SOUTH -> directionWrappedHandlerMap[side]!!.cast()
+            Direction.EAST -> directionWrappedHandlerMap[side.clockWise]!!.cast()
+            Direction.WEST -> directionWrappedHandlerMap[side.counterClockWise]!!.cast()
+
+            else -> directionWrappedHandlerMap[side]!!.cast()
+        }
+
+//        if (directionWrappedHandlerMap.containsKey(side)) {
+//
+//            val blockFacing = this.blockState.getValue(HorizontalDirectionalBlock.FACING)
+//
+//            if (side == Direction.UP || side == Direction.DOWN) {
+//                return directionWrappedHandlerMap[side]!!.cast()
+//            }
+//
+//            return when (blockFacing) {
+//                Direction.NORTH -> directionWrappedHandlerMap[side.opposite]!!.cast()
+//                Direction.EAST -> directionWrappedHandlerMap[side.clockWise]!!.cast()
+//                Direction.WEST -> directionWrappedHandlerMap[side.counterClockWise]!!.cast()
+//                Direction.SOUTH -> directionWrappedHandlerMap[side]!!.cast()
+//                else -> directionWrappedHandlerMap[side]!!.cast()
+//            }
+//        }
+
     }
 
     //TODO: Make it so you can't pull out of machines, and can't insert into generators
-    protected fun getEnergyCapability(side: Direction?): LazyOptional<IEnergyStorage> {
+    protected open fun getEnergyCapability(side: Direction?): LazyOptional<IEnergyStorage> {
         return lazyEnergyStorage.cast()
     }
 

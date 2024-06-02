@@ -2,8 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.InventoryEnergyBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.nbt.CompoundTag
@@ -19,6 +19,7 @@ import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.common.capabilities.ForgeCapabilities
+import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.energy.IEnergyStorage
 import net.minecraftforge.items.ItemStackHandler
 import kotlin.math.min
@@ -57,6 +58,21 @@ class CoalGeneratorBlockEntity(
             return ForgeHooks.getBurnTime(stack, RecipeType.SMELTING) > 0
         }
     }
+
+    private val allSideHandler = LazyOptional.of {
+        WrappedHandler(
+            itemHandler,
+            canExtract = { false },
+            canInsert = { slotId, stack -> slotId == INPUT_SLOT }
+        )
+    }
+
+    override val upItemHandler: LazyOptional<WrappedHandler> = allSideHandler
+    override val downItemHandler: LazyOptional<WrappedHandler> = allSideHandler
+    override val backItemHandler: LazyOptional<WrappedHandler> = allSideHandler
+    override val frontItemHandler: LazyOptional<WrappedHandler> = allSideHandler
+    override val rightItemHandler: LazyOptional<WrappedHandler> = allSideHandler
+    override val leftItemHandler: LazyOptional<WrappedHandler> = allSideHandler
 
     private val data = object : ContainerData {
         private var _totalTicksToBurn = 0

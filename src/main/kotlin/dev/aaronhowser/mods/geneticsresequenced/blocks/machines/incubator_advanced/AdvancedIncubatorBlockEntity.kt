@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advan
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
@@ -17,6 +18,7 @@ import net.minecraft.world.item.Items
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry
+import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.items.ItemStackHandler
 
 class AdvancedIncubatorBlockEntity(
@@ -63,6 +65,21 @@ class AdvancedIncubatorBlockEntity(
             }
         }
     }
+
+    private val chorusHandler = LazyOptional.of {
+        WrappedHandler(
+            itemHandler,
+            canExtract = { slot -> slot == OUTPUT_SLOT_INDEX },
+            canInsert = { slot, stack -> slot == CHORUS_SLOT_INDEX }
+        )
+    }
+
+    override val upItemHandler: LazyOptional<WrappedHandler> = IncubatorBlockEntity.ingredientHandler(itemHandler)
+    override val downItemHandler: LazyOptional<WrappedHandler> = IncubatorBlockEntity.outputHandler(itemHandler)
+    override val backItemHandler: LazyOptional<WrappedHandler> = chorusHandler
+    override val frontItemHandler: LazyOptional<WrappedHandler> = chorusHandler
+    override val rightItemHandler: LazyOptional<WrappedHandler> = IncubatorBlockEntity.inputHandler(itemHandler)
+    override val leftItemHandler: LazyOptional<WrappedHandler> = IncubatorBlockEntity.inputHandler(itemHandler)
 
     private val data = object : ContainerData {
 

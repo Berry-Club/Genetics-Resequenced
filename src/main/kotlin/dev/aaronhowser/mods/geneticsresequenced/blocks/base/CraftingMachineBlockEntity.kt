@@ -3,11 +3,10 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.base
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.MenuProvider
-import net.minecraft.world.SimpleContainer
 import net.minecraft.world.inventory.ContainerData
-import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraftforge.common.util.LazyOptional
 
 /**
  * Base class for all crafting machines.
@@ -115,5 +114,20 @@ abstract class CraftingMachineBlockEntity(
             setChanged()
         }
     }
+
+    private val allFaceHandler = LazyOptional.of {
+        WrappedHandler(
+            itemHandler,
+            canExtract = { slotId -> slotId == OUTPUT_SLOT_INDEX },
+            canInsert = { slotId, stack -> slotId == INPUT_SLOT_INDEX }
+        )
+    }
+
+    override val upItemHandler: LazyOptional<WrappedHandler> = allFaceHandler
+    override val downItemHandler: LazyOptional<WrappedHandler> = allFaceHandler
+    override val backItemHandler: LazyOptional<WrappedHandler> = allFaceHandler
+    override val frontItemHandler: LazyOptional<WrappedHandler> = allFaceHandler
+    override val rightItemHandler: LazyOptional<WrappedHandler> = allFaceHandler
+    override val leftItemHandler: LazyOptional<WrappedHandler> = allFaceHandler
 
 }
