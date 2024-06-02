@@ -40,7 +40,7 @@ object ModPotions {
     }
 
     //TODO: Remove splash, lingering, and arrow potions (apparently needs mixins >:( ) Maybe just tooltip them instead? Add a recipe back to regular potion?
-    //TODO: Recipes
+
     val SUBSTRATE
             by register("substrate") { Potion(addId("substrate"), MobEffectInstance(ModEffects.SUBSTRATE)) }
     val CELL_GROWTH
