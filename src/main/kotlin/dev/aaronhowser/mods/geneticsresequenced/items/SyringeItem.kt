@@ -162,9 +162,11 @@ open class SyringeItem : Item(
             geneList.addAll(genesCanAdd)
 
             val genesCantAdd = genes.filterNot { canAddGene(syringeStack, it) }
-            GeneticsResequenced.LOGGER.debug(
-                "Could not add these genes to the syringe: ${genesCantAdd.joinToString { "," }}"
-            )
+            if (genesCantAdd.isNotEmpty()) {
+                GeneticsResequenced.LOGGER.debug(
+                    "Could not add these genes to the syringe: ${genesCantAdd.joinToString { "," }}"
+                )
+            }
 
             val stringTags: List<StringTag> = geneList.map { StringTag.valueOf(it.id.toString()) }
             val listTag = syringeStack
