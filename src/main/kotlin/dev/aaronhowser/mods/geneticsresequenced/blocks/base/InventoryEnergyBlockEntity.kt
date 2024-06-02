@@ -100,26 +100,8 @@ abstract class InventoryEnergyBlockEntity(
             else -> directionWrappedHandlerMap[side]!!.cast()
         }
 
-//        if (directionWrappedHandlerMap.containsKey(side)) {
-//
-//            val blockFacing = this.blockState.getValue(HorizontalDirectionalBlock.FACING)
-//
-//            if (side == Direction.UP || side == Direction.DOWN) {
-//                return directionWrappedHandlerMap[side]!!.cast()
-//            }
-//
-//            return when (blockFacing) {
-//                Direction.NORTH -> directionWrappedHandlerMap[side.opposite]!!.cast()
-//                Direction.EAST -> directionWrappedHandlerMap[side.clockWise]!!.cast()
-//                Direction.WEST -> directionWrappedHandlerMap[side.counterClockWise]!!.cast()
-//                Direction.SOUTH -> directionWrappedHandlerMap[side]!!.cast()
-//                else -> directionWrappedHandlerMap[side]!!.cast()
-//            }
-//        }
-
     }
 
-    //TODO: Make it so you can't pull out of machines, and can't insert into generators
     protected open fun getEnergyCapability(side: Direction?): LazyOptional<IEnergyStorage> {
         return lazyEnergyStorage.cast()
     }
