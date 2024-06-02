@@ -40,9 +40,10 @@ object DeathGenes {
         // If they're respawning, give them all the items in the saved map and remove them from the map
         val playerIsRespawning = playerInventoryMap.containsKey(player.uuid)
 
+        val curiosIsLoaded = ModList.get().isLoaded("curios")
+
         if (playerIsRespawning) {
             val items = playerInventoryMap[player.uuid] ?: return
-
             items.forEach { itemStack: ItemStack ->
                 if (!player.inventory.add(itemStack)) {
                     player.drop(itemStack, true)
@@ -51,13 +52,17 @@ object DeathGenes {
 
             playerInventoryMap.remove(player.uuid)
 
-            if (ModList.get().isLoaded("curios")) CuriosKeepInventory.loadPlayerCurios(player)
+            if (curiosIsLoaded) CuriosKeepInventory.loadPlayerCurios(player)
         } else {
             if (player.getGenes()?.hasGene(DefaultGenes.keepInventory) != true) return
-            playerInventoryMap[player.uuid] = player.inventory.items + player.inventory.armor + player.inventory.offhand
+
+            val allItems = player.inventory.items + player.inventory.armor + player.inventory.offhand
+            val filtered = allItems.filter { !it.isEmpty }.map { it.copy() }
+
+            playerInventoryMap[player.uuid] = filtered
             player.inventory.clearContent()
 
-            if (ModList.get().isLoaded("curios")) CuriosKeepInventory.savePlayerCurios(player)
+            if (curiosIsLoaded) CuriosKeepInventory.savePlayerCurios(player)
         }
     }
 

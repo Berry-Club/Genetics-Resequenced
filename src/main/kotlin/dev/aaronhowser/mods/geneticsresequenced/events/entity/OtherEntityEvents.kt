@@ -45,11 +45,9 @@ object OtherEntityEvents {
 
     @SubscribeEvent
     fun onLivingDeath(event: LivingDeathEvent) {
-
         DeathGenes.handleEmeraldHeart(event)
         DeathGenes.handleExplosiveExit(event)
         DeathGenes.handleSlimyDeath(event)
-        DeathGenes.handleKeepInventory(event.entity)  // must be last
     }
 
     @SubscribeEvent
