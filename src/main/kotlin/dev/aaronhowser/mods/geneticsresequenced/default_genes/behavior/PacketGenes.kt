@@ -24,10 +24,10 @@ object PacketGenes {
 
     @Suppress("MoveVariableDeclarationIntoWhen")
     fun teleport(player: ServerPlayer) {
-        if (!DefaultGenes.TELEPORT.isActive) return
+        if (!DefaultGenes.teleport.isActive) return
 
         val genes = (player as LivingEntity).getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.TELEPORT)) return
+        if (!genes.hasGene(DefaultGenes.teleport)) return
 
         if (recentTeleports.contains(player.uuid)) return
         recentTeleports.add(player.uuid)
@@ -36,7 +36,7 @@ object PacketGenes {
 
 
             val message = Component.empty()
-                .append(DefaultGenes.TELEPORT.nameComponent)
+                .append(DefaultGenes.teleport.nameComponent)
                 .append(Component.translatable("cooldown.geneticsresequenced.ended"))
 
             player.sendSystemMessage(message)
@@ -79,15 +79,15 @@ object PacketGenes {
     }
 
     private val recentFireballs = GeneCooldown(
-        DefaultGenes.SHOOT_FIREBALLS,
+        DefaultGenes.shootFireballs,
         ServerConfig.dragonsBreathCooldown.get()
     )
 
     fun dragonBreath(player: ServerPlayer) {
-        if (!DefaultGenes.DRAGONS_BREATH.isActive) return
+        if (!DefaultGenes.dragonsBreath.isActive) return
 
         val genes = (player as LivingEntity).getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.DRAGONS_BREATH)) return
+        if (!genes.hasGene(DefaultGenes.dragonsBreath)) return
 
         val wasNotOnCooldown = recentFireballs.add(player)
 

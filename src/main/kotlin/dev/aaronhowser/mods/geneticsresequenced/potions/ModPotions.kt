@@ -154,7 +154,7 @@ object ModPotions {
         )
         val cureRecipe = BrewingRecipe(
             VIRAL_AGENTS.ingredient,
-            ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.EMERALD_HEART).ingredient,
+            ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.emeraldHeart).ingredient,
             curePotionStack
         )
 
@@ -176,74 +176,74 @@ object ModPotions {
 
 
         val geneFocusBrews = listOf(
-            GmoRecipe(EntityType.BLAZE, Items.GLOWSTONE_DUST, DefaultGenes.BIOLUMINESCENCE, 0.5f),
-            GmoRecipe(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, DefaultGenes.BIOLUMINESCENCE, 0.5f),
-            GmoRecipe(EntityType.VILLAGER, Items.EMERALD, DefaultGenes.EMERALD_HEART, 0.75f),
-            GmoRecipe(EntityType.SHULKER, Items.EMERALD, DefaultGenes.KEEP_INVENTORY, 0.5f),
-            GmoRecipe(EntityType.RABBIT, Items.REDSTONE, DefaultGenes.SPEED, 0.75f),
-            GmoRecipe(EntityType.IRON_GOLEM, Items.APPLE, DefaultGenes.REGENERATION, 0.75f),
-            GmoRecipe(EntityType.CHICKEN, Items.EGG, DefaultGenes.LAY_EGG, 0.75f),
-            GmoRecipe(EntityType.PIG, Items.PORKCHOP, DefaultGenes.MEATY, 0.75f),
-            GmoRecipe(EntityType.ENDERMAN, Items.ENDER_PEARL, DefaultGenes.TELEPORT, 0.75f),
-            GmoRecipe(EntityType.ENDERMAN, Items.IRON_INGOT, DefaultGenes.ITEM_MAGNET, 0.75f),
-            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, DefaultGenes.MORE_HEARTS, 0.75f),
-            GmoRecipe(EntityType.SLIME, Items.GLOWSTONE_DUST, DefaultGenes.PHOTOSYNTHESIS, 0.5f)
+            GmoRecipe(EntityType.BLAZE, Items.GLOWSTONE_DUST, DefaultGenes.bioluminescence, 0.5f),
+            GmoRecipe(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, DefaultGenes.bioluminescence, 0.5f),
+            GmoRecipe(EntityType.VILLAGER, Items.EMERALD, DefaultGenes.emeraldHeart, 0.75f),
+            GmoRecipe(EntityType.SHULKER, Items.EMERALD, DefaultGenes.keepInventory, 0.5f),
+            GmoRecipe(EntityType.RABBIT, Items.REDSTONE, DefaultGenes.speed, 0.75f),
+            GmoRecipe(EntityType.IRON_GOLEM, Items.APPLE, DefaultGenes.regeneration, 0.75f),
+            GmoRecipe(EntityType.CHICKEN, Items.EGG, DefaultGenes.layEgg, 0.75f),
+            GmoRecipe(EntityType.PIG, Items.PORKCHOP, DefaultGenes.meaty, 0.75f),
+            GmoRecipe(EntityType.ENDERMAN, Items.ENDER_PEARL, DefaultGenes.teleport, 0.75f),
+            GmoRecipe(EntityType.ENDERMAN, Items.IRON_INGOT, DefaultGenes.itemMagnet, 0.75f),
+            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, DefaultGenes.moreHearts, 0.75f),
+            GmoRecipe(EntityType.SLIME, Items.GLOWSTONE_DUST, DefaultGenes.photosynthesis, 0.5f)
         )
         allRecipes.addAll(geneFocusBrews)
 
         val mutationBrews = listOf(
-            GmoRecipe(EntityType.BAT, Items.FEATHER, DefaultGenes.FLIGHT, 0.75f, true),
-            GmoRecipe(EntityType.PARROT, Items.FEATHER, DefaultGenes.FLIGHT, 0.75f, true),
-            GmoRecipe(EntityType.POLAR_BEAR, Items.EMERALD, DefaultGenes.STRENGTH, 0.5f, true),
-            GmoRecipe(EntityType.LLAMA, Items.EMERALD, DefaultGenes.STRENGTH, 0.5f, true),
-            GmoRecipe(EntityType.RABBIT, Items.EMERALD, DefaultGenes.LUCK, 0.5f, true),
-            GmoRecipe(EntityType.SHULKER, Items.DIAMOND, DefaultGenes.RESISTANCE, 0.5f, true),
-            GmoRecipe(EntityType.ZOMBIE, Items.DIAMOND, DefaultGenes.RESISTANCE, 0.5f, true),
-            GmoRecipe(EntityType.POLAR_BEAR, Items.DIAMOND, DefaultGenes.CLAWS, 0.5f, true),
-            GmoRecipe(EntityType.LLAMA, Items.DIAMOND, DefaultGenes.CLAWS, 0.5f, true),
-            GmoRecipe(EntityType.WOLF, Items.DIAMOND, DefaultGenes.CLAWS, 0.5f, true),
-            GmoRecipe(EntityType.RABBIT, Items.REDSTONE, DefaultGenes.SPEED_2, 0.5f, true),
-            GmoRecipe(EntityType.OCELOT, Items.REDSTONE, DefaultGenes.SPEED_4, 0.5f, true),
-            GmoRecipe(EntityType.RABBIT, Items.IRON_INGOT, DefaultGenes.HASTE, 0.5f, true),
-            GmoRecipe(EntityType.SILVERFISH, Items.REDSTONE, DefaultGenes.EFFICIENCY, 0.5f, true),
-            GmoRecipe(EntityType.ZOMBIE, Items.SPIDER_EYE, DefaultGenes.SCARE_CREEPERS, 0.75f, true),
-            GmoRecipe(EntityType.SPIDER, Items.SPIDER_EYE, DefaultGenes.SCARE_SKELETONS, 0.75f, true),
-            GmoRecipe(EntityType.ENDER_DRAGON, Items.REDSTONE, DefaultGenes.REGENERATION, 0.5f, true),
-            GmoRecipe(EntityType.PIG, Items.BLAZE_POWDER, DefaultGenes.MEATY, 0.5f, true),
-            GmoRecipe(EntityType.BAT, Items.ENDER_EYE, DefaultGenes.INVISIBLE, 0.5f, true),
-            GmoRecipe(EntityType.SKELETON, Items.ENDER_EYE, DefaultGenes.INVISIBLE, 0.5f, true),
-            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, DefaultGenes.MORE_HEARTS, 0.5f, true)
+            GmoRecipe(EntityType.BAT, Items.FEATHER, DefaultGenes.flight, 0.75f, true),
+            GmoRecipe(EntityType.PARROT, Items.FEATHER, DefaultGenes.flight, 0.75f, true),
+            GmoRecipe(EntityType.POLAR_BEAR, Items.EMERALD, DefaultGenes.strength, 0.5f, true),
+            GmoRecipe(EntityType.LLAMA, Items.EMERALD, DefaultGenes.strength, 0.5f, true),
+            GmoRecipe(EntityType.RABBIT, Items.EMERALD, DefaultGenes.luck, 0.5f, true),
+            GmoRecipe(EntityType.SHULKER, Items.DIAMOND, DefaultGenes.resistance, 0.5f, true),
+            GmoRecipe(EntityType.ZOMBIE, Items.DIAMOND, DefaultGenes.resistance, 0.5f, true),
+            GmoRecipe(EntityType.POLAR_BEAR, Items.DIAMOND, DefaultGenes.claws, 0.5f, true),
+            GmoRecipe(EntityType.LLAMA, Items.DIAMOND, DefaultGenes.claws, 0.5f, true),
+            GmoRecipe(EntityType.WOLF, Items.DIAMOND, DefaultGenes.claws, 0.5f, true),
+            GmoRecipe(EntityType.RABBIT, Items.REDSTONE, DefaultGenes.speedTwo, 0.5f, true),
+            GmoRecipe(EntityType.OCELOT, Items.REDSTONE, DefaultGenes.speedFour, 0.5f, true),
+            GmoRecipe(EntityType.RABBIT, Items.IRON_INGOT, DefaultGenes.haste, 0.5f, true),
+            GmoRecipe(EntityType.SILVERFISH, Items.REDSTONE, DefaultGenes.efficiency, 0.5f, true),
+            GmoRecipe(EntityType.ZOMBIE, Items.SPIDER_EYE, DefaultGenes.scareCreepers, 0.75f, true),
+            GmoRecipe(EntityType.SPIDER, Items.SPIDER_EYE, DefaultGenes.scareSkeletons, 0.75f, true),
+            GmoRecipe(EntityType.ENDER_DRAGON, Items.REDSTONE, DefaultGenes.regeneration, 0.5f, true),
+            GmoRecipe(EntityType.PIG, Items.BLAZE_POWDER, DefaultGenes.meaty, 0.5f, true),
+            GmoRecipe(EntityType.BAT, Items.ENDER_EYE, DefaultGenes.invisible, 0.5f, true),
+            GmoRecipe(EntityType.SKELETON, Items.ENDER_EYE, DefaultGenes.invisible, 0.5f, true),
+            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, DefaultGenes.moreHearts, 0.5f, true)
         )
         allRecipes.addAll(mutationBrews)
 
         val virusBrews = listOf(
-            VirusRecipe(DefaultGenes.POISON_IMMUNITY, DefaultGenes.POISON),
-            VirusRecipe(DefaultGenes.WITHER_HIT, DefaultGenes.POISON_4),
-            VirusRecipe(DefaultGenes.WITHER_PROOF, DefaultGenes.WITHER),
-            VirusRecipe(DefaultGenes.STRENGTH, DefaultGenes.WEAKNESS),
-            VirusRecipe(DefaultGenes.NIGHT_VISION, DefaultGenes.BLINDNESS),
-            VirusRecipe(DefaultGenes.SPEED, DefaultGenes.SLOWNESS),
-            VirusRecipe(DefaultGenes.SPEED_2, DefaultGenes.SLOWNESS_4),
-            VirusRecipe(DefaultGenes.SPEED_4, DefaultGenes.SLOWNESS_6),
-            VirusRecipe(DefaultGenes.FLIGHT, DefaultGenes.SLOWNESS_6),
-            VirusRecipe(DefaultGenes.MILKY, DefaultGenes.NAUSEA),
-            VirusRecipe(DefaultGenes.MEATY, DefaultGenes.NAUSEA),
-            VirusRecipe(DefaultGenes.LAY_EGG, DefaultGenes.NAUSEA),
-            VirusRecipe(DefaultGenes.NO_HUNGER, DefaultGenes.HUNGER),
-            VirusRecipe(DefaultGenes.FIRE_PROOF, DefaultGenes.FLAMBE),
-            VirusRecipe(DefaultGenes.LUCK, DefaultGenes.CURSED),
-            VirusRecipe(DefaultGenes.HASTE, DefaultGenes.MINING_WEAKNESS),
-            VirusRecipe(DefaultGenes.SCARE_CREEPERS, DefaultGenes.GREEN_DEATH),
-            VirusRecipe(DefaultGenes.SCARE_SKELETONS, DefaultGenes.UN_UNDEATH),
-            VirusRecipe(DefaultGenes.SCARE_ZOMBIES, DefaultGenes.UN_UNDEATH),
+            VirusRecipe(DefaultGenes.poisonImmunity, DefaultGenes.poison),
+            VirusRecipe(DefaultGenes.witherHit, DefaultGenes.poisonFour),
+            VirusRecipe(DefaultGenes.witherProof, DefaultGenes.wither),
+            VirusRecipe(DefaultGenes.strength, DefaultGenes.weakness),
+            VirusRecipe(DefaultGenes.nightVision, DefaultGenes.blindness),
+            VirusRecipe(DefaultGenes.speed, DefaultGenes.slowness),
+            VirusRecipe(DefaultGenes.speedTwo, DefaultGenes.slownessFour),
+            VirusRecipe(DefaultGenes.speedFour, DefaultGenes.slownessSix),
+            VirusRecipe(DefaultGenes.flight, DefaultGenes.slownessSix),
+            VirusRecipe(DefaultGenes.milky, DefaultGenes.nausea),
+            VirusRecipe(DefaultGenes.meaty, DefaultGenes.nausea),
+            VirusRecipe(DefaultGenes.layEgg, DefaultGenes.nausea),
+            VirusRecipe(DefaultGenes.noHunger, DefaultGenes.hunger),
+            VirusRecipe(DefaultGenes.fireProof, DefaultGenes.flambe),
+            VirusRecipe(DefaultGenes.luck, DefaultGenes.cursed),
+            VirusRecipe(DefaultGenes.haste, DefaultGenes.miningWeakness),
+            VirusRecipe(DefaultGenes.scareCreepers, DefaultGenes.greenDeath),
+            VirusRecipe(DefaultGenes.scareSkeletons, DefaultGenes.unUndeath),
+            VirusRecipe(DefaultGenes.scareZombies, DefaultGenes.unUndeath),
             //TODO VirusRecipe(DefaultGenes.RESISTANCE, instant death to passive mobs),
-            VirusRecipe(DefaultGenes.DRAGONS_BREATH, DefaultGenes.WHITE_DEATH),
+            VirusRecipe(DefaultGenes.dragonsBreath, DefaultGenes.whiteDeath),
 
             BlackDeathRecipe(),
 
             BrewingRecipe(
                 viralAgentsPotionStack.ingredient,
-                ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.EMERALD_HEART).ingredient,
+                ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.emeraldHeart).ingredient,
                 potionStack(ZOMBIFY_VILLAGER)
             )
         )

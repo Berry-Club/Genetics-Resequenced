@@ -36,11 +36,11 @@ class DnaHelixItem : EntityDnaItem() {
         }
 
         fun ItemStack.setBasic(): ItemStack {
-            this.setGene(DefaultGenes.BASIC)
+            this.setGene(DefaultGenes.basic)
             return this
         }
 
-        fun ItemStack.isBasic(): Boolean = this.getGene() == DefaultGenes.BASIC
+        fun ItemStack.isBasic(): Boolean = this.getGene() == DefaultGenes.basic
     }
 
     override fun interactLivingEntity(

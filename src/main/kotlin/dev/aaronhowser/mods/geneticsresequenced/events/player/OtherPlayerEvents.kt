@@ -81,27 +81,27 @@ object OtherPlayerEvents {
 
         if (entity is Player) {
             when (changedGene) {
-                DefaultGenes.EFFICIENCY -> {
+                DefaultGenes.efficiency -> {
                     val entityGenes = entity.getGenes() ?: return
-                    if (entityGenes.hasGene(DefaultGenes.EFFICIENCY_4)) return
+                    if (entityGenes.hasGene(DefaultGenes.efficiencyFour)) return
                     AttributeGenes.setEfficiency(entity, if (wasAdded) 1 else 0)
                 }
 
-                DefaultGenes.EFFICIENCY_4 -> {
+                DefaultGenes.efficiencyFour -> {
                     if (wasAdded) {
                         AttributeGenes.setEfficiency(entity, 4)
                     } else {
                         val entityGenes = entity.getGenes() ?: return
-                        val levelToSetTo = if (entityGenes.hasGene(DefaultGenes.EFFICIENCY)) 1 else 0
+                        val levelToSetTo = if (entityGenes.hasGene(DefaultGenes.efficiency)) 1 else 0
                         AttributeGenes.setEfficiency(entity, levelToSetTo)
                     }
                 }
 
-                DefaultGenes.STEP_ASSIST -> AttributeGenes.setStepAssist(entity, wasAdded)
+                DefaultGenes.stepAssist -> AttributeGenes.setStepAssist(entity, wasAdded)
 
-                DefaultGenes.WALL_CLIMBING -> AttributeGenes.setWallClimbing(entity, wasAdded)
+                DefaultGenes.wallClimbing -> AttributeGenes.setWallClimbing(entity, wasAdded)
 
-                DefaultGenes.FLIGHT -> TickGenes.handleFlight(entity)
+                DefaultGenes.flight -> TickGenes.handleFlight(entity)
 
                 else -> {}
             }
@@ -138,7 +138,7 @@ object OtherPlayerEvents {
         val player = event.player
         val genes = player.getGenes() ?: return
 
-        if (genes.hasGene(DefaultGenes.EMERALD_HEART)) {
+        if (genes.hasGene(DefaultGenes.emeraldHeart)) {
             player.level.playSound(
                 null,
                 player.blockPosition(),

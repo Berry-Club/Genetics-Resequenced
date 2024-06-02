@@ -55,7 +55,7 @@ class PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
             val plasmids = mutableListOf<ItemStack>()
 
             for (gene in geneRegistry) {
-                if (gene == DefaultGenes.BASIC) continue
+                if (gene == DefaultGenes.basic) continue
 
                 val stack = gene.getPlasmid()
                 plasmids.add(stack)

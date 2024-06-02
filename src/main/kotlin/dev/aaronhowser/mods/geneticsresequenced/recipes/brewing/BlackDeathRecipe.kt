@@ -23,7 +23,7 @@ class BlackDeathRecipe : IBrewingRecipe {
     }
 
     companion object {
-        val allBadGenes = Gene.getRegistry().filter { it.isNegative && it.isActive } - DefaultGenes.BLACK_DEATH
+        val allBadGenes = Gene.getRegistry().filter { it.isNegative && it.isActive } - DefaultGenes.blackDeath
     }
 
     override fun isIngredient(pTopSlot: ItemStack): Boolean {
@@ -40,7 +40,7 @@ class BlackDeathRecipe : IBrewingRecipe {
         if (!isInput(pBottomSlot)) return ItemStack.EMPTY
         if (!isIngredient(pTopSlot)) return ItemStack.EMPTY
 
-        val output = ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.BLACK_DEATH)
+        val output = ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.blackDeath)
 
         return output
     }

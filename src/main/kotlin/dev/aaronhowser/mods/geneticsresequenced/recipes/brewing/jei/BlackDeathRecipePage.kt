@@ -46,7 +46,7 @@ class BlackDeathRecipePage(private val metalSyringe: Boolean) : Recipe<Container
 
     private val viralAgentStack = PotionUtils.setPotion(ItemStack(Items.POTION), ModPotions.VIRAL_AGENTS)
 
-    private val blackDeathDna = ItemStack(ModItems.DNA_HELIX.get()).setGene(DefaultGenes.BLACK_DEATH)
+    private val blackDeathDna = ItemStack(ModItems.DNA_HELIX.get()).setGene(DefaultGenes.blackDeath)
 
     companion object {
         fun getAllRecipes(): List<BlackDeathRecipePage> {

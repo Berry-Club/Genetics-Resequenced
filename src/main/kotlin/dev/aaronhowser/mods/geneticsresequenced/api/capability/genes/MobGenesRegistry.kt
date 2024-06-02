@@ -24,7 +24,7 @@ object MobGenesRegistry {
     }
 
     fun getGenesForEntity(entityType: EntityType<*>): Map<Gene, Int> {
-        return mobGenes[entityType] ?: mapOf(DefaultGenes.BASIC to 1)
+        return mobGenes[entityType] ?: mapOf(DefaultGenes.basic to 1)
     }
 
     fun getRegistry(): Map<EntityType<*>, Map<Gene, Int>> {

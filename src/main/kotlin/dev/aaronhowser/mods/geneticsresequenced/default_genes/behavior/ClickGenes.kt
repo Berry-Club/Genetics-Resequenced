@@ -37,12 +37,12 @@ import kotlin.random.Random
 object ClickGenes {
 
     val recentlySheered = GeneCooldown(
-        DefaultGenes.WOOLY,
+        DefaultGenes.wooly,
         ServerConfig.woolyCooldown.get()
     )
 
     fun wooly(event: PlayerInteractEvent.EntityInteract) {
-        if (!DefaultGenes.WOOLY.isActive) return
+        if (!DefaultGenes.wooly.isActive) return
 
         val target = event.target as? LivingEntity ?: return
         val clicker = event.entity
@@ -54,7 +54,7 @@ object ClickGenes {
         }
 
         val genes = target.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.WOOLY)) return
+        if (!genes.hasGene(DefaultGenes.wooly)) return
 
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
@@ -100,18 +100,18 @@ object ClickGenes {
     }
 
     val recentlyMeated = GeneCooldown(
-        DefaultGenes.MEATY,
+        DefaultGenes.meaty,
         ServerConfig.meatyCooldown.get()
     )
 
     fun meaty(event: PlayerInteractEvent.EntityInteract) {
-        if (!DefaultGenes.MEATY.isActive) return
+        if (!DefaultGenes.meaty.isActive) return
 
         val target = event.target as? LivingEntity ?: return
         val clicker = event.entity
 
         val genes = target.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.MEATY)) return
+        if (!genes.hasGene(DefaultGenes.meaty)) return
 
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
@@ -150,12 +150,12 @@ object ClickGenes {
     }
 
     val recentlyMilked = GeneCooldown(
-        DefaultGenes.MILKY,
+        DefaultGenes.milky,
         ServerConfig.milkyCooldown.get()
     )
 
     fun milky(event: PlayerInteractEvent.EntityInteract) {
-        if (!DefaultGenes.MILKY.isActive) return
+        if (!DefaultGenes.milky.isActive) return
 
         val target = event.target as? LivingEntity ?: return
         val clicker = event.entity
@@ -165,7 +165,7 @@ object ClickGenes {
         }
 
         val genes = target.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.MILKY)) return
+        if (!genes.hasGene(DefaultGenes.milky)) return
 
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
         if (!clickedWithBucket) return
@@ -199,7 +199,7 @@ object ClickGenes {
     }
 
     fun milkyItem(event: PlayerInteractEvent.RightClickItem) {
-        if (!DefaultGenes.MILKY.isActive) return
+        if (!DefaultGenes.milky.isActive) return
 
         val player = event.entity
 
@@ -208,7 +208,7 @@ object ClickGenes {
         if (!clickedWithBucket) return
 
         val genes = player.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.MILKY)) return
+        if (!genes.hasGene(DefaultGenes.milky)) return
 
         val newlyMilked = recentlyMilked.add(player)
 
@@ -234,7 +234,7 @@ object ClickGenes {
     }
 
     fun woolyItem(event: PlayerInteractEvent.RightClickItem) {
-        if (!DefaultGenes.WOOLY.isActive) return
+        if (!DefaultGenes.wooly.isActive) return
 
         val player = event.entity
 
@@ -245,7 +245,7 @@ object ClickGenes {
         if (!clickedWithShears) return
 
         val genes = player.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.WOOLY)) return
+        if (!genes.hasGene(DefaultGenes.wooly)) return
 
         val newlySheared = recentlySheered.add(player)
 
@@ -282,11 +282,11 @@ object ClickGenes {
     }
 
     fun shootFireball(event: PlayerInteractEvent.RightClickItem) {
-        if (!DefaultGenes.SHOOT_FIREBALLS.isActive) return
+        if (!DefaultGenes.shootFireballs.isActive) return
 
         val player = event.entity
         val genes = player.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.SHOOT_FIREBALLS)) return
+        if (!genes.hasGene(DefaultGenes.shootFireballs)) return
 
         if (!player.isCrouching) return
         if (!event.itemStack.`is`(ModTags.FIREBALL_ITEM_TAG)) return
@@ -318,13 +318,13 @@ object ClickGenes {
     }
 
     fun eatGrass(event: PlayerInteractEvent.RightClickBlock) {
-        if (!DefaultGenes.EAT_GRASS.isActive) return
+        if (!DefaultGenes.eatGrass.isActive) return
 
         if (!event.itemStack.isEmpty) return
 
         val player = event.entity
         val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.EAT_GRASS)) return
+        if (!genes.hasGene(DefaultGenes.eatGrass)) return
 
         val isHungry = player.foodData.foodLevel < 20
         if (!isHungry) return
@@ -360,18 +360,18 @@ object ClickGenes {
 
         if (player.uuid in recentlySheered) {
             recentlySheered.remove(player.uuid)
-            GeneCooldown.tellCooldownEnded(player, DefaultGenes.WOOLY)
+            GeneCooldown.tellCooldownEnded(player, DefaultGenes.wooly)
         }
 
     }
 
     fun handleInfinityStart(event: ArrowNockEvent) {
-        if (!DefaultGenes.INFINITY.isActive) return
+        if (!DefaultGenes.infinity.isActive) return
 
         if (event.hasAmmo()) return
 
         val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.INFINITY)) return
+        if (!genes.hasGene(DefaultGenes.infinity)) return
 
         event.entity.startUsingItem(event.entity.usedItemHand)
         event.action = InteractionResultHolder.success(event.bow)
@@ -382,14 +382,14 @@ object ClickGenes {
      * @see BowItem.getPowerForTime
      */
     fun handleInfinityEnd(event: ArrowLooseEvent) {
-        if (!DefaultGenes.INFINITY.isActive) return
+        if (!DefaultGenes.infinity.isActive) return
 
         if (event.hasAmmo()) return
 
         val player = event.entity
 
         val genes = player.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.INFINITY)) return
+        if (!genes.hasGene(DefaultGenes.infinity)) return
 
         val bowStack = event.bow
 

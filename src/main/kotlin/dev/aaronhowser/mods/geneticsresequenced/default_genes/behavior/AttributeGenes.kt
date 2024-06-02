@@ -20,12 +20,12 @@ object AttributeGenes {
 
         ModPacketHandler.messagePlayer(
             player as ServerPlayer,
-            GeneChangedPacket(DefaultGenes.EFFICIENCY.id, newLevel != 0)
+            GeneChangedPacket(DefaultGenes.efficiency.id, newLevel != 0)
         )
     }
 
     fun handleEfficiency(event: PlayerEvent.BreakSpeed) {
-        if (!DefaultGenes.EFFICIENCY.isActive) return
+        if (!DefaultGenes.efficiency.isActive) return
 
         val efficiencyAttribute = event.entity.attributes.getInstance(ModAttributes.EFFICIENCY) ?: return
         if (efficiencyAttribute.baseValue <= 0.0) return
@@ -40,7 +40,7 @@ object AttributeGenes {
     )
 
     fun setStepAssist(player: Player, value: Boolean) {
-        if (!DefaultGenes.STEP_ASSIST.isActive) return
+        if (!DefaultGenes.stepAssist.isActive) return
 
         val stepHeightAttribute = player.getAttribute(ForgeMod.STEP_HEIGHT_ADDITION.get()) ?: return
 
@@ -58,20 +58,20 @@ object AttributeGenes {
 
         ModPacketHandler.messagePlayer(
             player as ServerPlayer,
-            GeneChangedPacket(DefaultGenes.WALL_CLIMBING.id, value)
+            GeneChangedPacket(DefaultGenes.wallClimbing.id, value)
         )
     }
 
     fun handleWallClimbing(player: Player) {
         if (!player.level.isClientSide) return
 
-        if (!DefaultGenes.WALL_CLIMBING.isActive) return
+        if (!DefaultGenes.wallClimbing.isActive) return
 
         val wallClimbingAttribute = player.attributes.getInstance(ModAttributes.WALL_CLIMBING) ?: return
         if (wallClimbingAttribute.baseValue <= 0.0) return
 
         val genes = player.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.WALL_CLIMBING)) return
+        if (!genes.hasGene(DefaultGenes.wallClimbing)) return
 
         // ONLY HAPPENS ON CLIENT?????
         if (player.horizontalCollision || player.minorHorizontalCollision) {

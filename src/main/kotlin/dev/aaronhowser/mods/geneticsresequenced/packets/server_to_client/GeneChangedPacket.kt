@@ -58,19 +58,19 @@ class GeneChangedPacket(
 
     private fun handleAttributes(player: LocalPlayer, gene: Gene) {
         val attributeInstance = when (gene) {
-            DefaultGenes.EFFICIENCY, DefaultGenes.EFFICIENCY_4 -> player.attributes.getInstance(ModAttributes.EFFICIENCY)
-            DefaultGenes.WALL_CLIMBING -> player.attributes.getInstance(ModAttributes.WALL_CLIMBING)
+            DefaultGenes.efficiency, DefaultGenes.efficiencyFour -> player.attributes.getInstance(ModAttributes.EFFICIENCY)
+            DefaultGenes.wallClimbing -> player.attributes.getInstance(ModAttributes.WALL_CLIMBING)
             else -> null
         } ?: return
 
         val newLevel = when (gene) {
-            DefaultGenes.EFFICIENCY -> if (wasAdded) 1.0 else 0.0
+            DefaultGenes.efficiency -> if (wasAdded) 1.0 else 0.0
 
-            DefaultGenes.EFFICIENCY_4 -> {
+            DefaultGenes.efficiencyFour -> {
                 if (wasAdded) {
                     4.0
                 } else {
-                    if (player.getGenes()?.hasGene(DefaultGenes.EFFICIENCY) == true) {
+                    if (player.getGenes()?.hasGene(DefaultGenes.efficiency) == true) {
                         1.0
                     } else {
                         0.0
@@ -78,7 +78,7 @@ class GeneChangedPacket(
                 }
             }
 
-            DefaultGenes.WALL_CLIMBING -> if (wasAdded) 1.0 else 0.0
+            DefaultGenes.wallClimbing -> if (wasAdded) 1.0 else 0.0
 
             else -> throw IllegalStateException("Gene $gene went through the GeneChangedPacket but isn't handled!")
         }

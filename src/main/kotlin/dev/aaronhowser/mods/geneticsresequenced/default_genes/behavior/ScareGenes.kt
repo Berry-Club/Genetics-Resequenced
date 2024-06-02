@@ -23,10 +23,10 @@ object ScareGenes {
     fun attachScareTask(entity: PathfinderMob) {
 
         val scaredOf = when (entity) {
-            is Creeper -> DefaultGenes.SCARE_CREEPERS
-            is Zombie -> DefaultGenes.SCARE_ZOMBIES
-            is Skeleton -> DefaultGenes.SCARE_SKELETONS
-            is Spider -> DefaultGenes.SCARE_SPIDERS
+            is Creeper -> DefaultGenes.scareCreepers
+            is Zombie -> DefaultGenes.scareZombies
+            is Skeleton -> DefaultGenes.scareSkeletons
+            is Spider -> DefaultGenes.scareSpiders
 
             else -> return
         }

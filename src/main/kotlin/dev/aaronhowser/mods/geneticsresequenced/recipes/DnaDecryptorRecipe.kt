@@ -134,7 +134,7 @@ class DnaDecryptorRecipe : Recipe<Container> {
                     }
                 } else {
                     val outputItemBad =
-                        ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.BASIC)
+                        ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.basic)
                     recipes.add(DnaDecryptorRecipe(inputItem, outputItemBad, chanceBad))
                 }
             }

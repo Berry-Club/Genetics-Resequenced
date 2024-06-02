@@ -19,7 +19,7 @@ class ServerPlayerMixins {
 
         @Nullable GenesCapability playerGenes = GenesCapability.Companion.getGenes(player);
         if (playerGenes == null) return;
-        if (!playerGenes.hasGene(DefaultGenes.INSTANCE.getKEEP_INVENTORY())) return;
+        if (!playerGenes.hasGene(DefaultGenes.INSTANCE.getKeepInventory())) return;
 
     }
 

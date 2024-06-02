@@ -61,12 +61,12 @@ class SupportSlime(
             if (!item.`is`(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())) return
 
             val genes = player.getGenes() ?: return
-            if (genes.hasGene(DefaultGenes.SLIMY_DEATH)) return
+            if (genes.hasGene(DefaultGenes.slimyDeath)) return
 
             player.sendSystemMessage(
                 Component.translatable(
                     "message.geneticsresequenced.support_slime_creative",
-                    DefaultGenes.SLIMY_DEATH.nameComponent
+                    DefaultGenes.slimyDeath.nameComponent
                 )
             )
         }
@@ -96,7 +96,7 @@ class SupportSlime(
 
         for (livingEntity in nearbyLivingEntities) {
             val genes: GenesCapability = livingEntity.getGenes() ?: continue
-            if (genes.hasGene(DefaultGenes.SLIMY_DEATH)) {
+            if (genes.hasGene(DefaultGenes.slimyDeath)) {
                 setOwner(livingEntity.uuid)
                 break
             }

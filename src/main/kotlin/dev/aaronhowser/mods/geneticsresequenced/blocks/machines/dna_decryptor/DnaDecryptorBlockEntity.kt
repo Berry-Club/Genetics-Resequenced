@@ -10,7 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.set
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.GmoItem.Companion.getGeneChance
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.world.MenuProvider
@@ -126,10 +125,10 @@ class DnaDecryptorBlockEntity(
     }
 
     private fun getPossibleGmoGenes(input: ItemStack): List<Gene> {
-        val idealGene = input.getGene() ?: return listOf(DefaultGenes.BASIC)
+        val idealGene = input.getGene() ?: return listOf(DefaultGenes.basic)
 
         if (!idealGene.isMutation) {
-            return listOf(idealGene, DefaultGenes.BASIC)
+            return listOf(idealGene, DefaultGenes.basic)
         }
 
         return idealGene.mutatesFrom.toList() + idealGene
@@ -140,9 +139,9 @@ class DnaDecryptorBlockEntity(
             return getPossibleGmoGenes(input)
         }
 
-        val mobType = EntityDnaItem.getEntityType(input) ?: return listOf(DefaultGenes.BASIC)
+        val mobType = EntityDnaItem.getEntityType(input) ?: return listOf(DefaultGenes.basic)
         val genesFromMob = MobGenesRegistry.getGenesForEntity(mobType)
-        if (genesFromMob.isEmpty()) return listOf(DefaultGenes.BASIC)
+        if (genesFromMob.isEmpty()) return listOf(DefaultGenes.basic)
 
         return genesFromMob
             .map { it.key }
@@ -155,7 +154,7 @@ class DnaDecryptorBlockEntity(
     }
 
     private fun getGeneFromGmo(input: ItemStack): Gene {
-        val idealGene = input.getGene() ?: return DefaultGenes.BASIC
+        val idealGene = input.getGene() ?: return DefaultGenes.basic
         val chance = input.getGeneChance()
 
         if (Random.nextFloat() < chance) return idealGene

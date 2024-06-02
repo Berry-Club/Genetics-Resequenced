@@ -28,7 +28,7 @@ object DeathGenes {
     // TODO: Test with grave mods
     // TODO: Probably voids items if the server ends between death and respawn. Maybe drop items in the world if that happens?
     fun handleKeepInventory(player: LivingEntity) {
-        if (!DefaultGenes.KEEP_INVENTORY.isActive) return
+        if (!DefaultGenes.keepInventory.isActive) return
 
         if (player !is Player) return
 
@@ -53,7 +53,7 @@ object DeathGenes {
 
             if (ModList.get().isLoaded("curios")) CuriosKeepInventory.loadPlayerCurios(player)
         } else {
-            if (player.getGenes()?.hasGene(DefaultGenes.KEEP_INVENTORY) != true) return
+            if (player.getGenes()?.hasGene(DefaultGenes.keepInventory) != true) return
             playerInventoryMap[player] = player.inventory.items + player.inventory.armor + player.inventory.offhand
             player.inventory.clearContent()
 
@@ -62,15 +62,15 @@ object DeathGenes {
     }
 
     private val emeraldHeartCooldown = GeneCooldown(
-        DefaultGenes.EMERALD_HEART,
+        DefaultGenes.emeraldHeart,
         ServerConfig.emeraldHeartCooldown.get()
     )
 
     fun handleEmeraldHeart(event: LivingDeathEvent) {
-        if (!DefaultGenes.EMERALD_HEART.isActive) return
+        if (!DefaultGenes.emeraldHeart.isActive) return
 
         val entity = event.entity
-        if (entity.getGenes()?.hasGene(DefaultGenes.EMERALD_HEART) != true) return
+        if (entity.getGenes()?.hasGene(DefaultGenes.emeraldHeart) != true) return
 
         if (entity !is Player) {
             val itemEntity = ItemEntity(entity.level, entity.x, entity.y, entity.z, ItemStack(Items.EMERALD, 1))
@@ -93,10 +93,10 @@ object DeathGenes {
     private const val GUNPOWDER_REQUIRED = 5
     private const val EXPLOSION_STRENGTH = 3f
     fun handleExplosiveExit(event: LivingDeathEvent) {
-        if (!DefaultGenes.EXPLOSIVE_EXIT.isActive) return
+        if (!DefaultGenes.explosiveExit.isActive) return
 
         val entity = event.entity
-        if (entity.getGenes()?.hasGene(DefaultGenes.EXPLOSIVE_EXIT) != true) return
+        if (entity.getGenes()?.hasGene(DefaultGenes.explosiveExit) != true) return
 
         val shouldExplode = if (entity !is Player) {
             true
@@ -137,7 +137,7 @@ object DeathGenes {
     }
 
     fun explosiveExitDetonation(event: ExplosionEvent.Detonate) {
-        if (!DefaultGenes.EXPLOSIVE_EXIT.isActive) return
+        if (!DefaultGenes.explosiveExit.isActive) return
         if (event.isCanceled) return
 
         val exploderUuid = event.explosion.exploder?.uuid
@@ -149,7 +149,7 @@ object DeathGenes {
 
     private val slimyDeathCooldown = mutableSetOf<UUID>()
     fun handleSlimyDeath(event: LivingDeathEvent) {
-        if (!DefaultGenes.SLIMY_DEATH.isActive) return
+        if (!DefaultGenes.slimyDeath.isActive) return
         if (event.isCanceled) return
 
         val entity: LivingEntity = event.entity
@@ -158,7 +158,7 @@ object DeathGenes {
         if (uuid in slimyDeathCooldown) return
 
         val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.SLIMY_DEATH)) return
+        if (!genes.hasGene(DefaultGenes.slimyDeath)) return
 
         val amount = Random.nextInt(1, 4)
 
@@ -183,7 +183,7 @@ object DeathGenes {
             slimyDeathCooldown.remove(uuid)
 
             val message = Component.empty()
-                .append(DefaultGenes.SLIMY_DEATH.nameComponent)
+                .append(DefaultGenes.slimyDeath.nameComponent)
                 .append(Component.translatable("cooldown.geneticsresequenced.ended"))
 
             entity.sendSystemMessage(message)

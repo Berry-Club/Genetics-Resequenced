@@ -79,7 +79,7 @@ class Gene(
         }
 
         private val requiredGenes = setOf(
-            DefaultGenes.BASIC
+            DefaultGenes.basic
         )
     }
 

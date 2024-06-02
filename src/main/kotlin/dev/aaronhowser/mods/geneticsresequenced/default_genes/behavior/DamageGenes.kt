@@ -22,30 +22,30 @@ import kotlin.random.Random
 object DamageGenes {
 
     fun handleNoFallDamage(event: LivingDamageEvent) {
-        if (!DefaultGenes.NO_FALL_DAMAGE.isActive) return
+        if (!DefaultGenes.noFallDamage.isActive) return
 
         if (event.source != DamageSource.FALL) return
 
         val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.NO_FALL_DAMAGE) && !genes.hasGene(DefaultGenes.FLIGHT)) return
+        if (!genes.hasGene(DefaultGenes.noFallDamage) && !genes.hasGene(DefaultGenes.flight)) return
 
         event.isCanceled = true
     }
 
     fun handleWitherProof(event: LivingDamageEvent) {
-        if (!DefaultGenes.WITHER_PROOF.isActive) return
+        if (!DefaultGenes.witherProof.isActive) return
 
         if (event.source != DamageSource.WITHER) return
 
         val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.WITHER_PROOF)) return
+        if (!genes.hasGene(DefaultGenes.witherProof)) return
 
         event.entity.removeEffect(MobEffects.WITHER)
         event.isCanceled = true
     }
 
     fun handleWitherHit(event: LivingAttackEvent) {
-        if (!DefaultGenes.WITHER_HIT.isActive) return
+        if (!DefaultGenes.witherHit.isActive) return
 
         // Makes it not proc if it's an arrow or whatever
         if (event.source is IndirectEntityDamageSource) return
@@ -59,27 +59,27 @@ object DamageGenes {
 
         val attacker = event.source.entity as? LivingEntity ?: return
         val genes = attacker.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.WITHER_HIT)) return
+        if (!genes.hasGene(DefaultGenes.witherHit)) return
 
         event.entity.addEffect(witherEffect)
     }
 
     fun handleFireProof(event: LivingDamageEvent) {
-        if (!DefaultGenes.FIRE_PROOF.isActive) return
+        if (!DefaultGenes.fireProof.isActive) return
 
         val source = event.source
 
         if (!source.isFire) return
 
         val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.FIRE_PROOF)) return
+        if (!genes.hasGene(DefaultGenes.fireProof)) return
 
         event.entity.clearFire()
         event.isCanceled = true
     }
 
     fun handlePoisonProof(event: LivingDamageEvent) {
-        if (!DefaultGenes.POISON_IMMUNITY.isActive) return
+        if (!DefaultGenes.poisonImmunity.isActive) return
 
         val source = event.source
 
@@ -87,14 +87,14 @@ object DamageGenes {
         if (!event.entity.hasEffect(MobEffects.POISON)) return
 
         val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.POISON_IMMUNITY)) return
+        if (!genes.hasGene(DefaultGenes.poisonImmunity)) return
 
         event.entity.removeEffect(MobEffects.POISON)
         event.isCanceled = true
     }
 
     fun handleThorns(event: LivingDamageEvent) {
-        if (!DefaultGenes.THORNS.isActive) return
+        if (!DefaultGenes.thorns.isActive) return
 
         val attacker = event.source.entity as? LivingEntity ?: return
 
@@ -106,7 +106,7 @@ object DamageGenes {
         if (!targetChestplateMissingOrLeather) return
 
         val genes = target.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.THORNS)) return
+        if (!genes.hasGene(DefaultGenes.thorns)) return
 
         if (Random.nextDouble() > ServerConfig.thornsChance.get()) return
 
@@ -118,7 +118,7 @@ object DamageGenes {
     }
 
     fun handleClaws(event: LivingDamageEvent) {
-        if (!DefaultGenes.CLAWS.isActive) return
+        if (!DefaultGenes.claws.isActive) return
 
         val attacker = event.source.entity as? LivingEntity ?: return
 
@@ -126,9 +126,9 @@ object DamageGenes {
 
         val genes = attacker.getGenes() ?: return
 
-        val clawsLevel: Int = if (DefaultGenes.CLAWS_2.isActive && genes.hasGene(DefaultGenes.CLAWS_2)) {
+        val clawsLevel: Int = if (DefaultGenes.clawsTwo.isActive && genes.hasGene(DefaultGenes.clawsTwo)) {
             2
-        } else if (genes.hasGene(DefaultGenes.CLAWS)) {
+        } else if (genes.hasGene(DefaultGenes.claws)) {
             1
         } else {
             return
@@ -151,7 +151,7 @@ object DamageGenes {
     }
 
     fun handleDragonHealth(event: LivingDamageEvent) {
-        if (!DefaultGenes.ENDER_DRAGON_HEALTH.isActive) return
+        if (!DefaultGenes.enderDragonHealth.isActive) return
 
         if (event.isCanceled) return
         val entity = event.entity
@@ -159,7 +159,7 @@ object DamageGenes {
         if (entity.level.isClientSide) return
 
         val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.ENDER_DRAGON_HEALTH)) return
+        if (!genes.hasGene(DefaultGenes.enderDragonHealth)) return
 
         val items = entity.handSlots.toMutableList()
         if (entity is Player) items += entity.inventory.items
