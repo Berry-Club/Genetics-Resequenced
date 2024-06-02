@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -50,6 +51,20 @@ object DeathEvents {
         removeNegativeGenesOnDeath(event)
 
         DeathGenes.handleKeepInventory(event.entity)
+    }
+
+    @SubscribeEvent
+    fun clone(event: PlayerEvent.Clone) {
+        if (!event.isWasDeath) return
+
+        val original = event.original
+        val originalGenes = original.getGenes() ?: return
+        if (!originalGenes.hasGene(DefaultGenes.keepInventory)) return
+
+        val originalInventory = original.inventory
+
+        val new = event.entity
+
     }
 
     private fun handleKeepGenesOnDeath(event: PlayerEvent.PlayerRespawnEvent) {
