@@ -66,7 +66,7 @@ class DnaExtractorRecipe(
             val recipes = mutableListOf<DnaExtractorRecipe>()
             for (gmoRecipe in gmoRecipes) {
 
-                val inputItem = ModItems.GMO_CELL.get().itemStack
+                val inputItem = ModItems.GMO_CELL.itemStack
                 GmoItem.setDetails(
                     inputItem,
                     gmoRecipe.entityType,
@@ -74,7 +74,7 @@ class DnaExtractorRecipe(
                     gmoRecipe.geneChance
                 )
 
-                val outputItem = ModItems.GMO_DNA_HELIX.get().itemStack
+                val outputItem = ModItems.GMO_DNA_HELIX.itemStack
                 GmoItem.setDetails(
                     outputItem,
                     gmoRecipe.entityType,

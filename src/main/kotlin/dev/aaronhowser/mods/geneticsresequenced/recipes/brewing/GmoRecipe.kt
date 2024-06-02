@@ -40,7 +40,7 @@ class GmoRecipe(
         if (!isInput(pBottomSlot)) return ItemStack.EMPTY
         if (!isIngredient(pTopSlot)) return ItemStack.EMPTY
 
-        val output = ModItems.GMO_CELL.get().itemStack
+        val output = ModItems.GMO_CELL.itemStack
 
         GmoItem.setDetails(
             output,

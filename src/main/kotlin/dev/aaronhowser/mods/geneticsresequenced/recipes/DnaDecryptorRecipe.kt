@@ -112,7 +112,7 @@ class DnaDecryptorRecipe : Recipe<Container> {
             val recipes = mutableListOf<DnaDecryptorRecipe>()
             for (gmoRecipe in gmoRecipes) {
 
-                val inputItem = ModItems.GMO_DNA_HELIX.get().itemStack
+                val inputItem = ModItems.GMO_DNA_HELIX.itemStack
                 GmoItem.setDetails(
                     inputItem,
                     gmoRecipe.entityType,
@@ -121,7 +121,7 @@ class DnaDecryptorRecipe : Recipe<Container> {
                 )
 
                 val chanceGood = (gmoRecipe.geneChance * 100).toInt()
-                val outputItemGood = ModItems.DNA_HELIX.get().itemStack.setGene(gmoRecipe.outputGene)
+                val outputItemGood = ModItems.DNA_HELIX.itemStack.setGene(gmoRecipe.outputGene)
                 recipes.add(DnaDecryptorRecipe(inputItem, outputItemGood, chanceGood))
 
 
@@ -129,12 +129,12 @@ class DnaDecryptorRecipe : Recipe<Container> {
                 if (gmoRecipe.outputGene.isMutation) {
                     val mutatesFrom = gmoRecipe.outputGene.mutatesFrom
                     for (gene in mutatesFrom) {
-                        val outputItemBad = ModItems.DNA_HELIX.get().itemStack.setGene(gene)
+                        val outputItemBad = ModItems.DNA_HELIX.itemStack.setGene(gene)
                         recipes.add(DnaDecryptorRecipe(inputItem, outputItemBad, chanceBad))
                     }
                 } else {
                     val outputItemBad =
-                        ModItems.DNA_HELIX.get().itemStack.setGene(DefaultGenes.BASIC)
+                        ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.BASIC)
                     recipes.add(DnaDecryptorRecipe(inputItem, outputItemBad, chanceBad))
                 }
             }

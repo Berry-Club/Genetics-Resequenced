@@ -40,7 +40,7 @@ class BlackDeathRecipe : IBrewingRecipe {
         if (!isInput(pBottomSlot)) return ItemStack.EMPTY
         if (!isIngredient(pTopSlot)) return ItemStack.EMPTY
 
-        val output = ModItems.DNA_HELIX.get().itemStack.setGene(DefaultGenes.BLACK_DEATH)
+        val output = ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.BLACK_DEATH)
 
         return output
     }

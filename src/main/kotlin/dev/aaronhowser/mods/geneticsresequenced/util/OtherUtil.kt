@@ -9,6 +9,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.minecraftforge.registries.RegistryObject
 import java.util.*
 
 @Suppress("MemberVisibilityCanBePrivate")
@@ -44,6 +45,9 @@ object OtherUtil {
 
         return null
     }
+
+    val RegistryObject<out Item>.itemStack: ItemStack
+        get() = this.get().itemStack
 
     val Item.itemStack: ItemStack
         get() = this.defaultInstance

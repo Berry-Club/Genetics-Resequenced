@@ -25,8 +25,8 @@ class VirusRecipePage(
 ) : Recipe<Container> {
 
     private val viralAgentsStack = PotionUtils.setPotion(ItemStack(Items.POTION), ModPotions.VIRAL_AGENTS)
-    private val inputDnaStack = ModItems.DNA_HELIX.get().itemStack.setGene(recipe.inputDnaGene)
-    private val outputDnaStack = ModItems.DNA_HELIX.get().itemStack.setGene(recipe.outputGene)
+    private val inputDnaStack = ModItems.DNA_HELIX.itemStack.setGene(recipe.inputDnaGene)
+    private val outputDnaStack = ModItems.DNA_HELIX.itemStack.setGene(recipe.outputGene)
 
     companion object {
         fun getAllRecipes(): List<VirusRecipePage> {

@@ -30,7 +30,7 @@ class SubstrateCellRecipe : IBrewingRecipe {
 
         val pIngredientEntity = EntityDnaItem.getEntityType(pTopSlot) ?: return ItemStack.EMPTY
 
-        val outputCell = ModItems.CELL.get().itemStack
+        val outputCell = ModItems.CELL.itemStack
         EntityDnaItem.setMob(outputCell, pIngredientEntity)
 
         return outputCell

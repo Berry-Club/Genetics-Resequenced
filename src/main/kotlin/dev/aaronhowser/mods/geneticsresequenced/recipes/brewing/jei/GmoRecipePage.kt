@@ -30,7 +30,7 @@ class GmoRecipePage(
     private val ingredientInput: ItemStack = recipe.ingredientItem.itemStack
     private val cellOutput: ItemStack
         get() {
-            val output = ModItems.GMO_CELL.get().itemStack
+            val output = ModItems.GMO_CELL.itemStack
             GmoItem.setDetails(
                 output,
                 entityType,

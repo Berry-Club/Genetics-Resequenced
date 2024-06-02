@@ -139,7 +139,7 @@ object ModPotions {
         )
         val cellGrowthRecipe = BrewingRecipe(
             SUBSTRATE.ingredient,
-            ModItems.DNA_HELIX.get().itemStack.setBasic().ingredient,
+            ModItems.DNA_HELIX.itemStack.setBasic().ingredient,
             cellGrowthPotionStack
         )
         val mutationRecipe = BrewingRecipe(
@@ -154,7 +154,7 @@ object ModPotions {
         )
         val cureRecipe = BrewingRecipe(
             VIRAL_AGENTS.ingredient,
-            ModItems.DNA_HELIX.get().itemStack.setGene(DefaultGenes.EMERALD_HEART).ingredient,
+            ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.EMERALD_HEART).ingredient,
             curePotionStack
         )
 
@@ -243,7 +243,7 @@ object ModPotions {
 
             BrewingRecipe(
                 viralAgentsPotionStack.ingredient,
-                ModItems.DNA_HELIX.get().itemStack.setGene(DefaultGenes.EMERALD_HEART).ingredient,
+                ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.EMERALD_HEART).ingredient,
                 potionStack(ZOMBIFY_VILLAGER)
             )
         )

@@ -34,7 +34,7 @@ class VirusRecipe(
         if (!isInput(pBottomSlot)) return ItemStack.EMPTY
         if (!isIngredient(pTopSlot)) return ItemStack.EMPTY
 
-        val output = ModItems.DNA_HELIX.get().itemStack.setGene(outputGene)
+        val output = ModItems.DNA_HELIX.itemStack.setGene(outputGene)
 
         return output
     }
