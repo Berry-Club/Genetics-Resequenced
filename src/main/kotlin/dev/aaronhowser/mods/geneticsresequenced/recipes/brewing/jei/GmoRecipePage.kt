@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
@@ -26,10 +27,10 @@ class GmoRecipePage(
 ) : Recipe<Container> {
 
     private val entityType: EntityType<*> = recipe.entityType
-    private val ingredientInput: ItemStack = recipe.ingredientItem.defaultInstance
+    private val ingredientInput: ItemStack = recipe.ingredientItem.itemStack
     private val cellOutput: ItemStack
         get() {
-            val output = ModItems.GMO_CELL.get().defaultInstance
+            val output = ModItems.GMO_CELL.get().itemStack
             GmoItem.setDetails(
                 output,
                 entityType,

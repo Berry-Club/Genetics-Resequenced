@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.ModEffects
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.*
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.effect.MobEffectInstance
@@ -138,7 +139,7 @@ object ModPotions {
         )
         val cellGrowthRecipe = BrewingRecipe(
             SUBSTRATE.ingredient,
-            ModItems.DNA_HELIX.get().defaultInstance.setBasic().ingredient,
+            ModItems.DNA_HELIX.get().itemStack.setBasic().ingredient,
             cellGrowthPotionStack
         )
         val mutationRecipe = BrewingRecipe(
@@ -153,7 +154,7 @@ object ModPotions {
         )
         val cureRecipe = BrewingRecipe(
             VIRAL_AGENTS.ingredient,
-            ModItems.DNA_HELIX.get().defaultInstance.setGene(DefaultGenes.EMERALD_HEART).ingredient,
+            ModItems.DNA_HELIX.get().itemStack.setGene(DefaultGenes.EMERALD_HEART).ingredient,
             curePotionStack
         )
 
@@ -242,7 +243,7 @@ object ModPotions {
 
             BrewingRecipe(
                 viralAgentsPotionStack.ingredient,
-                ModItems.DNA_HELIX.get().defaultInstance.setGene(DefaultGenes.EMERALD_HEART).ingredient,
+                ModItems.DNA_HELIX.get().itemStack.setGene(DefaultGenes.EMERALD_HEART).ingredient,
                 potionStack(ZOMBIFY_VILLAGER)
             )
         )

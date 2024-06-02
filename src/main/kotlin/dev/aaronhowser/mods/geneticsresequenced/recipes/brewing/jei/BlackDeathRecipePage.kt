@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.BlackDeathRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
@@ -27,7 +28,7 @@ class BlackDeathRecipePage(private val metalSyringe: Boolean) : Recipe<Container
     private val badSyringe: ItemStack
         get() {
             val item = if (metalSyringe) ModItems.METAL_SYRINGE.get() else ModItems.SYRINGE.get()
-            val stack = item.defaultInstance
+            val stack = item.itemStack
 
             SyringeItem.setEntity(
                 stack,

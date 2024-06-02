@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.VirusRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
@@ -24,8 +25,8 @@ class VirusRecipePage(
 ) : Recipe<Container> {
 
     private val viralAgentsStack = PotionUtils.setPotion(ItemStack(Items.POTION), ModPotions.VIRAL_AGENTS)
-    private val inputDnaStack = ModItems.DNA_HELIX.get().defaultInstance.setGene(recipe.inputDnaGene)
-    private val outputDnaStack = ModItems.DNA_HELIX.get().defaultInstance.setGene(recipe.outputGene)
+    private val inputDnaStack = ModItems.DNA_HELIX.get().itemStack.setGene(recipe.inputDnaGene)
+    private val outputDnaStack = ModItems.DNA_HELIX.get().itemStack.setGene(recipe.outputGene)
 
     companion object {
         fun getAllRecipes(): List<VirusRecipePage> {

@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
@@ -65,7 +66,7 @@ class DnaExtractorRecipe(
             val recipes = mutableListOf<DnaExtractorRecipe>()
             for (gmoRecipe in gmoRecipes) {
 
-                val inputItem = ModItems.GMO_CELL.get().defaultInstance
+                val inputItem = ModItems.GMO_CELL.get().itemStack
                 GmoItem.setDetails(
                     inputItem,
                     gmoRecipe.entityType,
@@ -73,7 +74,7 @@ class DnaExtractorRecipe(
                     gmoRecipe.geneChance
                 )
 
-                val outputItem = ModItems.GMO_DNA_HELIX.get().defaultInstance
+                val outputItem = ModItems.GMO_DNA_HELIX.get().itemStack
                 GmoItem.setDetails(
                     outputItem,
                     gmoRecipe.entityType,

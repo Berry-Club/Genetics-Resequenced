@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.ShearedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.GeneCooldown
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
@@ -399,7 +400,7 @@ object ClickGenes {
         if (velocity < 0.1f) return
 
         val arrowItem = Items.ARROW as ArrowItem
-        val arrowStack = arrowItem.defaultInstance
+        val arrowStack = arrowItem.itemStack
         val abstractArrow = arrowItem.createArrow(player.level, arrowStack, player)
         abstractArrow.shootFromRotation(player, player.xRot, player.yRot, 0.0f, velocity * 3.0f, 1.0f)
 

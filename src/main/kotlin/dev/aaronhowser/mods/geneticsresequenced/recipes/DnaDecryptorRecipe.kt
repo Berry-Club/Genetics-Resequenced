@@ -14,6 +14,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
@@ -111,7 +112,7 @@ class DnaDecryptorRecipe : Recipe<Container> {
             val recipes = mutableListOf<DnaDecryptorRecipe>()
             for (gmoRecipe in gmoRecipes) {
 
-                val inputItem = ModItems.GMO_DNA_HELIX.get().defaultInstance
+                val inputItem = ModItems.GMO_DNA_HELIX.get().itemStack
                 GmoItem.setDetails(
                     inputItem,
                     gmoRecipe.entityType,
@@ -120,7 +121,7 @@ class DnaDecryptorRecipe : Recipe<Container> {
                 )
 
                 val chanceGood = (gmoRecipe.geneChance * 100).toInt()
-                val outputItemGood = ModItems.DNA_HELIX.get().defaultInstance.setGene(gmoRecipe.outputGene)
+                val outputItemGood = ModItems.DNA_HELIX.get().itemStack.setGene(gmoRecipe.outputGene)
                 recipes.add(DnaDecryptorRecipe(inputItem, outputItemGood, chanceGood))
 
 
@@ -128,12 +129,12 @@ class DnaDecryptorRecipe : Recipe<Container> {
                 if (gmoRecipe.outputGene.isMutation) {
                     val mutatesFrom = gmoRecipe.outputGene.mutatesFrom
                     for (gene in mutatesFrom) {
-                        val outputItemBad = ModItems.DNA_HELIX.get().defaultInstance.setGene(gene)
+                        val outputItemBad = ModItems.DNA_HELIX.get().itemStack.setGene(gene)
                         recipes.add(DnaDecryptorRecipe(inputItem, outputItemBad, chanceBad))
                     }
                 } else {
                     val outputItemBad =
-                        ModItems.DNA_HELIX.get().defaultInstance.setGene(DefaultGenes.BASIC)
+                        ModItems.DNA_HELIX.get().itemStack.setGene(DefaultGenes.BASIC)
                     recipes.add(DnaDecryptorRecipe(inputItem, outputItemBad, chanceBad))
                 }
             }

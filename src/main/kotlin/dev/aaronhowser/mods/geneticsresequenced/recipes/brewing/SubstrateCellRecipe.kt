@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.PotionUtils
@@ -29,7 +30,7 @@ class SubstrateCellRecipe : IBrewingRecipe {
 
         val pIngredientEntity = EntityDnaItem.getEntityType(pTopSlot) ?: return ItemStack.EMPTY
 
-        val outputCell = ModItems.CELL.get().defaultInstance
+        val outputCell = ModItems.CELL.get().itemStack
         EntityDnaItem.setMob(outputCell, pIngredientEntity)
 
         return outputCell

@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.set
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.PotionUtils
@@ -39,7 +40,7 @@ class BlackDeathRecipe : IBrewingRecipe {
         if (!isInput(pBottomSlot)) return ItemStack.EMPTY
         if (!isIngredient(pTopSlot)) return ItemStack.EMPTY
 
-        val output = ModItems.DNA_HELIX.get().defaultInstance.setGene(DefaultGenes.BLACK_DEATH)
+        val output = ModItems.DNA_HELIX.get().itemStack.setGene(DefaultGenes.BLACK_DEATH)
 
         return output
     }
