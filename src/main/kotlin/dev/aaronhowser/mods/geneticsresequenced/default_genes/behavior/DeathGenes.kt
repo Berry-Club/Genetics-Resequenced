@@ -23,7 +23,7 @@ import kotlin.random.Random
 
 object DeathGenes {
 
-    private val playerInventoryMap = mutableMapOf<Player, List<ItemStack>>()
+    private val playerInventoryMap: MutableMap<Player, List<ItemStack>> = mutableMapOf()
 
     // TODO: Test with grave mods
     // TODO: Probably voids items if the server ends between death and respawn. Maybe drop items in the world if that happens?
