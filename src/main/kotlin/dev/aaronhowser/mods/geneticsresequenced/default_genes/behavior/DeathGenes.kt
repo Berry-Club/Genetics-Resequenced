@@ -23,7 +23,7 @@ import kotlin.random.Random
 
 object DeathGenes {
 
-    private val playerInventoryMap: MutableMap<Player, List<ItemStack>> = mutableMapOf()
+    private val playerInventoryMap: MutableMap<UUID, List<ItemStack>> = mutableMapOf()
 
     // TODO: Test with grave mods
     // TODO: Probably voids items if the server ends between death and respawn. Maybe drop items in the world if that happens?
@@ -38,10 +38,10 @@ object DeathGenes {
 
         // If they're dying, save their inventory to the map and then clear it so graves etc don't dupe it
         // If they're respawning, give them all the items in the saved map and remove them from the map
-        val playerIsRespawning = playerInventoryMap.containsKey(player)
+        val playerIsRespawning = playerInventoryMap.containsKey(player.uuid)
 
         if (playerIsRespawning) {
-            val items = playerInventoryMap[player] ?: return
+            val items = playerInventoryMap[player.uuid] ?: return
 
             items.forEach { itemStack: ItemStack ->
                 if (!player.inventory.add(itemStack)) {
@@ -49,12 +49,12 @@ object DeathGenes {
                 }
             }
 
-            playerInventoryMap.remove(player)
+            playerInventoryMap.remove(player.uuid)
 
             if (ModList.get().isLoaded("curios")) CuriosKeepInventory.loadPlayerCurios(player)
         } else {
             if (player.getGenes()?.hasGene(DefaultGenes.keepInventory) != true) return
-            playerInventoryMap[player] = player.inventory.items + player.inventory.armor + player.inventory.offhand
+            playerInventoryMap[player.uuid] = player.inventory.items + player.inventory.armor + player.inventory.offhand
             player.inventory.clearContent()
 
             if (ModList.get().isLoaded("curios")) CuriosKeepInventory.savePlayerCurios(player)
