@@ -12,11 +12,15 @@ class GenesCapability {
     private val geneList: MutableSet<Gene> = mutableSetOf()
 
     fun addGene(gene: Gene): Boolean {
+        if (!gene.canBeAdded) {
+            GeneticsResequenced.LOGGER.debug("Cannot add gene $gene to entity.")
+            return false
+        }
         return geneList.add(gene)
     }
 
     fun addGenes(genes: Collection<Gene>) {
-        geneList.addAll(genes.toSet())
+        geneList.addAll(genes.toSet().filter { it.canBeAdded })
     }
 
     fun removeGene(gene: Gene): Boolean {

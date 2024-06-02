@@ -21,6 +21,8 @@ class Gene(
     private val potionDetails: GeneBuilder.PotionDetails? = null
 ) {
 
+    var canBeAdded = true
+
     override fun toString(): String = "Gene($id)"
 
     companion object {

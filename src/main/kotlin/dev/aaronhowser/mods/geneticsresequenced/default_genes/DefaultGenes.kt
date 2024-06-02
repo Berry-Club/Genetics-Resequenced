@@ -17,7 +17,7 @@ object DefaultGenes {
 
     val basic: Gene = registerGene("basic")
         .setDnaPointsRequired(0)
-        .build()
+        .build().also { it.canBeAdded = false }
 
     // Mutations (must be initialized first because they're used in arguments in ones below)
 
