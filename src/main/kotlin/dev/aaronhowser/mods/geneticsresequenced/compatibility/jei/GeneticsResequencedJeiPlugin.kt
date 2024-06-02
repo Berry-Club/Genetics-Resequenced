@@ -2,16 +2,10 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.*
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.GmoRecipeCategory
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.SetPotionEntityRecipeCategory
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.SubstrateCellRecipeCategory
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.VirusRecipeCategory
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.*
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.*
-import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.GmoRecipePage
-import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.SetPotionEntityRecipePage
-import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.SubstrateCellRecipePage
-import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.VirusRecipePage
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.*
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
@@ -51,6 +45,8 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             RecipeType(SubstrateCellRecipeCategory.UID, SubstrateCellRecipePage::class.java)
         val VIRUS_RECIPE_TYPE: RecipeType<VirusRecipePage> =
             RecipeType(VirusRecipeCategory.UID, VirusRecipePage::class.java)
+        val BLACK_DEATH_RECIPE_TYPE: RecipeType<BlackDeathRecipePage> =
+            RecipeType(BlackDeathRecipeCategory.UID, BlackDeathRecipePage::class.java)
     }
 
     override fun getPluginUid(): ResourceLocation =
@@ -69,6 +65,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             SetPotionEntityRecipeCategory(guiHelper),
             SubstrateCellRecipeCategory(guiHelper),
             VirusRecipeCategory(guiHelper),
+            BlackDeathRecipeCategory(guiHelper)
         )
     }
 
@@ -92,6 +89,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
         addIncubatorRecipeType(SetPotionEntityRecipeCategory.recipeType)
         addIncubatorRecipeType(SubstrateCellRecipeCategory.recipeType)
         addIncubatorRecipeType(VirusRecipeCategory.recipeType)
+        addIncubatorRecipeType(BlackDeathRecipeCategory.recipeType)
 
         for ((block, recipeType) in blockRecipeTypeMap) {
             registration.addRecipeCatalyst(
@@ -118,6 +116,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
         registration.addRecipes(SetPotionEntityRecipeCategory.recipeType, SetPotionEntityRecipePage.getAllRecipes())
         registration.addRecipes(SubstrateCellRecipeCategory.recipeType, SubstrateCellRecipePage.getAllRecipes())
         registration.addRecipes(VirusRecipeCategory.recipeType, VirusRecipePage.getAllRecipes())
+        registration.addRecipes(BlackDeathRecipeCategory.recipeType, BlackDeathRecipePage.getAllRecipes())
 
         InformationRecipes.organicMatter(registration)
         InformationRecipes.mobGenes(registration)

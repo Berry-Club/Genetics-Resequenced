@@ -8,10 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.set
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.ModEffects
-import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.SetPotionEntityRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.SubstrateCellRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.VirusRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.*
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.effect.MobEffectInstance
@@ -240,7 +237,8 @@ object ModPotions {
             VirusRecipe(DefaultGenes.SCARE_ZOMBIES, DefaultGenes.UN_UNDEATH),
             //TODO VirusRecipe(DefaultGenes.RESISTANCE, instant death to passive mobs),
             VirusRecipe(DefaultGenes.DRAGONS_BREATH, DefaultGenes.WHITE_DEATH),
-            //TODO VirusRecipe(syringe with all negative effects, DefaultGenes.DEAD_ALL),
+
+            BlackDeathRecipe(),
 
             BrewingRecipe(
                 viralAgentsPotionStack.ingredient,
