@@ -21,18 +21,21 @@ object DeathEvents {
 
     @SubscribeEvent
     fun onPlayerCloned(event: PlayerEvent.Clone) {
-        if (event.isWasDeath) {
-            event.original.apply {
-                reviveCaps()
+        if (!event.isWasDeath) return
 
-                getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { oldGenes ->
-                    event.entity.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { newGenes ->
-                        newGenes.setGeneList(oldGenes.getGeneList())
-                    }
+        val dyingPlayer = event.original
+        val clonePlayer = event.entity
+
+        dyingPlayer.apply {
+            reviveCaps()
+
+            getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { oldGenes ->
+                clonePlayer.getCapability(GenesCapabilityProvider.GENE_CAPABILITY).ifPresent { newGenes ->
+                    newGenes.setGeneList(oldGenes.getGeneList())
                 }
-
-                invalidateCaps()
             }
+
+            invalidateCaps()
         }
     }
 
