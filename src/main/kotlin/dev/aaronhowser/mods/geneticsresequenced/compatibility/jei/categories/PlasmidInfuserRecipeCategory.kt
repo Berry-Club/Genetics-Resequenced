@@ -70,6 +70,8 @@ class PlasmidInfuserRecipeCategory(
         val gene = recipe.gene
         val amountNeeded = gene.dnaPointsRequired
 
+        if (amountNeeded <= 1) return mutableListOf()
+
         val line1 = Component
             .translatable(
                 "recipe.geneticsresequenced.plasmid_infuser.points_required",
