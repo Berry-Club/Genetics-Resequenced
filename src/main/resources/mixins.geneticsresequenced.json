@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.aaronhowser.mods.geneticsresequenced.mixin",
+  "mixins": [
+    "ServerPlayerMixins"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
