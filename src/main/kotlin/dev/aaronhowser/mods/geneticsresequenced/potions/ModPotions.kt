@@ -54,6 +54,14 @@ object ModPotions {
     val THE_CURE
             by register("the_cure") { Potion(addId("the_cure"), MobEffectInstance(ModEffects.THE_CURE)) }
 
+    val ZOMBIFY_VILLAGER
+            by register("zombify_villager") {
+                Potion(
+                    addId("zombify_villager"),
+                    MobEffectInstance(ModEffects.ZOMBIFY_VILLAGER)
+                )
+            }
+
     private fun register(
         name: String,
         supplier: () -> Potion
@@ -70,7 +78,7 @@ object ModPotions {
         val stack = event.itemStack
 
         val itemPotion = PotionUtils.getPotion(stack)
-        if (itemPotion == Potions.EMPTY) return
+        if (itemPotion == Potions.EMPTY || itemPotion == ZOMBIFY_VILLAGER) return
 
         if (itemPotion in modPotions && stack.item != Items.POTION) {
             event.toolTip.add(
@@ -112,7 +120,10 @@ object ModPotions {
     val allRecipes: MutableList<IBrewingRecipe> = mutableListOf()
 
     fun potionStack(potion: Potion): ItemStack {
-        return PotionUtils.setPotion(ItemStack(Items.POTION), potion)
+        return PotionUtils.setPotion(
+            ItemStack(Items.POTION),
+            potion
+        )
     }
 
     val substratePotionStack by lazy { potionStack(SUBSTRATE) }
@@ -224,13 +235,18 @@ object ModPotions {
             VirusRecipe(DefaultGenes.FIRE_PROOF, DefaultGenes.FLAMBE),
             VirusRecipe(DefaultGenes.LUCK, DefaultGenes.CURSED),
             VirusRecipe(DefaultGenes.HASTE, DefaultGenes.MINING_WEAKNESS),
-//            VirusRecipe(DefaultGenes.EMERALD_HEART, convert villager to zombie),
             VirusRecipe(DefaultGenes.SCARE_CREEPERS, DefaultGenes.GREEN_DEATH),
             VirusRecipe(DefaultGenes.SCARE_SKELETONS, DefaultGenes.UN_UNDEATH),
             VirusRecipe(DefaultGenes.SCARE_ZOMBIES, DefaultGenes.UN_UNDEATH),
-//            VirusRecipe(DefaultGenes.RESISTANCE, instant death to passive mobs),
+            //TODO VirusRecipe(DefaultGenes.RESISTANCE, instant death to passive mobs),
             VirusRecipe(DefaultGenes.DRAGONS_BREATH, DefaultGenes.WHITE_DEATH),
-//            VirusRecipe(syringe with all negative effects, DefaultGenes.DEAD_ALL),
+            //TODO VirusRecipe(syringe with all negative effects, DefaultGenes.DEAD_ALL),
+
+            BrewingRecipe(
+                viralAgentsPotionStack.ingredient,
+                ModItems.DNA_HELIX.get().defaultInstance.setGene(DefaultGenes.EMERALD_HEART).ingredient,
+                potionStack(ZOMBIFY_VILLAGER)
+            )
         )
         allRecipes.addAll(virusBrews)
 

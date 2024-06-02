@@ -20,6 +20,8 @@ object ModEffects {
     val VIRAL_AGENTS by register("viral_agents") { DoNothingEffect("viral_agents", 0xd18e1b, true) }
     val THE_CURE by register("the_cure") { TheCureEffect() }
 
+    val ZOMBIFY_VILLAGER by register("zombify_villager") { ZombifyVillagerEffect() }
+
     private fun register(
         name: String,
         supplier: () -> MobEffect
