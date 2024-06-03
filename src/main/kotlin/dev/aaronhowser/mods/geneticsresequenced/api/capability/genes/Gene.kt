@@ -27,7 +27,12 @@ class Gene(
 
     companion object {
         private val GENE_REGISTRY: MutableSet<Gene> = mutableSetOf()
-        fun getRegistry(): List<Gene> = GENE_REGISTRY.sortedBy { it.id }
+        fun getRegistry(): List<Gene> {
+            val positiveGenes = GENE_REGISTRY.filter { !it.isNegative }.sortedBy { it.id }
+            val negativeGenes = GENE_REGISTRY.filter { it.isNegative }.sortedBy { it.id }
+
+            return positiveGenes + negativeGenes
+        }
 
         fun fromId(searchedId: ResourceLocation): Gene? {
             return GENE_REGISTRY.find { it.id == searchedId }
