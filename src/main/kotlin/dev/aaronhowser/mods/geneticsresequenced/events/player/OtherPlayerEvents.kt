@@ -79,19 +79,20 @@ object OtherPlayerEvents {
             )
         }
 
+        val entityGenes = entity.getGenes() ?: return
+
         if (entity is Player) {
             when (changedGene) {
                 DefaultGenes.efficiency -> {
-                    val entityGenes = entity.getGenes() ?: return
                     if (entityGenes.hasGene(DefaultGenes.efficiencyFour)) return
-                    AttributeGenes.setEfficiency(entity, if (wasAdded) 1 else 0)
+                    val levelToSetTo = if (wasAdded) 1 else 0
+                    AttributeGenes.setEfficiency(entity, levelToSetTo)
                 }
 
                 DefaultGenes.efficiencyFour -> {
                     if (wasAdded) {
                         AttributeGenes.setEfficiency(entity, 4)
                     } else {
-                        val entityGenes = entity.getGenes() ?: return
                         val levelToSetTo = if (entityGenes.hasGene(DefaultGenes.efficiency)) 1 else 0
                         AttributeGenes.setEfficiency(entity, levelToSetTo)
                     }
@@ -100,6 +101,14 @@ object OtherPlayerEvents {
                 DefaultGenes.stepAssist -> AttributeGenes.setStepAssist(entity, wasAdded)
 
                 DefaultGenes.wallClimbing -> AttributeGenes.setWallClimbing(entity, wasAdded)
+
+                DefaultGenes.moreHearts -> {
+                    AttributeGenes.setMoreHearts(entity, 1, wasAdded)
+                }
+
+                DefaultGenes.moreHeartsTwo -> {
+                    AttributeGenes.setMoreHearts(entity, 2, wasAdded)
+                }
 
                 DefaultGenes.flight -> TickGenes.handleFlight(entity)
 

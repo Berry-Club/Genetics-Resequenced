@@ -1,13 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.attributes.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
+import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
 import net.minecraftforge.common.ForgeMod
 import net.minecraftforge.event.entity.player.PlayerEvent
@@ -52,9 +53,53 @@ object AttributeGenes {
         }
     }
 
+    private val moreHealthOneModifier = AttributeModifier(
+        "Genetics Resequenced: More Hearts 1",
+        20.0,
+        AttributeModifier.Operation.ADDITION
+    )
+
+    private val moreHealthTwomodifier = AttributeModifier(
+        "Genetics Resequenced: More Hearts 2",
+        20.0,
+        AttributeModifier.Operation.ADDITION
+    )
+
+    fun setMoreHearts(player: Player, level: Int, adding: Boolean = true) {
+        val maxHealthAttribute = player.getAttribute(Attributes.MAX_HEALTH) ?: return
+
+        val hasLevelOne = maxHealthAttribute.hasModifier(moreHealthOneModifier)
+        val hasLevelTwo = maxHealthAttribute.hasModifier(moreHealthTwomodifier)
+
+        when (level) {
+            1 -> if (adding) {
+                if (hasLevelOne) return
+                maxHealthAttribute.addPermanentModifier(moreHealthOneModifier)
+            } else {
+                if (!hasLevelOne) return
+                maxHealthAttribute.removeModifier(moreHealthOneModifier)
+            }
+
+            2 -> {
+                if (adding) {
+                    if (hasLevelTwo) return
+                    maxHealthAttribute.addPermanentModifier(moreHealthTwomodifier)
+                } else {
+                    if (!hasLevelTwo) return
+                    maxHealthAttribute.removeModifier(moreHealthTwomodifier)
+                }
+            }
+
+            else -> throw IllegalArgumentException("Invalid level for more hearts: $level")
+        }
+
+        println(maxHealthAttribute.modifiers)
+
+    }
+
     fun setWallClimbing(player: Player, value: Boolean) {
-        val attributes = player.attributes.getInstance(ModAttributes.WALL_CLIMBING) ?: return
-        attributes.baseValue = if (value) 1.0 else 0.0
+        val wallClimbAttribute = player.attributes.getInstance(ModAttributes.WALL_CLIMBING) ?: return
+        wallClimbAttribute.baseValue = if (value) 1.0 else 0.0
 
         ModPacketHandler.messagePlayer(
             player as ServerPlayer,
