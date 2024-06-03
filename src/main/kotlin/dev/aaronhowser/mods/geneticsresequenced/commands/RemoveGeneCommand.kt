@@ -67,8 +67,8 @@ object RemoveGeneCommand {
         if (amountFail != 0) {
             val component = Component.translatable(
                 "command.geneticsresequenced.remove_gene.fail",
-                amountFail,
-                geneToRemove.nameComponent
+                geneToRemove.nameComponent,
+                amountFail
             )
             context.source.sendSuccess(component, true)
         }
