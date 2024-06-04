@@ -39,6 +39,8 @@ object ModItems {
         ITEM_REGISTRY.register("dna_helix") { DnaHelixItem() }
     val PLASMID: RegistryObject<PlasmidItem> =
         ITEM_REGISTRY.register("plasmid") { PlasmidItem() }
+    val ANTI_PLASMID: RegistryObject<AntiPlasmidItem> =
+        ITEM_REGISTRY.register("anti_plasmid") { AntiPlasmidItem() }
     val OVERCLOCKER: RegistryObject<Item> =
         ITEM_REGISTRY.register("overclocker") { Item(Item.Properties().tab(MOD_TAB).stacksTo(8)) }
     val ANTI_FIELD_ORB: RegistryObject<AntiFieldOrbItem> =
