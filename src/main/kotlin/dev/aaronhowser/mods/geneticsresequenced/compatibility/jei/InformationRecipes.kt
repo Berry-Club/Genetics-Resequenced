@@ -94,13 +94,16 @@ object InformationRecipes {
         val registry = Gene.getRegistry()
 
         for (gene in registry) {
-            val components = gene.jeiDescription
-            if (components.isEmpty()) continue
+            if (gene.hidden) continue
+            if (!gene.isActive) continue
+
+            val geneRl = gene.id.toString()
+            val translatable = Component.translatable("info.geneticsresequenced.gene_description.$geneRl")
 
             registration.addIngredientInfo(
                 gene.getPlasmid(),
                 VanillaTypes.ITEM_STACK,
-                *components.toTypedArray()
+                translatable
             )
         }
 
