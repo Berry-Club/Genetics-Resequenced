@@ -12,7 +12,7 @@ class BleedEffect : MobEffect(
 ) {
 
     override fun isDurationEffectTick(pDuration: Int, pAmplifier: Int): Boolean {
-        return pDuration % 160 == 20
+        return pDuration % 20 == 0
     }
 
     override fun applyEffectTick(pLivingEntity: LivingEntity, pAmplifier: Int) {
