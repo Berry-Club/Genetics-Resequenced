@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
+import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffect
 
@@ -12,15 +13,17 @@ class GeneBuilder(
     private var dnaPointsRequired: Int = -1
     private var mutatesInto: Gene? = null
     private var potionDetails: PotionDetails? = null
+    private var jeiDescription: MutableList<Component> = mutableListOf()
 
     fun build(): Gene {
         return Gene.register(
-            id,
-            isNegative,
-            canMobsHave,
-            dnaPointsRequired,
-            mutatesInto,
-            potionDetails
+            id = id,
+            isNegative = isNegative,
+            canMobsHave = canMobsHave,
+            dnaPointsRequired = dnaPointsRequired,
+            mutatesInto = mutatesInto,
+            potionDetails = potionDetails,
+            jeiDescription = jeiDescription
         )
     }
 
@@ -58,5 +61,10 @@ class GeneBuilder(
         val level: Int,
         val duration: Int
     )
+
+    fun addJeiDescription(vararg components: Component): GeneBuilder {
+        jeiDescription.addAll(components)
+        return this
+    }
 
 }

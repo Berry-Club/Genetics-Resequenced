@@ -50,7 +50,8 @@ class Gene(
             canMobsHave: Boolean,
             dnaPointsRequired: Int,
             mutatesInto: Gene?,
-            potionDetails: GeneBuilder.PotionDetails?
+            potionDetails: GeneBuilder.PotionDetails?,
+            jeiDescription: MutableList<Component> = mutableListOf()
         ): Gene {
             val gene = Gene(
                 id = id,
@@ -60,6 +61,8 @@ class Gene(
                 mutatesInto = mutatesInto,
                 potionDetails = potionDetails
             )
+
+            gene.jeiDescription.addAll(jeiDescription)
 
             GENE_REGISTRY.add(gene)
             return gene
@@ -185,29 +188,6 @@ class Gene(
         return requiredGenes.all { targetGenes.hasGene(it) }
     }
 
-//    fun canAddMutation(genes: GenesCapability, syringeGenes: GenesCapability): Boolean {
-//        return when (this) {
-//            HASTE_2 -> genes.hasGene(HASTE) || syringeGenes.hasGene(HASTE)
-//            EFFICIENCY_4 -> genes.hasGene(EFFICIENCY) || syringeGenes.hasGene(EFFICIENCY)
-//            REGENERATION_4 -> genes.hasGene(REGENERATION) || syringeGenes.hasGene(REGENERATION)
-//            SPEED_4 -> genes.hasGene(SPEED_2) || syringeGenes.hasGene(SPEED_2)
-//            SPEED_2 -> genes.hasGene(SPEED) || syringeGenes.hasGene(SPEED)
-//            RESISTANCE_2 -> genes.hasGene(RESISTANCE) || syringeGenes.hasGene(RESISTANCE)
-//            STRENGTH_2 -> genes.hasGene(STRENGTH) || syringeGenes.hasGene(STRENGTH)
-//            MEATY_2 -> genes.hasGene(MEATY) || syringeGenes.hasGene(MEATY)
-//            MORE_HEARTS_2 -> genes.hasGene(MORE_HEARTS) || syringeGenes.hasGene(MORE_HEARTS)
-//            INVISIBLE -> true
-//            FLIGHT -> genes.hasGene(JUMP_BOOST) || genes.hasGene(TELEPORT) || genes.hasGene(NO_FALL_DAMAGE) ||
-//                    syringeGenes.hasGene(JUMP_BOOST) || syringeGenes.hasGene(TELEPORT) || syringeGenes.hasGene(
-//                NO_FALL_DAMAGE
-//            )
-//
-//            LUCK -> true
-//            SCARE_ZOMBIES -> genes.hasGene(SCARE_CREEPERS) || syringeGenes.hasGene(SCARE_CREEPERS)
-//            SCARE_SPIDERS -> genes.hasGene(SCARE_SKELETONS) || syringeGenes.hasGene(SCARE_SKELETONS)
-//            THORNS -> genes.hasGene(PHOTOSYNTHESIS) || syringeGenes.hasGene(PHOTOSYNTHESIS)
-//            CLAWS_2 -> genes.hasGene(CLAWS) || syringeGenes.hasGene(CLAWS)
-//            else -> true
-//        }
-//    }
+    val jeiDescription: MutableList<Component> = mutableListOf()
+
 }

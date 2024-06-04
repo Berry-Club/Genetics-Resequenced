@@ -88,6 +88,21 @@ object InformationRecipes {
                 component
             )
         }
+    }
+
+    fun geneDescriptions(registration: IRecipeRegistration) {
+        val registry = Gene.getRegistry()
+
+        for (gene in registry) {
+            val components = gene.jeiDescription
+            if (components.isEmpty()) continue
+
+            registration.addIngredientInfo(
+                gene.getPlasmid(),
+                VanillaTypes.ITEM_STACK,
+                *components.toTypedArray()
+            )
+        }
 
     }
 
