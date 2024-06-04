@@ -87,9 +87,8 @@ class PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
 
         pTooltipComponents.add(
             Component
-                .translatable("tooltip.geneticsresequenced.plasmid.gene")
+                .translatable("tooltip.geneticsresequenced.plasmid.gene", gene.nameComponent)
                 .withColor(ChatFormatting.GRAY)
-                .append(gene.nameComponent)
         )
 
         if (isComplete(pStack)) {

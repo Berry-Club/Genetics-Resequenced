@@ -28,9 +28,8 @@ class AntiPlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
         } else {
             pTooltipComponents.add(
                 Component
-                    .translatable("tooltip.geneticsresequenced.plasmid.gene")
+                    .translatable("tooltip.geneticsresequenced.plasmid.gene", gene.nameComponent)
                     .withColor(ChatFormatting.GRAY)
-                    .append(gene.nameComponent)
             )
         }
     }

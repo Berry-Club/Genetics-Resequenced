@@ -17,6 +17,7 @@
   "item.geneticsresequenced.plasmid": "Plasmid",
   "item.geneticsresequenced.overclocker": "Overclocker",
   "item.geneticsresequenced.support_slime_spawn_egg": "Support Slime Spawn Egg",
+  "item.geneticsresequenced.anti_plasmid:": "Anti-Plasmid",
 
   "effect.geneticsresequenced.bleed": "Bleed",
   "effect.geneticsresequenced.substrate": "Substrate",
@@ -94,7 +95,8 @@
   "tooltip.geneticsresequenced.dna_item.empty": "Empty",
   "tooltip.geneticsresequenced.dna_item.creative": "Creative: Right-click mob to set.",
   "tooltip.geneticsresequenced.plasmid.empty": "Empty Plasmid",
-  "tooltip.geneticsresequenced.plasmid.gene": "Contains Gene: ",
+  "tooltip.geneticsresequenced.anti_plasmid.empty": "Empty Anti-Plasmid",
+  "tooltip.geneticsresequenced.plasmid.gene": "Contains Gene: %s",
   "tooltip.geneticsresequenced.plasmid.complete": "Plasmid is complete!",
   "tooltip.geneticsresequenced.plasmid.amount": "Gene Points: %d/%d",
   "tooltip.geneticsresequenced.syringe.contaminated": "Contaminated Blood",
