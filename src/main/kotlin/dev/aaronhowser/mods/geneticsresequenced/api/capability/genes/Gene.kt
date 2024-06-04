@@ -21,7 +21,7 @@ class Gene(
     private val potionDetails: GeneBuilder.PotionDetails? = null
 ) {
 
-    var canBeAdded = true
+    var hidden: Boolean = false
 
     override fun toString(): String = "Gene($id)"
 
@@ -51,7 +51,7 @@ class Gene(
             dnaPointsRequired: Int,
             mutatesInto: Gene?,
             potionDetails: GeneBuilder.PotionDetails?,
-            jeiDescription: MutableList<Component> = mutableListOf()
+            hidden: Boolean,
         ): Gene {
             val gene = Gene(
                 id = id,
@@ -62,9 +62,10 @@ class Gene(
                 potionDetails = potionDetails
             )
 
-            gene.jeiDescription.addAll(jeiDescription)
-
             GENE_REGISTRY.add(gene)
+
+            gene.hidden = hidden
+
             return gene
         }
 
@@ -187,7 +188,5 @@ class Gene(
 
         return requiredGenes.all { targetGenes.hasGene(it) }
     }
-
-    val jeiDescription: MutableList<Component> = mutableListOf()
 
 }
