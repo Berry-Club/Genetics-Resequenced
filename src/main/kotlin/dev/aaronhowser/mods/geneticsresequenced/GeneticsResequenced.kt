@@ -44,6 +44,7 @@ object GeneticsResequenced {
             ModEnchantments.ENCHANTMENT_REGISTRY,
             ModPotions.POTION_REGISTRY,
             ModMenuTypes.MENU_TYPE_REGISTRY,
+            ModRecipes.RECIPE_SERIALIZERS_REGISTRY,
             ModRecipes.RECIPE_TYPES_REGISTRY
         )
 
