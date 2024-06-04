@@ -50,16 +50,16 @@ object DamageGenes {
         // Makes it not proc if it's an arrow or whatever
         if (event.source is IndirectEntityDamageSource) return
 
+        val attacker = event.source.entity as? LivingEntity ?: return
+        val genes = attacker.getGenes() ?: return
+        if (!genes.hasGene(DefaultGenes.witherHit)) return
+
         val witherEffect = MobEffectInstance(
             MobEffects.WITHER,
             100
         )
 
         if (!event.entity.canBeAffected(witherEffect)) return
-
-        val attacker = event.source.entity as? LivingEntity ?: return
-        val genes = attacker.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.witherHit)) return
 
         event.entity.addEffect(witherEffect)
     }
