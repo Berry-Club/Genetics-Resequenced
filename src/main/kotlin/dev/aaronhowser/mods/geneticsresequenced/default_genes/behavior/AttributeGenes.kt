@@ -107,6 +107,7 @@ object AttributeGenes {
         )
     }
 
+    //FIXME: Dont work
     fun handleWallClimbing(player: Player) {
         if (!player.level.isClientSide) return
 
