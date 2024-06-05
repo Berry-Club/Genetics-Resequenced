@@ -108,8 +108,6 @@ object AttributeGenes {
     }
 
     fun handleWallClimbing(player: Player) {
-        if (!player.level.isClientSide) return
-
         if (!DefaultGenes.wallClimbing.isActive) return
 
         val wallClimbingAttribute = player.attributes.getInstance(ModAttributes.WALL_CLIMBING) ?: return
