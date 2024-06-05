@@ -164,6 +164,7 @@ class CoalGeneratorBlockEntity(
         val state = blockState.setValue(CoalGeneratorBlock.BURNING, true)
         level?.setBlock(blockPos, state, 3)
 
+        //FIXME: Dont work
         val fuelReplacedItem = inputItem.craftingRemainingItem
 
         maxBurnTime = fuel
