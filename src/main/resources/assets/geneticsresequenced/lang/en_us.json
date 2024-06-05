@@ -215,7 +215,11 @@
   "info.geneticsresequenced.gene_description.geneticsresequenced:slowness_6": "Inflicts the Slowness VI potion effect.",
   "info.geneticsresequenced.gene_description.geneticsresequenced:weakness": "Inflicts the Weakness potion effect.",
   "info.geneticsresequenced.gene_description.geneticsresequenced:wither": "Inflicts the Wither potion effect.",
-  "info.geneticsresequenced.gene_description.geneticsresequenced:": "",
+  "info.geneticsresequenced.gene_description.geneticsresequenced:black_death": "Instantly kills.",
+  "info.geneticsresequenced.gene_description.geneticsresequenced:green_death": "Slowly kills Creepers.",
+  "info.geneticsresequenced.gene_description.geneticsresequenced:white_death": "Slowly kills monsters.",
+  "info.geneticsresequenced.gene_description.geneticsresequenced:gray_death": "Slowly kills ageable mobs.",
+  "info.geneticsresequenced.gene_description.geneticsresequenced:un_undeath": "Slowly kills the undead.",
 
   "gene.geneticsresequenced.unknown": "Unknown",
   "gene.geneticsresequenced.basic": "Basic",
