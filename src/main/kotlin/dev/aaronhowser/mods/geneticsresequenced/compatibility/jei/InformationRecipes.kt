@@ -97,13 +97,17 @@ object InformationRecipes {
             if (gene.hidden) continue
             if (!gene.isActive) continue
 
+            val components = mutableListOf(gene.nameComponent, Component.literal("\n"))
+
             val geneRl = gene.id.toString()
             val translatable = Component.translatable("info.geneticsresequenced.gene_description.$geneRl")
+
+            components.add(translatable)
 
             registration.addIngredientInfo(
                 gene.getPlasmid(),
                 VanillaTypes.ITEM_STACK,
-                translatable
+                *components.toTypedArray()
             )
         }
 
