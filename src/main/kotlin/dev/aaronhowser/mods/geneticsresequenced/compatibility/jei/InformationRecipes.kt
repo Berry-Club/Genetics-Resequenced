@@ -66,31 +66,6 @@ object InformationRecipes {
         }
     }
 
-    fun requiredGenes(registration: IRecipeRegistration) {
-        val allGenes = Gene.getRegistry()
-
-        for (gene in allGenes) {
-            val requiredGenes = gene.getRequiredGenes()
-            if (requiredGenes.isEmpty()) continue
-
-            val component = Component.empty()
-
-            val line1 = Component.translatable("info.geneticsresequenced.requires_genes")
-            component.append(line1)
-
-            for (requiredGene in requiredGenes) {
-                val line = Component.literal(" • ").append(requiredGene.nameComponent)
-                component.append(Component.literal("\n")).append(line)
-            }
-
-            registration.addIngredientInfo(
-                gene.getPlasmid(),
-                VanillaTypes.ITEM_STACK,
-                component
-            )
-        }
-    }
-
     fun geneDescriptions(registration: IRecipeRegistration) {
         val registry = Gene.getRegistry()
 
@@ -105,9 +80,22 @@ object InformationRecipes {
             )
 
             val geneRl = gene.id.toString()
-            val translatable = Component.translatable("info.geneticsresequenced.gene_description.$geneRl")
+            val geneDescription = Component.translatable("info.geneticsresequenced.gene_description.$geneRl")
 
-            components.add(translatable)
+            components.add(geneDescription)
+
+            val requiredGenes = gene.getRequiredGenes()
+            if (requiredGenes.isNotEmpty()) {
+                components.add(Component.literal("\n"))
+                components.add(
+                    Component.translatable("info.geneticsresequenced.requires_genes")
+                )
+
+                for (requiredGene in requiredGenes) {
+                    val line = Component.literal("• ").append(requiredGene.nameComponent)
+                    components.add(line)
+                }
+            }
 
             registration.addIngredientInfo(
                 gene.getPlasmid(),

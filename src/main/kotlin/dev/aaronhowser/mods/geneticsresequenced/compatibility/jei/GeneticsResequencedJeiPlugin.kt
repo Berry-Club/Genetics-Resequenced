@@ -121,7 +121,6 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
         InformationRecipes.organicMatter(registration)
         InformationRecipes.mobGenes(registration)
         InformationRecipes.geneDescriptions(registration)
-        InformationRecipes.requiredGenes(registration)
     }
 
     override fun registerItemSubtypes(registration: ISubtypeRegistration) {
