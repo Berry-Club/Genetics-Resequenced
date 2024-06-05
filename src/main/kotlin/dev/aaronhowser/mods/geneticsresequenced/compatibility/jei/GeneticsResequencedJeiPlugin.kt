@@ -102,6 +102,10 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             ItemStack(ModBlocks.INCUBATOR.get()),
             RecipeTypes.BREWING
         )
+        registration.addRecipeCatalyst(
+            ItemStack(ModBlocks.ADVANCED_INCUBATOR.get()),
+            RecipeTypes.BREWING
+        )
 
     }
 
