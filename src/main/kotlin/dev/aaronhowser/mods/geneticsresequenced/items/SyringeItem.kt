@@ -90,10 +90,9 @@ open class SyringeItem : Item(
             val syringeEntityUuid = getEntityUuid(syringeStack) ?: return
             if (entity.uuid != syringeEntityUuid) return
 
-            val genes = getGenes(syringeStack)
             val entityGenes = entity.getGenes() ?: return
 
-            for (gene in genes) {
+            for (gene in getGenes(syringeStack)) {
 
                 if (entity !is Player && !gene.canMobsHave) {
                     continue
@@ -114,6 +113,25 @@ open class SyringeItem : Item(
                         )
                     )
                 }
+            }
+
+            for (antiGene in getAntiGenes(syringeStack)) {
+                val success = entityGenes.removeGene(antiGene)
+
+                if (!entity.level.isClientSide) {
+                    val translateKey = if (success) {
+                        "message.geneticsresequenced.syringe.anti_gene.success"
+                    } else {
+                        "message.geneticsresequenced.syringe.anti_gene.fail"
+                    }
+                    entity.sendSystemMessage(
+                        Component.translatable(
+                            translateKey,
+                            antiGene.nameComponent
+                        )
+                    )
+                }
+
             }
 
             syringeStack.getOrCreateTag().remove(ENTITY_UUID_NBT_KEY)
@@ -225,7 +243,10 @@ open class SyringeItem : Item(
         }
 
         private fun clearGenes(syringeStack: ItemStack) {
-            syringeStack.getOrCreateTag().remove(GENE_LIST_NBT_KEY)
+            syringeStack.getOrCreateTag().apply {
+                remove(GENE_LIST_NBT_KEY)
+                remove(ANTI_GENE_LIST_NBT_KEY)
+            }
         }
 
         // Other stuff

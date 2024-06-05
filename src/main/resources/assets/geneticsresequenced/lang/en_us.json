@@ -67,6 +67,8 @@
   "message.geneticsresequenced.syringe.contaminated": "You can't inject yourself with contaminated blood!",
   "message.geneticsresequenced.metal_syringe.contaminated": "You can't inject entities with contaminated blood!",
   "message.geneticsresequenced.support_slime_creative": "Support Slimes despawn with no owner! Give yourself the %1$s Gene to stop them from despawning!",
+  "message.geneticsresequenced.syringe.anti_gene.success": "You have removed the %s Gene!",
+  "message.geneticsresequenced.syringe.anti_gene.fail": "The %s Gene was not removed as you did not have it!",
 
   "block.geneticsresequenced.bioluminescence": "Bioluminescence Glow",
   "block.geneticsresequenced.cell_analyzer": "Cell Analyzer",
