@@ -112,6 +112,7 @@
   "tooltip.geneticsresequenced.advanced_incubator.set_high": "Set temperature to high",
   "tooltip.geneticsresequenced.advanced_incubator.set_low": "Set temperature to low",
   "tooltip.geneticsresequenced.black_death_recipe": "Requires a Syringe that has every negative Gene.",
+  "tooltip.geneticsresequenced.syringe.removing": "Removing: %s",
 
   "command.geneticsresequenced.geneList": "Gene List:",
   "command.geneticsresequenced.list.no_genes": "No Genes found!",

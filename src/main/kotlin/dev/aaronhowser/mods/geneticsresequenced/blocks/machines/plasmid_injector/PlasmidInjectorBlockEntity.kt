@@ -7,7 +7,6 @@ import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem.Companion.isSyringe
-import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.world.MenuProvider
@@ -43,7 +42,7 @@ class PlasmidInjectorBlockEntity(
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
                 INPUT_SLOT_INDEX ->
-                    stack.`is`(ModItems.PLASMID.get()) && PlasmidItem.isComplete(stack)
+                    (stack.`is`(ModItems.PLASMID.get()) && PlasmidItem.isComplete(stack)) || (stack.`is`(ModItems.ANTI_PLASMID.get()))
 
                 OUTPUT_SLOT_INDEX ->
                     SyringeItem.hasBlood(stack) && !SyringeItem.isContaminated(stack)
@@ -85,12 +84,24 @@ class PlasmidInjectorBlockEntity(
         val plasmidStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
         val syringeStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
-        if (!plasmidStack.`is`(ModItems.PLASMID.get()) || !syringeStack.isSyringe()) return false
+        if (!syringeStack.isSyringe()) return false
 
-        val plasmidGene = plasmidStack.getGene() ?: return false
-        if (!PlasmidItem.isComplete(plasmidStack)) return false
+        when (plasmidStack.item) {
+            ModItems.PLASMID.get() -> {
+                val plasmidGene = plasmidStack.getGene() ?: return false
+                if (!PlasmidItem.isComplete(plasmidStack)) return false
+                return SyringeItem.canAddGene(syringeStack, plasmidGene)
 
-        return SyringeItem.canAddGene(syringeStack, plasmidGene)
+            }
+
+            ModItems.ANTI_PLASMID.get() -> {
+                val antiPlasmidGene = plasmidStack.getGene() ?: return false
+                return SyringeItem.canAddAntiGene(syringeStack, antiPlasmidGene)
+            }
+
+            else -> return false
+        }
+
     }
 
     override fun craftItem() {
@@ -99,9 +110,19 @@ class PlasmidInjectorBlockEntity(
 
         val plasmidGene = plasmidStack.getGene() ?: return
 
-        itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
+        when (plasmidStack.item) {
+            ModItems.PLASMID.get() -> {
+                SyringeItem.addGene(syringeStack, plasmidGene)
+            }
 
-        SyringeItem.addGene(syringeStack, plasmidGene)
+            ModItems.ANTI_PLASMID.get() -> {
+                SyringeItem.addAntiGene(syringeStack, plasmidGene)
+            }
+
+            else -> throw IllegalStateException("Invalid plasmid item")
+        }
+
+        itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
     }
 
     companion object {

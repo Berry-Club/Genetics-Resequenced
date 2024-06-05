@@ -144,6 +144,46 @@ open class SyringeItem : Item(
             }
         }
 
+        // Anti-gene functions
+
+        private const val ANTI_GENE_LIST_NBT_KEY = "antiGenes"
+        fun getAntiGenes(syringeStack: ItemStack): List<Gene> {
+            if (!hasBlood(syringeStack)) return emptyList()
+            return syringeStack.getOrCreateTag()
+                .getList(ANTI_GENE_LIST_NBT_KEY, Tag.TAG_STRING.toInt())
+                .mapNotNull { Gene.fromId(it.asString) }
+        }
+
+        fun canAddAntiGene(syringeStack: ItemStack, gene: Gene): Boolean {
+            return hasBlood(syringeStack) && !getAntiGenes(syringeStack).contains(gene)
+        }
+
+        fun addAntiGene(syringeStack: ItemStack, vararg genes: Gene): Boolean {
+            if (!hasBlood(syringeStack)) return false
+
+            val antiGeneList = getAntiGenes(syringeStack).toMutableList()
+            val antiGenesCanAdd = genes.filter { canAddAntiGene(syringeStack, it) }
+            antiGeneList.addAll(antiGenesCanAdd)
+
+            val antiGenesCantAdd = genes.filterNot { canAddAntiGene(syringeStack, it) }
+            if (antiGenesCantAdd.isNotEmpty()) {
+                GeneticsResequenced.LOGGER.debug(
+                    "Could not add these anti-genes to the syringe: ${antiGenesCantAdd.joinToString { "," }}"
+                )
+            }
+
+            val stringTags: List<StringTag> = antiGeneList.map { StringTag.valueOf(it.id.toString()) }
+            val listTag = syringeStack
+                .getOrCreateTag()
+                .getList(ANTI_GENE_LIST_NBT_KEY, Tag.TAG_STRING.toInt())
+
+            listTag.clear()
+            listTag.addAll(stringTags)
+
+            syringeStack.getOrCreateTag().put(ANTI_GENE_LIST_NBT_KEY, listTag)
+            return true
+        }
+
         // Gene functions
 
         private const val GENE_LIST_NBT_KEY = "genes"
@@ -293,6 +333,15 @@ open class SyringeItem : Item(
 
         for (gene in getGenes(pStack)) {
             pTooltipComponents.add(gene.nameComponent)
+        }
+
+        for (antiGene in getAntiGenes(pStack)) {
+            pTooltipComponents.add(
+                Component.translatable(
+                    "tooltip.geneticsresequenced.syringe.removing",
+                    antiGene.nameComponent
+                )
+            )
         }
 
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced)
