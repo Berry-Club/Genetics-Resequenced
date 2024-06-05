@@ -84,8 +84,9 @@ class ScraperItem : Item(
 
         if (pInteractionTarget.type.`is`(ModTags.SCRAPER_ENTITY_BLACKLIST)) {
             if (pPlayer.level.isClientSide) return InteractionResult.FAIL
-            val component = Component.translatable("message.geneticsresequenced.scraper.cant_scrape")
-            pPlayer.sendSystemMessage(component)
+            pPlayer.sendSystemMessage(
+                Component.translatable("message.geneticsresequenced.scraper.cant_scrape")
+            )
             return InteractionResult.FAIL
         }
 
