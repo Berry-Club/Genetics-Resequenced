@@ -69,6 +69,8 @@
   "message.geneticsresequenced.support_slime_creative": "Support Slimes despawn with no owner! Give yourself the %1$s Gene to stop them from despawning!",
   "message.geneticsresequenced.syringe.anti_gene.success": "You have removed the %s Gene!",
   "message.geneticsresequenced.syringe.anti_gene.fail": "The %s Gene was not removed as you did not have it!",
+  "message.geneticsresequenced.gene_missing_requirements": "You feel the %s Gene fade away...\nIt seems you §cdo not meet the requirements§r for it.",
+  "message.geneticsresequenced.gene_missing_requirements.list": "Required Genes:",
 
   "block.geneticsresequenced.bioluminescence": "Bioluminescence Glow",
   "block.geneticsresequenced.cell_analyzer": "Cell Analyzer",

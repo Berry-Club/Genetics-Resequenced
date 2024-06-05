@@ -12,6 +12,9 @@ import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
+import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
+import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.HoverEvent
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.entity.LivingEntity
@@ -120,7 +123,43 @@ object OtherPlayerEvents {
             TickGenes.handlePotionGeneRemoved(entity, changedGene)
         }
 
+        ModScheduler.scheduleTaskInTicks(1) {
+            checkForMissingRequirements(entity)
+        }
     }
+
+    private fun checkForMissingRequirements(entity: LivingEntity) {
+        val entityGenes = entity.getGenes() ?: return
+
+        val newGenes = entityGenes.getGeneList()
+
+        val genesWithMissingRequirements = newGenes.filter { gene ->
+            !gene.getRequiredGenes().all { it in newGenes }
+        }
+
+        genesWithMissingRequirements.forEach { gene ->
+            entityGenes.removeGene(gene)
+            genesChanged(entity, gene, false)
+
+            val requiredGenesComponent =
+                Component.translatable("message.geneticsresequenced.gene_missing_requirements.list")
+
+            for (requiredGene in gene.getRequiredGenes()) {
+                val hasGene = newGenes.contains(requiredGene)
+                if (hasGene) continue
+
+                requiredGenesComponent.append(Component.literal("\n - ").append(requiredGene.nameComponent))
+            }
+
+            entity.sendSystemMessage(
+                Component.translatable(
+                    "message.geneticsresequenced.gene_missing_requirements",
+                    gene.nameComponent
+                ).withStyle { it.withHoverEvent(HoverEvent(HoverEvent.Action.SHOW_TEXT, requiredGenesComponent)) }
+            )
+        }
+    }
+
 
     @SubscribeEvent
     fun onPickUpItem(event: ItemPickupEvent) {
