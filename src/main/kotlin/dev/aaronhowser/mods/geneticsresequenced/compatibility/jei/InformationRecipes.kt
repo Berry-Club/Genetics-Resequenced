@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem.Companion.getPlasmid
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.registration.IRecipeRegistration
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.item.ItemStack
@@ -97,7 +98,11 @@ object InformationRecipes {
             if (gene.hidden) continue
             if (!gene.isActive) continue
 
-            val components = mutableListOf(gene.nameComponent, Component.literal("\n"))
+            val components = mutableListOf(
+                gene.nameComponent.copy().withStyle {
+                    it.withColor(ChatFormatting.RESET).withUnderlined(true)
+                }
+            )
 
             val geneRl = gene.id.toString()
             val translatable = Component.translatable("info.geneticsresequenced.gene_description.$geneRl")
