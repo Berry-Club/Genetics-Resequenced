@@ -279,7 +279,7 @@ object DefaultGenes {
         .allowMobs()
         .setNegative()
         .build()
-    val miningWeakness: Gene = registerGene("mining_weakness")
+    val miningFatigue: Gene = registerGene("mining_fatigue")
         .setDnaPointsRequired(1)
         .setPotion(MobEffects.DIG_SLOWDOWN, 1)
         .allowMobs()

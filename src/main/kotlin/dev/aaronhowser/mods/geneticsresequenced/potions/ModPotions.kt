@@ -232,7 +232,7 @@ object ModPotions {
             VirusRecipe(DefaultGenes.noHunger, DefaultGenes.hunger),
             VirusRecipe(DefaultGenes.fireProof, DefaultGenes.flambe),
             VirusRecipe(DefaultGenes.luck, DefaultGenes.cursed),
-            VirusRecipe(DefaultGenes.haste, DefaultGenes.miningWeakness),
+            VirusRecipe(DefaultGenes.haste, DefaultGenes.miningFatigue),
             VirusRecipe(DefaultGenes.scareCreepers, DefaultGenes.greenDeath),
             VirusRecipe(DefaultGenes.scareSkeletons, DefaultGenes.unUndeath),
             VirusRecipe(DefaultGenes.scareZombies, DefaultGenes.unUndeath),
