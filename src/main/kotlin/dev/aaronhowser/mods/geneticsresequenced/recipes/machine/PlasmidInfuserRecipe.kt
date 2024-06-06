@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.recipes.machine.bad
+package dev.aaronhowser.mods.geneticsresequenced.recipes.machine
 
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene

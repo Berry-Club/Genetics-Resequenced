@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
-import dev.aaronhowser.mods.geneticsresequenced.recipes.machine.bad.PlasmidInfuserRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipes.machine.PlasmidInfuserRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import mezz.jei.api.constants.VanillaTypes
