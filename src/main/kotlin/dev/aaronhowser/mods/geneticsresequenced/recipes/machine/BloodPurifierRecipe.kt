@@ -48,8 +48,10 @@ class BloodPurifierRecipe(
         return syringe
     }
 
-    private val outputItem = getInputItem().copy().apply {
-        SyringeItem.setContaminated(this@apply, false)
+    private fun getOutputItem(): ItemStack {
+        val output = getInputItem()
+        SyringeItem.setContaminated(output, false)
+        return output
     }
 
     companion object {
@@ -91,11 +93,11 @@ class BloodPurifierRecipe(
         return !pLevel.isClientSide
     }
 
-    override fun assemble(pContainer: Container): ItemStack = outputItem.copy()
+    override fun assemble(pContainer: Container): ItemStack = getOutputItem()
 
     override fun canCraftInDimensions(pWidth: Int, pHeight: Int): Boolean = true
 
-    override fun getResultItem(): ItemStack = outputItem.copy()
+    override fun getResultItem(): ItemStack = getOutputItem()
 
     override fun getIngredients(): NonNullList<Ingredient> {
         val i = Ingredient.of(getInputItem())
