@@ -19,6 +19,11 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 
+/**
+ * Note that this "recipes" are only used for JEI compatibility. What the machines actually do is hardcoded.
+ *
+ * See [dev.aaronhowser.mods.geneticsresequenced.blocks.machines.blood_purifier.BloodPurifierBlockEntity.craftItem]
+ */
 class BloodPurifierRecipe(
     private val usingMetalSyringe: Boolean
 ) : Recipe<Container> {

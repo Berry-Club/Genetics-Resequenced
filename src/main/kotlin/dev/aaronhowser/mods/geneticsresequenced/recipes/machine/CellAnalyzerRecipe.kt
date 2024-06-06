@@ -17,6 +17,11 @@ import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.minecraftforge.registries.ForgeRegistries
 
+/**
+ * Note that this "recipes" are only used for JEI compatibility. What the machines actually do is hardcoded.
+ *
+ * See [dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer.CellAnalyzerBlockEntity.craftItem]
+ */
 class CellAnalyzerRecipe(
     private val entityResourceLocation: ResourceLocation
 ) : Recipe<Container> {

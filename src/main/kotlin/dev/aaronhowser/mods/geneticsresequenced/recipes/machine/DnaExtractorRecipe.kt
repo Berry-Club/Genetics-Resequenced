@@ -22,6 +22,11 @@ import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.minecraftforge.registries.ForgeRegistries
 
+/**
+ * Note that this "recipes" are only used for JEI compatibility. What the machines actually do is hardcoded.
+ *
+ * See [dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor.DnaExtractorBlockEntity.craftItem]
+ */
 class DnaExtractorRecipe(
     private val inputItem: ItemStack,
     private val outputItem: ItemStack

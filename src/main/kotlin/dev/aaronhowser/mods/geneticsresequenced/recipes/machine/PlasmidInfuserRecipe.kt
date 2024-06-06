@@ -19,6 +19,11 @@ import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import kotlin.math.ceil
 
+/**
+ * Note that this "recipes" are only used for JEI compatibility. What the machines actually do is hardcoded.
+ *
+ * See [dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserBlockEntity.craftItem]
+ */
 class PlasmidInfuserRecipe(
     val gene: Gene,
     val isBasic: Boolean
