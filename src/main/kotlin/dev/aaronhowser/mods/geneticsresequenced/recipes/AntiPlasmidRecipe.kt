@@ -11,6 +11,7 @@ import net.minecraft.world.inventory.CraftingContainer
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.CustomRecipe
 import net.minecraft.world.item.crafting.RecipeSerializer
+import net.minecraft.world.item.crafting.SimpleRecipeSerializer
 import net.minecraft.world.level.Level
 
 class AntiPlasmidRecipe : CustomRecipe(
@@ -72,6 +73,6 @@ class AntiPlasmidRecipe : CustomRecipe(
         return width * height >= 2
     }
 
-    override fun getSerializer(): RecipeSerializer<*> = ModRecipes.ANTI_PLASMID_RECIPE_SERIALIZER.get()
+    override fun getSerializer(): RecipeSerializer<*> = SimpleRecipeSerializer { AntiPlasmidRecipe() }
 
 }
