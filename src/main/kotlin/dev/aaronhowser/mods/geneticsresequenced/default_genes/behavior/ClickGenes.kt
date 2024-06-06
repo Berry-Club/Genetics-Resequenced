@@ -41,7 +41,7 @@ object ClickGenes {
         ServerConfig.woolyCooldown.get()
     )
 
-    fun wooly(event: PlayerInteractEvent.EntityInteract) {
+    fun handleWooly(event: PlayerInteractEvent.EntityInteract) {
         if (!DefaultGenes.wooly.isActive) return
 
         val target = event.target as? LivingEntity ?: return
@@ -104,7 +104,7 @@ object ClickGenes {
         ServerConfig.meatyCooldown.get()
     )
 
-    fun meaty(event: PlayerInteractEvent.EntityInteract) {
+    fun handleMeaty(event: PlayerInteractEvent.EntityInteract) {
         if (!DefaultGenes.meaty.isActive) return
 
         val target = event.target as? LivingEntity ?: return
@@ -154,7 +154,7 @@ object ClickGenes {
         ServerConfig.milkyCooldown.get()
     )
 
-    fun milky(event: PlayerInteractEvent.EntityInteract) {
+    fun handleMilky(event: PlayerInteractEvent.EntityInteract) {
         if (!DefaultGenes.milky.isActive) return
 
         val target = event.target as? LivingEntity ?: return

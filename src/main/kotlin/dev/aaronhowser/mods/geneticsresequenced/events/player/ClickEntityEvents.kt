@@ -13,9 +13,9 @@ object ClickEntityEvents {
 
     @SubscribeEvent
     fun onInteractEntity(event: PlayerInteractEvent.EntityInteract) {
-        ClickGenes.wooly(event)
-        ClickGenes.milky(event)
-        ClickGenes.meaty(event)
+        ClickGenes.handleWooly(event)
+        ClickGenes.handleMilky(event)
+        ClickGenes.handleMeaty(event)
     }
 
 }
