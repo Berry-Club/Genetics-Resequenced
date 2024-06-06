@@ -4,9 +4,11 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
+import dev.aaronhowser.mods.geneticsresequenced.recipes.machine.BloodPurifierRecipe
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.world.MenuProvider
+import net.minecraft.world.SimpleContainer
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
@@ -58,19 +60,33 @@ class BloodPurifierBlockEntity(
     override fun craftItem() {
         if (!hasRecipe()) return
 
-        val inputItem = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
-        SyringeItem.setContaminated(inputItem, false)
+        val realLevel = level ?: return
 
-        itemHandler.setStackInSlot(OUTPUT_SLOT_INDEX, inputItem.copy())
+        val inventory = SimpleContainer(itemHandler.slots)
+
+        val recipe = realLevel.recipeManager.getRecipeFor(
+            BloodPurifierRecipe.recipeType,
+            inventory,
+            realLevel
+        )
+
         itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
+        itemHandler.insertItem(OUTPUT_SLOT_INDEX, recipe.get().resultItem, false)
+
     }
 
     override fun hasRecipe(): Boolean {
-        val outputStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
-        if (!outputStack.isEmpty) return false
+        val realLevel = level ?: return false
 
-        val inputItem = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
-        return SyringeItem.isContaminated(inputItem)
+        val inventory = SimpleContainer(itemHandler.slots)
+
+        val recipe = realLevel.recipeManager.getRecipeFor(
+            BloodPurifierRecipe.recipeType,
+            inventory,
+            realLevel
+        )
+
+        return recipe.isPresent
     }
 
     companion object {
