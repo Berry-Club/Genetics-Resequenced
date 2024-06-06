@@ -72,7 +72,6 @@ class BloodPurifierBlockEntity(
 
         itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
         itemHandler.insertItem(OUTPUT_SLOT_INDEX, recipe.get().resultItem, false)
-
     }
 
     override fun hasRecipe(): Boolean {
