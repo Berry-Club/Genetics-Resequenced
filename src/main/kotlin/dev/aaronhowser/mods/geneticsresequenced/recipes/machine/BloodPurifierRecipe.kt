@@ -5,10 +5,13 @@ import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.Container
+import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.animal.Cow
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.Recipe
@@ -16,21 +19,45 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 
-class BloodPurifierRecipe : Recipe<Container> {
+class BloodPurifierRecipe(
+    private val usingMetalSyringe: Boolean
+) : Recipe<Container> {
 
-    private val inputItem = ItemStack(ModItems.SYRINGE.get()).apply {
+    private fun getInputItem(): ItemStack {
+
+        val localPlayer = ClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
+
+        if (usingMetalSyringe) {
+            val metalSyringe = ModItems.METAL_SYRINGE.itemStack
+
+            SyringeItem.setEntity(
+                metalSyringe,
+                Cow(EntityType.COW, localPlayer.level)
+            )
+
+            return metalSyringe
+        }
+
+        val syringe = ModItems.SYRINGE.itemStack
+
         SyringeItem.setEntity(
-            this,
-            ClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
+            syringe,
+            localPlayer
         )
+
+        return syringe
     }
-    private val outputItem = inputItem.copy().apply {
+
+    private val outputItem = getInputItem().copy().apply {
         SyringeItem.setContaminated(this@apply, false)
     }
 
     companion object {
         fun getAllRecipes(): List<BloodPurifierRecipe> {
-            return listOf(BloodPurifierRecipe())
+            return listOf(
+                BloodPurifierRecipe(false),
+                BloodPurifierRecipe(true)
+            )
         }
 
         const val RECIPE_TYPE_NAME = "blood_purifier"
@@ -71,7 +98,7 @@ class BloodPurifierRecipe : Recipe<Container> {
     override fun getResultItem(): ItemStack = outputItem.copy()
 
     override fun getIngredients(): NonNullList<Ingredient> {
-        val i = Ingredient.of(inputItem)
+        val i = Ingredient.of(getInputItem())
         return NonNullList.of(i, i)
     }
 
