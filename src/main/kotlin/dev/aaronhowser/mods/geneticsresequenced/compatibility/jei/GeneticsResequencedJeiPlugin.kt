@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.*
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.*
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.*
-import dev.aaronhowser.mods.geneticsresequenced.recipes.machine.*
+import dev.aaronhowser.mods.geneticsresequenced.recipes.machine.bad.*
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
