@@ -72,6 +72,6 @@ class AntiPlasmidRecipe : CustomRecipe(
         return width * height >= 2
     }
 
-    override fun getSerializer(): RecipeSerializer<*> = ModRecipeSerializers.ANTI_PLASMID_RECIPE_SERIALIZER.get()
+    override fun getSerializer(): RecipeSerializer<*> = ModRecipes.ANTI_PLASMID_RECIPE_SERIALIZER.get()
 
 }
