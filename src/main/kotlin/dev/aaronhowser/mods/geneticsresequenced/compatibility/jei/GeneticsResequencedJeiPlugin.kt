@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.*
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator.*
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.*
-import dev.aaronhowser.mods.geneticsresequenced.recipes.machine.BloodPurifierRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipes.machine.bad.*
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.IModPlugin
@@ -115,7 +114,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
         registration.addRecipes(DnaDecryptorRecipeCategory.recipeType, DnaDecryptorRecipe.getAllRecipes())
         registration.addRecipes(DnaExtractorRecipeCategory.recipeType, DnaExtractorRecipe.getAllRecipes())
         registration.addRecipes(PlasmidInfuserRecipeCategory.recipeType, PlasmidInfuserRecipe.getAllRecipes())
-//        registration.addRecipes(BloodPurifierRecipeCategory.recipeType, BloodPurifierRecipe.getAllRecipes())
+        registration.addRecipes(BloodPurifierRecipeCategory.recipeType, BloodPurifierRecipe.getAllRecipes())
 
         registration.addRecipes(GmoRecipeCategory.recipeType, GmoRecipePage.getAllRecipes())
         registration.addRecipes(SetPotionEntityRecipeCategory.recipeType, SetPotionEntityRecipePage.getAllRecipes())
