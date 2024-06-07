@@ -5,7 +5,10 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
@@ -15,11 +18,13 @@ import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
+import net.minecraft.world.item.alchemy.PotionUtils
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry
 import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.items.ItemStackHandler
+import kotlin.random.Random
 
 class AdvancedIncubatorBlockEntity(
     pPos: BlockPos,
@@ -188,7 +193,25 @@ class AdvancedIncubatorBlockEntity(
 
         for (slotIndex in bottleSlots) {
             val bottleStack = itemHandler.getStackInSlot(slotIndex)
-            val output = BrewingRecipeRegistry.getOutput(bottleStack, topStack)
+
+            var output = BrewingRecipeRegistry.getOutput(bottleStack, topStack)
+
+            if (output.item == ModItems.GMO_CELL.get() && !isHighTemperature) {
+                val gmoRecipes = ModPotions.allRecipes.filterIsInstance<GmoRecipe>()
+
+                val thisRecipe = gmoRecipes.find {
+                    it.ingredientItem == topStack.item
+                            && it.entityType == EntityDnaItem.getEntityType(bottleStack)
+                            && it.requiredPotion == PotionUtils.getPotion(bottleStack)
+                } ?: continue
+
+                val chance = thisRecipe.geneChance
+                val nextFloat = Random.nextFloat()
+
+                if (nextFloat <= chance) {
+                    output = thisRecipe.getSuccess()
+                }
+            }
 
             if (!output.isEmpty) {
                 itemHandler.setStackInSlot(slotIndex, output)
