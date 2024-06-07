@@ -4,6 +4,8 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
+import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
@@ -24,6 +26,12 @@ class GmoCell : Item(Properties().tab(ModItems.MOD_TAB)) {
         ) {
             itemStack.setGene(gene)
             itemStack.setMob(entityType)
+        }
+
+        fun getAllGmoCells(): List<ItemStack> {
+            val gmoRecipes = ModPotions.allRecipes.filterIsInstance<GmoRecipe>()
+
+            return gmoRecipes.map { it.getSuccess() }
         }
 
     }

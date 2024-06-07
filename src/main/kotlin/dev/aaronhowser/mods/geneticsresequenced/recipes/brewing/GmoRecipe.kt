@@ -24,6 +24,18 @@ class GmoRecipe(
 
     val requiredPotion = if (isMutation) ModPotions.MUTATION else ModPotions.CELL_GROWTH
 
+    fun getSuccess(): ItemStack {
+        val output = ModItems.GMO_CELL.itemStack
+
+        GmoCell.setDetails(
+            output,
+            entityType,
+            idealGene
+        )
+
+        return output
+    }
+
     override fun isInput(pBottomSlot: ItemStack): Boolean {
         if (pBottomSlot.item != Items.POTION) return false
 

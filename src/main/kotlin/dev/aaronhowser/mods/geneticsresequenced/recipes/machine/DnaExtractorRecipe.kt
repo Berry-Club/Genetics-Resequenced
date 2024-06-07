@@ -1,12 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipes.machine
 
 import com.google.gson.JsonObject
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
-import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.NonNullList
@@ -43,10 +43,10 @@ class DnaExtractorRecipe(
 
     companion object {
         fun getAllRecipes(): List<DnaExtractorRecipe> {
-            return getRegularCellRecipes()
+            return getRegularCellRecipes() + getGmoRecipes()
         }
 
-        private fun getRegularCellRecipes(): MutableList<DnaExtractorRecipe> {
+        private fun getRegularCellRecipes(): List<DnaExtractorRecipe> {
             val entityRls = ForgeRegistries.ENTITY_TYPES.values
                 .filter { it.category != MobCategory.MISC }
                 .mapNotNull { ForgeRegistries.ENTITY_TYPES.getKey(it) }
@@ -60,6 +60,21 @@ class DnaExtractorRecipe(
                 if (inputItem.isEmpty || outputItem.isEmpty) continue
 
                 recipes.add(DnaExtractorRecipe(inputItem, outputItem))
+            }
+
+            return recipes
+        }
+
+        private fun getGmoRecipes(): List<DnaExtractorRecipe> {
+            val cells = GmoCell.getAllGmoCells()
+
+            val recipes = mutableListOf<DnaExtractorRecipe>()
+            for (cell in cells) {
+                val entityType = EntityDnaItem.getEntityType(cell) ?: continue
+                val gene = cell.getGene() ?: continue
+                val outputItem = ModItems.DNA_HELIX.itemStack.setMob(entityType)?.setGene(gene) ?: continue
+
+                recipes.add(DnaExtractorRecipe(cell, outputItem))
             }
 
             return recipes
