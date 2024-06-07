@@ -13,7 +13,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
-class GmoCell : Item(Properties().tab(ModItems.MOD_TAB)) {
+class GmoItem : Item(Properties().tab(ModItems.MOD_TAB)) {
 
     companion object {
 
@@ -23,7 +23,23 @@ class GmoCell : Item(Properties().tab(ModItems.MOD_TAB)) {
             gene: Gene,
         ) {
             itemStack.setGene(gene)
+            setFailureGene(itemStack, gene)
             itemStack.setMob(entityType)
+        }
+
+        private const val FAILURE_GENE_NBT = "FailureGene"
+
+        private fun setFailureGene(itemStack: ItemStack, failureGene: Gene): ItemStack {
+            val stack = itemStack.copy()
+            val tag = stack.orCreateTag
+            tag.putString(FAILURE_GENE_NBT, failureGene.id.toString())
+            return stack
+        }
+
+        fun getFailureGene(itemStack: ItemStack): Gene? {
+            val string = itemStack.tag?.getString(FAILURE_GENE_NBT)
+            if (string.isNullOrBlank()) return null
+            return Gene.fromId(string)
         }
 
     }

@@ -9,7 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.get
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
-import dev.aaronhowser.mods.geneticsresequenced.items.GmoCell
+import dev.aaronhowser.mods.geneticsresequenced.items.GmoItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
@@ -119,7 +119,7 @@ class DnaDecryptorRecipe : Recipe<Container> {
             for (gmoRecipe in gmoRecipes) {
 
                 val inputItem = ModItems.GMO_CELL.itemStack
-                GmoCell.setDetails(
+                GmoItem.setDetails(
                     inputItem,
                     gmoRecipe.entityType,
                     gmoRecipe.idealGene

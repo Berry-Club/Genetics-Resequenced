@@ -18,7 +18,7 @@ import net.minecraft.world.level.Level
 class DnaHelixItem : EntityDnaItem() {
 
     companion object {
-        private const val GENE_ID_NBT = "GeneId"
+        const val GENE_ID_NBT = "GeneId"
 
         fun ItemStack.hasGene(): Boolean = this.tag?.contains(GENE_ID_NBT) ?: false
 

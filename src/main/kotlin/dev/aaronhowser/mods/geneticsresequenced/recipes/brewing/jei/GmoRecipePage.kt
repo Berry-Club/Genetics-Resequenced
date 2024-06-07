@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei
 
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
-import dev.aaronhowser.mods.geneticsresequenced.items.GmoCell
+import dev.aaronhowser.mods.geneticsresequenced.items.GmoItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
@@ -32,7 +32,7 @@ class GmoRecipePage(
     private val successOutput: ItemStack
         get() {
             val output = ModItems.GMO_CELL.itemStack
-            GmoCell.setDetails(
+            GmoItem.setDetails(
                 output,
                 entityType,
                 recipe.idealGene
