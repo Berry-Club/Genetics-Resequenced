@@ -34,6 +34,8 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             RecipeType(DnaDecryptorRecipeCategory.UID, DnaDecryptorRecipe::class.java)
         val PLASMID_INFUSER_TYPE: RecipeType<PlasmidInfuserRecipe> =
             RecipeType(PlasmidInfuserRecipeCategory.UID, PlasmidInfuserRecipe::class.java)
+        val PLASMID_INJECTOR_TYPE: RecipeType<PlasmidInjectorRecipe> =
+            RecipeType(PlasmidInjectorRecipeCategory.UID, PlasmidInjectorRecipe::class.java)
         val BLOOD_PURIFIER_TYPE: RecipeType<BloodPurifierRecipe> =
             RecipeType(BloodPurifierRecipeCategory.UID, BloodPurifierRecipe::class.java)
 
@@ -60,6 +62,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             DnaDecryptorRecipeCategory(guiHelper),
             DnaExtractorRecipeCategory(guiHelper),
             PlasmidInfuserRecipeCategory(guiHelper),
+            PlasmidInjectorRecipeCategory(guiHelper),
             BloodPurifierRecipeCategory(guiHelper),
             GmoRecipeCategory(guiHelper),
             SetPotionEntityRecipeCategory(guiHelper),
@@ -76,6 +79,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
             ModBlocks.DNA_DECRYPTOR.get() to DnaDecryptorRecipeCategory.recipeType,
             ModBlocks.DNA_EXTRACTOR.get() to DnaExtractorRecipeCategory.recipeType,
             ModBlocks.PLASMID_INFUSER.get() to PlasmidInfuserRecipeCategory.recipeType,
+            ModBlocks.PLASMID_INJECTOR.get() to PlasmidInjectorRecipeCategory.recipeType,
             ModBlocks.BLOOD_PURIFIER.get() to BloodPurifierRecipeCategory.recipeType,
         )
 
@@ -114,6 +118,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
         registration.addRecipes(DnaDecryptorRecipeCategory.recipeType, DnaDecryptorRecipe.getAllRecipes())
         registration.addRecipes(DnaExtractorRecipeCategory.recipeType, DnaExtractorRecipe.getAllRecipes())
         registration.addRecipes(PlasmidInfuserRecipeCategory.recipeType, PlasmidInfuserRecipe.getAllRecipes())
+        registration.addRecipes(PlasmidInjectorRecipeCategory.recipeType, PlasmidInjectorRecipe.getAllRecipes())
         registration.addRecipes(BloodPurifierRecipeCategory.recipeType, BloodPurifierRecipe.getAllRecipes())
 
         registration.addRecipes(GmoRecipeCategory.recipeType, GmoRecipePage.getAllRecipes())

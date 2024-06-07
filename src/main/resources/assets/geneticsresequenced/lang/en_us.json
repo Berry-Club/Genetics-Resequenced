@@ -140,6 +140,8 @@
   "recipe.geneticsresequenced.plasmid_infuser.points_required": "%1$s requires %2$d points of DNA.",
   "recipe.geneticsresequenced.plasmid_infuser.basic": "Basic Genes = 1 point",
   "recipe.geneticsresequenced.plasmid_infuser.matching": "Matching Genes = 2 points",
+  "recipe.geneticsresequenced.plasmid_injector.genes": "Syringes can have as many genes as you want!",
+  "recipe.geneticsresequenced.plasmid_injector.anti_genes": "Syringes can have as many Genes (or Anti-Genes) as you want!",
   "recipe.geneticsresequenced.gmo": "GMO Cell Incubating",
   "recipe.geneticsresequenced.cell_growth": "Cell Growth",
   "recipe.geneticsresequenced.substrate": "Substrate Cell Duplication",
