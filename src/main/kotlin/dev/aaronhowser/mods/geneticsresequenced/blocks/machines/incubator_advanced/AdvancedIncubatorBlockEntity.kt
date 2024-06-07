@@ -180,6 +180,17 @@ class AdvancedIncubatorBlockEntity(
         }
     }
 
+    /**
+     * Higher is better
+     */
+    private fun getMutationModifier(): Float {
+        val chorusCount = itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).count
+        return if (chorusCount > 0) {
+            0f
+        } else {
+            - amountOfOverclockers * MUTATION_CHANCE_PER_OVERCLOCKER
+        }
+    }
 
     override fun craftItem() {
 
@@ -205,11 +216,17 @@ class AdvancedIncubatorBlockEntity(
                             && it.requiredPotion == PotionUtils.getPotion(bottleStack)
                 } ?: continue
 
-                val chance = thisRecipe.geneChance
+                val chanceModifier = getMutationModifier()
+                val chance = thisRecipe.geneChance + chanceModifier
                 val nextFloat = Random.nextFloat()
 
                 if (nextFloat <= chance) {
                     output = thisRecipe.getSuccess()
+                }
+
+                if (chanceModifier != 0f) {
+                    val chorusStack = itemHandler.getStackInSlot(CHORUS_SLOT_INDEX)
+                    chorusStack.shrink(1)
                 }
             }
 
@@ -264,6 +281,8 @@ class AdvancedIncubatorBlockEntity(
 
         val lowTempTickFactor: Int
             get() = ServerConfig.incubatorLowTempTickFactor.get()
+
+        const val MUTATION_CHANCE_PER_OVERCLOCKER = -0.1f
     }
 
 }
