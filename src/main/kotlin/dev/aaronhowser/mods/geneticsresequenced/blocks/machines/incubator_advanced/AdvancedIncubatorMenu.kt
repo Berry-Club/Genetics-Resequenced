@@ -99,6 +99,7 @@ class AdvancedIncubatorMenu(
 
     private fun toggleTemperature() {
         isHighTemperature = !isHighTemperature
+        (blockEntity as AdvancedIncubatorBlockEntity).resetBrewTime()
     }
 
     companion object {

@@ -149,6 +149,11 @@ class AdvancedIncubatorBlockEntity(
     override val amountOfOverclockers: Int
         get() = itemHandler.getStackInSlot(OVERCLOCKER_SLOT_INDEX).count
 
+    fun resetBrewTime() {
+        ticksRemaining = IncubatorBlockEntity.ticksPerBrew
+        subticks = 0
+    }
+
     private var subticks = 0
     override fun tick() {
 
@@ -188,12 +193,11 @@ class AdvancedIncubatorBlockEntity(
         return if (chorusCount > 0) {
             0f
         } else {
-            - amountOfOverclockers * MUTATION_CHANCE_PER_OVERCLOCKER
+            -amountOfOverclockers * MUTATION_CHANCE_PER_OVERCLOCKER
         }
     }
 
     override fun craftItem() {
-
         val topStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
 
         val bottleSlots = listOf(
