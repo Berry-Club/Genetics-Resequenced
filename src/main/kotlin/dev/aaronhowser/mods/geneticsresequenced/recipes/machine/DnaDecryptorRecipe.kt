@@ -4,17 +4,12 @@ import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
-import dev.aaronhowser.mods.geneticsresequenced.items.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
-import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
@@ -84,10 +79,6 @@ class DnaDecryptorRecipe : Recipe<Container> {
     companion object {
 
         fun getAllRecipes(): List<DnaDecryptorRecipe> {
-            return getRegularRecipes() + getGmoRecipes()
-        }
-
-        private fun getRegularRecipes(): MutableList<DnaDecryptorRecipe> {
             val allEntityTypes = ForgeRegistries.ENTITY_TYPES.values.filter { it.category != MobCategory.MISC }
             val recipes = mutableListOf<DnaDecryptorRecipe>()
 
@@ -107,41 +98,6 @@ class DnaDecryptorRecipe : Recipe<Container> {
                     recipes.add(DnaDecryptorRecipe(entityRl, gene, chance))
                 }
 
-            }
-
-            return recipes
-        }
-
-        private fun getGmoRecipes(): MutableList<DnaDecryptorRecipe> {
-            val gmoRecipes = ModPotions.allRecipes.filterIsInstance<GmoRecipe>()
-
-            val recipes = mutableListOf<DnaDecryptorRecipe>()
-            for (gmoRecipe in gmoRecipes) {
-
-                val inputItem = ModItems.GMO_CELL.itemStack
-                GmoCell.setDetails(
-                    inputItem,
-                    gmoRecipe.entityType,
-                    gmoRecipe.idealGene
-                )
-
-                val chanceGood = (gmoRecipe.geneChance * 100).toInt()
-                val outputItemGood = ModItems.DNA_HELIX.itemStack.setGene(gmoRecipe.idealGene)
-                recipes.add(DnaDecryptorRecipe(inputItem, outputItemGood, chanceGood))
-
-
-                val chanceBad = 100 - chanceGood
-                if (gmoRecipe.idealGene.isMutation) {
-                    val mutatesFrom = gmoRecipe.idealGene.mutatesFrom
-                    for (gene in mutatesFrom) {
-                        val outputItemBad = ModItems.DNA_HELIX.itemStack.setGene(gene)
-                        recipes.add(DnaDecryptorRecipe(inputItem, outputItemBad, chanceBad))
-                    }
-                } else {
-                    val outputItemBad =
-                        ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.basic)
-                    recipes.add(DnaDecryptorRecipe(inputItem, outputItemBad, chanceBad))
-                }
             }
 
             return recipes
