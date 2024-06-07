@@ -2,13 +2,10 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
-import dev.aaronhowser.mods.geneticsresequenced.items.GmoItem
-import dev.aaronhowser.mods.geneticsresequenced.items.GmoItem.Companion.getGeneChance
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.world.MenuProvider
@@ -95,16 +92,7 @@ class DnaExtractorBlockEntity(
     private fun getOutputFromInput(input: ItemStack): ItemStack? {
         val mobType = EntityDnaItem.getEntityType(input) ?: return null
 
-        if (input.item == ModItems.CELL.get()) {
-            return ItemStack(ModItems.DNA_HELIX.get()).setMob(mobType)
-        } else {
-            val gmoItem = ItemStack(ModItems.GMO_DNA_HELIX.get())
-            val gene = input.getGene() ?: return null
-            val chance = input.getGeneChance()
-
-            GmoItem.setDetails(gmoItem, mobType, gene, chance)
-            return gmoItem
-        }
+        return ModItems.DNA_HELIX.itemStack.setMob(mobType)
     }
 
     private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {

@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei
 
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
-import dev.aaronhowser.mods.geneticsresequenced.items.GmoItem
+import dev.aaronhowser.mods.geneticsresequenced.items.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
@@ -28,14 +28,14 @@ class GmoRecipePage(
 
     private val entityType: EntityType<*> = recipe.entityType
     private val ingredientInput: ItemStack = recipe.ingredientItem.itemStack
-    private val cellOutput: ItemStack
+
+    private val successOutput: ItemStack
         get() {
             val output = ModItems.GMO_CELL.itemStack
-            GmoItem.setDetails(
+            GmoCell.setDetails(
                 output,
                 entityType,
-                recipe.outputGene,
-                recipe.geneChance
+                recipe.idealGene
             )
             return output
         }
@@ -91,11 +91,11 @@ class GmoRecipePage(
         return !pLevel.isClientSide
     }
 
-    override fun assemble(pContainer: Container): ItemStack = cellOutput.copy()
+    override fun assemble(pContainer: Container): ItemStack = successOutput.copy()
 
     override fun canCraftInDimensions(pWidth: Int, pHeight: Int): Boolean = true
 
-    override fun getResultItem(): ItemStack = cellOutput.copy()
+    override fun getResultItem(): ItemStack = successOutput.copy()
 
     override fun getIngredients(): NonNullList<Ingredient> {
 

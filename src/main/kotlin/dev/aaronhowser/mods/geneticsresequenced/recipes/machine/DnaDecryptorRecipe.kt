@@ -9,7 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.get
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
-import dev.aaronhowser.mods.geneticsresequenced.items.GmoItem
+import dev.aaronhowser.mods.geneticsresequenced.items.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
@@ -118,22 +118,21 @@ class DnaDecryptorRecipe : Recipe<Container> {
             val recipes = mutableListOf<DnaDecryptorRecipe>()
             for (gmoRecipe in gmoRecipes) {
 
-                val inputItem = ModItems.GMO_DNA_HELIX.itemStack
-                GmoItem.setDetails(
+                val inputItem = ModItems.GMO_CELL.itemStack
+                GmoCell.setDetails(
                     inputItem,
                     gmoRecipe.entityType,
-                    gmoRecipe.outputGene,
-                    gmoRecipe.geneChance
+                    gmoRecipe.idealGene
                 )
 
                 val chanceGood = (gmoRecipe.geneChance * 100).toInt()
-                val outputItemGood = ModItems.DNA_HELIX.itemStack.setGene(gmoRecipe.outputGene)
+                val outputItemGood = ModItems.DNA_HELIX.itemStack.setGene(gmoRecipe.idealGene)
                 recipes.add(DnaDecryptorRecipe(inputItem, outputItemGood, chanceGood))
 
 
                 val chanceBad = 100 - chanceGood
-                if (gmoRecipe.outputGene.isMutation) {
-                    val mutatesFrom = gmoRecipe.outputGene.mutatesFrom
+                if (gmoRecipe.idealGene.isMutation) {
+                    val mutatesFrom = gmoRecipe.idealGene.mutatesFrom
                     for (gene in mutatesFrom) {
                         val outputItemBad = ModItems.DNA_HELIX.itemStack.setGene(gene)
                         recipes.add(DnaDecryptorRecipe(inputItem, outputItemBad, chanceBad))
@@ -185,7 +184,7 @@ class DnaDecryptorRecipe : Recipe<Container> {
 
         var outString = "$mobRlString/$geneString"
 
-        if (inputItem.item == ModItems.GMO_DNA_HELIX.get()) {
+        if (inputItem.item == ModItems.GMO_CELL.get()) {
             outString += "/gmo"
         }
 

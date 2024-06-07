@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes.machine
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
-import dev.aaronhowser.mods.geneticsresequenced.items.GmoItem
+import dev.aaronhowser.mods.geneticsresequenced.items.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
@@ -43,7 +43,7 @@ class DnaExtractorRecipe(
 
     companion object {
         fun getAllRecipes(): List<DnaExtractorRecipe> {
-            return getRegularCellRecipes() + getGmoCellRecipes()
+            return getRegularCellRecipes()
         }
 
         private fun getRegularCellRecipes(): MutableList<DnaExtractorRecipe> {
@@ -58,34 +58,6 @@ class DnaExtractorRecipe(
                 val outputItem = ItemStack(ModItems.DNA_HELIX.get()).setMob(rl) ?: ItemStack.EMPTY
 
                 if (inputItem.isEmpty || outputItem.isEmpty) continue
-
-                recipes.add(DnaExtractorRecipe(inputItem, outputItem))
-            }
-
-            return recipes
-        }
-
-        private fun getGmoCellRecipes(): List<DnaExtractorRecipe> {
-            val gmoRecipes = ModPotions.allRecipes.filterIsInstance<GmoRecipe>()
-
-            val recipes = mutableListOf<DnaExtractorRecipe>()
-            for (gmoRecipe in gmoRecipes) {
-
-                val inputItem = ModItems.GMO_CELL.itemStack
-                GmoItem.setDetails(
-                    inputItem,
-                    gmoRecipe.entityType,
-                    gmoRecipe.outputGene,
-                    gmoRecipe.geneChance
-                )
-
-                val outputItem = ModItems.GMO_DNA_HELIX.itemStack
-                GmoItem.setDetails(
-                    outputItem,
-                    gmoRecipe.entityType,
-                    gmoRecipe.outputGene,
-                    gmoRecipe.geneChance
-                )
 
                 recipes.add(DnaExtractorRecipe(inputItem, outputItem))
             }

@@ -25,7 +25,7 @@ class VirusRecipe(
     }
 
     override fun isIngredient(pTopSlot: ItemStack): Boolean {
-        if (pTopSlot.item != ModItems.DNA_HELIX.get() && pTopSlot.item != ModItems.GMO_DNA_HELIX.get()) return false
+        if (pTopSlot.item != ModItems.DNA_HELIX.get()) return false
 
         return pTopSlot.getGene() == inputDnaGene
     }

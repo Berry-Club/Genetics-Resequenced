@@ -1,12 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.GmoRecipePage
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.drawable.IDrawable
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView
 import mezz.jei.api.helpers.IGuiHelper
 import mezz.jei.api.recipe.IFocusGroup
 import mezz.jei.api.recipe.RecipeIngredientRole
@@ -66,4 +68,32 @@ class GmoRecipeCategory(
             6
         ).addItemStack(recipe.resultItem)
     }
+
+    override fun getTooltipStrings(
+        recipe: GmoRecipePage,
+        recipeSlotsView: IRecipeSlotsView,
+        mouseX: Double,
+        mouseY: Double
+    ): MutableList<Component> {
+        val chanceGood = recipe.recipe.geneChance
+        val chanceGoodString = (chanceGood * 100).toInt().toString() + '%'
+
+        val goodGene = recipe.recipe.idealGene
+
+        val line1 =
+            Component.translatable(
+                "If in a low-temperature Advanced Incubator, it has a %s$1% chance of producing a %s$2 Gene.",
+                chanceGoodString,
+                goodGene.nameComponent
+            )
+        val line2 = Component.translatable(
+            "\nOtherwise, it always produces a %s Gene",
+            DefaultGenes.basic.nameComponent
+        )
+        val line3 = Component.literal("\nOverclockers lower your chance, but Chorus Fruits increase it!")
+
+        return mutableListOf(line1, line2, line3)
+
+    }
+
 }

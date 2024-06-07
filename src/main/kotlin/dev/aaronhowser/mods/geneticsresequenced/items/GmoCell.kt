@@ -13,26 +13,17 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
-class GmoItem : Item(Properties().tab(ModItems.MOD_TAB)) {
+class GmoCell : Item(Properties().tab(ModItems.MOD_TAB)) {
 
     companion object {
-
-        private const val CHANCE_NBT_KEY = "Chance"
 
         fun setDetails(
             itemStack: ItemStack,
             entityType: EntityType<*>,
             gene: Gene,
-            chance: Float
         ) {
             itemStack.setGene(gene)
             itemStack.setMob(entityType)
-
-            itemStack.getOrCreateTag().putFloat(CHANCE_NBT_KEY, chance)
-        }
-
-        fun ItemStack.getGeneChance(): Float {
-            return this.getOrCreateTag().getFloat(CHANCE_NBT_KEY)
         }
 
     }
@@ -78,14 +69,6 @@ class GmoItem : Item(Properties().tab(ModItems.MOD_TAB)) {
 
             pTooltipComponents.add(noGeneComponent)
         }
-
-        val chance = pStack.getOrCreateTag().getFloat(CHANCE_NBT_KEY)
-        val chanceComponent =
-            Component
-                .translatable("tooltip.geneticsresequenced.gmo_cell.chance", (chance * 100).toInt())
-                .withColor(ChatFormatting.GRAY)
-
-        pTooltipComponents.add(chanceComponent)
 
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced)
     }
