@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
@@ -90,22 +92,27 @@ class DnaExtractorBlockEntity(
     }
 
     private fun getOutputFromInput(input: ItemStack): ItemStack? {
-        val mobType = EntityDnaItem.getEntityType(input) ?: return null
+        if (input.item == ModItems.CELL.get()) {
+            val mobType = EntityDnaItem.getEntityType(input) ?: return null
+            return ModItems.DNA_HELIX.itemStack.setMob(mobType)
+        }
 
-        return ModItems.DNA_HELIX.itemStack.setMob(mobType)
+        if (input.item == ModItems.GMO_CELL.get()) {
+            val gene = input.getGene() ?: return null
+            return ModItems.DNA_HELIX.itemStack.setGene(gene)
+        }
+
+        return null
     }
 
     private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {
-        val outputSlot = inventory.getItem(OUTPUT_SLOT_INDEX)
+        val stackInOutput = inventory.getItem(OUTPUT_SLOT_INDEX)
+        if (stackInOutput.isEmpty) return true
 
-        if (outputSlot.isEmpty) return true
+        if (stackInOutput.item != potentialOutput.item) return false
+        if (stackInOutput.count + potentialOutput.count > stackInOutput.maxStackSize) return false
 
-        if (outputSlot.count + potentialOutput.count > outputSlot.maxStackSize) return false
-
-        val mobAlreadyInSlot = EntityDnaItem.getEntityType(outputSlot) ?: return false
-        val mobToInsert = EntityDnaItem.getEntityType(potentialOutput) ?: return false
-
-        return mobAlreadyInSlot == mobToInsert
+        return stackInOutput.tag?.equals(potentialOutput.tag) == true
     }
 
     companion object {
