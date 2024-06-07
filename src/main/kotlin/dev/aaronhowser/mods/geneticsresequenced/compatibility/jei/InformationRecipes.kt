@@ -70,7 +70,7 @@ object InformationRecipes {
         val registry = Gene.getRegistry()
 
         for (gene in registry) {
-            if (gene.hidden) continue
+            if (gene.isHidden) continue
             if (!gene.isActive) continue
 
             val components = mutableListOf(

@@ -21,7 +21,7 @@ class Gene(
     private val potionDetails: GeneBuilder.PotionDetails? = null
 ) {
 
-    var hidden: Boolean = false
+    var isHidden: Boolean = false
 
     override fun toString(): String = "Gene($id)"
 
@@ -67,7 +67,7 @@ class Gene(
 
             GENE_REGISTRY.add(gene)
 
-            gene.hidden = hidden
+            gene.isHidden = hidden
 
             return gene
         }

@@ -12,7 +12,7 @@ class GenesCapability {
     private val geneList: MutableSet<Gene> = mutableSetOf()
 
     fun addGene(gene: Gene): Boolean {
-        if (gene.hidden) {
+        if (gene.isHidden) {
             GeneticsResequenced.LOGGER.debug("Cannot add gene $gene to entity.")
             return false
         }
@@ -20,7 +20,7 @@ class GenesCapability {
     }
 
     fun addGenes(genes: Collection<Gene>) {
-        geneList.addAll(genes.toSet().filter { !it.hidden })
+        geneList.addAll(genes.toSet().filter { !it.isHidden })
     }
 
     fun removeGene(gene: Gene): Boolean {

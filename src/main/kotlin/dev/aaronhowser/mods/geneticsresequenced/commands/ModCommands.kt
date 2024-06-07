@@ -27,7 +27,7 @@ object ModCommands {
 
     val SUGGEST_GENE_RLS: SuggestionProvider<CommandSourceStack> =
         SuggestionProvider { _: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
-            val allGeneResourceLocations = Gene.getRegistry().filter { !it.hidden }.map { it.id }
+            val allGeneResourceLocations = Gene.getRegistry().filter { !it.isHidden }.map { it.id }
             SharedSuggestionProvider.suggestResource(allGeneResourceLocations, suggestionsBuilder)
         }
 

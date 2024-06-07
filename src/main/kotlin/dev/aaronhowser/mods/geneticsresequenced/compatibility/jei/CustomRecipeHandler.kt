@@ -28,7 +28,7 @@ object CustomRecipeHandler {
 
         for (gene in allGenes) {
             if (!gene.isActive) continue
-            if (gene.hidden) continue
+            if (gene.isHidden) continue
 
             val plasmid = gene.getPlasmid()
             val setAntiPlasmid = emptyAntiPlasmid.copy().setGene(gene)
