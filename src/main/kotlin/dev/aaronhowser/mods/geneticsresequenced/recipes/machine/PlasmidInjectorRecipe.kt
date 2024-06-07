@@ -3,9 +3,9 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes.machine
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
+import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem.Companion.setAmount
-import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
@@ -119,8 +119,17 @@ class PlasmidInjectorRecipe(
 
     }
 
-    override fun getId(): ResourceLocation =
-        OtherUtil.modResource("$RECIPE_TYPE_NAME/${gene.id.toString().replace(':', '/')}")
+    override fun getId(): ResourceLocation {
+
+        val stringBuilder = StringBuilder()
+        stringBuilder.append(RECIPE_TYPE_NAME)
+        stringBuilder.append('/')
+        stringBuilder.append(gene.id.toString().replace(':', '/'))
+        if (isAntiGene) stringBuilder.append("/anti_plasmid")
+        if (isMetalSyringe) stringBuilder.append("/metal")
+
+        return OtherUtil.modResource(stringBuilder.toString())
+    }
 
     override fun getSerializer(): RecipeSerializer<*> = SERIALIZER
 
