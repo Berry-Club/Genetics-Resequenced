@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.blocks
+package dev.aaronhowser.mods.geneticsresequenced.registries
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.blood_purifier.BloodPurifierBlockEntity

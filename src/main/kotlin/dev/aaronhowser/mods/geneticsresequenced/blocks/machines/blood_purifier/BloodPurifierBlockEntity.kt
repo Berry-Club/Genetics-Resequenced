@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.blood_purifier
 
-import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component

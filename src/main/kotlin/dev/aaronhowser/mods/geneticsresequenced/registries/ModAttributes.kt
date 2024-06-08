@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.attributes
+package dev.aaronhowser.mods.geneticsresequenced.registries
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.world.entity.ai.attributes.Attribute

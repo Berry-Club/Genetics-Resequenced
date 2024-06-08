@@ -3,10 +3,10 @@ package dev.aaronhowser.mods.geneticsresequenced.events
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability
-import dev.aaronhowser.mods.geneticsresequenced.attributes.ModAttributes
-import dev.aaronhowser.mods.geneticsresequenced.entities.ModEntityTypes
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModAttributes
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
-import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
 import net.minecraft.world.entity.EntityType
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent

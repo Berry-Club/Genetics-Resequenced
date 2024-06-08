@@ -1,7 +1,7 @@
-package dev.aaronhowser.mods.geneticsresequenced.items
+package dev.aaronhowser.mods.geneticsresequenced.registries
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.entities.ModEntityTypes
+import dev.aaronhowser.mods.geneticsresequenced.items.*
 import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack

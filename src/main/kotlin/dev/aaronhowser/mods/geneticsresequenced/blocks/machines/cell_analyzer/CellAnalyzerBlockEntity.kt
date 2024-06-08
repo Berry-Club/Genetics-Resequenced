@@ -1,11 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer
 
-import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
-import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.world.MenuProvider

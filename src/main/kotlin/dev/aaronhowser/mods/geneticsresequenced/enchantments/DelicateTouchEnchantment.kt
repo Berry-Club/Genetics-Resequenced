@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.enchantments
 
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModEnchantments
 import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.item.enchantment.Enchantment
 

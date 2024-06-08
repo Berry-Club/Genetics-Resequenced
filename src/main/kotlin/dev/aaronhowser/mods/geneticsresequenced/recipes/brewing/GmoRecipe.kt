@@ -4,8 +4,8 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.GmoCell
-import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item

@@ -2,11 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.events
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.controls.ModKeyMappings
-import dev.aaronhowser.mods.geneticsresequenced.entities.ModEntityTypes
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.entities.client.FriendlySlimeRenderer
-import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
-import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.item.ItemProperties

@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.potions
+package dev.aaronhowser.mods.geneticsresequenced.registries
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
@@ -6,8 +6,6 @@ import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.get
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setBasic
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.ModEffects
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.*
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.ChatFormatting
@@ -30,27 +28,34 @@ import net.minecraftforge.registries.ForgeRegistries
 import thedarkcolour.kotlinforforge.forge.ObjectHolderDelegate
 import thedarkcolour.kotlinforforge.forge.registerObject
 
+@Suppress("MemberVisibilityCanBePrivate")
 object ModPotions {
 
     val POTION_REGISTRY: DeferredRegister<Potion> =
         DeferredRegister.create(ForgeRegistries.POTIONS, GeneticsResequenced.ID)
 
-    private fun addId(name: String): String {
-        return GeneticsResequenced.ID + "." + name
-    }
-
     //TODO: Remove splash, lingering, and arrow potions (apparently needs mixins >:( ) Maybe just tooltip them instead? Add a recipe back to regular potion?
 
     val SUBSTRATE
-            by register("substrate") { Potion(addId("substrate"), MobEffectInstance(ModEffects.SUBSTRATE)) }
+            by register("substrate") {
+                Potion(addId("substrate"), MobEffectInstance(ModEffects.SUBSTRATE))
+            }
     val CELL_GROWTH
-            by register("cell_growth") { Potion(addId("cell_growth"), MobEffectInstance(ModEffects.CELL_GROWTH)) }
+            by register("cell_growth") {
+                Potion(addId("cell_growth"), MobEffectInstance(ModEffects.CELL_GROWTH))
+            }
     val MUTATION
-            by register("mutation") { Potion(addId("mutation"), MobEffectInstance(ModEffects.MUTATION)) }
+            by register("mutation") {
+                Potion(addId("mutation"), MobEffectInstance(ModEffects.MUTATION))
+            }
     val VIRAL_AGENTS
-            by register("viral_agents") { Potion(addId("viral_agents"), MobEffectInstance(ModEffects.VIRAL_AGENTS)) }
+            by register("viral_agents") {
+                Potion(addId("viral_agents"), MobEffectInstance(ModEffects.VIRAL_AGENTS))
+            }
     val THE_CURE
-            by register("the_cure") { Potion(addId("the_cure"), MobEffectInstance(ModEffects.THE_CURE)) }
+            by register("the_cure") {
+                Potion(addId("the_cure"), MobEffectInstance(ModEffects.THE_CURE))
+            }
 
     val ZOMBIFY_VILLAGER
             by register("zombify_villager") {
@@ -66,6 +71,10 @@ object ModPotions {
     ): ObjectHolderDelegate<Potion> {
         val potion = POTION_REGISTRY.registerObject(name, supplier)
         return potion
+    }
+
+    private fun addId(name: String): String {
+        return GeneticsResequenced.ID + "." + name
     }
 
     private val modPotions: List<Potion> by lazy {

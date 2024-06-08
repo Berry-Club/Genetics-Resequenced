@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
-import dev.aaronhowser.mods.geneticsresequenced.attributes.ModAttributes
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler

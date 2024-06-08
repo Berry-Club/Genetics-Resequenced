@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.commands
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlocks
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.core.BlockPos

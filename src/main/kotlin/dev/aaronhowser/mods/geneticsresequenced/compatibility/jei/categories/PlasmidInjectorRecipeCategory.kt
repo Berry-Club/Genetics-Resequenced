@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories
 
-import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.recipes.machine.PlasmidInjectorRecipe
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder

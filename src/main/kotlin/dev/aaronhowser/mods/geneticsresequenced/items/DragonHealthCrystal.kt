@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.item.Item

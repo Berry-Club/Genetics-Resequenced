@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.base
 
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.handlers.WrappedHandler
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.MenuProvider

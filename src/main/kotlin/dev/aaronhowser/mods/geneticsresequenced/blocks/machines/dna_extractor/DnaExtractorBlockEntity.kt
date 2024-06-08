@@ -1,12 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_extractor
 
-import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
-import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component

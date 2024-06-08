@@ -5,7 +5,8 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabi
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.entities.goals.SupportSlimeAttackGoal
-import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.getUuidOrNull
 import net.minecraft.nbt.CompoundTag

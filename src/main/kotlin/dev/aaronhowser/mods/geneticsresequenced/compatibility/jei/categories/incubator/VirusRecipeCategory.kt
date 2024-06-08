@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
-import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.VirusRecipePage
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder

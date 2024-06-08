@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
-import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.SetPotionEntityRecipePage
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
@@ -13,9 +13,6 @@ import mezz.jei.api.recipe.RecipeIngredientRole
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.IRecipeCategory
 import net.minecraft.network.chat.Component
-import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
-import net.minecraft.world.item.alchemy.PotionUtils
 
 class SetPotionEntityRecipeCategory(
     helper: IGuiHelper

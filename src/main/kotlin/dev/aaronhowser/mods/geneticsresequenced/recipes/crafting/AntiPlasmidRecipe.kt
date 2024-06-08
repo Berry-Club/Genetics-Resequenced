@@ -3,9 +3,9 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes.crafting
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
-import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem
-import dev.aaronhowser.mods.geneticsresequenced.recipes.ModRecipes
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.world.inventory.CraftingContainer
@@ -73,6 +73,6 @@ class AntiPlasmidRecipe : CustomRecipe(
         return width * height >= 2
     }
 
-    override fun getSerializer(): RecipeSerializer<*> = ModRecipes.ANTI_PLASMID_RECIPE_SERIALIZER.get()
+    override fun getSerializer(): RecipeSerializer<*> = ModRecipeSerializers.ANTI_PLASMID_RECIPE_SERIALIZER.get()
 
 }

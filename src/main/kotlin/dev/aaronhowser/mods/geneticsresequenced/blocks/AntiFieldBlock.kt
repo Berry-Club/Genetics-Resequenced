@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks
 
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlocks
 import net.minecraft.core.BlockPos
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.Level

@@ -4,7 +4,7 @@ import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setBasic
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
-import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem.Companion.setAmount
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.NonNullList

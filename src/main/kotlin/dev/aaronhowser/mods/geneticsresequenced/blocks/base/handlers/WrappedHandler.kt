@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.blocks.base
+package dev.aaronhowser.mods.geneticsresequenced.blocks.base.handlers
 
 import net.minecraft.world.item.ItemStack
 import net.minecraftforge.items.IItemHandlerModifiable

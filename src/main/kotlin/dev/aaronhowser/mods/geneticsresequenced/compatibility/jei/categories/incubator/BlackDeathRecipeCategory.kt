@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
-import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.BlackDeathRecipePage
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import mezz.jei.api.constants.VanillaTypes

@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes.machine
 
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
-import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf

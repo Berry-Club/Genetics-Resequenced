@@ -1,6 +1,10 @@
-package dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects
+package dev.aaronhowser.mods.geneticsresequenced.registries
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.BleedEffect
+import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.DoNothingEffect
+import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.TheCureEffect
+import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.ZombifyVillagerEffect
 import net.minecraft.world.effect.MobEffect
 import net.minecraftforge.registries.DeferredRegister
 import net.minecraftforge.registries.ForgeRegistries

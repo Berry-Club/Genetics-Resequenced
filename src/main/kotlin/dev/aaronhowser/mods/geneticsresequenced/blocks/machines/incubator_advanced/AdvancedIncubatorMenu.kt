@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced
 
-import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced.AdvancedIncubatorBlockEntity.Companion.IS_HIGH_TEMPERATURE_INDEX
-import dev.aaronhowser.mods.geneticsresequenced.screens.ModMenuTypes
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.screens.base.MachineMenu
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.server.level.ServerPlayer

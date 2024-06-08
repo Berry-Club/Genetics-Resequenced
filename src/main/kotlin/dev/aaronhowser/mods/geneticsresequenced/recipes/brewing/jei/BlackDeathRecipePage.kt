@@ -3,10 +3,10 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
-import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
-import dev.aaronhowser.mods.geneticsresequenced.potions.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.BlackDeathRecipe
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
@@ -23,7 +23,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 
-class BlackDeathRecipePage(private val metalSyringe: Boolean) : Recipe<Container> {
+class BlackDeathRecipePage(
+    private val metalSyringe: Boolean
+) : Recipe<Container> {
 
     private val badSyringe: ItemStack
         get() {

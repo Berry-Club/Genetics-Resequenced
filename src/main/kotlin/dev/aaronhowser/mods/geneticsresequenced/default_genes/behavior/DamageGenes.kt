@@ -4,8 +4,8 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabi
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DragonHealthCrystal
-import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects.ModEffects
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModEffects
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.damagesource.IndirectEntityDamageSource
 import net.minecraft.world.effect.MobEffectInstance

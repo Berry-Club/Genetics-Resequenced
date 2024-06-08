@@ -8,7 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.TickGenes
-import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket

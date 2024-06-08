@@ -1,6 +1,8 @@
-package dev.aaronhowser.mods.geneticsresequenced.blocks
+package dev.aaronhowser.mods.geneticsresequenced.registries
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.blocks.AntiFieldBlock
+import dev.aaronhowser.mods.geneticsresequenced.blocks.BioluminescenceBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.blood_purifier.BloodPurifierBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.cell_analyzer.CellAnalyzerBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.CoalGeneratorBlock
@@ -10,7 +12,6 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.Incuba
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced.AdvancedIncubatorBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserBlock
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injector.PlasmidInjectorBlock
-import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block

@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced
 
-import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlock
 import dev.aaronhowser.mods.geneticsresequenced.util.BlockEntityHelper
 import net.minecraft.world.level.Level

@@ -1,6 +1,7 @@
-package dev.aaronhowser.mods.geneticsresequenced.entities
+package dev.aaronhowser.mods.geneticsresequenced.registries
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.MobCategory
 import net.minecraftforge.registries.DeferredRegister

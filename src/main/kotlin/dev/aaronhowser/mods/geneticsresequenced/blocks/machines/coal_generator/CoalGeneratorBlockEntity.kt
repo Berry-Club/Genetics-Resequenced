@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator
 
-import dev.aaronhowser.mods.geneticsresequenced.blocks.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.InventoryEnergyBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.blocks.base.WrappedHandler
+import dev.aaronhowser.mods.geneticsresequenced.blocks.base.handlers.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
