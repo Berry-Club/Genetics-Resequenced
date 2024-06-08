@@ -42,12 +42,12 @@ object PacketGenes {
             player.sendSystemMessage(message)
         }
 
-        val lookDirection = player.lookAngle.normalize().scale(ServerConfig.teleportDistance.get())
+        val teleportDestination = player.lookAngle.normalize().scale(ServerConfig.teleportDistance.get())
 
         val lookingAtBlock: BlockHitResult = player.level.clip(
             ClipContext(
                 player.eyePosition,
-                player.eyePosition.add(lookDirection),
+                player.eyePosition.add(teleportDestination),
                 ClipContext.Block.OUTLINE,
                 ClipContext.Fluid.NONE,
                 player
@@ -55,7 +55,7 @@ object PacketGenes {
         )
 
         var destination = if (lookingAtBlock.type == HitResult.Type.MISS) {
-            player.eyePosition.add(lookDirection)
+            player.eyePosition.add(teleportDestination)
         } else {
 
             val blockLocation = lookingAtBlock.location
