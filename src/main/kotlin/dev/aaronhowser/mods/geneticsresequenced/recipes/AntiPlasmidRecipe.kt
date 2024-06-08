@@ -11,12 +11,24 @@ import net.minecraft.world.inventory.CraftingContainer
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.CustomRecipe
 import net.minecraft.world.item.crafting.RecipeSerializer
+import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.item.crafting.SimpleRecipeSerializer
 import net.minecraft.world.level.Level
 
 class AntiPlasmidRecipe : CustomRecipe(
-    OtherUtil.modResource("set_anti_plasmid")
+    OtherUtil.modResource(RECIPE_TYPE_NAME)
 ) {
+
+    companion object {
+
+        const val RECIPE_TYPE_NAME = "set_anti_plasmid"
+
+        val RECIPE_TYPE = object : RecipeType<AntiPlasmidRecipe> {
+            override fun toString(): String {
+                return RECIPE_TYPE_NAME
+            }
+        }
+    }
 
     override fun matches(inventory: CraftingContainer, level: Level): Boolean {
         val amountPlasmids = inventory.countItem(ModItems.PLASMID.get())
@@ -74,5 +86,7 @@ class AntiPlasmidRecipe : CustomRecipe(
     }
 
     override fun getSerializer(): RecipeSerializer<*> = SimpleRecipeSerializer { AntiPlasmidRecipe() }
+
+    override fun getType(): RecipeType<*> = RECIPE_TYPE
 
 }
