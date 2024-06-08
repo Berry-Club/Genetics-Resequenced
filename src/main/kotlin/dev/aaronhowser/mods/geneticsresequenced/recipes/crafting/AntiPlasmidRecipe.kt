@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.has
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem
+import dev.aaronhowser.mods.geneticsresequenced.recipes.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.recipes.ModRecipeTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
@@ -13,7 +14,6 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.CustomRecipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
-import net.minecraft.world.item.crafting.SimpleRecipeSerializer
 import net.minecraft.world.level.Level
 
 class AntiPlasmidRecipe : CustomRecipe(
@@ -21,7 +21,6 @@ class AntiPlasmidRecipe : CustomRecipe(
 ) {
 
     companion object {
-
         const val RECIPE_TYPE_NAME = "set_anti_plasmid"
 
         val RECIPE_TYPE = object : RecipeType<AntiPlasmidRecipe> {
@@ -86,7 +85,7 @@ class AntiPlasmidRecipe : CustomRecipe(
         return width * height >= 2
     }
 
-    override fun getSerializer(): RecipeSerializer<*> = SimpleRecipeSerializer { AntiPlasmidRecipe() }
+    override fun getSerializer(): RecipeSerializer<*> = ModRecipeSerializers.ANTI_PLASMID_RECIPE_SERIALIZER.get()
 
     override fun getType(): RecipeType<*> = ModRecipeTypes.SET_ANTI_PLASMID_RECIPE_TYPE.get()
 
