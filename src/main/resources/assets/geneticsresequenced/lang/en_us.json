@@ -72,6 +72,10 @@
   "message.geneticsresequenced.gene_missing_requirements": "You feel the %s Gene fade away...\nIt seems you §cdo not meet the requirements§r for it.",
   "message.geneticsresequenced.gene_missing_requirements.list": "Required Genes:",
   "message.geneticsresequenced.cringe.cured": "With the touch of Grass, you feel the cringe leave your body.",
+  "message.geneticsresequenced.cringe.resources.add": "You feel the cringe entering your body, taking over. Your perception of the world changes in %d...",
+  "message.geneticsresequenced.cringe.resources.remove": "You feel yourself become more based, the cringe leaving the world in %d...",
+  "message.geneticsresequenced.cringe.resources.tooltip": "You can disable this in the client config!\n\nYour language is reset to normal when you leave the game.",
+  "message.geneticsresequenced.cringe.resources.reloading": "Reloading resources now!",
 
   "block.geneticsresequenced.bioluminescence": "Bioluminescence Glow",
   "block.geneticsresequenced.cell_analyzer": "Cell Analyzer",

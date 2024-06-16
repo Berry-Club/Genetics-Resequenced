@@ -8,6 +8,7 @@ import net.minecraft.client.Options
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.client.resources.language.LanguageInfo
 import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.HoverEvent
 import net.minecraft.world.entity.player.PlayerModelPart
 
 object ClientUtil {
@@ -93,13 +94,21 @@ object ClientUtil {
             localPlayer?.sendSystemMessage(message)
         }
 
-        fun reloadResourcePacks() {
-            Minecraft.getInstance().reloadResourcePacks()
-        }
-
         ModScheduler.scheduleTaskInTicks(1) {
             sendSystemMessage(
-                Component.literal("Reloading resources in $countdownSeconds seconds...")
+                Component.translatable(
+                    if (wasAdded) "message.geneticsresequenced.cringe.resources.add" else "message.geneticsresequenced.cringe.resources.remove",
+                    countdownSeconds
+                ).withStyle {
+                    it.withHoverEvent(
+                        HoverEvent(
+                            HoverEvent.Action.SHOW_TEXT,
+                            Component.translatable(
+                                "message.geneticsresequenced.cringe.resources.tooltip"
+                            )
+                        )
+                    )
+                }
             )
         }
 
@@ -112,7 +121,16 @@ object ClientUtil {
 
                 ModScheduler.scheduleTaskInTicks(scheduleIn) {
                     sendSystemMessage(
-                        Component.literal("$secondsLeftFinal...")
+                        Component.literal("$secondsLeftFinal...").withStyle {
+                            it.withHoverEvent(
+                                HoverEvent(
+                                    HoverEvent.Action.SHOW_TEXT,
+                                    Component.translatable(
+                                        "message.geneticsresequenced.cringe.resources.tooltip"
+                                    )
+                                )
+                            )
+                        }
                     )
                 }
             }
@@ -122,10 +140,21 @@ object ClientUtil {
 
         ModScheduler.scheduleTaskInTicks(20 * countdownSeconds) {
             sendSystemMessage(
-                Component.literal("Reloading resources now!")
+                Component
+                    .translatable("message.geneticsresequenced.cringe.resources.reloading")
+                    .withStyle {
+                        it.withHoverEvent(
+                            HoverEvent(
+                                HoverEvent.Action.SHOW_TEXT,
+                                Component.translatable(
+                                    "message.geneticsresequenced.cringe.resources.tooltip"
+                                )
+                            )
+                        )
+                    }
             )
 
-            reloadResourcePacks()
+            Minecraft.getInstance().reloadResourcePacks()
         }
 
     }
