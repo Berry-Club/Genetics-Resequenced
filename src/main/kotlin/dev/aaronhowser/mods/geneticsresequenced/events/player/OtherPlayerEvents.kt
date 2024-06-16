@@ -95,14 +95,14 @@ object OtherPlayerEvents {
 
     @SubscribeEvent
     fun onStartTracking(event: PlayerEvent.StartTracking) {
-        val player = event.entity
-        val entity = event.target as? LivingEntity ?: return
+        val player = event.entity as? ServerPlayer ?: return
 
+        val entity = event.target as? LivingEntity ?: return
         val genes = entity.getGenes() ?: return
 
         for (gene in genes.getGeneList()) {
             ModPacketHandler.messagePlayer(
-                player as ServerPlayer,
+                player,
                 GeneChangedPacket(
                     entity.id,
                     gene.id,
