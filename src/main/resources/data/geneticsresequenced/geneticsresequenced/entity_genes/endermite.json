@@ -1,0 +1,9 @@
+{
+  "entity": "minecraft:bat",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:keep_inventory": 1,
+    "geneticsresequenced:item_magnet": 1,
+    "geneticsresequenced:xp_boost": 1
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "entity": "minecraft:iron_golem",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:wither_hit": 1
+  }
+}

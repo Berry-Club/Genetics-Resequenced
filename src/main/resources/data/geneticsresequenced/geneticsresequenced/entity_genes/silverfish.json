@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:ocelot",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:haste": 1,
+    "geneticsresequenced:efficiency": 1
+  }
+}

@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced
 import dev.aaronhowser.mods.geneticsresequenced.configs.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultMobGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModRegistries
 import net.minecraftforge.fml.ModLoadingContext
@@ -31,7 +30,6 @@ object GeneticsResequenced {
 
         DefaultGenes.registerDefaultGenes()
         DefaultGenes.setGeneRequirements()
-        DefaultMobGenes.registerDefaultGenes()
     }
 
 }

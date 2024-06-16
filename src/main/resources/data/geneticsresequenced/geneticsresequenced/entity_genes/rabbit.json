@@ -1,0 +1,9 @@
+{
+  "entity": "minecraft:bat",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:jump_boost": 1,
+    "geneticsresequenced:speed": 1,
+    "geneticsresequenced:luck": 1
+  }
+}

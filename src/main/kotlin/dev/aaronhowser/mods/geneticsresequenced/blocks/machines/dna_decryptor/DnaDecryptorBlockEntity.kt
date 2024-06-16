@@ -1,13 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGenesRegistry
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneMobRegistry
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
@@ -123,7 +123,8 @@ class DnaDecryptorBlockEntity(
 
     private fun getPossibleGenes(input: ItemStack): List<Gene> {
         val mobType = EntityDnaItem.getEntityType(input) ?: return listOf(DefaultGenes.basic)
-        val genesFromMob = MobGenesRegistry.getGenesForEntity(mobType)
+
+        val genesFromMob = GeneMobRegistry.getGeneWeights(mobType)
         if (genesFromMob.isEmpty()) return listOf(DefaultGenes.basic)
 
         return genesFromMob

@@ -1,0 +1,9 @@
+{
+  "entity": "minecraft:iron_golem",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:more_hearts": 1,
+    "geneticsresequenced:regeneration": 1,
+    "geneticsresequenced:resistance": 1
+  }
+}

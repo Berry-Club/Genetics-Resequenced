@@ -1,0 +1,9 @@
+{
+  "entity": "minecraft:wolf",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:scare_skeletons": 1,
+    "geneticsresequenced:night_vision": 1,
+    "geneticsresequenced:no_hunger": 1
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:pufferfish",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:mob_sight": 1,
+    "geneticsresequenced:water_breathing": 1
+  }
+}

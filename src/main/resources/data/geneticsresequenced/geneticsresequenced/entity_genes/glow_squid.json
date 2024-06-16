@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:glow_squid",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:water_breathing": 1,
+    "geneticsresequenced:bioluminescence": 1
+  }
+}

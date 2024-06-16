@@ -1,0 +1,9 @@
+{
+  "entity": "minecraft:bat",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:shoot_fireballs": 1,
+    "geneticsresequenced:fire_proof": 1,
+    "geneticsresequenced:bioluminescence": 1,
+  }
+}
