@@ -13,8 +13,12 @@ object ModScheduler {
 
     private val upcomingTasks: HashMultimap<Int, Runnable> = HashMultimap.create()
 
-    fun scheduleTaskInTicks(ticksInFuture: Int, run: Runnable) {
-        upcomingTasks.put(currentTick + ticksInFuture, run)
+    fun scheduleTaskInTicks(ticksInFuture: Int, runnable: Runnable) {
+        if (ticksInFuture > 0) {
+            upcomingTasks.put(currentTick + ticksInFuture, runnable)
+        } else {
+            runnable.run()
+        }
     }
 
     private fun handleScheduledTasks(tick: Int) {
