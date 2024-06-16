@@ -13,12 +13,12 @@ import net.minecraft.util.profiling.ProfilerFiller
 
 class GeneMobRegistry : SimpleJsonResourceReloadListener(
     GsonBuilder().setPrettyPrinting().create(),
-    GeneticsResequenced.ID + "/entity_genes"
+    GeneticsResequenced.ID + "/entity_genes"    // For example, `/resources/data/geneticsresequenced/geneticsresequenced/entity_genes/example.json`
 ) {
 
     data class EntityGenes(
         val entity: ResourceLocation,
-        val genes: List<Gene>
+        val genes: Map<Gene, Int>
     ) {
         companion object {
             val allEntityGenes: HashMap<ResourceLocation, EntityGenes> = hashMapOf()
@@ -26,7 +26,7 @@ class GeneMobRegistry : SimpleJsonResourceReloadListener(
             val CODEC: Codec<EntityGenes> = RecordCodecBuilder.create { instance ->
                 instance.group(
                     ResourceLocation.CODEC.fieldOf("entity").forGetter(EntityGenes::entity),
-                    Gene.CODEC.listOf().fieldOf("genes").forGetter(EntityGenes::genes)
+                    Codec.unboundedMap(Gene.CODEC, Codec.INT).fieldOf("genes").forGetter(EntityGenes::genes)
                 ).apply(instance, ::EntityGenes)
             }
         }
