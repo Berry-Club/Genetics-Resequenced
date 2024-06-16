@@ -363,13 +363,19 @@ object ClickGenes {
             GeneCooldown.tellCooldownEnded(player, DefaultGenes.wooly)
         }
 
-        if (genes.hasGene(DefaultGenes.cringe)) {
-            genes.removeGene(DefaultGenes.cringe)
-            if (!player.level.isClientSide) {
-                player.sendSystemMessage(Component.translatable("message.geneticsresequenced.cringe.cured"))
-            }
-        }
+    }
 
+    fun cureCringe(event: PlayerInteractEvent.RightClickBlock) {
+        if (event.level.getBlockState(event.pos).block != Blocks.GRASS_BLOCK) return
+
+        val player = event.entity
+        val genes = player.getGenes() ?: return
+        if (!genes.hasGene(DefaultGenes.cringe)) return
+
+        genes.removeGene(DefaultGenes.cringe)
+        if (!player.level.isClientSide) {
+            player.sendSystemMessage(Component.translatable("message.geneticsresequenced.cringe.cured"))
+        }
     }
 
     fun handleInfinityStart(event: ArrowNockEvent) {

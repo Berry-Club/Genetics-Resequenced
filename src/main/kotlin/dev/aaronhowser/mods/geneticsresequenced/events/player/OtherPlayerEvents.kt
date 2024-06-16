@@ -31,6 +31,7 @@ object OtherPlayerEvents {
     @SubscribeEvent
     fun onInteractWithBlock(event: PlayerInteractEvent.RightClickBlock) {
         ClickGenes.eatGrass(event)
+        ClickGenes.cureCringe(event)
     }
 
     @SubscribeEvent
