@@ -53,7 +53,7 @@ object MobGeneRegistry : SimpleJsonResourceReloadListener(
                 instance.group(
                     ResourceLocation.CODEC.fieldOf("entity").forGetter(EntityGenes::entity),
                     Codec.unboundedMap(Gene.CODEC, Codec.INT).fieldOf("genes").forGetter(EntityGenes::genes)
-                ).apply(instance, MobGeneRegistry::EntityGenes)
+                ).apply(instance, ::EntityGenes)
             }
         }
     }

@@ -363,27 +363,4 @@ object DefaultGenes {
         .allowMobs()
         .build()
 
-    val defaultGeneRequirements: MutableMap<Gene, Set<Gene>> = mutableMapOf(
-        clawsTwo to setOf(claws),
-        efficiencyFour to setOf(efficiency),
-        flight to setOf(teleport, jumpBoost, noFallDamage),
-        hasteTwo to setOf(haste),
-        meatyTwo to setOf(meaty),
-        moreHeartsTwo to setOf(moreHearts),
-        regenerationFour to setOf(regeneration),
-        resistanceTwo to setOf(resistance),
-        speedTwo to setOf(speed),
-        speedFour to setOf(speedTwo),
-        strengthTwo to setOf(strength),
-        scareZombies to setOf(scareCreepers),
-        scareSpiders to setOf(scareSkeletons),
-        photosynthesis to setOf(thorns)
-    )
-
-    fun setGeneRequirements() {
-        for ((gene: Gene, requiredGenes: Set<Gene>) in defaultGeneRequirements) {
-            gene.addRequiredGenes(requiredGenes)
-        }
-    }
-
 }

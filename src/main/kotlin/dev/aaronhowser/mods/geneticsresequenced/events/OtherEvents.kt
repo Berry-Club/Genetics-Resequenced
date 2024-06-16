@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.events
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneRequirementRegistry
 import dev.aaronhowser.mods.geneticsresequenced.commands.ModCommands
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraftforge.event.AddReloadListenerEvent
@@ -29,6 +30,7 @@ object OtherEvents {
     @SubscribeEvent
     fun addReloadListeners(event: AddReloadListenerEvent) {
         event.addListener(MobGeneRegistry)
+        event.addListener(GeneRequirementRegistry)
     }
 
 }

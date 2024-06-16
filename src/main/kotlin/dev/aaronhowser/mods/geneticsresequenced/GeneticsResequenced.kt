@@ -29,7 +29,6 @@ object GeneticsResequenced {
         ModPacketHandler.setup()
 
         DefaultGenes.registerDefaultGenes()
-        DefaultGenes.setGeneRequirements()
     }
 
 }

@@ -1,0 +1,6 @@
+{
+  "gene": "geneticsresequenced:regeneration_2",
+  "requiresGenes": [
+    "geneticsresequenced:regeneration"
+  ]
+}
