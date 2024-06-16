@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneMobRegistry
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem.Companion.getPlasmid
@@ -39,7 +39,7 @@ object InformationRecipes {
     }
 
     fun mobGenes(registration: IRecipeRegistration) {
-        val allMobGenePairs = GeneMobRegistry.getRegistry().entries
+        val allMobGenePairs = MobGeneRegistry.getRegistry().entries
 
         for ((entityType, genes) in allMobGenePairs) {
             val informationTextComponent =

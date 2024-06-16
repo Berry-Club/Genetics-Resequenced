@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.events
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneMobRegistry
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.commands.ModCommands
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
@@ -28,7 +28,7 @@ object OtherEvents {
 
     @SubscribeEvent
     fun addReloadListeners(event: AddReloadListenerEvent) {
-        event.addListener(GeneMobRegistry)
+        event.addListener(MobGeneRegistry)
     }
 
 }

@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes.machine
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneMobRegistry
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
@@ -90,7 +90,7 @@ class DnaDecryptorRecipe : Recipe<Container> {
                     continue
                 }
 
-                val possibilities = GeneMobRegistry.getGeneWeights(entityType)
+                val possibilities = MobGeneRegistry.getGeneWeights(entityType)
                 val totalWeight = possibilities.values.sumOf { it }
 
                 for ((gene, weight) in possibilities) {
@@ -125,7 +125,7 @@ class DnaDecryptorRecipe : Recipe<Container> {
     override fun matches(pContainer: Container, pLevel: Level): Boolean {
         if (pLevel.isClientSide) return false
 
-        return GeneMobRegistry.getGeneWeights(entityType).contains(gene)
+        return MobGeneRegistry.getGeneWeights(entityType).contains(gene)
     }
 
     override fun assemble(pContainer: Container): ItemStack = outputItem.copy()

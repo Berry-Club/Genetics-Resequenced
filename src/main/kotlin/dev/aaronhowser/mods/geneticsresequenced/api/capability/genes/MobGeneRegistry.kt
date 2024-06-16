@@ -13,7 +13,7 @@ import net.minecraft.util.profiling.ProfilerFiller
 import net.minecraft.world.entity.EntityType
 import net.minecraftforge.registries.ForgeRegistries
 
-object GeneMobRegistry : SimpleJsonResourceReloadListener(
+object MobGeneRegistry : SimpleJsonResourceReloadListener(
     GsonBuilder().setPrettyPrinting().create(),
     GeneticsResequenced.ID + "/entity_genes"    // For example, `/resources/data/geneticsresequenced/geneticsresequenced/entity_genes/example.json`
 ) {
@@ -51,7 +51,7 @@ object GeneMobRegistry : SimpleJsonResourceReloadListener(
                 instance.group(
                     ResourceLocation.CODEC.fieldOf("entity").forGetter(EntityGenes::entity),
                     Codec.unboundedMap(Gene.CODEC, Codec.INT).fieldOf("genes").forGetter(EntityGenes::genes)
-                ).apply(instance, GeneMobRegistry::EntityGenes)
+                ).apply(instance, MobGeneRegistry::EntityGenes)
             }
         }
     }
