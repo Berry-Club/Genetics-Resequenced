@@ -23,7 +23,6 @@ import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.living.LivingDamageEvent
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent
-import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.level.ExplosionEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
@@ -78,17 +77,6 @@ object OtherEntityEvents {
     @SubscribeEvent
     fun onDetonate(event: ExplosionEvent.Detonate) {
         DeathGenes.explosiveExitDetonation(event)
-    }
-
-    @SubscribeEvent
-    fun onStartTracking(event: PlayerEvent.StartTracking) {
-        val entity = event.target as? LivingEntity ?: return
-
-        val genes = entity.getGenes() ?: return
-
-        for (gene in genes.getGeneList()) {
-            tellAllPlayersGeneChanged(entity, gene, true)
-        }
     }
 
     private fun tellAllPlayersGeneChanged(entity: LivingEntity, changedGene: Gene, wasAdded: Boolean) {

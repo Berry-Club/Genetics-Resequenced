@@ -50,8 +50,6 @@ class GeneChangedPacket(
         val entity = player.level.getEntity(entityId) as? LivingEntity
             ?: throw IllegalStateException("Received GeneChangedPacket with invalid entity id!")
 
-        println("Received GeneChangedPacket for gene $gene on entity ${entity.type.descriptionId}")
-
         entity.getGenes()?.apply {
             if (wasAdded) {
                 addGene(gene)

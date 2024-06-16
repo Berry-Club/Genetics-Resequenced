@@ -8,13 +8,18 @@ import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.Attribute
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
+import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
+import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraftforge.event.ServerChatEvent
 import net.minecraftforge.event.TickEvent.PlayerTickEvent
 import net.minecraftforge.event.entity.player.ArrowLooseEvent
 import net.minecraftforge.event.entity.player.ArrowNockEvent
+import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.entity.player.PlayerEvent.ItemPickupEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -86,6 +91,25 @@ object OtherPlayerEvents {
             )
         }
 
+    }
+
+    @SubscribeEvent
+    fun onStartTracking(event: PlayerEvent.StartTracking) {
+        val player = event.entity
+        val entity = event.target as? LivingEntity ?: return
+
+        val genes = entity.getGenes() ?: return
+
+        for (gene in genes.getGeneList()) {
+            ModPacketHandler.messagePlayer(
+                player as ServerPlayer,
+                GeneChangedPacket(
+                    entity.id,
+                    gene.id,
+                    true
+                )
+            )
+        }
     }
 
 }
