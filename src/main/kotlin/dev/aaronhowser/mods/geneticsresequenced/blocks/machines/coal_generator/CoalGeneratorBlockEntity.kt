@@ -1,9 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator
 
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.InventoryEnergyBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.handlers.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlockEntities
+import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.nbt.CompoundTag
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
+import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
@@ -22,6 +24,8 @@ import net.minecraftforge.common.capabilities.ForgeCapabilities
 import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.energy.IEnergyStorage
 import net.minecraftforge.items.ItemStackHandler
+import net.minecraftforge.registries.ForgeRegistries
+import java.util.function.Predicate
 import kotlin.math.min
 
 @Suppress("UNUSED_PARAMETER")
@@ -54,8 +58,21 @@ class CoalGeneratorBlockEntity(
             setChanged()
         }
 
+        private val replacementCache: Object2BooleanOpenHashMap<Item> = Object2BooleanOpenHashMap()
+        private fun isReplacementItem(item: Item): Boolean {
+            return replacementCache.computeIfAbsent(item, Predicate {
+                val isReplacement = ForgeRegistries.ITEMS.values.any {
+                    it.getCraftingRemainingItem(ItemStack(item)).item == item
+                }
+                return@Predicate isReplacement
+            })
+        }
+
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
-            return ForgeHooks.getBurnTime(stack, RecipeType.SMELTING) > 0
+            val isFuel = ForgeHooks.getBurnTime(stack, RecipeType.SMELTING) > 0
+            if (isFuel) return true
+
+            return isReplacementItem(stack.item)
         }
     }
 
@@ -164,14 +181,13 @@ class CoalGeneratorBlockEntity(
         val state = blockState.setValue(CoalGeneratorBlock.BURNING, true)
         level?.setBlock(blockPos, state, 3)
 
-        //FIXME: Dont work
         val fuelReplacedItem = inputItem.craftingRemainingItem
 
         maxBurnTime = fuel
         burnTimeRemaining = fuel
         itemHandler.extractItem(INPUT_SLOT, 1, false)
 
-        if (!fuelReplacedItem.isEmpty) {
+        if (!fuelReplacedItem.isEmpty && itemHandler.getStackInSlot(INPUT_SLOT).isEmpty) {
             itemHandler.insertItem(INPUT_SLOT, fuelReplacedItem, false)
         }
     }
