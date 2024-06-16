@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.events.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
@@ -75,11 +74,7 @@ object OtherPlayerEvents {
     )
 
     @SubscribeEvent
-    fun onChatMessage(event: ServerChatEvent.Submitted) {
-
-        println("AAAAAAAAAA")
-        println(MobGeneRegistry.getRegistry().toString())
-
+    fun onSendChatMessage(event: ServerChatEvent.Submitted) {
         if (Random.nextDouble() > ServerConfig.emeraldHeartChatChance.get()) return
 
         val player = event.player
