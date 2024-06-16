@@ -22,20 +22,24 @@ object MobGeneRegistry : SimpleJsonResourceReloadListener(
 
     fun getRegistry(): Map<EntityType<*>, Map<Gene, Int>> = entityGeneMap.toMap()
 
-    fun getGeneWeights(entity: EntityType<*>): Map<Gene, Int> {
-        return entityGeneMap[entity] ?: emptyMap()
+    fun getGeneWeights(entityType: EntityType<*>): Map<Gene, Int> {
+        return entityGeneMap[entityType] ?: emptyMap()
     }
 
-    fun getGeneWeights(entity: ResourceLocation): Map<Gene, Int> {
-        val entityType = ForgeRegistries.ENTITY_TYPES.getValue(entity)
-            ?: throw IllegalArgumentException("Unknown entity type: $entity")
+    fun getGeneWeights(entityRl: ResourceLocation): Map<Gene, Int> {
+        val entityType = ForgeRegistries.ENTITY_TYPES.getValue(entityRl)
+            ?: throw IllegalArgumentException("Unknown entity type: $entityRl")
 
         return getGeneWeights(entityType)
     }
 
-    private fun assignGenes(entity: ResourceLocation, genes: Map<Gene, Int>) {
-        val entityType = ForgeRegistries.ENTITY_TYPES.getValue(entity)
-            ?: throw IllegalArgumentException("Unknown entity type: $entity")
+    private fun assignGenes(entityRl: ResourceLocation, genes: Map<Gene, Int>) {
+        val entityType = ForgeRegistries.ENTITY_TYPES.getValue(entityRl)
+            ?: throw IllegalArgumentException("Unknown entity type: $entityRl")
+
+        if (entityType == EntityType.PIG && entityRl != ResourceLocation("minecraft","pig")) {
+            throw IllegalArgumentException("Unknown entity type: $entityRl")
+        }
 
         val currentGenes = entityGeneMap[entityType]?.toMutableMap() ?: mutableMapOf()
         currentGenes.putAll(genes)
