@@ -71,6 +71,7 @@
   "message.geneticsresequenced.syringe.anti_gene.fail": "The %s Gene was not removed as you did not have it!",
   "message.geneticsresequenced.gene_missing_requirements": "You feel the %s Gene fade away...\nIt seems you §cdo not meet the requirements§r for it.",
   "message.geneticsresequenced.gene_missing_requirements.list": "Required Genes:",
+  "message.geneticsresequenced.cringe.cured": "With the touch of Grass, you feel the cringe leave your body.",
 
   "block.geneticsresequenced.bioluminescence": "Bioluminescence Glow",
   "block.geneticsresequenced.cell_analyzer": "Cell Analyzer",
@@ -292,6 +293,7 @@
   "gene.geneticsresequenced.mob_sight":"Mob Sight",
   "gene.geneticsresequenced.regeneration":"Regeneration",
 
+  "gene.geneticsresequenced.cringe": "Cringe",
   "gene.geneticsresequenced.poison":"Poison",
   "gene.geneticsresequenced.poison_2":"Poison II",
   "gene.geneticsresequenced.poison_4":"Poison IV",

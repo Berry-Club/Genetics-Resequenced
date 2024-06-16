@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.NarratorPacket
+import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvents
 import net.minecraftforge.event.ServerChatEvent
@@ -36,7 +37,7 @@ object OtherGenes {
         }
     }
 
-    fun sendNarrator(event: ServerChatEvent.Submitted) {
+    fun handleNarrator(event: ServerChatEvent.Submitted) {
         val player = event.player
         val genes = player.getGenes() ?: return
 
@@ -50,7 +51,49 @@ object OtherGenes {
             player.position(),
             64.0
         )
+    }
 
+    fun handleCringe(event: ServerChatEvent.Submitted) {
+
+        val player = event.player
+        val genes = player.getGenes() ?: return
+        if (!genes.hasGene(DefaultGenes.cringe)) return
+
+        if (event.message.string.startsWith("/")) return
+
+        val substitutions = mapOf(
+            "r" to "w",
+            "l" to "w",
+            "R" to "W",
+            "L" to "W",
+            "ove" to "uv",
+            "th" to "d",
+            "Th" to "D"
+        )
+
+        var uwuified = event.message.string
+        for ((from, to) in substitutions) {
+            uwuified = uwuified.replace(from, to)
+        }
+
+        val interjections = listOf(
+            " >w<",
+            " UwU",
+            " owo",
+            " ^w^",
+            " >.<",
+            " (✿◠‿◠)",
+            " (´・ω・`)"
+        )
+        val words = uwuified.split(" ").toMutableList()
+
+        for (i in 1 until words.size step 4) {
+            words[i] += interjections.random()
+        }
+
+        val uwuifiedMessage = words.joinToString(" ")
+
+        event.message = Component.literal(uwuifiedMessage)
     }
 
 }

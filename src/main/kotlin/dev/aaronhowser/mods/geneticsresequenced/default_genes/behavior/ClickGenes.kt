@@ -363,6 +363,13 @@ object ClickGenes {
             GeneCooldown.tellCooldownEnded(player, DefaultGenes.wooly)
         }
 
+        if (genes.hasGene(DefaultGenes.cringe)) {
+            genes.removeGene(DefaultGenes.cringe)
+            if (!player.level.isClientSide) {
+                player.sendSystemMessage(Component.translatable("message.geneticsresequenced.cringe.cured"))
+            }
+        }
+
     }
 
     fun handleInfinityStart(event: ArrowNockEvent) {
