@@ -5,10 +5,12 @@ import net.minecraft.ChatFormatting
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.minecraftforge.registries.ForgeRegistries
 import net.minecraftforge.registries.RegistryObject
 import java.util.*
 
@@ -51,4 +53,22 @@ object OtherUtil {
 
     val Item.itemStack: ItemStack
         get() = this.defaultInstance
+
+    fun getEntityType(resourceLocation: ResourceLocation): EntityType<*> {
+        @Suppress("MoveVariableDeclarationIntoWhen", "RedundantSuppression")
+        val entityType = ForgeRegistries.ENTITY_TYPES.getValue(resourceLocation)
+            ?: throw IllegalArgumentException("Unknown entity type: $resourceLocation")
+
+        if (entityType == EntityType.PIG && resourceLocation != ResourceLocation("minecraft", "pig")) {
+            throw IllegalArgumentException("Unknown entity type: $resourceLocation")
+        }
+
+        return entityType
+    }
+
+    fun getEntityResourceLocation(entityType: EntityType<*>): ResourceLocation {
+        return ForgeRegistries.ENTITY_TYPES.getKey(entityType)
+            ?: throw IllegalArgumentException("Unknown entity type: $entityType")
+    }
+
 }

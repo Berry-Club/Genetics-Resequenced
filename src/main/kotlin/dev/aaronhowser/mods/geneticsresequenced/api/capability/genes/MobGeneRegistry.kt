@@ -6,12 +6,12 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.JsonOps
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.packs.resources.ResourceManager
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener
 import net.minecraft.util.profiling.ProfilerFiller
 import net.minecraft.world.entity.EntityType
-import net.minecraftforge.registries.ForgeRegistries
 
 object MobGeneRegistry : SimpleJsonResourceReloadListener(
     GsonBuilder().setPrettyPrinting().create(),
@@ -27,17 +27,15 @@ object MobGeneRegistry : SimpleJsonResourceReloadListener(
     }
 
     fun getGeneWeights(entityRl: ResourceLocation): Map<Gene, Int> {
-        val entityType = ForgeRegistries.ENTITY_TYPES.getValue(entityRl)
-            ?: throw IllegalArgumentException("Unknown entity type: $entityRl")
+        val entityType = OtherUtil.getEntityType(entityRl)
 
         return getGeneWeights(entityType)
     }
 
     private fun assignGenes(entityRl: ResourceLocation, genes: Map<Gene, Int>) {
-        val entityType = ForgeRegistries.ENTITY_TYPES.getValue(entityRl)
-            ?: throw IllegalArgumentException("Unknown entity type: $entityRl")
+        val entityType = OtherUtil.getEntityType(entityRl)
 
-        if (entityType == EntityType.PIG && entityRl != ResourceLocation("minecraft","pig")) {
+        if (entityType == EntityType.PIG && entityRl != ResourceLocation("minecraft", "pig")) {
             throw IllegalArgumentException("Unknown entity type: $entityRl")
         }
 

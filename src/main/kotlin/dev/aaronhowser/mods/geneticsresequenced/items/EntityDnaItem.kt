@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.items
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
@@ -16,7 +17,6 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
-import net.minecraftforge.registries.ForgeRegistries
 
 open class EntityDnaItem : Item(
     Properties()
@@ -29,11 +29,7 @@ open class EntityDnaItem : Item(
         fun hasEntity(itemStack: ItemStack): Boolean = itemStack.getOrCreateTag().contains(MOB_ID_NBT)
 
         fun setMob(itemStack: ItemStack, entityType: EntityType<*>): Boolean {
-            val mobRL = ForgeRegistries.ENTITY_TYPES.getKey(entityType)
-            if (mobRL == null) {
-                GeneticsResequenced.LOGGER.error("Failed to get mob id for $entityType")
-                return false
-            }
+            val mobRL = OtherUtil.getEntityResourceLocation(entityType)
 
             return setMob(itemStack, mobRL)
         }
@@ -65,7 +61,7 @@ open class EntityDnaItem : Item(
             val string = itemStack.tag?.getString(MOB_ID_NBT) ?: return null
             val resourceLocation = ResourceLocation.tryParse(string) ?: return null
 
-            return ForgeRegistries.ENTITY_TYPES.getValue(resourceLocation)
+            return OtherUtil.getEntityType(resourceLocation)
         }
     }
 

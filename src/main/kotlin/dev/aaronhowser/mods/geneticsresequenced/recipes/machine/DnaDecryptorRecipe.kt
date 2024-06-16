@@ -67,8 +67,7 @@ class DnaDecryptorRecipe : Recipe<Container> {
 
     private val mobResourceLocation: ResourceLocation
     val entityType: EntityType<*>
-        get() = ForgeRegistries.ENTITY_TYPES.getValue(mobResourceLocation)
-            ?: throw IllegalStateException("Invalid entity type for recipe")
+        get() = OtherUtil.getEntityType(mobResourceLocation)
 
     val gene: Gene
     val chance: Int
