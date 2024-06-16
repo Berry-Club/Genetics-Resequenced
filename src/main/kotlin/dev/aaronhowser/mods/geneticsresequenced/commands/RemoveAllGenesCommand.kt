@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.commands
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
-import dev.aaronhowser.mods.geneticsresequenced.events.player.OtherPlayerEvents
+import dev.aaronhowser.mods.geneticsresequenced.events.entity.OtherEntityEvents
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -63,7 +63,7 @@ object RemoveAllGenesCommand {
 
         for (gene in targetGenes.getGeneList()) {
             targetGenes.removeGene(gene)
-            OtherPlayerEvents.genesChanged(target, gene, false)
+            OtherEntityEvents.genesChanged(target, gene, false)
         }
 
         return true

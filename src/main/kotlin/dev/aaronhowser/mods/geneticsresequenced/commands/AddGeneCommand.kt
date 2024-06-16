@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.commands.ModCommands.SUGGEST_GENE_RLS
-import dev.aaronhowser.mods.geneticsresequenced.events.player.OtherPlayerEvents
+import dev.aaronhowser.mods.geneticsresequenced.events.entity.OtherEntityEvents
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -100,7 +100,7 @@ object AddGeneCommand {
         val success = targetGenes.addGene(geneToAdd)
 
         if (success) {
-            OtherPlayerEvents.genesChanged(target, geneToAdd, true)
+            OtherEntityEvents.genesChanged(target, geneToAdd, true)
 
             return true
         } else {

@@ -4,7 +4,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
-import dev.aaronhowser.mods.geneticsresequenced.events.player.OtherPlayerEvents
+import dev.aaronhowser.mods.geneticsresequenced.events.entity.OtherEntityEvents
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -68,7 +68,7 @@ object AddAllGenesCommand {
             if (target !is Player && !gene.canMobsHave) continue
 
             targetGenes.addGene(gene)
-            OtherPlayerEvents.genesChanged(target, gene, true)
+            OtherEntityEvents.genesChanged(target, gene, true)
         }
 
         return true
