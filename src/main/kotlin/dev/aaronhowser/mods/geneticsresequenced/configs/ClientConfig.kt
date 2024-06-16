@@ -7,6 +7,7 @@ object ClientConfig {
     val SPEC: ForgeConfigSpec
 
     lateinit var woolyRemovesCape: ForgeConfigSpec.BooleanValue
+    lateinit var disableParrotNarrator: ForgeConfigSpec.BooleanValue
 
     init {
         generalConfigs()
@@ -17,8 +18,13 @@ object ClientConfig {
     private fun generalConfigs() {
         BUILDER.push("general")
 
-        woolyRemovesCape = BUILDER.comment("When a player with the Wooly gene is sheared, their outer skin layers are removed. Enable this to also remove the cape.")
+        woolyRemovesCape = BUILDER
+            .comment("When a player with the Wooly gene is sheared, their outer skin layers are removed. Enable this to also remove the cape.")
             .define("woolyRemovesCape", true)
+
+        disableParrotNarrator = BUILDER
+            .comment("Disables the narrator when a player with the Parrot gene speaks.")
+            .define("disableParrotNarrator", false)
 
         BUILDER.pop()
     }

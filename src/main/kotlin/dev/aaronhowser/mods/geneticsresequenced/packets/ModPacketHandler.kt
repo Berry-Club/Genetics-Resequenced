@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.packets
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.TeleportPlayerPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
+import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.NarratorPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.ShearedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.server.level.ServerLevel
@@ -50,6 +51,13 @@ object ModPacketHandler {
                 .decoder(ShearedPacket::decode)
                 .consumerMainThread(ShearedPacket::receiveMessage)
                 .add()
+
+            messageBuilder(NarratorPacket::class.java, ++id, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(NarratorPacket::encode)
+                .decoder(NarratorPacket::decode)
+                .consumerMainThread(NarratorPacket::receiveMessage)
+                .add()
+
         }
     }
 
