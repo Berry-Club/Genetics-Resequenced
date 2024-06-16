@@ -40,7 +40,7 @@ object OtherGenes {
         val player = event.player
         val genes = player.getGenes() ?: return
 
-        if (!genes.hasGene(DefaultGenes.narrator)) return
+        if (!genes.hasGene(DefaultGenes.chatterbox)) return
 
         val message = event.message
 
