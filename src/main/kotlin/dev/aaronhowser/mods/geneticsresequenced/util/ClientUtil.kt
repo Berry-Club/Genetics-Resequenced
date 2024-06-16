@@ -120,17 +120,9 @@ object ClientUtil {
                 val secondsLeftFinal = secondsLeft
 
                 ModScheduler.scheduleTaskInTicks(scheduleIn) {
-                    sendSystemMessage(
-                        Component.literal("$secondsLeftFinal...").withStyle {
-                            it.withHoverEvent(
-                                HoverEvent(
-                                    HoverEvent.Action.SHOW_TEXT,
-                                    Component.translatable(
-                                        "message.geneticsresequenced.cringe.resources.tooltip"
-                                    )
-                                )
-                            )
-                        }
+                    localPlayer?.displayClientMessage(
+                        Component.literal("$secondsLeftFinal..."),
+                        true
                     )
                 }
             }
