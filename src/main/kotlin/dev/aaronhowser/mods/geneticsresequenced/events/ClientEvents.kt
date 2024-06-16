@@ -12,9 +12,9 @@ import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.client.event.ClientPlayerNetworkEvent
 import net.minecraftforge.client.event.InputEvent
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
-import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedOutEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 
@@ -53,8 +53,9 @@ object ClientEvents {
     }
 
     @SubscribeEvent
-    fun onLeaveServer(event: PlayerLoggedOutEvent) {
+    fun onLeaveServer(event: ClientPlayerNetworkEvent.LoggingOut) {
         ClientUtil.addSkinLayersBack()
+        ClientUtil.handleCringe(false, 0)
     }
 
 }

@@ -8,6 +8,7 @@ object ClientConfig {
 
     lateinit var woolyRemovesCape: ForgeConfigSpec.BooleanValue
     lateinit var disableParrotNarrator: ForgeConfigSpec.BooleanValue
+    lateinit var disableCringeLangChange: ForgeConfigSpec.BooleanValue
 
     init {
         generalConfigs()
@@ -25,6 +26,10 @@ object ClientConfig {
         disableParrotNarrator = BUILDER
             .comment("Disables the narrator when a player with the Parrot gene speaks.")
             .define("disableParrotNarrator", false)
+
+        disableCringeLangChange = BUILDER
+            .comment("Disables the change to LOLcat language when you get the Cringe gene. This comes with a resource-reload, which may cause lag.")
+            .define("disableCringeLangChange", false)
 
         BUILDER.pop()
     }

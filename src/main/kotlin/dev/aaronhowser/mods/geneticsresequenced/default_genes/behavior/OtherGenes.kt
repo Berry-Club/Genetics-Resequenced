@@ -83,7 +83,9 @@ object OtherGenes {
             " ^w^",
             " >.<",
             " (✿◠‿◠)",
-            " (´・ω・`)"
+            " (´・ω・`)",
+            " :3",
+            " (◕‿◕✿)",
         )
         val words = uwuified.split(" ").toMutableList()
 

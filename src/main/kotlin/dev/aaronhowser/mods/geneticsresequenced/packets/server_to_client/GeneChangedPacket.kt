@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabi
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacket
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModAttributes
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.client.Minecraft
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.network.FriendlyByteBuf
@@ -58,7 +59,11 @@ class GeneChangedPacket(
             }
         }
 
-        handleAttributes(player, gene)
+        if (entity is LocalPlayer) {
+            if (gene == DefaultGenes.cringe) ClientUtil.handleCringe(wasAdded)
+
+            handleAttributes(entity, gene)
+        }
 
         context.get().packetHandled = true
     }
