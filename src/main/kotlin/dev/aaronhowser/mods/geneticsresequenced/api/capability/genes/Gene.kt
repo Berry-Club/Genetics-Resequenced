@@ -106,6 +106,11 @@ class Gene(
         private val requiredGenes = setOf(
             DefaultGenes.basic
         )
+
+        val CODEC: Codec<Gene> = ResourceLocation.CODEC.xmap(
+            { id: ResourceLocation -> fromId(id) ?: throw IllegalArgumentException("Unknown gene $id") },
+            { gene: Gene -> gene.id }
+        )
     }
 
     private val requiredGenes: MutableSet<Gene> = mutableSetOf()

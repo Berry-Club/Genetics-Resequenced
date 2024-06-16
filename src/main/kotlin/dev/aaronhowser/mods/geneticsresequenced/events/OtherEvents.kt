@@ -1,8 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.events
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneMobRegistry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.commands.ModCommands
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
+import net.minecraftforge.event.AddReloadListenerEvent
 import net.minecraftforge.event.RegisterCommandsEvent
 import net.minecraftforge.event.TickEvent
 import net.minecraftforge.event.TickEvent.ServerTickEvent
@@ -23,4 +25,10 @@ object OtherEvents {
     fun onServerTick(event: ServerTickEvent) {
         if (event.phase == TickEvent.Phase.END) ModScheduler.currentTick++
     }
+
+    @SubscribeEvent
+    fun addReloadListeners(event: AddReloadListenerEvent) {
+        event.addListener(GeneMobRegistry())
+    }
+
 }
