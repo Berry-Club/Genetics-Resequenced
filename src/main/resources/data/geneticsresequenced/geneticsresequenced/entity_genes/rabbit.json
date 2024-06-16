@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:bat",
+  "entity": "minecraft:rabbit",
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:jump_boost": 1,

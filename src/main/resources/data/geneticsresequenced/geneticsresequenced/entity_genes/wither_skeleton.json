@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:iron_golem",
+  "entity": "minecraft:wither_skeleton",
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:wither_hit": 1

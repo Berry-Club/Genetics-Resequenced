@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:horse",
+  "entity": "minecraft:ender_dragon",
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:dragons_breath": 1,

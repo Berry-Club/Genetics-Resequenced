@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:bat",
+  "entity": "minecraft:llama",
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:step_assist": 1

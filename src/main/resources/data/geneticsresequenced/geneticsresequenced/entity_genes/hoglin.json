@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:bat",
+  "entity": "minecraft:hoglin",
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:meaty": 1

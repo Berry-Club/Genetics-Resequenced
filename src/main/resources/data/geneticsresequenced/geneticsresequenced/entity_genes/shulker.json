@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:iron_golem",
+  "entity": "minecraft:shulker",
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:resistance": 1,

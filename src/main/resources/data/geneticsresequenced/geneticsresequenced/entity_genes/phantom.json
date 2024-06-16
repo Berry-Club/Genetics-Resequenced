@@ -1,7 +1,7 @@
 {
-  "entity": "minecraft:bat",
+  "entity": "minecraft:phantom",
   "genes": {
     "geneticsresequenced:basic": 5,
-    "geneticsresequenced:invisibility": 1
+    "geneticsresequenced:invisible": 1
   }
 }

@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:bat",
+  "entity": "minecraft:creeper",
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:explosive_exit": 1

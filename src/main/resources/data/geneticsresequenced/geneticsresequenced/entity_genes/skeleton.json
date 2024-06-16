@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:pufferfish",
+  "entity": "minecraft:skeleton",
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:infinity": 1

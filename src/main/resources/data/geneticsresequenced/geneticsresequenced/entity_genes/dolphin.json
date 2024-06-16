@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:glow_squid",
+  "entity": "minecraft:dolphin",
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:water_breathing": 1,

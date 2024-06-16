@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:sheep",
+  "entity": "minecraft:slime",
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:no_fall_damage": 1,

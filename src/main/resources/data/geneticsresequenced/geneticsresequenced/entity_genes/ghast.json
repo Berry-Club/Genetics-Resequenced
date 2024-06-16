@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:horse",
+  "entity": "minecraft:ghast",
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:shoot_fireballs": 1

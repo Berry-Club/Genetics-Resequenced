@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:pufferfish",
+  "entity": "minecraft:elder_guardian",
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:mob_sight": 1,

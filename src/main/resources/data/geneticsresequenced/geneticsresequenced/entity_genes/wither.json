@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:horse",
+  "entity": "minecraft:wither",
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:wither_proof": 1

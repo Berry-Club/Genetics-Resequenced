@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:iron_golem",
+  "entity": "minecraft:enderman",
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:more_hearts": 1,
