@@ -3,6 +3,6 @@
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:invisible": 1,
-    "geneticsresequenced:teleportation": 3
+    "geneticsresequenced:teleport": 3
   }
 }
