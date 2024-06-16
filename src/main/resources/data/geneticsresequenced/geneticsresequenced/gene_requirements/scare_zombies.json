@@ -1,6 +1,6 @@
 {
-  "gene": "geneticsresequenced:scareZombies",
+  "gene": "geneticsresequenced:scare_zombies",
   "requiresGenes": [
-    "geneticsresequenced:scareCreepers"
+    "geneticsresequenced:scare_creepers"
   ]
 }
