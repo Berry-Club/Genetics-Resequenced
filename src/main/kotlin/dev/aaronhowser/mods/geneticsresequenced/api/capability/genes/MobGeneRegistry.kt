@@ -61,6 +61,9 @@ object MobGeneRegistry : SimpleJsonResourceReloadListener(
         pResourceManager: ResourceManager,
         pProfiler: ProfilerFiller
     ) {
+
+        entityGeneMap.clear()
+
         for ((key: ResourceLocation, value: JsonElement) in pObject) {
             try {
                 val entityGenes: EntityGenes = EntityGenes.CODEC.decode(
