@@ -19,11 +19,11 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraftforge.event.AttachCapabilitiesEvent
-import net.minecraftforge.event.entity.EntityJoinLevelEvent
 import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.living.LivingDamageEvent
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent
+import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.level.ExplosionEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
@@ -81,8 +81,8 @@ object OtherEntityEvents {
     }
 
     @SubscribeEvent
-    fun onJoinWorld(event: EntityJoinLevelEvent) {
-        val entity = event.entity as? LivingEntity ?: return
+    fun onStartTracking(event: PlayerEvent.StartTracking) {
+        val entity = event.target as? LivingEntity ?: return
 
         val genes = entity.getGenes() ?: return
 
@@ -91,10 +91,10 @@ object OtherEntityEvents {
         }
     }
 
-    fun tellAllPlayersGeneChanged(entity: LivingEntity, changedGene: Gene, wasAdded: Boolean) {
+    private fun tellAllPlayersGeneChanged(entity: LivingEntity, changedGene: Gene, wasAdded: Boolean) {
         val server = entity.server!!
-        val players = server.playerList.players
-        for (player in players) {
+
+        for (player in server.playerList.players) {
             val serverPlayer = player ?: continue
 
             ModPacketHandler.messagePlayer(
