@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
+import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
@@ -26,13 +27,23 @@ class Gene(
     override fun toString(): String = "Gene($id)"
 
     companion object {
+        //TODO: Make this an actual registry
         private val GENE_REGISTRY: MutableSet<Gene> = mutableSetOf()
+
         fun getRegistry(): List<Gene> {
             val sortedGenes = GENE_REGISTRY.sortedBy { it.id }
 
-            val positiveGenes = sortedGenes.filter { !it.isNegative && !it.isMutation }
-            val mutations = sortedGenes.filter { it.isMutation }
-            val negativeGenes = sortedGenes.filter { it.isNegative }
+            val positiveGenes: MutableList<Gene> = mutableListOf()
+            val mutations: MutableList<Gene> = mutableListOf()
+            val negativeGenes: MutableList<Gene> = mutableListOf()
+
+            for (gene in sortedGenes) {
+                when {
+                    !gene.isMutation && !gene.isNegative -> positiveGenes.add(gene)
+                    gene.isMutation -> mutations.add(gene)
+                    gene.isNegative -> negativeGenes.add(gene)
+                }
+            }
 
             return positiveGenes + mutations + negativeGenes
         }
