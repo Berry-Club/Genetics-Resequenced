@@ -3,6 +3,7 @@
   "genes": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:resistance": 1,
-    "geneticsresequenced:regeneration": 1
+    "geneticsresequenced:regeneration": 1,
+    "geneticsresequenced:levitation": 1
   }
 }

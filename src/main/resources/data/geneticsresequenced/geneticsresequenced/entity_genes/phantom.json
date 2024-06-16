@@ -2,6 +2,7 @@
   "entity": "minecraft:phantom",
   "genes": {
     "geneticsresequenced:basic": 5,
-    "geneticsresequenced:invisible": 1
+    "geneticsresequenced:invisible": 1,
+    "geneticsresequenced:teleportation": 3
   }
 }

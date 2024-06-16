@@ -1,0 +1,9 @@
+{
+  "entity": "minecraft:mooshroom",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:eat_grass": 1,
+    "geneticsresequenced:milky": 1,
+    "geneticsresequenced:photosynthesis": 1,
+  }
+}
