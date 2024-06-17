@@ -21,7 +21,9 @@ object ModEffects {
     val SUBSTRATE: MobEffect by register("substrate") { DoNothingEffect("substrate", 0x17661e) }
     val CELL_GROWTH: MobEffect by register("cell_growth") { DoNothingEffect("cell_growth", 0x95eb34) }
     val MUTATION: MobEffect by register("mutation") { DoNothingEffect("mutation", 0x5c0d30) }
-    val VIRAL_AGENTS: MobEffect by register("viral_agents") { DoNothingEffect("viral_agents", 0xd18e1b, isBad = true) }
+    val VIRAL_AGENTS: MobEffect by register("viral_agents") {
+        DoNothingEffect("viral_agents", 0xd18e1b, isBad = true)
+    }
     val SILLY: MobEffect by register("silly") {
         DoNothingEffect("silly", 0xe4fd01, removeImmediately = false, isBad = true)
     }
