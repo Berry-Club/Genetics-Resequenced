@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.coal_generator.C
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser.PlasmidInfuserMenu
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_injector.PlasmidInjectorMenu
 import dev.aaronhowser.mods.geneticsresequenced.controls.ModKeyMappings
+import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packets.client_to_server.TeleportPlayerPacket
@@ -12,6 +13,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraftforge.api.distmarker.Dist
+import net.minecraftforge.client.event.ClientChatReceivedEvent
 import net.minecraftforge.client.event.ClientPlayerNetworkEvent
 import net.minecraftforge.client.event.InputEvent
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
@@ -56,6 +58,11 @@ object ClientEvents {
     fun onLeaveServer(event: ClientPlayerNetworkEvent.LoggingOut) {
         ClientUtil.addSkinLayersBack()
         ClientUtil.handleCringe(false, 0)
+    }
+
+    @SubscribeEvent
+    fun onClientChat(event: ClientChatReceivedEvent) {
+        ClientUtil.handleCringeChatClient(event)
     }
 
 }
