@@ -17,12 +17,13 @@ object ModEffects {
     val EFFECT_REGISTRY: DeferredRegister<MobEffect> =
         DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, GeneticsResequenced.ID)
 
-    val BLEED by register("bleed") { BleedEffect() }
-    val SUBSTRATE by register("substrate") { DoNothingEffect("substrate", 0x17661e) }
-    val CELL_GROWTH by register("cell_growth") { DoNothingEffect("cell_growth", 0x95eb34) }
-    val MUTATION by register("mutation") { DoNothingEffect("mutation", 0x5c0d30) }
-    val VIRAL_AGENTS by register("viral_agents") { DoNothingEffect("viral_agents", 0xd18e1b, true) }
-    val THE_CURE by register("the_cure") { TheCureEffect() }
+    val BLEED: MobEffect by register("bleed") { BleedEffect() }
+    val SUBSTRATE: MobEffect by register("substrate") { DoNothingEffect("substrate", 0x17661e) }
+    val CELL_GROWTH: MobEffect by register("cell_growth") { DoNothingEffect("cell_growth", 0x95eb34) }
+    val MUTATION: MobEffect by register("mutation") { DoNothingEffect("mutation", 0x5c0d30) }
+    val VIRAL_AGENTS: MobEffect by register("viral_agents") { DoNothingEffect("viral_agents", 0xd18e1b, isBad = true) }
+    val SILLY: MobEffect by register("silly") { DoNothingEffect("silly", 0xe4fd01, removeImmediately = false) }
+    val THE_CURE: MobEffect by register("the_cure") { TheCureEffect() }
 
     val ZOMBIFY_VILLAGER by register("zombify_villager") { ZombifyVillagerEffect() }
 
