@@ -11,6 +11,7 @@ import net.minecraft.sounds.SoundEvents
 import net.minecraftforge.event.ServerChatEvent
 import kotlin.random.Random
 
+
 object OtherGenes {
 
     private val villagerSounds = listOf(
@@ -53,49 +54,64 @@ object OtherGenes {
         )
     }
 
-    fun handleCringe(event: ServerChatEvent.Submitted) {
+    private val randomPhrases = listOf(
+        "UwU",
+        "owo",
+        "OwO",
+        "uwu",
+        ">w<",
+        "^w^",
+        ":3",
+        "^-^",
+        "^_^",
+        "^w^",
+        ":3"
+    )
 
+    /**
+     * [From Create: Estrogen](https://github.com/MayaqqDev/Estrogen/blob/architectury-1.20.1/common/src/main/java/dev/mayaqq/estrogen/utils/UwUfy.java#L18)
+     */
+    fun uwufyString(pInput: String): String {
+        var input = pInput
+        val stringLength: Int = input.length
+
+        input = input
+            .replace(Regex("[rl]"), "w")
+            .replace(Regex("[RL]"), "W")
+            .replace("ove", "uv")
+            .replace("o", "owo")
+            .replace("O", "OwO")
+            .replace("!", "!!!")
+            .replace("?", "???")
+
+        if (stringLength % 3 == 0) {
+            input = input.toUpperCase()
+        }
+
+        input = if (stringLength % 2 == 0) {
+            input.replace(
+                Regex("([a-zA-Z])(\\b)"),
+                "$1$1$1$1$2"
+            )
+        } else {
+            // 50% chance to duplicate the first letter and add '-'
+            input.replace(
+                Regex("\\b([a-zA-Z])([a-zA-Z]*)\\b"),
+                "$1-$1$2"
+            )
+        }
+
+        return input + " " + randomPhrases.random()
+    }
+
+
+    fun handleCringeChatServer(event: ServerChatEvent.Submitted) {
         val player = event.player
         val genes = player.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.cringe)) return
 
-        if (event.message.string.startsWith("/")) return
-
-        val substitutions = mapOf(
-            "r" to "w",
-            "l" to "w",
-            "R" to "W",
-            "L" to "W",
-            "ove" to "uv",
-            "th" to "d",
-            "Th" to "D"
-        )
-
-        var uwuified = event.message.string
-        for ((from, to) in substitutions) {
-            uwuified = uwuified.replace(from, to)
-        }
-
-        val interjections = listOf(
-            " >w<",
-            " UwU",
-            " owo",
-            " ^w^",
-            " >.<",
-            " (✿◠‿◠)",
-            " (´・ω・`)",
-            " :3",
-            " (◕‿◕✿)",
-        )
-        val words = uwuified.split(" ").toMutableList()
-
-        for (i in 1 until words.size step 4) {
-            words[i] += interjections.random()
-        }
-
-        val uwuifiedMessage = words.joinToString(" ")
-
-        event.message = Component.literal(uwuifiedMessage)
+        val input = event.message.string
+        event.message = Component.literal(uwufyString(input))
     }
 
 }
