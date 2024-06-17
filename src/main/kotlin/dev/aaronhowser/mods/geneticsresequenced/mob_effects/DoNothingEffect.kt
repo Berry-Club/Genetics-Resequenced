@@ -8,17 +8,18 @@ import net.minecraft.world.entity.LivingEntity
 class DoNothingEffect(
     name: String,
     color: Int,
-    isBad: Boolean = false
+    isBad: Boolean = false,
+    private val removeImmediately: Boolean = true
 ) : MobEffect(
     if (isBad) MobEffectCategory.HARMFUL else MobEffectCategory.BENEFICIAL,
     color
 ) {
 
-    override fun isInstantenous(): Boolean = true
-    override fun isDurationEffectTick(pDuration: Int, pAmplifier: Int): Boolean = true
+    override fun isInstantenous(): Boolean = removeImmediately
+    override fun isDurationEffectTick(pDuration: Int, pAmplifier: Int): Boolean = removeImmediately
 
     override fun applyEffectTick(pLivingEntity: LivingEntity, pAmplifier: Int) {
-        pLivingEntity.removeEffect(this)
+        if (removeImmediately) pLivingEntity.removeEffect(this)
     }
 
     override fun applyInstantenousEffect(
@@ -28,7 +29,7 @@ class DoNothingEffect(
         pAmplifier: Int,
         pHealth: Double
     ) {
-        pLivingEntity.removeEffect(this)
+        if (removeImmediately) pLivingEntity.removeEffect(this)
     }
 
 }
