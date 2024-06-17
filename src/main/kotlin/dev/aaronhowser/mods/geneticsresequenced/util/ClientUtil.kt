@@ -1,11 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ClientConfig
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.ClickGenes.recentlySheered
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.OtherGenes
 import net.minecraft.client.Minecraft
 import net.minecraft.client.Options
 import net.minecraft.client.player.LocalPlayer
@@ -13,7 +10,6 @@ import net.minecraft.client.resources.language.LanguageInfo
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.world.entity.player.PlayerModelPart
-import net.minecraftforge.client.event.ClientChatReceivedEvent
 
 object ClientUtil {
 
@@ -153,14 +149,6 @@ object ClientUtil {
             Minecraft.getInstance().reloadResourcePacks()
         }
 
-    }
-
-    fun handleCringeChatClient(event: ClientChatReceivedEvent) {
-        val genes = localPlayer?.getGenes() ?: return
-//        if (!genes.hasGene(DefaultGenes.cringe)) return
-
-        val message = event.message.string
-        event.message = Component.literal(OtherGenes.uwufyString(message))
     }
 
 }
