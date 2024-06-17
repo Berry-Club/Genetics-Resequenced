@@ -69,7 +69,7 @@ object OtherPlayerEvents {
     fun onSendChatMessage(event: ServerChatEvent.Submitted) {
         OtherGenes.handleEmeraldHeart(event)
         OtherGenes.handleNarrator(event)
-        OtherGenes.handleCringe(event)
+        OtherGenes.handleCringeChat(event)
     }
 
     @SubscribeEvent

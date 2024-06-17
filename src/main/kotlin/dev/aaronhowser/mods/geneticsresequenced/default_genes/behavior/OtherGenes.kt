@@ -105,7 +105,7 @@ object OtherGenes {
     }
 
 
-    fun handleCringeChatServer(event: ServerChatEvent.Submitted) {
+    fun handleCringeChat(event: ServerChatEvent.Submitted) {
         val player = event.player
         val genes = player.getGenes() ?: return
         if (!genes.hasGene(DefaultGenes.cringe)) return
