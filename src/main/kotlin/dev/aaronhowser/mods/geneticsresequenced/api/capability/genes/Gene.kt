@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component

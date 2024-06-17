@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.registries
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setBasic
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene

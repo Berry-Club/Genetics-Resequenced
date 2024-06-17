@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.configs.ClientConfig
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.ClickGenes.recentlySheered
+import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.ClickGenes.recentlySheered
 import net.minecraft.client.Minecraft
 import net.minecraft.client.Options
 import net.minecraft.client.player.LocalPlayer

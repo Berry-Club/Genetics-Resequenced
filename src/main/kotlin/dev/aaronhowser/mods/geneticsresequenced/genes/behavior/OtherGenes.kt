@@ -1,8 +1,8 @@
-package dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior
+package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.NarratorPacket
 import net.minecraft.network.chat.Component

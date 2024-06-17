@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems

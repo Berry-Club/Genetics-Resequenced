@@ -1,7 +1,7 @@
-package dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior
+package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
 import net.minecraft.world.entity.EntitySelector
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PathfinderMob

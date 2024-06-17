@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.entities
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.entities.goals.SupportSlimeAttackGoal
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModEntityTypes

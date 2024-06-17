@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacket
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil

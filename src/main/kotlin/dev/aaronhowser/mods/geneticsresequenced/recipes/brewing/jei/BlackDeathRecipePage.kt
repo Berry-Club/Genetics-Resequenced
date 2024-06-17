@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei
 
 import com.google.gson.JsonObject
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.BlackDeathRecipe

@@ -2,10 +2,10 @@ package dev.aaronhowser.mods.geneticsresequenced.events.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.AttributeGenes
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.ClickGenes
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.OtherGenes
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.TickGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.AttributeGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.ClickGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.OtherGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket

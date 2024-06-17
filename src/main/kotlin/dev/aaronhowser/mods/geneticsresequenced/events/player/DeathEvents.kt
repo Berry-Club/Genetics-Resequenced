@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.DeathGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component

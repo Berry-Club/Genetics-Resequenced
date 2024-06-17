@@ -5,11 +5,11 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.CapabilityHandler
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.AttributeGenes
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.DamageGenes
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.DeathGenes
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.TickGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.AttributeGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.DamageGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.DeathGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler

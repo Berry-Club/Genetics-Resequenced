@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.GmoRecipePage
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil

@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.events.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.AttributeGenes
-import dev.aaronhowser.mods.geneticsresequenced.default_genes.behavior.ClickGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.AttributeGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
