@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabi
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
 import net.minecraft.world.entity.EntityType
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent
@@ -57,6 +58,7 @@ object ModBusEvents {
 
     @SubscribeEvent
     fun onCommonSetup(event: FMLCommonSetupEvent) {
+        ModGenes.registerDefaultGenes()
         ModPotions.addRecipes()
     }
 }

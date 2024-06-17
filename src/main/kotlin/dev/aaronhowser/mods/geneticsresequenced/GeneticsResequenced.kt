@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced
 
 import dev.aaronhowser.mods.geneticsresequenced.configs.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModRegistries
 import net.minecraftforge.fml.ModLoadingContext
@@ -27,8 +26,6 @@ object GeneticsResequenced {
         ModRegistries.register(MOD_BUS)
 
         ModPacketHandler.setup()
-
-        ModGenes.registerDefaultGenes()
     }
 
 }
