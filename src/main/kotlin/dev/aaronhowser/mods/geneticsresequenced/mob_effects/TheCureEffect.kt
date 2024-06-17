@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects
+package dev.aaronhowser.mods.geneticsresequenced.mob_effects
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import net.minecraft.world.effect.MobEffect

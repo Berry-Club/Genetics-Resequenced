@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.potions.mob_effects
+package dev.aaronhowser.mods.geneticsresequenced.mob_effects
 
 import net.minecraft.nbt.NbtOps
 import net.minecraft.server.level.ServerLevel
