@@ -187,17 +187,13 @@ class Gene(
     fun getPotion(): MobEffectInstance? {
         if (potionDetails == null) return null
 
-        val effect = potionDetails.effect
-        val duration = potionDetails.duration
-        val amplifier = potionDetails.level - 1
-
         return MobEffectInstance(
-            effect,
-            duration,
-            amplifier,
+            potionDetails.effect,
+            potionDetails.duration,
+            potionDetails.level - 1,
             true,
             false,
-            ServerConfig.showEffectIcons.get()
+            potionDetails.showIcon
         )
     }
 

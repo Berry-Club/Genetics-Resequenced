@@ -7,7 +7,6 @@ object ServerConfig {
     val SPEC: ForgeConfigSpec
 
     lateinit var keepGenesOnDeath: ForgeConfigSpec.BooleanValue
-    lateinit var showEffectIcons: ForgeConfigSpec.BooleanValue
     lateinit var minimumCooldownForNotification: ForgeConfigSpec.IntValue
     lateinit var antifieldBlockRadius: ForgeConfigSpec.IntValue
 
@@ -67,10 +66,6 @@ object ServerConfig {
         keepGenesOnDeath = BUILDER
             .comment("Keep genes on death")
             .define("keepGenesOnDeath", true)
-
-        showEffectIcons = BUILDER
-            .comment("Show the icons for effects granted by genes")
-            .define("showEffectIcons", true)
 
         minimumCooldownForNotification = BUILDER
             .comment("When a cooldown ends, it notifies the player, unless the cooldown is shorter than this value (in ticks)")

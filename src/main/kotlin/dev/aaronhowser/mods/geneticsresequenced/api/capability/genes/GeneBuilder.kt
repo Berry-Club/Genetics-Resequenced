@@ -49,16 +49,18 @@ class GeneBuilder(
     fun setPotion(
         effect: MobEffect,
         level: Int,
-        duration: Int = 300
+        duration: Int = 300,
+        showIcon: Boolean = false
     ): GeneBuilder {
-        potionDetails = PotionDetails(effect, level, duration)
+        potionDetails = PotionDetails(effect, level, duration, showIcon)
         return this
     }
 
     data class PotionDetails(
         val effect: MobEffect,
         val level: Int,
-        val duration: Int
+        val duration: Int,
+        val showIcon: Boolean
     )
 
     fun removePlasmid(): GeneBuilder {
