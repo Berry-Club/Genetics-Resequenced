@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.core.BlockPos
@@ -24,10 +24,10 @@ object PacketGenes {
 
     @Suppress("MoveVariableDeclarationIntoWhen")
     fun teleport(player: ServerPlayer) {
-        if (!DefaultGenes.teleport.isActive) return
+        if (!ModGenes.teleport.isActive) return
 
         val genes = (player as LivingEntity).getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.teleport)) return
+        if (!genes.hasGene(ModGenes.teleport)) return
 
         if (recentTeleports.contains(player.uuid)) return
         recentTeleports.add(player.uuid)
@@ -36,7 +36,7 @@ object PacketGenes {
 
 
             val message = Component.empty()
-                .append(DefaultGenes.teleport.nameComponent)
+                .append(ModGenes.teleport.nameComponent)
                 .append(Component.translatable("cooldown.geneticsresequenced.ended"))
 
             player.sendSystemMessage(message)
@@ -79,15 +79,15 @@ object PacketGenes {
     }
 
     private val recentFireballs = GeneCooldown(
-        DefaultGenes.shootFireballs,
+        ModGenes.shootFireballs,
         ServerConfig.dragonsBreathCooldown.get()
     )
 
     fun dragonBreath(player: ServerPlayer) {
-        if (!DefaultGenes.dragonsBreath.isActive) return
+        if (!ModGenes.dragonsBreath.isActive) return
 
         val genes = (player as LivingEntity).getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.dragonsBreath)) return
+        if (!genes.hasGene(ModGenes.dragonsBreath)) return
 
         val wasNotOnCooldown = recentFireballs.add(player)
 

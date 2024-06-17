@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.world.effect.MobEffects
 
 @Suppress("unused", "MemberVisibilityCanBePrivate")
-object DefaultGenes {
+object ModGenes {
 
     fun registerDefaultGenes() {
         // Doesn't do anything, but it loads the object which initializes the genes

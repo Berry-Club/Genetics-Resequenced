@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
@@ -23,7 +23,7 @@ class BlackDeathRecipe : IBrewingRecipe {
     }
 
     companion object {
-        val allBadGenes = Gene.getRegistry().filter { it.isNegative && it.isActive } - DefaultGenes.blackDeath
+        val allBadGenes = Gene.getRegistry().filter { it.isNegative && it.isActive } - ModGenes.blackDeath
     }
 
     override fun isIngredient(pTopSlot: ItemStack): Boolean {
@@ -40,7 +40,7 @@ class BlackDeathRecipe : IBrewingRecipe {
         if (!isInput(pBottomSlot)) return ItemStack.EMPTY
         if (!isIngredient(pTopSlot)) return ItemStack.EMPTY
 
-        val output = ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.blackDeath)
+        val output = ModItems.DNA_HELIX.itemStack.setGene(ModGenes.blackDeath)
 
         return output
     }

@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei
 
 import com.google.gson.JsonObject
-import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.BlackDeathRecipe
@@ -48,7 +48,7 @@ class BlackDeathRecipePage(
 
     private val viralAgentStack = PotionUtils.setPotion(ItemStack(Items.POTION), ModPotions.VIRAL_AGENTS)
 
-    private val blackDeathDna = ItemStack(ModItems.DNA_HELIX.get()).setGene(DefaultGenes.blackDeath)
+    private val blackDeathDna = ItemStack(ModItems.DNA_HELIX.get()).setGene(ModGenes.blackDeath)
 
     companion object {
         fun getAllRecipes(): List<BlackDeathRecipePage> {

@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.curios.CuriosKeepInventory
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.util.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
@@ -28,7 +28,7 @@ object DeathGenes {
     // TODO: Test with grave mods
     // TODO: Probably voids items if the server ends between death and respawn. Maybe drop items in the world if that happens?
     fun handleKeepInventory(player: LivingEntity) {
-        if (!DefaultGenes.keepInventory.isActive) return
+        if (!ModGenes.keepInventory.isActive) return
 
         if (player !is Player) return
 
@@ -54,7 +54,7 @@ object DeathGenes {
 
             if (curiosIsLoaded) CuriosKeepInventory.loadPlayerCurios(player)
         } else {
-            if (player.getGenes()?.hasGene(DefaultGenes.keepInventory) != true) return
+            if (player.getGenes()?.hasGene(ModGenes.keepInventory) != true) return
 
             val allItems = player.inventory.items + player.inventory.armor + player.inventory.offhand
             val filtered = allItems.filter { !it.isEmpty }.map { it.copy() }
@@ -67,15 +67,15 @@ object DeathGenes {
     }
 
     private val emeraldHeartCooldown = GeneCooldown(
-        DefaultGenes.emeraldHeart,
+        ModGenes.emeraldHeart,
         ServerConfig.emeraldHeartCooldown.get()
     )
 
     fun handleEmeraldHeart(event: LivingDeathEvent) {
-        if (!DefaultGenes.emeraldHeart.isActive) return
+        if (!ModGenes.emeraldHeart.isActive) return
 
         val entity = event.entity
-        if (entity.getGenes()?.hasGene(DefaultGenes.emeraldHeart) != true) return
+        if (entity.getGenes()?.hasGene(ModGenes.emeraldHeart) != true) return
 
         if (entity !is Player) {
             val itemEntity = ItemEntity(entity.level, entity.x, entity.y, entity.z, ItemStack(Items.EMERALD, 1))
@@ -98,10 +98,10 @@ object DeathGenes {
     private const val GUNPOWDER_REQUIRED = 5
     private const val EXPLOSION_STRENGTH = 3f
     fun handleExplosiveExit(event: LivingDeathEvent) {
-        if (!DefaultGenes.explosiveExit.isActive) return
+        if (!ModGenes.explosiveExit.isActive) return
 
         val entity = event.entity
-        if (entity.getGenes()?.hasGene(DefaultGenes.explosiveExit) != true) return
+        if (entity.getGenes()?.hasGene(ModGenes.explosiveExit) != true) return
 
         val shouldExplode = if (entity !is Player) {
             true
@@ -142,7 +142,7 @@ object DeathGenes {
     }
 
     fun explosiveExitDetonation(event: ExplosionEvent.Detonate) {
-        if (!DefaultGenes.explosiveExit.isActive) return
+        if (!ModGenes.explosiveExit.isActive) return
         if (event.isCanceled) return
 
         val exploderUuid = event.explosion.exploder?.uuid
@@ -154,7 +154,7 @@ object DeathGenes {
 
     private val slimyDeathCooldown = mutableSetOf<UUID>()
     fun handleSlimyDeath(event: LivingDeathEvent) {
-        if (!DefaultGenes.slimyDeath.isActive) return
+        if (!ModGenes.slimyDeath.isActive) return
         if (event.isCanceled) return
 
         val entity: LivingEntity = event.entity
@@ -163,7 +163,7 @@ object DeathGenes {
         if (uuid in slimyDeathCooldown) return
 
         val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.slimyDeath)) return
+        if (!genes.hasGene(ModGenes.slimyDeath)) return
 
         val amount = Random.nextInt(1, 4)
 
@@ -188,7 +188,7 @@ object DeathGenes {
             slimyDeathCooldown.remove(uuid)
 
             val message = Component.empty()
-                .append(DefaultGenes.slimyDeath.nameComponent)
+                .append(ModGenes.slimyDeath.nameComponent)
                 .append(Component.translatable("cooldown.geneticsresequenced.ended"))
 
             entity.sendSystemMessage(message)

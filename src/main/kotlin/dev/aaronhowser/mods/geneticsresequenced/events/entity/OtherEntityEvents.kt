@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.CapabilityHandler
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
-import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.DamageGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.DeathGenes
@@ -104,34 +104,34 @@ object OtherEntityEvents {
 
         if (entity is Player) {
             when (changedGene) {
-                DefaultGenes.efficiency -> {
-                    if (entityGenes.hasGene(DefaultGenes.efficiencyFour)) return
+                ModGenes.efficiency -> {
+                    if (entityGenes.hasGene(ModGenes.efficiencyFour)) return
                     val levelToSetTo = if (wasAdded) 1 else 0
                     AttributeGenes.setEfficiency(entity, levelToSetTo)
                 }
 
-                DefaultGenes.efficiencyFour -> {
+                ModGenes.efficiencyFour -> {
                     if (wasAdded) {
                         AttributeGenes.setEfficiency(entity, 4)
                     } else {
-                        val levelToSetTo = if (entityGenes.hasGene(DefaultGenes.efficiency)) 1 else 0
+                        val levelToSetTo = if (entityGenes.hasGene(ModGenes.efficiency)) 1 else 0
                         AttributeGenes.setEfficiency(entity, levelToSetTo)
                     }
                 }
 
-                DefaultGenes.stepAssist -> AttributeGenes.setStepAssist(entity, wasAdded)
+                ModGenes.stepAssist -> AttributeGenes.setStepAssist(entity, wasAdded)
 
-                DefaultGenes.wallClimbing -> AttributeGenes.setWallClimbing(entity, wasAdded)
+                ModGenes.wallClimbing -> AttributeGenes.setWallClimbing(entity, wasAdded)
 
-                DefaultGenes.moreHearts -> {
+                ModGenes.moreHearts -> {
                     AttributeGenes.setMoreHearts(entity, 1, wasAdded)
                 }
 
-                DefaultGenes.moreHeartsTwo -> {
+                ModGenes.moreHeartsTwo -> {
                     AttributeGenes.setMoreHearts(entity, 2, wasAdded)
                 }
 
-                DefaultGenes.flight -> TickGenes.handleFlight(entity)
+                ModGenes.flight -> TickGenes.handleFlight(entity)
 
                 else -> {}
             }

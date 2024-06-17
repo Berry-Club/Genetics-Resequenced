@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.entities
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
-import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.entities.goals.SupportSlimeAttackGoal
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModEntityTypes
@@ -62,12 +62,12 @@ class SupportSlime(
             if (!item.`is`(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())) return
 
             val genes = player.getGenes() ?: return
-            if (genes.hasGene(DefaultGenes.slimyDeath)) return
+            if (genes.hasGene(ModGenes.slimyDeath)) return
 
             player.sendSystemMessage(
                 Component.translatable(
                     "message.geneticsresequenced.support_slime_creative",
-                    DefaultGenes.slimyDeath.nameComponent
+                    ModGenes.slimyDeath.nameComponent
                 )
             )
         }
@@ -97,7 +97,7 @@ class SupportSlime(
 
         for (livingEntity in nearbyLivingEntities) {
             val genes: GenesCapability = livingEntity.getGenes() ?: continue
-            if (genes.hasGene(DefaultGenes.slimyDeath)) {
+            if (genes.hasGene(ModGenes.slimyDeath)) {
                 setOwner(livingEntity.uuid)
                 break
             }

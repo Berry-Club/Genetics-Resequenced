@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
-import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.GmoRecipePage
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -88,7 +88,7 @@ class GmoRecipeCategory(
             )
         val line2 = Component.translatable(
             "\nOtherwise, it always produces a %s Gene",
-            DefaultGenes.basic.nameComponent
+            ModGenes.basic.nameComponent
         )
         val line3 = Component.literal("\nOverclockers lower your chance, but Chorus Fruits increase it!")
 

@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.NarratorPacket
 import net.minecraft.network.chat.Component
@@ -26,7 +26,7 @@ object OtherGenes {
         val player = event.player
         val genes = player.getGenes() ?: return
 
-        if (genes.hasGene(DefaultGenes.emeraldHeart)) {
+        if (genes.hasGene(ModGenes.emeraldHeart)) {
             player.level.playSound(
                 null,
                 player.blockPosition(),
@@ -42,7 +42,7 @@ object OtherGenes {
         val player = event.player
         val genes = player.getGenes() ?: return
 
-        if (!genes.hasGene(DefaultGenes.chatterbox)) return
+        if (!genes.hasGene(ModGenes.chatterbox)) return
 
         val message = event.message
 
@@ -108,7 +108,7 @@ object OtherGenes {
     fun handleCringeChat(event: ServerChatEvent.Submitted) {
         val player = event.player
         val genes = player.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.cringe)) return
+        if (!genes.hasGene(ModGenes.cringe)) return
 
         val input = event.message.string
         event.message = Component.literal(uwufyString(input))

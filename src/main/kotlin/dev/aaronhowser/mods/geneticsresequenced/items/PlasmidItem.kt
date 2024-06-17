@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
@@ -56,7 +56,7 @@ class PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
             val plasmids = mutableListOf<ItemStack>()
 
             for (gene in geneRegistry) {
-                if (gene == DefaultGenes.basic) continue
+                if (gene == ModGenes.basic) continue
 
                 val stack = gene.getPlasmid()
                 plasmids.add(stack)

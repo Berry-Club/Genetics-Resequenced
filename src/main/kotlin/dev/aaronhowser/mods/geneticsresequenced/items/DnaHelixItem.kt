@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.items
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -36,11 +36,11 @@ class DnaHelixItem : EntityDnaItem() {
         }
 
         fun ItemStack.setBasic(): ItemStack {
-            this.setGene(DefaultGenes.basic)
+            this.setGene(ModGenes.basic)
             return this
         }
 
-        fun ItemStack.isBasic(): Boolean = this.getGene() == DefaultGenes.basic
+        fun ItemStack.isBasic(): Boolean = this.getGene() == ModGenes.basic
     }
 
     override fun interactLivingEntity(

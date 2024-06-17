@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.registries
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setBasic
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
@@ -163,7 +163,7 @@ object ModPotions {
         )
         val cureRecipe = BrewingRecipe(
             VIRAL_AGENTS.ingredient,
-            ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.emeraldHeart).ingredient,
+            ModItems.DNA_HELIX.itemStack.setGene(ModGenes.emeraldHeart).ingredient,
             curePotionStack
         )
 
@@ -185,74 +185,74 @@ object ModPotions {
 
 
         val geneFocusBrews = listOf(
-            GmoRecipe(EntityType.BLAZE, Items.GLOWSTONE_DUST, DefaultGenes.bioluminescence, 0.5f),
-            GmoRecipe(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, DefaultGenes.bioluminescence, 0.5f),
-            GmoRecipe(EntityType.VILLAGER, Items.EMERALD, DefaultGenes.emeraldHeart, 0.75f),
-            GmoRecipe(EntityType.SHULKER, Items.EMERALD, DefaultGenes.keepInventory, 0.5f),
-            GmoRecipe(EntityType.RABBIT, Items.REDSTONE, DefaultGenes.speed, 0.75f),
-            GmoRecipe(EntityType.IRON_GOLEM, Items.APPLE, DefaultGenes.regeneration, 0.75f),
-            GmoRecipe(EntityType.CHICKEN, Items.EGG, DefaultGenes.layEgg, 0.75f),
-            GmoRecipe(EntityType.PIG, Items.PORKCHOP, DefaultGenes.meaty, 0.75f),
-            GmoRecipe(EntityType.ENDERMAN, Items.ENDER_PEARL, DefaultGenes.teleport, 0.75f),
-            GmoRecipe(EntityType.ENDERMAN, Items.IRON_INGOT, DefaultGenes.itemMagnet, 0.75f),
-            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, DefaultGenes.moreHearts, 0.75f),
-            GmoRecipe(EntityType.SLIME, Items.GLOWSTONE_DUST, DefaultGenes.photosynthesis, 0.5f)
+            GmoRecipe(EntityType.BLAZE, Items.GLOWSTONE_DUST, ModGenes.bioluminescence, 0.5f),
+            GmoRecipe(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, ModGenes.bioluminescence, 0.5f),
+            GmoRecipe(EntityType.VILLAGER, Items.EMERALD, ModGenes.emeraldHeart, 0.75f),
+            GmoRecipe(EntityType.SHULKER, Items.EMERALD, ModGenes.keepInventory, 0.5f),
+            GmoRecipe(EntityType.RABBIT, Items.REDSTONE, ModGenes.speed, 0.75f),
+            GmoRecipe(EntityType.IRON_GOLEM, Items.APPLE, ModGenes.regeneration, 0.75f),
+            GmoRecipe(EntityType.CHICKEN, Items.EGG, ModGenes.layEgg, 0.75f),
+            GmoRecipe(EntityType.PIG, Items.PORKCHOP, ModGenes.meaty, 0.75f),
+            GmoRecipe(EntityType.ENDERMAN, Items.ENDER_PEARL, ModGenes.teleport, 0.75f),
+            GmoRecipe(EntityType.ENDERMAN, Items.IRON_INGOT, ModGenes.itemMagnet, 0.75f),
+            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.moreHearts, 0.75f),
+            GmoRecipe(EntityType.SLIME, Items.GLOWSTONE_DUST, ModGenes.photosynthesis, 0.5f)
         )
         allRecipes.addAll(geneFocusBrews)
 
         val mutationBrews = listOf(
-            GmoRecipe(EntityType.BAT, Items.FEATHER, DefaultGenes.flight, 0.75f, isMutation = true),
-            GmoRecipe(EntityType.PARROT, Items.FEATHER, DefaultGenes.flight, 0.75f, isMutation = true),
-            GmoRecipe(EntityType.POLAR_BEAR, Items.EMERALD, DefaultGenes.strength, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.LLAMA, Items.EMERALD, DefaultGenes.strength, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.RABBIT, Items.EMERALD, DefaultGenes.luck, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.SHULKER, Items.DIAMOND, DefaultGenes.resistance, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.ZOMBIE, Items.DIAMOND, DefaultGenes.resistance, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.POLAR_BEAR, Items.DIAMOND, DefaultGenes.claws, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.LLAMA, Items.DIAMOND, DefaultGenes.claws, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.WOLF, Items.DIAMOND, DefaultGenes.claws, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.RABBIT, Items.REDSTONE, DefaultGenes.speedTwo, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.OCELOT, Items.REDSTONE, DefaultGenes.speedFour, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.RABBIT, Items.IRON_INGOT, DefaultGenes.haste, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.SILVERFISH, Items.REDSTONE, DefaultGenes.efficiency, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.ZOMBIE, Items.SPIDER_EYE, DefaultGenes.scareCreepers, 0.75f, isMutation = true),
-            GmoRecipe(EntityType.SPIDER, Items.SPIDER_EYE, DefaultGenes.scareSkeletons, 0.75f, isMutation = true),
-            GmoRecipe(EntityType.ENDER_DRAGON, Items.REDSTONE, DefaultGenes.regeneration, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.PIG, Items.BLAZE_POWDER, DefaultGenes.meaty, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.BAT, Items.ENDER_EYE, DefaultGenes.invisible, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.SKELETON, Items.ENDER_EYE, DefaultGenes.invisible, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, DefaultGenes.moreHearts, 0.5f, true)
+            GmoRecipe(EntityType.BAT, Items.FEATHER, ModGenes.flight, 0.75f, isMutation = true),
+            GmoRecipe(EntityType.PARROT, Items.FEATHER, ModGenes.flight, 0.75f, isMutation = true),
+            GmoRecipe(EntityType.POLAR_BEAR, Items.EMERALD, ModGenes.strength, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.LLAMA, Items.EMERALD, ModGenes.strength, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.RABBIT, Items.EMERALD, ModGenes.luck, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.SHULKER, Items.DIAMOND, ModGenes.resistance, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.ZOMBIE, Items.DIAMOND, ModGenes.resistance, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.POLAR_BEAR, Items.DIAMOND, ModGenes.claws, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.LLAMA, Items.DIAMOND, ModGenes.claws, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.WOLF, Items.DIAMOND, ModGenes.claws, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.RABBIT, Items.REDSTONE, ModGenes.speedTwo, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.OCELOT, Items.REDSTONE, ModGenes.speedFour, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.RABBIT, Items.IRON_INGOT, ModGenes.haste, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.SILVERFISH, Items.REDSTONE, ModGenes.efficiency, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.ZOMBIE, Items.SPIDER_EYE, ModGenes.scareCreepers, 0.75f, isMutation = true),
+            GmoRecipe(EntityType.SPIDER, Items.SPIDER_EYE, ModGenes.scareSkeletons, 0.75f, isMutation = true),
+            GmoRecipe(EntityType.ENDER_DRAGON, Items.REDSTONE, ModGenes.regeneration, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.PIG, Items.BLAZE_POWDER, ModGenes.meaty, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.BAT, Items.ENDER_EYE, ModGenes.invisible, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.SKELETON, Items.ENDER_EYE, ModGenes.invisible, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.moreHearts, 0.5f, true)
         )
         allRecipes.addAll(mutationBrews)
 
         val virusBrews = listOf(
-            VirusRecipe(DefaultGenes.poisonImmunity, DefaultGenes.poison),
-            VirusRecipe(DefaultGenes.witherHit, DefaultGenes.poisonFour),
-            VirusRecipe(DefaultGenes.witherProof, DefaultGenes.wither),
-            VirusRecipe(DefaultGenes.strength, DefaultGenes.weakness),
-            VirusRecipe(DefaultGenes.nightVision, DefaultGenes.blindness),
-            VirusRecipe(DefaultGenes.speed, DefaultGenes.slowness),
-            VirusRecipe(DefaultGenes.speedTwo, DefaultGenes.slownessFour),
-            VirusRecipe(DefaultGenes.speedFour, DefaultGenes.slownessSix),
-            VirusRecipe(DefaultGenes.flight, DefaultGenes.slownessSix),
-            VirusRecipe(DefaultGenes.milky, DefaultGenes.nausea),
-            VirusRecipe(DefaultGenes.meaty, DefaultGenes.nausea),
-            VirusRecipe(DefaultGenes.layEgg, DefaultGenes.nausea),
-            VirusRecipe(DefaultGenes.noHunger, DefaultGenes.hunger),
-            VirusRecipe(DefaultGenes.fireProof, DefaultGenes.flambe),
-            VirusRecipe(DefaultGenes.luck, DefaultGenes.cursed),
-            VirusRecipe(DefaultGenes.haste, DefaultGenes.miningFatigue),
-            VirusRecipe(DefaultGenes.scareCreepers, DefaultGenes.greenDeath),
-            VirusRecipe(DefaultGenes.scareSkeletons, DefaultGenes.unUndeath),
-            VirusRecipe(DefaultGenes.scareZombies, DefaultGenes.unUndeath),
+            VirusRecipe(ModGenes.poisonImmunity, ModGenes.poison),
+            VirusRecipe(ModGenes.witherHit, ModGenes.poisonFour),
+            VirusRecipe(ModGenes.witherProof, ModGenes.wither),
+            VirusRecipe(ModGenes.strength, ModGenes.weakness),
+            VirusRecipe(ModGenes.nightVision, ModGenes.blindness),
+            VirusRecipe(ModGenes.speed, ModGenes.slowness),
+            VirusRecipe(ModGenes.speedTwo, ModGenes.slownessFour),
+            VirusRecipe(ModGenes.speedFour, ModGenes.slownessSix),
+            VirusRecipe(ModGenes.flight, ModGenes.slownessSix),
+            VirusRecipe(ModGenes.milky, ModGenes.nausea),
+            VirusRecipe(ModGenes.meaty, ModGenes.nausea),
+            VirusRecipe(ModGenes.layEgg, ModGenes.nausea),
+            VirusRecipe(ModGenes.noHunger, ModGenes.hunger),
+            VirusRecipe(ModGenes.fireProof, ModGenes.flambe),
+            VirusRecipe(ModGenes.luck, ModGenes.cursed),
+            VirusRecipe(ModGenes.haste, ModGenes.miningFatigue),
+            VirusRecipe(ModGenes.scareCreepers, ModGenes.greenDeath),
+            VirusRecipe(ModGenes.scareSkeletons, ModGenes.unUndeath),
+            VirusRecipe(ModGenes.scareZombies, ModGenes.unUndeath),
             //TODO VirusRecipe(DefaultGenes.RESISTANCE, instant death to passive mobs),
-            VirusRecipe(DefaultGenes.dragonsBreath, DefaultGenes.whiteDeath),
+            VirusRecipe(ModGenes.dragonsBreath, ModGenes.whiteDeath),
 
             BlackDeathRecipe(),
 
             BrewingRecipe(
                 viralAgentsPotionStack.ingredient,
-                ModItems.DNA_HELIX.itemStack.setGene(DefaultGenes.emeraldHeart).ingredient,
+                ModItems.DNA_HELIX.itemStack.setGene(ModGenes.emeraldHeart).ingredient,
                 potionStack(ZOMBIFY_VILLAGER)
             )
         )

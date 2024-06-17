@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
@@ -122,10 +122,10 @@ class DnaDecryptorBlockEntity(
     }
 
     private fun getPossibleGenes(input: ItemStack): List<Gene> {
-        val mobType = EntityDnaItem.getEntityType(input) ?: return listOf(DefaultGenes.basic)
+        val mobType = EntityDnaItem.getEntityType(input) ?: return listOf(ModGenes.basic)
 
         val genesFromMob = MobGeneRegistry.getGeneWeights(mobType)
-        if (genesFromMob.isEmpty()) return listOf(DefaultGenes.basic)
+        if (genesFromMob.isEmpty()) return listOf(ModGenes.basic)
 
         return genesFromMob
             .map { it.key }

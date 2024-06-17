@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
-import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacket
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
@@ -60,7 +60,7 @@ class GeneChangedPacket(
         }
 
         if (entity is LocalPlayer) {
-            if (gene == DefaultGenes.cringe) ClientUtil.handleCringe(wasAdded)
+            if (gene == ModGenes.cringe) ClientUtil.handleCringe(wasAdded)
 
             handleAttributes(entity, gene)
         }
@@ -70,19 +70,19 @@ class GeneChangedPacket(
 
     private fun handleAttributes(player: LocalPlayer, gene: Gene) {
         val attributeInstance = when (gene) {
-            DefaultGenes.efficiency, DefaultGenes.efficiencyFour -> player.attributes.getInstance(ModAttributes.EFFICIENCY)
-            DefaultGenes.wallClimbing -> player.attributes.getInstance(ModAttributes.WALL_CLIMBING)
+            ModGenes.efficiency, ModGenes.efficiencyFour -> player.attributes.getInstance(ModAttributes.EFFICIENCY)
+            ModGenes.wallClimbing -> player.attributes.getInstance(ModAttributes.WALL_CLIMBING)
             else -> null
         } ?: return
 
         val newLevel = when (gene) {
-            DefaultGenes.efficiency -> if (wasAdded) 1.0 else 0.0
+            ModGenes.efficiency -> if (wasAdded) 1.0 else 0.0
 
-            DefaultGenes.efficiencyFour -> {
+            ModGenes.efficiencyFour -> {
                 if (wasAdded) {
                     4.0
                 } else {
-                    if (player.getGenes()?.hasGene(DefaultGenes.efficiency) == true) {
+                    if (player.getGenes()?.hasGene(ModGenes.efficiency) == true) {
                         1.0
                     } else {
                         0.0
@@ -90,7 +90,7 @@ class GeneChangedPacket(
                 }
             }
 
-            DefaultGenes.wallClimbing -> if (wasAdded) 1.0 else 0.0
+            ModGenes.wallClimbing -> if (wasAdded) 1.0 else 0.0
 
             else -> throw IllegalStateException("Gene $gene went through the GeneChangedPacket but isn't handled!")
         }

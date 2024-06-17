@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.genes.DefaultGenes
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModAttributes
@@ -23,14 +23,14 @@ object AttributeGenes {
             player as ServerPlayer,
             GeneChangedPacket(
                 player.id,
-                DefaultGenes.efficiency.id,
+                ModGenes.efficiency.id,
                 newLevel != 0
             )
         )
     }
 
     fun handleEfficiency(event: PlayerEvent.BreakSpeed) {
-        if (!DefaultGenes.efficiency.isActive) return
+        if (!ModGenes.efficiency.isActive) return
 
         val efficiencyAttribute = event.entity.attributes.getInstance(ModAttributes.EFFICIENCY) ?: return
         if (efficiencyAttribute.baseValue <= 0.0) return
@@ -45,7 +45,7 @@ object AttributeGenes {
     )
 
     fun setStepAssist(player: Player, value: Boolean) {
-        if (!DefaultGenes.stepAssist.isActive) return
+        if (!ModGenes.stepAssist.isActive) return
 
         val stepHeightAttribute = player.getAttribute(ForgeMod.STEP_HEIGHT_ADDITION.get()) ?: return
 
@@ -110,20 +110,20 @@ object AttributeGenes {
             player as ServerPlayer,
             GeneChangedPacket(
                 player.id,
-                DefaultGenes.wallClimbing.id,
+                ModGenes.wallClimbing.id,
                 value
             )
         )
     }
 
     fun handleWallClimbing(player: Player) {
-        if (!DefaultGenes.wallClimbing.isActive) return
+        if (!ModGenes.wallClimbing.isActive) return
 
         val wallClimbingAttribute = player.attributes.getInstance(ModAttributes.WALL_CLIMBING) ?: return
         if (wallClimbingAttribute.baseValue <= 0.0) return
 
         val genes = player.getGenes() ?: return
-        if (!genes.hasGene(DefaultGenes.wallClimbing)) return
+        if (!genes.hasGene(ModGenes.wallClimbing)) return
 
         // ONLY HAPPENS ON CLIENT?????
         if (player.horizontalCollision || player.minorHorizontalCollision) {
