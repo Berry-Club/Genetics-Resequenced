@@ -238,6 +238,7 @@
   "info.geneticsresequenced.gene_description.geneticsresequenced:cringe": "Makes you a Discord moderator.\n\n(UwU-fies your outgoing chat messages, and sets your language to LOLCAT)",
   "info.geneticsresequenced.gene_description.geneticsresequenced:knockback": "Increases the knockback of your attacks.",
   "info.geneticsresequenced.gene_description.geneticsresequenced:bad_omen": "Inflicts the Bad Omen potion effect.",
+  "info.geneticsresequenced.gene_description.geneticsresequenced:johnny": "Deal more damage using Axes",
 
   "gene.geneticsresequenced.unknown": "Unknown",
   "gene.geneticsresequenced.basic": "Basic",
@@ -267,6 +268,7 @@
   "gene.geneticsresequenced.explosive_exit":"Explosive Exit",
   "gene.geneticsresequenced.fire_proof":"Fire Proof",
   "gene.geneticsresequenced.item_magnet":"Item Magnet",
+  "gene.geneticsresequenced.johnny": "Johnny",
   "gene.geneticsresequenced.jump_boost":"Jump Boost",
   "gene.geneticsresequenced.milky":"Milky",
   "gene.geneticsresequenced.more_hearts":"More Hearts",

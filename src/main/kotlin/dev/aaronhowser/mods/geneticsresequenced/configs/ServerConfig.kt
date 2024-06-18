@@ -28,6 +28,7 @@ object ServerConfig {
     lateinit var dragonsBreathCooldown: ForgeConfigSpec.IntValue
     lateinit var itemMagnetCooldown: ForgeConfigSpec.IntValue
     lateinit var itemMagnetRadius: ForgeConfigSpec.DoubleValue
+    lateinit var johnnyAttackMultiplier: ForgeConfigSpec.DoubleValue
     lateinit var knockbackStrength: ForgeConfigSpec.DoubleValue
     lateinit var meatyCooldown: ForgeConfigSpec.IntValue
     lateinit var meaty2Cooldown: ForgeConfigSpec.IntValue
@@ -148,6 +149,10 @@ object ServerConfig {
         itemMagnetRadius = BUILDER
             .comment("How far should the Item Magnet gene attract items (in blocks)")
             .defineInRange("itemMagnetRadius", 8.0, 1.0, Double.MAX_VALUE)
+
+        johnnyAttackMultiplier = BUILDER
+            .comment("How much should the Johnny gene multiply damage by, when using an Axe?")
+            .defineInRange("johnnyAttackMultiplier", 1.25, 0.0, Double.MAX_VALUE)
 
         knockbackStrength = BUILDER
             .comment("How strong should the Knock Back gene be")

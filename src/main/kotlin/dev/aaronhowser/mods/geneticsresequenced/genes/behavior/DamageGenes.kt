@@ -15,8 +15,9 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Items
-import net.minecraftforge.event.entity.living.LivingAttackEvent
+import net.minecraftforge.common.Tags
 import net.minecraftforge.event.entity.living.LivingDamageEvent
+import net.minecraftforge.event.entity.living.LivingHurtEvent
 import kotlin.random.Random
 
 object DamageGenes {
@@ -44,7 +45,7 @@ object DamageGenes {
         event.isCanceled = true
     }
 
-    fun handleWitherHit(event: LivingAttackEvent) {
+    fun handleWitherHit(event: LivingHurtEvent) {
         if (!ModGenes.witherHit.isActive) return
 
         // Makes it not proc if it's an arrow or whatever
@@ -92,7 +93,7 @@ object DamageGenes {
         event.isCanceled = true
     }
 
-    fun handleThorns(event: LivingDamageEvent) {
+    fun handleThorns(event: LivingHurtEvent) {
         if (!ModGenes.thorns.isActive) return
 
         val attacker = event.source.entity as? LivingEntity ?: return
@@ -115,7 +116,7 @@ object DamageGenes {
         }
     }
 
-    fun handleClaws(event: LivingDamageEvent) {
+    fun handleClaws(event: LivingHurtEvent) {
         if (!ModGenes.claws.isActive) return
 
         val attacker = event.source.entity as? LivingEntity ?: return
@@ -171,6 +172,18 @@ object DamageGenes {
 
         event.amount -= amountToBlock
         if (event.amount == 0f) event.isCanceled = true
+    }
+
+    fun handleJohnny(event: LivingHurtEvent) {
+        if (!ModGenes.johnny.isActive) return
+
+        val attacker = event.source.entity as? LivingEntity ?: return
+        if (!attacker.hasGene(ModGenes.johnny)) return
+
+        val weapon = attacker.mainHandItem
+        if (!weapon.`is`(Tags.Items.TOOLS_AXES)) return
+
+        event.amount *= ServerConfig.johnnyAttackMultiplier.get().toFloat()
     }
 
 }

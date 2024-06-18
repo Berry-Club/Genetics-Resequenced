@@ -20,10 +20,10 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraftforge.event.AttachCapabilitiesEvent
-import net.minecraftforge.event.entity.living.LivingAttackEvent
 import net.minecraftforge.event.entity.living.LivingDamageEvent
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent
+import net.minecraftforge.event.entity.living.LivingHurtEvent
 import net.minecraftforge.event.level.ExplosionEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
@@ -48,10 +48,16 @@ object OtherEntityEvents {
         DamageGenes.handleWitherProof(event)
         DamageGenes.handleFireProof(event)
         DamageGenes.handlePoisonProof(event)
-        DamageGenes.handleThorns(event)
-        DamageGenes.handleClaws(event)
 
         DamageGenes.handleDragonHealth(event) //must be last
+    }
+
+    @SubscribeEvent
+    fun onLivingHurt(event: LivingHurtEvent) {
+        DamageGenes.handleThorns(event)
+        DamageGenes.handleClaws(event)
+        DamageGenes.handleWitherHit(event)
+        DamageGenes.handleJohnny(event)
     }
 
     @SubscribeEvent
@@ -59,11 +65,6 @@ object OtherEntityEvents {
         DeathGenes.handleEmeraldHeart(event)
         DeathGenes.handleExplosiveExit(event)
         DeathGenes.handleSlimyDeath(event)
-    }
-
-    @SubscribeEvent
-    fun onAttack(event: LivingAttackEvent) {
-        DamageGenes.handleWitherHit(event)
     }
 
     @SubscribeEvent
