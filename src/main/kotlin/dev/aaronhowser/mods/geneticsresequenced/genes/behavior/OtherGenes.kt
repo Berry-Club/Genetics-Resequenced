@@ -38,7 +38,7 @@ object OtherGenes {
         }
     }
 
-    fun handleNarrator(event: ServerChatEvent.Submitted) {
+    fun handleChatterbox(event: ServerChatEvent.Submitted) {
         val player = event.player
         val genes = player.getGenes() ?: return
 

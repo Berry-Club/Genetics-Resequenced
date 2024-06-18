@@ -234,6 +234,10 @@
   "info.geneticsresequenced.gene_description.geneticsresequenced:white_death": "Slowly kills monsters.",
   "info.geneticsresequenced.gene_description.geneticsresequenced:gray_death": "Slowly kills ageable mobs.",
   "info.geneticsresequenced.gene_description.geneticsresequenced:un_undeath": "Slowly kills the undead.",
+  "info.geneticsresequenced.gene_description.geneticsresequenced:chatterbox": "Your chat messages are automatically read by the narrator (within 64 blocks). \n\nCan be disabled in the client config.",
+  "info.geneticsresequenced.gene_description.geneticsresequenced:cringe": "Makes you a Discord moderator.\n\n(UwU-fies your outgoing chat messages, and sets your language to LOLCAT)",
+  "info.geneticsresequenced.gene_description.geneticsresequenced:knockback": "Increases the knockback of your attacks.",
+  "info.geneticsresequenced.gene_description.geneticsresequenced:bad_omen": "Inflicts the Bad Omen potion effect.",
 
   "gene.geneticsresequenced.unknown": "Unknown",
   "gene.geneticsresequenced.basic": "Basic",
@@ -271,6 +275,7 @@
   "gene.geneticsresequenced.photosynthesis":"Photosynthesis",
   "gene.geneticsresequenced.poison_immunity":"Poison Immunity",
   "gene.geneticsresequenced.resistance":"Resistance",
+  "gene.geneticsresequenced.knockback": "Knockback",
   "gene.geneticsresequenced.keep_inventory":"Keep Inventory",
   "gene.geneticsresequenced.scare_creepers":"Scare Creepers",
   "gene.geneticsresequenced.scare_skeletons":"Scare Skeletons",
@@ -298,6 +303,7 @@
   "gene.geneticsresequenced.mob_sight":"Mob Sight",
   "gene.geneticsresequenced.regeneration":"Regeneration",
 
+  "gene.geneticsresequenced.bad_omen":"Bad Omen",
   "gene.geneticsresequenced.cringe": "Cringe",
   "gene.geneticsresequenced.poison":"Poison",
   "gene.geneticsresequenced.poison_2":"Poison II",
