@@ -244,7 +244,7 @@ object ModPotions {
             VirusRecipe(ModGenes.scareCreepers, ModGenes.greenDeath),
             VirusRecipe(ModGenes.scareSkeletons, ModGenes.unUndeath),
             VirusRecipe(ModGenes.scareZombies, ModGenes.unUndeath),
-            //TODO VirusRecipe(DefaultGenes.RESISTANCE, instant death to passive mobs),
+            VirusRecipe(ModGenes.resistance, ModGenes.grayDeath),
             VirusRecipe(ModGenes.dragonsBreath, ModGenes.whiteDeath),
 
             BlackDeathRecipe(),
