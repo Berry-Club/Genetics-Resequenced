@@ -22,6 +22,8 @@ object ServerConfig {
     lateinit var bioluminescenceDuration: ForgeConfigSpec.IntValue
     lateinit var clawsChance: ForgeConfigSpec.DoubleValue
     lateinit var clawsDamage: ForgeConfigSpec.DoubleValue
+    lateinit var chillChance: ForgeConfigSpec.DoubleValue
+    lateinit var chillDuration: ForgeConfigSpec.IntValue
     lateinit var eggCooldown: ForgeConfigSpec.IntValue
     lateinit var emeraldHeartCooldown: ForgeConfigSpec.IntValue
     lateinit var emeraldHeartChatChance: ForgeConfigSpec.DoubleValue
@@ -131,6 +133,13 @@ object ServerConfig {
         clawsDamage = BUILDER
             .comment("How much damage to deal when the Claws gene procs")
             .defineInRange("clawsDamage", 8.0, 0.0, Double.MAX_VALUE)
+
+        chillChance = BUILDER
+            .comment("What probability should the Chill gene have")
+            .defineInRange("chillChance", 0.75, 0.0, 1.0)
+        chillDuration = BUILDER
+            .comment("How long should the Chill gene slow entities down for (in ticks)")
+            .defineInRange("chillDuration", 20 * 5, 1, Int.MAX_VALUE)
 
         emeraldHeartCooldown = BUILDER
             .comment("How many ticks to wait before the Emerald Heart gene can proc again")

@@ -186,4 +186,16 @@ object DamageGenes {
         event.amount *= ServerConfig.johnnyAttackMultiplier.get().toFloat()
     }
 
+    fun handleChilling(event: LivingHurtEvent) {
+        if (!ModGenes.chilling.isActive) return
+
+        val attacker = event.source.entity as? LivingEntity ?: return
+        if (!attacker.hasGene(ModGenes.chilling)) return
+
+        if (Random.nextDouble() > ServerConfig.chillChance.get()) return
+
+        val target = event.entity
+        target.ticksFrozen = ServerConfig.chillDuration.get()
+    }
+
 }

@@ -58,6 +58,7 @@ object OtherEntityEvents {
         DamageGenes.handleClaws(event)
         DamageGenes.handleWitherHit(event)
         DamageGenes.handleJohnny(event)
+        DamageGenes.handleChilling(event)
     }
 
     @SubscribeEvent
