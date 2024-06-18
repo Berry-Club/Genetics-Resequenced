@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.blocks.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
@@ -36,8 +37,7 @@ object TickGenes {
 
         if (entity.level.getBrightness(LightLayer.BLOCK, entity.blockPosition()) > 8) return
 
-        val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.bioluminescence)) return
+        if (!entity.hasGene(ModGenes.bioluminescence)) return
 
         val headBlock = entity.level.getBlockState(entity.blockPosition().above())
         if (!headBlock.isAir) return
@@ -54,8 +54,7 @@ object TickGenes {
         if (entity !is Player) return
         if (entity.tickCount % ServerConfig.photosynthesisCooldown.get() != 0) return
 
-        val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.photosynthesis)) return
+        if (!entity.hasGene(ModGenes.photosynthesis)) return
 
         val foodData = entity.foodData
 
@@ -76,8 +75,7 @@ object TickGenes {
 
         if (entity.tickCount % ServerConfig.noHungerCooldown.get() != 0) return
 
-        val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.noHunger)) return
+        if (!entity.hasGene(ModGenes.noHunger)) return
 
         val foodData = entity.foodData
 
@@ -226,8 +224,7 @@ object TickGenes {
         if (!ModGenes.mobSight.isActive) return
         if (entity.tickCount % ServerConfig.mobSightCooldown.get() != 0) return
 
-        val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.mobSight)) return
+        if (!entity.hasGene(ModGenes.mobSight)) return
 
         val searchArea = entity.boundingBox.inflate(ServerConfig.mobSightRadius.get())
         val nearbyLivingEntities = entity.level.getEntities(entity, searchArea).filterIsInstance<Mob>()
@@ -252,8 +249,7 @@ object TickGenes {
         if (player.level.isClientSide) return
         if (player.isCreative || player.isSpectator) return
 
-        val genes = player.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.flight)) {
+        if (!player.hasGene(ModGenes.flight)) {
             if (flyablePlayers.contains(player.uuid)) {
                 player.abilities.mayfly = false
                 player.abilities.flying = false
@@ -274,8 +270,7 @@ object TickGenes {
 
         if (player.tickCount % ServerConfig.itemMagnetCooldown.get() != 0) return
 
-        val genes = player.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.itemMagnet)) return
+        if (!player.hasGene(ModGenes.itemMagnet)) return
 
         if (AntiFieldOrbItem.isActiveForPlayer(player)) return
 
@@ -304,8 +299,7 @@ object TickGenes {
 
         if (player.tickCount % ServerConfig.xpMagnetCooldown.get() != 0) return
 
-        val genes = player.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.xpMagnet)) return
+        if (!player.hasGene(ModGenes.xpMagnet)) return
 
         if (AntiFieldOrbItem.isActiveForPlayer(player)) return
 

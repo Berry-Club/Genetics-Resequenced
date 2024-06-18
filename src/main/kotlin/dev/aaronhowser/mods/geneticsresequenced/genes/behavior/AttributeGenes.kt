@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
@@ -135,8 +135,7 @@ object AttributeGenes {
         val wallClimbingAttribute = player.attributes.getInstance(ModAttributes.WALL_CLIMBING) ?: return
         if (wallClimbingAttribute.baseValue <= 0.0) return
 
-        val genes = player.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.wallClimbing)) return
+        if (!player.hasGene(ModGenes.wallClimbing)) return
 
         // ONLY HAPPENS ON CLIENT?????
         if (player.horizontalCollision || player.minorHorizontalCollision) {

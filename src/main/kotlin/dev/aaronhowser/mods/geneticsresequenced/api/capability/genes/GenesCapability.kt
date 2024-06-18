@@ -99,5 +99,9 @@ class GenesCapability {
             }
 
         }
+
+        fun LivingEntity.hasGene(gene: Gene): Boolean {
+            return this.getGenes()?.hasGene(gene) ?: false
+        }
     }
 }

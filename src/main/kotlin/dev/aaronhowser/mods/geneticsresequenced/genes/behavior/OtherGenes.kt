@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
@@ -24,9 +24,8 @@ object OtherGenes {
         if (Random.nextDouble() > ServerConfig.emeraldHeartChatChance.get()) return
 
         val player = event.player
-        val genes = player.getGenes() ?: return
 
-        if (genes.hasGene(ModGenes.emeraldHeart)) {
+        if (player.hasGene(ModGenes.emeraldHeart)) {
             player.level.playSound(
                 null,
                 player.blockPosition(),
@@ -40,9 +39,8 @@ object OtherGenes {
 
     fun handleChatterbox(event: ServerChatEvent.Submitted) {
         val player = event.player
-        val genes = player.getGenes() ?: return
 
-        if (!genes.hasGene(ModGenes.chatterbox)) return
+        if (!player.hasGene(ModGenes.chatterbox)) return
 
         val message = event.message
 
@@ -107,8 +105,7 @@ object OtherGenes {
 
     fun handleCringeChat(event: ServerChatEvent.Submitted) {
         val player = event.player
-        val genes = player.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.cringe)) return
+        if (!player.hasGene(ModGenes.cringe)) return
 
         val input = event.message.string
         event.message = Component.literal(uwufyString(input))

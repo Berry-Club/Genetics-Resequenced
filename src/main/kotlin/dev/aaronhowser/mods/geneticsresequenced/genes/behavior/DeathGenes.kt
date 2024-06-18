@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.curios.CuriosKeepInventory
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
@@ -162,8 +163,7 @@ object DeathGenes {
 
         if (uuid in slimyDeathCooldown) return
 
-        val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.slimyDeath)) return
+        if (!entity.hasGene(ModGenes.slimyDeath)) return
 
         val amount = Random.nextInt(1, 4)
 

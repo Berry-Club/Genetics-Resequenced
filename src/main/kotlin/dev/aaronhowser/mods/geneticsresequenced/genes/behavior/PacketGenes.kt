@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.GeneCooldown
@@ -9,7 +9,6 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.projectile.DragonFireball
 import net.minecraft.world.level.ClipContext
 import net.minecraft.world.phys.BlockHitResult
@@ -26,8 +25,7 @@ object PacketGenes {
     fun teleport(player: ServerPlayer) {
         if (!ModGenes.teleport.isActive) return
 
-        val genes = (player as LivingEntity).getGenes() ?: return
-        if (!genes.hasGene(ModGenes.teleport)) return
+        if (!player.hasGene(ModGenes.teleport)) return
 
         if (recentTeleports.contains(player.uuid)) return
         recentTeleports.add(player.uuid)
@@ -86,8 +84,7 @@ object PacketGenes {
     fun dragonBreath(player: ServerPlayer) {
         if (!ModGenes.dragonsBreath.isActive) return
 
-        val genes = (player as LivingEntity).getGenes() ?: return
-        if (!genes.hasGene(ModGenes.dragonsBreath)) return
+        if (!player.hasGene(ModGenes.dragonsBreath)) return
 
         val wasNotOnCooldown = recentFireballs.add(player)
 

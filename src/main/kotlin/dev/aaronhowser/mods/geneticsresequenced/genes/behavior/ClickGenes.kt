@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
@@ -53,8 +54,7 @@ object ClickGenes {
             is Sheep, is MushroomCow -> return
         }
 
-        val genes = target.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.wooly)) return
+        if (!target.hasGene(ModGenes.wooly)) return
 
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
@@ -110,8 +110,7 @@ object ClickGenes {
         val target = event.target as? LivingEntity ?: return
         val clicker = event.entity
 
-        val genes = target.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.meaty)) return
+        if (!target.hasGene(ModGenes.meaty)) return
 
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
@@ -164,8 +163,7 @@ object ClickGenes {
             is Cow, is Goat -> return
         }
 
-        val genes = target.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.milky)) return
+        if (!target.hasGene(ModGenes.milky)) return
 
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
         if (!clickedWithBucket) return
@@ -207,8 +205,7 @@ object ClickGenes {
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
         if (!clickedWithBucket) return
 
-        val genes = player.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.milky)) return
+        if (!player.hasGene(ModGenes.milky)) return
 
         val newlyMilked = recentlyMilked.add(player)
 
@@ -244,8 +241,7 @@ object ClickGenes {
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
 
-        val genes = player.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.wooly)) return
+        if (!player.hasGene(ModGenes.wooly)) return
 
         val newlySheared = recentlySheered.add(player)
 
@@ -285,8 +281,7 @@ object ClickGenes {
         if (!ModGenes.shootFireballs.isActive) return
 
         val player = event.entity
-        val genes = player.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.shootFireballs)) return
+        if (!player.hasGene(ModGenes.shootFireballs)) return
 
         if (!player.isCrouching) return
         if (!event.itemStack.`is`(ModTags.FIREBALL_ITEM_TAG)) return
@@ -323,8 +318,7 @@ object ClickGenes {
         if (!event.itemStack.isEmpty) return
 
         val player = event.entity
-        val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.eatGrass)) return
+        if (!player.hasGene(ModGenes.eatGrass)) return
 
         val isHungry = player.foodData.foodLevel < 20
         if (!isHungry) return
@@ -369,6 +363,7 @@ object ClickGenes {
         if (event.level.getBlockState(event.pos).block != Blocks.GRASS_BLOCK) return
 
         val player = event.entity
+
         val genes = player.getGenes() ?: return
         if (!genes.hasGene(ModGenes.cringe)) return
 
@@ -383,10 +378,10 @@ object ClickGenes {
 
         if (event.hasAmmo()) return
 
-        val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.infinity)) return
+        val entity = event.entity
+        if (!entity.hasGene(ModGenes.infinity)) return
 
-        event.entity.startUsingItem(event.entity.usedItemHand)
+        entity.startUsingItem(event.entity.usedItemHand)
         event.action = InteractionResultHolder.success(event.bow)
     }
 
@@ -401,8 +396,7 @@ object ClickGenes {
 
         val player = event.entity
 
-        val genes = player.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.infinity)) return
+        if (!player.hasGene(ModGenes.infinity)) return
 
         val bowStack = event.bow
 

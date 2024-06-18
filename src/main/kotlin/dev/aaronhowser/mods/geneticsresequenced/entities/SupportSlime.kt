@@ -1,12 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced.entities
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
-import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.entities.goals.SupportSlimeAttackGoal
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModEntityTypes
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.getUuidOrNull
 import net.minecraft.nbt.CompoundTag
@@ -61,8 +60,7 @@ class SupportSlime(
 
             if (!item.`is`(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())) return
 
-            val genes = player.getGenes() ?: return
-            if (genes.hasGene(ModGenes.slimyDeath)) return
+            if (player.hasGene(ModGenes.slimyDeath)) return
 
             player.sendSystemMessage(
                 Component.translatable(
@@ -96,8 +94,7 @@ class SupportSlime(
         ).sortedBy { it.distanceToSqr(this) }
 
         for (livingEntity in nearbyLivingEntities) {
-            val genes: GenesCapability = livingEntity.getGenes() ?: continue
-            if (genes.hasGene(ModGenes.slimyDeath)) {
+            if (livingEntity.hasGene(ModGenes.slimyDeath)) {
                 setOwner(livingEntity.uuid)
                 break
             }

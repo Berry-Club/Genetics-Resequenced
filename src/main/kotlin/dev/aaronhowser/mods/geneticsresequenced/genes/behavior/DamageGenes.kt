@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DragonHealthCrystal
@@ -26,8 +26,8 @@ object DamageGenes {
 
         if (event.source != DamageSource.FALL) return
 
-        val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.noFallDamage) && !genes.hasGene(ModGenes.flight)) return
+        val entity = event.entity
+        if (!entity.hasGene(ModGenes.noFallDamage) && !entity.hasGene(ModGenes.flight)) return
 
         event.isCanceled = true
     }
@@ -37,10 +37,10 @@ object DamageGenes {
 
         if (event.source != DamageSource.WITHER) return
 
-        val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.witherProof)) return
+        val entity = event.entity
+        if (!entity.hasGene(ModGenes.witherProof)) return
 
-        event.entity.removeEffect(MobEffects.WITHER)
+        entity.removeEffect(MobEffects.WITHER)
         event.isCanceled = true
     }
 
@@ -51,8 +51,7 @@ object DamageGenes {
         if (event.source is IndirectEntityDamageSource) return
 
         val attacker = event.source.entity as? LivingEntity ?: return
-        val genes = attacker.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.witherHit)) return
+        if (!attacker.hasGene(ModGenes.witherHit)) return
 
         val witherEffect = MobEffectInstance(
             MobEffects.WITHER,
@@ -71,10 +70,10 @@ object DamageGenes {
 
         if (!source.isFire) return
 
-        val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.fireProof)) return
+        val entity = event.entity
+        if (!entity.hasGene(ModGenes.fireProof)) return
 
-        event.entity.clearFire()
+        entity.clearFire()
         event.isCanceled = true
     }
 
@@ -86,10 +85,10 @@ object DamageGenes {
         if (!source.isMagic) return
         if (!event.entity.hasEffect(MobEffects.POISON)) return
 
-        val genes = event.entity.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.poisonImmunity)) return
+        val entity = event.entity
+        if (!entity.hasGene(ModGenes.poisonImmunity)) return
 
-        event.entity.removeEffect(MobEffects.POISON)
+        entity.removeEffect(MobEffects.POISON)
         event.isCanceled = true
     }
 
@@ -105,8 +104,7 @@ object DamageGenes {
         val targetChestplateMissingOrLeather = chestPlate.isEmpty || chestPlate.`is`(Items.LEATHER_CHESTPLATE)
         if (!targetChestplateMissingOrLeather) return
 
-        val genes = target.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.thorns)) return
+        if (!target.hasGene(ModGenes.thorns)) return
 
         if (Random.nextDouble() > ServerConfig.thornsChance.get()) return
 
@@ -124,11 +122,9 @@ object DamageGenes {
 
         if (!attacker.mainHandItem.isEmpty) return
 
-        val genes = attacker.getGenes() ?: return
-
-        val clawsLevel: Int = if (ModGenes.clawsTwo.isActive && genes.hasGene(ModGenes.clawsTwo)) {
+        val clawsLevel: Int = if (ModGenes.clawsTwo.isActive && attacker.hasGene(ModGenes.clawsTwo)) {
             2
-        } else if (genes.hasGene(ModGenes.claws)) {
+        } else if (attacker.hasGene(ModGenes.claws)) {
             1
         } else {
             return
@@ -158,8 +154,7 @@ object DamageGenes {
 
         if (entity.level.isClientSide) return
 
-        val genes = entity.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.enderDragonHealth)) return
+        if (!entity.hasGene(ModGenes.enderDragonHealth)) return
 
         val items = entity.handSlots.toMutableList()
         if (entity is Player) items += entity.inventory.items
