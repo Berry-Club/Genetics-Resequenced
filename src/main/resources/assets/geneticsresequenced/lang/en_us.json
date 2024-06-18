@@ -239,6 +239,7 @@
   "info.geneticsresequenced.gene_description.geneticsresequenced:knockback": "Increases the knockback of your attacks.",
   "info.geneticsresequenced.gene_description.geneticsresequenced:bad_omen": "Inflicts the Bad Omen potion effect.",
   "info.geneticsresequenced.gene_description.geneticsresequenced:johnny": "Deal more damage using Axes",
+  "info.geneticsresequenced.gene_description.geneticsresequenced:chilling": "Has a chance of inflicting freezing damage on hit.",
 
   "gene.geneticsresequenced.unknown": "Unknown",
   "gene.geneticsresequenced.basic": "Basic",
@@ -261,6 +262,7 @@
   "gene.geneticsresequenced.claws_2":"Claws II",
 
   "gene.geneticsresequenced.chatterbox": "Chatterbox",
+  "gene.geneticsresequenced.chilling": "Chilling",
   "gene.geneticsresequenced.dragons_breath":"Dragon's Breath",
   "gene.geneticsresequenced.eat_grass":"Eat Grass",
   "gene.geneticsresequenced.emerald_heart":"Emerald Heart",

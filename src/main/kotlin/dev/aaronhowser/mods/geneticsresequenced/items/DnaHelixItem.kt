@@ -3,14 +3,18 @@ package dev.aaronhowser.mods.geneticsresequenced.items
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
+import net.minecraft.core.NonNullList
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
@@ -41,6 +45,19 @@ class DnaHelixItem : EntityDnaItem() {
         }
 
         fun ItemStack.isBasic(): Boolean = this.getGene() == ModGenes.basic
+
+        private fun getAllHelices(): Collection<ItemStack> {
+            val geneRegistry = Gene.getRegistry()
+
+            return geneRegistry.map { ModItems.DNA_HELIX.itemStack.setGene(it) }
+        }
+    }
+
+    override fun fillItemCategory(pCategory: CreativeModeTab, pItems: NonNullList<ItemStack>) {
+        if (pCategory == ModItems.MOD_TAB) {
+            pItems.add(ItemStack(this))
+            pItems.addAll(getAllHelices())
+        }
     }
 
     override fun interactLivingEntity(
