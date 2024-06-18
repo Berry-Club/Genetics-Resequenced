@@ -9,6 +9,7 @@ object ClientConfig {
     lateinit var woolyRemovesCape: ForgeConfigSpec.BooleanValue
     lateinit var disableParrotNarrator: ForgeConfigSpec.BooleanValue
     lateinit var disableCringeLangChange: ForgeConfigSpec.BooleanValue
+    lateinit var supportSlimeRenderDebug: ForgeConfigSpec.BooleanValue
 
     init {
         generalConfigs()
@@ -28,8 +29,12 @@ object ClientConfig {
             .define("disableParrotNarrator", false)
 
         disableCringeLangChange = BUILDER
-            .comment("Disables the change to LOLcat language when you get the Cringe gene. This comes with a resource-reload, which may cause lag.")
+            .comment("Disables the change to LOLCAT language when you get the Cringe gene. This comes with a resource-reload, which may cause lag.")
             .define("disableCringeLangChange", false)
+
+        supportSlimeRenderDebug = BUILDER
+            .comment("Enable to render the base Slime model for Support Slime entities.")
+            .define("supportSlimeRenderDebug", false)
 
         BUILDER.pop()
     }

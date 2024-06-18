@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.entities.client
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Vector3f
+import dev.aaronhowser.mods.geneticsresequenced.configs.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.client.model.SlimeModel
@@ -67,10 +68,25 @@ class SupportSlimeRenderer(
         pPackedLight: Int
     ) {
 
-        val scale = 2f * pEntity.size
+        if (ClientConfig.supportSlimeRenderDebug.get()) {
+            super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight)
+        }
 
-        pPoseStack.translate(0.0, pEntity.size.toDouble() / 2, 0.0)
-        pPoseStack.scale(scale, scale, scale)
+        /**
+         * FIXME:
+         *  Hitbox is a bit broken.
+         *  This isn't super important because they never attack players, but still.
+         */
+        pPoseStack.translate(
+            0.0,
+            pEntity.size.toDouble() / 4,
+            0.0
+        )
+        pPoseStack.scale(
+            pEntity.size.toFloat(),
+            pEntity.size.toFloat(),
+            pEntity.size.toFloat()
+        )
 
         val lerpedRotY = Mth.lerp(pPartialTicks, pEntity.yRotO, pEntity.yRot)
         pPoseStack.mulPose(Vector3f.YP.rotationDegrees(lerpedRotY))
