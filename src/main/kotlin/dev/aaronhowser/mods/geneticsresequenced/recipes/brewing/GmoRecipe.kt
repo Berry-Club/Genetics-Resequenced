@@ -49,9 +49,9 @@ class GmoRecipe(
         return pTopSlot.item == ingredientItem
     }
 
-
     /**
      * Always returns a Basic Gene! You can only get the ideal gene if you run it through an Advanced Incubator at low temperature!
+     * [dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced.AdvancedIncubatorBlockEntity.craftItem]
      */
     override fun getOutput(pBottomSlot: ItemStack, pTopSlot: ItemStack): ItemStack {
         if (!isInput(pBottomSlot)) return ItemStack.EMPTY

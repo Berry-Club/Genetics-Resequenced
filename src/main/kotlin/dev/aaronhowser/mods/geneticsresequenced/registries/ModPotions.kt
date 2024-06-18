@@ -183,7 +183,6 @@ object ModPotions {
         val setPcgEntityRecipe = SetPotionEntityRecipe()
         allRecipes.add(setPcgEntityRecipe)
 
-
         val geneFocusBrews = listOf(
             GmoRecipe(EntityType.BLAZE, Items.GLOWSTONE_DUST, ModGenes.bioluminescence, 0.5f),
             GmoRecipe(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, ModGenes.bioluminescence, 0.5f),
@@ -203,25 +202,25 @@ object ModPotions {
         val mutationBrews = listOf(
             GmoRecipe(EntityType.BAT, Items.FEATHER, ModGenes.flight, 0.75f, isMutation = true),
             GmoRecipe(EntityType.PARROT, Items.FEATHER, ModGenes.flight, 0.75f, isMutation = true),
-            GmoRecipe(EntityType.POLAR_BEAR, Items.EMERALD, ModGenes.strength, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.LLAMA, Items.EMERALD, ModGenes.strength, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.POLAR_BEAR, Items.EMERALD, ModGenes.strengthTwo, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.LLAMA, Items.EMERALD, ModGenes.strengthTwo, 0.5f, isMutation = true),
             GmoRecipe(EntityType.RABBIT, Items.EMERALD, ModGenes.luck, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.SHULKER, Items.DIAMOND, ModGenes.resistance, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.ZOMBIE, Items.DIAMOND, ModGenes.resistance, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.POLAR_BEAR, Items.DIAMOND, ModGenes.claws, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.LLAMA, Items.DIAMOND, ModGenes.claws, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.WOLF, Items.DIAMOND, ModGenes.claws, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.SHULKER, Items.DIAMOND, ModGenes.resistanceTwo, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.ZOMBIE, Items.DIAMOND, ModGenes.resistanceTwo, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.POLAR_BEAR, Items.DIAMOND, ModGenes.clawsTwo, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.LLAMA, Items.DIAMOND, ModGenes.clawsTwo, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.WOLF, Items.DIAMOND, ModGenes.clawsTwo, 0.5f, isMutation = true),
             GmoRecipe(EntityType.RABBIT, Items.REDSTONE, ModGenes.speedTwo, 0.5f, isMutation = true),
             GmoRecipe(EntityType.OCELOT, Items.REDSTONE, ModGenes.speedFour, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.RABBIT, Items.IRON_INGOT, ModGenes.haste, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.SILVERFISH, Items.REDSTONE, ModGenes.efficiency, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.ZOMBIE, Items.SPIDER_EYE, ModGenes.scareCreepers, 0.75f, isMutation = true),
-            GmoRecipe(EntityType.SPIDER, Items.SPIDER_EYE, ModGenes.scareSkeletons, 0.75f, isMutation = true),
-            GmoRecipe(EntityType.ENDER_DRAGON, Items.REDSTONE, ModGenes.regeneration, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.PIG, Items.BLAZE_POWDER, ModGenes.meaty, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.RABBIT, Items.IRON_INGOT, ModGenes.hasteTwo, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.SILVERFISH, Items.REDSTONE, ModGenes.efficiencyFour, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.ZOMBIE, Items.SPIDER_EYE, ModGenes.scareZombies, 0.75f, isMutation = true),
+            GmoRecipe(EntityType.SPIDER, Items.SPIDER_EYE, ModGenes.scareSpiders, 0.75f, isMutation = true),
+            GmoRecipe(EntityType.ENDER_DRAGON, Items.REDSTONE, ModGenes.regenerationFour, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.PIG, Items.BLAZE_POWDER, ModGenes.meatyTwo, 0.5f, isMutation = true),
             GmoRecipe(EntityType.BAT, Items.ENDER_EYE, ModGenes.invisible, 0.5f, isMutation = true),
             GmoRecipe(EntityType.SKELETON, Items.ENDER_EYE, ModGenes.invisible, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.moreHearts, 0.5f, true)
+            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.moreHeartsTwo, 0.5f, true)
         )
         allRecipes.addAll(mutationBrews)
 
