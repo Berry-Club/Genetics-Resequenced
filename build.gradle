@@ -31,6 +31,8 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'forge.enabledGameTestNamespaces', 'geneticsresequenced'
 
+            args("--uuid", "13027fdbaac9491b9d93c7e2f791d846", "--username", "1aaron5")
+
             mods {
                 geneticsresequenced {
                     source sourceSets.main
