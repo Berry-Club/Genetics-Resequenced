@@ -32,12 +32,12 @@ object AttributeGenes {
         AttributeModifier.Operation.ADDITION
     )
 
-    fun setStepAssist(player: Player, value: Boolean) {
-        if (!ModGenes.stepAssist.isActive) return
+    fun setStepAssist(player: Player, adding: Boolean) {
+        if (!ModGenes.stepAssist.isActive && adding) return
 
         val stepHeightAttribute = player.getAttribute(ForgeMod.STEP_HEIGHT_ADDITION.get()) ?: return
 
-        if (value) {
+        if (adding) {
             stepHeightAttribute.addPermanentModifier(stepAssistAttributeModifier)
             return
         } else {
@@ -51,7 +51,7 @@ object AttributeGenes {
         AttributeModifier.Operation.ADDITION
     )
 
-    private val moreHealthTwomodifier = AttributeModifier(
+    private val moreHealthTwoModifier = AttributeModifier(
         "Genetics Resequenced: More Hearts 2",
         20.0,
         AttributeModifier.Operation.ADDITION
@@ -61,7 +61,12 @@ object AttributeGenes {
         val maxHealthAttribute = player.getAttribute(Attributes.MAX_HEALTH) ?: return
 
         val hasLevelOne = maxHealthAttribute.hasModifier(moreHealthOneModifier)
-        val hasLevelTwo = maxHealthAttribute.hasModifier(moreHealthTwomodifier)
+        val hasLevelTwo = maxHealthAttribute.hasModifier(moreHealthTwoModifier)
+
+        when (level) {
+            1 -> if (!ModGenes.moreHearts.isActive) return
+            2 -> if (!ModGenes.moreHeartsTwo.isActive) return
+        }
 
         when (level) {
             1 -> if (adding) {
@@ -75,10 +80,10 @@ object AttributeGenes {
             2 -> {
                 if (adding) {
                     if (hasLevelTwo) return
-                    maxHealthAttribute.addPermanentModifier(moreHealthTwomodifier)
+                    maxHealthAttribute.addPermanentModifier(moreHealthTwoModifier)
                 } else {
                     if (!hasLevelTwo) return
-                    maxHealthAttribute.removeModifier(moreHealthTwomodifier)
+                    maxHealthAttribute.removeModifier(moreHealthTwoModifier)
                 }
             }
 
@@ -93,6 +98,8 @@ object AttributeGenes {
     )
 
     fun setKnockback(player: Player, adding: Boolean) {
+        if (!ModGenes.knockback.isActive && adding) return
+
         val attackKnockBackAttribute = player.getAttribute(Attributes.ATTACK_KNOCKBACK) ?: return
 
         if (adding) {

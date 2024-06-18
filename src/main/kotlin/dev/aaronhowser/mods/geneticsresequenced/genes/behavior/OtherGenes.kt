@@ -21,6 +21,8 @@ object OtherGenes {
     )
 
     fun handleEmeraldHeart(event: ServerChatEvent.Submitted) {
+        if (ModGenes.emeraldHeart.isActive) return
+
         if (Random.nextDouble() > ServerConfig.emeraldHeartChatChance.get()) return
 
         val player = event.player
@@ -38,8 +40,9 @@ object OtherGenes {
     }
 
     fun handleChatterbox(event: ServerChatEvent.Submitted) {
-        val player = event.player
+        if (!ModGenes.chatterbox.isActive) return
 
+        val player = event.player
         if (!player.hasGene(ModGenes.chatterbox)) return
 
         val message = event.message
@@ -104,6 +107,8 @@ object OtherGenes {
 
 
     fun handleCringeChat(event: ServerChatEvent.Submitted) {
+        if (!ModGenes.cringe.isActive) return
+
         val player = event.player
         if (!player.hasGene(ModGenes.cringe)) return
 

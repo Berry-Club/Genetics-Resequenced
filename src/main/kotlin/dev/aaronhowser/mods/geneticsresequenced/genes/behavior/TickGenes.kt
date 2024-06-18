@@ -178,9 +178,7 @@ object TickGenes {
     )
 
     private fun handleMeaty2(entity: LivingEntity) {
-
         val newlyMeated = recentlyMeated2.add(entity)
-
         if (!newlyMeated) return
 
         val luck = entity.activeEffects.find { it.effect == MobEffects.LUCK }?.amplifier ?: 0
@@ -203,7 +201,6 @@ object TickGenes {
     )
 
     private fun handleLayEgg(entity: LivingEntity) {
-
         val hasNotRecentlyLainEgg = recentlyLaidEgg.add(entity)
         if (!hasNotRecentlyLainEgg) return
 

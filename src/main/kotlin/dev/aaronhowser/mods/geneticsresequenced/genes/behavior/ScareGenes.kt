@@ -22,7 +22,7 @@ object ScareGenes {
 
     fun attachScareTask(entity: PathfinderMob) {
 
-        val scaredOf = when (entity) {
+        val gene = when (entity) {
             is Creeper -> ModGenes.scareCreepers
             is Zombie -> ModGenes.scareZombies
             is Skeleton -> ModGenes.scareSkeletons
@@ -31,7 +31,7 @@ object ScareGenes {
             else -> return
         }
 
-        if (!scaredOf.isActive) return
+        if (!gene.isActive) return
 
         for (livingEntityClass: Class<out LivingEntity> in classesToRunFrom) {
             entity.goalSelector.addGoal(
@@ -39,7 +39,7 @@ object ScareGenes {
                 AvoidEntityGoal(
                     entity,
                     livingEntityClass,
-                    { otherEntity: LivingEntity -> otherEntity.hasGene(scaredOf) },
+                    { otherEntity: LivingEntity -> otherEntity.hasGene(gene) },
                     6.0f,
                     1.0,
                     1.2,
