@@ -257,6 +257,12 @@ object ModGenes {
         .build()
 
     //Negative effects
+    val badOmen: Gene = registerGene("bad_omen")
+        .setDnaPointsRequired(20)
+        .setNegative()
+        .setPotion(MobEffects.BAD_OMEN, 1)
+        .allowMobs()
+        .build()
     val blindness: Gene = registerGene("blindness")
         .setDnaPointsRequired(1)
         .setPotion(MobEffects.BLINDNESS, 1)

@@ -1,0 +1,9 @@
+{
+  "entity": "minecraft:vindicator",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:emerald_heart": 1,
+    "geneticsresequenced:bad_omen": 1,
+    "geneticsresequenced:johnny": 1
+  }
+}

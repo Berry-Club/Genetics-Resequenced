@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:pillager",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:emerald_heart": 1,
+    "geneticsresequenced:bad_omen": 1
+  }
+}
