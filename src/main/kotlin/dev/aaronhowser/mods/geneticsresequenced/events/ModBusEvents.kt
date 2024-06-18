@@ -45,7 +45,6 @@ object ModBusEvents {
         }
     }
 
-    //TODO: Move more things to here
     @SubscribeEvent
     fun onConfig(event: ModConfigEvent) {
         val config = event.config

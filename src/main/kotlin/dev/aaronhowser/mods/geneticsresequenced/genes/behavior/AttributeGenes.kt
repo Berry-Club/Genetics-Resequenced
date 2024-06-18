@@ -3,10 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
-import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModAttributes
-import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
@@ -18,15 +15,6 @@ object AttributeGenes {
     fun setEfficiency(player: Player, newLevel: Int) {
         val attributes = player.attributes.getInstance(ModAttributes.EFFICIENCY) ?: return
         attributes.baseValue = newLevel.toDouble()
-
-        ModPacketHandler.messagePlayer(
-            player as ServerPlayer,
-            GeneChangedPacket(
-                player.id,
-                ModGenes.efficiency.id,
-                newLevel != 0
-            )
-        )
     }
 
     fun handleEfficiency(event: PlayerEvent.BreakSpeed) {
@@ -117,16 +105,6 @@ object AttributeGenes {
     fun setWallClimbing(player: Player, value: Boolean) {
         val wallClimbAttribute = player.attributes.getInstance(ModAttributes.WALL_CLIMBING) ?: return
         wallClimbAttribute.baseValue = if (value) 1.0 else 0.0
-
-        //TODO: Is this needed?
-        ModPacketHandler.messagePlayer(
-            player as ServerPlayer,
-            GeneChangedPacket(
-                player.id,
-                ModGenes.wallClimbing.id,
-                value
-            )
-        )
     }
 
     fun handleWallClimbing(player: Player) {
