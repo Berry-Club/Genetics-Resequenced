@@ -63,6 +63,7 @@ object OtherEntityEvents {
     @SubscribeEvent
     fun onAttack(event: LivingAttackEvent) {
         DamageGenes.handleWitherHit(event)
+        DamageGenes.handleKnockBack(event)
     }
 
     @SubscribeEvent

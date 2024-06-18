@@ -4,8 +4,8 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabi
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DragonHealthCrystal
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModEffects
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.damagesource.IndirectEntityDamageSource
 import net.minecraft.world.effect.MobEffectInstance
@@ -30,6 +30,18 @@ object DamageGenes {
         if (!genes.hasGene(ModGenes.noFallDamage) && !genes.hasGene(ModGenes.flight)) return
 
         event.isCanceled = true
+    }
+
+    fun handleKnockBack(event: LivingAttackEvent) {
+        if (event.source is IndirectEntityDamageSource) return
+
+        val attacker = event.source.entity as? LivingEntity ?: return
+        val genes = attacker.getGenes() ?: return
+        if (!genes.hasGene(ModGenes.knockBack)) return
+
+        val target = event.entity
+
+        target.knockback(5.0, attacker.x - target.x, attacker.z - target.z)
     }
 
     fun handleWitherProof(event: LivingDamageEvent) {
