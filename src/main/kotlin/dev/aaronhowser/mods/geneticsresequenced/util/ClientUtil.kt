@@ -43,6 +43,7 @@ object ClientUtil {
     }
 
     fun addSkinLayersBack() {
+        if (removedSkinLayers.isEmpty()) return
         for (part in removedSkinLayers) {
             options.toggleModelPart(part, true)
         }
@@ -65,6 +66,8 @@ object ClientUtil {
         val languageManager = Minecraft.getInstance().languageManager
         val currentLanguage = languageManager.selected
 
+        val lolcat = languageManager.getLanguage("lol_us")
+
         if (wasAdded) {
 
             if (!currentLanguage.code.startsWith("en_")) {
@@ -73,13 +76,12 @@ object ClientUtil {
             }
 
             nonCringeLanguage = currentLanguage
-
-            languageManager.selected = languageManager.getLanguage("lol_us")
+            languageManager.selected = lolcat
 
             GeneticsResequenced.LOGGER.info("Changed language to cringe!")
 
         } else {
-            if (nonCringeLanguage == null) {
+            if (nonCringeLanguage == null && languageManager.selected == lolcat) {
                 GeneticsResequenced.LOGGER.warn("Tried to remove cringe language, but no non-cringe language was saved!")
                 return
             }
