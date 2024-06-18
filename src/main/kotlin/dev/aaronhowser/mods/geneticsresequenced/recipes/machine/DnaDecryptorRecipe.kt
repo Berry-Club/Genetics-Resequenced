@@ -4,9 +4,7 @@ import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGeneRegistry
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
-import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -30,55 +28,23 @@ import net.minecraftforge.registries.ForgeRegistries
  *
  * See [dev.aaronhowser.mods.geneticsresequenced.blocks.machines.dna_decryptor.DnaDecryptorBlockEntity.craftItem]
  */
-class DnaDecryptorRecipe : Recipe<Container> {
+class DnaDecryptorRecipe(
+    private val mobResourceLocation: ResourceLocation,
+    val gene: Gene,
+    val chance: Int = 100
+) : Recipe<Container> {
 
-    constructor(
-        mobResourceLocation: ResourceLocation,
-        gene: Gene,
-        chance: Int = 100
-    ) {
-        this.mobResourceLocation = mobResourceLocation
-        this.gene = gene
-        this.chance = chance
-
-        this.inputItem = ItemStack(ModItems.DNA_HELIX.get()).setMob(mobResourceLocation) ?: ItemStack.EMPTY
-        this.outputItem = ItemStack(ModItems.DNA_HELIX.get()).setGene(gene)
-    }
-
-    constructor(
-        inputItem: ItemStack,
-        outputItem: ItemStack,
-        chance: Int
-    ) {
-        this.inputItem = inputItem
-        this.outputItem = outputItem
-
-        val entityType = EntityDnaItem.getEntityType(inputItem)
-            ?: throw IllegalStateException("Invalid entity type for input item")
-
-        this.mobResourceLocation = ForgeRegistries.ENTITY_TYPES.getKey(entityType)
-            ?: throw IllegalStateException("Invalid entity type for input item")
-
-        this.gene = outputItem.getGene()
-            ?: throw IllegalStateException("Invalid gene for output item")
-
-        this.chance = chance
-    }
-
-    private val mobResourceLocation: ResourceLocation
     val entityType: EntityType<*>
         get() = OtherUtil.getEntityType(mobResourceLocation)
 
-    val gene: Gene
-    val chance: Int
-
-    private val inputItem: ItemStack
-    private val outputItem: ItemStack
+    private val inputItem: ItemStack =
+        ItemStack(ModItems.DNA_HELIX.get()).setMob(mobResourceLocation) ?: ItemStack.EMPTY
+    private val outputItem: ItemStack = ItemStack(ModItems.DNA_HELIX.get()).setGene(gene)
 
     companion object {
 
         fun getAllRecipes(): List<DnaDecryptorRecipe> {
-            val allEntityTypes = ForgeRegistries.ENTITY_TYPES.values.filter { it.category != MobCategory.MISC }
+            val allEntityTypes = ForgeRegistries.ENTITY_TYPES.values.filter { it.category != MobCategory.MISC } + EntityType.PLAYER
             val recipes = mutableListOf<DnaDecryptorRecipe>()
 
             for (entityType in allEntityTypes) {
