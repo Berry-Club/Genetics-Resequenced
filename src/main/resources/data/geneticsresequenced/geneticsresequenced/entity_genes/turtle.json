@@ -2,6 +2,6 @@
   "entity": "minecraft:turtle",
   "genes": {
     "geneticsresequenced:basic": 5,
-    "geneticsresequenced:water_breathing": 1
+    "geneticsresequenced:water_breathing": 2
   }
 }

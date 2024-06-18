@@ -2,7 +2,7 @@
   "entity": "minecraft:fox",
   "genes": {
     "geneticsresequenced:basic": 5,
-    "geneticsresequenced:speed": 1,
-    "geneticsresequenced:jump_boost": 1
+    "geneticsresequenced:speed": 2,
+    "geneticsresequenced:jump_boost": 2
   }
 }

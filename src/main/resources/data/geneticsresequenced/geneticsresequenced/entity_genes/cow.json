@@ -2,7 +2,7 @@
   "entity": "minecraft:cow",
   "genes": {
     "geneticsresequenced:basic": 5,
-    "geneticsresequenced:eat_grass": 1,
-    "geneticsresequenced:milky": 1
+    "geneticsresequenced:eat_grass": 3,
+    "geneticsresequenced:milky": 4
   }
 }

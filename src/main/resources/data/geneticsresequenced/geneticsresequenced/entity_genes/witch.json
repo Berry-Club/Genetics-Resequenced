@@ -1,7 +1,7 @@
 {
-  "entity": "minecraft:wither_skeleton",
+  "entity": "minecraft:witch",
   "genes": {
     "geneticsresequenced:basic": 5,
-    "geneticsresequenced:poison_immunity": 1
+    "geneticsresequenced:poison_immunity": 2
   }
 }

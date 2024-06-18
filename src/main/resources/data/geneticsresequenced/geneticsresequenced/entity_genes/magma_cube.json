@@ -2,7 +2,7 @@
   "entity": "minecraft:magma_cube",
   "genes": {
     "geneticsresequenced:basic": 5,
-    "geneticsresequenced:fire_proof": 1,
-    "geneticsresequenced:bioluminescence": 1
+    "geneticsresequenced:fire_proof": 3,
+    "geneticsresequenced:bioluminescence": 4
   }
 }

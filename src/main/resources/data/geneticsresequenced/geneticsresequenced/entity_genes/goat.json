@@ -2,8 +2,8 @@
   "entity": "minecraft:goat",
   "genes": {
     "geneticsresequenced:basic": 5,
-    "geneticsresequenced:eat_grass": 1,
-    "geneticsresequenced:wooly": 1,
-    "geneticsresequenced:knockback": 1
+    "geneticsresequenced:eat_grass": 3,
+    "geneticsresequenced:wooly": 3,
+    "geneticsresequenced:knockback": 4
   }
 }

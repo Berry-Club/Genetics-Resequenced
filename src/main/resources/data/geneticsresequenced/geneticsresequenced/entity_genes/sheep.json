@@ -2,7 +2,7 @@
   "entity": "minecraft:sheep",
   "genes": {
     "geneticsresequenced:basic": 5,
-    "geneticsresequenced:eat_grass": 1,
-    "geneticsresequenced:wooly": 1
+    "geneticsresequenced:eat_grass": 3,
+    "geneticsresequenced:wooly": 4
   }
 }

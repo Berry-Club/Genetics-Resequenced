@@ -2,7 +2,6 @@
   "entity": "minecraft:villager",
   "genes": {
     "geneticsresequenced:basic": 5,
-    "geneticsresequenced:emerald_heart": 1,
-    "geneticsresequenced:regeneration": 1
+    "geneticsresequenced:emerald_heart": 2
   }
 }

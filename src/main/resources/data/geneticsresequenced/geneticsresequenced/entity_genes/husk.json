@@ -2,6 +2,6 @@
   "entity": "minecraft:husk",
   "genes": {
     "geneticsresequenced:basic": 5,
-    "geneticsresequenced:chilling": 5
+    "geneticsresequenced:chilling": 4
   }
 }

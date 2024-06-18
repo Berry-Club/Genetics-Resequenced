@@ -1,7 +1,7 @@
 {
   "entity": "minecraft:axolotl",
   "genes": {
-    "geneticsresequenced:basic": 5,
-    "geneticsresequenced:water_breathing": 1
+    "geneticsresequenced:basic": 2,
+    "geneticsresequenced:water_breathing": 5
   }
 }

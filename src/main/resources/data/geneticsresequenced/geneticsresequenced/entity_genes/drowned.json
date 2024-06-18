@@ -2,6 +2,6 @@
   "entity": "minecraft:drowned",
   "genes": {
     "geneticsresequenced:basic": 5,
-    "geneticsresequenced:resistance": 1
+    "geneticsresequenced:resistance": 4
   }
 }

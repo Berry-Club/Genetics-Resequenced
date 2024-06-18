@@ -1,8 +1,7 @@
 {
   "entity": "minecraft:elder_guardian",
   "genes": {
-    "geneticsresequenced:basic": 5,
-    "geneticsresequenced:mob_sight": 1,
-    "geneticsresequenced:water_breathing": 1
+    "geneticsresequenced:mob_sight": 3,
+    "geneticsresequenced:water_breathing": 4
   }
 }

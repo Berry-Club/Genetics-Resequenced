@@ -2,6 +2,6 @@
   "entity": "minecraft:cat",
   "genes": {
     "geneticsresequenced:basic": 5,
-    "geneticsresequenced:scare_creepers": 1
+    "geneticsresequenced:scare_creepers": 2
   }
 }
