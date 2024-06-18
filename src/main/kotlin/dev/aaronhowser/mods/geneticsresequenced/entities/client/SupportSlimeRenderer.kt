@@ -7,6 +7,7 @@ import net.minecraft.client.model.geom.ModelLayers
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.entity.EntityRendererProvider
 import net.minecraft.client.renderer.entity.MobRenderer
+import net.minecraft.client.renderer.entity.SlimeRenderer
 import net.minecraft.client.renderer.entity.layers.SlimeOuterLayer
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
@@ -59,10 +60,6 @@ class SupportSlimeRenderer(
      * Returns the location of an entity's texture.
      */
     override fun getTextureLocation(pEntity: SupportSlime): ResourceLocation {
-        return SLIME_LOCATION
-    }
-
-    companion object {
-        private val SLIME_LOCATION = ResourceLocation("textures/entity/slime/slime.png")
+        return SlimeRenderer.SLIME_LOCATION
     }
 }
