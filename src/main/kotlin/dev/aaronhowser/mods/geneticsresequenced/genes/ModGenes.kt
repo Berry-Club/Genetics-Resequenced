@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.genes
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneBuilder
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModEffects
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.world.effect.MobEffects
 
@@ -266,7 +265,6 @@ object ModGenes {
         .build()
     val cringe: Gene = registerGene("cringe")
         .setDnaPointsRequired(20)
-        .setPotion(ModEffects.SILLY, 1, 20 * 60)
         .setNegative()
         .build()
     val cursed: Gene = registerGene("cursed")
