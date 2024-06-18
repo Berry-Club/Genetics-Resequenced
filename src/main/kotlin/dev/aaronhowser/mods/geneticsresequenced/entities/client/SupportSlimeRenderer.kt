@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.entities.client
 
 import com.mojang.blaze3d.vertex.PoseStack
-import com.mojang.math.Quaternion
+import com.mojang.math.Vector3f
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.client.model.SlimeModel
@@ -72,14 +72,8 @@ class SupportSlimeRenderer(
         pPoseStack.translate(0.0, pEntity.size.toDouble() / 2, 0.0)
         pPoseStack.scale(scale, scale, scale)
 
-        val lookAngle = pEntity.previousLookAngle.lerp(pEntity.lookAngle, pPartialTicks.toDouble())
-        pPoseStack.mulPose(
-            Quaternion.fromXYZ(
-                lookAngle.x.toFloat(),
-                lookAngle.y.toFloat(),
-                lookAngle.z.toFloat(),
-            )
-        )
+        val lerpedRotY = Mth.lerp(pPartialTicks, pEntity.yRotO, pEntity.yRot)
+        pPoseStack.mulPose(Vector3f.YP.rotationDegrees(lerpedRotY))
 
         itemRenderer.renderStatic(
             getHead(pEntity),
