@@ -1,11 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.curios.CuriosKeepInventory
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
@@ -55,7 +54,7 @@ object DeathGenes {
 
             if (curiosIsLoaded) CuriosKeepInventory.loadPlayerCurios(player)
         } else {
-            if (player.getGenes()?.hasGene(ModGenes.keepInventory) != true) return
+            if (!player.hasGene(ModGenes.keepInventory)) return
 
             val allItems = player.inventory.items + player.inventory.armor + player.inventory.offhand
             val filtered = allItems.filter { !it.isEmpty }.map { it.copy() }
@@ -76,7 +75,7 @@ object DeathGenes {
         if (!ModGenes.emeraldHeart.isActive) return
 
         val entity = event.entity
-        if (entity.getGenes()?.hasGene(ModGenes.emeraldHeart) != true) return
+        if (!entity.hasGene(ModGenes.emeraldHeart)) return
 
         if (entity !is Player) {
             val itemEntity = ItemEntity(entity.level, entity.x, entity.y, entity.z, ItemStack(Items.EMERALD, 1))
@@ -102,7 +101,7 @@ object DeathGenes {
         if (!ModGenes.explosiveExit.isActive) return
 
         val entity = event.entity
-        if (entity.getGenes()?.hasGene(ModGenes.explosiveExit) != true) return
+        if (!entity.hasGene(ModGenes.explosiveExit)) return
 
         val shouldExplode = if (entity !is Player) {
             true

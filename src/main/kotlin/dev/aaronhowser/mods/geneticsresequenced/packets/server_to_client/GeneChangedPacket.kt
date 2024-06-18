@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacket
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModAttributes
@@ -82,7 +83,7 @@ class GeneChangedPacket(
                 if (wasAdded) {
                     4.0
                 } else {
-                    if (player.getGenes()?.hasGene(ModGenes.efficiency) == true) {
+                    if (player.hasGene(ModGenes.efficiency)) {
                         1.0
                     } else {
                         0.0

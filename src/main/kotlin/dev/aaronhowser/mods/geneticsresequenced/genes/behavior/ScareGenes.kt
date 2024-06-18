@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import net.minecraft.world.entity.EntitySelector
 import net.minecraft.world.entity.LivingEntity
@@ -39,7 +39,7 @@ object ScareGenes {
                 AvoidEntityGoal(
                     entity,
                     livingEntityClass,
-                    { otherEntity: LivingEntity -> otherEntity.getGenes()?.hasGene(scaredOf) == true },
+                    { otherEntity: LivingEntity -> otherEntity.hasGene(scaredOf) },
                     6.0f,
                     1.0,
                     1.2,

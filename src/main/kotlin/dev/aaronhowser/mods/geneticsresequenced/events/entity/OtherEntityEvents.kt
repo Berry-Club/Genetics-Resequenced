@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.CapabilityHandler
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.AttributeGenes
@@ -100,12 +101,10 @@ object OtherEntityEvents {
 
         tellAllPlayersGeneChanged(entity, changedGene, wasAdded)
 
-        val entityGenes = entity.getGenes() ?: return
-
         if (entity is Player) {
             when (changedGene) {
                 ModGenes.efficiency -> {
-                    if (entityGenes.hasGene(ModGenes.efficiencyFour)) return
+                    if (entity.hasGene(ModGenes.efficiencyFour)) return
                     val levelToSetTo = if (wasAdded) 1 else 0
                     AttributeGenes.setEfficiency(entity, levelToSetTo)
                 }
@@ -114,7 +113,7 @@ object OtherEntityEvents {
                     if (wasAdded) {
                         AttributeGenes.setEfficiency(entity, 4)
                     } else {
-                        val levelToSetTo = if (entityGenes.hasGene(ModGenes.efficiency)) 1 else 0
+                        val levelToSetTo = if (entity.hasGene(ModGenes.efficiency)) 1 else 0
                         AttributeGenes.setEfficiency(entity, levelToSetTo)
                     }
                 }
