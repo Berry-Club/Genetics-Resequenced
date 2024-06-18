@@ -1,11 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.entities.client
 
-import com.mojang.authlib.minecraft.MinecraftProfileTexture
 import com.mojang.blaze3d.vertex.PoseStack
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
-import net.minecraft.client.Minecraft
 import net.minecraft.client.model.SlimeModel
 import net.minecraft.client.model.geom.ModelLayers
+import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.client.renderer.MultiBufferSource
 import net.minecraft.client.renderer.entity.EntityRendererProvider
 import net.minecraft.client.renderer.entity.MobRenderer
@@ -32,6 +31,23 @@ class SupportSlimeRenderer(
         this.addLayer(SlimeOuterLayer(this, context.modelSet))
     }
 
+    private var skinRl: ResourceLocation? = null
+    private fun setSkinRl(pEntity: SupportSlime) {
+        if (skinRl != null) return
+
+        val getOwnerUuid = pEntity.getOwnerUuid() ?: return
+        val player = pEntity.level.getPlayerByUUID(getOwnerUuid) ?: return
+
+        if (player is AbstractClientPlayer) {
+            println("Player is AbstractClientPlayer")
+
+            val resourceLocation = player.skinTextureLocation
+            println("Resource Location: $resourceLocation")
+
+            skinRl = resourceLocation
+        }
+    }
+
     override fun render(
         pEntity: SupportSlime,
         pEntityYaw: Float,
@@ -40,31 +56,7 @@ class SupportSlimeRenderer(
         pBuffer: MultiBufferSource,
         pPackedLight: Int
     ) {
-
-        val getOwnerUuid = pEntity.getOwnerUuid() ?: return
-        val player = pEntity.level.getPlayerByUUID(getOwnerUuid) ?: return
-
-        val propertyMap = player.gameProfile.properties
-        var skinUrl: String? = null
-        if (propertyMap.containsKey("textures")) {
-
-            for (property in propertyMap["textures"]) {
-                try {
-                    val sessionService = Minecraft.getInstance().minecraftSessionService
-                    val textures = sessionService.getTextures(player.gameProfile, false)
-                    if (textures.containsKey(MinecraftProfileTexture.Type.SKIN)) {
-                        val skinTexture = textures[MinecraftProfileTexture.Type.SKIN]
-                        skinUrl = skinTexture?.url
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-            }
-        }
-
-        if (skinUrl != null) {
-            println(skinUrl)
-        }
+        setSkinRl(pEntity)
 
         this.shadowRadius = 0.25f * pEntity.size.toFloat()
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight)
