@@ -32,18 +32,6 @@ object DamageGenes {
         event.isCanceled = true
     }
 
-    fun handleKnockBack(event: LivingAttackEvent) {
-        if (event.source is IndirectEntityDamageSource) return
-
-        val attacker = event.source.entity as? LivingEntity ?: return
-        val genes = attacker.getGenes() ?: return
-        if (!genes.hasGene(ModGenes.knockBack)) return
-
-        val target = event.entity
-
-        target.knockback(5.0, attacker.x - target.x, attacker.z - target.z)
-    }
-
     fun handleWitherProof(event: LivingDamageEvent) {
         if (!ModGenes.witherProof.isActive) return
 

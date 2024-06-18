@@ -63,7 +63,6 @@ object OtherEntityEvents {
     @SubscribeEvent
     fun onAttack(event: LivingAttackEvent) {
         DamageGenes.handleWitherHit(event)
-        DamageGenes.handleKnockBack(event)
     }
 
     @SubscribeEvent
@@ -123,6 +122,8 @@ object OtherEntityEvents {
                 ModGenes.stepAssist -> AttributeGenes.setStepAssist(entity, wasAdded)
 
                 ModGenes.wallClimbing -> AttributeGenes.setWallClimbing(entity, wasAdded)
+
+                ModGenes.knockBack -> AttributeGenes.setKnockBack(entity, wasAdded)
 
                 ModGenes.moreHearts -> {
                     AttributeGenes.setMoreHearts(entity, 1, wasAdded)

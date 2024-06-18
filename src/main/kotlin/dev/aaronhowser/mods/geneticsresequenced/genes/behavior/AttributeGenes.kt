@@ -96,9 +96,22 @@ object AttributeGenes {
 
             else -> throw IllegalArgumentException("Invalid level for more hearts: $level")
         }
+    }
 
-        println(maxHealthAttribute.modifiers)
+    private val knockBackAttributeModifier = AttributeModifier(
+        "Genetics Resequenced: Extra Knock Back",
+        2.0,
+        AttributeModifier.Operation.ADDITION
+    )
 
+    fun setKnockBack(player: Player, adding: Boolean) {
+        val attackKnockBackAttribute = player.getAttribute(Attributes.ATTACK_KNOCKBACK) ?: return
+
+        if (adding) {
+            attackKnockBackAttribute.addPermanentModifier(knockBackAttributeModifier)
+        } else {
+            attackKnockBackAttribute.removeModifier(knockBackAttributeModifier)
+        }
     }
 
     fun setWallClimbing(player: Player, value: Boolean) {
