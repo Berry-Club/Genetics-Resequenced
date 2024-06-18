@@ -19,7 +19,7 @@ object ListAllGenesCommand {
 
         val messageComponent = Component.translatable("command.geneticsresequenced.geneList")
 
-        for (gene in Gene.getRegisteredGenes()) {
+        for (gene in Gene.getRegistry()) {
             val geneComponent = Component
                 .literal("\n• ")
                 .append(gene.nameComponent)

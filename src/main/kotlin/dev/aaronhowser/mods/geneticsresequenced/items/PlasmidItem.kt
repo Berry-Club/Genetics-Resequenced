@@ -52,7 +52,7 @@ class PlasmidItem : Item(Properties().tab(ModItems.MOD_TAB)) {
 
         private fun getAllPlasmids(): List<ItemStack> {
 
-            val geneRegistry = Gene.getRegisteredGenes()
+            val geneRegistry = Gene.getRegistry()
             val plasmids = mutableListOf<ItemStack>()
 
             for (gene in geneRegistry) {

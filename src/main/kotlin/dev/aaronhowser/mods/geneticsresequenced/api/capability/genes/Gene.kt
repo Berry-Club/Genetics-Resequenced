@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registries.GeneRegistry
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
@@ -28,8 +27,11 @@ class Gene(
     override fun toString(): String = "Gene($id)"
 
     companion object {
-        fun getRegisteredGenes(): List<Gene> {
-            val sortedGenes = GeneRegistry.GENES_REGISTRY.entries.sortedBy { it.id.toString() }.map { it.get() }
+        //TODO: Make this an actual registry
+        private val GENE_REGISTRY: MutableSet<Gene> = mutableSetOf()
+
+        fun getRegistry(): List<Gene> {
+            val sortedGenes = GENE_REGISTRY.sortedBy { it.id }
 
             val positiveGenes: MutableList<Gene> = mutableListOf()
             val mutations: MutableList<Gene> = mutableListOf()
@@ -47,11 +49,11 @@ class Gene(
         }
 
         fun fromId(searchedId: ResourceLocation): Gene? {
-            return getRegisteredGenes().find { it.id == searchedId }
+            return GENE_REGISTRY.find { it.id == searchedId }
         }
 
         fun fromId(searchedId: String): Gene? {
-            return getRegisteredGenes().find { it.id.toString() == searchedId }
+            return GENE_REGISTRY.find { it.id.toString() == searchedId }
         }
 
         val unknownGeneComponent: MutableComponent = Component.translatable("gene.geneticsresequenced.unknown")
@@ -73,9 +75,10 @@ class Gene(
                 mutatesInto = mutatesInto,
                 potionDetails = potionDetails
             )
-            gene.isHidden = hidden
 
-            GeneRegistry.GENES_REGISTRY.register(id.path) { gene }
+            GENE_REGISTRY.add(gene)
+
+            gene.isHidden = hidden
 
             return gene
         }
@@ -113,7 +116,7 @@ class Gene(
     private val requiredGenes: MutableSet<Gene> = mutableSetOf()
 
     val mutatesFrom: Set<Gene>
-        get() = getRegisteredGenes().filter { it.mutatesInto == this }.toSet()
+        get() = GENE_REGISTRY.filter { it.mutatesInto == this }.toSet()
 
     val isMutation: Boolean
         get() = mutatesFrom.isNotEmpty()

@@ -86,7 +86,7 @@ class PlasmidInjectorRecipe(
             val antiGeneGlassRecipes = mutableListOf<PlasmidInjectorRecipe>()
             val antiGeneMetalRecipes = mutableListOf<PlasmidInjectorRecipe>()
 
-            for (gene in Gene.getRegisteredGenes()) {
+            for (gene in Gene.getRegistry()) {
                 if (!gene.isActive) continue
                 if (gene.isHidden) continue
 

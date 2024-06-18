@@ -35,7 +35,7 @@ object GeneRequirementRegistry : SimpleJsonResourceReloadListener(
         pResourceManager: ResourceManager,
         pProfiler: ProfilerFiller
     ) {
-        Gene.getRegisteredGenes().forEach { it.removeRequiredGenes(it.getRequiredGenes()) }
+        Gene.getRegistry().forEach { it.removeRequiredGenes(it.getRequiredGenes()) }
 
         val requirements = mutableMapOf<Gene, List<Gene>>()
 

@@ -68,7 +68,7 @@ object InformationRecipes {
     }
 
     fun geneDescriptions(registration: IRecipeRegistration) {
-        val registry = Gene.getRegisteredGenes()
+        val registry = Gene.getRegistry()
 
         for (gene in registry) {
             if (gene.isHidden) continue
