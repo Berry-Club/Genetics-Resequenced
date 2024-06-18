@@ -119,6 +119,7 @@ class SupportSlime(
     private var despawnAnimationPlaying = false
 
     private fun checkIfShouldDespawn() {
+        if (isNoAi) return
         if (despawnAnimationPlaying) return
 
         val nearbyEntities = level.getEntities(
