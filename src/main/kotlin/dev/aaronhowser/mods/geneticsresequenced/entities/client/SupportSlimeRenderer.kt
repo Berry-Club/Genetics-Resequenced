@@ -79,13 +79,16 @@ class SupportSlimeRenderer(
         pMatrixStack: PoseStack,
         pPartialTickTime: Float
     ) {
-        val f = 0.999f
         pMatrixStack.scale(0.999f, 0.999f, 0.999f)
         pMatrixStack.translate(0.0, 0.001, 0.0)
-        val f1 = pLivingEntity.size.toFloat()
-        val f2 = Mth.lerp(pPartialTickTime, pLivingEntity.oSquish, pLivingEntity.squish) / (f1 * 0.5f + 1.0f)
-        val f3 = 1.0f / (f2 + 1.0f)
-        pMatrixStack.scale(f3 * f1, 1.0f / f3 * f1, f3 * f1)
+        val sizeFactor = pLivingEntity.size.toFloat()
+        val squishFactor = Mth.lerp(
+            pPartialTickTime,
+            pLivingEntity.oSquish,
+            pLivingEntity.squish
+        ) / (sizeFactor * 0.5f + 1.0f)
+        val inverseSquish = 1.0f / (squishFactor + 1.0f)
+        pMatrixStack.scale(inverseSquish * sizeFactor, 1.0f / inverseSquish * sizeFactor, inverseSquish * sizeFactor)
     }
 
     /**
