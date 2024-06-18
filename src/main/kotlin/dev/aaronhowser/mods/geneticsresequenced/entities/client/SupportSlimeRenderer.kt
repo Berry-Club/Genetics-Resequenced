@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.entities.client
 
+import com.mojang.authlib.minecraft.MinecraftProfileTexture
 import com.mojang.blaze3d.vertex.PoseStack
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import net.minecraft.client.model.SlimeModel
@@ -38,6 +39,28 @@ class SupportSlimeRenderer(
         pBuffer: MultiBufferSource,
         pPackedLight: Int
     ) {
+
+        val getOwnerUuid = pEntity.getOwnerUuid() ?: return
+        val player = pEntity.level.getPlayerByUUID(getOwnerUuid) ?: return
+
+        val propertyMap = player.gameProfile.properties
+        var skinUrl: String? = null
+        if (propertyMap.containsKey("textures")) {
+
+            for (property in propertyMap["textures"]) {
+                val sessionService = player.server!!.sessionService
+                val textures = sessionService.getTextures(player.gameProfile, false)
+                if (textures.containsKey(MinecraftProfileTexture.Type.SKIN)) {
+                    val skinTexture = textures[MinecraftProfileTexture.Type.SKIN]
+                    skinUrl = skinTexture?.url
+                }
+            }
+        }
+
+        if (skinUrl != null) {
+            println(skinUrl)
+        }
+
         this.shadowRadius = 0.25f * pEntity.size.toFloat()
         super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight)
     }

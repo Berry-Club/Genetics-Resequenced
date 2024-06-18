@@ -168,7 +168,7 @@ class SupportSlime(
         }
     }
 
-    private fun getOwnerUuid(): UUID? {
+    fun getOwnerUuid(): UUID? {
         return try {
             entityData.get(OWNER).orElse(null)
         } catch (e: NullPointerException) {
