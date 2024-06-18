@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.entities.client
 
 import com.mojang.blaze3d.vertex.PoseStack
+import com.mojang.math.Quaternion
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.client.model.SlimeModel
@@ -38,7 +39,11 @@ class SupportSlimeRenderer(
 
     private val itemRenderer: ItemRenderer = context.itemRenderer
 
+    private var headStack: ItemStack? = null
+
     private fun getHead(pEntity: SupportSlime): ItemStack {
+        if (headStack != null) return headStack!!
+
         val ownerUuid = pEntity.getOwnerUuid()
         val owner = ownerUuid?.let { pEntity.level.getPlayerByUUID(it) }
 
@@ -46,32 +51,45 @@ class SupportSlimeRenderer(
 
         val ownerUsername = owner.gameProfile.name
 
-        val headStack = Items.PLAYER_HEAD.itemStack
-        headStack.tag?.putString("SkullOwner", ownerUsername)
+        val newHeadStack = Items.PLAYER_HEAD.itemStack
+        newHeadStack.getOrCreateTag().putString("SkullOwner", ownerUsername)
 
-        return headStack
+        headStack = newHeadStack
+        return newHeadStack
     }
 
     override fun render(
         pEntity: SupportSlime,
         pEntityYaw: Float,
         pPartialTicks: Float,
-        pMatrixStack: PoseStack,
+        pPoseStack: PoseStack,
         pBuffer: MultiBufferSource,
         pPackedLight: Int
     ) {
+
+        val scale = 2f * pEntity.size
+
+        pPoseStack.translate(0.0, pEntity.size.toDouble() / 2, 0.0)
+        pPoseStack.scale(scale, scale, scale)
+
+        val lookAngle = pEntity.lookAngle
+        pPoseStack.mulPose(
+            Quaternion.fromXYZ(
+                lookAngle.x.toFloat(),
+                lookAngle.y.toFloat(),
+                lookAngle.z.toFloat(),
+            )
+        )
 
         itemRenderer.renderStatic(
             getHead(pEntity),
             TransformType.FIXED,
             pPackedLight,
             OverlayTexture.NO_OVERLAY,
-            pMatrixStack,
+            pPoseStack,
             pBuffer,
             pEntity.id
         )
-
-        this.shadowRadius = 0.25f * pEntity.size.toFloat()
     }
 
     override fun scale(
