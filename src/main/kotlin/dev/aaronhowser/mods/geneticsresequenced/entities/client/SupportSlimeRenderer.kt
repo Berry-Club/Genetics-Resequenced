@@ -15,7 +15,7 @@ import net.minecraftforge.api.distmarker.OnlyIn
 
 //TODO: What if it looks like your skin's head???
 @OnlyIn(Dist.CLIENT)
-class FriendlySlimeRenderer(
+class SupportSlimeRenderer(
     context: EntityRendererProvider.Context
 ) : MobRenderer<SupportSlime, SlimeModel<SupportSlime>>
     (

@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.events
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.controls.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModEntityTypes
-import dev.aaronhowser.mods.geneticsresequenced.entities.client.FriendlySlimeRenderer
+import dev.aaronhowser.mods.geneticsresequenced.entities.client.SupportSlimeRenderer
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModMenuTypes
@@ -39,7 +39,7 @@ object ClientModBusEvents {
 
 
     private fun registerEntityRenderers() {
-        EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::FriendlySlimeRenderer)
+        EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::SupportSlimeRenderer)
     }
 
     @SubscribeEvent
