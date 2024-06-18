@@ -79,7 +79,7 @@ object MobGeneRegistry : SimpleJsonResourceReloadListener(
                 val entityName = entityGenes.entity.toString().split(":")[1]
                 val fileName = key.toString().split(":")[1]
                 if (entityName != fileName) {
-                    GeneticsResequenced.LOGGER.warn("Mob-Gene data for $key has the entity $entityName, but the file name is $fileName. This may be a mistake.")
+                    GeneticsResequenced.LOGGER.warn("Mob-Gene data for $key has the entity $entityName instead of $fileName. This may be a mistake.")
                 }
 
                 assignGenes(entityGenes.entity, entityGenes.genes)

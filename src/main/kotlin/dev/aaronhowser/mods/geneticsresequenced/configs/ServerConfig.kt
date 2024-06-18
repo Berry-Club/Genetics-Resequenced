@@ -139,7 +139,7 @@ object ServerConfig {
             .defineInRange("chillChance", 0.75, 0.0, 1.0)
         chillDuration = BUILDER
             .comment("How long should the Chill gene slow entities down for (in ticks)")
-            .defineInRange("chillDuration", 20 * 5, 1, Int.MAX_VALUE)
+            .defineInRange("chillDuration", 20 * 15, 1, Int.MAX_VALUE)
 
         emeraldHeartCooldown = BUILDER
             .comment("How many ticks to wait before the Emerald Heart gene can proc again")
