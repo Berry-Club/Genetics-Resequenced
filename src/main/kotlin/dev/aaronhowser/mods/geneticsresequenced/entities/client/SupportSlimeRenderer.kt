@@ -19,16 +19,16 @@ import net.minecraftforge.api.distmarker.OnlyIn
 @OnlyIn(Dist.CLIENT)
 class SupportSlimeRenderer(
     context: EntityRendererProvider.Context
-) : MobRenderer<SupportSlime, SlimeModel<SupportSlime>>
+) : MobRenderer<SupportSlime, SupportSlimeModel<SupportSlime>>
     (
     context,
-    SlimeModel(
+    SupportSlimeModel(
         context.bakeLayer(ModelLayers.SLIME)
     ),
     0.25f
 ) {
     init {
-        this.addLayer(SlimeOuterLayer(this, context.modelSet))
+        this.addLayer(SupportSlimePlayerHeadLayer(this, context.modelSet))
     }
 
     private var skinRl: ResourceLocation? = null

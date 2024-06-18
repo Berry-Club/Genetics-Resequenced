@@ -4,7 +4,6 @@ import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.blaze3d.vertex.VertexConsumer
 import net.minecraft.client.Minecraft
 import net.minecraft.client.model.EntityModel
-import net.minecraft.client.model.SlimeModel
 import net.minecraft.client.model.geom.EntityModelSet
 import net.minecraft.client.model.geom.ModelLayers
 import net.minecraft.client.renderer.MultiBufferSource
@@ -15,9 +14,9 @@ import net.minecraft.client.renderer.entity.layers.RenderLayer
 import net.minecraft.world.entity.LivingEntity
 
 class SupportSlimePlayerHeadLayer<T : LivingEntity>(
-    renderer: RenderLayerParent<T, SlimeModel<T>>,
+    renderer: RenderLayerParent<T, SupportSlimeModel<T>>,
     entityModelSet: EntityModelSet
-) : RenderLayer<T, SlimeModel<T>>(renderer) {
+) : RenderLayer<T, SupportSlimeModel<T>>(renderer) {
 
     val model: EntityModel<T> = SupportSlimeModel(
         entityModelSet.bakeLayer(ModelLayers.PLAYER_HEAD)
@@ -47,7 +46,7 @@ class SupportSlimePlayerHeadLayer<T : LivingEntity>(
             buffer.getBuffer(RenderType.entityTranslucent(this.getTextureLocation(livingEntity)))
         }
 
-        (this.parentModel as SlimeModel).copyPropertiesTo(this.model)
+        (this.parentModel as SupportSlimeModel).copyPropertiesTo(this.model)
 
         this.model.apply {
             prepareMobModel(livingEntity, limbSwing, limbSwingAmount, partialTicks)
