@@ -2,16 +2,21 @@ package dev.aaronhowser.mods.geneticsresequenced.entities.client
 
 import com.mojang.blaze3d.vertex.PoseStack
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.client.model.SlimeModel
 import net.minecraft.client.model.geom.ModelLayers
-import net.minecraft.client.player.AbstractClientPlayer
 import net.minecraft.client.renderer.MultiBufferSource
+import net.minecraft.client.renderer.block.model.ItemTransforms.TransformType
 import net.minecraft.client.renderer.entity.EntityRendererProvider
+import net.minecraft.client.renderer.entity.ItemRenderer
 import net.minecraft.client.renderer.entity.MobRenderer
 import net.minecraft.client.renderer.entity.SlimeRenderer
 import net.minecraft.client.renderer.entity.layers.SlimeOuterLayer
+import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 
@@ -31,21 +36,20 @@ class SupportSlimeRenderer(
         this.addLayer(SlimeOuterLayer(this, context.modelSet))
     }
 
-    private var skinRl: ResourceLocation? = null
-    private fun setSkinRl(pEntity: SupportSlime) {
-        if (skinRl != null) return
+    private val itemRenderer: ItemRenderer = context.itemRenderer
 
-        val getOwnerUuid = pEntity.getOwnerUuid() ?: return
-        val player = pEntity.level.getPlayerByUUID(getOwnerUuid) ?: return
+    private fun getHead(pEntity: SupportSlime): ItemStack {
+        val ownerUuid = pEntity.getOwnerUuid()
+        val owner = ownerUuid?.let { pEntity.level.getPlayerByUUID(it) }
 
-        if (player is AbstractClientPlayer) {
-            println("Player is AbstractClientPlayer")
+        if (owner == null) return ItemStack.EMPTY
 
-            val resourceLocation = player.skinTextureLocation
-            println("Resource Location: $resourceLocation")
+        val ownerUsername = owner.gameProfile.name
 
-            skinRl = resourceLocation
-        }
+        val headStack = Items.PLAYER_HEAD.itemStack
+        headStack.tag?.putString("SkullOwner", ownerUsername)
+
+        return headStack
     }
 
     override fun render(
@@ -56,10 +60,18 @@ class SupportSlimeRenderer(
         pBuffer: MultiBufferSource,
         pPackedLight: Int
     ) {
-        setSkinRl(pEntity)
+
+        itemRenderer.renderStatic(
+            getHead(pEntity),
+            TransformType.FIXED,
+            pPackedLight,
+            OverlayTexture.NO_OVERLAY,
+            pMatrixStack,
+            pBuffer,
+            pEntity.id
+        )
 
         this.shadowRadius = 0.25f * pEntity.size.toFloat()
-        super.render(pEntity, pEntityYaw, pPartialTicks, pMatrixStack, pBuffer, pPackedLight)
     }
 
     override fun scale(
