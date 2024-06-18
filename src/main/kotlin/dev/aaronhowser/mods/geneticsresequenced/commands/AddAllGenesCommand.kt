@@ -62,7 +62,7 @@ object AddAllGenesCommand {
     private fun addAllGenesToTarget(target: LivingEntity): Boolean {
         val targetGenes = target.getGenes() ?: return false
 
-        for (gene in Gene.getRegistry()) {
+        for (gene in Gene.getRegisteredGenes()) {
             if (gene.isHidden) continue
             if (gene.isNegative) continue
             if (target !is Player && !gene.canMobsHave) continue

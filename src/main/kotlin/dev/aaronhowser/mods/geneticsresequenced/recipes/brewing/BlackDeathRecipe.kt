@@ -23,7 +23,7 @@ class BlackDeathRecipe : IBrewingRecipe {
     }
 
     companion object {
-        val allBadGenes = Gene.getRegistry().filter { it.isNegative && it.isActive } - ModGenes.blackDeath
+        val allBadGenes = Gene.getRegisteredGenes().filter { it.isNegative && it.isActive } - ModGenes.blackDeath
     }
 
     override fun isIngredient(pTopSlot: ItemStack): Boolean {

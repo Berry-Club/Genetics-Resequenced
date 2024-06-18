@@ -40,7 +40,7 @@ class GenesCapability {
     }
 
     fun addAllGenes() {
-        geneList.addAll(Gene.getRegistry())
+        geneList.addAll(Gene.getRegisteredGenes())
     }
 
     fun getAmountOfGenes(): Int {

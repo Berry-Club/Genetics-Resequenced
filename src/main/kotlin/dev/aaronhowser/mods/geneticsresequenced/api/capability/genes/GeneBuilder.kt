@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffect
+import thedarkcolour.kotlinforforge.forge.registerObject
 
 class GeneBuilder(
     val id: ResourceLocation

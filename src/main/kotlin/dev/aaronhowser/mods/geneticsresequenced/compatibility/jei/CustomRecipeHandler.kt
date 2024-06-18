@@ -21,7 +21,7 @@ object CustomRecipeHandler {
     private fun setAntiPlasmidRecipes(): List<CraftingRecipe> {
 
         val group = GeneticsResequenced.ID + ".set_anti_plasmid"
-        val allGenes = Gene.getRegistry()
+        val allGenes = Gene.getRegisteredGenes()
         val emptyAntiPlasmid = ModItems.ANTI_PLASMID.itemStack
 
         val recipes = mutableListOf<CraftingRecipe>()

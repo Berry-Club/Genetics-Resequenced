@@ -49,7 +49,7 @@ class PlasmidInfuserRecipe(
     companion object {
         fun getAllRecipes(): List<PlasmidInfuserRecipe> {
             val list = mutableListOf<PlasmidInfuserRecipe>()
-            for (gene in Gene.getRegistry()) {
+            for (gene in Gene.getRegisteredGenes()) {
                 if (gene.dnaPointsRequired <= 0) continue
                 list.add(PlasmidInfuserRecipe(gene, false))
 

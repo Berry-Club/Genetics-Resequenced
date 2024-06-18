@@ -47,7 +47,7 @@ class DnaHelixItem : EntityDnaItem() {
         fun ItemStack.isBasic(): Boolean = this.getGene() == ModGenes.basic
 
         private fun getAllHelices(): Collection<ItemStack> {
-            val geneRegistry = Gene.getRegistry()
+            val geneRegistry = Gene.getRegisteredGenes()
 
             return geneRegistry.map { ModItems.DNA_HELIX.itemStack.setGene(it) }
         }
