@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.entities.client
 import com.mojang.authlib.minecraft.MinecraftProfileTexture
 import com.mojang.blaze3d.vertex.PoseStack
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
+import net.minecraft.client.Minecraft
 import net.minecraft.client.model.SlimeModel
 import net.minecraft.client.model.geom.ModelLayers
 import net.minecraft.client.renderer.MultiBufferSource
@@ -48,11 +49,15 @@ class SupportSlimeRenderer(
         if (propertyMap.containsKey("textures")) {
 
             for (property in propertyMap["textures"]) {
-                val sessionService = player.server!!.sessionService
-                val textures = sessionService.getTextures(player.gameProfile, false)
-                if (textures.containsKey(MinecraftProfileTexture.Type.SKIN)) {
-                    val skinTexture = textures[MinecraftProfileTexture.Type.SKIN]
-                    skinUrl = skinTexture?.url
+                try {
+                    val sessionService = Minecraft.getInstance().minecraftSessionService
+                    val textures = sessionService.getTextures(player.gameProfile, false)
+                    if (textures.containsKey(MinecraftProfileTexture.Type.SKIN)) {
+                        val skinTexture = textures[MinecraftProfileTexture.Type.SKIN]
+                        skinUrl = skinTexture?.url
+                    }
+                } catch (e: Exception) {
+                    e.printStackTrace()
                 }
             }
         }
