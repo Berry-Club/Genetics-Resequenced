@@ -72,7 +72,7 @@ class SupportSlimeRenderer(
         pPoseStack.translate(0.0, pEntity.size.toDouble() / 2, 0.0)
         pPoseStack.scale(scale, scale, scale)
 
-        val lookAngle = pEntity.lookAngle
+        val lookAngle = pEntity.previousLookAngle.lerp(pEntity.lookAngle, pPartialTicks.toDouble())
         pPoseStack.mulPose(
             Quaternion.fromXYZ(
                 lookAngle.x.toFloat(),

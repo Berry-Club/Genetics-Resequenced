@@ -24,6 +24,7 @@ import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.entity.monster.Slime
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
+import net.minecraft.world.phys.Vec3
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import java.util.*
 
@@ -110,7 +111,9 @@ class SupportSlime(
         entityData.set(OWNER, Optional.of(ownerUuid))
     }
 
+    var previousLookAngle = Vec3.ZERO
     override fun tick() {
+        previousLookAngle = lookAngle
         super.tick()
         checkIfShouldDespawn()
     }
