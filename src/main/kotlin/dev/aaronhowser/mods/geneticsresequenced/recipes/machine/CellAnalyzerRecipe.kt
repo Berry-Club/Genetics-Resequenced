@@ -33,7 +33,7 @@ class CellAnalyzerRecipe(
         fun getAllRecipes(): List<CellAnalyzerRecipe> {
             return ForgeRegistries.ENTITY_TYPES.values
                 .filter { it.category != MobCategory.MISC }
-                .mapNotNull { ForgeRegistries.ENTITY_TYPES.getKey(it) }
+                .mapNotNull { OtherUtil.getEntityResourceLocation(it) }
                 .map { CellAnalyzerRecipe(it) }
         }
 

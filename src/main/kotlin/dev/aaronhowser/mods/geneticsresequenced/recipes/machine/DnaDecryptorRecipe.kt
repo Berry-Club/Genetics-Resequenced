@@ -43,13 +43,20 @@ class DnaDecryptorRecipe(
 
     companion object {
 
+        // Theoretically, addons could add entity types to this, if they wanted to for any reason
+        @Suppress("MemberVisibilityCanBePrivate")
+        val alsoIncludeRecipesForEntities = mutableListOf(
+            EntityType.PLAYER
+        )
+
         fun getAllRecipes(): List<DnaDecryptorRecipe> {
-            val allEntityTypes = ForgeRegistries.ENTITY_TYPES.values.filter { it.category != MobCategory.MISC } + EntityType.PLAYER
+            val allEntityTypes =
+                ForgeRegistries.ENTITY_TYPES.values.filter { it.category != MobCategory.MISC } + alsoIncludeRecipesForEntities
             val recipes = mutableListOf<DnaDecryptorRecipe>()
 
             for (entityType in allEntityTypes) {
 
-                val entityRl = ForgeRegistries.ENTITY_TYPES.getKey(entityType)
+                val entityRl = OtherUtil.getEntityResourceLocation(entityType)
                 if (entityRl == null) {
                     GeneticsResequenced.LOGGER.error("Failed to get resource location for entity type: $entityType")
                     continue

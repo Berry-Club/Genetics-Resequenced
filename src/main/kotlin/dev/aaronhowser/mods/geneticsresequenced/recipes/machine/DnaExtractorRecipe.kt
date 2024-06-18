@@ -34,11 +34,10 @@ class DnaExtractorRecipe(
 
     private val entityResourceLocation: ResourceLocation
         get() {
-            val entityRl = EntityDnaItem.getEntityType(inputItem)
+            val entityType = EntityDnaItem.getEntityType(inputItem)
                 ?: throw IllegalStateException("Invalid entity type for input item")
 
-            return ForgeRegistries.ENTITY_TYPES.getKey(entityRl)
-                ?: throw IllegalStateException("Invalid entity type for input item")
+            return OtherUtil.getEntityResourceLocation(entityType)
         }
 
     companion object {
@@ -49,7 +48,7 @@ class DnaExtractorRecipe(
         private fun getRegularCellRecipes(): List<DnaExtractorRecipe> {
             val entityRls = ForgeRegistries.ENTITY_TYPES.values
                 .filter { it.category != MobCategory.MISC }
-                .mapNotNull { ForgeRegistries.ENTITY_TYPES.getKey(it) }
+                .mapNotNull { OtherUtil.getEntityResourceLocation(it) }
 
             val recipes = mutableListOf<DnaExtractorRecipe>()
 
