@@ -138,7 +138,7 @@ object ModGenes {
     val keepInventory: Gene = registerGene("keep_inventory")
         .setDnaPointsRequired(40)
         .build()
-    val knockBack: Gene = registerGene("knock_back")
+    val knockback: Gene = registerGene("knockback")
         .setDnaPointsRequired(20)
         .allowMobs()
         .build()

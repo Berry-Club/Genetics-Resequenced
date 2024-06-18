@@ -98,19 +98,19 @@ object AttributeGenes {
         }
     }
 
-    private val knockBackAttributeModifier = AttributeModifier(
+    private val knockbackAttributeModifier = AttributeModifier(
         "Genetics Resequenced: Extra Knock Back",
-        2.0,
+        ServerConfig.knockbackStrength.get(),
         AttributeModifier.Operation.ADDITION
     )
 
-    fun setKnockBack(player: Player, adding: Boolean) {
+    fun setKnockback(player: Player, adding: Boolean) {
         val attackKnockBackAttribute = player.getAttribute(Attributes.ATTACK_KNOCKBACK) ?: return
 
         if (adding) {
-            attackKnockBackAttribute.addPermanentModifier(knockBackAttributeModifier)
+            attackKnockBackAttribute.addPermanentModifier(knockbackAttributeModifier)
         } else {
-            attackKnockBackAttribute.removeModifier(knockBackAttributeModifier)
+            attackKnockBackAttribute.removeModifier(knockbackAttributeModifier)
         }
     }
 

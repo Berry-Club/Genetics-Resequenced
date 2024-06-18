@@ -123,7 +123,7 @@ object OtherEntityEvents {
 
                 ModGenes.wallClimbing -> AttributeGenes.setWallClimbing(entity, wasAdded)
 
-                ModGenes.knockBack -> AttributeGenes.setKnockBack(entity, wasAdded)
+                ModGenes.knockback -> AttributeGenes.setKnockback(entity, wasAdded)
 
                 ModGenes.moreHearts -> {
                     AttributeGenes.setMoreHearts(entity, 1, wasAdded)
