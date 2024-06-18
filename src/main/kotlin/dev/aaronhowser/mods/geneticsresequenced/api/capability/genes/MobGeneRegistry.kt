@@ -75,6 +75,13 @@ object MobGeneRegistry : SimpleJsonResourceReloadListener(
                     GeneticsResequenced.LOGGER.error("Failed to decode entity genes for $key")
                 }.first
 
+
+                val entityName = entityGenes.entity.toString().split(":")[1]
+                val fileName = key.toString().split(":")[1]
+                if (entityName != fileName) {
+                    GeneticsResequenced.LOGGER.warn("Mob-Gene data for $key has the entity $entityName, but the file name is $fileName. This may be a mistake.")
+                }
+
                 assignGenes(entityGenes.entity, entityGenes.genes)
 
                 GeneticsResequenced.LOGGER.info("Loaded gene-mob data: $entityGenes")
