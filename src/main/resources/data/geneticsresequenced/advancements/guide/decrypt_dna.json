@@ -1,26 +1,26 @@
 {
   "parent": "geneticsresequenced:guide/dna_decryptor",
   "criteria": {
-    "dna_helix": {
+    "decrypt_dna": {
       "trigger": "minecraft:impossible"
     }
   },
   "requirements": [
     [
-      "dna_helix"
+      "decrypt_dna"
     ]
   ],
   "display": {
     "title": {
-      "translate": "advancement.geneticsresequenced.dna_extractor.title"
+      "translate": "advancement.geneticsresequenced.decrypt_dna.title"
     },
     "description": {
-      "translate": "advancement.geneticsresequenced.dna_extractor.desc"
+      "translate": "advancement.geneticsresequenced.decrypt_dna.desc"
     },
     "frame": "task",
     "hidden": false,
     "icon": {
-      "item": "geneticsresequenced:dna_extractor"
+      "item": "geneticsresequenced:dna_helix"
     }
   },
   "sends_telemetry_event": true

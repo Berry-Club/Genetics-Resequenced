@@ -344,6 +344,8 @@
   "advancement.geneticsresequenced.dna_decryptor.desc": "Craft a DNA Decryptor.\n\nIt discovers what Gene is inside a DNA Helix.",
   "advancement.geneticsresequenced.plasmid_infuser.title": "Plasmid Infuser",
   "advancement.geneticsresequenced.plasmid_infuser.desc": "Craft a Plasmid Infuser.\n\nUse it to set a Plasmid's Gene using DNA Helices.",
+  "advancement.geneticsresequenced.decrypt_dna.title": "In-Gene-ius!",
+  "advancement.geneticsresequenced.decrypt_dna.desc": "Decrypt a DNA Helix to find out its Gene.",
 
   "death.attack.scraper": "%1$s was scraped to the bone",
   "death.attack.syringe": "%1$s died of blood loss",

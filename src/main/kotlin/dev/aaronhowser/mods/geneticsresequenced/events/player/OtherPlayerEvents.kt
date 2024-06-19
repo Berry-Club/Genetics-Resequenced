@@ -16,7 +16,6 @@ import dev.aaronhowser.mods.geneticsresequenced.util.InventoryListener
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraftforge.event.ServerChatEvent
 import net.minecraftforge.event.TickEvent.PlayerTickEvent
@@ -69,8 +68,6 @@ object OtherPlayerEvents {
 
             player.hurt(SyringeItem.damageSourceStepOnSyringe(thrower), 1.0f)
         }
-
-        tryDecryptDnaAdvancement(player, stack)
     }
 
     @SubscribeEvent
@@ -86,33 +83,6 @@ object OtherPlayerEvents {
 
         InventoryListener.stopListening(player)
     }
-
-    @SubscribeEvent
-    fun onInventoryChange(event: CustomEvents.PlayerInventoryChangeEvent) {
-        tryDecryptDnaAdvancement(event.player, event.stack)
-    }
-
-    private fun tryDecryptDnaAdvancement(player: Player, stack: ItemStack) {
-        if (stack.item != ModItems.DNA_HELIX.get()) return
-        if (stack.getGene() == null) return
-
-        val serverPlayer = player as? ServerPlayer ?: return
-
-        val advancement =
-            player.server.advancements.getAdvancement(OtherUtil.modResource("guide/decrypt_dna")) ?: return
-
-        val progress = serverPlayer.advancements.getOrStartProgress(advancement)
-
-        if (progress.isDone) return
-
-        val criteria = progress.remainingCriteria.iterator()
-
-        while (criteria.hasNext()) {
-            val criterion = criteria.next()
-            serverPlayer.advancements.award(advancement, criterion)
-        }
-    }
-
 
     @SubscribeEvent
     fun onSendChatMessage(event: ServerChatEvent.Submitted) {
@@ -137,6 +107,32 @@ object OtherPlayerEvents {
                     true
                 )
             )
+        }
+    }
+
+    @SubscribeEvent
+    fun onInventoryChange(event: CustomEvents.PlayerInventoryChangeEvent) {
+        val (player: ServerPlayer, slot: Int, stack: ItemStack) = event
+
+        tryDecryptDnaAdvancement(player, stack)
+    }
+
+    private fun tryDecryptDnaAdvancement(player: ServerPlayer, stack: ItemStack) {
+        if (stack.item != ModItems.DNA_HELIX.get()) return
+        if (stack.getGene() == null) return
+
+        val advancement =
+            player.server.advancements.getAdvancement(OtherUtil.modResource("guide/decrypt_dna")) ?: return
+
+        val progress = player.advancements.getOrStartProgress(advancement)
+
+        if (progress.isDone) return
+
+        val criteria = progress.remainingCriteria.iterator()
+
+        while (criteria.hasNext()) {
+            val criterion = criteria.next()
+            player.advancements.award(advancement, criterion)
         }
     }
 
