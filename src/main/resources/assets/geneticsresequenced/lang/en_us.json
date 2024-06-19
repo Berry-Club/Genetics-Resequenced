@@ -354,6 +354,10 @@
   "advancement.geneticsresequenced.get_gene.desc": "Inject yourself with any Gene.",
   "advancement.geneticsresequenced.get_milked.title": "Level 5 Non-Milk Substance",
   "advancement.geneticsresequenced.get_milked.desc": "Get milked with the Milky Gene.\n\nYou can milk yourself by sneaking!",
+  "advancement.geneticsresequenced.pathowogen.title": "The PathOwOgen ",
+  "advancement.geneticsresequenced.pathowogen.desc": "Get the Cringe gene. Embrace your inner self.",
+  "advancement.geneticsresequenced.slimy_death.title": "Me and the Boys",
+  "advancement.geneticsresequenced.slimy_death.desc": "Trigger the Slimy Death Gene.",
 
   "death.attack.scraper": "%1$s was scraped to the bone",
   "death.attack.syringe": "%1$s died of blood loss",

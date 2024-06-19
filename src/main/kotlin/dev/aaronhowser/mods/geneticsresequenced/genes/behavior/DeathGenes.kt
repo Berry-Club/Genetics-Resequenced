@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
+import dev.aaronhowser.mods.geneticsresequenced.advancements.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.curios.CuriosKeepInventory
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
@@ -8,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
@@ -191,6 +193,10 @@ object DeathGenes {
                 .append(Component.translatable("cooldown.geneticsresequenced.ended"))
 
             entity.sendSystemMessage(message)
+        }
+
+        if (entity is ServerPlayer) {
+            AdvancementTriggers.slimyDeathAdvancement(entity)
         }
 
     }
