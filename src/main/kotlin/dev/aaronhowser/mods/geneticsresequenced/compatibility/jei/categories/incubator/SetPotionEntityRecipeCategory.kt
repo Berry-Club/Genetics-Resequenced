@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.recipes.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.SetPotionEntityRecipePage
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
@@ -34,7 +34,7 @@ class SetPotionEntityRecipeCategory(
     private val icon: IDrawable =
         helper.createDrawableIngredient(
             VanillaTypes.ITEM_STACK,
-            ModPotions.cellGrowthPotionStack
+            BrewingRecipes.cellGrowthPotionStack
         )
 
     override fun getRecipeType(): RecipeType<SetPotionEntityRecipePage> =

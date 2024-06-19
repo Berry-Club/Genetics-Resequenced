@@ -3,11 +3,11 @@ package dev.aaronhowser.mods.geneticsresequenced.events
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModAttributes
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.recipes.BrewingRecipes
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModAttributes
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModEntityTypes
 import net.minecraft.world.entity.EntityType
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent
@@ -58,6 +58,6 @@ object ModBusEvents {
     @SubscribeEvent
     fun onCommonSetup(event: FMLCommonSetupEvent) {
         ModGenes.registerDefaultGenes()
-        ModPotions.addRecipes()
+        BrewingRecipes.addRecipes()
     }
 }

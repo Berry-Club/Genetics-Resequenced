@@ -1,14 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator_advanced
 
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.handlers.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.recipes.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
@@ -212,7 +212,7 @@ class AdvancedIncubatorBlockEntity(
             var output = BrewingRecipeRegistry.getOutput(bottleStack, topStack)
 
             if (output.item == ModItems.GMO_CELL.get() && !isHighTemperature) {
-                val gmoRecipes = ModPotions.allRecipes.filterIsInstance<GmoRecipe>()
+                val gmoRecipes = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
 
                 val thisRecipe = gmoRecipes.find {
                     it.ingredientItem == topStack.item

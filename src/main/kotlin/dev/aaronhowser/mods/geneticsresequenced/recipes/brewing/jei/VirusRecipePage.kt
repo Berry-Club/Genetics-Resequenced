@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei
 
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
+import dev.aaronhowser.mods.geneticsresequenced.recipes.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.VirusRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
@@ -31,7 +32,7 @@ class VirusRecipePage(
     companion object {
         fun getAllRecipes(): List<VirusRecipePage> {
 
-            val allPotionRecipes = ModPotions.allRecipes
+            val allPotionRecipes = BrewingRecipes.allRecipes
             val viralRecipes = allPotionRecipes.filterIsInstance<VirusRecipe>()
 
             return viralRecipes.map { VirusRecipePage(it) }

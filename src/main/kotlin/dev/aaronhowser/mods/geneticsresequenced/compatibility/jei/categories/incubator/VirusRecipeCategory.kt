@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.recipes.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.VirusRecipePage
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
@@ -33,7 +33,7 @@ class VirusRecipeCategory(
     private val background: IDrawable = helper.createDrawable(TEXTURE, 0, 0, 100, 28)
     private val icon: IDrawable = helper.createDrawableIngredient(
         VanillaTypes.ITEM_STACK,
-        ModPotions.viralAgentsPotionStack
+        BrewingRecipes.viralAgentsPotionStack
     )
 
     override fun getRecipeType(): RecipeType<VirusRecipePage> = GeneticsResequencedJeiPlugin.VIRUS_RECIPE_TYPE

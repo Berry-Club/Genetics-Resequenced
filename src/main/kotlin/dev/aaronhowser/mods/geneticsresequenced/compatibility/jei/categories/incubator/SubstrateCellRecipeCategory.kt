@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.recipes.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.SubstrateCellRecipePage
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import mezz.jei.api.constants.VanillaTypes
@@ -37,7 +37,7 @@ class SubstrateCellRecipeCategory(
     private val icon: IDrawable =
         helper.createDrawableIngredient(
             VanillaTypes.ITEM_STACK,
-            ModPotions.substratePotionStack
+            BrewingRecipes.substratePotionStack
         )
 
     override fun getRecipeType(): RecipeType<SubstrateCellRecipePage> =

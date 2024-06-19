@@ -3,9 +3,9 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.GmoCell
+import dev.aaronhowser.mods.geneticsresequenced.recipes.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.NonNullList
@@ -50,7 +50,7 @@ class GmoRecipePage(
 
     companion object {
         fun getAllRecipes(): List<GmoRecipePage> {
-            val allPotionRecipes = ModPotions.allRecipes
+            val allPotionRecipes = BrewingRecipes.allRecipes
             val gmoRecipes = allPotionRecipes.filterIsInstance<GmoRecipe>()
 
             return gmoRecipes.map { GmoRecipePage(it) }
