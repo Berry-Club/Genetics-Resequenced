@@ -1,0 +1,23 @@
+{
+  "name": "Advanced Incubator",
+  "category": "geneticsresequenced:blocks",
+  "icon": "geneticsresequenced:advanced_incubator",
+  "sortnum": 9,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Advanced Incubator/$ is an upgrade to the $(l:geneticsresequenced:blocks/incubator)Incubator/$.$(br2)Like the Incubator, it functions as a Brewing Stand. However, the Advanced Incubator has a $(minor)temperature/$ mechanic.$(br2)The coil on the left of the GUI can be clicked to toggle between low and high temperatures."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:advanced_incubator",
+      "link_recipe": true,
+      "text": "At low temperature, it's $(bad)120 times slower/$, which means a single brew takes a full 20 minutes, excluding Overclockers or config changes.$(br2)The reason you'd want to use low temperature mode is that is the only way you can get $(l:geneticsresequenced:items/cell_growth#gmo_cell)Genetically Modified Cells/$. "
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:gmo_cell",
+      "text": "Genetically Modified Cells"
+    }
+  ]
+}

@@ -17,7 +17,14 @@
     {
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:gmo_cell{MobId:\"minecraft:blaze\",GeneId:\"geneticsresequenced:bioluminescence\",Chance:0.5f}",
-      "text": "From there, certain entity types have recipes to make $(major)Genetically Modified Cells/$, which make $(major)GMO DNA Helices/$ which have a higher chance of decrypting into specific Genes.$(br2)This one, for example, has a 50% chance of being the $(l:geneticsresequenced:genes/bioluminescence)Bioluminescence/$ Gene, compared to the 12% a Blaze Helix usually has."
+      "text": "From there, certain entity types have recipes to make $(major)Genetically Modified Cells/$, which are guaranteed to give a specific Gene.$(br2)However, there's a catch. They can $(o)only/$ be crafted in an $(l:geneticsresequenced:blocks/incubator_advanced)Advanced Incubator/$ at low temperature, and there's $(bad)a chance of failure/$.",
+      "anchor": "gmo_cell",
+      "link_recipe": true
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:dna_helix{GeneId:\"geneticsresequenced:lay_egg\"}",
+      "text": "A low-temperature Advanced Incubator takes a very long time, but can be accelerated using Overclockers.$(br2)Unfortunately, $(bad)Overclockers lower your chances/$ of success. $(minor)Chorus Fruits/$ increase it back, though!"
     }
   ]
 }
