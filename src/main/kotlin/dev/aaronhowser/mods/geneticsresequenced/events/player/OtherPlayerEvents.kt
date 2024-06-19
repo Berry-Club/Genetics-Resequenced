@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.events.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.events.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.OtherGenes
@@ -87,7 +88,7 @@ object OtherPlayerEvents {
     }
 
     @SubscribeEvent
-    fun onInventoryChange(event: InventoryListener.Companion.PlayerInventoryChangeEvent) {
+    fun onInventoryChange(event: CustomEvents.PlayerInventoryChangeEvent) {
         tryDecryptDnaAdvancement(event.player, event.stack)
     }
 
