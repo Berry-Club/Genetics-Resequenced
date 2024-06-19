@@ -88,6 +88,7 @@ object OtherPlayerEvents {
         OtherGenes.handleEmeraldHeart(event)
         OtherGenes.handleChatterbox(event)
         OtherGenes.handleCringeChat(event)
+        OtherGenes.handleSlimyChat(event)
     }
 
     @SubscribeEvent

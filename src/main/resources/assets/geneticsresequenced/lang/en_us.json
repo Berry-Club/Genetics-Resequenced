@@ -77,6 +77,7 @@
   "message.geneticsresequenced.cringe.resources.remove": "You feel yourself become more based, the cringe leaving the world in %d...",
   "message.geneticsresequenced.cringe.resources.tooltip": "You can disable this in the client config!\n\nYour language is reset to normal when you leave the game.",
   "message.geneticsresequenced.cringe.resources.reloading": "Reloading resources now!",
+  "message.geneticsresequenced.slimy_spam": "%s's Slime %d",
 
   "block.geneticsresequenced.bioluminescence": "Bioluminescence Glow",
   "block.geneticsresequenced.cell_analyzer": "Cell Analyzer",

@@ -2,9 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.NarratorPacket
+import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvents
@@ -114,6 +116,35 @@ object OtherGenes {
 
         val input = event.message.string
         event.message = Component.literal(uwufyString(input))
+    }
+
+    fun handleSlimyChat(event: ServerChatEvent.Submitted) {
+        if (!ModGenes.slimyDeath.isActive) return
+
+        val player = event.player
+        if (!player.hasGene(ModGenes.slimyDeath)) return
+
+        val nearbySupportSlimes = player.level.getEntities(
+            player,
+            player.boundingBox.inflate(64.0)
+        ).filter { it is SupportSlime && it.getOwnerUuid() == player.uuid }
+
+        val amountSlimes = nearbySupportSlimes.size
+        val allPlayers = player.server.playerList.players
+
+        for (i in 0 until amountSlimes) {
+            val message = Component
+                .literal("<")
+                .append(Component.translatable("message.geneticsresequenced.slimy_spam", player.displayName, i + 1))
+                .append(Component.literal("> "))
+                .append(event.message)
+
+            ModScheduler.scheduleTaskInTicks(i + 1) {
+                allPlayers.forEach {
+                    it.sendSystemMessage(message)
+                }
+            }
+        }
     }
 
 }
