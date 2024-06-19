@@ -25,7 +25,7 @@ class TheCureEffect : MobEffect(
         val genes = pLivingEntity.getGenes() ?: return
 
         val genesList = genes.getGeneList()
-        genes.removeGenes(genesList.filter { it.isNegative })
+        genes.removeGenes(pLivingEntity, genesList.filter { it.isNegative })
 
     }
 

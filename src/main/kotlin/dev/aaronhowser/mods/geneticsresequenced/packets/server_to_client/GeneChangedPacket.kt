@@ -54,9 +54,9 @@ class GeneChangedPacket(
 
         entity.getGenes()?.apply {
             if (wasAdded) {
-                addGene(gene)
+                addGene(entity, gene)
             } else {
-                removeGene(gene)
+                removeGene(entity, gene)
             }
         }
 

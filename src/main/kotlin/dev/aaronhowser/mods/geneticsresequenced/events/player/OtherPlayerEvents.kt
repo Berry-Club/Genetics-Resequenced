@@ -9,7 +9,6 @@ import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
-import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem.Companion.isSyringe
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
@@ -116,7 +115,6 @@ object OtherPlayerEvents {
         val (player: ServerPlayer, slot: Int, stack: ItemStack) = event
 
         tryDecryptDnaAdvancement(player, stack)
-        tryGeneSyringeAdvancement(player, stack)
     }
 
     private fun tryDecryptDnaAdvancement(player: ServerPlayer, stack: ItemStack) {
@@ -125,24 +123,6 @@ object OtherPlayerEvents {
 
         val advancement =
             player.server.advancements.getAdvancement(OtherUtil.modResource("guide/decrypt_dna")) ?: return
-
-        val progress = player.advancements.getOrStartProgress(advancement)
-        if (progress.isDone) return
-
-        val criteria = progress.remainingCriteria.iterator()
-
-        while (criteria.hasNext()) {
-            val criterion = criteria.next()
-            player.advancements.award(advancement, criterion)
-        }
-    }
-
-    private fun tryGeneSyringeAdvancement(player: ServerPlayer, stack: ItemStack) {
-        if (!stack.isSyringe()) return
-        if (stack.getGene() == null) return
-
-        val advancement =
-            player.server.advancements.getAdvancement(OtherUtil.modResource("guide/gene_syringe")) ?: return
 
         val progress = player.advancements.getOrStartProgress(advancement)
         if (progress.isDone) return

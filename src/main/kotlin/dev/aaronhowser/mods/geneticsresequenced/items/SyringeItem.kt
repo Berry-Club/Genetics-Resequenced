@@ -100,7 +100,7 @@ open class SyringeItem : Item(
                     continue
                 }
 
-                val success = entityGenes.addGene(gene)
+                val success = entityGenes.addGene(entity, gene)
 
                 if (!entity.level.isClientSide) {
                     val translateKey = if (success) {
@@ -118,7 +118,7 @@ open class SyringeItem : Item(
             }
 
             for (antiGene in getAntiGenes(syringeStack)) {
-                val success = entityGenes.removeGene(antiGene)
+                val success = entityGenes.removeGene(entity, antiGene)
 
                 if (!entity.level.isClientSide) {
                     val translateKey = if (success) {

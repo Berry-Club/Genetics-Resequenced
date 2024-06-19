@@ -68,7 +68,7 @@ object DeathEvents {
             .withColor(ChatFormatting.GRAY)
 
         player.sendSystemMessage(component)
-        playerGenes.removeAllGenes()
+        playerGenes.removeAllGenes(player)
     }
 
     private fun removeNegativeGenesOnDeath(event: PlayerEvent.PlayerRespawnEvent) {
@@ -85,7 +85,7 @@ object DeathEvents {
             .withColor(ChatFormatting.GRAY)
 
         player.sendSystemMessage(component)
-        playerGenes.removeGenes(negativeGenes)
+        playerGenes.removeGenes(player, negativeGenes)
     }
 
 }

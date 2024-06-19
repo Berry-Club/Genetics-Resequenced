@@ -97,7 +97,7 @@ object AddGeneCommand {
             return false
         }
 
-        val success = targetGenes.addGene(geneToAdd)
+        val success = targetGenes.addGene(target, geneToAdd)
 
         if (success) {
             OtherEntityEvents.genesChanged(target, geneToAdd, true)

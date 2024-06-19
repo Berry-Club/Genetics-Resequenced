@@ -62,7 +62,7 @@ object RemoveAllGenesCommand {
         val targetGenes = target.getGenes() ?: return false
 
         for (gene in targetGenes.getGeneList()) {
-            targetGenes.removeGene(gene)
+            targetGenes.removeGene(target, gene)
             OtherEntityEvents.genesChanged(target, gene, false)
         }
 

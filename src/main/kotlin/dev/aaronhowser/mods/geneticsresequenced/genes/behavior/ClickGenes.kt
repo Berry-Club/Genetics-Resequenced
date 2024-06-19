@@ -367,7 +367,7 @@ object ClickGenes {
         val genes = player.getGenes() ?: return
         if (!genes.hasGene(ModGenes.cringe)) return
 
-        genes.removeGene(ModGenes.cringe)
+        genes.removeGene(player, ModGenes.cringe)
         if (!player.level.isClientSide) {
             player.sendSystemMessage(Component.translatable("message.geneticsresequenced.cringe.cured"))
         }

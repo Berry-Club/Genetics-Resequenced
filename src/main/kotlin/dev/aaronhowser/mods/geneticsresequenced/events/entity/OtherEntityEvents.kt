@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
+import dev.aaronhowser.mods.geneticsresequenced.events.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.DamageGenes
@@ -27,6 +28,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent
 import net.minecraftforge.event.level.ExplosionEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
+import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 
 @Mod.EventBusSubscriber(
     modid = GeneticsResequenced.ID
@@ -99,16 +101,21 @@ object OtherEntityEvents {
         }
     }
 
-    fun genesChanged(entity: LivingEntity, changedGene: Gene, wasAdded: Boolean) {
+    @SubscribeEvent
+    fun onGeneChanged(event: CustomEvents.GeneChangeEvent) {
+        event.isCanceled = true
+    }
 
+    fun genesChanged(entity: LivingEntity, changedGene: Gene, wasAdded: Boolean): Boolean {
         tellAllPlayersGeneChanged(entity, changedGene, wasAdded)
 
         if (entity is Player) {
             when (changedGene) {
                 ModGenes.efficiency -> {
-                    if (entity.hasGene(ModGenes.efficiencyFour)) return
-                    val levelToSetTo = if (wasAdded) 1 else 0
-                    AttributeGenes.setEfficiency(entity, levelToSetTo)
+                    if (!entity.hasGene(ModGenes.efficiencyFour)) {
+                        val levelToSetTo = if (wasAdded) 1 else 0
+                        AttributeGenes.setEfficiency(entity, levelToSetTo)
+                    }
                 }
 
                 ModGenes.efficiencyFour -> {
@@ -147,6 +154,8 @@ object OtherEntityEvents {
         ModScheduler.scheduleTaskInTicks(1) {
             checkForMissingRequirements(entity)
         }
+
+        return true
     }
 
     private fun checkForMissingRequirements(entity: LivingEntity) {
@@ -159,7 +168,7 @@ object OtherEntityEvents {
         }
 
         genesWithMissingRequirements.forEach { gene ->
-            entityGenes.removeGene(gene)
+            entityGenes.removeGene(entity, gene)
             genesChanged(entity, gene, false)
 
             val requiredGenesComponent =
