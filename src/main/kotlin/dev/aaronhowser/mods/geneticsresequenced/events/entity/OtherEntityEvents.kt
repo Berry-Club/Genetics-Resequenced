@@ -6,7 +6,6 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
-import dev.aaronhowser.mods.geneticsresequenced.events.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.DamageGenes
@@ -28,7 +27,6 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent
 import net.minecraftforge.event.level.ExplosionEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
-import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 
 @Mod.EventBusSubscriber(
     modid = GeneticsResequenced.ID
@@ -99,11 +97,6 @@ object OtherEntityEvents {
                 )
             )
         }
-    }
-
-    @SubscribeEvent
-    fun onGeneChanged(event: CustomEvents.GeneChangeEvent) {
-        event.isCanceled = true
     }
 
     fun genesChanged(entity: LivingEntity, changedGene: Gene, wasAdded: Boolean): Boolean {

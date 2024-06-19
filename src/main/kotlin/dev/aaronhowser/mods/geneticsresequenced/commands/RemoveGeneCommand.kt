@@ -70,7 +70,7 @@ object RemoveGeneCommand {
                 geneToRemove.nameComponent,
                 amountFail
             )
-            context.source.sendSuccess(component, true)
+            context.source.sendFailure(component)
         }
 
         return 1
