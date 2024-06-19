@@ -157,7 +157,7 @@
 
   "info.geneticsresequenced.organic_matter": "Acquired by clicking a %1$s with a Scraper.",
   "info.geneticsresequenced.mob_gene.line1": "%1$s has these Genes:",
-  "info.geneticsresequenced.mob_gene.line2": "\n%d% of %1$s",
+  "info.geneticsresequenced.mob_gene.line2": "\n%d%% of %2$s",
   "info.geneticsresequenced.requires_genes": "Required Genes:",
 
   "info.geneticsresequenced.gene_description.geneticsresequenced:claws_2": "Doubles the chances of inflicting Bleeding on hit.",

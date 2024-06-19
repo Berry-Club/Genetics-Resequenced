@@ -4,8 +4,8 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.PlasmidItem.Companion.getPlasmid
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.registration.IRecipeRegistration
 import net.minecraft.ChatFormatting
@@ -50,10 +50,16 @@ object InformationRecipes {
             for ((gene, weight) in genes) {
                 val chance = (weight.toDouble() / sumOfWeights.toDouble() * 100).toInt()
 
+                val geneComponent = if (gene.isNegative || gene.isMutation) {
+                    gene.nameComponent
+                } else {
+                    gene.nameComponent.copy().withStyle { it.withColor(ChatFormatting.RESET) }
+                }
+
                 val component = Component.translatable(
                     "info.geneticsresequenced.mob_gene.line2",
                     chance,
-                    gene.nameComponent
+                    geneComponent
                 )
 
                 informationTextComponent.append(component)
