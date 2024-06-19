@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.items.GmoCell
-import dev.aaronhowser.mods.geneticsresequenced.recipes.BrewingRecipes
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil

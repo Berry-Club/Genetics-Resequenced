@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.base.handlers.WrappedHand
 import dev.aaronhowser.mods.geneticsresequenced.blocks.machines.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.recipes.BrewingRecipes
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems

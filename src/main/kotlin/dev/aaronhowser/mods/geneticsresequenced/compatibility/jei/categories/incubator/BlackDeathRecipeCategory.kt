@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
-import dev.aaronhowser.mods.geneticsresequenced.recipes.BrewingRecipes
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.BlackDeathRecipePage
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor

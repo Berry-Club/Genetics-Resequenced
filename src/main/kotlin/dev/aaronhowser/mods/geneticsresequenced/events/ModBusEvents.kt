@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability
 import dev.aaronhowser.mods.geneticsresequenced.entities.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.recipes.BrewingRecipes
+import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModEntityTypes
 import net.minecraft.world.entity.EntityType
