@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.events.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.advancements.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.CapabilityHandler
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
@@ -17,6 +18,7 @@ import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneCha
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -155,6 +157,10 @@ object OtherEntityEvents {
 
         if (!wasAdded && gene.getPotion() != null) {
             TickGenes.handlePotionGeneRemoved(livingEntity, gene)
+        }
+
+        if (livingEntity is ServerPlayer) {
+            AdvancementTriggers.geneAdvancements(livingEntity, gene, wasAdded)
         }
 
         ModScheduler.scheduleTaskInTicks(1) {

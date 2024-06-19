@@ -350,8 +350,8 @@
   "advancement.geneticsresequenced.plasmid_injector.desc": "Craft a Plasmid Injector.\n\nUse it to inject full Plasmids into into decontaminated Syringes.",
   "advancement.geneticsresequenced.blood_purifier.title": "B Positive!",
   "advancement.geneticsresequenced.blood_purifier.desc": "Craft a Blood Purifier.\n\nUse it to decontaminate a Syringe.",
-  "advancement.geneticsresequenced.gene_syringe.title": "",
-  "advancement.geneticsresequenced.gene_syringe.desc": "",
+  "advancement.geneticsresequenced.get_gene.title": "What Are Midichlorians?",
+  "advancement.geneticsresequenced.get_gene.desc": "Inject yourself with any Gene.",
 
   "death.attack.scraper": "%1$s was scraped to the bone",
   "death.attack.syringe": "%1$s died of blood loss",

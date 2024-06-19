@@ -12,10 +12,10 @@
   ],
   "display": {
     "title": {
-      "translate": "advancement.geneticsresequenced.gene_syringe.title"
+      "translate": "advancement.geneticsresequenced.get_gene.title"
     },
     "description": {
-      "translate": "advancement.geneticsresequenced.gene_syringe.desc"
+      "translate": "advancement.geneticsresequenced.get_gene.desc"
     },
     "frame": "task",
     "hidden": false,

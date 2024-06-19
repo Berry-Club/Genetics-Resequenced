@@ -1,19 +1,18 @@
 package dev.aaronhowser.mods.geneticsresequenced.events.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.advancements.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.events.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.TickGenes
-import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.InventoryListener
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
@@ -114,25 +113,7 @@ object OtherPlayerEvents {
     fun onInventoryChange(event: CustomEvents.PlayerInventoryChangeEvent) {
         val (player: ServerPlayer, slot: Int, stack: ItemStack) = event
 
-        tryDecryptDnaAdvancement(player, stack)
-    }
-
-    private fun tryDecryptDnaAdvancement(player: ServerPlayer, stack: ItemStack) {
-        if (stack.item != ModItems.DNA_HELIX.get()) return
-        if (stack.getGene() == null) return
-
-        val advancement =
-            player.server.advancements.getAdvancement(OtherUtil.modResource("guide/decrypt_dna")) ?: return
-
-        val progress = player.advancements.getOrStartProgress(advancement)
-        if (progress.isDone) return
-
-        val criteria = progress.remainingCriteria.iterator()
-
-        while (criteria.hasNext()) {
-            val criterion = criteria.next()
-            player.advancements.award(advancement, criterion)
-        }
+        AdvancementTriggers.decryptDnaAdvancement(player, stack)
     }
 
 }
