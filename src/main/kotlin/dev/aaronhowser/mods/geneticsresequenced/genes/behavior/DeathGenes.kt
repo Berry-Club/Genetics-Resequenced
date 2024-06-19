@@ -154,17 +154,20 @@ object DeathGenes {
         event.affectedBlocks.clear()
     }
 
-    private val slimyDeathCooldown = mutableSetOf<UUID>()
+    private val slimyDeathCooldown = GeneCooldown(
+        ModGenes.slimyDeath,
+        ServerConfig.slimyDeathCooldown.get()
+    )
+
     fun handleSlimyDeath(event: LivingDeathEvent) {
         if (!ModGenes.slimyDeath.isActive) return
         if (event.isCanceled) return
 
         val entity: LivingEntity = event.entity
-        val uuid = entity.uuid
-
-        if (uuid in slimyDeathCooldown) return
-
         if (!entity.hasGene(ModGenes.slimyDeath)) return
+
+        val newlyUsed = slimyDeathCooldown.add(entity)
+        if (!newlyUsed) return
 
         val amount = Random.nextInt(1, 4)
 
@@ -183,17 +186,6 @@ object DeathGenes {
 
         event.isCanceled = true
         entity.health = entity.maxHealth * ServerConfig.slimyDeathHealthMultiplier.get().toFloat()
-
-        slimyDeathCooldown.add(uuid)
-        ModScheduler.scheduleTaskInTicks(ServerConfig.slimyDeathCooldown.get()) {
-            slimyDeathCooldown.remove(uuid)
-
-            val message = Component.empty()
-                .append(ModGenes.slimyDeath.nameComponent)
-                .append(Component.translatable("cooldown.geneticsresequenced.ended"))
-
-            entity.sendSystemMessage(message)
-        }
 
         if (entity is ServerPlayer) {
             AdvancementTriggers.slimyDeathAdvancement(entity)
