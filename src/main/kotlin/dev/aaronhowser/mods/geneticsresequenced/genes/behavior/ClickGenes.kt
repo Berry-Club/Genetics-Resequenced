@@ -158,7 +158,7 @@ object ClickGenes {
         if (!ModGenes.milky.isActive) return
 
         val target = event.target as? LivingEntity ?: return
-        val clicker = event.entity
+        if (target.level.isClientSide) return
 
         when (target) {
             is Cow, is Goat -> return
@@ -171,6 +171,7 @@ object ClickGenes {
 
         val newlyMilked = recentlyMilked.add(target)
 
+        val clicker = event.entity
         if (!newlyMilked) {
             clicker.sendSystemMessage(Component.translatable("message.geneticsresequenced.milk.recent"))
             return
@@ -205,6 +206,7 @@ object ClickGenes {
         if (!ModGenes.milky.isActive) return
 
         val player = event.entity
+        if (player.level.isClientSide) return
 
         if (!player.isCrouching) return
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)

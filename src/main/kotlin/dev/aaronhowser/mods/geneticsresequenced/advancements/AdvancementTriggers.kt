@@ -44,10 +44,8 @@ object AdvancementTriggers {
     }
 
     fun getMilkedAdvancement(player: ServerPlayer) {
-        val advancement = player.server.advancements.getAdvancement(OtherUtil.modResource("guide/get_milked"))
-
-        if (advancement != null)
-            completeAdvancement(player, advancement)
+        val advancement = player.server.advancements.getAdvancement(OtherUtil.modResource("guide/get_milked")) ?: return
+        completeAdvancement(player, advancement)
     }
 
 }
