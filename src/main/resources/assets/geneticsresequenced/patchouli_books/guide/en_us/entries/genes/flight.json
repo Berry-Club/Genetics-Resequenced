@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "By default, this Gene requires the following other Genes:$(li)Teleport$(li)Jump Boost$(li)No Fall Damage"
+      "text": "By default, this Gene requires the following other Genes:$(li)$(l:geneticsresequenced:genes/teleport)Teleport/$$(li)$(l:geneticsresequenced:genes/jump_boost)Jump Boost/$$(li)$(l:geneticsresequenced:genes/no_fall_damage)No Fall Damage/$"
     }
   ]
 }

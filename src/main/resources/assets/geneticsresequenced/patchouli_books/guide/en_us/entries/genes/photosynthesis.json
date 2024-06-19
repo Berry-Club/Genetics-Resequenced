@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "By default, this Gene requires Thorns."
+      "text": "By default, this Gene requires $(l:geneticsresequenced:genes/thorns)Thorns/$."
     }
   ]
 }

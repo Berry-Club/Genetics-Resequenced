@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "By default, this Gene requires Scare Creepers."
+      "text": "By default, this Gene requires $(l:geneticsresequenced:genes/scare_creepers)Scare Creepers/$."
     }
   ]
 }

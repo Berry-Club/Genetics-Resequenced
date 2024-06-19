@@ -9,7 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "By default, this Gene requires Scare Skeletons."
+      "text": "By default, this Gene requires $(l:geneticsresequenced:genes/scare_skeletons)Scare Skeletons/R."
     }
   ]
 }
