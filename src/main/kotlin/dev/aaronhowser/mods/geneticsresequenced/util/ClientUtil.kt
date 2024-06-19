@@ -53,6 +53,7 @@ object ClientUtil {
         removedSkinLayers = emptySet()
     }
 
+    private var canReloadResources = false
     private var nonCringeLanguage: LanguageInfo? = null
     fun handleCringe(
         wasAdded: Boolean,
@@ -79,6 +80,7 @@ object ClientUtil {
             nonCringeLanguage = currentLanguage
             languageManager.selected = lolcat
 
+            canReloadResources = true
             GeneticsResequenced.LOGGER.info("Changed language to cringe!")
         } else {
             if (languageManager.selected != lolcat) return
@@ -91,6 +93,7 @@ object ClientUtil {
             languageManager.selected = nonCringeLanguage ?: languageManager.getLanguage("en_us")
             nonCringeLanguage = null
 
+            canReloadResources = false
             GeneticsResequenced.LOGGER.info("Changed language back to non-cringe!")
         }
 
@@ -150,7 +153,10 @@ object ClientUtil {
                     }
             )
 
-            Minecraft.getInstance().reloadResourcePacks()
+            if (canReloadResources) {
+                Minecraft.getInstance().reloadResourcePacks()
+                canReloadResources = false
+            }
         }
 
     }
