@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.configs.ClientConfig
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.ClickGenes.recentlySheered
 import net.minecraft.client.Minecraft
 import net.minecraft.client.Options
@@ -57,6 +58,7 @@ object ClientUtil {
         wasAdded: Boolean,
         countdownSeconds: Int = 10
     ) {
+        if (!ModGenes.cringe.isActive) return
 
         if (ClientConfig.disableCringeLangChange.get()) {
             GeneticsResequenced.LOGGER.info("Cringe language-changing is disabled in the config!")
