@@ -6,13 +6,16 @@ import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.TickGenes
+import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.ItemStack
 import net.minecraftforge.event.ServerChatEvent
 import net.minecraftforge.event.TickEvent.PlayerTickEvent
 import net.minecraftforge.event.entity.player.ArrowLooseEvent
@@ -55,15 +58,40 @@ object OtherPlayerEvents {
 
     @SubscribeEvent
     fun onPickUpItem(event: ItemPickupEvent) {
-        val item = event.stack
+        val stack = event.stack
+        val player = event.entity
 
-        if (item.`is`(ModItems.SYRINGE.get())) {
-            val thrower = event.originalEntity.throwingEntity as? Player
+        if (stack.item == ModItems.SYRINGE.get()) {
+            val thrower = event.originalEntity.throwingEntity
 
-            event.entity.hurt(SyringeItem.damageSourceStepOnSyringe(thrower), 1.0f)
+            player.hurt(SyringeItem.damageSourceStepOnSyringe(thrower), 1.0f)
         }
 
+        tryDecryptDnaAdvancement(player, stack)
+
     }
+
+    private fun tryDecryptDnaAdvancement(player: Player, stack: ItemStack) {
+        if (stack.item == ModItems.DNA_HELIX.get()) return
+        if (stack.getGene() == null) return
+
+        val serverPlayer = player as? ServerPlayer ?: return
+
+        val advancement =
+            player.server.advancements.getAdvancement(OtherUtil.modResource("guide/decrypt_dna")) ?: return
+
+        val progress = serverPlayer.advancements.getOrStartProgress(advancement)
+
+        if (progress.isDone) return
+
+        val criteria = progress.remainingCriteria.iterator()
+
+        while (criteria.hasNext()) {
+            val criterion = criteria.next()
+            serverPlayer.advancements.award(advancement, criterion)
+        }
+    }
+
 
     @SubscribeEvent
     fun onSendChatMessage(event: ServerChatEvent.Submitted) {

@@ -12,11 +12,24 @@
           }
         ]
       }
+    },
+    "metal_syringe": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "geneticsresequenced:metal_syringe"
+            ]
+          }
+        ]
+      }
     }
   },
   "requirements": [
     [
-      "syringe"
+      "syringe",
+      "metal_syringe"
     ]
   ],
   "display": {

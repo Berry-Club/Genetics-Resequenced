@@ -16,6 +16,7 @@ import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.damagesource.EntityDamageSource
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -261,12 +262,12 @@ open class SyringeItem : Item(
             }
         }
 
-        fun damageSourceStepOnSyringe(player: Player?): DamageSource {
-            return if (player == null) {
+        fun damageSourceStepOnSyringe(entity: Entity?): DamageSource {
+            return if (entity == null) {
                 DamageSource("syringeDrop")
             } else {
                 //TODO: Implement "%2$s" into the kill message
-                EntityDamageSource("syringeDrop", player)
+                EntityDamageSource("syringeDrop", entity)
             }
         }
     }
