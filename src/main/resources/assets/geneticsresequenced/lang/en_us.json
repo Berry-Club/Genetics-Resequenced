@@ -335,7 +335,7 @@
 
   "advancement.geneticsresequenced.scraper.desc": "Craft a Scraper.\n\nScrapers are used to get Organic Matter from mobs.\n\nCraft the Big Book of Genetics for a more detailed guide!",
   "advancement.geneticsresequenced.syringe.title": "You'll Feel a Small Prick",
-  "advancement.geneticsresequenced.syringe.desc": "Craft a Syringe.\n\nSyringes are used to extract blood from yourself.",
+  "advancement.geneticsresequenced.syringe.desc": "Craft a Syringe.\n\nSyringes are used to extract blood from yourself.\n\nA Metal Syringe can be used to extract blood from others, instead.",
   "advancement.geneticsresequenced.cell_analyzer.title": "Cells at Work",
   "advancement.geneticsresequenced.cell_analyzer.desc": "Craft a Cell Analyzer.\n\nIt converts Organic Matter into Cells.",
   "advancement.geneticsresequenced.dna_extractor.title": "DNA Extractor",
@@ -348,6 +348,8 @@
   "advancement.geneticsresequenced.decrypt_dna.desc": "Decrypt a DNA Helix to find out its Gene.",
   "advancement.geneticsresequenced.plasmid_injector.title": "Plasmid Injector",
   "advancement.geneticsresequenced.plasmid_injector.desc": "Craft a Plasmid Injector.\n\nUse it to inject full Plasmids into into decontaminated Syringes.",
+  "advancement.geneticsresequenced.blood_purifier.title": "B Positive!",
+  "advancement.geneticsresequenced.blood_purifier.desc": "Craft a Blood Purifier.\n\nUse it to decontaminate a Syringe.",
 
   "death.attack.scraper": "%1$s was scraped to the bone",
   "death.attack.syringe": "%1$s died of blood loss",
