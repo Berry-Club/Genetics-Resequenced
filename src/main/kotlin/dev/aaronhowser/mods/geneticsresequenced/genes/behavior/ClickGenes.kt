@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
+import dev.aaronhowser.mods.geneticsresequenced.advancements.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
@@ -194,6 +195,10 @@ object ClickGenes {
             1.0f,
             1.0f
         )
+
+        if (target is ServerPlayer) {
+            AdvancementTriggers.getMilkedAdvancement(target)
+        }
     }
 
     fun milkyItem(event: PlayerInteractEvent.RightClickItem) {
@@ -228,6 +233,10 @@ object ClickGenes {
             1.0f,
             1.0f
         )
+
+        if (player is ServerPlayer) {
+            AdvancementTriggers.getMilkedAdvancement(player)
+        }
     }
 
     fun woolyItem(event: PlayerInteractEvent.RightClickItem) {

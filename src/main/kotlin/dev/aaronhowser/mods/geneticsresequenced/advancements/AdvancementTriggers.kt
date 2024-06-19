@@ -36,12 +36,18 @@ object AdvancementTriggers {
 
     fun geneAdvancements(player: ServerPlayer, gene: Gene, wasAdded: Boolean) {
         if (wasAdded) getAnyGeneAdvancement(player)
-
     }
 
     private fun getAnyGeneAdvancement(player: ServerPlayer) {
         val advancement = player.server.advancements.getAdvancement(OtherUtil.modResource("guide/get_gene")) ?: return
         completeAdvancement(player, advancement)
+    }
+
+    fun getMilkedAdvancement(player: ServerPlayer) {
+        val advancement = player.server.advancements.getAdvancement(OtherUtil.modResource("guide/get_milked"))
+
+        if (advancement != null)
+            completeAdvancement(player, advancement)
     }
 
 }

@@ -1,5 +1,5 @@
 {
-  "parent": "geneticsresequenced:guide/dna_decryptor",
+  "parent": "geneticsresequenced:guide/get_gene",
   "criteria": {
     "impossible": {
       "trigger": "minecraft:impossible"
@@ -12,15 +12,15 @@
   ],
   "display": {
     "title": {
-      "translate": "advancement.geneticsresequenced.decrypt_dna.title"
+      "translate": "advancement.geneticsresequenced.get_milked.title"
     },
     "description": {
-      "translate": "advancement.geneticsresequenced.decrypt_dna.desc"
+      "translate": "advancement.geneticsresequenced.get_milked.desc"
     },
-    "frame": "task",
+    "frame": "goal",
     "hidden": false,
     "icon": {
-      "item": "geneticsresequenced:dna_helix"
+      "item": "minecraft:milk_bucket"
     }
   },
   "sends_telemetry_event": true

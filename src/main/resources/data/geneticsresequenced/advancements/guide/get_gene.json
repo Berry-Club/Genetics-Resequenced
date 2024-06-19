@@ -1,13 +1,13 @@
 {
   "parent": "geneticsresequenced:guide/plasmid_injector",
   "criteria": {
-    "gene_syringe": {
+    "impossible": {
       "trigger": "minecraft:impossible"
     }
   },
   "requirements": [
     [
-      "gene_syringe"
+      "impossible"
     ]
   ],
   "display": {
