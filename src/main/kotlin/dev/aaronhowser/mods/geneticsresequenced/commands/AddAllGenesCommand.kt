@@ -68,7 +68,6 @@ object AddAllGenesCommand {
             if (target !is Player && !gene.canMobsHave) continue
 
             targetGenes.addGene(target, gene)
-            OtherEntityEvents.genesChanged(target, gene, true)
         }
 
         return true

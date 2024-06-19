@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
+import dev.aaronhowser.mods.geneticsresequenced.events.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.genes.behavior.DamageGenes
@@ -25,6 +26,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.living.LivingEvent.LivingTickEvent
 import net.minecraftforge.event.entity.living.LivingHurtEvent
 import net.minecraftforge.event.level.ExplosionEvent
+import net.minecraftforge.eventbus.api.EventPriority
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 
@@ -99,56 +101,59 @@ object OtherEntityEvents {
         }
     }
 
-    fun genesChanged(entity: LivingEntity, changedGene: Gene, wasAdded: Boolean): Boolean {
-        tellAllPlayersGeneChanged(entity, changedGene, wasAdded)
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    fun onGeneChanged(event: CustomEvents.GeneChangeEvent) {
+        if (event.isCanceled) return
 
-        if (entity is Player) {
-            when (changedGene) {
+        val (livingEntity: LivingEntity, gene: Gene, wasAdded: Boolean) = event
+
+        tellAllPlayersGeneChanged(livingEntity, gene, wasAdded)
+
+        if (livingEntity is Player) {
+            when (gene) {
                 ModGenes.efficiency -> {
-                    if (!entity.hasGene(ModGenes.efficiencyFour)) {
+                    if (!livingEntity.hasGene(ModGenes.efficiencyFour)) {
                         val levelToSetTo = if (wasAdded) 1 else 0
-                        AttributeGenes.setEfficiency(entity, levelToSetTo)
+                        AttributeGenes.setEfficiency(livingEntity, levelToSetTo)
                     }
                 }
 
                 ModGenes.efficiencyFour -> {
                     if (wasAdded) {
-                        AttributeGenes.setEfficiency(entity, 4)
+                        AttributeGenes.setEfficiency(livingEntity, 4)
                     } else {
-                        val levelToSetTo = if (entity.hasGene(ModGenes.efficiency)) 1 else 0
-                        AttributeGenes.setEfficiency(entity, levelToSetTo)
+                        val levelToSetTo = if (livingEntity.hasGene(ModGenes.efficiency)) 1 else 0
+                        AttributeGenes.setEfficiency(livingEntity, levelToSetTo)
                     }
                 }
 
-                ModGenes.stepAssist -> AttributeGenes.setStepAssist(entity, wasAdded)
+                ModGenes.stepAssist -> AttributeGenes.setStepAssist(livingEntity, wasAdded)
 
-                ModGenes.wallClimbing -> AttributeGenes.setWallClimbing(entity, wasAdded)
+                ModGenes.wallClimbing -> AttributeGenes.setWallClimbing(livingEntity, wasAdded)
 
-                ModGenes.knockback -> AttributeGenes.setKnockback(entity, wasAdded)
+                ModGenes.knockback -> AttributeGenes.setKnockback(livingEntity, wasAdded)
 
                 ModGenes.moreHearts -> {
-                    AttributeGenes.setMoreHearts(entity, 1, wasAdded)
+                    AttributeGenes.setMoreHearts(livingEntity, 1, wasAdded)
                 }
 
                 ModGenes.moreHeartsTwo -> {
-                    AttributeGenes.setMoreHearts(entity, 2, wasAdded)
+                    AttributeGenes.setMoreHearts(livingEntity, 2, wasAdded)
                 }
 
-                ModGenes.flight -> TickGenes.handleFlight(entity)
+                ModGenes.flight -> TickGenes.handleFlight(livingEntity)
 
                 else -> {}
             }
         }
 
-        if (!wasAdded && changedGene.getPotion() != null) {
-            TickGenes.handlePotionGeneRemoved(entity, changedGene)
+        if (!wasAdded && gene.getPotion() != null) {
+            TickGenes.handlePotionGeneRemoved(livingEntity, gene)
         }
 
         ModScheduler.scheduleTaskInTicks(1) {
-            checkForMissingRequirements(entity)
+            checkForMissingRequirements(livingEntity)
         }
-
-        return true
     }
 
     private fun checkForMissingRequirements(entity: LivingEntity) {
@@ -162,7 +167,6 @@ object OtherEntityEvents {
 
         genesWithMissingRequirements.forEach { gene ->
             entityGenes.removeGene(entity, gene)
-            genesChanged(entity, gene, false)
 
             val requiredGenesComponent =
                 Component.translatable("message.geneticsresequenced.gene_missing_requirements.list")

@@ -99,13 +99,7 @@ object AddGeneCommand {
 
         val success = targetGenes.addGene(target, geneToAdd)
 
-        if (success) {
-            OtherEntityEvents.genesChanged(target, geneToAdd, true)
-
-            return true
-        } else {
-            return false
-        }
+        return success
     }
 
 }

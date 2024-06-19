@@ -86,13 +86,7 @@ object RemoveGeneCommand {
         }
 
         val success = targetGenes.removeGene(target, geneToRemove)
-
-        if (success) {
-            OtherEntityEvents.genesChanged(target, geneToRemove, false)
-            return true
-        } else {
-            return false
-        }
+        return success
     }
 
 }

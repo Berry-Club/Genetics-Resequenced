@@ -63,7 +63,6 @@ object RemoveAllGenesCommand {
 
         for (gene in targetGenes.getGeneList()) {
             targetGenes.removeGene(target, gene)
-            OtherEntityEvents.genesChanged(target, gene, false)
         }
 
         return true
