@@ -71,7 +71,6 @@ object ClientUtil {
         val lolcat = languageManager.getLanguage("lol_us")
 
         if (wasAdded) {
-
             if (!currentLanguage.code.startsWith("en_")) {
                 GeneticsResequenced.LOGGER.warn("Cringe language-changing is only available in English!")
                 return
@@ -81,8 +80,9 @@ object ClientUtil {
             languageManager.selected = lolcat
 
             GeneticsResequenced.LOGGER.info("Changed language to cringe!")
-
         } else {
+            if (languageManager.selected != lolcat) return
+
             if (nonCringeLanguage == null && languageManager.selected == lolcat) {
                 GeneticsResequenced.LOGGER.warn("Tried to remove cringe language, but no non-cringe language was saved!")
                 return
