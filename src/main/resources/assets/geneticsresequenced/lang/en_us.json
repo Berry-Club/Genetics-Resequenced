@@ -346,6 +346,8 @@
   "advancement.geneticsresequenced.plasmid_infuser.desc": "Craft a Plasmid Infuser.\n\nUse it to set a Plasmid's Gene using DNA Helices.",
   "advancement.geneticsresequenced.decrypt_dna.title": "In-Gene-ius!",
   "advancement.geneticsresequenced.decrypt_dna.desc": "Decrypt a DNA Helix to find out its Gene.",
+  "advancement.geneticsresequenced.plasmid_injector.title": "Plasmid Injector",
+  "advancement.geneticsresequenced.plasmid_injector.desc": "Craft a Plasmid Injector.\n\nUse it to inject full Plasmids into into decontaminated Syringes.",
 
   "death.attack.scraper": "%1$s was scraped to the bone",
   "death.attack.syringe": "%1$s died of blood loss",
