@@ -6,6 +6,10 @@
     {
       "type": "patchouli:text",
       "text": "The $(major)Scare Zombies/$ Gene makes it so that $(minor)Zombies will run away from you/$.$(br2)This Gene $(bad)cannot be given to mobs/$."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, this Gene requires Scare Creepers."
     }
   ]
 }

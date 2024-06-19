@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)No Hunger/$ Gene $(minor)prevents your hunger from draining below halfway/$.$(br2)This Gene $(bad)cannot be given to mobs/$."
+      "text": "The $(major)No Hunger/$ Gene $(minor)prevents your hunger from draining below a configurable point, which defaults to half./$.$(br2)This Gene $(bad)cannot be given to mobs/$."
     }
   ]
 }

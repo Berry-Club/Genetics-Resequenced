@@ -6,6 +6,10 @@
     {
       "type": "patchouli:text",
       "text": "The $(major)Flight/$ Gene $(minor)allows players to fly/$ by double-tapping jump.$(br2)This Gene $(bad)cannot be given to mobs/$."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, this Gene requires the following other Genes:$(li)Teleport$(li)Jump Boost$(li)No Fall Damage"
     }
   ]
 }
