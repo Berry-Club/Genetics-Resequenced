@@ -189,6 +189,8 @@ object DamageGenes {
     fun handleChilling(event: LivingHurtEvent) {
         if (!ModGenes.chilling.isActive) return
 
+        if (event.source is IndirectEntityDamageSource) return
+
         val attacker = event.source.entity as? LivingEntity ?: return
         if (!attacker.hasGene(ModGenes.chilling)) return
 
