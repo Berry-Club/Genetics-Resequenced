@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.packets.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packets.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.InventoryListener
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
@@ -22,6 +23,7 @@ import net.minecraftforge.event.entity.player.ArrowLooseEvent
 import net.minecraftforge.event.entity.player.ArrowNockEvent
 import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.event.entity.player.PlayerEvent.ItemPickupEvent
+import net.minecraftforge.event.entity.player.PlayerEvent.PlayerLoggedInEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber
@@ -68,11 +70,29 @@ object OtherPlayerEvents {
         }
 
         tryDecryptDnaAdvancement(player, stack)
+    }
 
+    @SubscribeEvent
+    fun onLogIn(event: PlayerLoggedInEvent) {
+        val player = event.entity as? ServerPlayer ?: return
+
+        InventoryListener.startListening(player)
+    }
+
+    @SubscribeEvent
+    fun onLogOut(event: PlayerEvent.PlayerLoggedOutEvent) {
+        val player = event.entity as? ServerPlayer ?: return
+
+        InventoryListener.stopListening(player)
+    }
+
+    @SubscribeEvent
+    fun onInventoryChange(event: InventoryListener.Companion.PlayerInventoryChangeEvent) {
+        tryDecryptDnaAdvancement(event.player, event.stack)
     }
 
     private fun tryDecryptDnaAdvancement(player: Player, stack: ItemStack) {
-        if (stack.item == ModItems.DNA_HELIX.get()) return
+        if (stack.item != ModItems.DNA_HELIX.get()) return
         if (stack.getGene() == null) return
 
         val serverPlayer = player as? ServerPlayer ?: return
