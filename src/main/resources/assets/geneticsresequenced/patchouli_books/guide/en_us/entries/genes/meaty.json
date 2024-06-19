@@ -6,10 +6,6 @@
     {
       "type": "patchouli:text",
       "text": "The $(major)Meaty/$ Gene allows the entity to be $(minor)Sheared for a Raw Porkchop/$. If a player has it, they can $(minor)shear themselves/$ by sneak right-clicking with Shears.$(br2)This has a configurable cooldown, with the default being 1 minute.$(br2)This can be mutated into Meaty 2, which causes the entity to spawn a Cooked Porkchop once every 5 minutes."
-    },
-    {
-      "type": "patchouli:text",
-      "text": "This Gene $(minor)can be given to mobs/$.$(br2)By default, you can get this gene from the following mobs:$(br)$(li)Pig$(li)Zombified Pigling$(li)Piglin$(li)Hoglin"
     }
   ]
 }

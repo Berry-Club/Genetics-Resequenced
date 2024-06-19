@@ -6,10 +6,6 @@
     {
       "type": "patchouli:text",
       "text": "The $(major)Wither Hit/$ Gene causes entities to $(minor)inflict Wither when melee attacking/$.$(br2)This Gene $(minor)can be given to mobs/$."
-    },
-    {
-      "type": "patchouli:text",
-      "text": "By default, you can get this gene from the following mobs:$(br)$(li)Wither Skeleton"
     }
   ]
 }

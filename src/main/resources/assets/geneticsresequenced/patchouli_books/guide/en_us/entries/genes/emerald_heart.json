@@ -6,10 +6,6 @@
     {
       "type": "patchouli:text",
       "text": "The $(major)Emerald Heart/$ Gene causes entities to $(minor)drop an Emerald upon death/$.$(br2)For players, this has a configurable cooldown, with the default being 60 seconds.$(br2)This Gene $(minor)can be given to mobs/$."
-    },
-    {
-      "type": "patchouli:text",
-      "text": "By default, you can get this gene from the following mobs:$(br)$(li)Villager"
     }
   ]
 }

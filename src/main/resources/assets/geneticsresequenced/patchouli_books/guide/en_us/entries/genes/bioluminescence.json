@@ -6,10 +6,6 @@
     {
       "type": "patchouli:text",
       "text": "The $(major)Bioluminescence/$ Gene causes entities to $(minor)spawn light sources/$ when in the dark.$(br2)This Gene $(minor)can be given to mobs/$."
-    },
-    {
-      "type": "patchouli:text",
-      "text": "By default, you can get this gene from the following mobs:$(br)$(li)Glow Squid$(li)Blaze$(li)Magma Cube"
     }
   ]
 }

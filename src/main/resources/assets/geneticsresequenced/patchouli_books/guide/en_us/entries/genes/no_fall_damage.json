@@ -6,10 +6,6 @@
     {
       "type": "patchouli:text",
       "text": "The $(major)No Fall Damage/$ Gene $(minor)negates all fall damage/$.$(br2)This Gene $(minor)can be given to mobs/$."
-    },
-    {
-      "type": "patchouli:text",
-      "text": "By default, you can get this gene from the following mobs:$(br)$(li)Chicken$(li)Parrot$(li)Slime"
     }
   ]
 }

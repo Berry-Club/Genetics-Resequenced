@@ -6,10 +6,6 @@
     {
       "type": "patchouli:text",
       "text": "The $(major)Explosive Exit/$ Gene causes entities to $(minor)explode upon death/$.$(br2)If a player has this Gene, it takes 5 Gunpowder from their inventory.$(br2)This Gene $(minor)can be given to mobs/$."
-    },
-    {
-      "type": "patchouli:text",
-      "text": "By default, you can get this gene from the following mobs:$(br)$(li)Creeper"
     }
   ]
 }

@@ -6,10 +6,6 @@
     {
       "type": "patchouli:text",
       "text": "The $(major)Regeneration/$ Gene gives entities the $(minor)Regeneration effect/$.$(br2)Can be mutated into Regeneration 4.$(br2)This Gene $(minor)can be given to mobs/$."
-    },
-    {
-      "type": "patchouli:text",
-      "text": "By default, you can get this gene from the following mobs:$(br)$(li)Iron Golem$(li)Shulker"
     }
   ]
 }

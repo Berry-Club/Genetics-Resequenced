@@ -6,10 +6,6 @@
     {
       "type": "patchouli:text",
       "text": "The $(major)Strength/$ Gene gives entities the $(minor)Strength effect/$.$(br2)This Gene can be $(minor)mutated into Strength 2/$.$(br2)This Gene $(minor)can be given to mobs/$."
-    },
-    {
-      "type": "patchouli:text",
-      "text": "By default, you can get this gene from the following mobs:$(br)$(li)Polar Bear"
     }
   ]
 }

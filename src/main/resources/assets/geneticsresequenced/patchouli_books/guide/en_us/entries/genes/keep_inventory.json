@@ -6,10 +6,6 @@
     {
       "type": "patchouli:text",
       "text": "The $(major)Keep Inventory/$ Gene causes players to $(minor)keep their inventory upon death/$.$(br2)This Gene $(bad)cannot be given to mobs/$."
-    },
-    {
-      "type": "patchouli:text",
-      "text": "By default, you can get this gene from the following mobs:$(br)$(li)Endermite"
     }
   ]
 }

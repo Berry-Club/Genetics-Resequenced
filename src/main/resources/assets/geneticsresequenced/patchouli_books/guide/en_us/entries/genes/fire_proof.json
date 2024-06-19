@@ -6,10 +6,6 @@
     {
       "type": "patchouli:text",
       "text": "The $(major)Fire Proof/$ Gene causes entities to become $(minor)completely immune to burning damage/$.$(br2)This Gene $(minor)can be given to mobs/$."
-    },
-    {
-      "type": "patchouli:text",
-      "text": "By default, you can get this gene from the following mobs:$(br)$(li)Blaze$(li)Zombified Piglin$(li)Magma Cube"
     }
   ]
 }

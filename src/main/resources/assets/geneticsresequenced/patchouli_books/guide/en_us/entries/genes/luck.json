@@ -6,10 +6,6 @@
     {
       "type": "patchouli:text",
       "text": "The $(major)Luck/$ Gene gives entities the $(minor)Luck effect/$.$(br2)This Gene $(minor)can be given to mobs/$."
-    },
-    {
-      "type": "patchouli:text",
-      "text": "By default, you can get this gene from the following mobs:$(br)$(li)Rabbit"
     }
   ]
 }

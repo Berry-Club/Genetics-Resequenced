@@ -6,10 +6,6 @@
     {
       "type": "patchouli:text",
       "text": "The $(major)Slimy Death/$ Gene makes it so, $(minor)upon the player dying, the death is canceled and several friendly Slimes spawn/$.$(br2)This has a configurable cooldown, with the default being 5 minutes.$(br2)This Gene $(bad)cannot be given to mobs/$"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "By default, you can get this gene from the following mobs:$(br)$(li)Slime"
     }
   ]
 }
