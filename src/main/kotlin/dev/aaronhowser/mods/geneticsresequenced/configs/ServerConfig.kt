@@ -99,8 +99,8 @@ object ServerConfig {
             .comment("How many ticks should the Incubator take to brew a potion? A vanilla brewing stand takes 400 ticks")
             .defineInRange("incubatorTicksPerBrew", 200, 1, Int.MAX_VALUE)
         incubatorLowTempTickFactor = BUILDER
-            .comment("How many times slower should the Advanced Incubator be when it's at low temperature? Default is 60, which makes it take a full Minecraft day (excluding Overclockers)")
-            .defineInRange("incubatorLowTempTickFactor", 60, 1, Int.MAX_VALUE)
+            .comment("How many times slower should the Advanced Incubator be when it's at low temperature? Default is 120, which makes it take a full Minecraft day (excluding Overclockers)")
+            .defineInRange("incubatorLowTempTickFactor", 120, 1, Int.MAX_VALUE)
 
         // most other machines hold 20_000
         // but dispersal is 1_000
