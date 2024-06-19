@@ -124,6 +124,9 @@
   "tooltip.geneticsresequenced.advanced_incubator.set_low": "Set temperature to low",
   "tooltip.geneticsresequenced.black_death_recipe": "Requires a Syringe that has every negative Gene.",
   "tooltip.geneticsresequenced.syringe.removing": "Removing: %s",
+  "tooltip.geneticsresequenced.gmo_recipe.line1": "If in a low-temperature Advanced Incubator, it has a %1$s chance of producing a %2$s Gene.",
+  "tooltip.geneticsresequenced.gmo_recipe.line2": "Otherwise, it always produces a %s Gene.",
+  "tooltip.geneticsresequenced.gmo_recipe.line3": "Overclockers lower your chance, but Chorus Fruits increase it!",
 
   "command.geneticsresequenced.geneList": "Gene List:",
   "command.geneticsresequenced.list.no_genes": "No Genes found!",
