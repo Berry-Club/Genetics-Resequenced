@@ -104,7 +104,9 @@ object OtherGenes {
             )
         }
 
-        return input + " " + randomPhrases.random()
+        val tildes = "~".repeat(Random.nextInt(0, 4))
+
+        return input + "$tildes " + randomPhrases.random()
     }
 
 
