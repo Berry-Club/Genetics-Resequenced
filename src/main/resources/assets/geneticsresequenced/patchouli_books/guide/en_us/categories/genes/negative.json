@@ -1,6 +1,6 @@
 {
   "name": "Negative Genes",
-  "icon": "geneticsresequenced:plasmid",
+  "icon": "geneticsresequenced:anti_plasmid",
   "description": "All the negative Genes in the mod",
   "parent": "geneticsresequenced:genes",
   "sortnum": 0

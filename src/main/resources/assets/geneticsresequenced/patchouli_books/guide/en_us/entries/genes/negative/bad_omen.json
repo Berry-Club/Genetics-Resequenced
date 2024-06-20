@@ -1,0 +1,11 @@
+{
+  "name": "Bad Omen",
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:white_banner{\"BlockEntityTag\":{\"Patterns\":[{\"Pattern\":\"mr\",\"Color\":9},{\"Pattern\":\"bs\",\"Color\":8},{\"Pattern\":\"cs\",\"Color\":7},{\"Pattern\":\"bo\",\"Color\":8},{\"Pattern\":\"ms\",\"Color\":15},{\"Pattern\":\"hh\",\"Color\":8},{\"Pattern\":\"mc\",\"Color\":8},{\"Pattern\":\"bo\",\"Color\":15}],\"id\":\"minecraft:banner\"}}",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Bad Omen/$ Gene gives entities the $(bad)Bad Omen/$ effect.$(br2)This Gene $(minor)can be given to mobs/$."
+    }
+  ]
+}
