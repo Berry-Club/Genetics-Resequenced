@@ -1,0 +1,18 @@
+{
+  "name": "Anti-Field Block",
+  "category": "geneticsresequenced:blocks",
+  "icon": "geneticsresequenced:anti_field_block",
+  "sortnum": 10,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Anti-Field Block/$ allows you to $(minor)temporarily disable certain Genes/$.$(br2)Specifically, it disables the $(l:geneticsresequenced:genes/item_attraction_field)Item Attraction Field/$ and $(l:geneticsresequenced:genes/xp_attraction_field)XP Attraction Field/$ when enabled.$(br2)The $(l:geneticsresequenced:item/anti_field_orb)Anti-Field Orb/$ functions similarly, but in item form."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:anti_field_block",
+      "link_recipe": true,
+      "text": "The Anti-Field Block is active by default, and can be disabled with a Redstone signal.$(br2)While active, it disables all Fields within a 25 block spherical radius. This amount is configurable."
+    }
+  ]
+}

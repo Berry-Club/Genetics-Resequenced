@@ -17,7 +17,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:gmo_cell",
-      "text": "Genetically Modified Cells"
+      "text": "Genetically Modified Cells are $(minor)guaranteed to have a specific Gene/$, if crafted correctly. See $(l:geneticsresequenced:item/cell_growth#gmo_cell)its page/$ for more information."
     }
   ]
 }
