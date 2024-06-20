@@ -10,6 +10,7 @@ import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.AntiFieldOrbItem
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.util.GeneCooldown
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
@@ -121,7 +122,7 @@ object TickGenes {
         }
 
         val entityPredicate: (LivingEntity) -> Boolean = when (gene) {
-            ModGenes.greenDeath -> { it -> it is Creeper }
+            ModGenes.greenDeath -> { it -> it is Creeper || OtherUtil.getEntityResourceLocation(it.type).path.contains("creeper") }
             ModGenes.unUndeath -> { it -> it.type.category == MobType.UNDEAD }
             ModGenes.grayDeath -> { it -> it is AgeableMob || it is Zombie || it is Piglin }
             ModGenes.whiteDeath -> { it -> it.type.category == MobCategory.MONSTER }
