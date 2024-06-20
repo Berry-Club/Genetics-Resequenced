@@ -1,9 +1,0 @@
-{
-  "__comment": "Items that trigger the SHOOTS_FIREBALL Gene when sneak right-clicked",
-  "values": [
-    {
-      "id": "minecraft:blaze_rod",
-      "required": true
-    }
-  ]
-}

@@ -1,9 +1,0 @@
-{
-  "entity": "minecraft:ravager",
-  "genes": {
-    "geneticsresequenced:basic": 5,
-    "geneticsresequenced:strength": 5,
-    "geneticsresequenced:resistance": 4,
-    "geneticsresequenced:more_hearts": 3
-  }
-}

@@ -1,9 +1,0 @@
-{
-  "entity": "minecraft:polar_bear",
-  "genes": {
-    "geneticsresequenced:basic": 5,
-    "geneticsresequenced:strength": 4,
-    "geneticsresequenced:claws": 3,
-    "geneticsresequenced:step_assist": 4
-  }
-}

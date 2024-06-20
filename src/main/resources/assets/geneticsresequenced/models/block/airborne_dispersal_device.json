@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/orientable",
-  "textures": {
-    "front": "geneticsresequenced:block/air_dispersal_front",
-    "side": "geneticsresequenced:block/machine_side",
-    "top": "geneticsresequenced:block/air_dispersal_top",
-    "bottom": "geneticsresequenced:block/machine_bottom"
-  }
-}

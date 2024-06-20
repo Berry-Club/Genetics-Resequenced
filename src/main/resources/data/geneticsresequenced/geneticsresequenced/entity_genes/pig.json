@@ -1,7 +1,0 @@
-{
-  "entity": "minecraft:pig",
-  "genes": {
-    "geneticsresequenced:basic": 5,
-    "geneticsresequenced:meaty": 2
-  }
-}
