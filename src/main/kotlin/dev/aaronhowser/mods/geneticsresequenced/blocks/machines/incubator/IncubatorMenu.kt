@@ -43,7 +43,7 @@ class IncubatorMenu(
             this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 49))
             this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX, 83, 56))
             this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX, 106, 49))
-            this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.OVERCLOCKER_SLOT_INDEX, 146, 67))
+            this.addSlot(SlotItemHandler(itemHandler, IncubatorBlockEntity.OVERCLOCKER_SLOT_INDEX, 141, 32))
         }
 
         addDataSlots(containerData)
