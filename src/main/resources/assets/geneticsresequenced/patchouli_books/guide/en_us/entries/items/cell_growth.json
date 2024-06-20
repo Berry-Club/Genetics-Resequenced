@@ -12,7 +12,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:potion{Potion:\"geneticsresequenced:cell_growth\",MobId:\"minecraft:blaze\"}",
-      "text": "A $(l:geneticsresequenced:cell)Cell/$ can be brewed into the Potion of Cell Growth to $(minor)set the Potion to the Cell's entity type/$."
+      "text": "A $(l:geneticsresequenced:items/cell)Cell/$ can be brewed into the Potion of Cell Growth to $(minor)set the Potion to the Cell's entity type/$."
     },
     {
       "type": "patchouli:spotlight",

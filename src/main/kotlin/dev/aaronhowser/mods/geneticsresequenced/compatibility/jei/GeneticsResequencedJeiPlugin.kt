@@ -138,8 +138,7 @@ class GeneticsResequencedJeiPlugin : IModPlugin {
 
         registration.useNbtForSubtypes(
             ModItems.PLASMID.get(),
-            ModItems.DNA_HELIX.get(),
-            ModItems.GMO_CELL.get()
+            ModItems.DNA_HELIX.get()
         )
 
     }
