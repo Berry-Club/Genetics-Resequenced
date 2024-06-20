@@ -40,7 +40,7 @@
     },
     {
       "type": "text",
-      "text": "You can add as many Genes to the Syringe as you like. When you're ready, $(minor)inject the blood back into yourself/$ to gain all the Genes!$(br2)Be warned, some Genes may $(bad)require other Genes/$ to be able to be injected. These Genes are called $(l:geneticsresequenced:intro/mutation)Mutations/$. Trying to inject them without the requisite Genes will result in dire consequences.$(br2)You can see what Genes are required in the Gene's Plasmid's JEI info page."
+      "text": "You can add as many Genes to the Syringe as you like. When you're ready, $(minor)inject the blood back into yourself/$ to gain all the Genes!$(br2)Be warned, some Genes may $(bad)require other Genes/$ to be able to be injected. Trying to inject them without the requisite Genes will result in dire consequences.$(br2)You can see what Genes are required in the Gene's Plasmid's JEI info page."
     }
   ]
 }
