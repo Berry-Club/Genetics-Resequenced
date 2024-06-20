@@ -78,7 +78,7 @@ object ServerConfig {
 
         antifieldBlockRadius = BUILDER
             .comment("How far should the Antifield Block prevent Item/XP Magnet Genes from working (in blocks)")
-            .defineInRange("antifieldBlockRadius", 10, 1, Int.MAX_VALUE)
+            .defineInRange("antifieldBlockRadius", 25, 1, Int.MAX_VALUE)
 
         BUILDER.pop()
     }
