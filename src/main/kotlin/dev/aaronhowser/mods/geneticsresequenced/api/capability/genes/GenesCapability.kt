@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.events.CustomEvents
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.ListTag
 import net.minecraft.nbt.StringTag
@@ -22,7 +23,7 @@ class GenesCapability {
             return false
         }
 
-        if (livingEntity is Player && gene.isNegative && ServerConfig.disableGivingPlayersNegativeGenes.get()) {
+        if (livingEntity is Player && gene.isNegative && ServerConfig.disableGivingPlayersNegativeGenes.get() && gene != ModGenes.cringe) {
             GeneticsResequenced.LOGGER.debug("Tried to give negative gene $gene to player $livingEntity, but \"disableGivingPlayersNegativeGenes\" is true in the server config.")
             return false
         }
