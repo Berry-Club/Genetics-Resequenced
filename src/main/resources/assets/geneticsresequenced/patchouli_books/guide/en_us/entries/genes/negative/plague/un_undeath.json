@@ -1,11 +1,11 @@
 {
-  "name": "",
+  "name": "Un-Undeath",
   "category": "geneticsresequenced:genes/plague",
-  "icon": "minecraft:",
+  "icon": "minecraft:zombie_head",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Bad Omen/$ Gene gives entities the $(bad)Bad Omen/$ effect.$(br2)This Gene $(minor)can be given to mobs/$."
+      "text": "The $(major)Un-Undeath/$ Gene $(bad)kills the Undead/$."
     }
   ]
 }

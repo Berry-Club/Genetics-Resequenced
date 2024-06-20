@@ -1,11 +1,11 @@
 {
-  "name": "",
+  "name": "White Death",
   "category": "geneticsresequenced:genes/plague",
-  "icon": "minecraft:",
+  "icon": "minecraft:shield",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Bad Omen/$ Gene gives entities the $(bad)Bad Omen/$ effect.$(br2)This Gene $(minor)can be given to mobs/$."
+      "text": "The $(major)White Death/$ Gene $(bad)kills all Monsters/$."
     }
   ]
 }

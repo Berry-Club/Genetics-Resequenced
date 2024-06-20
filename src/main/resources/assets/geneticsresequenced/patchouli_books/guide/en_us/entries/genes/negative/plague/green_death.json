@@ -1,11 +1,11 @@
 {
-  "name": "",
+  "name": "Green Death",
   "category": "geneticsresequenced:genes/plague",
-  "icon": "minecraft:",
+  "icon": "minecraft:creeper_head",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Bad Omen/$ Gene gives entities the $(bad)Bad Omen/$ effect.$(br2)This Gene $(minor)can be given to mobs/$."
+      "text": "The $(major)Green Death/$ Gene $(bad)kills Creepers/$."
     }
   ]
 }

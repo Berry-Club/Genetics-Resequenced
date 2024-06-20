@@ -1,11 +1,11 @@
 {
-  "name": "",
+  "name": "Gray Death",
   "category": "geneticsresequenced:genes/plague",
-  "icon": "minecraft:",
+  "icon": "minecraft:poisonous_potato",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Bad Omen/$ Gene gives entities the $(bad)Bad Omen/$ effect.$(br2)This Gene $(minor)can be given to mobs/$."
+      "text": "The $(major)Gray Death/$ Gene $(bad)kills any mob that can age/$."
     }
   ]
 }
