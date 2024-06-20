@@ -1,0 +1,17 @@
+{
+  "name": "Potion of Mutation",
+  "category": "geneticsresequenced:items",
+  "icon": "minecraft:potion{Potion:\"geneticsresequenced:mutation\"}",
+  "sortnum": 11,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Potion of Mutation/$ is used to craft $(l:geneticsresequenced:items/cell_growth#gmo_cell)Genetically Modified Cells/$ that are set to $(minor)mutation Genes/$.$(br2)Mutation Genes are effectively just $(minor)more powerful/$ Genes, and generally $(bad)require other Genes/$."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:potion{Potion:\"geneticsresequenced:mutation\"}",
+      "text": "Like $(l:geneticsresequenced:items/cell_growth)Cell Growth Potions/$, to make GM Cells, you have to process through a low-temperature $(l:geneticsresequenced:blocks/incubator_advanced)Advanced Incubator/$."
+    }
+  ]
+}

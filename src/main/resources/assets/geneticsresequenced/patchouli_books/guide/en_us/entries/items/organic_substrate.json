@@ -11,7 +11,6 @@
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:potion{Potion:\"geneticsresequenced:substrate\"}",
-      "link_recipe": true,
       "text": "Additionally, Organic Substrate is used to brew $(l:geneticsresequenced:items/cell_growth)Potions of Cell Growth/$.$(br2)You may prefer to use the $(l:geneticsresequenced:blocks/incubator)Incubator/$ to brew these recipes, rather than the Brewing Stand."
     }
   ]
