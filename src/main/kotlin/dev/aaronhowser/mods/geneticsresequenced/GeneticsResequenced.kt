@@ -1,6 +1,6 @@
-package example.examplemod
+package dev.aaronhowser.mods.geneticsresequenced
 
-import example.examplemod.block.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.block.ModBlocks
 import net.minecraft.client.Minecraft
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
@@ -21,10 +21,10 @@ import thedarkcolour.kotlinforforge.neoforge.forge.runForDist
  *
  * An example for blocks is in the `blocks` package of this mod.
  */
-@Mod(ExampleMod.ID)
+@Mod(GeneticsResequenced.ID)
 @EventBusSubscriber(bus = EventBusSubscriber.Bus.MOD)
-object ExampleMod {
-    const val ID = "examplemod"
+object GeneticsResequenced {
+    const val ID = "geneticsresequenced"
 
     // the logger for our mod
     val LOGGER: Logger = LogManager.getLogger(ID)
@@ -37,11 +37,11 @@ object ExampleMod {
 
         val obj = runForDist(
             clientTarget = {
-                MOD_BUS.addListener(::onClientSetup)
+                MOD_BUS.addListener(GeneticsResequenced::onClientSetup)
                 Minecraft.getInstance()
             },
             serverTarget = {
-                MOD_BUS.addListener(::onServerSetup)
+                MOD_BUS.addListener(GeneticsResequenced::onServerSetup)
                 "test"
             })
 
