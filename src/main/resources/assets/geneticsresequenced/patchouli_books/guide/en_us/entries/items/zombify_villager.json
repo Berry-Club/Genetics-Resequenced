@@ -1,0 +1,17 @@
+{
+  "name": "Potion of Zombify Villager",
+  "category": "geneticsresequenced:items",
+  "icon": "minecraft:potion{Potion:\"geneticsresequenced:zombify_villager\"}",
+  "sortnum": 14,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A $(major)Potion of Zombify Villager/$ does right what it says on the tin: it turns Villagers into Zombie Villagers."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:potion{Potion:\"geneticsresequenced:zombify_villager\"}",
+      "text": "Obviously, it's best utilized in Splash form."
+    }
+  ]
+}

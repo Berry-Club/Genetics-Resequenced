@@ -6,7 +6,12 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": ""
+      "text": "The $(major)Overclocker/$ can be inserted into most of the mod's machines to $(minor)massively increase their speed/$.$(br2)Each Overclocker doubles the speed, but increases the power draw by a quarter."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:overclocker",
+      "link_recipe": true
     }
   ]
 }
