@@ -144,7 +144,7 @@ object TickGenes {
         entity.hurt(virusDamageSource, maxOf(entity.health / 2, 2f))
     }
 
-    private val virusDamageSource = DamageSource("virus")
+    private val virusDamageSource = DamageSource(OtherUtil.modResource("virus").toString())
 
     private fun handlePotionGenes(entity: LivingEntity, potionGenes: MutableList<Gene>) {
         if (potionGenes.isEmpty()) return
