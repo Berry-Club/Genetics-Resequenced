@@ -1,7 +1,7 @@
 {
   "name": "Plagues",
   "icon": "minecraft:wither_skeleton_skull",
-  "description": "All the plagues in the mod",
+  "description": "Plagues are a special type of negative Gene that $(bad)kills/$ the host.",
   "parent": "geneticsresequenced:genes/negative",
   "sortnum": 0
 }

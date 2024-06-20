@@ -6,7 +6,12 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Black Death/$ Gene $(bad)instantly kills whoever has it/$."
+      "text": "The $(major)Black Death/$ Gene $(bad)instantly kills whoever has it/$.$(br2)Given the strength of this Gene, it's much harder to acquire than the other plagues."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:dna_helix{GeneId:'geneticsresequenced:black_death'}",
+      "text": "To craft this DNA Helix, you'll have to get a full Syringe that has $(bad)$(bold)every other negative Gene/$ in the game. This includes all the other plagues, but excludes any disabled Genes.$(br2)From there, simply brew that Syringe into a Potion of Viral Agents."
     }
   ]
 }
