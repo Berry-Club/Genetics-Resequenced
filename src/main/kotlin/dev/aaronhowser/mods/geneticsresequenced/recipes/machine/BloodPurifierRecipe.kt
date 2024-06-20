@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipes.machine
 
 import com.google.gson.JsonObject
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.items.SyringeItem
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
@@ -32,25 +32,14 @@ class BloodPurifierRecipe(
 
         val localPlayer = ClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
 
-        if (usingMetalSyringe) {
-            val metalSyringe = ModItems.METAL_SYRINGE.itemStack
-
-            SyringeItem.setEntity(
-                metalSyringe,
-                Cow(EntityType.COW, localPlayer.level)
-            )
-
-            return metalSyringe
-        }
-
-        val syringe = ModItems.SYRINGE.itemStack
+        val stack = if (usingMetalSyringe) ModItems.METAL_SYRINGE.itemStack else ModItems.SYRINGE.itemStack
 
         SyringeItem.setEntity(
-            syringe,
-            localPlayer
+            stack,
+            if (usingMetalSyringe) Cow(EntityType.COW, localPlayer.level) else localPlayer
         )
 
-        return syringe
+        return stack
     }
 
     private fun getOutputItem(): ItemStack {

@@ -14,6 +14,8 @@ import net.minecraft.core.NonNullList
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.Container
+import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.animal.Cow
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.PotionUtils
@@ -24,24 +26,24 @@ import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 
 class BlackDeathRecipePage(
-    private val metalSyringe: Boolean
+    private val usingMetalSyringe: Boolean
 ) : Recipe<Container> {
 
     private val badSyringe: ItemStack
         get() {
-            val item = if (metalSyringe) ModItems.METAL_SYRINGE.get() else ModItems.SYRINGE.get()
-            val stack = item.itemStack
+            val localPlayer = ClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
 
+            val stack = if (usingMetalSyringe) ModItems.METAL_SYRINGE.itemStack else ModItems.SYRINGE.itemStack
             SyringeItem.setEntity(
                 stack,
-                ClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
+                if (usingMetalSyringe) Cow(EntityType.COW, localPlayer.level) else localPlayer
             )
+
+            SyringeItem.setContaminated(stack, false)
 
             for (badGene in BlackDeathRecipe.allBadGenes) {
                 SyringeItem.addGene(stack, badGene)
             }
-
-            SyringeItem.setContaminated(stack, false)
 
             return stack
         }
@@ -76,7 +78,7 @@ class BlackDeathRecipePage(
     }
 
     override fun getId(): ResourceLocation {
-        val type = if (metalSyringe) "metal" else "glass"
+        val type = if (usingMetalSyringe) "metal" else "glass"
 
         return OtherUtil.modResource("$RECIPE_TYPE_NAME/black_death/$type")
     }
