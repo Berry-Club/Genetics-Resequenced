@@ -143,6 +143,7 @@ object BrewingRecipes {
             GmoRecipe(EntityType.VILLAGER, Items.EMERALD, ModGenes.emeraldHeart, 0.75f),
             GmoRecipe(EntityType.SHULKER, Items.EMERALD_BLOCK, ModGenes.keepInventory, 0.5f),
             GmoRecipe(EntityType.RABBIT, Items.GOLDEN_BOOTS, ModGenes.speed, 0.75f),
+            GmoRecipe(EntityType.RABBIT, Items.EMERALD, ModGenes.luck, 0.5f),
             GmoRecipe(EntityType.IRON_GOLEM, Items.GOLDEN_APPLE, ModGenes.regeneration, 0.75f),
             GmoRecipe(EntityType.CHICKEN, Items.EGG, ModGenes.layEgg, 0.75f),
             GmoRecipe(EntityType.PIG, Items.PORKCHOP, ModGenes.meaty, 0.75f),
@@ -155,7 +156,6 @@ object BrewingRecipes {
         val mutationBrews = listOf(
             GmoRecipe(EntityType.ENDER_DRAGON, Items.FEATHER, ModGenes.flight, 0.75f, isMutation = true),
             GmoRecipe(EntityType.POLAR_BEAR, Items.NETHERITE_SWORD, ModGenes.strengthTwo, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.RABBIT, Items.EMERALD, ModGenes.luck, 0.5f, isMutation = true),
             GmoRecipe(EntityType.SHULKER, Items.NETHERITE_CHESTPLATE, ModGenes.resistanceTwo, 0.5f, isMutation = true),
             GmoRecipe(EntityType.POLAR_BEAR, Items.DIAMOND_SWORD, ModGenes.clawsTwo, 0.5f, isMutation = true),
             GmoRecipe(EntityType.RABBIT, Items.DIAMOND_BOOTS, ModGenes.speedTwo, 0.5f, isMutation = true),
