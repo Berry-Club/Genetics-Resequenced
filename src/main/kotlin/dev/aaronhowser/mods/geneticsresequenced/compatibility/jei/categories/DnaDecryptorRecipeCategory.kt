@@ -1,9 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.categories
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.GeneticsResequencedJeiPlugin
-import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.recipes.machine.DnaDecryptorRecipe
+import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.drawable.IDrawable
@@ -14,6 +15,7 @@ import mezz.jei.api.recipe.IFocusGroup
 import mezz.jei.api.recipe.RecipeIngredientRole
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.IRecipeCategory
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 
@@ -69,14 +71,23 @@ class DnaDecryptorRecipeCategory(
         val gene = recipe.gene
         val chance = recipe.chance
 
-        val line1 = Component
-            .translatable("recipe.geneticsresequenced.mob_gene.mob", mob.description)
+        val line1 =
+            Component.translatable(
+                "recipe.geneticsresequenced.mob_gene.mob",
+                mob.description
+            ).withColor(ChatFormatting.GRAY)
 
-        val line2 = Component
-            .translatable("recipe.geneticsresequenced.mob_gene.gene", gene.nameComponent)
+        val line2 =
+            Component.translatable(
+                "recipe.geneticsresequenced.mob_gene.gene",
+                gene.nameComponent
+            ).withColor(ChatFormatting.GRAY)
 
-        val line3 = Component
-            .translatable("recipe.geneticsresequenced.mob_gene.chance", chance)
+        val line3 =
+            Component.translatable(
+                "recipe.geneticsresequenced.mob_gene.chance",
+                chance
+            ).withColor(ChatFormatting.GRAY)
 
         return mutableListOf(line1, line2, line3)
     }

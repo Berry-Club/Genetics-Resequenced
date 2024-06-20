@@ -343,7 +343,7 @@ open class SyringeItem : Item(
                 Component.translatable(
                     "tooltip.geneticsresequenced.syringe.blood_owner",
                     bloodOwner
-                )
+                ).withColor(ChatFormatting.GRAY)
             )
         }
 

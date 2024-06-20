@@ -99,7 +99,14 @@ object InformationRecipes {
                 )
 
                 for (requiredGene in requiredGenes) {
-                    val line = Component.literal("• ").append(requiredGene.nameComponent)
+
+                    val requiredGeneComponent = if (requiredGene.isNegative || requiredGene.isMutation) {
+                        requiredGene.nameComponent
+                    } else {
+                        requiredGene.nameComponent.copy().withStyle { it.withColor(ChatFormatting.RESET) }
+                    }
+
+                    val line = Component.literal("• ").append(requiredGeneComponent)
                     components.add(line)
                 }
             }

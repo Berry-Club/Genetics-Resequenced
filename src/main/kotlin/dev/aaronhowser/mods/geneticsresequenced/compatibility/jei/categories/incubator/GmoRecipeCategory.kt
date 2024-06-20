@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.jei.GmoRecipePage
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import mezz.jei.api.constants.VanillaTypes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.drawable.IDrawable
@@ -14,6 +15,7 @@ import mezz.jei.api.recipe.IFocusGroup
 import mezz.jei.api.recipe.RecipeIngredientRole
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.recipe.category.IRecipeCategory
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 
@@ -85,14 +87,18 @@ class GmoRecipeCategory(
                 "tooltip.geneticsresequenced.gmo_recipe.line1",
                 chanceGoodString,
                 goodGene.nameComponent
-            )
+            ).withColor(ChatFormatting.GRAY)
 
-        val line2 = Component.translatable(
-            "tooltip.geneticsresequenced.gmo_recipe.line2",
-            ModGenes.basic.nameComponent
-        )
+        val line2 =
+            Component.translatable(
+                "tooltip.geneticsresequenced.gmo_recipe.line2",
+                ModGenes.basic.nameComponent
+            ).withColor(ChatFormatting.GRAY)
 
-        val line3 = Component.translatable("tooltip.geneticsresequenced.gmo_recipe.line3")
+        val line3 =
+            Component.translatable(
+                "tooltip.geneticsresequenced.gmo_recipe.line3"
+            ).withColor(ChatFormatting.GRAY)
 
         return mutableListOf(
             line1,
