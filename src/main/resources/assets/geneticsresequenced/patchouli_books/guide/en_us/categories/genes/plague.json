@@ -1,0 +1,7 @@
+{
+  "name": "Plagues",
+  "icon": "minecraft:wither_skeleton_skull",
+  "description": "All the plagues in the mod",
+  "parent": "geneticsresequenced:genes/negative",
+  "sortnum": 0
+}

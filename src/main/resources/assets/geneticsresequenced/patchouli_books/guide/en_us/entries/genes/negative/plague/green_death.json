@@ -1,7 +1,7 @@
 {
-  "name": "Bad Omen",
-  "category": "geneticsresequenced:genes/negative",
-  "icon": "minecraft:textures/mob_effect/bad_omen.png",
+  "name": "",
+  "category": "geneticsresequenced:genes/plague",
+  "icon": "minecraft:",
   "pages": [
     {
       "type": "patchouli:text",

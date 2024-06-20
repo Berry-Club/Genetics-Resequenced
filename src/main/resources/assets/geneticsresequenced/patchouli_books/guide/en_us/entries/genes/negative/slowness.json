@@ -1,0 +1,11 @@
+{
+  "name": "Slowness",
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:textures/mob_effect/slowness.png",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Slowness/$ Gene gives entities the $(bad)Slowness/$ effect.$(br2)This Gene $(minor)can be given to mobs/$."
+    }
+  ]
+}

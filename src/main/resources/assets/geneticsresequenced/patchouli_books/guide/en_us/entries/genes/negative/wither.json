@@ -1,0 +1,11 @@
+{
+  "name": "Wither",
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:textures/mob_effect/wither.png",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Wither/$ Gene gives entities the $(bad)Wither/$ effect.$(br2)This Gene $(minor)can be given to mobs/$."
+    }
+  ]
+}
