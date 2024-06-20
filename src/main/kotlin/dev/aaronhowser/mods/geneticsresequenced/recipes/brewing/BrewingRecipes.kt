@@ -1,11 +1,10 @@
-package dev.aaronhowser.mods.geneticsresequenced.recipes
+package dev.aaronhowser.mods.geneticsresequenced.recipes.brewing
 
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setBasic
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.setGene
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.recipes.brewing.*
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions.CELL_GROWTH
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModPotions.MUTATION
@@ -142,36 +141,30 @@ object BrewingRecipes {
             GmoRecipe(EntityType.BLAZE, Items.GLOWSTONE_DUST, ModGenes.bioluminescence, 0.5f),
             GmoRecipe(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, ModGenes.bioluminescence, 0.5f),
             GmoRecipe(EntityType.VILLAGER, Items.EMERALD, ModGenes.emeraldHeart, 0.75f),
-            GmoRecipe(EntityType.SHULKER, Items.EMERALD, ModGenes.keepInventory, 0.5f),
-            GmoRecipe(EntityType.RABBIT, Items.REDSTONE, ModGenes.speed, 0.75f),
-            GmoRecipe(EntityType.IRON_GOLEM, Items.APPLE, ModGenes.regeneration, 0.75f),
+            GmoRecipe(EntityType.SHULKER, Items.EMERALD_BLOCK, ModGenes.keepInventory, 0.5f),
+            GmoRecipe(EntityType.RABBIT, Items.GOLDEN_BOOTS, ModGenes.speed, 0.75f),
+            GmoRecipe(EntityType.IRON_GOLEM, Items.GOLDEN_APPLE, ModGenes.regeneration, 0.75f),
             GmoRecipe(EntityType.CHICKEN, Items.EGG, ModGenes.layEgg, 0.75f),
             GmoRecipe(EntityType.PIG, Items.PORKCHOP, ModGenes.meaty, 0.75f),
             GmoRecipe(EntityType.ENDERMAN, Items.ENDER_PEARL, ModGenes.teleport, 0.75f),
-            GmoRecipe(EntityType.ENDERMAN, Items.IRON_INGOT, ModGenes.itemMagnet, 0.75f),
             GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.moreHearts, 0.75f),
-            GmoRecipe(EntityType.SLIME, Items.GLOWSTONE_DUST, ModGenes.photosynthesis, 0.5f)
+            GmoRecipe(EntityType.MOOSHROOM, Items.MUSHROOM_STEM, ModGenes.photosynthesis, 0.5f)
         )
         allRecipes.addAll(geneFocusBrews)
 
         val mutationBrews = listOf(
-            GmoRecipe(EntityType.BAT, Items.FEATHER, ModGenes.flight, 0.75f, isMutation = true),
-            GmoRecipe(EntityType.PARROT, Items.FEATHER, ModGenes.flight, 0.75f, isMutation = true),
-            GmoRecipe(EntityType.POLAR_BEAR, Items.EMERALD, ModGenes.strengthTwo, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.LLAMA, Items.EMERALD, ModGenes.strengthTwo, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.ENDER_DRAGON, Items.FEATHER, ModGenes.flight, 0.75f, isMutation = true),
+            GmoRecipe(EntityType.POLAR_BEAR, Items.NETHERITE_SWORD, ModGenes.strengthTwo, 0.5f, isMutation = true),
             GmoRecipe(EntityType.RABBIT, Items.EMERALD, ModGenes.luck, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.SHULKER, Items.DIAMOND, ModGenes.resistanceTwo, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.ZOMBIE, Items.DIAMOND, ModGenes.resistanceTwo, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.POLAR_BEAR, Items.DIAMOND, ModGenes.clawsTwo, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.LLAMA, Items.DIAMOND, ModGenes.clawsTwo, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.WOLF, Items.DIAMOND, ModGenes.clawsTwo, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.RABBIT, Items.REDSTONE, ModGenes.speedTwo, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.OCELOT, Items.REDSTONE, ModGenes.speedFour, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.RABBIT, Items.IRON_INGOT, ModGenes.hasteTwo, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.SILVERFISH, Items.REDSTONE, ModGenes.efficiencyFour, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.ZOMBIE, Items.SPIDER_EYE, ModGenes.scareZombies, 0.75f, isMutation = true),
-            GmoRecipe(EntityType.SPIDER, Items.SPIDER_EYE, ModGenes.scareSpiders, 0.75f, isMutation = true),
-            GmoRecipe(EntityType.ENDER_DRAGON, Items.REDSTONE, ModGenes.regenerationFour, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.SHULKER, Items.NETHERITE_CHESTPLATE, ModGenes.resistanceTwo, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.POLAR_BEAR, Items.DIAMOND_SWORD, ModGenes.clawsTwo, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.RABBIT, Items.DIAMOND_BOOTS, ModGenes.speedTwo, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.OCELOT, Items.NETHERITE_BOOTS, ModGenes.speedFour, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.RABBIT, Items.NETHERITE_PICKAXE, ModGenes.hasteTwo, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.SILVERFISH, Items.NETHERITE_PICKAXE, ModGenes.efficiencyFour, 0.5f, isMutation = true),
+            GmoRecipe(EntityType.ZOMBIE, Items.FERMENTED_SPIDER_EYE, ModGenes.scareZombies, 0.75f, isMutation = true),
+            GmoRecipe(EntityType.SPIDER, Items.FERMENTED_SPIDER_EYE, ModGenes.scareSpiders, 0.75f, isMutation = true),
+            GmoRecipe(EntityType.ENDER_DRAGON, Items.ENCHANTED_GOLDEN_APPLE, ModGenes.regenerationFour, 0.5f, isMutation = true),
             GmoRecipe(EntityType.PIG, Items.BLAZE_POWDER, ModGenes.meatyTwo, 0.5f, isMutation = true),
             GmoRecipe(EntityType.BAT, Items.ENDER_EYE, ModGenes.invisible, 0.5f, isMutation = true),
             GmoRecipe(EntityType.SKELETON, Items.ENDER_EYE, ModGenes.invisible, 0.5f, isMutation = true),
