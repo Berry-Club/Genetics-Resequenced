@@ -17,6 +17,7 @@ object ServerConfig {
     lateinit var incubatorLowTempTickFactor: ForgeConfigSpec.IntValue
 
     lateinit var disabledGenes: ForgeConfigSpec.ConfigValue<List<String>>
+    lateinit var disableGivingPlayersNegativeGenes: ForgeConfigSpec.BooleanValue
 
     lateinit var bioluminescenceCooldown: ForgeConfigSpec.IntValue
     lateinit var bioluminescenceDuration: ForgeConfigSpec.IntValue
@@ -115,6 +116,10 @@ object ServerConfig {
         disabledGenes = BUILDER
             .comment("List of genes to disable.\nExample: [\"geneticsresequenced:wooly\",\"geneticsresequenced:lay_egg\"]")
             .defineList("disabledGenes", listOf()) { it is String }
+
+        disableGivingPlayersNegativeGenes = BUILDER
+            .comment("Set true to prevent players from being given negative genes")
+            .define("disableGivingPlayersNegativeGenes", false)
 
         bioluminescenceDuration = BUILDER
             .comment("How long should light sources from the Bioluminescence gene last (in ticks)")

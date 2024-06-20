@@ -1,12 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.events.CustomEvents
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.ListTag
 import net.minecraft.nbt.StringTag
 import net.minecraft.nbt.Tag
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.player.Player
 import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 
 @Suppress("LoggingSimilarMessage")
@@ -17,6 +19,11 @@ class GenesCapability {
     fun addGene(livingEntity: LivingEntity, gene: Gene): Boolean {
         if (gene.isHidden) {
             GeneticsResequenced.LOGGER.debug("Cannot add hidden gene $gene to entity.")
+            return false
+        }
+
+        if (livingEntity is Player && gene.isNegative && ServerConfig.disableGivingPlayersNegativeGenes.get()) {
+            GeneticsResequenced.LOGGER.debug("Tried to give negative gene $gene to player $livingEntity, but \"disableGivingPlayersNegativeGenes\" is true in the server config.")
             return false
         }
 
