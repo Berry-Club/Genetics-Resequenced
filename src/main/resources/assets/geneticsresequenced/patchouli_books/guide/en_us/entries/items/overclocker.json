@@ -11,6 +11,7 @@
     {
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:overclocker",
+      "text": "You can have $(minor)up to 8 Overclockers/$ in a machine.",
       "link_recipe": true
     }
   ]
