@@ -179,7 +179,6 @@ object BrewingRecipes {
             VirusRecipe(ModGenes.speed, ModGenes.slowness),
             VirusRecipe(ModGenes.speedTwo, ModGenes.slownessFour),
             VirusRecipe(ModGenes.speedFour, ModGenes.slownessSix),
-            VirusRecipe(ModGenes.flight, ModGenes.slownessSix),
             VirusRecipe(ModGenes.milky, ModGenes.nausea),
             VirusRecipe(ModGenes.meaty, ModGenes.nausea),
             VirusRecipe(ModGenes.layEgg, ModGenes.nausea),
