@@ -33,7 +33,10 @@ abstract class CraftingMachineBlockEntity(
         const val OVERCLOCK_SLOT_INDEX = 2
     }
 
-    abstract val energyCostPerTick: Int
+    abstract val baseEnergyCostPerTick: Int
+    fun energyCostPerTick(): Int {
+        return baseEnergyCostPerTick + (baseEnergyCostPerTick * amountOfOverclockers * 0.25f).toInt()
+    }
 
     open val amountOfOverclockers: Int
         get() = itemHandler.getStackInSlot(OVERCLOCK_SLOT_INDEX).count
@@ -89,12 +92,12 @@ abstract class CraftingMachineBlockEntity(
     }
 
     protected open fun hasEnoughEnergy(): Boolean {
-        return energyStorage.energyStored >= energyCostPerTick
+        return energyStorage.energyStored >= energyCostPerTick()
     }
 
     protected open fun extractEnergy() {
-        if (energyStorage.energyStored < energyCostPerTick) return
-        energyStorage.extractEnergy(energyCostPerTick, false)
+        if (energyStorage.energyStored < energyCostPerTick()) return
+        energyStorage.extractEnergy(energyCostPerTick(), false)
     }
 
     protected abstract fun hasRecipe(): Boolean

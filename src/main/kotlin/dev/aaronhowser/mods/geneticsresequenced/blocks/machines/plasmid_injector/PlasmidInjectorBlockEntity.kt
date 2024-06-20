@@ -31,7 +31,7 @@ class PlasmidInjectorBlockEntity(
 
     override val energyMaximum: Int = 60_000
     override val energyTransferMaximum: Int = 256
-    override val energyCostPerTick: Int = 32
+    override val baseEnergyCostPerTick: Int = 32
 
     override val amountOfItemSlots: Int = 3
     override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {

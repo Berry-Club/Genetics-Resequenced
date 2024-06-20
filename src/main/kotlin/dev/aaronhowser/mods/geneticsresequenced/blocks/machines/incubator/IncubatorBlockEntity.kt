@@ -102,7 +102,7 @@ class IncubatorBlockEntity(
 
     private val ticksRemainingNbtKey = "$machineName.ticksRemaining"
 
-    override val energyCostPerTick = 10
+    override val baseEnergyCostPerTick = 10
 
     override fun saveAdditional(pTag: CompoundTag) {
         pTag.putInt(ticksRemainingNbtKey, ticksRemaining)
@@ -128,7 +128,7 @@ class IncubatorBlockEntity(
             return
         }
 
-        energyStorage.extractEnergy(energyCostPerTick, false)
+        energyStorage.extractEnergy(energyCostPerTick(), false)
         ticksRemaining -= 1 + amountOfOverclockers
 
         if (ticksRemaining <= 0) {
@@ -162,7 +162,7 @@ class IncubatorBlockEntity(
     }
 
     override fun hasRecipe(): Boolean {
-        if (energyStorage.energyStored < energyCostPerTick) return false
+        if (hasEnoughEnergy()) return false
 
         val topSlotStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
         val bottleStacks =

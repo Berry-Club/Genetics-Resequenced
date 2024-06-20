@@ -129,7 +129,7 @@ class AdvancedIncubatorBlockEntity(
     private val isBrewing: Boolean
         get() = ticksRemaining > 0
 
-    override val energyCostPerTick = 10
+    override val baseEnergyCostPerTick = 10
 
     override fun saveAdditional(pTag: CompoundTag) {
         pTag.putInt(ticksRemainingNbtKey, ticksRemaining)
@@ -165,7 +165,7 @@ class AdvancedIncubatorBlockEntity(
         }
 
         if (isHighTemperature) {
-            energyStorage.extractEnergy(energyCostPerTick, false)
+            energyStorage.extractEnergy(energyCostPerTick(), false)
             ticksRemaining -= 1 + amountOfOverclockers
         } else {
             val amountOfOverclockers = amountOfOverclockers
@@ -174,7 +174,7 @@ class AdvancedIncubatorBlockEntity(
             val subticksOverMax = subticks - lowTempTickFactor
             if (subticksOverMax >= 0) {
                 subticks = subticksOverMax
-                energyStorage.extractEnergy(energyCostPerTick, false)
+                energyStorage.extractEnergy(energyCostPerTick(), false)
                 ticksRemaining -= 1
             }
         }
@@ -244,7 +244,7 @@ class AdvancedIncubatorBlockEntity(
     }
 
     override fun hasRecipe(): Boolean {
-        if (energyStorage.energyStored < energyCostPerTick) return false
+        if (hasEnoughEnergy()) return false
 
         val topSlotStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
         val bottleStacks =
