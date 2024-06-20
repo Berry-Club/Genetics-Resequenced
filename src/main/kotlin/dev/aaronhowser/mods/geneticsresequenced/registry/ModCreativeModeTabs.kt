@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.registries
+package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.core.registries.BuiltInRegistries
