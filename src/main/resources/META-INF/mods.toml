@@ -6,10 +6,10 @@ license='MIT'
 modId="geneticsresequenced"
 version="${file.jarVersion}"
 displayName="Genetics Resequenced"
-#credits="The ExampleMod dev team"
+logoFile="logo.png"
 authors="aaronhowser1"
 description='''
-Example mod that uses Kotlin for Forge.
+Extract mobs' Genes to gain their powers!
 '''
 [[dependencies.geneticsresequenced]]
     modId="forge"
