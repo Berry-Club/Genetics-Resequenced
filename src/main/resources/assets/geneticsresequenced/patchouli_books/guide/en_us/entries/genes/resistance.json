@@ -1,7 +1,7 @@
 {
   "name": "Resistance",
   "category": "geneticsresequenced:genes",
-  "icon": "minecraft:iron_chestplate",
+  "icon": "minecraft:textures/mob_effect/resistance.png",
   "pages": [
     {
       "type": "patchouli:text",

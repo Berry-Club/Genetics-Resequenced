@@ -1,7 +1,7 @@
 {
   "name": "Haste",
   "category": "geneticsresequenced:genes",
-  "icon": "minecraft:golden_pickaxe",
+  "icon": "minecraft:textures/mob_effect/haste.png",
   "pages": [
     {
       "type": "patchouli:text",

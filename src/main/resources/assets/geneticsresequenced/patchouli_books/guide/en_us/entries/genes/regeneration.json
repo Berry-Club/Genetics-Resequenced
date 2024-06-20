@@ -1,7 +1,7 @@
 {
   "name": "Regeneration",
   "category": "geneticsresequenced:genes",
-  "icon": "minecraft:golden_apple",
+  "icon": "minecraft:textures/mob_effect/regeneration.png",
   "pages": [
     {
       "type": "patchouli:text",

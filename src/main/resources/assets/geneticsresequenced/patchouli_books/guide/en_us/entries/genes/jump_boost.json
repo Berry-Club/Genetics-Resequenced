@@ -1,7 +1,7 @@
 {
   "name": "Jump Boost",
   "category": "geneticsresequenced:genes",
-  "icon": "minecraft:rabbit_foot",
+  "icon": "minecraft:textures/mob_effect/jump_boost.png",
   "pages": [
     {
       "type": "patchouli:text",

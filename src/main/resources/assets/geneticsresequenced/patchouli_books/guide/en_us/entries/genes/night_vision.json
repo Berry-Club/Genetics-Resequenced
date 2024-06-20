@@ -1,7 +1,7 @@
 {
   "name": "Night Vision",
   "category": "geneticsresequenced:genes",
-  "icon": "minecraft:golden_carrot",
+  "icon": "minecraft:textures/mob_effect/night_vision.png",
   "pages": [
     {
       "type": "patchouli:text",

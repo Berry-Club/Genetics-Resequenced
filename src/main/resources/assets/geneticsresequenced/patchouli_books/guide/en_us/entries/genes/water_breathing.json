@@ -1,7 +1,7 @@
 {
   "name": "Water Breathing",
   "category": "geneticsresequenced:genes",
-  "icon": "minecraft:water_bucket",
+  "icon": "minecraft:textures/mob_effect/water_breathing.png",
   "pages": [
     {
       "type": "patchouli:text",

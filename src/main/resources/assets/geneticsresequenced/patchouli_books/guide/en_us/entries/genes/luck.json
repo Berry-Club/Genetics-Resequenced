@@ -1,7 +1,7 @@
 {
   "name": "Luck",
   "category": "geneticsresequenced:genes",
-  "icon": "minecraft:rabbit_foot",
+  "icon": "minecraft:textures/mob_effect/luck.png",
   "pages": [
     {
       "type": "patchouli:text",

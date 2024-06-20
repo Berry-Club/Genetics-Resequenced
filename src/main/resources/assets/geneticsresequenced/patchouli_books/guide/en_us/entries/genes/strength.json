@@ -1,7 +1,7 @@
 {
   "name": "Strength",
   "category": "geneticsresequenced:genes",
-  "icon": "minecraft:iron_sword",
+  "icon": "minecraft:textures/mob_effect/strength.png",
   "pages": [
     {
       "type": "patchouli:text",

@@ -1,7 +1,7 @@
 {
   "name": "More Hearts",
   "category": "geneticsresequenced:genes",
-  "icon": "minecraft:stick",
+  "icon": "minecraft:enchanted_golden_apple",
   "pages": [
     {
       "type": "patchouli:text",
