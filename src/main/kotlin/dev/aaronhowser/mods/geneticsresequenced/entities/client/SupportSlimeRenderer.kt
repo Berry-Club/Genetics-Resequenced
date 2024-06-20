@@ -22,7 +22,6 @@ import net.minecraft.world.item.Items
 import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.api.distmarker.OnlyIn
 
-//TODO: What if it looks like your skin's head???
 @OnlyIn(Dist.CLIENT)
 class SupportSlimeRenderer(
     context: EntityRendererProvider.Context
