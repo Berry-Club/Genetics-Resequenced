@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced
+package dev.aaronhowser.mods.geneticsresequenced.items
 
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Registry

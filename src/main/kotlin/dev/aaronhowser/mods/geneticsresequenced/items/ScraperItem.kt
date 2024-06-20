@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.items
 
-import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModEnchantments
 import dev.aaronhowser.mods.geneticsresequenced.items.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
