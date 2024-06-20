@@ -154,7 +154,7 @@ object BrewingRecipes {
         allRecipes.addAll(geneFocusBrews)
 
         val mutationBrews = listOf(
-            GmoRecipe(EntityType.ENDER_DRAGON, Items.FEATHER, ModGenes.flight, 0.45f, isMutation = true),
+            GmoRecipe(EntityType.ENDER_DRAGON, Items.ELYTRA, ModGenes.flight, 0.55f, isMutation = true),
             GmoRecipe(EntityType.POLAR_BEAR, Items.NETHERITE_SWORD, ModGenes.strengthTwo, 0.5f, isMutation = true),
             GmoRecipe(EntityType.SHULKER, Items.NETHERITE_CHESTPLATE, ModGenes.resistanceTwo, 0.5f, isMutation = true),
             GmoRecipe(EntityType.POLAR_BEAR, Items.DIAMOND_SWORD, ModGenes.clawsTwo, 0.75f, isMutation = true),
