@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.genes.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.items.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapability.Companion.hasGene
@@ -8,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.blocks.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.configs.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.AntiFieldOrbItem
+import dev.aaronhowser.mods.geneticsresequenced.items.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.util.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -240,7 +240,7 @@ object TickGenes {
 
         val glowingEffect = MobEffectInstance(
             MobEffects.GLOWING,
-            ServerConfig.mobSightCooldown.get() * 4,
+            maxOf(ServerConfig.mobSightCooldown.get() * 4, 20 * 30),
             0,
             false,
             false
