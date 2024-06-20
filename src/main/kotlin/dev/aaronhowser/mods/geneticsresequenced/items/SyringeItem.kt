@@ -349,22 +349,50 @@ open class SyringeItem : Item(
 
         if (isContaminated(pStack)) {
             pTooltipComponents.add(
-                Component.translatable("tooltip.geneticsresequenced.syringe.contaminated")
+                Component
+                    .translatable("tooltip.geneticsresequenced.syringe.contaminated")
                     .withColor(ChatFormatting.DARK_GREEN)
             )
         }
 
-        for (gene in getGenes(pStack)) {
-            pTooltipComponents.add(gene.nameComponent)
+        val addingGenes = getGenes(pStack)
+        if (addingGenes.isNotEmpty()) {
+            pTooltipComponents.add(
+                Component
+                    .translatable("tooltip.geneticsresequenced.syringe.adding")
+                    .withColor(ChatFormatting.GRAY)
+            )
+
+            for (gene in addingGenes) {
+
+                val component = Component
+                    .literal("• ")
+                    .withStyle {
+                        it.withColor(gene.nameComponent.style.color)
+                    }.append(gene.nameComponent)
+
+                pTooltipComponents.add(component)
+            }
         }
 
-        for (antiGene in getAntiGenes(pStack)) {
+        val removingGenes = getAntiGenes(pStack)
+        if (removingGenes.isNotEmpty()) {
             pTooltipComponents.add(
-                Component.translatable(
-                    "tooltip.geneticsresequenced.syringe.removing",
-                    antiGene.nameComponent
-                )
+                Component
+                    .translatable("tooltip.geneticsresequenced.syringe.removing")
+                    .withColor(ChatFormatting.GRAY)
             )
+
+            for (gene in removingGenes) {
+
+                val component = Component
+                    .literal("• ")
+                    .withStyle {
+                        it.withColor(gene.nameComponent.style.color)
+                    }.append(gene.nameComponent)
+
+                pTooltipComponents.add(component)
+            }
         }
 
         super.appendHoverText(pStack, pLevel, pTooltipComponents, pIsAdvanced)
