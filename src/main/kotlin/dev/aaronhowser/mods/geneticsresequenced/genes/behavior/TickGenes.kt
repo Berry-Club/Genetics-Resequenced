@@ -119,6 +119,17 @@ object TickGenes {
         if (gene == ModGenes.blackDeath) {
             entity.hurt(virusDamageSource, entity.maxHealth * 1000)
             entity.kill()
+
+            // I have no idea if this is even necessary
+            if (entity.isAlive) {
+                entity.hurt(DamageSource.OUT_OF_WORLD, entity.maxHealth * 1000)
+                entity.hurt(DamageSource.MAGIC, entity.maxHealth * 1000)
+                entity.hurt(DamageSource.WITHER, entity.maxHealth * 1000)
+
+                if (entity.isAlive) {
+                    entity.remove(Entity.RemovalReason.KILLED)
+                }
+            }
         }
 
         val entityPredicate: (LivingEntity) -> Boolean = when (gene) {
