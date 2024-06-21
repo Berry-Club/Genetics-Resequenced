@@ -15,6 +15,7 @@ object ModDataComponents {
     val ENTITY_TYPE_COMPONENT = DATA_COMPONENT_REGISTRY.register("entity_type_component", Supplier {
         DataComponentType.builder<EntityTypeComponent>()
             .persistent(EntityTypeComponent.CODEC)
+            .networkSynchronized(EntityTypeComponent.STREAM_CODEC)
             .build()
     })
 

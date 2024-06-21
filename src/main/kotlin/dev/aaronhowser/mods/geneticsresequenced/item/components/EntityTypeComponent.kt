@@ -2,12 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.item.components
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import io.netty.buffer.ByteBuf
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
+import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 
 data class EntityTypeComponent(
@@ -16,18 +15,9 @@ data class EntityTypeComponent(
 
     companion object {
 
-        fun fromString(string: String): EntityTypeComponent {
-            val resourceLocation = ResourceLocation.tryParse(string)
-                ?: throw IllegalArgumentException("Invalid Resource Location: $string")
-
-            val entityType = OtherUtil.getEntityType(resourceLocation)
-
-            return EntityTypeComponent(entityType)
-        }
-
-        val STREAM_CODEC: StreamCodec<ByteBuf, EntityTypeComponent> = StreamCodec.composite(
-            ByteBufCodecs.STRING_UTF8, ::fromString,
-            EntityTypeComponent::entity
+        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, EntityTypeComponent> = StreamCodec.composite(
+            ByteBufCodecs.registry(Registries.ENTITY_TYPE.registryKey()), EntityTypeComponent::entity,
+            ::EntityTypeComponent
         )
 
         val CODEC: Codec<EntityTypeComponent> = RecordCodecBuilder.create { instance ->
