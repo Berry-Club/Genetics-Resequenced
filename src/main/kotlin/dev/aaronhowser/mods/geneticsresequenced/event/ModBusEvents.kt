@@ -1,10 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import net.minecraft.core.registries.Registries
-import net.minecraft.world.item.crafting.Recipe
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GenesCapabilityProvider
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.world.entity.LivingEntity
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
 import net.neoforged.neoforge.registries.DataPackRegistryEvent
 
 @EventBusSubscriber(
@@ -12,6 +14,18 @@ import net.neoforged.neoforge.registries.DataPackRegistryEvent
     bus = EventBusSubscriber.Bus.MOD
 )
 object ModBusEvents {
+
+    @SubscribeEvent
+    fun onRegisterCapabilities(event: RegisterCapabilitiesEvent) {
+
+        for (entityType in BuiltInRegistries.ENTITY_TYPE) {
+            event.registerEntity(
+                GenesCapabilityProvider.geneCapability,
+                entityType
+            ) { entity, _ -> entity }
+        }
+
+    }
 
     @SubscribeEvent
     fun registerDataPackRegistries(event: DataPackRegistryEvent.NewRegistry) {
