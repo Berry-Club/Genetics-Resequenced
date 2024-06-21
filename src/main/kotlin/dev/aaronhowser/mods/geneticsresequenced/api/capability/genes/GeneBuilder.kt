@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
-import com.mojang.serialization.Codec
+import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffect
 
@@ -48,7 +48,7 @@ class GeneBuilder(
     }
 
     fun setPotion(
-        effect: MobEffect,
+        effect: Holder<MobEffect>,
         level: Int,
         duration: Int = 300,
         showIcon: Boolean = false
@@ -58,13 +58,11 @@ class GeneBuilder(
     }
 
     data class PotionDetails(
-        val effect: MobEffect,
+        val effect: Holder<MobEffect>,
         val level: Int,
         val duration: Int,
         val showIcon: Boolean
-    ) {
-        val CODEC: Codec<PotionDetails> = Codec.unit(this)
-    }
+    )
 
     fun removePlasmid(): GeneBuilder {
         hidden = true
