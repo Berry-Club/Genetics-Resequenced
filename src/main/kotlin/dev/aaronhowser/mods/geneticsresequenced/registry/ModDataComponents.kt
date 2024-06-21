@@ -22,7 +22,7 @@ object ModDataComponents {
                 .build()
         })
 
-    val BOOLEAN_COMPONENT =
+    val BOOLEAN_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<BooleanComponent>> =
         DATA_COMPONENT_REGISTRY.register("boolean", Supplier {
             DataComponentType.builder<BooleanComponent>()
                 .persistent(BooleanComponent.CODEC)
