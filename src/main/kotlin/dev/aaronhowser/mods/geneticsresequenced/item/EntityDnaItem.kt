@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.core.component.DataComponents
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
@@ -11,12 +11,10 @@ class EntityDnaItem : Item(Properties()) {
 
     companion object {
 
-        fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(DataComponents)
+        fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.ENTITY_TYPE_COMPONENT)
 
         fun setMob(itemStack: ItemStack, entityType: EntityType<*>): Boolean {
-            val mobRL = OtherUtil.getEntityResourceLocation(entityType)
-
-            return setMob(itemStack, mobRL)
+            itemStack.set(ModDataComponents.ENTITY_TYPE_COMPONENT.get(), entityType)
         }
 
         fun setMob(itemStack: ItemStack, entityRL: ResourceLocation): Boolean {
