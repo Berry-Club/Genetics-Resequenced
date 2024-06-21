@@ -15,10 +15,10 @@ import net.minecraft.world.effect.MobEffectInstance
 import kotlin.properties.Delegates
 
 class Gene(
-    val id: ResourceLocation?
+    val id: ResourceLocation
 ) {
 
-    constructor() : this(null)
+    override fun equals(other: Any?) = other is Gene && other.id == id
 
     var isNegative: Boolean by Delegates.notNull()
     var isHidden: Boolean by Delegates.notNull()
@@ -69,30 +69,30 @@ class Gene(
 
         val unknownGeneComponent: MutableComponent = Component.translatable("gene.geneticsresequenced.unknown")
 
-        fun register(
-            id: ResourceLocation,
-            isNegative: Boolean,
-            canMobsHave: Boolean,
-            dnaPointsRequired: Int,
-            mutatesInto: Gene?,
-            potionDetails: Any?,
-            hidden: Boolean,
-        ): Gene {
-            val gene = Gene(id = id)
-
-            gene.setDetails(
-                isNegative = isNegative,
-                canMobsHave = canMobsHave,
-                dnaPointsRequired = dnaPointsRequired,
-                mutatesInto = mutatesInto,
-                potionDetails = potionDetails,
-                isHidden = hidden
-            )
-
-            GENE_REGISTRY.add(gene)
-
-            return gene
-        }
+//        fun register(
+//            id: ResourceLocation,
+//            isNegative: Boolean,
+//            canMobsHave: Boolean,
+//            dnaPointsRequired: Int,
+//            mutatesInto: Gene?,
+//            potionDetails: Any?,
+//            hidden: Boolean,
+//        ): Gene {
+//            val gene = Gene(id = id)
+//
+//            gene.setDetails(
+//                isNegative = isNegative,
+//                canMobsHave = canMobsHave,
+//                dnaPointsRequired = dnaPointsRequired,
+//                mutatesInto = mutatesInto,
+//                potionDetails = potionDetails,
+//                isHidden = hidden
+//            )
+//
+//            GENE_REGISTRY.add(gene)
+//
+//            return gene
+//        }
 
 //        fun checkDeactivationConfig() {
 //            val disabledGenes = ServerConfig.disabledGenes.get()
@@ -223,6 +223,16 @@ class Gene(
 //            false,
 //            potionDetails.showIcon
 //        )
+    }
+
+    override fun hashCode(): Int {
+        var result = id.hashCode()
+        result = 31 * result + (mutatesInto?.hashCode() ?: 0)
+        result = 31 * result + (potionDetails?.hashCode() ?: 0)
+        result = 31 * result + requiredGenes.hashCode()
+        result = 31 * result + translationKey.hashCode()
+        result = 31 * result + isActive.hashCode()
+        return result
     }
 
 //    fun canBeAdded(targetGenes: GenesCapability): Boolean {
