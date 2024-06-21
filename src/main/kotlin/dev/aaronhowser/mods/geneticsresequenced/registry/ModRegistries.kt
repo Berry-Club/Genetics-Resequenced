@@ -9,7 +9,8 @@ object ModRegistries {
         ModDataComponents.DATA_COMPONENT_REGISTRY,
         ModItems.ITEM_REGISTRY,
         ModBlocks.BLOCK_REGISTRY,
-        ModCreativeModeTabs.TABS_REGISTRY
+        ModCreativeModeTabs.TABS_REGISTRY,
+        ModAttachmentTypes.ATTACHMENT_TYPES
     )
 
     fun register(modBus: IEventBus) {
