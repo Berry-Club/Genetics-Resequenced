@@ -66,10 +66,6 @@ class Gene(
             return GENE_REGISTRY.find { it.id == searchedId }
         }
 
-        fun fromId(searchedId: String): Gene? {
-            return GENE_REGISTRY.find { it.id.toString() == searchedId }
-        }
-
         val unknownGeneComponent: MutableComponent = Component.translatable("gene.geneticsresequenced.unknown")
 
         fun register(
