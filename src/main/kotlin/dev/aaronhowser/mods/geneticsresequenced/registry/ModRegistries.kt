@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
-import dev.aaronhowser.mods.geneticsresequenced.block.ModBlocks
 import net.neoforged.bus.api.IEventBus
 import net.neoforged.neoforge.registries.DeferredRegister
 
