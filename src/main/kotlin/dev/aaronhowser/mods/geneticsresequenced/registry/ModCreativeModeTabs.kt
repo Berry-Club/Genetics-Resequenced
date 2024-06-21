@@ -17,9 +17,8 @@ object ModCreativeModeTabs {
     val TABS_REGISTRY: DeferredRegister<CreativeModeTab> =
         DeferredRegister.create(BuiltInRegistries.CREATIVE_MODE_TAB, GeneticsResequenced.ID)
 
-    //TODO: This sucks?? Can it be better??
     val MOD_TAB: DeferredHolder<CreativeModeTab, CreativeModeTab> = TABS_REGISTRY.register("example", Supplier {
-        CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 0)
+        CreativeModeTab.builder()
             .title(Component.literal("itemGroup.geneticsresequenced"))
             .icon { ItemStack(Items.STICK) }
             .displayItems { _: CreativeModeTab.ItemDisplayParameters, output: CreativeModeTab.Output ->
