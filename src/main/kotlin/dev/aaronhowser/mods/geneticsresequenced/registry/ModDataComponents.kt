@@ -14,7 +14,7 @@ object ModDataComponents {
         DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, GeneticsResequenced.ID)
 
     val ENTITY_TYPE_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<EntityTypeComponent>> =
-        DATA_COMPONENT_REGISTRY.register("entity_type_component", Supplier {
+        DATA_COMPONENT_REGISTRY.register("entity_type", Supplier {
             DataComponentType.builder<EntityTypeComponent>()
                 .persistent(EntityTypeComponent.CODEC)
                 .networkSynchronized(EntityTypeComponent.STREAM_CODEC)
