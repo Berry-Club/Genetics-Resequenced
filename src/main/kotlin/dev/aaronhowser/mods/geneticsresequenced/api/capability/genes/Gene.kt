@@ -15,8 +15,10 @@ import net.minecraft.world.effect.MobEffectInstance
 import kotlin.properties.Delegates
 
 class Gene(
-    val id: ResourceLocation
+    val id: ResourceLocation?
 ) {
+
+    constructor() : this(null)
 
     var isNegative: Boolean by Delegates.notNull()
     var isHidden: Boolean by Delegates.notNull()

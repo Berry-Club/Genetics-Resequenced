@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
+import com.mojang.serialization.Codec
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffect
 
@@ -61,7 +62,9 @@ class GeneBuilder(
         val level: Int,
         val duration: Int,
         val showIcon: Boolean
-    )
+    ) {
+        val CODEC: Codec<PotionDetails> = Codec.unit(this)
+    }
 
     fun removePlasmid(): GeneBuilder {
         hidden = true
