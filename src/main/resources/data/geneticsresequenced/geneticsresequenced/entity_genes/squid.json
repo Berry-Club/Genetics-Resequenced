@@ -1,0 +1,7 @@
+{
+  "entity": "minecraft:squid",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:water_breathing": 2
+  }
+}

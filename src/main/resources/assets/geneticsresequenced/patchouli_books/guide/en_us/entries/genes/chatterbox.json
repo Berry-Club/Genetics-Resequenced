@@ -1,0 +1,11 @@
+{
+  "name": "Chatterbox",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:note_block",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Chatterbox/$ Gene causes your chat messages to be $(minor)read by the game's narrator/$.$(br2)This only applies to players within 64 blocks of you, and can be disabled in the client config.$(br2)This Gene $(bad)cannot be given to mobs/$."
+    }
+  ]
+}

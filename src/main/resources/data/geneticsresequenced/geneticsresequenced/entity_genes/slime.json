@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:slime",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:no_fall_damage": 4,
+    "geneticsresequenced:slimy_death": 2
+  }
+}

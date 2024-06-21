@@ -1,0 +1,11 @@
+{
+  "name": "Wooly",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:white_wool",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Wooly/$ Gene allows the entity to be $(minor)sheared for Wool/$. If a player has it, they can $(minor)shear themselves/$ by sneak right-clicking with Shears.$(br2)This has a configurable cooldown, with the default being 1 minute.$(br2)This Gene $(minor)can be given to mobs/$."
+    }
+  ]
+}

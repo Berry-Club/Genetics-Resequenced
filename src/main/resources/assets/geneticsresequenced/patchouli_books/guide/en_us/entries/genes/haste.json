@@ -1,0 +1,11 @@
+{
+  "name": "Haste",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:textures/mob_effect/haste.png",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Haste/$ Gene gives entities the $(minor)Haste effect/$.$(br2)Can be mutated into Haste 2.$(br2)This Gene $(bad)cannot be given to mobs/$."
+    }
+  ]
+}

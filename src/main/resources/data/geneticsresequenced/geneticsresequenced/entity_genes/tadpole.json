@@ -1,0 +1,7 @@
+{
+  "entity": "minecraft:tadpole",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:water_breathing": 4
+  }
+}

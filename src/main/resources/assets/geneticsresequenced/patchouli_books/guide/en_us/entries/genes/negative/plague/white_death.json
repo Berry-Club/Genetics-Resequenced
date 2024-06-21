@@ -1,0 +1,11 @@
+{
+  "name": "White Death",
+  "category": "geneticsresequenced:genes/plague",
+  "icon": "minecraft:shield",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)White Death/$ Gene $(bad)kills all Monsters/$."
+    }
+  ]
+}

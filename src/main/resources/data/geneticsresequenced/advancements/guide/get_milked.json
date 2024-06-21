@@ -1,0 +1,27 @@
+{
+  "parent": "geneticsresequenced:guide/get_gene",
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "requirements": [
+    [
+      "impossible"
+    ]
+  ],
+  "display": {
+    "title": {
+      "translate": "advancement.geneticsresequenced.get_milked.title"
+    },
+    "description": {
+      "translate": "advancement.geneticsresequenced.get_milked.desc"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:milk_bucket"
+    }
+  },
+  "sends_telemetry_event": true
+}

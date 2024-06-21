@@ -1,0 +1,16 @@
+{
+  "name": "What are Genes?",
+  "category": "geneticsresequenced:intro",
+  "icon": "geneticsresequenced:dna_helix",
+  "sortnum": 0,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(major)Genes/$ can be taken from mobs to $(minor)harness their abilities/$.$(br2)For example, Sheep have the $(l:geneticsresequenced:genes/wooly)Wooly/$ Gene. If you inject this into yourself, you will be able to be sheared for wool!$(br2)To see a full list of Genes, $(l:geneticsresequenced:genes)see here/$."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Each Gene page in the book will say what the Gene does, and how to obtain it.$(br2)Some Genes can even be given to mobs!"
+    }
+  ]
+}

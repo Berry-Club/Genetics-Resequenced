@@ -1,0 +1,36 @@
+{
+  "criteria": {
+    "scraper": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "geneticsresequenced:scraper"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "scraper"
+    ]
+  ],
+  "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
+    "title": {
+      "translate": "itemGroup.geneticsresequenced"
+    },
+    "description": {
+      "translate": "advancement.geneticsresequenced.scraper.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "geneticsresequenced:scraper"
+    }
+  },
+  "sends_telemetry_event": true
+}

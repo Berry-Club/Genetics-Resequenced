@@ -1,0 +1,8 @@
+{
+  "gene": "geneticsresequenced:flight",
+  "requiresGenes": [
+    "geneticsresequenced:teleport",
+    "geneticsresequenced:jump_boost",
+    "geneticsresequenced:no_fall_damage"
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Poison Immunity",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:fermented_spider_eye",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Poison Immunity/$ Gene makes entities $(minor)immune to Poison/$.$(br2)This Gene $(minor)can be given to mobs/$."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Efficiency",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:golden_pickaxe",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Efficiency/$ Gene $(minor)makes players mine faster/$. This stacks with enchantments and Haste.$(br2)Can be mutated into Efficiency 4.$(br2)This Gene $(bad)cannot be given to mobs/$."
+    }
+  ]
+}

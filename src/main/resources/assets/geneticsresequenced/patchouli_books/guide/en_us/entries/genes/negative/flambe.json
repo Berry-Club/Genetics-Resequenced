@@ -1,0 +1,11 @@
+{
+  "name": "Flambé",
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:blaze_powder",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Flambé/$ Gene gives $(bad)constantly lights entities on fire/$.$(br2)This Gene $(minor)can be given to mobs/$."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Nausea",
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:textures/mob_effect/nausea.png",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Nausea/$ Gene gives entities the $(bad)Nausea/$ effect.$(br2)This Gene $(bad)cannot be given to mobs/$."
+    }
+  ]
+}

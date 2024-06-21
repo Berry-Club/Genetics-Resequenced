@@ -1,0 +1,11 @@
+{
+  "name": "Green Death",
+  "category": "geneticsresequenced:genes/plague",
+  "icon": "minecraft:creeper_head",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Green Death/$ Gene $(bad)kills Creepers/$."
+    }
+  ]
+}

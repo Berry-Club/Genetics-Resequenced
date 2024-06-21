@@ -1,0 +1,11 @@
+{
+  "name": "Bad Omen",
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:textures/mob_effect/bad_omen.png",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Bad Omen/$ Gene gives entities the $(bad)Bad Omen/$ effect.$(br2)This Gene $(minor)can be given to mobs/$."
+    }
+  ]
+}

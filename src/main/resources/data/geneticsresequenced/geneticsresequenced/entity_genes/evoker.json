@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:evoker",
+  "genes": {
+    "geneticsresequenced:basic": 4,
+    "geneticsresequenced:emerald_heart": 3,
+    "geneticsresequenced:bad_omen": 4
+  }
+}

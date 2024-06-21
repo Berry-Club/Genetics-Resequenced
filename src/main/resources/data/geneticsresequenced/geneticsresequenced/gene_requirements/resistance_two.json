@@ -1,0 +1,6 @@
+{
+  "gene": "geneticsresequenced:resistance_2",
+  "requiresGenes": [
+    "geneticsresequenced:resistance"
+  ]
+}

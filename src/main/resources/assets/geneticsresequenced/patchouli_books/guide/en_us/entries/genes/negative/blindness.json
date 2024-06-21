@@ -1,0 +1,11 @@
+{
+  "name": "Blindness",
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:textures/mob_effect/blindness.png",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Blindness/$ Gene gives entities the $(bad)Blindness/$ effect.$(br2)This Gene $(minor)can be given to mobs/$."
+    }
+  ]
+}

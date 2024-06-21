@@ -1,0 +1,6 @@
+{
+  "gene": "geneticsresequenced:scare_spiders",
+  "requiresGenes": [
+    "geneticsresequenced:scare_skeletons"
+  ]
+}

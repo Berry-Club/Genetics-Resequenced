@@ -1,0 +1,11 @@
+{
+  "name": "Keep Inventory",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:skeleton_skull",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Keep Inventory/$ Gene causes players to $(minor)keep their inventory upon death/$.$(br2)This Gene $(bad)cannot be given to mobs/$."
+    }
+  ]
+}

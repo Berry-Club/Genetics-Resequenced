@@ -1,0 +1,11 @@
+{
+  "name": "Bioluminescence",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:glowstone",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Bioluminescence/$ Gene causes entities to $(minor)spawn light sources/$ when in the dark.$(br2)This Gene $(minor)can be given to mobs/$."
+    }
+  ]
+}

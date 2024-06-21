@@ -1,0 +1,14 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "geneticsresequenced:item/metal_syringe_empty"
+  },
+  "overrides": [
+    {
+      "predicate": {
+        "geneticsresequenced:full": 1
+      },
+      "model": "geneticsresequenced:item/metal_syringe_full"
+    }
+  ]
+}

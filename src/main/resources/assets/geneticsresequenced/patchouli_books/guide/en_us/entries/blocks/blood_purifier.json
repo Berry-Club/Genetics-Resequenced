@@ -1,0 +1,14 @@
+{
+  "name": "Blood Purifier",
+  "category": "geneticsresequenced:blocks",
+  "icon": "geneticsresequenced:blood_purifier",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:plasmid_injector",
+      "link_recipe": true,
+      "text": "The Blood Purifier uses FE to decontaminate $(l:geneticsresequenced:items/syringe)Syringes/$."
+    }
+  ]
+}

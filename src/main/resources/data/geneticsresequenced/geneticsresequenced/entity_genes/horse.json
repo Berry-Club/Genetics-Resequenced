@@ -1,0 +1,9 @@
+{
+  "entity": "minecraft:horse",
+  "genes": {
+    "geneticsresequenced:basic": 7,
+    "geneticsresequenced:jump_boost": 3,
+    "geneticsresequenced:step_assist": 3,
+    "geneticsresequenced:speed": 3
+  }
+}

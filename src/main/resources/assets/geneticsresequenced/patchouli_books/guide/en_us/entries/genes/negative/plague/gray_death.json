@@ -1,0 +1,11 @@
+{
+  "name": "Gray Death",
+  "category": "geneticsresequenced:genes/plague",
+  "icon": "minecraft:poisonous_potato",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Gray Death/$ Gene $(bad)kills any mob that can age/$."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "name": "Speed",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:textures/mob_effect/speed.png",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Speed/$ Gene gives entities the $(minor)Speed effect/$.$(br2)This Gene can be $(minor)mutated into Speed 2/$ and $(minor)Speed 4/$.$(br2)This Gene $(minor)can be given to mobs/$."
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Plasmid Injector",
+  "category": "geneticsresequenced:blocks",
+  "icon": "geneticsresequenced:plasmid_injector",
+  "sortnum": 6,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Plasmid Injector/$ uses FE to inject completed $(l:geneticsresequenced:items/plasmid)Plasmids/$ into a $(l:geneticsresequenced:items/syringe)Syringe/$.$(br2)You can inject as many Plasmids into a single Syringe as you want."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:plasmid_injector",
+      "link_recipe": true,
+      "text": "The Syringe must be full of uncontaminated blood.$(br2)Decontaminate blood in the $(l:geneticsresequenced:blocks/blood_purifier)Blood Purifier/$."
+    }
+  ]
+}

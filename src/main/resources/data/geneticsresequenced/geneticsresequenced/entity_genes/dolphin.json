@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:dolphin",
+  "genes": {
+    "geneticsresequenced:basic": 7,
+    "geneticsresequenced:speed": 2,
+    "geneticsresequenced:jump_boost": 2
+  }
+}

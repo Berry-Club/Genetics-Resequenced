@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:chicken",
+  "genes": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:no_fall_damage": 1,
+    "geneticsresequenced:lay_egg": 4
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "entity": "minecraft:cave_spider",
+  "genes": {
+    "geneticsresequenced:basic": 7,
+    "geneticsresequenced:night_vision": 5,
+    "geneticsresequenced:wall_climbing": 2,
+    "geneticsresequenced:poison_immunity": 1
+  }
+}

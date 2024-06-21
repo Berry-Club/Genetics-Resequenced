@@ -1,0 +1,13 @@
+{
+  "__comment": "Items that count as Shears for the Wooly and Meaty Genes",
+  "values": [
+    {
+      "id": "#forge:shears",
+      "required": false
+    },
+    {
+      "id": "minecraft:shears",
+      "required": true
+    }
+  ]
+}

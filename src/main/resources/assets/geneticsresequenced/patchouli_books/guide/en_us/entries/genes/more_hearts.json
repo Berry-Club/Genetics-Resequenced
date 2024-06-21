@@ -1,0 +1,11 @@
+{
+  "name": "More Hearts",
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:enchanted_golden_apple",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)More Hearts/$ Gene gives entities $(minor)10 extra hearts/$. If the Gene is mutated, they instead get $(minor)20/$.$(br2)This Gene $(minor)can be given to mobs/$."
+    }
+  ]
+}
