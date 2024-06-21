@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced
 
+import dev.aaronhowser.mods.geneticsresequenced.registry.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRegistries
 import net.neoforged.fml.common.Mod
 import org.apache.logging.log4j.LogManager
@@ -22,5 +23,7 @@ object GeneticsResequenced {
 
     init {
         ModRegistries.register(MOD_BUS)
+
+        GeneRegistry.register()
     }
 }

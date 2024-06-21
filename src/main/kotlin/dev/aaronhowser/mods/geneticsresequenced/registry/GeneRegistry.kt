@@ -13,6 +13,7 @@ object GeneRegistry {
 //        .sync(true)
 //        .create()
 
+    fun register() {}
 
     val testGene = GeneBuilder(OtherUtil.modResource("test_gene"))
         .build()
