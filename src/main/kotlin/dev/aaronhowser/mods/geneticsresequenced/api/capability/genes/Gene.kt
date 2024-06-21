@@ -9,17 +9,34 @@ import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffectInstance
+import kotlin.properties.Delegates
 
 class Gene(
-    val id: ResourceLocation,
-    val isNegative: Boolean,
-    val canMobsHave: Boolean,
-    val dnaPointsRequired: Int,
-    val mutatesInto: Gene?,
-    private val potionDetails: Any? = null
+    val id: ResourceLocation
 ) {
 
-    var isHidden: Boolean = false
+    var isNegative: Boolean by Delegates.notNull()
+    var isHidden: Boolean by Delegates.notNull()
+    var canMobsHave: Boolean by Delegates.notNull()
+    var dnaPointsRequired: Int by Delegates.notNull()
+    var mutatesInto: Gene? = null
+    private var potionDetails: Any? = null
+
+    fun setDetails(
+        isNegative: Boolean,
+        canMobsHave: Boolean,
+        dnaPointsRequired: Int,
+        mutatesInto: Gene?,
+        potionDetails: Any?,
+        isHidden: Boolean
+    ) {
+        this.isNegative = isNegative
+        this.canMobsHave = canMobsHave
+        this.dnaPointsRequired = dnaPointsRequired
+        this.mutatesInto = mutatesInto
+        this.potionDetails = potionDetails
+        this.isHidden = isHidden
+    }
 
     override fun toString(): String = "Gene($id)"
 
@@ -64,18 +81,18 @@ class Gene(
             potionDetails: Any?,
             hidden: Boolean,
         ): Gene {
-            val gene = Gene(
-                id = id,
+            val gene = Gene(id = id)
+
+            gene.setDetails(
                 isNegative = isNegative,
                 canMobsHave = canMobsHave,
                 dnaPointsRequired = dnaPointsRequired,
                 mutatesInto = mutatesInto,
-                potionDetails = potionDetails
+                potionDetails = potionDetails,
+                isHidden = hidden
             )
 
             GENE_REGISTRY.add(gene)
-
-            gene.isHidden = hidden
 
             return gene
         }
@@ -196,11 +213,11 @@ class Gene(
 //        )
     }
 
-    fun canBeAdded(targetGenes: GenesCapability): Boolean {
-        if (targetGenes.hasGene(this)) return false
-        if (!isMutation) return true
-
-        return requiredGenes.all { targetGenes.hasGene(it) }
-    }
+//    fun canBeAdded(targetGenes: GenesCapability): Boolean {
+//        if (targetGenes.hasGene(this)) return false
+//        if (!isMutation) return true
+//
+//        return requiredGenes.all { targetGenes.hasGene(it) }
+//    }
 
 }
