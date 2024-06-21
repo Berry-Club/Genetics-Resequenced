@@ -8,12 +8,16 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.neoforged.neoforge.registries.DeferredItem
 import java.util.*
 
 object OtherUtil {
 
     fun modResource(path: String): ResourceLocation =
         ResourceLocation.fromNamespaceAndPath(GeneticsResequenced.ID, path)
+
+    val DeferredItem<*>.itemStack: ItemStack
+        get() = this.get().itemStack
 
     val Item.itemStack: ItemStack
         get() = this.defaultInstance
