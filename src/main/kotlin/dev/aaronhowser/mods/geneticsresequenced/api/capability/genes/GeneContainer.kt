@@ -6,7 +6,6 @@ import com.mojang.serialization.Codec
 data class GeneContainer(
     val genes: Set<Gene>
 ) {
-
     constructor() : this(HashSet())
 
     companion object {
@@ -24,5 +23,4 @@ data class GeneContainer(
             })
 
     }
-
 }

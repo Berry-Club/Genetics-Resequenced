@@ -17,25 +17,35 @@ object OtherEntityEvents {
     fun onSpawn(event: EntityJoinLevelEvent) {
         val entity = event.entity
 
+        fun log(string: String) {
+            if (!entity.level().isClientSide) println(string)
+        }
+
         val geneContainer = ModAttachmentTypes.GENE_CONTAINER.get()
 
-        println("Entity joined level: ${entity.type}")
+        log("Entity joined level: ${entity.type}")
 
         val hasData = entity.hasData(geneContainer)
 
-        println("Entity has data: $hasData")
+        log("Entity has data: $hasData")
 
         val data = entity.getData(geneContainer)
 
-        println("Entity data: $data")
+        if (data.genes.contains(GeneRegistry.testGene)) {
+            log("Already had test gene!")
+            log("Entity data: $data")
+            return
+        }
 
-        val testGene = GeneRegistry.testGene
+        log("Entity did not have test gene!")
+        log("Entity data: $data")
+
         val newGenes = data.genes + GeneRegistry.testGene
         val newContainer = GeneContainer(newGenes)
 
         entity.setData(geneContainer, newContainer)
 
-        println("Entity data after: ${entity.getData(geneContainer)}")
+        log("Entity data after: ${entity.getData(geneContainer)}")
     }
 
 }

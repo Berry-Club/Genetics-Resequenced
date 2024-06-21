@@ -14,8 +14,6 @@ object GeneRegistry {
 //        .create()
 
 
-    fun registerGenes() {}
-
     val testGene = GeneBuilder(OtherUtil.modResource("test_gene"))
         .build()
     val another = GeneBuilder(OtherUtil.modResource("another"))
