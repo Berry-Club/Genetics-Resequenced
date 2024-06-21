@@ -18,6 +18,7 @@ object ModAttachmentTypes {
             AttachmentType
                 .builder(Supplier { GeneContainer() })
                 .serialize(GeneContainer.CODEC)
+                .copyOnDeath()
                 .build()
         })
 

@@ -69,30 +69,30 @@ class Gene(
 
         val unknownGeneComponent: MutableComponent = Component.translatable("gene.geneticsresequenced.unknown")
 
-//        fun register(
-//            id: ResourceLocation,
-//            isNegative: Boolean,
-//            canMobsHave: Boolean,
-//            dnaPointsRequired: Int,
-//            mutatesInto: Gene?,
-//            potionDetails: Any?,
-//            hidden: Boolean,
-//        ): Gene {
-//            val gene = Gene(id = id)
-//
-//            gene.setDetails(
-//                isNegative = isNegative,
-//                canMobsHave = canMobsHave,
-//                dnaPointsRequired = dnaPointsRequired,
-//                mutatesInto = mutatesInto,
-//                potionDetails = potionDetails,
-//                isHidden = hidden
-//            )
-//
-//            GENE_REGISTRY.add(gene)
-//
-//            return gene
-//        }
+        fun register(
+            id: ResourceLocation,
+            isNegative: Boolean,
+            canMobsHave: Boolean,
+            dnaPointsRequired: Int,
+            mutatesInto: Gene?,
+            potionDetails: Any?,
+            hidden: Boolean,
+        ): Gene {
+            val gene = Gene(id = id)
+
+            gene.setDetails(
+                isNegative = isNegative,
+                canMobsHave = canMobsHave,
+                dnaPointsRequired = dnaPointsRequired,
+                mutatesInto = mutatesInto,
+                potionDetails = potionDetails,
+                isHidden = hidden
+            )
+
+            GENE_REGISTRY.add(gene)
+
+            return gene
+        }
 
 //        fun checkDeactivationConfig() {
 //            val disabledGenes = ServerConfig.disabledGenes.get()

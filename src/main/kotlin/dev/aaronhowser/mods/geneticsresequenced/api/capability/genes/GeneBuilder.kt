@@ -15,17 +15,17 @@ class GeneBuilder(
     private var mutatesInto: Gene? = null
     private var potionDetails: PotionDetails? = null
 
-//    fun build(): Gene {
-//        return Gene.register(
-//            id = id,
-//            isNegative = isNegative,
-//            canMobsHave = canMobsHave,
-//            dnaPointsRequired = dnaPointsRequired,
-//            mutatesInto = mutatesInto,
-//            potionDetails = potionDetails,
-//            hidden = hidden
-//        )
-//    }
+    fun build(): Gene {
+        return Gene.register(
+            id = id,
+            isNegative = isNegative,
+            canMobsHave = canMobsHave,
+            dnaPointsRequired = dnaPointsRequired,
+            mutatesInto = mutatesInto,
+            potionDetails = potionDetails,
+            hidden = hidden
+        )
+    }
 
     fun setNegative(): GeneBuilder {
         this.isNegative = true
