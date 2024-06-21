@@ -20,15 +20,12 @@ object ModCreativeModeTabs {
     //TODO: This sucks?? Can it be better??
     val MOD_TAB: DeferredHolder<CreativeModeTab, CreativeModeTab> = TABS_REGISTRY.register("example", Supplier {
         CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 0)
-            .title(Component.literal("Test"))
+            .title(Component.literal("itemGroup.geneticsresequenced"))
             .icon { ItemStack(Items.STICK) }
             .displayItems { _: CreativeModeTab.ItemDisplayParameters, output: CreativeModeTab.Output ->
 
                 for (item: DeferredHolder<Item, out Item> in ModItems.ITEM_REGISTRY.entries) {
                     output.accept(item.get())
-                }
-                for (block: DeferredHolder<Block, out Block> in ModBlocks.BLOCK_REGISTRY.entries) {
-//                    output.accept(block.get().asItem())
                 }
 
             }
