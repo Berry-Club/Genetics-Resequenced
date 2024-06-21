@@ -3,16 +3,7 @@
   "description": {
     "translate": "enchantment.geneticsresequenced.delicate_touch"
   },
-  "effects": {
-    "minecraft:block_experience": [
-      {
-        "effect": {
-          "type": "minecraft:set",
-          "value": 0.0
-        }
-      }
-    ]
-  },
+  "effects": {},
   "exclusive_set": "",
   "min_cost": {
     "base": 5,
