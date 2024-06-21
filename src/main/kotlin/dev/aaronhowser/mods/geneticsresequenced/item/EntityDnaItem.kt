@@ -1,7 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
@@ -70,6 +72,20 @@ class EntityDnaItem : Item(Properties()) {
             pTooltipComponents.add(component)
         }
 
+        try {
+            if (ClientUtil.playerIsCreative()) {
+                val component =
+                    Component
+                        .translatable("tooltip.geneticsresequenced.dna_item.creative")
+                        .withColor(ChatFormatting.GRAY)
+
+                pTooltipComponents.add(component)
+            }
+        } catch (e: Exception) {
+            GeneticsResequenced.LOGGER.error("EntityDnaItem isCreative check failed", e)
+        }
+
+        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag)
     }
 
 }

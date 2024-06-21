@@ -10,6 +10,8 @@ object ClientUtil {
     val localPlayer: LocalPlayer?
         get() = Minecraft.getInstance().player
 
+    fun playerIsCreative(): Boolean = localPlayer?.isCreative == true
+
     private val options: Options = Minecraft.getInstance().options
 
     private var removedSkinLayers: Set<PlayerModelPart> = emptySet()
