@@ -7,6 +7,7 @@ import net.minecraft.world.item.CreativeModeTab
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
+import net.minecraft.world.level.block.Block
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 import java.util.function.Supplier
@@ -17,7 +18,7 @@ object ModCreativeModeTabs {
         DeferredRegister.create(BuiltInRegistries.CREATIVE_MODE_TAB, GeneticsResequenced.ID)
 
     //TODO: This sucks?? Can it be better??
-    val MOD_TAB = TABS_REGISTRY.register("example", Supplier {
+    val MOD_TAB: DeferredHolder<CreativeModeTab, CreativeModeTab> = TABS_REGISTRY.register("example", Supplier {
         CreativeModeTab.Builder(CreativeModeTab.Row.TOP, 0)
             .title(Component.literal("Test"))
             .icon { ItemStack(Items.STICK) }
@@ -25,6 +26,9 @@ object ModCreativeModeTabs {
 
                 for (item: DeferredHolder<Item, out Item> in ModItems.ITEM_REGISTRY.entries) {
                     output.accept(item.get())
+                }
+                for (block: DeferredHolder<Block, out Block> in ModBlocks.BLOCK_REGISTRY.entries) {
+//                    output.accept(block.get().asItem())
                 }
 
             }
