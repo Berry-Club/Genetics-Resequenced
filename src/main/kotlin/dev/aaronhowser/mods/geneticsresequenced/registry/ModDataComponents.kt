@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeComponent
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.registries.Registries
@@ -18,6 +19,14 @@ object ModDataComponents {
             DataComponentType.builder<EntityTypeComponent>()
                 .persistent(EntityTypeComponent.CODEC)
                 .networkSynchronized(EntityTypeComponent.STREAM_CODEC)
+                .build()
+        })
+
+    val BOOLEAN_COMPONENT =
+        DATA_COMPONENT_REGISTRY.register("boolean", Supplier {
+            DataComponentType.builder<BooleanComponent>()
+                .persistent(BooleanComponent.CODEC)
+                .networkSynchronized(BooleanComponent.STREAM_CODEC)
                 .build()
         })
 

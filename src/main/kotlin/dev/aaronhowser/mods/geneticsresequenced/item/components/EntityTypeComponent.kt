@@ -15,16 +15,16 @@ data class EntityTypeComponent(
 
     companion object {
 
-        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, EntityTypeComponent> = StreamCodec.composite(
-            ByteBufCodecs.registry(Registries.ENTITY_TYPE), EntityTypeComponent::entity,
-            ::EntityTypeComponent
-        )
-
         val CODEC: Codec<EntityTypeComponent> = RecordCodecBuilder.create { instance ->
             instance.group(
                 BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("entity").forGetter(EntityTypeComponent::entity)
             ).apply(instance, ::EntityTypeComponent)
         }
+
+        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, EntityTypeComponent> = StreamCodec.composite(
+            ByteBufCodecs.registry(Registries.ENTITY_TYPE), EntityTypeComponent::entity,
+            ::EntityTypeComponent
+        )
 
     }
 

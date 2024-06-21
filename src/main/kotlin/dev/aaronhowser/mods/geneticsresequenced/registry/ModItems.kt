@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.item.AntiFieldOrbItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.ScraperItem
 import net.minecraft.world.item.Item
@@ -32,7 +33,7 @@ object ModItems {
     val OVERCLOCKER: DeferredItem<Item> =
         ITEM_REGISTRY.registerSimpleItem("overclocker")
     val ANTI_FIELD_ORB: DeferredItem<Item> =
-        ITEM_REGISTRY.registerSimpleItem("anti_field_orb")
+        ITEM_REGISTRY.registerItem("anti_field_orb") { AntiFieldOrbItem() }
     val DRAGON_HEALTH_CRYSTAL: DeferredItem<Item> =
         ITEM_REGISTRY.registerSimpleItem("dragon_health_crystal")
     val FRIENDLY_SLIME_SPAWN_EGG: DeferredItem<Item> =
