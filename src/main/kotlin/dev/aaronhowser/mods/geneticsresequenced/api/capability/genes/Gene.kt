@@ -25,14 +25,14 @@ class Gene(
     private var canMobsHave: Boolean by Delegates.notNull()
     private var dnaPointsRequired: Int by Delegates.notNull()
     private var mutatesInto: Gene? = null
-    private var potionDetails: Any? = null
+    private var potionDetails: GeneBuilder.PotionDetails? = null
 
     fun setDetails(
         isNegative: Boolean,
         canMobsHave: Boolean,
         dnaPointsRequired: Int,
         mutatesInto: Gene?,
-        potionDetails: Any?,
+        potionDetails: GeneBuilder.PotionDetails?,
         isHidden: Boolean
     ) {
         this.isNegative = isNegative
@@ -75,7 +75,7 @@ class Gene(
             canMobsHave: Boolean,
             dnaPointsRequired: Int,
             mutatesInto: Gene?,
-            potionDetails: Any?,
+            potionDetails: GeneBuilder.PotionDetails?,
             hidden: Boolean,
         ): Gene {
             val gene = Gene(id = id)
@@ -212,17 +212,16 @@ class Gene(
     }
 
     fun getPotion(): MobEffectInstance? {
-        if (potionDetails == null) return null
+        val potionDetails = potionDetails ?: return null
 
-        return null
-//        return MobEffectInstance(
-//            potionDetails.effect,
-//            potionDetails.duration,
-//            potionDetails.level - 1,
-//            true,
-//            false,
-//            potionDetails.showIcon
-//        )
+        return MobEffectInstance(
+            potionDetails.effect,
+            potionDetails.duration,
+            potionDetails.level - 1,
+            true,
+            false,
+            potionDetails.showIcon
+        )
     }
 
     override fun hashCode(): Int {
