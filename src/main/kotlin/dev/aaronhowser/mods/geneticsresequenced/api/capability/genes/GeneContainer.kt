@@ -1,6 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
 import com.mojang.serialization.Codec
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
+import net.minecraft.world.entity.LivingEntity
+import net.neoforged.neoforge.attachment.AttachmentType
 
 
 data class GeneContainer(
@@ -21,6 +24,19 @@ data class GeneContainer(
                     genes.genes
                 )
             })
+
+        val attachment: AttachmentType<GeneContainer> by lazy { ModAttachmentTypes.GENE_CONTAINER.get() }
+
+        var LivingEntity.genes: Set<Gene>
+            get() = this.getData(attachment).genes
+            set(value) {
+                this.setData(attachment, GeneContainer(value))
+            }
+
+        fun LivingEntity.addGenes(vararg newGenes: Gene) {
+            this.genes += newGenes
+        }
+
 
     }
 }
