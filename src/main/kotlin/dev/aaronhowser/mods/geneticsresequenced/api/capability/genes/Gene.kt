@@ -1,6 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
+import com.mojang.datafixers.util.Pair
 import com.mojang.serialization.Codec
+import com.mojang.serialization.DataResult
+import com.mojang.serialization.DynamicOps
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.ClickEvent
@@ -62,10 +65,6 @@ class Gene(
             return positiveGenes + mutations + negativeGenes
         }
 
-        fun fromId(searchedId: ResourceLocation): Gene? {
-            return GENE_REGISTRY.find { it.id == searchedId }
-        }
-
         val unknownGeneComponent: MutableComponent = Component.translatable("gene.geneticsresequenced.unknown")
 
         fun register(
@@ -116,6 +115,21 @@ class Gene(
 //        private val requiredGenes = setOf(
 //            ModGenes.basic
 //        )
+
+        fun fromId(searchedId: ResourceLocation): Gene? {
+            return GENE_REGISTRY.find { it.id == searchedId }
+        }
+
+        val CODEC_NEW = object : Codec<Gene> {
+            override fun <T : Any?> encode(input: Gene?, ops: DynamicOps<T>?, prefix: T): DataResult<T> {
+                TODO("Not yet implemented")
+            }
+
+            override fun <T : Any?> decode(ops: DynamicOps<T>?, input: T): DataResult<Pair<Gene, T>> {
+                TODO("Not yet implemented")
+            }
+
+        }
 
         val CODEC: Codec<Gene> = ResourceLocation.CODEC.xmap(
             { id: ResourceLocation -> fromId(id) ?: throw IllegalArgumentException("Unknown gene $id") },
