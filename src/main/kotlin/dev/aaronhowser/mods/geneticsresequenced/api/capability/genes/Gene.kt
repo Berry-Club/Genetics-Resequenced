@@ -1,10 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
 
-import com.mojang.datafixers.util.Pair
 import com.mojang.serialization.Codec
-import com.mojang.serialization.DataResult
-import com.mojang.serialization.DynamicOps
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
@@ -99,32 +98,36 @@ class Gene(
             return gene
         }
 
-//        fun checkDeactivationConfig() {
-//            val disabledGenes = ServerConfig.disabledGenes.get()
-//
-//            for (disabledGene in disabledGenes) {
-//                val gene = fromId(disabledGene)
-//                if (gene == null) {
-//                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")
-//                    continue
-//                }
-//
-//                if (gene in requiredGenes) {
-//                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it is required for the mod to function!")
-//                    continue
-//                }
-//
-//                gene.deactivate()
-//
-//            }
-//        }
+        fun checkDeactivationConfig() {
+            val disabledGenes = ServerConfig.disabledGenes.get()
 
-//        private val requiredGenes = setOf(
-//            ModGenes.basic
-//        )
+            for (disabledGene in disabledGenes) {
+                val gene = fromId(disabledGene)
+                if (gene == null) {
+                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")
+                    continue
+                }
+
+                if (gene in requiredGenes) {
+                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it is required for the mod to function!")
+                    continue
+                }
+
+                gene.deactivate()
+
+            }
+        }
+
+        private val requiredGenes = setOf(
+            ModGenes.basic
+        )
 
         fun fromId(searchedId: ResourceLocation): Gene? {
             return GENE_REGISTRY.find { it.id == searchedId }
+        }
+
+        fun fromId(searchedString: String): Gene? {
+            return fromId(ResourceLocation.parse(searchedString))
         }
 
         val CODEC: Codec<Gene> = ResourceLocation.CODEC.xmap(
