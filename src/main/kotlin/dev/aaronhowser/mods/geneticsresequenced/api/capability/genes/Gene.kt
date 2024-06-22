@@ -20,11 +20,16 @@ class Gene(
 
     override fun equals(other: Any?) = other is Gene && other.id == id
 
-    private var isNegative: Boolean by Delegates.notNull()
-    private var isHidden: Boolean by Delegates.notNull()
-    private var canMobsHave: Boolean by Delegates.notNull()
-    private var dnaPointsRequired: Int by Delegates.notNull()
-    private var mutatesInto: Gene? = null
+    var isNegative: Boolean by Delegates.notNull()
+        private set
+    var isHidden: Boolean by Delegates.notNull()
+        private set
+    var canMobsHave: Boolean by Delegates.notNull()
+        private set
+    var dnaPointsRequired: Int by Delegates.notNull()
+        private set
+    var mutatesInto: Gene? = null
+        private set
     private var potionDetails: GeneBuilder.PotionDetails? = null
 
     fun setDetails(
