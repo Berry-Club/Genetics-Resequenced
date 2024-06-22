@@ -21,8 +21,6 @@ import net.minecraftforge.registries.RegistryObject
 
 object ModBlocks {
 
-    private val defaultItemProperties = Item.Properties().tab(ModItems.MOD_TAB)
-
     val BLOCK_REGISTRY: DeferredRegister<Block> =
         DeferredRegister.create(ForgeRegistries.BLOCKS, GeneticsResequenced.ID)
 
@@ -51,7 +49,6 @@ object ModBlocks {
 
     private fun register(
         name: String,
-        itemProperties: Item.Properties = defaultItemProperties,
         supplier: () -> Block
     ): RegistryObject<Block> {
         val block = BLOCK_REGISTRY.register(name, supplier)
@@ -59,7 +56,7 @@ object ModBlocks {
         ModItems.ITEM_REGISTRY.register(name) {
             BlockItem(
                 block.get(),
-                itemProperties
+                Item.Properties().tab(ModItems.MOD_TAB)
             )
         }
 

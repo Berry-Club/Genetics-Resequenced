@@ -111,6 +111,8 @@ object ClickGenes {
         val target = event.target as? LivingEntity ?: return
         val clicker = event.entity
 
+        if (target.level.isClientSide) return
+
         if (!target.hasGene(ModGenes.meaty)) return
 
         val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
