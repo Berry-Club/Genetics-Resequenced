@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced
 
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRegistries
 import net.neoforged.fml.ModContainer
@@ -24,6 +25,7 @@ class GeneticsResequenced(
         ModRegistries.register(MOD_BUS)
 
         modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.CONFIG_SPEC)
+        modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.CONFIG_SPEC)
 
         ModGenes.registerDefaultGenes()
     }

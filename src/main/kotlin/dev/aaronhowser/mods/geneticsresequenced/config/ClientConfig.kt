@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.config
 
 import net.neoforged.neoforge.common.ModConfigSpec
-import net.neoforged.neoforge.common.ModConfigSpec.BooleanValue
 import org.apache.commons.lang3.tuple.Pair
 
 class ClientConfig(
@@ -15,12 +14,11 @@ class ClientConfig(
         val CONFIG: ClientConfig = configPair.left
         val CONFIG_SPEC: ModConfigSpec = configPair.right
 
+        lateinit var woolyRemovesCape: ModConfigSpec.BooleanValue
+        lateinit var disableParrotNarrator: ModConfigSpec.BooleanValue
+        lateinit var disableCringeLangChange: ModConfigSpec.BooleanValue
+        lateinit var supportSlimeRenderDebug: ModConfigSpec.BooleanValue
     }
-
-    lateinit var woolyRemovesCape: BooleanValue
-    lateinit var disableParrotNarrator: BooleanValue
-    lateinit var disableCringeLangChange: BooleanValue
-    lateinit var supportSlimeRenderDebug: BooleanValue
 
     init {
         generalConfigs()
