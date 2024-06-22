@@ -37,6 +37,13 @@ data class GeneContainer(
             this.genes += newGenes
         }
 
+        fun LivingEntity.removeGenes(vararg oldGenes: Gene) {
+            this.genes -= oldGenes
+        }
+
+        fun LivingEntity.hasGene(gene: Gene): Boolean {
+            return gene in this.genes
+        }
 
     }
 }
