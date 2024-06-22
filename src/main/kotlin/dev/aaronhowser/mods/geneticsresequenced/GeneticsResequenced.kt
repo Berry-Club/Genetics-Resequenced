@@ -13,7 +13,7 @@ import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
 
 @Mod(GeneticsResequenced.ID)
 class GeneticsResequenced(
-    val modContainer: ModContainer
+    modContainer: ModContainer
 ) {
 
     companion object {

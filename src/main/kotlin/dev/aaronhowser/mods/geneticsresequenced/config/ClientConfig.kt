@@ -8,8 +8,7 @@ class ClientConfig(
 ) {
 
     companion object {
-
-        val configPair: Pair<ClientConfig, ModConfigSpec> = ModConfigSpec.Builder().configure(::ClientConfig)
+        private val configPair: Pair<ClientConfig, ModConfigSpec> = ModConfigSpec.Builder().configure(::ClientConfig)
 
         val CONFIG: ClientConfig = configPair.left
         val CONFIG_SPEC: ModConfigSpec = configPair.right
