@@ -6,7 +6,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 
-data class GenesComponent(
+data class GenesItemComponent(
     val genes: Set<Gene>
 ) {
 
@@ -14,21 +14,21 @@ data class GenesComponent(
 
     companion object {
 
-        val CODEC: Codec<GenesComponent> = Gene.CODEC.listOf().xmap(
+        val CODEC: Codec<GenesItemComponent> = Gene.CODEC.listOf().xmap(
             { list: List<Gene> ->
-                GenesComponent(
+                GenesItemComponent(
                     HashSet<Gene>(list)
                 )
             },
-            { genes: GenesComponent ->
+            { genes: GenesItemComponent ->
                 ArrayList<Gene>(
                     genes.genes
                 )
             })
 
         val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Gene> = StreamCodec.composite(
-            ByteBufCodecs.fromCodec(Gene.CODEC), GenesComponent::genes,
-            ::GenesComponent
+            ByteBufCodecs.fromCodec(Gene.CODEC), GenesItemComponent::genes,
+            ::GenesItemComponent
         )
 
     }

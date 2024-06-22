@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
-import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanComponent
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
+import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -21,13 +20,13 @@ class AntiFieldOrbItem : Item(
     companion object {
 
         private fun isEnabled(itemStack: ItemStack): Boolean {
-            return itemStack.get(BooleanComponent.component)?.value ?: false
+            return itemStack.get(BooleanItemComponent.component)?.value ?: false
         }
 
         private fun toggleEnabled(itemStack: ItemStack) {
             itemStack.set(
-                BooleanComponent.component,
-                BooleanComponent(!isEnabled(itemStack))
+                BooleanItemComponent.component,
+                BooleanItemComponent(!isEnabled(itemStack))
             )
         }
 

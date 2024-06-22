@@ -11,24 +11,24 @@ import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.entity.EntityType
 
-data class EntityTypeComponent(
+data class EntityTypeItemComponent(
     val entity: EntityType<*>
 ) {
 
     companion object {
 
-        val CODEC: Codec<EntityTypeComponent> = RecordCodecBuilder.create { instance ->
+        val CODEC: Codec<EntityTypeItemComponent> = RecordCodecBuilder.create { instance ->
             instance.group(
-                BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("entity").forGetter(EntityTypeComponent::entity)
-            ).apply(instance, ::EntityTypeComponent)
+                BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("entity").forGetter(EntityTypeItemComponent::entity)
+            ).apply(instance, ::EntityTypeItemComponent)
         }
 
-        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, EntityTypeComponent> = StreamCodec.composite(
-            ByteBufCodecs.registry(Registries.ENTITY_TYPE), EntityTypeComponent::entity,
-            ::EntityTypeComponent
+        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, EntityTypeItemComponent> = StreamCodec.composite(
+            ByteBufCodecs.registry(Registries.ENTITY_TYPE), EntityTypeItemComponent::entity,
+            ::EntityTypeItemComponent
         )
 
-        val component: DataComponentType<EntityTypeComponent> by lazy { ModDataComponents.ENTITY_TYPE_COMPONENT.get() }
+        val component: DataComponentType<EntityTypeItemComponent> by lazy { ModDataComponents.ENTITY_TYPE_COMPONENT.get() }
 
     }
 

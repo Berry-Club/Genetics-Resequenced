@@ -1,8 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeComponent
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
+import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -20,10 +19,10 @@ class EntityDnaItem : Item(Properties()) {
 
     companion object {
 
-        fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(EntityTypeComponent.component)
+        fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(EntityTypeItemComponent.component)
 
         fun setMob(itemStack: ItemStack, entityType: EntityType<*>) {
-            itemStack.set(EntityTypeComponent.component, EntityTypeComponent(entityType))
+            itemStack.set(EntityTypeItemComponent.component, EntityTypeItemComponent(entityType))
         }
 
         fun ItemStack.setMob(entityType: EntityType<*>): ItemStack {
@@ -34,7 +33,7 @@ class EntityDnaItem : Item(Properties()) {
         fun getEntityType(itemStack: ItemStack): EntityType<*>? {
             if (!hasEntity(itemStack)) return null
 
-            return itemStack.get(EntityTypeComponent.component)?.entity
+            return itemStack.get(EntityTypeItemComponent.component)?.entity
         }
     }
 

@@ -11,7 +11,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
 import java.util.*
 
-data class SpecificEntityComponent(
+data class SpecificEntityItemComponent(
     val entityUuid: UUID,
     val entityName: String
 ) {
@@ -30,26 +30,26 @@ data class SpecificEntityComponent(
             { it.toString() }
         )
 
-        val CODEC: Codec<SpecificEntityComponent> = RecordCodecBuilder.create { instance ->
+        val CODEC: Codec<SpecificEntityItemComponent> = RecordCodecBuilder.create { instance ->
             instance.group(
-                UUID_CODEC.fieldOf("entityUuid").forGetter(SpecificEntityComponent::entityUuid),
-                Codec.STRING.fieldOf("entityName").forGetter(SpecificEntityComponent::entityName)
-            ).apply(instance, ::SpecificEntityComponent)
+                UUID_CODEC.fieldOf("entityUuid").forGetter(SpecificEntityItemComponent::entityUuid),
+                Codec.STRING.fieldOf("entityName").forGetter(SpecificEntityItemComponent::entityName)
+            ).apply(instance, ::SpecificEntityItemComponent)
         }
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, SpecificEntityComponent> = StreamCodec.composite(
-            UUID_STREAM_CODEC, SpecificEntityComponent::entityUuid,
-            ByteBufCodecs.STRING_UTF8, SpecificEntityComponent::entityName,
-            ::SpecificEntityComponent
+        val STREAM_CODEC: StreamCodec<ByteBuf, SpecificEntityItemComponent> = StreamCodec.composite(
+            UUID_STREAM_CODEC, SpecificEntityItemComponent::entityUuid,
+            ByteBufCodecs.STRING_UTF8, SpecificEntityItemComponent::entityName,
+            ::SpecificEntityItemComponent
         )
 
-        val component: DataComponentType<SpecificEntityComponent> by lazy { ModDataComponents.SPECIFIC_ENTITY_COMPONENT.get() }
+        val component: DataComponentType<SpecificEntityItemComponent> by lazy { ModDataComponents.SPECIFIC_ENTITY_COMPONENT.get() }
 
         fun ItemStack.setEntity(entity: LivingEntity) {
             val name = entity.name.string
             val uuid = entity.uuid
 
-            val entityComponent = SpecificEntityComponent(uuid, name)
+            val entityComponent = SpecificEntityItemComponent(uuid, name)
 
             this.set(component, entityComponent)
         }

@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
-import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityComponent.Companion.hasEntity
+import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.hasEntity
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.Item
