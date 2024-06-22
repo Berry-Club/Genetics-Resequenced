@@ -1,12 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneContainer.Companion.addGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
-import net.minecraft.world.entity.LivingEntity
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
+import net.neoforged.neoforge.event.entity.player.PlayerEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 
 @EventBusSubscriber(
@@ -19,6 +17,23 @@ object ClickEvents {
         ClickGenes.handleWooly(event)
         ClickGenes.handleMilky(event)
         ClickGenes.handleMeaty(event)
+    }
+
+    @SubscribeEvent
+    fun onUseItem(event: PlayerInteractEvent.RightClickItem) {
+        ClickGenes.woolyItem(event)
+        ClickGenes.milkyItem(event)
+        ClickGenes.shootFireball(event)
+    }
+
+    @SubscribeEvent
+    fun onDigSpeed(event: PlayerEvent.BreakSpeed) {
+//        AttributeGenes.handleEfficiency(event)
+    }
+
+    @SubscribeEvent
+    fun onClickBlock(event: PlayerInteractEvent.RightClickBlock) {
+//        SupportSlime.spawnEggMessage(event)
     }
 
 }
