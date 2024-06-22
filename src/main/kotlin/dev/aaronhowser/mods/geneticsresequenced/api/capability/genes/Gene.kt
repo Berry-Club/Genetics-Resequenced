@@ -126,6 +126,22 @@ class Gene(
         fun fromId(searchedId: ResourceLocation): Gene? {
             return GENE_REGISTRY.find { it.id == searchedId }
         }
+
+        val CODEC: Codec<Gene> = ResourceLocation.CODEC.xmap(
+            { id: ResourceLocation -> fromId(id) ?: throw IllegalArgumentException("Unknown gene $id") },
+            { gene: Gene -> gene.id }
+        )
+
+        val CODEC_NEW = object : Codec<Gene> {
+            override fun <T : Any?> encode(input: Gene?, ops: DynamicOps<T>?, prefix: T): DataResult<T> {
+                TODO("Not yet implemented")
+            }
+
+            override fun <T : Any?> decode(ops: DynamicOps<T>?, input: T): DataResult<Pair<Gene, T>> {
+                TODO("Not yet implemented")
+            }
+
+        }
     }
 
     private val requiredGenes: MutableSet<Gene> = mutableSetOf()

@@ -1,10 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.codec.ModCodecs
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.GenesComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityComponent
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.registries.Registries
@@ -20,8 +18,8 @@ object ModDataComponents {
     val ENTITY_TYPE_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<EntityTypeComponent>> =
         DATA_COMPONENT_REGISTRY.register("entity_type", Supplier {
             DataComponentType.builder<EntityTypeComponent>()
-                .persistent(ModCodecs.entityType)
-                .networkSynchronized(ModCodecs.entityType_stream)
+                .persistent(EntityTypeComponent.CODEC)
+                .networkSynchronized(EntityTypeComponent.STREAM_CODEC)
                 .build()
         })
 
@@ -33,19 +31,11 @@ object ModDataComponents {
                 .build()
         })
 
-    val GENES_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<GenesComponent>> =
-        DATA_COMPONENT_REGISTRY.register("genes", Supplier {
-            DataComponentType.builder<GenesComponent>()
-                .persistent(GenesComponent.CODEC)
-                .networkSynchronized(GenesComponent.STREAM_CODEC)
-                .build()
-        })
-
     val BOOLEAN_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<BooleanComponent>> =
         DATA_COMPONENT_REGISTRY.register("boolean", Supplier {
             DataComponentType.builder<BooleanComponent>()
-                .persistent(ModCodecs.boolean)
-                .networkSynchronized()
+                .persistent(BooleanComponent.CODEC)
+                .networkSynchronized(BooleanComponent.STREAM_CODEC)
                 .build()
         })
 
