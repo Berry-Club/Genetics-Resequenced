@@ -2,12 +2,15 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneContainer.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneContainer.Companion.removeGenes
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
+import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.animal.Cow
 import net.minecraft.world.entity.animal.MushroomCow
@@ -15,9 +18,15 @@ import net.minecraft.world.entity.animal.Sheep
 import net.minecraft.world.entity.animal.goat.Goat
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.entity.projectile.AbstractArrow
+import net.minecraft.world.entity.projectile.SmallFireball
+import net.minecraft.world.item.ArrowItem
+import net.minecraft.world.item.BowItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.Blocks
+import net.neoforged.neoforge.event.entity.player.ArrowLooseEvent
+import net.neoforged.neoforge.event.entity.player.ArrowNockEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 import kotlin.random.Random
 
@@ -277,6 +286,159 @@ object ClickGenes {
 
         //TODO
 //        ModPacketHandler.messagePlayer(player as ServerPlayer, ShearedPacket(removingSkin = true))
+    }
+
+    fun shootFireball(event: PlayerInteractEvent.RightClickItem) {
+        if (!ModGenes.shootFireballs.isActive) return
+
+        val player = event.entity
+        if (!player.hasGene(ModGenes.shootFireballs)) return
+
+        if (!player.isCrouching) return
+        if (!event.itemStack.`is`(ModTags.FIREBALL_ITEM_TAG)) return
+
+        val lookVec = player.lookAngle
+
+        val fireball = SmallFireball(
+            event.level,
+            player,
+            lookVec
+        ).apply {
+            setPos(x, player.eyeY, z)
+        }
+
+        event.level.addFreshEntity(fireball)
+
+        event.level.playSound(
+            null,
+            player,
+            SoundEvents.BLAZE_SHOOT,
+            SoundSource.PLAYERS,
+            1.0f,
+            1.0f
+        )
+
+        if (!player.isCreative) event.itemStack.shrink(1)
+    }
+
+    fun eatGrass(event: PlayerInteractEvent.RightClickBlock) {
+        if (!ModGenes.eatGrass.isActive) return
+
+        if (!event.itemStack.isEmpty) return
+
+        val player = event.entity
+        if (!player.hasGene(ModGenes.eatGrass)) return
+
+        val isHungry = player.foodData.foodLevel < 20
+        if (!isHungry) return
+
+        val block = event.level.getBlockState(event.pos).block
+
+        val blockAfter = when (block) {
+            Blocks.GRASS_BLOCK, Blocks.MYCELIUM -> Blocks.DIRT
+            Blocks.WARPED_NYLIUM, Blocks.CRIMSON_NYLIUM -> Blocks.NETHERRACK
+            else -> return  // If it's not grass or nylium, then you can't eat it, so return
+        }
+
+        event.level.setBlockAndUpdate(event.pos, blockAfter.defaultBlockState())
+        player.foodData.eat(1, 0.1f)
+
+        event.level.playSound(
+            null,
+            player.blockPosition(),
+            SoundEvents.PLAYER_BURP,
+            SoundSource.PLAYERS,
+            1.0f,
+            1.0f
+        )
+
+        event.level.playSound(
+            null,
+            event.pos,
+            SoundEvents.GRASS_BREAK,
+            SoundSource.BLOCKS,
+            1.0f,
+            1.0f
+        )
+
+        if (player.uuid in recentlySheered) {
+            recentlySheered.remove(player.uuid)
+            GeneCooldown.tellCooldownEnded(player, ModGenes.wooly)
+        }
+
+    }
+
+    fun cureCringe(event: PlayerInteractEvent.RightClickBlock) {
+        if (event.level.getBlockState(event.pos).block != Blocks.GRASS_BLOCK) return
+
+        val player = event.entity
+
+        if (!player.hasGene(ModGenes.cringe)) return
+
+        player.removeGenes(ModGenes.cringe)
+        if (!player.level().isClientSide) {
+            player.sendSystemMessage(Component.translatable("message.geneticsresequenced.cringe.cured"))
+        }
+    }
+
+    fun handleInfinityStart(event: ArrowNockEvent) {
+        if (!ModGenes.infinity.isActive) return
+
+        if (event.hasAmmo()) return
+
+        val entity = event.entity
+        if (!entity.hasGene(ModGenes.infinity)) return
+
+        entity.startUsingItem(event.entity.usedItemHand)
+        event.action = InteractionResultHolder.success(event.bow)
+    }
+
+    /**
+     * @see BowItem.releaseUsing
+     * @see BowItem.getPowerForTime
+     */
+    fun handleInfinityEnd(event: ArrowLooseEvent) {
+        if (!ModGenes.infinity.isActive) return
+
+        if (event.hasAmmo()) return
+
+        val player = event.entity
+
+        if (!player.hasGene(ModGenes.infinity)) return
+
+        val bowStack = event.bow
+
+        val charge = event.charge
+        var velocity = charge / 20.0f
+        velocity = ((velocity * velocity + velocity * 2.0f) / 3.0f).coerceAtMost(1.0f)
+
+        if (velocity < 0.1f) return
+
+        val arrowItem = Items.ARROW as ArrowItem
+        val arrowStack = arrowItem.itemStack
+        val abstractArrow = arrowItem.createArrow(
+            player.level(),
+            arrowStack,
+            player,
+            null
+        ) //TODO: Set final arg to the bow used (I think?)
+        abstractArrow.shootFromRotation(player, player.xRot, player.yRot, 0.0f, velocity * 3.0f, 1.0f)
+
+        if (velocity == 1f) abstractArrow.isCritArrow = true
+
+        //TODO: Enchantments
+//        val powerLevel = bowStack.getEnchantmentLevel(Enchantments.POWER_ARROWS)
+//        if (powerLevel > 0) abstractArrow.baseDamage += powerLevel * 0.5 + 0.5
+//
+//        val punchLevel = bowStack.getEnchantmentLevel(Enchantments.PUNCH_ARROWS)
+//        if (punchLevel > 0) abstractArrow.knockback = punchLevel
+//
+//        val flameLevel = bowStack.getEnchantmentLevel(Enchantments.FLAMING_ARROWS)
+//        if (flameLevel > 0) abstractArrow.setSecondsOnFire(100)
+
+        abstractArrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY
+
+        player.level().addFreshEntity(abstractArrow)
     }
 
 }
