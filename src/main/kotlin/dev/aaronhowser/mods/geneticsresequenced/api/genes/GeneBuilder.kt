@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
+package dev.aaronhowser.mods.geneticsresequenced.api.genes
 
 import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceLocation

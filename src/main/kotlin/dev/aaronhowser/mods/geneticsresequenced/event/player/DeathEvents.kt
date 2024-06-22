@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneContainer.Companion.genes
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneContainer.Companion.removeAllGenes
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneContainer.Companion.removeGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneContainer.Companion.genes
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneContainer.Companion.removeAllGenes
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneContainer.Companion.removeGenes
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor

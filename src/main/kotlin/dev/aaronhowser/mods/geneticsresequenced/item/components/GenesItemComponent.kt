@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.item.components
 
 import com.mojang.serialization.Codec
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import io.netty.buffer.ByteBuf
 import net.minecraft.core.component.DataComponentType

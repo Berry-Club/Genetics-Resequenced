@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneBuilder
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneBuilder
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 
 //TODO: Do this eventually

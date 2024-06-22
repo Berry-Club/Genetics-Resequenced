@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneContainer.Companion.genes
-import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneContainer.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneContainer.Companion.genes
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneContainer.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes

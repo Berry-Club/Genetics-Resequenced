@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.api.capability.genes
+package dev.aaronhowser.mods.geneticsresequenced.api.genes
 
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
