@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.util.InventoryListener
 import net.minecraft.server.level.ServerPlayer
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
+import net.neoforged.neoforge.common.util.TriState
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
 import net.neoforged.neoforge.event.tick.PlayerTickEvent
@@ -17,7 +18,7 @@ import net.neoforged.neoforge.event.tick.PlayerTickEvent
 object OtherPlayerEvents {
 
     @SubscribeEvent
-    fun onPlayerTick(event: PlayerTickEvent) {
+    fun onPlayerTick(event: PlayerTickEvent.Pre) {
         TickGenes.handleNoHunger(event.entity)
         TickGenes.handleMobSight(event.entity)
 //        AttributeGenes.handleWallClimbing(event.entity)     // Requires clientside handling
@@ -26,7 +27,9 @@ object OtherPlayerEvents {
     }
 
     @SubscribeEvent
-    fun onPickUpItem(event: ItemEntityPickupEvent) {
+    fun onPickUpItem(event: ItemEntityPickupEvent.Pre) {
+        if (event.canPickup() == TriState.FALSE) return
+
         val stack = event.itemEntity
         val player = event.player
 
