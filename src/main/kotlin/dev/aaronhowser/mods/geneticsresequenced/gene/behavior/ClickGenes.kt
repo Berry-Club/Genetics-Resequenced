@@ -420,8 +420,8 @@ object ClickGenes {
             player.level(),
             arrowStack,
             player,
-            null
-        ) //TODO: Set final arg to the bow used (I think?)
+            bowStack
+        )
         abstractArrow.shootFromRotation(player, player.xRot, player.yRot, 0.0f, velocity * 3.0f, 1.0f)
 
         if (velocity == 1f) abstractArrow.isCritArrow = true
