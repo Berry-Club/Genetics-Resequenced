@@ -16,20 +16,7 @@ data class EntityTypeComponent(
 ) {
 
     companion object {
-
-        val CODEC: Codec<EntityTypeComponent> = RecordCodecBuilder.create { instance ->
-            instance.group(
-                BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("entity").forGetter(EntityTypeComponent::entity)
-            ).apply(instance, ::EntityTypeComponent)
-        }
-
-        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, EntityTypeComponent> = StreamCodec.composite(
-            ByteBufCodecs.registry(Registries.ENTITY_TYPE), EntityTypeComponent::entity,
-            ::EntityTypeComponent
-        )
-
         val component: DataComponentType<EntityTypeComponent> by lazy { ModDataComponents.ENTITY_TYPE_COMPONENT.get() }
-
     }
 
 }
