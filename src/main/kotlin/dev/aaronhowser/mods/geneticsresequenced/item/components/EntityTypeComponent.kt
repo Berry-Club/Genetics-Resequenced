@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.item.components
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
+import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.RegistryFriendlyByteBuf
@@ -25,6 +27,8 @@ data class EntityTypeComponent(
             ByteBufCodecs.registry(Registries.ENTITY_TYPE), EntityTypeComponent::entity,
             ::EntityTypeComponent
         )
+
+        val component: DataComponentType<EntityTypeComponent> by lazy { ModDataComponents.ENTITY_TYPE_COMPONENT.get() }
 
     }
 
