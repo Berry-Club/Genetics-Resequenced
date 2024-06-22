@@ -12,13 +12,10 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 @EventBusSubscriber(
     modid = GeneticsResequenced.ID
 )
-object ClickEntityEvents {
+object ClickEvents {
 
     @SubscribeEvent
     fun onInteractEntity(event: PlayerInteractEvent.EntityInteract) {
-
-        (event.target as LivingEntity).addGenes(ModGenes.wooly, ModGenes.milky, ModGenes.meaty)
-
         ClickGenes.handleWooly(event)
         ClickGenes.handleMilky(event)
         ClickGenes.handleMeaty(event)
