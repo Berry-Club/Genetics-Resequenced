@@ -23,7 +23,7 @@ object OtherGenes {
     )
 
     fun handleEmeraldHeart(event: ServerChatEvent.Submitted) {
-        if (ModGenes.emeraldHeart.isActive) return
+        if (!ModGenes.emeraldHeart.isActive) return
 
         if (Random.nextDouble() > ServerConfig.emeraldHeartChatChance.get()) return
 
