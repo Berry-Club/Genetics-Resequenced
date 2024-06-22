@@ -21,12 +21,12 @@ class AntiFieldOrbItem : Item(
     companion object {
 
         private fun isEnabled(itemStack: ItemStack): Boolean {
-            return itemStack.get(ModDataComponents.BOOLEAN_COMPONENT.get())?.value ?: false
+            return itemStack.get(BooleanComponent.component)?.value ?: false
         }
 
         private fun toggleEnabled(itemStack: ItemStack) {
             itemStack.set(
-                ModDataComponents.BOOLEAN_COMPONENT.get(),
+                BooleanComponent.component,
                 BooleanComponent(!isEnabled(itemStack))
             )
         }

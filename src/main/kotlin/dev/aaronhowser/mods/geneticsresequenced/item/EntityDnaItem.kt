@@ -20,10 +20,10 @@ class EntityDnaItem : Item(Properties()) {
 
     companion object {
 
-        fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.ENTITY_TYPE_COMPONENT.get())
+        fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(EntityTypeComponent.component)
 
         fun setMob(itemStack: ItemStack, entityType: EntityType<*>) {
-            itemStack.set(ModDataComponents.ENTITY_TYPE_COMPONENT.get(), EntityTypeComponent(entityType))
+            itemStack.set(EntityTypeComponent.component, EntityTypeComponent(entityType))
         }
 
         fun ItemStack.setMob(entityType: EntityType<*>): ItemStack {
@@ -34,7 +34,7 @@ class EntityDnaItem : Item(Properties()) {
         fun getEntityType(itemStack: ItemStack): EntityType<*>? {
             if (!hasEntity(itemStack)) return null
 
-            return itemStack.get(ModDataComponents.ENTITY_TYPE_COMPONENT.get())?.entity
+            return itemStack.get(EntityTypeComponent.component)?.entity
         }
     }
 
