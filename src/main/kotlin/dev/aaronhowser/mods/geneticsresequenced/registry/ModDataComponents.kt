@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.components.GenesItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.registries.Registries
@@ -36,6 +37,14 @@ object ModDataComponents {
             DataComponentType.builder<BooleanItemComponent>()
                 .persistent(BooleanItemComponent.CODEC)
                 .networkSynchronized(BooleanItemComponent.STREAM_CODEC)
+                .build()
+        })
+
+    val GENES_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<GenesItemComponent>> =
+        DATA_COMPONENT_REGISTRY.register("genes", Supplier {
+            DataComponentType.builder<GenesItemComponent>()
+                .persistent(GenesItemComponent.CODEC)
+                .networkSynchronized(GenesItemComponent.STREAM_CODEC)
                 .build()
         })
 
