@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneContainer.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import net.minecraft.world.entity.EntitySelector
 import net.minecraft.world.entity.LivingEntity

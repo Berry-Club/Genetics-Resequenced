@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneContainer.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
