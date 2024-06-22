@@ -4,6 +4,8 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
+import net.neoforged.neoforge.event.entity.player.ArrowLooseEvent
+import net.neoforged.neoforge.event.entity.player.ArrowNockEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 
@@ -34,6 +36,22 @@ object ClickEvents {
     @SubscribeEvent
     fun onClickBlock(event: PlayerInteractEvent.RightClickBlock) {
 //        SupportSlime.spawnEggMessage(event)
+    }
+
+    @SubscribeEvent
+    fun onInteractWithBlock(event: PlayerInteractEvent.RightClickBlock) {
+        ClickGenes.eatGrass(event)
+        ClickGenes.cureCringe(event)
+    }
+
+    @SubscribeEvent
+    fun onArrowNock(event: ArrowNockEvent) {
+        ClickGenes.handleInfinityStart(event)
+    }
+
+    @SubscribeEvent
+    fun onArrowLoose(event: ArrowLooseEvent) {
+        ClickGenes.handleInfinityEnd(event)
     }
 
 }
