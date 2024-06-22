@@ -2,9 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
+import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.client.renderer.item.ItemPropertyFunction
 import net.neoforged.api.distmarker.Dist
