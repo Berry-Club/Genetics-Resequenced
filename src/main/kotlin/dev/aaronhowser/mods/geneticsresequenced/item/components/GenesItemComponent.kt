@@ -5,20 +5,21 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import io.netty.buffer.ByteBuf
 import net.minecraft.core.component.DataComponentType
-import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 
 data class GenesItemComponent(
-    val genes: List<Gene>
+    val genes: Set<Gene>
 ) {
 
-    constructor() : this(listOf())
+    constructor() : this(HashSet())
 
     companion object {
 
         val CODEC: Codec<GenesItemComponent> = Gene.CODEC.listOf().xmap(
             { list: List<Gene> ->
-                GenesItemComponent(list)
+                GenesItemComponent(
+                    HashSet<Gene>(list)
+                )
             },
             { genes: GenesItemComponent ->
                 ArrayList<Gene>(
@@ -26,7 +27,10 @@ data class GenesItemComponent(
                 )
             })
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, MutableList<Gene>> = Gene.STREAM_CODEC.apply(ByteBufCodecs.list(5))
+        val STREAM_CODEC: StreamCodec<ByteBuf, GenesItemComponent> = StreamCodec.composite(
+            Gene.STREAM_CODEC, GenesItemComponent::genes,
+            ::GenesItemComponent
+        )
 
         val component: DataComponentType<GenesItemComponent> by lazy { ModDataComponents.GENES_COMPONENT.get() }
 
