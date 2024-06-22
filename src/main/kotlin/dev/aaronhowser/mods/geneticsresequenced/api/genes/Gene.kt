@@ -4,11 +4,13 @@ import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import io.netty.buffer.ByteBuf
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.MutableComponent
+import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffectInstance
 import kotlin.properties.Delegates
@@ -133,6 +135,11 @@ class Gene(
         val CODEC: Codec<Gene> = ResourceLocation.CODEC.xmap(
             { id: ResourceLocation -> fromId(id) ?: throw IllegalArgumentException("Unknown gene $id") },
             { gene: Gene -> gene.id }
+        )
+
+        val STREAM_CODEC: StreamCodec<ByteBuf, Gene> = StreamCodec.composite(
+            ResourceLocation.STREAM_CODEC, Gene::id,
+            ::Gene
         )
 
     }
