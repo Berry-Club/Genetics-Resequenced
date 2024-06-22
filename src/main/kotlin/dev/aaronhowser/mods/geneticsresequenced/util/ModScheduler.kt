@@ -2,8 +2,19 @@ package dev.aaronhowser.mods.geneticsresequenced.util
 
 import com.google.common.collect.HashMultimap
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import net.neoforged.bus.api.SubscribeEvent
+import net.neoforged.fml.common.EventBusSubscriber
+import net.neoforged.neoforge.event.tick.ServerTickEvent
 
+@EventBusSubscriber(
+    modid = GeneticsResequenced.ID
+)
 object ModScheduler {
+
+    @SubscribeEvent
+    fun onServerTick(event: ServerTickEvent.Post) {
+        currentTick++
+    }
 
     var currentTick = 0
         set(value) {

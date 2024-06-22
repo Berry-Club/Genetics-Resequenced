@@ -13,7 +13,7 @@ object OtherEvents {
 
     @SubscribeEvent
     fun onServerTick(event: ServerTickEvent.Post) {
-        ModScheduler.currentTick++
+
     }
 
 }
