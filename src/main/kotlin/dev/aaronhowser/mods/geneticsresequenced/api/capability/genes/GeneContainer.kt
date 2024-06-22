@@ -45,5 +45,13 @@ data class GeneContainer(
             return gene in this.genes
         }
 
+        fun LivingEntity.removeAllGenes() {
+            this.genes = emptySet()
+        }
+
+        fun LivingEntity.addAlLGenes(includeNegative: Boolean = false) {
+            this.genes = Gene.getRegistry().filter { includeNegative || !it.isNegative }.toSet()
+        }
+
     }
 }

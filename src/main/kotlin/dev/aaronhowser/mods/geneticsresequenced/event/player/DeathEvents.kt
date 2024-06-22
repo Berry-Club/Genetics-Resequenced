@@ -2,7 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneContainer.Companion.genes
+import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneContainer.Companion.removeAllGenes
 import dev.aaronhowser.mods.geneticsresequenced.api.capability.genes.GeneContainer.Companion.removeGenes
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -30,7 +32,24 @@ object DeathEvents {
     fun onPlayerRespawn(event: PlayerEvent.PlayerRespawnEvent) {
         DeathGenes.handleKeepInventory(event.entity)
 
+        handleKeepGenesOnDeath(event)
         removeNegativeGenesOnDeath(event)
+    }
+
+    private fun handleKeepGenesOnDeath(event: PlayerEvent.PlayerRespawnEvent) {
+        if (ServerConfig.keepGenesOnDeath.get()) return
+
+        val player = event.entity
+        val playerGenes = player.genes
+
+        if (playerGenes.isEmpty()) return
+
+        val component = Component
+            .translatable("message.geneticsresequenced.death_gene_removal")
+            .withColor(ChatFormatting.GRAY)
+
+        player.sendSystemMessage(component)
+        player.removeAllGenes()
     }
 
     private fun removeNegativeGenesOnDeath(event: PlayerEvent.PlayerRespawnEvent) {
