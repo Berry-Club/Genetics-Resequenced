@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.addGenes
+import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -45,22 +46,64 @@ object AddGeneCommand {
 
         val geneArgument = ResourceLocationArgument.getId(context, GENE_ARGUMENT)
 
-        val targets: List<LivingEntity?> =
-            entities?.map { it as? LivingEntity } ?: listOf(context.source.entity as? LivingEntity)
+        val targets: List<LivingEntity> =
+            entities?.mapNotNull { it as? LivingEntity } ?: listOfNotNull(context.source.entity as? LivingEntity)
+
 
         val geneToAdd = Gene.fromId(geneArgument)!!
 
+        if (targets.size == 1) {
+            handleSingleTarget(context, targets.first(), geneToAdd)
+        } else {
+            handleMultipleTargets(context, targets, geneToAdd)
+        }
+
+        return 1
+    }
+
+    private fun handleSingleTarget(
+        context: CommandContext<CommandSourceStack>,
+        target: LivingEntity,
+        geneToAdd: Gene,
+    ) {
+        val geneWasAdded = addGeneToTarget(target, geneToAdd)
+
+        if (geneWasAdded) {
+            val component = Component.translatable(
+                "command.geneticsresequenced.add_gene.single_target.success",
+                geneToAdd.nameComponent,
+                target.name
+            )
+
+            val supplier = Supplier<Component> { component }
+            context.source.sendSuccess(supplier, false)
+        } else {
+            val component = Component.translatable(
+                "command.geneticsresequenced.add_gene.single_target.fail",
+                geneToAdd.nameComponent,
+                target.name
+            )
+
+            context.source.sendFailure(component)
+        }
+    }
+
+    private fun handleMultipleTargets(
+        context: CommandContext<CommandSourceStack>,
+        targets: List<LivingEntity>,
+        geneToAdd: Gene
+    ) {
         var amountSuccess = 0
         var amountFail = 0
+
         for (target in targets) {
-            if (target == null) continue
             val geneAdded = addGeneToTarget(target, geneToAdd)
             if (geneAdded) amountSuccess++ else amountFail++
         }
 
         if (amountSuccess != 0) {
             val component = Component.translatable(
-                "command.geneticsresequenced.add_gene.success",
+                "command.geneticsresequenced.add_gene.multiple_targets.success",
                 geneToAdd.nameComponent,
                 amountSuccess
             )
@@ -71,21 +114,19 @@ object AddGeneCommand {
 
         if (amountFail != 0) {
             val component = Component.translatable(
-                "command.geneticsresequenced.add_gene.fail",
+                "command.geneticsresequenced.add_gene.multiple_targets.fail",
                 geneToAdd.nameComponent,
                 amountFail
             )
             context.source.sendFailure(component)
         }
-
-        return 1
     }
 
     private fun addGeneToTarget(
         target: LivingEntity,
         geneToAdd: Gene,
     ): Boolean {
-        val alreadyHasGene = target.addGenes(geneToAdd)
+        val alreadyHasGene = target.hasGene(geneToAdd)
         if (alreadyHasGene) {
             GeneticsResequenced.LOGGER.info("Tried to add gene ${geneToAdd.id} to ${target.name.string}, but they already have it!")
             return false
