@@ -10,6 +10,7 @@ import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.MutableComponent
+import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffectInstance
@@ -137,10 +138,7 @@ class Gene(
             { gene: Gene -> gene.id }
         )
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, Gene> = StreamCodec.composite(
-            ResourceLocation.STREAM_CODEC, Gene::id,
-            ::Gene
-        )
+        val STREAM_CODEC: StreamCodec<ByteBuf, Gene> = ByteBufCodecs.fromCodec(CODEC)
 
     }
 

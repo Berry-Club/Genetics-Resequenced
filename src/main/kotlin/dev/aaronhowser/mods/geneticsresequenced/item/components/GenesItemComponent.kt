@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import io.netty.buffer.ByteBuf
 import net.minecraft.core.component.DataComponentType
+import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 
 data class GenesItemComponent(
@@ -27,10 +28,7 @@ data class GenesItemComponent(
                 )
             })
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, GenesItemComponent> = StreamCodec.composite(
-            Gene.STREAM_CODEC, GenesItemComponent::genes,
-            ::GenesItemComponent
-        )
+        val STREAM_CODEC: StreamCodec<ByteBuf, GenesItemComponent> = ByteBufCodecs.fromCodec(CODEC)
 
         val component: DataComponentType<GenesItemComponent> by lazy { ModDataComponents.GENES_COMPONENT.get() }
 
