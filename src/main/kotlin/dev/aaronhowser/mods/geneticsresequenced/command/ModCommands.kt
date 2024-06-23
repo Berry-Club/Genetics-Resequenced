@@ -18,6 +18,7 @@ object ModCommands {
             Commands.literal(GeneticsResequenced.ID)
                 .then(AddGeneCommand.register())
                 .then(AddAllGenesCommand.register())
+                .then(RemoveGeneCommand.register())
                 .then(RemoveAllGenesCommand.register())
         )
 

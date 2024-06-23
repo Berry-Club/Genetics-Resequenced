@@ -132,15 +132,23 @@
   "command.geneticsresequenced.geneList": "Gene List:",
   "command.geneticsresequenced.list.no_genes": "No Genes found!",
   "command.geneticsresequenced.list.genes": "%1$s's Genes:",
+
   "command.geneticsresequenced.remove_nearby_lights.success": "Removed %d nearby bioluminescence light sources.",
+
   "command.geneticsresequenced.add_gene.single_target.success": "Added %1$s to %2$s!",
   "command.geneticsresequenced.add_gene.single_target.fail": "Failed to add %1$s to %2$s!",
   "command.geneticsresequenced.add_gene.multiple_targets.success": "Added %1$s to %2$d entities!",
   "command.geneticsresequenced.add_gene.multiple_targets.fail": "Failed to add %1$s to %2$d entities!",
+
   "command.geneticsresequenced.add_all.single_target": "Added all positive Genes to %s!",
   "command.geneticsresequenced.add_all.multiple_targets": "Added all positive Genes to %d entities!",
-  "command.geneticsresequenced.remove_gene.success": "Removed %1$s from %2$d entities!",
-  "command.geneticsresequenced.remove_gene.fail": "Failed to remove %1$s from %2$d entities!",
+
+  "command.geneticsresequenced.remove_gene.multiple_targets.success": "Removed %1$s from %2$d entities!",
+  "command.geneticsresequenced.remove_gene.multiple_targets.fail": "Failed to remove %1$s from %2$d entities!",
+
+  "command.geneticsresequenced.remove_gene.single_target.success": "Removed %1$s from %2$s!",
+  "command.geneticsresequenced.remove_gene.single_target.fail": "Failed to remove %1$s from %2$s!",
+
   "command.geneticsresequenced.remove_all.single_target": "Removed all Genes from %s!",
   "command.geneticsresequenced.remove_all.multiple_targets": "Removed all Genes from %d entities!",
 

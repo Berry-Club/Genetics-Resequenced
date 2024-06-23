@@ -264,6 +264,7 @@ object ModGenes {
         .build()
 
     //Negative effects
+    //FIXME: This effect apparently has a sound on add now, probably want to remove that
     val badOmen: Gene = registerGene("bad_omen")
         .setDnaPointsRequired(20)
         .setNegative()
