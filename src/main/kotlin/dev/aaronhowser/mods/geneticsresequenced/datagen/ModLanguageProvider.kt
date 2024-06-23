@@ -130,7 +130,7 @@ class ModLanguageProvider(
         const val ANTI_PLASMID_EMPTY = "tooltip.geneticsresequenced.anti_plasmid.empty"
         const val PLASMID_GENE = "tooltip.geneticsresequenced.plasmid.gene"
         const val PLASMID_COMPLETE = "tooltip.geneticsresequenced.plasmid.complete"
-        const val PLASMID_AMOUNT = "tooltip.geneticsresequenced.plasmid.amount"
+        const val PLASMID_PROGRESS = "tooltip.geneticsresequenced.plasmid.amount"
         const val SYRINGE_CONTAMINATED = "tooltip.geneticsresequenced.syringe.contaminated"
         const val SYRINGE_OWNER = "tooltip.geneticsresequenced.syringe.blood_owner"
         const val INFUSER_BASIC = "tooltip.geneticsresequenced.plasmid_infuser.basic_gene"
@@ -541,7 +541,7 @@ class ModLanguageProvider(
         add(Tooltips.ANTI_PLASMID_EMPTY, "Empty Anti-Plasmid")
         add(Tooltips.PLASMID_GENE, "Contains Gene: %s")
         add(Tooltips.PLASMID_COMPLETE, "Plasmid is complete!")
-        add(Tooltips.PLASMID_AMOUNT, "Gene Points: %d/%d")
+        add(Tooltips.PLASMID_PROGRESS, "Gene Points: %d/%d")
         add(Tooltips.SYRINGE_CONTAMINATED, "Contaminated Blood")
         add(Tooltips.SYRINGE_OWNER, "Blood: %1\$s")
         add(Tooltips.INFUSER_BASIC, "+1 DNA Point")
