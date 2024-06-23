@@ -10,6 +10,7 @@ import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.entity.projectile.ProjectileUtil
 import net.minecraft.world.item.ItemStack
@@ -136,7 +137,7 @@ class MetalSyringeItem : SyringeItem() {
 
         if (pLivingEntity is FakePlayer) return
 
-        val reachDistance = 5.0 //TODO: Make this actually use reach distance
+        val reachDistance = pLivingEntity.getAttribute(Attributes.ENTITY_INTERACTION_RANGE)?.value ?: 3.0
 
         val entityHitResult = ProjectileUtil.getEntityHitResult(
             pLivingEntity,
@@ -155,10 +156,18 @@ class MetalSyringeItem : SyringeItem() {
             extractBlood(pStack, targetEntity)
 
             targetEntity.apply {
-//                hurt(damageSourceUseSyringe(pLivingEntity), 1f)
+//                hurt(damageSourceUseSyringe(pLivingEntity), 1f) TODO
                 addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
             }
 
+        }
+    }
+
+    override fun getName(pStack: ItemStack): Component {
+        return if (hasBlood(pStack)) {
+            Component.translatable(ModLanguageProvider.Items.METAL_SYRINGE_FULL)
+        } else {
+            Component.translatable(ModLanguageProvider.Items.METAL_SYRINGE_EMPTY)
         }
     }
 
