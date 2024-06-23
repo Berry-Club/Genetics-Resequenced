@@ -21,8 +21,8 @@ object ModItems {
         ITEM_REGISTRY.registerItem("cell") { EntityDnaItem() }
     val GMO_CELL =
         ITEM_REGISTRY.registerSimpleItem("gmo_cell")
-    val DNA_HELIX =
-        ITEM_REGISTRY.registerSimpleItem("dna_helix")
+    val DNA_HELIX: DeferredItem<DnaHelixItem> =
+        ITEM_REGISTRY.registerItem("dna_helix") { DnaHelixItem() }
     val PLASMID =
         ITEM_REGISTRY.registerItem("plasmid") { PlasmidItem() }
     val ANTI_PLASMID: DeferredItem<AntiPlasmidItem> =
