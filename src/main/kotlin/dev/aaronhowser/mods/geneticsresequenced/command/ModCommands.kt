@@ -17,6 +17,7 @@ object ModCommands {
         val modCommands = dispatcher.register(
             Commands.literal(GeneticsResequenced.ID)
                 .then(AddGeneCommand.register())
+                .then(AddAllGenesCommand.register())
         )
 
     }

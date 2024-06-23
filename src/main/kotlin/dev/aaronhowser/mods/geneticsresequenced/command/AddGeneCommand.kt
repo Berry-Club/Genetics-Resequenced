@@ -15,7 +15,6 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
-import java.util.function.Supplier
 
 object AddGeneCommand {
 
@@ -49,7 +48,6 @@ object AddGeneCommand {
         val targets: List<LivingEntity> =
             entities?.mapNotNull { it as? LivingEntity } ?: listOfNotNull(context.source.entity as? LivingEntity)
 
-
         val geneToAdd = Gene.fromId(geneArgument)!!
 
         if (targets.size == 1) {
@@ -69,14 +67,14 @@ object AddGeneCommand {
         val geneWasAdded = addGeneToTarget(target, geneToAdd)
 
         if (geneWasAdded) {
-            val component = Component.translatable(
-                "command.geneticsresequenced.add_gene.single_target.success",
-                geneToAdd.nameComponent,
-                target.name
-            )
+            val component =
+                Component.translatable(
+                    "command.geneticsresequenced.add_gene.single_target.success",
+                    geneToAdd.nameComponent,
+                    target.name
+                )
 
-            val supplier = Supplier<Component> { component }
-            context.source.sendSuccess(supplier, false)
+            context.source.sendSuccess({ component }, false)
         } else {
             val component = Component.translatable(
                 "command.geneticsresequenced.add_gene.single_target.fail",
@@ -102,14 +100,14 @@ object AddGeneCommand {
         }
 
         if (amountSuccess != 0) {
-            val component = Component.translatable(
-                "command.geneticsresequenced.add_gene.multiple_targets.success",
-                geneToAdd.nameComponent,
-                amountSuccess
-            )
+            val component =
+                Component.translatable(
+                    "command.geneticsresequenced.add_gene.multiple_targets.success",
+                    geneToAdd.nameComponent,
+                    amountSuccess
+                )
 
-            val supplier = Supplier<Component> { component }
-            context.source.sendSuccess(supplier, false)
+            context.source.sendSuccess({ component }, false)
         }
 
         if (amountFail != 0) {
