@@ -19,8 +19,6 @@ class EntityDnaItem : Item(Properties()) {
 
     companion object {
 
-        fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(EntityTypeItemComponent.component)
-
         fun setMob(itemStack: ItemStack, entityType: EntityType<*>) {
             itemStack.set(EntityTypeItemComponent.component, EntityTypeItemComponent(entityType))
         }
@@ -31,8 +29,6 @@ class EntityDnaItem : Item(Properties()) {
         }
 
         fun getEntityType(itemStack: ItemStack): EntityType<*>? {
-            if (!hasEntity(itemStack)) return null
-
             return itemStack.get(EntityTypeItemComponent.component)?.entity
         }
     }
