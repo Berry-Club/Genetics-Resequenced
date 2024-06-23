@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
-import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeGenes
+import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
@@ -375,7 +375,7 @@ object ClickGenes {
 
         if (!player.hasGene(ModGenes.cringe)) return
 
-        player.removeGenes(ModGenes.cringe)
+        player.removeGene(ModGenes.cringe)
         if (!player.level().isClientSide) {
             player.sendSystemMessage(Component.translatable("message.geneticsresequenced.cringe.cured"))
         }

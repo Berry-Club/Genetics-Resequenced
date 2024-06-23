@@ -1,10 +1,16 @@
 package dev.aaronhowser.mods.geneticsresequenced.data_attachment
 
 import com.mojang.serialization.Codec
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.player.Player
 import net.neoforged.neoforge.attachment.AttachmentType
+import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
 
 
 data class GenesData(
@@ -12,6 +18,7 @@ data class GenesData(
 ) {
     constructor() : this(HashSet())
 
+    @Suppress("LoggingSimilarMessage")
     companion object {
 
         val CODEC: Codec<GenesData> = Gene.CODEC.listOf().xmap(
@@ -30,20 +37,53 @@ data class GenesData(
 
         var LivingEntity.genes: Set<Gene>
             get() = this.getData(attachment).genes
-            set(value) {
+            private set(value) {
                 this.setData(attachment, GenesData(value))
             }
 
-        fun LivingEntity.addGenes(vararg newGenes: Gene): Boolean {
-            val oldSize = this.genes.size
-            this.genes += newGenes
-            return oldSize != this.genes.size
+        fun LivingEntity.addGene(newGene: Gene): Boolean {
+            if (this.hasGene(newGene)) return false
+
+            if (newGene.isHidden) {
+                GeneticsResequenced.LOGGER.debug("Cannot add hidden gene $newGene to entity.")
+                return false
+            }
+
+            if (this is Player && newGene.isNegative && ServerConfig.disableGivingPlayersNegativeGenes.get() && newGene != ModGenes.cringe) {
+                GeneticsResequenced.LOGGER.debug(
+                    "Tried to give negative gene $newGene to player $this, but \"disableGivingPlayersNegativeGenes\" is true in the server config."
+                )
+                return false
+            }
+
+            if (this !is Player && !newGene.canMobsHave) {
+                GeneticsResequenced.LOGGER.debug("Tried to give gene $newGene to mob $this, but mobs cannot have that gene!")
+                return false
+            }
+
+            val event = CustomEvents.GeneChangeEvent(this, newGene, true)
+            val wasCanceled = FORGE_BUS.post(event).isCanceled
+            if (wasCanceled) {
+                GeneticsResequenced.LOGGER.debug("Event was canceled: $event")
+                return false
+            }
+
+            this.genes += newGene
+            return true
         }
 
-        fun LivingEntity.removeGenes(vararg oldGenes: Gene): Boolean {
-            val oldSize = this.genes.size
-            this.genes -= oldGenes
-            return oldSize != this.genes.size
+        fun LivingEntity.removeGene(removedGene: Gene): Boolean {
+            if (!this.hasGene(removedGene)) return false
+
+            val event = CustomEvents.GeneChangeEvent(this, removedGene, false)
+            val wasCanceled = FORGE_BUS.post(event).isCanceled
+            if (wasCanceled) {
+                GeneticsResequenced.LOGGER.debug("Event was canceled: $event")
+                return false
+            }
+
+            this.genes -= removedGene
+            return true
         }
 
         fun LivingEntity.hasGene(gene: Gene): Boolean {

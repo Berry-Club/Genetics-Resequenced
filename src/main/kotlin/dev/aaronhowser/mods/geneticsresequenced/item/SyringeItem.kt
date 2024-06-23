@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.addGenes
+import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.genes
-import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeGenes
+import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GenesItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
@@ -66,7 +66,9 @@ class SyringeItem : Item(
 
             val entityGenesBefore = entity.genes
 
-            entity.removeGenes(*syringeAntigenes.toTypedArray())
+            for (antigene in syringeAntigenes) {
+                entity.removeGene(antigene)
+            }
 
             val entityGenesAfter = entity.genes
             val genesRemoved = entityGenesBefore - entityGenesAfter
@@ -105,7 +107,9 @@ class SyringeItem : Item(
                 syringeGenes
             }
 
-            entity.addGenes(*genesToAdd.toTypedArray())
+            for (gene in genesToAdd) {
+                entity.addGene(gene)
+            }
 
             val entityGenesAfter = entity.genes
             val genesAdded = entityGenesAfter - entityGenesBefore

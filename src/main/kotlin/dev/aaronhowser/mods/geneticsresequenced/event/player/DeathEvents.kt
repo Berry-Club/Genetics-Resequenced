@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeAllGenes
-import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeGenes
+import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -66,7 +66,10 @@ object DeathEvents {
             .withColor(ChatFormatting.GRAY)
 
         player.sendSystemMessage(component)
-        player.removeGenes(*negativeGenes.toTypedArray())
+
+        for (gene in negativeGenes) {
+            player.removeGene(gene)
+        }
     }
 
 }

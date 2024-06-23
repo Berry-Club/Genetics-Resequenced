@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.addGenes
+import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.addGene
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -51,7 +51,9 @@ object AddAllGenesCommand {
             val genesToAdd =
                 Gene.getRegistry().filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
 
-            target.addGenes(*genesToAdd.toTypedArray())
+            for (gene in genesToAdd) {
+                target.addGene(gene)
+            }
         }
 
         val component =
@@ -67,7 +69,9 @@ object AddAllGenesCommand {
         val genesToAdd =
             Gene.getRegistry().filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
 
-        target.addGenes(*genesToAdd.toTypedArray())
+        for (gene in genesToAdd) {
+            target.addGene(gene)
+        }
 
         val component =
             Component.translatable(

@@ -5,7 +5,7 @@ import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
-import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.addGenes
+import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
@@ -136,7 +136,7 @@ object AddGeneCommand {
             return false
         }
 
-        val success = target.addGenes(geneToAdd)
+        val success = target.addGene(geneToAdd)
 
         return success
     }
