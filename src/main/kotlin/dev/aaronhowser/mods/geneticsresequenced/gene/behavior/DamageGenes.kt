@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.world.damagesource.DamageTypes
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
@@ -157,18 +158,15 @@ object DamageGenes {
         val items = entity.handSlots.toMutableList()
         if (entity is Player) items += entity.inventory.items
 
-        //TODO
-//        val healthCrystal = items.find { it.item == ModItems.DRAGON_HEALTH_CRYSTAL } ?: return
-//
-//        val amountDamaged = event.amount.toInt()
-//        val crystalDurabilityRemaining = healthCrystal.maxDamage - healthCrystal.damageValue
-//        val amountToBlock = minOf(amountDamaged, crystalDurabilityRemaining)
-//
-//        healthCrystal.hurtAndBreak(amountToBlock, entity) {
-//            DragonHealthCrystal.playBreakSound(it.level, it.x, it.y, it.z)
-//        }
+        val healthCrystal = items.find { it.item == ModItems.DRAGON_HEALTH_CRYSTAL } ?: return
 
-//        event.amount -= amountToBlock
+        val amountDamaged = event.amount.toInt()
+        val crystalDurabilityRemaining = healthCrystal.maxDamage - healthCrystal.damageValue
+        val amountToBlock = minOf(amountDamaged, crystalDurabilityRemaining)
+
+        healthCrystal.hurtAndBreak(amountToBlock, entity, entity.getEquipmentSlotForItem(healthCrystal))
+
+        event.amount -= amountToBlock
         if (event.amount == 0f) event.isCanceled = true
     }
 
