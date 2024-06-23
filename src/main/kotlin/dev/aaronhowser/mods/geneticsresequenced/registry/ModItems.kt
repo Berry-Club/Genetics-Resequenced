@@ -1,10 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.item.AntiFieldOrbItem
-import dev.aaronhowser.mods.geneticsresequenced.item.DragonHealthCrystal
-import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.item.ScraperItem
+import dev.aaronhowser.mods.geneticsresequenced.item.*
 import net.minecraft.world.item.Item
 import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -15,29 +12,29 @@ object ModItems {
 
     val SCRAPER: DeferredItem<ScraperItem> =
         ITEM_REGISTRY.registerItem("scraper") { ScraperItem() }
-    val SYRINGE: DeferredItem<Item> =
-        ITEM_REGISTRY.registerSimpleItem("syringe")
-    val METAL_SYRINGE: DeferredItem<Item> =
-        ITEM_REGISTRY.registerSimpleItem("metal_syringe")
+    val SYRINGE: DeferredItem<SyringeItem> =
+        ITEM_REGISTRY.registerItem("syringe") { SyringeItem() }
+    val METAL_SYRINGE: DeferredItem<SyringeItem> =
+        ITEM_REGISTRY.registerItem("metal_syringe") { SyringeItem() }
     val ORGANIC_MATTER: DeferredItem<EntityDnaItem> =
         ITEM_REGISTRY.registerItem("organic_matter") { EntityDnaItem() }
     val CELL: DeferredItem<EntityDnaItem> =
         ITEM_REGISTRY.registerItem("cell") { EntityDnaItem() }
-    val GMO_CELL: DeferredItem<Item> =
+    val GMO_CELL =
         ITEM_REGISTRY.registerSimpleItem("gmo_cell")
-    val DNA_HELIX: DeferredItem<Item> =
+    val DNA_HELIX =
         ITEM_REGISTRY.registerSimpleItem("dna_helix")
-    val PLASMID: DeferredItem<Item> =
+    val PLASMID =
         ITEM_REGISTRY.registerSimpleItem("plasmid")
-    val ANTI_PLASMID: DeferredItem<Item> =
+    val ANTI_PLASMID =
         ITEM_REGISTRY.registerSimpleItem("anti_plasmid")
-    val OVERCLOCKER: DeferredItem<Item> =
+    val OVERCLOCKER =
         ITEM_REGISTRY.registerSimpleItem("overclocker")
-    val ANTI_FIELD_ORB: DeferredItem<Item> =
+    val ANTI_FIELD_ORB =
         ITEM_REGISTRY.registerItem("anti_field_orb") { AntiFieldOrbItem() }
-    val DRAGON_HEALTH_CRYSTAL: DeferredItem<Item> =
+    val DRAGON_HEALTH_CRYSTAL =
         ITEM_REGISTRY.registerItem("dragon_health_crystal") { DragonHealthCrystal() }
-    val FRIENDLY_SLIME_SPAWN_EGG: DeferredItem<Item> =
+    val FRIENDLY_SLIME_SPAWN_EGG =
         ITEM_REGISTRY.registerSimpleItem("support_slime_spawn_egg")
 
 }
