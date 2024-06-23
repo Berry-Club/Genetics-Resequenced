@@ -301,6 +301,8 @@
   "message.geneticsresequenced.gene_missing_requirements.list": "Required Genes:",
   "message.geneticsresequenced.meaty.recent": "This entity has already been meated recently!",
   "message.geneticsresequenced.metal_syringe.contaminated": "You can't inject entities with contaminated blood!",
+  "message.geneticsresequenced.metal_syringe.mismatch": "This Syringe is for a different entity!",
+  "message.geneticsresequenced.metal_syringe.no_mobs": "Mobs cannot have the %1$s Gene!",
   "message.geneticsresequenced.milk.milked": "You have been milked!",
   "message.geneticsresequenced.milk.recent": "This entity has already been milked recently!",
   "message.geneticsresequenced.scraper.cant_scrape": "This mob cannot be scraped.",
