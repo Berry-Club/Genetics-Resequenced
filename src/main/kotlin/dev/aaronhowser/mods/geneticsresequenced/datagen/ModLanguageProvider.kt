@@ -85,7 +85,9 @@ class ModLanguageProvider(
         const val SYRINGE_INJECTED = "message.geneticsresequenced.syringe.injected"
         const val SYRINGE_FAILED = "message.geneticsresequenced.syringe.failed"
         const val SYRINGE_CONTAMINATED = "message.geneticsresequenced.syringe.contaminated"
+        const val METAL_SYRINGE_MISMATCH = "message.geneticsresequenced.metal_syringe.mismatch"
         const val METAL_SYRINGE_CONTAMINATED = "message.geneticsresequenced.metal_syringe.contaminated"
+        const val METAL_SYRINGE_NO_MOBS = "message.geneticsresequenced.metal_syringe.no_mobs"
         const val SUPPORT_SLIME_CREATIVE = "message.geneticsresequenced.support_slime_creative"
         const val SYRINGE_REMOVE_GENES_SUCCESS = "message.geneticsresequenced.syringe.anti_gene.success"
         const val SYRINGE_REMOVE_GENES_FAIL = "message.geneticsresequenced.syringe.anti_gene.fail"
@@ -486,7 +488,9 @@ class ModLanguageProvider(
         add(Messages.SYRINGE_INJECTED, "You have gained the %1\$s Gene!")
         add(Messages.SYRINGE_FAILED, "You have failed to gain the %1\$s Gene!")
         add(Messages.SYRINGE_CONTAMINATED, "You can't inject yourself with contaminated blood!")
+        add(Messages.METAL_SYRINGE_MISMATCH, "This Syringe is for a different entity!")
         add(Messages.METAL_SYRINGE_CONTAMINATED, "You can't inject entities with contaminated blood!")
+        add(Messages.METAL_SYRINGE_NO_MOBS, "Mobs cannot have the %1\$s Gene!")
         add(
             Messages.SUPPORT_SLIME_CREATIVE,
             "Support Slimes despawn with no owner! Give yourself the %1\$s Gene to stop them from despawning!"

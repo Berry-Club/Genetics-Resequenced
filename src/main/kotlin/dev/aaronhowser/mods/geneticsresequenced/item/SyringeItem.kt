@@ -21,7 +21,7 @@ import net.minecraft.world.item.UseAnim
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.util.FakePlayer
 
-class SyringeItem : Item(
+open class SyringeItem : Item(
     Properties()
         .stacksTo(1)
 ) {
@@ -56,7 +56,13 @@ class SyringeItem : Item(
             val syringeEntityUuid = syringeStack.get(SpecificEntityItemComponent.component)?.entityUuid ?: return
             if (entity.uuid != syringeEntityUuid) return
 
-            addGenes(entity, getGenes(syringeStack))
+            val genesToAdd = if (entity is Player) {
+                getGenes(syringeStack)
+            } else {
+                getGenes(syringeStack).filter { it.canMobsHave }.toSet()
+            }
+
+            addGenes(entity, genesToAdd)
             removeGenes(entity, getAntigenes(syringeStack))
 
             clearGenes(syringeStack)
