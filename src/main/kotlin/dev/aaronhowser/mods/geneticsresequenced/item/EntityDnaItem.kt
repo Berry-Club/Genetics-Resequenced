@@ -16,7 +16,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 
-class EntityDnaItem : Item(Properties()) {
+open class EntityDnaItem : Item(Properties()) {
 
     companion object {
 

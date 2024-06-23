@@ -69,4 +69,12 @@ object ModDataComponents {
                 .build()
         })
 
+    val GENE_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<GeneItemComponent>> =
+        DATA_COMPONENT_REGISTRY.register("gene", Supplier {
+            DataComponentType.builder<GeneItemComponent>()
+                .persistent(GeneItemComponent.CODEC)
+                .networkSynchronized(GeneItemComponent.STREAM_CODEC)
+                .build()
+        })
+
 }
