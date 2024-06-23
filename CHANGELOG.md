@@ -10,3 +10,4 @@
 # 1.0.2
 
 - Emerald Heart chat function only worked if Emerald Heart was DISABLED, instead of ENABLED. Fixed that.
+- Attributes Modifiers now use a UUID rather than just the name. This may cause problems if you already had that attribute modifier.

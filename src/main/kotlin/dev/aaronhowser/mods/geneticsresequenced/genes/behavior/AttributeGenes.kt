@@ -9,6 +9,7 @@ import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
 import net.minecraftforge.common.ForgeMod
 import net.minecraftforge.event.entity.player.PlayerEvent
+import java.util.*
 
 object AttributeGenes {
 
@@ -26,7 +27,9 @@ object AttributeGenes {
         event.newSpeed += (1 + efficiencyAttribute.baseValue * efficiencyAttribute.baseValue).toFloat()
     }
 
+    private val stepAssistUuid = UUID.fromString("05feb73d-3a4c-4a88-a876-73c37ff29a0b")
     private val stepAssistAttributeModifier = AttributeModifier(
+        stepAssistUuid,
         "Genetics Resequenced: Step Assist",
         1.0,
         AttributeModifier.Operation.ADDITION
@@ -45,13 +48,17 @@ object AttributeGenes {
         }
     }
 
+    private val moreHealthOneUuid = UUID.fromString("5b9f45a3-644e-48bb-9b9c-bced8d3b8831")
     private val moreHealthOneModifier = AttributeModifier(
+        moreHealthOneUuid,
         "Genetics Resequenced: More Hearts 1",
         20.0,
         AttributeModifier.Operation.ADDITION
     )
 
+    private val moreHealthTwoUuid = UUID.fromString("597fee8e-cda8-46ee-a5a8-9d6928cc4bff")
     private val moreHealthTwoModifier = AttributeModifier(
+        moreHealthTwoUuid,
         "Genetics Resequenced: More Hearts 2",
         20.0,
         AttributeModifier.Operation.ADDITION
@@ -91,7 +98,9 @@ object AttributeGenes {
         }
     }
 
+    private val knockbackUuid = UUID.fromString("ff60e83f-4f58-46e9-a829-53b3e989fd9b")
     private val knockbackAttributeModifier = AttributeModifier(
+        knockbackUuid,
         "Genetics Resequenced: Extra Knock Back",
         ServerConfig.knockbackStrength.get(),
         AttributeModifier.Operation.ADDITION
