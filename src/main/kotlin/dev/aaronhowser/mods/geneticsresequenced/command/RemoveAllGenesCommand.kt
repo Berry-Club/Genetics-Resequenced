@@ -1,0 +1,74 @@
+package dev.aaronhowser.mods.geneticsresequenced.command
+
+import com.mojang.brigadier.builder.ArgumentBuilder
+import com.mojang.brigadier.context.CommandContext
+import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeAllGenes
+import net.minecraft.commands.CommandSourceStack
+import net.minecraft.commands.Commands
+import net.minecraft.commands.arguments.EntityArgument
+import net.minecraft.network.chat.Component
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.LivingEntity
+
+object RemoveAllGenesCommand {
+
+    private const val TARGET_ARGUMENT = "targets"
+
+    fun register(): ArgumentBuilder<CommandSourceStack, *> {
+        return Commands
+            .literal("removeAllGenes")
+            .requires { it.hasPermission(2) }
+            .then(
+                Commands
+                    .argument(TARGET_ARGUMENT, EntityArgument.entities())
+                    .executes { cmd -> removeAllGenes(cmd, EntityArgument.getEntities(cmd, TARGET_ARGUMENT)) }
+            )
+            .executes { cmd -> removeAllGenes(cmd) }
+    }
+
+    private fun removeAllGenes(
+        context: CommandContext<CommandSourceStack>,
+        entities: MutableCollection<out Entity>? = null
+    ): Int {
+
+        val targets: List<LivingEntity> =
+            entities?.mapNotNull { it as? LivingEntity } ?: listOfNotNull(context.source.entity as? LivingEntity)
+
+        if (targets.size == 1) {
+            handleSingleTarget(context, targets.first())
+        } else {
+            handleMultipleTargets(context, targets)
+        }
+
+        return 1
+    }
+
+    private fun handleSingleTarget(context: CommandContext<CommandSourceStack>, target: LivingEntity) {
+
+        target.removeAllGenes()
+
+        val component =
+            Component.translatable(
+                "command.geneticsresequenced.remove_all.single_target",
+                target.displayName
+            )
+
+        context.source.sendSuccess({ component }, false)
+    }
+
+    private fun handleMultipleTargets(context: CommandContext<CommandSourceStack>, targets: List<LivingEntity>) {
+        for (target in targets) {
+            target.removeAllGenes()
+        }
+
+        val component =
+            Component.translatable(
+                "command.geneticsresequenced.remove_all.multiple_targets",
+                targets.size
+            )
+
+        context.source.sendSuccess({ component }, false)
+
+    }
+
+}

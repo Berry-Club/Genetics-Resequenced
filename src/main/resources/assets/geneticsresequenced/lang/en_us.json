@@ -141,8 +141,8 @@
   "command.geneticsresequenced.add_all.multiple_targets": "Added all positive Genes to %d entities!",
   "command.geneticsresequenced.remove_gene.success": "Removed %1$s from %2$d entities!",
   "command.geneticsresequenced.remove_gene.fail": "Failed to remove %1$s from %2$d entities!",
-  "command.geneticsresequenced.remove_all.success": "Removed all Genes from %d entities!",
-  "command.geneticsresequenced.remove_all.fail": "Failed to remove all Genes from %d entities!",
+  "command.geneticsresequenced.remove_all.single_target": "Removed all Genes from %s!",
+  "command.geneticsresequenced.remove_all.multiple_targets": "Removed all Genes from %d entities!",
 
   "cooldown.geneticsresequenced.started": " triggered! Cooldown started: %s",
   "cooldown.geneticsresequenced.ended": " has come off cooldown!",
