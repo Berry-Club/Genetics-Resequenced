@@ -10,11 +10,11 @@ import java.util.function.Supplier
 
 object ModAttachmentTypes {
 
-    val ATTACHMENT_TYPES: DeferredRegister<AttachmentType<*>> =
+    val ATTACHMENT_TYPES_REGISTRY: DeferredRegister<AttachmentType<*>> =
         DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, GeneticsResequenced.ID)
 
     val GENE_CONTAINER: DeferredHolder<AttachmentType<*>, AttachmentType<GenesData>> =
-        ATTACHMENT_TYPES.register("genes", Supplier {
+        ATTACHMENT_TYPES_REGISTRY.register("genes", Supplier {
             AttachmentType
                 .builder(Supplier { GenesData() })
                 .serialize(GenesData.CODEC)
