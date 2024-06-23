@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "geneticsresequenced:cell"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "P": {
+      "item": "minecraft:sticky_piston"
+    }
+  },
+  "pattern": [
+    "III",
+    "PCP",
+    "III"
+  ],
+  "result": {
+    "count": 1,
+    "id": "geneticsresequenced:dna_extractor"
+  }
+}

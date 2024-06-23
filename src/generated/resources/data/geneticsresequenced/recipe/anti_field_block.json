@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "item": "minecraft:redstone_lamp"
+    },
+    "O": {
+      "item": "geneticsresequenced:anti_field_orb"
+    }
+  },
+  "pattern": [
+    "   ",
+    " O ",
+    " L "
+  ],
+  "result": {
+    "count": 1,
+    "id": "geneticsresequenced:anti_field_block"
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_dna_decryptor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:dna_decryptor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "geneticsresequenced:plasmid_infuser"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_dna_decryptor"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "geneticsresequenced:plasmid_infuser"
+    ]
+  }
+}

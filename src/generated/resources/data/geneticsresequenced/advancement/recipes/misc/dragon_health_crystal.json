@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_plasmid": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:plasmid"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "geneticsresequenced:dragon_health_crystal"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_plasmid"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "geneticsresequenced:dragon_health_crystal"
+    ]
+  }
+}

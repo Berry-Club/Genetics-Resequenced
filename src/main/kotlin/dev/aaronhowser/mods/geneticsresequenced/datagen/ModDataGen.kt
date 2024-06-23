@@ -19,6 +19,7 @@ object ModDataGen {
         val lookupProvider = event.lookupProvider
 
         generator.addProvider(event.includeClient(), ModLanguageProvider(output))
+        generator.addProvider(event.includeServer(), ModRecipeProvider(output, lookupProvider))
 
     }
 

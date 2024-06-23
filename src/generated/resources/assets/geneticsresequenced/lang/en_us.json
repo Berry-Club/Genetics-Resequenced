@@ -295,6 +295,7 @@
   "message.geneticsresequenced.cringe.resources.remove": "You feel yourself become more based, the cringe leaving the world in %d...",
   "message.geneticsresequenced.cringe.resources.tooltip": "You can disable this in the client config!\n\nYour language is reset to normal when you leave the game.",
   "message.geneticsresequenced.death_gene_removal": "Death has reset your Genes!",
+  "message.geneticsresequenced.death_negative_gene_removal": "Death has remove your negative Genes!",
   "message.geneticsresequenced.emerald_heart.cooldown": "Emerald Heart is on cooldown!",
   "message.geneticsresequenced.gene_missing_requirements": "You feel the %s Gene fade away...\nIt seems you §cdo not meet the requirements§r for it.",
   "message.geneticsresequenced.gene_missing_requirements.list": "Required Genes:",
