@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -72,19 +74,20 @@ object AttributeGenes {
     }
 
     private val moreHealthOneRl = OtherUtil.modResource("more_health_one")
-    private val moreHealthOneModifier = AttributeModifier(
+    private val moreHealthOneAttributeModifier = AttributeModifier(
         moreHealthOneRl,
         20.0,
         AttributeModifier.Operation.ADD_VALUE
     )
 
     private val moreHealthTwoRl = OtherUtil.modResource("more_health_two")
-    private val moreHealthTwoModifier = AttributeModifier(
+    private val moreHealthTwoAttributeModifier = AttributeModifier(
         moreHealthTwoRl,
         20.0,
         AttributeModifier.Operation.ADD_VALUE
     )
 
+    //TODO: Mark as entity-allowed
     fun setMoreHearts(entity: LivingEntity, level: Int, adding: Boolean) {
         val maxHealthAttribute = entity.getAttribute(Attributes.MAX_HEALTH) ?: return
 
@@ -101,22 +104,79 @@ object AttributeGenes {
 
             1 -> if (adding) {
                 if (hasLevelOne) return
-                maxHealthAttribute.addPermanentModifier(moreHealthOneModifier)
+                maxHealthAttribute.addPermanentModifier(moreHealthOneAttributeModifier)
             } else {
                 if (!hasLevelOne) return
-                maxHealthAttribute.removeModifier(moreHealthOneModifier)
+                maxHealthAttribute.removeModifier(moreHealthOneAttributeModifier)
             }
 
             2 -> if (adding) {
                 if (hasLevelTwo) return
-                maxHealthAttribute.addPermanentModifier(moreHealthTwoModifier)
+                maxHealthAttribute.addPermanentModifier(moreHealthTwoAttributeModifier)
             } else {
                 if (!hasLevelTwo) return
-                maxHealthAttribute.removeModifier(moreHealthTwoModifier)
+                maxHealthAttribute.removeModifier(moreHealthTwoAttributeModifier)
             }
 
         }
+    }
 
+
+    private val knockbackRl = OtherUtil.modResource("knockback")
+    private val knockbackAttributeModifier = AttributeModifier(
+        knockbackRl,
+        ServerConfig.knockbackStrength.get(),
+        AttributeModifier.Operation.ADD_VALUE
+    )
+
+    fun setKnockback(entity: LivingEntity, adding: Boolean) {
+        //TODO: Maybe make this not attribute-based, so this check can be on attack instead?
+        if (!ModGenes.knockback.isActive && adding) return
+
+        val attackKnockBackAttribute = entity.getAttribute(Attributes.ATTACK_KNOCKBACK) ?: return
+
+        if (adding) {
+            attackKnockBackAttribute.addPermanentModifier(knockbackAttributeModifier)
+        } else {
+            attackKnockBackAttribute.removeModifier(knockbackAttributeModifier)
+        }
+    }
+
+
+    private val wallClimbingRl = OtherUtil.modResource("wall_climbing")
+    private val wallClimbingAttributeModifier = AttributeModifier(
+        wallClimbingRl,
+        1.0,
+        AttributeModifier.Operation.ADD_VALUE
+    )
+
+    fun setWallClimbing(player: Player, adding: Boolean) {
+        val wallClimbingAttribute = player.getAttribute(ModAttributes.WALL_CLIMBING) ?: return
+
+        if (adding) {
+            wallClimbingAttribute.addPermanentModifier(wallClimbingAttributeModifier)
+        } else {
+            wallClimbingAttribute.removeModifier(wallClimbingAttributeModifier)
+        }
+    }
+
+    fun handleWallClimbing(player: Player) {
+        if (!ModGenes.wallClimbing.isActive) return
+
+        val walkClimbingAttributeValue = player.getAttributeValue(ModAttributes.WALL_CLIMBING)
+        if (walkClimbingAttributeValue <= 0.0) return
+
+        if (!player.hasGene(ModGenes.wallClimbing)) return
+
+        if (player.horizontalCollision || player.minorHorizontalCollision) {
+            player.setDeltaMovement(
+                player.deltaMovement.x,
+                if (player.isCrouching) 0.0 else ServerConfig.wallClimbSpeed.get(),
+                player.deltaMovement.z
+            )
+
+            player.fallDistance = 0.0f
+        }
     }
 
 }
