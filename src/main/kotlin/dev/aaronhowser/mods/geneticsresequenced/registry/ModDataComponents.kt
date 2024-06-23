@@ -32,8 +32,16 @@ object ModDataComponents {
                 .build()
         })
 
-    val BOOLEAN_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<BooleanItemComponent>> =
-        DATA_COMPONENT_REGISTRY.register("boolean", Supplier {
+    val IS_ACTIVE_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<BooleanItemComponent>> =
+        DATA_COMPONENT_REGISTRY.register("active", Supplier {
+            DataComponentType.builder<BooleanItemComponent>()
+                .persistent(BooleanItemComponent.CODEC)
+                .networkSynchronized(BooleanItemComponent.STREAM_CODEC)
+                .build()
+        })
+
+    val IS_CONTAMINATED_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<BooleanItemComponent>> =
+        DATA_COMPONENT_REGISTRY.register("contaminated", Supplier {
             DataComponentType.builder<BooleanItemComponent>()
                 .persistent(BooleanItemComponent.CODEC)
                 .networkSynchronized(BooleanItemComponent.STREAM_CODEC)

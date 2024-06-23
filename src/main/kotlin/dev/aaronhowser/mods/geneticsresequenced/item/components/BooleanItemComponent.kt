@@ -24,7 +24,8 @@ data class BooleanItemComponent(
             ::BooleanItemComponent
         )
 
-        val component: DataComponentType<BooleanItemComponent> by lazy { ModDataComponents.BOOLEAN_COMPONENT.get() }
+        val isActiveComponent: DataComponentType<BooleanItemComponent> by lazy { ModDataComponents.IS_ACTIVE_COMPONENT.get() }
+        val isContaminatedComponent: DataComponentType<BooleanItemComponent> by lazy { ModDataComponents.IS_CONTAMINATED_COMPONENT.get() }
 
     }
 

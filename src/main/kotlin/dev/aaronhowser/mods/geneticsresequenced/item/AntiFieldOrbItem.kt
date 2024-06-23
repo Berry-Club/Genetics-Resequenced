@@ -16,18 +16,18 @@ import net.minecraft.world.level.Level
 class AntiFieldOrbItem : Item(
     Properties()
         .stacksTo(1)
-        .component(BooleanItemComponent.component, BooleanItemComponent(false))
+        .component(BooleanItemComponent.isActiveComponent, BooleanItemComponent(false))
 ) {
 
     companion object {
 
         private fun isEnabled(itemStack: ItemStack): Boolean {
-            return itemStack.get(BooleanItemComponent.component)?.value ?: false
+            return itemStack.get(BooleanItemComponent.isActiveComponent)?.value ?: false
         }
 
         private fun toggleEnabled(itemStack: ItemStack) {
             itemStack.set(
-                BooleanItemComponent.component,
+                BooleanItemComponent.isActiveComponent,
                 BooleanItemComponent(!isEnabled(itemStack))
             )
         }
