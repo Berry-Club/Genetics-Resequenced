@@ -1,10 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeItemComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.GenesItemComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.components.*
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.registries.Registries
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -61,6 +58,14 @@ object ModDataComponents {
             DataComponentType.builder<GenesItemComponent>()
                 .persistent(GenesItemComponent.CODEC)
                 .networkSynchronized(GenesItemComponent.STREAM_CODEC)
+                .build()
+        })
+
+    val PLASMID_PROGRESS_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<PlasmidProgressItemComponent>> =
+        DATA_COMPONENT_REGISTRY.register("plasmid_progress", Supplier {
+            DataComponentType.builder<PlasmidProgressItemComponent>()
+                .persistent(PlasmidProgressItemComponent.CODEC)
+                .networkSynchronized(PlasmidProgressItemComponent.STREAM_CODEC)
                 .build()
         })
 
