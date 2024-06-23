@@ -124,7 +124,7 @@ class DnaHelixItem : EntityDnaItem() {
                 pTooltipComponents.add(component)
             }
         } catch (e: Exception) {
-            GeneticsResequenced.LOGGER.error("EntityDnaItem isCreative check failed", e)
+            GeneticsResequenced.LOGGER.error("DnaHelixItem isCreative check failed", e)
         }
     }
 
