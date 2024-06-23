@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.item.*
-import net.minecraft.world.item.Item
 import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
 
@@ -14,7 +13,7 @@ object ModItems {
         ITEM_REGISTRY.registerItem("scraper") { ScraperItem() }
     val SYRINGE: DeferredItem<SyringeItem> =
         ITEM_REGISTRY.registerItem("syringe") { SyringeItem() }
-    val METAL_SYRINGE: DeferredItem<SyringeItem> =
+    val METAL_SYRINGE: DeferredItem<MetalSyringeItem> =
         ITEM_REGISTRY.registerItem("metal_syringe") { MetalSyringeItem() }
     val ORGANIC_MATTER: DeferredItem<EntityDnaItem> =
         ITEM_REGISTRY.registerItem("organic_matter") { EntityDnaItem() }
