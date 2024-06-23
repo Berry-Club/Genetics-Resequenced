@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.item.components.IsActiveItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GenesItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
@@ -32,11 +32,11 @@ object ModDataComponents {
                 .build()
         })
 
-    val IS_ACTIVE: DeferredHolder<DataComponentType<*>, DataComponentType<IsActiveItemComponent>> =
+    val BOOLEAN_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<BooleanItemComponent>> =
         DATA_COMPONENT_REGISTRY.register("boolean", Supplier {
-            DataComponentType.builder<IsActiveItemComponent>()
-                .persistent(IsActiveItemComponent.CODEC)
-                .networkSynchronized(IsActiveItemComponent.STREAM_CODEC)
+            DataComponentType.builder<BooleanItemComponent>()
+                .persistent(BooleanItemComponent.CODEC)
+                .networkSynchronized(BooleanItemComponent.STREAM_CODEC)
                 .build()
         })
 
