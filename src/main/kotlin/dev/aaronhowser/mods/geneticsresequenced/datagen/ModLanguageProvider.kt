@@ -193,225 +193,229 @@ class ModLanguageProvider(
         }
 
         object Info {
-            const val = "info.geneticsresequenced.organic_matter"
-            const val = "info.geneticsresequenced.mob_gene.line1"
-            const val = "info.geneticsresequenced.mob_gene.line2"
-            const val = "info.geneticsresequenced.requires_genes"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:claws_2"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:efficiency_4"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:flight"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:haste_2"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:meaty_2"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:photosynthesis"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:regeneration_4"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:resistance_2"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:speed_4"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:speed_2"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:strength_2"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:scare_zombies"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:scare_spiders"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:bioluminescence"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:claws"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:dragons_breath"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:eat_grass"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:efficiency"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:emerald_heart"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:ender_dragon_health"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:explosive_exit"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:fire_proof"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:haste"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:infinity"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:invisible"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:item_magnet"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:jump_boost"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:keep_inventory"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:lay_egg"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:luck"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:meaty"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:milky"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:mob_sight"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:more_hearts"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:more_hearts_2"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:night_vision"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:no_fall_damage"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:no_hunger"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:poison_immunity"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:regeneration"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:resistance"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:scare_creepers"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:scare_skeletons"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:shoot_fireballs"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:slimy_death"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:speed"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:step_assist"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:strength"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:teleport"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:thorns"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:wall_climbing"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:water_breathing"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:wither_hit"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:wither_proof"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:wooly"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:xp_magnet"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:blindness"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:cursed"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:flambe"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:hunger"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:levitation"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:mining_fatigue"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:nausea"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:poison"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:poison_4"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:slowness"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:slowness_4"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:slowness_6"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:weakness"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:wither"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:black_death"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:green_death"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:white_death"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:gray_death"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:un_undeath"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:chatterbox"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:cringe"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:knockback"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:bad_omen"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:johnny"
-            const val = "info.geneticsresequenced.gene_description.geneticsresequenced:chilling"
+            const val ORGANIC_MATTER = "info.geneticsresequenced.organic_matter"
+            const val MOB_GENE_ONE = "info.geneticsresequenced.mob_gene.line1"
+            const val MOB_GENE_TWO = "info.geneticsresequenced.mob_gene.line2"
+            const val REQUIRED_GENES = "info.geneticsresequenced.requires_genes"
+            const val CLAWS_TWO = "info.geneticsresequenced.gene_description.geneticsresequenced:claws_2"
+            const val EFFICIENCY_FOUR = "info.geneticsresequenced.gene_description.geneticsresequenced:efficiency_4"
+            const val FLIGHT = "info.geneticsresequenced.gene_description.geneticsresequenced:flight"
+            const val HASTE_2 = "info.geneticsresequenced.gene_description.geneticsresequenced:haste_2"
+            const val MEATY_2 = "info.geneticsresequenced.gene_description.geneticsresequenced:meaty_2"
+            const val PHOTOSYNTHESIS = "info.geneticsresequenced.gene_description.geneticsresequenced:photosynthesis"
+            const val REGENERATION_FOUR = "info.geneticsresequenced.gene_description.geneticsresequenced:regeneration_4"
+            const val RESISTANCE_TWO = "info.geneticsresequenced.gene_description.geneticsresequenced:resistance_2"
+            const val SPEED_FOUR = "info.geneticsresequenced.gene_description.geneticsresequenced:speed_4"
+            const val SPEED_TWO = "info.geneticsresequenced.gene_description.geneticsresequenced:speed_2"
+            const val STRENGTH_TWO = "info.geneticsresequenced.gene_description.geneticsresequenced:strength_2"
+            const val SCARE_ZOMBIES = "info.geneticsresequenced.gene_description.geneticsresequenced:scare_zombies"
+            const val SCARE_SPIDERS = "info.geneticsresequenced.gene_description.geneticsresequenced:scare_spiders"
+            const val BIOLUMINESCENCE = "info.geneticsresequenced.gene_description.geneticsresequenced:bioluminescence"
+            const val CLAWS = "info.geneticsresequenced.gene_description.geneticsresequenced:claws"
+            const val DRAGONS_BREATH = "info.geneticsresequenced.gene_description.geneticsresequenced:dragons_breath"
+            const val EAT_GRASS = "info.geneticsresequenced.gene_description.geneticsresequenced:eat_grass"
+            const val EFFICIENCY = "info.geneticsresequenced.gene_description.geneticsresequenced:efficiency"
+            const val EMERALD_HEART = "info.geneticsresequenced.gene_description.geneticsresequenced:emerald_heart"
+            const val ENDER_DRAGON_HEALTH =
+                "info.geneticsresequenced.gene_description.geneticsresequenced:ender_dragon_health"
+            const val EXPLOSIVE_EXIT = "info.geneticsresequenced.gene_description.geneticsresequenced:explosive_exit"
+            const val FIRE_PROOF = "info.geneticsresequenced.gene_description.geneticsresequenced:fire_proof"
+            const val HASTE = "info.geneticsresequenced.gene_description.geneticsresequenced:haste"
+            const val INFINITY = "info.geneticsresequenced.gene_description.geneticsresequenced:infinity"
+            const val INVISIBLE = "info.geneticsresequenced.gene_description.geneticsresequenced:invisible"
+            const val ITEM_MAGNET = "info.geneticsresequenced.gene_description.geneticsresequenced:item_magnet"
+            const val JUMP_BOOST = "info.geneticsresequenced.gene_description.geneticsresequenced:jump_boost"
+            const val KEEP_INVENTORY = "info.geneticsresequenced.gene_description.geneticsresequenced:keep_inventory"
+            const val LAY_EGG = "info.geneticsresequenced.gene_description.geneticsresequenced:lay_egg"
+            const val LUCK = "info.geneticsresequenced.gene_description.geneticsresequenced:luck"
+            const val MEATY = "info.geneticsresequenced.gene_description.geneticsresequenced:meaty"
+            const val MILKY = "info.geneticsresequenced.gene_description.geneticsresequenced:milky"
+            const val MOB_SIGHT = "info.geneticsresequenced.gene_description.geneticsresequenced:mob_sight"
+            const val MORE_HEARTS = "info.geneticsresequenced.gene_description.geneticsresequenced:more_hearts"
+            const val MORE_HEARTS_TWO = "info.geneticsresequenced.gene_description.geneticsresequenced:more_hearts_2"
+            const val NIGHT_VISION = "info.geneticsresequenced.gene_description.geneticsresequenced:night_vision"
+            const val NO_FALL_DAMAGE = "info.geneticsresequenced.gene_description.geneticsresequenced:no_fall_damage"
+            const val NO_HUNGER = "info.geneticsresequenced.gene_description.geneticsresequenced:no_hunger"
+            const val POISON_IMMUNITY = "info.geneticsresequenced.gene_description.geneticsresequenced:poison_immunity"
+            const val REGENERATION = "info.geneticsresequenced.gene_description.geneticsresequenced:regeneration"
+            const val RESISTANCE = "info.geneticsresequenced.gene_description.geneticsresequenced:resistance"
+            const val SCARE_CREEPERS = "info.geneticsresequenced.gene_description.geneticsresequenced:scare_creepers"
+            const val SCARE_SKELETONS = "info.geneticsresequenced.gene_description.geneticsresequenced:scare_skeletons"
+            const val SHOOT_FIREBALLS = "info.geneticsresequenced.gene_description.geneticsresequenced:shoot_fireballs"
+            const val SLIMY_DEATH = "info.geneticsresequenced.gene_description.geneticsresequenced:slimy_death"
+            const val SPEED = "info.geneticsresequenced.gene_description.geneticsresequenced:speed"
+            const val STEP_ASSIST = "info.geneticsresequenced.gene_description.geneticsresequenced:step_assist"
+            const val STRENGTH = "info.geneticsresequenced.gene_description.geneticsresequenced:strength"
+            const val TELEPORT = "info.geneticsresequenced.gene_description.geneticsresequenced:teleport"
+            const val THORNS = "info.geneticsresequenced.gene_description.geneticsresequenced:thorns"
+            const val WALL_CLIMBING = "info.geneticsresequenced.gene_description.geneticsresequenced:wall_climbing"
+            const val WATER_BREATTHING = "info.geneticsresequenced.gene_description.geneticsresequenced:water_breathing"
+            const val WITHER_HIT = "info.geneticsresequenced.gene_description.geneticsresequenced:wither_hit"
+            const val WITHER_PROOF = "info.geneticsresequenced.gene_description.geneticsresequenced:wither_proof"
+            const val WOOLY = "info.geneticsresequenced.gene_description.geneticsresequenced:wooly"
+            const val XP_MAGNET = "info.geneticsresequenced.gene_description.geneticsresequenced:xp_magnet"
+            const val BLINDNESS = "info.geneticsresequenced.gene_description.geneticsresequenced:blindness"
+            const val CURSED = "info.geneticsresequenced.gene_description.geneticsresequenced:cursed"
+            const val FLAMBE = "info.geneticsresequenced.gene_description.geneticsresequenced:flambe"
+            const val HUNGER = "info.geneticsresequenced.gene_description.geneticsresequenced:hunger"
+            const val LEVITATION = "info.geneticsresequenced.gene_description.geneticsresequenced:levitation"
+            const val MINING_FATIGUE = "info.geneticsresequenced.gene_description.geneticsresequenced:mining_fatigue"
+            const val NAUSEA = "info.geneticsresequenced.gene_description.geneticsresequenced:nausea"
+            const val POISON = "info.geneticsresequenced.gene_description.geneticsresequenced:poison"
+            const val POISON_FOUR = "info.geneticsresequenced.gene_description.geneticsresequenced:poison_4"
+            const val SLOWNESS = "info.geneticsresequenced.gene_description.geneticsresequenced:slowness"
+            const val SLOWNESS_SIX = "info.geneticsresequenced.gene_description.geneticsresequenced:slowness_6"
+            const val SLOWNESS_FOUR = "info.geneticsresequenced.gene_description.geneticsresequenced:slowness_4"
+            const val WEAKNESS = "info.geneticsresequenced.gene_description.geneticsresequenced:weakness"
+            const val WITHER = "info.geneticsresequenced.gene_description.geneticsresequenced:wither"
+            const val BLACK_DEATH = "info.geneticsresequenced.gene_description.geneticsresequenced:black_death"
+            const val GREEN_DEATH = "info.geneticsresequenced.gene_description.geneticsresequenced:green_death"
+            const val WHITE_DEATH = "info.geneticsresequenced.gene_description.geneticsresequenced:white_death"
+            const val GRAY_DEATH = "info.geneticsresequenced.gene_description.geneticsresequenced:gray_death"
+            const val UN_UNDEATH = "info.geneticsresequenced.gene_description.geneticsresequenced:un_undeath"
+            const val CHATTERBOX = "info.geneticsresequenced.gene_description.geneticsresequenced:chatterbox"
+            const val CRINGE = "info.geneticsresequenced.gene_description.geneticsresequenced:cringe"
+            const val KNOCKBACK = "info.geneticsresequenced.gene_description.geneticsresequenced:knockback"
+            const val BAD_OMEN = "info.geneticsresequenced.gene_description.geneticsresequenced:bad_omen"
+            const val JOHNNY = "info.geneticsresequenced.gene_description.geneticsresequenced:johnny"
+            const val CHILLING = "info.geneticsresequenced.gene_description.geneticsresequenced:chilling"
         }
 
         object Genes {
-            const val = "gene.geneticsresequenced.unknown"
-            const val = "gene.geneticsresequenced.basic"
-            const val = "gene.geneticsresequenced.haste_2"
-            const val = "gene.geneticsresequenced.efficiency_4"
-            const val = "gene.geneticsresequenced.regeneration_4"
-            const val = "gene.geneticsresequenced.speed_4"
-            const val = "gene.geneticsresequenced.speed_2"
-            const val = "gene.geneticsresequenced.resistance_2"
-            const val = "gene.geneticsresequenced.strength_2"
-            const val = "gene.geneticsresequenced.meaty_2"
-            const val = "gene.geneticsresequenced.more_hearts_2"
-            const val = "gene.geneticsresequenced.invisible"
-            const val = "gene.geneticsresequenced.flight"
-            const val = "gene.geneticsresequenced.luck"
-            const val = "gene.geneticsresequenced.scare_zombies"
-            const val = "gene.geneticsresequenced.scare_spiders"
-            const val = "gene.geneticsresequenced.thorns"
-            const val = "gene.geneticsresequenced.claws_2"
-            const val = "gene.geneticsresequenced.chatterbox"
-            const val = "gene.geneticsresequenced.chilling"
-            const val = "gene.geneticsresequenced.dragons_breath"
-            const val = "gene.geneticsresequenced.eat_grass"
-            const val = "gene.geneticsresequenced.emerald_heart"
-            const val = "gene.geneticsresequenced.ender_dragon_health"
-            const val = "gene.geneticsresequenced.explosive_exit"
-            const val = "gene.geneticsresequenced.fire_proof"
-            const val = "gene.geneticsresequenced.item_magnet"
-            const val = "gene.geneticsresequenced.johnny"
-            const val = "gene.geneticsresequenced.jump_boost"
-            const val = "gene.geneticsresequenced.milky"
-            const val = "gene.geneticsresequenced.more_hearts"
-            const val = "gene.geneticsresequenced.night_vision"
-            const val = "gene.geneticsresequenced.no_fall_damage"
-            const val = "gene.geneticsresequenced.photosynthesis"
-            const val = "gene.geneticsresequenced.poison_immunity"
-            const val = "gene.geneticsresequenced.resistance"
-            const val = "gene.geneticsresequenced.knockback"
-            const val = "gene.geneticsresequenced.keep_inventory"
-            const val = "gene.geneticsresequenced.scare_creepers"
-            const val = "gene.geneticsresequenced.scare_skeletons"
-            const val = "gene.geneticsresequenced.shoot_fireballs"
-            const val = "gene.geneticsresequenced.slimy_death"
-            const val = "gene.geneticsresequenced.speed"
-            const val = "gene.geneticsresequenced.strength"
-            const val = "gene.geneticsresequenced.teleport"
-            const val = "gene.geneticsresequenced.water_breathing"
-            const val = "gene.geneticsresequenced.wooly"
-            const val = "gene.geneticsresequenced.wither_hit"
-            const val = "gene.geneticsresequenced.wither_proof"
-            const val = "gene.geneticsresequenced.xp_magnet"
-            const val = "gene.geneticsresequenced.step_assist"
-            const val = "gene.geneticsresequenced.infinity"
-            const val = "gene.geneticsresequenced.bioluminescence"
-            const val = "gene.geneticsresequenced.cybernetic"
-            const val = "gene.geneticsresequenced.lay_egg"
-            const val = "gene.geneticsresequenced.meaty"
-            const val = "gene.geneticsresequenced.no_hunger"
-            const val = "gene.geneticsresequenced.claws"
-            const val = "gene.geneticsresequenced.haste"
-            const val = "gene.geneticsresequenced.efficiency"
-            const val = "gene.geneticsresequenced.wall_climbing"
-            const val = "gene.geneticsresequenced.mob_sight"
-            const val = "gene.geneticsresequenced.regeneration"
-            const val = "gene.geneticsresequenced.bad_omen"
-            const val = "gene.geneticsresequenced.cringe"
-            const val = "gene.geneticsresequenced.poison"
-            const val = "gene.geneticsresequenced.poison_2"
-            const val = "gene.geneticsresequenced.poison_4"
-            const val = "gene.geneticsresequenced.wither"
-            const val = "gene.geneticsresequenced.weakness"
-            const val = "gene.geneticsresequenced.blindness"
-            const val = "gene.geneticsresequenced.slowness"
-            const val = "gene.geneticsresequenced.slowness_4"
-            const val = "gene.geneticsresequenced.slowness_6"
-            const val = "gene.geneticsresequenced.nausea"
-            const val = "gene.geneticsresequenced.hunger"
-            const val = "gene.geneticsresequenced.flambe"
-            const val = "gene.geneticsresequenced.cursed"
-            const val = "gene.geneticsresequenced.levitation"
-            const val = "gene.geneticsresequenced.mining_fatigue"
-            const val = "gene.geneticsresequenced.green_death"
-            const val = "gene.geneticsresequenced.un_undeath"
-            const val = "gene.geneticsresequenced.gray_death"
-            const val = "gene.geneticsresequenced.white_death"
-            const val = "gene.geneticsresequenced.black_death"
-            const val = "gene.geneticsresequenced.void_death"
-            const val = "gene.geneticsresequenced.gene_disabled"
+            const val UNKNOWN = "gene.geneticsresequenced.unknown"
+            const val BASIC = "gene.geneticsresequenced.basic"
+            const val HASTE_TWO = "gene.geneticsresequenced.haste_2"
+            const val EFFICIENCY_FOUR = "gene.geneticsresequenced.efficiency_4"
+            const val REGENERATION_FOUR = "gene.geneticsresequenced.regeneration_4"
+            const val SPEED_FOUR = "gene.geneticsresequenced.speed_4"
+            const val SPEED_TWO = "gene.geneticsresequenced.speed_2"
+            const val RESISTANCE_TWO = "gene.geneticsresequenced.resistance_2"
+            const val STRENGTH_TWO = "gene.geneticsresequenced.strength_2"
+            const val MEATY_TWO = "gene.geneticsresequenced.meaty_2"
+            const val MORE_HEARTS_TWO = "gene.geneticsresequenced.more_hearts_2"
+            const val INVISIBLE = "gene.geneticsresequenced.invisible"
+            const val FLIGHT = "gene.geneticsresequenced.flight"
+            const val LUCK = "gene.geneticsresequenced.luck"
+            const val SCARE_ZOMBIES = "gene.geneticsresequenced.scare_zombies"
+            const val SCARE_SPIDERS = "gene.geneticsresequenced.scare_spiders"
+            const val THORNS = "gene.geneticsresequenced.thorns"
+            const val CLAWS_TWO = "gene.geneticsresequenced.claws_2"
+            const val CHATTERBOX = "gene.geneticsresequenced.chatterbox"
+            const val CHILLING = "gene.geneticsresequenced.chilling"
+            const val DRAGONS_BREATH = "gene.geneticsresequenced.dragons_breath"
+            const val EAT_GRASS = "gene.geneticsresequenced.eat_grass"
+            const val EMERALD_HEART = "gene.geneticsresequenced.emerald_heart"
+            const val ENDER_DRAGON_HEALTH = "gene.geneticsresequenced.ender_dragon_health"
+            const val EXPLOSIVE_EXIT = "gene.geneticsresequenced.explosive_exit"
+            const val FIRE_PROOF = "gene.geneticsresequenced.fire_proof"
+            const val ITEM_MAGNET = "gene.geneticsresequenced.item_magnet"
+            const val JOHNNY = "gene.geneticsresequenced.johnny"
+            const val JUMP_BOOST = "gene.geneticsresequenced.jump_boost"
+            const val MILKY = "gene.geneticsresequenced.milky"
+            const val MORE_HEARTS = "gene.geneticsresequenced.more_hearts"
+            const val NIGHT_VISION = "gene.geneticsresequenced.night_vision"
+            const val NO_FALL_DAMAGE = "gene.geneticsresequenced.no_fall_damage"
+            const val PHOTOSYNTHESIS = "gene.geneticsresequenced.photosynthesis"
+            const val POISON_IMMUNITY = "gene.geneticsresequenced.poison_immunity"
+            const val RESISTANCE = "gene.geneticsresequenced.resistance"
+            const val KNOCKBACK = "gene.geneticsresequenced.knockback"
+            const val KEEP_INVENTORY = "gene.geneticsresequenced.keep_inventory"
+            const val SCARE_CREEPERS = "gene.geneticsresequenced.scare_creepers"
+            const val SCARE_SKELETONS = "gene.geneticsresequenced.scare_skeletons"
+            const val SHOOT_FIREBALLS = "gene.geneticsresequenced.shoot_fireballs"
+            const val SLIMY_DEATH = "gene.geneticsresequenced.slimy_death"
+            const val SPEED = "gene.geneticsresequenced.speed"
+            const val STRENGTH = "gene.geneticsresequenced.strength"
+            const val TELEPORT = "gene.geneticsresequenced.teleport"
+            const val WATER_BREATHING = "gene.geneticsresequenced.water_breathing"
+            const val WOOLY = "gene.geneticsresequenced.wooly"
+            const val WITHER_HIT = "gene.geneticsresequenced.wither_hit"
+            const val WITHER_PROOF = "gene.geneticsresequenced.wither_proof"
+            const val XP_MAGNET = "gene.geneticsresequenced.xp_magnet"
+            const val STEP_ASSIST = "gene.geneticsresequenced.step_assist"
+            const val INFINITY = "gene.geneticsresequenced.infinity"
+            const val BIOLUMINESCENCE = "gene.geneticsresequenced.bioluminescence"
+            const val LAY_EGG = "gene.geneticsresequenced.lay_egg"
+            const val MEATY = "gene.geneticsresequenced.meaty"
+            const val NO_HUNGER = "gene.geneticsresequenced.no_hunger"
+            const val CLAWS = "gene.geneticsresequenced.claws"
+            const val HASTE = "gene.geneticsresequenced.haste"
+            const val EFFICIENCY = "gene.geneticsresequenced.efficiency"
+            const val WALL_CLIMBING = "gene.geneticsresequenced.wall_climbing"
+            const val MOB_SIGHT = "gene.geneticsresequenced.mob_sight"
+            const val REGENERATION = "gene.geneticsresequenced.regeneration"
+            const val BAD_OMEN = "gene.geneticsresequenced.bad_omen"
+            const val CRINGE = "gene.geneticsresequenced.cringe"
+            const val POISON = "gene.geneticsresequenced.poison"
+            const val POISON_TWO = "gene.geneticsresequenced.poison_2"
+            const val POISON_FOUR = "gene.geneticsresequenced.poison_4"
+            const val WITHER = "gene.geneticsresequenced.wither"
+            const val WEAKNESS = "gene.geneticsresequenced.weakness"
+            const val BLINDNESS = "gene.geneticsresequenced.blindness"
+            const val SLOWNESS = "gene.geneticsresequenced.slowness"
+            const val SLOWNESS_FOUR = "gene.geneticsresequenced.slowness_4"
+            const val SLOWNESS_SIX = "gene.geneticsresequenced.slowness_6"
+            const val NAUSEA = "gene.geneticsresequenced.nausea"
+            const val HUNGER = "gene.geneticsresequenced.hunger"
+            const val FLAMBE = "gene.geneticsresequenced.flambe"
+            const val CURSED = "gene.geneticsresequenced.cursed"
+            const val LEVITATION = "gene.geneticsresequenced.levitation"
+            const val FATIGUE = "gene.geneticsresequenced.mining_fatigue"
+            const val GREEN_DEATH = "gene.geneticsresequenced.green_death"
+            const val UN_UNDEATH = "gene.geneticsresequenced.un_undeath"
+            const val GRAY_DEATH = "gene.geneticsresequenced.gray_death"
+            const val WHITE_DEATH = "gene.geneticsresequenced.white_death"
+            const val BLACK_DEATH = "gene.geneticsresequenced.black_death"
+            const val VOID_DEATH = "gene.geneticsresequenced.void_death"
+            const val GENE_DISABLED = "gene.geneticsresequenced.gene_disabled"
         }
 
         object Advancements {
-            const val = "advancement.geneticsresequenced.scraper.desc"
-            const val = "advancement.geneticsresequenced.syringe.title"
-            const val = "advancement.geneticsresequenced.syringe.desc"
-            const val = "advancement.geneticsresequenced.cell_analyzer.title"
-            const val = "advancement.geneticsresequenced.cell_analyzer.desc"
-            const val = "advancement.geneticsresequenced.dna_extractor.title"
-            const val = "advancement.geneticsresequenced.dna_extractor.desc"
-            const val = "advancement.geneticsresequenced.dna_decryptor.title"
-            const val = "advancement.geneticsresequenced.dna_decryptor.desc"
-            const val = "advancement.geneticsresequenced.plasmid_infuser.title"
-            const val = "advancement.geneticsresequenced.plasmid_infuser.desc"
-            const val = "advancement.geneticsresequenced.decrypt_dna.title"
-            const val = "advancement.geneticsresequenced.decrypt_dna.desc"
-            const val = "advancement.geneticsresequenced.plasmid_injector.title"
-            const val = "advancement.geneticsresequenced.plasmid_injector.desc"
-            const val = "advancement.geneticsresequenced.blood_purifier.title"
-            const val = "advancement.geneticsresequenced.blood_purifier.desc"
-            const val = "advancement.geneticsresequenced.get_gene.title"
-            const val = "advancement.geneticsresequenced.get_gene.desc"
-            const val = "advancement.geneticsresequenced.get_milked.title"
-            const val = "advancement.geneticsresequenced.get_milked.desc"
-            const val = "advancement.geneticsresequenced.pathowogen.title"
-            const val = "advancement.geneticsresequenced.pathowogen.desc"
-            const val = "advancement.geneticsresequenced.slimy_death.title"
-            const val = "advancement.geneticsresequenced.slimy_death.desc"
-            const val = "advancement.geneticsresequenced.flight.title"
-            const val = "advancement.geneticsresequenced.flight.desc"
-            const val = "advancement.geneticsresequenced.scare.title"
-            const val = "advancement.geneticsresequenced.scare.desc"
-            const val = "advancement.geneticsresequenced.black_death.title"
-            const val = "advancement.geneticsresequenced.black_death.desc"
+            const val SCRAPER_DESC = "advancement.geneticsresequenced.scraper.desc"
+            const val SYRINGE_TITLE = "advancement.geneticsresequenced.syringe.title"
+            const val SYRINGE_DESC = "advancement.geneticsresequenced.syringe.desc"
+            const val ANALYZER_TITLE = "advancement.geneticsresequenced.cell_analyzer.title"
+            const val ANALYZER_DESC = "advancement.geneticsresequenced.cell_analyzer.desc"
+            const val EXTRACTOR_TITLE = "advancement.geneticsresequenced.dna_extractor.title"
+            const val EXTRACTOR_DESC = "advancement.geneticsresequenced.dna_extractor.desc"
+            const val DECRYPTOR_TITLE = "advancement.geneticsresequenced.dna_decryptor.title"
+            const val DECRYPTOR_DESC = "advancement.geneticsresequenced.dna_decryptor.desc"
+            const val INFUSER_TITLE = "advancement.geneticsresequenced.plasmid_infuser.title"
+            const val INFUSER_DESC = "advancement.geneticsresequenced.plasmid_infuser.desc"
+            const val DECRYPT_TITLE = "advancement.geneticsresequenced.decrypt_dna.title"
+            const val DECRYPT_DESC = "advancement.geneticsresequenced.decrypt_dna.desc"
+            const val INJECTOR_TITLE = "advancement.geneticsresequenced.plasmid_injector.title"
+            const val INJECTOR_DESC = "advancement.geneticsresequenced.plasmid_injector.desc"
+            const val PURIFIER_TITLE = "advancement.geneticsresequenced.blood_purifier.title"
+            const val PURIFIER_DESC = "advancement.geneticsresequenced.blood_purifier.desc"
+            const val GET_GENE_TITLE = "advancement.geneticsresequenced.get_gene.title"
+            const val GET_GENE_DESC = "advancement.geneticsresequenced.get_gene.desc"
+            const val GET_MILKED_TITLE = "advancement.geneticsresequenced.get_milked.title"
+            const val GET_MILKED_DESC = "advancement.geneticsresequenced.get_milked.desc"
+            const val CRINGE_TITLE = "advancement.geneticsresequenced.pathowogen.title"
+            const val CRINGE_DESC = "advancement.geneticsresequenced.pathowogen.desc"
+            const val SLIMY_TITLE = "advancement.geneticsresequenced.slimy_death.title"
+            const val SLIMY_DESC = "advancement.geneticsresequenced.slimy_death.desc"
+            const val FLIGHT_TITLE = "advancement.geneticsresequenced.flight.title"
+            const val FLIGHT_DESC = "advancement.geneticsresequenced.flight.desc"
+            const val SCARE_TITLE = "advancement.geneticsresequenced.scare.title"
+            const val SCARE_DESC = "advancement.geneticsresequenced.scare.desc"
+            const val BLACK_DEATH_TITLE = "advancement.geneticsresequenced.black_death.title"
+            const val BLACK_DEATH_DESC = "advancement.geneticsresequenced.black_death.desc"
         }
 
 
-        const val = "death.attack.scraper"
-        const val = "death.attack.syringe"
-        const val = "death.attack.syringeDrop"
-        const val = "key.geneticsresequenced.category"
-        const val = "key.geneticsresequenced.dragons_breath"
-        const val = "key.geneticsresequenced.teleport"
-        const val = "book.geneticsresequenced.landing_text"
+        const val DEATH_SCRAPER = "death.attack.scraper"
+        const val DEATH_SYRINGE = "death.attack.syringe"
+        const val DEATH_SYRINGE_DROPPED = "death.attack.syringeDrop"
+
+        object Keys {
+            const val CATEGORY = "key.geneticsresequenced.category"
+            const val DRAGONS_BREATH = "key.geneticsresequenced.dragons_breath"
+            const val TELEPORT = "key.geneticsresequenced.teleport"
+        }
+
+        const val BOOK_LANDING_TEXT = "book.geneticsresequenced.landing_text"
 
     }
 
@@ -591,216 +595,265 @@ class ModLanguageProvider(
         add(Recipe.VIRUS, "Virus Cultivation")
         add(Recipe.BLACK_DEATH, "Black Death")
 
-        add(,"Acquired by clicking a %1\$s with a Scraper.")
-        add(,"%1\$s has these Genes:")
-        add("\n%d%% of %2\$s")
-        add("Required Genes:")
-        add("Doubles the chances of inflicting Bleeding on hit.")
-        add("Increases your mining speed as if you were using an Efficiency IV tool.\n\nStacks with Haste, as well as the actual Efficiency enchantment!")
-        add("Gives you Creative mode style flight.")
-        add("Gives you the Haste II potion effect.")
-        add("Causes you to occasionally drop a cooked Porkchop.")
-        add("Slowly feeds you when in direct sunlight.")
-        add("Gives you the Regeneration IV potion effect.")
-        add("Give you the Resistance II potion effect.")
-        add("Give you the Speed IV potion effect.")
-        add("Give you the Speed II potion effect.")
-        add("Give you the Strength II potion effect.")
-        add("Makes Zombies run away from you.")
-        add("Makes Spiders and Cave Spiders run away from you.")
-        add("Makes you leave behind a trail of light, which lasts a short while.")
-        add("Has a chance of inflicting Bleeding on hit.\n\nBleeding deals damage over time.")
-        add("Allows you to use the \"Dragon's Breath\" keybind to fire a dragon fireball.")
-        add("Allows you to right-click Grass Blocks to regain hunger.")
-        add("Increases your mining speed as if you were using an Efficiency tool.\n\nStacks with Haste, as well as the actual Efficiency enchantment!")
-        add("Spawns an Emerald when you die.")
-        add("Blocks damage if you're holding a Dragon Health Crystal.\n\nDamage is instead dealt to the Crystal's durability.")
-        add("Makes you explode when you die, if you're holding at least 5 Gunpowder.\n\nEntities with the Gene do not need the Gunpowder.")
-        add("Makes you immune to fire damage, and immediately extinguishes you.")
-        add("Gives you the Haste potion effect.")
-        add("Allows you to use Bows without any Arrows in your inventory.")
-        add("Gives you the Invisibility potion effect.")
-        add("Makes you pick up all nearby items.\n\nDisables when sneaking, when holding an active Anti-Field Orb, or near an active Anti-Field Block.")
-        add("Gives you the Jump Boost potion effect.")
-        add("Makes you keep your inventory when you die.")
-        add("Makes you lay an Egg occasionally.")
-        add("Gives you the Luck potion effect.")
-        add("Allows you to be sheared for a raw Porkchop.")
-        add("Allows you to be milked with a Bucket.")
-        add("Gives all nearby entities the Glowing potion effect.")
-        add("Gives you 10 additional hearts.")
-        add("Gives you 10 MORE additional hearts.")
-        add("Gives you the Night Vision potion effect.")
-        add("Makes you immune to fall damage.")
-        add("Prevents your hunger from going below halfway.")
-        add("Automatically removes Poison.")
-        add("Gives you the Regeneration potion effect.")
-        add("Gives you the Resistance potion effect.")
-        add("Makes Creepers run away from you.")
-        add("Makes Skeletons run away from you.")
-        add("Lets you shoot Fire Charges when you right-click Blaze Rods.")
-        add("When you die, cancels it and spawns some Support Slimes to help you fight.\n\nHas a long cooldown.")
-        add("Gives you the Speed potion effect.")
-        add("Lets you step up full blocks.")
-        add("Gives you the Strength potion effect.")
-        add("Allows you to use the \"Teleport\" keybind to teleport a short distance where you're looking.")
-        add("If you take damage while wearing either no Chestplate or a Leather Chestplate, there's a chance of reflecting some of the damage back.")
-        add("Lets you climb walls like a Spider.")
-        add("Keeps your air meter full.")
-        add("Melee attacks inflict the Wither potion effect.")
-        add("Makes you immune to the Wither potion effect.")
-        add("Lets you be sheared for Wool.")
-        add("Makes you pick up all nearby xp.\n\nDisables when sneaking, when holding an active Anti-Field Orb, or near an active Anti-Field Block.")
-        add("Inflicts the Blindness potion effect.")
-        add("Inflicts the Cursed potion effect.")
-        add("Constantly lights you on fire")
-        add("Inflicts the Hunger potion effect.")
-        add("Inflicts the Levitation potion effect.")
-        add("Inflicts the Mining Fatigue potion effect.")
-        add("Inflicts the Nausea potion effect.")
-        add("Inflicts the Poison potion effect.")
-        add("Inflicts the Poison IV potion effect.")
-        add("Inflicts the Slowness potion effect.")
-        add("Inflicts the Slowness IV potion effect.")
-        add("Inflicts the Slowness VI potion effect.")
-        add("Inflicts the Weakness potion effect.")
-        add("Inflicts the Wither potion effect.")
-        add("Instantly kills.")
-        add("Slowly kills Creepers.")
-        add("Slowly kills monsters.")
-        add("Slowly kills ageable mobs.")
-        add("Slowly kills the undead.")
-        add("Your chat messages are automatically read by the narrator (within 64 blocks).\n\nCan be disabled in the client config.")
-        add("Makes you a Discord moderator.\n\n(UwU-fies your outgoing chat messages, and sets your language to LOLCAT)")
-        add("Increases the knockback of your attacks.")
-        add("Inflicts the Bad Omen potion effect.")
-        add("Deal more damage using Axes")
-        add("Has a chance of inflicting freezing damage on hit.")
-        add("Unknown")
-        add("Basic")
-        add("Haste II")
-        add("Efficiency IV")
-        add("Regeneration IV")
-        add("Speed IV")
-        add("Speed II")
-        add("Resistance II")
-        add("Strength II")
-        add("Meaty II")
-        add("More Hearts II")
-        add("Invisibility")
-        add("Flight")
-        add("Luck")
-        add("Scare Zombies")
-        add("Scare Spiders")
-        add("Thorns")
-        add("Claws II")
-        add("Chatterbox")
-        add("Chilling")
-        add("Dragon's Breath")
-        add("Eat Grass")
-        add("Emerald Heart")
-        add("Ender Dragon Health")
-        add("Explosive Exit")
-        add("Fire Proof")
-        add("Item Magnet")
-        add("Johnny")
-        add("Jump Boost")
-        add("Milky")
-        add("More Hearts")
-        add("Night Vision")
-        add("No Fall Damage")
-        add("Photosynthesis")
-        add("Poison Immunity")
-        add("Resistance")
-        add("Knockback")
-        add("Keep Inventory")
-        add("Scare Creepers")
-        add("Scare Skeletons")
-        add("Shoot Fireballs")
-        add("Slimy Death")
-        add("Speed")
-        add("Strength")
-        add("Teleport")
-        add("Water Breathing")
-        add("Wooly")
-        add("Wither Hit")
-        add("Wither Proof")
-        add("XP Magnet")
-        add("Step Assist")
-        add("Infinity")
-        add("Bioluminescence")
-        "Cybernetic"
-        "Lay Eggs"
-        "Meaty"
-        "No Hunger"
-        "Claws"
-        "Haste"
-        "Efficiency"
-        "Climb Walls"
-        "Mob Sight"
-        "Regeneration"
-        "Bad Omen"
-        "Cringe"
-        "Poison"
-        "Poison II"
-        "Poison IV"
-        "Wither"
-        "Weakness"
-        "Blindness"
-        "Slowness"
-        "Slowness IV"
-        "Slowness VI"
-        "Nausea"
-        "Hunger"
-        "Flambé"
-        "Cursed"
-        "Levitation"
-        "Mining Weakness"
-        "Green Death"
-        "Un-Undeath"
-        "Gray Death"
-        "White Death"
-        "Black Death"
-        "Void Death"
-        " (Disabled)"
-        "Craft a Scraper.\n\nScrapers are used to get Organic Matter from mobs.\n\nCraft the Big Book of Genetics for a more detailed guide!"
-        "You'll Feel a Small Prick"
-        "Craft a Syringe.\n\nSyringes are used to extract blood from yourself.\n\nA Metal Syringe can be used to extract blood from others, instead."
-        "Cells at Work"
-        "Craft a Cell Analyzer.\n\nIt converts Organic Matter into Cells."
-        "DNA Extractor"
-        "Craft a DNA Extractor.\n\nIt converts Cells into encrypted DNA Helices."
-        "DNA Decryptor"
-        "Craft a DNA Decryptor.\n\nIt discovers what Gene is inside a DNA Helix."
-        "Plasmid Infuser"
-        "Craft a Plasmid Infuser.\n\nUse it to set a Plasmid's Gene using DNA Helices."
-        "In-Gene-ius!"
-        "Decrypt a DNA Helix to find out its Gene."
-        "Plasmid Injector"
-        "Craft a Plasmid Injector.\n\nUse it to inject full Plasmids into into decontaminated Syringes."
-        "B Positive!"
-        "Craft a Blood Purifier.\n\nUse it to decontaminate Syringes."
-        "What Are Midichlorians?"
-        "Inject yourself with any Gene."
-        "Level 5 Non-Milk Substance"
-        "Get milked with the Milky Gene.\n\nYou can milk yourself by sneaking!"
-        "The PathOwOgen "
-        "Get the Cringe Gene. Embrace your inner self."
-        "Me and the Boys"
-        "Trigger the Slimy Death Gene."
-        "To Infinity and Beyond!"
-        "Get the Flight Gene."
-        "Boo!                 "
-        "Get the Scare Zombies, Scare Spiders, Scare Creepers, and Scare Skeletons Genes."
-        "La Grand Mort"
-        "Craft a DNA Helix that has The Black Death."
-        "%1\$s was scraped to the bone"
-        "%1\$s died of blood loss"
-        "%1\$s stepped on a loose Syringe"
-        "Genetics: Resequenced"
-        "Dragon's Breath"
-        "Teleport"
-        "Welcome to Genetics: Resequenced! This guide book will help you get started with the mod."
+        add(Info.ORGANIC_MATTER, "Acquired by clicking a %1\$s with a Scraper.")
+        add(Info.MOB_GENE_ONE, "%1\$s has these Genes:")
+        add(Info.MOB_GENE_TWO, "\n%d%% of %2\$s")
+        add(Info.REQUIRED_GENES, "Required Genes:")
+        add(Info.CLAWS_TWO, "Doubles the chances of inflicting Bleeding on hit.")
+        add(
+            Info.EFFICIENCY_FOUR,
+            "Increases your mining speed as if you were using an Efficiency IV tool.\n\nStacks with Haste, as well as the actual Efficiency enchantment!"
+        )
+        add(Info.FLIGHT, "Gives you Creative mode style flight.")
+        add(Info.HASTE_2, "Gives you the Haste II potion effect.")
+        add(Info.MEATY_2, "Causes you to occasionally drop a cooked Porkchop.")
+        add(Info.PHOTOSYNTHESIS, "Slowly feeds you when in direct sunlight.")
+        add(Info.REGENERATION_FOUR, "Gives you the Regeneration IV potion effect.")
+        add(Info.RESISTANCE_TWO, "Give you the Resistance II potion effect.")
+        add(Info.SPEED_FOUR, "Give you the Speed IV potion effect.")
+        add(Info.SPEED_TWO, "Give you the Speed II potion effect.")
+        add(Info.STRENGTH_TWO, "Give you the Strength II potion effect.")
+        add(Info.SCARE_ZOMBIES, "Makes Zombies run away from you.")
+        add(Info.SCARE_SPIDERS, "Makes Spiders and Cave Spiders run away from you.")
+        add(Info.BIOLUMINESCENCE, "Makes you leave behind a trail of light, which lasts a short while.")
+        add(Info.CLAWS, "Has a chance of inflicting Bleeding on hit.\n\nBleeding deals damage over time.")
+        add(Info.DRAGONS_BREATH, "Allows you to use the \"Dragon's Breath\" keybind to fire a dragon fireball.")
+        add(Info.EAT_GRASS, "Allows you to right-click Grass Blocks to regain hunger.")
+        add(
+            Info.EFFICIENCY,
+            "Increases your mining speed as if you were using an Efficiency tool.\n\nStacks with Haste, as well as the actual Efficiency enchantment!"
+        )
+        add(Info.EMERALD_HEART, "Spawns an Emerald when you die.")
+        add(
+            Info.ENDER_DRAGON_HEALTH,
+            "Blocks damage if you're holding a Dragon Health Crystal.\n\nDamage is instead dealt to the Crystal's durability."
+        )
+        add(
+            Info.EXPLOSIVE_EXIT,
+            "Makes you explode when you die, if you're holding at least 5 Gunpowder.\n\nEntities with the Gene do not need the Gunpowder."
+        )
+        add(Info.FIRE_PROOF, "Makes you immune to fire damage, and immediately extinguishes you.")
+        add(Info.HASTE, "Gives you the Haste potion effect.")
+        add(Info.INFINITY, "Allows you to use Bows without any Arrows in your inventory.")
+        add(Info.INVISIBLE, "Gives you the Invisibility potion effect.")
+        add(
+            Info.ITEM_MAGNET,
+            "Makes you pick up all nearby items.\n\nDisables when sneaking, when holding an active Anti-Field Orb, or near an active Anti-Field Block."
+        )
+        add(Info.JUMP_BOOST, "Gives you the Jump Boost potion effect.")
+        add(Info.KEEP_INVENTORY, "Makes you keep your inventory when you die.")
+        add(Info.LAY_EGG, "Makes you lay an Egg occasionally.")
+        add(Info.LUCK, "Gives you the Luck potion effect.")
+        add(Info.MEATY, "Allows you to be sheared for a raw Porkchop.")
+        add(Info.MILKY, "Allows you to be milked with a Bucket.")
+        add(Info.MOB_SIGHT, "Gives all nearby entities the Glowing potion effect.")
+        add(Info.MORE_HEARTS, "Gives you 10 additional hearts.")
+        add(Info.MORE_HEARTS_TWO, "Gives you 10 MORE additional hearts.")
+        add(Info.NIGHT_VISION, "Gives you the Night Vision potion effect.")
+        add(Info.NO_FALL_DAMAGE, "Makes you immune to fall damage.")
+        add(Info.NO_HUNGER, "Prevents your hunger from going below halfway.")
+        add(Info.POISON_IMMUNITY, "Automatically removes Poison.")
+        add(Info.REGENERATION, "Gives you the Regeneration potion effect.")
+        add(Info.RESISTANCE, "Gives you the Resistance potion effect.")
+        add(Info.SCARE_CREEPERS, "Makes Creepers run away from you.")
+        add(Info.SCARE_SKELETONS, "Makes Skeletons run away from you.")
+        add(Info.SHOOT_FIREBALLS, "Lets you shoot Fire Charges when you right-click Blaze Rods.")
+        add(
+            Info.SLIMY_DEATH,
+            "When you die, cancels it and spawns some Support Slimes to help you fight.\n\nHas a long cooldown."
+        )
+        add(Info.SPEED, "Gives you the Speed potion effect.")
+        add(Info.STEP_ASSIST, "Lets you step up full blocks.")
+        add(Info.STRENGTH, "Gives you the Strength potion effect.")
+        add(
+            Info.TELEPORT,
+            "Allows you to use the \"Teleport\" keybind to teleport a short distance where you're looking."
+        )
+        add(
+            Info.THORNS,
+            "If you take damage while wearing either no Chestplate or a Leather Chestplate, there's a chance of reflecting some of the damage back."
+        )
+        add(Info.WALL_CLIMBING, "Lets you climb walls like a Spider.")
+        add(Info.WATER_BREATTHING, "Keeps your air meter full.")
+        add(Info.WITHER_HIT, "Melee attacks inflict the Wither potion effect.")
+        add(Info.WITHER_PROOF, "Makes you immune to the Wither potion effect.")
+        add(Info.WOOLY, "Lets you be sheared for Wool.")
+        add(
+            Info.XP_MAGNET,
+            "Makes you pick up all nearby xp.\n\nDisables when sneaking, when holding an active Anti-Field Orb, or near an active Anti-Field Block."
+        )
+        add(Info.BLINDNESS, "Inflicts the Blindness potion effect.")
+        add(Info.CURSED, "Inflicts the Cursed potion effect.")
+        add(Info.FLAMBE, "Constantly lights you on fire")
+        add(Info.HUNGER, "Inflicts the Hunger potion effect.")
+        add(Info.LEVITATION, "Inflicts the Levitation potion effect.")
+        add(Info.MINING_FATIGUE, "Inflicts the Mining Fatigue potion effect.")
+        add(Info.NAUSEA, "Inflicts the Nausea potion effect.")
+        add(Info.POISON, "Inflicts the Poison potion effect.")
+        add(Info.POISON_FOUR, "Inflicts the Poison IV potion effect.")
+        add(Info.SLOWNESS, "Inflicts the Slowness potion effect.")
+        add(Info.SLOWNESS_SIX, "Inflicts the Slowness IV potion effect.")
+        add(Info.SLOWNESS_FOUR, "Inflicts the Slowness VI potion effect.")
+        add(Info.WEAKNESS, "Inflicts the Weakness potion effect.")
+        add(Info.WITHER, "Inflicts the Wither potion effect.")
+        add(Info.BLACK_DEATH, "Instantly kills.")
+        add(Info.GREEN_DEATH, "Slowly kills Creepers.")
+        add(Info.WHITE_DEATH, "Slowly kills monsters.")
+        add(Info.GRAY_DEATH, "Slowly kills ageable mobs.")
+        add(Info.UN_UNDEATH, "Slowly kills the undead.")
+        add(
+            Info.CHATTERBOX,
+            "Your chat messages are automatically read by the narrator (within 64 blocks).\n\nCan be disabled in the client config."
+        )
+        add(
+            Info.CRINGE,
+            "Makes you a Discord moderator.\n\n(UwU-fies your outgoing chat messages, and sets your language to LOLCAT)"
+        )
+        add(Info.KNOCKBACK, "Increases the knockback of your attacks.")
+        add(Info.BAD_OMEN, "Inflicts the Bad Omen potion effect.")
+        add(Info.JOHNNY, "Deal more damage using Axes")
+        add(Info.CHILLING, "Has a chance of inflicting freezing damage on hit.")
+
+        add(Genes.UNKNOWN, "Unknown")
+        add(Genes.BASIC, "Basic")
+        add(Genes.HASTE_TWO, "Haste II")
+        add(Genes.EFFICIENCY_FOUR, "Efficiency IV")
+        add(Genes.REGENERATION_FOUR, "Regeneration IV")
+        add(Genes.SPEED_FOUR, "Speed IV")
+        add(Genes.SPEED_TWO, "Speed II")
+        add(Genes.RESISTANCE_TWO, "Resistance II")
+        add(Genes.STRENGTH_TWO, "Strength II")
+        add(Genes.MEATY_TWO, "Meaty II")
+        add(Genes.MORE_HEARTS_TWO, "More Hearts II")
+        add(Genes.INVISIBLE, "Invisibility")
+        add(Genes.FLIGHT, "Flight")
+        add(Genes.LUCK, "Luck")
+        add(Genes.SCARE_ZOMBIES, "Scare Zombies")
+        add(Genes.SCARE_SPIDERS, "Scare Spiders")
+        add(Genes.THORNS, "Thorns")
+        add(Genes.CLAWS_TWO, "Claws II")
+        add(Genes.CHATTERBOX, "Chatterbox")
+        add(Genes.CHILLING, "Chilling")
+        add(Genes.DRAGONS_BREATH, "Dragon's Breath")
+        add(Genes.EAT_GRASS, "Eat Grass")
+        add(Genes.EMERALD_HEART, "Emerald Heart")
+        add(Genes.ENDER_DRAGON_HEALTH, "Ender Dragon Health")
+        add(Genes.EXPLOSIVE_EXIT, "Explosive Exit")
+        add(Genes.FIRE_PROOF, "Fire Proof")
+        add(Genes.ITEM_MAGNET, "Item Magnet")
+        add(Genes.JOHNNY, "Johnny")
+        add(Genes.JUMP_BOOST, "Jump Boost")
+        add(Genes.MILKY, "Milky")
+        add(Genes.MORE_HEARTS, "More Hearts")
+        add(Genes.NIGHT_VISION, "Night Vision")
+        add(Genes.NO_FALL_DAMAGE, "No Fall Damage")
+        add(Genes.PHOTOSYNTHESIS, "Photosynthesis")
+        add(Genes.POISON_IMMUNITY, "Poison Immunity")
+        add(Genes.RESISTANCE, "Resistance")
+        add(Genes.KNOCKBACK, "Knockback")
+        add(Genes.KEEP_INVENTORY, "Keep Inventory")
+        add(Genes.SCARE_CREEPERS, "Scare Creepers")
+        add(Genes.SCARE_SKELETONS, "Scare Skeletons")
+        add(Genes.SHOOT_FIREBALLS, "Shoot Fireballs")
+        add(Genes.SLIMY_DEATH, "Slimy Death")
+        add(Genes.SPEED, "Speed")
+        add(Genes.STRENGTH, "Strength")
+        add(Genes.TELEPORT, "Teleport")
+        add(Genes.WATER_BREATHING, "Water Breathing")
+        add(Genes.WOOLY, "Wooly")
+        add(Genes.WITHER_HIT, "Wither Hit")
+        add(Genes.WITHER_PROOF, "Wither Proof")
+        add(Genes.XP_MAGNET, "XP Magnet")
+        add(Genes.STEP_ASSIST, "Step Assist")
+        add(Genes.INFINITY, "Infinity")
+        add(Genes.BIOLUMINESCENCE, "Bioluminescence")
+        add(Genes.LAY_EGG, "Lay Eggs")
+        add(Genes.MEATY, "Meaty")
+        add(Genes.NO_HUNGER, "No Hunger")
+        add(Genes.CLAWS, "Claws")
+        add(Genes.HASTE, "Haste")
+        add(Genes.EFFICIENCY, "Efficiency")
+        add(Genes.WALL_CLIMBING, "Climb Walls")
+        add(Genes.MOB_SIGHT, "Mob Sight")
+        add(Genes.REGENERATION, "Regeneration")
+        add(Genes.BAD_OMEN, "Bad Omen")
+        add(Genes.CRINGE, "Cringe")
+        add(Genes.POISON, "Poison")
+        add(Genes.POISON_TWO, "Poison II")
+        add(Genes.POISON_FOUR, "Poison IV")
+        add(Genes.WITHER, "Wither")
+        add(Genes.WEAKNESS, "Weakness")
+        add(Genes.BLINDNESS, "Blindness")
+        add(Genes.SLOWNESS, "Slowness")
+        add(Genes.SLOWNESS_FOUR, "Slowness IV")
+        add(Genes.SLOWNESS_SIX, "Slowness VI")
+        add(Genes.NAUSEA, "Nausea")
+        add(Genes.HUNGER, "Hunger")
+        add(Genes.FLAMBE, "Flambé")
+        add(Genes.CURSED, "Cursed")
+        add(Genes.LEVITATION, "Levitation")
+        add(Genes.FATIGUE, "Mining Weakness")
+        add(Genes.GREEN_DEATH, "Green Death")
+        add(Genes.UN_UNDEATH, "Un-Undeath")
+        add(Genes.GRAY_DEATH, "Gray Death")
+        add(Genes.WHITE_DEATH, "White Death")
+        add(Genes.BLACK_DEATH, "Black Death")
+        add(Genes.VOID_DEATH, "Void Death")
+        add(Genes.GENE_DISABLED, " (Disabled)")
+
+        add(
+            Advancements.SCRAPER_DESC,
+            "Craft a Scraper.\n\nScrapers are used to get Organic Matter from mobs.\n\nCraft the Big Book of Genetics for a more detailed guide!"
+        )
+        add(Advancements.SYRINGE_TITLE, "You'll Feel a Small Prick")
+        add(
+            Advancements.SYRINGE_DESC,
+            "Craft a Syringe.\n\nSyringes are used to extract blood from yourself.\n\nA Metal Syringe can be used to extract blood from others, instead."
+        )
+        add(Advancements.ANALYZER_TITLE, "Cells at Work")
+        add(Advancements.ANALYZER_DESC, "Craft a Cell Analyzer.\n\nIt converts Organic Matter into Cells.")
+        add(Advancements.EXTRACTOR_TITLE, "DNA Extractor")
+        add(Advancements.EXTRACTOR_DESC, "Craft a DNA Extractor.\n\nIt converts Cells into encrypted DNA Helices.")
+        add(Advancements.DECRYPTOR_TITLE, "DNA Decryptor")
+        add(Advancements.DECRYPTOR_DESC, "Craft a DNA Decryptor.\n\nIt discovers what Gene is inside a DNA Helix.")
+        add(Advancements.INFUSER_TITLE, "Plasmid Infuser")
+        add(Advancements.INFUSER_DESC, "Craft a Plasmid Infuser.\n\nUse it to set a Plasmid's Gene using DNA Helices.")
+        add(Advancements.DECRYPT_TITLE, "In-Gene-ius!")
+        add(Advancements.DECRYPT_DESC, "Decrypt a DNA Helix to find out its Gene.")
+        add(Advancements.INJECTOR_TITLE, "Plasmid Injector")
+        add(
+            Advancements.INJECTOR_DESC,
+            "Craft a Plasmid Injector.\n\nUse it to inject full Plasmids into into decontaminated Syringes."
+        )
+        add(Advancements.PURIFIER_TITLE, "B Positive!")
+        add(Advancements.PURIFIER_DESC, "Craft a Blood Purifier.\n\nUse it to decontaminate Syringes.")
+        add(Advancements.GET_GENE_TITLE, "What Are Midichlorians?")
+        add(Advancements.GET_GENE_DESC, "Inject yourself with any Gene.")
+        add(Advancements.GET_MILKED_TITLE, "Level 5 Non-Milk Substance")
+        add(Advancements.GET_MILKED_DESC, "Get milked with the Milky Gene.\n\nYou can milk yourself by sneaking!")
+        add(Advancements.CRINGE_TITLE, "The PathOwOgen ")
+        add(Advancements.CRINGE_DESC, "Get the Cringe Gene. Embrace your inner self.")
+        add(Advancements.SLIMY_TITLE, "Me and the Boys")
+        add(Advancements.SLIMY_DESC, "Trigger the Slimy Death Gene.")
+        add(Advancements.FLIGHT_TITLE, "To Infinity and Beyond!")
+        add(Advancements.FLIGHT_DESC, "Get the Flight Gene.")
+        add(Advancements.SCARE_TITLE, "Boo!                 ")
+        add(Advancements.SCARE_DESC, "Get the Scare Zombies, Scare Spiders, Scare Creepers, and Scare Skeletons Genes.")
+        add(Advancements.BLACK_DEATH_TITLE, "La Grand Mort")
+        add(Advancements.BLACK_DEATH_DESC, "Craft a DNA Helix that has The Black Death.")
+
+        add(DEATH_SCRAPER, "%1\$s was scraped to the bone")
+        add(DEATH_SYRINGE, "%1\$s died of blood loss")
+        add(DEATH_SYRINGE_DROPPED, "%1\$s stepped on a loose Syringe")
+
+        add(Keys.CATEGORY, "Genetics: Resequenced")
+        add(Keys.DRAGONS_BREATH, "Dragon's Breath")
+        add(Keys.TELEPORT, "Teleport")
+
+        add(
+            BOOK_LANDING_TEXT,
+            "Welcome to Genetics: Resequenced! This guide book will help you get started with the mod."
+        )
 
     }
 }
