@@ -16,7 +16,7 @@ class PlasmidItem : Item(Properties()) {
 
     companion object {
 
-        private fun getGene(itemStack: ItemStack): Gene? {
+        fun getGene(itemStack: ItemStack): Gene? {
             return itemStack.get(PlasmidProgressItemComponent.component)?.gene
         }
 
