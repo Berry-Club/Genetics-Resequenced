@@ -1,10 +1,15 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.addGenes
+import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.genes
+import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GenesItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.hasEntity
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.LivingEntity
@@ -36,12 +41,105 @@ class SyringeItem : Item(
             return entity.useItem == syringeStack
         }
 
+        fun setEntity(pStack: ItemStack, entity: LivingEntity?) {
+            if (entity == null) {
+                pStack.remove(SpecificEntityItemComponent.component)
+                return
+            }
+
+            val newComponent = SpecificEntityItemComponent(entity.uuid, entity.name.string)
+            pStack.set(SpecificEntityItemComponent.component, newComponent)
+        }
+
+        fun injectEntity(syringeStack: ItemStack, entity: LivingEntity) {
+            val syringeEntityUuid = syringeStack.get(SpecificEntityItemComponent.component)?.entityUuid ?: return
+            if (entity.uuid != syringeEntityUuid) return
+
+            addGenes(entity, getGenes(syringeStack))
+            removeGenes(entity, getAntigenes(syringeStack))
+
+            clearGenes(syringeStack)
+            setEntity(syringeStack, null)
+        }
+
+        private fun removeGenes(entity: LivingEntity, syringeAntigenes: Set<Gene>) {
+
+            val entityGenesBefore = entity.genes
+
+            entity.removeGenes(*syringeAntigenes.toTypedArray())
+
+            val entityGenesAfter = entity.genes
+            val genesRemoved = entityGenesBefore - entityGenesAfter
+            val genesNotRemoved = syringeAntigenes - genesRemoved
+
+            if (entity.level().isClientSide) {
+
+                for (removedGene in genesRemoved) {
+                    entity.sendSystemMessage(
+                        Component.translatable(
+                            "message.geneticsresequenced.syringe.anti_gene.success",
+                            removedGene.nameComponent
+                        )
+                    )
+                }
+
+                for (notRemovedGene in genesNotRemoved) {
+                    entity.sendSystemMessage(
+                        Component.translatable(
+                            "message.geneticsresequenced.syringe.anti_gene.fail",
+                            notRemovedGene.nameComponent
+                        )
+                    )
+                }
+            }
+
+        }
+
+        private fun addGenes(entity: LivingEntity, syringeGenes: Set<Gene>) {
+
+            val entityGenesBefore = entity.genes
+
+            val genesToAdd = if (entity is Player) {
+                syringeGenes
+            } else {
+                syringeGenes
+            }
+
+            entity.addGenes(*genesToAdd.toTypedArray())
+
+            val entityGenesAfter = entity.genes
+            val genesAdded = entityGenesAfter - entityGenesBefore
+            val genesNotAdded = genesToAdd - genesAdded
+
+            if (entity.level().isClientSide) {
+
+                for (addedGene in genesAdded) {
+                    entity.sendSystemMessage(
+                        Component.translatable(
+                            "message.geneticsresequenced.syringe.injected",
+                            addedGene.nameComponent
+                        )
+                    )
+                }
+
+                for (notAddedGene in genesNotAdded) {
+                    entity.sendSystemMessage(
+                        Component.translatable(
+                            "message.geneticsresequenced.syringe.failed",
+                            notAddedGene.nameComponent
+                        )
+                    )
+                }
+            }
+
+        }
+
         fun hasBlood(syringeStack: ItemStack): Boolean {
             return syringeStack.hasEntity()
         }
 
         fun getGenes(syringeStack: ItemStack): Set<Gene> {
-            return syringeStack.get(GenesItemComponent.component)?.genes ?: emptySet()
+            return syringeStack.get(GenesItemComponent.genesComponent)?.genes ?: emptySet()
         }
 
         fun canAddGene(syringeStack: ItemStack, gene: Gene): Boolean {
@@ -55,13 +153,13 @@ class SyringeItem : Item(
             val newGenes = currentGenes + gene
             val newComponent = GenesItemComponent(newGenes)
 
-            syringeStack.set(GenesItemComponent.component, newComponent)
+            syringeStack.set(GenesItemComponent.genesComponent, newComponent)
 
             return true
         }
 
         private fun clearGenes(syringeStack: ItemStack) {
-            syringeStack.remove(GenesItemComponent.component)
+            syringeStack.remove(GenesItemComponent.genesComponent)
         }
 
         fun isContaminated(syringeStack: ItemStack): Boolean {
@@ -71,6 +169,30 @@ class SyringeItem : Item(
         fun setContaminated(syringeStack: ItemStack, value: Boolean) {
             syringeStack.set(BooleanItemComponent.isContaminatedComponent, BooleanItemComponent(value))
         }
+
+        fun getAntigenes(syringeStack: ItemStack): Set<Gene> {
+            return syringeStack.get(GenesItemComponent.antigenesComponent)?.genes ?: emptySet()
+        }
+
+        fun canAddAntigene(syringeStack: ItemStack, gene: Gene): Boolean {
+            return hasBlood(syringeStack)
+                    && !getAntigenes(syringeStack).contains(gene)
+                    && !getGenes(syringeStack).contains(gene)
+        }
+
+        fun addAntigene(syringeStack: ItemStack, gene: Gene): Boolean {
+            if (!canAddAntigene(syringeStack, gene)) return false
+
+            val currentAntigenes = getAntigenes(syringeStack)
+            val newGenes = currentAntigenes + gene
+            val newComponent = GenesItemComponent(newGenes)
+
+            syringeStack.set(GenesItemComponent.antigenesComponent, newComponent)
+
+            return true
+        }
+
+        //TODO: Add damage sources for on use and pickup
 
     }
 
@@ -97,6 +219,20 @@ class SyringeItem : Item(
         if (pLivingEntity !is Player || pTimeCharged < 1) return
         if (pLivingEntity is FakePlayer) return
 
+        if (isContaminated(pStack)) {
+            if (!pLevel.isClientSide) {
+                pLivingEntity.sendSystemMessage(
+                    Component.translatable("message.geneticsresequenced.syringe.contaminated")
+                )
+            }
+            return
+        }
+
+        if (hasBlood(pStack)) {
+            injectEntity(pStack, pLivingEntity)
+        } else {
+            setEntity(pStack, pLivingEntity)
+        }
 
     }
 

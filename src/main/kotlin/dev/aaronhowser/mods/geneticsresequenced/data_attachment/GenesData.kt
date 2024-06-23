@@ -34,12 +34,16 @@ data class GenesData(
                 this.setData(attachment, GenesData(value))
             }
 
-        fun LivingEntity.addGenes(vararg newGenes: Gene) {
+        fun LivingEntity.addGenes(vararg newGenes: Gene): Boolean {
+            val oldSize = this.genes.size
             this.genes += newGenes
+            return oldSize != this.genes.size
         }
 
-        fun LivingEntity.removeGenes(vararg oldGenes: Gene) {
+        fun LivingEntity.removeGenes(vararg oldGenes: Gene): Boolean {
+            val oldSize = this.genes.size
             this.genes -= oldGenes
+            return oldSize != this.genes.size
         }
 
         fun LivingEntity.hasGene(gene: Gene): Boolean {
