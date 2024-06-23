@@ -1,10 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
+import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
-import net.neoforged.neoforge.event.tick.ServerTickEvent
+import net.neoforged.neoforge.event.RegisterCommandsEvent
 
 @EventBusSubscriber(
     modid = GeneticsResequenced.ID
@@ -12,8 +12,8 @@ import net.neoforged.neoforge.event.tick.ServerTickEvent
 object OtherEvents {
 
     @SubscribeEvent
-    fun onServerTick(event: ServerTickEvent.Post) {
-
+    fun onRegisterCommandsEvent(event: RegisterCommandsEvent) {
+        ModCommands.register(event.dispatcher)
     }
 
 }
