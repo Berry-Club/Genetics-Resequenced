@@ -6,7 +6,8 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.data.event.GatherDataEvent
 
 @EventBusSubscriber(
-    modid = GeneticsResequenced.ID
+    modid = GeneticsResequenced.ID,
+    bus = EventBusSubscriber.Bus.MOD
 )
 object ModDataGen {
 

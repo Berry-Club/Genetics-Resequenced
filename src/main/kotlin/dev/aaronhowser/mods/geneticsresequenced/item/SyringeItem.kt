@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GenesItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
@@ -238,6 +239,14 @@ class SyringeItem : Item(
             setEntity(pStack, pLivingEntity)
         }
 
+    }
+
+    override fun getName(pStack: ItemStack): Component {
+        return if (hasBlood(pStack)) {
+            Component.translatable(ModLanguageProvider.Items.SYRINGE_FULL)
+        } else {
+            Component.translatable(ModLanguageProvider.Items.SYRINGE_EMPTY)
+        }
     }
 
 }
