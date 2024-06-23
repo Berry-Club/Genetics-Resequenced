@@ -14,7 +14,9 @@ import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
 class AntiFieldOrbItem : Item(
-    Properties().stacksTo(1)
+    Properties()
+        .stacksTo(1)
+        .component(BooleanItemComponent.component, BooleanItemComponent(false))
 ) {
 
     companion object {
