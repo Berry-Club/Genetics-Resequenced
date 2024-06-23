@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -69,7 +70,7 @@ object AddGeneCommand {
         if (geneWasAdded) {
             val component =
                 Component.translatable(
-                    "command.geneticsresequenced.add_gene.single_target.success",
+                    ModLanguageProvider.Commands.ADD_SINGLE_SUCCESS,
                     geneToAdd.nameComponent,
                     target.name
                 )
@@ -77,7 +78,7 @@ object AddGeneCommand {
             context.source.sendSuccess({ component }, false)
         } else {
             val component = Component.translatable(
-                "command.geneticsresequenced.add_gene.single_target.fail",
+                ModLanguageProvider.Commands.ADD_SINGLE_FAIL,
                 geneToAdd.nameComponent,
                 target.name
             )
@@ -102,7 +103,7 @@ object AddGeneCommand {
         if (amountSuccess != 0) {
             val component =
                 Component.translatable(
-                    "command.geneticsresequenced.add_gene.multiple_targets.success",
+                    ModLanguageProvider.Commands.ADD_MULTIPLE_SUCCESS,
                     geneToAdd.nameComponent,
                     amountSuccess
                 )
@@ -112,7 +113,7 @@ object AddGeneCommand {
 
         if (amountFail != 0) {
             val component = Component.translatable(
-                "command.geneticsresequenced.add_gene.multiple_targets.fail",
+                ModLanguageProvider.Commands.ADD_MULTIPLE_FAIL,
                 geneToAdd.nameComponent,
                 amountFail
             )

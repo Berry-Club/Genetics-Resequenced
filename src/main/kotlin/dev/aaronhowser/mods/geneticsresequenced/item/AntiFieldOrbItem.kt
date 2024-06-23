@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
@@ -55,7 +56,7 @@ class AntiFieldOrbItem : Item(
     ) {
         pTooltipComponents.add(
             Component
-                .translatable(if (isEnabled(pStack)) "tooltip.geneticsresequenced.antifield_active" else "tooltip.geneticsresequenced.antifield_inactive")
+                .translatable(if (isEnabled(pStack)) ModLanguageProvider.Tooltips.ACTIVE else ModLanguageProvider.Tooltips.INACTIVE)
                 .withColor(ChatFormatting.GRAY)
         )
 

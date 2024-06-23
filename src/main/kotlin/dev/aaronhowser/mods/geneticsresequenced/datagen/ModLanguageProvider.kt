@@ -149,7 +149,7 @@ class ModLanguageProvider(
     }
 
     object Commands {
-        const val GENE_LIST = "command.geneticsresequenced.geneList"
+        const val LIST_ALL_GENES = "command.geneticsresequenced.list_all_genes"
         const val NO_GENES = "command.geneticsresequenced.list.no_genes"
         const val THEIR_GENES = "command.geneticsresequenced.list.genes"
         const val REMOVED_LIGHTS = "command.geneticsresequenced.remove_nearby_lights.success"
@@ -558,7 +558,7 @@ class ModLanguageProvider(
         add(Tooltips.GMO_LINE_TWO, "Otherwise, it always produces a %s Gene.")
         add(Tooltips.GMO_LINE_THREE, "Overclockers lower your chance, but Chorus Fruits increase it!")
 
-        add(Commands.GENE_LIST, "Gene List:")
+        add(Commands.LIST_ALL_GENES, "Gene List:")
         add(Commands.NO_GENES, "No Genes found!")
         add(Commands.THEIR_GENES, "%1\$s's Genes:")
         add(Commands.REMOVED_LIGHTS, "Removed %d nearby bioluminescence light sources.")

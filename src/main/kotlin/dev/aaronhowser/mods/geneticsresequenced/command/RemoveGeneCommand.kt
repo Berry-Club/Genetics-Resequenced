@@ -4,6 +4,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -65,7 +66,7 @@ object RemoveGeneCommand {
 
         if (success) {
             val component = Component.translatable(
-                "command.geneticsresequenced.remove_gene.single_target.success",
+                ModLanguageProvider.Commands.REMOVE_SINGLE_SUCCESS,
                 geneToRemove.nameComponent,
                 target.displayName
             )
@@ -73,7 +74,7 @@ object RemoveGeneCommand {
             context.source.sendSuccess({ component }, false)
         } else {
             val component = Component.translatable(
-                "command.geneticsresequenced.remove_gene.single_target.fail",
+                ModLanguageProvider.Commands.REMOVE_SINGLE_FAIL,
                 geneToRemove.nameComponent,
                 target.displayName
             )
@@ -97,7 +98,7 @@ object RemoveGeneCommand {
 
         if (amountSuccess != 0) {
             val component = Component.translatable(
-                "command.geneticsresequenced.remove_gene.multiple_targets.success",
+                ModLanguageProvider.Commands.REMOVE_MULTIPLE_SUCCESS,
                 geneToRemove.nameComponent,
                 amountSuccess
             )
@@ -105,7 +106,7 @@ object RemoveGeneCommand {
         }
         if (amountFail != 0) {
             val component = Component.translatable(
-                "command.geneticsresequenced.remove_gene.multiple_targets.fail",
+                ModLanguageProvider.Commands.REMOVE_MULTIPLE_FAIL,
                 geneToRemove.nameComponent,
                 amountFail
             )

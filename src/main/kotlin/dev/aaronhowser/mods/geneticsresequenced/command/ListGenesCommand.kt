@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.genes
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -37,14 +38,14 @@ object ListGenesCommand {
 
         if (targetGenesList.isEmpty()) {
             context.source.sendSuccess(
-                { Component.translatable("command.geneticsresequenced.list.no_genes") },
+                { Component.translatable(ModLanguageProvider.Commands.NO_GENES) },
                 false
             )
             return 1
         }
 
         val messageComponent = Component.translatable(
-            "command.geneticsresequenced.list.genes",
+            ModLanguageProvider.Commands.THEIR_GENES,
             target.displayName
         )
 
