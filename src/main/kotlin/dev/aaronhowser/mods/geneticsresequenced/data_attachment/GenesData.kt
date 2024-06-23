@@ -91,11 +91,17 @@ data class GenesData(
         }
 
         fun LivingEntity.removeAllGenes() {
-            this.genes = emptySet()
+            for (gene in this.genes) {
+                this.removeGene(gene)
+            }
         }
 
         fun LivingEntity.addAlLGenes(includeNegative: Boolean = false) {
-            this.genes = Gene.getRegistry().filter { includeNegative || !it.isNegative }.toSet()
+            val genesToAdd = Gene.getRegistry().filter { includeNegative || !it.isNegative }
+
+            for (gene in genesToAdd) {
+                this.addGene(gene)
+            }
         }
 
     }
