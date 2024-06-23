@@ -31,7 +31,7 @@ data class GenesItemComponent(
         val STREAM_CODEC: StreamCodec<ByteBuf, GenesItemComponent> = ByteBufCodecs.fromCodec(CODEC)
 
         val genesComponent: DataComponentType<GenesItemComponent> by lazy { ModDataComponents.GENES_COMPONENT.get() }
-        val antigenesComponent: DataComponentType<GenesItemComponent> = ModDataComponents.ANTIGENES_COMPONENT.get()
+        val antigenesComponent: DataComponentType<GenesItemComponent> by lazy { ModDataComponents.ANTIGENES_COMPONENT.get() }
 
     }
 
