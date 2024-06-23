@@ -80,7 +80,7 @@ class SyringeItem : Item(
                 for (removedGene in genesRemoved) {
                     entity.sendSystemMessage(
                         Component.translatable(
-                            "message.geneticsresequenced.syringe.anti_gene.success",
+                            ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_SUCCESS,
                             removedGene.nameComponent
                         )
                     )
@@ -89,7 +89,7 @@ class SyringeItem : Item(
                 for (notRemovedGene in genesNotRemoved) {
                     entity.sendSystemMessage(
                         Component.translatable(
-                            "message.geneticsresequenced.syringe.anti_gene.fail",
+                            ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_FAIL,
                             notRemovedGene.nameComponent
                         )
                     )
@@ -121,7 +121,7 @@ class SyringeItem : Item(
                 for (addedGene in genesAdded) {
                     entity.sendSystemMessage(
                         Component.translatable(
-                            "message.geneticsresequenced.syringe.injected",
+                            ModLanguageProvider.Messages.SYRINGE_INJECTED,
                             addedGene.nameComponent
                         )
                     )
@@ -130,7 +130,7 @@ class SyringeItem : Item(
                 for (notAddedGene in genesNotAdded) {
                     entity.sendSystemMessage(
                         Component.translatable(
-                            "message.geneticsresequenced.syringe.failed",
+                            ModLanguageProvider.Messages.SYRINGE_FAILED,
                             notAddedGene.nameComponent
                         )
                     )
@@ -227,7 +227,7 @@ class SyringeItem : Item(
         if (isContaminated(pStack)) {
             if (!pLevel.isClientSide) {
                 pLivingEntity.sendSystemMessage(
-                    Component.translatable("message.geneticsresequenced.syringe.contaminated")
+                    Component.translatable(ModLanguageProvider.Messages.SYRINGE_CONTAMINATED)
                 )
             }
             return

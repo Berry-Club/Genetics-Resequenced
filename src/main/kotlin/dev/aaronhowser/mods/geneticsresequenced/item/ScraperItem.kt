@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
@@ -82,7 +83,7 @@ class ScraperItem : Item(
         if (pInteractionTarget.type.`is`(ModTags.SCRAPER_ENTITY_BLACKLIST)) {
             if (!pPlayer.level().isClientSide) {
                 pPlayer.sendSystemMessage(
-                    Component.translatable("message.geneticsresequenced.scraper.cant_scrape")
+                    Component.translatable(ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE)
                 )
             }
 

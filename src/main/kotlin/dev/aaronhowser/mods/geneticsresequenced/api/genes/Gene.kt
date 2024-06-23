@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.api.genes
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import io.netty.buffer.ByteBuf
 import net.minecraft.ChatFormatting
@@ -73,7 +74,7 @@ class Gene(
             return positiveGenes + mutations + negativeGenes
         }
 
-        val unknownGeneComponent: MutableComponent = Component.translatable("gene.geneticsresequenced.unknown")
+        val unknownGeneComponent: MutableComponent = Component.translatable(ModLanguageProvider.Genes.UNKNOWN)
 
         fun register(
             id: ResourceLocation,
@@ -187,7 +188,7 @@ class Gene(
                         .withHoverEvent(
                             HoverEvent(
                                 HoverEvent.Action.SHOW_TEXT,
-                                Component.translatable("tooltip.geneticsresequenced.copy_gene_id", id.toString())
+                                Component.translatable(ModLanguageProvider.Tooltips.COPY_GENE, id.toString())
                             )
                         )
                         .withClickEvent(
@@ -199,7 +200,9 @@ class Gene(
                 }
 
             if (!isActive) {
-                component.append(Component.translatable("gene.geneticsresequenced.gene_disabled"))
+                component.append(
+                    Component.translatable(ModLanguageProvider.Genes.GENE_DISABLED)
+                )
             }
 
             return component

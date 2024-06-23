@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeAllGenes
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -45,7 +46,7 @@ object DeathEvents {
         if (playerGenes.isEmpty()) return
 
         val component = Component
-            .translatable("message.geneticsresequenced.death_gene_removal")
+            .translatable(ModLanguageProvider.Messages.DEATH_GENE_REMOVAL)
             .withColor(ChatFormatting.GRAY)
 
         player.sendSystemMessage(component)
@@ -62,7 +63,7 @@ object DeathEvents {
         if (negativeGenes.isEmpty()) return
 
         val component = Component
-            .translatable("message.geneticsresequenced.death_negative_gene_removal")
+            .translatable(ModLanguageProvider.Messages.DEATH_NEGATIVE_GENE_REMOVAL)
             .withColor(ChatFormatting.GRAY)
 
         player.sendSystemMessage(component)

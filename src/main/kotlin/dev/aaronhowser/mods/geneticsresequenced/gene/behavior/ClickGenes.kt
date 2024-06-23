@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
@@ -57,7 +58,7 @@ object ClickGenes {
         val newlySheared = recentlySheered.add(target)
 
         if (!newlySheared) {
-            clicker.sendSystemMessage(Component.translatable("message.geneticsresequenced.wooly.recent"))
+            clicker.sendSystemMessage(Component.translatable(ModLanguageProvider.Messages.RECENT_WOOLY))
             return
         }
 
@@ -116,7 +117,7 @@ object ClickGenes {
         val newlyMeated = recentlyMeated.add(target)
 
         if (!newlyMeated) {
-            clicker.sendSystemMessage(Component.translatable("message.geneticsresequenced.meaty.recent"))
+            clicker.sendSystemMessage(Component.translatable(ModLanguageProvider.Messages.RECENT_MEATY))
             return
         }
 
@@ -170,11 +171,11 @@ object ClickGenes {
 
         val clicker = event.entity
         if (!newlyMilked) {
-            clicker.sendSystemMessage(Component.translatable("message.geneticsresequenced.milk.recent"))
+            clicker.sendSystemMessage(Component.translatable(ModLanguageProvider.Messages.RECENT_MILKY))
             return
         }
 
-        target.sendSystemMessage(Component.translatable("message.geneticsresequenced.milk.milked"))
+        target.sendSystemMessage(Component.translatable(ModLanguageProvider.Messages.MILK_MILKED))
 
         event.itemStack.shrink(1)
         clicker.addItem(ItemStack(Items.MILK_BUCKET))
@@ -377,7 +378,7 @@ object ClickGenes {
 
         player.removeGene(ModGenes.cringe)
         if (!player.level().isClientSide) {
-            player.sendSystemMessage(Component.translatable("message.geneticsresequenced.cringe.cured"))
+            player.sendSystemMessage(Component.translatable(ModLanguageProvider.Messages.CRINGE_GRASS))
         }
     }
 

@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
@@ -72,7 +73,7 @@ object GeneEvents {
             entity.removeGene(gene)
 
             val requiredGenesComponent =
-                Component.translatable("message.geneticsresequenced.gene_missing_requirements.list")
+                Component.translatable(ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS_LIST)
 
             for (requiredGene in gene.getRequiredGenes()) {
                 val hasGene = genes.contains(requiredGene)
@@ -83,7 +84,7 @@ object GeneEvents {
 
             entity.sendSystemMessage(
                 Component.translatable(
-                    "message.geneticsresequenced.gene_missing_requirements",
+                    ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS,
                     gene.nameComponent
                 ).withStyle { it.withHoverEvent(HoverEvent(HoverEvent.Action.SHOW_TEXT, requiredGenesComponent)) }
             )

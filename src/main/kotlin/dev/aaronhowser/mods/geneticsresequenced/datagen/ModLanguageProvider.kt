@@ -77,6 +77,7 @@ class ModLanguageProvider(
         const val SCRAPER_CANT_SCRAPE = "message.geneticsresequenced.scraper.cant_scrape"
         const val COOLDOWN_EMERALD_HEART = "message.geneticsresequenced.emerald_heart.cooldown"
         const val DEATH_GENE_REMOVAL = "message.geneticsresequenced.death_gene_removal"
+        const val DEATH_NEGATIVE_GENE_REMOVAL = "message.geneticsresequenced.death_negative_gene_removal"
         const val RECENT_WOOLY = "message.geneticsresequenced.wooly.recent"
         const val RECENT_MEATY = "message.geneticsresequenced.meaty.recent"
         const val RECENT_MILKY = "message.geneticsresequenced.milk.recent"
@@ -477,6 +478,7 @@ class ModLanguageProvider(
         add(Messages.SCRAPER_CANT_SCRAPE, "This mob cannot be scraped.")
         add(Messages.COOLDOWN_EMERALD_HEART, "Emerald Heart is on cooldown!")
         add(Messages.DEATH_GENE_REMOVAL, "Death has reset your Genes!")
+        add(Messages.DEATH_NEGATIVE_GENE_REMOVAL, "Death has remove your negative Genes!")
         add(Messages.RECENT_WOOLY, "This entity has already been sheared recently!")
         add(Messages.RECENT_MEATY, "This entity has already been meated recently!")
         add(Messages.RECENT_MILKY, "This entity has already been milked recently!")
