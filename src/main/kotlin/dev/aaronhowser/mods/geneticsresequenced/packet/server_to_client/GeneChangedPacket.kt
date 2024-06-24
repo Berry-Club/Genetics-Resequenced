@@ -26,10 +26,10 @@ data class GeneChangedPacket(
     override fun type(): CustomPacketPayload.Type<GeneChangedPacket> = TYPE
 
     override fun receiveMessage(context: IPayloadContext) {
-        if (context.flow() != PacketFlow.CLIENTBOUND) throw IllegalStateException("Received GeneChangedPacket on wrong side!")
+        require(context.flow() == PacketFlow.CLIENTBOUND) { "Received GeneChangedPacket on wrong side!" }
 
         val entity = context.player().level().getEntity(entityId) as? LivingEntity
-            ?: throw IllegalStateException("Received GeneChangedPacket with invalid entity id!")
+        requireNotNull(entity) { "Received GeneChangedPacket with invalid entity id!" }
 
         if (wasAdded) {
             entity.addGene(gene)
