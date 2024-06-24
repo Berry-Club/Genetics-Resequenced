@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import net.minecraft.util.Mth
 import net.minecraft.world.damagesource.DamageTypes
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
@@ -15,35 +16,90 @@ import net.minecraft.world.item.AxeItem
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.CommonHooks
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
-import net.neoforged.neoforge.event.entity.living.LivingHurtEvent
 import kotlin.random.Random
 
+@Suppress("UnstableApiUsage")
 object DamageGenes {
 
-    fun handleNoFallDamage(event: LivingDamageEvent) {
+    // Canceling
+
+    fun handleNoFallDamage(event: LivingDamageEvent.Pre) {
         if (!ModGenes.noFallDamage.isActive) return
 
-        if (event.source == DamageTypes.FALL) return
+        if (event.container.source == DamageTypes.FALL) return
 
         val entity = event.entity
         if (!entity.hasGene(ModGenes.noFallDamage) && !entity.hasGene(ModGenes.flight)) return
 
-        event.isCanceled = true
+        event.container.newDamage = 0f
     }
 
-    fun handleWitherProof(event: LivingDamageEvent) {
+    fun handleWitherProof(event: LivingDamageEvent.Pre) {
         if (!ModGenes.witherProof.isActive) return
 
-        if (event.source != DamageTypes.WITHER) return
+        if (event.container.source != DamageTypes.WITHER) return
 
         val entity = event.entity
         if (!entity.hasGene(ModGenes.witherProof)) return
 
         entity.removeEffect(MobEffects.WITHER)
-        event.isCanceled = true
+        event.container.newDamage = 0f
     }
 
-    fun handleWitherHit(event: LivingHurtEvent) {
+    fun handleFireProof(event: LivingDamageEvent.Pre) {
+        if (!ModGenes.fireProof.isActive) return
+
+        if (event.container.source != DamageTypes.IN_FIRE && event.container.source != DamageTypes.ON_FIRE) return
+
+        val entity = event.entity
+        if (!entity.hasGene(ModGenes.fireProof)) return
+
+        entity.clearFire()
+        event.container.newDamage = 0f
+    }
+
+    fun handlePoisonProof(event: LivingDamageEvent.Pre) {
+        if (!ModGenes.poisonImmunity.isActive) return
+
+        if (event.container.source != DamageTypes.MAGIC && event.container.source != DamageTypes.INDIRECT_MAGIC) return
+
+        if (!event.entity.hasEffect(MobEffects.POISON)) return
+
+        val entity = event.entity
+        if (!entity.hasGene(ModGenes.poisonImmunity)) return
+
+        entity.removeEffect(MobEffects.POISON)
+        event.container.newDamage = 0f
+    }
+
+    fun handleDragonHealth(event: LivingDamageEvent.Pre) {
+        if (!ModGenes.enderDragonHealth.isActive) return
+
+        if (event.container.newDamage == 0f) return
+        val entity = event.entity
+
+        if (entity.level().isClientSide) return
+
+        if (!entity.hasGene(ModGenes.enderDragonHealth)) return
+
+        val items = entity.handSlots.toMutableList()
+        if (entity is Player) items += entity.inventory.items
+
+        val healthCrystal = items.find { it.item == ModItems.DRAGON_HEALTH_CRYSTAL } ?: return
+
+        val amountDamaged = Mth.ceil(event.container.newDamage)
+        val crystalDurabilityRemaining = healthCrystal.maxDamage - healthCrystal.damageValue
+        val amountToBlock = minOf(amountDamaged, crystalDurabilityRemaining)
+
+        healthCrystal.hurtAndBreak(amountToBlock, entity, entity.getEquipmentSlotForItem(healthCrystal))
+
+        event.container.newDamage -= amountToBlock
+        if (event.container.newDamage < 0) event.container.newDamage = 0f
+    }
+
+    // Triggers
+
+    fun handleWitherHit(event: LivingDamageEvent.Post) {
         if (!ModGenes.witherHit.isActive) return
 
         // Makes it not proc if it's an arrow or whatever
@@ -61,32 +117,6 @@ object DamageGenes {
         if (!CommonHooks.canMobEffectBeApplied(event.entity, witherEffect)) return
 
         event.entity.addEffect(witherEffect)
-    }
-
-    fun handleFireProof(event: LivingDamageEvent) {
-        if (!ModGenes.fireProof.isActive) return
-
-        if (event.source != DamageTypes.IN_FIRE && event.source != DamageTypes.ON_FIRE) return
-
-        val entity = event.entity
-        if (!entity.hasGene(ModGenes.fireProof)) return
-
-        entity.clearFire()
-        event.isCanceled = true
-    }
-
-    fun handlePoisonProof(event: LivingDamageEvent) {
-        if (!ModGenes.poisonImmunity.isActive) return
-
-        if (event.source != DamageTypes.MAGIC && event.source != DamageTypes.INDIRECT_MAGIC) return
-
-        if (!event.entity.hasEffect(MobEffects.POISON)) return
-
-        val entity = event.entity
-        if (!entity.hasGene(ModGenes.poisonImmunity)) return
-
-        entity.removeEffect(MobEffects.POISON)
-        event.isCanceled = true
     }
 
     fun handleThorns(event: LivingHurtEvent) {
@@ -143,31 +173,6 @@ object DamageGenes {
 //                true
 //            )
 //        )
-    }
-
-    fun handleDragonHealth(event: LivingDamageEvent) {
-        if (!ModGenes.enderDragonHealth.isActive) return
-
-        if (event.isCanceled) return
-        val entity = event.entity
-
-        if (entity.level().isClientSide) return
-
-        if (!entity.hasGene(ModGenes.enderDragonHealth)) return
-
-        val items = entity.handSlots.toMutableList()
-        if (entity is Player) items += entity.inventory.items
-
-        val healthCrystal = items.find { it.item == ModItems.DRAGON_HEALTH_CRYSTAL } ?: return
-
-        val amountDamaged = event.amount.toInt()
-        val crystalDurabilityRemaining = healthCrystal.maxDamage - healthCrystal.damageValue
-        val amountToBlock = minOf(amountDamaged, crystalDurabilityRemaining)
-
-        healthCrystal.hurtAndBreak(amountToBlock, entity, entity.getEquipmentSlotForItem(healthCrystal))
-
-        event.amount -= amountToBlock
-        if (event.amount == 0f) event.isCanceled = true
     }
 
     fun handleJohnny(event: LivingHurtEvent) {
