@@ -126,11 +126,11 @@ abstract class CraftingMachineBlockEntity(
         )
     }
 
-    override val upItemHandler: WrappedHandler = allFaceHandler
-    override val downItemHandler: WrappedHandler = allFaceHandler
-    override val backItemHandler: WrappedHandler = allFaceHandler
-    override val frontItemHandler: WrappedHandler = allFaceHandler
-    override val rightItemHandler: WrappedHandler = allFaceHandler
-    override val leftItemHandler: WrappedHandler = allFaceHandler
+    override val upItemHandler: WrappedHandler by lazy { allFaceHandler }
+    override val downItemHandler: WrappedHandler by lazy { allFaceHandler }
+    override val backItemHandler: WrappedHandler by lazy { allFaceHandler }
+    override val frontItemHandler: WrappedHandler by lazy { allFaceHandler }
+    override val rightItemHandler: WrappedHandler by lazy { allFaceHandler }
+    override val leftItemHandler: WrappedHandler by lazy { allFaceHandler }
 
 }
