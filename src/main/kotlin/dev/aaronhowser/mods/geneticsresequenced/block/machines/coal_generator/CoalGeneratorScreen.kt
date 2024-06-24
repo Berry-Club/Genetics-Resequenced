@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator
 
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.PoseStack
+import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.EnergyInfoArea
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.renderer.GameRenderer
