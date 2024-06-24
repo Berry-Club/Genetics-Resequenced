@@ -3,16 +3,17 @@ package dev.aaronhowser.mods.geneticsresequenced.block.base
 import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.WrappedHandler
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.world.Containers
+import net.minecraft.world.SimpleContainer
 import net.minecraft.world.level.block.HorizontalDirectionalBlock
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
-import net.neoforged.neoforge.energy.IEnergyStorage
 import net.neoforged.neoforge.items.IItemHandler
 import net.neoforged.neoforge.items.ItemStackHandler
 
@@ -64,39 +65,23 @@ abstract class InventoryEnergyBlockEntity(
         }
     }
 
-    protected var lazyEnergyStorage: LazyOptional<IEnergyStorage> = LazyOptional.empty()
-
-    override fun <T : Any?> getCapability(cap: Capability<T>, side: Direction?): LazyOptional<T> {
-        return when (cap) {
-            ForgeCapabilities.ITEM_HANDLER -> getItemCapability(side).cast()
-
-            ForgeCapabilities.ENERGY -> getEnergyCapability(side).cast()
-
-            else -> super.getCapability(cap, side)
-        }
-    }
-
     protected open fun getItemCapability(side: Direction?): IItemHandler {
-        if (side == null) return lazyItemHandler.cast()
+        if (side == null) return itemHandler
 
-        if (side == Direction.UP) return upItemHandler.cast()
-        if (side == Direction.DOWN) return downItemHandler.cast()
+        if (side == Direction.UP) return upItemHandler
+        if (side == Direction.DOWN) return downItemHandler
 
         val directionFacing = this.blockState.getValue(HorizontalDirectionalBlock.FACING)
 
         return when (directionFacing) {
-            Direction.NORTH -> directionWrappedHandlerMap[side.opposite]!!.cast()
-            Direction.SOUTH -> directionWrappedHandlerMap[side]!!.cast()
-            Direction.EAST -> directionWrappedHandlerMap[side.clockWise]!!.cast()
-            Direction.WEST -> directionWrappedHandlerMap[side.counterClockWise]!!.cast()
+            Direction.NORTH -> directionWrappedHandlerMap[side.opposite]!!
+            Direction.SOUTH -> directionWrappedHandlerMap[side]!!
+            Direction.EAST -> directionWrappedHandlerMap[side.clockWise]!!
+            Direction.WEST -> directionWrappedHandlerMap[side.counterClockWise]!!
 
-            else -> directionWrappedHandlerMap[side]!!.cast()
+            else -> directionWrappedHandlerMap[side]!!
         }
 
-    }
-
-    protected open fun getEnergyCapability(side: Direction?): LazyOptional<IEnergyStorage> {
-        return lazyEnergyStorage.cast()
     }
 
     /**
@@ -107,7 +92,9 @@ abstract class InventoryEnergyBlockEntity(
         this.energyStorage.setEnergy(energy)
     }
 
-    override fun getUpdateTag(): CompoundTag = saveWithoutMetadata()
+    override fun getUpdateTag(pRegistries: HolderLookup.Provider): CompoundTag {
+        return saveWithoutMetadata(pRegistries)
+    }
 
     override fun getUpdatePacket(): Packet<ClientGamePacketListener> = ClientboundBlockEntityDataPacket.create(this)
 
@@ -131,23 +118,17 @@ abstract class InventoryEnergyBlockEntity(
         lazyEnergyStorage = LazyOptional.of { energyStorage }
     }
 
-    override fun invalidateCaps() {
-        super.invalidateCaps()
-        lazyItemHandler.invalidate()
-        lazyEnergyStorage.invalidate()
-    }
-
-    override fun saveAdditional(pTag: CompoundTag) {
-        pTag.put(inventoryNbtKey, itemHandler.serializeNBT())
+    override fun saveAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
+        pTag.put(inventoryNbtKey, itemHandler.serializeNBT(pRegistries))
         pTag.putInt(energyNbtKey, energyStorage.energyStored)
-        super.saveAdditional(pTag)
+        super.saveAdditional(pTag, pRegistries)
     }
 
-    override fun load(pTag: CompoundTag) {
-        super.load(pTag)
-
-        itemHandler.deserializeNBT(pTag.getCompound(inventoryNbtKey))
+    override fun loadAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
+        itemHandler.deserializeNBT(pRegistries, pTag.getCompound(inventoryNbtKey))
         energyStorage.setEnergy(pTag.getInt(energyNbtKey))
+        super.loadAdditional(pTag, pRegistries)
+
     }
 
 }
