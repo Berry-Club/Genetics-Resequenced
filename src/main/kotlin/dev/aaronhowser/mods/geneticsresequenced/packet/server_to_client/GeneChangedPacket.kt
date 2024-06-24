@@ -3,7 +3,9 @@ package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacket
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
@@ -15,7 +17,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 
 data class GeneChangedPacket(
     val entityId: Int,
-    val geneId: Gene,
+    val gene: Gene,
     val wasAdded: Boolean
 ) : ModPacket {
 
@@ -27,7 +29,7 @@ data class GeneChangedPacket(
 
         val STREAM_CODEC: StreamCodec<ByteBuf, GeneChangedPacket> = StreamCodec.composite(
             ByteBufCodecs.INT, GeneChangedPacket::entityId,
-            Gene.STREAM_CODEC, GeneChangedPacket::geneId,
+            Gene.STREAM_CODEC, GeneChangedPacket::gene,
             ByteBufCodecs.BOOL, GeneChangedPacket::wasAdded,
             ::GeneChangedPacket
         )
@@ -40,10 +42,13 @@ data class GeneChangedPacket(
             ?: throw IllegalStateException("Received GeneChangedPacket with invalid entity id!")
 
         if (wasAdded) {
-            entity.addGene(geneId)
+            entity.addGene(gene)
         } else {
-            entity.removeGene(geneId)
+            entity.removeGene(gene)
         }
+
+        if (gene == ModGenes.cringe) ClientUtil.handleCringe(wasAdded)
+
     }
 
 }
