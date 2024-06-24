@@ -122,6 +122,8 @@ class SupportSlime(
         if (isNoAi) return
         if (despawnAnimationPlaying) return
 
+        if (tickCount % 40 != 0) return
+
         val nearbyEntities = level.getEntities(
             this,
             boundingBox.inflate(16.0)

@@ -11,3 +11,4 @@
 
 - Emerald Heart chat function only worked if Emerald Heart was DISABLED, instead of ENABLED. Fixed that.
 - Attributes Modifiers now use a UUID rather than just the name. This may cause problems if you already had that attribute modifier.
+- Support Slime now only checks if it should despawn once every 40 ticks rather than every tick, which should improve performance.
