@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
@@ -33,7 +32,7 @@ class ScraperItem : Item(
             if (player.cooldowns.isOnCooldown(ModItems.SCRAPER.get())) return false
             if (target.hurtTime > 0) return false
 
-            val organicStack = ModItems.ORGANIC_MATTER.itemStack.setMob(target.type)
+            val organicStack = ModItems.ORGANIC_MATTER.toStack().setMob(target.type)
 
             if (!player.inventory.add(organicStack)) {
                 player.drop(organicStack, false)

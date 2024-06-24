@@ -50,7 +50,7 @@ class PlasmidItem : Item(Properties()) {
         }
 
         fun getCompletedPlasmid(gene: Gene): ItemStack {
-            return ModItems.PLASMID.itemStack.apply {
+            return ModItems.PLASMID.toStack().apply {
                 setGene(this, gene, gene.dnaPointsRequired)
             }
         }
