@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machines.blood_purifier
 
 import com.mojang.blaze3d.systems.RenderSystem
-import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.EnergyInfoArea
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
 import net.minecraft.client.Minecraft
@@ -16,26 +15,6 @@ class BloodPurifierScreen(
     pPlayerInventory: Inventory,
     pTitle: Component
 ) : AbstractContainerScreen<BloodPurifierMenu>(pMenu, pPlayerInventory, pTitle) {
-
-    private lateinit var energyInfoArea: EnergyInfoArea
-
-    override fun init() {
-        super.init()
-        assignInfoArea()
-    }
-
-    private fun assignInfoArea() {
-        val x = (width - imageWidth) / 2
-        val y = (height - imageHeight) / 2
-
-        energyInfoArea = EnergyInfoArea(
-            x + ScreenTextures.Elements.Energy.LOCATION_DEFAULT.x,
-            y + ScreenTextures.Elements.Energy.LOCATION_DEFAULT.y,
-            menu.blockEntity.energyStorage,
-            ScreenTextures.Elements.Energy.DIMENSIONS.x,
-            ScreenTextures.Elements.Energy.DIMENSIONS.y
-        )
-    }
 
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
         RenderSystem.setShader { GameRenderer.getPositionTexShader() }
@@ -56,9 +35,26 @@ class BloodPurifierScreen(
         )
 
         renderProgressArrow(pGuiGraphics, x, y)
-        energyInfoArea.render(pGuiGraphics, x, y, pPartialTick)
+        renderEnergyInfo(pGuiGraphics, x, y)
     }
 
+    private fun renderEnergyInfo(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
+        val energyStorage = menu.blockEntity.energyStorage
+        val percent = energyStorage.energyStored.toFloat() / energyStorage.maxEnergyStored.toFloat()
+
+        pGuiGraphics.blitSprite(
+            ScreenTextures.Elements.Energy.TEXTURE,
+            ScreenTextures.Elements.Energy.DIMENSIONS.x,
+            ScreenTextures.Elements.Energy.DIMENSIONS.y,
+            0,
+            0,
+            x + ScreenTextures.Elements.Energy.LOCATION_DEFAULT.x,
+            y + ScreenTextures.Elements.Energy.LOCATION_DEFAULT.y,
+            0,
+            ScreenTextures.Elements.Energy.DIMENSIONS.x,
+            (ScreenTextures.Elements.Energy.DIMENSIONS.y * percent).toInt()
+        )
+    }
 
     override fun renderLabels(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
         val x = (width - imageWidth) / 2
@@ -75,16 +71,20 @@ class BloodPurifierScreen(
                 pMouseY,
                 x,
                 y,
-                ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.x,
-                ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.y,
+                ScreenTextures.Elements.Energy.LOCATION_DEFAULT.x,
+                ScreenTextures.Elements.Energy.LOCATION_DEFAULT.y,
                 ScreenTextures.Elements.Energy.DIMENSIONS.x,
                 ScreenTextures.Elements.Energy.DIMENSIONS.y
             )
         ) {
 
+            val energy = menu.blockEntity.energyStorage
+
             pGuiGraphics.renderComponentTooltip(
                 Minecraft.getInstance().font,
-                listOf(energyInfoArea.tooltip),
+                Component
+                    .literal(energy.energyStored.toString() + "/" + energy.maxEnergyStored + " FE")
+                    .toFlatList(),
                 pMouseX - x,
                 pMouseY - y
             )

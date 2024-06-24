@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator
 
 import com.mojang.blaze3d.systems.RenderSystem
-import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.EnergyInfoArea
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
 import net.minecraft.client.Minecraft
@@ -16,13 +15,6 @@ class CoalGeneratorScreen(
     pPlayerInventory: Inventory,
     pTitle: Component
 ) : AbstractContainerScreen<CoalGeneratorMenu>(pMenu, pPlayerInventory, pTitle) {
-
-    private lateinit var energyInfoArea: EnergyInfoArea
-
-    override fun init() {
-        super.init()
-        assignInfoArea()
-    }
 
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
         RenderSystem.setShader { GameRenderer.getPositionTexShader() }
@@ -43,19 +35,24 @@ class CoalGeneratorScreen(
 
         renderProgressArrow(pGuiGraphics, x, y)
         renderBurnProgress(pGuiGraphics, x, y)
-        energyInfoArea.render(pGuiGraphics, x, y, pPartialTick)
+        renderEnergyInfo(pGuiGraphics, x, y)
     }
 
-    private fun assignInfoArea() {
-        val x = (width - imageWidth) / 2
-        val y = (height - imageHeight) / 2
+    private fun renderEnergyInfo(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
+        val energyStorage = menu.blockEntity.energyStorage
+        val percent = energyStorage.energyStored.toFloat() / energyStorage.maxEnergyStored.toFloat()
 
-        energyInfoArea = EnergyInfoArea(
+        pGuiGraphics.blitSprite(
+            ScreenTextures.Elements.Energy.TEXTURE,
+            ScreenTextures.Elements.Energy.DIMENSIONS.x,
+            ScreenTextures.Elements.Energy.DIMENSIONS.y,
+            0,
+            0,
             x + ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.x,
             y + ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.y,
-            menu.blockEntity.energyStorage,
+            0,
             ScreenTextures.Elements.Energy.DIMENSIONS.x,
-            ScreenTextures.Elements.Energy.DIMENSIONS.y
+            (ScreenTextures.Elements.Energy.DIMENSIONS.y * percent).toInt()
         )
     }
 
@@ -68,8 +65,8 @@ class CoalGeneratorScreen(
         super.renderLabels(pGuiGraphics, pMouseX, pMouseY)
     }
 
+    //FIXME: This is way too wide of an area
     private fun renderEnergyAreaTooltip(pGuiGraphics: GuiGraphics, x: Int, y: Int, pMouseX: Int, pMouseY: Int) {
-
         if (isMouseOver(
                 pMouseX,
                 pMouseY,
@@ -81,10 +78,13 @@ class CoalGeneratorScreen(
                 ScreenTextures.Elements.Energy.DIMENSIONS.y
             )
         ) {
+            val energy = menu.blockEntity.energyStorage
 
             pGuiGraphics.renderComponentTooltip(
                 Minecraft.getInstance().font,
-                listOf(energyInfoArea.tooltip),
+                Component
+                    .literal(energy.energyStored.toString() + "/" + energy.maxEnergyStored + " FE")
+                    .toFlatList(),
                 pMouseX - x,
                 pMouseY - y
             )
@@ -127,7 +127,6 @@ class CoalGeneratorScreen(
             ScreenTextures.Elements.ArrowRight.DIMENSIONS.y
         )
     }
-
 
     //TODO: Goes up instead of down
     private fun renderBurnProgress(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
