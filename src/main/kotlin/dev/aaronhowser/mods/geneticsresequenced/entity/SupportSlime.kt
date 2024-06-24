@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.entity.goals.SupportSlimeAttackGoal
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -218,6 +219,7 @@ class SupportSlime(
 
     override fun registerGoals() {
         super.registerGoals()
+        goalSelector.addGoal(1, SupportSlimeAttackGoal(this))
 
         targetSelector.removeAllGoals { true }
         targetSelector.addGoal(
