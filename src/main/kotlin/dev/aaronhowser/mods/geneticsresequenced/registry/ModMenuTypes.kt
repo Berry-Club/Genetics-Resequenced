@@ -2,8 +2,10 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator.CoalGeneratorMenu
+import dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator.CoalGeneratorScreen
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.inventory.MenuType
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -18,5 +20,9 @@ object ModMenuTypes {
         MENU_TYPE_REGISTRY.register("coal_generator", Supplier {
             IMenuTypeExtension.create { id, inv, buf -> CoalGeneratorMenu(id, inv, buf) }
         })
+
+    fun registerScreens(event: RegisterMenuScreensEvent) {
+        event.register(COAL_GENERATOR.get(), ::CoalGeneratorScreen)
+    }
 
 }

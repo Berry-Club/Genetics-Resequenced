@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.entity.client.SupportSlimeRender
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.item.ItemProperties
@@ -16,6 +17,7 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.client.event.ModelEvent
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
 
 @EventBusSubscriber(
     modid = GeneticsResequenced.ID,
@@ -33,10 +35,8 @@ object ClientModBusEvents {
     //TODO
     @SubscribeEvent
     fun onClientSetup(event: FMLClientSetupEvent) {
-//        ModMenuTypes.registerScreens()
         registerEntityRenderers()
     }
-
 
     private fun registerEntityRenderers() {
         EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::SupportSlimeRenderer)
@@ -69,6 +69,11 @@ object ClientModBusEvents {
             }
         )
 
+    }
+
+    @SubscribeEvent
+    fun onRegisterMenuScreens(event: RegisterMenuScreensEvent) {
+        ModMenuTypes.registerScreens(event)
     }
 
 }
