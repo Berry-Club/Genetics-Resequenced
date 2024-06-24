@@ -39,16 +39,14 @@ abstract class InventoryEnergyBlockEntity(
     abstract val amountOfItemSlots: Int
     abstract val itemHandler: ItemStackHandler
 
-    protected var lazyItemHandler: LazyOptional<IItemHandler> = LazyOptional.empty()
+    protected abstract val upItemHandler: WrappedHandler
+    protected abstract val downItemHandler: WrappedHandler
+    protected abstract val backItemHandler: WrappedHandler
+    protected abstract val frontItemHandler: WrappedHandler
+    protected abstract val rightItemHandler: WrappedHandler
+    protected abstract val leftItemHandler: WrappedHandler
 
-    protected abstract val upItemHandler: LazyOptional<WrappedHandler>
-    protected abstract val downItemHandler: LazyOptional<WrappedHandler>
-    protected abstract val backItemHandler: LazyOptional<WrappedHandler>
-    protected abstract val frontItemHandler: LazyOptional<WrappedHandler>
-    protected abstract val rightItemHandler: LazyOptional<WrappedHandler>
-    protected abstract val leftItemHandler: LazyOptional<WrappedHandler>
-
-    private val directionWrappedHandlerMap: Map<Direction, LazyOptional<WrappedHandler>>
+    private val directionWrappedHandlerMap: Map<Direction, WrappedHandler>
         get() = mapOf(
             Direction.DOWN to downItemHandler,
             Direction.UP to upItemHandler,
@@ -78,7 +76,7 @@ abstract class InventoryEnergyBlockEntity(
         }
     }
 
-    protected open fun getItemCapability(side: Direction?): LazyOptional<IItemHandler> {
+    protected open fun getItemCapability(side: Direction?): IItemHandler {
         if (side == null) return lazyItemHandler.cast()
 
         if (side == Direction.UP) return upItemHandler.cast()
