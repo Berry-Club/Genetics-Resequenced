@@ -2,8 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator
 
 import com.mojang.blaze3d.systems.RenderSystem
 import com.mojang.blaze3d.vertex.PoseStack
-import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.EnergyInfoArea
+import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.network.chat.Component
@@ -41,58 +42,63 @@ class CoalGeneratorScreen(
 
     }
 
-    private lateinit var energyInfoArea: EnergyInfoArea
+//    private lateinit var energyInfoArea: EnergyInfoArea
 
     override fun init() {
         super.init()
         assignInfoArea()
     }
 
-    private fun assignInfoArea() {
-        val x = (width - imageWidth) / 2
-        val y = (height - imageHeight) / 2
-
-        energyInfoArea = EnergyInfoArea(
-            x + ENERGY_X,
-            y + ENERGY_Y,
-            menu.blockEntity.energyStorage,
-            ENERGY_WIDTH,
-            ENERGY_HEIGHT
-        )
-
-    }
-
-    override fun renderBg(pPoseStack: PoseStack, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
+    override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
         RenderSystem.setShader { GameRenderer.getPositionTexShader() }
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f)
         RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE)
         val x = (width - imageWidth) / 2
         val y = (height - imageHeight) / 2
 
-        blit(pPoseStack, x, y, 0, 0, imageWidth, imageHeight)
+        pGuiGraphics.blit(
+            x,
+            y,
+            0,
+            imageWidth,
+            imageHeight
+        )
 
         renderProgressArrow(pPoseStack, x, y)
         renderBurnProgress(pPoseStack, x, y)
         energyInfoArea.draw(pPoseStack)
     }
 
-    override fun renderLabels(pPoseStack: PoseStack, pMouseX: Int, pMouseY: Int) {
-
+    private fun assignInfoArea() {
         val x = (width - imageWidth) / 2
         val y = (height - imageHeight) / 2
 
-        renderEnergyAreaTooltip(pPoseStack, x, y, pMouseX, pMouseY)
-
-        super.renderLabels(pPoseStack, pMouseX, pMouseY)
-    }
-
-    private fun renderEnergyAreaTooltip(pPoseStack: PoseStack, x: Int, y: Int, pMouseX: Int, pMouseY: Int) {
-
-        if (isMouseOver(pMouseX, pMouseY, x, y, ENERGY_X, ENERGY_Y, ENERGY_WIDTH, ENERGY_HEIGHT)) {
-            renderTooltip(pPoseStack, energyInfoArea.tooltip, pMouseX - x, pMouseY - y)
-        }
+//        energyInfoArea = EnergyInfoArea(
+//            x + ENERGY_X,
+//            y + ENERGY_Y,
+//            menu.blockEntity.energyStorage,
+//            ENERGY_WIDTH,
+//            ENERGY_HEIGHT
+//        )
 
     }
+
+    override fun renderLabels(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
+
+        val x = (width - imageWidth) / 2
+        val y = (height - imageHeight) / 2
+//        renderEnergyAreaTooltip(pGuiGraphics, x, y, pMouseX, pMouseY)
+
+        super.renderLabels(pGuiGraphics, pMouseX, pMouseY)
+    }
+
+//    private fun renderEnergyAreaTooltip(pGuiGraphics: GuiGraphics, x: Int, y: Int, pMouseX: Int, pMouseY: Int) {
+//
+//        if (isMouseOver(pMouseX, pMouseY, x, y, ENERGY_X, ENERGY_Y, ENERGY_WIDTH, ENERGY_HEIGHT)) {
+//            renderTooltip(pGuiGraphics, energyInfoArea.tooltip, pMouseX - x, pMouseY - y)
+//        }
+//
+//    }
 
     private fun isMouseOver(
         mouseX: Int,
