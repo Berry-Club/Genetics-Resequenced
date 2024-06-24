@@ -11,7 +11,8 @@ object ModRegistries {
         ModBlocks.BLOCK_REGISTRY,
         ModCreativeModeTabs.TABS_REGISTRY,
         ModAttachmentTypes.ATTACHMENT_TYPES_REGISTRY,
-        ModAttributes.ATTRIBUTE_REGISTRY
+        ModAttributes.ATTRIBUTE_REGISTRY,
+        ModEntityTypes.ENTITY_TYPE_REGISTRY,
     )
 
     fun register(modBus: IEventBus) {
