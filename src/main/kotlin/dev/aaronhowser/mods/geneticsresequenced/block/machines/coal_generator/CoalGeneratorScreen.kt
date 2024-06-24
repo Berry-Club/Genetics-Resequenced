@@ -101,9 +101,8 @@ class CoalGeneratorScreen(
                 ScreenTextures.Elements.ArrowRight.TEXTURE,
                 x + ScreenTextures.Elements.ArrowRight.POSITION.x,
                 y + ScreenTextures.Elements.ArrowRight.POSITION.y,
-                menu.getScaledProgressArrow(),
-                0,
-                0
+                ScreenTextures.Elements.ArrowRight.DIMENSIONS.x,
+                ScreenTextures.Elements.ArrowRight.DIMENSIONS.y,
             )
         }
     }
@@ -111,14 +110,14 @@ class CoalGeneratorScreen(
     private fun renderBurnProgress(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
         if (menu.isBurning) {
             val fuelRemaining = menu.getScaledFuelRemaining()
-//            pGuiGraphics.blit(
-//                x + BURN_X,
-//                y + BURN_Y + (BURN_HEIGHT - fuelRemaining),
-//                BURN_TEXTURE_X,
-//                BURN_TEXTURE_Y + (BURN_HEIGHT - fuelRemaining),
-//                BURN_WIDTH,
-//                fuelRemaining
-//            )
+            pGuiGraphics.blitSprite(
+                ScreenTextures.Elements.Burn.TEXTURE,
+                x + ScreenTextures.Elements.Burn.POSITION.x,
+                y + ScreenTextures.Elements.Burn.POSITION.y,
+                fuelRemaining,
+                0,
+                0
+            )
         }
     }
 
