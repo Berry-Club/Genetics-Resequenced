@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.SupportSlimeAttackGoal
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
@@ -13,6 +14,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
+import net.minecraft.world.Difficulty
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
@@ -61,14 +63,23 @@ class SupportSlime(
 
             if (!item.`is`(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())) return
 
-            if (player.hasGene(ModGenes.slimyDeath)) return
-
-            player.sendSystemMessage(
-                Component.translatable(
-                    "message.geneticsresequenced.support_slime_creative",
-                    ModGenes.slimyDeath.nameComponent
+            if (!player.hasGene(ModGenes.slimyDeath)) {
+                player.sendSystemMessage(
+                    Component.translatable(
+                        ModLanguageProvider.Messages.SUPPORT_SLIME_CREATIVE,
+                        ModGenes.slimyDeath.nameComponent
+                    )
                 )
-            )
+            }
+
+            if (player.level().difficulty == Difficulty.PEACEFUL) {
+                player.sendSystemMessage(
+                    Component.translatable(
+                        ModLanguageProvider.Messages.SUPPORT_SLIME_PEACEFUL
+                    )
+                )
+            }
+
         }
     }
 
@@ -78,30 +89,29 @@ class SupportSlime(
     }
 
     override fun onAddedToWorld() {
-
         if (level().isClientSide) {
             return super.onAddedToWorld()
         }
 
+        if (getOwnerUuid() == null) {
+            setOwnerIfNotSet()
+        }
+
+        super.onAddedToWorld()
     }
 
-    private fun setOwner() {
-
+    private fun setOwnerIfNotSet() {
         val nearbyLivingEntities = level().getEntitiesOfClass(
             LivingEntity::class.java,
             boundingBox.inflate(10.0)
         ).sortedByDescending { distanceToSqr(it) }
 
-        for (livingEntity in nearbyLivingEntities) {
-            if (livingEntity.hasGene(ModGenes.slimyDeath)) {
-                setOwner(livingEntity.uuid)
-                return
-            }
-        }
-
-        if (getOwnerUuid() == null) {
-            this.remove(RemovalReason.DISCARDED)
+        val owner = nearbyLivingEntities.firstOrNull { it.hasGene(ModGenes.slimyDeath) }
+        if (owner != null) {
+            setOwner(owner.uuid)
+        } else {
             GeneticsResequenced.LOGGER.warn("Support Slime spawned without an owner!")
+            this.remove(RemovalReason.DISCARDED)
         }
     }
 

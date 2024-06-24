@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
+import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
@@ -35,7 +37,7 @@ object ClickEvents {
 
     @SubscribeEvent
     fun onClickBlock(event: PlayerInteractEvent.RightClickBlock) {
-//        SupportSlime.spawnEggMessage(event)
+        SupportSlime.spawnEggMessage(event)
     }
 
     @SubscribeEvent
