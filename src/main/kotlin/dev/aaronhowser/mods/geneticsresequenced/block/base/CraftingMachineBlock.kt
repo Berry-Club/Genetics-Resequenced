@@ -52,15 +52,10 @@ abstract class CraftingMachineBlock(
     ) {
 
         if (pState.block != pNewState.block) {
-            val blockEntity = pLevel.getBlockEntity(pPos)
+            val blockEntity = pLevel.getBlockEntity(pPos) as? CraftingMachineBlockEntity
+                ?: throw IllegalStateException("No block entity found at $pPos")
 
-            // god i fucking hate this this is so gross
-            try {
-                val asType = blockEntityType.cast(blockEntity)
-                asType.dropDrops()
-            } catch (e: ClassCastException) {
-                /* Continue */
-            }
+            blockEntity.dropDrops()
         }
 
         super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving)
