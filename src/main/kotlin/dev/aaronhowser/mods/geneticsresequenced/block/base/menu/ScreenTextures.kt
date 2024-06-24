@@ -23,7 +23,7 @@ object ScreenTextures {
     object Elements {
         object ArrowDown {
             val TEXTURE = OtherUtil.modResource("arrow_down")
-            val DIMENSIONS = Vector2i(28, 9)
+            val DIMENSIONS = Vector2i(32, 32)
         }
 
         object ArrowRight {
@@ -34,7 +34,7 @@ object ScreenTextures {
 
         object Bubbles {
             val TEXTURE = OtherUtil.modResource("bubbles")
-            val DIMENSIONS = Vector2i(12, 29)
+            val DIMENSIONS = Vector2i(32, 32)
         }
 
         object Burn {
@@ -45,14 +45,18 @@ object ScreenTextures {
 
         object Energy {
             val TEXTURE = OtherUtil.modResource("energy")
-            val DIMENSIONS = Vector2i(18, 57)
+            val DIMENSIONS = Vector2i(64, 64)
+
+            val LOCATION_DEFAULT = Vector2i(7, 8)
+            val LOCATION_COAL_GEN = Vector2i(104, 12)
+            val LOCATION_INCUBATOR = Vector2i(20, 12)
         }
 
         object Heat {
             val HIGH = OtherUtil.modResource("heat_high")
             val LOW = OtherUtil.modResource("heat_low")
 
-            val DIMENSIONS = Vector2i(18, 4)
+            val DIMENSIONS = Vector2i(32, 32)
         }
 
     }

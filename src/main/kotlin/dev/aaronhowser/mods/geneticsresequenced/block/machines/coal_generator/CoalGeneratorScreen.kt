@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator
 
 import com.mojang.blaze3d.systems.RenderSystem
+import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.EnergyInfoArea
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
 import net.minecraft.client.gui.GuiGraphics
@@ -15,7 +16,7 @@ class CoalGeneratorScreen(
     pTitle: Component
 ) : AbstractContainerScreen<CoalGeneratorMenu>(pMenu, pPlayerInventory, pTitle) {
 
-//    private lateinit var energyInfoArea: EnergyInfoArea
+    private lateinit var energyInfoArea: EnergyInfoArea
 
     override fun init() {
         super.init()
@@ -41,20 +42,20 @@ class CoalGeneratorScreen(
 
         renderProgressArrow(pGuiGraphics, x, y)
         renderBurnProgress(pGuiGraphics, x, y)
-//        energyInfoArea.draw(pGuiGraphics)
+        energyInfoArea.render(pGuiGraphics, x, y, pPartialTick)
     }
 
     private fun assignInfoArea() {
         val x = (width - imageWidth) / 2
         val y = (height - imageHeight) / 2
 
-//        energyInfoArea = EnergyInfoArea(
-//            x + ENERGY_X,
-//            y + ENERGY_Y,
-//            menu.blockEntity.energyStorage,
-//            ENERGY_WIDTH,
-//            ENERGY_HEIGHT
-//        )
+        energyInfoArea = EnergyInfoArea(
+            x + ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.x,
+            y + ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.y,
+            menu.blockEntity.energyStorage,
+            ScreenTextures.Elements.Energy.DIMENSIONS.x,
+            ScreenTextures.Elements.Energy.DIMENSIONS.y
+        )
 
     }
 
