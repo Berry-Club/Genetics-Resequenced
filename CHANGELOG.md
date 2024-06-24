@@ -10,3 +10,4 @@
 - Improved command response messages, for example "Added Claws to Dev" instead of "Added Claws to 1 entities".
 - Efficiency Attribute now uses modifiers instead of modifying the attribute base value. No idea why I was doing that originally, that's awful.
 - Support Slime now only checks if it should despawn once every 40 ticks rather than every tick, which should improve performance.
+- Changed the machines' energy texture to one made by TJKraft
