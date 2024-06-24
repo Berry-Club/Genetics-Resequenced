@@ -14,8 +14,7 @@ class EnergyInfoArea(
     private val energy: IEnergyStorage? = null,
     width: Int = 8,
     height: Int = 64
-) :
-    InfoArea(Rect2i(xMin, yMin, width, height)) {
+) : InfoArea(Rect2i(xMin, yMin, width, height)) {
 
     val tooltip: Component
         get() =
