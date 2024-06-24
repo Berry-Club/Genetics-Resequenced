@@ -89,6 +89,7 @@ class ModLanguageProvider(
         const val METAL_SYRINGE_CONTAMINATED = "message.geneticsresequenced.metal_syringe.contaminated"
         const val METAL_SYRINGE_NO_MOBS = "message.geneticsresequenced.metal_syringe.no_mobs"
         const val SUPPORT_SLIME_CREATIVE = "message.geneticsresequenced.support_slime_creative"
+        const val SUPPORT_SLIME_PEACEFUL = "message.geneticsresequenced.support_slime_peaceful"
         const val SYRINGE_REMOVE_GENES_SUCCESS = "message.geneticsresequenced.syringe.anti_gene.success"
         const val SYRINGE_REMOVE_GENES_FAIL = "message.geneticsresequenced.syringe.anti_gene.fail"
         const val MISSING_GENE_REQUIREMENTS = "message.geneticsresequenced.gene_missing_requirements"
@@ -494,6 +495,10 @@ class ModLanguageProvider(
         add(
             Messages.SUPPORT_SLIME_CREATIVE,
             "Support Slimes despawn with no owner! Give yourself the %1\$s Gene to stop them from despawning!"
+        )
+        add(
+            Messages.SUPPORT_SLIME_PEACEFUL,
+            "Support slimes are technically Slimes, which means they can't exist in Peaceful mode!"
         )
         add(Messages.SYRINGE_REMOVE_GENES_SUCCESS, "You have removed the %s Gene!")
         add(Messages.SYRINGE_REMOVE_GENES_FAIL, "The %s Gene was not removed as you did not have it!")
