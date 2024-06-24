@@ -1,9 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator
 
 import com.mojang.blaze3d.systems.RenderSystem
-import com.mojang.blaze3d.vertex.PoseStack
+import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.renderer.GameRenderer
@@ -17,7 +16,6 @@ class CoalGeneratorScreen(
 ) : AbstractContainerScreen<CoalGeneratorMenu>(pMenu, pPlayerInventory, pTitle) {
 
     companion object {
-        val BACKGROUND_TEXTURE = OtherUtil.modResource("textures/gui/coal_generator.png")
 
         const val ARROW_TEXTURE_X = 177
         const val ARROW_TEXTURE_Y = 61
@@ -52,21 +50,23 @@ class CoalGeneratorScreen(
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
         RenderSystem.setShader { GameRenderer.getPositionTexShader() }
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f)
-        RenderSystem.setShaderTexture(0, BACKGROUND_TEXTURE)
+        RenderSystem.setShaderTexture(0, ScreenTextures.Backgrounds.COAL_GENERATOR)
         val x = (width - imageWidth) / 2
         val y = (height - imageHeight) / 2
 
         pGuiGraphics.blit(
-            x,
-            y,
+            ScreenTextures.Backgrounds.COAL_GENERATOR,
             0,
-            imageWidth,
-            imageHeight
+            0,
+            0,
+            0,
+            176,
+            166
         )
 
-        renderProgressArrow(pPoseStack, x, y)
-        renderBurnProgress(pPoseStack, x, y)
-        energyInfoArea.draw(pPoseStack)
+        renderProgressArrow(pGuiGraphics, x, y)
+        renderBurnProgress(pGuiGraphics, x, y)
+//        energyInfoArea.draw(pGuiGraphics)
     }
 
     private fun assignInfoArea() {
@@ -120,39 +120,32 @@ class CoalGeneratorScreen(
         )
     }
 
-    private fun renderProgressArrow(pPoseStack: PoseStack, x: Int, y: Int) {
+    private fun renderProgressArrow(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
         if (menu.isBurning) {
-            blit(
-                pPoseStack,
-                x + ARROW_X,                // The x position of where the arrow will be
-                y + ARROW_Y,                // The y position of where the arrow will be
-                ARROW_TEXTURE_X,                // The x offset of where the arrow is in the texture
-                ARROW_TEXTURE_Y,                // The y offset of where the arrow is in the texture
-                menu.getScaledProgressArrow(),       // The width of the arrow
-                ARROW_HEIGHT                    // The height of the arrow
-            )
+//            pGuiGraphics.blitSprite(
+//
+//            )
         }
     }
 
-    private fun renderBurnProgress(pPoseStack: PoseStack, x: Int, y: Int) {
+    private fun renderBurnProgress(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
         if (menu.isBurning) {
             val fuelRemaining = menu.getScaledFuelRemaining()
-            blit(
-                pPoseStack,
-                x + BURN_X,
-                y + BURN_Y + (BURN_HEIGHT - fuelRemaining),
-                BURN_TEXTURE_X,
-                BURN_TEXTURE_Y + (BURN_HEIGHT - fuelRemaining),
-                BURN_WIDTH,
-                fuelRemaining
-            )
+//            pGuiGraphics.blit(
+//                x + BURN_X,
+//                y + BURN_Y + (BURN_HEIGHT - fuelRemaining),
+//                BURN_TEXTURE_X,
+//                BURN_TEXTURE_Y + (BURN_HEIGHT - fuelRemaining),
+//                BURN_WIDTH,
+//                fuelRemaining
+//            )
         }
     }
 
-    override fun render(pPoseStack: PoseStack, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
-        renderBackground(pPoseStack)
-        super.render(pPoseStack, pMouseX, pMouseY, pPartialTick)
-        renderTooltip(pPoseStack, pMouseX, pMouseY)
+    override fun render(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
+        renderBackground(pGuiGraphics, pMouseX, pMouseY, pPartialTick)
+        super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick)
+        renderTooltip(pGuiGraphics, pMouseX, pMouseY)
     }
 
 }
