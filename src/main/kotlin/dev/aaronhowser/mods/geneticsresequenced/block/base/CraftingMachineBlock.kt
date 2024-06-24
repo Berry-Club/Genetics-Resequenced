@@ -4,7 +4,6 @@ import com.mojang.serialization.MapCodec
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.context.BlockPlaceContext
@@ -80,20 +79,16 @@ open class CraftingMachineBlock(
         pPlayer: Player,
         pHitResult: BlockHitResult
     ): InteractionResult {
-        if (pLevel.isClientSide) return InteractionResult.PASS
 
-        try {
-            val blockEntity = pLevel.getBlockEntity(pPos)
-            val asType = blockEntityType.cast(blockEntity)
-
-//            NetworkHooks.openScreen(
-//                pPlayer as ServerPlayer,
-//                asType,
-//                pPos
-//            )
-        } catch (e: ClassCastException) {
-            throw IllegalStateException("Missing block entity")
+        if (pPlayer !is ServerPlayer) {
+            return InteractionResult.PASS
         }
+
+        val blockEntity =
+            pLevel.getBlockEntity(pPos) as? CraftingMachineBlockEntity
+                ?: throw IllegalStateException("No block entity found at $pPos")
+
+        pPlayer.openMenu(blockEntity, pPos)
 
         return InteractionResult.SUCCESS
     }
