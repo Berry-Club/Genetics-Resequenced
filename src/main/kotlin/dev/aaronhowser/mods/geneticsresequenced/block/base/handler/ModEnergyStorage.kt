@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.block.base
+package dev.aaronhowser.mods.geneticsresequenced.block.base.handler
 
 import net.neoforged.neoforge.energy.EnergyStorage
 

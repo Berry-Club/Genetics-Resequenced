@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator
 
-import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineMenu
+import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting

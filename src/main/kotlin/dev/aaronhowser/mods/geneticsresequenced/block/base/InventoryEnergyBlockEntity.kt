@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base
 
+import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.ModEnergyStorage
 import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.WrappedHandler
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction

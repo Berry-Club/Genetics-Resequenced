@@ -1,6 +1,7 @@
-package dev.aaronhowser.mods.geneticsresequenced.block.base
+package dev.aaronhowser.mods.geneticsresequenced.block.base.menu
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.block.base.InventoryEnergyBlockEntity
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
