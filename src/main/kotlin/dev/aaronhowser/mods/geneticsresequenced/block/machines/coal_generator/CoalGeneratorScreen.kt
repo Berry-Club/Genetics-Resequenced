@@ -97,9 +97,14 @@ class CoalGeneratorScreen(
 
     private fun renderProgressArrow(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
         if (menu.isBurning) {
-//            pGuiGraphics.blitSprite(
-//
-//            )
+            pGuiGraphics.blitSprite(
+                ScreenTextures.Elements.ArrowRight.TEXTURE,
+                x + ScreenTextures.Elements.ArrowRight.POSITION.x,
+                y + ScreenTextures.Elements.ArrowRight.POSITION.y,
+                menu.getScaledProgressArrow(),
+                0,
+                0
+            )
         }
     }
 

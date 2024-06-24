@@ -29,6 +29,7 @@ object ScreenTextures {
         object ArrowRight {
             val TEXTURE = OtherUtil.modResource("arrow_right")
             val DIMENSIONS = Vector2i(24, 17)
+            val POSITION = Vector2i(83, 37)
         }
 
         object Bubbles {
