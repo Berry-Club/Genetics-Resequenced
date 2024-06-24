@@ -32,7 +32,7 @@ object ClickEvents {
 
     @SubscribeEvent
     fun onDigSpeed(event: PlayerEvent.BreakSpeed) {
-//        AttributeGenes.handleEfficiency(event)
+        AttributeGenes.handleEfficiency(event)
     }
 
     @SubscribeEvent
