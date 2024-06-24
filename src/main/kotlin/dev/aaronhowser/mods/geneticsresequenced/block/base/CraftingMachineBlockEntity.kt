@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base
 
+import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.WrappedHandler
 import net.minecraft.core.BlockPos
+import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.inventory.ContainerData
@@ -11,7 +13,7 @@ import net.minecraft.world.level.block.state.BlockState
  * Base class for all crafting machines.
  * Note that this is only for basic crafting machines, ie, those that turn one thing into one other thing.
  */
-open class CraftingMachineBlockEntity(
+abstract class CraftingMachineBlockEntity(
     pType: BlockEntityType<*>,
     pPos: BlockPos,
     pBlockState: BlockState
@@ -49,18 +51,18 @@ open class CraftingMachineBlockEntity(
     protected val maxProgressNbtKey
         get() = "${machineName}.max_progress"
 
-    override fun saveAdditional(pTag: CompoundTag) {
+    override fun saveAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
         pTag.putInt(progressNbtKey, progress)
         pTag.putInt(maxProgressNbtKey, maxProgress)
 
-        super.saveAdditional(pTag)
+        super.saveAdditional(pTag, pRegistries)
     }
 
-    override fun load(pTag: CompoundTag) {
+    override fun loadAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
         maxProgress = pTag.getInt(maxProgressNbtKey)
         progress = pTag.getInt(progressNbtKey)
 
-        super.load(pTag)
+        super.loadAdditional(pTag, pRegistries)
     }
 
     protected val containerData = object : ContainerData {
@@ -116,7 +118,7 @@ open class CraftingMachineBlockEntity(
         }
     }
 
-    private val allFaceHandler = LazyOptional.of {
+    private val allFaceHandler by lazy {
         WrappedHandler(
             itemHandler,
             canExtract = { slotId -> slotId == OUTPUT_SLOT_INDEX },
@@ -124,11 +126,11 @@ open class CraftingMachineBlockEntity(
         )
     }
 
-    override val upItemHandler: LazyOptional<WrappedHandler> = allFaceHandler
-    override val downItemHandler: LazyOptional<WrappedHandler> = allFaceHandler
-    override val backItemHandler: LazyOptional<WrappedHandler> = allFaceHandler
-    override val frontItemHandler: LazyOptional<WrappedHandler> = allFaceHandler
-    override val rightItemHandler: LazyOptional<WrappedHandler> = allFaceHandler
-    override val leftItemHandler: LazyOptional<WrappedHandler> = allFaceHandler
+    override val upItemHandler: WrappedHandler = allFaceHandler
+    override val downItemHandler: WrappedHandler = allFaceHandler
+    override val backItemHandler: WrappedHandler = allFaceHandler
+    override val frontItemHandler: WrappedHandler = allFaceHandler
+    override val rightItemHandler: WrappedHandler = allFaceHandler
+    override val leftItemHandler: WrappedHandler = allFaceHandler
 
 }
