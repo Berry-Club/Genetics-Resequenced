@@ -99,10 +99,14 @@ class CoalGeneratorScreen(
         if (menu.isBurning) {
             pGuiGraphics.blitSprite(
                 ScreenTextures.Elements.ArrowRight.TEXTURE,
-                x + ScreenTextures.Elements.ArrowRight.POSITION.x,
-                y + ScreenTextures.Elements.ArrowRight.POSITION.y,
                 ScreenTextures.Elements.ArrowRight.DIMENSIONS.x,
                 ScreenTextures.Elements.ArrowRight.DIMENSIONS.y,
+                0,
+                0,
+                x + ScreenTextures.Elements.ArrowRight.POSITION.x,
+                y + ScreenTextures.Elements.ArrowRight.POSITION.y,
+                menu.getScaledProgressArrow(),
+                ScreenTextures.Elements.ArrowRight.DIMENSIONS.y
             )
         }
     }
