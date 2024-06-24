@@ -15,6 +15,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess
 import net.minecraft.world.inventory.SimpleContainerData
 import net.minecraft.world.item.crafting.RecipeType
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
+import net.neoforged.neoforge.items.SlotItemHandler
 import java.text.NumberFormat
 
 class CoalGeneratorMenu(
@@ -43,9 +44,8 @@ class CoalGeneratorMenu(
         addPlayerInventory(inventory)
         addPlayerHotbar(inventory)
 
-//        this.blockEntity.getCapability(ForgeCapabilities.ITEM_HANDLER).ifPresent { itemHandler ->
-//            this.addSlot(SlotItemHandler(itemHandler, CoalGeneratorBlockEntity.INPUT_SLOT, 52, 34))
-//        }
+        val itemHandler = this.blockEntity.getItemCapability(null)
+        this.addSlot(SlotItemHandler(itemHandler, CoalGeneratorBlockEntity.INPUT_SLOT, 52, 34))
 
         addDataSlots(containerData)
     }
