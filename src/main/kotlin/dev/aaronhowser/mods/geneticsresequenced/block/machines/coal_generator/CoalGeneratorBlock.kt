@@ -1,13 +1,18 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator
 
+import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
+import com.mojang.serialization.codecs.RecordCodecBuilder
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.*
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.EntityBlock
+import net.minecraft.world.level.block.HorizontalDirectionalBlock
+import net.minecraft.world.level.block.RenderShape
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
@@ -15,7 +20,11 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.phys.BlockHitResult
 
-class CoalGeneratorBlock : HorizontalDirectionalBlock(Properties.of().sound(SoundType.METAL)), EntityBlock {
+data class CoalGeneratorBlock(
+    val properties: Properties,
+    val facing: Direction = Direction.NORTH,
+    val burning: Boolean = false
+) : HorizontalDirectionalBlock(properties), EntityBlock {
 
     companion object {
         val BURNING: BooleanProperty = BlockStateProperties.LIT
@@ -26,6 +35,15 @@ class CoalGeneratorBlock : HorizontalDirectionalBlock(Properties.of().sound(Soun
         registerDefaultState(stateDefinition.any().setValue(BURNING, false))
     }
 
+    override fun codec(): MapCodec<out CoalGeneratorBlock> {
+        return RecordCodecBuilder.mapCodec { instance ->
+            instance.group(
+                propertiesCodec(),
+                BlockStateProperties.HORIZONTAL_FACING.codec().fieldOf("facing").forGetter { it.facing },
+                Codec.BOOL.fieldOf("isBurning").forGetter { it.burning }
+            ).apply(instance, ::CoalGeneratorBlock)
+        }
+    }
 
     override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
         return defaultBlockState()
@@ -82,10 +100,6 @@ class CoalGeneratorBlock : HorizontalDirectionalBlock(Properties.of().sound(Soun
         pPlayer.openMenu(blockEntity)
 
         return InteractionResult.SUCCESS
-    }
-
-    override fun codec(): MapCodec<out HorizontalDirectionalBlock> {
-        TODO("Not yet implemented")
     }
 
     override fun newBlockEntity(pPos: BlockPos, pState: BlockState): BlockEntity {
