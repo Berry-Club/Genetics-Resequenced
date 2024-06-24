@@ -10,11 +10,10 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
-import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.entity.Display.BlockDisplay
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.MobSpawnType
 
 object RemoveNearbyLightsCommand {
 
@@ -54,26 +53,16 @@ object RemoveNearbyLightsCommand {
         lightSpots.forEach {
             level.removeBlock(it, false)
 
-            val entity = EntityType.BLOCK_DISPLAY.spawn(
-                level as ServerLevel,
-                { display ->
-                    display.setPos(it.x.toDouble(), it.y.toDouble(), it.z.toDouble())
-                    display.setGlowingTag(true)
-                },
-                it,
-                MobSpawnType.COMMAND,
-                false,
-                false
-            )
-
-            if (entity != null) {
-                level.addFreshEntity(entity)
-
-                ModScheduler.scheduleTaskInTicks(20 * 10) {
-                    entity.remove(Entity.RemovalReason.DISCARDED)
-                }
+            val blockDisplayEntity = BlockDisplay(EntityType.BLOCK_DISPLAY, level).apply {
+                setPos(it.x.toDouble(), it.y.toDouble(), it.z.toDouble())
+                setGlowingTag(true)
+                setBlockState(ModBlocks.BIOLUMINESCENCE_BLOCK.get().defaultBlockState())
             }
+            level.addFreshEntity(blockDisplayEntity)
 
+            ModScheduler.scheduleTaskInTicks(20 * 5) {
+                blockDisplayEntity.remove(Entity.RemovalReason.DISCARDED)
+            }
         }
 
         player.sendSystemMessage(
