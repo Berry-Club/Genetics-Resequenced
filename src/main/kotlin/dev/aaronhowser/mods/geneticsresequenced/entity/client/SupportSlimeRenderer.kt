@@ -13,11 +13,13 @@ import net.minecraft.client.renderer.entity.MobRenderer
 import net.minecraft.client.renderer.entity.SlimeRenderer
 import net.minecraft.client.renderer.entity.layers.SlimeOuterLayer
 import net.minecraft.client.renderer.texture.OverlayTexture
+import net.minecraft.core.component.DataComponents
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import net.minecraft.world.item.ItemDisplayContext
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
+import net.minecraft.world.item.component.ResolvableProfile
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.api.distmarker.OnlyIn
 import org.joml.Vector3f
@@ -50,10 +52,14 @@ class SupportSlimeRenderer(
 
         if (owner == null) return ItemStack.EMPTY
 
-        val ownerUsername = owner.gameProfile.name
+        val ownerProfile = owner.gameProfile
+        val ownerProfileComponent = ResolvableProfile(ownerProfile)
 
         val newHeadStack = Items.PLAYER_HEAD.itemStack
-        newHeadStack.getOrCreateTag().putString("SkullOwner", ownerUsername)
+        newHeadStack.set(
+            DataComponents.PROFILE,
+            ownerProfileComponent
+        )
 
         headStack = newHeadStack
         return newHeadStack
@@ -89,7 +95,9 @@ class SupportSlimeRenderer(
         )
 
         val lerpedRotY = Mth.lerp(pPartialTicks, pEntity.yRotO, pEntity.yRot)
-        pPoseStack.mulPose(Vector3f.YP.rotationDegrees(lerpedRotY))
+        val vectorPositiveY = Vector3f(0f, 1f, 0f)
+//        val quaternion = Quaternionf().rotateY(lerpedRotY)
+//        pPoseStack.mulPose(quaternion)
 
         itemRenderer.renderStatic(
             getHead(pEntity),
@@ -98,6 +106,7 @@ class SupportSlimeRenderer(
             OverlayTexture.NO_OVERLAY,
             pPoseStack,
             pBuffer,
+            pEntity.level(),
             pEntity.id
         )
     }
