@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
+import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import net.neoforged.bus.api.SubscribeEvent
@@ -12,6 +13,7 @@ import net.neoforged.fml.event.config.ModConfigEvent
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 import net.neoforged.neoforge.registries.DataPackRegistryEvent
 
 @EventBusSubscriber(
@@ -50,6 +52,11 @@ object ModBusEvents {
             ModBlockEntities.COAL_GENERATOR.get()
         ) { coalGen, direction -> coalGen.getItemCapability(direction) }
 
+    }
+
+    @SubscribeEvent
+    fun registerPayloads(event: RegisterPayloadHandlersEvent) {
+        ModPacketHandler.registerPayloads(event)
     }
 
 }
