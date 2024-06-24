@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.item.*
+import net.minecraft.world.item.Item
 import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
 
@@ -23,11 +24,11 @@ object ModItems {
         ITEM_REGISTRY.registerSimpleItem("gmo_cell")
     val DNA_HELIX: DeferredItem<DnaHelixItem> =
         ITEM_REGISTRY.registerItem("dna_helix") { DnaHelixItem() }
-    val PLASMID =
+    val PLASMID: DeferredItem<PlasmidItem> =
         ITEM_REGISTRY.registerItem("plasmid") { PlasmidItem() }
     val ANTI_PLASMID: DeferredItem<AntiPlasmidItem> =
         ITEM_REGISTRY.registerItem("anti_plasmid") { AntiPlasmidItem() }
-    val OVERCLOCKER =
+    val OVERCLOCKER: DeferredItem<Item> =
         ITEM_REGISTRY.registerSimpleItem("overclocker")
     val ANTI_FIELD_ORB: DeferredItem<AntiFieldOrbItem> =
         ITEM_REGISTRY.registerItem("anti_field_orb") { AntiFieldOrbItem() }
