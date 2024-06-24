@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.packet
 
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.NarratorPacket
+import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.phys.Vec3
@@ -26,6 +27,15 @@ object ModPacketHandler {
         registrar.playToClient(
             NarratorPacket.TYPE,
             NarratorPacket.STREAM_CODEC,
+            DirectionalPayloadHandler(
+                { packet, context -> packet.receiveMessage(context) },
+                { packet, context -> packet.receiveMessage(context) }
+            )
+        )
+
+        registrar.playToClient(
+            ShearedPacket.TYPE,
+            ShearedPacket.STREAM_CODEC,
             DirectionalPayloadHandler(
                 { packet, context -> packet.receiveMessage(context) },
                 { packet, context -> packet.receiveMessage(context) }
