@@ -44,7 +44,7 @@ object ScreenTextures {
 
         object Energy {
             val TEXTURE = OtherUtil.modResource("energy")
-            val DIMENSIONS = Vector2i(14, 42)
+            val DIMENSIONS = Vector2i(18, 57)
         }
 
         object Heat {
