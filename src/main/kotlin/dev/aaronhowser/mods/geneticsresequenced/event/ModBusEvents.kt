@@ -48,7 +48,7 @@ object ModBusEvents {
         event.registerBlockEntity(
             Capabilities.ItemHandler.BLOCK,
             ModBlockEntities.COAL_GENERATOR.get()
-        ) { a, b ->  }
+        ) { coalGen, direction -> coalGen.getItemCapability(direction) }
 
     }
 
