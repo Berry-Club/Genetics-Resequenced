@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block
 
+import com.mojang.serialization.MapCodec
+import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import net.minecraft.core.BlockPos
@@ -13,15 +15,23 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
 import java.util.*
 
-class AntiFieldBlock : Block(
-    Properties
+data class AntiFieldBlock(
+    val properties: Properties = Properties
         .of()
         .sound(SoundType.METAL)
         .strength(0.3f)
-) {
+) : Block(properties) {
 
     init {
         registerDefaultState(stateDefinition.any().setValue(DISABLED, false))
+    }
+
+    override fun codec(): MapCodec<out AntiFieldBlock> {
+        return RecordCodecBuilder.mapCodec { instance ->
+            instance.group(
+                propertiesCodec()
+            ).apply(instance, ::AntiFieldBlock)
+        }
     }
 
     override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
