@@ -16,7 +16,7 @@ object ModMenuTypes {
 
     val COAL_GENERATOR: DeferredHolder<MenuType<*>, MenuType<CoalGeneratorMenu>> =
         MENU_TYPE_REGISTRY.register("coal_generator", Supplier {
-            IMenuTypeExtension.create(::CoalGeneratorMenu)
+            IMenuTypeExtension.create { id, inv, buf -> CoalGeneratorMenu(id, inv, buf) }
         })
 
 }

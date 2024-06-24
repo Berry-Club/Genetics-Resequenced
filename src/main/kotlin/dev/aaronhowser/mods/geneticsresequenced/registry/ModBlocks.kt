@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.BioluminescenceBlock
+import dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator.CoalGeneratorBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.neoforged.neoforge.registries.DeferredBlock
@@ -13,7 +14,7 @@ object ModBlocks {
     val BLOCK_REGISTRY: DeferredRegister.Blocks = DeferredRegister.createBlocks(GeneticsResequenced.ID)
 
     val BIOLUMINESCENCE_BLOCK: DeferredBlock<Block> = registerBlock("bioluminescence_block") { BioluminescenceBlock() }
-    val COAL_GENERATOR: DeferredBlock<Block> = registerSimpleBlock("coal_generator")
+    val COAL_GENERATOR: DeferredBlock<Block> = registerBlock("coal_generator") { CoalGeneratorBlock() }
     val CELL_ANALYZER: DeferredBlock<Block> = registerSimpleBlock("cell_analyzer")
     val DNA_EXTRACTOR: DeferredBlock<Block> = registerSimpleBlock("dna_extractor")
     val DNA_DECRYPTOR: DeferredBlock<Block> = registerSimpleBlock("dna_decryptor")

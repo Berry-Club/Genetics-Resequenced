@@ -3,6 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator
 import com.mojang.serialization.MapCodec
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.*
@@ -11,6 +13,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
+import net.minecraft.world.phys.BlockHitResult
 
 class CoalGeneratorBlock : HorizontalDirectionalBlock(Properties.of().sound(SoundType.METAL)), EntityBlock {
 
@@ -61,11 +64,31 @@ class CoalGeneratorBlock : HorizontalDirectionalBlock(Properties.of().sound(Soun
         super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston)
     }
 
+    override fun useWithoutItem(
+        pState: BlockState,
+        pLevel: Level,
+        pPos: BlockPos,
+        pPlayer: Player,
+        pHitResult: BlockHitResult
+    ): InteractionResult {
+
+        if (pLevel.isClientSide) {
+            return InteractionResult.PASS
+        }
+
+        val blockEntity = pLevel.getBlockEntity(pPos) as? CoalGeneratorBlockEntity
+            ?: throw IllegalStateException("No block entity found at $pPos")
+
+        pPlayer.openMenu(blockEntity)
+
+        return InteractionResult.SUCCESS
+    }
+
     override fun codec(): MapCodec<out HorizontalDirectionalBlock> {
         TODO("Not yet implemented")
     }
 
-    override fun newBlockEntity(pPos: BlockPos, pState: BlockState): BlockEntity? {
-        TODO("Not yet implemented")
+    override fun newBlockEntity(pPos: BlockPos, pState: BlockState): BlockEntity {
+        return CoalGeneratorBlockEntity(pPos, pState)
     }
 }

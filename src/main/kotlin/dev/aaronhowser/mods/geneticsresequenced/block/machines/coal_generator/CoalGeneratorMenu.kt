@@ -28,12 +28,13 @@ class CoalGeneratorMenu(
     inventory
 ) {
 
-    constructor(id: Int, inventory: Inventory, extraData: RegistryFriendlyByteBuf) : this(
-        id,
-        inventory,
-        inventory.player.level().getBlockEntity(extraData.readBlockPos()) as CoalGeneratorBlockEntity,
-        SimpleContainerData(CoalGeneratorBlockEntity.SIMPLE_CONTAINER_SIZE)
-    )
+    constructor(id: Int, inventory: Inventory, extraData: RegistryFriendlyByteBuf) :
+            this(
+                id,
+                inventory,
+                inventory.player.level().getBlockEntity(extraData.readBlockPos()) as CoalGeneratorBlockEntity,
+                SimpleContainerData(CoalGeneratorBlockEntity.SIMPLE_CONTAINER_SIZE)
+            )
 
     init {
         checkContainerSize(inventory, CoalGeneratorBlockEntity.SIMPLE_CONTAINER_SIZE)
