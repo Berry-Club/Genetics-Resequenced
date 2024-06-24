@@ -45,6 +45,7 @@ class CoalGeneratorMenu(
         addPlayerHotbar(inventory)
 
         val itemHandler = this.blockEntity.getItemCapability(null)
+
         this.addSlot(SlotItemHandler(itemHandler, CoalGeneratorBlockEntity.INPUT_SLOT, 52, 34))
 
         addDataSlots(containerData)

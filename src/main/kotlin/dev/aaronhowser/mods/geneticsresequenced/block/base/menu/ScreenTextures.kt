@@ -6,7 +6,6 @@ import org.joml.Vector2i
 object ScreenTextures {
 
     object Backgrounds {
-        val AIR_DISPERSAL = OtherUtil.modResource("textures/gui/container/air_dispersal.png")
         val BASIC = OtherUtil.modResource("textures/gui/container/basic_machine_bg.png")
         val CELL_ANALYZER = OtherUtil.modResource("textures/gui/container/cell_analyzer.png")
         val COAL_GENERATOR = OtherUtil.modResource("textures/gui/container/coal_generator.png")
@@ -17,7 +16,7 @@ object ScreenTextures {
         val PLASMID_INFUSER = OtherUtil.modResource("textures/gui/container/plasmid_infuser.png")
         val PLASMID_INJECTOR = OtherUtil.modResource("textures/gui/container/plasmid_injector.png")
 
-        val DIMENSIONS = Pair(166, 176)
+        val DIMENSIONS = Vector2i(166, 176)
     }
 
     object Elements {

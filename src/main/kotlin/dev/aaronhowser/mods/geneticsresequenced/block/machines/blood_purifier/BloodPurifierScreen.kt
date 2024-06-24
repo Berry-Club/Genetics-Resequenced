@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator
+package dev.aaronhowser.mods.geneticsresequenced.block.machines.blood_purifier
 
 import com.mojang.blaze3d.systems.RenderSystem
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.EnergyInfoArea
@@ -11,11 +11,11 @@ import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
-class CoalGeneratorScreen(
-    pMenu: CoalGeneratorMenu,
+class BloodPurifierScreen(
+    pMenu: BloodPurifierMenu,
     pPlayerInventory: Inventory,
     pTitle: Component
-) : AbstractContainerScreen<CoalGeneratorMenu>(pMenu, pPlayerInventory, pTitle) {
+) : AbstractContainerScreen<BloodPurifierMenu>(pMenu, pPlayerInventory, pTitle) {
 
     private lateinit var energyInfoArea: EnergyInfoArea
 
@@ -24,15 +24,29 @@ class CoalGeneratorScreen(
         assignInfoArea()
     }
 
+    private fun assignInfoArea() {
+        val x = (width - imageWidth) / 2
+        val y = (height - imageHeight) / 2
+
+        energyInfoArea = EnergyInfoArea(
+            x + ScreenTextures.Elements.Energy.LOCATION_DEFAULT.x,
+            y + ScreenTextures.Elements.Energy.LOCATION_DEFAULT.y,
+            menu.blockEntity.energyStorage,
+            ScreenTextures.Elements.Energy.DIMENSIONS.x,
+            ScreenTextures.Elements.Energy.DIMENSIONS.y
+        )
+    }
+
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
         RenderSystem.setShader { GameRenderer.getPositionTexShader() }
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f)
-        RenderSystem.setShaderTexture(0, ScreenTextures.Backgrounds.COAL_GENERATOR)
+        RenderSystem.setShaderTexture(0, ScreenTextures.Backgrounds.BASIC)
+
         val x = (width - imageWidth) / 2
         val y = (height - imageHeight) / 2
 
         pGuiGraphics.blit(
-            ScreenTextures.Backgrounds.COAL_GENERATOR,
+            ScreenTextures.Backgrounds.BASIC,
             x,
             y,
             0,
@@ -42,34 +56,20 @@ class CoalGeneratorScreen(
         )
 
         renderProgressArrow(pGuiGraphics, x, y)
-        renderBurnProgress(pGuiGraphics, x, y)
         energyInfoArea.render(pGuiGraphics, x, y, pPartialTick)
     }
 
-    private fun assignInfoArea() {
-        val x = (width - imageWidth) / 2
-        val y = (height - imageHeight) / 2
-
-        energyInfoArea = EnergyInfoArea(
-            x + ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.x,
-            y + ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.y,
-            menu.blockEntity.energyStorage,
-            ScreenTextures.Elements.Energy.DIMENSIONS.x,
-            ScreenTextures.Elements.Energy.DIMENSIONS.y
-        )
-    }
 
     override fun renderLabels(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
-
         val x = (width - imageWidth) / 2
         val y = (height - imageHeight) / 2
+
         renderEnergyAreaTooltip(pGuiGraphics, x, y, pMouseX, pMouseY)
 
         super.renderLabels(pGuiGraphics, pMouseX, pMouseY)
     }
 
     private fun renderEnergyAreaTooltip(pGuiGraphics: GuiGraphics, x: Int, y: Int, pMouseX: Int, pMouseY: Int) {
-
         if (isMouseOver(
                 pMouseX,
                 pMouseY,
@@ -89,7 +89,6 @@ class CoalGeneratorScreen(
                 pMouseY - y
             )
         }
-
     }
 
     private fun isMouseOver(
@@ -113,7 +112,7 @@ class CoalGeneratorScreen(
     }
 
     private fun renderProgressArrow(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
-        if (!menu.isBurning) return
+        if (!menu.isCrafting) return
 
         pGuiGraphics.blitSprite(
             ScreenTextures.Elements.ArrowRight.TEXTURE,
@@ -123,28 +122,10 @@ class CoalGeneratorScreen(
             0,
             x + ScreenTextures.Elements.ArrowRight.POSITION.x,
             y + ScreenTextures.Elements.ArrowRight.POSITION.y,
-            menu.getScaledProgressArrow(),
+            menu.getScaledProgress(),
             ScreenTextures.Elements.ArrowRight.DIMENSIONS.y
         )
-    }
 
-
-    //TODO: Goes up instead of down
-    private fun renderBurnProgress(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
-        if (menu.isBurning) {
-            val fuelRemaining = menu.getScaledFuelRemaining()
-            pGuiGraphics.blitSprite(
-                ScreenTextures.Elements.Burn.TEXTURE,
-                ScreenTextures.Elements.Burn.DIMENSIONS.x,
-                ScreenTextures.Elements.Burn.DIMENSIONS.y,
-                0,
-                0,
-                x + ScreenTextures.Elements.Burn.POSITION.x,
-                y + ScreenTextures.Elements.Burn.POSITION.y,
-                ScreenTextures.Elements.Burn.DIMENSIONS.x,
-                fuelRemaining
-            )
-        }
     }
 
     override fun render(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
@@ -152,5 +133,4 @@ class CoalGeneratorScreen(
         super.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick)
         renderTooltip(pGuiGraphics, pMouseX, pMouseY)
     }
-
 }

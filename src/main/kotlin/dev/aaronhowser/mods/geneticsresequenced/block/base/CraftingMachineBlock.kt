@@ -15,7 +15,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.phys.BlockHitResult
 
-class CraftingMachineBlock(
+open class CraftingMachineBlock(
     properties: Properties = Properties.of().sound(SoundType.METAL),
     private val blockEntityType: Class<out CraftingMachineBlockEntity>
 ) : HorizontalDirectionalBlock(properties), EntityBlock {
