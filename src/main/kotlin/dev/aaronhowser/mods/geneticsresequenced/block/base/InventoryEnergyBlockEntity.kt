@@ -112,12 +112,6 @@ abstract class InventoryEnergyBlockEntity(
         Containers.dropContents(this.level!!, this.blockPos, inventory)
     }
 
-    override fun onLoad() {
-        super.onLoad()
-        lazyItemHandler = LazyOptional.of { itemHandler }
-        lazyEnergyStorage = LazyOptional.of { energyStorage }
-    }
-
     override fun saveAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
         pTag.put(inventoryNbtKey, itemHandler.serializeNBT(pRegistries))
         pTag.putInt(energyNbtKey, energyStorage.energyStored)

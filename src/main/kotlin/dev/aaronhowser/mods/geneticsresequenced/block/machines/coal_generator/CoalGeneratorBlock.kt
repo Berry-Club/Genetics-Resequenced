@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.block.machines
+package dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator
 
 import com.mojang.serialization.MapCodec
 import net.minecraft.core.BlockPos

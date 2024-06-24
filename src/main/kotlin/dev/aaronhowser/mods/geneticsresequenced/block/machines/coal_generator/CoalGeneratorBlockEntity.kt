@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.block.machines
+package dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.InventoryEnergyBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.WrappedHandler
@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap
 import net.minecraft.core.BlockPos
-import net.minecraft.core.Direction
+import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
@@ -20,7 +20,6 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
-import net.neoforged.neoforge.energy.IEnergyStorage
 import net.neoforged.neoforge.items.ItemStackHandler
 import java.util.function.Predicate
 
@@ -71,20 +70,19 @@ class CoalGeneratorBlockEntity(
         }
     }
 
-    private val allSideHandler = LazyOptional.of {
+    private val allSideHandler =
         WrappedHandler(
             itemHandler,
             canExtract = { false },
             canInsert = { slotId, stack -> slotId == INPUT_SLOT }
         )
-    }
 
-    override val upItemHandler: LazyOptional<WrappedHandler> = allSideHandler
-    override val downItemHandler: LazyOptional<WrappedHandler> = allSideHandler
-    override val backItemHandler: LazyOptional<WrappedHandler> = allSideHandler
-    override val frontItemHandler: LazyOptional<WrappedHandler> = allSideHandler
-    override val rightItemHandler: LazyOptional<WrappedHandler> = allSideHandler
-    override val leftItemHandler: LazyOptional<WrappedHandler> = allSideHandler
+    override val upItemHandler: WrappedHandler = allSideHandler
+    override val downItemHandler: WrappedHandler = allSideHandler
+    override val backItemHandler: WrappedHandler = allSideHandler
+    override val frontItemHandler: WrappedHandler = allSideHandler
+    override val rightItemHandler: WrappedHandler = allSideHandler
+    override val leftItemHandler: WrappedHandler = allSideHandler
 
     private val data = object : ContainerData {
         private var _totalTicksToBurn = 0
@@ -120,18 +118,18 @@ class CoalGeneratorBlockEntity(
     private val burnTicksLeftNbtKey = "$machineName.burn_ticks_left"
     private val maxBurnTicksNbtKey = "$machineName.max_burn_ticks"
 
-    override fun saveAdditional(pTag: CompoundTag) {
+    override fun saveAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
         pTag.putInt(burnTicksLeftNbtKey, burnTimeRemaining)
         pTag.putInt(maxBurnTicksNbtKey, maxBurnTime)
 
-        super.saveAdditional(pTag)
+        super.saveAdditional(pTag, pRegistries)
     }
 
-    override fun load(pTag: CompoundTag) {
+    override fun loadAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
         maxBurnTime = pTag.getInt(maxBurnTicksNbtKey)
         burnTimeRemaining = pTag.getInt(burnTicksLeftNbtKey)
 
-        super.load(pTag)
+        super.loadAdditional(pTag, pRegistries)
     }
 
     private var maxBurnTime: Int
@@ -203,29 +201,29 @@ class CoalGeneratorBlockEntity(
         return currentEnergy + energyPerTick <= maxEnergy
     }
 
-    private fun pushEnergyToAdjacent() {
-
-        if (energyStorage.energyStored <= 0) return
-        for (direction in Direction.values()) {
-            val neighborPos = blockPos.offset(direction.normal)
-            val neighborEntity = level?.getBlockEntity(neighborPos) ?: continue
-
-            val neighborEnergy: IEnergyStorage =
-                neighborEntity.getCapability(ForgeCapabilities.ENERGY, direction.opposite).orElse(null) ?: continue
-            if (!neighborEnergy.canReceive()) continue
-
-            val energyToTransfer = minOf(
-                neighborEnergy.receiveEnergy(ServerConfig.coalGeneratorEnergyTransferRate.get(), true),
-                neighborEnergy.maxEnergyStored - neighborEnergy.energyStored
-            )
-
-            if (energyToTransfer <= 0) continue
-            neighborEnergy.receiveEnergy(
-                energyStorage.extractEnergy(energyToTransfer, false),
-                false
-            )
-        }
-    }
+//    private fun pushEnergyToAdjacent() {
+//
+//        if (energyStorage.energyStored <= 0) return
+//        for (direction in Direction.values()) {
+//            val neighborPos = blockPos.offset(direction.normal)
+//            val neighborEntity = level?.getBlockEntity(neighborPos) ?: continue
+//
+//            val neighborEnergy: IEnergyStorage =
+//                neighborEntity.getCapability(ForgeCapabilities.ENERGY, direction.opposite).orElse(null) ?: continue
+//            if (!neighborEnergy.canReceive()) continue
+//
+//            val energyToTransfer = minOf(
+//                neighborEnergy.receiveEnergy(ServerConfig.coalGeneratorEnergyTransferRate.get(), true),
+//                neighborEnergy.maxEnergyStored - neighborEnergy.energyStored
+//            )
+//
+//            if (energyToTransfer <= 0) continue
+//            neighborEnergy.receiveEnergy(
+//                energyStorage.extractEnergy(energyToTransfer, false),
+//                false
+//            )
+//        }
+//    }
 
     companion object {
 
@@ -238,7 +236,7 @@ class CoalGeneratorBlockEntity(
             if (level.isClientSide) return
 
             blockEntity.apply {
-                pushEnergyToAdjacent()
+//                pushEnergyToAdjacent()
 
                 if (!hasRoomForEnergy()) return
 
