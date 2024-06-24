@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.EnergyInfoArea
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
+import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.renderer.GameRenderer
@@ -63,18 +64,34 @@ class CoalGeneratorScreen(
 
         val x = (width - imageWidth) / 2
         val y = (height - imageHeight) / 2
-//        renderEnergyAreaTooltip(pGuiGraphics, x, y, pMouseX, pMouseY)
+        renderEnergyAreaTooltip(pGuiGraphics, x, y, pMouseX, pMouseY)
 
         super.renderLabels(pGuiGraphics, pMouseX, pMouseY)
     }
 
-//    private fun renderEnergyAreaTooltip(pGuiGraphics: GuiGraphics, x: Int, y: Int, pMouseX: Int, pMouseY: Int) {
-//
-//        if (isMouseOver(pMouseX, pMouseY, x, y, ENERGY_X, ENERGY_Y, ENERGY_WIDTH, ENERGY_HEIGHT)) {
-//            renderTooltip(pGuiGraphics, energyInfoArea.tooltip, pMouseX - x, pMouseY - y)
-//        }
-//
-//    }
+    private fun renderEnergyAreaTooltip(pGuiGraphics: GuiGraphics, x: Int, y: Int, pMouseX: Int, pMouseY: Int) {
+
+        if (isMouseOver(
+                pMouseX,
+                pMouseY,
+                x,
+                y,
+                ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.x,
+                ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.y,
+                ScreenTextures.Elements.Energy.DIMENSIONS.x,
+                ScreenTextures.Elements.Energy.DIMENSIONS.y
+            )
+        ) {
+
+            pGuiGraphics.renderComponentTooltip(
+                Minecraft.getInstance().font,
+                listOf(energyInfoArea.tooltip),
+                pMouseX - x,
+                pMouseY - y
+            )
+        }
+
+    }
 
     private fun isMouseOver(
         mouseX: Int,
