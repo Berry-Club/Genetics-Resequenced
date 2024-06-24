@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.ChatFormatting
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
@@ -44,6 +45,11 @@ object OtherUtil {
         }
 
         return null
+    }
+
+    fun CompoundTag.getUuidOrNull(key: String): UUID? {
+        if (!this.hasUUID(key)) return null
+        return this.getUUID(key)
     }
 
 }

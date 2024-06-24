@@ -6,17 +6,22 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.getUuidOrNull
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
+import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal
 import net.minecraft.world.entity.monster.Monster
 import net.minecraft.world.entity.monster.Slime
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 import java.util.*
@@ -42,7 +47,8 @@ class SupportSlime(
                 .build()
         }
 
-        private const val OWNER_UUID_NBT = "OwnerUUID"
+        //TODO: Make this a DataAttachment
+        private const val OWNER_UUID_NBT_KEY = "OwnerUUID"
         private val OWNER: EntityDataAccessor<Optional<UUID>> =
             SynchedEntityData.defineId(SupportSlime::class.java, EntityDataSerializers.OPTIONAL_UUID)
 
@@ -172,5 +178,58 @@ class SupportSlime(
             despawn()
         }
     }
+
+    override fun readAdditionalSaveData(pCompound: CompoundTag) {
+        super.readAdditionalSaveData(pCompound)
+
+        val owner = pCompound.getUuidOrNull(OWNER_UUID_NBT_KEY) ?: return
+        setOwner(owner)
+    }
+
+    override fun addAdditionalSaveData(pCompound: CompoundTag) {
+        super.addAdditionalSaveData(pCompound)
+
+        val owner = getOwnerUuid()
+        if (owner != null) {
+            pCompound.putUUID(OWNER_UUID_NBT_KEY, owner)
+        }
+    }
+
+    override fun setSize(pSize: Int, pResetHealth: Boolean) {
+        super.setSize(pSize, pResetHealth)
+
+        getAttribute(Attributes.ATTACK_DAMAGE)?.baseValue = pSize * 3.0
+        getAttribute(Attributes.MOVEMENT_SPEED)?.baseValue = 0.4 + 0.2 * pSize
+    }
+
+    override fun push(pEntity: Entity) {
+        if (pEntity.uuid != getOwnerUuid()) super.push(pEntity)
+    }
+
+    override fun playerTouch(pEntity: Player) {}
+
+    private fun shouldSlimeAttackEntity(livingEntity: LivingEntity): Boolean {
+        val owner: UUID = getOwnerUuid() ?: return false
+        val mob: Mob = livingEntity as? Mob ?: return false
+
+        val mobIsAttackingOwner = mob.target?.uuid == owner
+        return mobIsAttackingOwner
+    }
+
+    override fun registerGoals() {
+        super.registerGoals()
+
+        targetSelector.removeAllGoals { true }
+        targetSelector.addGoal(
+            1,
+            NearestAttackableTargetGoal(
+                this,
+                Mob::class.java,
+                true
+            ) { shouldSlimeAttackEntity(it) }
+        )
+
+    }
+
 
 }
