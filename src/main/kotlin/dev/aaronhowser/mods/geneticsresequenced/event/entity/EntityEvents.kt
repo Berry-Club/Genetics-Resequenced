@@ -12,6 +12,7 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import net.neoforged.neoforge.event.level.ExplosionEvent
 import net.neoforged.neoforge.event.tick.EntityTickEvent
 
@@ -33,21 +34,26 @@ object EntityEvents {
     }
 
     @SubscribeEvent
-    fun onLivingDamagePre(event: LivingDamageEvent.Pre) {
+    fun onLivingAboutToBeDamaged(event: LivingIncomingDamageEvent) {
         DamageGenes.handleNoFallDamage(event)
         DamageGenes.handleWitherProof(event)
         DamageGenes.handleFireProof(event)
         DamageGenes.handlePoisonProof(event)
-
-        DamageGenes.handleDragonHealth(event) //must be last
     }
 
     @SubscribeEvent
-    fun onLivingHurt(event: LivingDamageEvent.Post) {
+    fun onLivingDamagePre(event: LivingDamageEvent.Pre) {
+        DamageGenes.handleDragonHealth(event)
+        DamageGenes.handleJohnny(event)
+    }
+
+    @SubscribeEvent
+    fun onLivingHurtPost(event: LivingDamageEvent.Post) {
+        if (event.newDamage <= 0f) return
+
         DamageGenes.handleThorns(event)
         DamageGenes.handleClaws(event)
         DamageGenes.handleWitherHit(event)
-        DamageGenes.handleJohnny(event)
         DamageGenes.handleChilling(event)
     }
 

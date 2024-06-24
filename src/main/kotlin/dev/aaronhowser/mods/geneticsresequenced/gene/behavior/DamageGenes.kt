@@ -16,6 +16,7 @@ import net.minecraft.world.item.AxeItem
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.CommonHooks
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import kotlin.random.Random
 
 @Suppress("UnstableApiUsage")
@@ -23,45 +24,45 @@ object DamageGenes {
 
     // Canceling
 
-    fun handleNoFallDamage(event: LivingDamageEvent.Pre) {
+    fun handleNoFallDamage(event: LivingIncomingDamageEvent) {
         if (!ModGenes.noFallDamage.isActive) return
 
-        if (event.container.source == DamageTypes.FALL) return
+        if (event.source == DamageTypes.FALL) return
 
         val entity = event.entity
         if (!entity.hasGene(ModGenes.noFallDamage) && !entity.hasGene(ModGenes.flight)) return
 
-        event.container.newDamage = 0f
+        event.amount = 0f
     }
 
-    fun handleWitherProof(event: LivingDamageEvent.Pre) {
+    fun handleWitherProof(event: LivingIncomingDamageEvent) {
         if (!ModGenes.witherProof.isActive) return
 
-        if (event.container.source != DamageTypes.WITHER) return
+        if (event.source != DamageTypes.WITHER) return
 
         val entity = event.entity
         if (!entity.hasGene(ModGenes.witherProof)) return
 
         entity.removeEffect(MobEffects.WITHER)
-        event.container.newDamage = 0f
+        event.amount = 0f
     }
 
-    fun handleFireProof(event: LivingDamageEvent.Pre) {
+    fun handleFireProof(event: LivingIncomingDamageEvent) {
         if (!ModGenes.fireProof.isActive) return
 
-        if (event.container.source != DamageTypes.IN_FIRE && event.container.source != DamageTypes.ON_FIRE) return
+        if (event.source != DamageTypes.IN_FIRE && event.source != DamageTypes.ON_FIRE) return
 
         val entity = event.entity
         if (!entity.hasGene(ModGenes.fireProof)) return
 
         entity.clearFire()
-        event.container.newDamage = 0f
+        event.amount = 0f
     }
 
-    fun handlePoisonProof(event: LivingDamageEvent.Pre) {
+    fun handlePoisonProof(event: LivingIncomingDamageEvent) {
         if (!ModGenes.poisonImmunity.isActive) return
 
-        if (event.container.source != DamageTypes.MAGIC && event.container.source != DamageTypes.INDIRECT_MAGIC) return
+        if (event.source != DamageTypes.MAGIC && event.source != DamageTypes.INDIRECT_MAGIC) return
 
         if (!event.entity.hasEffect(MobEffects.POISON)) return
 
@@ -69,8 +70,10 @@ object DamageGenes {
         if (!entity.hasGene(ModGenes.poisonImmunity)) return
 
         entity.removeEffect(MobEffects.POISON)
-        event.container.newDamage = 0f
+        event.amount = 0f
     }
+
+    // Changing amount (not just canceling)
 
     fun handleDragonHealth(event: LivingDamageEvent.Pre) {
         if (!ModGenes.enderDragonHealth.isActive) return
@@ -94,7 +97,19 @@ object DamageGenes {
         healthCrystal.hurtAndBreak(amountToBlock, entity, entity.getEquipmentSlotForItem(healthCrystal))
 
         event.container.newDamage -= amountToBlock
-        if (event.container.newDamage < 0) event.container.newDamage = 0f
+        if (event.container.newDamage < 0f) event.container.newDamage = 0f
+    }
+
+    fun handleJohnny(event: LivingDamageEvent.Pre) {
+        if (!ModGenes.johnny.isActive) return
+
+        val attacker = event.container.source.entity as? LivingEntity ?: return
+        if (!attacker.hasGene(ModGenes.johnny)) return
+
+        val weaponIsAxe = attacker.mainHandItem.item is AxeItem //Is there a better way of doing this?
+        if (weaponIsAxe) return
+
+        event.container.newDamage *= ServerConfig.johnnyAttackMultiplier.get().toFloat()
     }
 
     // Triggers
@@ -119,7 +134,7 @@ object DamageGenes {
         event.entity.addEffect(witherEffect)
     }
 
-    fun handleThorns(event: LivingHurtEvent) {
+    fun handleThorns(event: LivingDamageEvent.Post) {
         if (!ModGenes.thorns.isActive) return
 
         val attacker = event.source.entity as? LivingEntity ?: return
@@ -143,7 +158,7 @@ object DamageGenes {
         }
     }
 
-    fun handleClaws(event: LivingHurtEvent) {
+    fun handleClaws(event: LivingDamageEvent.Post) {
         if (!ModGenes.claws.isActive) return
 
         val attacker = event.source.entity as? LivingEntity ?: return
@@ -175,19 +190,7 @@ object DamageGenes {
 //        )
     }
 
-    fun handleJohnny(event: LivingHurtEvent) {
-        if (!ModGenes.johnny.isActive) return
-
-        val attacker = event.source.entity as? LivingEntity ?: return
-        if (!attacker.hasGene(ModGenes.johnny)) return
-
-        val weaponIsAxe = attacker.mainHandItem.item is AxeItem //Is there a better way of doing this?
-        if (weaponIsAxe) return
-
-        event.amount *= ServerConfig.johnnyAttackMultiplier.get().toFloat()
-    }
-
-    fun handleChilling(event: LivingHurtEvent) {
+    fun handleChilling(event: LivingDamageEvent.Post) {
         if (!ModGenes.chilling.isActive) return
 
         if (!event.source.isDirect) return
