@@ -16,7 +16,7 @@ object ScreenTextures {
         val PLASMID_INFUSER = OtherUtil.modResource("textures/gui/container/plasmid_infuser.png")
         val PLASMID_INJECTOR = OtherUtil.modResource("textures/gui/container/plasmid_injector.png")
 
-        val DIMENSIONS = Vector2i(166, 176)
+        val DIMENSIONS = Vector2i(256, 256)
     }
 
     object Elements {
