@@ -97,6 +97,5 @@ class GeneChangedPacket(
         }
 
         attributeInstance.baseValue = newLevel
-
     }
 }
