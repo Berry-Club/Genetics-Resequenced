@@ -2,9 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.addGene
+import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacket
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
@@ -23,18 +25,6 @@ data class GeneChangedPacket(
 
     override fun type(): CustomPacketPayload.Type<GeneChangedPacket> = TYPE
 
-    companion object {
-        val TYPE: CustomPacketPayload.Type<GeneChangedPacket> =
-            CustomPacketPayload.Type(OtherUtil.modResource("gene_changed"))
-
-        val STREAM_CODEC: StreamCodec<ByteBuf, GeneChangedPacket> = StreamCodec.composite(
-            ByteBufCodecs.INT, GeneChangedPacket::entityId,
-            Gene.STREAM_CODEC, GeneChangedPacket::gene,
-            ByteBufCodecs.BOOL, GeneChangedPacket::wasAdded,
-            ::GeneChangedPacket
-        )
-    }
-
     override fun receiveMessage(context: IPayloadContext) {
         if (context.flow() != PacketFlow.CLIENTBOUND) throw IllegalStateException("Received GeneChangedPacket on wrong side!")
 
@@ -49,6 +39,52 @@ data class GeneChangedPacket(
 
         if (gene == ModGenes.cringe) ClientUtil.handleCringe(wasAdded)
 
+        handleAttributes(gene)
+    }
+
+    private fun handleAttributes(gene: Gene) {
+        val player = ClientUtil.localPlayer ?: throw IllegalStateException("Received GeneChangedPacket without player!")
+
+        val attributeInstance = when (gene) {
+            ModGenes.efficiency, ModGenes.efficiencyFour -> player.attributes.getInstance(ModAttributes.EFFICIENCY)
+            ModGenes.wallClimbing -> player.attributes.getInstance(ModAttributes.WALL_CLIMBING)
+            else -> null
+        } ?: return
+
+        val newLevel = when (gene) {
+            ModGenes.efficiency -> if (wasAdded) 1.0 else 0.0
+
+            ModGenes.efficiencyFour -> {
+                if (wasAdded) {
+                    4.0
+                } else {
+                    if (player.hasGene(ModGenes.efficiency)) {
+                        1.0
+                    } else {
+                        0.0
+                    }
+                }
+            }
+
+            ModGenes.wallClimbing -> if (wasAdded) 1.0 else 0.0
+
+            else -> throw IllegalStateException("Gene $gene went through the GeneChangedPacket but isn't handled!")
+        }
+
+        attributeInstance.baseValue = newLevel
+
+    }
+
+    companion object {
+        val TYPE: CustomPacketPayload.Type<GeneChangedPacket> =
+            CustomPacketPayload.Type(OtherUtil.modResource("gene_changed"))
+
+        val STREAM_CODEC: StreamCodec<ByteBuf, GeneChangedPacket> = StreamCodec.composite(
+            ByteBufCodecs.INT, GeneChangedPacket::entityId,
+            Gene.STREAM_CODEC, GeneChangedPacket::gene,
+            ByteBufCodecs.BOOL, GeneChangedPacket::wasAdded,
+            ::GeneChangedPacket
+        )
     }
 
 }
