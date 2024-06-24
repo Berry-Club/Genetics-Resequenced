@@ -114,9 +114,8 @@ class CoalGeneratorScreen(
                 ScreenTextures.Elements.Burn.TEXTURE,
                 x + ScreenTextures.Elements.Burn.POSITION.x,
                 y + ScreenTextures.Elements.Burn.POSITION.y,
-                fuelRemaining,
-                0,
-                0
+                ScreenTextures.Elements.Burn.DIMENSIONS.x,
+                ScreenTextures.Elements.Burn.DIMENSIONS.y,
             )
         }
     }
