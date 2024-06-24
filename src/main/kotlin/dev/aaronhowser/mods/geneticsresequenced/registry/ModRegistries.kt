@@ -9,6 +9,7 @@ object ModRegistries {
         ModDataComponents.DATA_COMPONENT_REGISTRY,
         ModItems.ITEM_REGISTRY,
         ModBlocks.BLOCK_REGISTRY,
+        ModBlockEntities.BLOCK_ENTITY_REGISTRY,
         ModCreativeModeTabs.TABS_REGISTRY,
         ModAttachmentTypes.ATTACHMENT_TYPES_REGISTRY,
         ModAttributes.ATTRIBUTE_REGISTRY,
