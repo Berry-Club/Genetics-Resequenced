@@ -107,15 +107,20 @@ class CoalGeneratorScreen(
         }
     }
 
+    //TODO: Goes up instead of down
     private fun renderBurnProgress(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
         if (menu.isBurning) {
             val fuelRemaining = menu.getScaledFuelRemaining()
             pGuiGraphics.blitSprite(
                 ScreenTextures.Elements.Burn.TEXTURE,
+                ScreenTextures.Elements.Burn.DIMENSIONS.x,
+                ScreenTextures.Elements.Burn.DIMENSIONS.y,
+                0,
+                0,
                 x + ScreenTextures.Elements.Burn.POSITION.x,
                 y + ScreenTextures.Elements.Burn.POSITION.y,
                 ScreenTextures.Elements.Burn.DIMENSIONS.x,
-                ScreenTextures.Elements.Burn.DIMENSIONS.y,
+                fuelRemaining
             )
         }
     }
