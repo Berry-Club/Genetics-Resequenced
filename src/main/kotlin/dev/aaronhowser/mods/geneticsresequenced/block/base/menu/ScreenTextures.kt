@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base.menu
 
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import org.joml.Vector2i
 
 object ScreenTextures {
 
@@ -22,34 +23,34 @@ object ScreenTextures {
     object Elements {
         object ArrowDown {
             val TEXTURE = OtherUtil.modResource("arrow_down")
-            val DIMENSIONS = Pair(28, 9)
+            val DIMENSIONS = Vector2i(28, 9)
         }
 
         object ArrowRight {
             val TEXTURE = OtherUtil.modResource("arrow_right")
-            val DIMENSIONS = Pair(24, 17)
+            val DIMENSIONS = Vector2i(24, 17)
         }
 
         object Bubbles {
             val TEXTURE = OtherUtil.modResource("bubbles")
-            val DIMENSIONS = Pair(12, 29)
+            val DIMENSIONS = Vector2i(12, 29)
         }
 
         object Burn {
             val TEXTURE = OtherUtil.modResource("burn")
-            val DIMENSIONS = Pair(14, 14)
+            val DIMENSIONS = Vector2i(14, 14)
         }
 
         object Energy {
             val TEXTURE = OtherUtil.modResource("energy")
-            val DIMENSIONS = Pair(14, 42)
+            val DIMENSIONS = Vector2i(14, 42)
         }
 
         object Heat {
             val HIGH = OtherUtil.modResource("heat_high")
             val LOW = OtherUtil.modResource("heat_low")
 
-            val DIMENSIONS = Pair(18, 4)
+            val DIMENSIONS = Vector2i(18, 4)
         }
 
     }

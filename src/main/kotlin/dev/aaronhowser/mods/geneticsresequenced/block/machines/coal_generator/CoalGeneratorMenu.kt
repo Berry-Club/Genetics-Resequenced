@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
+import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
@@ -71,7 +72,7 @@ class CoalGeneratorMenu(
     }
 
     fun getScaledFuelRemaining(): Int {
-        val fuelSize = CoalGeneratorScreen.BURN_HEIGHT
+        val fuelSize = ScreenTextures.Elements.Burn.DIMENSIONS.x
 
         return if (maxBurnTime == 0) {
             0
@@ -81,7 +82,7 @@ class CoalGeneratorMenu(
     }
 
     fun getScaledProgressArrow(): Int {
-        val progressArrowSize = CoalGeneratorScreen.ARROW_WIDTH
+        val progressArrowSize = ScreenTextures.Elements.ArrowRight.DIMENSIONS.x
 
         return if (maxBurnTime == 0) {
             0
