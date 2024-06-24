@@ -15,16 +15,43 @@ object ScreenTextures {
         val INCUBATOR_ADVANCED = OtherUtil.modResource("textures/gui/container/incubator_advanced.png")
         val PLASMID_INFUSER = OtherUtil.modResource("textures/gui/container/plasmid_infuser.png")
         val PLASMID_INJECTOR = OtherUtil.modResource("textures/gui/container/plasmid_injector.png")
+
+        val DIMENSIONS = Pair(166, 176)
     }
 
     object Elements {
-        val ARROW_DOWN = OtherUtil.modResource("arrow_down")
-        val ARROW_RIGHT = OtherUtil.modResource("arrow_right")
-        val BUBBLES = OtherUtil.modResource("bubbles")
-        val BURN = OtherUtil.modResource("burn")
-        val ENERGY = OtherUtil.modResource("energy")
-        val HEAT_HIGH = OtherUtil.modResource("heat_high")
-        val HEAT_LOW = OtherUtil.modResource("heat_low")
+        object ArrowDown {
+            val TEXTURE = OtherUtil.modResource("arrow_down")
+            val DIMENSIONS = Pair(28, 9)
+        }
+
+        object ArrowRight {
+            val TEXTURE = OtherUtil.modResource("arrow_right")
+            val DIMENSIONS = Pair(24, 17)
+        }
+
+        object Bubbles {
+            val TEXTURE = OtherUtil.modResource("bubbles")
+            val DIMENSIONS = Pair(12, 29)
+        }
+
+        object Burn {
+            val TEXTURE = OtherUtil.modResource("burn")
+            val DIMENSIONS = Pair(14, 14)
+        }
+
+        object Energy {
+            val TEXTURE = OtherUtil.modResource("energy")
+            val DIMENSIONS = Pair(14, 42)
+        }
+
+        object Heat {
+            val HIGH = OtherUtil.modResource("heat_high")
+            val LOW = OtherUtil.modResource("heat_low")
+
+            val DIMENSIONS = Pair(18, 4)
+        }
+
     }
 
 }

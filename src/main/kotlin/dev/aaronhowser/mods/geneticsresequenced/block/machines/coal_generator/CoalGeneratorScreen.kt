@@ -15,31 +15,6 @@ class CoalGeneratorScreen(
     pTitle: Component
 ) : AbstractContainerScreen<CoalGeneratorMenu>(pMenu, pPlayerInventory, pTitle) {
 
-    companion object {
-
-        const val ARROW_TEXTURE_X = 177
-        const val ARROW_TEXTURE_Y = 61
-        const val ARROW_X = 75
-        const val ARROW_Y = 35
-        const val ARROW_WIDTH = 24
-        const val ARROW_HEIGHT = 17
-
-        const val BURN_TEXTURE_X = 177
-        const val BURN_TEXTURE_Y = 46
-        const val BURN_X = 53
-        const val BURN_Y = 54
-        const val BURN_WIDTH = 14
-        const val BURN_HEIGHT = 14
-
-        const val ENERGY_TEXTURE_X = 177
-        const val ENERGY_TEXTURE_Y = 3
-        const val ENERGY_X = 104
-        const val ENERGY_Y = 20
-        const val ENERGY_WIDTH = 14
-        const val ENERGY_HEIGHT = 42
-
-    }
-
 //    private lateinit var energyInfoArea: EnergyInfoArea
 
     override fun init() {
