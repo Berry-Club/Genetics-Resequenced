@@ -31,8 +31,8 @@ class CoalGeneratorScreen(
 
         pGuiGraphics.blit(
             ScreenTextures.Backgrounds.COAL_GENERATOR,
-            0,
-            0,
+            x,
+            y,
             0,
             0,
             176,
