@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.CompoundTag
@@ -20,6 +21,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
+import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.items.ItemStackHandler
 import java.util.function.Predicate
 
@@ -201,29 +203,29 @@ class CoalGeneratorBlockEntity(
         return currentEnergy + energyPerTick <= maxEnergy
     }
 
-//    private fun pushEnergyToAdjacent() {
-//
-//        if (energyStorage.energyStored <= 0) return
-//        for (direction in Direction.values()) {
-//            val neighborPos = blockPos.offset(direction.normal)
-//            val neighborEntity = level?.getBlockEntity(neighborPos) ?: continue
-//
-//            val neighborEnergy: IEnergyStorage =
-//                neighborEntity.getCapability(ForgeCapabilities.ENERGY, direction.opposite).orElse(null) ?: continue
-//            if (!neighborEnergy.canReceive()) continue
-//
-//            val energyToTransfer = minOf(
-//                neighborEnergy.receiveEnergy(ServerConfig.coalGeneratorEnergyTransferRate.get(), true),
-//                neighborEnergy.maxEnergyStored - neighborEnergy.energyStored
-//            )
-//
-//            if (energyToTransfer <= 0) continue
-//            neighborEnergy.receiveEnergy(
-//                energyStorage.extractEnergy(energyToTransfer, false),
-//                false
-//            )
-//        }
-//    }
+    private fun pushEnergyToAdjacent() {
+
+        if (energyStorage.energyStored <= 0) return
+        for (direction in Direction.entries) {
+            val neighborPos = blockPos.offset(direction.normal)
+
+            val neighborEnergy =
+                level?.getCapability(Capabilities.EnergyStorage.BLOCK, neighborPos, direction.opposite) ?: continue
+
+            if (!neighborEnergy.canReceive()) continue
+
+            val energyToTransfer = minOf(
+                neighborEnergy.receiveEnergy(ServerConfig.coalGeneratorEnergyTransferRate.get(), true),
+                neighborEnergy.maxEnergyStored - neighborEnergy.energyStored
+            )
+
+            if (energyToTransfer <= 0) continue
+            neighborEnergy.receiveEnergy(
+                energyStorage.extractEnergy(energyToTransfer, false),
+                false
+            )
+        }
+    }
 
     companion object {
 
@@ -236,7 +238,7 @@ class CoalGeneratorBlockEntity(
             if (level.isClientSide) return
 
             blockEntity.apply {
-//                pushEnergyToAdjacent()
+                pushEnergyToAdjacent()
 
                 if (!hasRoomForEnergy()) return
 
