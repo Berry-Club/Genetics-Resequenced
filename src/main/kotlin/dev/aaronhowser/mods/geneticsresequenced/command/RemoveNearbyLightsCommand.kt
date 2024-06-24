@@ -14,6 +14,7 @@ import net.minecraft.world.entity.Display.BlockDisplay
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.level.block.Blocks
 
 object RemoveNearbyLightsCommand {
 
@@ -56,7 +57,7 @@ object RemoveNearbyLightsCommand {
             val blockDisplayEntity = BlockDisplay(EntityType.BLOCK_DISPLAY, level).apply {
                 setPos(it.x.toDouble(), it.y.toDouble(), it.z.toDouble())
                 setGlowingTag(true)
-                setBlockState(ModBlocks.BIOLUMINESCENCE_BLOCK.get().defaultBlockState())
+                setBlockState(Blocks.GLOWSTONE.defaultBlockState())
             }
             level.addFreshEntity(blockDisplayEntity)
 
