@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.BioluminescenceBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockBehaviour
@@ -21,7 +22,7 @@ object ModBlocks {
     val PLASMID_INJECTOR: DeferredBlock<Block> = registerSimpleBlock("plasmid_injector")
     val INCUBATOR: DeferredBlock<Block> = registerSimpleBlock("incubator")
     val ADVANCED_INCUBATOR: DeferredBlock<Block> = registerSimpleBlock("advanced_incubator")
-    val ANTI_FIELD_BLOCK: DeferredBlock<Block> = registerSimpleBlock("anti_field_block")
+    val ANTI_FIELD_BLOCK: DeferredBlock<Block> = registerBlock("anti_field_block") { AntiFieldBlock() }
 
     private fun registerBlock(
         name: String,
