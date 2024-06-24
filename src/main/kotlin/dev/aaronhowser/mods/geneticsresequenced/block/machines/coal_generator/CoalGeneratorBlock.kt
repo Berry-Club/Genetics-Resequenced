@@ -5,6 +5,7 @@ import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.context.BlockPlaceContext
@@ -87,14 +88,14 @@ data class CoalGeneratorBlock(
         pHitResult: BlockHitResult
     ): InteractionResult {
 
-        if (pLevel.isClientSide) {
+        if (pPlayer !is ServerPlayer) {
             return InteractionResult.PASS
         }
 
         val blockEntity = pLevel.getBlockEntity(pPos) as? CoalGeneratorBlockEntity
             ?: throw IllegalStateException("No block entity found at $pPos")
 
-        pPlayer.openMenu(blockEntity)
+        pPlayer.openMenu(blockEntity, pPos)
 
         return InteractionResult.SUCCESS
     }
