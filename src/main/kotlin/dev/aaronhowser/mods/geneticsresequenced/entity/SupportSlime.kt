@@ -5,12 +5,14 @@ import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Compan
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.monster.Monster
@@ -108,5 +110,67 @@ class SupportSlime(
         entityData.set(OWNER, Optional.of(ownerUuid))
     }
 
+    override fun tick() {
+        super.tick()
+        checkIfShouldDespawn()
+    }
+
+    private var ticksWithoutTarget = 0
+    private var despawnAnimationPlaying = false
+
+    private fun checkIfShouldDespawn() {
+        if (isNoAi) return
+        if (despawnAnimationPlaying) return
+
+        if (tickCount % 50 != 0) return
+
+        val nearbyEntities = level().getEntities(
+            this,
+            boundingBox.inflate(16.0)
+        )
+
+        var areThereNearbyHostiles = false
+        var isOwnerNearby = false
+
+        for (entity in nearbyEntities) {
+            if (areThereNearbyHostiles && isOwnerNearby) break
+
+            if (entity.uuid == getOwnerUuid()) {
+                isOwnerNearby = true
+            }
+
+            if (entity is Mob && entity.target?.uuid == getOwnerUuid()) {
+                areThereNearbyHostiles = true
+            }
+        }
+
+        if (!isOwnerNearby) {
+            despawn()
+        }
+
+        if (areThereNearbyHostiles) {
+            ticksWithoutTarget = 0
+        } else {
+            ticksWithoutTarget++
+            if (ticksWithoutTarget > 20 * 10) {
+                despawn()
+            }
+        }
+    }
+
+    private fun despawn() {
+        despawnAnimationPlaying = true
+
+        if (size <= 1) {
+            this.remove(RemovalReason.DISCARDED)
+            return
+        }
+
+        setSize(size - 1, true)
+
+        ModScheduler.scheduleTaskInTicks(30) {
+            despawn()
+        }
+    }
 
 }
