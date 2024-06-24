@@ -39,7 +39,7 @@ object ScreenTextures {
         object Burn {
             val TEXTURE = OtherUtil.modResource("burn")
             val DIMENSIONS = Vector2i(16, 16)
-            val POSITION = Vector2i(52, 53)
+            val POSITION = Vector2i(52, 53) //FIXME: Is this the right spot?
         }
 
         object Energy {
