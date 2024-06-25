@@ -94,6 +94,7 @@ class SupportSlimeRenderer(
             pEntity.size.toFloat()
         )
 
+        //FIXME: Rotate heads to where they're looking
         val lerpedRotY = Mth.lerp(pPartialTicks, pEntity.yRotO, pEntity.yRot)
         val vectorPositiveY = Vector3f(0f, 1f, 0f)
 //        val quaternion = Quaternionf().rotateY(lerpedRotY)
