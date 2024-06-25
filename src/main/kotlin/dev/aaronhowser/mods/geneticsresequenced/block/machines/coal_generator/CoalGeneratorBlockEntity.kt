@@ -66,17 +66,16 @@ class CoalGeneratorBlockEntity(
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             val isFuel = stack.getBurnTime(RecipeType.SMELTING) > 0
-            if (isFuel) return true
 
-            return isReplacementItem(stack.item)
+            return isFuel || isReplacementItem(stack.item)
         }
     }
 
     private val allSideHandler =
         WrappedHandler(
             itemHandler,
-            canExtract = { false },
-            canInsert = { slotId, stack -> slotId == INPUT_SLOT }
+            canExtract = { true },
+            canInsert = { _, _ -> true }
         )
 
     override val upItemHandler: WrappedHandler = allSideHandler

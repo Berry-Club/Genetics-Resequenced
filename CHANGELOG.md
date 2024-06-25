@@ -17,3 +17,4 @@
 - Increased the amount of Support Slimes spawned from 1-4 to 3-6
 - Poison Proof Gene now uses the new NeoForge Poison damage, rather than checking for magic damage while you have poison effect
 - Renamed The Cure to Panacea
+- The Coal Generator now allows extracting items from any side (in case of fuels like Lava Buckets, which leave an empty Bucket behind)
