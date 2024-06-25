@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.model
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.data.PackOutput
-import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider
 import net.neoforged.neoforge.common.data.ExistingFileHelper
@@ -30,7 +29,7 @@ class ModItemModelProvider(
 
         this.withExistingParent(
             ModItems.FRIENDLY_SLIME_SPAWN_EGG.id.path,
-            ResourceLocation.withDefaultNamespace("item/template_spawn_egg")
+            mcLoc("item/template_spawn_egg")
         )
 
     }
@@ -38,7 +37,7 @@ class ModItemModelProvider(
     private fun simpleItem(item: DeferredItem<*>): ItemModelBuilder {
         return withExistingParent(
             item.id.path,
-            ResourceLocation.withDefaultNamespace("item/generated") //Aiming at
+            mcLoc("item/generated") //Aiming at
         ).texture(
             "layer0",
             modLoc("item/${item.id.path}")

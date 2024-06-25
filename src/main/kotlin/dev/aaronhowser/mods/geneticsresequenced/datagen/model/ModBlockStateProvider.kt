@@ -50,7 +50,6 @@ class ModBlockStateProvider(
     private fun bioluminescence() {
         val deferredBioluminescence = ModBlocks.BIOLUMINESCENCE_BLOCK
 
-
     }
 
 }
