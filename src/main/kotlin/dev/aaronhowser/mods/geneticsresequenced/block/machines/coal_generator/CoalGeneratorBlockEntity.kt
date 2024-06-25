@@ -75,7 +75,7 @@ class CoalGeneratorBlockEntity(
         WrappedHandler(
             itemHandler,
             canExtract = { true },
-            canInsert = { _, _ -> true }
+            canInsert = { slot, stack -> itemHandler.isItemValid(slot, stack) }
         )
 
     override val upItemHandler: WrappedHandler = allSideHandler
