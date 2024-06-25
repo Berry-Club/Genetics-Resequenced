@@ -63,6 +63,7 @@
   "command.geneticsresequenced.remove_nearby_lights.success": "Removed %d nearby bioluminescence light sources.",
   "cooldown.geneticsresequenced.ended": " has come off cooldown!",
   "cooldown.geneticsresequenced.started": " triggered! Cooldown started: %s",
+  "death.attack.gr_bleed": "%s bled out! %s %s",
   "death.attack.scraper": "%1$s was scraped to the bone",
   "death.attack.syringe": "%1$s died of blood loss",
   "death.attack.syringeDrop": "%1$s stepped on a loose Syringe",

@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.effect.BleedEffect
 import dev.aaronhowser.mods.geneticsresequenced.effect.DoNothingEffect
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.effect.MobEffect
@@ -12,6 +13,9 @@ object ModEffects {
 
     val EFFECT_REGISTRY: DeferredRegister<MobEffect> =
         DeferredRegister.create(Registries.MOB_EFFECT, GeneticsResequenced.ID)
+
+    val BLEED: DeferredHolder<MobEffect, BleedEffect> =
+        EFFECT_REGISTRY.register("bleed", Supplier { BleedEffect() })
 
     val SUBSTRATE: DeferredHolder<MobEffect, DoNothingEffect> =
         EFFECT_REGISTRY.register("substrate", Supplier { DoNothingEffect(0x17661e) })

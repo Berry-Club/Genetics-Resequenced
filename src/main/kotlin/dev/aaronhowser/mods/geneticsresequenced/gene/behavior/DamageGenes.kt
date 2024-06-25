@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.util.Mth
 import net.minecraft.world.damagesource.DamageTypes
@@ -175,16 +176,17 @@ object DamageGenes {
 
         if (Random.nextDouble() > chanceOfHappening) return
 
-        //TODO
-//        event.entity.addEffect(
-//            MobEffectInstance(
-//                ModEffects.BLEED,
-//                6000,
-//                0,
-//                false,
-//                true
-//            )
-//        )
+        event.entity.addEffect(
+            MobEffectInstance(
+                ModEffects.BLEED,
+                6000,
+                0,
+                false,
+                true,
+                true
+            ),
+            attacker
+        )
     }
 
     fun handleChilling(event: LivingDamageEvent.Post) {

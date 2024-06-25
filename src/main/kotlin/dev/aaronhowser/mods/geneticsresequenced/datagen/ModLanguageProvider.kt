@@ -100,6 +100,7 @@ class ModLanguageProvider(
         const val CRINGE_CONFIG = "message.geneticsresequenced.cringe.resources.tooltip"
         const val CRINGE_RELOADING = "message.geneticsresequenced.cringe.resources.reloading"
         const val SLIME_SPAM = "message.geneticsresequenced.slimy_spam"
+        const val BLEED_DEATH = "death.attack.gr_bleed"
     }
 
     object Blocks {
@@ -520,6 +521,7 @@ class ModLanguageProvider(
         )
         add(Messages.CRINGE_RELOADING, "Reloading resources now!")
         add(Messages.SLIME_SPAM, "%s's Slime %d")
+        add(Messages.BLEED_DEATH, "%s bled out!")
 
         add(Blocks.BIOLUMINESCENCE, "Bioluminescence Glow")
         add(Blocks.CELL_ANALYZER, "Cell Analyzer")
