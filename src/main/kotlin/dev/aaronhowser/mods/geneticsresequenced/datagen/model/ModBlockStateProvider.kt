@@ -63,6 +63,14 @@ class ModBlockStateProvider(
                     .build()
             }
 
+        simpleBlockItem(
+            deferredBioluminescence.get(),
+            ItemModelBuilder(
+                mcLoc("item/light_10"),
+                existingFileHelper
+            )
+        )
+
     }
 
 }
