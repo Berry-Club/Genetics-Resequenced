@@ -45,7 +45,8 @@ object RemoveGeneCommand {
         val targets: List<LivingEntity> =
             entities?.mapNotNull { it as? LivingEntity } ?: listOfNotNull(context.source.entity as? LivingEntity)
 
-        val geneToRemove = Gene.fromId(geneArgument) ?: return 0
+        val geneToRemove = Gene.fromId(geneArgument)
+            ?: throw IllegalArgumentException("Gene with id $geneArgument does not exist!")
 
         if (targets.size == 1) {
             handleSingleTarget(context, targets.first(), geneToRemove)
