@@ -4,10 +4,12 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import net.minecraft.data.PackOutput
+import net.minecraft.world.level.block.Block
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder
 import net.neoforged.neoforge.common.data.ExistingFileHelper
+import net.neoforged.neoforge.registries.DeferredBlock
 
 class ModBlockStateProvider(
     output: PackOutput,
@@ -17,6 +19,17 @@ class ModBlockStateProvider(
     override fun registerStatesAndModels() {
         antiFieldBlock()
         bioluminescence()
+
+        frontFacingBlock(ModBlocks.COAL_GENERATOR)
+        frontFacingBlock(ModBlocks.CELL_ANALYZER)
+        frontFacingBlock(ModBlocks.DNA_EXTRACTOR)
+        frontFacingBlock(ModBlocks.DNA_DECRYPTOR)
+        frontFacingBlock(ModBlocks.BLOOD_PURIFIER)
+        frontFacingBlock(ModBlocks.PLASMID_INFUSER)
+        frontFacingBlock(ModBlocks.PLASMID_INJECTOR)
+        frontFacingBlock(ModBlocks.INCUBATOR)
+        frontFacingBlock(ModBlocks.ADVANCED_INCUBATOR)
+
     }
 
     private fun antiFieldBlock() {
@@ -70,7 +83,10 @@ class ModBlockStateProvider(
                 existingFileHelper
             )
         )
+    }
 
+    private fun frontFacingBlock(deferredBlock: DeferredBlock<out Block>) {
+        //TODO
     }
 
 }
