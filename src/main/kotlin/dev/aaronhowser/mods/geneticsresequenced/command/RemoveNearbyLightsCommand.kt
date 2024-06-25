@@ -35,8 +35,18 @@ object RemoveNearbyLightsCommand {
     }
 
     private fun removeNearbyLights(context: CommandContext<CommandSourceStack>, range: Int = 25): Int {
-
         val player = context.source.entity as? LivingEntity ?: return 0
+
+        if (range !in 1..100) {
+            player.sendSystemMessage(
+                Component.translatable(
+                    ModLanguageProvider.Commands.REMOVED_LIGHTS_RANGE_TOO_HIGH,
+                    100
+                )
+            )
+            return 0
+        }
+
 
         val level = player.level()
         val playerPos = player.blockPosition()

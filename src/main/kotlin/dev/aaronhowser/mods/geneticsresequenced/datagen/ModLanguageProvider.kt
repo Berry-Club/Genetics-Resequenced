@@ -157,6 +157,7 @@ class ModLanguageProvider(
         const val NO_GENES = "command.geneticsresequenced.list.no_genes"
         const val THEIR_GENES = "command.geneticsresequenced.list.genes"
         const val REMOVED_LIGHTS = "command.geneticsresequenced.remove_nearby_lights.success"
+        const val REMOVED_LIGHTS_RANGE_TOO_HIGH = "command.geneticsresequenced.remove_nearby_lights.range_too_high"
         const val ADD_SINGLE_SUCCESS = "command.geneticsresequenced.add_gene.single_target.success"
         const val ADD_SINGLE_FAIL = "command.geneticsresequenced.add_gene.single_target.fail"
         const val ADD_MULTIPLE_SUCCESS = "command.geneticsresequenced.add_gene.multiple_targets.success"
@@ -573,6 +574,7 @@ class ModLanguageProvider(
         add(Commands.NO_GENES, "No Genes found!")
         add(Commands.THEIR_GENES, "%1\$s's Genes:")
         add(Commands.REMOVED_LIGHTS, "Removed %d nearby bioluminescence light sources.")
+        add(Commands.REMOVED_LIGHTS_RANGE_TOO_HIGH, "Range too high! Must be between 1 and 100.")
         add(Commands.ADD_SINGLE_SUCCESS, "Added %1\$s to %2\$s!")
         add(Commands.ADD_SINGLE_FAIL, "Failed to add %1\$s to %2\$s!")
         add(Commands.ADD_MULTIPLE_SUCCESS, "Added %1\$s to %2\$d entities!")
