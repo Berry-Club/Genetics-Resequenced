@@ -116,9 +116,9 @@ object TickGenes {
         handlePotionGenes(entity, potionGenes)
     }
 
-    //TODO
     private fun handleDeathGenes(entity: LivingEntity, gene: Gene) {
         if (gene == ModGenes.blackDeath) {
+            //TODO
 //            entity.hurt(virusDamageSource, entity.maxHealth * 1000)
             entity.kill()
 
