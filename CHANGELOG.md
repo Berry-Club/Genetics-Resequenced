@@ -12,3 +12,4 @@
 - Support Slime now only checks if it should despawn once every 40 ticks rather than every tick, which should improve performance.
 - Changed the machines' energy texture to one made by TJKraft
 - The Flight gene now is an Attribute, rather than changing the player's ability to fly. Fixes #10
+- Item Magnet now has a delay against picking up items dropped by you

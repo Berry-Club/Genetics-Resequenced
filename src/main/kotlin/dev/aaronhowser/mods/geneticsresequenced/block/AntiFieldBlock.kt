@@ -63,7 +63,7 @@ data class AntiFieldBlock(
     companion object {
         val DISABLED: BooleanProperty = BlockStateProperties.POWERED
 
-        fun getNearestAntifield(level: Level, location: BlockPos): Optional<BlockPos> {
+        fun getNearestActiveAntifield(level: Level, location: BlockPos): Optional<BlockPos> {
             val radius = ServerConfig.antifieldBlockRadius.get()
 
             return BlockPos.findClosestMatch(location, radius, radius) { pos ->
@@ -72,8 +72,8 @@ data class AntiFieldBlock(
             }
         }
 
-        fun locationIsNearAntifield(level: Level, location: BlockPos): Boolean {
-            return getNearestAntifield(level, location).isPresent
+        fun isNearActiveAntifield(level: Level, location: BlockPos): Boolean {
+            return getNearestActiveAntifield(level, location).isPresent
         }
     }
 

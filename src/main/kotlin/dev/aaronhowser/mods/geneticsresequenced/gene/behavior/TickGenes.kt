@@ -1,18 +1,19 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.item.AntiFieldOrbItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.tags.EntityTypeTags
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.*
-import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.monster.Creeper
 import net.minecraft.world.entity.monster.Zombie
@@ -21,7 +22,10 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.LightLayer
-import java.util.*
+import net.neoforged.neoforge.common.util.TriState
+import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent
+import net.neoforged.neoforge.event.entity.player.PlayerXpEvent
+import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
 import kotlin.math.max
 
 object TickGenes {
@@ -252,60 +256,60 @@ object TickGenes {
     }
 
     fun handleItemMagnet(player: Player) {
-//        if (!ModGenes.itemMagnet.isActive) return
-//        if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
-//
-//        if (player.tickCount % ServerConfig.itemMagnetCooldown.get() != 0) return
-//
-//        if (!player.hasGene(ModGenes.itemMagnet)) return
-//
-//        if (AntiFieldOrbItem.isActiveForPlayer(player)) return
-//
-//        val nearbyItems = player.level.getEntitiesOfClass(
-//            ItemEntity::class.java,
-//            player.boundingBox.inflate(ServerConfig.itemMagnetRadius.get())
-//        )
-//
-//        for (itemEntity in nearbyItems) {
-//            if (itemEntity.item.count <= 0) continue
-//            if (itemEntity.item.`is`(ModTags.MAGNET_ITEM_BLACKLIST)) continue
-//
-//            if (AntiFieldBlock.locationIsNearAntifield(player.level, itemEntity.blockPosition())) continue
-//
-//            val pickupEvent = EntityItemPickupEvent(player, itemEntity)
-//            MinecraftForge.EVENT_BUS.post(pickupEvent)
-//            if (pickupEvent.isCanceled) continue
-//
-//            itemEntity.playerTouch(player)
-//        }
+        if (!ModGenes.itemMagnet.isActive) return
+        if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
+
+        if (player.tickCount % ServerConfig.itemMagnetCooldown.get() != 0) return
+
+        if (!player.hasGene(ModGenes.itemMagnet)) return
+
+        if (AntiFieldOrbItem.isActiveForPlayer(player)) return
+
+        val nearbyItems = player.level().getEntitiesOfClass(
+            ItemEntity::class.java,
+            player.boundingBox.inflate(ServerConfig.itemMagnetRadius.get())
+        )
+
+        for (itemEntity in nearbyItems) {
+            if (itemEntity.item.count <= 0) continue
+            if (itemEntity.owner == player && itemEntity.age < 20 * 3) continue
+            if (itemEntity.item.`is`(ModTags.MAGNET_ITEM_BLACKLIST)) continue
+
+            if (AntiFieldBlock.isNearActiveAntifield(player.level(), itemEntity.blockPosition())) continue
+
+            val pickupEvent = ItemEntityPickupEvent.Pre(player, itemEntity)
+            FORGE_BUS.post(pickupEvent)
+            if (pickupEvent.canPickup() == TriState.FALSE) continue
+
+            itemEntity.playerTouch(player)
+        }
     }
 
-    //TODO
     fun handleXpMagnet(player: Player) {
-//        if (!ModGenes.xpMagnet.isActive) return
-//        if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
-//
-//        if (player.tickCount % ServerConfig.xpMagnetCooldown.get() != 0) return
-//
-//        if (!player.hasGene(ModGenes.xpMagnet)) return
-//
-//        if (AntiFieldOrbItem.isActiveForPlayer(player)) return
-//
-//        val nearbyXpOrbs = player.level.getEntitiesOfClass(
-//            ExperienceOrb::class.java,
-//            player.boundingBox.inflate(ServerConfig.xpMagnetRadius.get())
-//        )
-//
-//        for (xpOrb in nearbyXpOrbs) {
-//            if (AntiFieldBlock.locationIsNearAntifield(player.level, xpOrb.blockPosition())) continue
-//
-//            val pickupEvent = PlayerXpEvent.PickupXp(player, xpOrb)
-//            MinecraftForge.EVENT_BUS.post(pickupEvent)
-//            if (pickupEvent.isCanceled) continue
-//
-//            xpOrb.playerTouch(player)
-//            player.takeXpDelay = 1
-//        }
+        if (!ModGenes.xpMagnet.isActive) return
+        if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
+
+        if (player.tickCount % ServerConfig.xpMagnetCooldown.get() != 0) return
+
+        if (!player.hasGene(ModGenes.xpMagnet)) return
+
+        if (AntiFieldOrbItem.isActiveForPlayer(player)) return
+
+        val nearbyXpOrbs = player.level().getEntitiesOfClass(
+            ExperienceOrb::class.java,
+            player.boundingBox.inflate(ServerConfig.xpMagnetRadius.get())
+        )
+
+        for (xpOrb in nearbyXpOrbs) {
+            if (AntiFieldBlock.isNearActiveAntifield(player.level(), xpOrb.blockPosition())) continue
+
+            val pickupEvent = PlayerXpEvent.PickupXp(player, xpOrb)
+            FORGE_BUS.post(pickupEvent)
+            if (pickupEvent.isCanceled) continue
+
+            xpOrb.playerTouch(player)
+            player.takeXpDelay = 1
+        }
     }
 
 
