@@ -71,6 +71,8 @@ data class GenesData(
             this.genes += newGene
 
             val eventPost = CustomEvents.GeneChangeEvent.Post(this, newGene, true)
+            FORGE_BUS.post(eventPost)
+
             return true
         }
 
