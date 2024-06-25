@@ -7,36 +7,44 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.data.PackOutput
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel
+import net.neoforged.neoforge.client.model.generators.ItemModelBuilder
 import net.neoforged.neoforge.common.data.ExistingFileHelper
 
 class ModBlockStateProvider(
     output: PackOutput,
-    exFileHelper: ExistingFileHelper
-) : BlockStateProvider(output, GeneticsResequenced.ID, exFileHelper) {
+    private val existingFileHelper: ExistingFileHelper
+) : BlockStateProvider(output, GeneticsResequenced.ID, existingFileHelper) {
 
     override fun registerStatesAndModels() {
         antiFieldBlock()
     }
 
     private fun antiFieldBlock() {
-        val block = ModBlocks.ANTI_FIELD_BLOCK.get()
+        val deferredAntiFieldBlock = ModBlocks.ANTI_FIELD_BLOCK
 
-        getVariantBuilder(block)
+        getVariantBuilder(deferredAntiFieldBlock.get())
             .forAllStates { state ->
                 val disabled = state.getValue(AntiFieldBlock.DISABLED)
-                val variantName = if (disabled) "disabled" else "enabled"
+                val modelVariantName = if (disabled) "anti_field_block_disabled" else "anti_field_block_enabled"
+                val textureVariantName = if (disabled) "block/machine_bottom" else "block/machine_top"
 
                 ConfiguredModel
                     .builder()
                     .modelFile(
                         models().cubeAll(
-                            "anti_field_block_${variantName}",
-                            OtherUtil.modResource("block/machine_${variantName}")
+                            modelVariantName,
+                            OtherUtil.modResource(textureVariantName)
                         )
                     ).build()
             }
 
-
+        simpleBlockItem(
+            deferredAntiFieldBlock.get(),
+            ItemModelBuilder(
+                OtherUtil.modResource("block/anti_field_block_enabled"),
+                existingFileHelper
+            )
+        )
 
     }
 

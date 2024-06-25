@@ -1,4 +1,5 @@
-// 1.21	2024-06-25T11:31:04.1438997	Block States: geneticsresequenced
+// 1.21	2024-06-25T11:45:58.1985646	Block States: geneticsresequenced
 197cf5c08b03f88f23e8422928978d0bb80dbe92 assets/geneticsresequenced/blockstates/anti_field_block.json
 b57160e5774e0435ff66597724649bf6be5f9934 assets/geneticsresequenced/models/block/anti_field_block_disabled.json
 6896e6876b2d1d8d4d57d9886bfad60916b9e423 assets/geneticsresequenced/models/block/anti_field_block_enabled.json
+e887d227457738e4598ac2a9d914b59158ccf187 assets/geneticsresequenced/models/item/anti_field_block.json
