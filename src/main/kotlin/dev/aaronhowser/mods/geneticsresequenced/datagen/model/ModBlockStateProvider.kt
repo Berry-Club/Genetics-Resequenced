@@ -3,9 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.model
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.data.PackOutput
-import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder
@@ -35,7 +33,7 @@ class ModBlockStateProvider(
                     .modelFile(
                         models().cubeAll(
                             modelVariantName,
-                            OtherUtil.modResource(textureVariantName)
+                            modLoc(textureVariantName)
                         )
                     ).build()
             }
@@ -51,7 +49,6 @@ class ModBlockStateProvider(
 
     private fun bioluminescence() {
         val deferredBioluminescence = ModBlocks.BIOLUMINESCENCE_BLOCK
-
 
 
     }
