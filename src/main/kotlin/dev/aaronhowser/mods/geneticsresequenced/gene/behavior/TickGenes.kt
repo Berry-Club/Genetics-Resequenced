@@ -277,10 +277,6 @@ object TickGenes {
 
             if (AntiFieldBlock.isNearActiveAntifield(player.level(), itemEntity.blockPosition())) continue
 
-            val pickupEvent = ItemEntityPickupEvent.Pre(player, itemEntity)
-            FORGE_BUS.post(pickupEvent)
-            if (pickupEvent.canPickup() == TriState.FALSE) continue
-
             itemEntity.playerTouch(player)
         }
     }
@@ -302,10 +298,6 @@ object TickGenes {
 
         for (xpOrb in nearbyXpOrbs) {
             if (AntiFieldBlock.isNearActiveAntifield(player.level(), xpOrb.blockPosition())) continue
-
-            val pickupEvent = PlayerXpEvent.PickupXp(player, xpOrb)
-            FORGE_BUS.post(pickupEvent)
-            if (pickupEvent.isCanceled) continue
 
             xpOrb.playerTouch(player)
             player.takeXpDelay = 1
