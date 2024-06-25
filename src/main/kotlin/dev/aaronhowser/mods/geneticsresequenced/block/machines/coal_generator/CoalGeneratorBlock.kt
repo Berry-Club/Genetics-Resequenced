@@ -92,7 +92,7 @@ data class CoalGeneratorBlock(
     ): InteractionResult {
 
         if (pPlayer !is ServerPlayer) {
-            return InteractionResult.PASS
+            return InteractionResult.CONSUME
         }
 
         val blockEntity = pLevel.getBlockEntity(pPos) as? CoalGeneratorBlockEntity

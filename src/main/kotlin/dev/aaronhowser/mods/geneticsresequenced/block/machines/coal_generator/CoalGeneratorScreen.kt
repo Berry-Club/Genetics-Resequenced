@@ -66,7 +66,6 @@ class CoalGeneratorScreen(
         super.renderLabels(pGuiGraphics, pMouseX, pMouseY)
     }
 
-    //FIXME: This is way too wide of an area
     private fun renderEnergyAreaTooltip(pGuiGraphics: GuiGraphics, x: Int, y: Int, pMouseX: Int, pMouseY: Int) {
         if (isMouseOver(
                 pMouseX, pMouseY,
