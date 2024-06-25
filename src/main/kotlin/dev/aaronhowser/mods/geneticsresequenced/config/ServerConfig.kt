@@ -53,6 +53,8 @@ class ServerConfig(
         lateinit var photoSynthesisSaturationAmount: ModConfigSpec.DoubleValue
         lateinit var slimyDeathCooldown: ModConfigSpec.IntValue
         lateinit var slimyDeathHealthMultiplier: ModConfigSpec.DoubleValue
+        lateinit var slimyDeathDespawnCheckTimer: ModConfigSpec.IntValue
+        lateinit var slimyDeathDespawnTime: ModConfigSpec.IntValue
         lateinit var teleportCooldown: ModConfigSpec.IntValue
         lateinit var teleportDistance: ModConfigSpec.DoubleValue
         lateinit var thornsChance: ModConfigSpec.DoubleValue
@@ -224,6 +226,12 @@ class ServerConfig(
         slimyDeathHealthMultiplier = builder
             .comment("How much health should entities who survive via Slimy Death regain upon death, as a percentage of their max health")
             .defineInRange("slimyDeathHealthMultiplier", 0.5, 0.0, 1.0)
+        slimyDeathDespawnCheckTimer = builder
+            .comment("How often should Support Slimes check if they should despawn? They despawn if there's nothing to attack, or if they aren't near their owner.")
+            .defineInRange("slimyDeathDespawnCheckTimer", 20, 1, Int.MAX_VALUE)
+        slimyDeathDespawnTime = builder
+            .comment("How long should Support Slimes have to remain in valid despawning conditions before they actually despawn?")
+            .defineInRange("slimyDeathDespawnTime", 20 * 10, 1, Int.MAX_VALUE)
 
         teleportCooldown = builder
             .comment("How many ticks to wait before someone with the Teleport gene can teleport again")

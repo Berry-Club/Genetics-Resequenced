@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.SupportSlimeAttackGoal
@@ -139,37 +140,37 @@ class SupportSlime(
         if (isNoAi) return
         if (despawnAnimationPlaying) return
 
-        if (tickCount % 50 != 0) return
+        if (tickCount % ServerConfig.slimyDeathDespawnCheckTimer.get() != 0) return
 
         val nearbyEntities = level().getEntities(
             this,
             boundingBox.inflate(16.0)
         )
 
-        var areThereNearbyHostiles = false
-        var isOwnerNearby = false
+        var nearEnemies = false
+        var nearOwner = false
 
         for (entity in nearbyEntities) {
-            if (areThereNearbyHostiles && isOwnerNearby) break
+            if (nearEnemies && nearOwner) break
 
             if (entity.uuid == getOwnerUuid()) {
-                isOwnerNearby = true
+                nearOwner = true
             }
 
             if (entity is Mob && entity.target?.uuid == getOwnerUuid()) {
-                areThereNearbyHostiles = true
+                nearEnemies = true
             }
         }
 
-        if (!isOwnerNearby) {
+        if (!nearOwner) {
             despawn()
         }
 
-        if (areThereNearbyHostiles) {
+        if (nearEnemies) {
             ticksWithoutTarget = 0
         } else {
-            ticksWithoutTarget++
-            if (ticksWithoutTarget > 20 * 10) {
+            ticksWithoutTarget += ServerConfig.slimyDeathDespawnCheckTimer.get()
+            if (ticksWithoutTarget > ServerConfig.slimyDeathDespawnTime.get()) {
                 despawn()
             }
         }
