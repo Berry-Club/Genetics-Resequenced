@@ -104,7 +104,7 @@ object GeneEvents {
         ModPacketHandler.messageAllPlayers(
             GeneChangedPacket(
                 entity.id,
-                changedGene,
+                changedGene.id,
                 wasAdded
             )
         )

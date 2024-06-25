@@ -14,12 +14,13 @@ import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.network.protocol.PacketFlow
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
 data class GeneChangedPacket(
     val entityId: Int,
-    val gene: Gene,
+    val geneRl: ResourceLocation,
     val wasAdded: Boolean
 ) : ModPacket {
 
@@ -30,6 +31,9 @@ data class GeneChangedPacket(
 
         val entity = context.player().level().getEntity(entityId) as? LivingEntity
         requireNotNull(entity) { "Received GeneChangedPacket with invalid entity id!" }
+
+        val gene = Gene.fromId(geneRl)
+            ?: throw IllegalStateException("Received GeneChangedPacket with invalid gene id!")
 
         if (wasAdded) {
             entity.addGene(gene)
@@ -81,7 +85,7 @@ data class GeneChangedPacket(
 
         val STREAM_CODEC: StreamCodec<ByteBuf, GeneChangedPacket> = StreamCodec.composite(
             ByteBufCodecs.INT, GeneChangedPacket::entityId,
-            Gene.STREAM_CODEC, GeneChangedPacket::gene,
+            ResourceLocation.STREAM_CODEC, GeneChangedPacket::geneRl,
             ByteBufCodecs.BOOL, GeneChangedPacket::wasAdded,
             ::GeneChangedPacket
         )
