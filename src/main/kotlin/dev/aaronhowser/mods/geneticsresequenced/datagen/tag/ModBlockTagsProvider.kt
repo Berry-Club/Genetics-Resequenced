@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.datagen
+package dev.aaronhowser.mods.geneticsresequenced.datagen.tag
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.core.HolderLookup
