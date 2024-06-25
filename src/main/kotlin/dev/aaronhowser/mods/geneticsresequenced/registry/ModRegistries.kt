@@ -14,7 +14,8 @@ object ModRegistries {
         ModAttachmentTypes.ATTACHMENT_TYPES_REGISTRY,
         ModAttributes.ATTRIBUTE_REGISTRY,
         ModEntityTypes.ENTITY_TYPE_REGISTRY,
-        ModMenuTypes.MENU_TYPE_REGISTRY
+        ModMenuTypes.MENU_TYPE_REGISTRY,
+        ModEffects.EFFECT_REGISTRY
     )
 
     fun register(modBus: IEventBus) {
