@@ -1,4 +1,4 @@
-// 1.21	2024-06-25T10:58:47.1520099	Item Models: geneticsresequenced
+// 1.21	2024-06-25T11:01:22.2108699	Item Models: geneticsresequenced
 e6142e5a26fe99b35e4876dbc517032ecfce9d0d assets/geneticsresequenced/models/item/anti_field_orb.json
 36379184a7b62c4e49c307b6dcd7617bea211b53 assets/geneticsresequenced/models/item/anti_plasmid.json
 53bd8821a4e5d4d1dfcaebeadcc31d925b336b41 assets/geneticsresequenced/models/item/cell.json
@@ -9,3 +9,4 @@ c7d444a2106356552c16b76a32af4f8180794cb0 assets/geneticsresequenced/models/item/
 5d606cce60d59c748e061dc723fa09fcc7627cef assets/geneticsresequenced/models/item/overclocker.json
 8ee21db34190407c4ff670e135b2304067a65fb0 assets/geneticsresequenced/models/item/plasmid.json
 5267ab5df2c0eddc09b86574b0c7a9cdee316c33 assets/geneticsresequenced/models/item/scraper.json
+63ec6c618a3a23eab4cab9c52d7d3250de9b516e assets/geneticsresequenced/models/item/support_slime_spawn_egg.json

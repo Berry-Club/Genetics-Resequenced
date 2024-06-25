@@ -28,7 +28,11 @@ class ModItemModelProvider(
         simpleItem(ModItems.OVERCLOCKER)
         simpleItem(ModItems.ANTI_FIELD_ORB)
         simpleItem(ModItems.DRAGON_HEALTH_CRYSTAL)
-//        simpleItem(ModItems.FRIENDLY_SLIME_SPAWN_EGG)
+
+        this.withExistingParent(
+            ModItems.FRIENDLY_SLIME_SPAWN_EGG.id.path,
+            ResourceLocation.withDefaultNamespace("item/template_spawn_egg")
+        )
 
     }
 
