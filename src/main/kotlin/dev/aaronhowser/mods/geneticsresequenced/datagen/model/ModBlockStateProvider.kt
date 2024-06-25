@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.data.PackOutput
+import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder
@@ -17,6 +18,7 @@ class ModBlockStateProvider(
 
     override fun registerStatesAndModels() {
         antiFieldBlock()
+        bioluminescence()
     }
 
     private fun antiFieldBlock() {
@@ -41,10 +43,16 @@ class ModBlockStateProvider(
         simpleBlockItem(
             deferredAntiFieldBlock.get(),
             ItemModelBuilder(
-                OtherUtil.modResource("block/anti_field_block_enabled"),
+                modLoc("block/anti_field_block_enabled"),
                 existingFileHelper
             )
         )
+    }
+
+    private fun bioluminescence() {
+        val deferredBioluminescence = ModBlocks.BIOLUMINESCENCE_BLOCK
+
+
 
     }
 

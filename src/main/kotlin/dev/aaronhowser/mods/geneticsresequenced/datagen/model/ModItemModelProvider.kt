@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.model
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.data.PackOutput
 import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder
@@ -42,7 +41,7 @@ class ModItemModelProvider(
             ResourceLocation.withDefaultNamespace("item/generated") //Aiming at
         ).texture(
             "layer0",
-            OtherUtil.modResource("item/${item.id.path}")
+            modLoc("item/${item.id.path}")
         )
     }
 
