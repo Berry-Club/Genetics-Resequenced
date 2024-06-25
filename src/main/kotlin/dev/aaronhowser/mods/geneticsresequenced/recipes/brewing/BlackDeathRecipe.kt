@@ -19,6 +19,7 @@ class BlackDeathRecipe : IBrewingRecipe {
 
         val inputPotion = PotionUtils.getPotion(pBottomSlot)
 
+        //FIXME: Is this supposed to be inverted?
         return inputPotion != ModPotions.VIRAL_AGENTS
     }
 
