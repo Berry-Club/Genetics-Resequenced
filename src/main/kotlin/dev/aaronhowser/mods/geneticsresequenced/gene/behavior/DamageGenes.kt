@@ -30,9 +30,9 @@ object DamageGenes {
         if (event.source == DamageTypes.FALL) return
 
         val entity = event.entity
-        if (!entity.hasGene(ModGenes.noFallDamage) && !entity.hasGene(ModGenes.flight)) return
-
-        event.amount = 0f
+        if (entity.hasGene(ModGenes.noFallDamage) || entity.hasGene(ModGenes.flight)) {
+            event.amount = 0f
+        }
     }
 
     fun handleWitherProof(event: LivingIncomingDamageEvent) {
@@ -41,10 +41,11 @@ object DamageGenes {
         if (event.source != DamageTypes.WITHER) return
 
         val entity = event.entity
-        if (!entity.hasGene(ModGenes.witherProof)) return
 
-        entity.removeEffect(MobEffects.WITHER)
-        event.amount = 0f
+        if (entity.hasGene(ModGenes.witherProof)) {
+            entity.removeEffect(MobEffects.WITHER)
+            event.amount = 0f
+        }
     }
 
     fun handleFireProof(event: LivingIncomingDamageEvent) {
@@ -53,10 +54,11 @@ object DamageGenes {
         if (event.source != DamageTypes.IN_FIRE && event.source != DamageTypes.ON_FIRE) return
 
         val entity = event.entity
-        if (!entity.hasGene(ModGenes.fireProof)) return
 
-        entity.clearFire()
-        event.amount = 0f
+        if (entity.hasGene(ModGenes.fireProof)) {
+            entity.clearFire()
+            event.amount = 0f
+        }
     }
 
     fun handlePoisonProof(event: LivingIncomingDamageEvent) {
@@ -67,10 +69,10 @@ object DamageGenes {
         if (!event.entity.hasEffect(MobEffects.POISON)) return
 
         val entity = event.entity
-        if (!entity.hasGene(ModGenes.poisonImmunity)) return
-
-        entity.removeEffect(MobEffects.POISON)
-        event.amount = 0f
+        if (entity.hasGene(ModGenes.poisonImmunity)) {
+            entity.removeEffect(MobEffects.POISON)
+            event.amount = 0f
+        }
     }
 
     // Changing amount (not just canceling)
@@ -127,9 +129,6 @@ object DamageGenes {
             MobEffects.WITHER,
             100
         )
-
-
-        if (!CommonHooks.canMobEffectBeApplied(event.entity, witherEffect)) return
 
         event.entity.addEffect(witherEffect)
     }
