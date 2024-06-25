@@ -65,9 +65,10 @@ data class AntiFieldBlock(
 
         fun getNearestAntifield(level: Level, location: BlockPos): Optional<BlockPos> {
             val radius = ServerConfig.antifieldBlockRadius.get()
+
             return BlockPos.findClosestMatch(location, radius, radius) { pos ->
                 val blockState = level.getBlockState(pos)
-                blockState.block == ModBlocks.ANTI_FIELD_BLOCK && !blockState.getValue(DISABLED)
+                blockState.block == ModBlocks.ANTI_FIELD_BLOCK.get() && !blockState.getValue(DISABLED)
             }
         }
 
