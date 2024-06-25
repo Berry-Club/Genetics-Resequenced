@@ -15,7 +15,7 @@ object ModBlocks {
 
     val BLOCK_REGISTRY: DeferredRegister.Blocks = DeferredRegister.createBlocks(GeneticsResequenced.ID)
 
-    val BIOLUMINESCENCE_BLOCK: DeferredBlock<BioluminescenceBlock> = registerBlock("bioluminescence_block") { BioluminescenceBlock() }
+    val BIOLUMINESCENCE_BLOCK: DeferredBlock<BioluminescenceBlock> = registerBlock("bioluminescence") { BioluminescenceBlock() }
     val COAL_GENERATOR: DeferredBlock<CoalGeneratorBlock> = registerBlock("coal_generator") { CoalGeneratorBlock() }
     val CELL_ANALYZER: DeferredBlock<Block> = registerSimpleBlock("cell_analyzer")
     val DNA_EXTRACTOR: DeferredBlock<Block> = registerSimpleBlock("dna_extractor")

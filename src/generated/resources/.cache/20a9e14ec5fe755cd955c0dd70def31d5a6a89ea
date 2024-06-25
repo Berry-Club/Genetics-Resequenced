@@ -1,7 +1,8 @@
-// 1.21	2024-06-25T11:59:52.5451206	Block States: geneticsresequenced
+// 1.21	2024-06-25T12:04:54.7201915	Block States: geneticsresequenced
 197cf5c08b03f88f23e8422928978d0bb80dbe92 assets/geneticsresequenced/blockstates/anti_field_block.json
-aefb4fff079786efad82ae3bab5286651a90fd67 assets/geneticsresequenced/blockstates/bioluminescence_block.json
+03ed370049ad1f99a38b77f8ee566e070e25b771 assets/geneticsresequenced/blockstates/bioluminescence.json
 b57160e5774e0435ff66597724649bf6be5f9934 assets/geneticsresequenced/models/block/anti_field_block_disabled.json
 6896e6876b2d1d8d4d57d9886bfad60916b9e423 assets/geneticsresequenced/models/block/anti_field_block_enabled.json
-2d1ade82820569936fd3021a877283474ced09d0 assets/geneticsresequenced/models/block/bioluminescence_block.json
+2d1ade82820569936fd3021a877283474ced09d0 assets/geneticsresequenced/models/block/bioluminescence.json
 e887d227457738e4598ac2a9d914b59158ccf187 assets/geneticsresequenced/models/item/anti_field_block.json
+ed3f8f86e885519761ee747a4b9e5018592e21eb assets/geneticsresequenced/models/item/bioluminescence.json
