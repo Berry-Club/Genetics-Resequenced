@@ -15,3 +15,4 @@
 - Item Magnet now has a delay against picking up items dropped by you
 - Allowed the Gene Add/Remove commands to use the gene name string instead of the id Resource Location
 - Increased the amount of Support Slimes spawned from 1-4 to 3-6
+- Poison Proof Gene now uses the new NeoForge Poison damage, rather than checking for magic damage while you have poison effect

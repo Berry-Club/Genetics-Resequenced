@@ -14,7 +14,7 @@ import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.AxeItem
 import net.minecraft.world.item.Items
-import net.neoforged.neoforge.common.CommonHooks
+import net.neoforged.neoforge.common.NeoForgeMod
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import kotlin.random.Random
@@ -64,9 +64,7 @@ object DamageGenes {
     fun handlePoisonProof(event: LivingIncomingDamageEvent) {
         if (!ModGenes.poisonImmunity.isActive) return
 
-        if (event.source != DamageTypes.MAGIC && event.source != DamageTypes.INDIRECT_MAGIC) return
-
-        if (!event.entity.hasEffect(MobEffects.POISON)) return
+        if (event.source != NeoForgeMod.POISON_DAMAGE) return
 
         val entity = event.entity
         if (entity.hasGene(ModGenes.poisonImmunity)) {
