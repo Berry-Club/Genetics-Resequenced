@@ -9,6 +9,8 @@ import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
+import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
+import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
@@ -30,7 +32,7 @@ object GeneEvents {
 
         val (livingEntity: LivingEntity, gene: Gene, wasAdded: Boolean) = event
 
-//        tellAllPlayersGeneChanged(livingEntity, gene, wasAdded)
+        tellAllPlayersGeneChanged(livingEntity, gene, wasAdded)
 
         if (livingEntity is Player) {
             when (gene) {
@@ -88,6 +90,24 @@ object GeneEvents {
                 ).withStyle { it.withHoverEvent(HoverEvent(HoverEvent.Action.SHOW_TEXT, requiredGenesComponent)) }
             )
         }
+    }
+
+    private fun tellAllPlayersGeneChanged(entity: LivingEntity, changedGene: Gene, wasAdded: Boolean) {
+        if (entity.level().isClientSide) return
+
+        val server = entity.server
+        if (server == null) {
+            GeneticsResequenced.LOGGER.error("Server is null when trying to tell all players about gene change")
+            return
+        }
+
+        ModPacketHandler.messageAllPlayers(
+            GeneChangedPacket(
+                entity.id,
+                changedGene,
+                wasAdded
+            )
+        )
     }
 
 }
