@@ -56,6 +56,10 @@ class Gene(
         //TODO: Make this an actual registry
         private val GENE_REGISTRY: MutableSet<Gene> = mutableSetOf()
 
+        fun getRegistryUnsorted(): List<Gene> {
+            return GENE_REGISTRY.toList()
+        }
+
         fun getRegistry(): List<Gene> {
             val sortedGenes = GENE_REGISTRY.sortedBy { it.id }
 
@@ -150,11 +154,8 @@ class Gene(
 
     private val requiredGenes: MutableSet<Gene> = mutableSetOf()
 
-    val mutatesFrom: Set<Gene>
-        get() = Registry.getRegistry().filter { it.mutatesInto == this }.toSet()
-
     val isMutation: Boolean
-        get() = mutatesFrom.isNotEmpty()
+        get() = Registry.getRegistryUnsorted().any { it.mutatesInto == this }
 
     fun addRequiredGenes(genes: Collection<Gene>) {
         requiredGenes.addAll(genes)

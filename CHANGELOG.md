@@ -13,3 +13,4 @@
 - Changed the machines' energy texture to one made by TJKraft
 - The Flight gene now is an Attribute, rather than changing the player's ability to fly. Fixes #10
 - Item Magnet now has a delay against picking up items dropped by you
+- Allowed the Gene Add/Remove commands to use the gene name string instead of the id Resource Location
