@@ -50,6 +50,19 @@ class ModBlockStateProvider(
     private fun bioluminescence() {
         val deferredBioluminescence = ModBlocks.BIOLUMINESCENCE_BLOCK
 
+        getVariantBuilder(deferredBioluminescence.get())
+            .forAllStates {
+                ConfiguredModel
+                    .builder()
+                    .modelFile(
+                        models().withExistingParent(
+                            deferredBioluminescence.id.path,
+                            mcLoc("block/air")
+                        )
+                    )
+                    .build()
+            }
+
     }
 
 }
