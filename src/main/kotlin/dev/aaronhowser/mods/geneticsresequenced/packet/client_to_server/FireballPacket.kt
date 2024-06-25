@@ -19,6 +19,8 @@ class FireballPacket : ModPacket {
 
     override fun type(): CustomPacketPayload.Type<FireballPacket> = TYPE
 
+    override fun equals(other: Any?): Boolean = other is FireballPacket
+
     companion object {
         val TYPE: CustomPacketPayload.Type<FireballPacket> =
             CustomPacketPayload.Type<FireballPacket>(OtherUtil.modResource("fireball"))

@@ -18,6 +18,8 @@ class TeleportPlayerPacket : ModPacket {
 
     override fun type(): CustomPacketPayload.Type<TeleportPlayerPacket> = TYPE
 
+    override fun equals(other: Any?): Boolean = other is TeleportPlayerPacket
+
     companion object {
         val TYPE: CustomPacketPayload.Type<TeleportPlayerPacket> =
             CustomPacketPayload.Type<TeleportPlayerPacket>(OtherUtil.modResource("teleport"))
