@@ -44,7 +44,7 @@ object GeneEvents {
                 ModGenes.moreHearts -> AttributeGenes.setMoreHearts(livingEntity, 1, wasAdded)
                 ModGenes.moreHeartsTwo -> AttributeGenes.setMoreHearts(livingEntity, 2, wasAdded)
 
-                ModGenes.flight -> TickGenes.handleFlight(livingEntity)
+                ModGenes.flight -> TickGenes.handleFlight(livingEntity, wasAdded)
             }
         }
 

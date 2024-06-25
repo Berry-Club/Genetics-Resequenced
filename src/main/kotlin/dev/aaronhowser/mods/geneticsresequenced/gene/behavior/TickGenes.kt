@@ -7,10 +7,12 @@ import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Compan
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.tags.EntityTypeTags
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.*
+import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.monster.Creeper
 import net.minecraft.world.entity.monster.Zombie
@@ -249,29 +251,15 @@ object TickGenes {
         }
     }
 
-    private val flyablePlayers = mutableSetOf<UUID>()
-    fun handleFlight(player: Player) {
+    fun handleFlight(player: Player, adding: Boolean) {
         if (!ModGenes.flight.isActive) return
-
         if (player.level().isClientSide) return
-        if (player.isCreative || player.isSpectator) return
 
-        if (!player.hasGene(ModGenes.flight)) {
-            if (flyablePlayers.contains(player.uuid)) {
-                player.abilities.mayfly = false
-                player.abilities.flying = false
-                player.onUpdateAbilities()
-                flyablePlayers.remove(player.uuid)
-            }
-            return
-        }
-
-        player.abilities.mayfly = true
+        player.abilities.mayfly = adding
+        player.abilities.flying = adding
         player.onUpdateAbilities()
-        flyablePlayers.add(player.uuid)
     }
 
-    //TODO
     fun handleItemMagnet(player: Player) {
 //        if (!ModGenes.itemMagnet.isActive) return
 //        if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
