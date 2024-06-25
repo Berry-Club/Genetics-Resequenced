@@ -13,7 +13,7 @@ object ModTags {
     val FIREBALL_ITEM_TAG: TagKey<Item> = ItemTags.create(OtherUtil.modResource("fireball"))
     val MAGNET_ITEM_BLACKLIST: TagKey<Item> = ItemTags.create(OtherUtil.modResource("magnet_blacklist"))
 
-    val ENCHANTABLE_DELICATE_TOUCH_ITEM_TAG: TagKey<Item> = ItemTags.create(OtherUtil.modResource("enchantable/delicate_touch"))
+    val ENCHANTABLE_DELICATE_TOUCH: TagKey<Item> = ItemTags.create(OtherUtil.modResource("enchantable/delicate_touch"))
 
     val SCRAPER_ENTITY_BLACKLIST: TagKey<EntityType<*>> = TagKey.create(
         Registries.ENTITY_TYPE,

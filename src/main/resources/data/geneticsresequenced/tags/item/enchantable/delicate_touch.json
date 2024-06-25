@@ -1,9 +1,0 @@
-{
-  "__comment": "Items that can have the Delicate Touch enchantment",
-  "values": [
-    {
-      "id": "geneticsresequenced:scraper",
-      "required": true
-    }
-  ]
-}
