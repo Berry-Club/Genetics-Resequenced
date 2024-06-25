@@ -2,9 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
@@ -16,6 +18,7 @@ import net.neoforged.fml.ModList
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
 import net.neoforged.neoforge.event.level.ExplosionEvent
 import java.util.*
+import kotlin.random.Random
 
 object DeathGenes {
 
@@ -155,39 +158,38 @@ object DeathGenes {
         ServerConfig.slimyDeathCooldown.get()
     )
 
-    //TODO
-//    fun handleSlimyDeath(event: LivingDeathEvent) {
-//        if (!ModGenes.slimyDeath.isActive) return
-//        if (event.isCanceled) return
-//
-//        val entity: LivingEntity = event.entity
-//        if (!entity.hasGene(ModGenes.slimyDeath)) return
-//
-//        val newlyUsed = slimyDeathCooldown.add(entity)
-//        if (!newlyUsed) return
-//
-//        val amount = Random.nextInt(1, 4)
-//
-//        repeat(amount) {
-//            val supportSlime = SupportSlime(entity.level, entity.uuid)
-//
-//            val randomNearbyPosition = entity.position().add(
-//                Random.nextDouble(-1.0, 1.0),
-//                0.0,
-//                Random.nextDouble(-1.0, 1.0)
-//            )
-//
-//            supportSlime.moveTo(randomNearbyPosition.x, randomNearbyPosition.y, randomNearbyPosition.z)
-//            entity.level().addFreshEntity(supportSlime)
-//        }
-//
-//        event.isCanceled = true
-//        entity.health = entity.maxHealth * ServerConfig.slimyDeathHealthMultiplier.get().toFloat()
-//
-//        if (entity is ServerPlayer) {
+    fun handleSlimyDeath(event: LivingDeathEvent) {
+        if (!ModGenes.slimyDeath.isActive) return
+        if (event.isCanceled) return
+
+        val entity: LivingEntity = event.entity
+        if (!entity.hasGene(ModGenes.slimyDeath)) return
+
+        val newlyUsed = slimyDeathCooldown.add(entity)
+        if (!newlyUsed) return
+
+        val amount = Random.nextInt(3, 6)
+
+        repeat(amount) {
+            val supportSlime = SupportSlime(entity.level(), entity.uuid)
+
+            val randomNearbyPosition = entity.position().add(
+                Random.nextDouble(-1.0, 1.0),
+                0.0,
+                Random.nextDouble(-1.0, 1.0)
+            )
+
+            supportSlime.moveTo(randomNearbyPosition.x, randomNearbyPosition.y, randomNearbyPosition.z)
+            entity.level().addFreshEntity(supportSlime)
+        }
+
+        event.isCanceled = true
+        entity.health = entity.maxHealth * ServerConfig.slimyDeathHealthMultiplier.get().toFloat()
+
+        if (entity is ServerPlayer) {
 //            AdvancementTriggers.slimyDeathAdvancement(entity)
-//        }
-//
-//    }
+        }
+
+    }
 
 }

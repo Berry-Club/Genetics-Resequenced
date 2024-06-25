@@ -25,7 +25,7 @@ object EntityEvents {
     fun onLivingDeath(event: LivingDeathEvent) {
         DeathGenes.handleEmeraldHeart(event)
         DeathGenes.handleExplosiveExit(event)
-//        DeathGenes.handleSlimyDeath(event)
+        DeathGenes.handleSlimyDeath(event)
     }
 
     @SubscribeEvent
