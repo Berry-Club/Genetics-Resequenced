@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.effect.BleedEffect
 import dev.aaronhowser.mods.geneticsresequenced.effect.DoNothingEffect
+import dev.aaronhowser.mods.geneticsresequenced.effect.PanaceaEffect
 import dev.aaronhowser.mods.geneticsresequenced.effect.ZombifyVillagerEffect
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.effect.MobEffect
@@ -27,6 +28,8 @@ object ModEffects {
     val VIRAL_AGENTS: DeferredHolder<MobEffect, DoNothingEffect> =
         EFFECT_REGISTRY.register("viral_agents", Supplier { DoNothingEffect(0xd18e1b, true) })
 
+    val PANACEA: DeferredHolder<MobEffect, PanaceaEffect> =
+        EFFECT_REGISTRY.register("panacea", Supplier { PanaceaEffect() })
     val ZOMBIFY_VILLAGER: DeferredHolder<MobEffect, ZombifyVillagerEffect> =
         EFFECT_REGISTRY.register("zombify_villager", Supplier { ZombifyVillagerEffect() })
 
