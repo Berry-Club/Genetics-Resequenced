@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
@@ -27,6 +28,11 @@ object ModDataGen {
         val lookupProvider: CompletableFuture<HolderLookup.Provider> = event.lookupProvider
 
         val languageProvider = generator.addProvider(event.includeClient(), ModLanguageProvider(output))
+        val itemModelProvider = generator.addProvider(
+            event.includeClient(),
+            ModItemModelProvider(output, existingFileHelper)
+        )
+
         val recipeProvider = generator.addProvider(event.includeServer(), ModRecipeProvider(output, lookupProvider))
 
         val blockTagProvider = generator.addProvider(
@@ -41,6 +47,7 @@ object ModDataGen {
             event.includeServer(),
             ModEntityTypeTagsProvider(output, lookupProvider, existingFileHelper)
         )
+
 
     }
 
