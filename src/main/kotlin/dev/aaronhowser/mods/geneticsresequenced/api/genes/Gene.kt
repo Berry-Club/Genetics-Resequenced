@@ -52,7 +52,7 @@ class Gene(
 
     override fun toString(): String = "Gene($id)"
 
-    companion object {
+    object Registry {
         //TODO: Make this an actual registry
         private val GENE_REGISTRY: MutableSet<Gene> = mutableSetOf()
 
@@ -74,7 +74,7 @@ class Gene(
             return positiveGenes + mutations + negativeGenes
         }
 
-        val unknownGeneComponent: MutableComponent = Component.translatable(ModLanguageProvider.Genes.UNKNOWN)
+        val noCustomGenes = getRegistry().all { it.id.namespace == GeneticsResequenced.ID }
 
         fun register(
             id: ResourceLocation,
@@ -101,11 +101,25 @@ class Gene(
             return gene
         }
 
+        fun fromId(searchedId: ResourceLocation): Gene? {
+            return GENE_REGISTRY.find { it.id == searchedId }
+        }
+
+        fun fromId(searchedString: String): Gene? {
+            return fromId(ResourceLocation.parse(searchedString))
+        }
+
+    }
+
+    companion object {
+
+        val unknownGeneComponent: MutableComponent = Component.translatable(ModLanguageProvider.Genes.UNKNOWN)
+
         fun checkDeactivationConfig() {
             val disabledGenes = ServerConfig.disabledGenes.get()
 
             for (disabledGene in disabledGenes) {
-                val gene = fromId(disabledGene)
+                val gene = Registry.fromId(disabledGene)
                 if (gene == null) {
                     GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")
                     continue
@@ -125,16 +139,8 @@ class Gene(
             ModGenes.basic
         )
 
-        fun fromId(searchedId: ResourceLocation): Gene? {
-            return GENE_REGISTRY.find { it.id == searchedId }
-        }
-
-        fun fromId(searchedString: String): Gene? {
-            return fromId(ResourceLocation.parse(searchedString))
-        }
-
         val CODEC: Codec<Gene> = ResourceLocation.CODEC.xmap(
-            { id: ResourceLocation -> fromId(id) ?: throw IllegalArgumentException("Unknown gene $id") },
+            { id: ResourceLocation -> Registry.fromId(id) ?: throw IllegalArgumentException("Unknown gene $id") },
             { gene: Gene -> gene.id }
         )
 
@@ -145,7 +151,7 @@ class Gene(
     private val requiredGenes: MutableSet<Gene> = mutableSetOf()
 
     val mutatesFrom: Set<Gene>
-        get() = GENE_REGISTRY.filter { it.mutatesInto == this }.toSet()
+        get() = Registry.getRegistry().filter { it.mutatesInto == this }.toSet()
 
     val isMutation: Boolean
         get() = mutatesFrom.isNotEmpty()

@@ -105,7 +105,7 @@ data class GenesData(
         }
 
         fun LivingEntity.addAlLGenes(includeNegative: Boolean = false) {
-            val genesToAdd = Gene.getRegistry().filter { includeNegative || !it.isNegative }
+            val genesToAdd = Gene.Registry.getRegistry().filter { includeNegative || !it.isNegative }
 
             for (gene in genesToAdd) {
                 this.addGene(gene)

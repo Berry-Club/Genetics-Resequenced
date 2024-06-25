@@ -56,7 +56,7 @@ class PlasmidItem : Item(Properties()) {
         }
 
         fun getAllPlasmids(): List<ItemStack> {
-            return Gene.getRegistry().filter { !it.isHidden }.map { getCompletedPlasmid(it) }
+            return Gene.Registry.getRegistry().filter { !it.isHidden }.map { getCompletedPlasmid(it) }
         }
 
     }

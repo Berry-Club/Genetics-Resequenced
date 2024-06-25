@@ -32,7 +32,7 @@ data class GeneChangedPacket(
         val entity = context.player().level().getEntity(entityId) as? LivingEntity
         requireNotNull(entity) { "Received GeneChangedPacket with invalid entity id!" }
 
-        val gene = Gene.fromId(geneRl)
+        val gene = Gene.Registry.fromId(geneRl)
             ?: throw IllegalStateException("Received GeneChangedPacket with invalid gene id!")
 
         if (wasAdded) {

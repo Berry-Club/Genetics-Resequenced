@@ -50,7 +50,7 @@ object AddAllGenesCommand {
 
         for (target in targets) {
             val genesToAdd =
-                Gene.getRegistry().filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
+                Gene.Registry.getRegistry().filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
 
             for (gene in genesToAdd) {
                 target.addGene(gene)
@@ -68,7 +68,7 @@ object AddAllGenesCommand {
 
     private fun handleSingleTarget(context: CommandContext<CommandSourceStack>, target: LivingEntity) {
         val genesToAdd =
-            Gene.getRegistry().filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
+            Gene.Registry.getRegistry().filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
 
         for (gene in genesToAdd) {
             target.addGene(gene)

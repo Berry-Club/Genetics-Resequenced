@@ -16,7 +16,7 @@ class GeneBuilder(
     private var potionDetails: PotionDetails? = null
 
     fun build(): Gene {
-        return Gene.register(
+        return Gene.Registry.register(
             id = id,
             isNegative = isNegative,
             canMobsHave = canMobsHave,

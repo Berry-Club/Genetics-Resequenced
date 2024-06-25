@@ -20,7 +20,7 @@ object ListAllGenesCommand {
 
         val messageComponent = Component.translatable(ModLanguageProvider.Commands.LIST_ALL_GENES)
 
-        for (gene in Gene.getRegistry()) {
+        for (gene in Gene.Registry.getRegistry()) {
             val geneComponent = Component
                 .literal("\n• ")
                 .append(gene.nameComponent)
