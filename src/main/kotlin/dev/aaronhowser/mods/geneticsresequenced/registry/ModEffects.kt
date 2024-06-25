@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.effect.PanaceaEffect
 import dev.aaronhowser.mods.geneticsresequenced.effect.ZombifyVillagerEffect
 import net.minecraft.core.registries.Registries
 import net.minecraft.world.effect.MobEffect
+import net.minecraft.world.effect.MobEffectInstance
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 import java.util.function.Supplier
@@ -32,5 +33,8 @@ object ModEffects {
         EFFECT_REGISTRY.register("panacea", Supplier { PanaceaEffect() })
     val ZOMBIFY_VILLAGER: DeferredHolder<MobEffect, ZombifyVillagerEffect> =
         EFFECT_REGISTRY.register("zombify_villager", Supplier { ZombifyVillagerEffect() })
+
+    val DeferredHolder<MobEffect, out MobEffect>.instance: MobEffectInstance
+        get() = MobEffectInstance(this)
 
 }
