@@ -27,7 +27,7 @@ object DamageGenes {
     fun handleNoFallDamage(event: LivingIncomingDamageEvent) {
         if (!ModGenes.noFallDamage.isActive) return
 
-        if (event.source == DamageTypes.FALL) return
+        if (event.source != DamageTypes.FALL) return
 
         val entity = event.entity
         if (entity.hasGene(ModGenes.noFallDamage) || entity.hasGene(ModGenes.flight)) {
