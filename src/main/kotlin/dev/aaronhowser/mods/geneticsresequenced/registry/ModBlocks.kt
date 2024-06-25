@@ -15,22 +15,22 @@ object ModBlocks {
 
     val BLOCK_REGISTRY: DeferredRegister.Blocks = DeferredRegister.createBlocks(GeneticsResequenced.ID)
 
-    val BIOLUMINESCENCE_BLOCK: DeferredBlock<Block> = registerBlock("bioluminescence_block") { BioluminescenceBlock() }
-    val COAL_GENERATOR: DeferredBlock<Block> = registerBlock("coal_generator") { CoalGeneratorBlock() }
+    val BIOLUMINESCENCE_BLOCK: DeferredBlock<BioluminescenceBlock> = registerBlock("bioluminescence_block") { BioluminescenceBlock() }
+    val COAL_GENERATOR: DeferredBlock<CoalGeneratorBlock> = registerBlock("coal_generator") { CoalGeneratorBlock() }
     val CELL_ANALYZER: DeferredBlock<Block> = registerSimpleBlock("cell_analyzer")
     val DNA_EXTRACTOR: DeferredBlock<Block> = registerSimpleBlock("dna_extractor")
     val DNA_DECRYPTOR: DeferredBlock<Block> = registerSimpleBlock("dna_decryptor")
-    val BLOOD_PURIFIER: DeferredBlock<Block> = registerBlock("blood_purifier") { BloodPurifierBlock() }
+    val BLOOD_PURIFIER: DeferredBlock<BloodPurifierBlock> = registerBlock("blood_purifier") { BloodPurifierBlock() }
     val PLASMID_INFUSER: DeferredBlock<Block> = registerSimpleBlock("plasmid_infuser")
     val PLASMID_INJECTOR: DeferredBlock<Block> = registerSimpleBlock("plasmid_injector")
     val INCUBATOR: DeferredBlock<Block> = registerSimpleBlock("incubator")
     val ADVANCED_INCUBATOR: DeferredBlock<Block> = registerSimpleBlock("advanced_incubator")
-    val ANTI_FIELD_BLOCK: DeferredBlock<Block> = registerBlock("anti_field_block") { AntiFieldBlock() }
+    val ANTI_FIELD_BLOCK: DeferredBlock<AntiFieldBlock> = registerBlock("anti_field_block") { AntiFieldBlock() }
 
-    private fun registerBlock(
+    private fun <T : Block> registerBlock(
         name: String,
-        supplier: () -> Block
-    ): DeferredBlock<Block> {
+        supplier: () -> T
+    ): DeferredBlock<T> {
         val block = BLOCK_REGISTRY.register(name, supplier)
 
         ModItems.ITEM_REGISTRY.registerSimpleBlockItem(name, block)
