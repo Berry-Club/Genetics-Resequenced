@@ -4,8 +4,8 @@ import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.genes
-import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.AntiFieldOrbItem
@@ -22,10 +22,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.LightLayer
-import net.neoforged.neoforge.common.util.TriState
-import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent
-import net.neoforged.neoforge.event.entity.player.PlayerXpEvent
-import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
 import kotlin.math.max
 
 object TickGenes {

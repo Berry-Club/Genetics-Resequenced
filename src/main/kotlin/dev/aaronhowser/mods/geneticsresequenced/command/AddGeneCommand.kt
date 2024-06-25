@@ -7,8 +7,8 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_STRINGS
-import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.addGene
-import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands

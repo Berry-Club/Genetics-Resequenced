@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.data_attachment
+package dev.aaronhowser.mods.geneticsresequenced.attachment
 
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced

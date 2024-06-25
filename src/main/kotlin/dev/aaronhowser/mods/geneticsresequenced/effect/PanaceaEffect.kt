@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.effect
 
-import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.genes
-import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import net.minecraft.core.Holder
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectCategory

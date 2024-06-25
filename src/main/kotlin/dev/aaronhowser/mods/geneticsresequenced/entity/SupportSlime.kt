@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.SupportSlimeAttackGoal
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
