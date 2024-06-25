@@ -251,15 +251,6 @@ object TickGenes {
         }
     }
 
-    fun handleFlight(player: Player, adding: Boolean) {
-        if (!ModGenes.flight.isActive) return
-        if (player.level().isClientSide) return
-
-        player.abilities.mayfly = adding
-        player.abilities.flying = adding
-        player.onUpdateAbilities()
-    }
-
     fun handleItemMagnet(player: Player) {
 //        if (!ModGenes.itemMagnet.isActive) return
 //        if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return

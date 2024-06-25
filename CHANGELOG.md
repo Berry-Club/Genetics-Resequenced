@@ -11,3 +11,4 @@
 - Efficiency Attribute now uses modifiers instead of modifying the attribute base value. No idea why I was doing that originally, that's awful.
 - Support Slime now only checks if it should despawn once every 40 ticks rather than every tick, which should improve performance.
 - Changed the machines' energy texture to one made by TJKraft
+- The Flight gene now is an Attribute, rather than changing the player's ability to fly. Fixes #10

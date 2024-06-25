@@ -9,6 +9,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
+import net.neoforged.neoforge.common.NeoForgeMod
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
 
 object AttributeGenes {
@@ -176,6 +177,26 @@ object AttributeGenes {
             )
 
             player.fallDistance = 0.0f
+        }
+    }
+
+    private val flightRl = OtherUtil.modResource("flight")
+    private val flightAttributeModifier = AttributeModifier(
+        flightRl,
+        1.0,
+        AttributeModifier.Operation.ADD_VALUE
+    )
+
+    fun setFlight(player: Player, adding: Boolean) {
+        if (!ModGenes.flight.isActive) return
+        if (player.level().isClientSide) return
+
+        val attribute = player.getAttribute(NeoForgeMod.CREATIVE_FLIGHT) ?: return
+
+        if (adding) {
+            attribute.addPermanentModifier(flightAttributeModifier)
+        } else {
+            attribute.removeModifier(flightAttributeModifier)
         }
     }
 

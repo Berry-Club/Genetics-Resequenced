@@ -40,11 +40,10 @@ object GeneEvents {
                 ModGenes.stepAssist -> AttributeGenes.setStepAssist(livingEntity, wasAdded)
                 ModGenes.wallClimbing -> AttributeGenes.setWallClimbing(livingEntity, wasAdded)
                 ModGenes.knockback -> AttributeGenes.setKnockback(livingEntity, wasAdded)
+                ModGenes.flight -> AttributeGenes.setFlight(livingEntity, wasAdded)
 
                 ModGenes.moreHearts -> AttributeGenes.setMoreHearts(livingEntity, 1, wasAdded)
                 ModGenes.moreHeartsTwo -> AttributeGenes.setMoreHearts(livingEntity, 2, wasAdded)
-
-                ModGenes.flight -> TickGenes.handleFlight(livingEntity, wasAdded)
             }
         }
 
