@@ -34,14 +34,14 @@ class ModLanguageProvider(
         const val POTION_CELL_GROWTH = "item.minecraft.potion.effect.geneticsresequenced.cell_growth"
         const val POTION_MUTATION = "item.minecraft.potion.effect.geneticsresequenced.mutation"
         const val POTION_VIRAL_AGENTS = "item.minecraft.potion.effect.geneticsresequenced.viral_agents"
-        const val POTION_THE_CURE = "item.minecraft.potion.effect.geneticsresequenced.the_cure"
+        const val POTION_PANACEA = "item.minecraft.potion.effect.geneticsresequenced.panacea"
         const val POTION_ZOMBIFY_VILLAGER = "item.minecraft.potion.effect.geneticsresequenced.zombify_villager"
         const val SPLASH_POTION_SUBSTRATE = "item.minecraft.splash_potion.effect.geneticsresequenced.substrate"
         const val SPLASH_POTION_CELL_GROWTH = "item.minecraft.splash_potion.effect.geneticsresequenced.cell_growth"
         const val SPLASH_POTION_MUTATION = "item.minecraft.splash_potion.effect.geneticsresequenced.mutation"
         const val SPLASH_POTION_VIRAL_AGENTS =
             "item.minecraft.splash_potion.effect.geneticsresequenced.viral_agents"
-        const val SPLASH_POTION_THE_CURE = "item.minecraft.splash_potion.effect.geneticsresequenced.the_cure"
+        const val SPLASH_POTION_PANACEA = "item.minecraft.splash_potion.effect.geneticsresequenced.panacea"
         const val SPLASH_POTION_ZOMBIFY_VILLAGER =
             "item.minecraft.splash_potion.effect.geneticsresequenced.zombify_villager"
         const val LINGERING_POTION_SUBSTRATE =
@@ -51,14 +51,14 @@ class ModLanguageProvider(
         const val LINGERING_POTION_MUTATION = "item.minecraft.lingering_potion.effect.geneticsresequenced.mutation"
         const val LINGERING_POTION_VIRAL_AGENTS =
             "item.minecraft.lingering_potion.effect.geneticsresequenced.viral_agents"
-        const val LINGERING_POTION_THE_CURE = "item.minecraft.lingering_potion.effect.geneticsresequenced.the_cure"
+        const val LINGERING_POTION_PANACEA = "item.minecraft.lingering_potion.effect.geneticsresequenced.panacea"
         const val LINGERING_POTION_ZOMBIFY_VILLAGER =
             "item.minecraft.lingering_potion.effect.geneticsresequenced.zombify_villager"
         const val TIPPED_ARROW_SUBSTRATE = "item.minecraft.tipped_arrow.effect.geneticsresequenced.substrate"
         const val TIPPED_ARROW_CELL_GROWTH = "item.minecraft.tipped_arrow.effect.geneticsresequenced.cell_growth"
         const val TIPPED_ARROW_MUTATION = "item.minecraft.tipped_arrow.effect.geneticsresequenced.mutation"
         const val TIPPED_ARROW_VIRAL_AGENTS = "item.minecraft.tipped_arrow.effect.geneticsresequenced.viral_agents"
-        const val TIPPED_ARROW_THE_CURE = "item.minecraft.tipped_arrow.effect.geneticsresequenced.the_cure"
+        const val TIPPED_ARROW_PANACEA = "item.minecraft.tipped_arrow.effect.geneticsresequenced.panacea"
         const val TIPPED_ARROW_ZOMBIFY_VILLAGER =
             "item.minecraft.tipped_arrow.effect.geneticsresequenced.zombify_villager"
     }
@@ -69,7 +69,7 @@ class ModLanguageProvider(
         const val CELL_GROWTH = "effect.geneticsresequenced.cell_growth"
         const val MUTATION = "effect.geneticsresequenced.mutation"
         const val VIRAL_AGENTS = "effect.geneticsresequenced.viral_agents"
-        const val THE_CURE = "effect.geneticsresequenced.the_cure"
+        const val PANACEA = "effect.geneticsresequenced.panacea"
         const val ZOMBIFY_VILLAGER = "effect.geneticsresequenced.zombify_villager"
     }
 
@@ -451,33 +451,33 @@ class ModLanguageProvider(
         add(Effects.CELL_GROWTH, "Cell Growth")
         add(Effects.MUTATION, "Mutation")
         add(Effects.VIRAL_AGENTS, "Viral Agents")
-        add(Effects.THE_CURE, "The Cure")
+        add(Effects.PANACEA, "Panacea")
         add(Effects.ZOMBIFY_VILLAGER, "Zombify Villager")
 
         add(Items.POTION_SUBSTRATE, "Organic Substrate")
         add(Items.POTION_CELL_GROWTH, "Potion of Cell Growth")
         add(Items.POTION_MUTATION, "Potion of Mutation")
         add(Items.POTION_VIRAL_AGENTS, "Potion of Viral Agents")
-        add(Items.POTION_THE_CURE, "Potion of the Cure")
+        add(Items.POTION_PANACEA, "Panacea")
         add(Items.POTION_ZOMBIFY_VILLAGER, "Potion of Zombify Villager")
 
         add(Items.SPLASH_POTION_SUBSTRATE, "Splash Potion of Organic Substrate")
         add(Items.SPLASH_POTION_CELL_GROWTH, "Splash Potion of Cell Growth")
         add(Items.SPLASH_POTION_MUTATION, "Splash Potion of Mutation")
         add(Items.SPLASH_POTION_VIRAL_AGENTS, "Splash Potion of Viral Agents")
-        add(Items.SPLASH_POTION_THE_CURE, "Splash Potion of the Cure")
+        add(Items.SPLASH_POTION_PANACEA, "Splash Potion of Panacea")
         add(Items.SPLASH_POTION_ZOMBIFY_VILLAGER, "Splash Potion of Zombify Villager")
         add(Items.LINGERING_POTION_SUBSTRATE, "Lingering Potion of Organic Substrate")
         add(Items.LINGERING_POTION_CELL_GROWTH, "Lingering Potion of Cell Growth")
         add(Items.LINGERING_POTION_MUTATION, "Lingering Potion of Mutation")
         add(Items.LINGERING_POTION_VIRAL_AGENTS, "Lingering Potion of Viral Agents")
-        add(Items.LINGERING_POTION_THE_CURE, "Lingering Potion of the Cure")
+        add(Items.LINGERING_POTION_PANACEA, "Lingering Potion of Panacea")
         add(Items.LINGERING_POTION_ZOMBIFY_VILLAGER, "Lingering Potion of Zombify Villager")
         add(Items.TIPPED_ARROW_SUBSTRATE, "Arrow of Organic Substrate")
         add(Items.TIPPED_ARROW_CELL_GROWTH, "Arrow of Cell Growth")
         add(Items.TIPPED_ARROW_MUTATION, "Arrow of Mutation")
         add(Items.TIPPED_ARROW_VIRAL_AGENTS, "Arrow of Viral Agents")
-        add(Items.TIPPED_ARROW_THE_CURE, "Arrow of the Cure")
+        add(Items.TIPPED_ARROW_PANACEA, "Arrow of Panacea")
         add(Items.TIPPED_ARROW_ZOMBIFY_VILLAGER, "Arrow of Zombify Villager")
 
         add(Messages.SCRAPER_CANT_SCRAPE, "This mob cannot be scraped.")
