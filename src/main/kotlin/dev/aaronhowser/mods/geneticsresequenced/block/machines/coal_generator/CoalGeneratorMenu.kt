@@ -73,7 +73,7 @@ class CoalGeneratorMenu(
     }
 
     fun getScaledFuelRemaining(): Int {
-        val fuelSize = ScreenTextures.Elements.Burn.DIMENSIONS.x
+        val fuelSize = ScreenTextures.Elements.Burn.TEXTURE_SIZE
 
         return if (maxBurnTime == 0) {
             0
@@ -83,7 +83,7 @@ class CoalGeneratorMenu(
     }
 
     fun getScaledProgressArrow(): Int {
-        val progressArrowSize = ScreenTextures.Elements.ArrowRight.DIMENSIONS.x
+        val progressArrowSize = ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
 
         return if (maxBurnTime == 0) {
             0

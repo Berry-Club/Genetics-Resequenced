@@ -31,8 +31,8 @@ class BloodPurifierScreen(
             y,
             0,
             0,
-            ScreenTextures.Backgrounds.DIMENSIONS.x,
-            ScreenTextures.Backgrounds.DIMENSIONS.y
+            ScreenTextures.Backgrounds.TEXTURE_SIZE,
+            ScreenTextures.Backgrounds.TEXTURE_SIZE
         )
 
         renderProgressArrow(pGuiGraphics, x, y)
@@ -45,15 +45,15 @@ class BloodPurifierScreen(
 
         pGuiGraphics.blitSprite(
             ScreenTextures.Elements.Energy.TEXTURE,
-            ScreenTextures.Elements.Energy.DIMENSIONS.x,
-            ScreenTextures.Elements.Energy.DIMENSIONS.y,
+            ScreenTextures.Elements.Energy.TEXTURE_SIZE,
+            ScreenTextures.Elements.Energy.TEXTURE_SIZE,
             0,
             0,
             x + ScreenTextures.Elements.Energy.LOCATION_DEFAULT.x,
             y + ScreenTextures.Elements.Energy.LOCATION_DEFAULT.y,
             0,
-            ScreenTextures.Elements.Energy.DIMENSIONS.x,
-            (ScreenTextures.Elements.Energy.DIMENSIONS.y * percent).toInt()
+            ScreenTextures.Elements.Energy.TEXTURE_SIZE,
+            (ScreenTextures.Elements.Energy.TEXTURE_SIZE * percent).toInt()
         )
     }
 
@@ -106,14 +106,14 @@ class BloodPurifierScreen(
 
         pGuiGraphics.blitSprite(
             ScreenTextures.Elements.ArrowRight.TEXTURE,
-            ScreenTextures.Elements.ArrowRight.DIMENSIONS.x,
-            ScreenTextures.Elements.ArrowRight.DIMENSIONS.y,
+            ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE,
+            ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE,
             0,
             0,
             x + ScreenTextures.Elements.ArrowRight.POSITION.x,
             y + ScreenTextures.Elements.ArrowRight.POSITION.y,
             menu.getScaledProgress(),
-            ScreenTextures.Elements.ArrowRight.DIMENSIONS.y
+            ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
         )
 
     }

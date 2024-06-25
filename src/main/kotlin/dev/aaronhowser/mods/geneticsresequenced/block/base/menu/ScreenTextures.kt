@@ -16,35 +16,36 @@ object ScreenTextures {
         val PLASMID_INFUSER = OtherUtil.modResource("textures/gui/container/plasmid_infuser.png")
         val PLASMID_INJECTOR = OtherUtil.modResource("textures/gui/container/plasmid_injector.png")
 
-        val DIMENSIONS = Vector2i(256, 256)
+        const val TEXTURE_SIZE = 256
     }
 
     object Elements {
         object ArrowDown {
             val TEXTURE = OtherUtil.modResource("arrow_down")
-            val DIMENSIONS = Vector2i(32, 32)
+            const val TEXTURE_SIZE = 32
         }
 
         object ArrowRight {
             val TEXTURE = OtherUtil.modResource("arrow_right")
-            val DIMENSIONS = Vector2i(32, 32)
+            const val TEXTURE_SIZE = 32
             val POSITION = Vector2i(75, 35)
         }
 
         object Bubbles {
             val TEXTURE = OtherUtil.modResource("bubbles")
-            val DIMENSIONS = Vector2i(32, 32)
+            const val TEXTURE_SIZE = 32
         }
 
         object Burn {
             val TEXTURE = OtherUtil.modResource("burn")
-            val DIMENSIONS = Vector2i(16, 16)
+            const val TEXTURE_SIZE = 16
             val POSITION = Vector2i(52, 53) //FIXME: Is this the right spot?
         }
 
         object Energy {
             val TEXTURE = OtherUtil.modResource("energy")
-            val DIMENSIONS = Vector2i(64, 64)
+            const val TEXTURE_SIZE = 64
+            val DIMENSIONS = Vector2i(18, 57)   // How much of the texture is actually used
 
             val LOCATION_DEFAULT = Vector2i(7, 8)
             val LOCATION_COAL_GEN = Vector2i(104, 12)
@@ -55,7 +56,7 @@ object ScreenTextures {
             val HIGH = OtherUtil.modResource("heat_high")
             val LOW = OtherUtil.modResource("heat_low")
 
-            val DIMENSIONS = Vector2i(32, 32)
+            const val TEXTURE_SIZE = 32
         }
 
     }

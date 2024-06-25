@@ -30,8 +30,8 @@ class CoalGeneratorScreen(
             y,
             0,
             0,
-            ScreenTextures.Backgrounds.DIMENSIONS.x,
-            ScreenTextures.Backgrounds.DIMENSIONS.y
+            ScreenTextures.Backgrounds.TEXTURE_SIZE,
+            ScreenTextures.Backgrounds.TEXTURE_SIZE
         )
 
         renderProgressArrow(pGuiGraphics, x, y)
@@ -45,15 +45,15 @@ class CoalGeneratorScreen(
 
         pGuiGraphics.blitSprite(
             ScreenTextures.Elements.Energy.TEXTURE,
-            ScreenTextures.Elements.Energy.DIMENSIONS.x,
-            ScreenTextures.Elements.Energy.DIMENSIONS.y,
+            ScreenTextures.Elements.Energy.TEXTURE_SIZE,
+            ScreenTextures.Elements.Energy.TEXTURE_SIZE,
             0,
             0,
             x + ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.x,
             y + ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.y,
             0,
-            ScreenTextures.Elements.Energy.DIMENSIONS.x,
-            (ScreenTextures.Elements.Energy.DIMENSIONS.y * percent).toInt()
+            ScreenTextures.Elements.Energy.TEXTURE_SIZE,
+            (ScreenTextures.Elements.Energy.TEXTURE_SIZE * percent).toInt()
         )
     }
 
@@ -75,12 +75,12 @@ class CoalGeneratorScreen(
                 ScreenTextures.Elements.Energy.DIMENSIONS
             )
         ) {
-            val energy = menu.blockEntity.energyStorage
+            val energyStorage = menu.blockEntity.energyStorage
 
             pGuiGraphics.renderComponentTooltip(
                 Minecraft.getInstance().font,
                 Component
-                    .literal(energy.energyStored.toString() + "/" + energy.maxEnergyStored + " FE")
+                    .literal(energyStorage.energyStored.toString() + "/" + energyStorage.maxEnergyStored + " FE")
                     .toFlatList(),
                 pMouseX - x,
                 pMouseY - y
@@ -107,14 +107,14 @@ class CoalGeneratorScreen(
 
         pGuiGraphics.blitSprite(
             ScreenTextures.Elements.ArrowRight.TEXTURE,
-            ScreenTextures.Elements.ArrowRight.DIMENSIONS.x,
-            ScreenTextures.Elements.ArrowRight.DIMENSIONS.y,
+            ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE,
+            ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE,
             0,
             0,
             x + ScreenTextures.Elements.ArrowRight.POSITION.x,
             y + ScreenTextures.Elements.ArrowRight.POSITION.y,
             menu.getScaledProgressArrow(),
-            ScreenTextures.Elements.ArrowRight.DIMENSIONS.y
+            ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
         )
     }
 
@@ -124,13 +124,13 @@ class CoalGeneratorScreen(
             val fuelRemaining = menu.getScaledFuelRemaining()
             pGuiGraphics.blitSprite(
                 ScreenTextures.Elements.Burn.TEXTURE,
-                ScreenTextures.Elements.Burn.DIMENSIONS.x,
-                ScreenTextures.Elements.Burn.DIMENSIONS.y,
+                ScreenTextures.Elements.Burn.TEXTURE_SIZE,
+                ScreenTextures.Elements.Burn.TEXTURE_SIZE,
                 0,
                 0,
                 x + ScreenTextures.Elements.Burn.POSITION.x,
                 y + ScreenTextures.Elements.Burn.POSITION.y,
-                ScreenTextures.Elements.Burn.DIMENSIONS.x,
+                ScreenTextures.Elements.Burn.TEXTURE_SIZE,
                 fuelRemaining
             )
         }
