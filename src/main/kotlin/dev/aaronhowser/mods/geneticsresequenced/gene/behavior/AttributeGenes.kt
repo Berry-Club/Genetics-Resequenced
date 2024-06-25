@@ -88,7 +88,6 @@ object AttributeGenes {
         AttributeModifier.Operation.ADD_VALUE
     )
 
-    //TODO: Mark as entity-allowed
     fun setMoreHearts(entity: LivingEntity, level: Int, adding: Boolean) {
         val maxHealthAttribute = entity.getAttribute(Attributes.MAX_HEALTH) ?: return
 

@@ -20,7 +20,6 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 )
 object ClientEvents {
 
-    //TODO
     @SubscribeEvent
     fun onKeyInputEvent(event: InputEvent.Key) {
         if (ModKeyMappings.TELEPORT.consumeClick()) {

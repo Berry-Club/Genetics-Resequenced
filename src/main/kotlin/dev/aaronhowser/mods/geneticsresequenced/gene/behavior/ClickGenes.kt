@@ -7,8 +7,11 @@ import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Compan
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
+import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.InteractionResultHolder
@@ -89,10 +92,9 @@ object ClickGenes {
             1.0f
         )
 
-        //TODO
-//        if (target is ServerPlayer) {
-//            ModPacketHandler.messagePlayer(target, ShearedPacket(removingSkin = true))
-//        }
+        if (target is ServerPlayer) {
+            ModPacketHandler.messagePlayer(target, ShearedPacket(removingSkin = true))
+        }
 
     }
 
@@ -285,8 +287,7 @@ object ClickGenes {
             1.0f
         )
 
-        //TODO
-//        ModPacketHandler.messagePlayer(player as ServerPlayer, ShearedPacket(removingSkin = true))
+        ModPacketHandler.messagePlayer(player as ServerPlayer, ShearedPacket(removingSkin = true))
     }
 
     fun shootFireball(event: PlayerInteractEvent.RightClickItem) {

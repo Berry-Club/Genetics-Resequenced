@@ -6,6 +6,8 @@ import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
+import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
+import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.InventoryListener
 import net.minecraft.server.level.ServerPlayer
@@ -76,17 +78,16 @@ object OtherPlayerEvents {
         val entity = event.target as? LivingEntity ?: return
         val genes = entity.genes
 
-        //TODO
-//        for (gene in genes) {
-//            ModPacketHandler.messagePlayer(
-//                player,
-//                GeneChangedPacket(
-//                    entity.id,
-//                    gene.id,
-//                    true
-//                )
-//            )
-//        }
+        for (gene in genes) {
+            ModPacketHandler.messagePlayer(
+                player,
+                GeneChangedPacket(
+                    entity.id,
+                    gene.id,
+                    true
+                )
+            )
+        }
     }
 
     @SubscribeEvent

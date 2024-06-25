@@ -3,7 +3,10 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
+import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.NarratorPacket
 import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvents
 import net.neoforged.neoforge.event.ServerChatEvent
 import kotlin.random.Random
@@ -43,13 +46,12 @@ object OtherGenes {
 
         val message = event.message
 
-        //TODO
-//        ModPacketHandler.messageNearbyPlayers(
-//            NarratorPacket(message.string),
-//            player.level() as ServerLevel,
-//            player.position(),
-//            64.0
-//        )
+        ModPacketHandler.messageNearbyPlayers(
+            NarratorPacket(message.string),
+            player.level() as ServerLevel,
+            player.position(),
+            64.0
+        )
     }
 
     private val randomPhrases = listOf(

@@ -32,7 +32,6 @@ object ClientModBusEvents {
         event.register(ModKeyMappings.TELEPORT)
     }
 
-    //TODO
     @SubscribeEvent
     fun onClientSetup(event: FMLClientSetupEvent) {
         registerEntityRenderers()
