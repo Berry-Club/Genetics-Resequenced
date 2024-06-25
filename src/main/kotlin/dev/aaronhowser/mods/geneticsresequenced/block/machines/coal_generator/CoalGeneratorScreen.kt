@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
+import org.joml.Vector2i
 
 class CoalGeneratorScreen(
     pMenu: CoalGeneratorMenu,
@@ -68,14 +69,10 @@ class CoalGeneratorScreen(
     //FIXME: This is way too wide of an area
     private fun renderEnergyAreaTooltip(pGuiGraphics: GuiGraphics, x: Int, y: Int, pMouseX: Int, pMouseY: Int) {
         if (isMouseOver(
-                pMouseX,
-                pMouseY,
-                x,
-                y,
-                ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.x,
-                ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.y,
-                ScreenTextures.Elements.Energy.DIMENSIONS.x,
-                ScreenTextures.Elements.Energy.DIMENSIONS.y
+                pMouseX, pMouseY,
+                x, y,
+                ScreenTextures.Elements.Energy.LOCATION_COAL_GEN,
+                ScreenTextures.Elements.Energy.DIMENSIONS
             )
         ) {
             val energy = menu.blockEntity.energyStorage
@@ -93,22 +90,15 @@ class CoalGeneratorScreen(
     }
 
     private fun isMouseOver(
-        mouseX: Int,
-        mouseY: Int,
-        x: Int,
-        y: Int,
-        offsetX: Int,
-        offsetY: Int,
-        width: Int,
-        height: Int
+        mouseX: Int, mouseY: Int,
+        x: Int, y: Int,
+        topLeft: Vector2i,
+        dimensions: Vector2i
     ): Boolean {
         return MouseUtil.isMouseOver(
-            mouseX.toDouble(),
-            mouseY.toDouble(),
-            x + offsetX,
-            y + offsetY,
-            width,
-            height
+            mouseX, mouseY,
+            x + topLeft.x, y + topLeft.y,
+            dimensions.x, dimensions.y
         )
     }
 

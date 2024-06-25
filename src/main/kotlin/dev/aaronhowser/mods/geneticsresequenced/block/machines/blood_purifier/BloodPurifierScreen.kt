@@ -9,6 +9,7 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
+import org.joml.Vector2i
 
 class BloodPurifierScreen(
     pMenu: BloodPurifierMenu,
@@ -67,14 +68,10 @@ class BloodPurifierScreen(
 
     private fun renderEnergyAreaTooltip(pGuiGraphics: GuiGraphics, x: Int, y: Int, pMouseX: Int, pMouseY: Int) {
         if (isMouseOver(
-                pMouseX,
-                pMouseY,
-                x,
-                y,
-                ScreenTextures.Elements.Energy.LOCATION_DEFAULT.x,
-                ScreenTextures.Elements.Energy.LOCATION_DEFAULT.y,
-                ScreenTextures.Elements.Energy.DIMENSIONS.x,
-                ScreenTextures.Elements.Energy.DIMENSIONS.y
+                pMouseX, pMouseY,
+                x, y,
+                ScreenTextures.Elements.Energy.LOCATION_DEFAULT,
+                ScreenTextures.Elements.Energy.DIMENSIONS
             )
         ) {
 
@@ -92,22 +89,15 @@ class BloodPurifierScreen(
     }
 
     private fun isMouseOver(
-        mouseX: Int,
-        mouseY: Int,
-        x: Int,
-        y: Int,
-        offsetX: Int,
-        offsetY: Int,
-        width: Int,
-        height: Int
+        mouseX: Int, mouseY: Int,
+        x: Int, y: Int,
+        topLeft: Vector2i,
+        dimensions: Vector2i
     ): Boolean {
         return MouseUtil.isMouseOver(
-            mouseX.toDouble(),
-            mouseY.toDouble(),
-            x + offsetX,
-            y + offsetY,
-            width,
-            height
+            mouseX, mouseY,
+            x + topLeft.x, y + topLeft.y,
+            dimensions.x, dimensions.y
         )
     }
 
