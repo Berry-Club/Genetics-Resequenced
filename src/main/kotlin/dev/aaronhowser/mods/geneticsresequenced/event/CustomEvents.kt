@@ -15,10 +15,24 @@ object CustomEvents {
         val stack: ItemStack
     ) : Event()
 
-    data class GeneChangeEvent(
-        val entity: LivingEntity,
-        val gene: Gene,
-        val wasAdded: Boolean
-    ) : Event(), ICancellableEvent
+    abstract class GeneChangeEvent : Event() {
+
+        abstract val entity: LivingEntity
+        abstract val gene: Gene
+        abstract val wasAdded: Boolean
+
+        data class Pre(
+            override val entity: LivingEntity,
+            override val gene: Gene,
+            override val wasAdded: Boolean
+        ) : GeneChangeEvent(), ICancellableEvent
+
+        data class Post(
+            override val entity: LivingEntity,
+            override val gene: Gene,
+            override val wasAdded: Boolean
+        ) : GeneChangeEvent()
+
+    }
 
 }

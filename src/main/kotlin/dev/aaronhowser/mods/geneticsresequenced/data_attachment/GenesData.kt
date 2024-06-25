@@ -61,28 +61,34 @@ data class GenesData(
                 return false
             }
 
-            val event = CustomEvents.GeneChangeEvent(this, newGene, true)
-            val wasCanceled = FORGE_BUS.post(event).isCanceled
+            val eventPre = CustomEvents.GeneChangeEvent.Pre(this, newGene, true)
+            val wasCanceled = FORGE_BUS.post(eventPre).isCanceled
             if (wasCanceled) {
-                GeneticsResequenced.LOGGER.debug("Event was canceled: $event")
+                GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
                 return false
             }
 
             this.genes += newGene
+
+            val eventPost = CustomEvents.GeneChangeEvent.Post(this, newGene, true)
             return true
         }
 
         fun LivingEntity.removeGene(removedGene: Gene): Boolean {
             if (!this.hasGene(removedGene)) return false
 
-            val event = CustomEvents.GeneChangeEvent(this, removedGene, false)
-            val wasCanceled = FORGE_BUS.post(event).isCanceled
+            val eventPre = CustomEvents.GeneChangeEvent.Pre(this, removedGene, false)
+            val wasCanceled = FORGE_BUS.post(eventPre).isCanceled
             if (wasCanceled) {
-                GeneticsResequenced.LOGGER.debug("Event was canceled: $event")
+                GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
                 return false
             }
 
             this.genes -= removedGene
+
+            val eventPost = CustomEvents.GeneChangeEvent.Post(this, removedGene, false)
+            FORGE_BUS.post(eventPost)
+
             return true
         }
 

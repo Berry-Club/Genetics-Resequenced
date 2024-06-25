@@ -27,9 +27,7 @@ import net.neoforged.fml.common.EventBusSubscriber
 object GeneEvents {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    fun onGeneChanged(event: CustomEvents.GeneChangeEvent) {
-        if (event.isCanceled) return
-
+    fun onGeneChanged(event: CustomEvents.GeneChangeEvent.Post) {
         val (livingEntity: LivingEntity, gene: Gene, wasAdded: Boolean) = event
 
         tellAllPlayersGeneChanged(livingEntity, gene, wasAdded)
