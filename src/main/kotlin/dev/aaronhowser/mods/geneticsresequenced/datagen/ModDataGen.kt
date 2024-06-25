@@ -26,18 +26,7 @@ object ModDataGen {
         val languageProvider = generator.addProvider(event.includeClient(), ModLanguageProvider(output))
         val recipeProvider = generator.addProvider(event.includeServer(), ModRecipeProvider(output, lookupProvider))
 
-        val blockTagProvider = generator.addProvider(
-            event.includeServer(),
-            ModBlockTagsProvider(output, lookupProvider, existingFileHelper)
-        )
-        val itemTagProvider = generator.addProvider(
-            event.includeServer(),
-            ModItemTagsProvider(output, lookupProvider, blockTagProvider.contentsGetter(), existingFileHelper)
-        )
-        val entityTypeTagProvider = generator.addProvider(
-            event.includeServer(),
-            ModEntityTypeTagsProvider(output, lookupProvider, existingFileHelper)
-        )
+        val tagsProvider = ModTagsProvider(generator, output, lookupProvider, existingFileHelper)
 
     }
 
