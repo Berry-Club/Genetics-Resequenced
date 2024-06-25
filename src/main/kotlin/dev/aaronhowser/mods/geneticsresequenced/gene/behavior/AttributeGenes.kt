@@ -164,8 +164,8 @@ object AttributeGenes {
     fun handleWallClimbing(player: Player) {
         if (!ModGenes.wallClimbing.isActive) return
 
-        val walkClimbingAttributeValue = player.getAttributeValue(ModAttributes.WALL_CLIMBING)
-        if (walkClimbingAttributeValue <= 0.0) return
+        val walkClimbingAttribute = player.getAttribute(ModAttributes.WALL_CLIMBING) ?: return
+        if (walkClimbingAttribute.value <= 0.0) return
 
         if (!player.hasGene(ModGenes.wallClimbing)) return
 

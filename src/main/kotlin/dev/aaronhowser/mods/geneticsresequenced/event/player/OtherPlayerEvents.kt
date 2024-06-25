@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event.player
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.data_attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
+import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -27,7 +28,7 @@ object OtherPlayerEvents {
     fun onPlayerTick(event: PlayerTickEvent.Pre) {
         TickGenes.handleNoHunger(event.entity)
         TickGenes.handleMobSight(event.entity)
-//        AttributeGenes.handleWallClimbing(event.entity)     // Requires clientside handling
+        AttributeGenes.handleWallClimbing(event.entity)     // Requires clientside handling
         TickGenes.handleItemMagnet(event.entity)
         TickGenes.handleXpMagnet(event.entity)
     }

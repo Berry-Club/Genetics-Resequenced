@@ -59,7 +59,7 @@ object EntityEvents {
 
     //TODO: Make sure this works with players and not just entities
     @SubscribeEvent
-    fun onLivingTick(event: EntityTickEvent.Pre) {
+    fun onEntityTick(event: EntityTickEvent.Pre) {
         val entity = event.entity as? LivingEntity ?: return
 
         TickGenes.handleBioluminescence(entity)
