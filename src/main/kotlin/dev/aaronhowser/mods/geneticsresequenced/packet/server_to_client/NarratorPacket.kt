@@ -19,7 +19,7 @@ data class NarratorPacket(
 
         if (ClientConfig.disableParrotNarrator.get()) return
 
-        Minecraft.getInstance().narrator.sayNow(message)
+        Minecraft.getInstance().narrator.narrator.say(message, true)
     }
 
     override fun type(): CustomPacketPayload.Type<NarratorPacket> = TYPE
