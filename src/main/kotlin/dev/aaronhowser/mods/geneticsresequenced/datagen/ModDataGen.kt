@@ -34,6 +34,10 @@ object ModDataGen {
             event.includeServer(),
             ModItemTagsProvider(output, lookupProvider, blockTagProvider.contentsGetter(), existingFileHelper)
         )
+        val entityTypeTagProvider = generator.addProvider(
+            event.includeServer(),
+            ModEntityTypeTagsProvider(output, lookupProvider, existingFileHelper)
+        )
 
     }
 
