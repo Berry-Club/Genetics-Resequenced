@@ -2,20 +2,26 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.block.base.InventoryEnergyBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
+import net.minecraft.core.Direction
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.level.block.entity.BlockEntity
+import net.minecraft.world.level.block.entity.BlockEntityType
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.config.ModConfig
 import net.neoforged.fml.event.config.ModConfigEvent
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
+import net.neoforged.neoforge.energy.EnergyStorage
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent
+import net.neoforged.neoforge.items.IItemHandler
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 import net.neoforged.neoforge.registries.DataPackRegistryEvent
 
@@ -50,10 +56,33 @@ object ModBusEvents {
     @SubscribeEvent
     fun onRegisterCapabilities(event: RegisterCapabilitiesEvent) {
 
-        event.registerBlockEntity(
-            Capabilities.ItemHandler.BLOCK,
-            ModBlockEntities.COAL_GENERATOR.get()
-        ) { coalGen, direction -> coalGen.getItemCapability(direction) }
+        fun getItemCap(blockEntity: BlockEntity, direction: Direction): IItemHandler? {
+            if (blockEntity is InventoryEnergyBlockEntity) {
+                return blockEntity.getItemCapability(direction)
+            }
+            return null
+        }
+
+        fun getEnergyCap(blockEntity: BlockEntity, direction: Direction): EnergyStorage? {
+            if (blockEntity is InventoryEnergyBlockEntity) {
+                return blockEntity.getEnergyCapability(direction)
+            }
+            return null
+        }
+
+        for (blockEntityType: BlockEntityType<*> in ModBlockEntities.BLOCK_ENTITY_REGISTRY.entries.map { it.get() }) {
+
+            event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                blockEntityType
+            ) { blockEntity, direction -> getItemCap(blockEntity, direction) }
+
+            event.registerBlockEntity(
+                Capabilities.EnergyStorage.BLOCK,
+                blockEntityType
+            ) { blockEntity, direction -> getEnergyCap(blockEntity, direction) }
+
+        }
 
     }
 

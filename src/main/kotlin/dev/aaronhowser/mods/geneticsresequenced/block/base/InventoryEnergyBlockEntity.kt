@@ -58,14 +58,6 @@ abstract class InventoryEnergyBlockEntity(
             Direction.WEST to leftItemHandler
         )
 
-    val energyStorage: ModEnergyStorage by lazy {
-        object : ModEnergyStorage(energyMaximum, energyTransferMaximum) {
-            override fun onEnergyChanged() {
-                setChanged()
-            }
-        }
-    }
-
     open fun getItemCapability(side: Direction?): IItemHandler {
         if (side == null) return itemHandler
 
@@ -82,7 +74,46 @@ abstract class InventoryEnergyBlockEntity(
 
             else -> directionWrappedHandlerMap[side]!!
         }
+    }
 
+    val energyStorage: ModEnergyStorage by lazy {
+        object : ModEnergyStorage(energyMaximum, energyTransferMaximum) {
+            override fun onEnergyChanged() {
+                setChanged()
+            }
+        }
+    }
+
+    protected open val upEnergyStorage by lazy { energyStorage }
+    protected open val downEnergyStorage by lazy { energyStorage }
+    protected open val backEnergyStorage by lazy { energyStorage }
+    protected open val frontEnergyStorage by lazy { energyStorage }
+    protected open val rightEnergyStorage by lazy { energyStorage }
+    protected open val leftEnergyStorage by lazy { energyStorage }
+
+    private val directionModEnergyStorageMap: Map<Direction, ModEnergyStorage>
+        get() = mapOf(
+            Direction.DOWN to downEnergyStorage,
+            Direction.UP to upEnergyStorage,
+            Direction.NORTH to backEnergyStorage,
+            Direction.SOUTH to frontEnergyStorage,
+            Direction.EAST to rightEnergyStorage,
+            Direction.WEST to leftEnergyStorage
+        )
+
+    open fun getEnergyCapability(side: Direction?): ModEnergyStorage {
+        if (side == null) return energyStorage
+        if (side == Direction.UP || side == Direction.DOWN) return directionModEnergyStorageMap[side]!!
+
+        val directionFacing = this.blockState.getValue(HorizontalDirectionalBlock.FACING)
+        return when (directionFacing) {
+            Direction.NORTH -> directionModEnergyStorageMap[side.opposite]!!
+            Direction.SOUTH -> directionModEnergyStorageMap[side]!!
+            Direction.EAST -> directionModEnergyStorageMap[side.clockWise]!!
+            Direction.WEST -> directionModEnergyStorageMap[side.counterClockWise]!!
+
+            else -> directionModEnergyStorageMap[side]!!
+        }
     }
 
     /**

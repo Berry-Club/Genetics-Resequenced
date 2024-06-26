@@ -204,12 +204,17 @@ class CoalGeneratorBlockEntity(
 
     private fun pushEnergyToAdjacent() {
 
+        val level = level ?: return
+
         if (energyStorage.energyStored <= 0) return
         for (direction in Direction.entries) {
             val neighborPos = blockPos.offset(direction.normal)
 
+            val block = level.getBlockState(neighborPos)
+            val blockEntity = level.getBlockEntity(neighborPos)
+
             val neighborEnergy =
-                level?.getCapability(Capabilities.EnergyStorage.BLOCK, neighborPos, direction.opposite) ?: continue
+                level.getCapability(Capabilities.EnergyStorage.BLOCK, neighborPos, direction.opposite) ?: continue
 
             if (!neighborEnergy.canReceive()) continue
 
