@@ -28,7 +28,9 @@ object ScreenTextures {
         object ArrowRight {
             val TEXTURE = OtherUtil.modResource("arrow_right")
             const val TEXTURE_SIZE = 32
-            val POSITION = Vector2i(73, 37)
+
+            val POSITION_COAL_GEN = Vector2i(73, 35)
+            val POSITION_BLOOD = Vector2i(83, 37)
         }
 
         object Bubbles {
@@ -39,7 +41,7 @@ object ScreenTextures {
         object Burn {
             val TEXTURE = OtherUtil.modResource("burn")
             const val TEXTURE_SIZE = 16
-            val POSITION = Vector2i(54, 54)
+            val POSITION = Vector2i(52, 53)
         }
 
         object Energy {

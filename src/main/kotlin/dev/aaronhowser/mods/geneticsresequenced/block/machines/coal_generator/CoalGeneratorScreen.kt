@@ -110,8 +110,8 @@ class CoalGeneratorScreen(
             ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE,
             0,
             0,
-            x + ScreenTextures.Elements.ArrowRight.POSITION.x,
-            y + ScreenTextures.Elements.ArrowRight.POSITION.y,
+            x + ScreenTextures.Elements.ArrowRight.POSITION_COAL_GEN.x,
+            y + ScreenTextures.Elements.ArrowRight.POSITION_COAL_GEN.y,
             menu.getScaledProgressArrow(),
             ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
         )

@@ -110,8 +110,8 @@ class BloodPurifierScreen(
             ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE,
             0,
             0,
-            x + ScreenTextures.Elements.ArrowRight.POSITION.x + 10,
-            y + ScreenTextures.Elements.ArrowRight.POSITION.y,
+            x + ScreenTextures.Elements.ArrowRight.POSITION_BLOOD.x,
+            y + ScreenTextures.Elements.ArrowRight.POSITION_BLOOD.y,
             menu.getScaledProgress(),
             ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
         )
