@@ -1,9 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_decryptor
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
+import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
@@ -122,17 +124,15 @@ class DnaDecryptorBlockEntity(
         return helixStack
     }
 
-    //TODO
     private fun getPossibleGenes(input: ItemStack): List<Gene> {
-        return listOf(ModGenes.basic)
-//        val mobType = EntityDnaItem.getEntityType(input) ?: return listOf(ModGenes.basic)
-//
-//        val genesFromMob = MobGeneRegistry.getGeneWeights(mobType)
-//        if (genesFromMob.isEmpty()) return listOf(ModGenes.basic)
-//
-//        return genesFromMob
-//            .map { it.key }
-//            .filter { it.isActive }
+        val mobType = EntityDnaItem.getEntityType(input) ?: return listOf(ModGenes.basic)
+
+        val genesFromMob = MobGeneRegistry.getGeneWeights(mobType)
+        if (genesFromMob.isEmpty()) return listOf(ModGenes.basic)
+
+        return genesFromMob
+            .map { it.key }
+            .filter { it.isActive }
     }
 
     private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {

@@ -2,9 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.ChatFormatting
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.item.Item
@@ -47,5 +49,16 @@ object OtherUtil {
         if (!this.hasUUID(key)) return null
         return this.getUUID(key)
     }
+
+    fun getEntityType(resourceLocation: ResourceLocation): EntityType<*> {
+        val entityType = BuiltInRegistries.ENTITY_TYPE.get(resourceLocation)
+
+        if (entityType === EntityType.PIG && resourceLocation != BuiltInRegistries.ENTITY_TYPE.defaultKey) {
+            throw IllegalArgumentException("Unknown entity type: $resourceLocation")
+        }
+
+        return entityType
+    }
+
 
 }
