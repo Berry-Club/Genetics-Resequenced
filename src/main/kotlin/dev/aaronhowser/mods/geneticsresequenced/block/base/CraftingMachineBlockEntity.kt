@@ -111,7 +111,7 @@ abstract class CraftingMachineBlockEntity(
 
             if (progress >= maxProgress) {
                 progress = 1
-//                craftItem()
+                craftItem()
             }
         } else {
             resetProgress()
