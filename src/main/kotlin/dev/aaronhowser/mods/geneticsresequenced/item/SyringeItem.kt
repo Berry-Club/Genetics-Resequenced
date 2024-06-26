@@ -8,8 +8,12 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GenesItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityName
+import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityUuid
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.hasEntity
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
@@ -17,9 +21,11 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.item.UseAnim
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.util.FakePlayer
+import java.util.*
 
 open class SyringeItem : Item(
     Properties()
@@ -52,8 +58,16 @@ open class SyringeItem : Item(
             pStack.set(SpecificEntityItemComponent.component, newComponent)
         }
 
+        private fun getEntityUuid(syringeStack: ItemStack): UUID? {
+            return syringeStack.getEntityUuid()
+        }
+
+        fun getEntityName(syringeStack: ItemStack): String? {
+            return syringeStack.getEntityName()
+        }
+
         fun injectEntity(syringeStack: ItemStack, entity: LivingEntity) {
-            val syringeEntityUuid = syringeStack.get(SpecificEntityItemComponent.component)?.entityUuid ?: return
+            val syringeEntityUuid = getEntityUuid(syringeStack) ?: return
             if (entity.uuid != syringeEntityUuid) return
 
             val genesToAdd = if (entity is Player) {
@@ -252,6 +266,72 @@ open class SyringeItem : Item(
             Component.translatable(ModLanguageProvider.Items.SYRINGE_FULL)
         } else {
             Component.translatable(ModLanguageProvider.Items.SYRINGE_EMPTY)
+        }
+    }
+
+    override fun appendHoverText(
+        pStack: ItemStack,
+        pContext: TooltipContext,
+        pTooltipComponents: MutableList<Component>,
+        pTooltipFlag: TooltipFlag
+    ) {
+
+        val bloodOwner = getEntityName(pStack)
+        if (hasBlood(pStack) && bloodOwner != null) {
+            pTooltipComponents.add(
+                Component.translatable(
+                    ModLanguageProvider.Tooltips.SYRINGE_OWNER,
+                    bloodOwner
+                ).withColor(ChatFormatting.GRAY)
+            )
+        }
+
+        if (isContaminated(pStack)) {
+            pTooltipComponents.add(
+                Component
+                    .translatable(ModLanguageProvider.Tooltips.SYRINGE_CONTAMINATED)
+                    .withColor(ChatFormatting.DARK_GREEN)
+            )
+        }
+
+        val addingGenes = getGenes(pStack)
+        if (addingGenes.isNotEmpty()) {
+            pTooltipComponents.add(
+                Component
+                    .translatable(ModLanguageProvider.Tooltips.SYRINGE_ADDING_GENES)
+                    .withColor(ChatFormatting.GRAY)
+            )
+
+            for (gene in addingGenes) {
+
+                val component = Component
+                    .literal("• ")
+                    .withStyle {
+                        it.withColor(gene.nameComponent.style.color)
+                    }.append(gene.nameComponent)
+
+                pTooltipComponents.add(component)
+            }
+        }
+
+        val removingGenes = getAntigenes(pStack)
+        if (removingGenes.isNotEmpty()) {
+            pTooltipComponents.add(
+                Component
+                    .translatable(ModLanguageProvider.Tooltips.SYRINGE_REMOVING_GENES)
+                    .withColor(ChatFormatting.GRAY)
+            )
+
+            for (gene in removingGenes) {
+
+                val component = Component
+                    .literal("• ")
+                    .withStyle {
+                        it.withColor(gene.nameComponent.style.color)
+                    }.append(gene.nameComponent)
+
+                pTooltipComponents.add(component)
+            }
         }
     }
 

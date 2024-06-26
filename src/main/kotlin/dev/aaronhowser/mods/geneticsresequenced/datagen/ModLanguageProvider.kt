@@ -146,8 +146,8 @@ class ModLanguageProvider(
         const val INCUBATOR_SET_HIGH = "tooltip.geneticsresequenced.advanced_incubator.set_high"
         const val INCUBATOR_SET_LOW = "tooltip.geneticsresequenced.advanced_incubator.set_low"
         const val BLACK_DEATH_RECIPE = "tooltip.geneticsresequenced.black_death_recipe"
-        const val ADDING_GENES = "tooltip.geneticsresequenced.syringe.adding"
-        const val REMOVING_GENES = "tooltip.geneticsresequenced.syringe.removing"
+        const val SYRINGE_ADDING_GENES = "tooltip.geneticsresequenced.syringe.adding"
+        const val SYRINGE_REMOVING_GENES = "tooltip.geneticsresequenced.syringe.removing"
         const val GMO_LINE_ONE = "tooltip.geneticsresequenced.gmo_recipe.line1"
         const val GMO_LINE_TWO = "tooltip.geneticsresequenced.gmo_recipe.line2"
         const val GMO_LINE_THREE = "tooltip.geneticsresequenced.gmo_recipe.line3"
@@ -563,8 +563,8 @@ class ModLanguageProvider(
         add(Tooltips.INCUBATOR_SET_HIGH, "Set temperature to high")
         add(Tooltips.INCUBATOR_SET_LOW, "Set temperature to low")
         add(Tooltips.BLACK_DEATH_RECIPE, "Requires a Syringe that has every negative Gene.")
-        add(Tooltips.ADDING_GENES, "Adding Genes:")
-        add(Tooltips.REMOVING_GENES, "Removing:")
+        add(Tooltips.SYRINGE_ADDING_GENES, "Adding Genes:")
+        add(Tooltips.SYRINGE_REMOVING_GENES, "Removing:")
         add(
             Tooltips.GMO_LINE_ONE,
             "If in a low-temperature Advanced Incubator, it has a %1\$s chance of producing a %2\$s Gene."
