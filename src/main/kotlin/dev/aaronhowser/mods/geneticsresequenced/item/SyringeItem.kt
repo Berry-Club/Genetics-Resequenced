@@ -17,6 +17,8 @@ import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
+import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -48,7 +50,7 @@ open class SyringeItem : Item(
             return entity.useItem == syringeStack
         }
 
-        fun setEntity(pStack: ItemStack, entity: LivingEntity?) {
+        fun setEntity(pStack: ItemStack, entity: LivingEntity?, setContaminated: Boolean = true) {
             if (entity == null) {
                 pStack.remove(SpecificEntityItemComponent.component)
                 return
@@ -56,6 +58,10 @@ open class SyringeItem : Item(
 
             val newComponent = SpecificEntityItemComponent(entity.uuid, entity.name.string)
             pStack.set(SpecificEntityItemComponent.component, newComponent)
+
+            if (setContaminated) {
+                setContaminated(pStack, true)
+            }
         }
 
         private fun getEntityUuid(syringeStack: ItemStack): UUID? {
@@ -259,6 +265,12 @@ open class SyringeItem : Item(
             setEntity(pStack, pLivingEntity)
         }
 
+        pLivingEntity.apply {
+//            hurt(damageSourceUseSyringe(pLivingEntity), 1f)
+            addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
+
+            cooldowns.addCooldown(ModItems.SYRINGE.get(), 10)
+        }
     }
 
     override fun getName(pStack: ItemStack): Component {
