@@ -116,14 +116,6 @@ abstract class InventoryEnergyBlockEntity(
         }
     }
 
-    /**
-     * @throws IllegalStateException if called on the server side
-     */
-    fun setClientEnergy(energy: Int) {
-        if (level?.isClientSide == false) throw IllegalStateException("setClientEnergy called on server side")
-        this.energyStorage.setEnergy(energy)
-    }
-
     override fun getUpdateTag(pRegistries: HolderLookup.Provider): CompoundTag {
         return saveWithoutMetadata(pRegistries)
     }
