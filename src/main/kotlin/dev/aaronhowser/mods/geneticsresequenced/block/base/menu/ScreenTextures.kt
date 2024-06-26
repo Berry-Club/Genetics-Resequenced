@@ -28,7 +28,7 @@ object ScreenTextures {
         object ArrowRight {
             val TEXTURE = OtherUtil.modResource("arrow_right")
             const val TEXTURE_SIZE = 32
-            val POSITION = Vector2i(75, 35)
+            val POSITION = Vector2i(73, 37)
         }
 
         object Bubbles {
@@ -39,7 +39,7 @@ object ScreenTextures {
         object Burn {
             val TEXTURE = OtherUtil.modResource("burn")
             const val TEXTURE_SIZE = 16
-            val POSITION = Vector2i(52, 53) //FIXME: Is this the right spot?
+            val POSITION = Vector2i(54, 54)
         }
 
         object Energy {
