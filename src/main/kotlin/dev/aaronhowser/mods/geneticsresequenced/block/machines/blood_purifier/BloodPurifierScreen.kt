@@ -9,7 +9,6 @@ import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
-import org.joml.Vector2i
 
 class BloodPurifierScreen(
     pMenu: BloodPurifierMenu,
@@ -49,8 +48,8 @@ class BloodPurifierScreen(
             ScreenTextures.Elements.Energy.TEXTURE_SIZE,
             0,
             0,
-            x + ScreenTextures.Elements.Energy.LOCATION_DEFAULT.x,
-            y + ScreenTextures.Elements.Energy.LOCATION_DEFAULT.y,
+            x + ScreenTextures.Elements.Energy.Location.Default.X,
+            y + ScreenTextures.Elements.Energy.Location.Default.Y,
             0,
             ScreenTextures.Elements.Energy.TEXTURE_SIZE,
             (ScreenTextures.Elements.Energy.TEXTURE_SIZE * percent).toInt()
@@ -70,8 +69,10 @@ class BloodPurifierScreen(
         if (isMouseOver(
                 pMouseX, pMouseY,
                 x, y,
-                ScreenTextures.Elements.Energy.LOCATION_DEFAULT,
-                ScreenTextures.Elements.Energy.DIMENSIONS
+                ScreenTextures.Elements.Energy.Location.Default.X,
+                ScreenTextures.Elements.Energy.Location.Default.Y,
+                ScreenTextures.Elements.Energy.Dimensions.WIDTH,
+                ScreenTextures.Elements.Energy.Dimensions.HEIGHT
             )
         ) {
 
@@ -88,16 +89,19 @@ class BloodPurifierScreen(
         }
     }
 
+    @Suppress("SameParameterValue")
     private fun isMouseOver(
         mouseX: Int, mouseY: Int,
         x: Int, y: Int,
-        topLeft: Vector2i,
-        dimensions: Vector2i
+        topLeftX: Int,
+        topLeftY: Int,
+        width: Int,
+        height: Int
     ): Boolean {
         return MouseUtil.isMouseOver(
             mouseX, mouseY,
-            x + topLeft.x, y + topLeft.y,
-            dimensions.x, dimensions.y
+            x + topLeftX, y + topLeftY,
+            width, height
         )
     }
 
@@ -110,8 +114,8 @@ class BloodPurifierScreen(
             ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE,
             0,
             0,
-            x + ScreenTextures.Elements.ArrowRight.POSITION_BLOOD.x,
-            y + ScreenTextures.Elements.ArrowRight.POSITION_BLOOD.y,
+            x + ScreenTextures.Elements.ArrowRight.Position.Blood.X,
+            y + ScreenTextures.Elements.ArrowRight.Position.Blood.Y,
             menu.getScaledProgress(),
             ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
         )

@@ -72,12 +72,12 @@ class BloodPurifierMenu(
         get() = progress > 0
 
     fun getScaledProgress(): Int {
-        val progressArrowSize = ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
+        val progressArrowWidth = ScreenTextures.Elements.ArrowRight.Dimensions.WIDTH
 
         return if (maxProgress == 0 || progress == 0) {
             0
         } else {
-            progress * progressArrowSize / maxProgress
+            progress * progressArrowWidth / maxProgress
         }
     }
 

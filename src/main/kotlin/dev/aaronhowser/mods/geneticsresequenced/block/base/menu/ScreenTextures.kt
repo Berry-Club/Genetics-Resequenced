@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base.menu
 
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import org.joml.Vector2i
 
 object ScreenTextures {
 
@@ -29,8 +28,23 @@ object ScreenTextures {
             val TEXTURE = OtherUtil.modResource("arrow_right")
             const val TEXTURE_SIZE = 32
 
-            val POSITION_COAL_GEN = Vector2i(73, 35)
-            val POSITION_BLOOD = Vector2i(83, 37)
+            object Dimensions {
+                const val WIDTH = 24
+                const val HEIGHT = 17
+            }
+
+            object Position {
+                object CoalGen {
+                    const val X = 73
+                    const val Y = 35
+                }
+
+                object Blood {
+                    const val X = 83
+                    const val Y = 37
+                }
+            }
+
         }
 
         object Bubbles {
@@ -41,17 +55,39 @@ object ScreenTextures {
         object Burn {
             val TEXTURE = OtherUtil.modResource("burn")
             const val TEXTURE_SIZE = 16
-            val POSITION = Vector2i(52, 53)
+
+            object Position {
+                const val X = 52
+                const val Y = 53
+            }
         }
 
         object Energy {
             val TEXTURE = OtherUtil.modResource("energy")
             const val TEXTURE_SIZE = 64
-            val DIMENSIONS = Vector2i(18, 57)   // How much of the texture is actually used
 
-            val LOCATION_DEFAULT = Vector2i(7, 8)
-            val LOCATION_COAL_GEN = Vector2i(104, 12)
-            val LOCATION_INCUBATOR = Vector2i(20, 12)
+            // How much of the texture is actually used
+            object Dimensions {
+                const val WIDTH = 18
+                const val HEIGHT = 57
+            }
+
+            object Location {
+                object Default {
+                    const val X = 7
+                    const val Y = 8
+                }
+
+                object CoalGen {
+                    const val X = 104
+                    const val Y = 12
+                }
+
+                object Incubator {
+                    const val X = 20
+                    const val Y = 12
+                }
+            }
         }
 
         object Heat {

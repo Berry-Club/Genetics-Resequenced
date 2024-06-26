@@ -8,8 +8,8 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Inventory
-import org.joml.Vector2i
 
 class CoalGeneratorScreen(
     pMenu: CoalGeneratorMenu,
@@ -49,8 +49,8 @@ class CoalGeneratorScreen(
             ScreenTextures.Elements.Energy.TEXTURE_SIZE,
             0,
             0,
-            x + ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.x,
-            y + ScreenTextures.Elements.Energy.LOCATION_COAL_GEN.y,
+            x + ScreenTextures.Elements.Energy.Location.CoalGen.X,
+            y + ScreenTextures.Elements.Energy.Location.CoalGen.Y,
             0,
             ScreenTextures.Elements.Energy.TEXTURE_SIZE,
             (ScreenTextures.Elements.Energy.TEXTURE_SIZE * percent).toInt()
@@ -70,8 +70,10 @@ class CoalGeneratorScreen(
         if (isMouseOver(
                 pMouseX, pMouseY,
                 x, y,
-                ScreenTextures.Elements.Energy.LOCATION_COAL_GEN,
-                ScreenTextures.Elements.Energy.DIMENSIONS
+                ScreenTextures.Elements.Energy.Location.CoalGen.X,
+                ScreenTextures.Elements.Energy.Location.CoalGen.Y,
+                ScreenTextures.Elements.Energy.Dimensions.WIDTH,
+                ScreenTextures.Elements.Energy.Dimensions.HEIGHT
             )
         ) {
             val energyStorage = menu.blockEntity.energyStorage
@@ -88,16 +90,19 @@ class CoalGeneratorScreen(
 
     }
 
+    @Suppress("SameParameterValue")
     private fun isMouseOver(
         mouseX: Int, mouseY: Int,
         x: Int, y: Int,
-        topLeft: Vector2i,
-        dimensions: Vector2i
+        topLeftX: Int,
+        topLeftY: Int,
+        width: Int,
+        height: Int
     ): Boolean {
         return MouseUtil.isMouseOver(
             mouseX, mouseY,
-            x + topLeft.x, y + topLeft.y,
-            dimensions.x, dimensions.y
+            x + topLeftX, y + topLeftY,
+            width, height
         )
     }
 
@@ -110,8 +115,8 @@ class CoalGeneratorScreen(
             ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE,
             0,
             0,
-            x + ScreenTextures.Elements.ArrowRight.POSITION_COAL_GEN.x,
-            y + ScreenTextures.Elements.ArrowRight.POSITION_COAL_GEN.y,
+            x + ScreenTextures.Elements.ArrowRight.Position.CoalGen.X,
+            y + ScreenTextures.Elements.ArrowRight.Position.CoalGen.Y,
             menu.getScaledProgressArrow(),
             ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
         )
@@ -127,8 +132,8 @@ class CoalGeneratorScreen(
                 ScreenTextures.Elements.Burn.TEXTURE_SIZE,
                 0,
                 0,
-                x + ScreenTextures.Elements.Burn.POSITION.x,
-                y + ScreenTextures.Elements.Burn.POSITION.y,
+                x + ScreenTextures.Elements.Burn.Position.X,
+                y + ScreenTextures.Elements.Burn.Position.Y,
                 ScreenTextures.Elements.Burn.TEXTURE_SIZE,
                 fuelRemaining
             )

@@ -83,12 +83,12 @@ class CoalGeneratorMenu(
     }
 
     fun getScaledProgressArrow(): Int {
-        val progressArrowSize = ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
+        val progressArrowWidth = ScreenTextures.Elements.ArrowRight.Dimensions.WIDTH
 
         return if (maxBurnTime == 0) {
             0
         } else {
-            (progressArrowSize.toDouble() * getPercentDone()).toInt()
+            (progressArrowWidth.toDouble() * getPercentDone()).toInt()
         }
     }
 
