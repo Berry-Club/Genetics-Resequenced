@@ -70,8 +70,6 @@ class CellAnalyzerBlockEntity(
 
         itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
         itemHandler.setStackInSlot(OUTPUT_SLOT_INDEX, outputItem)
-
-        resetProgress()
     }
 
     override fun hasRecipe(): Boolean {

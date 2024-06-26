@@ -103,7 +103,8 @@ abstract class CraftingMachineBlockEntity(
     protected abstract fun craftItem()
 
     open fun tick() {
-        if (hasRecipe() && hasEnoughEnergy()) {
+        if (!hasEnoughEnergy()) return
+        if (hasRecipe()) {
             extractEnergy()
 
             progress += 1 + amountOfOverclockers
