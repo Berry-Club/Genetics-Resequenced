@@ -35,7 +35,7 @@ object ScreenTextures {
 
             object Position {
                 object CoalGen {
-                    const val X = 73
+                    const val X = 75
                     const val Y = 35
                 }
 
