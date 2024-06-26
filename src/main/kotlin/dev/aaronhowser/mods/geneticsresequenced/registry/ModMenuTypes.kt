@@ -3,8 +3,10 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.blood_purifier.BloodPurifierMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.blood_purifier.BloodPurifierScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machines.cell_analyzer.CellAnalyzerMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator.CoalGeneratorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator.CoalGeneratorScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machines.cell_analyzer.CellAnalyzerScreen
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.inventory.MenuType
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
@@ -25,6 +27,13 @@ object ModMenuTypes {
             }
         })
 
+    val CELL_ANALYZER: DeferredHolder<MenuType<*>, MenuType<CellAnalyzerMenu>> =
+        MENU_TYPE_REGISTRY.register("cell_analyzer", Supplier {
+            IMenuTypeExtension.create { id, inv, buf ->
+                CellAnalyzerMenu(id, inv, buf)
+            }
+        })
+
     val BLOOD_PURIFIER: DeferredHolder<MenuType<*>, MenuType<BloodPurifierMenu>> =
         MENU_TYPE_REGISTRY.register("blood_purifier", Supplier {
             IMenuTypeExtension.create { id, inv, buf ->
@@ -34,6 +43,7 @@ object ModMenuTypes {
 
     fun registerScreens(event: RegisterMenuScreensEvent) {
         event.register(COAL_GENERATOR.get(), ::CoalGeneratorScreen)
+        event.register(CELL_ANALYZER.get(), ::CellAnalyzerScreen)
         event.register(BLOOD_PURIFIER.get(), ::BloodPurifierScreen)
     }
 
