@@ -19,3 +19,4 @@
 - Renamed The Cure to Panacea
 - The Coal Generator now allows extracting items from any side (in case of fuels like Lava Buckets, which leave an empty Bucket behind)
 - Machines now keep their progress if they run out of power
+- MobGeneRegistry and GeneRequirementRegistry loggers are now debug instead of info

@@ -1,8 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.MobGeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands
+import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirementRegistry
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.AddReloadListenerEvent
@@ -21,7 +22,7 @@ object OtherEvents {
     @SubscribeEvent
     fun addReloadListeners(event: AddReloadListenerEvent) {
         event.addListener(MobGeneRegistry())
-//        event.addListener(GeneRequirementRegistry)
+        event.addListener(GeneRequirementRegistry())
     }
 
 }

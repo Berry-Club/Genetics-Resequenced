@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.api.genes
+package dev.aaronhowser.mods.geneticsresequenced.data
 
 import com.google.gson.GsonBuilder
 import com.google.gson.JsonElement
@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.JsonOps
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.packs.resources.ResourceManager
@@ -52,7 +53,7 @@ class MobGeneRegistry : SimpleJsonResourceReloadListener(
                 instance.group(
                     ResourceLocation.CODEC.fieldOf("entity").forGetter(EntityGenes::entity),
                     Codec.unboundedMap(Gene.CODEC, Codec.INT).fieldOf("genes").forGetter(EntityGenes::genes)
-                ).apply(instance, ::EntityGenes)
+                ).apply(instance, MobGeneRegistry::EntityGenes)
             }
         }
     }
@@ -74,7 +75,6 @@ class MobGeneRegistry : SimpleJsonResourceReloadListener(
                     IllegalArgumentException("Failed to decode entity genes for $key")
                 }.first
 
-
                 val entityName = entityGenes.entity.toString().split(":")[1]
                 val fileName = key.toString().split(":")[1]
                 if (entityName != fileName) {
@@ -83,7 +83,7 @@ class MobGeneRegistry : SimpleJsonResourceReloadListener(
 
                 assignGenes(entityGenes.entity, entityGenes.genes)
 
-                GeneticsResequenced.LOGGER.info("Loaded gene-mob data: $entityGenes")
+                GeneticsResequenced.LOGGER.debug("Loaded gene-mob data: $entityGenes")
             } catch (e: Exception) {
                 e.printStackTrace()
             }

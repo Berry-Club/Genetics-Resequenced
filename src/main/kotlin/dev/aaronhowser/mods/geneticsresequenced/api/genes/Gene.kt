@@ -20,8 +20,6 @@ class Gene(
     val id: ResourceLocation
 ) {
 
-    override fun equals(other: Any?) = other is Gene && other.id == id
-
     var isNegative: Boolean by Delegates.notNull()
         private set
     var isHidden: Boolean by Delegates.notNull()
@@ -234,16 +232,6 @@ class Gene(
             false,
             potionDetails.showIcon
         )
-    }
-
-    override fun hashCode(): Int {
-        var result = id.hashCode()
-        result = 31 * result + (mutatesInto?.hashCode() ?: 0)
-        result = 31 * result + (potionDetails?.hashCode() ?: 0)
-        result = 31 * result + requiredGenes.hashCode()
-        result = 31 * result + translationKey.hashCode()
-        result = 31 * result + isActive.hashCode()
-        return result
     }
 
 //    fun canBeAdded(targetGenes: GenesCapability): Boolean {
