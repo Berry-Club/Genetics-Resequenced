@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.BioluminescenceBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.blood_purifier.BloodPurifierBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.cell_analyzer.CellAnalyzerBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator.CoalGeneratorBlock
+import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_decryptor.DnaDecryptorBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.neoforged.neoforge.registries.DeferredBlock
@@ -20,7 +21,7 @@ object ModBlocks {
         registerBlock("bioluminescence") { BioluminescenceBlock() }
     val COAL_GENERATOR: DeferredBlock<CoalGeneratorBlock> = registerBlock("coal_generator") { CoalGeneratorBlock() }
     val CELL_ANALYZER: DeferredBlock<CellAnalyzerBlock> = registerBlock("cell_analyzer") { CellAnalyzerBlock() }
-    val DNA_EXTRACTOR: DeferredBlock<Block> = registerSimpleBlock("dna_extractor")
+    val DNA_EXTRACTOR: DeferredBlock<Block> = registerBlock("dna_extractor") { DnaDecryptorBlock() }
     val DNA_DECRYPTOR: DeferredBlock<Block> = registerSimpleBlock("dna_decryptor")
     val BLOOD_PURIFIER: DeferredBlock<BloodPurifierBlock> = registerBlock("blood_purifier") { BloodPurifierBlock() }
     val PLASMID_INFUSER: DeferredBlock<Block> = registerSimpleBlock("plasmid_infuser")
