@@ -76,7 +76,7 @@ abstract class CraftingMachineBlock(
     ): InteractionResult {
 
         if (pPlayer !is ServerPlayer) {
-            return InteractionResult.PASS
+            return InteractionResult.CONSUME
         }
 
         val blockEntity =
