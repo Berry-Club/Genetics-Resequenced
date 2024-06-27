@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.model
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
+import dev.aaronhowser.mods.geneticsresequenced.block.BioluminescenceBlock
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import net.minecraft.data.PackOutput
 import net.minecraft.world.level.block.Block
@@ -76,10 +77,12 @@ class ModBlockStateProvider(
                     .build()
             }
 
+        val lightLevel = BioluminescenceBlock.LIGHT_LEVEL
+
         simpleBlockItem(
             deferredBioluminescence.get(),
             ItemModelBuilder(
-                mcLoc("item/light_10"),
+                mcLoc("item/light_${lightLevel}"),
                 existingFileHelper
             )
         )

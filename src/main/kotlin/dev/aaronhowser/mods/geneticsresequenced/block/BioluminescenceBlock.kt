@@ -17,8 +17,12 @@ class BioluminescenceBlock :
             .instabreak()
             .noLootTable()
             .air()
-            .lightLevel { 10 }
+            .lightLevel { LIGHT_LEVEL }
     ) {
+
+    companion object {
+        const val LIGHT_LEVEL = 10
+    }
 
     override fun onPlace(
         pState: BlockState,
