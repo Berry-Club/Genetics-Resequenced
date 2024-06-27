@@ -96,6 +96,19 @@ repositories {
     repositories {
         maven { url "https://maven.shedaniel.me" }
     }
+
+    //Cursemaven
+    exclusiveContent {
+        forRepository {
+            maven {
+                url "https://cursemaven.com"
+            }
+        }
+        filter {
+            includeGroup "curse.maven"
+        }
+    }
+
 }
 
 dependencies {
@@ -105,8 +118,15 @@ dependencies {
     // Must use the '-neoforge' version on NeoForge. If on regular forge, omit the '-neoforge'
     implementation "thedarkcolour:kotlinforforge-neoforge:${kff_version}"
 
-    //REI (disabled bc incompat with current neoforge)
+    //REI
 //    implementation "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
+
+    // Mekanism
+//    implementation "curse.maven:mekanism-268560:5465725"
+
+    //EMI
+    implementation "curse.maven:emi-580555:5436759"
+
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
