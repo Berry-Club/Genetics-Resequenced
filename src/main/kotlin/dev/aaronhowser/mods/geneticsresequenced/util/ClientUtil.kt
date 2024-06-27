@@ -17,7 +17,7 @@ object ClientUtil {
     val localPlayer: LocalPlayer?
         get() = Minecraft.getInstance().player
 
-    fun playerIsCreative(): Boolean = localPlayer?.isCreative == true
+    fun playerIsCreative(): Boolean = localPlayer?.isCreative ?: false
 
     private val options: Options = Minecraft.getInstance().options
 
