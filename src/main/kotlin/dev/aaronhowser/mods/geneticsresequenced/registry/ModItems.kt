@@ -30,7 +30,7 @@ object ModItems {
     val ANTI_PLASMID: DeferredItem<AntiPlasmidItem> =
         ITEM_REGISTRY.registerItem("anti_plasmid") { AntiPlasmidItem() }
     val OVERCLOCKER: DeferredItem<Item> =
-        ITEM_REGISTRY.registerSimpleItem("overclocker")
+        ITEM_REGISTRY.registerSimpleItem("overclocker", Item.Properties().stacksTo(8))
     val ANTI_FIELD_ORB: DeferredItem<AntiFieldOrbItem> =
         ITEM_REGISTRY.registerItem("anti_field_orb") { AntiFieldOrbItem() }
     val DRAGON_HEALTH_CRYSTAL: DeferredItem<DragonHealthCrystal> =
