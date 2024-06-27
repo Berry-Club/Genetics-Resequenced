@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machines.blood_purifier.Bl
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.cell_analyzer.CellAnalyzerBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator.CoalGeneratorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_decryptor.DnaDecryptorBlock
+import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_extractor.DnaExtractorBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.neoforged.neoforge.registries.DeferredBlock
@@ -21,30 +22,20 @@ object ModBlocks {
         registerBlock("bioluminescence") { BioluminescenceBlock() }
     val COAL_GENERATOR: DeferredBlock<CoalGeneratorBlock> = registerBlock("coal_generator") { CoalGeneratorBlock() }
     val CELL_ANALYZER: DeferredBlock<CellAnalyzerBlock> = registerBlock("cell_analyzer") { CellAnalyzerBlock() }
-    val DNA_EXTRACTOR: DeferredBlock<Block> = registerSimpleBlock("dna_extractor")
+    val DNA_EXTRACTOR: DeferredBlock<Block> = registerBlock("dna_extractor") { DnaExtractorBlock() }
     val DNA_DECRYPTOR: DeferredBlock<DnaDecryptorBlock> = registerBlock("dna_decryptor") { DnaDecryptorBlock() }
     val BLOOD_PURIFIER: DeferredBlock<BloodPurifierBlock> = registerBlock("blood_purifier") { BloodPurifierBlock() }
-    val PLASMID_INFUSER: DeferredBlock<Block> = registerSimpleBlock("plasmid_infuser")
-    val PLASMID_INJECTOR: DeferredBlock<Block> = registerSimpleBlock("plasmid_injector")
-    val INCUBATOR: DeferredBlock<Block> = registerSimpleBlock("incubator")
-    val ADVANCED_INCUBATOR: DeferredBlock<Block> = registerSimpleBlock("advanced_incubator")
+    val PLASMID_INFUSER: DeferredBlock<Block> = registerBlock("plasmid_infuser")
+    val PLASMID_INJECTOR: DeferredBlock<Block> = registerBlock("plasmid_injector")
+    val INCUBATOR: DeferredBlock<Block> = registerBlock("incubator")
+    val ADVANCED_INCUBATOR: DeferredBlock<Block> = registerBlock("advanced_incubator")
     val ANTI_FIELD_BLOCK: DeferredBlock<AntiFieldBlock> = registerBlock("anti_field_block") { AntiFieldBlock() }
 
     private fun <T : Block> registerBlock(
         name: String,
-        supplier: () -> T
+        supplier: () -> T = { Block(BlockBehaviour.Properties.of()) as T }
     ): DeferredBlock<T> {
         val block = BLOCK_REGISTRY.register(name, supplier)
-
-        ModItems.ITEM_REGISTRY.registerSimpleBlockItem(name, block)
-
-        return block
-    }
-
-    private fun registerSimpleBlock(
-        name: String
-    ): DeferredBlock<Block> {
-        val block = BLOCK_REGISTRY.registerSimpleBlock(name, BlockBehaviour.Properties.of())
 
         ModItems.ITEM_REGISTRY.registerSimpleBlockItem(name, block)
 
