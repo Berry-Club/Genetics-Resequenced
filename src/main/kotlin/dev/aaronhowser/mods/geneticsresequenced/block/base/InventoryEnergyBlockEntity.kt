@@ -76,7 +76,8 @@ abstract class InventoryEnergyBlockEntity(
         }
     }
 
-    val energyStorage: ModEnergyStorage by lazy {
+    //TODO: Allow different blocks to prevent taking or inserting energy (cant take from machines, cant insert into generator)
+    open val energyStorage: ModEnergyStorage by lazy {
         object : ModEnergyStorage(energyMaximum, energyTransferMaximum) {
             override fun onEnergyChanged() {
                 setChanged()
