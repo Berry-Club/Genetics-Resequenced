@@ -32,20 +32,6 @@ class Gene(
         private set
     private var potionDetails: GeneBuilder.PotionDetails? = null
 
-    // FIXME: This is disgusting. Hopefully this is only temporary, and making it a registry will prevent this
-    init {
-        val originalGene = Registry.getRegistryUnsorted().find { it.id == id }
-
-        if (originalGene != null) {
-            isNegative = originalGene.isNegative
-            canMobsHave = originalGene.canMobsHave
-            dnaPointsRequired = originalGene.dnaPointsRequired
-            mutatesInto = originalGene.mutatesInto
-            potionDetails = originalGene.potionDetails
-            isHidden = originalGene.isHidden
-        }
-    }
-
     fun setDetails(
         isNegative: Boolean,
         canMobsHave: Boolean,
@@ -160,7 +146,10 @@ class Gene(
             { gene: Gene -> gene.id }
         )
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, Gene> = ResourceLocation.STREAM_CODEC.map(::Gene, Gene::id)
+        val STREAM_CODEC: StreamCodec<ByteBuf, Gene> = ResourceLocation.STREAM_CODEC.map(
+            { geneRl -> Registry.fromId(geneRl) ?: throw IllegalArgumentException("Unknown gene $geneRl") },
+            { gene -> gene.id }
+        )
 
     }
 
