@@ -21,8 +21,8 @@ object ModBlocks {
         registerBlock("bioluminescence") { BioluminescenceBlock() }
     val COAL_GENERATOR: DeferredBlock<CoalGeneratorBlock> = registerBlock("coal_generator") { CoalGeneratorBlock() }
     val CELL_ANALYZER: DeferredBlock<CellAnalyzerBlock> = registerBlock("cell_analyzer") { CellAnalyzerBlock() }
-    val DNA_EXTRACTOR: DeferredBlock<Block> = registerBlock("dna_extractor") { DnaDecryptorBlock() }
-    val DNA_DECRYPTOR: DeferredBlock<Block> = registerSimpleBlock("dna_decryptor")
+    val DNA_EXTRACTOR: DeferredBlock<Block> = registerSimpleBlock("dna_extractor")
+    val DNA_DECRYPTOR: DeferredBlock<DnaDecryptorBlock> = registerBlock("dna_decryptor") { DnaDecryptorBlock() }
     val BLOOD_PURIFIER: DeferredBlock<BloodPurifierBlock> = registerBlock("blood_purifier") { BloodPurifierBlock() }
     val PLASMID_INFUSER: DeferredBlock<Block> = registerSimpleBlock("plasmid_infuser")
     val PLASMID_INJECTOR: DeferredBlock<Block> = registerSimpleBlock("plasmid_injector")
