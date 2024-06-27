@@ -9,6 +9,8 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator.Co
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator.CoalGeneratorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_decryptor.DnaDecryptorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_decryptor.DnaDecryptorScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_extractor.DnaExtractorScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_extractor.DnaExtractorMenu
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.inventory.MenuType
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
@@ -36,6 +38,13 @@ object ModMenuTypes {
             }
         })
 
+    val DNA_EXTRACTOR: DeferredHolder<MenuType<*>, MenuType<DnaExtractorMenu>> =
+        MENU_TYPE_REGISTRY.register("dna_extractor", Supplier {
+            IMenuTypeExtension.create { id, inv, buf ->
+                DnaExtractorMenu(id, inv, buf)
+            }
+        })
+
     val DNA_DECRYPTOR: DeferredHolder<MenuType<*>, MenuType<DnaDecryptorMenu>> =
         MENU_TYPE_REGISTRY.register("dna_decryptor", Supplier {
             IMenuTypeExtension.create { id, inv, buf ->
@@ -53,6 +62,7 @@ object ModMenuTypes {
     fun registerScreens(event: RegisterMenuScreensEvent) {
         event.register(COAL_GENERATOR.get(), ::CoalGeneratorScreen)
         event.register(CELL_ANALYZER.get(), ::CellAnalyzerScreen)
+        event.register(DNA_EXTRACTOR.get(), ::DnaExtractorScreen)
         event.register(DNA_DECRYPTOR.get(), ::DnaDecryptorScreen)
         event.register(BLOOD_PURIFIER.get(), ::BloodPurifierScreen)
     }
