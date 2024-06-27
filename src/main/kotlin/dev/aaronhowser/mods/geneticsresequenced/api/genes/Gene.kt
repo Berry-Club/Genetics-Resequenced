@@ -147,8 +147,8 @@ class Gene(
         )
 
         val STREAM_CODEC: StreamCodec<ByteBuf, Gene> = ResourceLocation.STREAM_CODEC.map(
-            { geneRl -> Registry.fromId(geneRl) ?: throw IllegalArgumentException("Unknown gene $geneRl") },
-            { gene -> gene.id }
+            { id: ResourceLocation -> Registry.fromId(id) ?: throw IllegalArgumentException("Unknown gene $id") },
+            { gene: Gene -> gene.id }
         )
 
     }
