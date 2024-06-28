@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands
 import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirementRegistry
+import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.AddReloadListenerEvent

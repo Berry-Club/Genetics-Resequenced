@@ -4,9 +4,12 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.block.base.InventoryEnergyBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
+import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
+import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModCreativeModeTabs
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import net.minecraft.core.Direction
 import net.minecraft.world.entity.EntityType
@@ -19,6 +22,7 @@ import net.neoforged.fml.event.config.ModConfigEvent
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
 import net.neoforged.neoforge.energy.EnergyStorage
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent
 import net.neoforged.neoforge.items.IItemHandler
@@ -100,6 +104,14 @@ object ModBusEvents {
         if (!event.has(EntityType.PLAYER, ModAttributes.WALL_CLIMBING)) {
             event.add(EntityType.PLAYER, ModAttributes.WALL_CLIMBING)
         }
+    }
+
+    @SubscribeEvent
+    fun populateCreativeTabs(event: BuildCreativeModeTabContentsEvent) {
+        if (event.tab != ModCreativeModeTabs.MOD_TAB.get()) return
+
+        event.acceptAll(DnaHelixItem.getAllHelices())
+        event.acceptAll(PlasmidItem.getAllPlasmids())
     }
 
 }
