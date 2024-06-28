@@ -165,38 +165,38 @@ object BrewingRecipes {
 //            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.moreHeartsTwo, 0.25f, true)
 //        )
 //        allRecipes.addAll(mutationBrews)
-//
-//        val virusBrews = listOf(
-//            VirusRecipe(ModGenes.poisonImmunity, ModGenes.poison),
-//            VirusRecipe(ModGenes.witherHit, ModGenes.poisonFour),
-//            VirusRecipe(ModGenes.witherProof, ModGenes.wither),
-//            VirusRecipe(ModGenes.strength, ModGenes.weakness),
-//            VirusRecipe(ModGenes.nightVision, ModGenes.blindness),
-//            VirusRecipe(ModGenes.speed, ModGenes.slowness),
-//            VirusRecipe(ModGenes.speedTwo, ModGenes.slownessFour),
-//            VirusRecipe(ModGenes.speedFour, ModGenes.slownessSix),
-//            VirusRecipe(ModGenes.milky, ModGenes.nausea),
-//            VirusRecipe(ModGenes.meaty, ModGenes.nausea),
-//            VirusRecipe(ModGenes.layEgg, ModGenes.nausea),
-//            VirusRecipe(ModGenes.noHunger, ModGenes.hunger),
-//            VirusRecipe(ModGenes.fireProof, ModGenes.flambe),
-//            VirusRecipe(ModGenes.luck, ModGenes.cursed),
-//            VirusRecipe(ModGenes.haste, ModGenes.miningFatigue),
-//            VirusRecipe(ModGenes.scareCreepers, ModGenes.greenDeath),
-//            VirusRecipe(ModGenes.scareSkeletons, ModGenes.unUndeath),
-//            VirusRecipe(ModGenes.scareZombies, ModGenes.unUndeath),
-//            VirusRecipe(ModGenes.resistance, ModGenes.grayDeath),
-//            VirusRecipe(ModGenes.dragonsBreath, ModGenes.whiteDeath),
-//
-//            BlackDeathRecipe(),
-//
-//            BrewingRecipe(
-//                viralAgentsPotionStack.`asIngredient()`,
-//                ModItems.DNA_HELIX.itemStack.setGene(ModGenes.emeraldHeart).ingredient,
-//                potionStack(ZOMBIFY_VILLAGER)
-//            )
-//        )
-//        allRecipes.addAll(virusBrews)
+
+        val virusBrews = listOf(
+            VirusRecipe(ModGenes.poisonImmunity, ModGenes.poison),
+            VirusRecipe(ModGenes.witherHit, ModGenes.poisonFour),
+            VirusRecipe(ModGenes.witherProof, ModGenes.wither),
+            VirusRecipe(ModGenes.strength, ModGenes.weakness),
+            VirusRecipe(ModGenes.nightVision, ModGenes.blindness),
+            VirusRecipe(ModGenes.speed, ModGenes.slowness),
+            VirusRecipe(ModGenes.speedTwo, ModGenes.slownessFour),
+            VirusRecipe(ModGenes.speedFour, ModGenes.slownessSix),
+            VirusRecipe(ModGenes.milky, ModGenes.nausea),
+            VirusRecipe(ModGenes.meaty, ModGenes.nausea),
+            VirusRecipe(ModGenes.layEgg, ModGenes.nausea),
+            VirusRecipe(ModGenes.noHunger, ModGenes.hunger),
+            VirusRecipe(ModGenes.fireProof, ModGenes.flambe),
+            VirusRecipe(ModGenes.luck, ModGenes.cursed),
+            VirusRecipe(ModGenes.haste, ModGenes.miningFatigue),
+            VirusRecipe(ModGenes.scareCreepers, ModGenes.greenDeath),
+            VirusRecipe(ModGenes.scareSkeletons, ModGenes.unUndeath),
+            VirusRecipe(ModGenes.scareZombies, ModGenes.unUndeath),
+            VirusRecipe(ModGenes.resistance, ModGenes.grayDeath),
+            VirusRecipe(ModGenes.dragonsBreath, ModGenes.whiteDeath),
+
+            BlackDeathRecipe(),
+
+            BrewingRecipe(
+                ingredient(viralAgentsPotionStack),
+                ingredient(DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), ModGenes.emeraldHeart)),
+                OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER)
+            )
+        )
+        allRecipes.addAll(virusBrews)
 
         for (recipe in allRecipes) {
             event.builder.addRecipe(recipe)
