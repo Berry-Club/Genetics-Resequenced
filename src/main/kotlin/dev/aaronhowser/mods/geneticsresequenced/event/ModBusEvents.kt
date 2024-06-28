@@ -6,7 +6,6 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.InventoryEnergyBlockE
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
-import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
@@ -54,7 +53,6 @@ object ModBusEvents {
     @SubscribeEvent
     fun onCommonSetup(event: FMLCommonSetupEvent) {
         ModGenes.registerDefaultGenes()
-        BrewingRecipes.addRecipes()
     }
 
     @SubscribeEvent

@@ -12,7 +12,6 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.setPotion
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
-import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -21,6 +20,7 @@ import net.minecraft.world.item.alchemy.Potions
 import net.minecraft.world.item.crafting.Ingredient
 import net.neoforged.neoforge.common.brewing.BrewingRecipe
 import net.neoforged.neoforge.common.brewing.IBrewingRecipe
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 import net.neoforged.neoforge.registries.DeferredHolder
 import kotlin.jvm.optionals.getOrNull
@@ -105,7 +105,7 @@ object BrewingRecipes {
     val viralAgentsPotionStack by lazy { potionStack(ModPotions.VIRAL_AGENTS) }
     val curePotionStack by lazy { potionStack(ModPotions.PANACEA) }
 
-    fun addRecipes() {
+    fun addRecipes(event: RegisterBrewingRecipesEvent) {
 
         val substrateRecipe = BrewingRecipe(
             Potions.MUNDANE.asIngredient(),
@@ -127,7 +127,7 @@ object BrewingRecipes {
             Items.CHORUS_FRUIT.asIngredient(),
             viralAgentsPotionStack
         )
-        val cureRecipe = BrewingRecipe(
+        val panaceaRecipe = BrewingRecipe(
             ModPotions.VIRAL_AGENTS.asIngredient(),
             DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), ModGenes.emeraldHeart).asIngredient(),
             curePotionStack
@@ -139,7 +139,7 @@ object BrewingRecipes {
                 cellGrowthRecipe,
                 mutationRecipe,
                 viralRecipe,
-                cureRecipe
+                panaceaRecipe
             )
         )
 //
@@ -225,10 +225,10 @@ object BrewingRecipes {
 //            )
 //        )
 //        allRecipes.addAll(virusBrews)
-//
-//        for (recipe in allRecipes) {
-//            BrewingRecipeRegistry.addRecipe(recipe)
-//        }
+
+        for (recipe in allRecipes) {
+            event.builder.addRecipe(recipe)
+        }
 
     }
 
