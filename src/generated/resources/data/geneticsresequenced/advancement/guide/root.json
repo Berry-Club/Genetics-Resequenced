@@ -12,12 +12,13 @@
     }
   },
   "display": {
+    "background": "minecraft:textures/gui/advancements/backgrounds/adventure.png",
     "description": {
       "translate": "advancement.geneticsresequenced.scraper.desc"
     },
     "icon": {
       "count": 1,
-      "id": "geneticsresequenced:syringe"
+      "id": "geneticsresequenced:scraper"
     },
     "title": "Genetics: Resequenced"
   },

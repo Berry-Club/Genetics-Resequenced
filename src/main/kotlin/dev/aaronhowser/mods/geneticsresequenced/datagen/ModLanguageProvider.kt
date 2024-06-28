@@ -2,12 +2,18 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.data.PackOutput
+import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.MutableComponent
 import net.neoforged.neoforge.common.data.LanguageProvider
 
 class ModLanguageProvider(
     output: PackOutput
 ) : LanguageProvider(output, GeneticsResequenced.ID, "en_us") {
 
+    companion object {
+        val String.component: MutableComponent
+            get() = Component.translatable(this)
+    }
 
     object Items {
 

@@ -1,0 +1,44 @@
+{
+  "parent": "geneticsresequenced:guide/root",
+  "criteria": {
+    "metal_syringe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:metal_syringe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "syringe": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:syringe"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.geneticsresequenced.syringe.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "geneticsresequenced:syringe"
+    },
+    "title": {
+      "translate": "advancement.geneticsresequenced.syringe.title"
+    }
+  },
+  "requirements": [
+    [
+      "syringe",
+      "metal_syringe"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
