@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator.Co
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_decryptor.DnaDecryptorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_extractor.DnaExtractorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator.IncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator_advanced.AdvancedIncubatorBlockEntity
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -63,6 +64,14 @@ object ModBlockEntities {
             BlockEntityType.Builder.of(
                 { pos, state -> IncubatorBlockEntity(pos, state) },
                 ModBlocks.INCUBATOR.get()
+            ).build(null)
+        })
+
+    val ADVANCED_INCUBATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<AdvancedIncubatorBlockEntity>> =
+        BLOCK_ENTITY_REGISTRY.register("advanced_incubator", Supplier {
+            BlockEntityType.Builder.of(
+                { pos, state -> AdvancedIncubatorBlockEntity(pos, state) },
+                ModBlocks.ADVANCED_INCUBATOR.get()
             ).build(null)
         })
 

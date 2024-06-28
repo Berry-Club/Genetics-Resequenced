@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator
+package dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator_advanced
 
 import com.mojang.blaze3d.systems.RenderSystem
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
@@ -11,25 +11,26 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
 
-class IncubatorScreen(
-    pMenu: IncubatorMenu,
+class AdvancedIncubatorScreen(
+    pMenu: AdvancedIncubatorMenu,
     pPlayerInventory: Inventory,
     pTitle: Component
-) : AbstractContainerScreen<IncubatorMenu>(pMenu, pPlayerInventory, pTitle) {
+) : AbstractContainerScreen<AdvancedIncubatorMenu>(pMenu, pPlayerInventory, pTitle) {
 
     companion object {
         private const val FAST_BUBBLE_SPEED = 4
+        private const val SLOW_BUBBLE_SPEED = 40
     }
 
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
         RenderSystem.setShader { GameRenderer.getPositionTexShader() }
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f)
-        RenderSystem.setShaderTexture(0, ScreenTextures.Backgrounds.INCUBATOR)
+        RenderSystem.setShaderTexture(0, ScreenTextures.Backgrounds.INCUBATOR_ADVANCED)
         val x = (width - imageWidth) / 2
         val y = (height - imageHeight) / 2
 
         pGuiGraphics.blit(
-            ScreenTextures.Backgrounds.INCUBATOR,
+            ScreenTextures.Backgrounds.INCUBATOR_ADVANCED,
             x, y,
             0, 0,
             ScreenTextures.Backgrounds.TEXTURE_SIZE,
@@ -92,7 +93,26 @@ class IncubatorScreen(
 
     }
 
-    @Suppress("SameParameterValue")
+    override fun mouseClicked(pMouseX: Double, pMouseY: Double, pButton: Int): Boolean {
+        if (isMouseOverTemperature(pMouseX.toInt(), pMouseY.toInt(), leftPos, topPos)) {
+            this.minecraft?.gameMode?.handleInventoryButtonClick(this.menu.containerId, 1)
+            return true
+        }
+
+        return super.mouseClicked(pMouseX, pMouseY, pButton)
+    }
+
+    private fun isMouseOverTemperature(mouseX: Int, mouseY: Int, x: Int, y: Int): Boolean {
+        return isMouseOver(
+            mouseX, mouseY,
+            x, y,
+            ScreenTextures.Elements.Heat.Position.X,
+            ScreenTextures.Elements.Heat.Position.Y,
+            ScreenTextures.Elements.Heat.Dimensions.WIDTH,
+            ScreenTextures.Elements.Heat.Dimensions.HEIGHT
+        )
+    }
+
     private fun isMouseOver(
         mouseX: Int, mouseY: Int,
         x: Int, y: Int,
@@ -140,7 +160,10 @@ class IncubatorScreen(
     private fun renderBubble(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
         if (!menu.isCrafting) return
 
-        if (++bubblePosProgress % FAST_BUBBLE_SPEED == 0) {
+        val speed = if (menu.isHighTemperature) FAST_BUBBLE_SPEED else SLOW_BUBBLE_SPEED
+
+        bubblePosProgress++
+        if (bubblePosProgress % speed == 0) {
             bubblePos++
             bubblePosProgress = 0
         }
@@ -161,8 +184,11 @@ class IncubatorScreen(
         val hasEnergy = menu.blockEntity.energyStorage.energyStored != 0
         if (!hasEnergy) return
 
+        val texture =
+            if (menu.isHighTemperature) ScreenTextures.Elements.Heat.Texture.HIGH else ScreenTextures.Elements.Heat.Texture.LOW
+
         pGuiGraphics.blitSprite(
-            ScreenTextures.Elements.Heat.Texture.HIGH,
+            texture,
             ScreenTextures.Elements.Heat.TEXTURE_SIZE,
             ScreenTextures.Elements.Heat.TEXTURE_SIZE,
             0, 0,
@@ -171,7 +197,6 @@ class IncubatorScreen(
             ScreenTextures.Elements.Heat.Dimensions.WIDTH,
             ScreenTextures.Elements.Heat.Dimensions.HEIGHT
         )
-
     }
 
     override fun render(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {

@@ -13,6 +13,8 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_extractor.Dna
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_extractor.DnaExtractorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator.IncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator.IncubatorScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator_advanced.AdvancedIncubatorMenu
+import dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator_advanced.AdvancedIncubatorScreen
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.inventory.MenuType
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
@@ -68,6 +70,13 @@ object ModMenuTypes {
             }
         })
 
+    val ADVANCED_INCUBATOR: DeferredHolder<MenuType<*>, MenuType<AdvancedIncubatorMenu>> =
+        MENU_TYPE_REGISTRY.register("advanced_incubator", Supplier {
+            IMenuTypeExtension.create { id, inv, buf ->
+                AdvancedIncubatorMenu(id, inv, buf)
+            }
+        })
+
     fun registerScreens(event: RegisterMenuScreensEvent) {
         event.register(COAL_GENERATOR.get(), ::CoalGeneratorScreen)
         event.register(CELL_ANALYZER.get(), ::CellAnalyzerScreen)
@@ -75,6 +84,7 @@ object ModMenuTypes {
         event.register(DNA_DECRYPTOR.get(), ::DnaDecryptorScreen)
         event.register(BLOOD_PURIFIER.get(), ::BloodPurifierScreen)
         event.register(INCUBATOR.get(), ::IncubatorScreen)
+        event.register(ADVANCED_INCUBATOR.get(), ::AdvancedIncubatorScreen)
     }
 
 }

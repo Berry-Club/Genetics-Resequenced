@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator.Co
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_decryptor.DnaDecryptorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_extractor.DnaExtractorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator.IncubatorBlock
+import dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator_advanced.AdvancedIncubatorBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.neoforged.neoforge.registries.DeferredBlock
@@ -31,7 +32,7 @@ object ModBlocks {
     val PLASMID_INFUSER: DeferredBlock<Block> = registerBlock("plasmid_infuser")
     val PLASMID_INJECTOR: DeferredBlock<Block> = registerBlock("plasmid_injector")
     val INCUBATOR: DeferredBlock<IncubatorBlock> = registerBlock("incubator") { IncubatorBlock() }
-    val ADVANCED_INCUBATOR: DeferredBlock<Block> = registerBlock("advanced_incubator")
+    val ADVANCED_INCUBATOR: DeferredBlock<Block> = registerBlock("advanced_incubator") { AdvancedIncubatorBlock() }
 
     private fun <T : Block> registerBlock(
         name: String,
