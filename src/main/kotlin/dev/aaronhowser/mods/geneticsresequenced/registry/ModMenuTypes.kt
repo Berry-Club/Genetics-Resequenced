@@ -9,12 +9,14 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machine.coal_generator.Coa
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.coal_generator.CoalGeneratorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_decryptor.DnaDecryptorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_decryptor.DnaDecryptorScreen
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.DnaExtractorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.DnaExtractorMenu
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.DnaExtractorScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.PlasmidInfuserScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.PlasmidInfuserMenu
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.inventory.MenuType
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
@@ -56,6 +58,13 @@ object ModMenuTypes {
             }
         })
 
+    val PLASMID_INFUSER: DeferredHolder<MenuType<*>, MenuType<PlasmidInfuserMenu>> =
+        MENU_TYPE_REGISTRY.register("plasmid_infuser", Supplier {
+            IMenuTypeExtension.create { id, inv, buf ->
+                PlasmidInfuserMenu(id, inv, buf)
+            }
+        })
+
     val BLOOD_PURIFIER: DeferredHolder<MenuType<*>, MenuType<BloodPurifierMenu>> =
         MENU_TYPE_REGISTRY.register("blood_purifier", Supplier {
             IMenuTypeExtension.create { id, inv, buf ->
@@ -82,6 +91,7 @@ object ModMenuTypes {
         event.register(CELL_ANALYZER.get(), ::CellAnalyzerScreen)
         event.register(DNA_EXTRACTOR.get(), ::DnaExtractorScreen)
         event.register(DNA_DECRYPTOR.get(), ::DnaDecryptorScreen)
+        event.register(PLASMID_INFUSER.get(), ::PlasmidInfuserScreen)
         event.register(BLOOD_PURIFIER.get(), ::BloodPurifierScreen)
         event.register(INCUBATOR.get(), ::IncubatorScreen)
         event.register(ADVANCED_INCUBATOR.get(), ::AdvancedIncubatorScreen)

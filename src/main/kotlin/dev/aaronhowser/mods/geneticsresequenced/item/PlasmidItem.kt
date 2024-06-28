@@ -20,7 +20,7 @@ class PlasmidItem : Item(Properties()) {
             return itemStack.get(PlasmidProgressItemComponent.component)?.gene
         }
 
-        private fun setGene(itemStack: ItemStack, gene: Gene, amount: Int = 0) {
+        fun setGene(itemStack: ItemStack, gene: Gene, amount: Int = 0) {
             val component = PlasmidProgressItemComponent(
                 gene,
                 amount
@@ -28,7 +28,7 @@ class PlasmidItem : Item(Properties()) {
             itemStack.set(PlasmidProgressItemComponent.component, component)
         }
 
-        private fun getAmount(itemStack: ItemStack): Int {
+        fun getAmount(itemStack: ItemStack): Int {
             return itemStack.get(PlasmidProgressItemComponent.component)?.dnaPoints ?: 0
         }
 
