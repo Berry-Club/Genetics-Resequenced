@@ -12,11 +12,13 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_decryptor.DnaD
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.DnaExtractorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.DnaExtractorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.PlasmidInfuserScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector.PlasmidInjectorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.PlasmidInfuserMenu
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector.PlasmidInjectorMenu
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.inventory.MenuType
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
@@ -65,6 +67,13 @@ object ModMenuTypes {
             }
         })
 
+    val PLASMID_INJECTOR: DeferredHolder<MenuType<*>, MenuType<PlasmidInjectorMenu>> =
+        MENU_TYPE_REGISTRY.register("plasmid_injector", Supplier {
+            IMenuTypeExtension.create { id, inv, buf ->
+                PlasmidInjectorMenu(id, inv, buf)
+            }
+        })
+
     val BLOOD_PURIFIER: DeferredHolder<MenuType<*>, MenuType<BloodPurifierMenu>> =
         MENU_TYPE_REGISTRY.register("blood_purifier", Supplier {
             IMenuTypeExtension.create { id, inv, buf ->
@@ -92,6 +101,7 @@ object ModMenuTypes {
         event.register(DNA_EXTRACTOR.get(), ::DnaExtractorScreen)
         event.register(DNA_DECRYPTOR.get(), ::DnaDecryptorScreen)
         event.register(PLASMID_INFUSER.get(), ::PlasmidInfuserScreen)
+        event.register(PLASMID_INJECTOR.get(), ::PlasmidInjectorScreen)
         event.register(BLOOD_PURIFIER.get(), ::BloodPurifierScreen)
         event.register(INCUBATOR.get(), ::IncubatorScreen)
         event.register(ADVANCED_INCUBATOR.get(), ::AdvancedIncubatorScreen)

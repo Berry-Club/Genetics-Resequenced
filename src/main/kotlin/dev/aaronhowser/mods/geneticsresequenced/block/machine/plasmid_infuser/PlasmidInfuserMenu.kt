@@ -3,14 +3,23 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
+import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
+import net.minecraft.ChatFormatting
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.ContainerLevelAccess
 import net.minecraft.world.inventory.SimpleContainerData
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 import net.neoforged.neoforge.items.SlotItemHandler
 
 
@@ -82,6 +91,36 @@ class PlasmidInfuserMenu(
     }
 
     companion object {
+
+        fun showTooltip(event: ItemTooltipEvent) {
+            val hoverStack = event.itemStack
+            if (hoverStack.item != ModItems.DNA_HELIX.get()) return
+
+            val hoverGene = DnaHelixItem.getGene(hoverStack)
+
+            val slots = event.entity?.containerMenu?.slots ?: return
+            val plasmidSlotId = 37  //Evil magic number that i got by printing whatever slot I was hovering
+
+            val outputItem = slots.getOrNull(plasmidSlotId)?.item ?: return
+            val outputGene = PlasmidItem.getGene(outputItem) ?: return
+
+            val component =
+                when (hoverGene) {
+                    ModGenes.basic -> {
+                        ModLanguageProvider.Tooltips.INFUSER_BASIC.toComponent()
+                    }
+
+                    outputGene -> {
+                        ModLanguageProvider.Tooltips.INFUSER_MATCHING.toComponent()
+                    }
+
+                    else -> {
+                        ModLanguageProvider.Tooltips.INFUSER_MISMATCH.toComponent()
+                    }
+                }.withColor(ChatFormatting.GRAY)
+
+            event.toolTip.add(2, component)
+        }
 
         private const val DATA_PROGRESS_INDEX = 0
         private const val DATA_MAX_PROGRESS_INDEX = 1

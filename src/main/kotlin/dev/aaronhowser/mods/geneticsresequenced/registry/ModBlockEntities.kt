@@ -6,9 +6,10 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machine.cell_analyzer.Cell
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.coal_generator.CoalGeneratorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_decryptor.DnaDecryptorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.DnaExtractorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.PlasmidInfuserBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.PlasmidInfuserBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector.PlasmidInjectorBlockEntity
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -57,6 +58,14 @@ object ModBlockEntities {
             BlockEntityType.Builder.of(
                 { pos, state -> PlasmidInfuserBlockEntity(pos, state) },
                 ModBlocks.PLASMID_INFUSER.get()
+            ).build(null)
+        })
+
+    val PLASMID_INJECTOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<PlasmidInjectorBlockEntity>> =
+        BLOCK_ENTITY_REGISTRY.register("plasmid_injector", Supplier {
+            BlockEntityType.Builder.of(
+                { pos, state -> PlasmidInjectorBlockEntity(pos, state) },
+                ModBlocks.PLASMID_INJECTOR.get()
             ).build(null)
         })
 
