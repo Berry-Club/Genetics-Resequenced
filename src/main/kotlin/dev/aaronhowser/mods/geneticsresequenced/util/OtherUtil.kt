@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.ChatFormatting
+import net.minecraft.core.Holder
+import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.MutableComponent
@@ -11,6 +13,9 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
+import net.minecraft.world.item.alchemy.Potion
+import net.minecraft.world.item.alchemy.PotionContents
 import java.util.*
 
 object OtherUtil {
@@ -60,5 +65,16 @@ object OtherUtil {
         return entityType
     }
 
+    fun ItemStack.getPotionContents(): PotionContents? {
+        return this.get(DataComponents.POTION_CONTENTS)
+    }
+
+    fun ItemStack.setPotion(potion: Potion): ItemStack {
+        return PotionContents.createItemStack(Items.POTION, Holder.direct(potion))
+    }
+
+    fun ItemStack.setPotion(potion: Holder<Potion>): ItemStack {
+        return PotionContents.createItemStack(Items.POTION, potion)
+    }
 
 }

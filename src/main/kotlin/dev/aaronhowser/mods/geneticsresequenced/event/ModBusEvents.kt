@@ -4,7 +4,9 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.block.base.InventoryEnergyBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
+import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
@@ -16,6 +18,7 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.config.ModConfig
 import net.neoforged.fml.event.config.ModConfigEvent
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
 import net.neoforged.neoforge.energy.EnergyStorage
@@ -46,6 +49,12 @@ object ModBusEvents {
         if (config.modId == GeneticsResequenced.ID && config.type == ModConfig.Type.SERVER) {
             Gene.checkDeactivationConfig()
         }
+    }
+
+    @SubscribeEvent
+    fun onCommonSetup(event: FMLCommonSetupEvent) {
+        ModGenes.registerDefaultGenes()
+        BrewingRecipes.addRecipes()
     }
 
     @SubscribeEvent
