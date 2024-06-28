@@ -347,6 +347,7 @@
   "tooltip.geneticsresequenced.gmo_recipe.line2": "Otherwise, it always produces a %s Gene.",
   "tooltip.geneticsresequenced.gmo_recipe.line3": "Overclockers lower your chance, but Chorus Fruits increase it!",
   "tooltip.geneticsresequenced.helix_entity": "Entity: %1$s",
+  "tooltip.geneticsresequenced.item_magnet_blacklist": "Blacklisted from Item Magnet Gene",
   "tooltip.geneticsresequenced.plasmid.amount": "Gene Points: %d/%d",
   "tooltip.geneticsresequenced.plasmid.complete": "Plasmid is complete!",
   "tooltip.geneticsresequenced.plasmid.empty": "Empty Plasmid",

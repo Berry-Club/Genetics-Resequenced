@@ -25,7 +25,6 @@ class ModItemTagsProvider(
             .add(Items.SHEARS)
             .addTags(Tags.Items.TOOLS_SHEAR)
 
-        //TODO: Add tooltip to items that have this tag, if you have the Gene, config to disable
         this.tag(ModTags.MAGNET_ITEM_BLACKLIST)
             .add(Items.COBBLESTONE)
 

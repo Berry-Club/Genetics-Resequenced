@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machine.coal_generator.Coa
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.PlasmidInfuserMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector.PlasmidInjectorMenu
 import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
+import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.TeleportPlayerPacket
@@ -39,6 +40,7 @@ object ClientEvents {
     fun tooltip(event: ItemTooltipEvent) {
         handleScreens(event)
         BrewingRecipes.tooltip(event)
+        TickGenes.itemMagnetBlacklistTooltip(event)
     }
 
     private fun handleScreens(event: ItemTooltipEvent) {

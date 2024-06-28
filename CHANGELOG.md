@@ -25,3 +25,4 @@
 - The bubbles in the Incubator and Advanced Incubator now animate slower
 - Fixed broken tooltip for Basic Genes in the Plasmid Infuser
 - Changed Plasmid tooltip text color to Gray
+- Item Magnet will show in the tooltip that an item is blacklisted (configurable)

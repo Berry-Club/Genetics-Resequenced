@@ -2,14 +2,19 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
-import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
+import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.AntiFieldOrbItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
+import net.minecraft.ChatFormatting
 import net.minecraft.tags.EntityTypeTags
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
@@ -22,6 +27,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.LightLayer
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 import kotlin.math.max
 
 object TickGenes {
@@ -275,6 +281,21 @@ object TickGenes {
 
             itemEntity.playerTouch(player)
         }
+    }
+
+    fun itemMagnetBlacklistTooltip(event: ItemTooltipEvent) {
+        if (!ClientConfig.itemMagnetBlacklistTooltip.get()) return
+
+        val player = event.entity ?: return
+        if (!player.hasGene(ModGenes.itemMagnet)) return
+
+        val item = event.itemStack
+        if (!item.`is`(ModTags.MAGNET_ITEM_BLACKLIST)) return
+
+        val component = ModLanguageProvider.Tooltips.ITEM_MAGNET_BLACKLIST
+            .toComponent()
+            .withColor(ChatFormatting.DARK_GRAY)
+        event.toolTip.add(component)
     }
 
     fun handleXpMagnet(player: Player) {
