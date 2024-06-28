@@ -21,7 +21,7 @@ class VirusRecipe(
 
         val inputPotion = PotionUtils.getPotion(pBottomSlot)
 
-        return inputPotion != ModPotions.VIRAL_AGENTS
+        return inputPotion == ModPotions.VIRAL_AGENTS
     }
 
     override fun isIngredient(pTopSlot: ItemStack): Boolean {
