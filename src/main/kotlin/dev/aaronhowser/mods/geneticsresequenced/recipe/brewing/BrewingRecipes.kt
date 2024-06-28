@@ -8,7 +8,6 @@ import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.getPotionContents
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.world.item.ItemStack
@@ -22,7 +21,6 @@ import net.neoforged.neoforge.common.brewing.IBrewingRecipe
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
-import kotlin.jvm.optionals.getOrNull
 
 object BrewingRecipes {
 
@@ -34,11 +32,10 @@ object BrewingRecipes {
 
     fun tooltip(event: ItemTooltipEvent) {
         val stack = event.itemStack
-        val potionContents = stack.getPotionContents() ?: return
-        val itemPotion = potionContents.potion.getOrNull()?.value() ?: return
+        val itemPotion = OtherUtil.getPotion(stack) ?: return
 
         if (itemPotion == ModPotions.ZOMBIFY_VILLAGER || itemPotion == ModPotions.PANACEA) return
-        if (itemPotion !in modPotions) return
+        if (itemPotion.value() !in modPotions) return
 
         if (stack.item != Items.POTION) {
             event.toolTip.add(
@@ -118,9 +115,9 @@ object BrewingRecipes {
                 panaceaRecipe
             )
         )
-//
-//        val substrateDuplicationRecipe = SubstrateCellRecipe()
-//        allRecipes.add(substrateDuplicationRecipe)
+
+        val substrateDuplicationRecipe = SubstrateCellRecipe()
+        allRecipes.add(substrateDuplicationRecipe)
 //
 //        val setPcgEntityRecipe = SetPotionEntityRecipe()
 //        allRecipes.add(setPcgEntityRecipe)
