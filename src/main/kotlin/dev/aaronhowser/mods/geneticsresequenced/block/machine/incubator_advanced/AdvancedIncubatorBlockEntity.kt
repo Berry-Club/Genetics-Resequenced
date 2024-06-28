@@ -47,8 +47,7 @@ class AdvancedIncubatorBlockEntity(
         return ModLanguageProvider.Blocks.ADVANCED_INCUBATOR.toComponent()
     }
 
-    private val potionBrewing: PotionBrewing?
-        get() = level?.potionBrewing()
+    private val potionBrewing: PotionBrewing? by lazy { level?.potionBrewing() }
 
     override val amountOfItemSlots: Int = 6
     override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {
