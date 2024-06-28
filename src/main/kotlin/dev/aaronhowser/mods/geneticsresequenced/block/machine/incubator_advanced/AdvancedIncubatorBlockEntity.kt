@@ -3,12 +3,15 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advance
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity.Companion
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
+import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
+import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
@@ -24,6 +27,7 @@ import net.minecraft.world.item.alchemy.PotionBrewing
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.items.ItemStackHandler
+import kotlin.random.Random
 
 
 class AdvancedIncubatorBlockEntity(
@@ -198,6 +202,7 @@ class AdvancedIncubatorBlockEntity(
         }
     }
 
+    private val gmoRecipes by lazy { BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>() }
     override fun craftItem() {
         val topStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
 
@@ -212,29 +217,27 @@ class AdvancedIncubatorBlockEntity(
 
             var output = potionBrewing?.mix(topStack, bottleStack) ?: continue
 
-            //TODO
-//            if (output.item == ModItems.GMO_CELL.get() && !isHighTemperature) {
-//                val gmoRecipes = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
-//
-//                val thisRecipe = gmoRecipes.find {
-//                    it.ingredientItem == topStack.item
-//                            && it.entityType == EntityDnaItem.getEntityType(bottleStack)
-//                            && it.requiredPotion == PotionUtils.getPotion(bottleStack)
-//                } ?: continue
-//
-//                val chanceModifier = getMutationModifier()
-//                val chance = thisRecipe.geneChance + chanceModifier
-//                val nextFloat = Random.nextFloat()
-//
-//                if (nextFloat <= chance) {
-//                    output = thisRecipe.getSuccess()
-//                }
-//
-//                if (chanceModifier != 0f) {
-//                    val chorusStack = itemHandler.getStackInSlot(CHORUS_SLOT_INDEX)
-//                    chorusStack.shrink(1)
-//                }
-//            }
+            if (output.item == ModItems.GMO_CELL.get() && !isHighTemperature) {
+
+                val thisRecipe = gmoRecipes.find {
+                    it.ingredientItem == topStack.item
+                            && it.entityType == EntityDnaItem.getEntityType(bottleStack)
+                            && it.requiredPotion == OtherUtil.getPotion(bottleStack)
+                } ?: continue
+
+                val chanceModifier = getMutationModifier()
+                val chance = thisRecipe.geneChance + chanceModifier
+                val nextFloat = Random.nextFloat()
+
+                if (nextFloat <= chance) {
+                    output = thisRecipe.getSuccess()
+                }
+
+                if (chanceModifier != 0f) {
+                    val chorusStack = itemHandler.getStackInSlot(CHORUS_SLOT_INDEX)
+                    chorusStack.shrink(1)
+                }
+            }
 
             if (!output.isEmpty) {
                 itemHandler.setStackInSlot(slotIndex, output)
@@ -251,9 +254,21 @@ class AdvancedIncubatorBlockEntity(
         val topSlotStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
 
         potionBrewing?.apply {
-            if (hasMix(itemHandler.getStackInSlot(IncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX), topSlotStack)) return true
-            if (hasMix(itemHandler.getStackInSlot(IncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX), topSlotStack)) return true
-            if (hasMix(itemHandler.getStackInSlot(IncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX), topSlotStack)) return true
+            if (hasMix(
+                    itemHandler.getStackInSlot(IncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX),
+                    topSlotStack
+                )
+            ) return true
+            if (hasMix(
+                    itemHandler.getStackInSlot(IncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX),
+                    topSlotStack
+                )
+            ) return true
+            if (hasMix(
+                    itemHandler.getStackInSlot(IncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX),
+                    topSlotStack
+                )
+            ) return true
         }
 
         return false
