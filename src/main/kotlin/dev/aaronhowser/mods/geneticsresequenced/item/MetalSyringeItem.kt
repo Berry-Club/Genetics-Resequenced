@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.chat.Component
@@ -34,7 +34,7 @@ class MetalSyringeItem : SyringeItem() {
             if (isContaminated(syringeStack)) {
                 if (!pPlayer.level().isClientSide) {
                     pPlayer.sendSystemMessage(
-                        ModLanguageProvider.Messages.METAL_SYRINGE_CONTAMINATED.component
+                        ModLanguageProvider.Messages.METAL_SYRINGE_CONTAMINATED.toComponent()
                     )
                 }
                 return
@@ -60,7 +60,7 @@ class MetalSyringeItem : SyringeItem() {
             }
 
             if (entityUuid != pInteractionTarget.uuid) {
-                sendMessage(ModLanguageProvider.Messages.METAL_SYRINGE_MISMATCH.component)
+                sendMessage(ModLanguageProvider.Messages.METAL_SYRINGE_MISMATCH.toComponent())
                 return
             }
 
@@ -70,7 +70,7 @@ class MetalSyringeItem : SyringeItem() {
                 val genesCantAdd = syringeGenes.filter { it.isNegative }
                 for (gene in genesCantAdd) {
                     sendMessage(
-                        ModLanguageProvider.Messages.METAL_SYRINGE_NO_MOBS.component(
+                        ModLanguageProvider.Messages.METAL_SYRINGE_NO_MOBS.toComponent(
                             gene.nameComponent
                         )
                     )
@@ -165,9 +165,9 @@ class MetalSyringeItem : SyringeItem() {
 
     override fun getName(pStack: ItemStack): Component {
         return if (hasBlood(pStack)) {
-            ModLanguageProvider.Items.METAL_SYRINGE_FULL.component
+            ModLanguageProvider.Items.METAL_SYRINGE_FULL.toComponent()
         } else {
-            ModLanguageProvider.Items.METAL_SYRINGE_EMPTY.component
+            ModLanguageProvider.Items.METAL_SYRINGE_EMPTY.toComponent()
         }
     }
 

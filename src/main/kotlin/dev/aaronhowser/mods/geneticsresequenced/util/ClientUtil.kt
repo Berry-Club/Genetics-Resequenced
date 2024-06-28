@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.util
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
 import net.minecraft.client.Minecraft
@@ -104,14 +104,14 @@ object ClientUtil {
         ModScheduler.scheduleTaskInTicks(1) {
 
             val component = if (wasAdded) {
-                ModLanguageProvider.Messages.CRINGE_ADDED.component
+                ModLanguageProvider.Messages.CRINGE_ADDED.toComponent()
             } else {
-                ModLanguageProvider.Messages.CRINGE_REMOVED.component
+                ModLanguageProvider.Messages.CRINGE_REMOVED.toComponent()
             }.withStyle {
                 it.withHoverEvent(
                     HoverEvent(
                         HoverEvent.Action.SHOW_TEXT,
-                        ModLanguageProvider.Messages.CRINGE_CONFIG.component
+                        ModLanguageProvider.Messages.CRINGE_CONFIG.toComponent()
                     )
                 )
             }
@@ -141,12 +141,12 @@ object ClientUtil {
         ModScheduler.scheduleTaskInTicks(20 * countdownSeconds) {
             sendSystemMessage(
                 ModLanguageProvider.Messages.CRINGE_RELOADING
-                    .component
+                    .toComponent()
                     .withStyle {
                         it.withHoverEvent(
                             HoverEvent(
                                 HoverEvent.Action.SHOW_TEXT,
-                                ModLanguageProvider.Messages.CRINGE_CONFIG.component
+                                ModLanguageProvider.Messages.CRINGE_CONFIG.toComponent()
                             )
                         )
                     }

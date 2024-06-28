@@ -4,7 +4,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeAllGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -49,7 +49,7 @@ object RemoveAllGenesCommand {
         target.removeAllGenes()
 
         val component =
-            ModLanguageProvider.Commands.REMOVE_ALL_SINGLE.component(
+            ModLanguageProvider.Commands.REMOVE_ALL_SINGLE.toComponent(
                 target.displayName
             )
 
@@ -62,7 +62,7 @@ object RemoveAllGenesCommand {
         }
 
         val component =
-            ModLanguageProvider.Commands.REMOVE_ALL_MULTIPLE.component(
+            ModLanguageProvider.Commands.REMOVE_ALL_MULTIPLE.toComponent(
                 targets.size
             )
 

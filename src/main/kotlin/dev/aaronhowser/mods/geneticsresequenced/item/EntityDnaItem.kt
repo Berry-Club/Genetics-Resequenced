@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
@@ -60,13 +60,13 @@ open class EntityDnaItem : Item(Properties()) {
         if (entityType != null) {
             val component =
                 ModLanguageProvider.Tooltips.CELL_MOB
-                    .component(entityType.description)
+                    .toComponent(entityType.description)
                     .withColor(ChatFormatting.GRAY)
             pTooltipComponents.add(component)
         } else {
             val component =
                 ModLanguageProvider.Tooltips.CELL_NO_MOB
-                    .component
+                    .toComponent()
                     .withColor(ChatFormatting.GRAY)
             pTooltipComponents.add(component)
         }
@@ -75,7 +75,7 @@ open class EntityDnaItem : Item(Properties()) {
             if (ClientUtil.playerIsCreative()) {
                 val component =
                     ModLanguageProvider.Tooltips.CELL_CREATIVE
-                        .component
+                        .toComponent()
                         .withColor(ChatFormatting.GRAY)
 
                 pTooltipComponents.add(component)

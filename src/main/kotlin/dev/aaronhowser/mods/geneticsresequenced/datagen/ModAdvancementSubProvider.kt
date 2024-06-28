@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -39,7 +39,7 @@ class ModAdvancementSubProvider : AdvancementProvider.AdvancementGenerator {
                 .display(
                     ModItems.SCRAPER.get(),
                     Component.literal("Genetics: Resequenced"),
-                    ModLanguageProvider.Advancements.SCRAPER_DESC.component,
+                    ModLanguageProvider.Advancements.SCRAPER_DESC.toComponent(),
                     ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/adventure.png"),
                     AdvancementType.TASK,
                     true,
@@ -58,8 +58,8 @@ class ModAdvancementSubProvider : AdvancementProvider.AdvancementGenerator {
                 .parent(root)
                 .display(
                     ModBlocks.CELL_ANALYZER.get(),
-                    ModLanguageProvider.Advancements.ANALYZER_TITLE.component,
-                    ModLanguageProvider.Advancements.ANALYZER_DESC.component,
+                    ModLanguageProvider.Advancements.ANALYZER_TITLE.toComponent(),
+                    ModLanguageProvider.Advancements.ANALYZER_DESC.toComponent(),
                     null,
                     AdvancementType.TASK,
                     true, true, false
@@ -81,8 +81,8 @@ class ModAdvancementSubProvider : AdvancementProvider.AdvancementGenerator {
                 .parent(root)
                 .display(
                     ModItems.SYRINGE.get(),
-                    ModLanguageProvider.Advancements.SYRINGE_TITLE.component,
-                    ModLanguageProvider.Advancements.SYRINGE_DESC.component,
+                    ModLanguageProvider.Advancements.SYRINGE_TITLE.toComponent(),
+                    ModLanguageProvider.Advancements.SYRINGE_DESC.toComponent(),
                     null,
                     AdvancementType.TASK,
                     true, true, false

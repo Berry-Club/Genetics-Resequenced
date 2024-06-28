@@ -11,11 +11,7 @@ class ModLanguageProvider(
 ) : LanguageProvider(output, GeneticsResequenced.ID, "en_us") {
 
     companion object {
-        val String.component: MutableComponent
-            get() = Component.translatable(this)
-
-        fun String.component(vararg args: Any?): MutableComponent = Component.translatable(this, *args)
-
+        fun String.toComponent(vararg args: Any?): MutableComponent = Component.translatable(this, *args)
     }
 
     object Items {

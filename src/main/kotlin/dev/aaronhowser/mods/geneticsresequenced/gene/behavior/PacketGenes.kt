@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
@@ -39,7 +39,7 @@ object PacketGenes {
 
             val message = Component.empty()
                 .append(ModGenes.teleport.nameComponent)
-                .append(ModLanguageProvider.Cooldown.ENDED.component)
+                .append(ModLanguageProvider.Cooldown.ENDED.toComponent())
 
             player.sendSystemMessage(message)
         }

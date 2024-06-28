@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.h
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
@@ -62,7 +62,7 @@ object ClickGenes {
         val newlySheared = recentlySheered.add(target)
 
         if (!newlySheared) {
-            clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_WOOLY.component)
+            clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_WOOLY.toComponent())
             return
         }
 
@@ -120,7 +120,7 @@ object ClickGenes {
         val newlyMeated = recentlyMeated.add(target)
 
         if (!newlyMeated) {
-            clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_MEATY.component)
+            clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_MEATY.toComponent())
             return
         }
 
@@ -174,11 +174,11 @@ object ClickGenes {
 
         val clicker = event.entity
         if (!newlyMilked) {
-            clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_MILKY.component)
+            clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_MILKY.toComponent())
             return
         }
 
-        target.sendSystemMessage(ModLanguageProvider.Messages.MILK_MILKED.component)
+        target.sendSystemMessage(ModLanguageProvider.Messages.MILK_MILKED.toComponent())
 
         event.itemStack.shrink(1)
         clicker.addItem(ItemStack(Items.MILK_BUCKET))
@@ -378,7 +378,7 @@ object ClickGenes {
 
         player.removeGene(ModGenes.cringe)
         if (!player.level().isClientSide) {
-            player.sendSystemMessage(ModLanguageProvider.Messages.CRINGE_GRASS.component)
+            player.sendSystemMessage(ModLanguageProvider.Messages.CRINGE_GRASS.toComponent())
         }
     }
 

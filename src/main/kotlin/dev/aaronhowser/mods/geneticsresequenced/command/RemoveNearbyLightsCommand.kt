@@ -4,7 +4,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.commands.CommandSourceStack
@@ -40,7 +40,7 @@ object RemoveNearbyLightsCommand {
         if (range !in 1..100) {
             player.sendSystemMessage(
                 ModLanguageProvider.Commands.REMOVED_LIGHTS_RANGE_TOO_HIGH
-                    .component(100)
+                    .toComponent(100)
             )
             return 0
         }
@@ -75,7 +75,7 @@ object RemoveNearbyLightsCommand {
         }
 
         player.sendSystemMessage(
-            ModLanguageProvider.Commands.REMOVED_LIGHTS.component(
+            ModLanguageProvider.Commands.REMOVED_LIGHTS.toComponent(
                 lightSpots.size
             )
         )

@@ -2,10 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.InteractionResultHolder
@@ -83,7 +82,7 @@ class ScraperItem : Item(
         if (pInteractionTarget.type.`is`(ModTags.SCRAPER_ENTITY_BLACKLIST)) {
             if (!pPlayer.level().isClientSide) {
                 pPlayer.sendSystemMessage(
-                    ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.component
+                    ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent()
                 )
             }
 

@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machines.blood_purifier
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -53,7 +53,7 @@ class BloodPurifierBlockEntity(
     }
 
     override fun getDisplayName(): Component {
-        return ModLanguageProvider.Blocks.BLOOD_PURIFIER.component
+        return ModLanguageProvider.Blocks.BLOOD_PURIFIER.toComponent()
     }
 
     override fun craftItem() {

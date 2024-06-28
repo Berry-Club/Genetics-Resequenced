@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.a
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GenesItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
@@ -106,7 +106,7 @@ open class SyringeItem : Item(
 
                 for (removedGene in genesRemoved) {
                     entity.sendSystemMessage(
-                        ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_SUCCESS.component(
+                        ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_SUCCESS.toComponent(
                             removedGene.nameComponent
                         )
                     )
@@ -114,7 +114,7 @@ open class SyringeItem : Item(
 
                 for (notRemovedGene in genesNotRemoved) {
                     entity.sendSystemMessage(
-                        ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_FAIL.component(
+                        ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_FAIL.toComponent(
                             notRemovedGene.nameComponent
                         )
                     )
@@ -145,7 +145,7 @@ open class SyringeItem : Item(
 
                 for (addedGene in genesAdded) {
                     entity.sendSystemMessage(
-                        ModLanguageProvider.Messages.SYRINGE_INJECTED.component(
+                        ModLanguageProvider.Messages.SYRINGE_INJECTED.toComponent(
                             addedGene.nameComponent
                         )
                     )
@@ -153,7 +153,7 @@ open class SyringeItem : Item(
 
                 for (notAddedGene in genesNotAdded) {
                     entity.sendSystemMessage(
-                        ModLanguageProvider.Messages.SYRINGE_FAILED.component(
+                        ModLanguageProvider.Messages.SYRINGE_FAILED.toComponent(
                             notAddedGene.nameComponent
                         )
                     )
@@ -250,7 +250,7 @@ open class SyringeItem : Item(
         if (isContaminated(pStack)) {
             if (!pLevel.isClientSide) {
                 pLivingEntity.sendSystemMessage(
-                    ModLanguageProvider.Messages.SYRINGE_CONTAMINATED.component
+                    ModLanguageProvider.Messages.SYRINGE_CONTAMINATED.toComponent()
                 )
             }
             return
@@ -272,9 +272,9 @@ open class SyringeItem : Item(
 
     override fun getName(pStack: ItemStack): Component {
         return if (hasBlood(pStack)) {
-            ModLanguageProvider.Items.SYRINGE_FULL.component
+            ModLanguageProvider.Items.SYRINGE_FULL.toComponent()
         } else {
-            ModLanguageProvider.Items.SYRINGE_EMPTY.component
+            ModLanguageProvider.Items.SYRINGE_EMPTY.toComponent()
         }
     }
 
@@ -289,7 +289,7 @@ open class SyringeItem : Item(
         if (hasBlood(pStack) && bloodOwner != null) {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.SYRINGE_OWNER
-                    .component(bloodOwner)
+                    .toComponent(bloodOwner)
                     .withColor(ChatFormatting.GRAY)
             )
         }
@@ -297,7 +297,7 @@ open class SyringeItem : Item(
         if (isContaminated(pStack)) {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.SYRINGE_CONTAMINATED
-                    .component
+                    .toComponent()
                     .withColor(ChatFormatting.DARK_GREEN)
             )
         }
@@ -306,7 +306,7 @@ open class SyringeItem : Item(
         if (addingGenes.isNotEmpty()) {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.SYRINGE_ADDING_GENES
-                    .component
+                    .toComponent()
                     .withColor(ChatFormatting.GRAY)
             )
 
@@ -326,7 +326,7 @@ open class SyringeItem : Item(
         if (removingGenes.isNotEmpty()) {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.SYRINGE_REMOVING_GENES
-                    .component
+                    .toComponent()
                     .withColor(ChatFormatting.GRAY)
             )
 

@@ -5,7 +5,7 @@ import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -59,7 +59,7 @@ object AddAllGenesCommand {
         }
 
         val component =
-            ModLanguageProvider.Commands.ADD_ALL_MULTIPLE.component(
+            ModLanguageProvider.Commands.ADD_ALL_MULTIPLE.toComponent(
                 targets.size
             )
 
@@ -76,7 +76,7 @@ object AddAllGenesCommand {
         }
 
         val component =
-            ModLanguageProvider.Commands.ADD_ALL_SINGLE.component(
+            ModLanguageProvider.Commands.ADD_ALL_SINGLE.toComponent(
                 target.name
             )
 

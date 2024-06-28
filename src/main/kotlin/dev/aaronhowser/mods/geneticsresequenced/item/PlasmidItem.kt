@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
@@ -70,18 +70,20 @@ class PlasmidItem : Item(Properties()) {
         val gene = getGene(pStack)
 
         if (gene == null) {
-            pTooltipComponents.add(ModLanguageProvider.Tooltips.PLASMID_EMPTY.component)
+            pTooltipComponents.add(ModLanguageProvider.Tooltips.PLASMID_EMPTY.toComponent())
             return
         }
 
         pTooltipComponents.add(
             ModLanguageProvider.Tooltips.PLASMID_GENE
-                .component(gene.nameComponent)
+                .toComponent(gene.nameComponent)
         )
 
         if (isComplete(pStack)) {
             pTooltipComponents.add(
-                ModLanguageProvider.Tooltips.PLASMID_COMPLETE.component.withColor(ChatFormatting.GRAY)
+                ModLanguageProvider.Tooltips.PLASMID_COMPLETE
+                    .toComponent()
+                    .withColor(ChatFormatting.GRAY)
             )
         } else {
             val amountNeeded = gene.dnaPointsRequired
@@ -89,7 +91,7 @@ class PlasmidItem : Item(Properties()) {
 
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.PLASMID_PROGRESS
-                    .component(amount, amountNeeded)
+                    .toComponent(amount, amountNeeded)
                     .withColor(ChatFormatting.GRAY)
             )
         }

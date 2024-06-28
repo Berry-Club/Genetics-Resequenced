@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
@@ -90,7 +90,7 @@ object DeathGenes {
         val wasNotOnCooldown = emeraldHeartCooldown.add(entity)
 
         if (!wasNotOnCooldown) {
-            entity.sendSystemMessage(ModLanguageProvider.Messages.COOLDOWN_EMERALD_HEART.component)
+            entity.sendSystemMessage(ModLanguageProvider.Messages.COOLDOWN_EMERALD_HEART.toComponent())
             return
         }
 

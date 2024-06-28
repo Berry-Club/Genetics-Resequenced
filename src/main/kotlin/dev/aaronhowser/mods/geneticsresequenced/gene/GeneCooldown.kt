@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.LivingEntity
@@ -116,7 +116,7 @@ class GeneCooldown(
 
             val message = Component.empty()
                 .append(gene.nameComponent)
-                .append(ModLanguageProvider.Cooldown.STARTED.component(cooldownString))
+                .append(ModLanguageProvider.Cooldown.STARTED.toComponent(cooldownString))
 
             player.sendSystemMessage(message)
         }
@@ -124,7 +124,7 @@ class GeneCooldown(
         fun tellCooldownEnded(player: LivingEntity, gene: Gene) {
             val message = Component.empty()
                 .append(gene.nameComponent)
-                .append(ModLanguageProvider.Cooldown.ENDED.component)
+                .append(ModLanguageProvider.Cooldown.ENDED.toComponent())
 
             player.sendSystemMessage(message)
         }

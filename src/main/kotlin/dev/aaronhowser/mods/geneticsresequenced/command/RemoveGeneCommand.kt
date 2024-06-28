@@ -8,7 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.r
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_STRINGS
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -134,7 +134,7 @@ object RemoveGeneCommand {
 
         if (success) {
             val component =
-                ModLanguageProvider.Commands.REMOVE_SINGLE_SUCCESS.component(
+                ModLanguageProvider.Commands.REMOVE_SINGLE_SUCCESS.toComponent(
                     geneToRemove.nameComponent,
                     target.displayName
                 )
@@ -142,7 +142,7 @@ object RemoveGeneCommand {
             context.source.sendSuccess({ component }, false)
         } else {
             val component =
-                ModLanguageProvider.Commands.REMOVE_SINGLE_FAIL.component(
+                ModLanguageProvider.Commands.REMOVE_SINGLE_FAIL.toComponent(
                     geneToRemove.nameComponent,
                     target.displayName
                 )
@@ -166,7 +166,7 @@ object RemoveGeneCommand {
 
         if (amountSuccess != 0) {
             val component =
-                ModLanguageProvider.Commands.REMOVE_MULTIPLE_SUCCESS.component(
+                ModLanguageProvider.Commands.REMOVE_MULTIPLE_SUCCESS.toComponent(
                     geneToRemove.nameComponent,
                     amountSuccess
                 )
@@ -174,7 +174,7 @@ object RemoveGeneCommand {
         }
         if (amountFail != 0) {
             val component =
-                ModLanguageProvider.Commands.REMOVE_MULTIPLE_FAIL.component(
+                ModLanguageProvider.Commands.REMOVE_MULTIPLE_FAIL.toComponent(
                     geneToRemove.nameComponent,
                     amountFail
                 )

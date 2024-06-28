@@ -4,7 +4,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.network.chat.Component
@@ -19,7 +19,7 @@ object ListAllGenesCommand {
 
     private fun listAllGenes(context: CommandContext<CommandSourceStack>): Int {
 
-        val messageComponent = ModLanguageProvider.Commands.LIST_ALL_GENES.component
+        val messageComponent = ModLanguageProvider.Commands.LIST_ALL_GENES.toComponent()
 
         for (gene in Gene.Registry.getRegistry()) {
             val geneComponent = Component

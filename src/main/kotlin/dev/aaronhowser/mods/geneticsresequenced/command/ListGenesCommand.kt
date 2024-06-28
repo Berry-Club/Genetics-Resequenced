@@ -4,7 +4,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -39,14 +39,14 @@ object ListGenesCommand {
 
         if (targetGenesList.isEmpty()) {
             context.source.sendSuccess(
-                { ModLanguageProvider.Commands.NO_GENES.component },
+                { ModLanguageProvider.Commands.NO_GENES.toComponent() },
                 false
             )
             return 1
         }
 
         val messageComponent =
-            ModLanguageProvider.Commands.THEIR_GENES.component(
+            ModLanguageProvider.Commands.THEIR_GENES.toComponent(
                 target.displayName
             )
 

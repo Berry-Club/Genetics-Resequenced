@@ -3,10 +3,9 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator_advanc
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator.IncubatorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator.IncubatorBlockEntity.Companion
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
@@ -19,13 +18,10 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.PotionBrewing
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
-import net.neoforged.neoforge.items.IItemHandlerModifiable
 import net.neoforged.neoforge.items.ItemStackHandler
-import kotlin.random.Random
 
 
 class AdvancedIncubatorBlockEntity(
@@ -47,7 +43,7 @@ class AdvancedIncubatorBlockEntity(
     }
 
     override fun getDisplayName(): Component {
-        return ModLanguageProvider.Blocks.ADVANCED_INCUBATOR.component
+        return ModLanguageProvider.Blocks.ADVANCED_INCUBATOR.toComponent()
     }
 
     private val potionBrewing: PotionBrewing?

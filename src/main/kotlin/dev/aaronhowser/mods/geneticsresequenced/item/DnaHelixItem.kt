@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -54,7 +54,7 @@ class DnaHelixItem : EntityDnaItem() {
         } else {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.GENE
-                    .component(gene.nameComponent)
+                    .toComponent(gene.nameComponent)
                     .withColor(ChatFormatting.GRAY)
             )
         }
@@ -68,7 +68,7 @@ class DnaHelixItem : EntityDnaItem() {
 
         pTooltipComponents.add(
             ModLanguageProvider.Tooltips.GENE
-                .component(Gene.unknownGeneComponent)
+                .toComponent(Gene.unknownGeneComponent)
                 .withColor(ChatFormatting.GRAY)
         )
 
@@ -76,7 +76,7 @@ class DnaHelixItem : EntityDnaItem() {
         if (entity != null) {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.HELIX_ENTITY
-                    .component(entity.description)
+                    .toComponent(entity.description)
                     .withColor(ChatFormatting.GRAY)
             )
         }
@@ -87,7 +87,7 @@ class DnaHelixItem : EntityDnaItem() {
             if (isCreative) {
                 val component =
                     ModLanguageProvider.Tooltips.CELL_CREATIVE
-                        .component
+                        .toComponent()
                         .withColor(ChatFormatting.GRAY)
                 pTooltipComponents.add(component)
             }

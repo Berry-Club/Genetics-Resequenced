@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.CreativeModeTab
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -16,7 +16,7 @@ object ModCreativeModeTabs {
 
     val MOD_TAB: DeferredHolder<CreativeModeTab, CreativeModeTab> = TABS_REGISTRY.register("example", Supplier {
         CreativeModeTab.builder()
-            .title(ModLanguageProvider.Items.CREATIVE_TAB.component)
+            .title(ModLanguageProvider.Items.CREATIVE_TAB.toComponent())
             .icon { ModItems.SYRINGE.toStack() }
             .displayItems { _: CreativeModeTab.ItemDisplayParameters, output: CreativeModeTab.Output ->
 

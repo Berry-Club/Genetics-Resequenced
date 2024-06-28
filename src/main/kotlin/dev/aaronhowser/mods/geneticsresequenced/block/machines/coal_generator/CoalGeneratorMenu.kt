@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
@@ -115,7 +115,7 @@ class CoalGeneratorMenu(
                 event.toolTip.add(
                     2,
                     ModLanguageProvider.Tooltips.COAL_GEN_TOTAL_FE
-                        .component(feStringTotal)
+                        .toComponent(feStringTotal)
                         .withColor(ChatFormatting.GRAY)
                 )
             }
