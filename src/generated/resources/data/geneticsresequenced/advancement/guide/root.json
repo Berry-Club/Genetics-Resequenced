@@ -1,0 +1,30 @@
+{
+  "criteria": {
+    "scraper": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:scraper"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.geneticsresequenced.scraper.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "geneticsresequenced:syringe"
+    },
+    "title": "Genetics: Resequenced"
+  },
+  "requirements": [
+    [
+      "scraper"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
