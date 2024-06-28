@@ -70,6 +70,7 @@ object BrewingRecipes {
 
     }
 
+    //FIXME: Use PartialNBTIngredient or StrictNBTIngredient instead
     private val Potion.ingredient: Ingredient
         get() = Ingredient.of(PotionUtils.setPotion(ItemStack(Items.POTION), this))
 
