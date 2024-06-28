@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machines.cell_analyzer.Cel
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator.CoalGeneratorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_decryptor.DnaDecryptorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_extractor.DnaExtractorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator.IncubatorBlockEntity
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -54,6 +55,14 @@ object ModBlockEntities {
             BlockEntityType.Builder.of(
                 { pos, state -> BloodPurifierBlockEntity(pos, state) },
                 ModBlocks.BLOOD_PURIFIER.get()
+            ).build(null)
+        })
+
+    val INCUBATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<IncubatorBlockEntity>> =
+        BLOCK_ENTITY_REGISTRY.register("incubator", Supplier {
+            BlockEntityType.Builder.of(
+                { pos, state -> IncubatorBlockEntity(pos, state) },
+                ModBlocks.INCUBATOR.get()
             ).build(null)
         })
 

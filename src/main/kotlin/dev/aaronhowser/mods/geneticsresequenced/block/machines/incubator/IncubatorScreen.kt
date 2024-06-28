@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_extractor
+package dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator
 
 import com.mojang.blaze3d.systems.RenderSystem
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
@@ -11,28 +11,34 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
 
-class DnaExtractorScreen(
-    pMenu: DnaExtractorMenu,
+class IncubatorScreen(
+    pMenu: IncubatorMenu,
     pPlayerInventory: Inventory,
     pTitle: Component
-) : AbstractContainerScreen<DnaExtractorMenu>(pMenu, pPlayerInventory, pTitle) {
+) : AbstractContainerScreen<IncubatorMenu>(pMenu, pPlayerInventory, pTitle) {
+
+    companion object {
+        private const val FAST_BUBBLE_SPEED = 4
+    }
 
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
         RenderSystem.setShader { GameRenderer.getPositionTexShader() }
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f)
-        RenderSystem.setShaderTexture(0, ScreenTextures.Backgrounds.DNA_EXTRACTOR)
+        RenderSystem.setShaderTexture(0, ScreenTextures.Backgrounds.INCUBATOR)
         val x = (width - imageWidth) / 2
         val y = (height - imageHeight) / 2
 
         pGuiGraphics.blit(
-            ScreenTextures.Backgrounds.DNA_EXTRACTOR,
+            ScreenTextures.Backgrounds.INCUBATOR,
             x, y,
             0, 0,
             ScreenTextures.Backgrounds.TEXTURE_SIZE,
             ScreenTextures.Backgrounds.TEXTURE_SIZE
         )
 
+        renderHeat(pGuiGraphics, x, y)
         renderProgressArrow(pGuiGraphics, x, y)
+        renderBubble(pGuiGraphics, x, y)
         renderEnergyInfo(pGuiGraphics, x, y)
     }
 
@@ -46,8 +52,8 @@ class DnaExtractorScreen(
             ScreenTextures.Elements.Energy.TEXTURE_SIZE,
             0,
             0,
-            x + ScreenTextures.Elements.Energy.Location.Default.X,
-            y + ScreenTextures.Elements.Energy.Location.Default.Y,
+            x + ScreenTextures.Elements.Energy.Location.Incubator.X,
+            y + ScreenTextures.Elements.Energy.Location.Incubator.Y,
             0,
             ScreenTextures.Elements.Energy.TEXTURE_SIZE,
             (ScreenTextures.Elements.Energy.TEXTURE_SIZE * percent).toInt()
@@ -57,8 +63,8 @@ class DnaExtractorScreen(
     override fun renderLabels(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
         val x = (width - imageWidth) / 2
         val y = (height - imageHeight) / 2
-        renderEnergyAreaTooltip(pGuiGraphics, x, y, pMouseX, pMouseY)
 
+        renderEnergyAreaTooltip(pGuiGraphics, x, y, pMouseX, pMouseY)
         super.renderLabels(pGuiGraphics, pMouseX, pMouseY)
     }
 
@@ -66,8 +72,8 @@ class DnaExtractorScreen(
         if (isMouseOver(
                 pMouseX, pMouseY,
                 x, y,
-                ScreenTextures.Elements.Energy.Location.Default.X,
-                ScreenTextures.Elements.Energy.Location.Default.Y,
+                ScreenTextures.Elements.Energy.Location.Incubator.X,
+                ScreenTextures.Elements.Energy.Location.Incubator.Y,
                 ScreenTextures.Elements.Energy.Dimensions.WIDTH,
                 ScreenTextures.Elements.Energy.Dimensions.HEIGHT
             )
@@ -102,20 +108,71 @@ class DnaExtractorScreen(
         )
     }
 
+    //FIXME: Make it fill up instead of emptying
     private fun renderProgressArrow(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
         if (!menu.isCrafting) return
 
         pGuiGraphics.blitSprite(
-            ScreenTextures.Elements.ArrowRight.TEXTURE,
-            ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE,
-            ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE,
+            ScreenTextures.Elements.ArrowDown.TEXTURE,
+            ScreenTextures.Elements.ArrowDown.TEXTURE_SIZE,
+            ScreenTextures.Elements.ArrowDown.TEXTURE_SIZE,
             0,
             0,
             x + ScreenTextures.Elements.ArrowRight.Position.Blood.X,
             y + ScreenTextures.Elements.ArrowRight.Position.Blood.Y,
             menu.getScaledProgress(),
-            ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
+            ScreenTextures.Elements.ArrowDown.TEXTURE_SIZE
         )
+    }
+
+    private var bubblePosProgress = 0
+    private var bubblePos = 0
+        set(value) {
+            field = value
+
+            val amountOverMax = bubblePos - ScreenTextures.Elements.Bubbles.Dimensions.HEIGHT
+            if (amountOverMax > 0) {
+                field = amountOverMax
+            }
+        }
+
+    //FIXME: Make the bubbles go up instead of down
+    private fun renderBubble(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
+        if (!menu.isCrafting) return
+
+        if (++bubblePosProgress % FAST_BUBBLE_SPEED == 0) {
+            bubblePos++
+            bubblePosProgress = 0
+        }
+
+        val amountBubbleToRender = ScreenTextures.Elements.Bubbles.Dimensions.HEIGHT - bubblePos
+
+        pGuiGraphics.blitSprite(
+            ScreenTextures.Elements.Bubbles.TEXTURE,
+            x + ScreenTextures.Elements.Bubbles.Position.X,
+            y + ScreenTextures.Elements.Bubbles.Position.Y + (ScreenTextures.Elements.Bubbles.Dimensions.HEIGHT - amountBubbleToRender),
+            0,
+            ScreenTextures.Elements.Bubbles.Dimensions.WIDTH,
+            ScreenTextures.Elements.Bubbles.Dimensions.HEIGHT - amountBubbleToRender
+        )
+    }
+
+    private fun renderHeat(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
+        val hasEnergy = menu.blockEntity.energyStorage.energyStored != 0
+        if (!hasEnergy) return
+
+        pGuiGraphics.blitSprite(
+            ScreenTextures.Elements.Heat.Texture.HIGH,
+            ScreenTextures.Elements.Heat.TEXTURE_SIZE,
+            ScreenTextures.Elements.Heat.TEXTURE_SIZE,
+            0,
+            0,
+            x + ScreenTextures.Elements.Heat.Position.X,
+            y + ScreenTextures.Elements.Heat.Position.Y,
+            ScreenTextures.Elements.Heat.Dimensions.WIDTH,
+            ScreenTextures.Elements.Heat.Dimensions.HEIGHT
+        )
+
     }
 
     override fun render(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {

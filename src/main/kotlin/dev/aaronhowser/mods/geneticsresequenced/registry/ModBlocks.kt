@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machines.cell_analyzer.Cel
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator.CoalGeneratorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_decryptor.DnaDecryptorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_extractor.DnaExtractorBlock
+import dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator.IncubatorBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.neoforged.neoforge.registries.DeferredBlock
@@ -20,6 +21,8 @@ object ModBlocks {
 
     val BIOLUMINESCENCE_BLOCK: DeferredBlock<BioluminescenceBlock> =
         registerBlock("bioluminescence") { BioluminescenceBlock() }
+    val ANTI_FIELD_BLOCK: DeferredBlock<AntiFieldBlock> = registerBlock("anti_field_block") { AntiFieldBlock() }
+
     val COAL_GENERATOR: DeferredBlock<CoalGeneratorBlock> = registerBlock("coal_generator") { CoalGeneratorBlock() }
     val CELL_ANALYZER: DeferredBlock<CellAnalyzerBlock> = registerBlock("cell_analyzer") { CellAnalyzerBlock() }
     val DNA_EXTRACTOR: DeferredBlock<Block> = registerBlock("dna_extractor") { DnaExtractorBlock() }
@@ -27,9 +30,8 @@ object ModBlocks {
     val BLOOD_PURIFIER: DeferredBlock<BloodPurifierBlock> = registerBlock("blood_purifier") { BloodPurifierBlock() }
     val PLASMID_INFUSER: DeferredBlock<Block> = registerBlock("plasmid_infuser")
     val PLASMID_INJECTOR: DeferredBlock<Block> = registerBlock("plasmid_injector")
-    val INCUBATOR: DeferredBlock<Block> = registerBlock("incubator")
+    val INCUBATOR: DeferredBlock<IncubatorBlock> = registerBlock("incubator") { IncubatorBlock() }
     val ADVANCED_INCUBATOR: DeferredBlock<Block> = registerBlock("advanced_incubator")
-    val ANTI_FIELD_BLOCK: DeferredBlock<AntiFieldBlock> = registerBlock("anti_field_block") { AntiFieldBlock() }
 
     private fun <T : Block> registerBlock(
         name: String,

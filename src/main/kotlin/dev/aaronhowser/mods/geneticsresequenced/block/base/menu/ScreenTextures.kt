@@ -22,6 +22,16 @@ object ScreenTextures {
         object ArrowDown {
             val TEXTURE = OtherUtil.modResource("arrow_down")
             const val TEXTURE_SIZE = 32
+
+            object Dimensions {
+                const val WIDTH = 9
+                const val HEIGHT = 28
+            }
+
+            object Position {
+                const val X = 101
+                const val Y = 14
+            }
         }
 
         object ArrowRight {
@@ -50,6 +60,16 @@ object ScreenTextures {
         object Bubbles {
             val TEXTURE = OtherUtil.modResource("bubbles")
             const val TEXTURE_SIZE = 32
+
+            object Position {
+                const val X = 67
+                const val Y = 12
+            }
+
+            object Dimensions {
+                const val WIDTH = 11
+                const val HEIGHT = 29
+            }
         }
 
         object Burn {
@@ -91,10 +111,22 @@ object ScreenTextures {
         }
 
         object Heat {
-            val HIGH = OtherUtil.modResource("heat_high")
-            val LOW = OtherUtil.modResource("heat_low")
+            object Texture {
+                val HIGH = OtherUtil.modResource("heat_high")
+                val LOW = OtherUtil.modResource("heat_low")
+            }
 
             const val TEXTURE_SIZE = 32
+
+            object Dimensions {
+                const val WIDTH = 18
+                const val HEIGHT = 4
+            }
+
+            object Position {
+                const val X = 64
+                const val Y = 42
+            }
         }
 
     }
