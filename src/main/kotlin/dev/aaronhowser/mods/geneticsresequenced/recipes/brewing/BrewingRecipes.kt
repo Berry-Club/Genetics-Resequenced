@@ -37,11 +37,12 @@ object BrewingRecipes {
 
     fun tooltip(event: ItemTooltipEvent) {
         val stack = event.itemStack
-
         val itemPotion = PotionUtils.getPotion(stack)
-        if (itemPotion == Potions.EMPTY || itemPotion == ZOMBIFY_VILLAGER) return
 
-        if (itemPotion in modPotions && stack.item != Items.POTION) {
+        if (itemPotion !in modPotions) return
+        if (itemPotion == ZOMBIFY_VILLAGER || itemPotion == THE_CURE) return
+
+        if (stack.item != Items.POTION) {
             event.toolTip.add(
                 Component.translatable("tooltip.geneticsresequenced.potion.ignore")
                     .withStyle { it.withColor(ChatFormatting.RED) }
@@ -150,7 +151,7 @@ object BrewingRecipes {
             GmoRecipe(EntityType.ENDERMAN, Items.ENDER_PEARL, ModGenes.teleport, 0.45f),
             GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.moreHearts, 0.2f),
             GmoRecipe(EntityType.MOOSHROOM, Items.MUSHROOM_STEM, ModGenes.photosynthesis, 0.7f),
-            )
+        )
         allRecipes.addAll(geneFocusBrews)
 
         val mutationBrews = listOf(
@@ -161,10 +162,22 @@ object BrewingRecipes {
             GmoRecipe(EntityType.RABBIT, Items.DIAMOND_BOOTS, ModGenes.speedTwo, 0.5f, isMutation = true),
             GmoRecipe(EntityType.OCELOT, Items.NETHERITE_BOOTS, ModGenes.speedFour, 0.5f, isMutation = true),
             GmoRecipe(EntityType.RABBIT, Items.NETHERITE_PICKAXE, ModGenes.hasteTwo, 0.35f, isMutation = true),
-            GmoRecipe(EntityType.SILVERFISH, Items.NETHERITE_PICKAXE, ModGenes.efficiencyFour, 0.25f, isMutation = true),
+            GmoRecipe(
+                EntityType.SILVERFISH,
+                Items.NETHERITE_PICKAXE,
+                ModGenes.efficiencyFour,
+                0.25f,
+                isMutation = true
+            ),
             GmoRecipe(EntityType.ZOMBIE, Items.FERMENTED_SPIDER_EYE, ModGenes.scareZombies, 0.5f, isMutation = true),
             GmoRecipe(EntityType.SPIDER, Items.FERMENTED_SPIDER_EYE, ModGenes.scareSpiders, 0.5f, isMutation = true),
-            GmoRecipe(EntityType.ENDER_DRAGON, Items.ENCHANTED_GOLDEN_APPLE, ModGenes.regenerationFour, 0.35f, isMutation = true),
+            GmoRecipe(
+                EntityType.ENDER_DRAGON,
+                Items.ENCHANTED_GOLDEN_APPLE,
+                ModGenes.regenerationFour,
+                0.35f,
+                isMutation = true
+            ),
             GmoRecipe(EntityType.PIG, Items.BLAZE_POWDER, ModGenes.meatyTwo, 0.75f, isMutation = true),
             GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.moreHeartsTwo, 0.25f, true)
         )
