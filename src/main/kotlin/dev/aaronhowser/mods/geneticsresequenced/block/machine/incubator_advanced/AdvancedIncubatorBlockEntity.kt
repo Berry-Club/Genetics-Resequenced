@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advance
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity.Companion
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -248,17 +249,14 @@ class AdvancedIncubatorBlockEntity(
         if (!hasEnoughEnergy()) return false
 
         val topSlotStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
-        val bottleStacks =
-            listOf(
-                itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX),
-                itemHandler.getStackInSlot(MIDDLE_BOTTLE_SLOT_INDEX),
-                itemHandler.getStackInSlot(RIGHT_BOTTLE_SLOT_INDEX)
-            )
 
-        return bottleStacks.any {
-            potionBrewing?.hasPotionMix(it, topSlotStack) ?: false
+        potionBrewing?.apply {
+            if (hasMix(itemHandler.getStackInSlot(IncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX), topSlotStack)) return true
+            if (hasMix(itemHandler.getStackInSlot(IncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX), topSlotStack)) return true
+            if (hasMix(itemHandler.getStackInSlot(IncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX), topSlotStack)) return true
         }
 
+        return false
     }
 
     companion object {

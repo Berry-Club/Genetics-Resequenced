@@ -127,9 +127,11 @@ class IncubatorBlockEntity(
 
     override fun tick() {
 
-        if (!isBrewing && hasRecipe()) {
+        val hasRecipe = hasRecipe()
+
+        if (!isBrewing && hasRecipe) {
             ticksRemaining = ticksPerBrew
-        } else if (!hasRecipe()) {
+        } else if (!hasRecipe) {
             ticksRemaining = 0
             return
         }
@@ -171,17 +173,14 @@ class IncubatorBlockEntity(
         if (!hasEnoughEnergy()) return false
 
         val topSlotStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
-        val bottleStacks =
-            listOf(
-                itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX),
-                itemHandler.getStackInSlot(MIDDLE_BOTTLE_SLOT_INDEX),
-                itemHandler.getStackInSlot(RIGHT_BOTTLE_SLOT_INDEX)
-            )
 
-        return bottleStacks.any {
-            potionBrewing?.hasPotionMix(it, topSlotStack) ?: false
+        potionBrewing?.apply {
+            if (hasMix(itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX), topSlotStack)) return true
+            if (hasMix(itemHandler.getStackInSlot(MIDDLE_BOTTLE_SLOT_INDEX), topSlotStack)) return true
+            if (hasMix(itemHandler.getStackInSlot(RIGHT_BOTTLE_SLOT_INDEX), topSlotStack)) return true
         }
 
+        return false
     }
 
     companion object {
