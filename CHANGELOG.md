@@ -13,3 +13,4 @@
 - Attributes Modifiers now use a UUID rather than just the name. This may cause problems if you already had that attribute modifier.
 - Support Slime now only checks if it should despawn once every 40 ticks rather than every tick, which should improve performance.
 - Fixed Virus recipes being broken
+- Fixed Incubator and Advanced Incubator from not working (hasRecipe() returned false hasEnoughEnergy was true rather than when false)

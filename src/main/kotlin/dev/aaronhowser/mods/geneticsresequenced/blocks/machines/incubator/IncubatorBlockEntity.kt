@@ -162,7 +162,7 @@ class IncubatorBlockEntity(
     }
 
     override fun hasRecipe(): Boolean {
-        if (hasEnoughEnergy()) return false
+        if (!hasEnoughEnergy()) return false
 
         val topSlotStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
         val bottleStacks =
