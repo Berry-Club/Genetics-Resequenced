@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machines.cell_analyzer
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setMob
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
@@ -54,7 +56,7 @@ class CellAnalyzerBlockEntity(
     }
 
     override fun getDisplayName(): Component {
-        return Component.translatable("block.geneticsresequenced.cell_analyzer")
+        return ModLanguageProvider.Blocks.CELL_ANALYZER.component
     }
 
     override fun craftItem() {

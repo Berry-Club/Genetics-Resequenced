@@ -13,6 +13,9 @@ class ModLanguageProvider(
     companion object {
         val String.component: MutableComponent
             get() = Component.translatable(this)
+
+        fun String.component(vararg args: Any?): MutableComponent = Component.translatable(this, *args)
+
     }
 
     object Items {

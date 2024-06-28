@@ -3,6 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
@@ -41,7 +43,7 @@ class IncubatorBlockEntity(
     }
 
     override fun getDisplayName(): Component {
-        return Component.translatable("block.geneticsresequenced.incubator")
+        return ModLanguageProvider.Blocks.INCUBATOR.component
     }
 
     private val potionBrewing: PotionBrewing?

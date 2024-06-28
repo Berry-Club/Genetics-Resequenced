@@ -2,9 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
@@ -70,28 +70,26 @@ class PlasmidItem : Item(Properties()) {
         val gene = getGene(pStack)
 
         if (gene == null) {
-            pTooltipComponents.add(Component.translatable(ModLanguageProvider.Tooltips.PLASMID_EMPTY))
+            pTooltipComponents.add(ModLanguageProvider.Tooltips.PLASMID_EMPTY.component)
             return
         }
 
-
         pTooltipComponents.add(
-            Component.translatable(ModLanguageProvider.Tooltips.PLASMID_GENE, gene.nameComponent)
+            ModLanguageProvider.Tooltips.PLASMID_GENE
+                .component(gene.nameComponent)
         )
 
         if (isComplete(pStack)) {
             pTooltipComponents.add(
-                Component
-                    .translatable(ModLanguageProvider.Tooltips.PLASMID_COMPLETE)
-                    .withColor(ChatFormatting.GRAY)
+                ModLanguageProvider.Tooltips.PLASMID_COMPLETE.component.withColor(ChatFormatting.GRAY)
             )
         } else {
             val amountNeeded = gene.dnaPointsRequired
             val amount = getAmount(pStack)
 
             pTooltipComponents.add(
-                Component
-                    .translatable(ModLanguageProvider.Tooltips.PLASMID_PROGRESS, amount, amountNeeded)
+                ModLanguageProvider.Tooltips.PLASMID_PROGRESS
+                    .component(amount, amountNeeded)
                     .withColor(ChatFormatting.GRAY)
             )
         }

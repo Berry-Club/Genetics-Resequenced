@@ -5,16 +5,16 @@ import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
-import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_STRINGS
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
+import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_STRINGS
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.commands.arguments.ResourceLocationArgument
-import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
@@ -136,19 +136,18 @@ object AddGeneCommand {
 
         if (geneWasAdded) {
             val component =
-                Component.translatable(
-                    ModLanguageProvider.Commands.ADD_SINGLE_SUCCESS,
+                ModLanguageProvider.Commands.ADD_SINGLE_SUCCESS.component(
                     geneToAdd.nameComponent,
                     target.name
                 )
 
             context.source.sendSuccess({ component }, false)
         } else {
-            val component = Component.translatable(
-                ModLanguageProvider.Commands.ADD_SINGLE_FAIL,
-                geneToAdd.nameComponent,
-                target.name
-            )
+            val component =
+                ModLanguageProvider.Commands.ADD_SINGLE_FAIL.component(
+                    geneToAdd.nameComponent,
+                    target.name
+                )
 
             context.source.sendFailure(component)
         }
@@ -169,8 +168,7 @@ object AddGeneCommand {
 
         if (amountSuccess != 0) {
             val component =
-                Component.translatable(
-                    ModLanguageProvider.Commands.ADD_MULTIPLE_SUCCESS,
+                ModLanguageProvider.Commands.ADD_MULTIPLE_SUCCESS.component(
                     geneToAdd.nameComponent,
                     amountSuccess
                 )
@@ -179,11 +177,11 @@ object AddGeneCommand {
         }
 
         if (amountFail != 0) {
-            val component = Component.translatable(
-                ModLanguageProvider.Commands.ADD_MULTIPLE_FAIL,
-                geneToAdd.nameComponent,
-                amountFail
-            )
+            val component =
+                ModLanguageProvider.Commands.ADD_MULTIPLE_FAIL.component(
+                    geneToAdd.nameComponent,
+                    amountFail
+                )
             context.source.sendFailure(component)
         }
     }

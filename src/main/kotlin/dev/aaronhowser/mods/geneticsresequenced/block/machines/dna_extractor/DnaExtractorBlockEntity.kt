@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_extractor
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setMob
@@ -55,7 +57,7 @@ class DnaExtractorBlockEntity(
     }
 
     override fun getDisplayName(): Component {
-        return Component.translatable("block.geneticsresequenced.dna_extractor")
+        return ModLanguageProvider.Blocks.DNA_EXTRACTOR.component
     }
 
 

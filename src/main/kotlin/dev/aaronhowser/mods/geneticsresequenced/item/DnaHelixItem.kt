@@ -3,11 +3,11 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
@@ -53,10 +53,9 @@ class DnaHelixItem : EntityDnaItem() {
             showNoGeneTooltips(pStack, pTooltipComponents)
         } else {
             pTooltipComponents.add(
-                Component.translatable(
-                    ModLanguageProvider.Tooltips.GENE,
-                    gene.nameComponent
-                ).withColor(ChatFormatting.GRAY)
+                ModLanguageProvider.Tooltips.GENE
+                    .component(gene.nameComponent)
+                    .withColor(ChatFormatting.GRAY)
             )
         }
 
@@ -68,19 +67,17 @@ class DnaHelixItem : EntityDnaItem() {
     ) {
 
         pTooltipComponents.add(
-            Component.translatable(
-                ModLanguageProvider.Tooltips.GENE,
-                Gene.unknownGeneComponent
-            ).withColor(ChatFormatting.GRAY)
+            ModLanguageProvider.Tooltips.GENE
+                .component(Gene.unknownGeneComponent)
+                .withColor(ChatFormatting.GRAY)
         )
 
         val entity = getEntityType(pStack)
         if (entity != null) {
             pTooltipComponents.add(
-                Component.translatable(
-                    ModLanguageProvider.Tooltips.HELIX_ENTITY,
-                    entity.description
-                ).withColor(ChatFormatting.GRAY)
+                ModLanguageProvider.Tooltips.HELIX_ENTITY
+                    .component(entity.description)
+                    .withColor(ChatFormatting.GRAY)
             )
         }
 
@@ -89,7 +86,9 @@ class DnaHelixItem : EntityDnaItem() {
 
             if (isCreative) {
                 val component =
-                    Component.translatable(ModLanguageProvider.Tooltips.CELL_CREATIVE).withColor(ChatFormatting.GRAY)
+                    ModLanguageProvider.Tooltips.CELL_CREATIVE
+                        .component
+                        .withColor(ChatFormatting.GRAY)
                 pTooltipComponents.add(component)
             }
         } catch (e: Exception) {

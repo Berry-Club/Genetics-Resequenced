@@ -4,6 +4,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.commands.CommandSourceStack
@@ -39,10 +40,8 @@ object RemoveNearbyLightsCommand {
 
         if (range !in 1..100) {
             player.sendSystemMessage(
-                Component.translatable(
-                    ModLanguageProvider.Commands.REMOVED_LIGHTS_RANGE_TOO_HIGH,
-                    100
-                )
+                ModLanguageProvider.Commands.REMOVED_LIGHTS_RANGE_TOO_HIGH
+                    .component(100)
             )
             return 0
         }

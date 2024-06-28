@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.util
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
 import net.minecraft.client.Minecraft
@@ -101,21 +102,21 @@ object ClientUtil {
         }
 
         ModScheduler.scheduleTaskInTicks(1) {
-            sendSystemMessage(
-                Component.translatable(
-                    if (wasAdded) ModLanguageProvider.Messages.CRINGE_ADDED else ModLanguageProvider.Messages.CRINGE_REMOVED,
-                    countdownSeconds
-                ).withStyle {
-                    it.withHoverEvent(
-                        HoverEvent(
-                            HoverEvent.Action.SHOW_TEXT,
-                            Component.translatable(
-                                ModLanguageProvider.Messages.CRINGE_CONFIG
-                            )
-                        )
+
+            val component = if (wasAdded) {
+                ModLanguageProvider.Messages.CRINGE_ADDED.component
+            } else {
+                ModLanguageProvider.Messages.CRINGE_REMOVED.component
+            }.withStyle {
+                it.withHoverEvent(
+                    HoverEvent(
+                        HoverEvent.Action.SHOW_TEXT,
+                        ModLanguageProvider.Messages.CRINGE_CONFIG.component
                     )
-                }
-            )
+                )
+            }
+
+            sendSystemMessage(component)
         }
 
         var secondsLeft = countdownSeconds
@@ -145,9 +146,7 @@ object ClientUtil {
                         it.withHoverEvent(
                             HoverEvent(
                                 HoverEvent.Action.SHOW_TEXT,
-                                Component.translatable(
-                                    ModLanguageProvider.Messages.CRINGE_CONFIG
-                                )
+                                ModLanguageProvider.Messages.CRINGE_CONFIG.component
                             )
                         )
                     }

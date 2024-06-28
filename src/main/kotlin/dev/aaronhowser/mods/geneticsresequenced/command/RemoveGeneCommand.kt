@@ -4,10 +4,11 @@ import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_STRINGS
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -133,19 +134,19 @@ object RemoveGeneCommand {
         val success = removeGeneFromTarget(target, geneToRemove)
 
         if (success) {
-            val component = Component.translatable(
-                ModLanguageProvider.Commands.REMOVE_SINGLE_SUCCESS,
-                geneToRemove.nameComponent,
-                target.displayName
-            )
+            val component =
+                ModLanguageProvider.Commands.REMOVE_SINGLE_SUCCESS.component(
+                    geneToRemove.nameComponent,
+                    target.displayName
+                )
 
             context.source.sendSuccess({ component }, false)
         } else {
-            val component = Component.translatable(
-                ModLanguageProvider.Commands.REMOVE_SINGLE_FAIL,
-                geneToRemove.nameComponent,
-                target.displayName
-            )
+            val component =
+                ModLanguageProvider.Commands.REMOVE_SINGLE_FAIL.component(
+                    geneToRemove.nameComponent,
+                    target.displayName
+                )
 
             context.source.sendFailure(component)
         }

@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
@@ -111,10 +113,10 @@ class CoalGeneratorMenu(
                 val feStringTotal = NumberFormat.getNumberInstance().format(feProducedTotal)
 
                 event.toolTip.add(
-                    2, Component.translatable(
-                        "tooltip.geneticsresequenced.coal_generator.total_fe",
-                        feStringTotal
-                    ).withColor(ChatFormatting.GRAY)
+                    2,
+                    ModLanguageProvider.Tooltips.COAL_GEN_TOTAL_FE
+                        .component(feStringTotal)
+                        .withColor(ChatFormatting.GRAY)
                 )
             }
 

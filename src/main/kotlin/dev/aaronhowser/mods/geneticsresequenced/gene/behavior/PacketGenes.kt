@@ -1,7 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
@@ -20,6 +22,7 @@ import java.util.*
 
 object PacketGenes {
 
+    //TODO: Change this to a GeneCooldown
     private val recentTeleports = mutableSetOf<UUID>()
 
     @Suppress("MoveVariableDeclarationIntoWhen")
@@ -30,13 +33,13 @@ object PacketGenes {
 
         if (recentTeleports.contains(player.uuid)) return
         recentTeleports.add(player.uuid)
+
         ModScheduler.scheduleTaskInTicks(ServerConfig.teleportCooldown.get()) {
             recentTeleports.remove(player.uuid)
 
-
             val message = Component.empty()
                 .append(ModGenes.teleport.nameComponent)
-                .append(Component.translatable("cooldown.geneticsresequenced.ended"))
+                .append(ModLanguageProvider.Cooldown.ENDED.component)
 
             player.sendSystemMessage(message)
         }

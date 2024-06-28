@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import io.netty.buffer.ByteBuf
 import net.minecraft.ChatFormatting
@@ -115,7 +116,7 @@ class Gene(
 
     companion object {
 
-        val unknownGeneComponent: MutableComponent = Component.translatable(ModLanguageProvider.Genes.UNKNOWN)
+        val unknownGeneComponent: MutableComponent = ModLanguageProvider.Genes.UNKNOWN.component
 
         fun checkDeactivationConfig() {
             val disabledGenes = ServerConfig.disabledGenes.get()
@@ -196,7 +197,7 @@ class Gene(
                         .withHoverEvent(
                             HoverEvent(
                                 HoverEvent.Action.SHOW_TEXT,
-                                Component.translatable(ModLanguageProvider.Tooltips.COPY_GENE, id.toString())
+                                ModLanguageProvider.Tooltips.COPY_GENE.component(id.toString())
                             )
                         )
                         .withClickEvent(
@@ -209,7 +210,7 @@ class Gene(
 
             if (!isActive) {
                 component.append(
-                    Component.translatable(ModLanguageProvider.Genes.GENE_DISABLED)
+                    ModLanguageProvider.Genes.GENE_DISABLED.component
                 )
             }
 

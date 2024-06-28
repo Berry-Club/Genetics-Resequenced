@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.a
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GenesItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
@@ -105,8 +106,7 @@ open class SyringeItem : Item(
 
                 for (removedGene in genesRemoved) {
                     entity.sendSystemMessage(
-                        Component.translatable(
-                            ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_SUCCESS,
+                        ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_SUCCESS.component(
                             removedGene.nameComponent
                         )
                     )
@@ -114,8 +114,7 @@ open class SyringeItem : Item(
 
                 for (notRemovedGene in genesNotRemoved) {
                     entity.sendSystemMessage(
-                        Component.translatable(
-                            ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_FAIL,
+                        ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_FAIL.component(
                             notRemovedGene.nameComponent
                         )
                     )

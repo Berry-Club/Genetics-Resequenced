@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
@@ -62,7 +63,7 @@ object ClickGenes {
         val newlySheared = recentlySheered.add(target)
 
         if (!newlySheared) {
-            clicker.sendSystemMessage(Component.translatable(ModLanguageProvider.Messages.RECENT_WOOLY))
+            clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_WOOLY.component)
             return
         }
 
@@ -120,7 +121,7 @@ object ClickGenes {
         val newlyMeated = recentlyMeated.add(target)
 
         if (!newlyMeated) {
-            clicker.sendSystemMessage(Component.translatable(ModLanguageProvider.Messages.RECENT_MEATY))
+            clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_MEATY.component)
             return
         }
 
@@ -174,11 +175,11 @@ object ClickGenes {
 
         val clicker = event.entity
         if (!newlyMilked) {
-            clicker.sendSystemMessage(Component.translatable(ModLanguageProvider.Messages.RECENT_MILKY))
+            clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_MILKY.component)
             return
         }
 
-        target.sendSystemMessage(Component.translatable(ModLanguageProvider.Messages.MILK_MILKED))
+        target.sendSystemMessage(ModLanguageProvider.Messages.MILK_MILKED.component)
 
         event.itemStack.shrink(1)
         clicker.addItem(ItemStack(Items.MILK_BUCKET))

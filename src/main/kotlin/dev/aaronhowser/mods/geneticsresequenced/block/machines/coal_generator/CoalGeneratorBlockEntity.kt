@@ -3,6 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator
 import dev.aaronhowser.mods.geneticsresequenced.block.base.InventoryEnergyBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap
 import net.minecraft.core.BlockPos
@@ -44,7 +46,7 @@ class CoalGeneratorBlockEntity(
     }
 
     override fun getDisplayName(): Component {
-        return Component.translatable("block.geneticsresequenced.coal_generator")
+        return ModLanguageProvider.Blocks.COAL_GENERATOR.component
     }
 
 
