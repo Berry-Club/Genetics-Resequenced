@@ -46,8 +46,6 @@ object BrewingRecipes {
         }
 
         val itemGene = DnaHelixItem.getGene(stack)
-        val itemEntity = EntityDnaItem.getEntityType(stack)
-
         if (itemGene != null) {
             event.toolTip.add(
                 ModLanguageProvider.Tooltips.GENE
@@ -56,6 +54,7 @@ object BrewingRecipes {
             )
         }
 
+        val itemEntity = EntityDnaItem.getEntityType(stack)
         if (itemEntity != null) {
             event.toolTip.add(
                 ModLanguageProvider.Tooltips.HELIX_ENTITY
@@ -118,9 +117,9 @@ object BrewingRecipes {
 
         val substrateDuplicationRecipe = SubstrateCellRecipe()
         allRecipes.add(substrateDuplicationRecipe)
-//
-//        val setPcgEntityRecipe = SetPotionEntityRecipe()
-//        allRecipes.add(setPcgEntityRecipe)
+
+        val setPcgEntityRecipe = SetPotionEntityRecipe()
+        allRecipes.add(setPcgEntityRecipe)
 //
 //        val geneFocusBrews = listOf(
 //            GmoRecipe(EntityType.BLAZE, Items.GLOWSTONE_DUST, ModGenes.bioluminescence, 0.85f),

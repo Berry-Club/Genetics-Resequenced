@@ -30,7 +30,7 @@ open class EntityDnaItem : Item(Properties()) {
             return this
         }
 
-        fun hasMob(itemStack: ItemStack): Boolean = itemStack.has(EntityTypeItemComponent.component)
+        fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(EntityTypeItemComponent.component)
 
         fun getEntityType(itemStack: ItemStack): EntityType<*>? {
             return itemStack.get(EntityTypeItemComponent.component)?.entity

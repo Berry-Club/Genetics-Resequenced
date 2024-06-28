@@ -8,13 +8,14 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.brewing.IBrewingRecipe
 
-class SubstrateCellRecipe : IBrewingRecipe {
+class SetPotionEntityRecipe : IBrewingRecipe {
 
     override fun isInput(pBottomSlot: ItemStack): Boolean {
         if (pBottomSlot.item != Items.POTION) return false
+        if (EntityDnaItem.hasEntity(pBottomSlot)) return false
 
-        val pInputPotion = OtherUtil.getPotion(pBottomSlot)
-        return pInputPotion == ModPotions.SUBSTRATE
+        val inputPotion = OtherUtil.getPotion(pBottomSlot) ?: return false
+        return inputPotion == ModPotions.CELL_GROWTH || inputPotion == ModPotions.MUTATION
     }
 
     override fun isIngredient(pTopSlot: ItemStack): Boolean {
@@ -27,12 +28,10 @@ class SubstrateCellRecipe : IBrewingRecipe {
         if (!isInput(pBottomSlot)) return ItemStack.EMPTY
         if (!isIngredient(pTopSlot)) return ItemStack.EMPTY
 
-        val pIngredientEntity = EntityDnaItem.getEntityType(pTopSlot) ?: return ItemStack.EMPTY
+        val ingredientEntity = EntityDnaItem.getEntityType(pTopSlot) ?: return ItemStack.EMPTY
 
-        val outputCell = ModItems.CELL.toStack()
-        EntityDnaItem.setEntityType(outputCell, pIngredientEntity)
-
-        return outputCell
+        val output = pBottomSlot.copy()
+        EntityDnaItem.setEntityType(output, ingredientEntity)
+        return output
     }
-
 }

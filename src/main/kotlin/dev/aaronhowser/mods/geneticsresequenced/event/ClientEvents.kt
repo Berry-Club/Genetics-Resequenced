@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.TeleportPlayerPacket
+import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.neoforged.api.distmarker.Dist
@@ -35,7 +36,7 @@ object ClientEvents {
     @SubscribeEvent
     fun tooltip(event: ItemTooltipEvent) {
         handleScreens(event)
-//        BrewingRecipes.tooltip(event)
+        BrewingRecipes.tooltip(event)
     }
 
     private fun handleScreens(event: ItemTooltipEvent) {
