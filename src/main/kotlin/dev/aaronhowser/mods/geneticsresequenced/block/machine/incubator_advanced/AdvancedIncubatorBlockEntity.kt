@@ -18,6 +18,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.PotionBrewing
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
@@ -57,13 +58,15 @@ class AdvancedIncubatorBlockEntity(
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
-                IncubatorBlockEntity.TOP_SLOT_INDEX -> potionBrewing?.isIngredient(stack) ?: false
+                TOP_SLOT_INDEX -> potionBrewing?.isIngredient(stack) ?: false
 
-                IncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX,
-                IncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX,
-                IncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX -> potionBrewing?.isInput(stack) ?: false
+                LEFT_BOTTLE_SLOT_INDEX,
+                MIDDLE_BOTTLE_SLOT_INDEX,
+                RIGHT_BOTTLE_SLOT_INDEX -> potionBrewing?.isInput(stack) ?: false
 
-                IncubatorBlockEntity.OVERCLOCKER_SLOT_INDEX -> stack.item == ModItems.OVERCLOCKER.get()
+                OVERCLOCKER_SLOT_INDEX -> stack.item == ModItems.OVERCLOCKER.get()
+
+                CHORUS_SLOT_INDEX -> stack.item == Items.CHORUS_FRUIT
 
                 else -> false
             }
