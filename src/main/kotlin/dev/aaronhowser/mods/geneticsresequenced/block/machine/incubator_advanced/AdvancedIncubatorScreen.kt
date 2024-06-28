@@ -18,8 +18,8 @@ class AdvancedIncubatorScreen(
 ) : AbstractContainerScreen<AdvancedIncubatorMenu>(pMenu, pPlayerInventory, pTitle) {
 
     companion object {
-        private const val FAST_BUBBLE_SPEED = 4
-        private const val SLOW_BUBBLE_SPEED = 40
+        private const val FAST_BUBBLE_SPEED = 12
+        private const val SLOW_BUBBLE_SPEED = 12 * 3
     }
 
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
@@ -96,6 +96,8 @@ class AdvancedIncubatorScreen(
     override fun mouseClicked(pMouseX: Double, pMouseY: Double, pButton: Int): Boolean {
         if (isMouseOverTemperature(pMouseX.toInt(), pMouseY.toInt(), leftPos, topPos)) {
             this.minecraft?.gameMode?.handleInventoryButtonClick(this.menu.containerId, 1)
+            bubblePosProgress = 0
+            bubblePos = 0
             return true
         }
 

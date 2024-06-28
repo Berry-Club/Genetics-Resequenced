@@ -22,3 +22,4 @@
 - MobGeneRegistry and GeneRequirementRegistry loggers are now debug instead of info
 - The non-empty DNA Helices and Plasmids in the creative mode tab are now after everything else
 - Fixed Incubator and Advanced Incubator from not working (hasRecipe() returned false hasEnoughEnergy was true rather than when false)
+- The bubbles in the Incubator and Advanced Incubator now animate slower

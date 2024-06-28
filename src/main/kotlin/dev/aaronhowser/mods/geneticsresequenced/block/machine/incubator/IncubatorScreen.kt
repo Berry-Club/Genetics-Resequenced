@@ -18,7 +18,7 @@ class IncubatorScreen(
 ) : AbstractContainerScreen<IncubatorMenu>(pMenu, pPlayerInventory, pTitle) {
 
     companion object {
-        private const val FAST_BUBBLE_SPEED = 4
+        private const val FAST_BUBBLE_SPEED = 12
     }
 
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
