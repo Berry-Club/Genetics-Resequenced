@@ -12,17 +12,16 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.setPotion
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
-import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.Potions
 import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.level.ItemLike
 import net.neoforged.neoforge.common.brewing.BrewingRecipe
 import net.neoforged.neoforge.common.brewing.IBrewingRecipe
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
-import net.neoforged.neoforge.registries.DeferredHolder
 import kotlin.jvm.optionals.getOrNull
 
 object BrewingRecipes {
@@ -31,6 +30,7 @@ object BrewingRecipes {
         ModPotions.POTION_REGISTRY.entries.map { it.get() }
     }
 
+    val allRecipes: MutableList<IBrewingRecipe> = mutableListOf()
 
     fun tooltip(event: ItemTooltipEvent) {
         val stack = event.itemStack
@@ -69,33 +69,15 @@ object BrewingRecipes {
 
     }
 
-    private fun Potion.asIngredient(): Ingredient {
-        val stack = potionStack(this).setPotion(this@asIngredient)
+    private fun ingredient(potion: Holder<Potion>): Ingredient = Ingredient.of(Items.POTION.itemStack.setPotion(potion))
+    private fun ingredient(itemLike: ItemLike): Ingredient = Ingredient.of(itemLike)
+    private fun ingredient(itemStack: ItemStack): Ingredient = Ingredient.of(itemStack)
 
-        return Ingredient.of(stack)
-    }
-
-    private fun Holder<Potion>.asIngredient(): Ingredient {
-        val stack = potionStack(this).setPotion(this@asIngredient)
-
-        return Ingredient.of(stack)
-    }
-
-    private fun ItemStack.asIngredient(): Ingredient = Ingredient.of(this)
-
-    private fun Item.asIngredient(): Ingredient = Ingredient.of(this.itemStack)
-
-    val allRecipes: MutableList<IBrewingRecipe> = mutableListOf()
-
-    fun potionStack(potion: Potion): ItemStack {
+    private fun potionStack(potion: Potion): ItemStack {
         return ItemStack(Items.POTION).setPotion(potion)
     }
 
-    fun potionStack(potion: DeferredHolder<Potion, Potion>): ItemStack {
-        return potionStack(potion.get())
-    }
-
-    fun potionStack(potion: Holder<Potion>): ItemStack {
+    private fun potionStack(potion: Holder<Potion>): ItemStack {
         return potionStack(potion.value())
     }
 
@@ -108,28 +90,28 @@ object BrewingRecipes {
     fun addRecipes(event: RegisterBrewingRecipesEvent) {
 
         val substrateRecipe = BrewingRecipe(
-            Potions.MUNDANE.asIngredient(),
-            ModItems.ORGANIC_MATTER.get().asIngredient(),
+            ingredient(Potions.MUNDANE),
+            ingredient(ModItems.ORGANIC_MATTER),
             substratePotionStack
         )
         val cellGrowthRecipe = BrewingRecipe(
-            ModPotions.SUBSTRATE.asIngredient(),
-            DnaHelixItem.setBasic(ModItems.DNA_HELIX.toStack()).asIngredient(),
+            ingredient(ModPotions.SUBSTRATE),
+            ingredient(DnaHelixItem.setBasic(ModItems.DNA_HELIX.toStack())),
             cellGrowthPotionStack
         )
         val mutationRecipe = BrewingRecipe(
-            ModPotions.CELL_GROWTH.asIngredient(),
-            Items.FERMENTED_SPIDER_EYE.asIngredient(),
+            ingredient(ModPotions.CELL_GROWTH),
+            ingredient(Items.FERMENTED_SPIDER_EYE),
             mutationPotionStack
         )
         val viralRecipe = BrewingRecipe(
-            ModPotions.MUTATION.asIngredient(),
-            Items.CHORUS_FRUIT.asIngredient(),
+            ingredient(ModPotions.MUTATION),
+            ingredient(Items.CHORUS_FRUIT),
             viralAgentsPotionStack
         )
         val panaceaRecipe = BrewingRecipe(
-            ModPotions.VIRAL_AGENTS.asIngredient(),
-            DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), ModGenes.emeraldHeart).asIngredient(),
+            ingredient(ModPotions.VIRAL_AGENTS),
+            ingredient(DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), ModGenes.emeraldHeart)),
             curePotionStack
         )
 
