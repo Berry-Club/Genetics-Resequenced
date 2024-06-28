@@ -159,7 +159,6 @@ class AdvancedIncubatorScreen(
         }
 
     //FIXME: Make the bubbles go up instead of down
-    //FIXME: Bubbles too fast?
     private fun renderBubble(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
         if (!menu.isCrafting) return
 
