@@ -1,0 +1,33 @@
+{
+  "parent": "geneticsresequenced:guide/dna_extractor",
+  "criteria": {
+    "dna_decryptor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:dna_decryptor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.geneticsresequenced.dna_decryptor.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "geneticsresequenced:dna_decryptor"
+    },
+    "title": {
+      "translate": "advancement.geneticsresequenced.dna_decryptor.title"
+    }
+  },
+  "requirements": [
+    [
+      "dna_decryptor"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

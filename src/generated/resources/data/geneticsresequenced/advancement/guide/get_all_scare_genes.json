@@ -1,0 +1,26 @@
+{
+  "parent": "geneticsresequenced:guide/get_gene",
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.geneticsresequenced.scare.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:jack_o_lantern"
+    },
+    "title": {
+      "translate": "advancement.geneticsresequenced.scare.title"
+    }
+  },
+  "requirements": [
+    [
+      "impossible"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

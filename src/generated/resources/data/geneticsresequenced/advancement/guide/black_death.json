@@ -1,0 +1,26 @@
+{
+  "parent": "geneticsresequenced:guide/decrypt_dna",
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.geneticsresequenced.black_death.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "minecraft:wither_rose"
+    },
+    "title": {
+      "translate": "advancement.geneticsresequenced.black_death.title"
+    }
+  },
+  "requirements": [
+    [
+      "impossible"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

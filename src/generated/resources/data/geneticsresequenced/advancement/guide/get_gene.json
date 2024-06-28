@@ -1,0 +1,32 @@
+{
+  "parent": "geneticsresequenced:guide/plasmid_injector",
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.geneticsresequenced.get_gene.desc"
+    },
+    "icon": {
+      "components": {
+        "geneticsresequenced:specific_entity": {
+          "entityName": "A Fake Mob",
+          "entityUuid": "fad05470-683a-43fb-be10-7d44b6584069"
+        }
+      },
+      "count": 1,
+      "id": "geneticsresequenced:syringe"
+    },
+    "title": {
+      "translate": "advancement.geneticsresequenced.get_gene.title"
+    }
+  },
+  "requirements": [
+    [
+      "impossible"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

@@ -1,0 +1,44 @@
+{
+  "parent": "geneticsresequenced:guide/cell_analyzer",
+  "criteria": {
+    "dna_extractor": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:dna_extractor"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "dna_helix": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:dna_helix"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.geneticsresequenced.dna_extractor.desc"
+    },
+    "icon": {
+      "count": 1,
+      "id": "geneticsresequenced:dna_extractor"
+    },
+    "title": {
+      "translate": "advancement.geneticsresequenced.dna_extractor.title"
+    }
+  },
+  "requirements": [
+    [
+      "dna_extractor",
+      "dna_helix"
+    ]
+  ],
+  "sends_telemetry_event": true
+}
