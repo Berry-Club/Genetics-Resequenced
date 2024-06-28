@@ -10,7 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.core.BlockPos
-import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Display.BlockDisplay
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
@@ -76,8 +75,7 @@ object RemoveNearbyLightsCommand {
         }
 
         player.sendSystemMessage(
-            Component.translatable(
-                ModLanguageProvider.Commands.REMOVED_LIGHTS,
+            ModLanguageProvider.Commands.REMOVED_LIGHTS.component(
                 lightSpots.size
             )
         )

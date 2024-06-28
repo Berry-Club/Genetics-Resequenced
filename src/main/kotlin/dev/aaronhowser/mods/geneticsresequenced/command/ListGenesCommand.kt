@@ -45,10 +45,10 @@ object ListGenesCommand {
             return 1
         }
 
-        val messageComponent = Component.translatable(
-            ModLanguageProvider.Commands.THEIR_GENES,
-            target.displayName
-        )
+        val messageComponent =
+            ModLanguageProvider.Commands.THEIR_GENES.component(
+                target.displayName
+            )
 
         for (gene in targetGenesList) {
             val geneComponent = Component.literal("\n• ").append(gene.nameComponent)

@@ -145,8 +145,7 @@ open class SyringeItem : Item(
 
                 for (addedGene in genesAdded) {
                     entity.sendSystemMessage(
-                        Component.translatable(
-                            ModLanguageProvider.Messages.SYRINGE_INJECTED,
+                        ModLanguageProvider.Messages.SYRINGE_INJECTED.component(
                             addedGene.nameComponent
                         )
                     )
@@ -154,8 +153,7 @@ open class SyringeItem : Item(
 
                 for (notAddedGene in genesNotAdded) {
                     entity.sendSystemMessage(
-                        Component.translatable(
-                            ModLanguageProvider.Messages.SYRINGE_FAILED,
+                        ModLanguageProvider.Messages.SYRINGE_FAILED.component(
                             notAddedGene.nameComponent
                         )
                     )
@@ -252,7 +250,7 @@ open class SyringeItem : Item(
         if (isContaminated(pStack)) {
             if (!pLevel.isClientSide) {
                 pLivingEntity.sendSystemMessage(
-                    Component.translatable(ModLanguageProvider.Messages.SYRINGE_CONTAMINATED)
+                    ModLanguageProvider.Messages.SYRINGE_CONTAMINATED.component
                 )
             }
             return
@@ -274,9 +272,9 @@ open class SyringeItem : Item(
 
     override fun getName(pStack: ItemStack): Component {
         return if (hasBlood(pStack)) {
-            Component.translatable(ModLanguageProvider.Items.SYRINGE_FULL)
+            ModLanguageProvider.Items.SYRINGE_FULL.component
         } else {
-            Component.translatable(ModLanguageProvider.Items.SYRINGE_EMPTY)
+            ModLanguageProvider.Items.SYRINGE_EMPTY.component
         }
     }
 
@@ -290,10 +288,9 @@ open class SyringeItem : Item(
         val bloodOwner = getEntityName(pStack)
         if (hasBlood(pStack) && bloodOwner != null) {
             pTooltipComponents.add(
-                Component.translatable(
-                    ModLanguageProvider.Tooltips.SYRINGE_OWNER,
-                    bloodOwner
-                ).withColor(ChatFormatting.GRAY)
+                ModLanguageProvider.Tooltips.SYRINGE_OWNER
+                    .component(bloodOwner)
+                    .withColor(ChatFormatting.GRAY)
             )
         }
 

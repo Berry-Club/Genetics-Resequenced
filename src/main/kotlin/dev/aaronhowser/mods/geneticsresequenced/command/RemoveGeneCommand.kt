@@ -13,7 +13,6 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.commands.arguments.ResourceLocationArgument
-import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
@@ -166,19 +165,19 @@ object RemoveGeneCommand {
         }
 
         if (amountSuccess != 0) {
-            val component = Component.translatable(
-                ModLanguageProvider.Commands.REMOVE_MULTIPLE_SUCCESS,
-                geneToRemove.nameComponent,
-                amountSuccess
-            )
+            val component =
+                ModLanguageProvider.Commands.REMOVE_MULTIPLE_SUCCESS.component(
+                    geneToRemove.nameComponent,
+                    amountSuccess
+                )
             context.source.sendSuccess({ component }, true)
         }
         if (amountFail != 0) {
-            val component = Component.translatable(
-                ModLanguageProvider.Commands.REMOVE_MULTIPLE_FAIL,
-                geneToRemove.nameComponent,
-                amountFail
-            )
+            val component =
+                ModLanguageProvider.Commands.REMOVE_MULTIPLE_FAIL.component(
+                    geneToRemove.nameComponent,
+                    amountFail
+                )
             context.source.sendFailure(component)
         }
 

@@ -5,10 +5,10 @@ import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
-import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -50,7 +50,8 @@ object AddAllGenesCommand {
 
         for (target in targets) {
             val genesToAdd =
-                Gene.Registry.getRegistry().filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
+                Gene.Registry.getRegistry()
+                    .filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
 
             for (gene in genesToAdd) {
                 target.addGene(gene)
@@ -58,8 +59,7 @@ object AddAllGenesCommand {
         }
 
         val component =
-            Component.translatable(
-                ModLanguageProvider.Commands.ADD_ALL_MULTIPLE,
+            ModLanguageProvider.Commands.ADD_ALL_MULTIPLE.component(
                 targets.size
             )
 
@@ -68,15 +68,15 @@ object AddAllGenesCommand {
 
     private fun handleSingleTarget(context: CommandContext<CommandSourceStack>, target: LivingEntity) {
         val genesToAdd =
-            Gene.Registry.getRegistry().filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
+            Gene.Registry.getRegistry()
+                .filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
 
         for (gene in genesToAdd) {
             target.addGene(gene)
         }
 
         val component =
-            Component.translatable(
-                ModLanguageProvider.Commands.ADD_ALL_SINGLE,
+            ModLanguageProvider.Commands.ADD_ALL_SINGLE.component(
                 target.name
             )
 

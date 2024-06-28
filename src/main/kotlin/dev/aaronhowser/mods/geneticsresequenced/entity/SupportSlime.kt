@@ -1,9 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.SupportSlimeAttackGoal
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
@@ -11,7 +12,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.getUuidOrNull
 import net.minecraft.nbt.CompoundTag
-import net.minecraft.network.chat.Component
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
@@ -66,8 +66,7 @@ class SupportSlime(
 
             if (!player.hasGene(ModGenes.slimyDeath)) {
                 player.sendSystemMessage(
-                    Component.translatable(
-                        ModLanguageProvider.Messages.SUPPORT_SLIME_CREATIVE,
+                    ModLanguageProvider.Messages.SUPPORT_SLIME_CREATIVE.component(
                         ModGenes.slimyDeath.nameComponent
                     )
                 )
@@ -75,9 +74,7 @@ class SupportSlime(
 
             if (player.level().difficulty == Difficulty.PEACEFUL) {
                 player.sendSystemMessage(
-                    Component.translatable(
-                        ModLanguageProvider.Messages.SUPPORT_SLIME_PEACEFUL
-                    )
+                    ModLanguageProvider.Messages.SUPPORT_SLIME_PEACEFUL.component
                 )
             }
 
