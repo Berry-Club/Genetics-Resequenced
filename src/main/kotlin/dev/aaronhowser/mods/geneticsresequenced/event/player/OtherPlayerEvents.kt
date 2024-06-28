@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
@@ -94,9 +95,8 @@ object OtherPlayerEvents {
     fun onInventoryChange(event: CustomEvents.PlayerInventoryChangeEvent) {
         val (player: ServerPlayer, slot: Int, stack: ItemStack) = event
 
-        //TODO
-//        AdvancementTriggers.decryptDnaAdvancement(player, stack)
-//        AdvancementTriggers.blackDeath(player, stack)
+        AdvancementTriggers.decryptDnaAdvancement(player, stack)
+        AdvancementTriggers.blackDeath(player, stack)
     }
 
 

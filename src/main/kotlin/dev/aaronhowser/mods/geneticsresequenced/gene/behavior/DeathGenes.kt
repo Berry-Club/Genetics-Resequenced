@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
@@ -187,7 +188,7 @@ object DeathGenes {
         entity.health = entity.maxHealth * ServerConfig.slimyDeathHealthMultiplier.get().toFloat()
 
         if (entity is ServerPlayer) {
-//            AdvancementTriggers.slimyDeathAdvancement(entity)
+            AdvancementTriggers.slimyDeathAdvancement(entity)
         }
 
     }
