@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockE
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setMob
+import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setEntityType
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
@@ -65,7 +65,7 @@ class CellAnalyzerBlockEntity(
         val inputItem = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
         val inputEntity = EntityDnaItem.getEntityType(inputItem) ?: return
 
-        val outputItem = ItemStack(ModItems.CELL.get()).setMob(inputEntity)
+        val outputItem = ItemStack(ModItems.CELL.get()).setEntityType(inputEntity)
 
         val amountAlreadyInOutput = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX).count
         outputItem.count = amountAlreadyInOutput + 1
@@ -86,7 +86,7 @@ class CellAnalyzerBlockEntity(
 
         val mobType = EntityDnaItem.getEntityType(inputItemStack) ?: return false
 
-        val outputItem = ItemStack(ModItems.CELL.get()).setMob(mobType) ?: return false
+        val outputItem = ItemStack(ModItems.CELL.get()).setEntityType(mobType) ?: return false
 
         return outputSlotHasRoom(inventory, outputItem)
     }

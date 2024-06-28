@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setMob
+import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setEntityType
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
@@ -95,7 +95,7 @@ class DnaExtractorBlockEntity(
     private fun getOutputFromInput(input: ItemStack): ItemStack? {
         if (input.item == ModItems.CELL.get()) {
             val mobType = EntityDnaItem.getEntityType(input) ?: return null
-            return ModItems.DNA_HELIX.toStack().setMob(mobType)
+            return ModItems.DNA_HELIX.toStack().setEntityType(mobType)
         }
 
         if (input.item == ModItems.GMO_CELL.get()) {

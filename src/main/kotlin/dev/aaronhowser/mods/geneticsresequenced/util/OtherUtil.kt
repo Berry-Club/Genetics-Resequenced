@@ -65,9 +65,8 @@ object OtherUtil {
         return entityType
     }
 
-    fun ItemStack.getPotionContents(): PotionContents? {
-        return this.get(DataComponents.POTION_CONTENTS)
-    }
+    fun getPotionContents(itemStack: ItemStack): PotionContents? = itemStack.get(DataComponents.POTION_CONTENTS)
+    fun getPotion(itemStack: ItemStack): Holder<Potion>? = getPotionContents(itemStack)?.potion?.get()
 
     fun getPotionStack(potion: Holder<Potion>): ItemStack {
         return PotionContents.createItemStack(Items.POTION, potion)

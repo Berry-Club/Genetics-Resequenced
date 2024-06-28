@@ -21,14 +21,16 @@ open class EntityDnaItem : Item(Properties()) {
 
     companion object {
 
-        fun setMob(itemStack: ItemStack, entityType: EntityType<*>) {
+        fun setEntityType(itemStack: ItemStack, entityType: EntityType<*>) {
             itemStack.set(EntityTypeItemComponent.component, EntityTypeItemComponent(entityType))
         }
 
-        fun ItemStack.setMob(entityType: EntityType<*>): ItemStack {
-            setMob(this, entityType)
+        fun ItemStack.setEntityType(entityType: EntityType<*>): ItemStack {
+            setEntityType(this, entityType)
             return this
         }
+
+        fun hasMob(itemStack: ItemStack): Boolean = itemStack.has(EntityTypeItemComponent.component)
 
         fun getEntityType(itemStack: ItemStack): EntityType<*>? {
             return itemStack.get(EntityTypeItemComponent.component)?.entity
@@ -44,7 +46,7 @@ open class EntityDnaItem : Item(Properties()) {
 
         if (!pPlayer.isCreative) return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand)
 
-        val newStack = pStack.copy().setMob(pInteractionTarget.type)
+        val newStack = pStack.copy().setEntityType(pInteractionTarget.type)
         pPlayer.setItemInHand(pUsedHand, newStack)
 
         return InteractionResult.SUCCESS

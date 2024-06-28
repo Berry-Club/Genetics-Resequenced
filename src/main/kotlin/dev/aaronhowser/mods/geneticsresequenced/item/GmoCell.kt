@@ -21,7 +21,7 @@ class GmoCell : Item(Properties()) {
             gene: Gene,
         ) {
 
-            EntityDnaItem.setMob(itemStack, entityType)
+            EntityDnaItem.setEntityType(itemStack, entityType)
             DnaHelixItem.setGene(itemStack, gene)
         }
 
