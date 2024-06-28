@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.TeleportPlayerPacket
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
@@ -50,8 +51,8 @@ object ClientEvents {
 
     @SubscribeEvent
     fun onLeaveServer(event: ClientPlayerNetworkEvent.LoggingOut) {
-//        ClientUtil.addSkinLayersBack()
-//        ClientUtil.handleCringe(false, 0)
+        ClientUtil.addSkinLayersBack()
+        ClientUtil.handleCringe(false, 0)
     }
 
 }
