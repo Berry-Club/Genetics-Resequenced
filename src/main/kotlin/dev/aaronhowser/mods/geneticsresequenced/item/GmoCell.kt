@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
@@ -37,28 +38,31 @@ class GmoCell : Item(Properties()) {
 
         val entityType = EntityDnaItem.getEntityType(pStack)
         if (entityType != null) {
-            val entityComponent = Component
-                .translatable(ModLanguageProvider.Tooltips.CELL_MOB, entityType.description)
-                .withColor(ChatFormatting.GRAY)
+            val entityComponent =
+                ModLanguageProvider.Tooltips.CELL_MOB
+                    .component(entityType.description)
+                    .withColor(ChatFormatting.GRAY)
             pTooltipComponents.add(entityComponent)
         } else {
-            val noEntityComponent = Component
-                .translatable(ModLanguageProvider.Tooltips.CELL_NO_MOB)
-                .withColor(ChatFormatting.GRAY)
+            val noEntityComponent =
+                ModLanguageProvider.Tooltips.CELL_NO_MOB
+                    .component
+                    .withColor(ChatFormatting.GRAY)
             pTooltipComponents.add(noEntityComponent)
         }
 
         val gene = DnaHelixItem.getGene(pStack)
         if (gene != null) {
             val geneComponent =
-                Component
-                    .translatable(ModLanguageProvider.Tooltips.GENE, gene.nameComponent)
+                ModLanguageProvider.Tooltips.GENE
+                    .component(gene.nameComponent)
                     .withColor(ChatFormatting.GRAY)
             pTooltipComponents.add(geneComponent)
         } else {
-            val noGeneComponent = Component
-                .translatable(ModLanguageProvider.Tooltips.GENE, Gene.unknownGeneComponent)
-                .withColor(ChatFormatting.GRAY)
+            val noGeneComponent =
+                ModLanguageProvider.Tooltips.GENE
+                    .component(Gene.unknownGeneComponent)
+                    .withColor(ChatFormatting.GRAY)
             pTooltipComponents.add(noGeneComponent)
         }
 

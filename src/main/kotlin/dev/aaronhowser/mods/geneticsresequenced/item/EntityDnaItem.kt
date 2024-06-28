@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
@@ -57,25 +58,24 @@ open class EntityDnaItem : Item(Properties()) {
     ) {
         val entityType = getEntityType(pStack)
         if (entityType != null) {
-            val component = Component
-                .translatable(
-                    ModLanguageProvider.Tooltips.CELL_MOB,
-                    entityType.description
-                )
-                .withColor(ChatFormatting.GRAY)
+            val component =
+                ModLanguageProvider.Tooltips.CELL_MOB
+                    .component(entityType.description)
+                    .withColor(ChatFormatting.GRAY)
             pTooltipComponents.add(component)
         } else {
-            val component = Component
-                .translatable(ModLanguageProvider.Tooltips.CELL_NO_MOB)
-                .withColor(ChatFormatting.GRAY)
+            val component =
+                ModLanguageProvider.Tooltips.CELL_NO_MOB
+                    .component
+                    .withColor(ChatFormatting.GRAY)
             pTooltipComponents.add(component)
         }
 
         try {
             if (ClientUtil.playerIsCreative()) {
                 val component =
-                    Component
-                        .translatable(ModLanguageProvider.Tooltips.CELL_CREATIVE)
+                    ModLanguageProvider.Tooltips.CELL_CREATIVE
+                        .component
                         .withColor(ChatFormatting.GRAY)
 
                 pTooltipComponents.add(component)

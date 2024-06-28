@@ -140,8 +140,8 @@ object ClientUtil {
         amountTryingToChangeLanguage++
         ModScheduler.scheduleTaskInTicks(20 * countdownSeconds) {
             sendSystemMessage(
-                Component
-                    .translatable(ModLanguageProvider.Messages.CRINGE_RELOADING)
+                ModLanguageProvider.Messages.CRINGE_RELOADING
+                    .component
                     .withStyle {
                         it.withHoverEvent(
                             HoverEvent(

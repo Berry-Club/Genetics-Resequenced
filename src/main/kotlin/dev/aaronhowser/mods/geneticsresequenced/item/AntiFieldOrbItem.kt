@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.component
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
@@ -54,10 +55,10 @@ class AntiFieldOrbItem : Item(
         pTooltipComponents: MutableList<Component>,
         pTooltipFlag: TooltipFlag
     ) {
+        val componentString = if (isEnabled(pStack)) ModLanguageProvider.Tooltips.ACTIVE else ModLanguageProvider.Tooltips.INACTIVE
+
         pTooltipComponents.add(
-            Component
-                .translatable(if (isEnabled(pStack)) ModLanguageProvider.Tooltips.ACTIVE else ModLanguageProvider.Tooltips.INACTIVE)
-                .withColor(ChatFormatting.GRAY)
+            componentString.component.withColor(ChatFormatting.GRAY)
         )
 
         super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag)

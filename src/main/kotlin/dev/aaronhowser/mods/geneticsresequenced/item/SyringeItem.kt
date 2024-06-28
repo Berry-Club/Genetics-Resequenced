@@ -296,8 +296,8 @@ open class SyringeItem : Item(
 
         if (isContaminated(pStack)) {
             pTooltipComponents.add(
-                Component
-                    .translatable(ModLanguageProvider.Tooltips.SYRINGE_CONTAMINATED)
+                ModLanguageProvider.Tooltips.SYRINGE_CONTAMINATED
+                    .component
                     .withColor(ChatFormatting.DARK_GREEN)
             )
         }
@@ -305,8 +305,8 @@ open class SyringeItem : Item(
         val addingGenes = getGenes(pStack)
         if (addingGenes.isNotEmpty()) {
             pTooltipComponents.add(
-                Component
-                    .translatable(ModLanguageProvider.Tooltips.SYRINGE_ADDING_GENES)
+                ModLanguageProvider.Tooltips.SYRINGE_ADDING_GENES
+                    .component
                     .withColor(ChatFormatting.GRAY)
             )
 
@@ -325,8 +325,8 @@ open class SyringeItem : Item(
         val removingGenes = getAntigenes(pStack)
         if (removingGenes.isNotEmpty()) {
             pTooltipComponents.add(
-                Component
-                    .translatable(ModLanguageProvider.Tooltips.SYRINGE_REMOVING_GENES)
+                ModLanguageProvider.Tooltips.SYRINGE_REMOVING_GENES
+                    .component
                     .withColor(ChatFormatting.GRAY)
             )
 

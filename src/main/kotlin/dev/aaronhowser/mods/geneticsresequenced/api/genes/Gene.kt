@@ -189,8 +189,8 @@ class Gene(
                 ChatFormatting.DARK_RED
             }
 
-            val component = Component
-                .translatable(translationKey)
+            val component = (translationKey
+                .component
                 .withStyle {
                     it
                         .withColor(color)
