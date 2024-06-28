@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.blocks.machines.plasmid_infuser
 
 import dev.aaronhowser.mods.geneticsresequenced.blocks.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.genes.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.items.DnaHelixItem.Companion.getGene
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registries.ModItems
@@ -103,7 +104,7 @@ class PlasmidInfuserMenu(
 
             val component =
                 when (hoverGene) {
-                    null -> {
+                    ModGenes.basic -> {
                         Component.translatable("tooltip.geneticsresequenced.plasmid_infuser.basic_gene")
                     }
 
