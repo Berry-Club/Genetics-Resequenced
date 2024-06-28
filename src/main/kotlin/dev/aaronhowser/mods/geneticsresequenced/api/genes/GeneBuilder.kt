@@ -50,7 +50,7 @@ class GeneBuilder(
     fun setPotion(
         effect: Holder<MobEffect>,
         level: Int,
-        duration: Int = 300,
+        duration: Int = -1,
         showIcon: Boolean = false
     ): GeneBuilder {
         potionDetails = PotionDetails(effect, level, duration, showIcon)
