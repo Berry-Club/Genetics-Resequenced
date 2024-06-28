@@ -70,13 +70,18 @@ class PlasmidItem : Item(Properties()) {
         val gene = getGene(pStack)
 
         if (gene == null) {
-            pTooltipComponents.add(ModLanguageProvider.Tooltips.PLASMID_EMPTY.toComponent())
+            pTooltipComponents.add(
+                ModLanguageProvider.Tooltips.PLASMID_EMPTY
+                    .toComponent()
+                    .withColor(ChatFormatting.GRAY)
+            )
             return
         }
 
         pTooltipComponents.add(
             ModLanguageProvider.Tooltips.PLASMID_GENE
                 .toComponent(gene.nameComponent)
+                .withColor(ChatFormatting.GRAY)
         )
 
         if (isComplete(pStack)) {
