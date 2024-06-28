@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.effect
 
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
-import net.minecraft.core.Holder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectCategory
 import net.minecraft.world.entity.Entity
@@ -25,7 +25,7 @@ class PanaceaEffect : MobEffect(
         removeAllNegativeGenes(pLivingEntity)
         removeAllNegativeEffects(pLivingEntity)
 
-        pLivingEntity.removeEffect(Holder.direct(this))
+        pLivingEntity.removeEffect(ModEffects.PANACEA)
     }
 
     private fun removeAllNegativeGenes(pLivingEntity: LivingEntity) {

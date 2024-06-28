@@ -69,11 +69,7 @@ object OtherUtil {
         return this.get(DataComponents.POTION_CONTENTS)
     }
 
-    fun ItemStack.setPotion(potion: Potion): ItemStack {
-        return PotionContents.createItemStack(Items.POTION, Holder.direct(potion))
-    }
-
-    fun ItemStack.setPotion(potion: Holder<Potion>): ItemStack {
+    fun getPotionStack(potion: Holder<Potion>): ItemStack {
         return PotionContents.createItemStack(Items.POTION, potion)
     }
 

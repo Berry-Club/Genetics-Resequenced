@@ -7,9 +7,8 @@ import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.getPotionContents
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.setPotion
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.world.item.ItemStack
@@ -20,6 +19,7 @@ import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.level.ItemLike
 import net.neoforged.neoforge.common.brewing.BrewingRecipe
 import net.neoforged.neoforge.common.brewing.IBrewingRecipe
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 import kotlin.jvm.optionals.getOrNull
@@ -69,23 +69,17 @@ object BrewingRecipes {
 
     }
 
-    private fun ingredient(potion: Holder<Potion>): Ingredient = Ingredient.of(Items.POTION.itemStack.setPotion(potion))
+    private fun ingredient(potion: Holder<Potion>): Ingredient =
+        DataComponentIngredient.of(false, OtherUtil.getPotionStack(potion))
+
     private fun ingredient(itemLike: ItemLike): Ingredient = Ingredient.of(itemLike)
-    private fun ingredient(itemStack: ItemStack): Ingredient = Ingredient.of(itemStack)
+    private fun ingredient(itemStack: ItemStack): Ingredient = DataComponentIngredient.of(false, itemStack)
 
-    private fun potionStack(potion: Potion): ItemStack {
-        return ItemStack(Items.POTION).setPotion(potion)
-    }
-
-    private fun potionStack(potion: Holder<Potion>): ItemStack {
-        return potionStack(potion.value())
-    }
-
-    val substratePotionStack by lazy { potionStack(ModPotions.SUBSTRATE) }
-    val cellGrowthPotionStack by lazy { potionStack(ModPotions.CELL_GROWTH) }
-    val mutationPotionStack by lazy { potionStack(ModPotions.MUTATION) }
-    val viralAgentsPotionStack by lazy { potionStack(ModPotions.VIRAL_AGENTS) }
-    val curePotionStack by lazy { potionStack(ModPotions.PANACEA) }
+    val substratePotionStack by lazy { OtherUtil.getPotionStack(ModPotions.SUBSTRATE) }
+    val cellGrowthPotionStack by lazy { OtherUtil.getPotionStack(ModPotions.CELL_GROWTH) }
+    val mutationPotionStack by lazy { OtherUtil.getPotionStack(ModPotions.MUTATION) }
+    val viralAgentsPotionStack by lazy { OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS) }
+    val curePotionStack by lazy { OtherUtil.getPotionStack(ModPotions.PANACEA) }
 
     fun addRecipes(event: RegisterBrewingRecipesEvent) {
 
