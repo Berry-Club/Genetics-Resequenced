@@ -1,13 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.block.machines.blood_purifier.BloodPurifierBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machines.cell_analyzer.CellAnalyzerBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machines.coal_generator.CoalGeneratorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_decryptor.DnaDecryptorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machines.dna_extractor.DnaExtractorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator.IncubatorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machines.incubator_advanced.AdvancedIncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.blood_purifier.BloodPurifierBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.cell_analyzer.CellAnalyzerBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.coal_generator.CoalGeneratorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_decryptor.DnaDecryptorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.DnaExtractorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorBlockEntity
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.neoforged.neoforge.registries.DeferredHolder
