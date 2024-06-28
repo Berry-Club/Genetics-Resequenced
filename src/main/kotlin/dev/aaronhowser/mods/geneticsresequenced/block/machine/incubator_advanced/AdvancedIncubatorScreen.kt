@@ -182,17 +182,6 @@ class AdvancedIncubatorScreen(
             ScreenTextures.Elements.Bubbles.Dimensions.WIDTH,
             amountBubbleToRender
         )
-
-//        pGuiGraphics.blitSprite(
-//            ScreenTextures.Elements.Bubbles.TEXTURE,
-//            ScreenTextures.Elements.Bubbles.TEXTURE_SIZE,
-//            ScreenTextures.Elements.Bubbles.TEXTURE_SIZE,
-//            x + ScreenTextures.Elements.Bubbles.Position.X,
-//            y + ScreenTextures.Elements.Bubbles.Position.Y + (ScreenTextures.Elements.Bubbles.Dimensions.HEIGHT - amountBubbleToRender),
-//            0,
-//            ScreenTextures.Elements.Bubbles.Dimensions.WIDTH,
-//            ScreenTextures.Elements.Bubbles.Dimensions.HEIGHT - amountBubbleToRender
-//        )
     }
 
     private fun renderHeat(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
