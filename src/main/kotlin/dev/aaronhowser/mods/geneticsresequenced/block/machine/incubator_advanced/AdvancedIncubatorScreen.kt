@@ -138,10 +138,10 @@ class AdvancedIncubatorScreen(
             ScreenTextures.Elements.ArrowDown.TEXTURE_SIZE,
             0,
             0,
-            x + ScreenTextures.Elements.ArrowRight.Position.Blood.X,
-            y + ScreenTextures.Elements.ArrowRight.Position.Blood.Y,
-            menu.getScaledProgress(),
-            ScreenTextures.Elements.ArrowDown.TEXTURE_SIZE
+            x + ScreenTextures.Elements.ArrowDown.Position.X,
+            y + ScreenTextures.Elements.ArrowDown.Position.Y,
+            ScreenTextures.Elements.ArrowDown.Dimensions.WIDTH,
+            menu.getScaledProgress()
         )
     }
 
@@ -157,6 +157,7 @@ class AdvancedIncubatorScreen(
         }
 
     //FIXME: Make the bubbles go up instead of down
+    //FIXME: Bubbles too fast?
     private fun renderBubble(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
         if (!menu.isCrafting) return
 
@@ -172,12 +173,26 @@ class AdvancedIncubatorScreen(
 
         pGuiGraphics.blitSprite(
             ScreenTextures.Elements.Bubbles.TEXTURE,
-            x + ScreenTextures.Elements.Bubbles.Position.X,
-            y + ScreenTextures.Elements.Bubbles.Position.Y + (ScreenTextures.Elements.Bubbles.Dimensions.HEIGHT - amountBubbleToRender),
+            ScreenTextures.Elements.Bubbles.TEXTURE_SIZE,
+            ScreenTextures.Elements.Bubbles.TEXTURE_SIZE,
             0,
+            0,
+            x + ScreenTextures.Elements.Bubbles.Position.X,
+            y + ScreenTextures.Elements.Bubbles.Position.Y,
             ScreenTextures.Elements.Bubbles.Dimensions.WIDTH,
-            ScreenTextures.Elements.Bubbles.Dimensions.HEIGHT - amountBubbleToRender
+            amountBubbleToRender
         )
+
+//        pGuiGraphics.blitSprite(
+//            ScreenTextures.Elements.Bubbles.TEXTURE,
+//            ScreenTextures.Elements.Bubbles.TEXTURE_SIZE,
+//            ScreenTextures.Elements.Bubbles.TEXTURE_SIZE,
+//            x + ScreenTextures.Elements.Bubbles.Position.X,
+//            y + ScreenTextures.Elements.Bubbles.Position.Y + (ScreenTextures.Elements.Bubbles.Dimensions.HEIGHT - amountBubbleToRender),
+//            0,
+//            ScreenTextures.Elements.Bubbles.Dimensions.WIDTH,
+//            ScreenTextures.Elements.Bubbles.Dimensions.HEIGHT - amountBubbleToRender
+//        )
     }
 
     private fun renderHeat(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
