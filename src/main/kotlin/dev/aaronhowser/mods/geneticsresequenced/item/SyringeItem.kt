@@ -244,7 +244,7 @@ open class SyringeItem : Item(
 
     override fun releaseUsing(pStack: ItemStack, pLevel: Level, pLivingEntity: LivingEntity, pTimeCharged: Int) {
 
-        if (pLivingEntity !is Player || pTimeCharged < 1) return
+        if (pLivingEntity !is Player || pTimeCharged > 1) return
         if (pLivingEntity is FakePlayer) return
 
         if (isContaminated(pStack)) {
