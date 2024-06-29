@@ -2,8 +2,10 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.model
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.data.PackOutput
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider
+import net.neoforged.neoforge.client.model.generators.ModelFile
 import net.neoforged.neoforge.common.data.ExistingFileHelper
 
 class ModItemModelProvider(
@@ -34,7 +36,43 @@ class ModItemModelProvider(
 
     }
 
+    companion object {
+        val syringeFilled = OtherUtil.modResource("filled")
+        val syringeUsing = OtherUtil.modResource("using")
+    }
+
     private fun syringe() {
+
+        val flipped = getBuilder("syringe_flipped")
+            .texture("layer0", OtherUtil.modResource("item/glass_syringe_flipped"))
+
+        val full = getBuilder("syringe_full")
+            .texture("layer0", OtherUtil.modResource("item/glass_syringe_full"))
+
+        val flippedInjecting = getBuilder("syringe_full_flipped")
+            .texture("layer0", OtherUtil.modResource("item/glass_syringe_full_flipped"))
+
+        val syringe = getBuilder("syringe")
+            .parent(ModelFile.UncheckedModelFile("item/generated"))
+            .texture("layer0", OtherUtil.modResource("item/glass_syringe"))
+
+            .override()
+            .predicate(modLoc("full"), 0f)
+            .predicate(modLoc("injecting"), 1f)
+            .model(flipped)
+            .end()
+
+            .override()
+            .predicate(modLoc("full"), 1f)
+            .predicate(modLoc("injecting"), 0f)
+            .model(full)
+            .end()
+
+            .override()
+            .predicate(modLoc("full"), 1f)
+            .predicate(modLoc("injecting"), 1f)
+            .model(flippedInjecting)
+            .end()
 
     }
 

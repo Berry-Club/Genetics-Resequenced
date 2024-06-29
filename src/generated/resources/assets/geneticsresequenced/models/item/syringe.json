@@ -1,0 +1,29 @@
+{
+  "parent": "minecraft:item/generated",
+  "overrides": [
+    {
+      "model": "geneticsresequenced:item/syringe_flipped",
+      "predicate": {
+        "geneticsresequenced:full": 0.0,
+        "geneticsresequenced:injecting": 1.0
+      }
+    },
+    {
+      "model": "geneticsresequenced:item/syringe_full",
+      "predicate": {
+        "geneticsresequenced:full": 1.0,
+        "geneticsresequenced:injecting": 0.0
+      }
+    },
+    {
+      "model": "geneticsresequenced:item/syringe_full_flipped",
+      "predicate": {
+        "geneticsresequenced:full": 1.0,
+        "geneticsresequenced:injecting": 1.0
+      }
+    }
+  ],
+  "textures": {
+    "layer0": "geneticsresequenced:item/glass_syringe"
+  }
+}

@@ -1,5 +1,4 @@
 {
-  "parent": "minecraft:item/generated",
   "textures": {
     "layer0": "geneticsresequenced:item/glass_syringe_full"
   }
