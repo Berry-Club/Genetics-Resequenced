@@ -29,8 +29,8 @@ data class GeneChangedPacket(
     override fun receiveMessage(context: IPayloadContext) {
         require(context.flow() == PacketFlow.CLIENTBOUND) { "Received GeneChangedPacket on wrong side!" }
 
-        val entity = context.player().level().getEntity(entityId) as? LivingEntity
-        requireNotNull(entity) { "Received GeneChangedPacket with invalid entity id!" }
+        // Return if the entity does not exist on the client. This happens when the entity is not being tracked on the client, aka if it's too far away or whatever.
+        val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return
 
         val gene = Gene.Registry.fromId(geneRl)
             ?: throw IllegalStateException("Received GeneChangedPacket with invalid gene id!")
