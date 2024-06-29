@@ -13,9 +13,6 @@ class ModItemModelProvider(
 
     override fun registerModels() {
 
-        syringe()
-        metalSyringe()
-
         basicItem(ModItems.SCRAPER.get())
         basicItem(ModItems.ORGANIC_MATTER.get())
         basicItem(ModItems.CELL.get())
@@ -34,11 +31,4 @@ class ModItemModelProvider(
 
     }
 
-    private fun syringe() {
-
-    }
-
-    private fun metalSyringe() {
-
-    }
 }
