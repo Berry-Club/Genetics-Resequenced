@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
-import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.geneticsresequenced.entity.client.SupportSlimeRenderer
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
@@ -47,7 +46,7 @@ object ClientModBusEvents {
 
         ItemProperties.register(
             ModItems.SYRINGE.get(),
-            ModItemModelProvider.syringeFilled,
+            OtherUtil.modResource("full"),
             ItemPropertyFunction { stack, _, _, _ ->
                 if (SyringeItem.hasBlood(stack)) 1f else 0f
             }
@@ -55,7 +54,7 @@ object ClientModBusEvents {
 
         ItemProperties.register(
             ModItems.SYRINGE.get(),
-            ModItemModelProvider.syringeUsing,
+            OtherUtil.modResource("injecting"),
             ItemPropertyFunction { stack, _, entity, _ ->
                 if (SyringeItem.isBeingUsed(stack, entity)) 1f else 0f
             }
