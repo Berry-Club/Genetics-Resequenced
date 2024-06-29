@@ -116,7 +116,7 @@ class ModBlockStateProvider(
                     Direction.EAST -> "_east"
                     Direction.SOUTH -> "_south"
                     Direction.WEST -> "_west"
-                    else -> ""
+                    else -> throw IllegalStateException("Invalid facing direction")
                 }
 
                 ConfiguredModel.builder().modelFile(
@@ -160,7 +160,7 @@ class ModBlockStateProvider(
                     Direction.EAST -> "east"
                     Direction.SOUTH -> "south"
                     Direction.WEST -> "west"
-                    else -> "north"
+                    else -> throw IllegalStateException("Invalid facing direction")
                 }
 
                 val modelName = "coal_generator_${directionString}_$burningString"
