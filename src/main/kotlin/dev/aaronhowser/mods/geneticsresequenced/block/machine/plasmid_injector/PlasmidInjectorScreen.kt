@@ -20,12 +20,12 @@ class PlasmidInjectorScreen(
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
         RenderSystem.setShader { GameRenderer.getPositionTexShader() }
         RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f)
-        RenderSystem.setShaderTexture(0, ScreenTextures.Backgrounds.PLASMID_INFUSER)
+        RenderSystem.setShaderTexture(0, ScreenTextures.Backgrounds.PLASMID_INJECTOR)
         val x = (width - imageWidth) / 2
         val y = (height - imageHeight) / 2
 
         pGuiGraphics.blit(
-            ScreenTextures.Backgrounds.PLASMID_INFUSER,
+            ScreenTextures.Backgrounds.PLASMID_INJECTOR,
             x, y,
             0, 0,
             ScreenTextures.Backgrounds.TEXTURE_SIZE,

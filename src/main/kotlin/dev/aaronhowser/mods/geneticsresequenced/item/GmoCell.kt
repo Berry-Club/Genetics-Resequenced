@@ -25,8 +25,6 @@ class GmoCell : Item(Properties()) {
             DnaHelixItem.setGene(itemStack, gene)
         }
 
-        //TODO: getAllGmoCells
-
     }
 
     override fun appendHoverText(
