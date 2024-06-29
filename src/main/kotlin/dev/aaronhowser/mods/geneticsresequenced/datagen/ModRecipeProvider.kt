@@ -1,13 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
+import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
-import net.minecraft.data.recipes.RecipeCategory
-import net.minecraft.data.recipes.RecipeOutput
-import net.minecraft.data.recipes.RecipeProvider
-import net.minecraft.data.recipes.ShapedRecipeBuilder
+import net.minecraft.data.recipes.*
 import net.minecraft.world.item.Items
 import java.util.concurrent.CompletableFuture
 
@@ -21,6 +20,7 @@ class ModRecipeProvider(
         antiFieldBlock.save(pRecipeOutput)
         antiFieldOrb.save(pRecipeOutput)
         antiPlasmid.save(pRecipeOutput)
+        setAntiPlasmid.save(pRecipeOutput, OtherUtil.modResource("set_anti_plasmid"))
         bloodPurifier.save(pRecipeOutput)
         cellAnalyzer.save(pRecipeOutput)
         coalGenerator.save(pRecipeOutput)
@@ -72,7 +72,8 @@ class ModRecipeProvider(
             .define('F', Items.FERMENTED_SPIDER_EYE)
             .unlockedBy("has_plasmid", has(ModItems.PLASMID.get()))
 
-        //TODO: Anti-Plasmid Set
+        private val setAntiPlasmid = SpecialRecipeBuilder
+            .special(::SetAntiPlasmidRecipe)
 
         private val bloodPurifier = ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.BLOOD_PURIFIER.get())
             .pattern("IWI")
