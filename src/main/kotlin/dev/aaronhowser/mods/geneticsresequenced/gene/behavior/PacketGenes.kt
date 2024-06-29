@@ -2,14 +2,10 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.projectile.DragonFireball
 import net.minecraft.world.level.ClipContext
@@ -18,12 +14,13 @@ import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.toVec3
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.toVec3i
-import java.util.*
 
 object PacketGenes {
 
-    //TODO: Change this to a GeneCooldown
-    private val recentTeleports = mutableSetOf<UUID>()
+    private val recentTeleports = GeneCooldown(
+        ModGenes.teleport,
+        ServerConfig.teleportCooldown.get()
+    )
 
     @Suppress("MoveVariableDeclarationIntoWhen")
     fun teleport(player: ServerPlayer) {
@@ -31,18 +28,8 @@ object PacketGenes {
 
         if (!player.hasGene(ModGenes.teleport)) return
 
-        if (recentTeleports.contains(player.uuid)) return
-        recentTeleports.add(player.uuid)
-
-        ModScheduler.scheduleTaskInTicks(ServerConfig.teleportCooldown.get()) {
-            recentTeleports.remove(player.uuid)
-
-            val message = Component.empty()
-                .append(ModGenes.teleport.nameComponent)
-                .append(ModLanguageProvider.Cooldown.ENDED.toComponent())
-
-            player.sendSystemMessage(message)
-        }
+        val wasNotOnCooldown = recentTeleports.add(player)
+        if (!wasNotOnCooldown) return
 
         val teleportDestination = player.lookAngle.normalize().scale(ServerConfig.teleportDistance.get())
 
