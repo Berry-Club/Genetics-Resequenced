@@ -199,7 +199,7 @@ class ModAdvancementSubProvider : AdvancementProvider.AdvancementGenerator {
                         set(
                             ModDataComponents.SPECIFIC_ENTITY_COMPONENT,
                             SpecificEntityItemComponent(
-                                UUID.randomUUID(),
+                                UUID.fromString("b0aa4edd-29e0-421f-b65c-be90055071b0"), //Arbitrary UUID
                                 "A Fake Mob"
                             )
                         )
