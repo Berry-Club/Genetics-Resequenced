@@ -17,10 +17,9 @@ class BlackDeathRecipe : IBrewingRecipe {
         if (pBottomSlot.item != Items.POTION) return false
 
         val potionContents = pBottomSlot.get(DataComponents.POTION_CONTENTS) ?: return false
-        val inputPotion = potionContents.potion
+        val inputPotion = potionContents.potion.get().value()
 
-        //FIXME: Is this supposed to be inverted?
-        return inputPotion != ModPotions.VIRAL_AGENTS
+        return inputPotion == ModPotions.VIRAL_AGENTS.get()
     }
 
     companion object {
