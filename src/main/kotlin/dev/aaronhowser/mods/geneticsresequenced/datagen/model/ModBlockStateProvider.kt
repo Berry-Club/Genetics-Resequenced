@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.model
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.BioluminescenceBlock
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.coal_generator.CoalGeneratorBlock
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import net.minecraft.core.Direction
 import net.minecraft.data.PackOutput
@@ -23,7 +24,7 @@ class ModBlockStateProvider(
         antiFieldBlock()
         bioluminescence()
 
-//        frontFacingBlock(ModBlocks.COAL_GENERATOR, "coal_generator", "block/coal_generator_front_on")
+        coalGenerator()
         frontFacingBlock(ModBlocks.CELL_ANALYZER, "cell_analyzer", "block/cell_analyzer_front")
         frontFacingBlock(ModBlocks.DNA_EXTRACTOR, "dna_extractor", "block/dna_extractor_front")
         frontFacingBlock(ModBlocks.DNA_DECRYPTOR, "dna_decryptor", "block/dna_decryptor_front")
@@ -110,7 +111,7 @@ class ModBlockStateProvider(
                 val east = if (facing == Direction.EAST) frontTexture else side
                 val west = if (facing == Direction.WEST) frontTexture else side
 
-                val finalName = name + when (facing) {
+                val modelName = name + when (facing) {
                     Direction.NORTH -> "_north"
                     Direction.EAST -> "_east"
                     Direction.SOUTH -> "_south"
@@ -120,7 +121,7 @@ class ModBlockStateProvider(
 
                 ConfiguredModel.builder().modelFile(
                     models().cube(
-                        finalName,
+                        modelName,
                         modLoc(bottom),
                         modLoc(top),
                         modLoc(north),
@@ -138,7 +139,61 @@ class ModBlockStateProvider(
                 existingFileHelper
             )
         )
+    }
 
+    private fun coalGenerator() {
+        val deferredBlock = ModBlocks.COAL_GENERATOR
+
+        val top = "block/machine_top"
+        val bottom = "block/machine_bottom"
+        val side = "block/machine_side"
+
+        getVariantBuilder(deferredBlock.get())
+            .forAllStates { state ->
+
+                val burning = state.getValue(CoalGeneratorBlock.BURNING)
+                val facing = state.getValue(HorizontalDirectionalBlock.FACING)
+
+                val burningString = if (burning) "on" else "off"
+                val directionString = when (facing) {
+                    Direction.NORTH -> "north"
+                    Direction.EAST -> "east"
+                    Direction.SOUTH -> "south"
+                    Direction.WEST -> "west"
+                    else -> "north"
+                }
+
+                val modelName = "coal_generator_${directionString}_$burningString"
+
+                val frontTexture = if (burning) "block/coal_generator_front_on" else "block/coal_generator_front_off"
+
+                val north = if (facing == Direction.NORTH) frontTexture else side
+                val south = if (facing == Direction.SOUTH) frontTexture else side
+                val east = if (facing == Direction.EAST) frontTexture else side
+                val west = if (facing == Direction.WEST) frontTexture else side
+
+                ConfiguredModel
+                    .builder()
+                    .modelFile(
+                        models().cube(
+                            modelName,
+                            modLoc(bottom),
+                            modLoc(top),
+                            modLoc(north),
+                            modLoc(south),
+                            modLoc(east),
+                            modLoc(west),
+                        )
+                    ).build()
+            }
+
+        simpleBlockItem(
+            deferredBlock.get(),
+            ItemModelBuilder(
+                modLoc("block/coal_generator_east_off"),
+                existingFileHelper
+            )
+        )
     }
 
 }

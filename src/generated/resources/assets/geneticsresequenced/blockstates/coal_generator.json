@@ -1,0 +1,28 @@
+{
+  "variants": {
+    "facing=east,lit=false": {
+      "model": "geneticsresequenced:block/coal_generator_east_off"
+    },
+    "facing=east,lit=true": {
+      "model": "geneticsresequenced:block/coal_generator_east_on"
+    },
+    "facing=north,lit=false": {
+      "model": "geneticsresequenced:block/coal_generator_north_off"
+    },
+    "facing=north,lit=true": {
+      "model": "geneticsresequenced:block/coal_generator_north_on"
+    },
+    "facing=south,lit=false": {
+      "model": "geneticsresequenced:block/coal_generator_south_off"
+    },
+    "facing=south,lit=true": {
+      "model": "geneticsresequenced:block/coal_generator_south_on"
+    },
+    "facing=west,lit=false": {
+      "model": "geneticsresequenced:block/coal_generator_west_off"
+    },
+    "facing=west,lit=true": {
+      "model": "geneticsresequenced:block/coal_generator_west_on"
+    }
+  }
+}
