@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "geneticsresequenced:block/blood_purifier_east"
+    },
+    "facing=north": {
+      "model": "geneticsresequenced:block/blood_purifier_north"
+    },
+    "facing=south": {
+      "model": "geneticsresequenced:block/blood_purifier_south"
+    },
+    "facing=west": {
+      "model": "geneticsresequenced:block/blood_purifier_west"
+    }
+  }
+}

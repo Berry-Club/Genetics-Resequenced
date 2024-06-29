@@ -4,8 +4,10 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.BioluminescenceBlock
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import net.minecraft.core.Direction
 import net.minecraft.data.PackOutput
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.HorizontalDirectionalBlock
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider
 import net.neoforged.neoforge.client.model.generators.ConfiguredModel
 import net.neoforged.neoforge.client.model.generators.ItemModelBuilder
@@ -21,15 +23,15 @@ class ModBlockStateProvider(
         antiFieldBlock()
         bioluminescence()
 
-        frontFacingBlock(ModBlocks.COAL_GENERATOR)
-        frontFacingBlock(ModBlocks.CELL_ANALYZER)
-        frontFacingBlock(ModBlocks.DNA_EXTRACTOR)
-        frontFacingBlock(ModBlocks.DNA_DECRYPTOR)
-        frontFacingBlock(ModBlocks.BLOOD_PURIFIER)
-        frontFacingBlock(ModBlocks.PLASMID_INFUSER)
-        frontFacingBlock(ModBlocks.PLASMID_INJECTOR)
-        frontFacingBlock(ModBlocks.INCUBATOR)
-        frontFacingBlock(ModBlocks.ADVANCED_INCUBATOR)
+//        frontFacingBlock(ModBlocks.COAL_GENERATOR, "coal_generator", "block/coal_generator_front_on")
+        frontFacingBlock(ModBlocks.CELL_ANALYZER, "cell_analyzer", "block/cell_analyzer_front")
+        frontFacingBlock(ModBlocks.DNA_EXTRACTOR, "dna_extractor", "block/dna_extractor_front")
+        frontFacingBlock(ModBlocks.DNA_DECRYPTOR, "dna_decryptor", "block/dna_decryptor_front")
+        frontFacingBlock(ModBlocks.BLOOD_PURIFIER, "blood_purifier", "block/blood_purifier_front")
+        frontFacingBlock(ModBlocks.PLASMID_INFUSER, "plasmid_infuser", "block/plasmid_infuser_front")
+        frontFacingBlock(ModBlocks.PLASMID_INJECTOR, "plasmid_injector", "block/plasmid_injector_front")
+        frontFacingBlock(ModBlocks.INCUBATOR, "incubator", "block/incubator_front")
+        frontFacingBlock(ModBlocks.ADVANCED_INCUBATOR, "advanced_incubator", "block/incubator_front")
 
     }
 
@@ -88,8 +90,55 @@ class ModBlockStateProvider(
         )
     }
 
-    private fun frontFacingBlock(deferredBlock: DeferredBlock<out Block>) {
-        //TODO
+    private fun frontFacingBlock(
+        deferredBlock: DeferredBlock<out Block>,
+        name: String,
+        frontTexture: String
+    ) {
+
+        val top = "block/machine_top"
+        val bottom = "block/machine_bottom"
+        val side = "block/machine_side"
+
+        getVariantBuilder(deferredBlock.get())
+
+            .forAllStates { state ->
+                val facing = state.getValue(HorizontalDirectionalBlock.FACING)
+
+                val north = if (facing == Direction.NORTH) frontTexture else side
+                val south = if (facing == Direction.SOUTH) frontTexture else side
+                val east = if (facing == Direction.EAST) frontTexture else side
+                val west = if (facing == Direction.WEST) frontTexture else side
+
+                val finalName = name + when (facing) {
+                    Direction.NORTH -> "_north"
+                    Direction.EAST -> "_east"
+                    Direction.SOUTH -> "_south"
+                    Direction.WEST -> "_west"
+                    else -> ""
+                }
+
+                ConfiguredModel.builder().modelFile(
+                    models().cube(
+                        finalName,
+                        modLoc(bottom),
+                        modLoc(top),
+                        modLoc(north),
+                        modLoc(south),
+                        modLoc(east),
+                        modLoc(west),
+                    )
+                ).build()
+            }
+
+        simpleBlockItem(
+            deferredBlock.get(),
+            ItemModelBuilder(
+                modLoc("block/${name}_east"),
+                existingFileHelper
+            )
+        )
+
     }
 
 }

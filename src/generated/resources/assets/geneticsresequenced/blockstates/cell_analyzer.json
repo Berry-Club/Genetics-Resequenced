@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "geneticsresequenced:block/cell_analyzer_east"
+    },
+    "facing=north": {
+      "model": "geneticsresequenced:block/cell_analyzer_north"
+    },
+    "facing=south": {
+      "model": "geneticsresequenced:block/cell_analyzer_south"
+    },
+    "facing=west": {
+      "model": "geneticsresequenced:block/cell_analyzer_west"
+    }
+  }
+}

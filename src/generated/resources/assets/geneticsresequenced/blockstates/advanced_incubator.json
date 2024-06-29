@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "geneticsresequenced:block/advanced_incubator_east"
+    },
+    "facing=north": {
+      "model": "geneticsresequenced:block/advanced_incubator_north"
+    },
+    "facing=south": {
+      "model": "geneticsresequenced:block/advanced_incubator_south"
+    },
+    "facing=west": {
+      "model": "geneticsresequenced:block/advanced_incubator_west"
+    }
+  }
+}

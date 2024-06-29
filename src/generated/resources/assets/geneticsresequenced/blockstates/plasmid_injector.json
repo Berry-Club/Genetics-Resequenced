@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "geneticsresequenced:block/plasmid_injector_east"
+    },
+    "facing=north": {
+      "model": "geneticsresequenced:block/plasmid_injector_north"
+    },
+    "facing=south": {
+      "model": "geneticsresequenced:block/plasmid_injector_south"
+    },
+    "facing=west": {
+      "model": "geneticsresequenced:block/plasmid_injector_west"
+    }
+  }
+}

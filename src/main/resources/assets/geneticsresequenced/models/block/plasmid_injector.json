@@ -1,9 +1,0 @@
-{
-  "parent": "minecraft:block/orientable",
-  "textures": {
-    "front": "geneticsresequenced:block/plasmid_injector_front",
-    "side": "geneticsresequenced:block/machine_side",
-    "top": "geneticsresequenced:block/machine_top",
-    "bottom": "geneticsresequenced:block/machine_bottom"
-  }
-}

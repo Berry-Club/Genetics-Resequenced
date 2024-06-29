@@ -1,0 +1,16 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "geneticsresequenced:block/dna_extractor_east"
+    },
+    "facing=north": {
+      "model": "geneticsresequenced:block/dna_extractor_north"
+    },
+    "facing=south": {
+      "model": "geneticsresequenced:block/dna_extractor_south"
+    },
+    "facing=west": {
+      "model": "geneticsresequenced:block/dna_extractor_west"
+    }
+  }
+}
