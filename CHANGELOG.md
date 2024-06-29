@@ -27,4 +27,4 @@
 - Changed Plasmid tooltip text color to Gray
 - Item Magnet will show in the tooltip that an item is blacklisted (configurable)
 - Added a recipe for unsetting Anti-Plasmids, if for whatever reason you want to
-- 
+- Plasmids and Anti-Plasmids now only stack to 1

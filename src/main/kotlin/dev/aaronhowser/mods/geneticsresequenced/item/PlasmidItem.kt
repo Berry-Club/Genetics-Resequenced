@@ -12,7 +12,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 
-class PlasmidItem : Item(Properties()) {
+class PlasmidItem : Item(Properties().stacksTo(1)) {
 
     companion object {
 
