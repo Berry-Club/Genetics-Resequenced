@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -21,6 +22,7 @@ class ModRecipeProvider(
         antiFieldOrb.save(pRecipeOutput)
         antiPlasmid.save(pRecipeOutput)
         setAntiPlasmid.save(pRecipeOutput, OtherUtil.modResource("set_anti_plasmid"))
+        unsetAntiPlasmid.save(pRecipeOutput, OtherUtil.modResource("unset_anti_plasmid"))
         bloodPurifier.save(pRecipeOutput)
         cellAnalyzer.save(pRecipeOutput)
         coalGenerator.save(pRecipeOutput)
@@ -74,6 +76,9 @@ class ModRecipeProvider(
 
         private val setAntiPlasmid = SpecialRecipeBuilder
             .special(::SetAntiPlasmidRecipe)
+
+        private val unsetAntiPlasmid = SpecialRecipeBuilder
+            .special(::UnsetAntiPlasmidRecipe)
 
         private val bloodPurifier = ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.BLOOD_PURIFIER.get())
             .pattern("IWI")

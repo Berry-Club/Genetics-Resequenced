@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmidRecipe
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.crafting.RecipeType
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -14,6 +15,9 @@ object ModRecipeTypes {
 
     val ANTI_PLASMID_RECIPE_TYPE: DeferredHolder<RecipeType<*>, RecipeType<*>> =
         registerRecipeType("set_anti_plasmid") { object : RecipeType<SetAntiPlasmidRecipe> {} }
+
+    val UNSET_ANTI_PLASMID_RECIPE_TYPE: DeferredHolder<RecipeType<*>, RecipeType<*>> =
+        registerRecipeType("unset_anti_plasmid") { object : RecipeType<UnsetAntiPlasmidRecipe> {} }
 
     private fun registerRecipeType(
         name: String,
