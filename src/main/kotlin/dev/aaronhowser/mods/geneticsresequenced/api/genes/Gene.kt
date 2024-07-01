@@ -19,7 +19,6 @@ import net.minecraft.world.effect.MobEffectInstance
 
 class Gene(properties: GeneProperties) {
 
-
     val id: ResourceLocation = properties.id
     val isNegative: Boolean = properties.isNegative
     val isHidden: Boolean = properties.isHidden
@@ -38,7 +37,12 @@ class Gene(properties: GeneProperties) {
             val disabledGenes = ServerConfig.disabledGenes.get()
 
             for (disabledGene in disabledGenes) {
-                val gene = ModGenes.fromId(disabledGene)
+                val gene = GeneRegistry.fromId(disabledGene)
+
+                if (gene == null) {
+                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")
+                    continue
+                }
 
                 if (gene in requiredGenes) {
                     GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it is required for the mod to function!")

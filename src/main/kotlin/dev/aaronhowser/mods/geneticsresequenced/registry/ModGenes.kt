@@ -22,16 +22,6 @@ object ModGenes {
         })
     }
 
-    fun fromId(id: String): Gene {
-        return GENE_REGISTRY.entries.find { it.id.toString() == id }?.get()
-            ?: throw IllegalArgumentException("Gene with id $id does not exist!")
-    }
-
-    fun fromId(id: ResourceLocation): Gene {
-        return GENE_REGISTRY.entries.find { it.id == id }?.get()
-            ?: throw IllegalArgumentException("Gene with id $id does not exist!")
-    }
-
     val BASIC = registerGene("basic") {
         GeneProperties(
             id = OtherUtil.modResource("basic"),

@@ -90,7 +90,7 @@ object RemoveGeneCommand {
         entities: MutableCollection<out Entity>? = null
     ): Int {
 
-        val gene = ModGenes.fromId(geneRl)
+        val gene = GeneRegistry.fromId(geneRl)
             ?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
 
         return removeGene(context, gene, entities)

@@ -12,7 +12,6 @@ import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_STRINGS
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -92,8 +91,8 @@ object AddGeneCommand {
         geneRl: ResourceLocation,
         entities: MutableCollection<out Entity>? = null
     ): Int {
-
-        val gene = ModGenes.fromId(geneRl)
+        val gene = GeneRegistry.fromId(geneRl)
+            ?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
 
         return addGene(context, gene, entities)
     }
