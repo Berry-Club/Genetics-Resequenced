@@ -35,3 +35,4 @@
 - Dragon's Breath cooldown now is actually for Dragon's Breath, and not for Shoot Fireballs
 - Genes are now an actual Registry
 - Claws inflicts Bleeding for 5 seconds rather than 300
+- Fixed the duplicate message send when you get a Gene that you're missing the required Genes for

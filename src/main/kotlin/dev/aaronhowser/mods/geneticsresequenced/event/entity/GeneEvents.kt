@@ -82,12 +82,20 @@ object GeneEvents {
 
                 requiredGenesComponent.append(Component.literal("\n - ").append(requiredGene.nameComponent))
             }
-
-            entity.sendSystemMessage(
-                ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS
-                    .toComponent(gene.nameComponent)
-                    .withStyle { it.withHoverEvent(HoverEvent(HoverEvent.Action.SHOW_TEXT, requiredGenesComponent)) }
-            )
+            if (!entity.level().isClientSide) {
+                entity.sendSystemMessage(
+                    ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS
+                        .toComponent(gene.nameComponent)
+                        .withStyle {
+                            it.withHoverEvent(
+                                HoverEvent(
+                                    HoverEvent.Action.SHOW_TEXT,
+                                    requiredGenesComponent
+                                )
+                            )
+                        }
+                )
+            }
         }
     }
 
