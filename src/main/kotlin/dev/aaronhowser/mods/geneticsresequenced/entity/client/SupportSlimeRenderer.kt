@@ -22,7 +22,10 @@ import net.minecraft.world.item.Items
 import net.minecraft.world.item.component.ResolvableProfile
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.api.distmarker.OnlyIn
+import org.joml.Quaternionf
 import org.joml.Vector3f
+import kotlin.math.cos
+import kotlin.math.sin
 
 
 @OnlyIn(Dist.CLIENT)
@@ -94,11 +97,20 @@ class SupportSlimeRenderer(
             pEntity.size.toFloat()
         )
 
-        //FIXME: Rotate heads to where they're looking
+
+        // I don't understand this bit at ALL. It's copied from the 1.19 constructor Quaternion(Vector3f pRotationAxis, float pRotationAngle, boolean pDegrees)
         val lerpedRotY = Mth.lerp(pPartialTicks, pEntity.yRotO, pEntity.yRot)
         val vectorPositiveY = Vector3f(0f, 1f, 0f)
-//        val quaternion = Quaternionf().rotateY(lerpedRotY)
-//        pPoseStack.mulPose(quaternion)
+        val rotationAngleDegrees = lerpedRotY * 0.017453292f
+        val thing = sin(rotationAngleDegrees / 2f)
+        val quaternion = Quaternionf(
+            vectorPositiveY.x * thing,
+            vectorPositiveY.y * thing,
+            vectorPositiveY.z * thing,
+            cos(rotationAngleDegrees / 2f)
+        )
+
+        pPoseStack.mulPose(quaternion)
 
         itemRenderer.renderStatic(
             getHead(pEntity),
