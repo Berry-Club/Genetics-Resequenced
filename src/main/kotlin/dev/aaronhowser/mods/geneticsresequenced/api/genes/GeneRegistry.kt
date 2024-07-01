@@ -5,7 +5,6 @@ import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
 import net.neoforged.neoforge.registries.RegistryBuilder
 
-//TODO: Do this eventually
 object GeneRegistry {
 
     val GENE_REGISTRY_KEY: ResourceKey<Registry<Gene>> =
@@ -14,6 +13,5 @@ object GeneRegistry {
     val GENE_REGISTRY: Registry<Gene> = RegistryBuilder(GENE_REGISTRY_KEY)
         .sync(true)
         .create()
-
 
 }

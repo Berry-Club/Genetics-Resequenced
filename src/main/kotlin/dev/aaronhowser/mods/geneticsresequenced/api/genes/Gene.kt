@@ -6,12 +6,13 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import io.netty.buffer.ByteBuf
 import net.minecraft.ChatFormatting
+import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.MutableComponent
+import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffectInstance
@@ -84,15 +85,10 @@ class Gene(
             ModGenes.BASIC.get()
         )
 
-        val CODEC: Codec<Gene> = ResourceLocation.CODEC.xmap(
-            { id: ResourceLocation -> ModGenes.fromId(id) },
-            { gene: Gene -> gene.id }
-        )
+        val CODEC: Codec<Gene> = GeneRegistry.GENE_REGISTRY.byNameCodec()
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, Gene> = ResourceLocation.STREAM_CODEC.map(
-            { id: ResourceLocation -> ModGenes.fromId(id) },
-            { gene: Gene -> gene.id }
-        )
+        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Gene> =
+            ByteBufCodecs.registry(GeneRegistry.GENE_REGISTRY_KEY)
 
     }
 
