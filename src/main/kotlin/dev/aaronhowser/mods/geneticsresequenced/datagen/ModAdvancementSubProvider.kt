@@ -42,7 +42,7 @@ class ModAdvancementSubProvider : AdvancementProvider.AdvancementGenerator {
                     ModItems.SCRAPER.get(),
                     Component.literal("Genetics: Resequenced"),
                     ModLanguageProvider.Advancements.SCRAPER_DESC.toComponent(),
-                    ResourceLocation.withDefaultNamespace("textures/gui/advancements/backgrounds/adventure.png"),
+                    OtherUtil.modResource("textures/block/machine_bottom.png"),
                     AdvancementType.TASK,
                     true,
                     true,

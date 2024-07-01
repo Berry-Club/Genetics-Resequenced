@@ -1,4 +1,4 @@
-// 1.21	2024-06-29T11:36:45.0423312	Advancements
+// 1.21	2024-07-01T15:26:50.0023387	Advancements
 fcf2c70a8484c08f2c83e3c7074c7c62b3628543 data/geneticsresequenced/advancement/guide/black_death.json
 038f240fcb9daa57cd717e4f9f937c44cd338d4c data/geneticsresequenced/advancement/guide/blood_purifier.json
 8fc98844e20d50de9acdc8e5e8e4738b599d140a data/geneticsresequenced/advancement/guide/cell_analyzer.json
@@ -12,6 +12,6 @@ b0b7e3093436a621151e2c3ae5ec18fa466c9cc2 data/geneticsresequenced/advancement/gu
 5f2cd0f3bc930b17d8b36457f410787fff354cc5 data/geneticsresequenced/advancement/guide/get_milked.json
 ed29dc03801220765d90fc053e97dd53ddbc2bec data/geneticsresequenced/advancement/guide/plasmid_infuser.json
 4c42620fd38c7d505bc7cc62e321a7daa75bf34f data/geneticsresequenced/advancement/guide/plasmid_injector.json
-38e273c86bcc8be461bc5a68bce9e19dae5e4b60 data/geneticsresequenced/advancement/guide/root.json
+e862eced6f447a27da5e5405a04d969a5c0a9759 data/geneticsresequenced/advancement/guide/root.json
 36993377ff346e63ae337dc938a95153af27884d data/geneticsresequenced/advancement/guide/syringe.json
 00f27e17fdef700f508bb0e3aedde6b7ba6a08f7 data/geneticsresequenced/advancement/guide/trigger_slimy_death.json
