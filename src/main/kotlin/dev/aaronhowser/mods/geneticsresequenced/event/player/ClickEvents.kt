@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
+import net.neoforged.neoforge.event.entity.living.LivingGetProjectileEvent
 import net.neoforged.neoforge.event.entity.player.ArrowLooseEvent
 import net.neoforged.neoforge.event.entity.player.ArrowNockEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
@@ -54,6 +55,11 @@ object ClickEvents {
     @SubscribeEvent
     fun onArrowLoose(event: ArrowLooseEvent) {
         ClickGenes.handleInfinityEnd(event)
+    }
+
+    @SubscribeEvent
+    fun onGetProjectile(event: LivingGetProjectileEvent) {
+        ClickGenes.handleInfinityGetProjectile(event)
     }
 
 }

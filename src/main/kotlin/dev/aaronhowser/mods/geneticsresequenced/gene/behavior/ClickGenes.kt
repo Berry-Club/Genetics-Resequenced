@@ -12,6 +12,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
+import net.minecraft.core.registries.Registries
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
@@ -29,7 +30,9 @@ import net.minecraft.world.item.ArrowItem
 import net.minecraft.world.item.BowItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
+import net.minecraft.world.item.enchantment.Enchantments
 import net.minecraft.world.level.block.Blocks
+import net.neoforged.neoforge.event.entity.living.LivingGetProjectileEvent
 import net.neoforged.neoforge.event.entity.player.ArrowLooseEvent
 import net.neoforged.neoforge.event.entity.player.ArrowNockEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
@@ -382,6 +385,21 @@ object ClickGenes {
         }
     }
 
+    fun handleInfinityGetProjectile(event: LivingGetProjectileEvent) {
+        if (!event.projectileItemStack.isEmpty) return
+
+        val entity = event.entity
+        if (!entity.hasGene(ModGenes.infinity)) return
+
+        val weapon = event.projectileWeaponItemStack
+
+        val infinityEnchant = event.entity.registryAccess().registryOrThrow(Registries.ENCHANTMENT)
+            .getHolderOrThrow(Enchantments.INFINITY)
+        if (weapon.getEnchantmentLevel(infinityEnchant) != 0) return
+
+        event.projectileItemStack = Items.ARROW.itemStack
+    }
+
     fun handleInfinityStart(event: ArrowNockEvent) {
         if (!ModGenes.infinity.isActive) return
 
@@ -389,6 +407,11 @@ object ClickGenes {
 
         val entity = event.entity
         if (!entity.hasGene(ModGenes.infinity)) return
+
+        val infinityEnchant =
+            event.entity.registryAccess().registryOrThrow(Registries.ENCHANTMENT)
+                .getHolderOrThrow(Enchantments.INFINITY)
+        if (event.bow.getEnchantmentLevel(infinityEnchant) != 0) return
 
         entity.startUsingItem(event.entity.usedItemHand)
         event.action = InteractionResultHolder.success(event.bow)
@@ -427,15 +450,15 @@ object ClickGenes {
 
         if (velocity == 1f) abstractArrow.isCritArrow = true
 
-        //TODO: Enchantments
-//        val powerLevel = bowStack.getEnchantmentLevel(Enchantments.POWER_ARROWS)
-//        if (powerLevel > 0) abstractArrow.baseDamage += powerLevel * 0.5 + 0.5
-//
-//        val punchLevel = bowStack.getEnchantmentLevel(Enchantments.PUNCH_ARROWS)
-//        if (punchLevel > 0) abstractArrow.knockback = punchLevel
-//
-//        val flameLevel = bowStack.getEnchantmentLevel(Enchantments.FLAMING_ARROWS)
-//        if (flameLevel > 0) abstractArrow.setSecondsOnFire(100)
+        val levelEnchants = player.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT)
+        val powerEnchantment = levelEnchants.getHolderOrThrow(Enchantments.POWER)
+        val flameEnchantment = levelEnchants.getHolderOrThrow(Enchantments.FLAME)
+
+        val powerLevel = bowStack.getEnchantmentLevel(powerEnchantment)
+        if (powerLevel > 0) abstractArrow.baseDamage += powerLevel * 0.5 + 0.5
+
+        val flameLevel = bowStack.getEnchantmentLevel(flameEnchantment)
+        if (flameLevel > 0) abstractArrow.remainingFireTicks = 9999
 
         abstractArrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY
 
