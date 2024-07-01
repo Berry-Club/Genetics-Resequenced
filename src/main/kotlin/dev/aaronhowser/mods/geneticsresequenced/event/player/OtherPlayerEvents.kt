@@ -7,16 +7,19 @@ import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
+import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
+import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
+import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.InventoryListener
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
-import net.neoforged.neoforge.common.util.TriState
 import net.neoforged.neoforge.event.ServerChatEvent
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
@@ -37,16 +40,18 @@ object OtherPlayerEvents {
     }
 
     @SubscribeEvent
-    fun onPickUpItem(event: ItemEntityPickupEvent.Pre) {
-        if (event.canPickup() == TriState.FALSE) return
-
-        val stack = event.itemEntity
+    fun onPickUpItem(event: ItemEntityPickupEvent.Post) {
+        val originalStack = event.originalStack
         val player = event.player
 
-        if (stack.item.item == ModItems.SYRINGE.get()) {
-            val thrower = event.itemEntity.owner
+        if (originalStack.item.isSyringe()) {
+            val thrower = event.itemEntity.owner as? LivingEntity
 
-//            player.hurt(SyringeItem.damageSourceStepOnSyringe(thrower), 1.0f)
+            player.hurt(SyringeItem.damageSourceStepOnSyringe(event.player.level(), thrower), 1.0f)
+
+            if (originalStack.get(BooleanItemComponent.isContaminatedComponent)?.value == true) {
+                player.addEffect(MobEffectInstance(MobEffects.POISON, 20 * 3))
+            }
         }
     }
 

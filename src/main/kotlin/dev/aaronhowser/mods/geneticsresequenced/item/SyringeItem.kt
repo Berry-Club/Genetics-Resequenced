@@ -13,11 +13,16 @@ import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityIt
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityUuid
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.hasEntity
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
+import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
+import net.minecraft.world.damagesource.DamageSource
+import net.minecraft.world.damagesource.DamageType
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
@@ -220,7 +225,19 @@ open class SyringeItem : Item(
             return true
         }
 
-        //TODO: Add damage sources for on use and pickup
+        private val stepOnSyringeDamageKey: ResourceKey<DamageType> =
+            ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource("step_on_syringe"))
+
+        fun damageSourceStepOnSyringe(level: Level, thrower: LivingEntity?): DamageSource {
+            return level.damageSources().source(stepOnSyringeDamageKey, thrower)
+        }
+
+        private val useSyringeDamageKey: ResourceKey<DamageType> =
+            ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource("use_syringe"))
+
+        fun damageSourceUseSyringe(level: Level, thrower: LivingEntity?): DamageSource {
+            return level.damageSources().source(useSyringeDamageKey, thrower)
+        }
 
     }
 
@@ -263,7 +280,7 @@ open class SyringeItem : Item(
         }
 
         pLivingEntity.apply {
-//            hurt(damageSourceUseSyringe(pLivingEntity), 1f)
+            hurt(damageSourceUseSyringe(pLevel, pLivingEntity), 1f)
             addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
 
             cooldowns.addCooldown(ModItems.SYRINGE.get(), 10)

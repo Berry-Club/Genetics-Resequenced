@@ -29,3 +29,4 @@
 - Added a recipe for unsetting Anti-Plasmids, if for whatever reason you want to
 - Plasmids and Anti-Plasmids now only stack to 1
 - Fixed the Black Death recipe being broken
+- Stepping on a contaminated Syringe will now give you poison

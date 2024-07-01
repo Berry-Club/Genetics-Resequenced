@@ -7,7 +7,6 @@ import dev.aaronhowser.mods.geneticsresequenced.enchantment.ModEnchantments
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setEntityType
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.core.Holder
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.InteractionHand
@@ -63,15 +62,11 @@ class ScraperItem : Item(
             return true
         }
 
-        val SCRAPER_DAMAGE: ResourceKey<DamageType> =
+        private val useSyringeDamageKey: ResourceKey<DamageType> =
             ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource("use_scraper"))
 
-        fun getDamageSource(level: Level, thrower: Player? = null): DamageSource {
-            return DamageSource(getDamageHolder(level), thrower)
-        }
-
-        fun getDamageHolder(level: Level): Holder.Reference<DamageType> {
-            return level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(SCRAPER_DAMAGE)
+        private fun getDamageSource(level: Level, source: LivingEntity? = null): DamageSource {
+            return level.damageSources().source(useSyringeDamageKey, source)
         }
     }
 
