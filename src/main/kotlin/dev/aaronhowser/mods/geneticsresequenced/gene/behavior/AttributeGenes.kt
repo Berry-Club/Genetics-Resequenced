@@ -142,29 +142,8 @@ object AttributeGenes {
         }
     }
 
-
-    private val wallClimbingRl = OtherUtil.modResource("wall_climbing")
-    private val wallClimbingAttributeModifier = AttributeModifier(
-        wallClimbingRl,
-        1.0,
-        AttributeModifier.Operation.ADD_VALUE
-    )
-
-    fun setWallClimbing(player: Player, adding: Boolean) {
-        val wallClimbingAttribute = player.getAttribute(ModAttributes.WALL_CLIMBING) ?: return
-
-        if (adding) {
-            wallClimbingAttribute.addPermanentModifier(wallClimbingAttributeModifier)
-        } else {
-            wallClimbingAttribute.removeModifier(wallClimbingAttributeModifier)
-        }
-    }
-
     fun handleWallClimbing(player: Player) {
         if (!ModGenes.WALL_CLIMBING.get().isActive) return
-
-        val walkClimbingAttribute = player.getAttribute(ModAttributes.WALL_CLIMBING) ?: return
-        if (walkClimbingAttribute.value <= 0.0) return
 
         if (!player.hasGene(ModGenes.WALL_CLIMBING.get())) return
 

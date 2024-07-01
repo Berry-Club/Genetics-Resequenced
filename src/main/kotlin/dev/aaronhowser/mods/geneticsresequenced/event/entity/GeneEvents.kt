@@ -40,7 +40,6 @@ object GeneEvents {
                 ModGenes.EFFICIENCY_FOUR.get() -> AttributeGenes.setEfficiency(livingEntity, 4, wasAdded)
 
                 ModGenes.STEP_ASSIST.get() -> AttributeGenes.setStepAssist(livingEntity, wasAdded)
-                ModGenes.WALL_CLIMBING.get() -> AttributeGenes.setWallClimbing(livingEntity, wasAdded)
                 ModGenes.KNOCKBACK.get() -> AttributeGenes.setKnockback(livingEntity, wasAdded)
                 ModGenes.FLIGHT.get() -> AttributeGenes.setFlight(livingEntity, wasAdded)
 
