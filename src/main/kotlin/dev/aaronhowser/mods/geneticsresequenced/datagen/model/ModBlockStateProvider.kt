@@ -154,22 +154,18 @@ class ModBlockStateProvider(
                 val facing = state.getValue(HorizontalDirectionalBlock.FACING)
 
                 val burningString = if (burning) "on" else "off"
-                val directionString = when (facing) {
-                    Direction.NORTH -> "north"
-                    Direction.EAST -> "east"
-                    Direction.SOUTH -> "south"
-                    Direction.WEST -> "west"
+
+                val rotationY = when (facing) {
+                    Direction.NORTH -> 0
+                    Direction.EAST -> 90
+                    Direction.SOUTH -> 180
+                    Direction.WEST -> 270
                     else -> throw IllegalStateException("Invalid facing direction")
                 }
 
-                val modelName = "coal_generator_${directionString}_$burningString"
+                val modelName = "coal_generator_$burningString"
 
                 val frontTexture = if (burning) "block/coal_generator_front_on" else "block/coal_generator_front_off"
-
-                val north = if (facing == Direction.NORTH) frontTexture else side
-                val south = if (facing == Direction.SOUTH) frontTexture else side
-                val east = if (facing == Direction.EAST) frontTexture else side
-                val west = if (facing == Direction.WEST) frontTexture else side
 
                 ConfiguredModel
                     .builder()
@@ -178,18 +174,20 @@ class ModBlockStateProvider(
                             modelName,
                             modLoc(bottom),
                             modLoc(top),
-                            modLoc(north),
-                            modLoc(south),
-                            modLoc(east),
-                            modLoc(west),
+                            modLoc(frontTexture),
+                            modLoc(side),
+                            modLoc(side),
+                            modLoc(side),
                         ).texture("particle", modLoc(top))
-                    ).build()
+                    )
+                    .rotationY(rotationY)
+                    .build()
             }
 
         simpleBlockItem(
             deferredBlock.get(),
             ItemModelBuilder(
-                modLoc("block/coal_generator_east_off"),
+                modLoc("block/coal_generator_off"),
                 existingFileHelper
             )
         )
