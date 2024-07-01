@@ -16,48 +16,17 @@ import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffectInstance
-import kotlin.properties.Delegates
 
-class Gene(
-    val id: ResourceLocation
-) {
+class Gene(properties: GeneProperties) {
 
-    constructor(geneProperties: GeneProperties) : this(geneProperties.id) {
-        isNegative = geneProperties.isNegative
-        canMobsHave = geneProperties.canMobsHave
-        dnaPointsRequired = geneProperties.dnaPointsRequired
-        mutatesInto = geneProperties.mutatesInto
-//        potionDetails = geneProperties.potionDetails
-        isHidden = geneProperties.isHidden
-    }
 
-    var isNegative: Boolean by Delegates.notNull()
-        private set
-    var isHidden: Boolean by Delegates.notNull()
-        private set
-    var canMobsHave: Boolean by Delegates.notNull()
-        private set
-    var dnaPointsRequired: Int by Delegates.notNull()
-        private set
-    var mutatesInto: Gene? = null
-        private set
-    private var potionDetails: GeneProperties.PotionDetails? = null
-
-    fun setDetails(
-        isNegative: Boolean,
-        canMobsHave: Boolean,
-        dnaPointsRequired: Int,
-        mutatesInto: Gene?,
-        potionDetails: GeneProperties.PotionDetails?,
-        isHidden: Boolean
-    ) {
-        this.isNegative = isNegative
-        this.canMobsHave = canMobsHave
-        this.dnaPointsRequired = dnaPointsRequired
-        this.mutatesInto = mutatesInto
-        this.potionDetails = potionDetails
-        this.isHidden = isHidden
-    }
+    val id: ResourceLocation = properties.id
+    val isNegative: Boolean = properties.isNegative
+    val isHidden: Boolean = properties.isHidden
+    val canMobsHave: Boolean = properties.canMobsHave
+    val dnaPointsRequired: Int = properties.dnaPointsRequired
+    private val mutatesInto: Gene? = properties.mutatesInto
+    private val potionDetails: GeneProperties.PotionDetails? = properties.potionDetails
 
     override fun toString(): String = "Gene($id)"
 
