@@ -8,8 +8,8 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
+import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isContaminated
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
-import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.InventoryListener
@@ -49,7 +49,7 @@ object OtherPlayerEvents {
 
             player.hurt(SyringeItem.damageSourceStepOnSyringe(event.player.level(), thrower), 1.0f)
 
-            if (originalStack.get(BooleanItemComponent.isContaminatedComponent)?.value == true) {
+            if (isContaminated(originalStack)) {
                 player.addEffect(MobEffectInstance(MobEffects.POISON, 20 * 3))
             }
         }

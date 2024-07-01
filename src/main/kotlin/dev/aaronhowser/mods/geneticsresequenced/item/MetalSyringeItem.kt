@@ -155,6 +155,8 @@ class MetalSyringeItem : SyringeItem() {
         } else {
             extractBlood(pStack, targetEntity)
 
+            setContaminated(pStack, true)
+
             targetEntity.apply {
                 hurt(damageSourceUseSyringe(pLevel, pLivingEntity), 1f)
                 addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
