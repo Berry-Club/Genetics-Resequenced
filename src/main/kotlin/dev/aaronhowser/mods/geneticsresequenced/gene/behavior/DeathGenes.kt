@@ -43,7 +43,7 @@ object DeathGenes {
         // If they're respawning, give them all the items in the saved map and remove them from the map
         val playerIsRespawning = playerInventoryMap.containsKey(player.uuid)
 
-        //TODO: Implement this
+        //TODO: Implement this when mod updates
         val curiosIsLoaded = ModList.get().isLoaded("curios")
 
         if (playerIsRespawning) {

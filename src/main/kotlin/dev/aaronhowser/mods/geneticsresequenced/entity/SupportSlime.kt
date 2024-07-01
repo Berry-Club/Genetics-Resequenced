@@ -51,7 +51,6 @@ class SupportSlime(
                 .build()
         }
 
-        //TODO: Make this a DataAttachment
         private const val OWNER_UUID_NBT_KEY = "OwnerUUID"
         private val OWNER: EntityDataAccessor<Optional<UUID>> =
             SynchedEntityData.defineId(SupportSlime::class.java, EntityDataSerializers.OPTIONAL_UUID)
