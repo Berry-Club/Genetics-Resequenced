@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -50,8 +50,7 @@ object AddAllGenesCommand {
 
         for (target in targets) {
             val genesToAdd =
-                Gene.Registry.getRegistry()
-                    .filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
+                GeneRegistry.GENE_REGISTRY.filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
 
             for (gene in genesToAdd) {
                 target.addGene(gene)
@@ -68,8 +67,7 @@ object AddAllGenesCommand {
 
     private fun handleSingleTarget(context: CommandContext<CommandSourceStack>, target: LivingEntity) {
         val genesToAdd =
-            Gene.Registry.getRegistry()
-                .filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
+            GeneRegistry.GENE_REGISTRY.filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
 
         for (gene in genesToAdd) {
             target.addGene(gene)

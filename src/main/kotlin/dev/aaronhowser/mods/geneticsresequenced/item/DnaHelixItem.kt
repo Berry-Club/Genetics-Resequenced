@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneItemComponent
@@ -36,8 +37,7 @@ class DnaHelixItem : EntityDnaItem() {
         }
 
         fun getAllHelices(): List<ItemStack> {
-            val geneRegistry = Gene.Registry.getRegistry()
-            return geneRegistry.map { gene -> ModItems.DNA_HELIX.toStack().apply { setGene(this, gene) } }
+            return GeneRegistry.GENE_REGISTRY.map { gene -> ModItems.DNA_HELIX.toStack().apply { setGene(this, gene) } }
         }
     }
 

@@ -5,12 +5,14 @@ import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_STRINGS
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -91,8 +93,7 @@ object AddGeneCommand {
         entities: MutableCollection<out Entity>? = null
     ): Int {
 
-        val gene = Gene.Registry.fromId(geneRl)
-            ?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
+        val gene = ModGenes.fromId(geneRl)
 
         return addGene(context, gene, entities)
     }
@@ -103,7 +104,7 @@ object AddGeneCommand {
         entities: MutableCollection<out Entity>? = null
     ): Int {
 
-        val gene = Gene.Registry.getRegistry().find { it.id.path == geneString }
+        val gene = GeneRegistry.GENE_REGISTRY.find { it.id.path == geneString }
             ?: throw IllegalArgumentException("Gene with id $geneString does not exist!")
 
         return addGene(context, gene, entities)

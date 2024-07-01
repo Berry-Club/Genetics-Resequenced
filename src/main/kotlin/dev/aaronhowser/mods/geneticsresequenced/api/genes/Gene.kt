@@ -40,14 +40,14 @@ class Gene(
         private set
     var mutatesInto: Gene? = null
         private set
-    private var potionDetails: GeneBuilder.PotionDetails? = null
+    private var potionDetails: GeneProperties.PotionDetails? = null
 
     fun setDetails(
         isNegative: Boolean,
         canMobsHave: Boolean,
         dnaPointsRequired: Int,
         mutatesInto: Gene?,
-        potionDetails: GeneBuilder.PotionDetails?,
+        potionDetails: GeneProperties.PotionDetails?,
         isHidden: Boolean
     ) {
         this.isNegative = isNegative
@@ -60,70 +60,6 @@ class Gene(
 
     override fun toString(): String = "Gene($id)"
 
-    object Registry {
-        //TODO: Make this an actual registry
-        private val GENE_REGISTRY: MutableSet<Gene> = mutableSetOf()
-
-        fun getRegistryUnsorted(): List<Gene> {
-            return GENE_REGISTRY.toList()
-        }
-
-        fun getRegistry(): List<Gene> {
-            val sortedGenes = dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.GENE_REGISTRY.registry.get()
-                .sortedBy { it.id }
-
-            val positiveGenes: MutableList<Gene> = mutableListOf()
-            val mutations: MutableList<Gene> = mutableListOf()
-            val negativeGenes: MutableList<Gene> = mutableListOf()
-
-            for (gene in sortedGenes) {
-                when {
-                    !gene.isMutation && !gene.isNegative -> positiveGenes.add(gene)
-                    gene.isMutation -> mutations.add(gene)
-                    gene.isNegative -> negativeGenes.add(gene)
-                }
-            }
-
-            return positiveGenes + mutations + negativeGenes
-        }
-
-        val noCustomGenes = getRegistry().all { it.id.namespace == GeneticsResequenced.ID }
-
-        fun register(
-            id: ResourceLocation,
-            isNegative: Boolean,
-            canMobsHave: Boolean,
-            dnaPointsRequired: Int,
-            mutatesInto: Gene?,
-            potionDetails: GeneBuilder.PotionDetails?,
-            hidden: Boolean,
-        ): Gene {
-            val gene = Gene(id = id)
-
-            gene.setDetails(
-                isNegative = isNegative,
-                canMobsHave = canMobsHave,
-                dnaPointsRequired = dnaPointsRequired,
-                mutatesInto = mutatesInto,
-                potionDetails = potionDetails,
-                isHidden = hidden
-            )
-
-            GENE_REGISTRY.add(gene)
-
-            return gene
-        }
-
-        fun fromId(searchedId: ResourceLocation): Gene? {
-            return GENE_REGISTRY.find { it.id == searchedId }
-        }
-
-        fun fromId(searchedString: String): Gene? {
-            return fromId(ResourceLocation.parse(searchedString))
-        }
-
-    }
-
     companion object {
 
         val unknownGeneComponent: MutableComponent = ModLanguageProvider.Genes.UNKNOWN.toComponent()
@@ -132,11 +68,7 @@ class Gene(
             val disabledGenes = ServerConfig.disabledGenes.get()
 
             for (disabledGene in disabledGenes) {
-                val gene = Registry.fromId(disabledGene)
-                if (gene == null) {
-                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")
-                    continue
-                }
+                val gene = ModGenes.fromId(disabledGene)
 
                 if (gene in requiredGenes) {
                     GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it is required for the mod to function!")
@@ -153,12 +85,12 @@ class Gene(
         )
 
         val CODEC: Codec<Gene> = ResourceLocation.CODEC.xmap(
-            { id: ResourceLocation -> Registry.fromId(id) ?: throw IllegalArgumentException("Unknown gene $id") },
+            { id: ResourceLocation -> ModGenes.fromId(id) },
             { gene: Gene -> gene.id }
         )
 
         val STREAM_CODEC: StreamCodec<ByteBuf, Gene> = ResourceLocation.STREAM_CODEC.map(
-            { id: ResourceLocation -> Registry.fromId(id) ?: throw IllegalArgumentException("Unknown gene $id") },
+            { id: ResourceLocation -> ModGenes.fromId(id) },
             { gene: Gene -> gene.id }
         )
 
@@ -167,7 +99,7 @@ class Gene(
     private val requiredGenes: MutableSet<Gene> = mutableSetOf()
 
     val isMutation: Boolean
-        get() = Registry.getRegistryUnsorted().any { it.mutatesInto == this }
+        get() = GeneRegistry.GENE_REGISTRY.any { it.mutatesInto == this }
 
     fun addRequiredGenes(genes: Collection<Gene>) {
         requiredGenes.addAll(genes)
@@ -247,12 +179,5 @@ class Gene(
             potionDetails.showIcon
         )
     }
-
-//    fun canBeAdded(targetGenes: GenesCapability): Boolean {
-//        if (targetGenes.hasGene(this)) return false
-//        if (!isMutation) return true
-//
-//        return requiredGenes.all { targetGenes.hasGene(it) }
-//    }
 
 }

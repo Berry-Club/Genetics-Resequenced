@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.attachment
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
@@ -105,7 +106,8 @@ data class GenesData(
         }
 
         fun LivingEntity.addAlLGenes(includeNegative: Boolean = false) {
-            val genesToAdd = Gene.Registry.getRegistry().filter { includeNegative || !it.isNegative }
+            val genesToAdd =
+                GeneRegistry.GENE_REGISTRY.filter { includeNegative || !it.isNegative }
 
             for (gene in genesToAdd) {
                 this.addGene(gene)

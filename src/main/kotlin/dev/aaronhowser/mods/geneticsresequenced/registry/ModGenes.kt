@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneProperties
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffects
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -19,6 +20,16 @@ object ModGenes {
         return GENE_REGISTRY.register(name, Supplier {
             Gene(geneProperties())
         })
+    }
+
+    fun fromId(id: String): Gene {
+        return GENE_REGISTRY.entries.find { it.id.toString() == id }?.get()
+            ?: throw IllegalArgumentException("Gene with id $id does not exist!")
+    }
+
+    fun fromId(id: ResourceLocation): Gene {
+        return GENE_REGISTRY.entries.find { it.id == id }?.get()
+            ?: throw IllegalArgumentException("Gene with id $id does not exist!")
     }
 
     val BASIC = registerGene("basic") {

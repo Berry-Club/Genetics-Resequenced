@@ -7,6 +7,7 @@ import com.mojang.serialization.JsonOps
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.packs.resources.ResourceManager
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener
@@ -36,7 +37,7 @@ class GeneRequirementRegistry : SimpleJsonResourceReloadListener(
         pResourceManager: ResourceManager,
         pProfiler: ProfilerFiller
     ) {
-        Gene.Registry.getRegistry().forEach { it.removeRequiredGenes(it.getRequiredGenes()) }
+        GeneRegistry.GENE_REGISTRY.forEach { it.removeRequiredGenes(it.getRequiredGenes()) }
 
         val requirements = mutableMapOf<Gene, List<Gene>>()
 

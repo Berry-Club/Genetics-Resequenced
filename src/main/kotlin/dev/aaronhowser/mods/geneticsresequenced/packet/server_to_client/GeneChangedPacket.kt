@@ -32,7 +32,7 @@ data class GeneChangedPacket(
         // Return if the entity does not exist on the client. This happens when the entity is not being tracked on the client, aka if it's too far away or whatever.
         val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return
 
-        val gene = Gene.Registry.fromId(geneRl)
+        val gene = ModGenes.fromId(geneRl)
             ?: throw IllegalStateException("Received GeneChangedPacket with invalid gene id!")
 
         if (wasAdded) {
