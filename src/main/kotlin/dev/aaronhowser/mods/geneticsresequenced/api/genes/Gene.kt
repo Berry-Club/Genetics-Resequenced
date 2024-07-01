@@ -81,9 +81,11 @@ class Gene(
             }
         }
 
-        private val requiredGenes = setOf(
-            ModGenes.BASIC.get()
-        )
+        private val requiredGenes by lazy {
+            setOf(
+                ModGenes.BASIC.get()
+            )
+        }
 
         val CODEC: Codec<Gene> = GeneRegistry.GENE_REGISTRY.byNameCodec()
 
