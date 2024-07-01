@@ -105,36 +105,33 @@ class ModBlockStateProvider(
             .forAllStates { state ->
                 val facing = state.getValue(HorizontalDirectionalBlock.FACING)
 
-                val north = if (facing == Direction.NORTH) frontTexture else side
-                val south = if (facing == Direction.SOUTH) frontTexture else side
-                val east = if (facing == Direction.EAST) frontTexture else side
-                val west = if (facing == Direction.WEST) frontTexture else side
-
-                val modelName = name + when (facing) {
-                    Direction.NORTH -> "_north"
-                    Direction.EAST -> "_east"
-                    Direction.SOUTH -> "_south"
-                    Direction.WEST -> "_west"
+                val yRotation = when (facing) {
+                    Direction.NORTH -> 0
+                    Direction.EAST -> 90
+                    Direction.SOUTH -> 180
+                    Direction.WEST -> 270
                     else -> throw IllegalStateException("Invalid facing direction")
                 }
 
                 ConfiguredModel.builder().modelFile(
                     models().cube(
-                        modelName,
+                        name,
                         modLoc(bottom),
                         modLoc(top),
-                        modLoc(north),
-                        modLoc(south),
-                        modLoc(east),
-                        modLoc(west),
+                        modLoc(frontTexture),
+                        modLoc(side),
+                        modLoc(side),
+                        modLoc(side),
                     ).texture("particle", modLoc(top))
-                ).build()
+                )
+                    .rotationY(yRotation)
+                    .build()
             }
 
         simpleBlockItem(
             deferredBlock.get(),
             ItemModelBuilder(
-                modLoc("block/${name}_east"),
+                modLoc("block/${name}"),
                 existingFileHelper
             )
         )
@@ -155,7 +152,7 @@ class ModBlockStateProvider(
 
                 val burningString = if (burning) "on" else "off"
 
-                val rotationY = when (facing) {
+                val yRotation = when (facing) {
                     Direction.NORTH -> 0
                     Direction.EAST -> 90
                     Direction.SOUTH -> 180
@@ -180,7 +177,7 @@ class ModBlockStateProvider(
                             modLoc(side),
                         ).texture("particle", modLoc(top))
                     )
-                    .rotationY(rotationY)
+                    .rotationY(yRotation)
                     .build()
             }
 

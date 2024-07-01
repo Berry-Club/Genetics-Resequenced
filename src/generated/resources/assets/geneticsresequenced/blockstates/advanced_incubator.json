@@ -1,16 +1,19 @@
 {
   "variants": {
     "facing=east": {
-      "model": "geneticsresequenced:block/advanced_incubator_east"
+      "model": "geneticsresequenced:block/advanced_incubator",
+      "y": 90
     },
     "facing=north": {
-      "model": "geneticsresequenced:block/advanced_incubator_north"
+      "model": "geneticsresequenced:block/advanced_incubator"
     },
     "facing=south": {
-      "model": "geneticsresequenced:block/advanced_incubator_south"
+      "model": "geneticsresequenced:block/advanced_incubator",
+      "y": 180
     },
     "facing=west": {
-      "model": "geneticsresequenced:block/advanced_incubator_west"
+      "model": "geneticsresequenced:block/advanced_incubator",
+      "y": 270
     }
   }
 }
