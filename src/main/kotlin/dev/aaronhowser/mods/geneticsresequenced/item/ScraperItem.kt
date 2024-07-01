@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.enchantment.ModEnchantments
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setEntityType
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.world.InteractionHand
@@ -38,12 +39,16 @@ class ScraperItem : Item(
                 player.drop(organicStack, false)
             }
 
-            // Only put on cooldown if the entity was not damaged
-//            if (stack.getEnchantmentLevel(ModEnchantments.DELICATE_TOUCH) == 0) {
-//                entity.hurt(damageSourceScraper(player), 1f)
-//            } else {
-            player.cooldowns.addCooldown(ModItems.SCRAPER.get(), 10)
-//            }
+
+            val hasDelicateTouch =
+                stack.getEnchantmentLevel(ModEnchantments.getDelicateTouchHolder(player.level())) != 0
+
+//             Only put on cooldown if the entity was not damaged
+            if (hasDelicateTouch) {
+//                target.hurt(damageSourceScraper(player), 1f)
+            } else {
+                player.cooldowns.addCooldown(ModItems.SCRAPER.get(), 10)
+            }
 
             val equipmentSlot = player.getEquipmentSlotForItem(stack)
 

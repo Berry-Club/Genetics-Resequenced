@@ -4,16 +4,16 @@
     "translate": "enchantment.geneticsresequenced.delicate_touch"
   },
   "effects": {},
-  "exclusive_set": "",
-  "min_cost": {
-    "base": 5,
-    "per_level_above_first": 0
-  },
+  "exclusive_set": "#geneticsresequenced:enchantable/delicate_touch",
   "max_cost": {
     "base": 15,
     "per_level_above_first": 0
   },
   "max_level": 1,
+  "min_cost": {
+    "base": 4,
+    "per_level_above_first": 0
+  },
   "slots": [
     "mainhand"
   ],
