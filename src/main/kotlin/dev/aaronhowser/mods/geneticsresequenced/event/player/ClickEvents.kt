@@ -28,6 +28,7 @@ object ClickEvents {
     fun onUseItem(event: PlayerInteractEvent.RightClickItem) {
         ClickGenes.woolyItem(event)
         ClickGenes.milkyItem(event)
+        ClickGenes.meatyItem(event)
         ClickGenes.shootFireball(event)
     }
 

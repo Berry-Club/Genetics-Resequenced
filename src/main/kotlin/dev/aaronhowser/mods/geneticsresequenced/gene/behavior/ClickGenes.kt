@@ -91,7 +91,7 @@ object ClickGenes {
             null,
             target,
             SoundEvents.SHEEP_SHEAR,
-            target.soundSource,
+            SoundSource.PLAYERS,
             1.0f,
             1.0f
         )
@@ -147,7 +147,7 @@ object ClickGenes {
             null,
             target,
             SoundEvents.SHEEP_SHEAR,
-            target.soundSource,
+            SoundSource.PLAYERS,
             1.0f,
             1.0f
         )
@@ -196,7 +196,7 @@ object ClickGenes {
             null,
             target,
             sound,
-            target.soundSource,
+            SoundSource.PLAYERS,
             1.0f,
             1.0f
         )
@@ -290,6 +290,52 @@ object ClickGenes {
         )
 
         ModPacketHandler.messagePlayer(player as ServerPlayer, ShearedPacket(removingSkin = true))
+    }
+
+    fun meatyItem(event: PlayerInteractEvent.RightClickItem) {
+        if (!ModGenes.MEATY.get().isActive) return
+
+        val player = event.entity
+
+        if (player.level().isClientSide) return
+
+        if (!player.isCrouching) return
+        val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
+        if (!clickedWithShears) return
+
+        if (!player.hasGene(ModGenes.MEATY.get())) return
+
+        val newlyMeated = recentlyMeated.add(player)
+
+        if (!newlyMeated) {
+            player.sendSystemMessage(ModLanguageProvider.Messages.RECENT_MEATY.toComponent())
+            return
+        }
+
+        val porkEntity = ItemEntity(
+            event.level,
+            player.eyePosition.x,
+            player.eyePosition.y,
+            player.eyePosition.z,
+            ItemStack(Items.PORKCHOP)
+        )
+        event.level.addFreshEntity(porkEntity)
+        porkEntity.setDeltaMovement(
+            Random.nextDouble(-0.05, 0.05),
+            Random.nextDouble(0.05, 0.1),
+            Random.nextDouble(-0.05, 0.05)
+        )
+
+        event.itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(event.itemStack))
+
+        event.level.playSound(
+            null,
+            player,
+            SoundEvents.SHEEP_SHEAR,
+            SoundSource.PLAYERS,
+            1.0f,
+            1.0f
+        )
     }
 
     fun shootFireball(event: PlayerInteractEvent.RightClickItem) {
