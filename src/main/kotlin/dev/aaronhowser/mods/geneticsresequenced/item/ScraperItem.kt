@@ -6,9 +6,15 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Comp
 import dev.aaronhowser.mods.geneticsresequenced.enchantment.ModEnchantments
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setEntityType
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import net.minecraft.core.Holder
+import net.minecraft.core.registries.Registries
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.InteractionResultHolder
+import net.minecraft.world.damagesource.DamageSource
+import net.minecraft.world.damagesource.DamageType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -45,9 +51,9 @@ class ScraperItem : Item(
 
 //             Only put on cooldown if the entity was not damaged
             if (hasDelicateTouch) {
-//                target.hurt(damageSourceScraper(player), 1f)
-            } else {
                 player.cooldowns.addCooldown(ModItems.SCRAPER.get(), 10)
+            } else {
+                target.hurt(getDamageSource(player.level(), player), 1f)
             }
 
             val equipmentSlot = player.getEquipmentSlotForItem(stack)
@@ -57,6 +63,16 @@ class ScraperItem : Item(
             return true
         }
 
+        val SCRAPER_DAMAGE: ResourceKey<DamageType> =
+            ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource("use_scraper"))
+
+        fun getDamageSource(level: Level, thrower: Player? = null): DamageSource {
+            return DamageSource(getDamageHolder(level), thrower)
+        }
+
+        fun getDamageHolder(level: Level): Holder.Reference<DamageType> {
+            return level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(SCRAPER_DAMAGE)
+        }
     }
 
     // When not used on an entity, target self instead
