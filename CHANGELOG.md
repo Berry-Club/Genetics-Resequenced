@@ -34,3 +34,4 @@
 - Changed the background texture for the advancements
 - Dragon's Breath cooldown now is actually for Dragon's Breath, and not for Shoot Fireballs
 - Genes are now an actual Registry
+- Claws inflicts Bleeding for 5 seconds rather than 300

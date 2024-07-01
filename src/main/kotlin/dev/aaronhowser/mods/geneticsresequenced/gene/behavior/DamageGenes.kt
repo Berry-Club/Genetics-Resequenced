@@ -171,7 +171,6 @@ object DamageGenes {
             return
         }
 
-
         val chanceOfHappening = ServerConfig.clawsChance.get() * clawsLevel
 
         if (Random.nextDouble() > chanceOfHappening) return
@@ -179,7 +178,7 @@ object DamageGenes {
         event.entity.addEffect(
             MobEffectInstance(
                 ModEffects.BLEED,
-                6000,
+                20 * 5,
                 0,
                 false,
                 true,
