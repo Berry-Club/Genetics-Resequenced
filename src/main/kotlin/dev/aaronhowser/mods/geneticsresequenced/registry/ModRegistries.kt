@@ -6,6 +6,7 @@ import net.neoforged.neoforge.registries.DeferredRegister
 object ModRegistries {
 
     private val registries: List<DeferredRegister<out Any>> = listOf(
+        ModGenes.GENE_REGISTRY,
         ModDataComponents.DATA_COMPONENT_REGISTRY,
         ModItems.ITEM_REGISTRY,
         ModBlocks.BLOCK_REGISTRY,

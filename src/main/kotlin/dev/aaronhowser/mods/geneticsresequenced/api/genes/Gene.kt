@@ -21,6 +21,15 @@ class Gene(
     val id: ResourceLocation
 ) {
 
+    constructor(geneProperties: GeneProperties) : this(geneProperties.id) {
+        isNegative = geneProperties.isNegative
+        canMobsHave = geneProperties.canMobsHave
+        dnaPointsRequired = geneProperties.dnaPointsRequired
+        mutatesInto = geneProperties.mutatesInto
+//        potionDetails = geneProperties.potionDetails
+        isHidden = geneProperties.isHidden
+    }
+
     var isNegative: Boolean by Delegates.notNull()
         private set
     var isHidden: Boolean by Delegates.notNull()
@@ -60,7 +69,8 @@ class Gene(
         }
 
         fun getRegistry(): List<Gene> {
-            val sortedGenes = GENE_REGISTRY.sortedBy { it.id }
+            val sortedGenes = dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.GENE_REGISTRY.registry.get()
+                .sortedBy { it.id }
 
             val positiveGenes: MutableList<Gene> = mutableListOf()
             val mutations: MutableList<Gene> = mutableListOf()
