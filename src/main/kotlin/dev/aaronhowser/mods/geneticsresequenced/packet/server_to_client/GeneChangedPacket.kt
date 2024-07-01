@@ -1,12 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacket
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -43,41 +40,6 @@ data class GeneChangedPacket(
         }
 
         if (gene == ModGenes.CRINGE.get()) ClientUtil.handleCringe(wasAdded)
-
-        handleAttributes(gene)
-    }
-
-    private fun handleAttributes(gene: Gene) {
-        val player = ClientUtil.localPlayer ?: throw IllegalStateException("Received GeneChangedPacket without player!")
-
-        val attributeInstance = when (gene) {
-            ModGenes.EFFICIENCY_FOUR.get(), ModGenes.EFFICIENCY.get() -> player.attributes.getInstance(ModAttributes.EFFICIENCY)
-            ModGenes.WALL_CLIMBING.get() -> player.attributes.getInstance(ModAttributes.WALL_CLIMBING)
-            else -> null
-        } ?: return
-
-        val newLevel = when (gene) {
-            ModGenes.EFFICIENCY.get() -> if (wasAdded) 1.0 else 0.0
-
-            ModGenes.EFFICIENCY_FOUR.get() -> {
-                if (wasAdded) {
-                    4.0
-                } else {
-                    if (player.hasGene(ModGenes.EFFICIENCY.get())) {
-                        1.0
-                    } else {
-                        0.0
-                    }
-                }
-            }
-
-            ModGenes.WALL_CLIMBING.get() -> if (wasAdded) 1.0 else 0.0
-
-            else -> throw IllegalStateException("Gene $gene went through the GeneChangedPacket but isn't handled!")
-        }
-
-        attributeInstance.baseValue = newLevel
-
     }
 
     companion object {
