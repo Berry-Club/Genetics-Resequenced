@@ -124,7 +124,7 @@ object DeathGenes {
             entity.y,
             entity.z,
             EXPLOSION_STRENGTH,
-            Level.ExplosionInteraction.NONE //TODO: Figure out what this does
+            Level.ExplosionInteraction.NONE // What the heck does this do
         )
 
         recentlyExplodedEntities.remove(entity.uuid)
