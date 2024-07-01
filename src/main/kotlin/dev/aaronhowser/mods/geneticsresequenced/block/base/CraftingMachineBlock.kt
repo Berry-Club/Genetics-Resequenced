@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base
 
-import com.mojang.serialization.MapCodec
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerPlayer
@@ -32,15 +31,9 @@ abstract class CraftingMachineBlock(
         pBuilder.add(FACING)
     }
 
-    // BLOCK ENTITY STUFF BELOW
-
     @Suppress("OVERRIDE_DEPRECATION")
     override fun getRenderShape(pState: BlockState): RenderShape {
         return RenderShape.MODEL
-    }
-
-    override fun codec(): MapCodec<out HorizontalDirectionalBlock> {
-        TODO("Not yet implemented")
     }
 
     override fun onRemove(

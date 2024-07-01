@@ -1,8 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.coal_generator
 
-import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
-import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -22,9 +20,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.phys.BlockHitResult
 
 data class CoalGeneratorBlock(
-    val properties: Properties = Properties.of().sound(SoundType.METAL),
-    val facing: Direction = Direction.NORTH,
-    val burning: Boolean = false
+    val properties: Properties = Properties.of().sound(SoundType.METAL)
 ) : HorizontalDirectionalBlock(properties), EntityBlock {
 
     companion object {
@@ -36,14 +32,8 @@ data class CoalGeneratorBlock(
         registerDefaultState(stateDefinition.any().setValue(BURNING, false))
     }
 
-    override fun codec(): MapCodec<out CoalGeneratorBlock> {
-        return RecordCodecBuilder.mapCodec { instance ->
-            instance.group(
-                propertiesCodec(),
-                BlockStateProperties.HORIZONTAL_FACING.codec().fieldOf("facing").forGetter { it.facing },
-                Codec.BOOL.fieldOf("isBurning").forGetter { it.burning }
-            ).apply(instance, ::CoalGeneratorBlock)
-        }
+    override fun codec(): MapCodec<out HorizontalDirectionalBlock> {
+        return simpleCodec(::CoalGeneratorBlock)
     }
 
     override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
