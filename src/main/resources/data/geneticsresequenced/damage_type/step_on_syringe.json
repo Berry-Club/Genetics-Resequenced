@@ -1,5 +1,5 @@
 {
   "exhaustion": 1.0,
-  "message_id": "use_syringe",
+  "message_id": "gr_syringe_pickup",
   "scaling": "never"
 }

@@ -105,7 +105,6 @@ class ModLanguageProvider(
         const val CRINGE_CONFIG = "message.geneticsresequenced.cringe.resources.tooltip"
         const val CRINGE_RELOADING = "message.geneticsresequenced.cringe.resources.reloading"
         const val SLIME_SPAM = "message.geneticsresequenced.slimy_spam"
-        const val BLEED_DEATH = "death.attack.gr_bleed"
     }
 
     object Blocks {
@@ -414,9 +413,11 @@ class ModLanguageProvider(
 
     object Other {
 
-        const val DEATH_SCRAPER = "death.attack.scraper"
-        const val DEATH_SYRINGE = "death.attack.syringe"
-        const val DEATH_SYRINGE_DROPPED = "death.attack.syringeDrop"
+        const val DEATH_SCRAPER = "death.attack.gr_scraper"
+        const val DEATH_SYRINGE = "death.attack.gr_syringe"
+        const val DEATH_SYRINGE_PICKUP = "death.attack.gr_syringe_pickup"
+        const val BLEED_DEATH = "death.attack.gr_bleed"
+        const val VIRUS_DEATH = "death.attack.gr_virus"
 
         const val DELICATE_TOUCH = "enchantment.geneticsresequenced.delicate_touch"
         const val SUPPORT_SLIME = "entity.geneticsresequenced.support_slime"
@@ -527,7 +528,6 @@ class ModLanguageProvider(
         )
         add(Messages.CRINGE_RELOADING, "Reloading resources now!")
         add(Messages.SLIME_SPAM, "%s's Slime %d")
-        add(Messages.BLEED_DEATH, "%s bled out!")
 
         add(Blocks.BIOLUMINESCENCE, "Bioluminescence Glow")
         add(Blocks.CELL_ANALYZER, "Cell Analyzer")
@@ -868,9 +868,11 @@ class ModLanguageProvider(
 
         add(Other.DELICATE_TOUCH, "Delicate Touch")
         add(Other.SUPPORT_SLIME, "Support Slime")
-        add(Other.DEATH_SCRAPER, "%1\$s was scraped to the bone")
-        add(Other.DEATH_SYRINGE, "%1\$s died of blood loss")
-        add(Other.DEATH_SYRINGE_DROPPED, "%1\$s stepped on a loose Syringe")
+        add(Other.DEATH_SCRAPER, "%s was scraped to the bone")
+        add(Other.DEATH_SYRINGE, "%s died of blood loss")
+        add(Other.DEATH_SYRINGE_PICKUP, "%s stepped on a loose Syringe")
+        add(Other.BLEED_DEATH, "%s bled out!")
+        add(Other.VIRUS_DEATH, "%s succumbed to a Virus!")
         add(
             Other.BOOK_LANDING_TEXT,
             "Welcome to Genetics: Resequenced! This guide book will help you get started with the mod."
