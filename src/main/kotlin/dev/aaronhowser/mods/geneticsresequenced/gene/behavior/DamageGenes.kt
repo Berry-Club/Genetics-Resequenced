@@ -31,7 +31,7 @@ object DamageGenes {
         if (event.source != DamageTypes.FALL) return
 
         val entity = event.entity
-        if (entity.hasGene(ModGenes.NO_FALL_DAMAGE.get()) || entity.hasGene(ModGenes.FLIGHT.get())) {
+        if (entity.hasGene(ModGenes.NO_FALL_DAMAGE.get())) {
             event.amount = 0f
         }
     }
