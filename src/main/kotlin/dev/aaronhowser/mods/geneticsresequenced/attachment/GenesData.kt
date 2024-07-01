@@ -5,8 +5,8 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.neoforged.neoforge.attachment.AttachmentType
@@ -49,7 +49,7 @@ data class GenesData(
                 return false
             }
 
-            if (this is Player && newGene.isNegative && ServerConfig.disableGivingPlayersNegativeGenes.get() && newGene != ModGenes.cringe) {
+            if (this is Player && newGene.isNegative && ServerConfig.disableGivingPlayersNegativeGenes.get() && newGene != ModGenes.CRINGE.get()) {
                 GeneticsResequenced.LOGGER.debug(
                     "Tried to give negative gene $newGene to player $this, but \"disableGivingPlayersNegativeGenes\" is true in the server config."
                 )

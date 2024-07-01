@@ -133,7 +133,7 @@ object ModGenes {
 
     //Standard list
 
-    val BIO_LUMINESCENCE = registerGene("bioluminescence") {
+    val BIOLUMINESCENCE = registerGene("bioluminescence") {
         GeneProperties(
             id = OtherUtil.modResource("bioluminescence"),
             dnaPointsRequired = 16,

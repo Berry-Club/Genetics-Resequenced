@@ -5,10 +5,10 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
@@ -106,7 +106,7 @@ class PlasmidInfuserMenu(
 
             val component =
                 when (hoverGene) {
-                    ModGenes.basic -> {
+                    ModGenes.BASIC.get() -> {
                         ModLanguageProvider.Tooltips.INFUSER_BASIC.toComponent()
                     }
 

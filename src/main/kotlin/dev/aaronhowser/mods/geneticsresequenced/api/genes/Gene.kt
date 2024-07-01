@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import io.netty.buffer.ByteBuf
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.ClickEvent
@@ -149,7 +149,7 @@ class Gene(
         }
 
         private val requiredGenes = setOf(
-            ModGenes.basic
+            ModGenes.BASIC.get()
         )
 
         val CODEC: Codec<Gene> = ResourceLocation.CODEC.xmap(

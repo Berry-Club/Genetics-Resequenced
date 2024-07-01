@@ -2,10 +2,10 @@ package dev.aaronhowser.mods.geneticsresequenced.advancement
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.advancements.AdvancementHolder
@@ -42,9 +42,9 @@ object AdvancementTriggers {
             getAnyGeneAdvancement(player)
 
             when (gene) {
-                ModGenes.cringe -> getCringeGeneAdvancement(player)
-                ModGenes.flight -> getFlightGeneAdvancement(player)
-                ModGenes.scareSpiders -> getAllScareGenes(player)
+                ModGenes.CRINGE.get() -> getCringeGeneAdvancement(player)
+                ModGenes.FLIGHT.get() -> getFlightGeneAdvancement(player)
+                ModGenes.SCARE_SPIDERS.get() -> getAllScareGenes(player)
             }
 
         }
@@ -52,7 +52,12 @@ object AdvancementTriggers {
 
     private fun getAllScareGenes(player: ServerPlayer) {
         val genes =
-            listOf(ModGenes.scareSpiders, ModGenes.scareCreepers, ModGenes.scareSkeletons, ModGenes.scareZombies)
+            listOf(
+                ModGenes.SCARE_SPIDERS.get(),
+                ModGenes.SCARE_CREEPERS.get(),
+                ModGenes.SCARE_SKELETONS.get(),
+                ModGenes.SCARE_ZOMBIES.get()
+            )
         if (genes.any { !player.hasGene(it) }) return
 
         val advancement =
@@ -94,9 +99,9 @@ object AdvancementTriggers {
     fun blackDeath(player: ServerPlayer, stack: ItemStack) {
 
         if (stack.item == ModItems.DNA_HELIX.get() || stack.item == ModItems.PLASMID.get()) {
-            if (DnaHelixItem.getGene(stack) != ModGenes.blackDeath) return
+            if (DnaHelixItem.getGene(stack) != ModGenes.BLACK_DEATH.get()) return
         } else if (stack.isSyringe()) {
-            if (!SyringeItem.getGenes(stack).contains(ModGenes.blackDeath)) return
+            if (!SyringeItem.getGenes(stack).contains(ModGenes.BLACK_DEATH.get())) return
         } else return
 
         val advancement =

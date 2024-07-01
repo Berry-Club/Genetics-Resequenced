@@ -8,11 +8,11 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.r
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
@@ -36,16 +36,16 @@ object GeneEvents {
 
         if (livingEntity is Player) {
             when (gene) {
-                ModGenes.efficiency -> AttributeGenes.setEfficiency(livingEntity, 1, wasAdded)
-                ModGenes.efficiencyFour -> AttributeGenes.setEfficiency(livingEntity, 4, wasAdded)
+                ModGenes.EFFICIENCY.get() -> AttributeGenes.setEfficiency(livingEntity, 1, wasAdded)
+                ModGenes.EFFICIENCY_FOUR.get() -> AttributeGenes.setEfficiency(livingEntity, 4, wasAdded)
 
-                ModGenes.stepAssist -> AttributeGenes.setStepAssist(livingEntity, wasAdded)
-                ModGenes.wallClimbing -> AttributeGenes.setWallClimbing(livingEntity, wasAdded)
-                ModGenes.knockback -> AttributeGenes.setKnockback(livingEntity, wasAdded)
-                ModGenes.flight -> AttributeGenes.setFlight(livingEntity, wasAdded)
+                ModGenes.STEP_ASSIST.get() -> AttributeGenes.setStepAssist(livingEntity, wasAdded)
+                ModGenes.WALL_CLIMBING.get() -> AttributeGenes.setWallClimbing(livingEntity, wasAdded)
+                ModGenes.KNOCKBACK.get() -> AttributeGenes.setKnockback(livingEntity, wasAdded)
+                ModGenes.FLIGHT.get() -> AttributeGenes.setFlight(livingEntity, wasAdded)
 
-                ModGenes.moreHearts -> AttributeGenes.setMoreHearts(livingEntity, 1, wasAdded)
-                ModGenes.moreHeartsTwo -> AttributeGenes.setMoreHearts(livingEntity, 2, wasAdded)
+                ModGenes.MORE_HEARTS.get() -> AttributeGenes.setMoreHearts(livingEntity, 1, wasAdded)
+                ModGenes.MORE_HEARTS_TWO.get() -> AttributeGenes.setMoreHearts(livingEntity, 2, wasAdded)
             }
         }
 

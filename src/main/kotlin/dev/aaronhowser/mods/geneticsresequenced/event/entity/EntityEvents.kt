@@ -57,7 +57,6 @@ object EntityEvents {
         DamageGenes.handleChilling(event)
     }
 
-    //TODO: Make sure this works with players and not just entities
     @SubscribeEvent
     fun onEntityTick(event: EntityTickEvent.Pre) {
         val entity = event.entity as? LivingEntity ?: return

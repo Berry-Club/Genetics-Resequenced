@@ -32,3 +32,5 @@
 - Stepping on a contaminated Syringe will now give you poison
 - Properly sync the player's Genes on client and server on login
 - Changed the background texture for the advancements
+- Dragon's Breath cooldown now is actually for Dragon's Breath, and not for Shoot Fireballs
+- Genes are now an actual Registry

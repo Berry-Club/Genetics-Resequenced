@@ -4,9 +4,9 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
@@ -41,7 +41,7 @@ data class GeneChangedPacket(
             entity.removeGene(gene)
         }
 
-        if (gene == ModGenes.cringe) ClientUtil.handleCringe(wasAdded)
+        if (gene == ModGenes.CRINGE.get()) ClientUtil.handleCringe(wasAdded)
 
         handleAttributes(gene)
     }
@@ -50,19 +50,19 @@ data class GeneChangedPacket(
         val player = ClientUtil.localPlayer ?: throw IllegalStateException("Received GeneChangedPacket without player!")
 
         val attributeInstance = when (gene) {
-            ModGenes.efficiency, ModGenes.efficiencyFour -> player.attributes.getInstance(ModAttributes.EFFICIENCY)
-            ModGenes.wallClimbing -> player.attributes.getInstance(ModAttributes.WALL_CLIMBING)
+            ModGenes.EFFICIENCY_FOUR.get(), ModGenes.EFFICIENCY.get() -> player.attributes.getInstance(ModAttributes.EFFICIENCY)
+            ModGenes.WALL_CLIMBING.get() -> player.attributes.getInstance(ModAttributes.WALL_CLIMBING)
             else -> null
         } ?: return
 
         val newLevel = when (gene) {
-            ModGenes.efficiency -> if (wasAdded) 1.0 else 0.0
+            ModGenes.EFFICIENCY.get() -> if (wasAdded) 1.0 else 0.0
 
-            ModGenes.efficiencyFour -> {
+            ModGenes.EFFICIENCY_FOUR.get() -> {
                 if (wasAdded) {
                     4.0
                 } else {
-                    if (player.hasGene(ModGenes.efficiency)) {
+                    if (player.hasGene(ModGenes.EFFICIENCY.get())) {
                         1.0
                     } else {
                         0.0
@@ -70,7 +70,7 @@ data class GeneChangedPacket(
                 }
             }
 
-            ModGenes.wallClimbing -> if (wasAdded) 1.0 else 0.0
+            ModGenes.WALL_CLIMBING.get() -> if (wasAdded) 1.0 else 0.0
 
             else -> throw IllegalStateException("Gene $gene went through the GeneChangedPacket but isn't handled!")
         }

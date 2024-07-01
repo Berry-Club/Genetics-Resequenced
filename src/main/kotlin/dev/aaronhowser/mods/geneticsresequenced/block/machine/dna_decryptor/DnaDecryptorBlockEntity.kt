@@ -5,10 +5,10 @@ import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
@@ -127,10 +127,10 @@ class DnaDecryptorBlockEntity(
     }
 
     private fun getPossibleGenes(input: ItemStack): List<Gene> {
-        val mobType = EntityDnaItem.getEntityType(input) ?: return listOf(ModGenes.basic)
+        val mobType = EntityDnaItem.getEntityType(input) ?: return listOf(ModGenes.BASIC.get())
 
         val genesFromMob = MobGeneRegistry.getGeneWeights(mobType)
-        if (genesFromMob.isEmpty()) return listOf(ModGenes.basic)
+        if (genesFromMob.isEmpty()) return listOf(ModGenes.BASIC.get())
 
         return genesFromMob
             .map { it.key }

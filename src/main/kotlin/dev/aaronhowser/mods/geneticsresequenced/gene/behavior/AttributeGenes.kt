@@ -2,8 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
@@ -47,7 +47,7 @@ object AttributeGenes {
     }
 
     fun handleEfficiency(event: PlayerEvent.BreakSpeed) {
-        if (!ModGenes.efficiency.isActive) return
+        if (!ModGenes.EFFICIENCY.get().isActive) return
 
         val efficiencyAttribute = event.entity.attributes.getInstance(ModAttributes.EFFICIENCY) ?: return
         if (efficiencyAttribute.value <= 0.0) return
@@ -62,7 +62,7 @@ object AttributeGenes {
     )
 
     fun setStepAssist(player: Player, adding: Boolean) {
-        if (!ModGenes.stepAssist.isActive && adding) return
+        if (!ModGenes.STEP_ASSIST.get().isActive && adding) return
 
         val stepHeightAttribute = player.getAttribute(Attributes.STEP_HEIGHT) ?: return
 
@@ -92,8 +92,8 @@ object AttributeGenes {
         val maxHealthAttribute = entity.getAttribute(Attributes.MAX_HEALTH) ?: return
 
         when (level) {
-            1 -> if (!ModGenes.moreHearts.isActive) return
-            2 -> if (!ModGenes.moreHeartsTwo.isActive) return
+            1 -> if (!ModGenes.MORE_HEARTS.get().isActive) return
+            2 -> if (!ModGenes.MORE_HEARTS_TWO.get().isActive) return
             else -> throw IllegalArgumentException("Invalid more hearts level: $level")
         }
 
@@ -131,7 +131,7 @@ object AttributeGenes {
 
     fun setKnockback(entity: LivingEntity, adding: Boolean) {
         //TODO: Maybe make this not attribute-based, so this check can be on attack instead?
-        if (!ModGenes.knockback.isActive && adding) return
+        if (!ModGenes.KNOCKBACK.get().isActive && adding) return
 
         val attackKnockBackAttribute = entity.getAttribute(Attributes.ATTACK_KNOCKBACK) ?: return
 
@@ -161,12 +161,12 @@ object AttributeGenes {
     }
 
     fun handleWallClimbing(player: Player) {
-        if (!ModGenes.wallClimbing.isActive) return
+        if (!ModGenes.WALL_CLIMBING.get().isActive) return
 
         val walkClimbingAttribute = player.getAttribute(ModAttributes.WALL_CLIMBING) ?: return
         if (walkClimbingAttribute.value <= 0.0) return
 
-        if (!player.hasGene(ModGenes.wallClimbing)) return
+        if (!player.hasGene(ModGenes.WALL_CLIMBING.get())) return
 
         if (player.horizontalCollision || player.minorHorizontalCollision) {
             player.setDeltaMovement(
@@ -187,7 +187,7 @@ object AttributeGenes {
     )
 
     fun setFlight(player: Player, adding: Boolean) {
-        if (!ModGenes.flight.isActive) return
+        if (!ModGenes.FLIGHT.get().isActive) return
         if (player.level().isClientSide) return
 
         val attribute = player.getAttribute(NeoForgeMod.CREATIVE_FLIGHT) ?: return

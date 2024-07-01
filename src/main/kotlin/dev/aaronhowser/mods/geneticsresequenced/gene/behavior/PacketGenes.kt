@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerPlayer
@@ -18,15 +18,15 @@ import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.toVec3i
 object PacketGenes {
 
     private val recentTeleports = GeneCooldown(
-        ModGenes.teleport,
+        ModGenes.TELEPORT.get(),
         ServerConfig.teleportCooldown.get()
     )
 
     @Suppress("MoveVariableDeclarationIntoWhen")
     fun teleport(player: ServerPlayer) {
-        if (!ModGenes.teleport.isActive) return
+        if (!ModGenes.TELEPORT.get().isActive) return
 
-        if (!player.hasGene(ModGenes.teleport)) return
+        if (!player.hasGene(ModGenes.TELEPORT.get())) return
 
         val wasNotOnCooldown = recentTeleports.add(player)
         if (!wasNotOnCooldown) return
@@ -75,17 +75,17 @@ object PacketGenes {
         player.teleportTo(destination.x, destination.y, destination.z)
     }
 
-    private val recentFireballs = GeneCooldown(
-        ModGenes.shootFireballs,
+    private val recentDragonsBreath = GeneCooldown(
+        ModGenes.DRAGON_BREATH.get(),
         ServerConfig.dragonsBreathCooldown.get()
     )
 
     fun dragonBreath(player: ServerPlayer) {
-        if (!ModGenes.dragonsBreath.isActive) return
+        if (!ModGenes.DRAGON_BREATH.get().isActive) return
 
-        if (!player.hasGene(ModGenes.dragonsBreath)) return
+        if (!player.hasGene(ModGenes.DRAGON_BREATH.get())) return
 
-        val wasNotOnCooldown = recentFireballs.add(player)
+        val wasNotOnCooldown = recentDragonsBreath.add(player)
 
         if (!wasNotOnCooldown) return
 

@@ -1,10 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
@@ -93,7 +93,7 @@ class PlasmidInfuserBlockEntity(
             return
         }
 
-        if (DnaHelixItem.getGene(inputHelix) == ModGenes.basic) {
+        if (DnaHelixItem.getGene(inputHelix) == ModGenes.BASIC.get()) {
             PlasmidItem.increaseAmount(outputPlasmid, 1)
             itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
             return
@@ -120,7 +120,7 @@ class PlasmidInfuserBlockEntity(
 
         val plasmidGene = PlasmidItem.getGene(outputPlasmid)
         val inputGene = DnaHelixItem.getGene(inputHelix)
-        val helixIsBasic = inputGene == ModGenes.basic
+        val helixIsBasic = inputGene == ModGenes.BASIC.get()
 
         // If the Plasmid is unset, it can only accept a Helix that's neither basic nor null
         if (plasmidGene == null) {

@@ -4,8 +4,8 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
@@ -32,7 +32,7 @@ class DnaHelixItem : EntityDnaItem() {
         }
 
         fun setBasic(itemStack: ItemStack): ItemStack {
-            return setGene(itemStack, ModGenes.basic)
+            return setGene(itemStack, ModGenes.BASIC.get())
         }
 
         fun getAllHelices(): List<ItemStack> {
