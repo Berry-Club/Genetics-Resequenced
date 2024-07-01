@@ -13,9 +13,13 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.AntiFieldOrbItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
+import net.minecraft.core.registries.Registries
+import net.minecraft.resources.ResourceKey
 import net.minecraft.tags.EntityTypeTags
+import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.*
@@ -26,6 +30,7 @@ import net.minecraft.world.entity.monster.piglin.Piglin
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.LightLayer
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 import kotlin.math.max
@@ -120,8 +125,7 @@ object TickGenes {
 
     private fun handleDeathGenes(entity: LivingEntity, gene: Gene) {
         if (gene == ModGenes.blackDeath) {
-            //TODO
-//            entity.hurt(virusDamageSource, entity.maxHealth * 1000)
+            entity.hurt(virusDamageSource(entity.level()), entity.maxHealth * 1000)
             entity.kill()
 
             // I have no idea if this is even necessary
@@ -146,11 +150,11 @@ object TickGenes {
         }
 
         if (!entityPredicate(entity)) return
-//        entity.hurt(virusDamageSource, maxOf(entity.health / 2, 2f))
+        entity.hurt(virusDamageSource(entity.level()), maxOf(entity.health / 2, 2f))
     }
 
-    //TODO:
-//    private val virusDamageSource = DamageSource(OtherUtil.modResource("virus").toString())
+    private val virusDamageKey = ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource("virus"))
+    private fun virusDamageSource(level: Level): DamageSource = level.damageSources().source(virusDamageKey)
 
     private fun handlePotionGenes(entity: LivingEntity, potionGenes: MutableList<Gene>) {
         if (potionGenes.isEmpty()) return
