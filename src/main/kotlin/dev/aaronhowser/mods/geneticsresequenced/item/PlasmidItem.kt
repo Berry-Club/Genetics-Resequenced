@@ -104,8 +104,4 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
         }
     }
 
-    //TODO: Fill item category (probably done in events)
-
-    //TODO: allowedIn (is this even needed still)
-
 }

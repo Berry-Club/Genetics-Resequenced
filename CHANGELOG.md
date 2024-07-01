@@ -30,3 +30,4 @@
 - Plasmids and Anti-Plasmids now only stack to 1
 - Fixed the Black Death recipe being broken
 - Stepping on a contaminated Syringe will now give you poison
+- Properly sync the player's Genes on client and server on login

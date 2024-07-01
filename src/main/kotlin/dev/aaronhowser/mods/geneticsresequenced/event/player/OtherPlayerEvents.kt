@@ -60,6 +60,17 @@ object OtherPlayerEvents {
         val player = event.entity as? ServerPlayer ?: return
 
         InventoryListener.startListening(player)
+
+        for (gene in player.genes) {
+            ModPacketHandler.messagePlayer(
+                player,
+                GeneChangedPacket(
+                    player.id,
+                    gene.id,
+                    true
+                )
+            )
+        }
     }
 
     @SubscribeEvent
