@@ -102,7 +102,6 @@ class ModBlockStateProvider(
         val side = "block/machine_side"
 
         getVariantBuilder(deferredBlock.get())
-
             .forAllStates { state ->
                 val facing = state.getValue(HorizontalDirectionalBlock.FACING)
 
@@ -128,7 +127,7 @@ class ModBlockStateProvider(
                         modLoc(south),
                         modLoc(east),
                         modLoc(west),
-                    )
+                    ).texture("particle", modLoc(top))
                 ).build()
             }
 
@@ -183,7 +182,7 @@ class ModBlockStateProvider(
                             modLoc(south),
                             modLoc(east),
                             modLoc(west),
-                        )
+                        ).texture("particle", modLoc(top))
                     ).build()
             }
 

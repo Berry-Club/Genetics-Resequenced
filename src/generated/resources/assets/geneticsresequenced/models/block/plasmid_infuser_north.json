@@ -4,6 +4,7 @@
     "down": "geneticsresequenced:block/machine_bottom",
     "east": "geneticsresequenced:block/machine_side",
     "north": "geneticsresequenced:block/plasmid_infuser_front",
+    "particle": "geneticsresequenced:block/machine_top",
     "south": "geneticsresequenced:block/machine_side",
     "up": "geneticsresequenced:block/machine_top",
     "west": "geneticsresequenced:block/machine_side"
