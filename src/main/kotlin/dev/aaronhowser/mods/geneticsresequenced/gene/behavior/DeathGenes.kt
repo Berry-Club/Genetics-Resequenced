@@ -38,7 +38,8 @@ object DeathGenes {
 
         if (!player.hasGene(ModGenes.KEEP_INVENTORY.get())) return
 
-        val playerItems = player.inventory.items + player.inventory.armor + player.inventory.offhand
+        val playerItems =
+            (player.inventory.items + player.inventory.armor + player.inventory.offhand).filter { !it.isEmpty }
 
         player.keepInventory(playerItems)
         player.inventory.clearContent()
