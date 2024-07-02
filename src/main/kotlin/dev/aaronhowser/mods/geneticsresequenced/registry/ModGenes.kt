@@ -92,7 +92,12 @@ object ModGenes {
     val REGENERATION_FOUR = registerGene("regeneration_4") {
         GeneProperties(
             id = OtherUtil.modResource("regeneration_4"),
-            dnaPointsRequired = 50
+            dnaPointsRequired = 50,
+            canMobsHave = true,
+            potionDetails = GeneProperties.PotionDetails(
+                effect = MobEffects.REGENERATION,
+                level = 4
+            )
         )
     }
 
