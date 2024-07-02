@@ -38,3 +38,5 @@
 - Fixed the duplicate message send when you get a Gene that you're missing the required Genes for
 - Players with Meaty can now shear themselves while sneaking
 - Wall Climbing is no longer an Attribute (why was it? What was I thinking?)
+- Knockback Gene strength is no longer configurable
+- Gene Attribute Modifiers are kept on respawn

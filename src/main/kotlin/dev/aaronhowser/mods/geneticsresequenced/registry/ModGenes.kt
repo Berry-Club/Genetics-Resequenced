@@ -5,8 +5,9 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneProperties
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffects
+import net.minecraft.world.entity.ai.attributes.Attributes
+import net.neoforged.neoforge.common.NeoForgeMod
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 import java.util.function.Supplier
@@ -42,14 +43,16 @@ object ModGenes {
     val EFFICIENCY_FOUR = registerGene("efficiency_4") {
         GeneProperties(
             id = OtherUtil.modResource("efficiency_4"),
-            dnaPointsRequired = 50
+            dnaPointsRequired = 50,
+            attributeModifiers = mapOf(ModAttributes.EFFICIENCY to listOf(ModAttributes.efficiencyFourAttributeModifier))
         )
     }
 
     val FLIGHT = registerGene("flight") {
         GeneProperties(
             id = OtherUtil.modResource("flight"),
-            dnaPointsRequired = 50
+            dnaPointsRequired = 50,
+            attributeModifiers = mapOf(NeoForgeMod.CREATIVE_FLIGHT to listOf(ModAttributes.flightAttributeModifier))
         )
     }
 
@@ -72,7 +75,10 @@ object ModGenes {
         GeneProperties(
             id = OtherUtil.modResource("more_hearts_2"),
             dnaPointsRequired = 50,
-            canMobsHave = true
+            canMobsHave = true,
+            attributeModifiers = mapOf(
+                Attributes.MAX_HEALTH to listOf(ModAttributes.moreHealthTwoAttributeModifier)
+            )
         )
     }
 
@@ -184,7 +190,10 @@ object ModGenes {
         GeneProperties(
             id = OtherUtil.modResource("efficiency"),
             dnaPointsRequired = 30,
-            mutatesInto = EFFICIENCY_FOUR.get()
+            mutatesInto = EFFICIENCY_FOUR.get(),
+            attributeModifiers = mapOf(
+                ModAttributes.EFFICIENCY to listOf(ModAttributes.efficiencyAttributeModifier)
+            )
         )
     }
 
@@ -289,7 +298,10 @@ object ModGenes {
         GeneProperties(
             id = OtherUtil.modResource("knockback"),
             dnaPointsRequired = 20,
-            canMobsHave = true
+            canMobsHave = true,
+            attributeModifiers = mapOf(
+                Attributes.ATTACK_KNOCKBACK to listOf(ModAttributes.knockbackAttributeModifier)
+            )
         )
     }
 
@@ -342,7 +354,8 @@ object ModGenes {
             id = OtherUtil.modResource("more_hearts"),
             dnaPointsRequired = 40,
             canMobsHave = true,
-            mutatesInto = MORE_HEARTS_TWO.get()
+            mutatesInto = MORE_HEARTS_TWO.get(),
+            attributeModifiers = mapOf(Attributes.MAX_HEALTH to listOf(ModAttributes.moreHealthOneAttributeModifier))
         )
     }
 
@@ -452,7 +465,10 @@ object ModGenes {
     val STEP_ASSIST = registerGene("step_assist") {
         GeneProperties(
             id = OtherUtil.modResource("step_assist"),
-            dnaPointsRequired = 10
+            dnaPointsRequired = 10,
+            attributeModifiers = mapOf(
+                Attributes.STEP_HEIGHT to listOf(ModAttributes.stepAssistAttributeModifier)
+            )
         )
     }
 

@@ -3,6 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.api.genes
 import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffect
+import net.minecraft.world.entity.ai.attributes.Attribute
+import net.minecraft.world.entity.ai.attributes.AttributeModifier
 
 data class GeneProperties(
     val id: ResourceLocation,
@@ -11,7 +13,8 @@ data class GeneProperties(
     val canMobsHave: Boolean = false,
     val dnaPointsRequired: Int = -1,
     val mutatesInto: Gene? = null,
-    val potionDetails: PotionDetails? = null
+    val potionDetails: PotionDetails? = null,
+    val attributeModifiers: Map<Holder<Attribute>, Collection<AttributeModifier>> = emptyMap()
 ) {
 
     data class PotionDetails(

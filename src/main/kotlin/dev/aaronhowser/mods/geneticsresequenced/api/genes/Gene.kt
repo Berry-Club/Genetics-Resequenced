@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.ChatFormatting
+import net.minecraft.core.Holder
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
@@ -16,6 +17,8 @@ import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.entity.ai.attributes.Attribute
+import net.minecraft.world.entity.ai.attributes.AttributeModifier
 
 class Gene(properties: GeneProperties) {
 
@@ -26,6 +29,7 @@ class Gene(properties: GeneProperties) {
     val dnaPointsRequired: Int = properties.dnaPointsRequired
     private val mutatesInto: Gene? = properties.mutatesInto
     private val potionDetails: GeneProperties.PotionDetails? = properties.potionDetails
+    val attributeModifiers: Map<Holder<Attribute>, Collection<AttributeModifier>> = properties.attributeModifiers
 
     override fun toString(): String = "Gene($id)"
 

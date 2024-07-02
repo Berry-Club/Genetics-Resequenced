@@ -34,18 +34,20 @@ object GeneEvents {
 
         tellAllPlayersGeneChanged(livingEntity, gene, wasAdded)
 
-        if (livingEntity is Player) {
-            when (gene) {
-                ModGenes.EFFICIENCY.get() -> AttributeGenes.setEfficiency(livingEntity, 1, wasAdded)
-                ModGenes.EFFICIENCY_FOUR.get() -> AttributeGenes.setEfficiency(livingEntity, 4, wasAdded)
+        if (gene.attributeModifiers.isNotEmpty()) {
+            for ((attributeHolder, modifiers) in gene.attributeModifiers) {
+                for (modifier in modifiers) {
+                    val attributeInstance = livingEntity.attributes.getInstance(attributeHolder)
+                        ?: throw IllegalStateException("Attribute instance for $attributeHolder is null!")
 
-                ModGenes.STEP_ASSIST.get() -> AttributeGenes.setStepAssist(livingEntity, wasAdded)
-                ModGenes.KNOCKBACK.get() -> AttributeGenes.setKnockback(livingEntity, wasAdded)
-                ModGenes.FLIGHT.get() -> AttributeGenes.setFlight(livingEntity, wasAdded)
-
-                ModGenes.MORE_HEARTS.get() -> AttributeGenes.setMoreHearts(livingEntity, 1, wasAdded)
-                ModGenes.MORE_HEARTS_TWO.get() -> AttributeGenes.setMoreHearts(livingEntity, 2, wasAdded)
+                    if (wasAdded) {
+                        attributeInstance.addPermanentModifier(modifier)
+                    } else {
+                        attributeInstance.removeModifier(modifier)
+                    }
+                }
             }
+
         }
 
         if (!wasAdded && gene.getPotion() != null) {

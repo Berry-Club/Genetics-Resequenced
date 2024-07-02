@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.r
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -35,6 +36,7 @@ object DeathEvents {
 
         handleKeepGenesOnDeath(event)
         removeNegativeGenesOnDeath(event)
+        AttributeGenes.reGiveModifiersOnRespawn(event)
     }
 
     private fun handleKeepGenesOnDeath(event: PlayerEvent.PlayerRespawnEvent) {

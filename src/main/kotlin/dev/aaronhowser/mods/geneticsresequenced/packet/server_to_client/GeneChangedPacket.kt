@@ -40,6 +40,23 @@ data class GeneChangedPacket(
         }
 
         if (gene == ModGenes.CRINGE.get()) ClientUtil.handleCringe(wasAdded)
+
+        if (gene.attributeModifiers.isNotEmpty()) {
+            for ((attributeHolder, modifiers) in gene.attributeModifiers) {
+                for (modifier in modifiers) {
+                    val attributeInstance = entity.attributes.getInstance(attributeHolder)
+                        ?: throw IllegalStateException("Attribute instance for $attributeHolder is null!")
+
+                    if (wasAdded) {
+                        attributeInstance.addPermanentModifier(modifier)
+                    } else {
+                        attributeInstance.removeModifier(modifier)
+                    }
+
+                }
+            }
+        }
+
     }
 
     companion object {

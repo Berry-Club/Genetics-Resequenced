@@ -39,7 +39,6 @@ class ServerConfig(
         lateinit var itemMagnetCooldown: ModConfigSpec.IntValue
         lateinit var itemMagnetRadius: ModConfigSpec.DoubleValue
         lateinit var johnnyAttackMultiplier: ModConfigSpec.DoubleValue
-        lateinit var knockbackStrength: ModConfigSpec.DoubleValue
         lateinit var meatyCooldown: ModConfigSpec.IntValue
         lateinit var meaty2Cooldown: ModConfigSpec.IntValue
         lateinit var milkyCooldown: ModConfigSpec.IntValue
@@ -176,10 +175,6 @@ class ServerConfig(
         johnnyAttackMultiplier = builder
             .comment("How much should the Johnny gene multiply damage by, when using an Axe?")
             .defineInRange("johnnyAttackMultiplier", 1.25, 0.0, Double.MAX_VALUE)
-
-        knockbackStrength = builder
-            .comment("How strong should the Knock Back gene be")
-            .defineInRange("knockbackStrength", 1.0, 0.0, Double.MAX_VALUE)
 
         meatyCooldown = builder
             .comment("How many ticks to wait before someone with the Meaty gene can be sheared again")
