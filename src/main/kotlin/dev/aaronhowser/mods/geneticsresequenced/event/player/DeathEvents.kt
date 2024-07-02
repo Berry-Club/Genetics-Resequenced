@@ -9,7 +9,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
-import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.world.entity.player.Player
@@ -38,9 +37,7 @@ object DeathEvents {
 
     @SubscribeEvent
     fun onPlayerRespawn(event: PlayerEvent.PlayerRespawnEvent) {
-//        ModScheduler.scheduleTaskInTicks(1) {
-//            DeathGenes.returnInventory(event.entity)
-//        }
+        DeathGenes.returnInventory(event.entity)
 
         handleKeepGenesOnDeath(event)
         removeNegativeGenesOnDeath(event)
