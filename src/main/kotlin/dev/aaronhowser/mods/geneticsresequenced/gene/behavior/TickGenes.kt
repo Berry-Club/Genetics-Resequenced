@@ -38,7 +38,7 @@ import kotlin.math.max
 object TickGenes {
 
     fun handleBioluminescence(entity: LivingEntity) {
-        if (ModGenes.BIOLUMINESCENCE.get().isActive) return
+        if (!ModGenes.BIOLUMINESCENCE.get().isActive) return
 
         if (entity.tickCount % ServerConfig.bioluminescenceCooldown.get() != 0) return
 
