@@ -163,7 +163,7 @@ class ServerConfig(
 
         dragonsBreathCooldown = builder
             .comment("How many ticks to wait before someone with the Dragon's Breath gene can breathe fire again")
-            .defineInRange("dragonsBreathCooldown", 20 * 15, 1, Int.MAX_VALUE)
+            .defineInRange("dragonsBreathCooldown", 20 * 5, 1, Int.MAX_VALUE)
 
         itemMagnetCooldown = builder
             .comment("How often should the Item Magnet gene attract items (in ticks)")
