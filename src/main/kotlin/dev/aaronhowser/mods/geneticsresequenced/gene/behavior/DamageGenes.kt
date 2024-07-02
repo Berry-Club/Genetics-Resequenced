@@ -28,7 +28,7 @@ object DamageGenes {
     fun handleNoFallDamage(event: LivingIncomingDamageEvent) {
         if (!ModGenes.NO_FALL_DAMAGE.get().isActive) return
 
-        if (event.source != DamageTypes.FALL) return
+        if (!event.source.`is`(DamageTypes.FALL)) return
 
         val entity = event.entity
         if (entity.hasGene(ModGenes.NO_FALL_DAMAGE.get())) {
@@ -39,7 +39,7 @@ object DamageGenes {
     fun handleWitherProof(event: LivingIncomingDamageEvent) {
         if (!ModGenes.WITHER_PROOF.get().isActive) return
 
-        if (event.source != DamageTypes.WITHER) return
+        if (!event.source.`is`(DamageTypes.WITHER)) return
 
         val entity = event.entity
 
@@ -52,7 +52,7 @@ object DamageGenes {
     fun handleFireProof(event: LivingIncomingDamageEvent) {
         if (!ModGenes.FIRE_PROOF.get().isActive) return
 
-        if (event.source != DamageTypes.IN_FIRE && event.source != DamageTypes.ON_FIRE) return
+        if (!event.source.`is`(DamageTypes.IN_FIRE) && !event.source.`is`(DamageTypes.ON_FIRE)) return
 
         val entity = event.entity
 
@@ -65,7 +65,7 @@ object DamageGenes {
     fun handlePoisonProof(event: LivingIncomingDamageEvent) {
         if (!ModGenes.POISON_IMMUNITY.get().isActive) return
 
-        if (event.source != NeoForgeMod.POISON_DAMAGE) return
+        if (!event.source.`is`(NeoForgeMod.POISON_DAMAGE)) return
 
         val entity = event.entity
         if (entity.hasGene(ModGenes.POISON_IMMUNITY.get())) {
