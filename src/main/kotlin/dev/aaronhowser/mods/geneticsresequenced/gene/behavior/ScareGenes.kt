@@ -40,9 +40,9 @@ object ScareGenes {
                     entity,
                     livingEntityClass,
                     { otherEntity: LivingEntity -> otherEntity.hasGene(gene) },
-                    6.0f,
-                    1.0,
+                    12.0f,
                     1.2,
+                    1.6,
                     EntitySelector.NO_SPECTATORS::test
                 )
             )

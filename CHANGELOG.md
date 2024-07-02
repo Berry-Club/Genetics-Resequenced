@@ -44,3 +44,4 @@
 - Lowered default cooldown for Dragon's Breath from 15 seconds to 5
 - Improved messages for Genes on cooldown
 - The Keep Inventory Gene now uses Data Attachment, which means it persists across server stops
+- Scare Genes now have a longer distance, and scared mobs run away with more speed
