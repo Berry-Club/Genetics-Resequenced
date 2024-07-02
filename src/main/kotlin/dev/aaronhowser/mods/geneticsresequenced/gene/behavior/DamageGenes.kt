@@ -108,7 +108,7 @@ object DamageGenes {
         if (!attacker.hasGene(ModGenes.JOHNNY.get())) return
 
         val weaponIsAxe = attacker.mainHandItem.item is AxeItem //Is there a better way of doing this?
-        if (weaponIsAxe) return
+        if (!weaponIsAxe) return
 
         event.container.newDamage *= ServerConfig.johnnyAttackMultiplier.get().toFloat()
     }
