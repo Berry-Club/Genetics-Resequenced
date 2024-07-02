@@ -59,7 +59,11 @@ object ModGenes {
     val HASTE_TWO = registerGene("haste_2") {
         GeneProperties(
             id = OtherUtil.modResource("haste_2"),
-            dnaPointsRequired = 50
+            dnaPointsRequired = 50,
+            potionDetails = GeneProperties.PotionDetails(
+                effect = MobEffects.DIG_SPEED,
+                level = 2
+            )
         )
     }
 
@@ -104,28 +108,48 @@ object ModGenes {
     val RESISTANCE_TWO = registerGene("resistance_2") {
         GeneProperties(
             id = OtherUtil.modResource("resistance_2"),
-            dnaPointsRequired = 50
+            dnaPointsRequired = 50,
+            canMobsHave = true,
+            potionDetails = GeneProperties.PotionDetails(
+                effect = MobEffects.DAMAGE_RESISTANCE,
+                level = 2
+            )
         )
     }
 
     val SPEED_FOUR = registerGene("speed_4") {
         GeneProperties(
             id = OtherUtil.modResource("speed_4"),
-            dnaPointsRequired = 50
+            dnaPointsRequired = 50,
+            canMobsHave = true,
+            potionDetails = GeneProperties.PotionDetails(
+                effect = MobEffects.MOVEMENT_SPEED,
+                level = 4
+            )
         )
     }
 
     val SPEED_TWO = registerGene("speed_2") {
         GeneProperties(
             id = OtherUtil.modResource("speed_2"),
-            dnaPointsRequired = 50
+            dnaPointsRequired = 50,
+            canMobsHave = true,
+            potionDetails = GeneProperties.PotionDetails(
+                effect = MobEffects.MOVEMENT_SPEED,
+                level = 2
+            )
         )
     }
 
     val STRENGTH_TWO = registerGene("strength_2") {
         GeneProperties(
             id = OtherUtil.modResource("strength_2"),
-            dnaPointsRequired = 50
+            dnaPointsRequired = 50,
+            canMobsHave = true,
+            potionDetails = GeneProperties.PotionDetails(
+                effect = MobEffects.DAMAGE_BOOST,
+                level = 2
+            )
         )
     }
 
