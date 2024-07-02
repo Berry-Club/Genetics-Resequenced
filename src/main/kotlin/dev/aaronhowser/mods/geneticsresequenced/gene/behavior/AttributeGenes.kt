@@ -36,7 +36,7 @@ object AttributeGenes {
         }
     }
 
-    fun reGiveModifiersOnRespawn(event: PlayerRespawnEvent) {
+    fun returnModifiersOnDeath(event: PlayerRespawnEvent) {
         val player = event.entity
 
         for (gene in player.genes) {

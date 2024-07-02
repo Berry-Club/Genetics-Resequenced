@@ -36,7 +36,7 @@ object DeathEvents {
 
         handleKeepGenesOnDeath(event)
         removeNegativeGenesOnDeath(event)
-        AttributeGenes.reGiveModifiersOnRespawn(event)
+        AttributeGenes.returnModifiersOnDeath(event)
         AttributeGenes.respawnWithMaxHealth(event)
     }
 
