@@ -24,7 +24,7 @@ object ModAttributes {
     //TODO: Maybe make this not an attribute modifier?
     val knockbackAttributeModifier = AttributeModifier(
         OtherUtil.modResource("knockback"),
-        1.0,
+        2.0,
         AttributeModifier.Operation.ADD_VALUE
     )
 
