@@ -27,6 +27,8 @@ object DeathGenes {
 
     private val playerInventoryMap: MutableMap<UUID, List<ItemStack>> = mutableMapOf()
 
+    //TODO: Test with grave mods
+    //TODO: Add Curio support, when that updates
     fun saveInventory(player: Player) {
         if (!ModGenes.KEEP_INVENTORY.get().isActive) return
 
@@ -56,50 +58,6 @@ object DeathGenes {
         }
 
         player.clearKeptInventory()
-    }
-
-    // TODO: Test with grave mods
-    // TODO: Probably voids items if the server ends between death and respawn. Maybe drop items in the world if that happens?
-    fun handleKeepInventory(player: LivingEntity) {
-        if (!ModGenes.KEEP_INVENTORY.get().isActive) return
-
-        if (player !is Player) return
-
-        player.level().apply {
-            if (isClientSide) return
-            if (gameRules.getBoolean(GameRules.RULE_KEEPINVENTORY)) return
-            if (levelData.isHardcore) return
-        }
-
-        // If they're dying, save their inventory to the map and then clear it so graves etc don't dupe it
-        // If they're respawning, give them all the items in the saved map and remove them from the map
-        val playerIsRespawning = playerInventoryMap.containsKey(player.uuid)
-
-        //TODO: Implement this when mod updates
-        val curiosIsLoaded = ModList.get().isLoaded("curios")
-
-        if (playerIsRespawning) {
-            val items = playerInventoryMap[player.uuid] ?: return
-            items.forEach { itemStack: ItemStack ->
-                if (!player.inventory.add(itemStack)) {
-                    player.drop(itemStack, true)
-                }
-            }
-
-            playerInventoryMap.remove(player.uuid)
-
-//            if (curiosIsLoaded) CuriosKeepInventory.loadPlayerCurios(player)
-        } else {
-            if (!player.hasGene(ModGenes.KEEP_INVENTORY.get())) return
-
-            val allItems = player.inventory.items + player.inventory.armor + player.inventory.offhand
-            val filtered = allItems.filter { !it.isEmpty }.map { it.copy() }
-
-            playerInventoryMap[player.uuid] = filtered
-            player.inventory.clearContent()
-
-//            if (curiosIsLoaded) CuriosKeepInventory.savePlayerCurios(player)
-        }
     }
 
     private val emeraldHeartCooldown = GeneCooldown(

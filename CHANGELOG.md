@@ -43,3 +43,4 @@
 - When you have Max Health 1 or 2, you'll respawn with completely full health rather than just the vanilla 10 hearts
 - Lowered default cooldown for Dragon's Breath from 15 seconds to 5
 - Improved messages for Genes on cooldown
+- The Keep Inventory Gene now uses Data Attachment, which means it persists across server stops
