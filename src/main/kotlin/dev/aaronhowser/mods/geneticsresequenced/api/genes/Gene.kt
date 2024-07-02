@@ -17,6 +17,7 @@ import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 
@@ -29,7 +30,8 @@ class Gene(properties: GeneProperties) {
     val dnaPointsRequired: Int = properties.dnaPointsRequired
     private val mutatesInto: Gene? = properties.mutatesInto
     private val potionDetails: GeneProperties.PotionDetails? = properties.potionDetails
-    val attributeModifiers: Map<Holder<Attribute>, Collection<AttributeModifier>> = properties.attributeModifiers
+    private val attributeModifiers: Map<Holder<Attribute>, Collection<AttributeModifier>> =
+        properties.attributeModifiers
 
     override fun toString(): String = "Gene($id)"
 
@@ -153,6 +155,27 @@ class Gene(properties: GeneProperties) {
             false,
             potionDetails.showIcon
         )
+    }
+
+    fun setAttributeModifiers(livingEntity: LivingEntity, isAdding: Boolean) {
+
+        for ((attribute, modifiers) in attributeModifiers) {
+
+            val attributeInstance = livingEntity.getAttribute(attribute)
+                ?: throw IllegalArgumentException("Living Entity does not have attribute $attribute")
+
+            for (modifier in modifiers) {
+
+                if (isAdding) {
+                    if (!attributeInstance.hasModifier(modifier.id)) attributeInstance.addPermanentModifier(modifier)
+                } else {
+                    if (attributeInstance.hasModifier(modifier.id)) attributeInstance.removeModifier(modifier)
+                }
+
+            }
+
+        }
+
     }
 
 }

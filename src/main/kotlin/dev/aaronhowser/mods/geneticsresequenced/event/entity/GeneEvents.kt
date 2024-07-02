@@ -8,17 +8,14 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.r
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
-import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.player.Player
 import net.neoforged.bus.api.EventPriority
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
@@ -34,21 +31,7 @@ object GeneEvents {
 
         tellAllPlayersGeneChanged(livingEntity, gene, wasAdded)
 
-        if (gene.attributeModifiers.isNotEmpty()) {
-            for ((attributeHolder, modifiers) in gene.attributeModifiers) {
-                for (modifier in modifiers) {
-                    val attributeInstance = livingEntity.attributes.getInstance(attributeHolder)
-                        ?: throw IllegalStateException("Attribute instance for $attributeHolder is null!")
-
-                    if (wasAdded) {
-                        attributeInstance.addPermanentModifier(modifier)
-                    } else {
-                        attributeInstance.removeModifier(modifier)
-                    }
-                }
-            }
-
-        }
+        gene.setAttributeModifiers(livingEntity, wasAdded)
 
         if (!wasAdded && gene.getPotion() != null) {
             TickGenes.handlePotionGeneRemoved(livingEntity, gene)

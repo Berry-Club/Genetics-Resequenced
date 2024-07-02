@@ -40,18 +40,7 @@ object AttributeGenes {
         val player = event.entity
 
         for (gene in player.genes) {
-            val attributeModifiers = gene.attributeModifiers
-            if (attributeModifiers.isEmpty()) continue
-
-            for ((attributeHolder, modifiers) in gene.attributeModifiers) {
-                for (modifier in modifiers) {
-                    val attributeInstance = player.attributes.getInstance(attributeHolder)
-                        ?: throw IllegalStateException("Attribute instance for $attributeHolder is null!")
-
-                    attributeInstance.addPermanentModifier(modifier)
-                }
-            }
-
+            gene.setAttributeModifiers(player, true)
         }
 
     }
