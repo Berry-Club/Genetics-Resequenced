@@ -19,7 +19,7 @@ data class GeneProperties(
 
     data class PotionDetails(
         val effect: Holder<MobEffect>,
-        val level: Int,
+        val level: Int = 1,
         val duration: Int = -1,
         val showIcon: Boolean = false
     )

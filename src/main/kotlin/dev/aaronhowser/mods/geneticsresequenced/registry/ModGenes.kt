@@ -232,10 +232,7 @@ object ModGenes {
         GeneProperties(
             id = OtherUtil.modResource("haste"),
             dnaPointsRequired = 30,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.DIG_SPEED,
-                level = 1
-            ),
+            potionDetails = GeneProperties.PotionDetails(MobEffects.DIG_SPEED),
             mutatesInto = HASTE_TWO.get()
         )
     }
@@ -252,10 +249,7 @@ object ModGenes {
             id = OtherUtil.modResource("invisible"),
             dnaPointsRequired = 50,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.INVISIBILITY,
-                level = 1
-            )
+            potionDetails = GeneProperties.PotionDetails(MobEffects.INVISIBILITY)
         )
     }
 
@@ -271,10 +265,7 @@ object ModGenes {
             id = OtherUtil.modResource("jump_boost"),
             dnaPointsRequired = 10,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.JUMP,
-                level = 1
-            ),
+            potionDetails = GeneProperties.PotionDetails(MobEffects.JUMP),
             mutatesInto = FLIGHT.get()
         )
     }
@@ -318,10 +309,7 @@ object ModGenes {
             id = OtherUtil.modResource("luck"),
             dnaPointsRequired = 50,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.LUCK,
-                level = 1
-            )
+            potionDetails = GeneProperties.PotionDetails(MobEffects.LUCK)
         )
     }
 
@@ -363,10 +351,7 @@ object ModGenes {
         GeneProperties(
             id = OtherUtil.modResource("night_vision"),
             dnaPointsRequired = 16,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.NIGHT_VISION,
-                level = 1
-            )
+            potionDetails = GeneProperties.PotionDetails(MobEffects.NIGHT_VISION)
         )
     }
 
@@ -398,10 +383,7 @@ object ModGenes {
             id = OtherUtil.modResource("regeneration"),
             dnaPointsRequired = 60,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.REGENERATION,
-                level = 1
-            ),
+            potionDetails = GeneProperties.PotionDetails(MobEffects.REGENERATION),
             mutatesInto = REGENERATION_FOUR.get()
         )
     }
@@ -411,10 +393,7 @@ object ModGenes {
             id = OtherUtil.modResource("resistance"),
             dnaPointsRequired = 30,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.DAMAGE_RESISTANCE,
-                level = 1
-            ),
+            potionDetails = GeneProperties.PotionDetails(MobEffects.DAMAGE_RESISTANCE),
             mutatesInto = RESISTANCE_TWO.get()
         )
     }
@@ -454,10 +433,7 @@ object ModGenes {
             id = OtherUtil.modResource("speed"),
             dnaPointsRequired = 20,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.MOVEMENT_SPEED,
-                level = 1
-            ),
+            potionDetails = GeneProperties.PotionDetails(MobEffects.MOVEMENT_SPEED),
             mutatesInto = SPEED_TWO.get()
         )
     }
@@ -477,10 +453,7 @@ object ModGenes {
             id = OtherUtil.modResource("strength"),
             dnaPointsRequired = 20,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.DAMAGE_BOOST,
-                level = 1
-            ),
+            potionDetails = GeneProperties.PotionDetails(MobEffects.DAMAGE_BOOST),
             mutatesInto = STRENGTH_TWO.get()
         )
     }
@@ -556,10 +529,7 @@ object ModGenes {
             dnaPointsRequired = 20,
             isNegative = true,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.BAD_OMEN,
-                level = 1
-            )
+            potionDetails = GeneProperties.PotionDetails(MobEffects.BAD_OMEN)
         )
     }
 
@@ -569,10 +539,7 @@ object ModGenes {
             dnaPointsRequired = 1,
             isNegative = true,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.BLINDNESS,
-                level = 1
-            )
+            potionDetails = GeneProperties.PotionDetails(MobEffects.BLINDNESS)
         )
     }
 
@@ -590,10 +557,7 @@ object ModGenes {
             dnaPointsRequired = 1,
             isNegative = true,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.UNLUCK,
-                level = 1
-            )
+            potionDetails = GeneProperties.PotionDetails(MobEffects.UNLUCK)
         )
     }
 
@@ -612,10 +576,7 @@ object ModGenes {
             dnaPointsRequired = 1,
             isNegative = true,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.HUNGER,
-                level = 1
-            )
+            potionDetails = GeneProperties.PotionDetails(MobEffects.HUNGER)
         )
     }
 
@@ -625,10 +586,7 @@ object ModGenes {
             dnaPointsRequired = 1,
             isNegative = true,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.LEVITATION,
-                level = 1
-            )
+            potionDetails = GeneProperties.PotionDetails(MobEffects.LEVITATION)
         )
     }
 
@@ -638,10 +596,7 @@ object ModGenes {
             dnaPointsRequired = 1,
             isNegative = true,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.DIG_SLOWDOWN,
-                level = 1
-            )
+            potionDetails = GeneProperties.PotionDetails(MobEffects.DIG_SLOWDOWN)
         )
     }
 
@@ -651,10 +606,7 @@ object ModGenes {
             dnaPointsRequired = 1,
             isNegative = true,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.CONFUSION,
-                level = 1
-            )
+            potionDetails = GeneProperties.PotionDetails(MobEffects.CONFUSION)
         )
     }
 
@@ -664,10 +616,7 @@ object ModGenes {
             dnaPointsRequired = 1,
             isNegative = true,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.POISON,
-                level = 1
-            )
+            potionDetails = GeneProperties.PotionDetails(MobEffects.POISON)
         )
     }
 
@@ -690,10 +639,7 @@ object ModGenes {
             dnaPointsRequired = 1,
             isNegative = true,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.MOVEMENT_SLOWDOWN,
-                level = 1
-            )
+            potionDetails = GeneProperties.PotionDetails(MobEffects.MOVEMENT_SLOWDOWN)
         )
     }
 
@@ -729,10 +675,7 @@ object ModGenes {
             dnaPointsRequired = 1,
             isNegative = true,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.WEAKNESS,
-                level = 1
-            )
+            potionDetails = GeneProperties.PotionDetails(MobEffects.WEAKNESS)
         )
     }
 
@@ -742,10 +685,7 @@ object ModGenes {
             dnaPointsRequired = 1,
             isNegative = true,
             canMobsHave = true,
-            potionDetails = GeneProperties.PotionDetails(
-                effect = MobEffects.WITHER,
-                level = 1
-            )
+            potionDetails = GeneProperties.PotionDetails(MobEffects.WITHER)
         )
     }
 
