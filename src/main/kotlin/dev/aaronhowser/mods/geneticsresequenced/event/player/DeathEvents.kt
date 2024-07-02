@@ -35,6 +35,15 @@ object DeathEvents {
         }
     }
 
+    @SubscribeEvent(
+        priority = EventPriority.LOWEST     //In case something else cancels the event after it was saved
+    )
+    fun keepInventoryFailsafe(event: LivingDeathEvent) {
+        val player = event.entity as? Player ?: return
+        if (event.isCanceled) DeathGenes.returnInventory(player)
+    }
+
+
     @SubscribeEvent
     fun onPlayerRespawn(event: PlayerEvent.PlayerRespawnEvent) {
         DeathGenes.returnInventory(event.entity)
