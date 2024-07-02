@@ -104,9 +104,9 @@ object ClientUtil {
         ModScheduler.scheduleTaskInTicks(1) {
 
             val component = if (wasAdded) {
-                ModLanguageProvider.Messages.CRINGE_ADDED.toComponent()
+                ModLanguageProvider.Messages.CRINGE_ADDED.toComponent(countdownSeconds)
             } else {
-                ModLanguageProvider.Messages.CRINGE_REMOVED.toComponent()
+                ModLanguageProvider.Messages.CRINGE_REMOVED.toComponent(countdownSeconds)
             }.withStyle {
                 it.withHoverEvent(
                     HoverEvent(
