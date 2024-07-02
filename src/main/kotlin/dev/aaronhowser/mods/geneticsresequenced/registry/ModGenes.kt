@@ -134,6 +134,7 @@ object ModGenes {
             id = OtherUtil.modResource("speed_2"),
             dnaPointsRequired = 50,
             canMobsHave = true,
+            mutatesInto = SPEED_FOUR.get(),
             potionDetails = GeneProperties.PotionDetails(
                 effect = MobEffects.MOVEMENT_SPEED,
                 level = 2
