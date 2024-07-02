@@ -2,6 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.clearKeptInventory
+import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.getKeptInventory
+import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.keepInventory
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
@@ -23,6 +26,36 @@ import kotlin.random.Random
 object DeathGenes {
 
     private val playerInventoryMap: MutableMap<UUID, List<ItemStack>> = mutableMapOf()
+
+    fun saveInventory(player: Player) {
+        if (!ModGenes.KEEP_INVENTORY.get().isActive) return
+
+        player.level().apply {
+            if (isClientSide) return
+            if (gameRules.getBoolean(GameRules.RULE_KEEPINVENTORY)) return
+            if (levelData.isHardcore) return
+        }
+
+        if (!player.hasGene(ModGenes.KEEP_INVENTORY.get())) return
+
+        val playerItems = player.inventory.items + player.inventory.armor + player.inventory.offhand
+
+        player.keepInventory(playerItems)
+        player.inventory.clearContent()
+    }
+
+    fun returnInventory(player: Player) {
+        val items = player.getKeptInventory()
+        if (items.isEmpty()) return
+
+        items.forEach { itemStack: ItemStack ->
+            if (!player.inventory.add(itemStack)) {
+                player.drop(itemStack, true)
+            }
+        }
+
+        player.clearKeptInventory()
+    }
 
     // TODO: Test with grave mods
     // TODO: Probably voids items if the server ends between death and respawn. Maybe drop items in the world if that happens?

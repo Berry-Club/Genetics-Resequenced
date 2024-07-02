@@ -9,8 +9,10 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
+import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
+import net.minecraft.world.entity.player.Player
 import net.neoforged.bus.api.EventPriority
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
@@ -27,12 +29,18 @@ object DeathEvents {
     )
     fun keepInventory(event: LivingDeathEvent) {
         if (event.isCanceled) return
-        DeathGenes.handleKeepInventory(event.entity)
+        val entity = event.entity
+
+        if (entity is Player) {
+            DeathGenes.saveInventory(entity)
+        }
     }
 
     @SubscribeEvent
     fun onPlayerRespawn(event: PlayerEvent.PlayerRespawnEvent) {
-        DeathGenes.handleKeepInventory(event.entity)
+//        ModScheduler.scheduleTaskInTicks(1) {
+//            DeathGenes.returnInventory(event.entity)
+//        }
 
         handleKeepGenesOnDeath(event)
         removeNegativeGenesOnDeath(event)
