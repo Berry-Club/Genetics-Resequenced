@@ -37,6 +37,7 @@ object DeathEvents {
         handleKeepGenesOnDeath(event)
         removeNegativeGenesOnDeath(event)
         AttributeGenes.reGiveModifiersOnRespawn(event)
+        AttributeGenes.respawnWithMaxHealth(event)
     }
 
     private fun handleKeepGenesOnDeath(event: PlayerEvent.PlayerRespawnEvent) {

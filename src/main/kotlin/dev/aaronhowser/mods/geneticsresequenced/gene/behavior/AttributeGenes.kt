@@ -45,4 +45,10 @@ object AttributeGenes {
 
     }
 
+    fun respawnWithMaxHealth(event: PlayerRespawnEvent) {
+        val player = event.entity
+
+        player.health = player.maxHealth
+    }
+
 }

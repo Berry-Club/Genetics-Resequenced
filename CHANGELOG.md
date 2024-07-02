@@ -40,3 +40,4 @@
 - Wall Climbing is no longer an Attribute (why was it? What was I thinking?)
 - Knockback Gene strength is no longer configurable
 - Gene Attribute Modifiers are kept on respawn
+- When you have Max Health 1 or 2, you'll respawn with completely full health rather than just the vanilla 10 hearts.
