@@ -80,7 +80,6 @@ class ModLanguageProvider(
 
     object Messages {
         const val SCRAPER_CANT_SCRAPE = "message.geneticsresequenced.scraper.cant_scrape"
-        const val COOLDOWN_EMERALD_HEART = "message.geneticsresequenced.emerald_heart.cooldown"
         const val DEATH_GENE_REMOVAL = "message.geneticsresequenced.death_gene_removal"
         const val DEATH_NEGATIVE_GENE_REMOVAL = "message.geneticsresequenced.death_negative_gene_removal"
         const val RECENT_WOOLY = "message.geneticsresequenced.wooly.recent"
@@ -181,6 +180,7 @@ class ModLanguageProvider(
     object Cooldown {
         const val STARTED = "cooldown.geneticsresequenced.started"
         const val ENDED = "cooldown.geneticsresequenced.ended"
+        const val ON_COOLDOWN = "cooldown.geneticsresequenced.on_cooldown"
     }
 
     object Recipe {
@@ -488,7 +488,6 @@ class ModLanguageProvider(
         add(Items.TIPPED_ARROW_ZOMBIFY_VILLAGER, "Arrow of Zombify Villager")
 
         add(Messages.SCRAPER_CANT_SCRAPE, "This mob cannot be scraped.")
-        add(Messages.COOLDOWN_EMERALD_HEART, "Emerald Heart is on cooldown!")
         add(Messages.DEATH_GENE_REMOVAL, "Death has reset your Genes!")
         add(Messages.DEATH_NEGATIVE_GENE_REMOVAL, "Death has remove your negative Genes!")
         add(Messages.RECENT_WOOLY, "This entity has already been sheared recently!")
@@ -598,7 +597,8 @@ class ModLanguageProvider(
         add(Commands.REMOVE_ALL_MULTIPLE, "Removed all Genes from %d entities!")
 
         add(Cooldown.STARTED, " triggered! Cooldown started: %s")
-        add(Cooldown.ENDED, " has come off cooldown!")
+        add(Cooldown.ENDED, "%s has come off cooldown!")
+        add(Cooldown.ON_COOLDOWN, "%s is on cooldown!")
 
         add(Recipe.MOB, "Mob: %1\$s")
         add(Recipe.GENE, "Gene: %1\$s")

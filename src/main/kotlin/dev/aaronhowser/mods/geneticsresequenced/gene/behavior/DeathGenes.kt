@@ -3,8 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -89,10 +87,7 @@ object DeathGenes {
 
         val wasNotOnCooldown = emeraldHeartCooldown.add(entity)
 
-        if (!wasNotOnCooldown) {
-            entity.sendSystemMessage(ModLanguageProvider.Messages.COOLDOWN_EMERALD_HEART.toComponent())
-            return
-        }
+        if (!wasNotOnCooldown) return
 
         entity.inventory.add(ItemStack(Items.EMERALD, 1))
     }

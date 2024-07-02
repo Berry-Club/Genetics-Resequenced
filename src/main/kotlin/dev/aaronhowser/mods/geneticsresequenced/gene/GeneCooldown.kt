@@ -47,7 +47,7 @@ class GeneCooldown(
     }
 
     private fun onAddFail(entity: LivingEntity) {
-
+        tellOnCooldown(entity, gene)
     }
 
     fun remove(entity: LivingEntity): Boolean {
@@ -122,9 +122,13 @@ class GeneCooldown(
         }
 
         fun tellCooldownEnded(player: LivingEntity, gene: Gene) {
-            val message = Component.empty()
-                .append(gene.nameComponent)
-                .append(ModLanguageProvider.Cooldown.ENDED.toComponent())
+            val message = ModLanguageProvider.Cooldown.ENDED.toComponent(gene.nameComponent)
+
+            player.sendSystemMessage(message)
+        }
+
+        fun tellOnCooldown(player: LivingEntity, gene: Gene) {
+            val message = ModLanguageProvider.Cooldown.ON_COOLDOWN.toComponent(gene.nameComponent)
 
             player.sendSystemMessage(message)
         }
