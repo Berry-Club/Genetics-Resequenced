@@ -45,3 +45,7 @@
 - Lowered default cooldown for Dragon's Breath from 15 seconds to 5
 - Improved messages for Genes on cooldown
 - Scare Genes now have a longer distance, and scared mobs run away with more speed
+
+### 1.1.1
+
+- Updated to NeoForge 21.0.53-beta
