@@ -122,7 +122,7 @@ dependencies {
 //    implementation "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
 
     // Mekanism
-//    implementation "curse.maven:mekanism-268560:5465725"
+    implementation "curse.maven:mekanism-268560:5496791"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
