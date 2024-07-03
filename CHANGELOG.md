@@ -50,3 +50,4 @@
 
 - Updated to NeoForge 21.0.53-beta
 - Added 4 new Genes: Infested, Oozing, Weaving, and Wind Charged
+- Fixed a typo in a tooltip

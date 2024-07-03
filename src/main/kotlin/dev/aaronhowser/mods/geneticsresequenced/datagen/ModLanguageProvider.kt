@@ -558,7 +558,7 @@ class ModLanguageProvider(
         add(Tooltips.ANTI_PLASMID_EMPTY, "Empty Anti-Plasmid")
         add(Tooltips.PLASMID_GENE, "Contains Gene: %s")
         add(Tooltips.PLASMID_COMPLETE, "Plasmid is complete!")
-        add(Tooltips.PLASMID_PROGRESS, "Gene Points: %d/%d")
+        add(Tooltips.PLASMID_PROGRESS, "DNA Points: %d/%d")
         add(Tooltips.SYRINGE_CONTAMINATED, "Contaminated Blood")
         add(Tooltips.SYRINGE_OWNER, "Blood: %1\$s")
         add(Tooltips.INFUSER_BASIC, "+1 DNA Point")
