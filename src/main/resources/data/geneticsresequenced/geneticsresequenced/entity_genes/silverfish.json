@@ -1,8 +1,9 @@
 {
   "entity": "minecraft:silverfish",
   "genes": {
-    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:basic": 3,
     "geneticsresequenced:haste": 3,
-    "geneticsresequenced:efficiency": 1
+    "geneticsresequenced:efficiency": 1,
+    "geneticsresequenced:infested": 4
   }
 }

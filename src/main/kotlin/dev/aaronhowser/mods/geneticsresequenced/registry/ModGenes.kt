@@ -610,6 +610,16 @@ object ModGenes {
         )
     }
 
+    val INFESTED = registerGene("infested") {
+        GeneProperties(
+            id = OtherUtil.modResource("infested"),
+            dnaPointsRequired = 10,
+            isNegative = true,
+            canMobsHave = true,
+            potionDetails = GeneProperties.PotionDetails(MobEffects.INFESTED)
+        )
+    }
+
     val LEVITATION = registerGene("levitation") {
         GeneProperties(
             id = OtherUtil.modResource("levitation"),
@@ -637,6 +647,16 @@ object ModGenes {
             isNegative = true,
             canMobsHave = true,
             potionDetails = GeneProperties.PotionDetails(MobEffects.CONFUSION)
+        )
+    }
+
+    val OOZING = registerGene("oozing") {
+        GeneProperties(
+            id = OtherUtil.modResource("oozing"),
+            dnaPointsRequired = 10,
+            isNegative = true,
+            canMobsHave = true,
+            potionDetails = GeneProperties.PotionDetails(MobEffects.OOZING)
         )
     }
 
@@ -699,6 +719,16 @@ object ModGenes {
         )
     }
 
+    val WEAVING = registerGene("weaving") {
+        GeneProperties(
+            id = OtherUtil.modResource("weaving"),
+            dnaPointsRequired = 10,
+            isNegative = true,
+            canMobsHave = true,
+            potionDetails = GeneProperties.PotionDetails(MobEffects.WEAVING)
+        )
+    }
+
     val WEAKNESS = registerGene("weakness") {
         GeneProperties(
             id = OtherUtil.modResource("weakness"),
@@ -706,6 +736,16 @@ object ModGenes {
             isNegative = true,
             canMobsHave = true,
             potionDetails = GeneProperties.PotionDetails(MobEffects.WEAKNESS)
+        )
+    }
+
+    val WIND_CHARGED = registerGene("wind_charged") {
+        GeneProperties(
+            id = OtherUtil.modResource("wind_charged"),
+            dnaPointsRequired = 10,
+            isNegative = true,
+            canMobsHave = true,
+            potionDetails = GeneProperties.PotionDetails(MobEffects.WIND_CHARGED)
         )
     }
 
@@ -718,6 +758,8 @@ object ModGenes {
             potionDetails = GeneProperties.PotionDetails(MobEffects.WITHER)
         )
     }
+
+    // Plagues
 
     val BLACK_DEATH = registerGene("black_death") {
         GeneProperties(

@@ -1,8 +1,9 @@
 {
   "entity": "minecraft:spider",
   "genes": {
-    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:basic": 4,
     "geneticsresequenced:night_vision": 3,
-    "geneticsresequenced:wall_climbing": 2
+    "geneticsresequenced:wall_climbing": 2,
+    "geneticsresequenced:weaving": 4
   }
 }

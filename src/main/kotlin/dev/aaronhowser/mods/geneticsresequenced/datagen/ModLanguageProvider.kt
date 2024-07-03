@@ -375,6 +375,10 @@ class ModLanguageProvider(
         const val BLACK_DEATH = "gene.geneticsresequenced.black_death"
         const val VOID_DEATH = "gene.geneticsresequenced.void_death"
         const val GENE_DISABLED = "gene.geneticsresequenced.gene_disabled"
+        const val WIND_CHARGED = "gene.geneticsresequenced.wind_charged"
+        const val WEAVING = "gene.geneticsresequenced.weaving"
+        const val OOZING = "gene.geneticsresequenced.oozing"
+        const val INFESTED = "gene.geneticsresequenced.infested"
     }
 
     object Advancements {
@@ -819,6 +823,10 @@ class ModLanguageProvider(
         add(Genes.BLACK_DEATH, "Black Death")
         add(Genes.VOID_DEATH, "Void Death")
         add(Genes.GENE_DISABLED, " (Disabled)")
+        add(Genes.WIND_CHARGED, "Wind Charged")
+        add(Genes.WEAVING, "Weaving")
+        add(Genes.OOZING, "Oozing")
+        add(Genes.INFESTED, "Infested")
 
         add(
             Advancements.SCRAPER_DESC,
