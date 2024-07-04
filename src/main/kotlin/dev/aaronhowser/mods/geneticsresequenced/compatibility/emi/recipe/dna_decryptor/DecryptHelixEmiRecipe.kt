@@ -71,7 +71,7 @@ class DecryptHelixEmiRecipe(
             Component.literal(
                 String.format("%.2f%%", chance * 100)
             ),
-            -8 * 5, 4, -1, true
+            -8 * 5, 4, 0x3E3E3E, false
         )
 
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)

@@ -55,7 +55,6 @@ class ModEmiPlugin : EmiPlugin {
     private fun comparisons(registry: EmiRegistry) {
         val entityTypeComparison = Comparison.compareData { it.get(EntityTypeItemComponent.component) }
 
-        registry.setDefaultComparison(ORGANIC_MATTER_STACK, entityTypeComparison)
         registry.setDefaultComparison(CELL_STACK, entityTypeComparison)
         registry.setDefaultComparison(DNA_HELIX_STACK, Comparison.compareComponents())
     }
