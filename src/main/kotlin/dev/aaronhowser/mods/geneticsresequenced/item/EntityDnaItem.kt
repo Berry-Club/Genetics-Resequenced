@@ -7,11 +7,13 @@ import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeItemCo
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.MobCategory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -22,6 +24,8 @@ open class EntityDnaItem : Item(Properties()) {
     companion object {
 
         fun setEntityType(itemStack: ItemStack, entityType: EntityType<*>) {
+            if (entityType !in validEntityTypes) throw IllegalArgumentException("Invalid EntityType")
+
             itemStack.set(EntityTypeItemComponent.component, EntityTypeItemComponent(entityType))
         }
 
@@ -35,6 +39,10 @@ open class EntityDnaItem : Item(Properties()) {
         fun getEntityType(itemStack: ItemStack): EntityType<*>? {
             return itemStack.get(EntityTypeItemComponent.component)?.entity
         }
+
+        val validEntityTypes: List<EntityType<*>> =
+            BuiltInRegistries.ENTITY_TYPE.filter { it.category != MobCategory.MISC }
+
     }
 
     override fun interactLivingEntity(
