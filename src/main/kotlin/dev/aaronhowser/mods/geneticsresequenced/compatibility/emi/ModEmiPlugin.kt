@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPlasmidEmiRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.BlackDeathEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.GmoEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.blood_purifier.PurifySyringeEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.cell_analyzer.OrganicMatterToCellEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.dna_decryptor.DecryptHelixEmiRecipe
@@ -57,6 +58,7 @@ class ModEmiPlugin : EmiPlugin {
 
         val ORGANIC_MATTER_STACK: EmiStack = EmiStack.of(ModItems.ORGANIC_MATTER)
         val CELL_STACK: EmiStack = EmiStack.of(ModItems.CELL)
+        val GMO_CELL_STACK: EmiStack = EmiStack.of(ModItems.GMO_CELL)
         val DNA_HELIX_STACK: EmiStack = EmiStack.of(ModItems.DNA_HELIX)
         val PLASMID_STACK: EmiStack = EmiStack.of(ModItems.PLASMID)
         val ANTI_PLASMID_STACK: EmiStack = EmiStack.of(ModItems.ANTI_PLASMID)
@@ -83,6 +85,7 @@ class ModEmiPlugin : EmiPlugin {
         val plasmidProgressComparison = Comparison.compareData { it.get(PlasmidProgressItemComponent.component) }
 
         registry.setDefaultComparison(CELL_STACK, entityTypeComparison)
+        registry.setDefaultComparison(GMO_CELL_STACK, Comparison.compareComponents())
         registry.setDefaultComparison(DNA_HELIX_STACK, Comparison.compareComponents())
         registry.setDefaultComparison(PLASMID_STACK, plasmidProgressComparison)
         registry.setDefaultComparison(ANTI_PLASMID_STACK, plasmidProgressComparison)
@@ -164,9 +167,12 @@ class ModEmiPlugin : EmiPlugin {
         registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, INCUBATOR_STACK)
         registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, ADVANCED_INCUBATOR_STACK)
 
-
         registry.addRecipe(BlackDeathEmiRecipe(false))
         registry.addRecipe(BlackDeathEmiRecipe(true))
+
+        for (recipe in GmoEmiRecipe.getGmoRecipes()) {
+            registry.addRecipe(recipe)
+        }
 
     }
 
