@@ -13,7 +13,7 @@ import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.item.crafting.Ingredient
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class CellToHelixEmiRecipe(
     val entityType: EntityType<*>
@@ -25,7 +25,7 @@ class CellToHelixEmiRecipe(
     init {
         val cellStack = ModItems.CELL.toStack()
         EntityDnaItem.setEntityType(cellStack, entityType)
-        cell = EmiIngredient.of(Ingredient.of(cellStack))
+        cell = EmiIngredient.of(DataComponentIngredient.of(false, cellStack))
 
         val helixStack = ModItems.DNA_HELIX.toStack()
         EntityDnaItem.setEntityType(helixStack, entityType)

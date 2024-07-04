@@ -14,7 +14,7 @@ import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.item.crafting.Ingredient
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class DecryptHelixEmiRecipe(
     val entityType: EntityType<*>,
@@ -22,28 +22,26 @@ class DecryptHelixEmiRecipe(
     val chance: Float
 ) : EmiRecipe {
 
-    private val cell: EmiIngredient
-    private val helix: EmiStack
+    private val encryptedHelix: EmiIngredient
+    private val decryptedHelix: EmiStack
 
     init {
-        val cellStack = ModItems.CELL.toStack()
-        EntityDnaItem.setEntityType(cellStack, entityType)
-        cell = EmiIngredient.of(Ingredient.of(cellStack))
-
         val helixStack = ModItems.DNA_HELIX.toStack()
         EntityDnaItem.setEntityType(helixStack, entityType)
-        helix = EmiStack.of(helixStack)
+        encryptedHelix = EmiIngredient.of(DataComponentIngredient.of(false, helixStack))
+
     }
 
     override fun getCategory(): EmiRecipeCategory {
-        return ModEmiPlugin.DNA_EXTRACTOR_CATEGORY
+        return ModEmiPlugin.DNA_DECRYPTOR_CATEGORY
     }
 
     override fun getId(): ResourceLocation {
         val entityTypeRl = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
         val entityString = entityTypeRl.toString().replace(':', '/')
+        val geneString = gene.id.toString().replace(':', '/')
 
-        return OtherUtil.modResource("/dna_extractor/$entityString")
+        return OtherUtil.modResource("/dna_extractor/$entityString/to/$geneString")
     }
 
     override fun getInputs(): List<EmiIngredient> {

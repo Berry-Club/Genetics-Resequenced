@@ -13,7 +13,7 @@ import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.item.crafting.Ingredient
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class OrganicMatterToCellEmiRecipe(
     val entityType: EntityType<*>
@@ -29,7 +29,7 @@ class OrganicMatterToCellEmiRecipe(
         val cellStack = ModItems.CELL.toStack()
         EntityDnaItem.setEntityType(cellStack, entityType)
 
-        organicMatter = EmiIngredient.of(Ingredient.of(matterStack))
+        organicMatter = EmiIngredient.of(DataComponentIngredient.of(false, matterStack))
         cell = EmiStack.of(cellStack)
     }
 
