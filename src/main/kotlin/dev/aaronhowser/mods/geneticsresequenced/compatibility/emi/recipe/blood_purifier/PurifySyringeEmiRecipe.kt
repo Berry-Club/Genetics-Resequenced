@@ -16,7 +16,7 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.animal.Cow
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
-class PurifySyringe(
+class PurifySyringeEmiRecipe(
     val isMetal: Boolean = false
 ) : EmiRecipe {
 

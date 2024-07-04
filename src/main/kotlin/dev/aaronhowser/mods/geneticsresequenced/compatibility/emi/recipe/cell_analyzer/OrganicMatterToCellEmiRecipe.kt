@@ -15,7 +15,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.crafting.Ingredient
 
-class OrganicMatterToCell(
+class OrganicMatterToCellEmiRecipe(
     val entityType: EntityType<*>
 ) : EmiRecipe {
 

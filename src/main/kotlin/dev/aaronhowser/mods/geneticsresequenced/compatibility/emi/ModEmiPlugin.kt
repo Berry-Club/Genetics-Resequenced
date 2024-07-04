@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi
 
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.blood_purifier.PurifySyringe
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.cell_analyzer.OrganicMatterToCell
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_decryptor.DecryptHelix
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_extractor.CellToHelix
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.blood_purifier.PurifySyringeEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.cell_analyzer.OrganicMatterToCellEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_decryptor.DecryptHelixEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_extractor.CellToHelixEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
@@ -47,8 +47,8 @@ class ModEmiPlugin : EmiPlugin {
         registry.addCategory(BLOOD_PURIFIER_CATEGORY)
         registry.addWorkstation(BLOOD_PURIFIER_CATEGORY, BLOOD_PURIFIER_STACK)
 
-        registry.addRecipe(PurifySyringe(isMetal = false))
-        registry.addRecipe(PurifySyringe(isMetal = true))
+        registry.addRecipe(PurifySyringeEmiRecipe(isMetal = false))
+        registry.addRecipe(PurifySyringeEmiRecipe(isMetal = true))
     }
 
     private fun cellAnalyzer(registry: EmiRegistry) {
@@ -56,7 +56,7 @@ class ModEmiPlugin : EmiPlugin {
         registry.addWorkstation(CELL_ANALYZER_CATEGORY, CELL_ANALYZER_STACK)
 
         for (entityType in EntityDnaItem.validEntityTypes) {
-            registry.addRecipe(OrganicMatterToCell(entityType))
+            registry.addRecipe(OrganicMatterToCellEmiRecipe(entityType))
         }
     }
 
@@ -65,7 +65,7 @@ class ModEmiPlugin : EmiPlugin {
         registry.addWorkstation(DNA_EXTRACTOR_CATEGORY, DNA_EXTRACTOR_STACK)
 
         for (entityType in EntityDnaItem.validEntityTypes) {
-            registry.addRecipe(CellToHelix(entityType))
+            registry.addRecipe(CellToHelixEmiRecipe(entityType))
         }
     }
 
@@ -79,7 +79,7 @@ class ModEmiPlugin : EmiPlugin {
             for ((gene, weight) in map) {
                 val chance = weight.toFloat() / totalWeight
 
-                registry.addRecipe(DecryptHelix(entityType, gene, chance))
+                registry.addRecipe(DecryptHelixEmiRecipe(entityType, gene, chance))
             }
         }
     }

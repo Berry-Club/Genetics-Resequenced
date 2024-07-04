@@ -1,5 +1,6 @@
-package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_extractor
+package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_decryptor
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -15,8 +16,10 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.crafting.Ingredient
 
-class CellToHelix(
-    val entityType: EntityType<*>
+class DecryptHelixEmiRecipe(
+    val entityType: EntityType<*>,
+    val gene: Gene,
+    val chance: Float
 ) : EmiRecipe {
 
     private val cell: EmiIngredient
