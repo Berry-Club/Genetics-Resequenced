@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_dec
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_extractor.CellToHelixEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
+import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -37,6 +38,8 @@ class ModEmiPlugin : EmiPlugin {
         val DNA_DECRYPTOR_CATEGORY: EmiRecipeCategory =
             EmiRecipeCategory(OtherUtil.modResource("dna_decryptor"), DNA_DECRYPTOR_STACK)
 
+        val ORGANIC_MATTER_STACK: EmiStack = EmiStack.of(ModItems.ORGANIC_MATTER)
+        val CELL_STACK: EmiStack = EmiStack.of(ModItems.CELL)
         val DNA_HELIX_STACK: EmiStack = EmiStack.of(ModItems.DNA_HELIX)
     }
 
@@ -51,7 +54,12 @@ class ModEmiPlugin : EmiPlugin {
 
     private fun comparisons(registry: EmiRegistry) {
         val geneComparison = Comparison.compareData { it.get(GeneItemComponent.component) }
+        val entityTypeComparison = Comparison.compareData { it.get(EntityTypeItemComponent.component) }
+
+        registry.setDefaultComparison(ORGANIC_MATTER_STACK, entityTypeComparison)
+        registry.setDefaultComparison(CELL_STACK, entityTypeComparison)
         registry.setDefaultComparison(DNA_HELIX_STACK, geneComparison)
+//        registry.setDefaultComparison(DNA_HELIX_STACK, entityTypeComparison)
     }
 
     private fun bloodPurifier(registry: EmiRegistry) {
