@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_de
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -30,6 +31,9 @@ class DecryptHelixEmiRecipe(
         EntityDnaItem.setEntityType(helixStack, entityType)
         encryptedHelix = EmiIngredient.of(DataComponentIngredient.of(false, helixStack))
 
+        val decryptedHelixStack = ModItems.DNA_HELIX.toStack()
+        DnaHelixItem.setGene(decryptedHelixStack, gene)
+        decryptedHelix = EmiStack.of(decryptedHelixStack)
     }
 
     override fun getCategory(): EmiRecipeCategory {
@@ -45,11 +49,11 @@ class DecryptHelixEmiRecipe(
     }
 
     override fun getInputs(): List<EmiIngredient> {
-        return listOf(cell)
+        return listOf(encryptedHelix)
     }
 
     override fun getOutputs(): List<EmiStack> {
-        return listOf(helix)
+        return listOf(decryptedHelix)
     }
 
     override fun getDisplayWidth(): Int {
@@ -62,7 +66,7 @@ class DecryptHelixEmiRecipe(
 
     override fun addWidgets(widgets: WidgetHolder) {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
-        widgets.addSlot(cell, 0, 0);
-        widgets.addSlot(helix, 58, 0).recipeContext(this);
+        widgets.addSlot(encryptedHelix, 0, 0);
+        widgets.addSlot(decryptedHelix, 58, 0).recipeContext(this);
     }
 }
