@@ -6,12 +6,15 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_dec
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_extractor.CellToHelixEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
+import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.EmiEntrypoint
 import dev.emi.emi.api.EmiPlugin
 import dev.emi.emi.api.EmiRegistry
 import dev.emi.emi.api.recipe.EmiRecipeCategory
+import dev.emi.emi.api.stack.Comparison
 import dev.emi.emi.api.stack.EmiStack
 
 @EmiEntrypoint
@@ -34,6 +37,7 @@ class ModEmiPlugin : EmiPlugin {
         val DNA_DECRYPTOR_CATEGORY: EmiRecipeCategory =
             EmiRecipeCategory(OtherUtil.modResource("dna_decryptor"), DNA_DECRYPTOR_STACK)
 
+        val DNA_HELIX_STACK: EmiStack = EmiStack.of(ModItems.DNA_HELIX)
     }
 
     override fun register(registry: EmiRegistry) {
@@ -41,6 +45,13 @@ class ModEmiPlugin : EmiPlugin {
         cellAnalyzer(registry)
         dnaExtractor(registry)
         dnaDecryptor(registry)
+
+        comparisons(registry)
+    }
+
+    private fun comparisons(registry: EmiRegistry) {
+        val geneComparison = Comparison.compareData { it.get(GeneItemComponent.component) }
+        registry.setDefaultComparison(DNA_HELIX_STACK, geneComparison)
     }
 
     private fun bloodPurifier(registry: EmiRegistry) {

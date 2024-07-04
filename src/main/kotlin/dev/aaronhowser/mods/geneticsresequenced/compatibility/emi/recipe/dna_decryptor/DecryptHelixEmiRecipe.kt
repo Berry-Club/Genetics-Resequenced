@@ -13,6 +13,7 @@ import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
@@ -29,7 +30,7 @@ class DecryptHelixEmiRecipe(
     init {
         val helixStack = ModItems.DNA_HELIX.toStack()
         EntityDnaItem.setEntityType(helixStack, entityType)
-        encryptedHelix = EmiIngredient.of(DataComponentIngredient.of(false, helixStack))
+        encryptedHelix = EmiIngredient.of(DataComponentIngredient.of(true, helixStack))
 
         val decryptedHelixStack = ModItems.DNA_HELIX.toStack()
         DnaHelixItem.setGene(decryptedHelixStack, gene)
@@ -65,6 +66,14 @@ class DecryptHelixEmiRecipe(
     }
 
     override fun addWidgets(widgets: WidgetHolder) {
+
+        widgets.addText(
+            Component.literal(
+                String.format("%.2f%%", chance * 100)
+            ),
+            -8 * 5, 4, -1, true
+        )
+
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
         widgets.addSlot(encryptedHelix, 0, 0);
         widgets.addSlot(decryptedHelix, 58, 0).recipeContext(this);
