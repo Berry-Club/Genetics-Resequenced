@@ -71,7 +71,6 @@ class PurifySyringe(
     }
 
     override fun addWidgets(widgets: WidgetHolder) {
-
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
 
         widgets.addSlot(contaminatedSyringe, 0, 0);
