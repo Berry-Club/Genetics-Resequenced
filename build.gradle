@@ -130,8 +130,8 @@ dependencies {
     implementation "curse.maven:mekanism-268560:5496791"
 
     // KubeJS
-    implementation "curse.maven:kubejs-238086:5495805"
-    implementation "curse.maven:rhino-416294:5495611"
+//    implementation "curse.maven:kubejs-238086:5495805"
+//    implementation "curse.maven:rhino-416294:5495611"
 
     // EMI
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
