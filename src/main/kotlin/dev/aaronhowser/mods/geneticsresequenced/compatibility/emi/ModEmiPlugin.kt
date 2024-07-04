@@ -18,6 +18,7 @@ import dev.emi.emi.api.EmiEntrypoint
 import dev.emi.emi.api.EmiPlugin
 import dev.emi.emi.api.EmiRegistry
 import dev.emi.emi.api.recipe.EmiRecipeCategory
+import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories
 import dev.emi.emi.api.stack.Comparison
 import dev.emi.emi.api.stack.EmiStack
 
@@ -49,6 +50,9 @@ class ModEmiPlugin : EmiPlugin {
         val PLASMID_INJECTOR_CATEGORY: EmiRecipeCategory =
             EmiRecipeCategory(OtherUtil.modResource("plasmid_injector"), PLASMID_INJECTOR_STACK)
 
+        val INCUBATOR_STACK: EmiStack = EmiStack.of(ModBlocks.INCUBATOR)
+        val ADVANCED_INCUBATOR_STACK: EmiStack = EmiStack.of(ModBlocks.ADVANCED_INCUBATOR)
+
         val ORGANIC_MATTER_STACK: EmiStack = EmiStack.of(ModItems.ORGANIC_MATTER)
         val CELL_STACK: EmiStack = EmiStack.of(ModItems.CELL)
         val DNA_HELIX_STACK: EmiStack = EmiStack.of(ModItems.DNA_HELIX)
@@ -63,6 +67,9 @@ class ModEmiPlugin : EmiPlugin {
         dnaDecryptor(registry)
         plasmidInfuser(registry)
         plasmidInjector(registry)
+
+        registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, INCUBATOR_STACK)
+        registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, ADVANCED_INCUBATOR_STACK)
 
         comparisons(registry)
     }
