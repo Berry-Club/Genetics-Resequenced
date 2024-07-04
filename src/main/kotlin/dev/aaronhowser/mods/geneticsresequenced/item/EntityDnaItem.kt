@@ -24,7 +24,7 @@ open class EntityDnaItem : Item(Properties()) {
     companion object {
 
         fun setEntityType(itemStack: ItemStack, entityType: EntityType<*>) {
-            if (entityType !in validEntityTypes) throw IllegalArgumentException("Invalid EntityType")
+            if (entityType !in validEntityTypes) throw IllegalArgumentException("Invalid EntityType: $entityType")
 
             itemStack.set(EntityTypeItemComponent.component, EntityTypeItemComponent(entityType))
         }
@@ -40,8 +40,8 @@ open class EntityDnaItem : Item(Properties()) {
             return itemStack.get(EntityTypeItemComponent.component)?.entity
         }
 
-        val validEntityTypes: List<EntityType<*>> =
-            BuiltInRegistries.ENTITY_TYPE.filter { it.category != MobCategory.MISC }
+        val validEntityTypes: MutableSet<EntityType<*>>
+            get() = (BuiltInRegistries.ENTITY_TYPE.filter { it.category != MobCategory.MISC } + EntityType.PLAYER).toMutableSet()
 
     }
 

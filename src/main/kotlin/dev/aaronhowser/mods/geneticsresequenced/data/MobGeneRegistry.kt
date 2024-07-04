@@ -23,7 +23,6 @@ class MobGeneRegistry : SimpleJsonResourceReloadListener(
         private val entityGeneMap: MutableMap<EntityType<*>, Map<Gene, Int>> = mutableMapOf()
         fun getRegistry(): Map<EntityType<*>, Map<Gene, Int>> = entityGeneMap.toMap()
 
-
         fun getGeneWeights(entityType: EntityType<*>): Map<Gene, Int> {
             return entityGeneMap[entityType] ?: emptyMap()
         }

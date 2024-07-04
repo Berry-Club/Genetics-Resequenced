@@ -2,7 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.blood_purifier.PurifySyringe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.cell_analyzer.OrganicMatterToCell
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_decryptor.DecryptHelix
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_extractor.CellToHelix
+import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -37,6 +39,7 @@ class ModEmiPlugin : EmiPlugin {
     override fun register(registry: EmiRegistry) {
         bloodPurifier(registry)
         cellAnalyzer(registry)
+        dnaExtractor(registry)
         dnaDecryptor(registry)
     }
 
@@ -57,12 +60,27 @@ class ModEmiPlugin : EmiPlugin {
         }
     }
 
-    private fun dnaDecryptor(registry: EmiRegistry) {
+    private fun dnaExtractor(registry: EmiRegistry) {
         registry.addCategory(DNA_EXTRACTOR_CATEGORY)
         registry.addWorkstation(DNA_EXTRACTOR_CATEGORY, DNA_EXTRACTOR_STACK)
 
         for (entityType in EntityDnaItem.validEntityTypes) {
             registry.addRecipe(CellToHelix(entityType))
+        }
+    }
+
+    private fun dnaDecryptor(registry: EmiRegistry) {
+        registry.addCategory(DNA_DECRYPTOR_CATEGORY)
+        registry.addWorkstation(DNA_DECRYPTOR_CATEGORY, DNA_DECRYPTOR_STACK)
+
+        for ((entityType, map) in MobGeneRegistry.getRegistry()) {
+            val totalWeight = map.values.sum()
+
+            for ((gene, weight) in map) {
+                val chance = weight.toFloat() / totalWeight
+
+                registry.addRecipe(DecryptHelix(entityType, gene, chance))
+            }
         }
     }
 
