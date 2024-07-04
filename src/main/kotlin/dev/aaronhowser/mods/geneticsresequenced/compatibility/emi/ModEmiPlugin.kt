@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPlasmidEmiRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.BlackDeathEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.GmoEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.SubstrateCellEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.VirusEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.blood_purifier.PurifySyringeEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.cell_analyzer.OrganicMatterToCellEmiRecipe
@@ -183,8 +184,20 @@ class ModEmiPlugin : EmiPlugin {
         registry.addRecipe(BlackDeathEmiRecipe(false))
         registry.addRecipe(BlackDeathEmiRecipe(true))
 
+        substrate(registry)
         virus(registry)
         gmo(registry)
+    }
+
+    private fun substrate(registry: EmiRegistry) {
+        registry.addCategory(SUBSTRATE_CATEGORY)
+        registry.addWorkstation(SUBSTRATE_CATEGORY, BREWING_STAND_STACK)
+        registry.addWorkstation(SUBSTRATE_CATEGORY, INCUBATOR_STACK)
+        registry.addWorkstation(SUBSTRATE_CATEGORY, ADVANCED_INCUBATOR_STACK)
+
+        for (recipe in SubstrateCellEmiRecipe.getAllRecipes()) {
+            registry.addRecipe(recipe)
+        }
     }
 
     private fun virus(registry: EmiRegistry) {
@@ -193,7 +206,7 @@ class ModEmiPlugin : EmiPlugin {
         registry.addWorkstation(VIRUS_CATEGORY, INCUBATOR_STACK)
         registry.addWorkstation(VIRUS_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
-        for (recipe in VirusEmiRecipe.getAllVirusRecipes()) {
+        for (recipe in VirusEmiRecipe.getAllRecipes()) {
             registry.addRecipe(recipe)
         }
     }
@@ -202,7 +215,7 @@ class ModEmiPlugin : EmiPlugin {
         registry.addCategory(GMO_CATEGORY)
         registry.addWorkstation(GMO_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
-        for (recipe in GmoEmiRecipe.getGmoRecipes()) {
+        for (recipe in GmoEmiRecipe.getAllRecipes()) {
             registry.addRecipe(recipe)
         }
 

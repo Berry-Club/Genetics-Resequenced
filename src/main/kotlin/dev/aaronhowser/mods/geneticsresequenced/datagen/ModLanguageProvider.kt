@@ -206,6 +206,8 @@ class ModLanguageProvider(
         const val MATCHING_WORTH = "recipe.geneticsresequenced.plasmid_infuser.matching"
         const val INJECTOR_GENES = "recipe.geneticsresequenced.plasmid_injector.genes"
         const val INJECTOR_ANTIGENES = "recipe.geneticsresequenced.plasmid_injector.anti_genes"
+        const val SUBSTRATE = "recipe.geneticsresequenced.substrate"
+        const val BLACK_DEATH = "recipe.geneticsresequenced.black_death"
     }
 
     object Info {
@@ -616,11 +618,13 @@ class ModLanguageProvider(
         add(Recipe.MOB, "Mob: %1\$s")
         add(Recipe.GENE, "Gene: %1\$s")
         add(Recipe.CHANCE, "Chance: %d%%")
-        add(Recipe.REQUIRES_POINTS, "%1\$s requires %2\$d points of DNA.")
+        add(Recipe.REQUIRES_POINTS, "%1\$s requires %2\$d points of DNA")
         add(Recipe.BASIC_WORTH, "Basic Genes = 1 point")
         add(Recipe.MATCHING_WORTH, "Matching Genes = 2 points")
         add(Recipe.INJECTOR_GENES, "Syringes can have as many Genes as you want!")
         add(Recipe.INJECTOR_ANTIGENES, "Syringes can have as many Genes (or Anti-Genes) as you want!")
+        add(Recipe.BLACK_DEATH, "Requires all negative Genes")
+        add(Recipe.SUBSTRATE, "Duplicates the Cell for each Organic Substrate used")
 
         add(EMI.BLOOD_PURIFIER, "Blood Purifier")
         add(EMI.CELL_ANALYZER, "Cell Analyzer")

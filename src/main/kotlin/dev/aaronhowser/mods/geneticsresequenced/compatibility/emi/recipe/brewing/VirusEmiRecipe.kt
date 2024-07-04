@@ -19,10 +19,10 @@ class VirusEmiRecipe(
 ) : AbstractEmiBrewingRecipe() {
 
     companion object {
-        fun getAllVirusRecipes(): List<VirusEmiRecipe> {
-            val allRegularGmoRecipes = BrewingRecipes.allRecipes.filterIsInstance<VirusRecipe>()
+        fun getAllRecipes(): List<VirusEmiRecipe> {
+            val allRegularVirusRecipes = BrewingRecipes.allRecipes.filterIsInstance<VirusRecipe>()
 
-            return allRegularGmoRecipes.map {
+            return allRegularVirusRecipes.map {
                 VirusEmiRecipe(
                     it.inputDnaGene,
                     it.outputGene

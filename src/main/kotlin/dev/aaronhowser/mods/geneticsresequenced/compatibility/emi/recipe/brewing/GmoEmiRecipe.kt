@@ -36,7 +36,7 @@ class GmoEmiRecipe(
 ) : AbstractEmiBrewingRecipe() {
 
     companion object {
-        fun getGmoRecipes(): List<GmoEmiRecipe> {
+        fun getAllRecipes(): List<GmoEmiRecipe> {
             val allRegularGmoRecipes = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
 
             return allRegularGmoRecipes.map {
