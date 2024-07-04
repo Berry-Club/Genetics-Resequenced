@@ -32,7 +32,7 @@ class GmoEmiRecipe(
     ingredientItem: Item,
     val idealGene: Gene,
     val geneChance: Float,
-    isMutation: Boolean = false
+    isMutation: Boolean
 ) : AbstractEmiBrewingRecipe() {
 
     companion object {
@@ -44,7 +44,8 @@ class GmoEmiRecipe(
                     it.entityType,
                     it.ingredientItem,
                     it.idealGene,
-                    it.geneChance
+                    it.geneChance,
+                    it.isMutation
                 )
             }
         }
