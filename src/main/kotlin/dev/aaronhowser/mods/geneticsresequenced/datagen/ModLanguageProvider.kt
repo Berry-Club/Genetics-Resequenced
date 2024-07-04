@@ -153,7 +153,7 @@ class ModLanguageProvider(
         const val SYRINGE_REMOVING_GENES = "tooltip.geneticsresequenced.syringe.removing"
         const val GMO_LINE_ONE = "tooltip.geneticsresequenced.gmo_recipe.line1"
         const val GMO_LINE_TWO = "tooltip.geneticsresequenced.gmo_recipe.line2"
-        const val GMO_LINE_THREE = "tooltip.geneticsresequenced.gmo_recipe.line3"
+        const val GMO_CHORUS = "tooltip.geneticsresequenced.gmo_recipe.line3"
         const val ITEM_MAGNET_BLACKLIST = "tooltip.geneticsresequenced.item_magnet_blacklist"
     }
 
@@ -579,7 +579,7 @@ class ModLanguageProvider(
             "If in a low-temperature Advanced Incubator, it has a %1\$s chance of producing a %2\$s Gene."
         )
         add(Tooltips.GMO_LINE_TWO, "Otherwise, it always produces a %s Gene.")
-        add(Tooltips.GMO_LINE_THREE, "Overclockers lower your chance, but Chorus Fruits increase it!")
+        add(Tooltips.GMO_CHORUS, "Overclockers lower your chance, but Chorus Fruits increase it!")
         add(Tooltips.ITEM_MAGNET_BLACKLIST, "Blacklisted from Item Magnet Gene")
 
         add(Commands.LIST_ALL_GENES, "Gene List:")

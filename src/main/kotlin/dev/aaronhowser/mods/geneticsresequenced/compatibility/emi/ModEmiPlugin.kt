@@ -56,6 +56,9 @@ class ModEmiPlugin : EmiPlugin {
         val INCUBATOR_STACK: EmiStack = EmiStack.of(ModBlocks.INCUBATOR)
         val ADVANCED_INCUBATOR_STACK: EmiStack = EmiStack.of(ModBlocks.ADVANCED_INCUBATOR)
 
+        val ADVANCED_INCUBATOR_CATEGORY: EmiRecipeCategory =
+            EmiRecipeCategory(OtherUtil.modResource("advanced_incubator"), ADVANCED_INCUBATOR_STACK)
+
         val ORGANIC_MATTER_STACK: EmiStack = EmiStack.of(ModItems.ORGANIC_MATTER)
         val CELL_STACK: EmiStack = EmiStack.of(ModItems.CELL)
         val GMO_CELL_STACK: EmiStack = EmiStack.of(ModItems.GMO_CELL)
@@ -170,10 +173,16 @@ class ModEmiPlugin : EmiPlugin {
         registry.addRecipe(BlackDeathEmiRecipe(false))
         registry.addRecipe(BlackDeathEmiRecipe(true))
 
+        advancedIncubator(registry)
+    }
+
+    private fun advancedIncubator(registry: EmiRegistry) {
+        registry.addCategory(ADVANCED_INCUBATOR_CATEGORY)
+        registry.addWorkstation(ADVANCED_INCUBATOR_CATEGORY, ADVANCED_INCUBATOR_STACK)
+
         for (recipe in GmoEmiRecipe.getGmoRecipes()) {
             registry.addRecipe(recipe)
         }
-
     }
 
 }
