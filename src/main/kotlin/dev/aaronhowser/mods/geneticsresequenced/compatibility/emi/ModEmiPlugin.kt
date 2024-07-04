@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.cell_an
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_decryptor.DecryptHelixEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_extractor.CellToHelixEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.plasmid_infuser.PlasmidInfuserEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.plasmid_injector.PlasmidInjectorEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeItemComponent
@@ -44,6 +45,10 @@ class ModEmiPlugin : EmiPlugin {
         val PLASMID_INFUSER_CATEGORY: EmiRecipeCategory =
             EmiRecipeCategory(OtherUtil.modResource("plasmid_infuser"), PLASMID_INFUSER_STACK)
 
+        val PLASMID_INJECTOR_STACK: EmiStack = EmiStack.of(ModBlocks.PLASMID_INJECTOR)
+        val PLASMID_INJECTOR_CATEGORY: EmiRecipeCategory =
+            EmiRecipeCategory(OtherUtil.modResource("plasmid_injector"), PLASMID_INJECTOR_STACK)
+
         val ORGANIC_MATTER_STACK: EmiStack = EmiStack.of(ModItems.ORGANIC_MATTER)
         val CELL_STACK: EmiStack = EmiStack.of(ModItems.CELL)
         val DNA_HELIX_STACK: EmiStack = EmiStack.of(ModItems.DNA_HELIX)
@@ -57,6 +62,7 @@ class ModEmiPlugin : EmiPlugin {
         dnaExtractor(registry)
         dnaDecryptor(registry)
         plasmidInfuser(registry)
+        plasmidInjector(registry)
 
         comparisons(registry)
     }
@@ -119,6 +125,27 @@ class ModEmiPlugin : EmiPlugin {
         for (gene in GeneRegistry.GENE_REGISTRY.filterNot { it.isHidden }) {
             registry.addRecipe(PlasmidInfuserEmiRecipe(gene, basic = true))
             registry.addRecipe(PlasmidInfuserEmiRecipe(gene, basic = false))
+        }
+    }
+
+    private fun plasmidInjector(registry: EmiRegistry) {
+        registry.addCategory(PLASMID_INJECTOR_CATEGORY)
+        registry.addWorkstation(PLASMID_INJECTOR_CATEGORY, PLASMID_INJECTOR_STACK)
+
+        val addingGlass: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
+        val addingMetal: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
+        val removingGlass: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
+        val removingMetal: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
+
+        for (gene in GeneRegistry.GENE_REGISTRY.filterNot { it.isHidden }) {
+            addingGlass.add(PlasmidInjectorEmiRecipe(gene, isMetal = false, isAntiPlasmid = false))
+            addingMetal.add(PlasmidInjectorEmiRecipe(gene, isMetal = false, isAntiPlasmid = true))
+            removingGlass.add(PlasmidInjectorEmiRecipe(gene, isMetal = true, isAntiPlasmid = false))
+            removingMetal.add(PlasmidInjectorEmiRecipe(gene, isMetal = true, isAntiPlasmid = true))
+        }
+
+        for (recipe in addingGlass + addingMetal + removingGlass + removingMetal) {
+            registry.addRecipe(recipe)
         }
     }
 
