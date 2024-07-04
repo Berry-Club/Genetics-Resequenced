@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPlasmidEmiRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.blood_purifier.PurifySyringeEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.cell_analyzer.OrganicMatterToCellEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_decryptor.DecryptHelixEmiRecipe
@@ -70,6 +71,9 @@ class ModEmiPlugin : EmiPlugin {
 
         registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, INCUBATOR_STACK)
         registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, ADVANCED_INCUBATOR_STACK)
+
+        AntiPlasmidEmiRecipes.setAntiPlasmidRecipes(registry)
+        AntiPlasmidEmiRecipes.unsetAntiPlasmidRecipes(registry)
 
         comparisons(registry)
     }
