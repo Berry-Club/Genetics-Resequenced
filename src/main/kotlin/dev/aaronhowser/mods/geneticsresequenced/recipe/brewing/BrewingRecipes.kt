@@ -78,7 +78,8 @@ object BrewingRecipes {
     val viralAgentsPotionStack by lazy { OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS) }
     val curePotionStack by lazy { OtherUtil.getPotionStack(ModPotions.PANACEA) }
 
-    fun addRecipes(event: RegisterBrewingRecipesEvent) {
+    fun setRecipes(event: RegisterBrewingRecipesEvent) {
+        allRecipes.clear()
 
         val substrateRecipe = BrewingRecipe(
             ingredient(Potions.MUNDANE),
