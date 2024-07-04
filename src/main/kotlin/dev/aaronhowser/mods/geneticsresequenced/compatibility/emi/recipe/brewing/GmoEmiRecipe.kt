@@ -56,7 +56,7 @@ class GmoEmiRecipe(
     override val tertiaryItem: EmiStack
 
     override fun getCategory(): EmiRecipeCategory {
-        return ModEmiPlugin.ADVANCED_INCUBATOR_CATEGORY
+        return ModEmiPlugin.GMO_CATEGORY
     }
 
     init {

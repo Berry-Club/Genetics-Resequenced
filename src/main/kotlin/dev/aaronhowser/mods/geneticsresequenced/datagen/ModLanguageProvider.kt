@@ -183,6 +183,20 @@ class ModLanguageProvider(
         const val ON_COOLDOWN = "cooldown.geneticsresequenced.on_cooldown"
     }
 
+    object EMI {
+        const val BLOOD_PURIFIER = "emi.category.geneticsresequenced.blood_purifier"
+        const val CELL_ANALYZER = "emi.category.geneticsresequenced.cell_analyzer"
+        const val DNA_EXTRACTOR = "emi.category.geneticsresequenced.dna_extractor"
+        const val DNA_DECRYPTOR = "emi.category.geneticsresequenced.dna_decryptor"
+        const val PLASMID_INFUSER = "emi.category.geneticsresequenced.plasmid_infuser"
+        const val PLASMID_INJECTOR = "emi.category.geneticsresequenced.plasmid_injector"
+        const val INCUBATOR = "emi.category.geneticsresequenced.incubator"
+        const val GMO = "emi.category.geneticsresequenced.gmo"
+        const val CELL_GROWTH = "emi.category.geneticsresequenced.cell_growth"
+        const val SUBSTRATE = "emi.category.geneticsresequenced.substrate"
+        const val VIRUS = "emi.category.geneticsresequenced.virus"
+    }
+
     object Recipe {
         const val MOB = "recipe.geneticsresequenced.mob_gene.mob"
         const val GENE = "recipe.geneticsresequenced.mob_gene.gene"
@@ -192,11 +206,6 @@ class ModLanguageProvider(
         const val MATCHING_WORTH = "recipe.geneticsresequenced.plasmid_infuser.matching"
         const val INJECTOR_GENES = "recipe.geneticsresequenced.plasmid_injector.genes"
         const val INJECTOR_ANTIGENES = "recipe.geneticsresequenced.plasmid_injector.anti_genes"
-        const val GMO = "recipe.geneticsresequenced.gmo"
-        const val CELL_GROWTH = "recipe.geneticsresequenced.cell_growth"
-        const val SUBSTRATE = "recipe.geneticsresequenced.substrate"
-        const val VIRUS = "recipe.geneticsresequenced.virus"
-        const val BLACK_DEATH = "recipe.geneticsresequenced.black_death"
     }
 
     object Info {
@@ -612,11 +621,17 @@ class ModLanguageProvider(
         add(Recipe.MATCHING_WORTH, "Matching Genes = 2 points")
         add(Recipe.INJECTOR_GENES, "Syringes can have as many Genes as you want!")
         add(Recipe.INJECTOR_ANTIGENES, "Syringes can have as many Genes (or Anti-Genes) as you want!")
-        add(Recipe.GMO, "GMO Cell Incubating")
-        add(Recipe.CELL_GROWTH, "Cell Growth")
-        add(Recipe.SUBSTRATE, "Substrate Cell Duplication")
-        add(Recipe.VIRUS, "Virus Cultivation")
-        add(Recipe.BLACK_DEATH, "Black Death")
+
+        add(EMI.BLOOD_PURIFIER, "Blood Purifier")
+        add(EMI.CELL_ANALYZER, "Cell Analyzer")
+        add(EMI.DNA_EXTRACTOR, "DNA Extractor")
+        add(EMI.DNA_DECRYPTOR, "DNA Decryptor")
+        add(EMI.PLASMID_INFUSER, "Plasmid Infuser")
+        add(EMI.PLASMID_INJECTOR, "Plasmid Injector")
+        add(EMI.GMO, "GMO Cell Incubating")
+        add(EMI.CELL_GROWTH, "Cell Growth")
+        add(EMI.SUBSTRATE, "Substrate Cell Duplication")
+        add(EMI.VIRUS, "Virus Cultivation")
 
         add(Info.ORGANIC_MATTER, "Acquired by clicking a %1\$s with a Scraper.")
         add(Info.MOB_GENE_ONE, "%1\$s has these Genes:")
