@@ -48,7 +48,8 @@ open class EntityDnaItem : Item(Properties()) {
         )
 
         val validEntityTypes: MutableSet<EntityType<*>> =
-            BuiltInRegistries.ENTITY_TYPE.filter { it.category != MobCategory.MISC && it !in includeTheseEntityTypes }
+            BuiltInRegistries.ENTITY_TYPE
+                .filter { it.category != MobCategory.MISC || it in includeTheseEntityTypes }
                 .toMutableSet()
 
     }
