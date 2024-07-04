@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.blood_purifier.PurifySyringe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.cell_analyzer.OrganicMatterToCell
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_extractor.CellToHelix
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -23,11 +24,20 @@ class ModEmiPlugin : EmiPlugin {
         val CELL_ANALYZER_CATEGORY: EmiRecipeCategory =
             EmiRecipeCategory(OtherUtil.modResource("cell_analyzer"), CELL_ANALYZER_STACK)
 
+        val DNA_EXTRACTOR_STACK: EmiStack = EmiStack.of(ModBlocks.DNA_EXTRACTOR)
+        val DNA_EXTRACTOR_CATEGORY: EmiRecipeCategory =
+            EmiRecipeCategory(OtherUtil.modResource("dna_extractor"), DNA_EXTRACTOR_STACK)
+
+        val DNA_DECRYPTOR_STACK: EmiStack = EmiStack.of(ModBlocks.DNA_DECRYPTOR)
+        val DNA_DECRYPTOR_CATEGORY: EmiRecipeCategory =
+            EmiRecipeCategory(OtherUtil.modResource("dna_decryptor"), DNA_DECRYPTOR_STACK)
+
     }
 
     override fun register(registry: EmiRegistry) {
         bloodPurifier(registry)
         cellAnalyzer(registry)
+        dnaDecryptor(registry)
     }
 
     private fun bloodPurifier(registry: EmiRegistry) {
@@ -45,7 +55,15 @@ class ModEmiPlugin : EmiPlugin {
         for (entityType in EntityDnaItem.validEntityTypes) {
             registry.addRecipe(OrganicMatterToCell(entityType))
         }
+    }
 
+    private fun dnaDecryptor(registry: EmiRegistry) {
+        registry.addCategory(DNA_EXTRACTOR_CATEGORY)
+        registry.addWorkstation(DNA_EXTRACTOR_CATEGORY, DNA_EXTRACTOR_STACK)
+
+        for (entityType in EntityDnaItem.validEntityTypes) {
+            registry.addRecipe(CellToHelix(entityType))
+        }
     }
 
 }

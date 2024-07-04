@@ -54,12 +54,12 @@ class PurifySyringe(
         return OtherUtil.modResource("/purify_syringe/$type")
     }
 
-    override fun getInputs(): MutableList<EmiIngredient> {
-        return mutableListOf(contaminatedSyringe)
+    override fun getInputs(): List<EmiIngredient> {
+        return listOf(contaminatedSyringe)
     }
 
-    override fun getOutputs(): MutableList<EmiStack> {
-        return mutableListOf(decontaminatedSyringe)
+    override fun getOutputs(): List<EmiStack> {
+        return listOf(decontaminatedSyringe)
     }
 
     override fun getDisplayWidth(): Int {
@@ -72,9 +72,7 @@ class PurifySyringe(
 
     override fun addWidgets(widgets: WidgetHolder) {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
-
         widgets.addSlot(contaminatedSyringe, 0, 0);
-
         widgets.addSlot(decontaminatedSyringe, 58, 0).recipeContext(this);
     }
 }
