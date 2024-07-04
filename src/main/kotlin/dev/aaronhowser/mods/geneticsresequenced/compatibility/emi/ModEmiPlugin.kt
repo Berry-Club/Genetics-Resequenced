@@ -1,13 +1,15 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.blood_purifier.PurifySyringeEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.cell_analyzer.OrganicMatterToCellEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_decryptor.DecryptHelixEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_extractor.CellToHelixEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.plasmid_infuser.PlasmidInfuserEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeItemComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -38,9 +40,15 @@ class ModEmiPlugin : EmiPlugin {
         val DNA_DECRYPTOR_CATEGORY: EmiRecipeCategory =
             EmiRecipeCategory(OtherUtil.modResource("dna_decryptor"), DNA_DECRYPTOR_STACK)
 
+        val PLASMID_INFUSER_STACK: EmiStack = EmiStack.of(ModBlocks.PLASMID_INFUSER)
+        val PLASMID_INFUSER_CATEGORY: EmiRecipeCategory =
+            EmiRecipeCategory(OtherUtil.modResource("plasmid_infuser"), PLASMID_INFUSER_STACK)
+
         val ORGANIC_MATTER_STACK: EmiStack = EmiStack.of(ModItems.ORGANIC_MATTER)
         val CELL_STACK: EmiStack = EmiStack.of(ModItems.CELL)
         val DNA_HELIX_STACK: EmiStack = EmiStack.of(ModItems.DNA_HELIX)
+        val PLASMID_STACK: EmiStack = EmiStack.of(ModItems.PLASMID)
+        val ANTI_PLASMID_STACK: EmiStack = EmiStack.of(ModItems.ANTI_PLASMID)
     }
 
     override fun register(registry: EmiRegistry) {
@@ -48,15 +56,19 @@ class ModEmiPlugin : EmiPlugin {
         cellAnalyzer(registry)
         dnaExtractor(registry)
         dnaDecryptor(registry)
+        plasmidInfuser(registry)
 
         comparisons(registry)
     }
 
     private fun comparisons(registry: EmiRegistry) {
         val entityTypeComparison = Comparison.compareData { it.get(EntityTypeItemComponent.component) }
+        val plasmidProgressComparison = Comparison.compareData { it.get(PlasmidProgressItemComponent.component) }
 
         registry.setDefaultComparison(CELL_STACK, entityTypeComparison)
         registry.setDefaultComparison(DNA_HELIX_STACK, Comparison.compareComponents())
+        registry.setDefaultComparison(PLASMID_STACK, plasmidProgressComparison)
+        registry.setDefaultComparison(ANTI_PLASMID_STACK, plasmidProgressComparison)
     }
 
     private fun bloodPurifier(registry: EmiRegistry) {
@@ -97,6 +109,16 @@ class ModEmiPlugin : EmiPlugin {
 
                 registry.addRecipe(DecryptHelixEmiRecipe(entityType, gene, chance))
             }
+        }
+    }
+
+    private fun plasmidInfuser(registry: EmiRegistry) {
+        registry.addCategory(PLASMID_INFUSER_CATEGORY)
+        registry.addWorkstation(PLASMID_INFUSER_CATEGORY, PLASMID_INFUSER_STACK)
+
+        for (gene in GeneRegistry.GENE_REGISTRY.filterNot { it.isHidden }) {
+            registry.addRecipe(PlasmidInfuserEmiRecipe(gene, basic = true))
+            registry.addRecipe(PlasmidInfuserEmiRecipe(gene, basic = false))
         }
     }
 
