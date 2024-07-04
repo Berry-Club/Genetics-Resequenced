@@ -439,7 +439,7 @@ class ModLanguageProvider(
 
     override fun addTranslations() {
 
-        add(Items.CREATIVE_TAB, "Genetics Resequenced")
+        add(Items.CREATIVE_TAB, "Genetics: Resequenced")
         add(Items.GUIDE_BOOK, "Big Book of Genetics")
         add(Items.DRAGON_HEALTH_CRYSTAL, "Dragon Health Crystal")
         add(Items.ORGANIC_MATTER, "Organic Matter")
