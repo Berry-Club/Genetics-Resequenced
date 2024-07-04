@@ -75,7 +75,7 @@ class DecryptHelixEmiRecipe(
         )
 
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
-        widgets.addSlot(encryptedHelix, 0, 0);
+        widgets.addSlot(encryptedHelix, 0, 0)
         widgets.addSlot(decryptedHelix, 58, 0).recipeContext(this);
     }
 }

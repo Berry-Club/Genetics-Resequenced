@@ -61,7 +61,7 @@ class CellToHelixEmiRecipe(
 
     override fun addWidgets(widgets: WidgetHolder) {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
-        widgets.addSlot(cell, 0, 0);
+        widgets.addSlot(cell, 0, 0)
         widgets.addSlot(helix, 58, 0).recipeContext(this);
     }
 }
