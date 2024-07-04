@@ -102,7 +102,7 @@ object BrewingRecipes {
         )
         val panaceaRecipe = BrewingRecipe(
             ingredient(ModPotions.VIRAL_AGENTS),
-            ingredient(DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), ModGenes.EMERALD_HEART.get())),
+            ingredient(DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), ModGenes.EMERALD_HEART)),
             curePotionStack
         )
 
@@ -217,7 +217,7 @@ object BrewingRecipes {
 
             BrewingRecipe(
                 ingredient(viralAgentsPotionStack),
-                ingredient(DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), ModGenes.EMERALD_HEART.get())),
+                ingredient(DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), ModGenes.EMERALD_HEART)),
                 OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER)
             )
         )

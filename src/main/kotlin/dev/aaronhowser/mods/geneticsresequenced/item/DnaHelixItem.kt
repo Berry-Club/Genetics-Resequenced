@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
+import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
@@ -27,13 +28,18 @@ class DnaHelixItem : EntityDnaItem() {
             return itemStack.get(GeneItemComponent.component)?.gene
         }
 
+        fun setGene(itemStack: ItemStack, gene: Holder<Gene>): ItemStack {
+            setGene(itemStack, gene.value())
+            return itemStack
+        }
+
         fun setGene(itemStack: ItemStack, gene: Gene): ItemStack {
             itemStack.set(GeneItemComponent.component, GeneItemComponent(gene))
             return itemStack
         }
 
         fun setBasic(itemStack: ItemStack): ItemStack {
-            return setGene(itemStack, ModGenes.BASIC.get())
+            return setGene(itemStack, ModGenes.BASIC)
         }
 
         fun getAllHelices(): List<ItemStack> {
