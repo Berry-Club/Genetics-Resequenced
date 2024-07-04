@@ -10,7 +10,6 @@ import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.ClickEvent
-import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.codec.ByteBufCodecs
@@ -94,7 +93,7 @@ class Gene(properties: GeneProperties) {
     @Suppress("MemberVisibilityCanBePrivate")
     val translationKey: String = "gene.${id.namespace}.${id.path}"
 
-    val nameComponent: Component
+    val nameComponent: MutableComponent
         get() {
             val color = if (isActive) {
                 if (isNegative) {
