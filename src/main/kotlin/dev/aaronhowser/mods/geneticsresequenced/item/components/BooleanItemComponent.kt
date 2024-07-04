@@ -1,10 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.item.components
 
 import com.mojang.serialization.Codec
-import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
+import io.netty.buffer.ByteBuf
 import net.minecraft.core.component.DataComponentType
-import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 
@@ -13,20 +12,14 @@ data class BooleanItemComponent(
 ) {
     companion object {
 
-        val CODEC: Codec<BooleanItemComponent> = RecordCodecBuilder.create { instance ->
-            instance.group(
-                Codec.BOOL.fieldOf("value").forGetter(BooleanItemComponent::value)
-            ).apply(instance, ::BooleanItemComponent)
-        }
+        val CODEC: Codec<BooleanItemComponent> =
+            Codec.BOOL.xmap(::BooleanItemComponent, BooleanItemComponent::value)
 
-        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, BooleanItemComponent> = StreamCodec.composite(
-            ByteBufCodecs.BOOL, BooleanItemComponent::value,
-            ::BooleanItemComponent
-        )
-
-        val isActiveComponent: DataComponentType<BooleanItemComponent> by lazy { ModDataComponents.IS_ACTIVE_COMPONENT.get() }
-        val isContaminatedComponent: DataComponentType<BooleanItemComponent> by lazy { ModDataComponents.IS_CONTAMINATED_COMPONENT.get() }
-
+        val STREAM_CODEC: StreamCodec<ByteBuf, BooleanItemComponent> =
+            ByteBufCodecs.BOOL.map(::BooleanItemComponent, BooleanItemComponent::value)
     }
+
+    val isActiveComponent: DataComponentType<BooleanItemComponent> by lazy { ModDataComponents.IS_ACTIVE_COMPONENT.get() }
+    val isContaminatedComponent: DataComponentType<BooleanItemComponent> by lazy { ModDataComponents.IS_CONTAMINATED_COMPONENT.get() }
 
 }

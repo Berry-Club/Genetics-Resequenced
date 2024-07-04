@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item.components
 
 import com.mojang.serialization.Codec
-import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.registries.BuiltInRegistries
@@ -17,16 +16,12 @@ data class EntityTypeItemComponent(
 
     companion object {
 
-        val CODEC: Codec<EntityTypeItemComponent> = RecordCodecBuilder.create { instance ->
-            instance.group(
-                BuiltInRegistries.ENTITY_TYPE.byNameCodec().fieldOf("entity").forGetter(EntityTypeItemComponent::entity)
-            ).apply(instance, ::EntityTypeItemComponent)
-        }
+        val CODEC: Codec<EntityTypeItemComponent> =
+            BuiltInRegistries.ENTITY_TYPE.byNameCodec().xmap(::EntityTypeItemComponent, EntityTypeItemComponent::entity)
 
-        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, EntityTypeItemComponent> = StreamCodec.composite(
-            ByteBufCodecs.registry(Registries.ENTITY_TYPE), EntityTypeItemComponent::entity,
-            ::EntityTypeItemComponent
-        )
+        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, EntityTypeItemComponent> =
+            ByteBufCodecs.registry(Registries.ENTITY_TYPE)
+                .map(::EntityTypeItemComponent, EntityTypeItemComponent::entity)
 
         val component: DataComponentType<EntityTypeItemComponent> by lazy { ModDataComponents.ENTITY_TYPE_COMPONENT.get() }
 

@@ -13,10 +13,8 @@ data class GeneItemComponent(
 
     companion object {
 
-        val CODEC: Codec<GeneItemComponent> = Gene.CODEC.xmap(
-            { gene: Gene -> GeneItemComponent(gene) },
-            { component: GeneItemComponent -> component.gene }
-        )
+        val CODEC: Codec<GeneItemComponent> =
+            Gene.CODEC.xmap(::GeneItemComponent, GeneItemComponent::gene)
 
         val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, GeneItemComponent> =
             Gene.STREAM_CODEC.map(::GeneItemComponent, GeneItemComponent::gene)
