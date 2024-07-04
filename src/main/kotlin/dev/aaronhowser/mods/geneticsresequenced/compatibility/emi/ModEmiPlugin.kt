@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPlasmidEmiRecipes
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.BlackDeathEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.blood_purifier.PurifySyringeEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.cell_analyzer.OrganicMatterToCellEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.dna_decryptor.DecryptHelixEmiRecipe
@@ -69,8 +70,7 @@ class ModEmiPlugin : EmiPlugin {
         plasmidInfuser(registry)
         plasmidInjector(registry)
 
-        registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, INCUBATOR_STACK)
-        registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, ADVANCED_INCUBATOR_STACK)
+        potions(registry)
 
         AntiPlasmidEmiRecipes.setAntiPlasmidRecipes(registry)
         AntiPlasmidEmiRecipes.unsetAntiPlasmidRecipes(registry)
@@ -158,6 +158,16 @@ class ModEmiPlugin : EmiPlugin {
         for (recipe in addingGlass + addingMetal + removingGlass + removingMetal) {
             registry.addRecipe(recipe)
         }
+    }
+
+    private fun potions(registry: EmiRegistry) {
+        registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, INCUBATOR_STACK)
+        registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, ADVANCED_INCUBATOR_STACK)
+
+
+        registry.addRecipe(BlackDeathEmiRecipe(false))
+        registry.addRecipe(BlackDeathEmiRecipe(true))
+
     }
 
 }
