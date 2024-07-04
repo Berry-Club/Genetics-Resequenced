@@ -8,7 +8,7 @@ import net.minecraft.core.component.DataComponentType
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 
-data class GenesItemComponent(
+data class GeneListItemComponent(
     val genes: Set<Gene>
 ) {
 
@@ -16,22 +16,22 @@ data class GenesItemComponent(
 
     companion object {
 
-        val CODEC: Codec<GenesItemComponent> = Gene.CODEC.listOf().xmap(
+        val CODEC: Codec<GeneListItemComponent> = Gene.CODEC.listOf().xmap(
             { list: List<Gene> ->
-                GenesItemComponent(
+                GeneListItemComponent(
                     HashSet<Gene>(list)
                 )
             },
-            { genes: GenesItemComponent ->
+            { genes: GeneListItemComponent ->
                 ArrayList<Gene>(
                     genes.genes
                 )
             })
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, GenesItemComponent> = ByteBufCodecs.fromCodec(CODEC)
+        val STREAM_CODEC: StreamCodec<ByteBuf, GeneListItemComponent> = ByteBufCodecs.fromCodec(CODEC)
 
-        val genesComponent: DataComponentType<GenesItemComponent> by lazy { ModDataComponents.GENES_COMPONENT.get() }
-        val antigenesComponent: DataComponentType<GenesItemComponent> by lazy { ModDataComponents.ANTIGENES_COMPONENT.get() }
+        val genesComponent: DataComponentType<GeneListItemComponent> by lazy { ModDataComponents.GENES_COMPONENT.get() }
+        val antigenesComponent: DataComponentType<GeneListItemComponent> by lazy { ModDataComponents.ANTIGENES_COMPONENT.get() }
 
     }
 
