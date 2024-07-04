@@ -35,7 +35,7 @@ class BlackDeathEmiRecipe(
     private val blackDeathHelix: EmiStack
 
     init {
-        val syringeStack = if (isMetal) ModItems.SYRINGE.toStack() else ModItems.METAL_SYRINGE.toStack()
+        val syringeStack = if (isMetal) ModItems.METAL_SYRINGE.toStack() else ModItems.SYRINGE.toStack()
 
         val localPlayer = ClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
 
