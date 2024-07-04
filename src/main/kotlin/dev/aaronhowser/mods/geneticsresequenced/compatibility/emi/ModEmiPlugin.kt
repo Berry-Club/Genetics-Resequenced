@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPlasmidEmiRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.BlackDeathEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.GmoEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.VirusEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.blood_purifier.PurifySyringeEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.cell_analyzer.OrganicMatterToCellEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.dna_decryptor.DecryptHelixEmiRecipe
@@ -24,6 +25,7 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory
 import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories
 import dev.emi.emi.api.stack.Comparison
 import dev.emi.emi.api.stack.EmiStack
+import net.minecraft.world.item.Items
 
 @EmiEntrypoint
 class ModEmiPlugin : EmiPlugin {
@@ -71,6 +73,8 @@ class ModEmiPlugin : EmiPlugin {
         val DNA_HELIX_STACK: EmiStack = EmiStack.of(ModItems.DNA_HELIX)
         val PLASMID_STACK: EmiStack = EmiStack.of(ModItems.PLASMID)
         val ANTI_PLASMID_STACK: EmiStack = EmiStack.of(ModItems.ANTI_PLASMID)
+
+        val BREWING_STAND_STACK: EmiStack = EmiStack.of(Items.BREWING_STAND)
     }
 
     override fun register(registry: EmiRegistry) {
@@ -179,10 +183,22 @@ class ModEmiPlugin : EmiPlugin {
         registry.addRecipe(BlackDeathEmiRecipe(false))
         registry.addRecipe(BlackDeathEmiRecipe(true))
 
-        advancedIncubator(registry)
+        virus(registry)
+        gmo(registry)
     }
 
-    private fun advancedIncubator(registry: EmiRegistry) {
+    private fun virus(registry: EmiRegistry) {
+        registry.addCategory(VIRUS_CATEGORY)
+        registry.addWorkstation(VIRUS_CATEGORY, BREWING_STAND_STACK)
+        registry.addWorkstation(VIRUS_CATEGORY, INCUBATOR_STACK)
+        registry.addWorkstation(VIRUS_CATEGORY, ADVANCED_INCUBATOR_STACK)
+
+        for (recipe in VirusEmiRecipe.getAllVirusRecipes()) {
+            registry.addRecipe(recipe)
+        }
+    }
+
+    private fun gmo(registry: EmiRegistry) {
         registry.addCategory(GMO_CATEGORY)
         registry.addWorkstation(GMO_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
@@ -196,10 +212,6 @@ class ModEmiPlugin : EmiPlugin {
 
         registry.addCategory(SUBSTRATE_CATEGORY)
         registry.addWorkstation(SUBSTRATE_CATEGORY, ADVANCED_INCUBATOR_STACK)
-
-
-        registry.addCategory(VIRUS_CATEGORY)
-        registry.addWorkstation(VIRUS_CATEGORY, ADVANCED_INCUBATOR_STACK)
     }
 
 }
