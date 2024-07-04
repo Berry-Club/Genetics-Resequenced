@@ -2,12 +2,12 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPlasmidEmiRecipes
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.blood_purifier.PurifySyringeEmiRecipe
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.cell_analyzer.OrganicMatterToCellEmiRecipe
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_decryptor.DecryptHelixEmiRecipe
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_extractor.CellToHelixEmiRecipe
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.plasmid_infuser.PlasmidInfuserEmiRecipe
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.plasmid_injector.PlasmidInjectorEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.blood_purifier.PurifySyringeEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.cell_analyzer.OrganicMatterToCellEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.dna_decryptor.DecryptHelixEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.dna_extractor.CellToHelixEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.plasmid_infuser.PlasmidInfuserEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.plasmid_injector.PlasmidInjectorEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeItemComponent

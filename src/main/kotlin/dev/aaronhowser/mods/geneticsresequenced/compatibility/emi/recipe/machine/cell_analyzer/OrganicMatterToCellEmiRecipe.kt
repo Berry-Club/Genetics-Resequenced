@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.dna_extractor
+package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.cell_analyzer
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
@@ -15,40 +15,41 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
-class CellToHelixEmiRecipe(
+class OrganicMatterToCellEmiRecipe(
     val entityType: EntityType<*>
 ) : EmiRecipe {
 
-    private val cell: EmiIngredient
-    private val helix: EmiStack
+    private val organicMatter: EmiIngredient
+    private val cell: EmiStack
 
     init {
+        val matterStack = ModItems.ORGANIC_MATTER.toStack()
+        EntityDnaItem.setEntityType(matterStack, entityType)
+
         val cellStack = ModItems.CELL.toStack()
         EntityDnaItem.setEntityType(cellStack, entityType)
-        cell = EmiIngredient.of(DataComponentIngredient.of(false, cellStack))
 
-        val helixStack = ModItems.DNA_HELIX.toStack()
-        EntityDnaItem.setEntityType(helixStack, entityType)
-        helix = EmiStack.of(helixStack)
+        organicMatter = EmiIngredient.of(DataComponentIngredient.of(false, matterStack))
+        cell = EmiStack.of(cellStack)
     }
 
     override fun getCategory(): EmiRecipeCategory {
-        return ModEmiPlugin.DNA_EXTRACTOR_CATEGORY
+        return ModEmiPlugin.CELL_ANALYZER_CATEGORY
     }
 
     override fun getId(): ResourceLocation {
         val entityTypeRl = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
         val entityString = entityTypeRl.toString().replace(':', '/')
 
-        return OtherUtil.modResource("/dna_extractor/$entityString")
+        return OtherUtil.modResource("/cell_analyzer/$entityString")
     }
 
     override fun getInputs(): List<EmiIngredient> {
-        return listOf(cell)
+        return listOf(organicMatter)
     }
 
     override fun getOutputs(): List<EmiStack> {
-        return listOf(helix)
+        return listOf(cell)
     }
 
     override fun getDisplayWidth(): Int {
@@ -61,7 +62,7 @@ class CellToHelixEmiRecipe(
 
     override fun addWidgets(widgets: WidgetHolder) {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
-        widgets.addSlot(cell, 0, 0)
-        widgets.addSlot(helix, 58, 0).recipeContext(this);
+        widgets.addSlot(organicMatter, 0, 0)
+        widgets.addSlot(cell, 58, 0).recipeContext(this);
     }
 }
