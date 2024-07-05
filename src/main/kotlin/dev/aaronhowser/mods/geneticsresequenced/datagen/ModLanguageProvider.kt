@@ -191,9 +191,10 @@ class ModLanguageProvider(
         const val PLASMID_INFUSER = "emi.category.geneticsresequenced.plasmid_infuser"
         const val PLASMID_INJECTOR = "emi.category.geneticsresequenced.plasmid_injector"
         const val INCUBATOR = "emi.category.geneticsresequenced.incubator"
+
         const val GMO = "emi.category.geneticsresequenced.gmo"
-        const val CELL_GROWTH = "emi.category.geneticsresequenced.cell_growth"
-        const val SUBSTRATE = "emi.category.geneticsresequenced.substrate"
+        const val SUBSTRATE_DUPE = "emi.category.geneticsresequenced.cell_dupe"
+        const val SET_ENTITY = "emi.category.geneticsresequenced.set_entity"
         const val VIRUS = "emi.category.geneticsresequenced.virus"
     }
 
@@ -633,8 +634,8 @@ class ModLanguageProvider(
         add(EMI.PLASMID_INFUSER, "Plasmid Infuser")
         add(EMI.PLASMID_INJECTOR, "Plasmid Injector")
         add(EMI.GMO, "GMO Cell Incubating")
-        add(EMI.CELL_GROWTH, "Cell Growth")
-        add(EMI.SUBSTRATE, "Substrate Cell Duplication")
+        add(EMI.SET_ENTITY, "Set Potion Entity")
+        add(EMI.SUBSTRATE_DUPE, "Substrate Cell Duplication")
         add(EMI.VIRUS, "Virus Cultivation")
 
         add(Info.ORGANIC_MATTER, "Acquired by clicking a %1\$s with a Scraper.")
