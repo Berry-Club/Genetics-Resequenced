@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPlasmidEmiRecipes
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.ModInformationRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.*
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.blood_purifier.PurifySyringeEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.cell_analyzer.OrganicMatterToCellEmiRecipe
@@ -88,6 +89,8 @@ class ModEmiPlugin : EmiPlugin {
 
         AntiPlasmidEmiRecipes.setAntiPlasmidRecipes(registry)
         AntiPlasmidEmiRecipes.unsetAntiPlasmidRecipes(registry)
+
+        ModInformationRecipes.getInformationRecipes().forEach { registry.addRecipe(it) }
 
         comparisons(registry)
     }
