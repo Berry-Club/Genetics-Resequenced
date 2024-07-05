@@ -13,6 +13,7 @@ import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -56,18 +57,6 @@ class ModEmiPlugin : EmiPlugin {
         val INCUBATOR_STACK: EmiStack = EmiStack.of(ModBlocks.INCUBATOR)
         val ADVANCED_INCUBATOR_STACK: EmiStack = EmiStack.of(ModBlocks.ADVANCED_INCUBATOR)
 
-        val GMO_CATEGORY: EmiRecipeCategory =
-            EmiRecipeCategory(OtherUtil.modResource("gmo"), ADVANCED_INCUBATOR_STACK)
-        val SET_ENTITY_CATEGORY: EmiRecipeCategory =
-            EmiRecipeCategory(OtherUtil.modResource("set_entity"), ADVANCED_INCUBATOR_STACK)
-        val CELL_GROWTH_CATEGORY: EmiRecipeCategory =
-            EmiRecipeCategory(OtherUtil.modResource("cell_growth"), ADVANCED_INCUBATOR_STACK)
-        val SUBSTRATE_CATEGORY: EmiRecipeCategory =
-            EmiRecipeCategory(OtherUtil.modResource("substrate"), ADVANCED_INCUBATOR_STACK)
-        val VIRUS_CATEGORY: EmiRecipeCategory =
-            EmiRecipeCategory(OtherUtil.modResource("virus"), ADVANCED_INCUBATOR_STACK)
-
-        val ORGANIC_MATTER_STACK: EmiStack = EmiStack.of(ModItems.ORGANIC_MATTER)
         val CELL_STACK: EmiStack = EmiStack.of(ModItems.CELL)
         val GMO_CELL_STACK: EmiStack = EmiStack.of(ModItems.GMO_CELL)
         val DNA_HELIX_STACK: EmiStack = EmiStack.of(ModItems.DNA_HELIX)
@@ -75,6 +64,16 @@ class ModEmiPlugin : EmiPlugin {
         val ANTI_PLASMID_STACK: EmiStack = EmiStack.of(ModItems.ANTI_PLASMID)
 
         val BREWING_STAND_STACK: EmiStack = EmiStack.of(Items.BREWING_STAND)
+
+        val GMO_CATEGORY: EmiRecipeCategory =
+            EmiRecipeCategory(OtherUtil.modResource("gmo"), GMO_CELL_STACK)
+        val SET_ENTITY_CATEGORY: EmiRecipeCategory =
+            EmiRecipeCategory(OtherUtil.modResource("set_entity"), EmiStack.of(BrewingRecipes.cellGrowthPotionStack))
+        val CELL_DUPE_CATEGORY: EmiRecipeCategory =
+            EmiRecipeCategory(OtherUtil.modResource("cell_dupe"), CELL_STACK)
+        val VIRUS_CATEGORY: EmiRecipeCategory =
+            EmiRecipeCategory(OtherUtil.modResource("virus"), EmiStack.of(BrewingRecipes.viralAgentsPotionStack))
+
     }
 
     override fun register(registry: EmiRegistry) {
@@ -190,10 +189,10 @@ class ModEmiPlugin : EmiPlugin {
     }
 
     private fun substrate(registry: EmiRegistry) {
-        registry.addCategory(SUBSTRATE_CATEGORY)
-        registry.addWorkstation(SUBSTRATE_CATEGORY, BREWING_STAND_STACK)
-        registry.addWorkstation(SUBSTRATE_CATEGORY, INCUBATOR_STACK)
-        registry.addWorkstation(SUBSTRATE_CATEGORY, ADVANCED_INCUBATOR_STACK)
+        registry.addCategory(CELL_DUPE_CATEGORY)
+        registry.addWorkstation(CELL_DUPE_CATEGORY, BREWING_STAND_STACK)
+        registry.addWorkstation(CELL_DUPE_CATEGORY, INCUBATOR_STACK)
+        registry.addWorkstation(CELL_DUPE_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
         for (recipe in SubstrateCellEmiRecipe.getAllRecipes()) {
             registry.addRecipe(recipe)

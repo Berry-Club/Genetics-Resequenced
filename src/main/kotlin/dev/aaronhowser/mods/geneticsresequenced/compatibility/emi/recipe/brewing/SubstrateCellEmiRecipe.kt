@@ -36,7 +36,7 @@ class SubstrateCellEmiRecipe(
     override val output: EmiStack
 
     override fun getCategory(): EmiRecipeCategory {
-        return ModEmiPlugin.SUBSTRATE_CATEGORY
+        return ModEmiPlugin.CELL_DUPE_CATEGORY
     }
 
     init {
