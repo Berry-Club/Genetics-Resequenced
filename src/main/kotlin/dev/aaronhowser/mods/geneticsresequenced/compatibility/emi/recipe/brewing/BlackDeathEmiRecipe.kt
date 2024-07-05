@@ -14,12 +14,10 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import net.minecraft.ChatFormatting
-import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.animal.Cow
-import net.minecraft.world.item.component.ItemLore
 import net.minecraft.world.item.crafting.Ingredient
 
 class BlackDeathEmiRecipe(
@@ -47,20 +45,16 @@ class BlackDeathEmiRecipe(
             SyringeItem.addGene(syringeStack, gene)
         }
 
-        val loreComponent = ItemLore(
-            listOf(
-                Component.literal(""),
-                ModLanguageProvider.Recipe.BLACK_DEATH.toComponent().withColor(ChatFormatting.GRAY)
-            )
-        )
-        syringeStack.set(DataComponents.LORE, loreComponent)
-
         ingredient = EmiIngredient.of(Ingredient.of(syringeStack))
 
         val helixStack = ModItems.DNA_HELIX.toStack()
         DnaHelixItem.setGene(helixStack, ModGenes.BLACK_DEATH)
         output = EmiStack.of(helixStack)
     }
+
+    override val tooltips: List<Component> = listOf(
+        ModLanguageProvider.Recipe.BLACK_DEATH.toComponent().withColor(ChatFormatting.GRAY)
+    )
 
     override fun getId(): ResourceLocation {
         val type = if (isMetal) "/metal" else ""

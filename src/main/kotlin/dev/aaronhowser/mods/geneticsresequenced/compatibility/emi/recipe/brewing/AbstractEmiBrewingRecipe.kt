@@ -6,6 +6,7 @@ import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
+import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Items
 
@@ -42,8 +43,9 @@ abstract class AbstractEmiBrewingRecipe : EmiRecipe {
         return 61
     }
 
-    override fun addWidgets(widgets: WidgetHolder) {
+    open val tooltips: List<Component> = emptyList()
 
+    override fun addWidgets(widgets: WidgetHolder) {
         widgets.addTexture(BACKGROUND, 0, 0, 103, 61, 16, 14)
         widgets.addAnimatedTexture(BACKGROUND, 81, 2, 9, 28, 176, 0, 1000 * 20, false, false, false)
         widgets.addAnimatedTexture(BACKGROUND, 47, 0, 12, 29, 185, 0, 700, false, true, false)
@@ -53,6 +55,7 @@ abstract class AbstractEmiBrewingRecipe : EmiRecipe {
         widgets.addSlot(ingredient, 62, 2).drawBack(false)
         widgets.addSlot(output, 85, 36).drawBack(false).recipeContext(this)
 
+        widgets.addTooltipText(tooltips, 0, 0, 120, 61)
     }
 
 }

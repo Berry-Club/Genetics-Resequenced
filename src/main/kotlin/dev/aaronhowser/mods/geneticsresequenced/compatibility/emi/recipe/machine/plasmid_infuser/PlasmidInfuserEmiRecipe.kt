@@ -17,10 +17,8 @@ import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.ChatFormatting
-import net.minecraft.core.component.DataComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.item.component.ItemLore
 import net.minecraft.world.item.crafting.Ingredient
 
 class PlasmidInfuserEmiRecipe(
@@ -35,23 +33,7 @@ class PlasmidInfuserEmiRecipe(
         val stackSize = if (basic) gene.dnaPointsRequired else gene.dnaPointsRequired / 2
         val helixStack = ModItems.DNA_HELIX.toStack(stackSize)
 
-        val loreComponent = ItemLore(
-            listOf(
-                Component.literal(""),
-                ModLanguageProvider.Recipe.REQUIRES_POINTS
-                    .toComponent(gene.nameComponent.withColor(ChatFormatting.GRAY), gene.dnaPointsRequired)
-                    .withColor(ChatFormatting.GRAY),
-                ModLanguageProvider.Recipe.BASIC_WORTH
-                    .toComponent()
-                    .withColor(ChatFormatting.GRAY),
-                ModLanguageProvider.Recipe.MATCHING_WORTH
-                    .toComponent()
-                    .withColor(ChatFormatting.GRAY)
-            )
-        )
-
         DnaHelixItem.setGene(helixStack, if (basic) ModGenes.BASIC.get() else gene)
-        helixStack.set(DataComponents.LORE, loreComponent)
         helix = EmiIngredient.of(Ingredient.of(helixStack))
 
         val plasmidStack = ModItems.PLASMID.toStack()
@@ -86,9 +68,23 @@ class PlasmidInfuserEmiRecipe(
         return 18
     }
 
+    private val tooltips: List<Component> = listOf(
+        ModLanguageProvider.Recipe.REQUIRES_POINTS
+            .toComponent(gene.nameComponent.withColor(ChatFormatting.GRAY), gene.dnaPointsRequired)
+            .withColor(ChatFormatting.GRAY),
+        ModLanguageProvider.Recipe.BASIC_WORTH
+            .toComponent()
+            .withColor(ChatFormatting.GRAY),
+        ModLanguageProvider.Recipe.MATCHING_WORTH
+            .toComponent()
+            .withColor(ChatFormatting.GRAY)
+    )
+
     override fun addWidgets(widgets: WidgetHolder) {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
         widgets.addSlot(helix, 0, 0)
         widgets.addSlot(plasmid, 58, 0).recipeContext(this);
+
+        widgets.addTooltipText(tooltips, 0, 0, 76, 18)
     }
 }
