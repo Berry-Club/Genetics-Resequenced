@@ -15,7 +15,7 @@ object AntiPlasmidEmiRecipes {
     fun setAntiPlasmidRecipes(registry: EmiRegistry) {
         val emptyAntiPlasmid: EmiIngredient = EmiIngredient.of(Ingredient.of(ModItems.ANTI_PLASMID))
 
-        for (gene in GeneRegistry.GENE_REGISTRY.filterNot { it.isHidden }) {
+        for (gene in GeneRegistry.getRegistrySorted().filterNot { it.isHidden }) {
             val plasmidStack = ModItems.PLASMID.toStack()
             PlasmidItem.setGene(plasmidStack, gene, gene.dnaPointsRequired)
 
@@ -36,8 +36,7 @@ object AntiPlasmidEmiRecipes {
     }
 
     fun unsetAntiPlasmidRecipes(registry: EmiRegistry) {
-
-        for (gene in GeneRegistry.GENE_REGISTRY.filterNot { it.isHidden }) {
+        for (gene in GeneRegistry.getRegistrySorted().filterNot { it.isHidden }) {
             val antiPlasmidStack = ModItems.ANTI_PLASMID.toStack()
             PlasmidItem.setGene(antiPlasmidStack, gene, gene.dnaPointsRequired)
 

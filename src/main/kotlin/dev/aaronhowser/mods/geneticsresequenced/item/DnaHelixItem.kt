@@ -43,7 +43,8 @@ class DnaHelixItem : EntityDnaItem() {
         }
 
         fun getAllHelices(): List<ItemStack> {
-            return GeneRegistry.GENE_REGISTRY.map { gene -> ModItems.DNA_HELIX.toStack().apply { setGene(this, gene) } }
+            return GeneRegistry.getRegistrySorted()
+                .map { gene -> ModItems.DNA_HELIX.toStack().apply { setGene(this, gene) } }
         }
     }
 

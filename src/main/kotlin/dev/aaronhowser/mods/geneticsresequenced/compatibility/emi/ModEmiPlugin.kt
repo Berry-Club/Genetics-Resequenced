@@ -151,7 +151,7 @@ class ModEmiPlugin : EmiPlugin {
         registry.addCategory(PLASMID_INFUSER_CATEGORY)
         registry.addWorkstation(PLASMID_INFUSER_CATEGORY, PLASMID_INFUSER_STACK)
 
-        for (gene in GeneRegistry.GENE_REGISTRY.filterNot { it.isHidden }) {
+        for (gene in GeneRegistry.getRegistrySorted().filterNot { it.isHidden }) {
             registry.addRecipe(PlasmidInfuserEmiRecipe(gene, basic = true))
             registry.addRecipe(PlasmidInfuserEmiRecipe(gene, basic = false))
         }
@@ -166,7 +166,7 @@ class ModEmiPlugin : EmiPlugin {
         val removingGlass: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
         val removingMetal: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
 
-        for (gene in GeneRegistry.GENE_REGISTRY.filterNot { it.isHidden }) {
+        for (gene in GeneRegistry.getRegistrySorted().filterNot { it.isHidden }) {
             addingGlass.add(PlasmidInjectorEmiRecipe(gene, isMetal = false, isAntiPlasmid = false))
             addingMetal.add(PlasmidInjectorEmiRecipe(gene, isMetal = false, isAntiPlasmid = true))
             removingGlass.add(PlasmidInjectorEmiRecipe(gene, isMetal = true, isAntiPlasmid = false))

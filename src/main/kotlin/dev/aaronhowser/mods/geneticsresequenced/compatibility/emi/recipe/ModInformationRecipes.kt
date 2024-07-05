@@ -26,7 +26,7 @@ object ModInformationRecipes {
     private fun geneDescriptions(): List<EmiInfoRecipe> {
         val recipes = mutableListOf<EmiInfoRecipe>()
 
-        for (gene in GeneRegistry.GENE_REGISTRY) {
+        for (gene in GeneRegistry.getRegistrySorted()) {
             if (gene.isHidden || !gene.isActive) continue
 
             val components: MutableList<MutableComponent> = mutableListOf()

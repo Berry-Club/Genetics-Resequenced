@@ -103,7 +103,7 @@ object AddGeneCommand {
         entities: MutableCollection<out Entity>? = null
     ): Int {
 
-        val gene = GeneRegistry.GENE_REGISTRY.find { it.id.path == geneString }
+        val gene = GeneRegistry.fromIdPath(geneString)
             ?: throw IllegalArgumentException("Gene with id $geneString does not exist!")
 
         return addGene(context, gene, entities)

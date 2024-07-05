@@ -10,7 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_STRINGS
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -102,7 +101,7 @@ object RemoveGeneCommand {
         entities: MutableCollection<out Entity>? = null
     ): Int {
 
-        val gene = GeneRegistry.GENE_REGISTRY.find { it.id.path == geneString }
+        val gene = GeneRegistry.fromIdPath(geneString)
             ?: throw IllegalArgumentException("Gene with id $geneString does not exist!")
 
         return removeGene(context, gene, entities)

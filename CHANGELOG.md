@@ -50,5 +50,7 @@
 
 - Updated to NeoForge 21.0.53-beta
 - Added 4 new Genes: Infested, Oozing, Weaving, and Wind Charged
+- Added EMI support
+- Sorted Genes in several places (Sorted firstly by regular/mutation/negative, then by id)
 - Fixed a typo in a tooltip
 - Forgot the missing : in several places in the mod name

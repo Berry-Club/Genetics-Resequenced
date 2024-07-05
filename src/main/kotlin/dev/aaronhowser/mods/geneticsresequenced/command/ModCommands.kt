@@ -5,7 +5,6 @@ import com.mojang.brigadier.context.CommandContext
 import com.mojang.brigadier.suggestion.SuggestionProvider
 import com.mojang.brigadier.suggestion.SuggestionsBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
@@ -30,13 +29,13 @@ object ModCommands {
 
     val SUGGEST_GENE_RLS: SuggestionProvider<CommandSourceStack> =
         SuggestionProvider { _: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
-            val allGeneResourceLocations = GeneRegistry.GENE_REGISTRY.filter { !it.isHidden }.map { it.id }
+            val allGeneResourceLocations = GeneRegistry.getRegistrySorted().filter { !it.isHidden }.map { it.id }
             SharedSuggestionProvider.suggestResource(allGeneResourceLocations, suggestionsBuilder)
         }
 
     val SUGGEST_GENE_STRINGS: SuggestionProvider<CommandSourceStack> =
         SuggestionProvider { _: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
-            val allGeneStrings = GeneRegistry.GENE_REGISTRY.filter { !it.isHidden }.map { it.id.path }.toSet()
+            val allGeneStrings = GeneRegistry.getRegistrySorted().filter { !it.isHidden }.map { it.id.path }
             SharedSuggestionProvider.suggest(allGeneStrings, suggestionsBuilder)
         }
 

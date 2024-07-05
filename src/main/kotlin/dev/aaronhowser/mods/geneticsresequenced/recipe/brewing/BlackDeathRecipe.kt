@@ -24,7 +24,8 @@ class BlackDeathRecipe : IBrewingRecipe {
 
     companion object {
         val requiredGenes =
-            GeneRegistry.GENE_REGISTRY.filter { it.isNegative && it.isActive && !it.isHidden } - ModGenes.BLACK_DEATH.get()
+            GeneRegistry.getRegistrySorted()
+                .filter { it.isNegative && it.isActive && !it.isHidden } - ModGenes.BLACK_DEATH.get()
     }
 
     override fun isIngredient(pTopSlot: ItemStack): Boolean {
