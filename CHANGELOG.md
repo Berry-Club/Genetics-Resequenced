@@ -55,3 +55,7 @@
 - Sorted Genes in several places (Sorted firstly by regular/mutation/negative, then by id)
 - Fixed a typo in a tooltip
 - Forgot the missing : in several places in the mod name
+
+### 1.1.2
+
+- Added loot tables for all the blocks, now they should actually drop themselves!
