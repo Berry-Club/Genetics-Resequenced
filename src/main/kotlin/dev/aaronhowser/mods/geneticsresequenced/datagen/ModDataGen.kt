@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModBlockTagsProvider
@@ -62,6 +63,11 @@ object ModDataGen {
                 existingFileHelper,
                 listOf(ModAdvancementSubProvider())
             )
+        )
+
+        val lootTableProvider = generator.addProvider(
+            event.includeServer(),
+            ModLootTableProvider.create(output, lookupProvider)
         )
 
     }
