@@ -59,3 +59,8 @@
 ### 1.1.2
 
 - Added loot tables for all the blocks, now they should actually drop themselves!
+
+### 1.1.3
+
+- Updated NeoForge to 21.0.87-beta
+- Updated Kotlin for Forge to 5.4.0
