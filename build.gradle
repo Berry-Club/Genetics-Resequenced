@@ -127,7 +127,7 @@ dependencies {
 //    implementation "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
 
     // Mekanism
-    implementation "curse.maven:mekanism-268560:5496791"
+//    implementation "curse.maven:mekanism-268560:5496791"
 
     // KubeJS
 //    implementation "curse.maven:kubejs-238086:5495805"

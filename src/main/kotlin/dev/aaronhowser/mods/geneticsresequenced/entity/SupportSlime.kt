@@ -85,16 +85,15 @@ class SupportSlime(
         super.defineSynchedData(pBuilder)
     }
 
-    override fun onAddedToWorld() {
-        if (level().isClientSide) {
-            return super.onAddedToWorld()
+    override fun onAddedToLevel() {
+
+        if (!level().isClientSide) {
+            if (getOwnerUuid() == null) {
+                setOwnerIfNotSet()
+            }
         }
 
-        if (getOwnerUuid() == null) {
-            setOwnerIfNotSet()
-        }
-
-        super.onAddedToWorld()
+        super.onAddedToLevel()
     }
 
     private fun setOwnerIfNotSet() {

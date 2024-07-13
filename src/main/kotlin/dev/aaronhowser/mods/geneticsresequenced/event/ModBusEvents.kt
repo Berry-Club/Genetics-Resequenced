@@ -39,6 +39,8 @@ object ModBusEvents {
 
     @SubscribeEvent
     fun onConfig(event: ModConfigEvent) {
+        if (event is ModConfigEvent.Unloading) return
+
         val config = event.config
 
         // Comparing spec didn't work for some reason
