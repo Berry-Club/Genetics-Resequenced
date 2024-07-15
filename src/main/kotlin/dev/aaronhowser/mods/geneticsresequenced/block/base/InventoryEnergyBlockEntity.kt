@@ -58,7 +58,7 @@ abstract class InventoryEnergyBlockEntity(
             Direction.WEST to leftItemHandler
         )
 
-    open fun getItemCapability(side: Direction?): IItemHandler {
+    open fun getItemHandler(side: Direction?): IItemHandler {
         if (side == null) return itemHandler
 
         if (side == Direction.UP) return upItemHandler

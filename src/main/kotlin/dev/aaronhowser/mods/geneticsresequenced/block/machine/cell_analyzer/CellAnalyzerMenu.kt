@@ -39,7 +39,7 @@ class CellAnalyzerMenu(
         addPlayerInventory(inventory)
         addPlayerHotbar(inventory)
 
-        val itemHandler = this.blockEntity.getItemCapability(null)
+        val itemHandler = this.blockEntity.getItemHandler(null)
 
         this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 36))
         this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 36))

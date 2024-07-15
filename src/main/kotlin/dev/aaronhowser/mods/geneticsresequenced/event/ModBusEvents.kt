@@ -59,7 +59,7 @@ object ModBusEvents {
 
         fun getItemCap(blockEntity: BlockEntity, direction: Direction): IItemHandler? {
             if (blockEntity is InventoryEnergyBlockEntity) {
-                return blockEntity.getItemCapability(direction)
+                return blockEntity.getItemHandler(direction)
             }
             return null
         }
