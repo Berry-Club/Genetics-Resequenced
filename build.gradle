@@ -127,15 +127,18 @@ dependencies {
 //    implementation "me.shedaniel:RoughlyEnoughItems-neoforge:${rei_version}"
 
     // Mekanism
-    implementation "curse.maven:mekanism-268560:5523554"
+//    implementation "curse.maven:mekanism-268560:5523554"
 
     // KubeJS
 //    implementation "curse.maven:kubejs-238086:5495805"
 //    implementation "curse.maven:rhino-416294:5495611"
 
+    // JEI
+    implementation "curse.maven:jei-238222:5532144"
+
     // EMI
-    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
-    runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+//    compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
+//    runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
