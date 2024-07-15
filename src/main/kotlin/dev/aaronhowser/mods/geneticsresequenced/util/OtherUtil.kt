@@ -17,6 +17,7 @@ import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.PotionContents
 import java.util.*
+import kotlin.jvm.optionals.getOrNull
 
 object OtherUtil {
 
@@ -66,7 +67,7 @@ object OtherUtil {
     }
 
     fun getPotionContents(itemStack: ItemStack): PotionContents? = itemStack.get(DataComponents.POTION_CONTENTS)
-    fun getPotion(itemStack: ItemStack): Holder<Potion>? = getPotionContents(itemStack)?.potion?.get()
+    fun getPotion(itemStack: ItemStack): Holder<Potion>? = getPotionContents(itemStack)?.potion?.getOrNull()
 
     fun getPotionStack(potion: Holder<Potion>): ItemStack {
         return PotionContents.createItemStack(Items.POTION, potion)

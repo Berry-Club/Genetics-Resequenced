@@ -10,6 +10,7 @@ import net.minecraft.core.component.DataComponents
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.brewing.IBrewingRecipe
+import kotlin.jvm.optionals.getOrNull
 
 class BlackDeathRecipe : IBrewingRecipe {
 
@@ -17,7 +18,7 @@ class BlackDeathRecipe : IBrewingRecipe {
         if (pBottomSlot.item != Items.POTION) return false
 
         val potionContents = pBottomSlot.get(DataComponents.POTION_CONTENTS) ?: return false
-        val inputPotion = potionContents.potion.get().value()
+        val inputPotion = potionContents.potion.getOrNull()?.value()
 
         return inputPotion == ModPotions.VIRAL_AGENTS.get()
     }
