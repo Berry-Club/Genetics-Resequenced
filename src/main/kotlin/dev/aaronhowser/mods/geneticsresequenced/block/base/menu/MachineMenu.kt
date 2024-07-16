@@ -19,8 +19,6 @@ abstract class MachineMenu(
 
     protected val level: Level = inventory.player.level()
 
-    abstract override fun stillValid(pPlayer: Player): Boolean
-
     protected open val topLeftInventoryX = 8
     protected open val topLeftInventoryY = 84
 
