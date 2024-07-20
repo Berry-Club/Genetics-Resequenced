@@ -11,12 +11,10 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
-import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.animal.Cow
 import net.minecraft.world.entity.animal.MushroomCow
@@ -24,18 +22,14 @@ import net.minecraft.world.entity.animal.Sheep
 import net.minecraft.world.entity.animal.goat.Goat
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.entity.projectile.AbstractArrow
 import net.minecraft.world.entity.projectile.SmallFireball
 import net.minecraft.world.item.ArrowItem
-import net.minecraft.world.item.BowItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
-import net.minecraft.world.item.enchantment.Enchantments
+import net.minecraft.world.item.ProjectileWeaponItem
+import net.minecraft.world.item.enchantment.EnchantmentHelper
 import net.minecraft.world.level.block.Blocks
-import net.neoforged.neoforge.common.CommonHooks
 import net.neoforged.neoforge.event.entity.living.LivingGetProjectileEvent
-import net.neoforged.neoforge.event.entity.player.ArrowLooseEvent
-import net.neoforged.neoforge.event.entity.player.ArrowNockEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 import kotlin.random.Random
 
@@ -432,85 +426,33 @@ object ClickGenes {
         }
     }
 
-    private val infinityDummyStack = Items.STICK.itemStack
     fun handleInfinityGetProjectile(event: LivingGetProjectileEvent) {
-        if (!event.projectileItemStack.isEmpty) return
+        val player = event.entity as? Player ?: return
 
-        val entity = event.entity
-        if (!entity.hasGene(ModGenes.INFINITY.get())) return
-
-        val weapon = event.projectileWeaponItemStack
-
-        val infinityEnchant = OtherUtil.getEnchantHolder(entity, Enchantments.INFINITY)
-        if (weapon.getEnchantmentLevel(infinityEnchant) != 0) return
-
-        event.projectileItemStack = infinityDummyStack
-    }
-
-    fun handleInfinityStart(event: ArrowNockEvent) {
         if (!ModGenes.INFINITY.get().isActive) return
-
-        if (event.hasAmmo()) return
-
-        val entity = event.entity
-        if (!entity.hasGene(ModGenes.INFINITY.get())) return
-
-        val infinityEnchant = OtherUtil.getEnchantHolder(entity, Enchantments.INFINITY)
-        if (event.bow.getEnchantmentLevel(infinityEnchant) != 0) return
-
-        entity.startUsingItem(event.entity.usedItemHand)
-        event.action = InteractionResultHolder.success(event.bow)
-    }
-
-    /**
-     * @see BowItem.releaseUsing
-     * @see BowItem.getPowerForTime
-     */
-    fun handleInfinityEnd(event: ArrowLooseEvent) {
-        if (!ModGenes.INFINITY.get().isActive) return
-
-        val player = event.entity
         if (!player.hasGene(ModGenes.INFINITY.get())) return
 
-        val bowStack = event.bow
+        val level = player.level() as? ServerLevel ?: return
+        val weapon = event.projectileWeaponItemStack.item as? ProjectileWeaponItem ?: return
 
-        val ammo = CommonHooks.getProjectile(player, bowStack, ItemStack.EMPTY)
-        if (ammo != infinityDummyStack) return
+        if (!event.projectileItemStack.isEmpty) return
 
-        val charge = event.charge
-        var velocity = charge / 20.0f
-        velocity = ((velocity * velocity + velocity * 2.0f) / 3.0f).coerceAtMost(1.0f)
+        val defaultAmmo = weapon.getDefaultCreativeAmmo(player, event.projectileItemStack)
+        val defaultAmmoItem = defaultAmmo.item
 
-        if (velocity < 0.1f) return
+        val useNoItem =
+            defaultAmmoItem is ArrowItem && defaultAmmoItem.isInfinite(defaultAmmo, event.projectileItemStack, player)
 
-        val arrowItem = Items.ARROW as ArrowItem
-        val arrowStack = arrowItem.itemStack
-        val abstractArrow = arrowItem.createArrow(
-            player.level(),
-            arrowStack,
-            player,
-            bowStack
-        )
-
-        val powerEnchantment = OtherUtil.getEnchantHolder(player, Enchantments.POWER)
-        val flameEnchantment = OtherUtil.getEnchantHolder(player, Enchantments.FLAME)
-
-        val powerLevel = bowStack.getEnchantmentLevel(powerEnchantment)
-        val flameLevel = bowStack.getEnchantmentLevel(flameEnchantment)
-
-        abstractArrow.apply {
-            isCritArrow = velocity == 1f
-            pickup = AbstractArrow.Pickup.DISALLOWED
-
-            if (powerLevel > 0) baseDamage += powerLevel * 0.5 + 0.5
-            if (flameLevel > 0) remainingFireTicks = 9999
-
-            shootFromRotation(player, player.xRot, player.yRot, 0.0f, velocity * 3.0f, 1.0f)
+        val amount = if (useNoItem) {
+            0
+        } else {
+            EnchantmentHelper.processAmmoUse(level, event.projectileWeaponItemStack, defaultAmmo, 1)
         }
 
-        player.level().addFreshEntity(abstractArrow)
+        if (amount == 0) {
+            event.projectileItemStack = defaultAmmo.copy()
+        }
 
-        event.isCanceled = true
     }
 
 }

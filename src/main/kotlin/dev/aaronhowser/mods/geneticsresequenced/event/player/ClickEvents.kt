@@ -49,16 +49,6 @@ object ClickEvents {
     }
 
     @SubscribeEvent
-    fun onArrowNock(event: ArrowNockEvent) {
-        ClickGenes.handleInfinityStart(event)
-    }
-
-    @SubscribeEvent
-    fun onArrowLoose(event: ArrowLooseEvent) {
-        ClickGenes.handleInfinityEnd(event)
-    }
-
-    @SubscribeEvent
     fun onGetProjectile(event: LivingGetProjectileEvent) {
         ClickGenes.handleInfinityGetProjectile(event)
     }
