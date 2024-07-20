@@ -27,8 +27,6 @@ class ClientConfig(
     }
 
     private fun generalConfigs() {
-        builder.push("general")
-
         woolyRemovesCape = builder
             .comment("When a player with the Wooly gene is sheared, their outer skin layers are removed. Enable this to also remove the cape.")
             .define("woolyRemovesCape", true)
@@ -48,8 +46,6 @@ class ClientConfig(
         itemMagnetBlacklistTooltip = builder
             .comment("Show that an item is in the Item Magnet's blacklist in its tooltip.")
             .define("itemMagnetBlacklistTooltip", true)
-
-        builder.pop()
     }
 
 }

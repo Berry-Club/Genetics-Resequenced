@@ -74,8 +74,8 @@ object TickGenes {
         if (!inDirectSunlight || !isDay) return
 
         foodData.eat(
-            ServerConfig.photoSynthesisHungerAmount.get(),
-            ServerConfig.photoSynthesisSaturationAmount.get().toFloat()
+            ServerConfig.photosynthesisHungerAmount.get(),
+            ServerConfig.photosynthesisSaturationAmount.get().toFloat()
         )
     }
 

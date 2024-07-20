@@ -80,3 +80,5 @@
 
 - Update to NeoForge 21.0.113-beta
 - Improvements to Infinity Gene. Turns out most of the code wasn't actually reachable, and also was pointless besides. Much simpler now. Also, fixed picking up fired arrows (#13)
+- Added support for NeoForge mod config menu
+- Rearranged configs

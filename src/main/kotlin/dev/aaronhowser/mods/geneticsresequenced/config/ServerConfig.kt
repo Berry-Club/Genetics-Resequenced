@@ -48,8 +48,8 @@ class ServerConfig(
         lateinit var noHungerMinimum: ModConfigSpec.IntValue
         lateinit var passivesCheckCooldown: ModConfigSpec.IntValue
         lateinit var photosynthesisCooldown: ModConfigSpec.IntValue
-        lateinit var photoSynthesisHungerAmount: ModConfigSpec.IntValue
-        lateinit var photoSynthesisSaturationAmount: ModConfigSpec.DoubleValue
+        lateinit var photosynthesisHungerAmount: ModConfigSpec.IntValue
+        lateinit var photosynthesisSaturationAmount: ModConfigSpec.DoubleValue
         lateinit var slimyDeathCooldown: ModConfigSpec.IntValue
         lateinit var slimyDeathHealthMultiplier: ModConfigSpec.DoubleValue
         lateinit var slimyDeathDespawnCheckTimer: ModConfigSpec.IntValue
@@ -74,8 +74,6 @@ class ServerConfig(
     }
 
     private fun generalConfigs() {
-        builder.push("general")
-
         keepGenesOnDeath = builder
             .comment("Keep genes on death")
             .define("keepGenesOnDeath", true)
@@ -87,8 +85,6 @@ class ServerConfig(
         antifieldBlockRadius = builder
             .comment("How far should the Antifield Block prevent Item/XP Magnet Genes from working (in blocks)")
             .defineInRange("antifieldBlockRadius", 25, 1, Int.MAX_VALUE)
-
-        builder.pop()
     }
 
     private fun machineConfigs() {
@@ -208,12 +204,12 @@ class ServerConfig(
         photosynthesisCooldown = builder
             .comment("How often entities with the Photosynthesis gene should regain hunger (in ticks)")
             .defineInRange("photosynthesisCooldown", 20 * 30, 1, Int.MAX_VALUE)
-        photoSynthesisHungerAmount = builder
+        photosynthesisHungerAmount = builder
             .comment("How much hunger to regain when the Photosynthesis gene procs")
-            .defineInRange("photoSynthesisHungerAmount", 1, 0, Int.MAX_VALUE)
-        photoSynthesisSaturationAmount = builder
+            .defineInRange("photosynthesisHungerAmount", 1, 0, Int.MAX_VALUE)
+        photosynthesisSaturationAmount = builder
             .comment("How much saturation to regain when the Photosynthesis gene procs")
-            .defineInRange("photoSynthesisSaturationAmount", 0.5, 0.0, Double.MAX_VALUE)
+            .defineInRange("photosynthesisSaturationAmount", 0.5, 0.0, Double.MAX_VALUE)
 
         slimyDeathCooldown = builder
             .comment("How many ticks to wait before someone with the Slimy Death gene can spawn slimes again")
