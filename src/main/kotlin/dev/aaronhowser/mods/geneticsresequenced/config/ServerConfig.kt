@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.config
 
+import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.common.ModConfigSpec
 import org.apache.commons.lang3.tuple.Pair
 
@@ -119,7 +120,12 @@ class ServerConfig(
 
         disabledGenes = builder
             .comment("List of genes to disable.\nExample: [\"geneticsresequenced:wooly\",\"geneticsresequenced:lay_egg\"]")
-            .defineList("disabledGenes", listOf()) { it is String }
+            .defineListAllowEmpty(
+                "disabledGenes",
+                listOf(),
+                { "geneticsresequenced:example" },
+                { ResourceLocation.tryParse(it as? String ?: "") != null }
+            )
 
         disableGivingPlayersNegativeGenes = builder
             .comment("Set true to prevent players from being given negative genes")

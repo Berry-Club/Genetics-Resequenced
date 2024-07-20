@@ -39,9 +39,14 @@ class Gene(properties: GeneProperties) {
         val unknownGeneComponent: MutableComponent = ModLanguageProvider.Genes.UNKNOWN.toComponent()
 
         fun checkDeactivationConfig() {
-            val disabledGenes = ServerConfig.disabledGenes.get()
+            val disabledGeneStrings = ServerConfig.disabledGenes.get()
 
-            for (disabledGene in disabledGenes) {
+            val previouslyDisabledGenes = GeneRegistry.GENE_REGISTRY.filterNot { it.isActive }
+            for (previouslyDisabledGene in previouslyDisabledGenes) {
+                previouslyDisabledGene.reactivate()
+            }
+
+            for (disabledGene in disabledGeneStrings) {
                 val gene = GeneRegistry.fromId(disabledGene)
 
                 if (gene == null) {
@@ -55,7 +60,6 @@ class Gene(properties: GeneProperties) {
                 }
 
                 gene.deactivate()
-
             }
         }
 
@@ -141,6 +145,11 @@ class Gene(properties: GeneProperties) {
     private fun deactivate() {
         isActive = false
         GeneticsResequenced.LOGGER.info("Deactivated gene $id")
+    }
+
+    private fun reactivate() {
+        isActive = true
+        GeneticsResequenced.LOGGER.info("Reactivated gene $id")
     }
 
     fun getPotion(): MobEffectInstance? {
