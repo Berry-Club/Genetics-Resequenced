@@ -11,7 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_decryptor.DnaD
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_decryptor.DnaDecryptorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.DnaExtractorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.DnaExtractorScreen
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.PlasmidInfuserScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.PlasmidInfuserScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector.PlasmidInjectorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorScreen

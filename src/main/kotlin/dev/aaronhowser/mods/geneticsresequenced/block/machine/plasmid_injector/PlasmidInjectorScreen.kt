@@ -1,15 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector
 
-import com.mojang.blaze3d.systems.RenderSystem
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
-import net.minecraft.client.renderer.GameRenderer
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
-
 
 class PlasmidInjectorScreen(
     pMenu: PlasmidInjectorMenu,
@@ -18,22 +15,16 @@ class PlasmidInjectorScreen(
 ) : AbstractContainerScreen<PlasmidInjectorMenu>(pMenu, pPlayerInventory, pTitle) {
 
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
-        RenderSystem.setShader { GameRenderer.getPositionTexShader() }
-        RenderSystem.setShaderColor(1.0f, 1.0f, 1.0f, 1.0f)
-        RenderSystem.setShaderTexture(0, ScreenTextures.Backgrounds.PLASMID_INJECTOR)
-        val x = (width - imageWidth) / 2
-        val y = (height - imageHeight) / 2
-
         pGuiGraphics.blit(
             ScreenTextures.Backgrounds.PLASMID_INJECTOR,
-            x, y,
+            leftPos, topPos,
             0, 0,
             ScreenTextures.Backgrounds.TEXTURE_SIZE,
             ScreenTextures.Backgrounds.TEXTURE_SIZE
         )
 
-        renderProgressArrow(pGuiGraphics, x, y)
-        renderEnergyInfo(pGuiGraphics, x, y)
+        renderProgressArrow(pGuiGraphics, leftPos, topPos,)
+        renderEnergyInfo(pGuiGraphics, leftPos, topPos,)
     }
 
     private fun renderEnergyInfo(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
