@@ -47,7 +47,7 @@ class GeneCooldown(
     }
 
     private fun onAddFail(entity: LivingEntity) {
-        tellOnCooldown(entity, gene)
+        if (actuallyNotify) tellOnCooldown(entity, gene)
     }
 
     fun remove(entity: LivingEntity): Boolean {
@@ -63,7 +63,6 @@ class GeneCooldown(
             "Cannot add UUIDs directly to GeneCooldown"
         )
 
-        val cooldown = uuidsOnCooldown
         if (element in uuidsOnCooldown) return false
 
         return uuidsOnCooldown.add(element)

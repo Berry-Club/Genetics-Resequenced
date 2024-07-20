@@ -74,3 +74,4 @@
 
 - Blocks are no longer instamine
 - Blocks now require an Iron Pickaxe to mine
+- Fixed chat spam from Lay Egg Gene, possibly others
