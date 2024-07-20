@@ -4,11 +4,11 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
+import net.minecraft.world.entity.projectile.Projectile
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent
 import net.neoforged.neoforge.event.entity.living.LivingGetProjectileEvent
-import net.neoforged.neoforge.event.entity.player.ArrowLooseEvent
-import net.neoforged.neoforge.event.entity.player.ArrowNockEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 
@@ -51,6 +51,11 @@ object ClickEvents {
     @SubscribeEvent
     fun onGetProjectile(event: LivingGetProjectileEvent) {
         ClickGenes.handleInfinityGetProjectile(event)
+    }
+
+    @SubscribeEvent
+    fun onProjectileAdded(event: EntityJoinLevelEvent) {
+        ClickGenes.handleInfinityArrow(event)
     }
 
 }

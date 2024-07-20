@@ -8,10 +8,10 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
+import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
@@ -22,13 +22,14 @@ import net.minecraft.world.entity.animal.Sheep
 import net.minecraft.world.entity.animal.goat.Goat
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.entity.projectile.AbstractArrow
+import net.minecraft.world.entity.projectile.Arrow
 import net.minecraft.world.entity.projectile.SmallFireball
-import net.minecraft.world.item.ArrowItem
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.ProjectileWeaponItem
-import net.minecraft.world.item.enchantment.EnchantmentHelper
 import net.minecraft.world.level.block.Blocks
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent
 import net.neoforged.neoforge.event.entity.living.LivingGetProjectileEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 import kotlin.random.Random
@@ -432,27 +433,26 @@ object ClickGenes {
         if (!ModGenes.INFINITY.get().isActive) return
         if (!player.hasGene(ModGenes.INFINITY.get())) return
 
-        val level = player.level() as? ServerLevel ?: return
-        val weapon = event.projectileWeaponItemStack.item as? ProjectileWeaponItem ?: return
-
         if (!event.projectileItemStack.isEmpty) return
 
+        val weapon = event.projectileWeaponItemStack.item as? ProjectileWeaponItem ?: return
         val defaultAmmo = weapon.getDefaultCreativeAmmo(player, event.projectileItemStack)
-        val defaultAmmoItem = defaultAmmo.item
 
-        val useNoItem =
-            defaultAmmoItem is ArrowItem && defaultAmmoItem.isInfinite(defaultAmmo, event.projectileItemStack, player)
+        defaultAmmo.set(BooleanItemComponent.isInfinityArrowComponent, BooleanItemComponent(true))
 
-        val amount = if (useNoItem) {
-            0
-        } else {
-            EnchantmentHelper.processAmmoUse(level, event.projectileWeaponItemStack, defaultAmmo, 1)
-        }
+        event.projectileItemStack = defaultAmmo
+    }
 
-        if (amount == 0) {
-            event.projectileItemStack = defaultAmmo.copy()
-        }
+    fun handleInfinityArrow(event: EntityJoinLevelEvent) {
+        val arrow = event.entity as? Arrow ?: return
+        if (arrow.level().isClientSide) return
 
+        val arrowStack = arrow.pickupItemStackOrigin
+
+        val isInfinity = arrowStack.get(BooleanItemComponent.isInfinityArrowComponent)?.value ?: false
+        if (!isInfinity) return
+
+        arrow.pickup = AbstractArrow.Pickup.DISALLOWED
     }
 
 }

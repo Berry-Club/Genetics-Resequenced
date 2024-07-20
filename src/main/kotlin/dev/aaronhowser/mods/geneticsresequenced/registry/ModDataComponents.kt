@@ -39,6 +39,13 @@ object ModDataComponents {
                 .networkSynchronized(BooleanItemComponent.STREAM_CODEC)
         }
 
+    val IS_INFINITY_ARROW: DeferredHolder<DataComponentType<*>, DataComponentType<BooleanItemComponent>> =
+        DATA_COMPONENT_REGISTRY.registerComponentType("is_infinity_arrow") {
+            it
+                .persistent(BooleanItemComponent.CODEC)
+                .networkSynchronized(BooleanItemComponent.STREAM_CODEC)
+        }
+
     val GENES_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<GeneListItemComponent>> =
         DATA_COMPONENT_REGISTRY.registerComponentType("genes") {
             it

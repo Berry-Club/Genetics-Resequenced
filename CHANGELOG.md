@@ -75,3 +75,7 @@
 - Blocks are no longer instamine
 - Blocks now require an Iron Pickaxe to mine
 - Fixed chat spam from Lay Egg Gene, possibly others
+
+### 1.1.6
+
+- Improvements to Infinity Gene. Turns out most of the code wasn't actually reachable, and also was pointless besides. Much simpler now. Also, fixed picking up fired arrows (#13)

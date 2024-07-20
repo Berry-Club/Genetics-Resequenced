@@ -20,6 +20,7 @@ data class BooleanItemComponent(
 
         val isActiveComponent: DataComponentType<BooleanItemComponent> by lazy { ModDataComponents.IS_ACTIVE_COMPONENT.get() }
         val isContaminatedComponent: DataComponentType<BooleanItemComponent> by lazy { ModDataComponents.IS_CONTAMINATED_COMPONENT.get() }
+        val isInfinityArrowComponent: DataComponentType<BooleanItemComponent> by lazy { ModDataComponents.IS_INFINITY_ARROW.get() }
     }
 
 }
