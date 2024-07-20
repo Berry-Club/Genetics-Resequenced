@@ -3,11 +3,15 @@ package dev.aaronhowser.mods.geneticsresequenced.util
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
+import net.minecraft.core.Registry
 import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.MutableComponent
+import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.targeting.TargetingConditions
@@ -16,6 +20,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.PotionContents
+import net.minecraft.world.item.enchantment.Enchantment
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
@@ -71,6 +76,14 @@ object OtherUtil {
 
     fun getPotionStack(potion: Holder<Potion>): ItemStack {
         return PotionContents.createItemStack(Items.POTION, potion)
+    }
+
+    fun getEnchantmentRegistry(entity: Entity): Registry<Enchantment> {
+        return entity.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT)
+    }
+
+    fun getEnchantHolder(entity: Entity, enchantment: ResourceKey<Enchantment>): Holder.Reference<Enchantment> {
+        return getEnchantmentRegistry(entity).getHolderOrThrow(enchantment)
     }
 
 }

@@ -11,8 +11,8 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
-import net.minecraft.core.registries.Registries
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
@@ -439,8 +439,7 @@ object ClickGenes {
 
         val weapon = event.projectileWeaponItemStack
 
-        val infinityEnchant = event.entity.registryAccess().registryOrThrow(Registries.ENCHANTMENT)
-            .getHolderOrThrow(Enchantments.INFINITY)
+        val infinityEnchant = OtherUtil.getEnchantHolder(entity, Enchantments.INFINITY)
         if (weapon.getEnchantmentLevel(infinityEnchant) != 0) return
 
         event.projectileItemStack = Items.ARROW.itemStack
@@ -454,9 +453,7 @@ object ClickGenes {
         val entity = event.entity
         if (!entity.hasGene(ModGenes.INFINITY.get())) return
 
-        val infinityEnchant =
-            event.entity.registryAccess().registryOrThrow(Registries.ENCHANTMENT)
-                .getHolderOrThrow(Enchantments.INFINITY)
+        val infinityEnchant = OtherUtil.getEnchantHolder(entity, Enchantments.INFINITY)
         if (event.bow.getEnchantmentLevel(infinityEnchant) != 0) return
 
         entity.startUsingItem(event.entity.usedItemHand)
@@ -492,13 +489,9 @@ object ClickGenes {
             player,
             bowStack
         )
-        abstractArrow.shootFromRotation(player, player.xRot, player.yRot, 0.0f, velocity * 3.0f, 1.0f)
 
-        if (velocity == 1f) abstractArrow.isCritArrow = true
-
-        val levelEnchants = player.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT)
-        val powerEnchantment = levelEnchants.getHolderOrThrow(Enchantments.POWER)
-        val flameEnchantment = levelEnchants.getHolderOrThrow(Enchantments.FLAME)
+        val powerEnchantment = OtherUtil.getEnchantHolder(player, Enchantments.POWER)
+        val flameEnchantment = OtherUtil.getEnchantHolder(player, Enchantments.FLAME)
 
         val powerLevel = bowStack.getEnchantmentLevel(powerEnchantment)
         if (powerLevel > 0) abstractArrow.baseDamage += powerLevel * 0.5 + 0.5
