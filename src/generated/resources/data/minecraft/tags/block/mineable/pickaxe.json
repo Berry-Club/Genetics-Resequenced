@@ -1,0 +1,15 @@
+{
+  "values": [
+    "geneticsresequenced:bioluminescence",
+    "geneticsresequenced:anti_field_block",
+    "geneticsresequenced:coal_generator",
+    "geneticsresequenced:cell_analyzer",
+    "geneticsresequenced:dna_extractor",
+    "geneticsresequenced:dna_decryptor",
+    "geneticsresequenced:blood_purifier",
+    "geneticsresequenced:plasmid_infuser",
+    "geneticsresequenced:plasmid_injector",
+    "geneticsresequenced:incubator",
+    "geneticsresequenced:advanced_incubator"
+  ]
+}

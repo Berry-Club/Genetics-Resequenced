@@ -7,16 +7,17 @@ import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.Level
-import net.minecraft.world.level.block.*
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.RenderShape
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.phys.BlockHitResult
 
 abstract class CraftingMachineBlock(
-    properties: Properties = Properties.of().sound(SoundType.METAL),
+    properties: Properties = defaultProperties,
     private val blockEntityType: Class<out CraftingMachineBlockEntity>
-) : HorizontalDirectionalBlock(properties), EntityBlock {
+) : MachineBlock() {
 
     init {
         registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))

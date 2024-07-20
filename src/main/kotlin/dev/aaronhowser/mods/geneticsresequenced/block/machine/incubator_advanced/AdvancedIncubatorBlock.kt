@@ -13,13 +13,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
 class AdvancedIncubatorBlock(
-    val properties: Properties = Properties.of().sound(SoundType.METAL)
+    properties: Properties = defaultProperties
 ) : CraftingMachineBlock(
     properties,
     AdvancedIncubatorBlockEntity::class.java
 ) {
 
-    override fun codec(): MapCodec<out HorizontalDirectionalBlock> {
+    override fun codec(): MapCodec<AdvancedIncubatorBlock> {
         return simpleCodec(::AdvancedIncubatorBlock)
     }
 

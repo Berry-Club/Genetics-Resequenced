@@ -13,13 +13,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
 class DnaDecryptorBlock(
-    val properties: Properties = Properties.of().sound(SoundType.METAL)
+    properties: Properties = defaultProperties
 ) : CraftingMachineBlock(
     properties,
     DnaDecryptorBlockEntity::class.java
 ) {
 
-    override fun codec(): MapCodec<out HorizontalDirectionalBlock> {
+    override fun codec(): MapCodec<DnaDecryptorBlock> {
         return simpleCodec(::DnaDecryptorBlock)
     }
 

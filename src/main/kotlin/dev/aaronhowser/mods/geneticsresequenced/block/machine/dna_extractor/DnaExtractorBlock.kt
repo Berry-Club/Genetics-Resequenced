@@ -13,13 +13,13 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
 class DnaExtractorBlock(
-    val properties: Properties = Properties.of().sound(SoundType.METAL)
+    properties: Properties = defaultProperties
 ) : CraftingMachineBlock(
     properties,
     DnaExtractorBlockEntity::class.java
 ) {
 
-    override fun codec(): MapCodec<out HorizontalDirectionalBlock> {
+    override fun codec(): MapCodec<DnaExtractorBlock> {
         return simpleCodec(::DnaExtractorBlock)
     }
 

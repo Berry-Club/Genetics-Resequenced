@@ -69,3 +69,8 @@
 ### 1.1.4
 
 - Fix issues with JEI
+
+### 1.1.5
+
+- Blocks are no longer instamine
+- Blocks now require an Iron Pickaxe to mine

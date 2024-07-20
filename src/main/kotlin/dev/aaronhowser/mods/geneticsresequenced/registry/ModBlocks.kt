@@ -19,7 +19,6 @@ import net.neoforged.neoforge.registries.DeferredRegister
 
 object ModBlocks {
 
-
     val BLOCK_REGISTRY: DeferredRegister.Blocks = DeferredRegister.createBlocks(GeneticsResequenced.ID)
 
     val BIOLUMINESCENCE_BLOCK: DeferredBlock<BioluminescenceBlock> =
