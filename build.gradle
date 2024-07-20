@@ -137,10 +137,10 @@ dependencies {
 
     // EMI
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
-//    runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+    runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 
     // JEI
-    implementation "curse.maven:jei-238222:5532144"
+    compileOnly "curse.maven:jei-238222:5532144"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
