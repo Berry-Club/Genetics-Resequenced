@@ -32,6 +32,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.enchantment.Enchantments
 import net.minecraft.world.level.block.Blocks
+import net.neoforged.neoforge.common.CommonHooks
 import net.neoforged.neoforge.event.entity.living.LivingGetProjectileEvent
 import net.neoforged.neoforge.event.entity.player.ArrowLooseEvent
 import net.neoforged.neoforge.event.entity.player.ArrowNockEvent
@@ -431,6 +432,7 @@ object ClickGenes {
         }
     }
 
+    private val infinityDummyStack = Items.STICK.itemStack
     fun handleInfinityGetProjectile(event: LivingGetProjectileEvent) {
         if (!event.projectileItemStack.isEmpty) return
 
@@ -442,7 +444,7 @@ object ClickGenes {
         val infinityEnchant = OtherUtil.getEnchantHolder(entity, Enchantments.INFINITY)
         if (weapon.getEnchantmentLevel(infinityEnchant) != 0) return
 
-        event.projectileItemStack = Items.ARROW.itemStack
+        event.projectileItemStack = infinityDummyStack
     }
 
     fun handleInfinityStart(event: ArrowNockEvent) {
@@ -467,13 +469,13 @@ object ClickGenes {
     fun handleInfinityEnd(event: ArrowLooseEvent) {
         if (!ModGenes.INFINITY.get().isActive) return
 
-        if (event.hasAmmo()) return
-
         val player = event.entity
-
         if (!player.hasGene(ModGenes.INFINITY.get())) return
 
         val bowStack = event.bow
+
+        val ammo = CommonHooks.getProjectile(player, bowStack, ItemStack.EMPTY)
+        if (ammo != infinityDummyStack) return
 
         val charge = event.charge
         var velocity = charge / 20.0f
@@ -507,6 +509,8 @@ object ClickGenes {
         }
 
         player.level().addFreshEntity(abstractArrow)
+
+        event.isCanceled = true
     }
 
 }

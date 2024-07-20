@@ -46,9 +46,9 @@ class ScraperItem : Item(
 
 
             val hasDelicateTouch =
-                stack.getEnchantmentLevel(ModEnchantments.getDelicateTouchHolder(player.level())) != 0
+                stack.getEnchantmentLevel(ModEnchantments.getDelicateTouchHolder(player)) != 0
 
-//             Only put on cooldown if the entity was not damaged
+            // Only put on cooldown if the entity was not damaged
             if (hasDelicateTouch) {
                 player.cooldowns.addCooldown(ModItems.SCRAPER.get(), 10)
             } else {
