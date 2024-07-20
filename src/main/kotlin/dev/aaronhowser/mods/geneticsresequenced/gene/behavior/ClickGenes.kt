@@ -494,12 +494,17 @@ object ClickGenes {
         val flameEnchantment = OtherUtil.getEnchantHolder(player, Enchantments.FLAME)
 
         val powerLevel = bowStack.getEnchantmentLevel(powerEnchantment)
-        if (powerLevel > 0) abstractArrow.baseDamage += powerLevel * 0.5 + 0.5
-
         val flameLevel = bowStack.getEnchantmentLevel(flameEnchantment)
-        if (flameLevel > 0) abstractArrow.remainingFireTicks = 9999
 
-        abstractArrow.pickup = AbstractArrow.Pickup.CREATIVE_ONLY
+        abstractArrow.apply {
+            isCritArrow = velocity == 1f
+            pickup = AbstractArrow.Pickup.DISALLOWED
+
+            if (powerLevel > 0) baseDamage += powerLevel * 0.5 + 0.5
+            if (flameLevel > 0) remainingFireTicks = 9999
+
+            shootFromRotation(player, player.xRot, player.yRot, 0.0f, velocity * 3.0f, 1.0f)
+        }
 
         player.level().addFreshEntity(abstractArrow)
     }
