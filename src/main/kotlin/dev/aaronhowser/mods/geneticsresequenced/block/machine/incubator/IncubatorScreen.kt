@@ -29,7 +29,6 @@ class IncubatorScreen(
     override val energyPosLeft: Int = ScreenTextures.Elements.Energy.Location.Incubator.X
     override val energyPosTop: Int = ScreenTextures.Elements.Energy.Location.Incubator.Y
 
-    //FIXME: Make it fill up instead of emptying
     override val arrowTexture: ResourceLocation = ScreenTextures.Elements.ArrowDown.TEXTURE
     override val arrowTextureSize: Int = ScreenTextures.Elements.ArrowDown.TEXTURE_SIZE
     override val arrowPosLeft: Int = ScreenTextures.Elements.ArrowDown.Position.X
@@ -37,6 +36,24 @@ class IncubatorScreen(
     override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
     override fun progressArrowWidth(): Int = ScreenTextures.Elements.ArrowDown.Dimensions.WIDTH
     override fun progressArrowHeight(): Int = menu.getScaledProgress()
+
+    override fun renderProgressArrow(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
+        if (!shouldRenderProgressArrow()) return
+
+        val height = progressArrowHeight()
+
+        pGuiGraphics.blitSprite(
+            arrowTexture,
+            arrowTextureSize,
+            arrowTextureSize,
+            0,
+            0,
+            x + arrowPosLeft,
+            y + arrowPosTop,
+            progressArrowWidth(),
+            height
+        )
+    }
 
     private var bubblePosProgress = 0
     private var bubblePos = 0
