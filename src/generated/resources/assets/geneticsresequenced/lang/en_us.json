@@ -361,6 +361,7 @@
   "key.geneticsresequenced.category": "Genetics: Resequenced",
   "key.geneticsresequenced.dragons_breath": "Dragon's Breath",
   "key.geneticsresequenced.teleport": "Teleport",
+  "message.geneticsresequenced.cant_set_entity": "Cannot set to this entity.",
   "message.geneticsresequenced.cringe.cured": "With the touch of Grass, you feel the cringe leave your body.",
   "message.geneticsresequenced.cringe.resources.add": "You feel the cringe entering your body, taking over. Your perception of the world changes in %d...",
   "message.geneticsresequenced.cringe.resources.reloading": "Reloading resources now!",

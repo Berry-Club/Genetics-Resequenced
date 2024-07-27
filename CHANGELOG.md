@@ -1,4 +1,3 @@
-
 # Changelog
 
 ## 1.21
@@ -7,26 +6,31 @@
 
 - Updated to 1.21
 - Genes are now an actual Registry
-- Fixed Incubator and Advanced Incubator from not working (hasRecipe() returned false when hasEnoughEnergy was true rather than when false)
+- Fixed Incubator and Advanced Incubator from not working (hasRecipe() returned false when hasEnoughEnergy was true
+  rather than when false)
 - Fixed the Black Death recipe being broken
 - Item Magnet will show in the tooltip that an item is blacklisted (configurable)
 - Properly sync the player's Genes on client and server on login
 - Allowed the Gene Add/Remove commands to use the gene name string instead of the id Resource Location
 - The Keep Inventory Gene now uses Data Attachment, which means it persists across server stops
-- Efficiency Attribute now uses modifiers instead of modifying the attribute base value. No idea why I was doing that originally, that's awful.
+- Efficiency Attribute now uses modifiers instead of modifying the attribute base value. No idea why I was doing that
+  originally, that's awful.
 - The Flight gene now is an Attribute, rather than changing the player's ability to fly. Fixes #10
 - Wall Climbing is no longer an Attribute (Why was it? What was I thinking?)
 - The non-empty DNA Helices and Plasmids in the creative mode tab are now after everything else
 - Attribute Modifiers given by Genes are now kept on respawn
 - Changed the machines' energy texture to one made by TJKraft
-- Support Slime now only checks if it should despawn once every 40 ticks rather than every tick, which should improve performance.
+- Support Slime now only checks if it should despawn once every 40 ticks rather than every tick, which should improve
+  performance.
 - Emerald Heart chat function only worked if Emerald Heart was DISABLED, instead of ENABLED. Fixed that.
 - Improved command response messages, for example "Added Claws to Dev" instead of "Added Claws to 1 entities".
 - Item Magnet now has a delay against picking up items dropped by you
 - Increased the amount of Support Slimes spawned from 1-4 to 3-6
-- Poison Proof Gene now uses the new NeoForge Poison damage, rather than checking for magic damage while you have poison effect
+- Poison Proof Gene now uses the new NeoForge Poison damage, rather than checking for magic damage while you have poison
+  effect
 - Renamed The Cure to Panacea
-- The Coal Generator now allows extracting items from any side (in case of fuels like Lava Buckets, which leave an empty Bucket behind)
+- The Coal Generator now allows extracting items from any side (in case of fuels like Lava Buckets, which leave an empty
+  Bucket behind)
 - Machines now keep their progress if they run out of power
 - MobGeneRegistry and GeneRequirementRegistry loggers are now debug instead of info
 - The bubbles in the Incubator and Advanced Incubator now animate slower
@@ -51,7 +55,8 @@
 - Updated to NeoForge 21.0.53-beta
 - Added EMI support
 - Added 4 new Genes: Infested, Oozing, Weaving, and Wind Charged
-- Fixed a recipe conflict between Panacea and Zombify Villager potions, Panacea now requires a Regeneration Helix rather than Emerald Heart
+- Fixed a recipe conflict between Panacea and Zombify Villager potions, Panacea now requires a Regeneration Helix rather
+  than Emerald Heart
 - Sorted Genes in several places (Sorted firstly by regular/mutation/negative, then by id)
 - Fixed a typo in a tooltip
 - Forgot the missing : in several places in the mod name
@@ -86,3 +91,7 @@
 ### 1.1.7
 
 - Fixed crash on servers
+
+### 1.1.8
+
+- Fixed crash from trying to scrape invalid entities
