@@ -96,3 +96,4 @@
 
 - Fixed crash from trying to scrape invalid entities
 - Fixed the Coal Generator, so FE goes up instead of down
+- All machine Screen classes now extend the abstract class MachineScreen
