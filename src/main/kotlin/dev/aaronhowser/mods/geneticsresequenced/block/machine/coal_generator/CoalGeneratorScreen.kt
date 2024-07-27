@@ -2,8 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.coal_generator
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
-import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
-import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -21,28 +19,17 @@ class CoalGeneratorScreen(
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
         super.renderBg(pGuiGraphics, pPartialTick, pMouseX, pMouseY)
 
-        renderProgressArrow(pGuiGraphics, leftPos, topPos)
         renderBurnProgress(pGuiGraphics, leftPos, topPos)
     }
 
     override val energyX: Int = ScreenTextures.Elements.Energy.Location.CoalGen.X
     override val energyY: Int = ScreenTextures.Elements.Energy.Location.CoalGen.Y
 
-    private fun renderProgressArrow(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
-        if (!menu.isBurning) return
-
-        pGuiGraphics.blitSprite(
-            ScreenTextures.Elements.ArrowRight.TEXTURE,
-            ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE,
-            ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE,
-            0,
-            0,
-            x + ScreenTextures.Elements.ArrowRight.Position.CoalGen.X,
-            y + ScreenTextures.Elements.ArrowRight.Position.CoalGen.Y,
-            menu.getScaledProgressArrow(),
-            ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
-        )
-    }
+    override val arrowX = ScreenTextures.Elements.ArrowRight.Position.CoalGen.X
+    override val arrowY = ScreenTextures.Elements.ArrowRight.Position.CoalGen.Y
+    override fun shouldRenderProgressArrow(): Boolean = menu.isBurning
+    override fun progressArrowX(): Int = menu.getScaledProgressArrow()
+    override fun progressArrowY() = ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
 
     private fun renderBurnProgress(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
         if (!menu.isBurning) return

@@ -32,6 +32,7 @@ abstract class MachineScreen<T : MachineMenu>(
             backgroundSize
         )
 
+        renderProgressArrow(pGuiGraphics, leftPos, topPos)
         renderEnergyInfo(pGuiGraphics, leftPos, topPos)
     }
 
@@ -83,6 +84,31 @@ abstract class MachineScreen<T : MachineMenu>(
                 .toFlatList(),
             pMouseX,
             pMouseY
+        )
+    }
+
+    // Progress arrow
+    protected open val arrowTexture: ResourceLocation = ScreenTextures.Elements.ArrowRight.TEXTURE
+    protected open val arrowTextureSize: Int = ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
+    protected abstract val arrowX: Int
+    protected abstract val arrowY: Int
+    protected abstract fun shouldRenderProgressArrow(): Boolean
+    protected abstract fun progressArrowX(): Int
+    protected abstract fun progressArrowY(): Int
+
+    protected open fun renderProgressArrow(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
+        if (!shouldRenderProgressArrow()) return
+
+        pGuiGraphics.blitSprite(
+            arrowTexture,
+            arrowTextureSize,
+            arrowTextureSize,
+            0,
+            0,
+            x + arrowX,
+            y + arrowY,
+            progressArrowX(),
+            progressArrowY()
         )
     }
 
