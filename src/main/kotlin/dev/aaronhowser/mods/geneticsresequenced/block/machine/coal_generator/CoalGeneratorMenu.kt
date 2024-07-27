@@ -80,7 +80,7 @@ class CoalGeneratorMenu(
         return if (maxBurnTime == 0) {
             0
         } else {
-            ScreenTextures.Elements.Burn.Dimensions.HEIGHT - (fuelHeight.toDouble() * getPercentDone()).toInt()
+            fuelHeight - (fuelHeight.toDouble() * getPercentDone()).toInt()
         }
     }
 

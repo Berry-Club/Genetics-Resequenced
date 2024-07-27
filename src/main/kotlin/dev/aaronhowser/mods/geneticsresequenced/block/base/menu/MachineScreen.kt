@@ -35,7 +35,7 @@ abstract class MachineScreen<T : MachineMenu>(
         )
 
         renderProgressArrow(pGuiGraphics, leftPos, topPos)
-        renderEnergyInfo(pGuiGraphics, leftPos, topPos)
+        renderEnergy(pGuiGraphics, leftPos, topPos)
     }
 
     override fun renderTooltip(guiGraphics: GuiGraphics, x: Int, y: Int) {
@@ -48,21 +48,23 @@ abstract class MachineScreen<T : MachineMenu>(
 
     protected open val energyPosLeft: Int = ScreenTextures.Elements.Energy.Location.Default.X
     protected open val energyPosTop: Int = ScreenTextures.Elements.Energy.Location.Default.Y
-    protected open fun renderEnergyInfo(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
+    protected open fun renderEnergy(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
         val energyStorage = menu.blockEntity.energyStorage
-        val percent = energyStorage.energyStored.toFloat() / energyStorage.maxEnergyStored.toFloat()
+        val percentFull = energyStorage.energyStored.toFloat() / energyStorage.maxEnergyStored.toFloat()
+
+        val energyTotalHeight = ScreenTextures.Elements.Energy.Dimensions.HEIGHT
+        val energyCurrentHeight = (energyTotalHeight.toDouble() * percentFull).toInt()
 
         pGuiGraphics.blitSprite(
             ScreenTextures.Elements.Energy.TEXTURE,
             ScreenTextures.Elements.Energy.TEXTURE_SIZE,
             ScreenTextures.Elements.Energy.TEXTURE_SIZE,
             0,
-            0,
+            energyTotalHeight - energyCurrentHeight,
             x + energyPosLeft,
-            y + energyPosTop,
-            0,
+            y + energyPosTop + energyTotalHeight - energyCurrentHeight,
             ScreenTextures.Elements.Energy.TEXTURE_SIZE,
-            (ScreenTextures.Elements.Energy.TEXTURE_SIZE * percent).toInt()
+            energyCurrentHeight
         )
     }
 

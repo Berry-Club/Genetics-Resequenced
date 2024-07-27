@@ -96,6 +96,7 @@
 ### 1.1.8
 
 - Fixed crash from trying to scrape invalid entities
+- Fixed the FE bar filling from top to bottom, rather than bottom to top
 - Fixed the Coal Generator's burn progress rendering incorrectly
 - Fixed the progress arrows in the Incubator and Advanced Incubator rendering incorrectly
 - All machine Screen classes now extend the abstract class MachineScreen, vastly reducing code duplication
