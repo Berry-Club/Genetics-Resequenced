@@ -40,9 +40,9 @@ class CoalGeneratorScreen(
             ScreenTextures.Elements.Burn.TEXTURE_SIZE,
             ScreenTextures.Elements.Burn.TEXTURE_SIZE,
             0,
-            14 - fuelRemaining,
+            ScreenTextures.Elements.Burn.Dimensions.HEIGHT - fuelRemaining,
             x + ScreenTextures.Elements.Burn.Position.X,
-            y + ScreenTextures.Elements.Burn.Position.Y + ScreenTextures.Elements.Burn.HEIGHT - fuelRemaining,
+            y + ScreenTextures.Elements.Burn.Position.Y + ScreenTextures.Elements.Burn.Dimensions.HEIGHT - fuelRemaining,
             ScreenTextures.Elements.Burn.TEXTURE_SIZE,
             fuelRemaining
         )
