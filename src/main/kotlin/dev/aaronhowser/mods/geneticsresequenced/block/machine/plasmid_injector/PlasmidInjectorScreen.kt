@@ -102,8 +102,8 @@ class PlasmidInjectorScreen(
             ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE,
             0,
             0,
-            x + ScreenTextures.Elements.ArrowRight.Position.Blood.X,
-            y + ScreenTextures.Elements.ArrowRight.Position.Blood.Y,
+            x + ScreenTextures.Elements.ArrowRight.Position.Default.X,
+            y + ScreenTextures.Elements.ArrowRight.Position.Default.Y,
             menu.getScaledProgress(),
             ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
         )

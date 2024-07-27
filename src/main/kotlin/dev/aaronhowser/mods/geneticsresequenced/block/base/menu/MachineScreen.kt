@@ -44,8 +44,8 @@ abstract class MachineScreen<T : MachineMenu>(
 
     // Energy Area
 
-    protected abstract val energyX: Int
-    protected abstract val energyY: Int
+    protected open val energyX: Int = ScreenTextures.Elements.Energy.Location.Default.X
+    protected open val energyY: Int = ScreenTextures.Elements.Energy.Location.Default.Y
     protected open fun renderEnergyInfo(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
         val energyStorage = menu.blockEntity.energyStorage
         val percent = energyStorage.energyStored.toFloat() / energyStorage.maxEnergyStored.toFloat()
@@ -90,11 +90,11 @@ abstract class MachineScreen<T : MachineMenu>(
     // Progress arrow
     protected open val arrowTexture: ResourceLocation = ScreenTextures.Elements.ArrowRight.TEXTURE
     protected open val arrowTextureSize: Int = ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
-    protected abstract val arrowX: Int
-    protected abstract val arrowY: Int
+    protected open val arrowX: Int = ScreenTextures.Elements.ArrowRight.Position.Default.X
+    protected open val arrowY: Int = ScreenTextures.Elements.ArrowRight.Position.Default.Y
     protected abstract fun shouldRenderProgressArrow(): Boolean
-    protected abstract fun progressArrowX(): Int
-    protected abstract fun progressArrowY(): Int
+    protected abstract fun progressArrowWidth(): Int
+    protected abstract fun progressArrowHeight(): Int
 
     protected open fun renderProgressArrow(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
         if (!shouldRenderProgressArrow()) return
@@ -107,8 +107,8 @@ abstract class MachineScreen<T : MachineMenu>(
             0,
             x + arrowX,
             y + arrowY,
-            progressArrowX(),
-            progressArrowY()
+            progressArrowWidth(),
+            progressArrowHeight()
         )
     }
 

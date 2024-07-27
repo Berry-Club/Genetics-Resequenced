@@ -49,7 +49,7 @@ object ScreenTextures {
                     const val Y = 35
                 }
 
-                object Blood {
+                object Default {
                     const val X = 83
                     const val Y = 37
                 }

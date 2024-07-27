@@ -13,12 +13,7 @@ class CellAnalyzerScreen(
 ) : MachineScreen<CellAnalyzerMenu>(pMenu, pPlayerInventory, pTitle) {
     override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.CELL_ANALYZER
 
-    override val energyX: Int = ScreenTextures.Elements.Energy.Location.Default.X
-    override val energyY: Int = ScreenTextures.Elements.Energy.Location.Default.Y
-
-    override val arrowX: Int = ScreenTextures.Elements.ArrowRight.Position.Blood.X
-    override val arrowY: Int = ScreenTextures.Elements.ArrowRight.Position.Blood.Y
     override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
-    override fun progressArrowX(): Int = menu.getScaledProgress()
-    override fun progressArrowY(): Int = ScreenTextures.Elements.ArrowRight.Dimensions.HEIGHT
+    override fun progressArrowWidth(): Int = menu.getScaledProgress()
+    override fun progressArrowHeight(): Int = ScreenTextures.Elements.ArrowRight.Dimensions.HEIGHT
 }

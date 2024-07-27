@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.PlasmidInfuserMenu
 import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
 import net.minecraft.client.Minecraft
 import net.minecraft.client.gui.GuiGraphics
@@ -103,8 +102,8 @@ class PlasmidInfuserScreen(
             ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE,
             0,
             0,
-            x + ScreenTextures.Elements.ArrowRight.Position.Blood.X,
-            y + ScreenTextures.Elements.ArrowRight.Position.Blood.Y,
+            x + ScreenTextures.Elements.ArrowRight.Position.Default.X,
+            y + ScreenTextures.Elements.ArrowRight.Position.Default.Y,
             menu.getScaledProgress(),
             ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
         )
