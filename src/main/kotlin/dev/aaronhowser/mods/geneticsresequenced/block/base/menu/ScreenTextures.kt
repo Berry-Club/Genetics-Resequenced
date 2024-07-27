@@ -75,6 +75,7 @@ object ScreenTextures {
         object Burn {
             val TEXTURE = OtherUtil.modResource("burn")
             const val TEXTURE_SIZE = 16
+            const val HEIGHT = 14
 
             object Position {
                 const val X = 52
