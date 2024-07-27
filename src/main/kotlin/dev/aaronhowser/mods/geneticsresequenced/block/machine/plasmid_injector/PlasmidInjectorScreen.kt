@@ -15,5 +15,5 @@ class PlasmidInjectorScreen(
 
     override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
     override fun progressArrowWidth(): Int = menu.getScaledProgress()
-    override fun progressArrowHeight(): Int = ScreenTextures.Elements.ArrowRight.Position.Default.Y
+    override fun progressArrowHeight(): Int = ScreenTextures.Elements.ArrowRight.Dimensions.HEIGHT
 }
