@@ -84,7 +84,8 @@
 ### 1.1.6
 
 - Update to NeoForge 21.0.113-beta
-- Improvements to Infinity Gene. Turns out most of the code wasn't actually reachable, and also was pointless besides. Much simpler now. Also, fixed picking up fired arrows (#13)
+- Improvements to Infinity Gene. Turns out most of the code wasn't actually reachable, and also was pointless besides.
+  Much simpler now. Also, fixed picking up fired arrows (#13)
 - Added support for NeoForge mod config menu
 - Rearranged configs
 
@@ -96,4 +97,4 @@
 
 - Fixed crash from trying to scrape invalid entities
 - Fixed the Coal Generator, so FE goes up instead of down
-- All machine Screen classes now extend the abstract class MachineScreen
+- All machine Screen classes now extend the abstract class MachineScreen, vastly reducing code duplication
