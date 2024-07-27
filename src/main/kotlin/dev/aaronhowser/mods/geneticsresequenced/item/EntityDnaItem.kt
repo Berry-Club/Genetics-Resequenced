@@ -23,15 +23,13 @@ open class EntityDnaItem : Item(Properties()) {
 
     companion object {
 
-        fun setEntityType(itemStack: ItemStack, entityType: EntityType<*>) {
-            if (entityType !in validEntityTypes) throw IllegalArgumentException("Invalid EntityType: $entityType")
+        fun setEntityType(itemStack: ItemStack, entityType: EntityType<*>): Boolean {
+            if (entityType !in validEntityTypes) {
+                return false
+            }
 
             itemStack.set(EntityTypeItemComponent.component, EntityTypeItemComponent(entityType))
-        }
-
-        fun ItemStack.setEntityType(entityType: EntityType<*>): ItemStack {
-            setEntityType(this, entityType)
-            return this
+            return true
         }
 
         fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(EntityTypeItemComponent.component)
@@ -63,7 +61,18 @@ open class EntityDnaItem : Item(Properties()) {
 
         if (!pPlayer.isCreative) return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand)
 
-        val newStack = pStack.copy().setEntityType(pInteractionTarget.type)
+        val newStack = pStack.copy()
+        val setWorked = setEntityType(newStack, pInteractionTarget.type)
+
+        if (!setWorked) {
+            pPlayer.displayClientMessage(
+                ModLanguageProvider.Messages.CANT_SET_ENTITY.toComponent(),
+                true
+            )
+
+            return InteractionResult.PASS
+        }
+
         pPlayer.setItemInHand(pUsedHand, newStack)
 
         return InteractionResult.SUCCESS

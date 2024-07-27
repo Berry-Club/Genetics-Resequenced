@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.cell_analyzer
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -65,7 +66,12 @@ class CellAnalyzerBlockEntity(
         val inputItem = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
         val inputEntity = EntityDnaItem.getEntityType(inputItem) ?: return
 
-        val outputItem = ItemStack(ModItems.CELL.get()).setEntityType(inputEntity)
+        val outputItem = ItemStack(ModItems.CELL.get())
+        val setWorked = setEntityType(outputItem, inputEntity)
+        if (!setWorked) {
+            GeneticsResequenced.LOGGER.error("A Cell Analyzer tried to set an invalid entity type at ${blockPos.x}, ${blockPos.y}, ${blockPos.z}: ${inputEntity.descriptionId}")
+            return
+        }
 
         val amountAlreadyInOutput = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX).count
         outputItem.count = amountAlreadyInOutput + 1
@@ -86,7 +92,9 @@ class CellAnalyzerBlockEntity(
 
         val mobType = EntityDnaItem.getEntityType(inputItemStack) ?: return false
 
-        val outputItem = ItemStack(ModItems.CELL.get()).setEntityType(mobType) ?: return false
+        val outputItem = ItemStack(ModItems.CELL.get())
+        val setWorked = setEntityType(outputItem, mobType)
+        if (!setWorked) return false
 
         return outputSlotHasRoom(inventory, outputItem)
     }

@@ -79,6 +79,7 @@ class ModLanguageProvider(
 
     object Messages {
         const val SCRAPER_CANT_SCRAPE = "message.geneticsresequenced.scraper.cant_scrape"
+        const val CANT_SET_ENTITY = "message.geneticsresequenced.cant_set_entity"
         const val DEATH_GENE_REMOVAL = "message.geneticsresequenced.death_gene_removal"
         const val DEATH_NEGATIVE_GENE_REMOVAL = "message.geneticsresequenced.death_negative_gene_removal"
         const val RECENT_WOOLY = "message.geneticsresequenced.wooly.recent"
@@ -585,6 +586,7 @@ class ModLanguageProvider(
         add(Items.TIPPED_ARROW_ZOMBIFY_VILLAGER, "Arrow of Zombify Villager")
 
         add(Messages.SCRAPER_CANT_SCRAPE, "This mob cannot be scraped.")
+        add(Messages.CANT_SET_ENTITY, "Cannot set to this entity.")
         add(Messages.DEATH_GENE_REMOVAL, "Death has reset your Genes!")
         add(Messages.DEATH_NEGATIVE_GENE_REMOVAL, "Death has remove your negative Genes!")
         add(Messages.RECENT_WOOLY, "This entity has already been sheared recently!")

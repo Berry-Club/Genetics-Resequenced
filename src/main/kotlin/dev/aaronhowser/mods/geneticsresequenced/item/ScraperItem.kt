@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.InteractionResultHolder
@@ -29,16 +30,23 @@ class ScraperItem : Item(
     companion object {
 
         private fun scrapeEntity(
-            player: Player,
+            player: ServerPlayer,
             stack: ItemStack,
-            hand: InteractionHand,
             target: LivingEntity
         ): Boolean {
 
             if (player.cooldowns.isOnCooldown(ModItems.SCRAPER.get())) return false
             if (target.hurtTime > 0) return false
 
-            val organicStack = ModItems.ORGANIC_MATTER.toStack().setEntityType(target.type)
+            val organicStack = ModItems.ORGANIC_MATTER.toStack()
+            val setWorked = setEntityType(organicStack, target.type)
+
+            if (!setWorked) {
+                player.sendSystemMessage(
+                    ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent()
+                )
+                return false
+            }
 
             if (!player.inventory.add(organicStack)) {
                 player.drop(organicStack, false)
@@ -78,8 +86,9 @@ class ScraperItem : Item(
     ): InteractionResultHolder<ItemStack> {
         val realStack = pPlayer.getItemInHand(pInteractionHand)
         if (!pPlayer.isCrouching || pPlayer is FakePlayer) return InteractionResultHolder.pass(realStack)
+        if (pPlayer !is ServerPlayer) return InteractionResultHolder.pass(realStack)
 
-        val scrapeWorked = scrapeEntity(pPlayer, realStack, pInteractionHand, pPlayer)
+        val scrapeWorked = scrapeEntity(pPlayer, realStack, pPlayer)
 
         return if (scrapeWorked) {
             InteractionResultHolder.success(realStack)
@@ -95,20 +104,20 @@ class ScraperItem : Item(
         pUsedHand: InteractionHand
     ): InteractionResult {
 
-        if (pInteractionTarget.type.`is`(ModTags.SCRAPER_ENTITY_BLACKLIST)) {
-            if (!pPlayer.level().isClientSide) {
-                pPlayer.sendSystemMessage(
-                    ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent()
-                )
-            }
+        if (pPlayer !is ServerPlayer) return InteractionResult.PASS
 
-            return InteractionResult.FAIL
+        if (pInteractionTarget.type.`is`(ModTags.SCRAPER_ENTITY_BLACKLIST)) {
+            pPlayer.sendSystemMessage(
+                ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent()
+            )
+
+            return InteractionResult.CONSUME
         }
 
-        return if (scrapeEntity(pPlayer, pStack, pUsedHand, pInteractionTarget)) {
+        return if (scrapeEntity(pPlayer, pStack, pInteractionTarget)) {
             InteractionResult.SUCCESS
         } else {
-            InteractionResult.PASS
+            InteractionResult.CONSUME
         }
 
     }

@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -95,7 +96,15 @@ class DnaExtractorBlockEntity(
     private fun getOutputFromInput(input: ItemStack): ItemStack? {
         if (input.item == ModItems.CELL.get()) {
             val mobType = EntityDnaItem.getEntityType(input) ?: return null
-            return ModItems.DNA_HELIX.toStack().setEntityType(mobType)
+            val dnaStack = ModItems.DNA_HELIX.toStack()
+
+            val setWorked = setEntityType(dnaStack, mobType)
+            if (!setWorked) {
+                GeneticsResequenced.LOGGER.error("A DNA Extractor tried to set an invalid entity type at ${blockPos.x}, ${blockPos.y}, ${blockPos.z}: ${mobType.descriptionId}")
+                return null
+            }
+
+            return dnaStack
         }
 
         if (input.item == ModItems.GMO_CELL.get()) {
