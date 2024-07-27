@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base.menu
 
 import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
-import net.minecraft.client.Minecraft
+import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.network.chat.Component
@@ -13,6 +13,8 @@ abstract class MachineScreen<T : MachineMenu>(
     pPlayerInventory: Inventory,
     pTitle: Component
 ) : AbstractContainerScreen<T>(pMenu, pPlayerInventory, pTitle) {
+
+    protected val font: Font by lazy { super.font }
 
     protected abstract val backgroundTexture: ResourceLocation
     protected open val backgroundSize: Int = ScreenTextures.Backgrounds.TEXTURE_SIZE
@@ -78,7 +80,7 @@ abstract class MachineScreen<T : MachineMenu>(
         val energyStorage = menu.blockEntity.energyStorage
 
         pGuiGraphics.renderComponentTooltip(
-            Minecraft.getInstance().font,
+            font,
             Component
                 .literal(energyStorage.energyStored.toString() + "/" + energyStorage.maxEnergyStored + " FE")
                 .toFlatList(),

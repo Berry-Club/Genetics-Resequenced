@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advance
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -27,6 +29,12 @@ class AdvancedIncubatorScreen(
         renderBubble(pGuiGraphics, leftPos, topPos)
     }
 
+    override fun renderTooltip(guiGraphics: GuiGraphics, x: Int, y: Int) {
+        super.renderTooltip(guiGraphics, x, y)
+
+        showTemperatureTooltip(guiGraphics, x, y)
+    }
+
     override fun mouseClicked(pMouseX: Double, pMouseY: Double, pButton: Int): Boolean {
         if (isMouseOverTemperature(pMouseX.toInt(), pMouseY.toInt(), leftPos, topPos)) {
             this.minecraft?.gameMode?.handleInventoryButtonClick(this.menu.containerId, 1)
@@ -46,6 +54,21 @@ class AdvancedIncubatorScreen(
             ScreenTextures.Elements.Heat.Position.Y,
             ScreenTextures.Elements.Heat.Dimensions.WIDTH,
             ScreenTextures.Elements.Heat.Dimensions.HEIGHT
+        )
+    }
+
+    private fun showTemperatureTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
+        if (!isMouseOverTemperature(pMouseX, pMouseY, leftPos, topPos)) return
+
+        pGuiGraphics.renderComponentTooltip(
+            font,
+            listOf(
+                if (menu.isHighTemperature)
+                    ModLanguageProvider.Tooltips.INCUBATOR_SET_LOW.toComponent()
+                else
+                    ModLanguageProvider.Tooltips.INCUBATOR_SET_HIGH.toComponent()
+            ),
+            pMouseX, pMouseY
         )
     }
 
