@@ -99,3 +99,4 @@
 - Fixed the Coal Generator's burn progress rendering incorrectly
 - Fixed the progress arrows in the Incubator and Advanced Incubator rendering incorrectly
 - All machine Screen classes now extend the abstract class MachineScreen, vastly reducing code duplication
+- Cells are no longer separated as far as EMI goes, so looking at any Cell will show all Cells
