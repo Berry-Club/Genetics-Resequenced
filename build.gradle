@@ -141,6 +141,9 @@ dependencies {
 
     // JEI
     compileOnly "curse.maven:jei-238222:5532144"
+
+    // Mekanism
+    implementation "curse.maven:mekanism-268560:5552293"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
