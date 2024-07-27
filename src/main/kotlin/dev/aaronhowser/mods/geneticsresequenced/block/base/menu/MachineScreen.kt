@@ -44,8 +44,8 @@ abstract class MachineScreen<T : MachineMenu>(
 
     // Energy Area
 
-    protected open val energyX: Int = ScreenTextures.Elements.Energy.Location.Default.X
-    protected open val energyY: Int = ScreenTextures.Elements.Energy.Location.Default.Y
+    protected open val energyPosLeft: Int = ScreenTextures.Elements.Energy.Location.Default.X
+    protected open val energyPosTop: Int = ScreenTextures.Elements.Energy.Location.Default.Y
     protected open fun renderEnergyInfo(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
         val energyStorage = menu.blockEntity.energyStorage
         val percent = energyStorage.energyStored.toFloat() / energyStorage.maxEnergyStored.toFloat()
@@ -56,8 +56,8 @@ abstract class MachineScreen<T : MachineMenu>(
             ScreenTextures.Elements.Energy.TEXTURE_SIZE,
             0,
             0,
-            x + energyX,
-            y + energyY,
+            x + energyPosLeft,
+            y + energyPosTop,
             0,
             ScreenTextures.Elements.Energy.TEXTURE_SIZE,
             (ScreenTextures.Elements.Energy.TEXTURE_SIZE * percent).toInt()
@@ -68,8 +68,8 @@ abstract class MachineScreen<T : MachineMenu>(
         if (!isMouseOver(
                 pMouseX, pMouseY,
                 x, y,
-                energyX,
-                energyY,
+                energyPosLeft,
+                energyPosTop,
                 ScreenTextures.Elements.Energy.Dimensions.WIDTH,
                 ScreenTextures.Elements.Energy.Dimensions.HEIGHT
             )
@@ -90,8 +90,8 @@ abstract class MachineScreen<T : MachineMenu>(
     // Progress arrow
     protected open val arrowTexture: ResourceLocation = ScreenTextures.Elements.ArrowRight.TEXTURE
     protected open val arrowTextureSize: Int = ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
-    protected open val arrowX: Int = ScreenTextures.Elements.ArrowRight.Position.Default.X
-    protected open val arrowY: Int = ScreenTextures.Elements.ArrowRight.Position.Default.Y
+    protected open val arrowPosLeft: Int = ScreenTextures.Elements.ArrowRight.Position.Default.X
+    protected open val arrowPosTop: Int = ScreenTextures.Elements.ArrowRight.Position.Default.Y
     protected abstract fun shouldRenderProgressArrow(): Boolean
     protected abstract fun progressArrowWidth(): Int
     protected abstract fun progressArrowHeight(): Int
@@ -105,8 +105,8 @@ abstract class MachineScreen<T : MachineMenu>(
             arrowTextureSize,
             0,
             0,
-            x + arrowX,
-            y + arrowY,
+            x + arrowPosLeft,
+            y + arrowPosTop,
             progressArrowWidth(),
             progressArrowHeight()
         )

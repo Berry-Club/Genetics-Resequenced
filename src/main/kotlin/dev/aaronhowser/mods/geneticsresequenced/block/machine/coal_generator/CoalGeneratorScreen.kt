@@ -21,11 +21,11 @@ class CoalGeneratorScreen(
         renderBurnProgress(pGuiGraphics, leftPos, topPos)
     }
 
-    override val energyX: Int = ScreenTextures.Elements.Energy.Location.CoalGen.X
-    override val energyY: Int = ScreenTextures.Elements.Energy.Location.CoalGen.Y
+    override val energyPosLeft: Int = ScreenTextures.Elements.Energy.Location.CoalGen.X
+    override val energyPosTop: Int = ScreenTextures.Elements.Energy.Location.CoalGen.Y
 
-    override val arrowX = ScreenTextures.Elements.ArrowRight.Position.CoalGen.X
-    override val arrowY = ScreenTextures.Elements.ArrowRight.Position.CoalGen.Y
+    override val arrowPosLeft = ScreenTextures.Elements.ArrowRight.Position.CoalGen.X
+    override val arrowPosTop = ScreenTextures.Elements.ArrowRight.Position.CoalGen.Y
     override fun shouldRenderProgressArrow(): Boolean = menu.isBurning
     override fun progressArrowWidth() = menu.getScaledProgressArrow()
     override fun progressArrowHeight() = ScreenTextures.Elements.ArrowRight.Dimensions.HEIGHT
