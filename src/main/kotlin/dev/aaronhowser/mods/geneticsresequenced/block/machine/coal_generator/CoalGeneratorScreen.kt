@@ -14,7 +14,6 @@ class CoalGeneratorScreen(
 ) : MachineScreen<CoalGeneratorMenu>(pMenu, pPlayerInventory, pTitle) {
 
     override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.COAL_GENERATOR
-    override val backgroundSize: Int = ScreenTextures.Backgrounds.TEXTURE_SIZE
 
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
         super.renderBg(pGuiGraphics, pPartialTick, pMouseX, pMouseY)
@@ -28,8 +27,8 @@ class CoalGeneratorScreen(
     override val arrowX = ScreenTextures.Elements.ArrowRight.Position.CoalGen.X
     override val arrowY = ScreenTextures.Elements.ArrowRight.Position.CoalGen.Y
     override fun shouldRenderProgressArrow(): Boolean = menu.isBurning
-    override fun progressArrowX(): Int = menu.getScaledProgressArrow()
-    override fun progressArrowY() = ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
+    override fun progressArrowX() = menu.getScaledProgressArrow()
+    override fun progressArrowY() = ScreenTextures.Elements.ArrowRight.Dimensions.HEIGHT
 
     private fun renderBurnProgress(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
         if (!menu.isBurning) return

@@ -15,7 +15,7 @@ abstract class MachineScreen<T : MachineMenu>(
 ) : AbstractContainerScreen<T>(pMenu, pPlayerInventory, pTitle) {
 
     protected abstract val backgroundTexture: ResourceLocation
-    protected abstract val backgroundSize: Int
+    protected open val backgroundSize: Int = ScreenTextures.Backgrounds.TEXTURE_SIZE
 
     override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         super.render(guiGraphics, mouseX, mouseY, partialTick)
