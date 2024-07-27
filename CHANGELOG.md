@@ -95,3 +95,4 @@
 ### 1.1.8
 
 - Fixed crash from trying to scrape invalid entities
+- Fixed the Coal Generator, so FE goes up instead of down
