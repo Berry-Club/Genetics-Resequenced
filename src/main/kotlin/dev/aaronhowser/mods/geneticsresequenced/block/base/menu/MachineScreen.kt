@@ -17,8 +17,10 @@ abstract class MachineScreen<T : MachineMenu>(
     protected abstract val backgroundTexture: ResourceLocation
     protected abstract val backgroundSize: Int
 
-    override fun renderBackground(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
-        super.renderBackground(guiGraphics, mouseX, mouseY, partialTick)
+    override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+        super.render(guiGraphics, mouseX, mouseY, partialTick)
+
+        renderTooltip(guiGraphics, mouseX, mouseY)
     }
 
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
@@ -33,9 +35,10 @@ abstract class MachineScreen<T : MachineMenu>(
         renderEnergyInfo(pGuiGraphics, leftPos, topPos)
     }
 
-    override fun renderLabels(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int) {
-        renderEnergyAreaTooltip(guiGraphics, leftPos, topPos, mouseX, mouseY)
-        super.renderLabels(guiGraphics, mouseX, mouseY)
+    override fun renderTooltip(guiGraphics: GuiGraphics, x: Int, y: Int) {
+        renderEnergyAreaTooltip(guiGraphics, leftPos, topPos, x, y)
+
+        super.renderTooltip(guiGraphics, x, y)
     }
 
     // Energy Area
@@ -78,8 +81,8 @@ abstract class MachineScreen<T : MachineMenu>(
             Component
                 .literal(energyStorage.energyStored.toString() + "/" + energyStorage.maxEnergyStored + " FE")
                 .toFlatList(),
-            pMouseX - x,
-            pMouseY - y
+            pMouseX,
+            pMouseY
         )
     }
 
