@@ -585,7 +585,7 @@ class ModLanguageProvider(
         add(Items.TIPPED_ARROW_PANACEA, "Arrow of Panacea")
         add(Items.TIPPED_ARROW_ZOMBIFY_VILLAGER, "Arrow of Zombify Villager")
 
-        add(Messages.SCRAPER_CANT_SCRAPE, "This mob cannot be scraped.")
+        add(Messages.SCRAPER_CANT_SCRAPE, "%s cannot be scraped.")
         add(Messages.CANT_SET_ENTITY, "Cannot set to this entity.")
         add(Messages.DEATH_GENE_REMOVAL, "Death has reset your Genes!")
         add(Messages.DEATH_NEGATIVE_GENE_REMOVAL, "Death has remove your negative Genes!")

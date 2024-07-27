@@ -42,8 +42,9 @@ class ScraperItem : Item(
             val setWorked = setEntityType(organicStack, target.type)
 
             if (!setWorked) {
-                player.sendSystemMessage(
-                    ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent()
+                player.displayClientMessage(
+                    ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent(target.type.description),
+                    true
                 )
                 return false
             }

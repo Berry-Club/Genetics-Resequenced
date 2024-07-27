@@ -377,7 +377,7 @@
   "message.geneticsresequenced.metal_syringe.no_mobs": "Mobs cannot have the %1$s Gene!",
   "message.geneticsresequenced.milk.milked": "You have been milked!",
   "message.geneticsresequenced.milk.recent": "This entity has already been milked recently!",
-  "message.geneticsresequenced.scraper.cant_scrape": "This mob cannot be scraped.",
+  "message.geneticsresequenced.scraper.cant_scrape": "%s cannot be scraped.",
   "message.geneticsresequenced.slimy_spam": "%s's Slime %d",
   "message.geneticsresequenced.support_slime_creative": "Support Slimes despawn with no owner! Give yourself the %1$s Gene to stop them from despawning!",
   "message.geneticsresequenced.support_slime_peaceful": "Support slimes are technically Slimes, which means they can't exist in Peaceful mode!",
