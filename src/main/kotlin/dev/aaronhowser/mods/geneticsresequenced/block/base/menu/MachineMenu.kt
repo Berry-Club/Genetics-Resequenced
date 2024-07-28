@@ -20,7 +20,7 @@ abstract class MachineMenu(
     protected val level: Level = inventory.player.level()
 
     protected open val topLeftInventoryX = 8
-    protected open val topLeftInventoryY = 84
+    protected open val topLeftInventoryY = 90
 
     // Adds the 27 slots of the player inventory
     protected open fun addPlayerInventory(playerInventory: Inventory) {

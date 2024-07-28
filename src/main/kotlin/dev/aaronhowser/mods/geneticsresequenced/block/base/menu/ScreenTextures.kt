@@ -100,17 +100,17 @@ object ScreenTextures {
             object Location {
                 object Default {
                     const val X = 7
-                    const val Y = 8
+                    const val Y = 14
                 }
 
                 object CoalGen {
                     const val X = 104
-                    const val Y = 12
+                    const val Y = 18
                 }
 
                 object Incubator {
                     const val X = 20
-                    const val Y = 12
+                    const val Y = 18
                 }
             }
         }
