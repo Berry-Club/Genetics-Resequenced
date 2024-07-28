@@ -30,7 +30,7 @@ object ScreenTextures {
 
             object Position {
                 const val X = 101
-                const val Y = 14
+                const val Y = 20
             }
         }
 
@@ -46,12 +46,12 @@ object ScreenTextures {
             object Position {
                 object CoalGen {
                     const val X = 75
-                    const val Y = 35
+                    const val Y = 41
                 }
 
                 object Default {
                     const val X = 83
-                    const val Y = 37
+                    const val Y = 43
                 }
             }
 
@@ -63,7 +63,7 @@ object ScreenTextures {
 
             object Position {
                 const val X = 67
-                const val Y = 12
+                const val Y = 18
             }
 
             object Dimensions {
@@ -78,7 +78,7 @@ object ScreenTextures {
 
             object Position {
                 const val X = 52
-                const val Y = 53
+                const val Y = 59
             }
 
             object Dimensions {
@@ -130,7 +130,7 @@ object ScreenTextures {
 
             object Position {
                 const val X = 64
-                const val Y = 42
+                const val Y = 48
             }
         }
 
