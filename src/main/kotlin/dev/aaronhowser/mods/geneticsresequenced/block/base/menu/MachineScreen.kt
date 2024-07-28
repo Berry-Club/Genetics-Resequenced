@@ -16,6 +16,10 @@ abstract class MachineScreen<T : MachineMenu>(
 
     protected val font: Font by lazy { super.font }
 
+    init {
+        inventoryLabelY += 6
+    }
+
     protected abstract val backgroundTexture: ResourceLocation
     protected open val backgroundSize: Int = ScreenTextures.Backgrounds.TEXTURE_SIZE
 
