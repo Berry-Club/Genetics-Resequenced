@@ -48,7 +48,7 @@ class CoalGeneratorMenu(
 
         val itemHandler = this.blockEntity.getItemHandler(null)
 
-        this.addSlot(SlotItemHandler(itemHandler, CoalGeneratorBlockEntity.INPUT_SLOT, 52, 34))
+        this.addSlot(SlotItemHandler(itemHandler, CoalGeneratorBlockEntity.INPUT_SLOT, 52, 40))
 
         addDataSlots(containerData)
     }
