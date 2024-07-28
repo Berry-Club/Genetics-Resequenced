@@ -95,7 +95,7 @@
 
 ### 1.1.8
 
-- Update to Neoforge 21.0.139-beta
+- Update to NeoForge 21.0.139-beta
 - Fixed crash from trying to scrape invalid entities
 - Fixed the FE bar filling from top to bottom, rather than bottom to top
 - Fixed the Coal Generator's burn progress rendering incorrectly
