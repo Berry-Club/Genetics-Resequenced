@@ -20,7 +20,7 @@ class AdvancedIncubatorScreen(
         private const val SLOW_BUBBLE_SPEED = 12 * 3
     }
 
-    override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.INCUBATOR
+    override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.INCUBATOR_ADVANCED
 
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
         super.renderBg(pGuiGraphics, pPartialTick, pMouseX, pMouseY)
