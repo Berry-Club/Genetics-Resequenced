@@ -95,7 +95,7 @@
 
 ### 1.1.8
 
-- Update to NeoForge 21.0.139-beta
+- Update to NeoForge 21.0.140-beta
 - Fixed crash from trying to scrape invalid entities
 - Made every machine GUI 6 pixels taller, with all elements being 6 pixels lower, to prevent the machine name clipping through the energy bar
 - Fixed the FE bar filling from top to bottom, rather than bottom to top
