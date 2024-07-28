@@ -97,9 +97,10 @@
 
 - Update to NeoForge 21.0.139-beta
 - Fixed crash from trying to scrape invalid entities
-- Made every machine GUI 6 pixels taller, with all elements being 6 pixels lower, to prevent the machine name clipping through the energy bar 
+- Made every machine GUI 6 pixels taller, with all elements being 6 pixels lower, to prevent the machine name clipping through the energy bar
 - Fixed the FE bar filling from top to bottom, rather than bottom to top
 - Fixed the Coal Generator's burn progress rendering incorrectly
 - Fixed the progress arrows in the Incubator and Advanced Incubator rendering incorrectly
 - All machine Screen classes now extend the abstract class MachineScreen, vastly reducing code duplication
 - Cells are no longer separated as far as EMI goes, so looking at any Cell will show all Cells
+- Mob Spawn Eggs now have the EMI info recipes for what genes they have

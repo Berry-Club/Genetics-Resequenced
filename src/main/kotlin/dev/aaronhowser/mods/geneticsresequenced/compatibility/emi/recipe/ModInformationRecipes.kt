@@ -15,6 +15,7 @@ import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.item.SpawnEggItem
 import net.minecraft.world.item.crafting.Ingredient
 
 object ModInformationRecipes {
@@ -141,14 +142,17 @@ object ModInformationRecipes {
             val helixStack = ModItems.DNA_HELIX.toStack()
             EntityDnaItem.setEntityType(helixStack, entityType)
 
+            val mobSpawnEgg = SpawnEggItem.byId(entityType)
+
+            val list = mutableListOf(helixStack)
+            if (mobSpawnEgg != null) {
+                list.add(mobSpawnEgg.defaultInstance)
+            }
+
             val entityString = EntityType.getKey(entityType).toString().replace(':', '/')
 
             val recipe = EmiInfoRecipe(
-                listOf(
-                    EmiIngredient.of(
-                        Ingredient.of(helixStack)
-                    )
-                ),
+                list.map { EmiIngredient.of(Ingredient.of(it)) },
                 listOf(informationTextComponent),
                 OtherUtil.modResource("/info/mob_genes/$entityString")
             )
