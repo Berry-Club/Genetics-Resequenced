@@ -1,5 +1,5 @@
 {
-  "entity": "minecraft:slime",
+  "entity": "geneticsresequenced:support_slime",
   "genes": {
     "geneticsresequenced:slimy_death": 1
   }

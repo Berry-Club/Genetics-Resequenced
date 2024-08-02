@@ -104,3 +104,8 @@
 - All machine Screen classes now extend the abstract class MachineScreen, vastly reducing code duplication
 - Cells are no longer separated as far as EMI goes, so looking at any Cell will show all Cells
 - Mob Spawn Eggs now have the EMI info recipes for what genes they have
+
+
+### 1.1.9
+
+- Support Slimes now have a 100% chance to give the Slimy Death Gene. The file previously pointed at the entity `minecraft:slime` rather than `geneticsresequenced:support_slime`
