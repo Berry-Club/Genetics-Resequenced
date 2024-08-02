@@ -202,8 +202,6 @@ class AdvancedIncubatorBlockEntity(
         }
     }
 
-    private val gmoRecipes
-        get() = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
 
     override fun craftItem() {
         val topStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
@@ -213,6 +211,8 @@ class AdvancedIncubatorBlockEntity(
             MIDDLE_BOTTLE_SLOT_INDEX,
             RIGHT_BOTTLE_SLOT_INDEX
         )
+
+        val gmoRecipes = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
 
         for (slotIndex in bottleSlots) {
             val bottleStack = itemHandler.getStackInSlot(slotIndex)
