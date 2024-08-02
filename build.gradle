@@ -33,7 +33,7 @@ neoForge {
     }
 
     // This line is optional. Access Transformers are automatically detected
-     accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
+    accessTransformers = project.files('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
         configureEach {
@@ -129,6 +129,15 @@ repositories {
         url = "https://maven.terraformersmc.com/"
     }
 
+    // For KubeJS
+    maven {
+        url "https://maven.latvian.dev/releases"
+        content {
+            includeGroup "dev.latvian.mods"
+        }
+    }
+
+
 }
 
 dependencies {
@@ -144,6 +153,9 @@ dependencies {
 
     // Mekanism
     implementation "curse.maven:mekanism-268560:5552293"
+
+    // KubeJs
+    runtimeOnly "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
