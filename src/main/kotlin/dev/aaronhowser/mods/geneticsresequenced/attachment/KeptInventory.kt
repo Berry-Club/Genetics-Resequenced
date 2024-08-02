@@ -18,18 +18,16 @@ data class KeptInventory(
             { inv -> inv.stacks }
         )
 
-        val attachment by lazy { ModAttachmentTypes.KEPT_INVENTORY.get() }
-
-        fun Player.keepInventory(list: List<ItemStack>) {
-            this.setData(attachment, KeptInventory(list))
+        fun Player.saveInventory(list: List<ItemStack>) {
+            this.setData(ModAttachmentTypes.KEPT_INVENTORY, KeptInventory(list))
         }
 
-        fun Player.getKeptInventory(): List<ItemStack> {
-            return this.getData(attachment).stacks
+        fun Player.getSavedInventory(): List<ItemStack> {
+            return this.getData(ModAttachmentTypes.KEPT_INVENTORY).stacks
         }
 
-        fun Player.clearKeptInventory() {
-            this.setData(attachment, KeptInventory(emptyList()))
+        fun Player.clearSavedInventory() {
+            this.setData(ModAttachmentTypes.KEPT_INVENTORY, KeptInventory(emptyList()))
         }
 
     }

@@ -2,9 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
-import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.clearKeptInventory
-import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.getKeptInventory
-import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.keepInventory
+import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.clearSavedInventory
+import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.getSavedInventory
+import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.saveInventory
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
@@ -17,7 +17,6 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.GameRules
 import net.minecraft.world.level.Level
-import net.neoforged.fml.ModList
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
 import net.neoforged.neoforge.event.level.ExplosionEvent
 import java.util.*
@@ -43,12 +42,12 @@ object DeathGenes {
         val playerItems =
             (player.inventory.items + player.inventory.armor + player.inventory.offhand).filter { !it.isEmpty }
 
-        player.keepInventory(playerItems)
+        player.saveInventory(playerItems)
         player.inventory.clearContent()
     }
 
     fun returnInventory(player: Player) {
-        val items = player.getKeptInventory()
+        val items = player.getSavedInventory()
         if (items.isEmpty()) return
 
         items.forEach { itemStack: ItemStack ->
@@ -57,7 +56,7 @@ object DeathGenes {
             }
         }
 
-        player.clearKeptInventory()
+        player.clearSavedInventory()
     }
 
     private val emeraldHeartCooldown = GeneCooldown(
