@@ -202,7 +202,9 @@ class AdvancedIncubatorBlockEntity(
         }
     }
 
-    private val gmoRecipes by lazy { BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>() }
+    private val gmoRecipes
+        get() = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
+
     override fun craftItem() {
         val topStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
 

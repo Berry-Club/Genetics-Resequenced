@@ -25,9 +25,8 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 
 object BrewingRecipes {
 
-    private val modPotions: List<Potion> by lazy {
-        ModPotions.POTION_REGISTRY.entries.map { it.get() }
-    }
+    private val modPotions: List<Potion>
+        get() = ModPotions.POTION_REGISTRY.entries.map { it.get() }
 
     val allRecipes: MutableList<IBrewingRecipe> = mutableListOf()
 
