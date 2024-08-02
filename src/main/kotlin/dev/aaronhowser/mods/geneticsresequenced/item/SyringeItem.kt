@@ -12,6 +12,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityIt
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityUuid
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.hasEntity
+import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.setEntity
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -59,12 +60,11 @@ open class SyringeItem : Item(
 
         fun setEntity(pStack: ItemStack, entity: LivingEntity?, setContaminated: Boolean = true) {
             if (entity == null) {
-                pStack.remove(SpecificEntityItemComponent.component)
+                pStack.remove(ModDataComponents.SPECIFIC_ENTITY_COMPONENT)
                 return
             }
 
-            val newComponent = SpecificEntityItemComponent(entity.uuid, entity.name.string)
-            pStack.set(SpecificEntityItemComponent.component, newComponent)
+            pStack.setEntity(entity)
 
             if (setContaminated) {
                 setContaminated(pStack, true)

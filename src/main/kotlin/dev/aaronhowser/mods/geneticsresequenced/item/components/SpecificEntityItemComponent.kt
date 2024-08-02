@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import io.netty.buffer.ByteBuf
-import net.minecraft.core.component.DataComponentType
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.entity.LivingEntity
@@ -43,27 +42,25 @@ data class SpecificEntityItemComponent(
             ::SpecificEntityItemComponent
         )
 
-        val component: DataComponentType<SpecificEntityItemComponent> by lazy { ModDataComponents.SPECIFIC_ENTITY_COMPONENT.get() }
-
         fun ItemStack.setEntity(entity: LivingEntity) {
             val name = entity.name.string
             val uuid = entity.uuid
 
             val entityComponent = SpecificEntityItemComponent(uuid, name)
 
-            this.set(component, entityComponent)
+            this.set(ModDataComponents.SPECIFIC_ENTITY_COMPONENT, entityComponent)
         }
 
         fun ItemStack.hasEntity(): Boolean {
-            return this.has(component)
+            return this.has(ModDataComponents.SPECIFIC_ENTITY_COMPONENT)
         }
 
         fun ItemStack.getEntityUuid(): UUID? {
-            return this.get(component)?.entityUuid
+            return this.get(ModDataComponents.SPECIFIC_ENTITY_COMPONENT)?.entityUuid
         }
 
         fun ItemStack.getEntityName(): String? {
-            return this.get(component)?.entityName
+            return this.get(ModDataComponents.SPECIFIC_ENTITY_COMPONENT)?.entityName
         }
 
     }

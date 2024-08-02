@@ -2,7 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityUuid
+import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.setEntity
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
@@ -28,7 +29,8 @@ class MetalSyringeItem : SyringeItem() {
             pPlayer: Player,
             pTarget: LivingEntity
         ) {
-            val uuid = syringeStack.get(SpecificEntityItemComponent.component)?.entityUuid ?: return
+            val uuid = syringeStack.getEntityUuid()
+
             if (pTarget.uuid != uuid) return
 
             if (isContaminated(syringeStack)) {
@@ -50,8 +52,7 @@ class MetalSyringeItem : SyringeItem() {
             pInteractionTarget: LivingEntity
         ) {
 
-            val component = syringeStack.get(SpecificEntityItemComponent.component) ?: return
-            val entityUuid = component.entityUuid
+            val entityUuid = syringeStack.getEntityUuid() ?: return
 
             fun sendMessage(message: Component) {
                 if (!pPlayer.level().isClientSide) {
@@ -86,8 +87,7 @@ class MetalSyringeItem : SyringeItem() {
             syringeStack: ItemStack,
             pInteractionTarget: LivingEntity
         ) {
-            val itemComponent = SpecificEntityItemComponent(pInteractionTarget.uuid, pInteractionTarget.name.string)
-            syringeStack.set(SpecificEntityItemComponent.component, itemComponent)
+            syringeStack.setEntity(pInteractionTarget)
         }
 
     }
@@ -100,7 +100,7 @@ class MetalSyringeItem : SyringeItem() {
 
         if (!hasBlood(pStack)) return
 
-        val entityUuid = pStack.get(SpecificEntityItemComponent.component)?.entityUuid ?: return
+        val entityUuid = pStack.getEntityUuid() ?: return
         val target = OtherUtil.getNearbyEntityFromUuid(entityUuid, pEntity) ?: return
 
         target.addEffect(
