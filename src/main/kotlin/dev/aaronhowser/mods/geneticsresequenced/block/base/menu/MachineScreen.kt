@@ -14,8 +14,6 @@ abstract class MachineScreen<T : MachineMenu>(
     pTitle: Component
 ) : AbstractContainerScreen<T>(pMenu, pPlayerInventory, pTitle) {
 
-    protected val font: Font by lazy { super.font }
-
     init {
         inventoryLabelY += 6
     }
