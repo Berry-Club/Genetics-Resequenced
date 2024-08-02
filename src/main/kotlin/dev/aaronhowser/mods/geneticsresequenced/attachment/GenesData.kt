@@ -10,7 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
-import net.neoforged.neoforge.attachment.AttachmentType
 import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
 
 
@@ -34,12 +33,10 @@ data class GenesData(
                 )
             })
 
-        val attachment: AttachmentType<GenesData> by lazy { ModAttachmentTypes.GENE_CONTAINER.get() }
-
         var LivingEntity.genes: Set<Gene>
-            get() = this.getData(attachment).genes
+            get() = this.getData(ModAttachmentTypes.GENE_CONTAINER).genes
             private set(value) {
-                this.setData(attachment, GenesData(value))
+                this.setData(ModAttachmentTypes.GENE_CONTAINER, GenesData(value))
             }
 
         fun LivingEntity.addGene(newGene: Gene): Boolean {
