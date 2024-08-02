@@ -943,7 +943,7 @@ class ModLanguageProvider(
 
         add(
             Advancements.SCRAPER_DESC,
-            "Craft a Scraper.\n\nScrapers are used to get Organic Matter from mobs.\n\nCraft the Big Book of Genetics for a more detailed guide!"
+            "Craft a Scraper.\n\nScrapers are used to get Organic Matter from mobs."
         )
         add(Advancements.SYRINGE_TITLE, "You'll Feel a Small Prick")
         add(

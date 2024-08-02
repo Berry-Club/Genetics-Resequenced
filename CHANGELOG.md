@@ -111,4 +111,5 @@
 - Fixed the Potion of Cell Growth recipe setting the entity when it shouldn't (#14)
 - Support Slimes now have a 100% chance to give the Slimy Death Gene. The file previously pointed at the entity `minecraft:slime` rather than `geneticsresequenced:support_slime`
 - Localized tags for EMI
+- Removed the reference to the Patchouli book from the first advancement, as Patchouli isn't on 1.21 yet
 - Moved to better practices (using less lazy values, mostly)
