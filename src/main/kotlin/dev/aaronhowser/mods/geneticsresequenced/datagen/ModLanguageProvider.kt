@@ -196,6 +196,11 @@ class ModLanguageProvider(
         const val SUBSTRATE_DUPE = "emi.category.geneticsresequenced.cell_dupe"
         const val SET_ENTITY = "emi.category.geneticsresequenced.set_entity"
         const val VIRUS = "emi.category.geneticsresequenced.virus"
+
+        const val DELICATE_TOUCH_TAG = "tag.item.geneticsresequenced.enchantable.delicate_touch"
+        const val FIREBALL_TAG = "tag.item.geneticsresequenced.fireball"
+        const val MAGNET_BLACKLIST_TAG = "tag.item.geneticsresequenced.magnet_blacklist"
+        const val WOOLY_TAG = "tag.item.geneticsresequenced.wooly"
     }
 
     object Recipe {
@@ -720,6 +725,11 @@ class ModLanguageProvider(
         add(EMI.SET_ENTITY, "Set Potion Entity")
         add(EMI.SUBSTRATE_DUPE, "Substrate Cell Duplication")
         add(EMI.VIRUS, "Virus Cultivation")
+
+        add(EMI.DELICATE_TOUCH_TAG, "Delicate Touch Enchantable")
+        add(EMI.FIREBALL_TAG, "Usable for \"Shoot Fireballs\" Gene")
+        add(EMI.MAGNET_BLACKLIST_TAG, "Blacklisted from \"Item Magnet\" Gene")
+        add(EMI.WOOLY_TAG, "Can shear entities with the \"Wooly\" or \"Meaty\" Genes")
 
         add(Info.ORGANIC_MATTER, "Acquired by clicking a %1\$s with a Scraper.")
         add(Info.MOB_GENE_ONE, "%1\$s has these Genes:")
