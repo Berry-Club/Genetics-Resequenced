@@ -72,11 +72,16 @@ object BrewingRecipes {
     private fun ingredient(itemLike: ItemLike): Ingredient = Ingredient.of(itemLike)
     private fun ingredient(itemStack: ItemStack): Ingredient = DataComponentIngredient.of(false, itemStack)
 
-    val substratePotionStack by lazy { OtherUtil.getPotionStack(ModPotions.SUBSTRATE) }
-    val cellGrowthPotionStack by lazy { OtherUtil.getPotionStack(ModPotions.CELL_GROWTH) }
-    val mutationPotionStack by lazy { OtherUtil.getPotionStack(ModPotions.MUTATION) }
-    val viralAgentsPotionStack by lazy { OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS) }
-    val curePotionStack by lazy { OtherUtil.getPotionStack(ModPotions.PANACEA) }
+    val substratePotionStack
+        get() = OtherUtil.getPotionStack(ModPotions.SUBSTRATE)
+    val cellGrowthPotionStack
+        get() = OtherUtil.getPotionStack(ModPotions.CELL_GROWTH)
+    val mutationPotionStack
+        get() = OtherUtil.getPotionStack(ModPotions.MUTATION)
+    val viralAgentsPotionStack
+        get() = OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)
+    val curePotionStack
+        get() = OtherUtil.getPotionStack(ModPotions.PANACEA)
 
     fun setRecipes(event: RegisterBrewingRecipesEvent) {
         allRecipes.clear()
