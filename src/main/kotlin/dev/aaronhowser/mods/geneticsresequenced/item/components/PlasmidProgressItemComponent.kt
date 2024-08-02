@@ -28,9 +28,6 @@ data class PlasmidProgressItemComponent(
             ByteBufCodecs.INT, PlasmidProgressItemComponent::dnaPoints,
             ::PlasmidProgressItemComponent
         )
-
-        val component: DataComponentType<PlasmidProgressItemComponent> by lazy { ModDataComponents.PLASMID_PROGRESS_COMPONENT.get() }
-
     }
 
 }

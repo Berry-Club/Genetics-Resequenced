@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
@@ -438,7 +439,7 @@ object ClickGenes {
         val weapon = event.projectileWeaponItemStack.item as? ProjectileWeaponItem ?: return
         val defaultAmmo = weapon.getDefaultCreativeAmmo(player, event.projectileItemStack)
 
-        defaultAmmo.set(BooleanItemComponent.isInfinityArrowComponent, BooleanItemComponent(true))
+        defaultAmmo.set(ModDataComponents.IS_INFINITY_ARROW, BooleanItemComponent(true))
 
         event.projectileItemStack = defaultAmmo
     }
@@ -449,7 +450,7 @@ object ClickGenes {
 
         val arrowStack = arrow.pickupItemStackOrigin
 
-        val isInfinity = arrowStack.get(BooleanItemComponent.isInfinityArrowComponent)?.value ?: false
+        val isInfinity = arrowStack.get(ModDataComponents.IS_INFINITY_ARROW)?.value ?: false
         if (!isInfinity) return
 
         arrow.pickup = AbstractArrow.Pickup.DISALLOWED

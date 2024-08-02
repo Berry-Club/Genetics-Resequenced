@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
@@ -21,11 +22,11 @@ class DnaHelixItem : EntityDnaItem() {
     companion object {
 
         fun hasGene(itemStack: ItemStack): Boolean {
-            return itemStack.has(GeneItemComponent.component)
+            return itemStack.has(ModDataComponents.GENE_COMPONENT)
         }
 
         fun getGene(itemStack: ItemStack): Gene? {
-            return itemStack.get(GeneItemComponent.component)?.gene
+            return itemStack.get(ModDataComponents.GENE_COMPONENT)?.gene
         }
 
         fun setGene(itemStack: ItemStack, gene: Holder<Gene>): ItemStack {
@@ -34,7 +35,7 @@ class DnaHelixItem : EntityDnaItem() {
         }
 
         fun setGene(itemStack: ItemStack, gene: Gene): ItemStack {
-            itemStack.set(GeneItemComponent.component, GeneItemComponent(gene))
+            itemStack.set(ModDataComponents.GENE_COMPONENT, GeneItemComponent(gene))
             return itemStack
         }
 

@@ -12,6 +12,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityIt
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityUuid
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.hasEntity
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
@@ -172,7 +173,7 @@ open class SyringeItem : Item(
         }
 
         fun getGenes(syringeStack: ItemStack): Set<Gene> {
-            return syringeStack.get(GeneListItemComponent.genesComponent)?.genes ?: emptySet()
+            return syringeStack.get(ModDataComponents.GENES_COMPONENT)?.genes ?: emptySet()
         }
 
         fun canAddGene(syringeStack: ItemStack, gene: Gene): Boolean {
@@ -186,25 +187,25 @@ open class SyringeItem : Item(
             val newGenes = currentGenes + gene
             val newComponent = GeneListItemComponent(newGenes)
 
-            syringeStack.set(GeneListItemComponent.genesComponent, newComponent)
+            syringeStack.set(ModDataComponents.GENES_COMPONENT, newComponent)
 
             return true
         }
 
         private fun clearGenes(syringeStack: ItemStack) {
-            syringeStack.remove(GeneListItemComponent.genesComponent)
+            syringeStack.remove(ModDataComponents.GENES_COMPONENT)
         }
 
         fun isContaminated(syringeStack: ItemStack): Boolean {
-            return syringeStack.get(BooleanItemComponent.isContaminatedComponent)?.value ?: false
+            return syringeStack.get(ModDataComponents.IS_CONTAMINATED_COMPONENT)?.value ?: false
         }
 
         fun setContaminated(syringeStack: ItemStack, value: Boolean) {
-            syringeStack.set(BooleanItemComponent.isContaminatedComponent, BooleanItemComponent(value))
+            syringeStack.set(ModDataComponents.IS_CONTAMINATED_COMPONENT, BooleanItemComponent(value))
         }
 
         fun getAntigenes(syringeStack: ItemStack): Set<Gene> {
-            return syringeStack.get(GeneListItemComponent.antigenesComponent)?.genes ?: emptySet()
+            return syringeStack.get(ModDataComponents.ANTIGENES_COMPONENT)?.genes ?: emptySet()
         }
 
         fun canAddAntigene(syringeStack: ItemStack, gene: Gene): Boolean {
@@ -220,7 +221,7 @@ open class SyringeItem : Item(
             val newGenes = currentAntigenes + gene
             val newComponent = GeneListItemComponent(newGenes)
 
-            syringeStack.set(GeneListItemComponent.antigenesComponent, newComponent)
+            syringeStack.set(ModDataComponents.ANTIGENES_COMPONENT, newComponent)
 
             return true
         }

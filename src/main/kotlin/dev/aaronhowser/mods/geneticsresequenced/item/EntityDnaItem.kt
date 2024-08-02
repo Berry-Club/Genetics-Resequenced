@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -28,14 +29,17 @@ open class EntityDnaItem : Item(Properties()) {
                 return false
             }
 
-            itemStack.set(EntityTypeItemComponent.component, EntityTypeItemComponent(entityType))
+            itemStack.set(
+                ModDataComponents.ENTITY_TYPE_COMPONENT,
+                EntityTypeItemComponent(entityType)
+            )
             return true
         }
 
-        fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(EntityTypeItemComponent.component)
+        fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.ENTITY_TYPE_COMPONENT)
 
         fun getEntityType(itemStack: ItemStack): EntityType<*>? {
-            return itemStack.get(EntityTypeItemComponent.component)?.entity
+            return itemStack.get(ModDataComponents.ENTITY_TYPE_COMPONENT)?.entity
         }
 
         val includeTheseEntityTypes = mutableSetOf(

@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -17,10 +18,10 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
 
     companion object {
 
-        fun hasGene(itemStack: ItemStack): Boolean = itemStack.has(PlasmidProgressItemComponent.component)
+        fun hasGene(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.PLASMID_PROGRESS_COMPONENT)
 
         fun getGene(itemStack: ItemStack): Gene? {
-            return itemStack.get(PlasmidProgressItemComponent.component)?.gene
+            return itemStack.get(ModDataComponents.PLASMID_PROGRESS_COMPONENT)?.gene
         }
 
         fun setGene(itemStack: ItemStack, gene: Gene, amount: Int = 0) {
@@ -28,11 +29,11 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
                 gene,
                 amount
             )
-            itemStack.set(PlasmidProgressItemComponent.component, component)
+            itemStack.set(ModDataComponents.PLASMID_PROGRESS_COMPONENT, component)
         }
 
         fun getAmount(itemStack: ItemStack): Int {
-            return itemStack.get(PlasmidProgressItemComponent.component)?.dnaPoints ?: 0
+            return itemStack.get(ModDataComponents.PLASMID_PROGRESS_COMPONENT)?.dnaPoints ?: 0
         }
 
         fun setAmount(itemStack: ItemStack, amount: Int) {
@@ -40,7 +41,7 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
                 getGene(itemStack) ?: return,
                 amount
             )
-            itemStack.set(PlasmidProgressItemComponent.component, component)
+            itemStack.set(ModDataComponents.PLASMID_PROGRESS_COMPONENT, component)
         }
 
         fun increaseAmount(itemStack: ItemStack, amount: Int = 1) {

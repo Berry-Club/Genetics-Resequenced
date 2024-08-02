@@ -12,9 +12,9 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.plasmid_injector.PlasmidInjectorEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.EmiEntrypoint
@@ -95,7 +95,8 @@ class ModEmiPlugin : EmiPlugin {
     }
 
     private fun comparisons(registry: EmiRegistry) {
-        val plasmidProgressComparison = Comparison.compareData { it.get(PlasmidProgressItemComponent.component) }
+        val plasmidProgressComparison =
+            Comparison.compareData { it.get(ModDataComponents.PLASMID_PROGRESS_COMPONENT.get()) }
 
         registry.setDefaultComparison(GMO_CELL_STACK, Comparison.compareComponents())
         registry.setDefaultComparison(DNA_HELIX_STACK, Comparison.compareComponents())
