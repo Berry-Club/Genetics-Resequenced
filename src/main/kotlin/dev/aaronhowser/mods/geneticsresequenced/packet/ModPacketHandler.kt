@@ -17,8 +17,6 @@ object ModPacketHandler {
     fun registerPayloads(event: RegisterPayloadHandlersEvent) {
         val registrar = event.registrar("1")
 
-
-
         registrar.playToClient(
             GeneChangedPacket.TYPE,
             GeneChangedPacket.STREAM_CODEC,
