@@ -86,7 +86,18 @@ class ScraperItem : Item(
         pInteractionHand: InteractionHand
     ): InteractionResultHolder<ItemStack> {
         val realStack = pPlayer.getItemInHand(pInteractionHand)
-        if (!pPlayer.isCrouching || pPlayer is FakePlayer) return InteractionResultHolder.pass(realStack)
+
+        if (pLevel.isClientSide) return InteractionResultHolder.pass(realStack)
+        if (pPlayer.isCrouching) return tryScrapeSelf(pPlayer, realStack)
+
+        return InteractionResultHolder.pass(realStack)
+    }
+
+    private fun tryScrapeSelf(
+        pPlayer: Player,
+        realStack: ItemStack
+    ): InteractionResultHolder<ItemStack> {
+        if (pPlayer is FakePlayer) return InteractionResultHolder.pass(realStack)
         if (pPlayer !is ServerPlayer) return InteractionResultHolder.pass(realStack)
 
         val scrapeWorked = scrapeEntity(pPlayer, realStack, pPlayer)
