@@ -76,6 +76,12 @@ class AdvancedIncubatorBlockEntity(
                 else -> false
             }
         }
+
+        override fun extractItem(slot: Int, amount: Int, simulate: Boolean): ItemStack {
+            if (slot == OVERCLOCKER_SLOT_INDEX && !simulate) resetBrewTime()
+
+            return super.extractItem(slot, amount, simulate)
+        }
     }
 
     private val chorusHandler =

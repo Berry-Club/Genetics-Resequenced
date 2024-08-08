@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.base.handler
 import net.minecraft.world.item.ItemStack
 import net.neoforged.neoforge.items.IItemHandlerModifiable
 
-class WrappedHandler(
+open class WrappedHandler(
     private val handler: IItemHandlerModifiable,
     private val canExtract: (Int) -> Boolean,           // Int is the slot id
     private val canInsert: (Int, ItemStack) -> Boolean  // Int is the slot id, ItemStack is the stack
