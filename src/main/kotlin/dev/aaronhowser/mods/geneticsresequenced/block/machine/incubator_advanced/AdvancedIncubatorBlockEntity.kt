@@ -89,12 +89,12 @@ class AdvancedIncubatorBlockEntity(
             canInsert = { slot, stack -> slot == CHORUS_SLOT_INDEX }
         )
 
-    override val upItemHandler: WrappedHandler = IncubatorBlockEntity.ingredientHandler(itemHandler)
-    override val downItemHandler: WrappedHandler = IncubatorBlockEntity.outputHandler(itemHandler)
+    override val upItemHandler: WrappedHandler = IncubatorBlockEntity.topSlotHandler(itemHandler)
+    override val downItemHandler: WrappedHandler = IncubatorBlockEntity.bottomSlotsHandler(itemHandler)
     override val backItemHandler: WrappedHandler = chorusHandler
     override val frontItemHandler: WrappedHandler = chorusHandler
-    override val rightItemHandler: WrappedHandler = IncubatorBlockEntity.inputHandler(itemHandler)
-    override val leftItemHandler: WrappedHandler = IncubatorBlockEntity.inputHandler(itemHandler)
+    override val rightItemHandler: WrappedHandler = IncubatorBlockEntity.bottomSlotsHandler(itemHandler)
+    override val leftItemHandler: WrappedHandler = IncubatorBlockEntity.bottomSlotsHandler(itemHandler)
 
     private val data = object : ContainerData {
 

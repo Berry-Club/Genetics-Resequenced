@@ -69,12 +69,12 @@ class IncubatorBlockEntity(
         }
     }
 
-    override val upItemHandler: WrappedHandler = ingredientHandler(itemHandler)
-    override val downItemHandler: WrappedHandler = outputHandler(itemHandler)
-    override val backItemHandler: WrappedHandler = inputHandler(itemHandler)
-    override val frontItemHandler: WrappedHandler = inputHandler(itemHandler)
-    override val rightItemHandler: WrappedHandler = inputHandler(itemHandler)
-    override val leftItemHandler: WrappedHandler = inputHandler(itemHandler)
+    override val upItemHandler: WrappedHandler = topSlotHandler(itemHandler)
+    override val downItemHandler: WrappedHandler = bottomSlotsHandler(itemHandler)
+    override val backItemHandler: WrappedHandler = bottomSlotsHandler(itemHandler)
+    override val frontItemHandler: WrappedHandler = bottomSlotsHandler(itemHandler)
+    override val rightItemHandler: WrappedHandler = bottomSlotsHandler(itemHandler)
+    override val leftItemHandler: WrappedHandler = bottomSlotsHandler(itemHandler)
 
     private val data = object : ContainerData {
 
@@ -185,7 +185,7 @@ class IncubatorBlockEntity(
 
     companion object {
 
-        fun ingredientHandler(itemHandler: IItemHandlerModifiable): WrappedHandler =
+        fun topSlotHandler(itemHandler: IItemHandlerModifiable): WrappedHandler =
             WrappedHandler(
                 itemHandler,
                 canExtract = { slotId -> slotId == OUTPUT_SLOT_INDEX },
@@ -193,19 +193,11 @@ class IncubatorBlockEntity(
             )
 
 
-        fun inputHandler(itemHandler: IItemHandlerModifiable): WrappedHandler =
+        fun bottomSlotsHandler(itemHandler: IItemHandlerModifiable): WrappedHandler =
             WrappedHandler(
                 itemHandler,
-                canExtract = { slotId -> slotId == OUTPUT_SLOT_INDEX },
+                canExtract = { slotId -> slotId == LEFT_BOTTLE_SLOT_INDEX || slotId == MIDDLE_BOTTLE_SLOT_INDEX || slotId == RIGHT_BOTTLE_SLOT_INDEX },
                 canInsert = { slotId, stack -> slotId == LEFT_BOTTLE_SLOT_INDEX || slotId == MIDDLE_BOTTLE_SLOT_INDEX || slotId == RIGHT_BOTTLE_SLOT_INDEX }
-            )
-
-
-        fun outputHandler(itemHandler: IItemHandlerModifiable): WrappedHandler =
-            WrappedHandler(
-                itemHandler,
-                canExtract = { slotId -> slotId == OUTPUT_SLOT_INDEX },
-                canInsert = { slotId, stack -> false }
             )
 
         fun tick(
