@@ -15,6 +15,7 @@ import net.minecraft.world.InteractionResult
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.damagesource.DamageType
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -32,11 +33,11 @@ class ScraperItem : Item(
         private fun scrapeEntity(
             player: ServerPlayer,
             stack: ItemStack,
-            target: LivingEntity
+            target: Entity
         ): Boolean {
 
             if (player.cooldowns.isOnCooldown(ModItems.SCRAPER.get())) return false
-            if (target.hurtTime > 0) return false
+            if (target is LivingEntity && target.hurtTime > 0) return false
 
             val organicStack = ModItems.ORGANIC_MATTER.toStack()
             val setWorked = setEntityType(organicStack, target.type)
@@ -90,7 +91,14 @@ class ScraperItem : Item(
         if (pLevel.isClientSide) return InteractionResultHolder.pass(realStack)
         if (pPlayer.isCrouching) return tryScrapeSelf(pPlayer, realStack)
 
-        return InteractionResultHolder.pass(realStack)
+        val lookedAtEntity = OtherUtil.getLookedAtEntity(pPlayer) ?: return InteractionResultHolder.pass(realStack)
+        val scrapeWorked = scrapeEntity(pPlayer as ServerPlayer, realStack, lookedAtEntity)
+
+        return if (scrapeWorked) {
+            InteractionResultHolder.success(realStack)
+        } else {
+            InteractionResultHolder.pass(realStack)
+        }
     }
 
     private fun tryScrapeSelf(

@@ -14,7 +14,6 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.entity.projectile.ProjectileUtil
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.UseAnim
 import net.minecraft.world.level.Level
@@ -139,16 +138,7 @@ class MetalSyringeItem : SyringeItem() {
 
         val reachDistance = pLivingEntity.getAttribute(Attributes.ENTITY_INTERACTION_RANGE)?.value ?: 3.0
 
-        val entityHitResult = ProjectileUtil.getEntityHitResult(
-            pLivingEntity,
-            pLivingEntity.eyePosition,
-            pLivingEntity.eyePosition.add(pLivingEntity.lookAngle.scale(reachDistance)),
-            pLivingEntity.boundingBox.inflate(reachDistance),
-            { true },
-            reachDistance
-        ) ?: return
-
-        val targetEntity = entityHitResult.entity as? LivingEntity ?: return
+        val targetEntity = OtherUtil.getLookedAtEntity(pLivingEntity, reachDistance) as? LivingEntity ?: return
 
         if (hasBlood(pStack)) {
             useFullSyringe(pStack, pLivingEntity, targetEntity)

@@ -15,6 +15,7 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.targeting.TargetingConditions
+import net.minecraft.world.entity.projectile.ProjectileUtil
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -69,6 +70,19 @@ object OtherUtil {
         }
 
         return entityType
+    }
+
+    fun getLookedAtEntity(livingEntity: LivingEntity, range: Double = 4.0): Entity? {
+        val entityHitResult = ProjectileUtil.getEntityHitResult(
+            livingEntity,
+            livingEntity.eyePosition,
+            livingEntity.eyePosition.add(livingEntity.lookAngle.scale(range)),
+            livingEntity.boundingBox.inflate(range),
+            { true },
+            range
+        )
+
+        return entityHitResult?.entity
     }
 
     fun getPotionContents(itemStack: ItemStack): PotionContents? = itemStack.get(DataComponents.POTION_CONTENTS)

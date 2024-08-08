@@ -117,3 +117,4 @@
 ### 1.1.10
 
 - Update to NeoForge 21.0.166
+- Fixed the Scraper not working on the Ender Dragon (#15)
