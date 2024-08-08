@@ -113,3 +113,7 @@
 - Localized tags for EMI
 - Removed the reference to the Patchouli book from the first advancement, as Patchouli isn't on 1.21 yet
 - Moved to better practices (using less lazy values, mostly)
+
+### 1.1.10
+
+- Update to NeoForge 21.0.166
