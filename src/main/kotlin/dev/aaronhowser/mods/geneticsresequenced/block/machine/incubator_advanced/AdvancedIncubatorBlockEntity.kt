@@ -59,6 +59,10 @@ class AdvancedIncubatorBlockEntity(
     override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {
         override fun onContentsChanged(slot: Int) {
             setChanged()
+
+            if (slot == OVERCLOCKER_SLOT_INDEX) {
+                resetBrewTime()
+            }
         }
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
@@ -75,12 +79,6 @@ class AdvancedIncubatorBlockEntity(
 
                 else -> false
             }
-        }
-
-        override fun extractItem(slot: Int, amount: Int, simulate: Boolean): ItemStack {
-            if (slot == OVERCLOCKER_SLOT_INDEX && !simulate) resetBrewTime()
-
-            return super.extractItem(slot, amount, simulate)
         }
     }
 
