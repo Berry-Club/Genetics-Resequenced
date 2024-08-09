@@ -87,7 +87,7 @@ class PlasmidInfuserBlockEntity(
         // If Plasmid is unset, set it to the Helix's gene and initialize the amount
         if (plasmidGene == null) {
             if (inputGene == null) return
-            PlasmidItem.setGene(outputPlasmid, inputGene, 1)
+            PlasmidItem.setGene(outputPlasmid, inputGene, 0)
 
             itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
             return
@@ -95,14 +95,13 @@ class PlasmidInfuserBlockEntity(
 
         if (DnaHelixItem.getGene(inputHelix) == ModGenes.BASIC.get()) {
             PlasmidItem.increaseAmount(outputPlasmid, 1)
-            itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
             return
         } else {
             if (inputGene != plasmidGene) return
             PlasmidItem.increaseAmount(outputPlasmid, 1)
-            itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
         }
 
+        itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
     }
 
     override fun hasRecipe(): Boolean {
