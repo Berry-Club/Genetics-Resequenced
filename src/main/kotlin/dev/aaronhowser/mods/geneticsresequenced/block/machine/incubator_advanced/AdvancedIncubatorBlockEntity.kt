@@ -198,13 +198,9 @@ class AdvancedIncubatorBlockEntity(
     /**
      * Higher is better
      */
-    private fun getMutationModifier(): Float {
+    private fun getOverclockerChanceFactor(): Float {
         val chorusCount = itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).count
-        return if (chorusCount > 0) {
-            0f
-        } else {
-            1 - amountOfOverclockers * MUTATION_CHANCE_DECREASE_PER_OVERCLOCKER
-        }
+        return 1 - amountOfOverclockers * MUTATION_CHANCE_DECREASE_PER_OVERCLOCKER
     }
 
 
@@ -233,7 +229,7 @@ class AdvancedIncubatorBlockEntity(
                 } ?: continue
 
                 val geneChance = thisRecipe.geneChance
-                val chanceModifier = getMutationModifier()
+                val chanceModifier = getOverclockerChanceFactor()
                 val chance = geneChance * chanceModifier
 
                 val nextFloat = Random.nextFloat()
