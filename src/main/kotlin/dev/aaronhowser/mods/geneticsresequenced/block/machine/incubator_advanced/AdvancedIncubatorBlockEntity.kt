@@ -208,6 +208,9 @@ class AdvancedIncubatorBlockEntity(
 
         val gmoRecipes = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
 
+        val chanceDecreasePerOverclocker = ServerConfig.incubatorOverclockerChanceDecrease.get().toFloat()
+        val chanceIncreasePerChorus = ServerConfig.incubatorChorusFruitChanceIncrease.get().toFloat()
+
         for (slotIndex in bottleSlots) {
             val bottleStack = itemHandler.getStackInSlot(slotIndex)
 
@@ -224,19 +227,19 @@ class AdvancedIncubatorBlockEntity(
                 // The base chance
                 val geneChance = thisRecipe.geneChance
 
-                // Reduce the chance based on the amount of Overclockers
+                // Reduce the chance based on the amount of Overclockers (1.0 means no change)
                 val overclockerChanceFactor =
-                    1 - amountOfOverclockers * MUTATION_CHANCE_DECREASE_PER_OVERCLOCKER
+                    1 - amountOfOverclockers * chanceDecreasePerOverclocker
                 val reducedChance = (geneChance * overclockerChanceFactor).coerceIn(0f, 1f)
 
                 // Increase the chance based on the amount of Chorus Fruit
-                val chorusRequiredForMaxChance = Mth.ceil((1f - reducedChance) / MUTATION_CHANCE_INCREASE_PER_CHORUS)
+                val chorusRequiredForMaxChance = Mth.ceil((1f - reducedChance) / chanceIncreasePerChorus)
                 val chorusAvailable = itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).count
                 val chorusUsed = min(chorusRequiredForMaxChance, chorusAvailable)
 
                 itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).shrink(chorusUsed)
 
-                val chorusBoost = chorusUsed * MUTATION_CHANCE_INCREASE_PER_CHORUS
+                val chorusBoost = chorusUsed * chanceIncreasePerChorus
                 val finalChance = reducedChance + chorusBoost
 
                 val nextFloat = Random.nextFloat()
@@ -309,8 +312,6 @@ class AdvancedIncubatorBlockEntity(
         val lowTempTickFactor: Int
             get() = ServerConfig.incubatorLowTempTickFactor.get()
 
-        const val MUTATION_CHANCE_DECREASE_PER_OVERCLOCKER = 0.1f
-        const val MUTATION_CHANCE_INCREASE_PER_CHORUS = 0.05f
     }
 
 }

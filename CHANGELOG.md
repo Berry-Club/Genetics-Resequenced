@@ -123,3 +123,4 @@
 - Fixed the Plasmid Infuser giving +1 DNA Point for Helices of the same Gene rather than +2 (#18)
 - Fixed the Advanced Incubator ignoring Chorus Fruit (#17)
 - In the Plasmid Infuser, the initial DNA Helix infused into an empty Plasmid does not give it any DNA Points, previously it gave +1
+- The GMO chance increase/decrease per Overclocker and Chorus Fruit is now configurable

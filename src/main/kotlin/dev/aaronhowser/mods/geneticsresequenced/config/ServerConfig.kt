@@ -23,6 +23,8 @@ class ServerConfig(
         lateinit var coalGeneratorEnergyPerTick: ModConfigSpec.IntValue
         lateinit var incubatorTicksPerBrew: ModConfigSpec.IntValue
         lateinit var incubatorLowTempTickFactor: ModConfigSpec.IntValue
+        lateinit var incubatorOverclockerChanceDecrease: ModConfigSpec.DoubleValue
+        lateinit var incubatorChorusFruitChanceIncrease: ModConfigSpec.DoubleValue
 
         lateinit var disabledGenes: ModConfigSpec.ConfigValue<List<String>>
         lateinit var disableGivingPlayersNegativeGenes: ModConfigSpec.BooleanValue
@@ -107,6 +109,14 @@ class ServerConfig(
         incubatorLowTempTickFactor = builder
             .comment("How many times slower should the Advanced Incubator be when it's at low temperature? Default is 120, which makes it take a full Minecraft day (excluding Overclockers)")
             .defineInRange("incubatorLowTempTickFactor", 120, 1, Int.MAX_VALUE)
+
+        incubatorOverclockerChanceDecrease = builder
+            .comment("How much should each Overclocker decrease the success rate of GMO recipes? Equation is `decreasedChance = geneChance * (1 - (overclockerCount * incubatorOverclockerChanceDecrease))`")
+            .defineInRange("incubatorOverclockerChanceDecrease", 0.1, 0.0, 1.0)
+
+        incubatorChorusFruitChanceIncrease = builder
+            .comment("How much should each Chorus Fruit increase the success rate of GMO recipes? Equation is `finalChance = decreasedChance ")
+            .defineInRange("incubatorChorusFruitChanceIncrease", 0.1, 0.0, 1.0)
 
         // most other machines hold 20_000
         // but dispersal is 1_000
