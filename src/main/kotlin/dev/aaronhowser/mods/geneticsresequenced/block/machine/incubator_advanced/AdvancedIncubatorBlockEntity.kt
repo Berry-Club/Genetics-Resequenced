@@ -221,19 +221,23 @@ class AdvancedIncubatorBlockEntity(
                             && it.requiredPotion == OtherUtil.getPotion(bottleStack)
                 } ?: continue
 
+                // The base chance
                 val geneChance = thisRecipe.geneChance
 
+                // Reduce the chance based on the amount of Overclockers
                 val overclockerChanceFactor =
                     1 - amountOfOverclockers * MUTATION_CHANCE_DECREASE_PER_OVERCLOCKER
                 val reducedChance = (geneChance * overclockerChanceFactor).coerceIn(0f, 1f)
 
-                val chorusRequired = Mth.ceil((1f - reducedChance) / MUTATION_CHANCE_INCREASE_PER_CHORUS)
+                // Increase the chance based on the amount of Chorus Fruit
+                val chorusRequiredForMaxChance = Mth.ceil((1f - reducedChance) / MUTATION_CHANCE_INCREASE_PER_CHORUS)
                 val chorusAvailable = itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).count
-                val chorusUsed = min(chorusRequired, chorusAvailable)
+                val chorusUsed = min(chorusRequiredForMaxChance, chorusAvailable)
 
                 itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).shrink(chorusUsed)
 
-                val finalChance = reducedChance + chorusUsed * MUTATION_CHANCE_INCREASE_PER_CHORUS
+                val chorusBoost = chorusUsed * MUTATION_CHANCE_INCREASE_PER_CHORUS
+                val finalChance = reducedChance + chorusBoost
 
                 val nextFloat = Random.nextFloat()
 
