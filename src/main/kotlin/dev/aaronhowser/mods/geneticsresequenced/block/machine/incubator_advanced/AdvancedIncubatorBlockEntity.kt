@@ -16,6 +16,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
+import net.minecraft.util.Mth
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
@@ -27,6 +28,7 @@ import net.minecraft.world.item.alchemy.PotionBrewing
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.items.ItemStackHandler
+import kotlin.math.min
 import kotlin.random.Random
 
 
@@ -195,15 +197,6 @@ class AdvancedIncubatorBlockEntity(
         }
     }
 
-    /**
-     * Higher is better
-     */
-    private fun getOverclockerChanceFactor(): Float {
-        val chorusCount = itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).count
-        return 1 - amountOfOverclockers * MUTATION_CHANCE_DECREASE_PER_OVERCLOCKER
-    }
-
-
     override fun craftItem() {
         val topStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
 
@@ -229,18 +222,23 @@ class AdvancedIncubatorBlockEntity(
                 } ?: continue
 
                 val geneChance = thisRecipe.geneChance
-                val chanceModifier = getOverclockerChanceFactor()
-                val chance = geneChance * chanceModifier
+
+                val overclockerChanceFactor =
+                    1 - amountOfOverclockers * MUTATION_CHANCE_DECREASE_PER_OVERCLOCKER
+                val reducedChance = (geneChance * overclockerChanceFactor).coerceIn(0f, 1f)
+
+                val chorusRequired = Mth.ceil((1f - reducedChance) / MUTATION_CHANCE_INCREASE_PER_CHORUS)
+                val chorusAvailable = itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).count
+                val chorusUsed = min(chorusRequired, chorusAvailable)
+
+                itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).shrink(chorusUsed)
+
+                val finalChance = reducedChance + chorusUsed * MUTATION_CHANCE_INCREASE_PER_CHORUS
 
                 val nextFloat = Random.nextFloat()
 
-                if (nextFloat <= chance) {
+                if (nextFloat <= finalChance) {
                     output = thisRecipe.getSuccess()
-                }
-
-                if (chanceModifier != 0f) {
-                    val chorusStack = itemHandler.getStackInSlot(CHORUS_SLOT_INDEX)
-                    chorusStack.shrink(1)
                 }
             }
 
@@ -308,6 +306,7 @@ class AdvancedIncubatorBlockEntity(
             get() = ServerConfig.incubatorLowTempTickFactor.get()
 
         const val MUTATION_CHANCE_DECREASE_PER_OVERCLOCKER = 0.1f
+        const val MUTATION_CHANCE_INCREASE_PER_CHORUS = 0.05f
     }
 
 }
