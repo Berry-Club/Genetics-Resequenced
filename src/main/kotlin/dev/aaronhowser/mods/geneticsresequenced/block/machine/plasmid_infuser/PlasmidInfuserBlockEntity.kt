@@ -93,12 +93,10 @@ class PlasmidInfuserBlockEntity(
             return
         }
 
-        if (DnaHelixItem.getGene(inputHelix) == ModGenes.BASIC.get()) {
-            PlasmidItem.increaseAmount(outputPlasmid, 1)
-            return
-        } else {
-            if (inputGene != plasmidGene) return
-            PlasmidItem.increaseAmount(outputPlasmid, 1)
+        when (DnaHelixItem.getGene(inputHelix)) {
+            ModGenes.BASIC.get() -> PlasmidItem.increaseDnaPoints(outputPlasmid, 1)
+            plasmidGene -> PlasmidItem.increaseDnaPoints(outputPlasmid, 2)
+            else -> return
         }
 
         itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)

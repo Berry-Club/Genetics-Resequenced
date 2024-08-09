@@ -32,11 +32,11 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
             itemStack.set(ModDataComponents.PLASMID_PROGRESS_COMPONENT, component)
         }
 
-        fun getAmount(itemStack: ItemStack): Int {
+        fun getDnaPoints(itemStack: ItemStack): Int {
             return itemStack.get(ModDataComponents.PLASMID_PROGRESS_COMPONENT)?.dnaPoints ?: 0
         }
 
-        fun setAmount(itemStack: ItemStack, amount: Int) {
+        fun setDnaPoints(itemStack: ItemStack, amount: Int) {
             val component = PlasmidProgressItemComponent(
                 getGene(itemStack) ?: return,
                 amount
@@ -44,13 +44,13 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
             itemStack.set(ModDataComponents.PLASMID_PROGRESS_COMPONENT, component)
         }
 
-        fun increaseAmount(itemStack: ItemStack, amount: Int = 1) {
-            setAmount(itemStack, getAmount(itemStack) + amount)
+        fun increaseDnaPoints(itemStack: ItemStack, amount: Int = 1) {
+            setDnaPoints(itemStack, getDnaPoints(itemStack) + amount)
         }
 
         fun isComplete(itemStack: ItemStack): Boolean {
             val gene = getGene(itemStack) ?: return false
-            return getAmount(itemStack) >= gene.dnaPointsRequired
+            return getDnaPoints(itemStack) >= gene.dnaPointsRequired
         }
 
         fun getCompletedPlasmid(gene: Gene): ItemStack {
@@ -96,7 +96,7 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
             )
         } else {
             val amountNeeded = gene.dnaPointsRequired
-            val amount = getAmount(pStack)
+            val amount = getDnaPoints(pStack)
 
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.PLASMID_PROGRESS

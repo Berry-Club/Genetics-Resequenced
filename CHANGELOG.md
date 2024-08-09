@@ -120,4 +120,5 @@
 - Fixed the Scraper not working on the Ender Dragon (#15)
 - Made it so that removing Overclockers from the Advanced Incubator will reset its progress
 - Fixed the Incubator not being able to output
+- Fixed the Plasmid Infuser giving +1 DNA Point for Helices of the same Gene rather than +2 (#18)
 - In the Plasmid Infuser, the initial DNA Helix infused into an empty Plasmid does not give it any DNA Points, previously it gave +1
