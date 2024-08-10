@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base.menu
 
+import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.ProgressArrow
 import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
-import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.network.chat.Component
@@ -21,6 +21,21 @@ abstract class MachineScreen<T : MachineMenu>(
     protected abstract val backgroundTexture: ResourceLocation
     protected open val backgroundSize: Int = ScreenTextures.Backgrounds.TEXTURE_SIZE
 
+    override fun init() {
+        super.init()
+
+        progressArrow = ProgressArrow(
+            leftPos + arrowLeftPos,
+            topPos + arrowTopPos,
+            arrowDirection,
+            font,
+            ::progressArrowAmountToRender,
+            ::shouldRenderProgressArrow,
+        )
+
+        this.addRenderableWidget(progressArrow)
+    }
+
     override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
         super.render(guiGraphics, mouseX, mouseY, partialTick)
 
@@ -36,7 +51,6 @@ abstract class MachineScreen<T : MachineMenu>(
             backgroundSize
         )
 
-        renderProgressArrow(pGuiGraphics, leftPos, topPos)
         renderEnergy(pGuiGraphics, leftPos, topPos)
     }
 
@@ -94,29 +108,14 @@ abstract class MachineScreen<T : MachineMenu>(
     }
 
     // Progress arrow
-    protected open val arrowTexture: ResourceLocation = ScreenTextures.Elements.ArrowRight.TEXTURE
-    protected open val arrowTextureSize: Int = ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
-    protected open val arrowPosLeft: Int = ScreenTextures.Elements.ArrowRight.Position.Default.X
-    protected open val arrowPosTop: Int = ScreenTextures.Elements.ArrowRight.Position.Default.Y
+    protected lateinit var progressArrow: ProgressArrow
+        private set
+
+    protected abstract val arrowDirection: ProgressArrow.ArrowDirection
+    protected open val arrowLeftPos: Int = ScreenTextures.Elements.ArrowRight.Position.Default.X
+    protected open val arrowTopPos: Int = ScreenTextures.Elements.ArrowRight.Position.Default.Y
+    protected abstract fun progressArrowAmountToRender(): Int
     protected abstract fun shouldRenderProgressArrow(): Boolean
-    protected abstract fun progressArrowWidth(): Int
-    protected abstract fun progressArrowHeight(): Int
-
-    protected open fun renderProgressArrow(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
-        if (!shouldRenderProgressArrow()) return
-
-        pGuiGraphics.blitSprite(
-            arrowTexture,
-            arrowTextureSize,
-            arrowTextureSize,
-            0,
-            0,
-            x + arrowPosLeft,
-            y + arrowPosTop,
-            progressArrowWidth(),
-            progressArrowHeight()
-        )
-    }
 
     // Misc
 

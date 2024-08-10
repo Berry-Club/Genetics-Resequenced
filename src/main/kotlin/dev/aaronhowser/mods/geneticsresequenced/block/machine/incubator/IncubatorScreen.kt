@@ -31,8 +31,8 @@ class IncubatorScreen(
 
     override val arrowTexture: ResourceLocation = ScreenTextures.Elements.ArrowDown.TEXTURE
     override val arrowTextureSize: Int = ScreenTextures.Elements.ArrowDown.TEXTURE_SIZE
-    override val arrowPosLeft: Int = ScreenTextures.Elements.ArrowDown.Position.X
-    override val arrowPosTop: Int = ScreenTextures.Elements.ArrowDown.Position.Y
+    override val arrowLeftPos: Int = ScreenTextures.Elements.ArrowDown.Position.X
+    override val arrowTopPos: Int = ScreenTextures.Elements.ArrowDown.Position.Y
     override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
     override fun progressArrowWidth(): Int = ScreenTextures.Elements.ArrowDown.Dimensions.WIDTH
     override fun progressArrowHeight(): Int = menu.getScaledProgress()
@@ -48,8 +48,8 @@ class IncubatorScreen(
             arrowTextureSize,
             0,
             0,
-            x + arrowPosLeft,
-            y + arrowPosTop,
+            x + arrowLeftPos,
+            y + arrowTopPos,
             progressArrowWidth(),
             height
         )
