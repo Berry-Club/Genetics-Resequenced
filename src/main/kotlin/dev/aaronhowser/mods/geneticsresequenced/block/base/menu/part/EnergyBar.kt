@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.ModEnergyStorage
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
@@ -43,17 +45,17 @@ class EnergyBar(
     }
 
     private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
+        val currentAmountString = energyStorage.energyStored.toString()
+        val maxAmountString = energyStorage.maxEnergyStored.toString()
+
+        val component = ModLanguageProvider.Tooltips.FE.toComponent(currentAmountString, maxAmountString)
 
         pGuiGraphics.renderComponentTooltip(
             font,
-            listOf(
-                Component
-                    .literal(energyStorage.energyStored.toString() + "/" + energyStorage.maxEnergyStored + " FE")
-            ),
+            listOf(component),
             pMouseX,
             pMouseY
         )
-
     }
 
     override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {

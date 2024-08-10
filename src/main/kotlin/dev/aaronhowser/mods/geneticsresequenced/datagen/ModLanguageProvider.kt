@@ -155,6 +155,7 @@ class ModLanguageProvider(
         const val GMO_LINE_TWO = "tooltip.geneticsresequenced.gmo_recipe.line2"
         const val GMO_CHORUS = "tooltip.geneticsresequenced.gmo_recipe.line3"
         const val ITEM_MAGNET_BLACKLIST = "tooltip.geneticsresequenced.item_magnet_blacklist"
+        const val FE = "tooltip.geneticsresequenced.fe"
     }
 
     object Commands {
@@ -681,6 +682,7 @@ class ModLanguageProvider(
         add(Tooltips.GMO_LINE_TWO, "Otherwise, it always produces a %s Gene.")
         add(Tooltips.GMO_CHORUS, "Overclockers lower your chance, but Chorus Fruits increase it!")
         add(Tooltips.ITEM_MAGNET_BLACKLIST, "Blacklisted from Item Magnet Gene")
+        add(Tooltips.FE, "%1\$s/%2\$s FE")
 
         add(Commands.LIST_ALL_GENES, "Gene List:")
         add(Commands.NO_GENES, "No Genes found!")
