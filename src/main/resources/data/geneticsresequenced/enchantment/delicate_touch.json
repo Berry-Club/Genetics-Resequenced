@@ -5,13 +5,13 @@
   },
   "effects": {},
   "exclusive_set": "#geneticsresequenced:enchantable/delicate_touch",
-  "max_cost": {
-    "base": 15,
-    "per_level_above_first": 0
-  },
   "max_level": 1,
   "min_cost": {
     "base": 4,
+    "per_level_above_first": 0
+  },
+  "max_cost": {
+    "base": 150,
     "per_level_above_first": 0
   },
   "slots": [

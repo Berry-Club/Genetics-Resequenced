@@ -143,4 +143,8 @@ class ScraperItem : Item(
 
     }
 
+    override fun getEnchantmentValue(stack: ItemStack): Int {
+        return 5
+    }
+
 }
