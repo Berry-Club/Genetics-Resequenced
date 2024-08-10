@@ -32,6 +32,7 @@ class AdvancedIncubatorScreen(
             y = topPos + ScreenTextures.Elements.Heat.Position.Y,
             font = font,
             shouldRender = { menu.blockEntity.energyStorage.energyStored != 0 },
+            shouldRenderTooltip = true,
             isHighTemperature = { menu.isHighTemperature },
             onClickFunction = { _, _, _ ->
                 this.minecraft?.gameMode?.handleInventoryButtonClick(this.menu.containerId, 1)

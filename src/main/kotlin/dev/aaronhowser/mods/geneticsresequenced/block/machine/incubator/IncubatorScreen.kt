@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.ProgressArrow
+import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.TemperatureArea
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -20,10 +21,27 @@ class IncubatorScreen(
 
     override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.INCUBATOR
 
+    private lateinit var temperatureArea: TemperatureArea
+
+    override fun init() {
+        super.init()
+
+        temperatureArea = TemperatureArea(
+            x = leftPos + ScreenTextures.Elements.Heat.Position.X,
+            y = topPos + ScreenTextures.Elements.Heat.Position.Y,
+            font = font,
+            shouldRender = { menu.blockEntity.energyStorage.energyStored != 0 },
+            shouldRenderTooltip = false,
+            isHighTemperature = { true },
+            onClickFunction = { _, _, _ -> }
+        )
+
+        addRenderableWidget(temperatureArea)
+    }
+
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
         super.renderBg(pGuiGraphics, pPartialTick, pMouseX, pMouseY)
 
-        renderHeat(pGuiGraphics, leftPos, topPos)
         renderBubble(pGuiGraphics, leftPos, topPos)
     }
 
@@ -68,22 +86,6 @@ class IncubatorScreen(
             y + ScreenTextures.Elements.Bubbles.Position.Y,
             ScreenTextures.Elements.Bubbles.Dimensions.WIDTH,
             amountBubbleToRender
-        )
-    }
-
-    private fun renderHeat(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
-        val hasEnergy = menu.blockEntity.energyStorage.energyStored != 0
-        if (!hasEnergy) return
-
-        pGuiGraphics.blitSprite(
-            ScreenTextures.Elements.Heat.Texture.HIGH,
-            ScreenTextures.Elements.Heat.TEXTURE_SIZE,
-            ScreenTextures.Elements.Heat.TEXTURE_SIZE,
-            0, 0,
-            x + ScreenTextures.Elements.Heat.Position.X,
-            y + ScreenTextures.Elements.Heat.Position.Y,
-            ScreenTextures.Elements.Heat.Dimensions.WIDTH,
-            ScreenTextures.Elements.Heat.Dimensions.HEIGHT
         )
     }
 

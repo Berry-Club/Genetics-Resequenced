@@ -14,6 +14,7 @@ class TemperatureArea(
     y: Int,
     val font: Font,
     val shouldRender: () -> Boolean,
+    val shouldRenderTooltip: Boolean,
     val isHighTemperature: () -> Boolean,
     val onClickFunction: (Double, Double, Int) -> Unit
 ) : AbstractWidget(
@@ -37,8 +38,8 @@ class TemperatureArea(
             ScreenTextures.Elements.Heat.TEXTURE_SIZE,
             ScreenTextures.Elements.Heat.TEXTURE_SIZE,
             0, 0,
-            x + ScreenTextures.Elements.Heat.Position.X,
-            y + ScreenTextures.Elements.Heat.Position.Y,
+            x,
+            y,
             ScreenTextures.Elements.Heat.Dimensions.WIDTH,
             ScreenTextures.Elements.Heat.Dimensions.HEIGHT
         )
@@ -47,6 +48,8 @@ class TemperatureArea(
     }
 
     private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
+        if (!shouldRenderTooltip) return
+
         pGuiGraphics.renderComponentTooltip(
             font,
             listOf(
