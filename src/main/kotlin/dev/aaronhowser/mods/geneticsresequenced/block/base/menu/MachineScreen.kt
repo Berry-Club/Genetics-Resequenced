@@ -31,6 +31,7 @@ abstract class MachineScreen<T : MachineMenu>(
             font,
             ::progressArrowAmountToRender,
             ::shouldRenderProgressArrow,
+            ::clickedProgressArrow
         )
 
         this.addRenderableWidget(progressArrow)
@@ -117,6 +118,7 @@ abstract class MachineScreen<T : MachineMenu>(
 
     protected abstract fun progressArrowAmountToRender(): Int
     protected abstract fun shouldRenderProgressArrow(): Boolean
+    protected abstract fun clickedProgressArrow(mouseX: Double, mouseY: Double, button: Int)
 
     // Misc
 
