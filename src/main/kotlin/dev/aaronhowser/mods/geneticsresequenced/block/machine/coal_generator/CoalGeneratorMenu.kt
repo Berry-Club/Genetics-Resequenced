@@ -74,16 +74,6 @@ class CoalGeneratorMenu(
         return 1f - burnTimeRemaining.toFloat() / maxBurnTime.toFloat()
     }
 
-    fun getScaledFuelRemaining(): Int {
-        val fuelHeight = ScreenTextures.Elements.Burn.Dimensions.HEIGHT
-
-        return if (maxBurnTime == 0) {
-            0
-        } else {
-            fuelHeight - (fuelHeight.toDouble() * getPercentDone()).toInt()
-        }
-    }
-
     companion object {
         fun showFuelTooltip(event: ItemTooltipEvent) {
             val itemStack = event.itemStack

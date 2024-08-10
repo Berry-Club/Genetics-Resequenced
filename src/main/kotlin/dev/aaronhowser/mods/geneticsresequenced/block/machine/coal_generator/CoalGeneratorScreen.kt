@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.coal_generator
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.GeneratorBurn
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -15,10 +16,19 @@ class CoalGeneratorScreen(
 
     override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.COAL_GENERATOR
 
-    override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
-        super.renderBg(pGuiGraphics, pPartialTick, pMouseX, pMouseY)
+    private lateinit var generatorBurn: GeneratorBurn
 
-        renderBurnProgress(pGuiGraphics, leftPos, topPos)
+    override fun init() {
+        super.init()
+
+        generatorBurn = GeneratorBurn(
+            x = leftPos + ScreenTextures.Elements.Burn.Position.X,
+            y = topPos + ScreenTextures.Elements.Burn.Position.Y,
+            shouldRender = { menu.isBurning },
+            percentDone = { menu.getPercentDone() }
+        )
+
+        addRenderableWidget(generatorBurn)
     }
 
     override val energyPosLeft: Int = ScreenTextures.Elements.Energy.Location.CoalGen.X
@@ -29,23 +39,5 @@ class CoalGeneratorScreen(
 
     override fun shouldRenderProgressArrow(): Boolean = menu.isBurning
 
-    private fun renderBurnProgress(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
-        if (!menu.isBurning) return
-
-        val fuelRemaining = menu.getScaledFuelRemaining()
-
-        pGuiGraphics.blitSprite(
-            ScreenTextures.Elements.Burn.TEXTURE,
-            ScreenTextures.Elements.Burn.TEXTURE_SIZE,
-            ScreenTextures.Elements.Burn.TEXTURE_SIZE,
-            0,
-            ScreenTextures.Elements.Burn.Dimensions.HEIGHT - fuelRemaining,
-            x + ScreenTextures.Elements.Burn.Position.X,
-            y + ScreenTextures.Elements.Burn.Position.Y + ScreenTextures.Elements.Burn.Dimensions.HEIGHT - fuelRemaining,
-            ScreenTextures.Elements.Burn.TEXTURE_SIZE,
-            fuelRemaining
-        )
-
-    }
 
 }
