@@ -84,6 +84,7 @@ class ProgressArrow(
     }
 
     private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
+        if (percentDoneFunction() <= 0f) return
 
         val percentString = (percentDoneFunction() * 100).toInt().toString() + "%"
 
