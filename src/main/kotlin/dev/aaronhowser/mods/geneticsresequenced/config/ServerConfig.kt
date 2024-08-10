@@ -22,7 +22,7 @@ class ServerConfig(
         lateinit var coalGeneratorEnergyTransferRate: ModConfigSpec.IntValue
         lateinit var coalGeneratorEnergyPerTick: ModConfigSpec.IntValue
         lateinit var incubatorTicksPerBrew: ModConfigSpec.IntValue
-        lateinit var incubatorTicksPerBrewLowTemperature: ModConfigSpec.IntValue
+        lateinit var incubatorLowTempTickFactor: ModConfigSpec.IntValue
         lateinit var incubatorOverclockerChanceDecrease: ModConfigSpec.DoubleValue
         lateinit var incubatorChorusFruitChanceIncrease: ModConfigSpec.DoubleValue
 
@@ -106,9 +106,9 @@ class ServerConfig(
         incubatorTicksPerBrew = builder
             .comment("How many ticks should the Incubator take to brew a potion? A vanilla brewing stand takes 400 ticks")
             .defineInRange("incubatorTicksPerBrew", 200, 1, Int.MAX_VALUE)
-        incubatorTicksPerBrewLowTemperature = builder
-            .comment("How many ticks should a low-temperature Advanced Incubator take to brew? Default is 24,000, which is a full Minecraft day (excluding Overclockers)")
-            .defineInRange("incubatorTicksPerBrewLowTemperature", 200 * 120, 1, Int.MAX_VALUE)
+        incubatorLowTempTickFactor = builder
+            .comment("How many times slower should the Advanced Incubator be when it's at low temperature? Default is 120, which makes it take a full Minecraft day (excluding Overclockers)")
+            .defineInRange("incubatorLowTempTickFactor", 120, 1, Int.MAX_VALUE)
 
         incubatorOverclockerChanceDecrease = builder
             .comment("How much should each Overclocker decrease the success rate of GMO recipes? Equation is `decreasedChance = geneChance * (1 - (overclockerCount * incubatorOverclockerChanceDecrease))`")
