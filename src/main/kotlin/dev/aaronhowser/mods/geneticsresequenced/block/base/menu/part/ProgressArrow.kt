@@ -85,9 +85,13 @@ class ProgressArrow(
     }
 
     private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
+
+        val components = tooltipComponentsFunction()
+        if (components.isEmpty()) return
+
         pGuiGraphics.renderComponentTooltip(
             font,
-            tooltipComponentsFunction(),
+            components,
             pMouseX,
             pMouseY
         )
