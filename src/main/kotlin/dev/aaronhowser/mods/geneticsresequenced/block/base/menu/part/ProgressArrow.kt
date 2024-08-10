@@ -15,12 +15,12 @@ class ProgressArrow(
     val font: Font,
     val amountFunction: () -> Int,
     val shouldRenderProgress: () -> Boolean,
-    message: Component = Component.empty()
+    val onClickFunction: (Double, Double, Int) -> Unit
 ) : AbstractWidget(
     x, y,
     arrowDirection.width,
     arrowDirection.height,
-    message
+    Component.empty()
 ) {
 
     enum class ArrowDirection(
@@ -87,7 +87,8 @@ class ProgressArrow(
         pGuiGraphics.renderComponentTooltip(
             font,
             listOf(Component.literal("Hi!")),
-            pMouseX, pMouseY
+            pMouseX,
+            pMouseY
         )
     }
 
