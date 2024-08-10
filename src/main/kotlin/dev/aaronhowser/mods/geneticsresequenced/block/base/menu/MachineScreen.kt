@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.block.base.menu
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.EnergyBar
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.ProgressArrow
-import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.network.chat.Component
@@ -75,23 +74,5 @@ abstract class MachineScreen<T : MachineMenu>(
     protected open fun arrowPercentDone(): Float = menu.getPercentDone()
     protected abstract fun shouldRenderProgressArrow(): Boolean
     protected open fun clickedProgressArrow(mouseX: Double, mouseY: Double, button: Int) {}
-
-    // Misc
-
-    @Suppress("SameParameterValue")
-    protected fun isMouseOver(
-        mouseX: Int, mouseY: Int,
-        x: Int, y: Int,
-        topLeftX: Int,
-        topLeftY: Int,
-        width: Int,
-        height: Int
-    ): Boolean {
-        return MouseUtil.isMouseOver(
-            mouseX, mouseY,
-            x + topLeftX, y + topLeftY,
-            width, height
-        )
-    }
 
 }
