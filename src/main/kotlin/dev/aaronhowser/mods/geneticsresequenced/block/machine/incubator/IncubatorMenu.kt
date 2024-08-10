@@ -50,6 +50,8 @@ class IncubatorMenu(
     }
 
     override fun getPercentDone(): Float {
+        if (ticksRemaining <= 0) return 0f
+
         val maxProgress = IncubatorBlockEntity.ticksPerBrew
         val progress = maxProgress - ticksRemaining
 
