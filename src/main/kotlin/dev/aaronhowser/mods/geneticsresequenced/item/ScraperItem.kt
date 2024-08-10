@@ -40,9 +40,9 @@ class ScraperItem : Item(
             if (target is LivingEntity && target.hurtTime > 0) return false
 
             val organicStack = ModItems.ORGANIC_MATTER.toStack()
-            val setWorked = setEntityType(organicStack, target.type)
+            val successfullySetEntity = setEntityType(organicStack, target.type)
 
-            if (!setWorked) {
+            if (!successfullySetEntity) {
                 player.displayClientMessage(
                     ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent(target.type.description),
                     true
@@ -80,7 +80,6 @@ class ScraperItem : Item(
         }
     }
 
-    // When not used on an entity, target self instead
     override fun use(
         pLevel: Level,
         pPlayer: Player,
@@ -89,6 +88,8 @@ class ScraperItem : Item(
         val realStack = pPlayer.getItemInHand(pInteractionHand)
 
         if (pLevel.isClientSide) return InteractionResultHolder.pass(realStack)
+
+        // If the player is sneaking, try to scrape themselves
         if (pPlayer.isCrouching) return tryScrapeSelf(pPlayer, realStack)
 
         val lookedAtEntity = OtherUtil.getLookedAtEntity(pPlayer) ?: return InteractionResultHolder.pass(realStack)
