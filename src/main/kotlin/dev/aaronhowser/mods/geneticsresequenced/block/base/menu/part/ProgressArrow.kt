@@ -46,16 +46,16 @@ class ProgressArrow(
     override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
 
         if (arrowDirection == ArrowDirection.DOWN) {
-            renderDownArrow(pGuiGraphics, pMouseX, pMouseY)
+            renderDownArrow(pGuiGraphics)
         } else {
-            renderRightArrow(pGuiGraphics, pMouseX, pMouseY)
+            renderRightArrow(pGuiGraphics)
         }
 
         if (isHovered) renderTooltip(pGuiGraphics, pMouseX, pMouseY)
 
     }
 
-    private fun renderDownArrow(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
+    private fun renderDownArrow(pGuiGraphics: GuiGraphics) {
         if (!shouldRenderProgress()) return
 
         pGuiGraphics.blitSprite(
@@ -69,7 +69,7 @@ class ProgressArrow(
         )
     }
 
-    private fun renderRightArrow(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
+    private fun renderRightArrow(pGuiGraphics: GuiGraphics) {
         if (!shouldRenderProgress()) return
 
         pGuiGraphics.blitSprite(
