@@ -1,14 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base.menu
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.ProgressArrow
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.ModCompatibilityHandler
 import dev.aaronhowser.mods.geneticsresequenced.util.MouseUtil
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.screens.inventory.AbstractContainerScreen
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Inventory
-import net.neoforged.fml.ModList
 
 abstract class MachineScreen<T : MachineMenu>(
     pMenu: T,
@@ -33,7 +31,6 @@ abstract class MachineScreen<T : MachineMenu>(
             font,
             ::progressArrowAmountToRender,
             ::shouldRenderProgressArrow,
-            ::onClickProgressArrow
         )
 
         this.addRenderableWidget(progressArrow)
@@ -120,12 +117,6 @@ abstract class MachineScreen<T : MachineMenu>(
 
     protected abstract fun progressArrowAmountToRender(): Int
     protected abstract fun shouldRenderProgressArrow(): Boolean
-
-    protected open fun onClickProgressArrow(mouseX: Double, mouseY: Double, button: Int) {
-        if (ModList.get().isLoaded("emi")) {
-            ModCompatibilityHandler.openEmuMenu(this)
-        }
-    }
 
     // Misc
 
