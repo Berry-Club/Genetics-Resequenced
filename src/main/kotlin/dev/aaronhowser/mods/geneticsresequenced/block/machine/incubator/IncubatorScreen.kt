@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.ProgressArrow
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -29,31 +30,12 @@ class IncubatorScreen(
     override val energyPosLeft: Int = ScreenTextures.Elements.Energy.Location.Incubator.X
     override val energyPosTop: Int = ScreenTextures.Elements.Energy.Location.Incubator.Y
 
-    override val arrowTexture: ResourceLocation = ScreenTextures.Elements.ArrowDown.TEXTURE
-    override val arrowTextureSize: Int = ScreenTextures.Elements.ArrowDown.TEXTURE_SIZE
+    override val arrowDirection: ProgressArrow.ArrowDirection = ProgressArrow.ArrowDirection.DOWN
     override val arrowLeftPos: Int = ScreenTextures.Elements.ArrowDown.Position.X
     override val arrowTopPos: Int = ScreenTextures.Elements.ArrowDown.Position.Y
+
+    override fun progressArrowAmountToRender(): Int = menu.getScaledProgress()
     override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
-    override fun progressArrowWidth(): Int = ScreenTextures.Elements.ArrowDown.Dimensions.WIDTH
-    override fun progressArrowHeight(): Int = menu.getScaledProgress()
-
-    override fun renderProgressArrow(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
-        if (!shouldRenderProgressArrow()) return
-
-        val height = progressArrowHeight()
-
-        pGuiGraphics.blitSprite(
-            arrowTexture,
-            arrowTextureSize,
-            arrowTextureSize,
-            0,
-            0,
-            x + arrowLeftPos,
-            y + arrowTopPos,
-            progressArrowWidth(),
-            height
-        )
-    }
 
     private var bubblePosProgress = 0
     private var bubblePos = 0

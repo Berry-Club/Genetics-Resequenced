@@ -14,8 +14,7 @@ class BloodPurifierScreen(
 
     override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.BASIC
 
+    override fun progressArrowAmountToRender(): Int = menu.getScaledProgress()
     override fun shouldRenderProgressArrow() = menu.isCrafting
-    override fun progressArrowWidth() = menu.getScaledProgress()
-    override fun progressArrowHeight() = ScreenTextures.Elements.ArrowRight.Dimensions.HEIGHT
 
 }

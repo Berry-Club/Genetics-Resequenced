@@ -13,7 +13,6 @@ class PlasmidInfuserScreen(
 ) : MachineScreen<PlasmidInfuserMenu>(pMenu, pPlayerInventory, pTitle) {
     override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.PLASMID_INFUSER
 
+    override fun progressArrowAmountToRender(): Int = menu.getScaledProgress()
     override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
-    override fun progressArrowWidth(): Int = menu.getScaledProgress()
-    override fun progressArrowHeight(): Int = ScreenTextures.Elements.ArrowRight.Dimensions.HEIGHT
 }

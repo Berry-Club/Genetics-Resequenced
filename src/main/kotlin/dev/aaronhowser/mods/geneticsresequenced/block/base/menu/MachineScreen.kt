@@ -111,9 +111,10 @@ abstract class MachineScreen<T : MachineMenu>(
     protected lateinit var progressArrow: ProgressArrow
         private set
 
-    protected abstract val arrowDirection: ProgressArrow.ArrowDirection
+    protected open val arrowDirection: ProgressArrow.ArrowDirection = ProgressArrow.ArrowDirection.RIGHT
     protected open val arrowLeftPos: Int = ScreenTextures.Elements.ArrowRight.Position.Default.X
     protected open val arrowTopPos: Int = ScreenTextures.Elements.ArrowRight.Position.Default.Y
+
     protected abstract fun progressArrowAmountToRender(): Int
     protected abstract fun shouldRenderProgressArrow(): Boolean
 

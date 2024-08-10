@@ -13,7 +13,6 @@ class DnaDecryptorScreen(
 ) : MachineScreen<DnaDecryptorMenu>(pMenu, pPlayerInventory, pTitle) {
     override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.DNA_DECRYPTOR
 
+    override fun progressArrowAmountToRender(): Int = menu.getScaledProgress()
     override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
-    override fun progressArrowWidth(): Int = menu.getScaledProgress()
-    override fun progressArrowHeight(): Int = ScreenTextures.Elements.ArrowRight.Dimensions.HEIGHT
 }

@@ -79,10 +79,8 @@ class AdvancedIncubatorScreen(
 
     override val arrowLeftPos: Int = ScreenTextures.Elements.ArrowDown.Position.X
     override val arrowTopPos: Int = ScreenTextures.Elements.ArrowDown.Position.Y
-    override fun progressArrowAmountToRender(): Int {
-        return menu.getScaledProgress()
-    }
 
+    override fun progressArrowAmountToRender(): Int = menu.getScaledProgress()
     override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
 
     private var bubblePosProgress = 0
