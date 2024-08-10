@@ -9,11 +9,11 @@ import net.minecraft.world.item.enchantment.Enchantment
 
 object ModEnchantments {
 
-    val delicateTouchResourceKey: ResourceKey<Enchantment> =
+    val DELICATE_TOUCH: ResourceKey<Enchantment> =
         ResourceKey.create(Registries.ENCHANTMENT, OtherUtil.modResource("delicate_touch"))
 
     fun getDelicateTouchHolder(entity: Entity): Holder<Enchantment> {
-        return OtherUtil.getEnchantHolder(entity, delicateTouchResourceKey)
+        return OtherUtil.getEnchantHolder(entity, DELICATE_TOUCH)
     }
 
 }

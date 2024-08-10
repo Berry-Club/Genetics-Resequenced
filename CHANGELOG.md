@@ -126,3 +126,4 @@
 - The GMO chance increase/decrease per Overclocker and Chorus Fruit is now configurable
 - Massively improved the code for most Screens, moving a lot of things to Widgets rather than reimplementing them every Screen
 - All machine menu progress arrows now show the percentage completion in the tooltip
+- Fixed Scrapers being unable to be enchanted (#16)

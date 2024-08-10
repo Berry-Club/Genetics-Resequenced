@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvide
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModBlockTagsProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEnchantmentTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import net.minecraft.core.HolderLookup
@@ -53,6 +54,10 @@ object ModDataGen {
         val entityTypeTagProvider = generator.addProvider(
             event.includeServer(),
             ModEntityTypeTagsProvider(output, lookupProvider, existingFileHelper)
+        )
+        val enchantmentTagProvider = generator.addProvider(
+            event.includeServer(),
+            ModEnchantmentTagsProvider(output, lookupProvider, existingFileHelper)
         )
 
         val advancementProvider = generator.addProvider(
