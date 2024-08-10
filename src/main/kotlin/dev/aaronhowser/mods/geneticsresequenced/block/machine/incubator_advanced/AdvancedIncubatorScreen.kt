@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advance
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.ProgressArrow
-import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.TemperatureArea
+import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.TemperatureIndicator
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -22,12 +22,12 @@ class AdvancedIncubatorScreen(
 
     override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.INCUBATOR_ADVANCED
 
-    private lateinit var temperatureArea: TemperatureArea
+    private lateinit var temperatureIndicator: TemperatureIndicator
 
     override fun init() {
         super.init()
 
-        temperatureArea = TemperatureArea(
+        temperatureIndicator = TemperatureIndicator(
             x = leftPos + ScreenTextures.Elements.Heat.Position.X,
             y = topPos + ScreenTextures.Elements.Heat.Position.Y,
             font = font,
@@ -41,7 +41,7 @@ class AdvancedIncubatorScreen(
             }
         )
 
-        addRenderableWidget(temperatureArea)
+        addRenderableWidget(temperatureIndicator)
     }
 
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
