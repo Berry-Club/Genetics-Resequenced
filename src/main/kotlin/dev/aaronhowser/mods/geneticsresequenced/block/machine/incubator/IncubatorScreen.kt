@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.Bubbles
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.ProgressArrow
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.TemperatureIndicator
-import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Inventory

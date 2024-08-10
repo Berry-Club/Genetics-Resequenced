@@ -45,6 +45,12 @@ abstract class MachineScreen<T : MachineMenu>(
         this.addRenderableWidget(energyBar)
     }
 
+    override fun render(guiGraphics: GuiGraphics, mouseX: Int, mouseY: Int, partialTick: Float) {
+        super.render(guiGraphics, mouseX, mouseY, partialTick)
+
+        renderTooltip(guiGraphics, mouseX, mouseY)
+    }
+
     override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
         pGuiGraphics.blit(
             backgroundTexture,
