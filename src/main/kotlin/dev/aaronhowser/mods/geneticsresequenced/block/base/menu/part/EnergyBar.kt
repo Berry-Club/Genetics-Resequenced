@@ -45,8 +45,8 @@ class EnergyBar(
     }
 
     private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
-        val currentAmountString = energyStorage.energyStored.toString()
-        val maxAmountString = energyStorage.maxEnergyStored.toString()
+        val currentAmountString = String.format("%,d", energyStorage.energyStored)
+        val maxAmountString = String.format("%,d", energyStorage.maxEnergyStored)
 
         val component = ModLanguageProvider.Tooltips.FE.toComponent(currentAmountString, maxAmountString)
 
