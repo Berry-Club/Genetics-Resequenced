@@ -91,6 +91,12 @@ class ProgressArrow(
         )
     }
 
+    override fun onClick(mouseX: Double, mouseY: Double, button: Int) {
+        super.onClick(mouseX, mouseY, button)
+
+        onClickFunction(mouseX, mouseY, button)
+    }
+
     override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {
         return this.defaultButtonNarrationText(pNarrationElementOutput)
     }

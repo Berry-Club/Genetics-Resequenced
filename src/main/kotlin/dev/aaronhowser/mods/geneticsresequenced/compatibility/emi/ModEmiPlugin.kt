@@ -1,6 +1,15 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.blood_purifier.BloodPurifierScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.cell_analyzer.CellAnalyzerScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_decryptor.DnaDecryptorScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.DnaExtractorScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.PlasmidInfuserScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector.PlasmidInjectorScreen
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPlasmidEmiRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.ModInformationRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.*
@@ -17,6 +26,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import dev.emi.emi.api.EmiApi
 import dev.emi.emi.api.EmiEntrypoint
 import dev.emi.emi.api.EmiPlugin
 import dev.emi.emi.api.EmiRegistry
@@ -30,6 +40,23 @@ import net.minecraft.world.item.Items
 class ModEmiPlugin : EmiPlugin {
 
     companion object {
+
+        fun displayRecipeCategory(screen: MachineScreen<*>) {
+            val recipeCategory = when (screen) {
+                is BloodPurifierScreen -> BLOOD_PURIFIER_CATEGORY
+                is CellAnalyzerScreen -> CELL_ANALYZER_CATEGORY
+                is DnaExtractorScreen -> DNA_EXTRACTOR_CATEGORY
+                is DnaDecryptorScreen -> DNA_DECRYPTOR_CATEGORY
+                is PlasmidInfuserScreen -> PLASMID_INFUSER_CATEGORY
+                is PlasmidInjectorScreen -> PLASMID_INJECTOR_CATEGORY
+                is IncubatorScreen -> VanillaEmiRecipeCategories.BREWING
+                is AdvancedIncubatorScreen -> VanillaEmiRecipeCategories.BREWING
+                else -> return
+            }
+
+            EmiApi.displayRecipeCategory(recipeCategory)
+        }
+
         val BLOOD_PURIFIER_STACK: EmiStack = EmiStack.of(ModBlocks.BLOOD_PURIFIER)
         val BLOOD_PURIFIER_CATEGORY: EmiRecipeCategory =
             EmiRecipeCategory(OtherUtil.modResource("blood_purifier"), BLOOD_PURIFIER_STACK)
