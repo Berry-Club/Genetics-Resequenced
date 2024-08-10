@@ -53,7 +53,6 @@ class ProgressArrow(
         }
 
         if (isHovered) renderTooltip(pGuiGraphics, pMouseX, pMouseY)
-
     }
 
     private fun renderDownArrow(pGuiGraphics: GuiGraphics) {
@@ -96,14 +95,14 @@ class ProgressArrow(
         )
     }
 
-    override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {
-        return this.defaultButtonNarrationText(pNarrationElementOutput)
-    }
-
     override fun onClick(mouseX: Double, mouseY: Double, button: Int) {
         super.onClick(mouseX, mouseY, button)
 
         onClickFunction(mouseX, mouseY, button)
+    }
+
+    override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {
+        return this.defaultButtonNarrationText(pNarrationElementOutput)
     }
 
 }
