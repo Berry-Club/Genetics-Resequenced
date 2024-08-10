@@ -64,7 +64,7 @@ class ProgressArrow(
             0, 0,
             this.x,
             this.y,
-            width,
+            this.width,
             amountFunction(),
         )
     }
@@ -78,7 +78,7 @@ class ProgressArrow(
             0, 0,
             this.x,
             this.y,
-            this.width,
+            amountFunction(),
             this.height
         )
     }
