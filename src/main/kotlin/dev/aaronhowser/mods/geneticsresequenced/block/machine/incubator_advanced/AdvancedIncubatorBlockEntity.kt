@@ -162,39 +162,22 @@ class AdvancedIncubatorBlockEntity(
         get() = itemHandler.getStackInSlot(OVERCLOCKER_SLOT_INDEX).count
 
     fun resetBrewTime() {
-        ticksRemaining = IncubatorBlockEntity.ticksPerBrew
-        subticks = 0
+        ticksRemaining = if (isHighTemperature) IncubatorBlockEntity.ticksPerBrew else ticksPerLowTempBrew
     }
 
-    private var subticks = 0
     override fun tick() {
 
         if (!isBrewing && hasRecipe()) {
-            ticksRemaining = IncubatorBlockEntity.ticksPerBrew
+            resetBrewTime()
         } else if (!hasRecipe()) {
             ticksRemaining = 0
             return
         }
 
-        if (isHighTemperature) {
-            energyStorage.extractEnergy(energyCostPerTick(), false)
-            ticksRemaining -= 1 + amountOfOverclockers
-        } else {
-            val amountOfOverclockers = amountOfOverclockers
-            subticks += 1 + amountOfOverclockers
+        ticksRemaining -= 1 + amountOfOverclockers
+        energyStorage.extractEnergy(energyCostPerTick(), false)
 
-            val subticksOverMax = subticks - lowTempTickFactor
-            if (subticksOverMax >= 0) {
-                subticks = subticksOverMax
-                energyStorage.extractEnergy(energyCostPerTick(), false)
-                ticksRemaining -= 1
-            }
-        }
-
-        if (ticksRemaining <= 0) {
-            craftItem()
-            return
-        }
+        if (ticksRemaining <= 0) craftItem()
     }
 
     override fun craftItem() {
@@ -309,8 +292,8 @@ class AdvancedIncubatorBlockEntity(
         const val CHORUS_SLOT_INDEX = 4
         const val OVERCLOCKER_SLOT_INDEX = 5
 
-        val lowTempTickFactor: Int
-            get() = ServerConfig.incubatorLowTempTickFactor.get()
+        val ticksPerLowTempBrew: Int
+            get() = ServerConfig.incubatorTicksPerBrewLowTemperature.get()
 
     }
 
