@@ -27,7 +27,6 @@ class CoalGeneratorScreen(
     override val arrowLeftPos = ScreenTextures.Elements.ArrowRight.Position.CoalGen.X
     override val arrowTopPos = ScreenTextures.Elements.ArrowRight.Position.CoalGen.Y
 
-    override fun progressArrowAmountToRender(): Int = menu.getScaledProgressArrow()
     override fun shouldRenderProgressArrow(): Boolean = menu.isBurning
 
     private fun renderBurnProgress(pGuiGraphics: GuiGraphics, x: Int, y: Int) {

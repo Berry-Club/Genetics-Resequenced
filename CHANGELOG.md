@@ -125,3 +125,4 @@
 - In the Plasmid Infuser, the initial DNA Helix infused into an empty Plasmid does not give it any DNA Points, previously it gave +1
 - The GMO chance increase/decrease per Overclocker and Chorus Fruit is now configurable
 - Massively improved the code for most Screens, moving a lot of things to Widgets rather than reimplementing them every Screen
+- All machine menu progress arrows now show the percentage completion in the tooltip

@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
-import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
@@ -76,14 +75,13 @@ class AdvancedIncubatorMenu(
     val isCrafting
         get() = progress > 0
 
-    fun getScaledProgress(): Int {
-        val progressArrowSize = ScreenTextures.Elements.ArrowDown.Dimensions.HEIGHT
+    override fun getPercentDone(): Float {
+        val entity = blockEntity as? AdvancedIncubatorBlockEntity ?: return 0f
 
-        return if (progress == 0) {
-            0
-        } else {
-            progressArrowSize - progress * progressArrowSize / IncubatorBlockEntity.ticksPerBrew
-        }
+        val ticksRemaining = entity.ticksRemaining
+        val ticksPerBrew = IncubatorBlockEntity.ticksPerBrew
+
+        return 1 - (ticksRemaining.toFloat() / ticksPerBrew.toFloat())
     }
 
     override fun clickMenuButton(pPlayer: Player, pId: Int): Boolean {

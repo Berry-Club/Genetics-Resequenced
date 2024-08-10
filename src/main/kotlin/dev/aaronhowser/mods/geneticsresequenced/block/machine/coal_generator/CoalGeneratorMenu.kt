@@ -68,10 +68,10 @@ class CoalGeneratorMenu(
     val isBurning
         get() = burnTimeRemaining > 0
 
-    fun getPercentDone(): Double {
-        if (maxBurnTime == 0) return 0.0
+    override fun getPercentDone(): Float {
+        if (maxBurnTime == 0) return 0f
 
-        return 1.0 - burnTimeRemaining.toDouble() / maxBurnTime.toDouble()
+        return 1f - burnTimeRemaining.toFloat() / maxBurnTime.toFloat()
     }
 
     fun getScaledFuelRemaining(): Int {
@@ -81,16 +81,6 @@ class CoalGeneratorMenu(
             0
         } else {
             fuelHeight - (fuelHeight.toDouble() * getPercentDone()).toInt()
-        }
-    }
-
-    fun getScaledProgressArrow(): Int {
-        val progressArrowWidth = ScreenTextures.Elements.ArrowRight.Dimensions.WIDTH
-
-        return if (maxBurnTime == 0) {
-            0
-        } else {
-            (progressArrowWidth.toDouble() * getPercentDone()).toInt()
         }
     }
 

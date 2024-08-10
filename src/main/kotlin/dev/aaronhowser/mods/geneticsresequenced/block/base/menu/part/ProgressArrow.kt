@@ -7,14 +7,14 @@ import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.util.Mth
 
 class ProgressArrow(
     x: Int,
     y: Int,
     val arrowDirection: ArrowDirection,
     val font: Font,
-    val tooltipComponentsFunction: () -> List<Component>,
-    val amountFunction: () -> Int,
+    val percentDoneFunction: () -> Float,
     val shouldRenderProgress: () -> Boolean,
     val onClickFunction: (Double, Double, Int) -> Unit
 ) : AbstractWidget(
@@ -66,7 +66,7 @@ class ProgressArrow(
             this.x,
             this.y,
             this.width,
-            amountFunction(),
+            Mth.floor(this.height * percentDoneFunction()),
         )
     }
 
@@ -79,19 +79,18 @@ class ProgressArrow(
             0, 0,
             this.x,
             this.y,
-            amountFunction(),
+            Mth.floor(this.width * percentDoneFunction()),
             this.height
         )
     }
 
     private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
 
-        val components = tooltipComponentsFunction()
-        if (components.isEmpty()) return
+        val percentString = (percentDoneFunction() * 100).toInt().toString() + "%"
 
         pGuiGraphics.renderComponentTooltip(
             font,
-            components,
+            listOf(Component.literal(percentString)),
             pMouseX,
             pMouseY
         )

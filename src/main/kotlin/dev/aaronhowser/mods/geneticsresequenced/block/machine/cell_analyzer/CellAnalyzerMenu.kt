@@ -79,6 +79,14 @@ class CellAnalyzerMenu(
         private const val DATA_MAX_PROGRESS_INDEX = 1
     }
 
+    override fun getPercentDone(): Float {
+        return if (maxProgress != 0) {
+            progress.toFloat() / maxProgress.toFloat()
+        } else {
+            0f
+        }
+    }
+
     override fun stillValid(pPlayer: Player): Boolean {
         return stillValid(
             ContainerLevelAccess.create(level, blockEntity.blockPos),

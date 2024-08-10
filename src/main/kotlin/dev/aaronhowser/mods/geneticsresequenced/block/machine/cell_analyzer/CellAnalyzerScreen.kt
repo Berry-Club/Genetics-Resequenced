@@ -13,6 +13,5 @@ class CellAnalyzerScreen(
 ) : MachineScreen<CellAnalyzerMenu>(pMenu, pPlayerInventory, pTitle) {
     override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.CELL_ANALYZER
 
-    override fun progressArrowAmountToRender(): Int = menu.getScaledProgress()
     override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
 }

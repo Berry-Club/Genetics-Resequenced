@@ -29,8 +29,7 @@ abstract class MachineScreen<T : MachineMenu>(
             topPos + arrowTopPos,
             arrowDirection,
             font,
-            ::getArrowTooltip,
-            ::progressArrowAmountToRender,
+            ::arrowPercentDone,
             ::shouldRenderProgressArrow,
             ::clickedProgressArrow
         )
@@ -117,9 +116,7 @@ abstract class MachineScreen<T : MachineMenu>(
     protected open val arrowLeftPos: Int = ScreenTextures.Elements.ArrowRight.Position.Default.X
     protected open val arrowTopPos: Int = ScreenTextures.Elements.ArrowRight.Position.Default.Y
 
-    protected open fun getArrowTooltip(): List<Component> = listOf()
-
-    protected abstract fun progressArrowAmountToRender(): Int
+    protected open fun arrowPercentDone(): Float = menu.getPercentDone()
     protected abstract fun shouldRenderProgressArrow(): Boolean
     protected open fun clickedProgressArrow(mouseX: Double, mouseY: Double, button: Int) {}
 

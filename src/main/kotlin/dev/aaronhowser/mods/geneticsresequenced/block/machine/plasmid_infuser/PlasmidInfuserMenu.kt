@@ -57,6 +57,14 @@ class PlasmidInfuserMenu(
         addDataSlots(containerData)
     }
 
+    override fun getPercentDone(): Float {
+        return if (maxProgress == 0) {
+            0.0f
+        } else {
+            progress.toFloat() / maxProgress.toFloat()
+        }
+    }
+
     override fun stillValid(pPlayer: Player): Boolean {
         return stillValid(
             ContainerLevelAccess.create(level, blockEntity.blockPos),
@@ -79,16 +87,6 @@ class PlasmidInfuserMenu(
 
     val isCrafting
         get() = progress > 0
-
-    fun getScaledProgress(): Int {
-        val progressArrowSize = ScreenTextures.Elements.ArrowRight.Dimensions.WIDTH
-
-        return if (maxProgress == 0 || progress == 0) {
-            0
-        } else {
-            progress * progressArrowSize / maxProgress
-        }
-    }
 
     companion object {
 

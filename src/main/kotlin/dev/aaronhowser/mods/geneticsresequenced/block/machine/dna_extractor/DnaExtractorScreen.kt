@@ -13,6 +13,5 @@ class DnaExtractorScreen(
 ) : MachineScreen<DnaExtractorMenu>(pMenu, pPlayerInventory, pTitle) {
     override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.DNA_EXTRACTOR
 
-    override fun progressArrowAmountToRender(): Int = menu.getScaledProgress()
     override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
 }

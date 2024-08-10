@@ -22,6 +22,8 @@ abstract class MachineMenu(
     protected open val topLeftInventoryX = 8
     protected open val topLeftInventoryY = 90
 
+    abstract fun getPercentDone(): Float
+
     // Adds the 27 slots of the player inventory
     protected open fun addPlayerInventory(playerInventory: Inventory) {
         for (row in 0 until 3) {

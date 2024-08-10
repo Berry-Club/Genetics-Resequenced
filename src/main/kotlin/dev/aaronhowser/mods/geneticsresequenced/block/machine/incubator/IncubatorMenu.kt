@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
-import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import net.minecraft.network.FriendlyByteBuf
@@ -50,6 +49,14 @@ class IncubatorMenu(
         addDataSlots(containerData)
     }
 
+    override fun getPercentDone(): Float {
+        return if (IncubatorBlockEntity.ticksPerBrew == 0) {
+            0.0f
+        } else {
+            progress.toFloat() / IncubatorBlockEntity.ticksPerBrew.toFloat()
+        }
+    }
+
     override fun stillValid(pPlayer: Player): Boolean {
         return stillValid(
             ContainerLevelAccess.create(level, blockEntity.blockPos),
@@ -66,16 +73,6 @@ class IncubatorMenu(
 
     val isCrafting
         get() = progress > 0
-
-    fun getScaledProgress(): Int {
-        val progressArrowSize = ScreenTextures.Elements.ArrowDown.Dimensions.HEIGHT
-
-        return if (progress == 0) {
-            0
-        } else {
-            progressArrowSize - progress * progressArrowSize / IncubatorBlockEntity.ticksPerBrew
-        }
-    }
 
     companion object {
         private const val DATA_PROGRESS_INDEX = 0
