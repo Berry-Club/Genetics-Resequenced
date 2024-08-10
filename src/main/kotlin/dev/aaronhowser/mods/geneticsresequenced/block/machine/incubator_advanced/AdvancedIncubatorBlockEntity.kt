@@ -125,9 +125,9 @@ class AdvancedIncubatorBlockEntity(
     }
 
     private val ticksRemainingNbtKey = "$machineName.ticksRemaining"
-    private var ticksRemaining: Int
+    var ticksRemaining: Int
         get() = data.get(REMAINING_TICKS_INDEX)
-        set(value) {
+        private set(value) {
             data.set(REMAINING_TICKS_INDEX, value)
         }
 
@@ -138,7 +138,7 @@ class AdvancedIncubatorBlockEntity(
             data.set(IS_HIGH_TEMPERATURE_INDEX, if (value) 1 else 0)
         }
 
-    private val isBrewing: Boolean
+    val isBrewing: Boolean
         get() = ticksRemaining > 0
 
     override val baseEnergyCostPerTick = 10

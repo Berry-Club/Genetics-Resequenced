@@ -13,6 +13,7 @@ class ProgressArrow(
     y: Int,
     val arrowDirection: ArrowDirection,
     val font: Font,
+    val tooltipComponentsFunction: () -> List<Component>,
     val amountFunction: () -> Int,
     val shouldRenderProgress: () -> Boolean,
     val onClickFunction: (Double, Double, Int) -> Unit
@@ -86,7 +87,7 @@ class ProgressArrow(
     private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
         pGuiGraphics.renderComponentTooltip(
             font,
-            listOf(Component.literal("Hi!")),
+            tooltipComponentsFunction(),
             pMouseX,
             pMouseY
         )

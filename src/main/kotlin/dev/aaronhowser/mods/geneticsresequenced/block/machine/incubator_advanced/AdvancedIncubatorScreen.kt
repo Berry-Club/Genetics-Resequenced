@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advance
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.ProgressArrow
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import net.minecraft.client.gui.GuiGraphics
@@ -79,6 +80,23 @@ class AdvancedIncubatorScreen(
 
     override val arrowLeftPos: Int = ScreenTextures.Elements.ArrowDown.Position.X
     override val arrowTopPos: Int = ScreenTextures.Elements.ArrowDown.Position.Y
+
+    override fun getArrowTooltip(): List<Component> {
+        val blockEntity = menu.blockEntity as? AdvancedIncubatorBlockEntity ?: return emptyList()
+        if (!blockEntity.isBrewing) return emptyList()
+
+        val ticksRemaining = blockEntity.ticksRemaining
+        val ticksPerBrew = IncubatorBlockEntity.ticksPerBrew
+
+        val percentLeft = (ticksRemaining.toFloat() / ticksPerBrew.toFloat())
+        val percentDone = 1 - percentLeft
+
+        val percentString = (percentDone * 100).toInt().toString() + "%"
+
+        return listOf(
+            Component.literal(percentString)
+        )
+    }
 
     override fun progressArrowAmountToRender(): Int = menu.getScaledProgress()
     override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
