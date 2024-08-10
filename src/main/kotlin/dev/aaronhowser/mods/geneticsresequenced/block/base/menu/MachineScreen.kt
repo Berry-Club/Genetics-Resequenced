@@ -118,7 +118,7 @@ abstract class MachineScreen<T : MachineMenu>(
 
     protected abstract fun progressArrowAmountToRender(): Int
     protected abstract fun shouldRenderProgressArrow(): Boolean
-    protected abstract fun clickedProgressArrow(mouseX: Double, mouseY: Double, button: Int)
+    protected open fun clickedProgressArrow(mouseX: Double, mouseY: Double, button: Int) {}
 
     // Misc
 
