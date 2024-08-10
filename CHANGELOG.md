@@ -116,7 +116,7 @@
 
 ### 1.1.10
 
-- Update to NeoForge 21.0.166
+- Update to NeoForge 21.1.4
 - Fixed the Scraper not working on the Ender Dragon (#15)
 - Made it so that removing Overclockers from the Advanced Incubator will reset its progress
 - Fixed the Incubator not being able to output
