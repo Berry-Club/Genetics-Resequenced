@@ -60,10 +60,10 @@ class AdvancedIncubatorMenu(
         )
     }
 
-    private var progress: Int
-        get() = containerData.get(DATA_PROGRESS_INDEX)
+    private var ticksRemaining: Int
+        get() = containerData.get(AdvancedIncubatorBlockEntity.REMAINING_TICKS_INDEX)
         set(value) {
-            containerData.set(DATA_PROGRESS_INDEX, value)
+            containerData.set(AdvancedIncubatorBlockEntity.REMAINING_TICKS_INDEX, value)
         }
 
     var isHighTemperature: Boolean
@@ -73,15 +73,17 @@ class AdvancedIncubatorMenu(
         }
 
     val isCrafting
-        get() = progress > 0
+        get() = ticksRemaining > 0
 
     override fun getPercentDone(): Float {
-        val entity = blockEntity as? AdvancedIncubatorBlockEntity ?: return 0f
+        val maxProgress = IncubatorBlockEntity.ticksPerBrew
+        val progress = maxProgress - ticksRemaining
 
-        val ticksRemaining = entity.ticksRemaining
-        val ticksPerBrew = IncubatorBlockEntity.ticksPerBrew
-
-        return 1 - (ticksRemaining.toFloat() / ticksPerBrew.toFloat())
+        return if (maxProgress != 0) {
+            progress.toFloat() / maxProgress.toFloat()
+        } else {
+            0f
+        }
     }
 
     override fun clickMenuButton(pPlayer: Player, pId: Int): Boolean {
@@ -98,10 +100,6 @@ class AdvancedIncubatorMenu(
     private fun toggleTemperature() {
         isHighTemperature = !isHighTemperature
         (blockEntity as AdvancedIncubatorBlockEntity).resetBrewTime()
-    }
-
-    companion object {
-        private const val DATA_PROGRESS_INDEX = 0
     }
 
 }

@@ -50,10 +50,13 @@ class IncubatorMenu(
     }
 
     override fun getPercentDone(): Float {
-        return if (IncubatorBlockEntity.ticksPerBrew == 0) {
-            0.0f
+        val maxProgress = IncubatorBlockEntity.ticksPerBrew
+        val progress = maxProgress - ticksRemaining
+
+        return if (maxProgress != 0) {
+            progress.toFloat() / maxProgress.toFloat()
         } else {
-            progress.toFloat() / IncubatorBlockEntity.ticksPerBrew.toFloat()
+            0f
         }
     }
 
@@ -65,17 +68,13 @@ class IncubatorMenu(
         )
     }
 
-    private var progress: Int
-        get() = containerData.get(DATA_PROGRESS_INDEX)
+    private var ticksRemaining: Int
+        get() = containerData.get(IncubatorBlockEntity.REMAINING_TICKS_INDEX)
         set(value) {
-            containerData.set(DATA_PROGRESS_INDEX, value)
+            containerData.set(IncubatorBlockEntity.REMAINING_TICKS_INDEX, value)
         }
 
     val isCrafting
-        get() = progress > 0
-
-    companion object {
-        private const val DATA_PROGRESS_INDEX = 0
-    }
+        get() = ticksRemaining > 0
 
 }
