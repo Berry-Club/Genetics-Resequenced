@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advance
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.Bubbles
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.ProgressArrow
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.TemperatureIndicator
 import net.minecraft.client.gui.GuiGraphics
@@ -23,6 +24,7 @@ class AdvancedIncubatorScreen(
     override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.INCUBATOR_ADVANCED
 
     private lateinit var temperatureIndicator: TemperatureIndicator
+    private lateinit var bubbles: Bubbles
 
     override fun init() {
         super.init()
@@ -41,13 +43,14 @@ class AdvancedIncubatorScreen(
             }
         )
 
+        bubbles = Bubbles(
+            x = leftPos + ScreenTextures.Elements.Bubbles.Position.X,
+            y = topPos + ScreenTextures.Elements.Bubbles.Position.Y,
+            shouldRender = { menu.isCrafting }
+        )
+
         addRenderableWidget(temperatureIndicator)
-    }
-
-    override fun renderBg(pGuiGraphics: GuiGraphics, pPartialTick: Float, pMouseX: Int, pMouseY: Int) {
-        super.renderBg(pGuiGraphics, pPartialTick, pMouseX, pMouseY)
-
-        renderBubble(pGuiGraphics, leftPos, topPos)
+        addRenderableWidget(bubbles)
     }
 
     override val energyPosLeft: Int = ScreenTextures.Elements.Energy.Location.Incubator.X
@@ -70,31 +73,4 @@ class AdvancedIncubatorScreen(
                 field = amountOverMax
             }
         }
-
-    //FIXME: Make the bubbles go up instead of down
-    private fun renderBubble(pGuiGraphics: GuiGraphics, x: Int, y: Int) {
-        if (!menu.isCrafting) return
-
-        val speed = if (menu.isHighTemperature) FAST_BUBBLE_SPEED else SLOW_BUBBLE_SPEED
-
-        bubblePosProgress++
-        if (bubblePosProgress % speed == 0) {
-            bubblePos++
-            bubblePosProgress = 0
-        }
-
-        val amountBubbleToRender = ScreenTextures.Elements.Bubbles.Dimensions.HEIGHT - bubblePos
-
-        pGuiGraphics.blitSprite(
-            ScreenTextures.Elements.Bubbles.TEXTURE,
-            ScreenTextures.Elements.Bubbles.TEXTURE_SIZE,
-            ScreenTextures.Elements.Bubbles.TEXTURE_SIZE,
-            0,
-            0,
-            x + ScreenTextures.Elements.Bubbles.Position.X,
-            y + ScreenTextures.Elements.Bubbles.Position.Y,
-            ScreenTextures.Elements.Bubbles.Dimensions.WIDTH,
-            amountBubbleToRender
-        )
-    }
 }
