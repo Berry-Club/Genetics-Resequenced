@@ -106,6 +106,14 @@ repositories {
         content { includeGroup "thedarkcolour" }
     }
 
+    // Patchouli
+    maven {
+        url "https://maven.blamejared.com"
+        content {
+            includeGroup "vazkii.patchouli"
+        }
+    }
+
     //For REI
     repositories {
         maven { url "https://maven.shedaniel.me" }
@@ -137,12 +145,14 @@ repositories {
         }
     }
 
-
 }
 
 dependencies {
     // Must use the '-neoforge' version on NeoForge. If on regular forge, omit the '-neoforge'
     implementation 'thedarkcolour:kotlinforforge-neoforge:5.4.0'
+
+    // Patchouli
+    compileOnly 'vazkii.patchouli.Patchouli:1.21-87-NEOFORGE-SNAPSHOT-20240723.172650-3'
 
     // EMI
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
