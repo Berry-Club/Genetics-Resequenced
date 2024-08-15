@@ -152,7 +152,7 @@ dependencies {
     implementation 'thedarkcolour:kotlinforforge-neoforge:5.4.0'
 
     // Patchouli
-    compileOnly 'vazkii.patchouli.Patchouli:1.21-87-NEOFORGE-SNAPSHOT-20240723.172650-3'
+    runtimeOnly 'vazkii.patchouli.Patchouli:1.21-87-NEOFORGE-SNAPSHOT-20240723.172650-3'
 
     // EMI
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
