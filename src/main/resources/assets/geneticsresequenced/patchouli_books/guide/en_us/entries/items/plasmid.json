@@ -21,7 +21,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "geneticsresequenced:plasmid[geneticsresequenced:plasmid_progress={dnaPoints:20, gene:'geneticsresequenced:scare_creepers'}]",
+      "item": "geneticsresequenced:plasmid[geneticsresequenced:plasmid_progress={dnaPoints:20000, gene:'geneticsresequenced:scare_creepers'}]",
       "text": "Once it's reached its maximum Gene Points required, the Plasmid will be marked $(minor)complete/$!$(br2)That means it's ready to be injected into a Syringe at the $(l:geneticsresequenced:blocks/plasmid_injector)Plasmid Injector/$."
     }
   ]

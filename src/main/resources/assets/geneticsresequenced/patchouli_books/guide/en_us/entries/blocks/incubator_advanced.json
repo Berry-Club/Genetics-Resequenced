@@ -12,7 +12,7 @@
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:advanced_incubator",
       "link_recipe": true,
-      "text": "At low temperature, it's $(bad)120 times slower/$, which means a single brew takes a full 20 minutes, excluding Overclockers or config changes.$(br2)The reason you'd want to use low temperature mode is that is the only way you can get $(l:geneticsresequenced:items/cell_growth#gmo_cell)Genetically Modified Cells/$. "
+      "text": "By default, it's $(bad)120 times slower/$ at low-temperature. This means a single brew takes a full 20 minutes, excluding Overclockers.$(br2)The reason you'd want to use low temperature mode is that is the only way you can get $(l:geneticsresequenced:items/cell_growth#gmo_cell)Genetically Modified Cells/$."
     },
     {
       "type": "patchouli:spotlight",
