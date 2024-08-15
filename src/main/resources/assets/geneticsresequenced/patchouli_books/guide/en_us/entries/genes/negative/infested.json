@@ -1,0 +1,11 @@
+{
+  "name": "Infested",
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:textures/mob_effect/infested.png",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Infested/$ Gene gives entities the $(bad)Infested/$ effect.$(br2)This Gene $(minor)can be given to mobs/$."
+    }
+  ]
+}

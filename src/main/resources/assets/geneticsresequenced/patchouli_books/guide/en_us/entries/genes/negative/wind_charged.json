@@ -1,0 +1,11 @@
+{
+  "name": "Wind Charged",
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:textures/mob_effect/wind_charged.png",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Wind Charged/$ Gene gives entities the $(bad)Wind Charged/$ effect.$(br2)This Gene $(minor)can be given to mobs/$."
+    }
+  ]
+}

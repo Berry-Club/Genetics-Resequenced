@@ -1,0 +1,11 @@
+{
+  "name": "Weaving",
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:textures/mob_effect/weaving.png",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Weaving/$ Gene gives entities the $(bad)Weaving/$ effect.$(br2)This Gene $(minor)can be given to mobs/$."
+    }
+  ]
+}

@@ -105,7 +105,6 @@
 - Cells are no longer separated as far as EMI goes, so looking at any Cell will show all Cells
 - Mob Spawn Eggs now have the EMI info recipes for what genes they have
 
-
 ### 1.1.9
 
 - Fixed the Potion of Cell Growth recipe setting the entity when it shouldn't (#14)
