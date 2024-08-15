@@ -1,6 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.data.PackOutput
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
@@ -18,21 +21,10 @@ class ModLanguageProvider(
         const val CREATIVE_TAB = "itemGroup.geneticsresequenced"
 
         const val GUIDE_BOOK = "item.geneticsresequenced.guide_book"
-        const val DRAGON_HEALTH_CRYSTAL = "item.geneticsresequenced.dragon_health_crystal"
-        const val ORGANIC_MATTER = "item.geneticsresequenced.organic_matter"
-        const val CELL = "item.geneticsresequenced.cell"
-        const val GMO_CELL = "item.geneticsresequenced.gmo_cell"
-        const val ANTI_FIELD_ORB = "item.geneticsresequenced.anti_field_orb"
-        const val SCRAPER = "item.geneticsresequenced.scraper"
         const val SYRINGE_EMPTY = "item.geneticsresequenced.syringe.empty"
         const val SYRINGE_FULL = "item.geneticsresequenced.syringe.full"
         const val METAL_SYRINGE_EMPTY = "item.geneticsresequenced.metal_syringe.empty"
         const val METAL_SYRINGE_FULL = "item.geneticsresequenced.metal_syringe.full"
-        const val DNA_HELIX = "item.geneticsresequenced.dna_helix"
-        const val PLASMID = "item.geneticsresequenced.plasmid"
-        const val OVERCLOCKER = "item.geneticsresequenced.overclocker"
-        const val SUPPORT_SLIME_EGG = "item.geneticsresequenced.support_slime_spawn_egg"
-        const val ANTI_PLASMID = "item.geneticsresequenced.anti_plasmid"
 
         const val POTION_SUBSTRATE = "item.minecraft.potion.effect.geneticsresequenced.substrate"
         const val POTION_CELL_GROWTH = "item.minecraft.potion.effect.geneticsresequenced.cell_growth"
@@ -67,16 +59,6 @@ class ModLanguageProvider(
             "item.minecraft.tipped_arrow.effect.geneticsresequenced.zombify_villager"
     }
 
-    object Effects {
-        const val BLEED = "effect.geneticsresequenced.bleed"
-        const val SUBSTRATE = "effect.geneticsresequenced.substrate"
-        const val CELL_GROWTH = "effect.geneticsresequenced.cell_growth"
-        const val MUTATION = "effect.geneticsresequenced.mutation"
-        const val VIRAL_AGENTS = "effect.geneticsresequenced.viral_agents"
-        const val PANACEA = "effect.geneticsresequenced.panacea"
-        const val ZOMBIFY_VILLAGER = "effect.geneticsresequenced.zombify_villager"
-    }
-
     object Messages {
         const val SCRAPER_CANT_SCRAPE = "message.geneticsresequenced.scraper.cant_scrape"
         const val CANT_SET_ENTITY = "message.geneticsresequenced.cant_set_entity"
@@ -104,22 +86,6 @@ class ModLanguageProvider(
         const val CRINGE_CONFIG = "message.geneticsresequenced.cringe.resources.tooltip"
         const val CRINGE_RELOADING = "message.geneticsresequenced.cringe.resources.reloading"
         const val SLIME_SPAM = "message.geneticsresequenced.slimy_spam"
-    }
-
-    object Blocks {
-        const val BIOLUMINESCENCE = "block.geneticsresequenced.bioluminescence"
-        const val CELL_ANALYZER = "block.geneticsresequenced.cell_analyzer"
-        const val COAL_GENERATOR = "block.geneticsresequenced.coal_generator"
-        const val DNA_DECRYPTOR = "block.geneticsresequenced.dna_decryptor"
-        const val DNA_EXTRACTOR = "block.geneticsresequenced.dna_extractor"
-        const val AIR_DISPERSAL = "block.geneticsresequenced.air_dispersal"
-        const val BLOOD_PURIFIER = "block.geneticsresequenced.blood_purifier"
-        const val CLONING_MACHINE = "block.geneticsresequenced.cloning_machine"
-        const val INCUBATOR = "block.geneticsresequenced.incubator"
-        const val ADVANCED_INCUBATOR = "block.geneticsresequenced.advanced_incubator"
-        const val PLASMID_INFUSER = "block.geneticsresequenced.plasmid_infuser"
-        const val PLASMID_INJECTOR = "block.geneticsresequenced.plasmid_injector"
-        const val ANTI_FIELD_BLOCK = "block.geneticsresequenced.anti_field_block"
     }
 
     object Tooltips {
@@ -541,29 +507,29 @@ class ModLanguageProvider(
 
         add(Items.CREATIVE_TAB, "Genetics: Resequenced")
         add(Items.GUIDE_BOOK, "Big Book of Genetics")
-        add(Items.DRAGON_HEALTH_CRYSTAL, "Dragon Health Crystal")
-        add(Items.ORGANIC_MATTER, "Organic Matter")
-        add(Items.CELL, "Cell")
-        add(Items.GMO_CELL, "Genetically Modified Cell")
-        add(Items.ANTI_FIELD_ORB, "Anti-Field Orb")
-        add(Items.SCRAPER, "Scraper")
         add(Items.SYRINGE_EMPTY, "Empty Syringe")
         add(Items.SYRINGE_FULL, "Full Syringe")
         add(Items.METAL_SYRINGE_EMPTY, "Empty Metal Syringe")
         add(Items.METAL_SYRINGE_FULL, "Full Metal Syringe")
-        add(Items.DNA_HELIX, "DNA Helix")
-        add(Items.PLASMID, "Plasmid")
-        add(Items.OVERCLOCKER, "Overclocker")
-        add(Items.SUPPORT_SLIME_EGG, "Support Slime Spawn Egg")
-        add(Items.ANTI_PLASMID, "Anti-Plasmid")
+        addItem(ModItems.DRAGON_HEALTH_CRYSTAL, "Dragon Health Crystal")
+        addItem(ModItems.ORGANIC_MATTER, "Organic Matter")
+        addItem(ModItems.CELL, "Cell")
+        addItem(ModItems.GMO_CELL, "Genetically Modified Cell")
+        addItem(ModItems.ANTI_FIELD_ORB, "Anti-Field Orb")
+        addItem(ModItems.SCRAPER, "Scraper")
+        addItem(ModItems.DNA_HELIX, "DNA Helix")
+        addItem(ModItems.PLASMID, "Plasmid")
+        addItem(ModItems.OVERCLOCKER, "Overclocker")
+        addItem(ModItems.FRIENDLY_SLIME_SPAWN_EGG, "Support Slime Spawn Egg")
+        addItem(ModItems.ANTI_PLASMID, "Anti-Plasmid")
 
-        add(Effects.BLEED, "Bleed")
-        add(Effects.SUBSTRATE, "Substrate")
-        add(Effects.CELL_GROWTH, "Cell Growth")
-        add(Effects.MUTATION, "Mutation")
-        add(Effects.VIRAL_AGENTS, "Viral Agents")
-        add(Effects.PANACEA, "Panacea")
-        add(Effects.ZOMBIFY_VILLAGER, "Zombify Villager")
+        addEffect(ModEffects.BLEED, "Bleed")
+        addEffect(ModEffects.SUBSTRATE, "Substrate")
+        addEffect(ModEffects.CELL_GROWTH, "Cell Growth")
+        addEffect(ModEffects.MUTATION, "Mutation")
+        addEffect(ModEffects.VIRAL_AGENTS, "Viral Agents")
+        addEffect(ModEffects.PANACEA, "Panacea")
+        addEffect(ModEffects.ZOMBIFY_VILLAGER, "Zombify Villager")
 
         add(Items.POTION_SUBSTRATE, "Organic Substrate")
         add(Items.POTION_CELL_GROWTH, "Potion of Cell Growth")
@@ -633,19 +599,17 @@ class ModLanguageProvider(
         add(Messages.CRINGE_RELOADING, "Reloading resources now!")
         add(Messages.SLIME_SPAM, "%s's Slime %d")
 
-        add(Blocks.BIOLUMINESCENCE, "Bioluminescence Glow")
-        add(Blocks.CELL_ANALYZER, "Cell Analyzer")
-        add(Blocks.COAL_GENERATOR, "Coal Generator")
-        add(Blocks.DNA_DECRYPTOR, "DNA Decryptor")
-        add(Blocks.DNA_EXTRACTOR, "DNA Extractor")
-        add(Blocks.AIR_DISPERSAL, "Air Dispersal")
-        add(Blocks.BLOOD_PURIFIER, "Blood Purifier")
-        add(Blocks.CLONING_MACHINE, "Cloning Machine")
-        add(Blocks.INCUBATOR, "Incubator")
-        add(Blocks.ADVANCED_INCUBATOR, "Advanced Incubator")
-        add(Blocks.PLASMID_INFUSER, "Plasmid Infuser")
-        add(Blocks.PLASMID_INJECTOR, "Plasmid Injector")
-        add(Blocks.ANTI_FIELD_BLOCK, "Anti-Field Block")
+        addBlock(ModBlocks.BIOLUMINESCENCE_BLOCK, "Bioluminescence Glow")
+        addBlock(ModBlocks.CELL_ANALYZER, "Cell Analyzer")
+        addBlock(ModBlocks.COAL_GENERATOR, "Coal Generator")
+        addBlock(ModBlocks.DNA_DECRYPTOR, "DNA Decryptor")
+        addBlock(ModBlocks.DNA_EXTRACTOR, "DNA Extractor")
+        addBlock(ModBlocks.BLOOD_PURIFIER, "Blood Purifier")
+        addBlock(ModBlocks.INCUBATOR, "Incubator")
+        addBlock(ModBlocks.ADVANCED_INCUBATOR, "Advanced Incubator")
+        addBlock(ModBlocks.PLASMID_INFUSER, "Plasmid Infuser")
+        addBlock(ModBlocks.PLASMID_INJECTOR, "Plasmid Injector")
+        addBlock(ModBlocks.ANTI_FIELD_BLOCK, "Anti-Field Block")
 
         add(Tooltips.GENE, "Gene: %1\$s")
         add(Tooltips.HELIX_ENTITY, "Entity: %1\$s")
