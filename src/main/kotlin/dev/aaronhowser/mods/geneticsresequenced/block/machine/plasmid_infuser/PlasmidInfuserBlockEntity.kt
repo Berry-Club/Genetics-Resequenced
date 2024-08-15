@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockE
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
@@ -55,7 +56,7 @@ class PlasmidInfuserBlockEntity(
     }
 
     override fun getDisplayName(): Component {
-        return Component.translatable("block.geneticsresequenced.plasmid_infuser")
+        return ModBlocks.PLASMID_INFUSER.get().name
     }
 
     override fun tick() {

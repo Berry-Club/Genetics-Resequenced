@@ -1,12 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
@@ -62,7 +61,7 @@ class PlasmidInjectorBlockEntity(
     }
 
     override fun getDisplayName(): Component {
-        return ModLanguageProvider.Blocks.PLASMID_INJECTOR.toComponent()
+        return ModBlocks.PLASMID_INJECTOR.get().name
     }
 
     override fun tick() {

@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -46,9 +47,8 @@ class CoalGeneratorBlockEntity(
     }
 
     override fun getDisplayName(): Component {
-        return ModLanguageProvider.Blocks.COAL_GENERATOR.toComponent()
+        return ModBlocks.COAL_GENERATOR.get().name
     }
-
 
     override val amountOfItemSlots: Int = 1
     override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {

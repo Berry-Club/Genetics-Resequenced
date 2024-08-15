@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setEntityType
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
@@ -58,9 +59,8 @@ class DnaExtractorBlockEntity(
     }
 
     override fun getDisplayName(): Component {
-        return ModLanguageProvider.Blocks.DNA_EXTRACTOR.toComponent()
+        return ModBlocks.DNA_EXTRACTOR.get().name
     }
-
 
     override fun craftItem() {
         if (!hasRecipe()) return

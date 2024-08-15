@@ -10,6 +10,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.BlockPos
@@ -51,7 +52,7 @@ class AdvancedIncubatorBlockEntity(
     }
 
     override fun getDisplayName(): Component {
-        return ModLanguageProvider.Blocks.ADVANCED_INCUBATOR.toComponent()
+        return ModBlocks.ADVANCED_INCUBATOR.get().name
     }
 
     private val potionBrewing: PotionBrewing?

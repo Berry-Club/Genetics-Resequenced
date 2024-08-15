@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
@@ -53,7 +54,7 @@ class BloodPurifierBlockEntity(
     }
 
     override fun getDisplayName(): Component {
-        return ModLanguageProvider.Blocks.BLOOD_PURIFIER.toComponent()
+        return ModBlocks.BLOOD_PURIFIER.get().name
     }
 
     override fun craftItem() {
