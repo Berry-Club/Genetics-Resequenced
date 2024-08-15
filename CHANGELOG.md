@@ -127,3 +127,8 @@
 - Massively improved the code for most Screens, moving a lot of things to Widgets rather than reimplementing them every Screen
 - All machine menu progress arrows now show the percentage completion in the tooltip
 - Fixed Scrapers being unable to be enchanted (#16)
+
+### 1.2.0
+
+- Updated Patchouli support to use item components rather than NBT
+- Updated the book to reflect changes since 1.19

@@ -1,7 +1,7 @@
 {
   "name": "Potion of Mutation",
   "category": "geneticsresequenced:items",
-  "icon": "minecraft:potion{Potion:\"geneticsresequenced:mutation\"}",
+  "icon": "minecraft:potion[potion_contents={potion:'geneticsresequenced:mutation'}]",
   "sortnum": 11,
   "pages": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "minecraft:potion{Potion:\"geneticsresequenced:mutation\"}",
+      "item": "minecraft:potion[potion_contents={potion:'geneticsresequenced:mutation'}]",
       "text": "Like $(l:geneticsresequenced:items/cell_growth)Cell Growth Potions/$, to make GM Cells, you have to process through a low-temperature $(l:geneticsresequenced:blocks/incubator_advanced)Advanced Incubator/$."
     }
   ]

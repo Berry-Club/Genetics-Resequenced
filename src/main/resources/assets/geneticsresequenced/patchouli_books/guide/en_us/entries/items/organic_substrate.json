@@ -1,7 +1,7 @@
 {
   "name": "Organic Substrate",
   "category": "geneticsresequenced:items",
-  "icon": "minecraft:potion{Potion:\"geneticsresequenced:substrate\"}",
+  "icon": "minecraft:potion[potion_contents={potion:'geneticsresequenced:substrate'}]",
   "sortnum": 10,
   "pages": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "minecraft:potion{Potion:\"geneticsresequenced:substrate\"}",
+      "item": "minecraft:potion[potion_contents={potion:'geneticsresequenced:substrate'}]",
       "text": "Additionally, Organic Substrate is used to brew $(l:geneticsresequenced:items/cell_growth)Potions of Cell Growth/$.$(br2)You may prefer to use the $(l:geneticsresequenced:blocks/incubator)Incubator/$ to brew these recipes, rather than the Brewing Stand."
     }
   ]

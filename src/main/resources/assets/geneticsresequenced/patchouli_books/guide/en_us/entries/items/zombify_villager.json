@@ -1,7 +1,7 @@
 {
   "name": "Potion of Zombify Villager",
   "category": "geneticsresequenced:items",
-  "icon": "minecraft:potion{Potion:\"geneticsresequenced:zombify_villager\"}",
+  "icon": "minecraft:potion[potion_contents={potion:'geneticsresequenced:zombify_villager'}]",
   "sortnum": 14,
   "pages": [
     {
@@ -10,7 +10,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "minecraft:potion{Potion:\"geneticsresequenced:zombify_villager\"}",
+      "item": "minecraft:potion[potion_contents={potion:'geneticsresequenced:zombify_villager'}]",
       "text": "Obviously, it's best utilized in Splash form."
     }
   ]

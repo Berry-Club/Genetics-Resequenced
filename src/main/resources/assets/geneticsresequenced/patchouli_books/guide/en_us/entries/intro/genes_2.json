@@ -15,22 +15,22 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "geneticsresequenced:cell{MobId:\"minecraft:sheep\"}",
+      "item": "geneticsresequenced:cell[geneticsresequenced:entity_type='minecraft:sheep']",
       "text": "Craft a $(l:geneticsresequenced:blocks/cell_analyzer)Cell Analyzer/$, and process the Organic Matter through it. This will create a $(l:geneticsresequenced:items/cell)Cell/$.$(br2)Like the Organic Matter, this has the entity's type attached."
     },
     {
       "type": "patchouli:spotlight",
-      "item": "geneticsresequenced:dna_helix{MobId:\"minecraft:sheep\"}",
+      "item": "geneticsresequenced:dna_helix[geneticsresequenced:entity_type='minecraft:sheep']",
       "text": "Craft a $(l:geneticsresequenced:blocks/dna_extractor)DNA Extractor/$, and process the Cell through it. This will create a $(l:geneticsresequenced:items/dna_helix)DNA Helix/$, which carries an unknown Gene.$(br2)To find out what Gene it is, you'll need to process it through a $(l:geneticsresequenced:blocks/dna_decryptor)DNA Decryptor/$."
     },
     {
       "type": "patchouli:spotlight",
-      "item": "geneticsresequenced:dna_helix{GeneId:\"geneticsresequenced:eat_grass\"}",
+      "item": "geneticsresequenced:dna_helix[geneticsresequenced:gene='geneticsresequenced:eat_grass']",
       "text": "Some entities have $(minor)several Genes/$ that they can give. This is a weighted choice, with some Genes being more common than others.$(br2)You can see the chance of each in JEI.$(br2)All DNA Helices have a chance of being $(bad)Basic/$, which contains no Gene.$(br2)This does not make it useless, however."
     },
     {
       "type": "patchouli:spotlight",
-      "item": "geneticsresequenced:plasmid{GeneId:\"geneticsresequenced:eat_grass\",Amount:1000}",
+      "item": "geneticsresequenced:plasmid[geneticsresequenced:plasmid_progress={dnaPoints:300, gene:'geneticsresequenced:eat_grass'}]",
       "text": "Now that you have some decrypted DNA Helices, you have to inject them into a $(l:geneticsresequenced:items/plasmid)Plasmid/$.$(br2)This is done at the $(l:geneticsresequenced:blocks/plasmid_infuser)Plasmid Infuser/$.$(br2)For more information on that, see the Plasmid's page, linked above."
     },
     {

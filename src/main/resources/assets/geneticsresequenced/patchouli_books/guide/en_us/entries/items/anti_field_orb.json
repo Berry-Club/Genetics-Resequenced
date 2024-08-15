@@ -10,7 +10,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "geneticsresequenced:anti_field_orb{Enabled:true}",
+      "item": "geneticsresequenced:anti_field_orb[geneticsresequenced:active=true]",
       "link_recipe": true,
       "text": "The Anti-Field Orb can be toggled by right-clicking it while held."
     }

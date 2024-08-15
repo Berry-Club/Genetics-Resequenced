@@ -11,20 +11,20 @@
     {
       "type": "patchouli:spotlight",
       "title": "Encrypted DNA Helix",
-      "item": "geneticsresequenced:dna_helix{MobId:'minecraft:cow'}",
+      "item": "geneticsresequenced:dna_helix[geneticsresequenced:entity_type='minecraft:cow']",
       "link_recipe": true,
       "text": "This DNA Helix contains the genetic information of a $(minor)Cow/$, but the actual Gene it has is $(bad)unknown/$. To decrypt it, you'll need to pass it through a $(l:geneticsresequenced:blocks/dna_decryptor)DNA Decryptor/$."
     },
     {
       "type": "patchouli:spotlight",
       "title": "Decrypted DNA Helix",
-      "item": "geneticsresequenced:dna_helix{GeneId:'geneticsresequenced:milky'}",
+      "item": "geneticsresequenced:dna_helix[geneticsresequenced:gene='geneticsresequenced:milky']",
       "text": "This DNA Helix has been decrypted, and now we can see it contains the $(l:geneticsresequenced:genes/milky)Milky/$ Gene."
     },
     {
       "type": "patchouli:spotlight",
       "title": "Basic Gene",
-      "item": "geneticsresequenced:dna_helix{IsBasic:true}",
+      "item": "geneticsresequenced:dna_helix[geneticsresequenced:gene='geneticsresequenced:basic']",
       "text": "DNA Helices have a chance of being $(minor)Basic/$. This means that they $(bad)don't contain any Gene/$, but they can still contribute to $(l:geneticsresequenced:items/plasmid)Plasmids/$."
     }
   ]

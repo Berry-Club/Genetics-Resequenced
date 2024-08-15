@@ -10,7 +10,7 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "geneticsresequenced:cell{MobId:'minecraft:cow'}",
+      "item": "geneticsresequenced:cell[geneticsresequenced:entity_type='minecraft:cow']",
       "link_recipe": true,
       "text": "Each entity has its own Cell, which can be processed into a $(l:geneticsresequenced:items/dna_helix)DNA Helix/$ of the entity's type.$(br2)You can see the Cell's entity type in the item's tooltip."
     }

@@ -1,0 +1,17 @@
+{
+  "name": "Panacea",
+  "category": "geneticsresequenced:items",
+  "icon": "minecraft:potion[potion_contents={potion:'geneticsresequenced:panacea'}]",
+  "sortnum": 14,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(major)Panacea/$ is a simple potion: It cures all negative effects, and $(minor)removes all negative Genes/$."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "minecraft:potion[potion_contents={potion:'geneticsresequenced:panacea'}]",
+      "text": "Sure, you could do the same with a Bucket of Milk and an Anti-Plasmid, but this is much more convenient, sometimes, maybe."
+    }
+  ]
+}
