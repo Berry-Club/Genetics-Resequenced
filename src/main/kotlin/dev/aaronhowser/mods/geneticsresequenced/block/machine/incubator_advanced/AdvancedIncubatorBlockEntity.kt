@@ -282,14 +282,10 @@ class AdvancedIncubatorBlockEntity(
         }
 
         data class ChanceData(
-            val baseChange: Float,
             val amountOverclockers: Int,
             val overclockerChanceFactor: Float,
             val reducedChance: Float,
-            val chorusRequiredForMaxChance: Int,
-            val chorusAvailable: Int,
             val chorusUsed: Int,
-            val chorusBoost: Float,
             val finalChance: Float
         )
 
@@ -316,14 +312,10 @@ class AdvancedIncubatorBlockEntity(
             val finalChance = reducedChance + chorusBoost
 
             return ChanceData(
-                baseChange = geneChance,
                 amountOverclockers = blockEntity.amountOfOverclockers,
                 overclockerChanceFactor = overclockerChanceFactor,
                 reducedChance = reducedChance,
-                chorusRequiredForMaxChance = chorusRequiredForMaxChance,
-                chorusAvailable = chorusAvailable,
                 chorusUsed = chorusUsed,
-                chorusBoost = chorusBoost,
                 finalChance = finalChance
             )
         }

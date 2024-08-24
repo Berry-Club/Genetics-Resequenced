@@ -134,7 +134,10 @@ class AdvancedIncubatorMenu(
             event.toolTip.add(
                 1,
                 ModLanguageProvider.Tooltips.GMO_BASE_CHANCE
-                    .toComponent(recipe.idealGene.nameComponent, recipe.geneChance)
+                    .toComponent(
+                        recipe.idealGene.nameComponent,
+                        (recipe.geneChance * 100).toInt()
+                    )
                     .withColor(ChatFormatting.GRAY)
             )
 
@@ -152,7 +155,10 @@ class AdvancedIncubatorMenu(
             event.toolTip.add(
                 3,
                 ModLanguageProvider.Tooltips.GMO_CHORUS_CHANCE
-                    .toComponent(chanceData.amountChorus, chanceData.chorusChanceFactor, chanceData.reducedChance)
+                    .toComponent(
+                        chanceData.chorusUsed,
+                        chanceData.finalChance
+                    )
                     .withColor(ChatFormatting.GRAY)
             )
 
