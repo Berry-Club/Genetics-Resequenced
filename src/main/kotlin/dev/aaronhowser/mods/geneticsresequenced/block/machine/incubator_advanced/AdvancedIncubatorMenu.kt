@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advance
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorBlockEntity.Companion.CHORUS_SLOT_INDEX
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
@@ -12,6 +14,7 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
@@ -19,6 +22,7 @@ import net.minecraft.world.inventory.ContainerLevelAccess
 import net.minecraft.world.inventory.SimpleContainerData
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 import net.neoforged.neoforge.items.SlotItemHandler
+import kotlin.math.min
 
 
 class AdvancedIncubatorMenu(
@@ -129,14 +133,29 @@ class AdvancedIncubatorMenu(
 
             val recipe = AdvancedIncubatorBlockEntity.getGmoRecipe(topStack, potionStack) ?: return
 
-            val chanceData = AdvancedIncubatorBlockEntity.getChanceToGet(blockEntity, recipe)
+            val chanceDecreasePerOverclocker = ServerConfig.incubatorOverclockerChanceDecrease.get().toFloat()
+            val chanceIncreasePerChorus = ServerConfig.incubatorChorusFruitChanceIncrease.get().toFloat()
+
+            val baseChance = recipe.geneChance
+
+            val amountOverclockers = blockEntity.amountOfOverclockers
+            val overclockerChanceFactor =
+                1 - amountOverclockers * chanceDecreasePerOverclocker
+            val reducedChance = (baseChance * overclockerChanceFactor).coerceIn(0f, 1f)
+
+            val chorusRequiredForMaxChance = Mth.ceil((1f - reducedChance) / chanceIncreasePerChorus)
+            val chorusAvailable = blockEntity.itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).count
+            val chorusUsed = min(chorusRequiredForMaxChance, chorusAvailable)
+
+            val chorusBoost = chorusUsed * chanceIncreasePerChorus
+            val finalChance = reducedChance + chorusBoost
 
             event.toolTip.add(
                 1,
                 ModLanguageProvider.Tooltips.GMO_BASE_CHANCE
                     .toComponent(
                         recipe.idealGene.nameComponent,
-                        (recipe.geneChance * 100).toInt()
+                        (baseChance * 100).toInt()
                     )
                     .withColor(ChatFormatting.GRAY)
             )
@@ -145,9 +164,9 @@ class AdvancedIncubatorMenu(
                 2,
                 ModLanguageProvider.Tooltips.GMO_OVERCLOCKER_CHANCE
                     .toComponent(
-                        chanceData.amountOverclockers,
-                        chanceData.overclockerChanceFactor,
-                        chanceData.reducedChance
+                        amountOverclockers,
+                        (chanceDecreasePerOverclocker * amountOverclockers * 100).toInt(),
+                        (reducedChance * 100).toInt()
                     )
                     .withColor(ChatFormatting.GRAY)
             )
@@ -156,8 +175,8 @@ class AdvancedIncubatorMenu(
                 3,
                 ModLanguageProvider.Tooltips.GMO_CHORUS_CHANCE
                     .toComponent(
-                        chanceData.chorusUsed,
-                        chanceData.finalChance
+                        chorusUsed,
+                        (finalChance * 100).toInt()
                     )
                     .withColor(ChatFormatting.GRAY)
             )

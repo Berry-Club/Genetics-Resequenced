@@ -205,8 +205,6 @@ class AdvancedIncubatorBlockEntity(
             RIGHT_BOTTLE_SLOT_INDEX
         )
 
-        val gmoRecipes = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
-
         val chanceDecreasePerOverclocker = ServerConfig.incubatorOverclockerChanceDecrease.get().toFloat()
         val chanceIncreasePerChorus = ServerConfig.incubatorChorusFruitChanceIncrease.get().toFloat()
 
@@ -216,12 +214,7 @@ class AdvancedIncubatorBlockEntity(
             var output = potionBrewing?.mix(topStack, bottleStack) ?: continue
 
             if (output.item == ModItems.GMO_CELL.get() && !isHighTemperature) {
-
-                val thisRecipe = gmoRecipes.find {
-                    it.ingredientItem == topStack.item
-                            && it.entityType == EntityDnaItem.getEntityType(bottleStack)
-                            && it.requiredPotion == OtherUtil.getPotion(bottleStack)
-                } ?: continue
+                val thisRecipe = getGmoRecipe(topStack, bottleStack) ?: continue
 
                 // The base chance
                 val geneChance = thisRecipe.geneChance
@@ -286,6 +279,19 @@ class AdvancedIncubatorBlockEntity(
     }
 
     companion object {
+
+        val gmoRecipes by lazy {
+            BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
+        }
+
+
+        fun getGmoRecipe(topStack: ItemStack, bottomStack: ItemStack): GmoRecipe? {
+            return gmoRecipes.find {
+                it.ingredientItem == topStack.item
+                        && it.entityType == EntityDnaItem.getEntityType(bottomStack)
+                        && it.requiredPotion == OtherUtil.getPotion(bottomStack)
+            }
+        }
 
         fun tick(
             level: Level,

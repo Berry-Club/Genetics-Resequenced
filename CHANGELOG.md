@@ -132,3 +132,4 @@
 - Updated Patchouli support to use item components rather than NBT
 - Updated the Patchouli book to reflect changes since 1.19
 - The Patchouli book is now in the creative tab
+- GMO Recipes will have their logic printed in the tooltip of the Potion of Cell Growth in the Advanced Incubator
