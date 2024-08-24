@@ -650,9 +650,9 @@ class ModLanguageProvider(
         add(Tooltips.GMO_CHORUS, "Overclockers lower your chance, but Chorus Fruits increase it!")
         add(Tooltips.ITEM_MAGNET_BLACKLIST, "Blacklisted from Item Magnet Gene")
         add(Tooltips.FE, "%1\$s/%2\$s FE")
-        add(Tooltips.GMO_BASE_CHANCE, "The %1\$s Gene has a base chance of %2\$d%%.")
-        add(Tooltips.GMO_OVERCLOCKER_CHANCE, "You have %1\$d Overclockers, lowering your chance by %2\$d%% to %3\$d%%.")
-        add(Tooltips.GMO_CHORUS_CHANCE, "%1\$d Chorus Fruit will be used to increase your chance to %2\$d%%")
+        add(Tooltips.GMO_BASE_CHANCE, "%1\$s Gene base chance: %2\$d%%")
+        add(Tooltips.GMO_OVERCLOCKER_CHANCE, "%1\$d Overclockers lower chance to %2\$d%%")
+        add(Tooltips.GMO_CHORUS_CHANCE, "%1\$d Chorus Fruit increase chance to %2\$d%%")
 
         add(Commands.LIST_ALL_GENES, "Gene List:")
         add(Commands.NO_GENES, "No Genes found!")

@@ -39,9 +39,10 @@ object ClientEvents {
 
     @SubscribeEvent
     fun tooltip(event: ItemTooltipEvent) {
-        handleScreens(event)
         BrewingRecipes.tooltip(event)
         TickGenes.itemMagnetBlacklistTooltip(event)
+
+        handleScreens(event)
     }
 
     private fun handleScreens(event: ItemTooltipEvent) {

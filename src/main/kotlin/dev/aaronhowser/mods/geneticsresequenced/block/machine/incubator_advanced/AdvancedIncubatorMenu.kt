@@ -13,6 +13,7 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.network.chat.CommonComponents
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Inventory
@@ -150,8 +151,15 @@ class AdvancedIncubatorMenu(
             val chorusBoost = chorusUsed * chanceIncreasePerChorus
             val finalChance = reducedChance + chorusBoost
 
+            var index = event.toolTip.size
+
             event.toolTip.add(
-                1,
+                index++,
+                CommonComponents.EMPTY
+            )
+
+            event.toolTip.add(
+                index++,
                 ModLanguageProvider.Tooltips.GMO_BASE_CHANCE
                     .toComponent(
                         recipe.idealGene.nameComponent,
@@ -160,28 +168,29 @@ class AdvancedIncubatorMenu(
                     .withColor(ChatFormatting.GRAY)
             )
 
-            event.toolTip.add(
-                2,
-                ModLanguageProvider.Tooltips.GMO_OVERCLOCKER_CHANCE
-                    .toComponent(
-                        amountOverclockers,
-                        (chanceDecreasePerOverclocker * amountOverclockers * 100).toInt(),
-                        (reducedChance * 100).toInt()
-                    )
-                    .withColor(ChatFormatting.GRAY)
-            )
+            if (amountOverclockers != 0) {
+                event.toolTip.add(
+                    index++,
+                    ModLanguageProvider.Tooltips.GMO_OVERCLOCKER_CHANCE
+                        .toComponent(
+                            amountOverclockers,
+                            (reducedChance * 100).toInt()
+                        )
+                        .withColor(ChatFormatting.GRAY)
+                )
+            }
 
-            event.toolTip.add(
-                3,
-                ModLanguageProvider.Tooltips.GMO_CHORUS_CHANCE
-                    .toComponent(
-                        chorusUsed,
-                        (finalChance * 100).toInt()
-                    )
-                    .withColor(ChatFormatting.GRAY)
-            )
-
-
+            if (chorusUsed != 0) {
+                event.toolTip.add(
+                    index,
+                    ModLanguageProvider.Tooltips.GMO_CHORUS_CHANCE
+                        .toComponent(
+                            chorusUsed,
+                            (finalChance * 100).toInt()
+                        )
+                        .withColor(ChatFormatting.GRAY)
+                )
+            }
         }
     }
 
