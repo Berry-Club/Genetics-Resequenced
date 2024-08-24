@@ -538,7 +538,7 @@ class ModLanguageProvider(
         add(Items.POTION_CELL_GROWTH, "Potion of Cell Growth")
         add(Items.POTION_MUTATION, "Potion of Mutation")
         add(Items.POTION_VIRAL_AGENTS, "Potion of Viral Agents")
-        add(Items.POTION_PANACEA, "Panacea")
+        add(Items.POTION_PANACEA, "Potion of Panacea")
         add(Items.POTION_ZOMBIFY_VILLAGER, "Potion of Zombify Villager")
 
         add(Items.SPLASH_POTION_SUBSTRATE, "Splash Potion of Organic Substrate")
