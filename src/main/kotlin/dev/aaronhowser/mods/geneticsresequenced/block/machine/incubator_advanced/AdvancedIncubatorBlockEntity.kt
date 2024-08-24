@@ -205,6 +205,11 @@ class AdvancedIncubatorBlockEntity(
             RIGHT_BOTTLE_SLOT_INDEX
         )
 
+        val gmoRecipes = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
+
+        val chanceDecreasePerOverclocker = ServerConfig.incubatorOverclockerChanceDecrease.get().toFloat()
+        val chanceIncreasePerChorus = ServerConfig.incubatorChorusFruitChanceIncrease.get().toFloat()
+
         for (slotIndex in bottleSlots) {
             val bottleStack = itemHandler.getStackInSlot(slotIndex)
 
@@ -218,11 +223,23 @@ class AdvancedIncubatorBlockEntity(
                             && it.requiredPotion == OtherUtil.getPotion(bottleStack)
                 } ?: continue
 
-                val chanceData = getChanceToGet(this, thisRecipe)
-                val finalChance = chanceData.finalChance
-                val chorusUsed = chanceData.chorusUsed
+                // The base chance
+                val geneChance = thisRecipe.geneChance
+
+                // Reduce the chance based on the amount of Overclockers (1.0 means no change)
+                val overclockerChanceFactor =
+                    1 - amountOfOverclockers * chanceDecreasePerOverclocker
+                val reducedChance = (geneChance * overclockerChanceFactor).coerceIn(0f, 1f)
+
+                // Increase the chance based on the amount of Chorus Fruit
+                val chorusRequiredForMaxChance = Mth.ceil((1f - reducedChance) / chanceIncreasePerChorus)
+                val chorusAvailable = itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).count
+                val chorusUsed = min(chorusRequiredForMaxChance, chorusAvailable)
 
                 itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).shrink(chorusUsed)
+
+                val chorusBoost = chorusUsed * chanceIncreasePerChorus
+                val finalChance = reducedChance + chorusBoost
 
                 val nextFloat = Random.nextFloat()
 
@@ -269,56 +286,6 @@ class AdvancedIncubatorBlockEntity(
     }
 
     companion object {
-
-        val gmoRecipes
-            get() = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
-
-        fun getGmoRecipe(topStack: ItemStack, bottleStack: ItemStack): GmoRecipe? {
-            return gmoRecipes.find {
-                it.ingredientItem == topStack.item
-                        && it.entityType == EntityDnaItem.getEntityType(bottleStack)
-                        && it.requiredPotion == OtherUtil.getPotion(bottleStack)
-            }
-        }
-
-        data class ChanceData(
-            val amountOverclockers: Int,
-            val overclockerChanceFactor: Float,
-            val reducedChance: Float,
-            val chorusUsed: Int,
-            val finalChance: Float
-        )
-
-        fun getChanceToGet(
-            blockEntity: AdvancedIncubatorBlockEntity,
-            recipe: GmoRecipe
-        ): ChanceData {
-            val geneChance = recipe.geneChance
-
-            val chanceDecreasePerOverclocker = ServerConfig.incubatorOverclockerChanceDecrease.get().toFloat()
-            val chanceIncreasePerChorus = ServerConfig.incubatorChorusFruitChanceIncrease.get().toFloat()
-
-            // Reduce the chance based on the amount of Overclockers (1.0 means no change)
-            val overclockerChanceFactor =
-                1 - blockEntity.amountOfOverclockers * chanceDecreasePerOverclocker
-            val reducedChance = (geneChance * overclockerChanceFactor).coerceIn(0f, 1f)
-
-            // Increase the chance based on the amount of Chorus Fruit
-            val chorusRequiredForMaxChance = Mth.ceil((1f - reducedChance) / chanceIncreasePerChorus)
-            val chorusAvailable = blockEntity.itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).count
-            val chorusUsed = min(chorusRequiredForMaxChance, chorusAvailable)
-
-            val chorusBoost = chorusUsed * chanceIncreasePerChorus
-            val finalChance = reducedChance + chorusBoost
-
-            return ChanceData(
-                amountOverclockers = blockEntity.amountOfOverclockers,
-                overclockerChanceFactor = overclockerChanceFactor,
-                reducedChance = reducedChance,
-                chorusUsed = chorusUsed,
-                finalChance = finalChance
-            )
-        }
 
         fun tick(
             level: Level,
