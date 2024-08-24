@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.coal_generator.CoalGeneratorMenu
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.PlasmidInfuserMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector.PlasmidInjectorMenu
 import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
@@ -50,6 +51,7 @@ object ClientEvents {
             is CoalGeneratorMenu -> CoalGeneratorMenu.showFuelTooltip(event)
             is PlasmidInfuserMenu -> PlasmidInfuserMenu.showTooltip(event)
             is PlasmidInjectorMenu -> PlasmidInjectorMenu.showTooltip(event)
+            is AdvancedIncubatorMenu -> AdvancedIncubatorMenu.showChanceTooltip(event)
             else -> return
         }
     }

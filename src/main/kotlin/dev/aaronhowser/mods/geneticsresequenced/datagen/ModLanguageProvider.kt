@@ -122,6 +122,10 @@ class ModLanguageProvider(
         const val GMO_CHORUS = "tooltip.geneticsresequenced.gmo_recipe.line3"
         const val ITEM_MAGNET_BLACKLIST = "tooltip.geneticsresequenced.item_magnet_blacklist"
         const val FE = "tooltip.geneticsresequenced.fe"
+        const val GMO_BASE_CHANCE = "tooltip.geneticsresequenced.gmo.chance"
+        const val GMO_OVERCLOCKER_CHANCE = "tooltip.geneticsresequenced.gmo.overclocker"
+        const val GMO_CHORUS_CHANCE = "tooltip.geneticsresequenced.gmo.chorus"
+        const val GMO_FINAL_CHANCE = "tooltip.geneticsresequenced.gmo.final_chance"
     }
 
     object Commands {
@@ -647,6 +651,10 @@ class ModLanguageProvider(
         add(Tooltips.GMO_CHORUS, "Overclockers lower your chance, but Chorus Fruits increase it!")
         add(Tooltips.ITEM_MAGNET_BLACKLIST, "Blacklisted from Item Magnet Gene")
         add(Tooltips.FE, "%1\$s/%2\$s FE")
+        add(Tooltips.GMO_BASE_CHANCE, "The %1\$s Gene has a base chance of %2\$d%%.")
+        add(Tooltips.GMO_OVERCLOCKER_CHANCE, "You have %1\$d Overclockers, lowering your chance by %2\$d%% to %3\$d%%.")
+        add(Tooltips.GMO_CHORUS_CHANCE, "It would take %1\$d Chorus Fruits to increase your chance to %2\$d%%.")
+        add(Tooltips.GMO_FINAL_CHANCE, "Your final chance is %d%%.")
 
         add(Commands.LIST_ALL_GENES, "Gene List:")
         add(Commands.NO_GENES, "No Genes found!")

@@ -2,8 +2,14 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advance
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
+import net.minecraft.ChatFormatting
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.player.Inventory
@@ -11,6 +17,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.ContainerLevelAccess
 import net.minecraft.world.inventory.SimpleContainerData
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 import net.neoforged.neoforge.items.SlotItemHandler
 
 
@@ -102,6 +109,55 @@ class AdvancedIncubatorMenu(
     private fun toggleTemperature() {
         isHighTemperature = !isHighTemperature
         (blockEntity as AdvancedIncubatorBlockEntity).resetBrewTime()
+    }
+
+    companion object {
+        fun showChanceTooltip(event: ItemTooltipEvent) {
+            val potionStack = event.itemStack
+
+            val potion = OtherUtil.getPotion(potionStack) ?: return
+            if (
+                potion != ModPotions.CELL_GROWTH
+                && potion != ModPotions.MUTATION
+            ) return
+
+            val player = event.entity ?: return
+            val menu = player.containerMenu as? AdvancedIncubatorMenu ?: return
+            val blockEntity = menu.blockEntity as? AdvancedIncubatorBlockEntity ?: return
+
+            val topStack = blockEntity.itemHandler.getStackInSlot(AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX)
+
+            val recipe = AdvancedIncubatorBlockEntity.getGmoRecipe(topStack, potionStack) ?: return
+
+            val chanceData = AdvancedIncubatorBlockEntity.getChanceToGet(blockEntity, recipe)
+
+            event.toolTip.add(
+                1,
+                ModLanguageProvider.Tooltips.GMO_BASE_CHANCE
+                    .toComponent(recipe.idealGene.nameComponent, recipe.geneChance)
+                    .withColor(ChatFormatting.GRAY)
+            )
+
+            event.toolTip.add(
+                2,
+                ModLanguageProvider.Tooltips.GMO_OVERCLOCKER_CHANCE
+                    .toComponent(
+                        chanceData.amountOverclockers,
+                        chanceData.overclockerChanceFactor,
+                        chanceData.reducedChance
+                    )
+                    .withColor(ChatFormatting.GRAY)
+            )
+
+            event.toolTip.add(
+                3,
+                ModLanguageProvider.Tooltips.GMO_CHORUS_CHANCE
+                    .toComponent(chanceData.amountChorus, chanceData.chorusChanceFactor, chanceData.reducedChance)
+                    .withColor(ChatFormatting.GRAY)
+            )
+
+
+        }
     }
 
 }
