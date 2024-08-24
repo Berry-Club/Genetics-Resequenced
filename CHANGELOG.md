@@ -135,3 +135,4 @@
 - The Patchouli book is now in the creative tab
 - GMO Recipes will have their logic printed in the tooltip of the Potion of Cell Growth in the Advanced Incubator
 - Fixed the Blood Purifier page in the Patchouli book having the Plasmid Injector instead
+- If the items given by the Keep Inventory Gene don't fit in your inventory, they're dropped at your feet instead of being tossed from your camera

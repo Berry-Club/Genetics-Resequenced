@@ -26,8 +26,6 @@ import kotlin.random.Random
 
 object DeathGenes {
 
-    private val playerInventoryMap: MutableMap<UUID, List<ItemStack>> = mutableMapOf()
-
     //TODO: Test with grave mods
     fun saveInventory(player: Player) {
         if (!ModGenes.KEEP_INVENTORY.get().isActive) return
@@ -59,7 +57,8 @@ object DeathGenes {
 
         items.forEach { itemStack: ItemStack ->
             if (!player.inventory.add(itemStack)) {
-                player.drop(itemStack, true)
+                val itemEntity = ItemEntity(player.level(), player.x, player.y, player.z, itemStack)
+                player.level().addFreshEntity(itemEntity)
             }
         }
 
