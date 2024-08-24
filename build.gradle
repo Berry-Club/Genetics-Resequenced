@@ -160,7 +160,12 @@ dependencies {
     compileOnly "curse.maven:jei-238222:5532144"
 
     // Mekanism
-    implementation "curse.maven:mekanism-268560:5552293"
+    runtimeOnly "curse.maven:mekanism-268560:5552293"
+
+    // Artifacts
+    runtimeOnly "curse.maven:artifacts-312353:5624722"
+    runtimeOnly "curse.maven:architectury-api-419699:5553800"
+    runtimeOnly "curse.maven:cloth-config-348521:5623420"
 
     // KubeJs
     runtimeOnly "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
