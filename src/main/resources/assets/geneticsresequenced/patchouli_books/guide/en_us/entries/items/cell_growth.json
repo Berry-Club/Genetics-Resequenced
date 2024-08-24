@@ -22,9 +22,8 @@
       "link_recipe": true
     },
     {
-      "type": "patchouli:spotlight",
-      "item": "geneticsresequenced:dna_helix[geneticsresequenced:gene='geneticsresequenced:lay_egg']",
-      "text": "A low-temperature Advanced Incubator takes a very long time, but can be accelerated using Overclockers.$(br2)Unfortunately, $(bad)Overclockers lower your chances/$ of success. $(minor)Chorus Fruits/$ increase it back, though!$(br)Process the GM Cell through a $(l:geneticsresequenced:blocks/dna_extractor)DNA Extractor/$ to get the set Helix."
+      "type": "patchouli:text",
+      "text": "A low-temperature Advanced Incubator takes a very long time, but can be accelerated using Overclockers.$(br2)Unfortunately, $(bad)Overclockers lower your chances/$ of success. $(minor)Chorus Fruits/$ increase it back, though!$(br2)Process the GM Cell through a $(l:geneticsresequenced:blocks/dna_extractor)DNA Extractor/$ to get the set Helix."
     }
   ]
 }

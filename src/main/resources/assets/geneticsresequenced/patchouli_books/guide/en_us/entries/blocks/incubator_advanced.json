@@ -16,8 +16,12 @@
     },
     {
       "type": "patchouli:spotlight",
-      "item": "geneticsresequenced:gmo_cell",
-      "text": "Genetically Modified Cells are $(minor)guaranteed to have a specific Gene/$, if crafted correctly. See $(l:geneticsresequenced:item/cell_growth#gmo_cell)its page/$ for more information."
+      "item": "geneticsresequenced:gmo_cell[geneticsresequenced:gene='geneticsresequenced:regeneration',geneticsresequenced:entity_type='minecraft:iron_golem']",
+      "text": "$(l:geneticsresequenced:items/cell_growth#gmo_cell)Genetically Modified Cells/$ are $(minor)guaranteed to have a specific Gene/$, if crafted correctly.$(br2)Each GM Cell has its own recipe, with a $(bad)chance of failure/$.$(br2)The recipe for this GM Cell, for example, has a 30% chance of success, by default."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "Each Overclocker makes success $(bad)10% less likely/$"
     }
   ]
 }
