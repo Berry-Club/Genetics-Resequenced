@@ -106,6 +106,12 @@ repositories {
         content { includeGroup "thedarkcolour" }
     }
 
+    // For Curios
+    maven {
+        name = "OctoStudios"
+        url = uri("https://maven.octo-studios.com/releases")
+    }
+
     //For REI
     repositories {
         maven { url "https://maven.shedaniel.me" }
@@ -142,6 +148,9 @@ repositories {
 dependencies {
     // Must use the '-neoforge' version on NeoForge. If on regular forge, omit the '-neoforge'
     implementation 'thedarkcolour:kotlinforforge-neoforge:5.4.0'
+
+    // Curios
+    implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
     // EMI
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
