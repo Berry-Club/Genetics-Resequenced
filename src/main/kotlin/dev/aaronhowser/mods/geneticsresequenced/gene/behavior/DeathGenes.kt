@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.h
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.clearSavedInventory
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.getSavedInventory
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.saveInventory
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.curios.KeepCurioInventory
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
@@ -17,6 +18,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.GameRules
 import net.minecraft.world.level.Level
+import net.neoforged.fml.ModList
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
 import net.neoforged.neoforge.event.level.ExplosionEvent
 import java.util.*
@@ -27,7 +29,6 @@ object DeathGenes {
     private val playerInventoryMap: MutableMap<UUID, List<ItemStack>> = mutableMapOf()
 
     //TODO: Test with grave mods
-    //TODO: Add Curio support, when that updates
     fun saveInventory(player: Player) {
         if (!ModGenes.KEEP_INVENTORY.get().isActive) return
 
@@ -43,6 +44,12 @@ object DeathGenes {
             (player.inventory.items + player.inventory.armor + player.inventory.offhand).filter { !it.isEmpty }
 
         player.saveInventory(playerItems)
+
+        val curiosIsLoaded = ModList.get().isLoaded("curios")
+        if (curiosIsLoaded) {
+            KeepCurioInventory.saveCurios(player)
+        }
+
         player.inventory.clearContent()
     }
 
