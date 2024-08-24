@@ -133,3 +133,4 @@
 - Updated the Patchouli book to reflect changes since 1.19
 - The Patchouli book is now in the creative tab
 - GMO Recipes will have their logic printed in the tooltip of the Potion of Cell Growth in the Advanced Incubator
+- Fixed the Blood Purifier page in the Patchouli book having the Plasmid Injector instead
