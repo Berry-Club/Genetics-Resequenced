@@ -130,4 +130,5 @@
 ### 1.2.0
 
 - Updated Patchouli support to use item components rather than NBT
-- Updated the book to reflect changes since 1.19
+- Updated the Patchouli book to reflect changes since 1.19
+- The Patchouli book is now in the creative tab

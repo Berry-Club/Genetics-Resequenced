@@ -17,7 +17,7 @@ object ModCreativeModeTabs {
     val TABS_REGISTRY: DeferredRegister<CreativeModeTab> =
         DeferredRegister.create(BuiltInRegistries.CREATIVE_MODE_TAB, GeneticsResequenced.ID)
 
-    val MOD_TAB: DeferredHolder<CreativeModeTab, CreativeModeTab> = TABS_REGISTRY.register("example", Supplier {
+    val MOD_TAB: DeferredHolder<CreativeModeTab, CreativeModeTab> = TABS_REGISTRY.register("creative_tab", Supplier {
         CreativeModeTab.builder()
             .title(ModLanguageProvider.Items.CREATIVE_TAB.toComponent())
             .icon { ModItems.SYRINGE.toStack() }

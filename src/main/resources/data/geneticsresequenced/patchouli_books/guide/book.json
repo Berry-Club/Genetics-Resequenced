@@ -1,8 +1,8 @@
 {
   "name": "item.geneticsresequenced.guide_book",
   "landing_text": "book.geneticsresequenced.landing_text",
-  "version": 1,
-  "creative_tab": "geneticsresequenced",
+  "version": 2,
+  "creative_tab": "geneticsresequenced:creative_tab",
   "use_resource_pack": true,
   "show_progress": false,
    "model": "patchouli:book_gray",
