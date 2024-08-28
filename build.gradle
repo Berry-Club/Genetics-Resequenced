@@ -117,6 +117,14 @@ repositories {
         maven { url "https://maven.shedaniel.me" }
     }
 
+    // For Modonomicon
+    maven {
+        url "https://dl.cloudsmith.io/public/klikli-dev/mods/maven/"
+        content {
+            includeGroup "com.klikli_dev"
+        }
+    }
+
     //Cursemaven
     exclusiveContent {
         forRepository {
@@ -151,6 +159,9 @@ dependencies {
 
     // Curios
     implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+
+    // Modonomicon
+    implementation ("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"){transitive=false}
 
     // EMI
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
