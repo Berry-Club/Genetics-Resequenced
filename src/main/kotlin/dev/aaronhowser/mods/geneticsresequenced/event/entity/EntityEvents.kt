@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ScareGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.monster.Monster
+import net.minecraft.world.entity.PathfinderMob
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent
@@ -69,8 +69,7 @@ object EntityEvents {
     @SubscribeEvent
     fun onEntitySpawn(event: EntityJoinLevelEvent) {
         val entity = event.entity
-
-        if (entity is Monster) {
+        if (entity is PathfinderMob) {
             ScareGenes.attachScareTask(entity)
         }
     }

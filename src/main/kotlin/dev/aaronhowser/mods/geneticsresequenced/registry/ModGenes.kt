@@ -157,14 +157,16 @@ object ModGenes {
     val SCARE_ZOMBIES = registerGene("scare_zombies") {
         GeneProperties(
             id = OtherUtil.modResource("scare_zombies"),
-            dnaPointsRequired = 50
+            dnaPointsRequired = 50,
+            canMobsHave = true
         )
     }
 
     val SCARE_SPIDERS = registerGene("scare_spiders") {
         GeneProperties(
             id = OtherUtil.modResource("scare_spiders"),
-            dnaPointsRequired = 50
+            dnaPointsRequired = 50,
+            canMobsHave = true
         )
     }
 
@@ -432,7 +434,8 @@ object ModGenes {
         GeneProperties(
             id = OtherUtil.modResource("scare_creepers"),
             dnaPointsRequired = 20,
-            mutatesInto = SCARE_ZOMBIES.get()
+            mutatesInto = SCARE_ZOMBIES.get(),
+            canMobsHave = true
         )
     }
 
@@ -440,7 +443,8 @@ object ModGenes {
         GeneProperties(
             id = OtherUtil.modResource("scare_skeletons"),
             dnaPointsRequired = 20,
-            mutatesInto = SCARE_SPIDERS.get()
+            mutatesInto = SCARE_SPIDERS.get(),
+            canMobsHave = true
         )
     }
 
