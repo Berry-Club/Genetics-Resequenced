@@ -1,12 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
@@ -56,7 +56,7 @@ object ClickGenes {
 
         if (!target.hasGene(ModGenes.WOOLY.get())) return
 
-        val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
+        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
 
         val newlySheared = recentlySheered.add(target)
@@ -114,7 +114,7 @@ object ClickGenes {
 
         if (!target.hasGene(ModGenes.MEATY.get())) return
 
-        val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
+        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
 
         val newlyMeated = recentlyMeated.add(target)
@@ -250,7 +250,7 @@ object ClickGenes {
         if (player.level().isClientSide) return
 
         if (!player.isCrouching) return
-        val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
+        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
 
         if (!player.hasGene(ModGenes.WOOLY.get())) return
@@ -297,7 +297,7 @@ object ClickGenes {
         if (player.level().isClientSide) return
 
         if (!player.isCrouching) return
-        val clickedWithShears = event.itemStack.`is`(ModTags.WOOLY_ITEM_TAG)
+        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
 
         if (!player.hasGene(ModGenes.MEATY.get())) return
@@ -342,7 +342,7 @@ object ClickGenes {
         if (!player.hasGene(ModGenes.SHOOT_FIREBALLS.get())) return
 
         if (!player.isCrouching) return
-        if (!event.itemStack.`is`(ModTags.FIREBALL_ITEM_TAG)) return
+        if (!event.itemStack.`is`(ModItemTagsProvider.FIREBALL_ITEM_TAG)) return
 
         val lookVec = player.lookAngle
 

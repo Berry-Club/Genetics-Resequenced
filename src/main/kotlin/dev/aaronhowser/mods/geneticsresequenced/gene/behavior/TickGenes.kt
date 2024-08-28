@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
@@ -9,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.item.AntiFieldOrbItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
@@ -279,7 +279,7 @@ object TickGenes {
         for (itemEntity in nearbyItems) {
             if (itemEntity.item.count <= 0) continue
             if (itemEntity.owner == player && itemEntity.age < 20 * 3) continue
-            if (itemEntity.item.`is`(ModTags.MAGNET_ITEM_BLACKLIST)) continue
+            if (itemEntity.item.`is`(ModItemTagsProvider.MAGNET_ITEM_BLACKLIST)) continue
 
             if (AntiFieldBlock.isNearActiveAntifield(player.level(), itemEntity.blockPosition())) continue
 
@@ -294,7 +294,7 @@ object TickGenes {
         if (!player.hasGene(ModGenes.ITEM_MAGNET.get())) return
 
         val item = event.itemStack
-        if (!item.`is`(ModTags.MAGNET_ITEM_BLACKLIST)) return
+        if (!item.`is`(ModItemTagsProvider.MAGNET_ITEM_BLACKLIST)) return
 
         val component = ModLanguageProvider.Tooltips.ITEM_MAGNET_BLACKLIST
             .toComponent()

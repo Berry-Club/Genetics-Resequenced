@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
-import dev.aaronhowser.mods.geneticsresequenced.ModTags
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.enchantment.ModEnchantments
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setEntityType
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -127,7 +127,7 @@ class ScraperItem : Item(
 
         if (pPlayer !is ServerPlayer) return InteractionResult.PASS
 
-        if (pInteractionTarget.type.`is`(ModTags.SCRAPER_ENTITY_BLACKLIST)) {
+        if (pInteractionTarget.type.`is`(ModEntityTypeTagsProvider.SCRAPER_ENTITY_BLACKLIST)) {
             pPlayer.sendSystemMessage(
                 ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent()
             )
