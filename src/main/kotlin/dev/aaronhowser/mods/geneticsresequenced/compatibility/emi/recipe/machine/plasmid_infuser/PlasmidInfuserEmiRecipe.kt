@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.plasmid_infuser
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -25,6 +26,19 @@ class PlasmidInfuserEmiRecipe(
     val gene: Gene,
     val basic: Boolean
 ) : EmiRecipe {
+
+    companion object {
+        fun getAllRecipes(): List<PlasmidInfuserEmiRecipe> {
+            val recipes = mutableListOf<PlasmidInfuserEmiRecipe>()
+
+            for (gene in GeneRegistry.getRegistrySorted().filterNot { it.isHidden }) {
+                recipes.add(PlasmidInfuserEmiRecipe(gene, basic = true))
+                recipes.add(PlasmidInfuserEmiRecipe(gene, basic = false))
+            }
+
+            return recipes
+        }
+    }
 
     private val helix: EmiIngredient
     private val plasmid: EmiStack

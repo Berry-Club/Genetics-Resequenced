@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi
 
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPlasmidEmiRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.ModInformationRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.*
@@ -142,9 +141,8 @@ class ModEmiPlugin : EmiPlugin {
         registry.addCategory(PLASMID_INFUSER_CATEGORY)
         registry.addWorkstation(PLASMID_INFUSER_CATEGORY, PLASMID_INFUSER_STACK)
 
-        for (gene in GeneRegistry.getRegistrySorted().filterNot { it.isHidden }) {
-            registry.addRecipe(PlasmidInfuserEmiRecipe(gene, basic = true))
-            registry.addRecipe(PlasmidInfuserEmiRecipe(gene, basic = false))
+        for (recipe in PlasmidInfuserEmiRecipe.getAllRecipes()) {
+            registry.addRecipe(recipe)
         }
     }
 
@@ -152,19 +150,7 @@ class ModEmiPlugin : EmiPlugin {
         registry.addCategory(PLASMID_INJECTOR_CATEGORY)
         registry.addWorkstation(PLASMID_INJECTOR_CATEGORY, PLASMID_INJECTOR_STACK)
 
-        val addingGlass: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
-        val addingMetal: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
-        val removingGlass: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
-        val removingMetal: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
-
-        for (gene in GeneRegistry.getRegistrySorted().filterNot { it.isHidden }) {
-            addingGlass.add(PlasmidInjectorEmiRecipe(gene, isMetal = false, isAntiPlasmid = false))
-            addingMetal.add(PlasmidInjectorEmiRecipe(gene, isMetal = false, isAntiPlasmid = true))
-            removingGlass.add(PlasmidInjectorEmiRecipe(gene, isMetal = true, isAntiPlasmid = false))
-            removingMetal.add(PlasmidInjectorEmiRecipe(gene, isMetal = true, isAntiPlasmid = true))
-        }
-
-        for (recipe in addingGlass + addingMetal + removingGlass + removingMetal) {
+        for (recipe in PlasmidInjectorEmiRecipe.getAllRecipes()) {
             registry.addRecipe(recipe)
         }
     }

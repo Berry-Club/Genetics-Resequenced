@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.plasmid_injector
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
@@ -23,6 +24,24 @@ class PlasmidInjectorEmiRecipe(
     val isMetal: Boolean,
     val isAntiPlasmid: Boolean
 ) : EmiRecipe {
+
+    companion object {
+        fun getAllRecipes(): List<PlasmidInjectorEmiRecipe> {
+            val addingGlass: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
+            val addingMetal: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
+            val removingGlass: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
+            val removingMetal: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
+
+            for (gene in GeneRegistry.getRegistrySorted().filterNot { it.isHidden }) {
+                addingGlass.add(PlasmidInjectorEmiRecipe(gene, isMetal = false, isAntiPlasmid = false))
+                addingMetal.add(PlasmidInjectorEmiRecipe(gene, isMetal = false, isAntiPlasmid = true))
+                removingGlass.add(PlasmidInjectorEmiRecipe(gene, isMetal = true, isAntiPlasmid = false))
+                removingMetal.add(PlasmidInjectorEmiRecipe(gene, isMetal = true, isAntiPlasmid = true))
+            }
+
+            return addingGlass + addingMetal + removingGlass + removingMetal
+        }
+    }
 
     private val plasmid: EmiIngredient
     private val syringeBefore: EmiIngredient
@@ -84,7 +103,7 @@ class PlasmidInjectorEmiRecipe(
     }
 
     override fun addWidgets(widgets: WidgetHolder) {
-        widgets.addTexture(EmiTexture.EMPTY_ARROW,  48, 1)
+        widgets.addTexture(EmiTexture.EMPTY_ARROW, 48, 1)
         widgets.addSlot(plasmid, 0, 0)
         widgets.addSlot(syringeBefore, 24, 0)
         widgets.addSlot(syringeAfter, 78, 0).recipeContext(this);
