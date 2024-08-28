@@ -138,3 +138,4 @@
 - Fixed the Blood Purifier page in the Patchouli book having the Plasmid Injector instead
 - If the items given by the Keep Inventory Gene don't fit in your inventory, they're dropped at your feet instead of being tossed from your camera
 - The Scare Genes can now be given to entities
+- The Scare Genes now apply based on an entity's tags (#geneticsresequenced:avoids_scare_creeper_gene etc) rather than based on their class (is or extends Creeper etc)
