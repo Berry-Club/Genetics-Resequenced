@@ -123,6 +123,8 @@ object BrewingRecipes {
 
         val substrateDuplicationRecipe = SubstrateCellRecipe()
         allRecipes.add(substrateDuplicationRecipe)
+        val substrateGmoDuplicationRecipe = SubstrateCellRecipe(true)
+        allRecipes.add(substrateGmoDuplicationRecipe)
 
         val setPcgEntityRecipe = SetPotionEntityRecipe()
         allRecipes.add(setPcgEntityRecipe)

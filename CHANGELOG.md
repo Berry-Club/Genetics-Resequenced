@@ -129,6 +129,7 @@
 
 ### 1.2.0
 
+- You can now dupe Genetically Modified Cells using Organic Substrate
 - Reimplemented Curios support for the Keep Inventory gene (#20)
 - Updated Patchouli support to use item components rather than NBT
 - Updated the Patchouli book to reflect changes since 1.19
