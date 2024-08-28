@@ -15,14 +15,13 @@ class GenesOneEntryProvider(
         this.pageTitle("What are Genes?")
 
         this.pageText(
-            """
-            ${major("Genes")} cam ne taken from mobs to ${minor("harness their abilities")}.
-            
-            For example, Sheep have the ${minor("Wooly")} Gene. If you inject this into yourself, you will be able to be sheared for wool!
-
-            To see a full list of Genes, ${minor("see here")}.
-        """.trimIndent()
+            paragraphs(
+                "${major("Genes")} cam ne taken from mobs to ${minor("harness their abilities")}.",
+                "For example, Sheep have the ${minor("Wooly")} Gene. If you inject this into yourself, you will be able to be sheared for wool!",
+                "To see a full list of Genes, ${minor("see here")}."
+            )
         )
+
     }
 
     override fun entryName(): String {

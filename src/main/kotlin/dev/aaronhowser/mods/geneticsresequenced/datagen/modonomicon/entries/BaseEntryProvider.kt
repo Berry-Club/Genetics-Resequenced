@@ -39,4 +39,8 @@ abstract class BaseEntryProvider(
         return this.pageId
     }
 
+    fun paragraphs(vararg paragraphs: String): String {
+        return paragraphs.joinToString(separator = "\n\n")
+    }
+
 }
