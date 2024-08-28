@@ -1,8 +1,8 @@
 {
-  "book.geneticsresequenced.guide.getting_started.genes_one.Genes 1.text": "The first step in understanding the genetic code.",
-  "book.geneticsresequenced.guide.getting_started.genes_one.Genes 1.title": "Genes 1",
   "book.geneticsresequenced.guide.getting_started.genes_one.description": "The first step in understanding the genetic code.",
-  "book.geneticsresequenced.guide.getting_started.genes_one.name": "Genes 1",
+  "book.geneticsresequenced.guide.getting_started.genes_one.genes_one.text": "[#](AA00AA)Genes[#]() cam ne taken from mobs to [#](00AAAA)harness their abilities[#]().\n\nFor example, Sheep have the [#](00AAAA)Wooly[#]() Gene. If you inject this into yourself, you will be able to be sheared for wool!\n\nTo see a full list of Genes, [#](00AAAA)see here[#]().",
+  "book.geneticsresequenced.guide.getting_started.genes_one.genes_one.title": "What are Genes?",
+  "book.geneticsresequenced.guide.getting_started.genes_one.name": "What are Genes?",
   "book.geneticsresequenced.guide.getting_started.name": "Getting Started",
   "book.geneticsresequenced.guide.name": "Big Book of Genetics",
   "book.geneticsresequenced.guide.tooltip": "A guide to all things genetic",

@@ -16,8 +16,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.geneticsresequenced.guide.getting_started.genes_one.Genes 1.text",
-      "title": "book.geneticsresequenced.guide.getting_started.genes_one.Genes 1.title",
+      "text": "book.geneticsresequenced.guide.getting_started.genes_one.genes_one.text",
+      "title": "book.geneticsresequenced.guide.getting_started.genes_one.genes_one.title",
       "use_markdown_in_title": false
     }
   ],

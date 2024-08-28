@@ -26,4 +26,5 @@ class ModModonomiconProvider(
     override fun registerDefaultMacros() {
         // Nothing
     }
+
 }

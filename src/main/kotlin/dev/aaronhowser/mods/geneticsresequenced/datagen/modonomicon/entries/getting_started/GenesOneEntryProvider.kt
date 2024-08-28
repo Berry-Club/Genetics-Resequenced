@@ -2,29 +2,31 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.get
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground
-import com.klikli_dev.modonomicon.api.datagen.EntryProvider
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
-import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel
 import com.mojang.datafixers.util.Pair
+import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.BaseEntryProvider
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 
-class GenesOneEntryProvider(parent: CategoryProviderBase?) : EntryProvider(parent) {
+class GenesOneEntryProvider(
+    parent: CategoryProviderBase?
+) : BaseEntryProvider(parent, "genes_one") {
 
-    override fun generatePages() {
-        this.page("Genes 1") {
-            BookTextPageModel.create()
-                .withTitle(this.context().pageTitle())
-                .withText(this.context().pageText())
-        }
+    override fun customPages() {
+        this.pageTitle("What are Genes?")
 
-        this.pageTitle("Genes 1")
+        this.pageText(
+            """
+            ${major("Genes")} cam ne taken from mobs to ${minor("harness their abilities")}.
+            
+            For example, Sheep have the ${minor("Wooly")} Gene. If you inject this into yourself, you will be able to be sheared for wool!
 
-        this.pageText("The first step in understanding the genetic code.")
-
+            To see a full list of Genes, ${minor("see here")}.
+        """.trimIndent()
+        )
     }
 
     override fun entryName(): String {
-        return "Genes 1"
+        return "What are Genes?"
     }
 
     override fun entryDescription(): String {
@@ -37,9 +39,5 @@ class GenesOneEntryProvider(parent: CategoryProviderBase?) : EntryProvider(paren
 
     override fun entryIcon(): BookIconModel {
         return BookIconModel.create(ModItems.DNA_HELIX)
-    }
-
-    override fun entryId(): String {
-        return "genes_one"
     }
 }
