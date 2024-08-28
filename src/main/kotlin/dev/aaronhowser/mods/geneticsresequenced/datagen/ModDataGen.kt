@@ -1,9 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
+import com.klikli_dev.modonomicon.api.datagen.LanguageProviderCache
+import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider
+import com.klikli_dev.modonomicon.datagen.EnUsProvider
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.ModModonomiconProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModBlockTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEnchantmentTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
@@ -73,6 +77,16 @@ object ModDataGen {
         val lootTableProvider = generator.addProvider(
             event.includeServer(),
             ModLootTableProvider.create(output, lookupProvider)
+        )
+
+        val modonomiconEnUsCache = LanguageProviderCache("en_us")
+        val modonomiconBookProvider = generator.addProvider(
+            event.includeServer(),
+            NeoBookProvider.of(event, ModModonomiconProvider(modonomiconEnUsCache))
+        )
+        val modonomiconEnUsProvider = generator.addProvider(
+            event.includeClient(),
+            EnUsProvider(output, modonomiconEnUsCache)
         )
 
     }
