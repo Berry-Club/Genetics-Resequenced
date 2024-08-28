@@ -25,12 +25,6 @@ class SubstrateCellEmiRecipe(
     val cellStack: ItemStack
 ) : AbstractEmiBrewingRecipe() {
 
-    init {
-        require(cellStack.item == ModItems.CELL.get() || cellStack.item == ModItems.GMO_CELL.get()) {
-            "Cell stack must be a Cell or GMO Cell!"
-        }
-    }
-
     companion object {
         fun getAllRecipes(): List<SubstrateCellEmiRecipe> {
             val recipes = mutableListOf<SubstrateCellEmiRecipe>()

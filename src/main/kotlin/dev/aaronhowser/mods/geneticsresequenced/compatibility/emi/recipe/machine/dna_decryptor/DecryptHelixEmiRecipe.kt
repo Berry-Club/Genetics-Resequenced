@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machin
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -23,6 +24,24 @@ class DecryptHelixEmiRecipe(
     val gene: Gene,
     val chance: Float
 ) : EmiRecipe {
+
+    companion object {
+        fun getAllRecipes(): List<DecryptHelixEmiRecipe> {
+            val recipes = mutableListOf<DecryptHelixEmiRecipe>()
+
+            for ((entityType, map) in MobGeneRegistry.getRegistry()) {
+                val totalWeight = map.values.sum()
+
+                for ((gene, weight) in map) {
+                    val chance = weight.toFloat() / totalWeight
+
+                    recipes.add(DecryptHelixEmiRecipe(entityType, gene, chance))
+                }
+            }
+
+            return recipes
+        }
+    }
 
     private val encryptedHelix: EmiIngredient
     private val decryptedHelix: EmiStack

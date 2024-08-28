@@ -10,7 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.dna_extractor.CellToHelixEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.plasmid_infuser.PlasmidInfuserEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.plasmid_injector.PlasmidInjectorEmiRecipe
-import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
@@ -125,8 +124,8 @@ class ModEmiPlugin : EmiPlugin {
         registry.addCategory(DNA_EXTRACTOR_CATEGORY)
         registry.addWorkstation(DNA_EXTRACTOR_CATEGORY, DNA_EXTRACTOR_STACK)
 
-        for (entityType in EntityDnaItem.validEntityTypes) {
-            registry.addRecipe(CellToHelixEmiRecipe(entityType))
+        for (recipe in CellToHelixEmiRecipe.getAllRecipes()) {
+            registry.addRecipe(recipe)
         }
     }
 
@@ -134,14 +133,8 @@ class ModEmiPlugin : EmiPlugin {
         registry.addCategory(DNA_DECRYPTOR_CATEGORY)
         registry.addWorkstation(DNA_DECRYPTOR_CATEGORY, DNA_DECRYPTOR_STACK)
 
-        for ((entityType, map) in MobGeneRegistry.getRegistry()) {
-            val totalWeight = map.values.sum()
-
-            for ((gene, weight) in map) {
-                val chance = weight.toFloat() / totalWeight
-
-                registry.addRecipe(DecryptHelixEmiRecipe(entityType, gene, chance))
-            }
+        for (recipe in DecryptHelixEmiRecipe.getAllRecipes()) {
+            registry.addRecipe(recipe)
         }
     }
 

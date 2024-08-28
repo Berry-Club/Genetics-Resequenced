@@ -97,7 +97,8 @@
 
 - Update to NeoForge 21.0.140-beta
 - Fixed crash from trying to scrape invalid entities
-- Made every machine GUI 6 pixels taller, with all elements being 6 pixels lower, to prevent the machine name clipping through the energy bar
+- Made every machine GUI 6 pixels taller, with all elements being 6 pixels lower, to prevent the machine name clipping
+  through the energy bar
 - Fixed the FE bar filling from top to bottom, rather than bottom to top
 - Fixed the Coal Generator's burn progress rendering incorrectly
 - Fixed the progress arrows in the Incubator and Advanced Incubator rendering incorrectly
@@ -108,7 +109,8 @@
 ### 1.1.9
 
 - Fixed the Potion of Cell Growth recipe setting the entity when it shouldn't (#14)
-- Support Slimes now have a 100% chance to give the Slimy Death Gene. The file previously pointed at the entity `minecraft:slime` rather than `geneticsresequenced:support_slime`
+- Support Slimes now have a 100% chance to give the Slimy Death Gene. The file previously pointed at the
+  entity `minecraft:slime` rather than `geneticsresequenced:support_slime`
 - Localized tags for EMI
 - Removed the reference to the Patchouli book from the first advancement, as Patchouli isn't on 1.21 yet
 - Moved to better practices (using less lazy values, mostly)
@@ -121,9 +123,11 @@
 - Fixed the Incubator not being able to output
 - Fixed the Plasmid Infuser giving +1 DNA Point for Helices of the same Gene rather than +2 (#18)
 - Fixed the Advanced Incubator ignoring Chorus Fruit (#17)
-- In the Plasmid Infuser, the initial DNA Helix infused into an empty Plasmid does not give it any DNA Points, previously it gave +1
+- In the Plasmid Infuser, the initial DNA Helix infused into an empty Plasmid does not give it any DNA Points,
+  previously it gave +1
 - The GMO chance increase/decrease per Overclocker and Chorus Fruit is now configurable
-- Massively improved the code for most Screens, moving a lot of things to Widgets rather than reimplementing them every Screen
+- Massively improved the code for most Screens, moving a lot of things to Widgets rather than reimplementing them every
+  Screen
 - All machine menu progress arrows now show the percentage completion in the tooltip
 - Fixed Scrapers being unable to be enchanted (#16)
 
@@ -136,6 +140,9 @@
 - The Patchouli book is now in the creative tab
 - GMO Recipes will have their logic printed in the tooltip of the Potion of Cell Growth in the Advanced Incubator
 - Fixed the Blood Purifier page in the Patchouli book having the Plasmid Injector instead
-- If the items given by the Keep Inventory Gene don't fit in your inventory, they're dropped at your feet instead of being tossed from your camera
+- If the items given by the Keep Inventory Gene don't fit in your inventory, they're dropped at your feet instead of
+  being tossed from your camera
 - The Scare Genes can now be given to entities
-- The Scare Genes now apply based on an entity's tags (#geneticsresequenced:avoids_scare_creeper_gene etc) rather than based on their class (is or extends Creeper etc)
+- The Scare Genes now apply based on an entity's tags (#geneticsresequenced:avoids_scare_creeper_gene etc) rather than
+  based on their class (is or extends Creeper etc)
+- Fixed Genetically Modified Cells not having EMI recipe pages for turning into DNA Helices (#23)
