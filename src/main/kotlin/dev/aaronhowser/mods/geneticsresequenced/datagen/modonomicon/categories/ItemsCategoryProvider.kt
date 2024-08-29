@@ -39,7 +39,11 @@ class ItemsCategoryProvider(
     }
 
     fun antiFieldOrb(location: Char): BookEntryModel? {
-        val antiFieldEntry = object : ItemEntryProvider(realThis, ModItems.ANTI_FIELD_ORB.toStack()) {
+        val antiFieldEntry = object : ItemEntryProvider(
+            realThis,
+            ModItems.ANTI_FIELD_ORB.toStack(),
+            "anti_field_orb"
+        ) {
             override fun generatePages() {
                 textPage(
                     "Anti-Field Orb",
@@ -82,7 +86,11 @@ class ItemsCategoryProvider(
     }
 
     fun cell(location: Char): BookEntryModel? {
-        val cellEntry = object : ItemEntryProvider(realThis, ModItems.CELL.toStack()) {
+        val cellEntry = object : ItemEntryProvider(
+            realThis,
+            ModItems.CELL.toStack(),
+            "cell"
+        ) {
             override fun generatePages() {
 
                 textPage(
@@ -128,7 +136,11 @@ class ItemsCategoryProvider(
     fun potionCellGrowth(location: Char): BookEntryModel? {
         val pcgStack = OtherUtil.getPotionStack(ModPotions.CELL_GROWTH)
 
-        val pcgEntry = object : ItemEntryProvider(realThis, pcgStack) {
+        val pcgEntry = object : ItemEntryProvider(
+            realThis,
+            pcgStack,
+            "potion_cell_growth"
+        ) {
 
             override fun generatePages() {
                 spotlightPage(
@@ -144,7 +156,7 @@ class ItemsCategoryProvider(
                 spotlightPage(
                     pcgStack,
                     "A ${
-                        Companion.entryLink(
+                        entryLink(
                             "Cell",
                             "items/cell"
                         )

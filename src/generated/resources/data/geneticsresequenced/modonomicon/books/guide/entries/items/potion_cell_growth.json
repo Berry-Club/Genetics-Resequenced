@@ -2,12 +2,12 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "geneticsresequenced:items",
-  "description": "book.geneticsresequenced.guide.items.item.minecraft.potion.description",
+  "description": "book.geneticsresequenced.guide.items.potion_cell_growth.description",
   "hide_while_locked": false,
   "icon": {
     "item": "minecraft:potion"
   },
-  "name": "book.geneticsresequenced.guide.items.item.minecraft.potion.name",
+  "name": "book.geneticsresequenced.guide.items.potion_cell_growth.name",
   "pages": [
     {
       "type": "modonomicon:spotlight",
@@ -34,8 +34,8 @@
         },
         "items": "minecraft:potion"
       },
-      "text": "book.geneticsresequenced.guide.items.item.minecraft.potion.page_0.text",
-      "title": "book.geneticsresequenced.guide.items.item.minecraft.potion.page_0.title"
+      "text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_0.text",
+      "title": "book.geneticsresequenced.guide.items.potion_cell_growth.page_0.title"
     },
     {
       "type": "modonomicon:spotlight",
@@ -63,8 +63,8 @@
         },
         "items": "minecraft:potion"
       },
-      "text": "book.geneticsresequenced.guide.items.item.minecraft.potion.page_1.text",
-      "title": "book.geneticsresequenced.guide.items.item.minecraft.potion.page_1.title"
+      "text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_1.text",
+      "title": "book.geneticsresequenced.guide.items.potion_cell_growth.page_1.title"
     },
     {
       "type": "modonomicon:spotlight",
@@ -90,8 +90,8 @@
         },
         "items": "geneticsresequenced:gmo_cell"
       },
-      "text": "book.geneticsresequenced.guide.items.item.minecraft.potion.page_2.text",
-      "title": "book.geneticsresequenced.guide.items.item.minecraft.potion.page_2.title"
+      "text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_2.text",
+      "title": "book.geneticsresequenced.guide.items.potion_cell_growth.page_2.title"
     },
     {
       "type": "modonomicon:text",
@@ -100,8 +100,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.geneticsresequenced.guide.items.item.minecraft.potion.page_3.text",
-      "title": "book.geneticsresequenced.guide.items.item.minecraft.potion.page_3.title",
+      "text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_3.text",
+      "title": "book.geneticsresequenced.guide.items.potion_cell_growth.page_3.title",
       "use_markdown_in_title": false
     }
   ],

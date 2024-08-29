@@ -1,9 +1,9 @@
-// 1.21.1	2024-08-28T20:30:33.0336601	Books: geneticsresequenced
+// 1.21.1	2024-08-28T20:34:54.3092131	Books: geneticsresequenced
 f3dc5ac9f53c5c0e7ef773c98e081c5c2b6ed372 data/geneticsresequenced/modonomicon/books/guide/book.json
 0f9fa9c729b30feb3cb30a95cb5a31087cac9569 data/geneticsresequenced/modonomicon/books/guide/categories/getting_started.json
 91394eb49ba6c8bdcd5cc04dac75aeeabc3416a6 data/geneticsresequenced/modonomicon/books/guide/categories/items.json
 3c73657423a4420219a6640c76ed52d0d0ecb9eb data/geneticsresequenced/modonomicon/books/guide/entries/getting_started/getting_genes.json
 aac114dfc1f6ce7fe30d34ac4e645ce9bdfcb945 data/geneticsresequenced/modonomicon/books/guide/entries/getting_started/what_are_genes.json
-c8d82aa393b15965474f210dc552acf7969e0c11 data/geneticsresequenced/modonomicon/books/guide/entries/items/item.geneticsresequenced.anti_field_orb.json
-3751ce532defb0a670f5aadd9a6501762d00fbfb data/geneticsresequenced/modonomicon/books/guide/entries/items/item.geneticsresequenced.cell.json
-d621de90a446a21aeea13bf4867b0b3da7c91e8e data/geneticsresequenced/modonomicon/books/guide/entries/items/item.minecraft.potion.json
+0b3484c56d0fb57c973a9dc0dbe54be493dd51f6 data/geneticsresequenced/modonomicon/books/guide/entries/items/anti_field_orb.json
+5b17f3b316946398fa36d21a4391578d84ec146e data/geneticsresequenced/modonomicon/books/guide/entries/items/cell.json
+20b2fa4306cb4ba311ead602d53e578cb095943f data/geneticsresequenced/modonomicon/books/guide/entries/items/potion_cell_growth.json

@@ -6,8 +6,9 @@ import net.minecraft.world.item.ItemStack
 
 abstract class ItemEntryProvider(
     parent: CategoryProviderBase?,
-    val stack: ItemStack
-) : BaseEntryProvider(parent, stack.item.descriptionId) {
+    val stack: ItemStack,
+    fileName: String
+) : BaseEntryProvider(parent, fileName) {
 
     override fun entryIcon(): BookIconModel {
         return BookIconModel.create(stack)
