@@ -15,6 +15,24 @@ class GettingGenesEntry(
             "Getting Genes is a rather involved process."
         )
 
+        spotlightPage(
+            ModItems.SCRAPER,
+            paragraphs(
+                "First, you'll need the ${
+                    Companion.entryLink(
+                        "Scraper",
+                        "scraper"
+                    )
+                }. This tool can be used on entities to collect ${
+                    Companion.entryLink(
+                        "Organic Matter",
+                        "organic_matter"
+                    )
+                } from them.",
+                "The Organic Matter will have the entity's type attached. This is what decides what Genes you can get from it."
+            )
+        )
+
     }
 
     override fun entryName(): String {

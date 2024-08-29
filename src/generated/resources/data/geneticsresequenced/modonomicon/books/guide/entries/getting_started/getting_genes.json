@@ -19,6 +19,18 @@
       "text": "book.geneticsresequenced.guide.getting_started.getting_genes.page_0.text",
       "title": "book.geneticsresequenced.guide.getting_started.getting_genes.page_0.title",
       "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "geneticsresequenced:scraper"
+      },
+      "text": "book.geneticsresequenced.guide.getting_started.getting_genes.page_1.text",
+      "title": "book.geneticsresequenced.guide.getting_started.getting_genes.page_1.title"
     }
   ],
   "show_when_any_parent_unlocked": false,

@@ -3,9 +3,14 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries
 import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider
+import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel
 import com.mojang.datafixers.util.Pair
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.ChatFormatting
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.level.ItemLike
 
 abstract class BaseEntryProvider(
     parent: CategoryProviderBase?,
@@ -34,6 +39,10 @@ abstract class BaseEntryProvider(
 
         fun paragraphs(vararg paragraphs: String): String {
             return paragraphs.joinToString(separator = " \\\n  \\\n")
+        }
+
+        fun entryLink(text: String, entryId: String): String {
+            return "[$text](entry://$entryId)"
         }
     }
 
@@ -73,6 +82,36 @@ abstract class BaseEntryProvider(
 
         this.pageTitle(title)
 
+        this.pageText(text)
+    }
+
+    fun spotlightPage(
+        itemLike: ItemLike,
+        text: String
+    ) {
+        this.spotlightPage(itemLike.itemStack, "", text)
+    }
+
+    fun spotlightPage(
+        itemStack: ItemStack,
+        text: String
+    ) {
+        this.spotlightPage(itemStack, "", text)
+    }
+
+    fun spotlightPage(
+        itemStack: ItemStack,
+        title: String,
+        text: String,
+    ) {
+        this.page("page_${this.pageIndex++}") {
+            BookSpotlightPageModel.create()
+                .withTitle(this.context().pageTitle())
+                .withText(this.context().pageText())
+                .withItem(Ingredient.of(itemStack))
+        }
+
+        this.pageTitle(title)
         this.pageText(text)
     }
 
