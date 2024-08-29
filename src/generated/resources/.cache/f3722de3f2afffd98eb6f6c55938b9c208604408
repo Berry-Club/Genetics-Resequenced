@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-28T20:59:11.2029735	Books: geneticsresequenced
+// 1.21.1	2024-08-28T21:06:39.3395932	Books: geneticsresequenced
 f3dc5ac9f53c5c0e7ef773c98e081c5c2b6ed372 data/geneticsresequenced/modonomicon/books/guide/book.json
 0f9fa9c729b30feb3cb30a95cb5a31087cac9569 data/geneticsresequenced/modonomicon/books/guide/categories/getting_started.json
 91394eb49ba6c8bdcd5cc04dac75aeeabc3416a6 data/geneticsresequenced/modonomicon/books/guide/categories/items.json
@@ -7,6 +7,8 @@ aac114dfc1f6ce7fe30d34ac4e645ce9bdfcb945 data/geneticsresequenced/modonomicon/bo
 0b3484c56d0fb57c973a9dc0dbe54be493dd51f6 data/geneticsresequenced/modonomicon/books/guide/entries/items/anti_field_orb.json
 5b17f3b316946398fa36d21a4391578d84ec146e data/geneticsresequenced/modonomicon/books/guide/entries/items/cell.json
 e43a08a59dc80475cf58c10ad0efd7d0a4f18bd3 data/geneticsresequenced/modonomicon/books/guide/entries/items/dna_helix.json
-a3b4f3473cc4e2485423df4ced6e50d04123d09d data/geneticsresequenced/modonomicon/books/guide/entries/items/organic_matter.json
+b1dc6d76110b87ae03ad001fcd9cb29bd674e96e data/geneticsresequenced/modonomicon/books/guide/entries/items/dragon_health_crystal.json
+f0045487195854a949ce440aee784ac289380d40 data/geneticsresequenced/modonomicon/books/guide/entries/items/organic_matter.json
 20b2fa4306cb4ba311ead602d53e578cb095943f data/geneticsresequenced/modonomicon/books/guide/entries/items/potion_cell_growth.json
-c1c5f69ec2b8203c5b0a922cc957ca51ee984e68 data/geneticsresequenced/modonomicon/books/guide/entries/items/scraper.json
+127eece4508264405fdc80e2b49e6200bfdcd8e1 data/geneticsresequenced/modonomicon/books/guide/entries/items/potion_mutation.json
+547a02e34df197c179bf7d2844a050e6a87ab598 data/geneticsresequenced/modonomicon/books/guide/entries/items/scraper.json

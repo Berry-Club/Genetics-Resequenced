@@ -2,12 +2,12 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "geneticsresequenced:items",
-  "description": "book.geneticsresequenced.guide.items.organic_matter.description",
+  "description": "book.geneticsresequenced.guide.items.potion_mutation.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "geneticsresequenced:organic_matter"
+    "item": "minecraft:potion"
   },
-  "name": "book.geneticsresequenced.guide.items.organic_matter.name",
+  "name": "book.geneticsresequenced.guide.items.potion_mutation.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -16,8 +16,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.geneticsresequenced.guide.items.organic_matter.page_0.text",
-      "title": "book.geneticsresequenced.guide.items.organic_matter.page_0.title",
+      "text": "book.geneticsresequenced.guide.items.potion_mutation.page_0.text",
+      "title": "book.geneticsresequenced.guide.items.potion_mutation.page_0.title",
       "use_markdown_in_title": false
     },
     {
@@ -29,7 +29,6 @@
       "item": {
         "type": "neoforge:components",
         "components": {
-          "geneticsresequenced:entity_type": "minecraft:cow",
           "minecraft:attribute_modifiers": {
             "modifiers": []
           },
@@ -37,18 +36,21 @@
             "levels": {}
           },
           "minecraft:lore": [],
-          "minecraft:max_stack_size": 64,
+          "minecraft:max_stack_size": 1,
+          "minecraft:potion_contents": {
+            "potion": "geneticsresequenced:mutation"
+          },
           "minecraft:rarity": "common",
           "minecraft:repair_cost": 0
         },
-        "items": "geneticsresequenced:organic_matter"
+        "items": "minecraft:potion"
       },
-      "text": "book.geneticsresequenced.guide.items.organic_matter.page_1.text",
-      "title": "book.geneticsresequenced.guide.items.organic_matter.page_1.title"
+      "text": "book.geneticsresequenced.guide.items.potion_mutation.page_1.text",
+      "title": "book.geneticsresequenced.guide.items.potion_mutation.page_1.title"
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 7,
+  "sort_number": 5,
   "x": 0,
   "y": 0
 }

@@ -38,8 +38,91 @@ class ItemsCategoryProvider(
         this.add(cell('c'))
         this.add(potionCellGrowth('g'))
         this.add(dnaHelix('d'))
+        this.add(dragonHealthCrystal('h'))
+        this.add(potionMutation('u'))
         this.add(scraper('s'))
         this.add(organicMatter('m'))
+    }
+
+    fun potionMutation(location: Char): BookEntryModel? {
+        val mutationStack = OtherUtil.getPotionStack(ModPotions.MUTATION)
+
+        val mutationEntry = object : ItemEntryProvider(
+            realThis,
+            mutationStack,
+            "potion_mutation"
+        ) {
+            override fun generatePages() {
+                textPage(
+                    "Potion of Mutation",
+                    paragraphs(
+                        "The ${major("Potion of Mutation")} is used to craft ${
+                            itemEntryLink(
+                                "Genetically Modified Cells",
+                                "gmo_cell"
+                            )
+                        } that are set to ${minor("mutation Genes")}.",
+                        "Mutation Genes are effectively just ${minor("more powerful")} Genes, and generally ${bad("require other Genes")}."
+                    )
+                )
+
+                //FIXME: Weirdly worded
+                spotlightPage(
+                    mutationStack,
+                    "Like ${
+                        itemEntryLink(
+                            "Potions of Cell Growth",
+                            "potion_cell_growth"
+                        )
+                    }, to make GM Cells, you have to process through a low-temperature ${
+                        blockEntryLink(
+                            "Advanced Incubator",
+                            "blocks/incubator_advanced"
+                        )
+                    }.",
+                )
+            }
+
+            override fun entryName(): String {
+                return "Potion of Mutation"
+            }
+        }
+
+        return mutationEntry.generate(location)
+    }
+
+    fun dragonHealthCrystal(location: Char): BookEntryModel? {
+        val dragonCrystalEntry = object : ItemEntryProvider(
+            realThis,
+            ModItems.DRAGON_HEALTH_CRYSTAL.toStack(),
+            "dragon_health_crystal"
+        ) {
+            override fun generatePages() {
+                textPage(
+                    "Dragon Health Crystal",
+                    paragraphs(
+                        "The $${major("Dragon Health Crystal")} is part of the $${
+                            geneEntryLink(
+                                "Ender Dragon Health",
+                                "ender_dragon_health"
+                            )
+                        } Gene.",
+                        "While you have that Gene, and while holding a Dragon Health Crystal, any incoming damage is negated and instead dealt to the Crystal."
+                    )
+                )
+
+                spotlightPage(
+                    ModItems.DRAGON_HEALTH_CRYSTAL.toStack(),
+                    "A fresh Dragon health Crystal has ${minor("1,000 durability")}. Each half-heart deals 1 point of durability damage. It can be repaired with End Crystals."
+                )
+            }
+
+            override fun entryName(): String {
+                return "Dragon Health Crystal"
+            }
+        }
+
+        return dragonCrystalEntry.generate(location)
     }
 
     fun dnaHelix(location: Char): BookEntryModel? {
