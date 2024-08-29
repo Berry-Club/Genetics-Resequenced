@@ -68,7 +68,7 @@
     },
     {
       "type": "modonomicon:spotlight",
-      "anchor": "",
+      "anchor": "gmo_cell",
       "condition": {
         "type": "modonomicon:none"
       },

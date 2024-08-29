@@ -129,6 +129,7 @@ class ItemsCategoryProvider(
         val pcgStack = OtherUtil.getPotionStack(ModPotions.CELL_GROWTH)
 
         val pcgEntry = object : ItemEntryProvider(realThis, pcgStack) {
+
             override fun generatePages() {
                 spotlightPage(
                     pcgStack,
@@ -161,7 +162,7 @@ class ItemsCategoryProvider(
                             "items/gmo_cell"
                         )
                     }, which are guaranteed to give a specific Gene.",
-                )
+                ).withAnchor("gmo_cell")
 
                 textPage(
                     paragraphs(

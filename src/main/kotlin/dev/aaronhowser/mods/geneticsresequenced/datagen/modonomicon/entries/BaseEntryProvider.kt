@@ -51,8 +51,8 @@ abstract class BaseEntryProvider(
 
     fun textPage(
         text: String
-    ) {
-        textPage(
+    ): BookTextPageModel {
+        return textPage(
             "page_${this.pageIndex++}",
             "",
             text
@@ -62,8 +62,8 @@ abstract class BaseEntryProvider(
     fun textPage(
         title: String,
         text: String
-    ) {
-        textPage(
+    ): BookTextPageModel {
+        return textPage(
             "page_${this.pageIndex++}",
             title,
             text
@@ -74,37 +74,38 @@ abstract class BaseEntryProvider(
         pageId: String,
         title: String,
         text: String
-    ) {
-        this.page(pageId) {
+    ): BookTextPageModel {
+        val page = this.page(pageId) {
             BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         }
 
         this.pageTitle(title)
-
         this.pageText(text)
+
+        return page
     }
 
     fun spotlightPage(
         itemLike: ItemLike,
         text: String
-    ) {
-        this.spotlightPage(itemLike.itemStack, "", text)
+    ): BookSpotlightPageModel {
+        return this.spotlightPage(itemLike.itemStack, "", text)
     }
 
     fun spotlightPage(
         itemStack: ItemStack,
         text: String
-    ) {
-        this.spotlightPage(itemStack, "", text)
+    ): BookSpotlightPageModel {
+        return this.spotlightPage(itemStack, "", text)
     }
 
     fun spotlightPage(
         itemStack: ItemStack,
         title: String,
         text: String,
-    ) {
+    ): BookSpotlightPageModel {
 
         val hasNonDefaultComponents = !itemStack.componentsPatch.isEmpty
         val ingredient = if (hasNonDefaultComponents) {
@@ -113,7 +114,7 @@ abstract class BaseEntryProvider(
             Ingredient.of(itemStack)
         }
 
-        this.page("page_${this.pageIndex++}") {
+        val page = this.page("page_${this.pageIndex++}") {
             BookSpotlightPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
@@ -122,6 +123,8 @@ abstract class BaseEntryProvider(
 
         this.pageTitle(title)
         this.pageText(text)
+
+        return page
     }
 
 }
