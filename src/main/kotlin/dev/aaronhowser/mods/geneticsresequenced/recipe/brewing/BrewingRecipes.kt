@@ -79,7 +79,7 @@ object BrewingRecipes {
         get() = OtherUtil.getPotionStack(ModPotions.MUTATION)
     val viralAgentsPotionStack
         get() = OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)
-    val curePotionStack
+    val panaceaPotionStack
         get() = OtherUtil.getPotionStack(ModPotions.PANACEA)
 
     fun setRecipes(event: RegisterBrewingRecipesEvent) {
@@ -108,7 +108,7 @@ object BrewingRecipes {
         val panaceaRecipe = BrewingRecipe(
             ingredient(ModPotions.VIRAL_AGENTS),
             ingredient(DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), ModGenes.REGENERATION)),
-            curePotionStack
+            panaceaPotionStack
         )
 
         allRecipes.addAll(

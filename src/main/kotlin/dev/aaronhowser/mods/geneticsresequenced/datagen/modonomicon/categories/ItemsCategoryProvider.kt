@@ -10,6 +10,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -46,9 +47,121 @@ class ItemsCategoryProvider(
         this.add(panacea('p'))
         this.add(plasmid('i'))
         this.add(scraper('s'))
-//        this.add(syringe('y'))
-//        this.add(viralAgents('v'))
-//        this.add(zombifyVillager('z'))
+        this.add(syringe('y'))
+        this.add(viralAgents('v'))
+        this.add(zombifyVillager('z'))
+    }
+
+    fun zombifyVillager(location: Char): BookEntryModel? {
+        val zombifyStack = OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER)
+
+        val zombifyEntry = object : ItemEntryProvider(
+            realThis,
+            zombifyStack,
+            "zombify_villager"
+        ) {
+            override fun generatePages() {
+                textPage(
+                    "Potion of Zombify Villager",
+                    "A ${major("Potion of Zombify Villager")} does right what it says on the tin: it turns Villagers into Zombie Villagers."
+                )
+
+                spotlightPage(
+                    zombifyStack,
+                    "Obviously, it's best utilized in Splash form."
+                )
+            }
+
+            override fun entryName(): String {
+                return "Potion of Zombify Villager"
+            }
+        }
+
+        return zombifyEntry.generate(location)
+    }
+
+    fun viralAgents(location: Char): BookEntryModel? {
+        val viralStack = BrewingRecipes.viralAgentsPotionStack
+
+        val viralEntry = object : ItemEntryProvider(
+            realThis,
+            viralStack,
+            "viral_agents"
+        ) {
+            override fun generatePages() {
+                textPage(
+                    "Viral Agents",
+                    paragraphs(
+                        "${major("Viral Agents")} are the final crafting potion of the mod. They are ued to craft ${
+                            categoryLink(
+                                "negative Genes",
+                                "genes/negative"
+                            )
+                        }, which are generally just any gene that's harmful.",
+                        "Negative Genes are always lost on death, regardless of config setting. Additionally, there's a config to prevent players from even being able to get negative Genes in the first place."
+                    )
+                )
+
+                spotlightPage(
+                    viralStack,
+                    "Virus Cultivation recipes can be crafted in the Brewing Stand or in either Incubator."
+                )
+            }
+
+            override fun entryName(): String {
+                return "Viral Agents"
+            }
+        }
+
+        return viralEntry.generate(location)
+    }
+
+    fun syringe(location: Char): BookEntryModel? {
+        val syringeEntry = object : ItemEntryProvider(
+            realThis,
+            ModItems.SYRINGE.toStack(),
+            "syringe"
+        ) {
+            override fun generatePages() {
+                textPage(
+                    "Syringe",
+                    "The ${major("Syringe")} is used to ${minor("extract and inject blood")}. Simply hold right-click, and the process will end automatically.",
+                    "The reason you'd *want* to extract blood is that that's what carries completed ${
+                        itemEntryLink(
+                            "Plasmids",
+                            "plasmid"
+                        )
+                    } back into your body."
+                )
+
+                spotlightPage(
+                    ModItems.SYRINGE.toStack(),
+                    paragraphs(
+                        "When you extract blood, it'll be ${bad("contaminated")}. You'll need to clean it in the ${
+                            blockEntryLink(
+                                "Blood Purifier",
+                                "blood_purifier"
+                            )
+                        } before it can be used.",
+                        "Plasmids are added in the ${
+                            blockEntryLink(
+                                "Plasmid Injector",
+                                "plasmid_injector"
+                            )
+                        }."
+                    )
+                )
+
+                //FIXME: Forgot to mention Metal Syringes?
+            }
+
+            override fun entryName(): String {
+                return "Syringe"
+            }
+
+        }
+
+        return syringeEntry.generate(location)
     }
 
     fun plasmid(location: Char): BookEntryModel? {
@@ -122,7 +235,7 @@ class ItemsCategoryProvider(
     }
 
     fun panacea(location: Char): BookEntryModel? {
-        val panaceaStack = OtherUtil.getPotionStack(ModPotions.PANACEA)
+        val panaceaStack = BrewingRecipes.panaceaPotionStack
 
         val panaceaEntry = object : ItemEntryProvider(
             realThis,
@@ -179,7 +292,7 @@ class ItemsCategoryProvider(
     }
 
     fun potionMutation(location: Char): BookEntryModel? {
-        val mutationStack = OtherUtil.getPotionStack(ModPotions.MUTATION)
+        val mutationStack = BrewingRecipes.mutationPotionStack
 
         val mutationEntry = object : ItemEntryProvider(
             realThis,
@@ -511,7 +624,7 @@ class ItemsCategoryProvider(
     }
 
     fun potionCellGrowth(location: Char): BookEntryModel? {
-        val pcgStack = OtherUtil.getPotionStack(ModPotions.CELL_GROWTH)
+        val pcgStack = BrewingRecipes.cellGrowthPotionStack
 
         val pcgEntry = object : ItemEntryProvider(
             realThis,
