@@ -1,0 +1,28 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "geneticsresequenced:items",
+  "description": "book.geneticsresequenced.guide.items.item.geneticsresequenced.anti_field_orb.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "geneticsresequenced:anti_field_orb"
+  },
+  "name": "book.geneticsresequenced.guide.items.item.geneticsresequenced.anti_field_orb.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.items.item.geneticsresequenced.anti_field_orb.page_0.text",
+      "title": "book.geneticsresequenced.guide.items.item.geneticsresequenced.anti_field_orb.page_0.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 0,
+  "x": 0,
+  "y": 0
+}

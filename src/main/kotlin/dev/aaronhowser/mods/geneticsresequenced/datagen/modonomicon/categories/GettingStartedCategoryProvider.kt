@@ -17,7 +17,7 @@ class GettingStartedCategoryProvider(
 
     override fun generateEntryMap(): Array<String> {
         return arrayOf(
-            "_1_",
+            "___",
             "___"
         )
     }
