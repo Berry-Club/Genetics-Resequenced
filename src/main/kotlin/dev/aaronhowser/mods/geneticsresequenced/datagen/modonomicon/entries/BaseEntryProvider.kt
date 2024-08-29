@@ -60,15 +60,15 @@ abstract class BaseEntryProvider(
     }
 
     fun geneEntryLink(text: String, entryId: String): String {
-        return entryLinkDummy(text, "genes", entryId)
+        return "[${text}](entry://genes/${entryId})"
     }
 
     fun blockEntryLink(text: String, entryId: String): String {
-        return entryLinkDummy(text, "blocks", entryId)
+        return "[${text}](entry://blocks/${entryId})"
     }
 
     fun itemEntryLink(text: String, entryId: String): String {
-        return entryLinkDummy(text, "items", entryId)
+        return "[${text}](entry://items/${entryId})"
     }
 
     private var pageIndex = 0
