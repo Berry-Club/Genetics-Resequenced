@@ -29,6 +29,13 @@ abstract class BaseEntryProvider(
 
     fun page(
         pageId: String,
+        text: String
+    ) {
+        page(pageId, "", text)
+    }
+
+    fun page(
+        pageId: String,
         title: String,
         text: String
     ) {
