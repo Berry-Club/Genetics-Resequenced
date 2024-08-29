@@ -16,8 +16,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.geneticsresequenced.guide.items.syringe.Syringe.text",
-      "title": "book.geneticsresequenced.guide.items.syringe.Syringe.title",
+      "text": "book.geneticsresequenced.guide.items.syringe.page_0.text",
+      "title": "book.geneticsresequenced.guide.items.syringe.page_0.title",
       "use_markdown_in_title": false
     },
     {
@@ -29,8 +29,8 @@
       "item": {
         "item": "geneticsresequenced:syringe"
       },
-      "text": "book.geneticsresequenced.guide.items.syringe.page_0.text",
-      "title": "book.geneticsresequenced.guide.items.syringe.page_0.title"
+      "text": "book.geneticsresequenced.guide.items.syringe.page_1.text",
+      "title": "book.geneticsresequenced.guide.items.syringe.page_1.title"
     }
   ],
   "show_when_any_parent_unlocked": false,

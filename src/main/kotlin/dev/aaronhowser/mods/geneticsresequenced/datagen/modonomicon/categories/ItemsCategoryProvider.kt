@@ -129,13 +129,15 @@ class ItemsCategoryProvider(
             override fun generatePages() {
                 textPage(
                     "Syringe",
-                    "The ${major("Syringe")} is used to ${minor("extract and inject blood")}. Simply hold right-click, and the process will end automatically.",
-                    "The reason you'd *want* to extract blood is that that's what carries completed ${
-                        itemEntryLink(
-                            "Plasmids",
-                            "plasmid"
-                        )
-                    } back into your body."
+                    paragraphs(
+                        "The ${major("Syringe")} is used to ${minor("extract and inject blood")}. Simply hold right-click, and the process will end automatically.",
+                        "The reason you'd *want* to extract blood is that that's what carries completed ${
+                            itemEntryLink(
+                                "Plasmids",
+                                "plasmid"
+                            )
+                        } back into your body."
+                    )
                 )
 
                 spotlightPage(
