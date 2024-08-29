@@ -37,8 +37,95 @@ class BlocksCategoryProvider(
         this.add(dnaExtractor('e'))
         this.add(incubator('i'))
         this.add(advancedIncubator('v'))
-//        this.add(plasmidInfuser('p'))
-//        this.add(plasmidInjector('j'))
+        this.add(plasmidInfuser('p'))
+        this.add(plasmidInjector('j'))
+    }
+
+    private fun plasmidInjector(location: Char): BookEntryModel? {
+        val entry = object : BaseEntryProvider(
+            realThis,
+            ModBlocks.PLASMID_INJECTOR,
+            "plasmid_injector"
+        ) {
+            override fun generatePages() {
+                textPage(
+                    "Plasmid Injector",
+                    paragraphs(
+                        "The ${major("Plasmid Injector")} uses FE to inject completed ${
+                            itemEntryLink(
+                                "Plasmids",
+                                "plasmid"
+                            )
+                        } into a ${
+                            itemEntryLink(
+                                "Syringe",
+                                "syringe"
+                            )
+                        }.",
+                        "You can inject as many Plasmids into a single Syringe as you want."
+                    )
+                )
+
+                spotlightPage(
+                    ModBlocks.PLASMID_INJECTOR,
+                    paragraphs(
+                        "The Syringe must be full of uncompromised blood.",
+                        "Decontaminate blood in the ${blockEntryLink("Blood Purifier", "blood_purifier")}."
+                    )
+                )
+            }
+
+            override fun entryName(): String {
+                return "Plasmid Injector"
+            }
+        }
+
+        return entry.generate(location)
+    }
+
+    private fun plasmidInfuser(location: Char): BookEntryModel? {
+        val entry = object : BaseEntryProvider(
+            realThis,
+            ModBlocks.PLASMID_INFUSER,
+            "plasmid_infuser"
+        ) {
+            override fun generatePages() {
+                textPage(
+                    "Plasmid Infuser",
+                    paragraphs(
+                        "The ${major("Plasmid Infuser")} uses FE to infuse ${
+                            itemEntryLink(
+                                "DNA Helices",
+                                "dna_helix"
+                            )
+                        } into a ${
+                            itemEntryLink(
+                                "Plasmid",
+                                "plasmid"
+                            )
+                        }.",
+                        "Insert an empty Plasmid in the right slot, and a DNA Helix in the left slot.",
+                        "The DNA Helix will be used up, and set the Plasmid's Gene to match the Helix's."
+                    )
+                )
+
+                spotlightPage(
+                    ModBlocks.PLASMID_INFUSER,
+                    paragraphs(
+                        "Each Gene requires a certain amount of ${minor("DNA Points")} for the Plasmid to be completed.",
+                        "- Basic Genes are worth 1 point.\n- Genes of the Plasmid's type are worth 2 points.",
+                        "A Basic Gene cannot be the first one infused into a Plasmid."
+                    )
+                )
+
+            }
+
+            override fun entryName(): String {
+                return "Plasmid Infuser"
+            }
+        }
+
+        return entry.generate(location)
     }
 
     private fun advancedIncubator(location: Char): BookEntryModel? {
