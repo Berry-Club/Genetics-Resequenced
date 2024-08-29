@@ -9,6 +9,7 @@ import com.mojang.datafixers.util.Pair
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.ChatFormatting
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.level.ItemLike
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
@@ -104,11 +105,19 @@ abstract class BaseEntryProvider(
         title: String,
         text: String,
     ) {
+
+        val hasNonDefaultComponents = !itemStack.componentsPatch.isEmpty
+        val ingredient = if (hasNonDefaultComponents) {
+            DataComponentIngredient.of(false, itemStack)
+        } else {
+            Ingredient.of(itemStack)
+        }
+
         this.page("page_${this.pageIndex++}") {
             BookSpotlightPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .withItem(DataComponentIngredient.of(false, itemStack))
+                .withItem(ingredient)
         }
 
         this.pageTitle(title)
