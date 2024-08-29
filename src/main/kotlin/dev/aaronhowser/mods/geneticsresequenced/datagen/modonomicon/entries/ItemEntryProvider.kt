@@ -12,4 +12,8 @@ abstract class ItemEntryProvider(
     override fun entryIcon(): BookIconModel {
         return BookIconModel.create(stack)
     }
+
+    override fun entryDescription(): String {
+        return ""
+    }
 }

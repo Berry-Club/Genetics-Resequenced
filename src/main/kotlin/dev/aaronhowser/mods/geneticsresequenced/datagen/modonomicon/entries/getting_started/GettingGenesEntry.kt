@@ -19,17 +19,15 @@ class GettingGenesEntry(
             ModItems.SCRAPER,
             paragraphs(
                 "First, you'll need the ${
-                    1
-//                    Companion.entryLink(
-//                        "Scraper",
-//                        "scraper"
-//                    )
+                    entryLink(
+                        "Scraper",
+                        "items/scraper"
+                    )
                 }. This tool can be used on entities to collect ${
-                    1
-//                    Companion.entryLink(
-//                        "Organic Matter",
-//                        "organic_matter"
-//                    )
+                    entryLink(
+                        "Organic Matter",
+                        "items/organic_matter"
+                    )
                 } from them.",
                 "The Organic Matter will have the entity's type attached. This is what decides what Genes you can get from it."
             )
