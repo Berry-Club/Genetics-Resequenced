@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.Item
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
+import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -40,8 +41,141 @@ class ItemsCategoryProvider(
         this.add(dnaHelix('d'))
         this.add(dragonHealthCrystal('h'))
         this.add(potionMutation('u'))
-        this.add(scraper('s'))
         this.add(organicMatter('m'))
+        this.add(overclocker('l'))
+        this.add(panacea('p'))
+        this.add(plasmid('i'))
+        this.add(scraper('s'))
+//        this.add(syringe('y'))
+//        this.add(viralAgents('v'))
+//        this.add(zombifyVillager('z'))
+    }
+
+    fun plasmid(location: Char): BookEntryModel? {
+        val plasmidEntry = object : ItemEntryProvider(
+            realThis,
+            ModItems.PLASMID.toStack(),
+            "plasmid"
+        ) {
+            override fun generatePages() {
+                textPage(
+                    "Plasmid",
+                    paragraphs(
+                        "${major("Plasmids")} are the vehicle that carries ${categoryLink("Genes", "genes")}.",
+                        "Plasmids default as ${bad("empty")}, with no genetic information.",
+                        "To begin, use a ${
+                            blockEntryLink(
+                                "Plasmid Infuser",
+                                "plasmid_infuser"
+                            )
+                        } to infuse a decrypted DNA Helix into them.",
+                        "This will set the Plasmid's Gene."
+                    )
+                )
+
+                val plasmidStack = ModItems.PLASMID.toStack()
+                spotlightPage(
+                    plasmidStack,
+                    paragraphs(
+                        "Plasmids require a certain amount of ${minor("Gene Points")} to be complete.",
+                        "The amount of Gene Points required depends on the Plasmid's Gene. More advanced Genes cost more Points."
+                    )
+                )
+
+                PlasmidItem.setGene(plasmidStack, ModGenes.SCARE_CREEPERS.get())
+                PlasmidItem.setDnaPoints(plasmidStack, 1)
+
+                spotlightPage(
+                    plasmidStack,
+                    paragraphs(
+                        "This Plasmid has been infused with the ${
+                            geneEntryLink(
+                                "Scare Creepers",
+                                "scare_creepers"
+                            )
+                        } Gene.",
+                        "Notice, however, that it ${bad("only contains 1 Gene Point")}.",
+                        "Infusing more DNA Helices of the same Gene will add +2 Points each, while Basic Genes will add +1 each."
+                    )
+                )
+
+                PlasmidItem.setDnaPoints(plasmidStack, 99999999)
+                spotlightPage(
+                    plasmidStack,
+                    "Once it's reached its maximum Gene Points required, the Plasmid will be marked ${minor("complete")}!",
+                    "That means it's ready to be injected into a Syringe at the ${
+                        blockEntryLink(
+                            "Plasmid Injector",
+                            "plasmid_injector"
+                        )
+                    }."
+                )
+
+            }
+
+            override fun entryName(): String {
+                return "Plasmid"
+            }
+        }
+
+        return plasmidEntry.generate(location)
+    }
+
+    fun panacea(location: Char): BookEntryModel? {
+        val panaceaStack = OtherUtil.getPotionStack(ModPotions.PANACEA)
+
+        val panaceaEntry = object : ItemEntryProvider(
+            realThis,
+            panaceaStack,
+            "panacea"
+        ) {
+            override fun generatePages() {
+                textPage(
+                    "Panacea",
+                    "${major("Panacea")} is a simple potion: It cures all negative effects, and ${minor("removes all negative Genes")}."
+                )
+
+                spotlightPage(
+                    panaceaStack,
+                    "Sure, you could do the same with a Bucket of Milk and an Anti-Plasmid, but this is much more convenient, sometimes, maybe."
+                )
+            }
+
+            override fun entryName(): String {
+                return "Panacea"
+            }
+        }
+
+        return panaceaEntry.generate(location)
+    }
+
+    fun overclocker(location: Char): BookEntryModel? {
+        val overclockerEntry = object : ItemEntryProvider(
+            realThis,
+            ModItems.OVERCLOCKER.toStack(),
+            "overclocker"
+        ) {
+            override fun generatePages() {
+                textPage(
+                    "Overclocker",
+                    paragraphs(
+                        "The ${major("Overclocker")} can be inserted into most of the mod's machines to ${minor("massively increase their speed")}.",
+                        "Each Overclocker doubles the speed, but increases the power draw by a quarter."
+                    )
+                )
+
+                spotlightPage(
+                    ModItems.OVERCLOCKER.toStack(),
+                    "You can have $(minor)up to 8 Overclockers/$ in a machine."
+                )
+            }
+
+            override fun entryName(): String {
+                return "Overclocker"
+            }
+        }
+
+        return overclockerEntry.generate(location)
     }
 
     fun potionMutation(location: Char): BookEntryModel? {

@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-28T21:06:39.3395932	Books: geneticsresequenced
+// 1.21.1	2024-08-28T21:28:04.6146135	Books: geneticsresequenced
 f3dc5ac9f53c5c0e7ef773c98e081c5c2b6ed372 data/geneticsresequenced/modonomicon/books/guide/book.json
 0f9fa9c729b30feb3cb30a95cb5a31087cac9569 data/geneticsresequenced/modonomicon/books/guide/categories/getting_started.json
 91394eb49ba6c8bdcd5cc04dac75aeeabc3416a6 data/geneticsresequenced/modonomicon/books/guide/categories/items.json
@@ -8,7 +8,10 @@ aac114dfc1f6ce7fe30d34ac4e645ce9bdfcb945 data/geneticsresequenced/modonomicon/bo
 5b17f3b316946398fa36d21a4391578d84ec146e data/geneticsresequenced/modonomicon/books/guide/entries/items/cell.json
 e43a08a59dc80475cf58c10ad0efd7d0a4f18bd3 data/geneticsresequenced/modonomicon/books/guide/entries/items/dna_helix.json
 b1dc6d76110b87ae03ad001fcd9cb29bd674e96e data/geneticsresequenced/modonomicon/books/guide/entries/items/dragon_health_crystal.json
-f0045487195854a949ce440aee784ac289380d40 data/geneticsresequenced/modonomicon/books/guide/entries/items/organic_matter.json
+03e074917db0f5c04a31b9c2ed945c85eaf07703 data/geneticsresequenced/modonomicon/books/guide/entries/items/organic_matter.json
+3a2739e5151d6e138e1035b8410405936a51d0fc data/geneticsresequenced/modonomicon/books/guide/entries/items/overclocker.json
+a8a60d4364073e8da34746c543f7d90664a7a46d data/geneticsresequenced/modonomicon/books/guide/entries/items/panacea.json
+2909e4947c27bb7abd4380f20af19e35cea7de87 data/geneticsresequenced/modonomicon/books/guide/entries/items/plasmid.json
 20b2fa4306cb4ba311ead602d53e578cb095943f data/geneticsresequenced/modonomicon/books/guide/entries/items/potion_cell_growth.json
 127eece4508264405fdc80e2b49e6200bfdcd8e1 data/geneticsresequenced/modonomicon/books/guide/entries/items/potion_mutation.json
-547a02e34df197c179bf7d2844a050e6a87ab598 data/geneticsresequenced/modonomicon/books/guide/entries/items/scraper.json
+b4266fa125e7128ee0299e3abf30807734f1162e data/geneticsresequenced/modonomicon/books/guide/entries/items/scraper.json
