@@ -41,10 +41,18 @@ abstract class BaseEntryProvider(
         fun paragraphs(vararg paragraphs: String): String {
             return paragraphs.joinToString(separator = " \\\n  \\\n")
         }
+    }
 
-        fun entryLink(text: String, entryId: String): String {
-            return "[$text](entry://$entryId)"
-        }
+    fun geneEntryLink(text: String, entryId: String): String {
+        return entryLinkDummy(text, "genes", entryId)
+    }
+
+    fun blockEntryLink(text: String, entryId: String): String {
+        return entryLinkDummy(text, "blocks", entryId)
+    }
+
+    fun itemEntryLink(text: String, entryId: String): String {
+        return entryLinkDummy(text, "items", entryId)
     }
 
     private var pageIndex = 0

@@ -33,11 +33,40 @@ class ItemsCategoryProvider(
     }
 
     override fun generateEntries() {
-        this.add(scraper('s'))
-        this.add(organicMatter('m'))
         this.add(antiFieldOrb('o'))
         this.add(cell('c'))
         this.add(potionCellGrowth('g'))
+        this.add(dnaHelix('d'))
+        this.add(scraper('s'))
+        this.add(organicMatter('m'))
+    }
+
+    fun dnaHelix(location: Char): BookEntryModel? {
+        val dnaHelixEntry = object : ItemEntryProvider(
+            realThis,
+            ModItems.DNA_HELIX.toStack(),
+            "dna_helix"
+        ) {
+            override fun generatePages() {
+                textPage(
+                    "DNA Helix",
+                    "${major("DNA Helices")} contain genetic information. This can be either in the form of ${
+                        categoryLinkDummy(
+                            "Genes",
+                            "genes"
+                        )
+                    } or an ${minor("entity type")}",
+                    "Freshly crafted, a DNA Helix contains only the Entity that the DNA came from."
+                )
+            }
+
+            override fun entryName(): String {
+                return "DNA Helix"
+            }
+
+        }
+
+        return dnaHelixEntry.generate(location)
     }
 
     fun organicMatter(location: Char): BookEntryModel? {
@@ -51,12 +80,12 @@ class ItemsCategoryProvider(
                     "Organic Matter",
                     paragraphs(
                         "Organic Matter is a recipe ingredient used in the creation of ${
-                            entryLink(
+                            itemEntryLink(
                                 "Cells",
-                                "items/cell"
+                                "cell"
                             )
                         }.",
-                        "This is done in the ${entryLink("Cell Analyzer", "blocks/cell_analyzer")}."
+                        "This is done in the ${blockEntryLink("Cell Analyzer", "blocks/cell_analyzer")}."
                     )
                 )
 
@@ -67,9 +96,9 @@ class ItemsCategoryProvider(
                     cowMatter,
                     paragraphs(
                         "Each entity has its own Organic Matter, which can be processed into a ${
-                            entryLink(
+                            itemEntryLink(
                                 "Cell",
-                                "items/cell"
+                                "cell"
                             )
                         } of the entity's type.",
                         "You can see the Organic Matter's entity type in the item's tooltip."
@@ -96,9 +125,9 @@ class ItemsCategoryProvider(
                     "Scraper",
                     paragraphs(
                         "The ${major("Scraper")} is used to get ${
-                            entryLink(
+                            itemEntryLink(
                                 "Organic Matter",
-                                "items/organic_matter"
+                                "organic_matter"
                             )
                         } from mobs.",
                         "To use it, simply right-click the mob. This damages the mob, which counts as an attack and will anger neutral entities."
@@ -131,14 +160,14 @@ class ItemsCategoryProvider(
                     paragraphs(
                         "The ${major("Anti-Field Orb")} allows you to ${minor("temporarily disable certain Genes")}.",
                         "Specifically, it disables the ${
-                            entryLink(
+                            geneEntryLink(
                                 "Item Attraction Field",
-                                "genes/item_attraction_field"
+                                "item_attraction_field"
                             )
                         } and ${
-                            entryLink(
+                            geneEntryLink(
                                 "XP Attraction Field",
-                                "genes/xp_attraction_field"
+                                "xp_attraction_field"
                             )
                         } when enabled.",
                     )
@@ -178,12 +207,12 @@ class ItemsCategoryProvider(
                     "Cell",
                     paragraphs(
                         "${major("Cells")} are a recipe ingredient used in the creation of ${
-                            entryLink(
+                            itemEntryLink(
                                 "DNA Helices",
-                                "items/dna_helix"
+                                "dna_helix"
                             )
                         }.",
-                        "This is done in the ${entryLink("DNA Extractor", "blocks/dna_extractor")}."
+                        "This is done in the ${blockEntryLink("DNA Extractor", "dna_extractor")}."
                     )
                 )
 
@@ -194,9 +223,9 @@ class ItemsCategoryProvider(
                     cowCell,
                     paragraphs(
                         "Each entity has its own Cell, which can be processed into a ${
-                            entryLink(
+                            itemEntryLink(
                                 "DNA Helix",
-                                "items/dna_helix"
+                                "dna_helix"
                             )
                         } of the entity's type.",
                         "You can see the Cell's entity type in the item's tooltip."
@@ -237,9 +266,9 @@ class ItemsCategoryProvider(
                 spotlightPage(
                     pcgStack,
                     "A ${
-                        entryLink(
+                        itemEntryLink(
                             "Cell",
-                            "items/cell"
+                            "cell"
                         )
                     } can be brewed into the Potion of Cell Growth to ${minor("set the Potion to the Cell's entity type")}."
                 )
@@ -250,9 +279,9 @@ class ItemsCategoryProvider(
                 spotlightPage(
                     gmoStack,
                     "From there, certain entity types have recipes to make ${
-                        entryLink(
+                        itemEntryLink(
                             "Genetically Modified Cells",
-                            "items/gmo_cell"
+                            "gmo_cell"
                         )
                     }, which are guaranteed to give a specific Gene.",
                 ).withAnchor("gmo_cell")
