@@ -2,14 +2,14 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
-import net.minecraft.world.level.ItemLike
+import net.minecraft.world.item.ItemStack
 
 abstract class ItemEntryProvider(
     parent: CategoryProviderBase?,
-    val itemLike: ItemLike
-) : BaseEntryProvider(parent, itemLike.asItem().descriptionId) {
+    val stack: ItemStack
+) : BaseEntryProvider(parent, stack.item.descriptionId) {
 
     override fun entryIcon(): BookIconModel {
-        return BookIconModel.create(itemLike)
+        return BookIconModel.create(stack)
     }
 }

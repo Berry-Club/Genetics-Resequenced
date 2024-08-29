@@ -9,8 +9,8 @@ import com.mojang.datafixers.util.Pair
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.ChatFormatting
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.level.ItemLike
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 abstract class BaseEntryProvider(
     parent: CategoryProviderBase?,
@@ -108,7 +108,7 @@ abstract class BaseEntryProvider(
             BookSpotlightPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .withItem(Ingredient.of(itemStack))
+                .withItem(DataComponentIngredient.of(false, itemStack))
         }
 
         this.pageTitle(title)
