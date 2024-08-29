@@ -1,0 +1,29 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "geneticsresequenced:blocks",
+  "description": "book.geneticsresequenced.guide.blocks.dna_extractor.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "geneticsresequenced:dna_extractor"
+  },
+  "name": "book.geneticsresequenced.guide.blocks.dna_extractor.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "geneticsresequenced:dna_extractor"
+      },
+      "text": "book.geneticsresequenced.guide.blocks.dna_extractor.page_0.text",
+      "title": "book.geneticsresequenced.guide.blocks.dna_extractor.page_0.title"
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 5,
+  "x": 0,
+  "y": 0
+}

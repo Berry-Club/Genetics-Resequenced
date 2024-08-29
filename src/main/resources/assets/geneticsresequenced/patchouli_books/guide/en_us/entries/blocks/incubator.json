@@ -12,7 +12,7 @@
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:incubator",
       "link_recipe": true,
-      "text": "It speed can be increased even further with $(l:geneticsresequenced:items/overclocker)Overclockers/$."
+      "text": "It speed can be increased with $(l:geneticsresequenced:items/overclocker)Overclockers/$."
     }
   ]
 }

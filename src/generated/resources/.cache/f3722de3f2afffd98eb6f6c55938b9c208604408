@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-28T22:13:52.0069697	Books: geneticsresequenced
+// 1.21.1	2024-08-28T22:24:22.3856043	Books: geneticsresequenced
 f3dc5ac9f53c5c0e7ef773c98e081c5c2b6ed372 data/geneticsresequenced/modonomicon/books/guide/book.json
 dfa020cc33e9bb97b172a2ea98391d9cd7b4b1fc data/geneticsresequenced/modonomicon/books/guide/categories/blocks.json
 0f9fa9c729b30feb3cb30a95cb5a31087cac9569 data/geneticsresequenced/modonomicon/books/guide/categories/getting_started.json
@@ -6,6 +6,10 @@ dfa020cc33e9bb97b172a2ea98391d9cd7b4b1fc data/geneticsresequenced/modonomicon/bo
 25709b03bf61b60d28a3c6bc1549cf937815a4f3 data/geneticsresequenced/modonomicon/books/guide/entries/blocks/anti_field_block.json
 9b5d844d2ac230174b9c2c9a2642e7ddc4db8455 data/geneticsresequenced/modonomicon/books/guide/entries/blocks/blood_purifier.json
 4b4c109e867ac32203cd77de978e47c51ffed84a data/geneticsresequenced/modonomicon/books/guide/entries/blocks/cell_analyzer.json
+5e442a4fcc25096c03823af9b44f01bfa637d4c1 data/geneticsresequenced/modonomicon/books/guide/entries/blocks/coal_generator.json
+f5f329dbdc2ea49e150e7f0acf27c9766cb94341 data/geneticsresequenced/modonomicon/books/guide/entries/blocks/dna_decryptor.json
+2a81d5d905cec07a3c4b0f3990ac0b6376d830a1 data/geneticsresequenced/modonomicon/books/guide/entries/blocks/dna_extractor.json
+79c4ea8c702a2b3a2036a50aaeff9acba8a2b367 data/geneticsresequenced/modonomicon/books/guide/entries/blocks/incubator.json
 24ffcd5068d662acc9d6bd98c69373d9c6c05817 data/geneticsresequenced/modonomicon/books/guide/entries/getting_started/getting_genes.json
 5f1cd2272db5053c1c3342ba508fd4e8fc816747 data/geneticsresequenced/modonomicon/books/guide/entries/getting_started/what_are_genes.json
 0b3484c56d0fb57c973a9dc0dbe54be493dd51f6 data/geneticsresequenced/modonomicon/books/guide/entries/items/anti_field_orb.json
