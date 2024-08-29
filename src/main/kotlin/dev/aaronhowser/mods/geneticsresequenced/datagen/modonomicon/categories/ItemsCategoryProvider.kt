@@ -33,9 +33,90 @@ class ItemsCategoryProvider(
     }
 
     override fun generateEntries() {
-        this.add(antiFieldOrb('1'))
-        this.add(cell('2'))
-        this.add(potionCellGrowth('3'))
+        this.add(scraper('s'))
+        this.add(organicMatter('m'))
+        this.add(antiFieldOrb('o'))
+        this.add(cell('c'))
+        this.add(potionCellGrowth('g'))
+    }
+
+    fun organicMatter(location: Char): BookEntryModel? {
+        val organicMatterEntry = object : ItemEntryProvider(
+            realThis,
+            ModItems.ORGANIC_MATTER.toStack(),
+            "organic_matter"
+        ) {
+            override fun generatePages() {
+                textPage(
+                    "Organic Matter",
+                    paragraphs(
+                        "Organic Matter is a recipe ingredient used in the creation of ${
+                            entryLink(
+                                "Cells",
+                                "items/cell"
+                            )
+                        }.",
+                        "This is done in the ${entryLink("Cell Analyzer", "blocks/cell_analyzer")}."
+                    )
+                )
+
+                val cowMatter = ModItems.ORGANIC_MATTER.toStack()
+                EntityDnaItem.setEntityType(cowMatter, EntityType.COW)
+
+                spotlightPage(
+                    cowMatter,
+                    paragraphs(
+                        "Each entity has its own Organic Matter, which can be processed into a ${
+                            entryLink(
+                                "Cell",
+                                "items/cell"
+                            )
+                        } of the entity's type.",
+                        "You can see the Organic Matter's entity type in the item's tooltip."
+                    )
+                )
+            }
+
+            override fun entryName(): String {
+                return "Organic Matter"
+            }
+        }
+
+        return organicMatterEntry.generate(location)
+    }
+
+    fun scraper(location: Char): BookEntryModel? {
+        val scraperEntry = object : ItemEntryProvider(
+            realThis,
+            ModItems.SCRAPER.toStack(),
+            "scraper"
+        ) {
+            override fun generatePages() {
+                textPage(
+                    "Scraper",
+                    paragraphs(
+                        "The ${major("Scraper")} is used to get ${
+                            entryLink(
+                                "Organic Matter",
+                                "items/organic_matter"
+                            )
+                        } from mobs.",
+                        "To use it, simply right-click the mob. This damages the mob, which counts as an attack and will anger neutral entities."
+                    )
+                )
+
+                spotlightPage(
+                    ModItems.SCRAPER.toStack(),
+                    "The Scraper can be enchanted with ${minor("Delicate Touch")} to prevent damaging and angering entities."
+                )
+            }
+
+            override fun entryName(): String {
+                return "Scraper"
+            }
+        }
+
+        return scraperEntry.generate(location)
     }
 
     fun antiFieldOrb(location: Char): BookEntryModel? {
