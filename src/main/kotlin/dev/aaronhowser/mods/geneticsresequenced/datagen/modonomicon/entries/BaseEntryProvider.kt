@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries
 import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider
+import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel
 import com.mojang.datafixers.util.Pair
@@ -15,8 +16,15 @@ import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 abstract class BaseEntryProvider(
     parent: CategoryProviderBase?,
+    val itemStack: ItemStack,
     val entryId: String
 ) : EntryProvider(parent) {
+
+    constructor(
+        parent: CategoryProviderBase?,
+        itemLike: ItemLike,
+        entryId: String
+    ) : this(parent, itemLike.itemStack, entryId)
 
     override fun entryId(): String {
         return this.entryId
@@ -24,6 +32,14 @@ abstract class BaseEntryProvider(
 
     override fun entryBackground(): Pair<Int, Int> {
         return EntryBackground.DEFAULT
+    }
+
+    override fun entryIcon(): BookIconModel {
+        return BookIconModel.create(itemStack)
+    }
+
+    override fun entryDescription(): String {
+        return ""
     }
 
     companion object {

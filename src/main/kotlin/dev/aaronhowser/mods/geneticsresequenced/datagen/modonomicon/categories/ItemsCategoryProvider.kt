@@ -4,7 +4,7 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
-import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.ItemEntryProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.BaseEntryProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
@@ -55,7 +55,7 @@ class ItemsCategoryProvider(
     fun zombifyVillager(location: Char): BookEntryModel? {
         val zombifyStack = OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER)
 
-        val zombifyEntry = object : ItemEntryProvider(
+        val zombifyEntry = object : BaseEntryProvider(
             realThis,
             zombifyStack,
             "zombify_villager"
@@ -83,7 +83,7 @@ class ItemsCategoryProvider(
     fun viralAgents(location: Char): BookEntryModel? {
         val viralStack = BrewingRecipes.viralAgentsPotionStack
 
-        val viralEntry = object : ItemEntryProvider(
+        val viralEntry = object : BaseEntryProvider(
             realThis,
             viralStack,
             "viral_agents"
@@ -117,9 +117,9 @@ class ItemsCategoryProvider(
     }
 
     fun syringe(location: Char): BookEntryModel? {
-        val syringeEntry = object : ItemEntryProvider(
+        val syringeEntry = object : BaseEntryProvider(
             realThis,
-            ModItems.SYRINGE.toStack(),
+            ModItems.SYRINGE,
             "syringe"
         ) {
             override fun generatePages() {
@@ -165,9 +165,9 @@ class ItemsCategoryProvider(
     }
 
     fun plasmid(location: Char): BookEntryModel? {
-        val plasmidEntry = object : ItemEntryProvider(
+        val plasmidEntry = object : BaseEntryProvider(
             realThis,
-            ModItems.PLASMID.toStack(),
+            ModItems.PLASMID,
             "plasmid"
         ) {
             override fun generatePages() {
@@ -237,7 +237,7 @@ class ItemsCategoryProvider(
     fun panacea(location: Char): BookEntryModel? {
         val panaceaStack = BrewingRecipes.panaceaPotionStack
 
-        val panaceaEntry = object : ItemEntryProvider(
+        val panaceaEntry = object : BaseEntryProvider(
             realThis,
             panaceaStack,
             "panacea"
@@ -263,9 +263,9 @@ class ItemsCategoryProvider(
     }
 
     fun overclocker(location: Char): BookEntryModel? {
-        val overclockerEntry = object : ItemEntryProvider(
+        val overclockerEntry = object : BaseEntryProvider(
             realThis,
-            ModItems.OVERCLOCKER.toStack(),
+            ModItems.OVERCLOCKER,
             "overclocker"
         ) {
             override fun generatePages() {
@@ -294,7 +294,7 @@ class ItemsCategoryProvider(
     fun potionMutation(location: Char): BookEntryModel? {
         val mutationStack = BrewingRecipes.mutationPotionStack
 
-        val mutationEntry = object : ItemEntryProvider(
+        val mutationEntry = object : BaseEntryProvider(
             realThis,
             mutationStack,
             "potion_mutation"
@@ -339,9 +339,9 @@ class ItemsCategoryProvider(
     }
 
     fun dragonHealthCrystal(location: Char): BookEntryModel? {
-        val dragonCrystalEntry = object : ItemEntryProvider(
+        val dragonCrystalEntry = object : BaseEntryProvider(
             realThis,
-            ModItems.DRAGON_HEALTH_CRYSTAL.toStack(),
+            ModItems.DRAGON_HEALTH_CRYSTAL,
             "dragon_health_crystal"
         ) {
             override fun generatePages() {
@@ -373,9 +373,9 @@ class ItemsCategoryProvider(
     }
 
     fun dnaHelix(location: Char): BookEntryModel? {
-        val dnaHelixEntry = object : ItemEntryProvider(
+        val dnaHelixEntry = object : BaseEntryProvider(
             realThis,
-            ModItems.DNA_HELIX.toStack(),
+            ModItems.DNA_HELIX,
             "dna_helix"
         ) {
             override fun generatePages() {
@@ -450,9 +450,9 @@ class ItemsCategoryProvider(
     }
 
     fun organicMatter(location: Char): BookEntryModel? {
-        val organicMatterEntry = object : ItemEntryProvider(
+        val organicMatterEntry = object : BaseEntryProvider(
             realThis,
-            ModItems.ORGANIC_MATTER.toStack(),
+            ModItems.ORGANIC_MATTER,
             "organic_matter"
         ) {
             override fun generatePages() {
@@ -495,9 +495,9 @@ class ItemsCategoryProvider(
     }
 
     fun scraper(location: Char): BookEntryModel? {
-        val scraperEntry = object : ItemEntryProvider(
+        val scraperEntry = object : BaseEntryProvider(
             realThis,
-            ModItems.SCRAPER.toStack(),
+            ModItems.SCRAPER,
             "scraper"
         ) {
             override fun generatePages() {
@@ -529,9 +529,9 @@ class ItemsCategoryProvider(
     }
 
     fun antiFieldOrb(location: Char): BookEntryModel? {
-        val antiFieldEntry = object : ItemEntryProvider(
+        val antiFieldEntry = object : BaseEntryProvider(
             realThis,
-            ModItems.ANTI_FIELD_ORB.toStack(),
+            ModItems.ANTI_FIELD_ORB,
             "anti_field_orb"
         ) {
             override fun generatePages() {
@@ -576,9 +576,9 @@ class ItemsCategoryProvider(
     }
 
     fun cell(location: Char): BookEntryModel? {
-        val cellEntry = object : ItemEntryProvider(
+        val cellEntry = object : BaseEntryProvider(
             realThis,
-            ModItems.CELL.toStack(),
+            ModItems.CELL,
             "cell"
         ) {
             override fun generatePages() {
@@ -626,7 +626,7 @@ class ItemsCategoryProvider(
     fun potionCellGrowth(location: Char): BookEntryModel? {
         val pcgStack = BrewingRecipes.cellGrowthPotionStack
 
-        val pcgEntry = object : ItemEntryProvider(
+        val pcgEntry = object : BaseEntryProvider(
             realThis,
             pcgStack,
             "potion_cell_growth"

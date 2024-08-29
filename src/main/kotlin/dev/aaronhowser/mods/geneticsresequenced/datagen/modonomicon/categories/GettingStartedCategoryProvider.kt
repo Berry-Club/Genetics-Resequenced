@@ -35,7 +35,11 @@ class GettingStartedCategoryProvider(
     }
 
     private fun whatAreGenes(location: Char): BookEntryModel? {
-        val entry = object : BaseEntryProvider(this@GettingStartedCategoryProvider, "what_are_genes") {
+        val entry = object : BaseEntryProvider(
+            this@GettingStartedCategoryProvider,
+            ModItems.DNA_HELIX,
+            "what_are_genes",
+        ) {
 
             override fun generatePages() {
 
@@ -60,23 +64,18 @@ class GettingStartedCategoryProvider(
             override fun entryName(): String {
                 return "What are Genes?"
             }
-
-            override fun entryDescription(): String {
-                return ""
-            }
-
-            override fun entryIcon(): BookIconModel {
-                return BookIconModel.create(ModItems.DNA_HELIX)
-            }
         }
 
         return entry.generate(location)
     }
 
     private fun gettingGenes(location: Char): BookEntryModel? {
-        val entry = object : BaseEntryProvider(this@GettingStartedCategoryProvider, "getting_genes") {
+        val entry = object : BaseEntryProvider(
+            this@GettingStartedCategoryProvider,
+            ModItems.CELL,
+            "getting_genes"
+        ) {
             override fun generatePages() {
-
                 textPage(
                     "Getting Genes",
                     "Getting Genes is a rather involved process."
@@ -104,14 +103,6 @@ class GettingStartedCategoryProvider(
 
             override fun entryName(): String {
                 return "Getting Genes"
-            }
-
-            override fun entryDescription(): String {
-                return ""
-            }
-
-            override fun entryIcon(): BookIconModel {
-                return BookIconModel.create(ModItems.CELL)
             }
         }
 
