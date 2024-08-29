@@ -387,13 +387,15 @@ class ItemsCategoryProvider(
             override fun generatePages() {
                 textPage(
                     "DNA Helix",
-                    "${major("DNA Helices")} contain genetic information. This can be either in the form of ${
-                        categoryLinkDummy(
-                            "Genes",
-                            "genes"
-                        )
-                    } or an ${minor("entity type")}",
-                    "Freshly crafted, a DNA Helix contains only the Entity that the DNA came from."
+                    paragraphs(
+                        "${major("DNA Helices")} contain genetic information. This can be either in the form of ${
+                            categoryLinkDummy(
+                                "Genes",
+                                "genes"
+                            )
+                        } or an ${minor("entity type")}",
+                        "Freshly crafted, a DNA Helix contains only the Entity that the DNA came from."
+                    )
                 )
 
                 val cowHelix = ModItems.DNA_HELIX.toStack()

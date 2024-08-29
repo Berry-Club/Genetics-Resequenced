@@ -16,8 +16,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.geneticsresequenced.guide.items.dna_helix.DNA Helix.text",
-      "title": "book.geneticsresequenced.guide.items.dna_helix.DNA Helix.title",
+      "text": "book.geneticsresequenced.guide.items.dna_helix.page_0.text",
+      "title": "book.geneticsresequenced.guide.items.dna_helix.page_0.title",
       "use_markdown_in_title": false
     },
     {
@@ -43,8 +43,8 @@
         },
         "items": "geneticsresequenced:dna_helix"
       },
-      "text": "book.geneticsresequenced.guide.items.dna_helix.page_0.text",
-      "title": "book.geneticsresequenced.guide.items.dna_helix.page_0.title"
+      "text": "book.geneticsresequenced.guide.items.dna_helix.page_1.text",
+      "title": "book.geneticsresequenced.guide.items.dna_helix.page_1.title"
     },
     {
       "type": "modonomicon:spotlight",
@@ -69,8 +69,8 @@
         },
         "items": "geneticsresequenced:dna_helix"
       },
-      "text": "book.geneticsresequenced.guide.items.dna_helix.page_1.text",
-      "title": "book.geneticsresequenced.guide.items.dna_helix.page_1.title"
+      "text": "book.geneticsresequenced.guide.items.dna_helix.page_2.text",
+      "title": "book.geneticsresequenced.guide.items.dna_helix.page_2.title"
     },
     {
       "type": "modonomicon:spotlight",
@@ -95,8 +95,8 @@
         },
         "items": "geneticsresequenced:dna_helix"
       },
-      "text": "book.geneticsresequenced.guide.items.dna_helix.page_2.text",
-      "title": "book.geneticsresequenced.guide.items.dna_helix.page_2.title"
+      "text": "book.geneticsresequenced.guide.items.dna_helix.page_3.text",
+      "title": "book.geneticsresequenced.guide.items.dna_helix.page_3.title"
     }
   ],
   "show_when_any_parent_unlocked": false,
