@@ -1,8 +1,9 @@
-// 1.21.1	2024-08-28T22:24:22.3856043	Books: geneticsresequenced
+// 1.21.1	2024-08-28T22:34:23.2770962	Books: geneticsresequenced
 f3dc5ac9f53c5c0e7ef773c98e081c5c2b6ed372 data/geneticsresequenced/modonomicon/books/guide/book.json
 dfa020cc33e9bb97b172a2ea98391d9cd7b4b1fc data/geneticsresequenced/modonomicon/books/guide/categories/blocks.json
 0f9fa9c729b30feb3cb30a95cb5a31087cac9569 data/geneticsresequenced/modonomicon/books/guide/categories/getting_started.json
 91394eb49ba6c8bdcd5cc04dac75aeeabc3416a6 data/geneticsresequenced/modonomicon/books/guide/categories/items.json
+8241d9163fc276ff80e65daf0e0bc012ba7a7009 data/geneticsresequenced/modonomicon/books/guide/entries/blocks/advanced_incubator.json
 25709b03bf61b60d28a3c6bc1549cf937815a4f3 data/geneticsresequenced/modonomicon/books/guide/entries/blocks/anti_field_block.json
 9b5d844d2ac230174b9c2c9a2642e7ddc4db8455 data/geneticsresequenced/modonomicon/books/guide/entries/blocks/blood_purifier.json
 4b4c109e867ac32203cd77de978e47c51ffed84a data/geneticsresequenced/modonomicon/books/guide/entries/blocks/cell_analyzer.json

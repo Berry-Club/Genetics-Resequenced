@@ -5,7 +5,11 @@ import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.BaseEntryProvider
+import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import net.minecraft.world.entity.EntityType
 
 class BlocksCategoryProvider(
     parent: ModonomiconProviderBase?
@@ -32,9 +36,82 @@ class BlocksCategoryProvider(
         this.add(dnaDecryptor('d'))
         this.add(dnaExtractor('e'))
         this.add(incubator('i'))
-//        this.add(advancedIncubator('v'))
+        this.add(advancedIncubator('v'))
 //        this.add(plasmidInfuser('p'))
 //        this.add(plasmidInjector('j'))
+    }
+
+    private fun advancedIncubator(location: Char): BookEntryModel? {
+        val entry = object : BaseEntryProvider(
+            realThis,
+            ModBlocks.ADVANCED_INCUBATOR,
+            "advanced_incubator"
+        ) {
+            override fun generatePages() {
+                textPage(
+                    "Advanced Incubator",
+                    paragraphs(
+                        "The ${major("Advanced Incubator")} is an upgrade to the ${
+                            itemEntryLink(
+                                "Incubator",
+                                "incubator"
+                            )
+                        }.",
+                        "Like the Incubator, it functions as a Brewing Stand. However, the Advanced Incubator has a temperature mechanic.",
+                        "The coil on the left of the GUI can be clicked to toggle between low and high temperatures."
+                    )
+                )
+
+                spotlightPage(
+                    ModBlocks.ADVANCED_INCUBATOR,
+                    paragraphs(
+                        "By default, it's ${bad("120 times slower")} at low-temperature. This means a single brew takes a full 20 minutes, excluding Overclockers.",
+                        "The reason you'd *want* to use low temperature mode is that that's the only way you can get ${
+                            itemEntryLink(
+                                "Genetically Modified Cells",
+                                "potion_cell_growth[@gmo_cell]"
+                            )
+                        }"
+                    )
+                )
+
+                val gmoStack = ModItems.GMO_CELL.toStack()
+                GmoCell.setDetails(
+                    gmoStack,
+                    EntityType.IRON_GOLEM,
+                    ModGenes.REGENERATION.get()
+                )
+
+                spotlightPage(
+                    gmoStack,
+                    paragraphs(
+                        "${
+                            itemEntryLink(
+                                "Genetically Modified Cells",
+                                "potion_cell_growth[@gmo_cell]"
+                            )
+                        } are ${minor("guaranteed to have a specific Gene")}, if crafted correctly.",
+                        "Each GM Cell has its own recipe, with a ${bad("chance of failure")}.",
+                        "The recipe for this GM Cell, for example, has a 30% chance of success by default."
+                    )
+                )
+
+                textPage(
+                    paragraphs(
+                        "Each Overclocker ${bad("decreases the chance by 10%")}.",
+                        "However, you can insert ${minor("Chorus Fruit")} into the top right slot to increase your odds!",
+                        "By default, each Chorus Fruit increases the chance by 10%. The Advanced Incubator will up as many Chorus Fruit as it takes to reach 100%."
+                    )
+                )
+
+            }
+
+            override fun entryName(): String {
+                return "Advanced Incubator"
+            }
+        }
+
+        return entry.generate(location)
     }
 
     private fun incubator(location: Char): BookEntryModel? {

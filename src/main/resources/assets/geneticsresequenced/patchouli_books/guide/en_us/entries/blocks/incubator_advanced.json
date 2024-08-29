@@ -21,7 +21,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Each Overclocker makes success $(bad)10% less likely/$"
+      "text": "Each Overclocker $(bad)decreases the chance by 10%/$.$(br2)However, you can insert $(minor)Chorus Fruit/$ into the top right slot to increase your odds!$(br2)By default, each Chorus Fruit increases the chance by 10%. The Advanced Incubator will up as many Chorus Fruit as it takes to reach 100%."
     }
   ]
 }
