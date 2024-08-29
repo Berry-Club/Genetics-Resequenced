@@ -30,24 +30,28 @@ class ItemsCategoryProvider(
 
     override fun generateEntryMap(): Array<String> {
         return arrayOf(
-            "___",
-            "___"
+            "smcdiy",
+            "l   oh",
+            "gupvz"
         )
     }
 
     override fun generateEntries() {
-        this.add(antiFieldOrb('o'))
-        this.add(cell('c'))
-        this.add(potionCellGrowth('g'))
-        this.add(dnaHelix('d'))
-        this.add(dragonHealthCrystal('h'))
-        this.add(potionMutation('u'))
-        this.add(organicMatter('m'))
-        this.add(overclocker('l'))
-        this.add(panacea('p'))
-        this.add(plasmid('i'))
         this.add(scraper('s'))
+        this.add(organicMatter('m'))
+        this.add(cell('c'))
+        this.add(dnaHelix('d'))
+        this.add(plasmid('i'))
         this.add(syringe('y'))
+
+        this.add(overclocker('l'))
+
+        this.add(antiFieldOrb('o'))
+        this.add(dragonHealthCrystal('h'))
+
+        this.add(potionCellGrowth('g'))
+        this.add(potionMutation('u'))
+        this.add(panacea('p'))
         this.add(viralAgents('v'))
         this.add(zombifyVillager('z'))
     }
