@@ -1,14 +1,24 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase
+import com.klikli_dev.modonomicon.api.datagen.EntryBackground
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel
+import com.mojang.datafixers.util.Pair
 import net.minecraft.ChatFormatting
 
 abstract class BaseEntryProvider(
     parent: CategoryProviderBase?,
     val entryId: String
 ) : EntryProvider(parent) {
+
+    override fun entryId(): String {
+        return this.entryId
+    }
+
+    override fun entryBackground(): Pair<Int, Int> {
+        return EntryBackground.DEFAULT
+    }
 
     companion object {
         fun coloredText(color: ChatFormatting, text: String): String {
@@ -27,14 +37,30 @@ abstract class BaseEntryProvider(
         }
     }
 
-    fun page(
-        pageId: String,
+    private var pageIndex = 0
+
+    fun textPage(
         text: String
     ) {
-        page(pageId, "", text)
+        textPage(
+            "page_${this.pageIndex++}",
+            "",
+            text
+        )
     }
 
-    fun page(
+    fun textPage(
+        title: String,
+        text: String
+    ) {
+        textPage(
+            "page_${this.pageIndex++}",
+            title,
+            text
+        )
+    }
+
+    fun textPage(
         pageId: String,
         title: String,
         text: String
@@ -48,10 +74,6 @@ abstract class BaseEntryProvider(
         this.pageTitle(title)
 
         this.pageText(text)
-    }
-
-    override fun entryId(): String {
-        return this.entryId
     }
 
 }

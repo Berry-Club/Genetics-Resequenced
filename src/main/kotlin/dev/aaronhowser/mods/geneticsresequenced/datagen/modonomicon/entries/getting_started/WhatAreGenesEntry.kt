@@ -1,20 +1,17 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.getting_started
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase
-import com.klikli_dev.modonomicon.api.datagen.EntryBackground
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
-import com.mojang.datafixers.util.Pair
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.BaseEntryProvider
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 
-class GenesOneEntryProvider(
+class WhatAreGenesEntry(
     parent: CategoryProviderBase?
-) : BaseEntryProvider(parent, "genes_one") {
+) : BaseEntryProvider(parent, "what_are_genes") {
 
     override fun generatePages() {
 
-        page(
-            "page_1",
+        textPage(
             "What are Genes?",
             paragraphs(
                 "${major("Genes")} can be taken from mobs to ${minor("harness their abilities")}.",
@@ -23,8 +20,7 @@ class GenesOneEntryProvider(
             )
         )
 
-        page(
-            "page_2",
+        textPage(
             paragraphs(
                 "Each Gene page in the book will say what the Gene does, and how to obtain it.",
                 "Some Genes can even be given to mobs!"
@@ -39,10 +35,6 @@ class GenesOneEntryProvider(
 
     override fun entryDescription(): String {
         return ""
-    }
-
-    override fun entryBackground(): Pair<Int, Int> {
-        return EntryBackground.DEFAULT
     }
 
     override fun entryIcon(): BookIconModel {
