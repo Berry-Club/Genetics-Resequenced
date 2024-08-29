@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.ItemEntryProvider
+import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
@@ -58,6 +59,55 @@ class ItemsCategoryProvider(
                     } or an ${minor("entity type")}",
                     "Freshly crafted, a DNA Helix contains only the Entity that the DNA came from."
                 )
+
+                val cowHelix = ModItems.DNA_HELIX.toStack()
+                EntityDnaItem.setEntityType(cowHelix, EntityType.COW)
+
+                spotlightPage(
+                    cowHelix,
+                    paragraphs(
+                        "This DNA Helix contains the genetic information of a ${minor("Cow")}, but the actual Gene it has is ${
+                            bad(
+                                "unknown"
+                            )
+                        }.",
+                        "To decrypt it, you'll need to pass it through a ${
+                            blockEntryLink(
+                                "DNA Decryptor",
+                                "blocks/dna_decryptor"
+                            )
+                        }."
+                    )
+                )
+
+                val milkyHelix = ModItems.DNA_HELIX.toStack()
+                DnaHelixItem.setGene(milkyHelix, ModGenes.MILKY.get())
+
+                spotlightPage(
+                    milkyHelix,
+                    paragraphs(
+                        "This DNA Helix has been decrypted, and now we can see it contains the ${
+                            geneEntryLink(
+                                "Milky",
+                                "milky"
+                            )
+                        } Gene."
+                    )
+                )
+
+                val basicHelix = ModItems.DNA_HELIX.toStack()
+                DnaHelixItem.setBasic(basicHelix)
+
+                spotlightPage(
+                    basicHelix,
+                    "DNA Helices have a chance of being ${minor("Basic")}/ This means that they ${bad("don't contain any Gene")}, but they can still contribute to ${
+                        itemEntryLink(
+                            "Plasmids",
+                            "plasmid"
+                        )
+                    }."
+                )
+
             }
 
             override fun entryName(): String {
