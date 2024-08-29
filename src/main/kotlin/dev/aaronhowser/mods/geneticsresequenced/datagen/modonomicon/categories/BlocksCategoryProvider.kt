@@ -17,6 +17,14 @@ class BlocksCategoryProvider(
 
     val realThis = this
 
+    override fun categoryName(): String {
+        return "Blocks"
+    }
+
+    override fun categoryIcon(): BookIconModel {
+        return BookIconModel.create(ModBlocks.BLOOD_PURIFIER)
+    }
+
     override fun categoryId(): String {
         return "blocks"
     }
@@ -423,13 +431,5 @@ class BlocksCategoryProvider(
         }
 
         return entry.generate(location)
-    }
-
-    override fun categoryName(): String {
-        return "Blocks"
-    }
-
-    override fun categoryIcon(): BookIconModel {
-        return BookIconModel.create(ModBlocks.BLOOD_PURIFIER)
     }
 }
