@@ -7,7 +7,7 @@ import net.minecraft.ChatFormatting
 
 abstract class BaseEntryProvider(
     parent: CategoryProviderBase?,
-    val pageId: String
+    val entryId: String
 ) : EntryProvider(parent) {
 
     companion object {
@@ -21,26 +21,30 @@ abstract class BaseEntryProvider(
         fun major(text: String): String = coloredText(ChatFormatting.DARK_PURPLE, text)
         fun minor(text: String): String = coloredText(ChatFormatting.DARK_AQUA, text)
         fun bad(text: String): String = coloredText(ChatFormatting.RED, text)
+
+        fun paragraphs(vararg paragraphs: String): String {
+            return paragraphs.joinToString(separator = " \\\n  \\\n")
+        }
     }
 
-    override fun generatePages() {
-        this.page(this.pageId) {
+    fun page(
+        pageId: String,
+        title: String,
+        text: String
+    ) {
+        this.page(pageId) {
             BookTextPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
         }
 
-        customPages()
-    }
+        this.pageTitle(title)
 
-    abstract fun customPages()
+        this.pageText(text)
+    }
 
     override fun entryId(): String {
-        return this.pageId
-    }
-
-    fun paragraphs(vararg paragraphs: String): String {
-        return paragraphs.joinToString(separator = "\n\n")
+        return this.entryId
     }
 
 }
