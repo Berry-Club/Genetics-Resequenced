@@ -25,7 +25,7 @@ class GettingStartedCategoryProvider(
 
     override fun generateEntryMap(): Array<String> {
         return arrayOf(
-            "1_2",
+            "12",
         )
     }
 

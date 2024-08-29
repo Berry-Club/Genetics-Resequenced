@@ -31,22 +31,29 @@ class BlocksCategoryProvider(
 
     override fun generateEntryMap(): Array<String> {
         return arrayOf(
-            "___",
-            "___"
+            "g",
+            "aed",
+            "bpj",
+            "iv",
+            "f"
         )
     }
 
     override fun generateEntries() {
-        this.add(antiFieldBlock('f'))
-        this.add(bloodPurifierBlock('b'))
-        this.add(cellAnalyzer('a'))
         this.add(coalGenerator('g'))
-        this.add(dnaDecryptor('d'))
+
+        this.add(cellAnalyzer('a'))
         this.add(dnaExtractor('e'))
-        this.add(incubator('i'))
-        this.add(advancedIncubator('v'))
+        this.add(dnaDecryptor('d'))
+
+        this.add(bloodPurifierBlock('b'))
         this.add(plasmidInfuser('p'))
         this.add(plasmidInjector('j'))
+
+        this.add(incubator('i'))
+        this.add(advancedIncubator('v'))
+
+        this.add(antiFieldBlock('f'))
     }
 
     private fun plasmidInjector(location: Char): BookEntryModel? {
