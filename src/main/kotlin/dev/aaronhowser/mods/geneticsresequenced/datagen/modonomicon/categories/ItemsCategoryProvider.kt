@@ -289,7 +289,7 @@ class ItemsCategoryProvider(
                     "Potion of Mutation",
                     paragraphs(
                         "The ${major("Potion of Mutation")} is used to craft ${
-                            item("Genetically Modified Cells", "gmo_cell")
+                            item("Genetically Modified Cells", "potion_cell_growth@gmo_cell")
                         } that are set to ${minor("mutation Genes")}.",
                         "Mutation Genes are effectively just ${minor("more powerful")} Genes, and generally ${bad("require other Genes")}."
                     )
@@ -301,7 +301,7 @@ class ItemsCategoryProvider(
                     "Like ${
                         item("Potions of Cell Growth", "potion_cell_growth")
                     }, to make GM Cells, you have to process through a low-temperature ${
-                        block("Advanced Incubator", "blocks/incubator_advanced")
+                        block("Advanced Incubator", "advanced_incubator")
                     }.",
                 )
             }
@@ -421,7 +421,7 @@ class ItemsCategoryProvider(
                         "Organic Matter is a recipe ingredient used in the creation of ${
                             item("Cells", "cell")
                         }.",
-                        "This is done in the ${block("Cell Analyzer", "blocks/cell_analyzer")}."
+                        "This is done in the ${block("Cell Analyzer", "cell_analyzer")}."
                     )
                 )
 
@@ -593,7 +593,7 @@ class ItemsCategoryProvider(
                 spotlightPage(
                     gmoStack,
                     "From there, certain entity types have recipes to make ${
-                        item("Genetically Modified Cells", "gmo_cell")
+                        item("Genetically Modified Cells", "potion_cell_growth@gmo_cell")
                     }, which are guaranteed to give a specific Gene.",
                 ).withAnchor("gmo_cell")
 
