@@ -142,7 +142,7 @@ class BlocksCategoryProvider(
                     "Advanced Incubator",
                     paragraphs(
                         "The ${major("Advanced Incubator")} is an upgrade to the ${
-                            item("Incubator", "incubator")
+                            block("Incubator", "incubator")
                         }.",
                         "Like the Incubator, it functions as a Brewing Stand. However, the Advanced Incubator has a temperature mechanic.",
                         "The coil on the left of the GUI can be clicked to toggle between low and high temperatures."
@@ -154,7 +154,7 @@ class BlocksCategoryProvider(
                     paragraphs(
                         "By default, it's ${bad("120 times slower")} at low-temperature. This means a single brew takes a full 20 minutes, excluding Overclockers.",
                         "The reason you'd *want* to use low temperature mode is that that's the only way you can get ${
-                            item("Genetically Modified Cells", "potion_cell_growth[@gmo_cell]")
+                            item("Genetically Modified Cells", "potion_cell_growth@gmo_cell")
                         }"
                     )
                 )
@@ -170,7 +170,7 @@ class BlocksCategoryProvider(
                     gmoStack,
                     paragraphs(
                         "${
-                            item("Genetically Modified Cells", "potion_cell_growth[@gmo_cell]")
+                            item("Genetically Modified Cells", "potion_cell_growth@gmo_cell")
                         } are ${minor("guaranteed to have a specific Gene")}, if crafted correctly.",
                         "Each GM Cell has its own recipe, with a ${bad("chance of failure")}.",
                         "The recipe for this GM Cell, for example, has a 30% chance of success by default."
