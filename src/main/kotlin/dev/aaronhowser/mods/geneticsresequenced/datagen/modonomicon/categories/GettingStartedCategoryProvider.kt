@@ -85,15 +85,11 @@ class GettingStartedCategoryProvider(
                     ModItems.SCRAPER,
                     paragraphs(
                         "First, you'll need the ${
-                            itemEntryLink(
-                                "Scraper",
-                                "scraper"
-                            )
-                        }. This tool can be used on entities to collect ${
-                            itemEntryLink(
-                                "Organic Matter",
-                                "organic_matter"
-                            )
+                            item("Scraper", "scraper")
+                        }. This tool can be used on entities to collect ${item(
+                            "Organic Matter",
+                            "organic_matter"
+                        )
                         } from them.",
                         "The Organic Matter will have the entity's type attached. This is what decides what Genes you can get from it."
                     )

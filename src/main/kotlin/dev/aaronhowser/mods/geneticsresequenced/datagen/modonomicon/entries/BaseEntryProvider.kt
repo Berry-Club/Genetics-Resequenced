@@ -59,15 +59,15 @@ abstract class BaseEntryProvider(
         }
     }
 
-    fun geneEntryLink(text: String, entryId: String): String {
+    fun gene(text: String, entryId: String): String {
         return "[${text}](entry://genes/${entryId})"
     }
 
-    fun blockEntryLink(text: String, entryId: String): String {
+    fun block(text: String, entryId: String): String {
         return "[${text}](entry://blocks/${entryId})"
     }
 
-    fun itemEntryLink(text: String, entryId: String): String {
+    fun item(text: String, entryId: String): String {
         return "[${text}](entry://items/${entryId})"
     }
 

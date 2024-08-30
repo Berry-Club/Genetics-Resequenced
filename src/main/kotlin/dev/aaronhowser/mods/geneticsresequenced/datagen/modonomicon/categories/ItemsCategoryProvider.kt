@@ -97,10 +97,7 @@ class ItemsCategoryProvider(
                     "Viral Agents",
                     paragraphs(
                         "${major("Viral Agents")} are the final crafting potion of the mod. They are ued to craft ${
-                            categoryLink(
-                                "negative Genes",
-                                "genes/negative"
-                            )
+                            categoryLink("negative Genes", "genes/negative")
                         }, which are generally just any gene that's harmful.",
                         "Negative Genes are always lost on death, regardless of config setting. Additionally, there's a config to prevent players from even being able to get negative Genes in the first place."
                     )
@@ -132,10 +129,7 @@ class ItemsCategoryProvider(
                     paragraphs(
                         "The ${major("Syringe")} is used to ${minor("extract and inject blood")}. Simply hold right-click, and the process will end automatically.",
                         "The reason you'd *want* to extract blood is that that's what carries completed ${
-                            itemEntryLink(
-                                "Plasmids",
-                                "plasmid"
-                            )
+                            item("Plasmids", "plasmid")
                         } back into your body."
                     )
                 )
@@ -144,16 +138,10 @@ class ItemsCategoryProvider(
                     ModItems.SYRINGE.toStack(),
                     paragraphs(
                         "When you extract blood, it'll be ${bad("contaminated")}. You'll need to clean it in the ${
-                            blockEntryLink(
-                                "Blood Purifier",
-                                "blood_purifier"
-                            )
+                            block("Blood Purifier", "blood_purifier")
                         } before it can be used.",
                         "Plasmids are added in the ${
-                            blockEntryLink(
-                                "Plasmid Injector",
-                                "plasmid_injector"
-                            )
+                            block("Plasmid Injector", "plasmid_injector")
                         }."
                     )
                 )
@@ -183,10 +171,7 @@ class ItemsCategoryProvider(
                         "${major("Plasmids")} are the vehicle that carries ${categoryLink("Genes", "genes")}.",
                         "Plasmids default as ${bad("empty")}, with no genetic information.",
                         "To begin, use a ${
-                            blockEntryLink(
-                                "Plasmid Infuser",
-                                "plasmid_infuser"
-                            )
+                            block("Plasmid Infuser", "plasmid_infuser")
                         } to infuse a decrypted DNA Helix into them.",
                         "This will set the Plasmid's Gene."
                     )
@@ -208,10 +193,7 @@ class ItemsCategoryProvider(
                     plasmidStack,
                     paragraphs(
                         "This Plasmid has been infused with the ${
-                            geneEntryLink(
-                                "Scare Creepers",
-                                "scare_creepers"
-                            )
+                            gene("Scare Creepers", "scare_creepers")
                         } Gene.",
                         "Notice, however, that it ${bad("only contains 1 Gene Point")}.",
                         "Infusing more DNA Helices of the same Gene will add +2 Points each, while Basic Genes will add +1 each."
@@ -223,10 +205,7 @@ class ItemsCategoryProvider(
                     plasmidStack,
                     "Once it's reached its maximum Gene Points required, the Plasmid will be marked ${minor("complete")}!",
                     "That means it's ready to be injected into a Syringe at the ${
-                        blockEntryLink(
-                            "Plasmid Injector",
-                            "plasmid_injector"
-                        )
+                        block("Plasmid Injector", "plasmid_injector")
                     }."
                 )
 
@@ -310,10 +289,7 @@ class ItemsCategoryProvider(
                     "Potion of Mutation",
                     paragraphs(
                         "The ${major("Potion of Mutation")} is used to craft ${
-                            itemEntryLink(
-                                "Genetically Modified Cells",
-                                "gmo_cell"
-                            )
+                            item("Genetically Modified Cells", "gmo_cell")
                         } that are set to ${minor("mutation Genes")}.",
                         "Mutation Genes are effectively just ${minor("more powerful")} Genes, and generally ${bad("require other Genes")}."
                     )
@@ -323,15 +299,9 @@ class ItemsCategoryProvider(
                 spotlightPage(
                     mutationStack,
                     "Like ${
-                        itemEntryLink(
-                            "Potions of Cell Growth",
-                            "potion_cell_growth"
-                        )
+                        item("Potions of Cell Growth", "potion_cell_growth")
                     }, to make GM Cells, you have to process through a low-temperature ${
-                        blockEntryLink(
-                            "Advanced Incubator",
-                            "blocks/incubator_advanced"
-                        )
+                        block("Advanced Incubator", "blocks/incubator_advanced")
                     }.",
                 )
             }
@@ -355,10 +325,7 @@ class ItemsCategoryProvider(
                     "Dragon Health Crystal",
                     paragraphs(
                         "The $${major("Dragon Health Crystal")} is part of the $${
-                            geneEntryLink(
-                                "Ender Dragon Health",
-                                "ender_dragon_health"
-                            )
+                            gene("Ender Dragon Health", "ender_dragon_health")
                         } Gene.",
                         "While you have that Gene, and while holding a Dragon Health Crystal, any incoming damage is negated and instead dealt to the Crystal."
                     )
@@ -389,10 +356,7 @@ class ItemsCategoryProvider(
                     "DNA Helix",
                     paragraphs(
                         "${major("DNA Helices")} contain genetic information. This can be either in the form of ${
-                            categoryLinkDummy(
-                                "Genes",
-                                "genes"
-                            )
+                            categoryLink("Genes", "genes")
                         } or an ${minor("entity type")}",
                         "Freshly crafted, a DNA Helix contains only the Entity that the DNA came from."
                     )
@@ -405,16 +369,9 @@ class ItemsCategoryProvider(
                     cowHelix,
                     paragraphs(
                         "This DNA Helix contains the genetic information of a ${minor("Cow")}, but the actual Gene it has is ${
-                            bad(
-                                "unknown"
-                            )
+                            bad("unknown")
                         }.",
-                        "To decrypt it, you'll need to pass it through a ${
-                            blockEntryLink(
-                                "DNA Decryptor",
-                                "blocks/dna_decryptor"
-                            )
-                        }."
+                        "To decrypt it, you'll need to pass it through a ${block("DNA Decryptor", "dna_decryptor")}."
                     )
                 )
 
@@ -425,10 +382,7 @@ class ItemsCategoryProvider(
                     milkyHelix,
                     paragraphs(
                         "This DNA Helix has been decrypted, and now we can see it contains the ${
-                            geneEntryLink(
-                                "Milky",
-                                "milky"
-                            )
+                            gene("Milky", "milky")
                         } Gene."
                     )
                 )
@@ -439,10 +393,7 @@ class ItemsCategoryProvider(
                 spotlightPage(
                     basicHelix,
                     "DNA Helices have a chance of being ${minor("Basic")}/ This means that they ${bad("don't contain any Gene")}, but they can still contribute to ${
-                        itemEntryLink(
-                            "Plasmids",
-                            "plasmid"
-                        )
+                        item("Plasmids", "plasmid")
                     }."
                 )
 
@@ -468,12 +419,9 @@ class ItemsCategoryProvider(
                     "Organic Matter",
                     paragraphs(
                         "Organic Matter is a recipe ingredient used in the creation of ${
-                            itemEntryLink(
-                                "Cells",
-                                "cell"
-                            )
+                            item("Cells", "cell")
                         }.",
-                        "This is done in the ${blockEntryLink("Cell Analyzer", "blocks/cell_analyzer")}."
+                        "This is done in the ${block("Cell Analyzer", "blocks/cell_analyzer")}."
                     )
                 )
 
@@ -484,10 +432,7 @@ class ItemsCategoryProvider(
                     cowMatter,
                     paragraphs(
                         "Each entity has its own Organic Matter, which can be processed into a ${
-                            itemEntryLink(
-                                "Cell",
-                                "cell"
-                            )
+                            item("Cell", "cell")
                         } of the entity's type.",
                         "You can see the Organic Matter's entity type in the item's tooltip."
                     )
@@ -513,10 +458,7 @@ class ItemsCategoryProvider(
                     "Scraper",
                     paragraphs(
                         "The ${major("Scraper")} is used to get ${
-                            itemEntryLink(
-                                "Organic Matter",
-                                "organic_matter"
-                            )
+                            item("Organic Matter", "organic_matter")
                         } from mobs.",
                         "To use it, simply right-click the mob. This damages the mob, which counts as an attack and will anger neutral entities."
                     )
@@ -548,15 +490,9 @@ class ItemsCategoryProvider(
                     paragraphs(
                         "The ${major("Anti-Field Orb")} allows you to ${minor("temporarily disable certain Genes")}.",
                         "Specifically, it disables the ${
-                            geneEntryLink(
-                                "Item Attraction Field",
-                                "item_attraction_field"
-                            )
+                            gene("Item Attraction Field", "item_attraction_field")
                         } and ${
-                            geneEntryLink(
-                                "XP Attraction Field",
-                                "xp_attraction_field"
-                            )
+                            gene("XP Attraction Field", "xp_attraction_field")
                         } when enabled.",
                     )
                 )
@@ -573,10 +509,6 @@ class ItemsCategoryProvider(
 
             override fun entryName(): String {
                 return "Anti-Field Orb"
-            }
-
-            override fun entryDescription(): String {
-                return ""
             }
         }
 
@@ -595,12 +527,9 @@ class ItemsCategoryProvider(
                     "Cell",
                     paragraphs(
                         "${major("Cells")} are a recipe ingredient used in the creation of ${
-                            itemEntryLink(
-                                "DNA Helices",
-                                "dna_helix"
-                            )
+                            item("DNA Helices", "dna_helix")
                         }.",
-                        "This is done in the ${blockEntryLink("DNA Extractor", "dna_extractor")}."
+                        "This is done in the ${block("DNA Extractor", "dna_extractor")}."
                     )
                 )
 
@@ -611,7 +540,7 @@ class ItemsCategoryProvider(
                     cowCell,
                     paragraphs(
                         "Each entity has its own Cell, which can be processed into a ${
-                            itemEntryLink(
+                            item(
                                 "DNA Helix",
                                 "dna_helix"
                             )
@@ -654,10 +583,7 @@ class ItemsCategoryProvider(
                 spotlightPage(
                     pcgStack,
                     "A ${
-                        itemEntryLink(
-                            "Cell",
-                            "cell"
-                        )
+                        item("Cell", "cell")
                     } can be brewed into the Potion of Cell Growth to ${minor("set the Potion to the Cell's entity type")}."
                 )
 
@@ -667,10 +593,7 @@ class ItemsCategoryProvider(
                 spotlightPage(
                     gmoStack,
                     "From there, certain entity types have recipes to make ${
-                        itemEntryLink(
-                            "Genetically Modified Cells",
-                            "gmo_cell"
-                        )
+                        item("Genetically Modified Cells", "gmo_cell")
                     }, which are guaranteed to give a specific Gene.",
                 ).withAnchor("gmo_cell")
 

@@ -67,15 +67,9 @@ class BlocksCategoryProvider(
                     "Plasmid Injector",
                     paragraphs(
                         "The ${major("Plasmid Injector")} uses FE to inject completed ${
-                            itemEntryLink(
-                                "Plasmids",
-                                "plasmid"
-                            )
+                            item("Plasmids", "plasmid")
                         } into a ${
-                            itemEntryLink(
-                                "Syringe",
-                                "syringe"
-                            )
+                            item("Syringe", "syringe")
                         }.",
                         "You can inject as many Plasmids into a single Syringe as you want."
                     )
@@ -85,7 +79,7 @@ class BlocksCategoryProvider(
                     ModBlocks.PLASMID_INJECTOR,
                     paragraphs(
                         "The Syringe must be full of uncompromised blood.",
-                        "Decontaminate blood in the ${blockEntryLink("Blood Purifier", "blood_purifier")}."
+                        "Decontaminate blood in the ${block("Blood Purifier", "blood_purifier")}."
                     )
                 )
             }
@@ -109,15 +103,9 @@ class BlocksCategoryProvider(
                     "Plasmid Infuser",
                     paragraphs(
                         "The ${major("Plasmid Infuser")} uses FE to infuse ${
-                            itemEntryLink(
-                                "DNA Helices",
-                                "dna_helix"
-                            )
+                            item("DNA Helices", "dna_helix")
                         } into a ${
-                            itemEntryLink(
-                                "Plasmid",
-                                "plasmid"
-                            )
+                            item("Plasmid", "plasmid")
                         }.",
                         "Insert an empty Plasmid in the right slot, and a DNA Helix in the left slot.",
                         "The DNA Helix will be used up, and set the Plasmid's Gene to match the Helix's."
@@ -154,10 +142,7 @@ class BlocksCategoryProvider(
                     "Advanced Incubator",
                     paragraphs(
                         "The ${major("Advanced Incubator")} is an upgrade to the ${
-                            itemEntryLink(
-                                "Incubator",
-                                "incubator"
-                            )
+                            item("Incubator", "incubator")
                         }.",
                         "Like the Incubator, it functions as a Brewing Stand. However, the Advanced Incubator has a temperature mechanic.",
                         "The coil on the left of the GUI can be clicked to toggle between low and high temperatures."
@@ -169,10 +154,7 @@ class BlocksCategoryProvider(
                     paragraphs(
                         "By default, it's ${bad("120 times slower")} at low-temperature. This means a single brew takes a full 20 minutes, excluding Overclockers.",
                         "The reason you'd *want* to use low temperature mode is that that's the only way you can get ${
-                            itemEntryLink(
-                                "Genetically Modified Cells",
-                                "potion_cell_growth[@gmo_cell]"
-                            )
+                            item("Genetically Modified Cells", "potion_cell_growth[@gmo_cell]")
                         }"
                     )
                 )
@@ -188,10 +170,7 @@ class BlocksCategoryProvider(
                     gmoStack,
                     paragraphs(
                         "${
-                            itemEntryLink(
-                                "Genetically Modified Cells",
-                                "potion_cell_growth[@gmo_cell]"
-                            )
+                            item("Genetically Modified Cells", "potion_cell_growth[@gmo_cell]")
                         } are ${minor("guaranteed to have a specific Gene")}, if crafted correctly.",
                         "Each GM Cell has its own recipe, with a ${bad("chance of failure")}.",
                         "The recipe for this GM Cell, for example, has a 30% chance of success by default."
@@ -226,15 +205,13 @@ class BlocksCategoryProvider(
                 textPage(
                     "Incubator",
                     "The ${major("Incubator")} is effectively a faster Brewing Stand. It runs at twice the speed, but ${
-                        bad(
-                            "costs FE instead of Blaze Powder"
-                        )
+                        bad("costs FE instead of Blaze Powder")
                     }."
                 )
 
                 spotlightPage(
                     ModBlocks.INCUBATOR,
-                    "It speed can be increased with ${itemEntryLink("Overclockers", "overclocker")}."
+                    "It speed can be increased with ${item("Overclockers", "overclocker")}."
                 )
 
             }
@@ -258,16 +235,10 @@ class BlocksCategoryProvider(
                     "DNA Decryptor",
                     paragraphs(
                         "The ${major("DNA Decryptor")} uses FE to decrypt encrypted ${
-                            itemEntryLink(
-                                "DNA Helices",
-                                "dna_helix"
-                            )
+                            item("DNA Helices", "dna_helix")
                         }.",
                         "Every time DNA is decrypted, it will choose a ${
-                            geneEntryLink(
-                                "Gene",
-                                "gene"
-                            )
+                            gene("Gene", "gene")
                         }, based on the Entity the Helix came from.",
                         "This Gene is weighted, some Genes have a higher chance than others. The Gene is chosen at the start of the process."
                     )
@@ -299,11 +270,8 @@ class BlocksCategoryProvider(
                     ModBlocks.DNA_EXTRACTOR.toStack(),
                     "DNA Extractor",
                     "The ${major("DNA Extractor")} uses FE to convert ${
-                        itemEntryLink(
-                            "Cells",
-                            "cell"
-                        )
-                    } into encrypted ${itemEntryLink("DNA Helices", "dna_helix")}."
+                        item("Cells", "cell")
+                    } into encrypted ${item("DNA Helices", "dna_helix")}."
                 )
             }
 
@@ -356,11 +324,8 @@ class BlocksCategoryProvider(
                     ModBlocks.CELL_ANALYZER.toStack(),
                     "Cell Analyzer",
                     "The ${major("Cell Analyzer")} uses FE to convert ${
-                        itemEntryLink(
-                            "Organic Matter",
-                            "organic_matter"
-                        )
-                    } into ${itemEntryLink("Cells", "cell")}."
+                        item("Organic Matter", "organic_matter")
+                    } into ${item("Cells", "cell")}."
                 )
             }
 
@@ -382,7 +347,7 @@ class BlocksCategoryProvider(
                 spotlightPage(
                     ModBlocks.BLOOD_PURIFIER.toStack(),
                     "Blood Purifier",
-                    "The ${major("Blood Purifier")} uses FE to decontaminate ${itemEntryLink("Syringes", "syringe")}."
+                    "The ${major("Blood Purifier")} uses FE to decontaminate ${item("Syringes", "syringe")}."
                 )
 
             }
@@ -407,16 +372,10 @@ class BlocksCategoryProvider(
                     paragraphs(
                         "The ${major("Anti-Field Block")} allows you to ${minor("temporarily disable certain Genes")}.",
                         "Specifically, it disabled the ${
-                            geneEntryLink(
-                                "Item Attraction Field",
-                                "item_attraction_field"
-                            )
-                        } and ${geneEntryLink("XP Attraction Field", "xp_attraction_field")} when enabled.",
+                            gene("Item Attraction Field", "item_attraction_field")
+                        } and ${gene("XP Attraction Field", "xp_attraction_field")} when enabled.",
                         "The ${
-                            geneEntryLink(
-                                "Anti-Field Orb",
-                                "anti_field_orb"
-                            )
+                            gene("Anti-Field Orb", "anti_field_orb")
                         } functions similarly, but in item form."
                     )
                 )
