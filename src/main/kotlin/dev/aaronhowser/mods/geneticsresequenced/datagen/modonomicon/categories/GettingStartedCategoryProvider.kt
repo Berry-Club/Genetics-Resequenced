@@ -30,11 +30,18 @@ class GettingStartedCategoryProvider(
     }
 
     override fun generateEntries() {
-        this.add(whatAreGenes('1'))
-        this.add(gettingGenes('2'))
+        var index = 0
+
+        fun addEntry(entry: BookEntryModel) {
+            this.add(entry.withSortNumber(index))
+            index++
+        }
+
+        addEntry(whatAreGenes('1'))
+        addEntry(gettingGenes('2'))
     }
 
-    private fun whatAreGenes(location: Char): BookEntryModel? {
+    private fun whatAreGenes(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             this@GettingStartedCategoryProvider,
             ModItems.DNA_HELIX,
@@ -69,7 +76,7 @@ class GettingStartedCategoryProvider(
         return entry.generate(location)
     }
 
-    private fun gettingGenes(location: Char): BookEntryModel? {
+    private fun gettingGenes(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             this@GettingStartedCategoryProvider,
             ModItems.CELL,
@@ -86,10 +93,11 @@ class GettingStartedCategoryProvider(
                     paragraphs(
                         "First, you'll need the ${
                             item("Scraper", "scraper")
-                        }. This tool can be used on entities to collect ${item(
-                            "Organic Matter",
-                            "organic_matter"
-                        )
+                        }. This tool can be used on entities to collect ${
+                            item(
+                                "Organic Matter",
+                                "organic_matter"
+                            )
                         } from them.",
                         "The Organic Matter will have the entity's type attached. This is what decides what Genes you can get from it."
                     )

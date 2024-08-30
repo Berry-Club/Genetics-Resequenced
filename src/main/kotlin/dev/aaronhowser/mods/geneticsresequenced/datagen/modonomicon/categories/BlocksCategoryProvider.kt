@@ -40,23 +40,26 @@ class BlocksCategoryProvider(
     }
 
     override fun generateEntries() {
-        this.add(coalGenerator('g'))
+        var index = 0
 
-        this.add(cellAnalyzer('a'))
-        this.add(dnaExtractor('e'))
-        this.add(dnaDecryptor('d'))
+        fun addEntry(entry: BookEntryModel) {
+            this.add(entry.withSortNumber(index))
+            index++
+        }
 
-        this.add(bloodPurifierBlock('b'))
-        this.add(plasmidInfuser('p'))
-        this.add(plasmidInjector('j'))
-
-        this.add(incubator('i'))
-        this.add(advancedIncubator('v'))
-
-        this.add(antiFieldBlock('f'))
+        addEntry(coalGenerator('g'))
+        addEntry(cellAnalyzer('a'))
+        addEntry(dnaExtractor('e'))
+        addEntry(dnaDecryptor('d'))
+        addEntry(bloodPurifierBlock('b'))
+        addEntry(plasmidInfuser('p'))
+        addEntry(plasmidInjector('j'))
+        addEntry(incubator('i'))
+        addEntry(advancedIncubator('v'))
+        addEntry(antiFieldBlock('f'))
     }
 
-    private fun plasmidInjector(location: Char): BookEntryModel? {
+    private fun plasmidInjector(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
             ModBlocks.PLASMID_INJECTOR,
@@ -92,7 +95,7 @@ class BlocksCategoryProvider(
         return entry.generate(location)
     }
 
-    private fun plasmidInfuser(location: Char): BookEntryModel? {
+    private fun plasmidInfuser(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
             ModBlocks.PLASMID_INFUSER,
@@ -131,7 +134,7 @@ class BlocksCategoryProvider(
         return entry.generate(location)
     }
 
-    private fun advancedIncubator(location: Char): BookEntryModel? {
+    private fun advancedIncubator(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
             ModBlocks.ADVANCED_INCUBATOR,
@@ -195,7 +198,7 @@ class BlocksCategoryProvider(
         return entry.generate(location)
     }
 
-    private fun incubator(location: Char): BookEntryModel? {
+    private fun incubator(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
             ModBlocks.INCUBATOR,
@@ -224,7 +227,7 @@ class BlocksCategoryProvider(
         return entry.generate(location)
     }
 
-    private fun dnaDecryptor(location: Char): BookEntryModel? {
+    private fun dnaDecryptor(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
             ModBlocks.DNA_DECRYPTOR,
@@ -259,7 +262,7 @@ class BlocksCategoryProvider(
         return entry.generate(location)
     }
 
-    private fun dnaExtractor(location: Char): BookEntryModel? {
+    private fun dnaExtractor(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
             ModBlocks.DNA_EXTRACTOR,
@@ -283,7 +286,7 @@ class BlocksCategoryProvider(
         return entry.generate(location)
     }
 
-    private fun coalGenerator(location: Char): BookEntryModel? {
+    private fun coalGenerator(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
             ModBlocks.COAL_GENERATOR,
@@ -313,7 +316,7 @@ class BlocksCategoryProvider(
         return entry.generate(location)
     }
 
-    private fun cellAnalyzer(location: Char): BookEntryModel? {
+    private fun cellAnalyzer(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
             ModBlocks.CELL_ANALYZER,
@@ -337,7 +340,7 @@ class BlocksCategoryProvider(
         return entry.generate(location)
     }
 
-    private fun bloodPurifierBlock(location: Char): BookEntryModel? {
+    private fun bloodPurifierBlock(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
             ModBlocks.BLOOD_PURIFIER,
@@ -360,7 +363,7 @@ class BlocksCategoryProvider(
         return entry.generate(location)
     }
 
-    private fun antiFieldBlock(location: Char): BookEntryModel? {
+    private fun antiFieldBlock(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
             ModBlocks.ANTI_FIELD_BLOCK,

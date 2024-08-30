@@ -39,11 +39,18 @@ class GenesCategoryProvider(
     }
 
     override fun generateEntries() {
-        this.add(bioluminescence('b'))
-        this.add(regeneration('r'))
+        var index = 0
+
+        fun addEntry(entry: BookEntryModel) {
+            this.add(entry.withSortNumber(index))
+            index++
+        }
+
+        addEntry(bioluminescence('b'))
+        addEntry(regeneration('r'))
     }
 
-    private fun regeneration(location: Char): BookEntryModel? {
+    private fun regeneration(location: Char): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
             ModGenes.REGENERATION.get(),
@@ -60,7 +67,7 @@ class GenesCategoryProvider(
         return entry.generate(location)
     }
 
-    private fun bioluminescence(location: Char): BookEntryModel? {
+    private fun bioluminescence(location: Char): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
             ModGenes.BIOLUMINESCENCE.get(),

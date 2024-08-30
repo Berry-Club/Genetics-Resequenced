@@ -37,26 +37,30 @@ class ItemsCategoryProvider(
     }
 
     override fun generateEntries() {
-        this.add(scraper('s'))
-        this.add(organicMatter('m'))
-        this.add(cell('c'))
-        this.add(dnaHelix('d'))
-        this.add(plasmid('i'))
-        this.add(syringe('y'))
+        var index = 0
 
-        this.add(overclocker('l'))
+        fun addEntry(entry: BookEntryModel) {
+            this.add(entry.withSortNumber(index))
+            index++
+        }
 
-        this.add(antiFieldOrb('o'))
-        this.add(dragonHealthCrystal('h'))
-
-        this.add(potionCellGrowth('g'))
-        this.add(potionMutation('u'))
-        this.add(panacea('p'))
-        this.add(viralAgents('v'))
-        this.add(zombifyVillager('z'))
+        addEntry(scraper('z'))
+        addEntry(organicMatter('m'))
+        addEntry(cell('c'))
+        addEntry(dnaHelix('d'))
+        addEntry(plasmid('i'))
+        addEntry(syringe('y'))
+        addEntry(overclocker('l'))
+        addEntry(antiFieldOrb('o'))
+        addEntry(dragonHealthCrystal('h'))
+        addEntry(potionCellGrowth('g'))
+        addEntry(potionMutation('u'))
+        addEntry(panacea('p'))
+        addEntry(viralAgents('v'))
+        addEntry(zombifyVillager('z'))
     }
 
-    fun zombifyVillager(location: Char): BookEntryModel? {
+    fun zombifyVillager(location: Char): BookEntryModel {
         val zombifyStack = OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER)
 
         val zombifyEntry = object : BaseEntryProvider(
@@ -84,7 +88,7 @@ class ItemsCategoryProvider(
         return zombifyEntry.generate(location)
     }
 
-    fun viralAgents(location: Char): BookEntryModel? {
+    fun viralAgents(location: Char): BookEntryModel {
         val viralStack = BrewingRecipes.viralAgentsPotionStack
 
         val viralEntry = object : BaseEntryProvider(
@@ -117,7 +121,7 @@ class ItemsCategoryProvider(
         return viralEntry.generate(location)
     }
 
-    fun syringe(location: Char): BookEntryModel? {
+    fun syringe(location: Char): BookEntryModel {
         val syringeEntry = object : BaseEntryProvider(
             realThis,
             ModItems.SYRINGE,
@@ -158,7 +162,7 @@ class ItemsCategoryProvider(
         return syringeEntry.generate(location)
     }
 
-    fun plasmid(location: Char): BookEntryModel? {
+    fun plasmid(location: Char): BookEntryModel {
         val plasmidEntry = object : BaseEntryProvider(
             realThis,
             ModItems.PLASMID,
@@ -219,7 +223,7 @@ class ItemsCategoryProvider(
         return plasmidEntry.generate(location)
     }
 
-    fun panacea(location: Char): BookEntryModel? {
+    fun panacea(location: Char): BookEntryModel {
         val panaceaStack = BrewingRecipes.panaceaPotionStack
 
         val panaceaEntry = object : BaseEntryProvider(
@@ -247,7 +251,7 @@ class ItemsCategoryProvider(
         return panaceaEntry.generate(location)
     }
 
-    fun overclocker(location: Char): BookEntryModel? {
+    fun overclocker(location: Char): BookEntryModel {
         val overclockerEntry = object : BaseEntryProvider(
             realThis,
             ModItems.OVERCLOCKER,
@@ -276,7 +280,7 @@ class ItemsCategoryProvider(
         return overclockerEntry.generate(location)
     }
 
-    fun potionMutation(location: Char): BookEntryModel? {
+    fun potionMutation(location: Char): BookEntryModel {
         val mutationStack = BrewingRecipes.mutationPotionStack
 
         val mutationEntry = object : BaseEntryProvider(
@@ -314,7 +318,7 @@ class ItemsCategoryProvider(
         return mutationEntry.generate(location)
     }
 
-    fun dragonHealthCrystal(location: Char): BookEntryModel? {
+    fun dragonHealthCrystal(location: Char): BookEntryModel {
         val dragonCrystalEntry = object : BaseEntryProvider(
             realThis,
             ModItems.DRAGON_HEALTH_CRYSTAL,
@@ -345,7 +349,7 @@ class ItemsCategoryProvider(
         return dragonCrystalEntry.generate(location)
     }
 
-    fun dnaHelix(location: Char): BookEntryModel? {
+    fun dnaHelix(location: Char): BookEntryModel {
         val dnaHelixEntry = object : BaseEntryProvider(
             realThis,
             ModItems.DNA_HELIX,
@@ -408,7 +412,7 @@ class ItemsCategoryProvider(
         return dnaHelixEntry.generate(location)
     }
 
-    fun organicMatter(location: Char): BookEntryModel? {
+    fun organicMatter(location: Char): BookEntryModel {
         val organicMatterEntry = object : BaseEntryProvider(
             realThis,
             ModItems.ORGANIC_MATTER,
@@ -447,7 +451,7 @@ class ItemsCategoryProvider(
         return organicMatterEntry.generate(location)
     }
 
-    fun scraper(location: Char): BookEntryModel? {
+    fun scraper(location: Char): BookEntryModel {
         val scraperEntry = object : BaseEntryProvider(
             realThis,
             ModItems.SCRAPER,
@@ -478,7 +482,7 @@ class ItemsCategoryProvider(
         return scraperEntry.generate(location)
     }
 
-    fun antiFieldOrb(location: Char): BookEntryModel? {
+    fun antiFieldOrb(location: Char): BookEntryModel {
         val antiFieldEntry = object : BaseEntryProvider(
             realThis,
             ModItems.ANTI_FIELD_ORB,
@@ -515,7 +519,7 @@ class ItemsCategoryProvider(
         return antiFieldEntry.generate(location)
     }
 
-    fun cell(location: Char): BookEntryModel? {
+    fun cell(location: Char): BookEntryModel {
         val cellEntry = object : BaseEntryProvider(
             realThis,
             ModItems.CELL,
@@ -560,7 +564,7 @@ class ItemsCategoryProvider(
         return cellEntry.generate(location)
     }
 
-    fun potionCellGrowth(location: Char): BookEntryModel? {
+    fun potionCellGrowth(location: Char): BookEntryModel {
         val pcgStack = BrewingRecipes.cellGrowthPotionStack
 
         val pcgEntry = object : BaseEntryProvider(
