@@ -238,7 +238,7 @@ class BlocksCategoryProvider(
                             item("DNA Helices", "dna_helix")
                         }.",
                         "Every time DNA is decrypted, it will choose a ${
-                            gene("Gene", "gene")
+                            categoryLink("Gene", "genes")
                         }, based on the Entity the Helix came from.",
                         "This Gene is weighted, some Genes have a higher chance than others. The Gene is chosen at the start of the process."
                     )
