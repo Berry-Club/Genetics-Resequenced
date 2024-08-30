@@ -12,7 +12,6 @@ import net.minecraft.ChatFormatting
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.level.ItemLike
-import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 abstract class BaseEntryProvider(
     parent: CategoryProviderBase?,
@@ -131,9 +130,11 @@ abstract class BaseEntryProvider(
         text: String,
     ): BookSpotlightPageModel {
 
+        //FIXME: Doesn't work with DataComponentIngredient
         val hasNonDefaultComponents = !itemStack.componentsPatch.isEmpty
         val ingredient = if (hasNonDefaultComponents) {
-            DataComponentIngredient.of(false, itemStack)
+//            DataComponentIngredient.of(true, itemStack)
+            Ingredient.of(itemStack)
         } else {
             Ingredient.of(itemStack)
         }

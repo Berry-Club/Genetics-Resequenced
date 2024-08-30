@@ -16,23 +16,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "type": "neoforge:components",
-        "components": {
-          "minecraft:attribute_modifiers": {
-            "modifiers": []
-          },
-          "minecraft:enchantments": {
-            "levels": {}
-          },
-          "minecraft:lore": [],
-          "minecraft:max_stack_size": 1,
-          "minecraft:potion_contents": {
-            "potion": "geneticsresequenced:cell_growth"
-          },
-          "minecraft:rarity": "common",
-          "minecraft:repair_cost": 0
-        },
-        "items": "minecraft:potion"
+        "item": "minecraft:potion"
       },
       "text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_0.text",
       "title": "book.geneticsresequenced.guide.items.potion_cell_growth.page_0.title"
@@ -44,24 +28,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "type": "neoforge:components",
-        "components": {
-          "geneticsresequenced:entity_type": "minecraft:blaze",
-          "minecraft:attribute_modifiers": {
-            "modifiers": []
-          },
-          "minecraft:enchantments": {
-            "levels": {}
-          },
-          "minecraft:lore": [],
-          "minecraft:max_stack_size": 1,
-          "minecraft:potion_contents": {
-            "potion": "geneticsresequenced:cell_growth"
-          },
-          "minecraft:rarity": "common",
-          "minecraft:repair_cost": 0
-        },
-        "items": "minecraft:potion"
+        "item": "minecraft:potion"
       },
       "text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_1.text",
       "title": "book.geneticsresequenced.guide.items.potion_cell_growth.page_1.title"
@@ -73,22 +40,7 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "type": "neoforge:components",
-        "components": {
-          "geneticsresequenced:entity_type": "minecraft:blaze",
-          "geneticsresequenced:gene": "geneticsresequenced:bioluminescence",
-          "minecraft:attribute_modifiers": {
-            "modifiers": []
-          },
-          "minecraft:enchantments": {
-            "levels": {}
-          },
-          "minecraft:lore": [],
-          "minecraft:max_stack_size": 64,
-          "minecraft:rarity": "common",
-          "minecraft:repair_cost": 0
-        },
-        "items": "geneticsresequenced:gmo_cell"
+        "item": "geneticsresequenced:gmo_cell"
       },
       "text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_2.text",
       "title": "book.geneticsresequenced.guide.items.potion_cell_growth.page_2.title"
