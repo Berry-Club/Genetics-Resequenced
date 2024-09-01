@@ -5,8 +5,8 @@
   "book_overview_texture": "modonomicon:textures/gui/book_overview.png",
   "book_text_offset_height": 0,
   "book_text_offset_width": 0,
-  "book_text_offset_x": 0,
-  "book_text_offset_y": 0,
+  "book_text_offset_x": 3,
+  "book_text_offset_y": 3,
   "bottom_frame_overlay": {
     "frame_height": 8,
     "frame_width": 72,
