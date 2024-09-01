@@ -27,12 +27,6 @@
         "type": "modonomicon:none"
       },
       "item": {
-        "components": {
-          "geneticsresequenced:plasmid_progress": {
-            "dnaPoints": 99999999,
-            "gene": "geneticsresequenced:scare_creepers"
-          }
-        },
         "item": "geneticsresequenced:plasmid"
       },
       "text": "book.geneticsresequenced.guide.items.plasmid.page_1.text",
@@ -47,7 +41,7 @@
       "item": {
         "components": {
           "geneticsresequenced:plasmid_progress": {
-            "dnaPoints": 99999999,
+            "dnaPoints": 1,
             "gene": "geneticsresequenced:scare_creepers"
           }
         },

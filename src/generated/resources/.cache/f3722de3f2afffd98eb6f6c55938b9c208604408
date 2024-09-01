@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-31T21:19:54.7148906	Books: geneticsresequenced
+// 1.21.1	2024-08-31T21:28:19.413953	Books: geneticsresequenced
 0127510a3bbb03e6572cdab5011b8addf97baa94 data/geneticsresequenced/modonomicon/books/guide/book.json
 dfa020cc33e9bb97b172a2ea98391d9cd7b4b1fc data/geneticsresequenced/modonomicon/books/guide/categories/blocks.json
 01110fc98009aab5873abeb8fd4d870826798bcc data/geneticsresequenced/modonomicon/books/guide/categories/genes.json
@@ -25,7 +25,7 @@ cd823c1bcec75b88d6fdcebc474171c7ff591623 data/geneticsresequenced/modonomicon/bo
 1639d30a4fce411acd3eb20c8eaa2ecd76997d14 data/geneticsresequenced/modonomicon/books/guide/entries/items/organic_matter.json
 d5d35867c2cc0766a85d36db35c1723502872a9e data/geneticsresequenced/modonomicon/books/guide/entries/items/overclocker.json
 abe415873e99692ad84ce243aee29a6a317b21ba data/geneticsresequenced/modonomicon/books/guide/entries/items/panacea.json
-05b5c870b15bdc1423a7f37714afa43ca7f60b89 data/geneticsresequenced/modonomicon/books/guide/entries/items/plasmid.json
+66c47367ce0f12acb847bbdd173644cbbb4b572f data/geneticsresequenced/modonomicon/books/guide/entries/items/plasmid.json
 3de5ae7e751c589753ddd5a2511723c701d46c36 data/geneticsresequenced/modonomicon/books/guide/entries/items/potion_cell_growth.json
 c1824e6bb8a25953a3d851a6d25de9f6499161ee data/geneticsresequenced/modonomicon/books/guide/entries/items/potion_mutation.json
 b6c727251305fadac6ae07ffef9723e2859b3536 data/geneticsresequenced/modonomicon/books/guide/entries/items/scraper.json

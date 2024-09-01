@@ -100,7 +100,7 @@ class ItemsCategoryProvider(
                 textPage(
                     "Viral Agents",
                     paragraphs(
-                        "${major("Viral Agents")} are the final crafting potion of the mod. They are ued to craft ${
+                        "${major("Viral Agents")} are the final crafting potion of the mod. They are used to craft ${
                             categoryLink("negative Genes", "genes/negative")
                         }, which are generally just any gene that's harmful.",
                         "Negative Genes are always lost on death, regardless of config setting. Additionally, there's a config to prevent players from even being able to get negative Genes in the first place."
@@ -181,20 +181,22 @@ class ItemsCategoryProvider(
                     )
                 )
 
-                val plasmidStack = ModItems.PLASMID.toStack()
+                val plasmidEmpty = ModItems.PLASMID.toStack()
                 spotlightPage(
-                    plasmidStack,
+                    plasmidEmpty,
                     paragraphs(
                         "Plasmids require a certain amount of ${minor("Gene Points")} to be complete.",
                         "The amount of Gene Points required depends on the Plasmid's Gene. More advanced Genes cost more Points."
                     )
                 )
 
-                PlasmidItem.setGene(plasmidStack, ModGenes.SCARE_CREEPERS.get())
-                PlasmidItem.setDnaPoints(plasmidStack, 1)
+                val plasmidOne = ModItems.PLASMID.toStack()
+
+                PlasmidItem.setGene(plasmidOne, ModGenes.SCARE_CREEPERS.get())
+                PlasmidItem.setDnaPoints(plasmidOne, 1)
 
                 spotlightPage(
-                    plasmidStack,
+                    plasmidOne,
                     paragraphs(
                         "This Plasmid has been infused with the ${
                             gene("Scare Creepers", "scare_creepers")
@@ -204,13 +206,17 @@ class ItemsCategoryProvider(
                     )
                 )
 
-                PlasmidItem.setDnaPoints(plasmidStack, 99999999)
+                val plasmidFull = ModItems.PLASMID.toStack()
+                PlasmidItem.setGene(plasmidFull, ModGenes.SCARE_CREEPERS.get())
+                PlasmidItem.setDnaPoints(plasmidFull, 99999999)
                 spotlightPage(
-                    plasmidStack,
-                    "Once it's reached its maximum Gene Points required, the Plasmid will be marked ${minor("complete")}!",
-                    "That means it's ready to be injected into a Syringe at the ${
-                        block("Plasmid Injector", "plasmid_injector")
-                    }."
+                    plasmidFull,
+                    paragraphs(
+                        "Once it's reached its maximum Gene Points required, the Plasmid will be marked ${minor("complete")}!",
+                        "That means it's ready to be injected into a Syringe at the ${
+                            block("Plasmid Injector", "plasmid_injector")
+                        }."
+                    )
                 )
 
             }
@@ -268,7 +274,7 @@ class ItemsCategoryProvider(
 
                 spotlightPage(
                     ModItems.OVERCLOCKER.toStack(),
-                    "You can have $(minor)up to 8 Overclockers/$ in a machine."
+                    "You can have ${minor("up to 8 Overclockers")} in a machine."
                 )
             }
 
@@ -328,7 +334,7 @@ class ItemsCategoryProvider(
                 textPage(
                     "Dragon Health Crystal",
                     paragraphs(
-                        "The $${major("Dragon Health Crystal")} is part of the $${
+                        "The ${major("Dragon Health Crystal")} is part of the ${
                             gene("Ender Dragon Health", "ender_dragon_health")
                         } Gene.",
                         "While you have that Gene, and while holding a Dragon Health Crystal, any incoming damage is negated and instead dealt to the Crystal."
@@ -396,7 +402,7 @@ class ItemsCategoryProvider(
 
                 spotlightPage(
                     basicHelix,
-                    "DNA Helices have a chance of being ${minor("Basic")}/ This means that they ${bad("don't contain any Gene")}, but they can still contribute to ${
+                    "DNA Helices have a chance of being ${minor("Basic")}. This means that they ${bad("don't contain any Gene")}, but they can still contribute to ${
                         item("Plasmids", "plasmid")
                     }."
                 )
