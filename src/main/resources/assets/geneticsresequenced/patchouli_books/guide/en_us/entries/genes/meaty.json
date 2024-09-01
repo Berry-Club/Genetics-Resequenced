@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Meaty/$ Gene allows the entity to be $(minor)Sheared for a Raw Porkchop/$. If a player has it, they can $(minor)shear themselves/$ by sneak right-clicking with Shears.$(br2)This has a configurable cooldown, with the default being 1 minute."
+      "text": "The $(major)Meaty/$ Gene allows the entity to be $(minor)Sheared for a Raw Porkchop/$.$(br2)If a player has it, they can $(minor)shear themselves/$ by sneak right-clicking with Shears.$(br2)This has a configurable cooldown, with the default being 1 minute."
     },
     {
       "type": "patchouli:text",

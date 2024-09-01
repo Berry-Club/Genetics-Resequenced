@@ -70,6 +70,12 @@ class GenesCategoryProvider(
         addEntry(knockback())
         addEntry(layEgg())
         addEntry(luck())
+        addEntry(meaty())
+        addEntry(milky())
+        addEntry(mobSight())
+        addEntry(moreHearts())
+        addEntry(nightVision())
+        addEntry(noFallDamage())
     }
 
     private fun bioluminescence(): BookEntryModel {
@@ -529,6 +535,132 @@ class GenesCategoryProvider(
                 textPage(
                     "Luck",
                     "The ${major("Luck")} Gene gives entities the ${minor("Luck")} effect."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun meaty(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.MEATY.get(),
+            "Meaty",
+            Items.COOKED_PORKCHOP
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Meaty",
+                    paragraphs(
+                        "The ${major("Meaty")} Gene allows entities to be ${minor("sheared for a Raw Porkchop")}.",
+                        "If a player has it, they can shear themselves by sneak right-clicking with Shears.",
+                        "This has a configurable cooldown, but defaults to once every minute."
+                    )
+                )
+
+                textPage(
+                    "This can be mutated into Meaty II, which causes the entity to ${minor("drop a Cooked Porkchop")} once every 5 minutes."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun milky(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.MILKY.get(),
+            "Milky",
+            Items.MILK_BUCKET
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Milky",
+                    paragraphs(
+                        "The ${major("Milky")} Gene allows entities to ${minor("be milked with a Bucket")}.",
+                        "If a player has it, they can milk themselves by sneak right-clicking with a Bucket.",
+                        "This has a configurable cooldown, with the default being 1 tick."
+                    )
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun mobSight(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.MOB_SIGHT.get(),
+            "Mob Sight",
+            Items.GOLDEN_CARROT
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Mob Sight",
+                    paragraphs(
+                        "The ${major("Mob Sight")} Gene occasionally ${minor("gives all nearby mobs the Glowing effect")}.",
+                        "Both the cooldown and radius are configurable, defaulting to 1 second and 32 blocks respectively."
+                    )
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun moreHearts(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.MORE_HEARTS.get(),
+            "More Hearts",
+            Items.ENCHANTED_GOLDEN_APPLE
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "More Hearts",
+                    paragraphs(
+                        "The ${major("More Hearts")} Gene gives entities ${minor("10 extra hearts")}.",
+                        "This can be mutated into ${major("More Hearts II")}, which gives ${minor("an additional 10 hearts")}, for +20 hearts in total."
+                    )
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun nightVision(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.NIGHT_VISION.get(),
+            "Night Vision",
+            mcLoc("textures/mob_effect/night_vision.png")
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Night Vision",
+                    "The ${major("Night Vision")} Gene gives entities the ${minor("Night Vision")} effect."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun noFallDamage(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.NO_FALL_DAMAGE.get(),
+            "No Fall Damage",
+            Items.FEATHER
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "No Fall Damage",
+                    "The ${major("No Fall Damage")} Gene  ${minor("negates all fall damage")}."
                 )
             }
         }
