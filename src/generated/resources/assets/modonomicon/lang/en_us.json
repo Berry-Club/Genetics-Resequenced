@@ -372,7 +372,7 @@
   "book.geneticsresequenced.guide.getting_started.what_are_genes.name": "What are Genes?",
   "book.geneticsresequenced.guide.getting_started.what_are_genes.page_0.text": "[#](AA00AA)Genes[#]() can be taken from mobs to [#](00AAAA)harness their abilities[#](). \\\n  \\\nFor example, Sheep have the [Wooly](entry://genes/geneticsresequenced/wooly) Gene. If you inject this into yourself, you will be able to be sheared for wool! \\\n  \\\nTo see a full list of Genes, [see here](category://genes).",
   "book.geneticsresequenced.guide.getting_started.what_are_genes.page_0.title": "What are Genes?",
-  "book.geneticsresequenced.guide.getting_started.what_are_genes.page_1.text": "Each Gene page in the book will say what the Gene does, and how to obtain it. \\\n  \\\nSome Genes can even be given to mobs!",
+  "book.geneticsresequenced.guide.getting_started.what_are_genes.page_1.text": "Each Gene page in the book will say what the Gene does. As for how to get it, the mod has [EMI](https://www.curseforge.com/minecraft/mc-mods/emi) integration. \\\n  \\\nSome Genes can even be given to mobs!",
   "book.geneticsresequenced.guide.getting_started.what_are_genes.page_1.title": "",
   "book.geneticsresequenced.guide.items.anti_field_orb.description": "",
   "book.geneticsresequenced.guide.items.anti_field_orb.name": "Anti-Field Orb",

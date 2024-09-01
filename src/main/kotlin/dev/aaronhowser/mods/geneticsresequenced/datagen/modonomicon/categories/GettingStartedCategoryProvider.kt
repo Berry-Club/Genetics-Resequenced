@@ -62,7 +62,7 @@ class GettingStartedCategoryProvider(
 
                 textPage(
                     paragraphs(
-                        "Each Gene page in the book will say what the Gene does, and how to obtain it.",
+                        "Each Gene page in the book will say what the Gene does. As for how to get it, the mod has [EMI](https://www.curseforge.com/minecraft/mc-mods/emi) integration.",
                         "Some Genes can even be given to mobs!"
                     )
                 )

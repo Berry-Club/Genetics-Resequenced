@@ -10,7 +10,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "Each Gene page in the book will say what the Gene does, and how to obtain it.$(br2)Some Genes can even be given to mobs!"
+      "text": "Each Gene page in the book will say what the Gene does, As for how to get it, the mod has $(l:https://www.curseforge.com/minecraft/mc-mods/emi)EMI/$ integration.$(br2)Some Genes can even be given to mobs!"
     }
   ]
 }
