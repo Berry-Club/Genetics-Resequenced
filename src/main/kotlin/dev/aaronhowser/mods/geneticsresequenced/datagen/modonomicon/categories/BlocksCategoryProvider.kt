@@ -171,15 +171,15 @@ class BlocksCategoryProvider(
                             item("Genetically Modified Cells", "potion_cell_growth@gmo_cell")
                         } are ${minor("guaranteed to have a specific Gene")}, if crafted correctly.",
                         "Each GM Cell has its own recipe, with a ${bad("chance of failure")}.",
-                        "The recipe for this GM Cell, for example, has a 30% chance of success by default."
+                        "The recipe for this GM Cell, for example, has a 30%% chance of success by default."
                     )
                 )
 
                 textPage(
                     paragraphs(
-                        "Each Overclocker ${bad("decreases the chance by 10%")}.",
+                        "Each Overclocker ${bad("decreases the chance by 10%%")}.",
                         "However, you can insert ${minor("Chorus Fruit")} into the top right slot to increase your odds!",
-                        "By default, each Chorus Fruit increases the chance by 10%. The Advanced Incubator will up as many Chorus Fruit as it takes to reach 100%."
+                        "By default, each Chorus Fruit increases the chance by 10%%. The Advanced Incubator will up as many Chorus Fruit as it takes to reach 100%."
                     )
                 )
 

@@ -25,7 +25,7 @@ class GettingStartedCategoryProvider(
 
     override fun generateEntryMap(): Array<String> {
         return arrayOf(
-            "12",
+            "",
         )
     }
 
@@ -37,11 +37,11 @@ class GettingStartedCategoryProvider(
             index++
         }
 
-        addEntry(whatAreGenes('1'))
-        addEntry(gettingGenes('2'))
+        addEntry(whatAreGenes())
+        addEntry(gettingGenes())
     }
 
-    private fun whatAreGenes(location: Char): BookEntryModel {
+    private fun whatAreGenes(): BookEntryModel {
         val entry = object : BaseEntryProvider(
             this@GettingStartedCategoryProvider,
             "What are Genes?",
@@ -55,8 +55,8 @@ class GettingStartedCategoryProvider(
                     "What are Genes?",
                     paragraphs(
                         "${major("Genes")} can be taken from mobs to ${minor("harness their abilities")}.",
-                        "For example, Sheep have the ${minor("Wooly")} Gene. If you inject this into yourself, you will be able to be sheared for wool!",
-                        "To see a full list of Genes, ${minor("see here")}."
+                        "For example, Sheep have the ${gene("Wooly", "wooly")} Gene. If you inject this into yourself, you will be able to be sheared for wool!",
+                        "To see a full list of Genes, ${categoryLink("see here", "genes")}."
                     )
                 )
 
@@ -70,10 +70,10 @@ class GettingStartedCategoryProvider(
             }
         }
 
-        return entry.generate(location)
+        return entry.generate()
     }
 
-    private fun gettingGenes(location: Char): BookEntryModel {
+    private fun gettingGenes(): BookEntryModel {
         val entry = object : BaseEntryProvider(
             this@GettingStartedCategoryProvider,
             "Getting Genes",
@@ -104,6 +104,6 @@ class GettingStartedCategoryProvider(
             }
         }
 
-        return entry.generate(location)
+        return entry.generate()
     }
 }

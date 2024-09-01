@@ -353,6 +353,7 @@ class ItemsCategoryProvider(
 
                 spotlightPage(
                     cowHelix,
+                    "Encrypted Helix",
                     paragraphs(
                         "This DNA Helix contains the genetic information of a ${minor("Cow")}, but the actual Gene it has is ${
                             bad("unknown")
@@ -366,6 +367,7 @@ class ItemsCategoryProvider(
 
                 spotlightPage(
                     milkyHelix,
+                    "Decrypted Helix",
                     paragraphs(
                         "This DNA Helix has been decrypted, and now we can see it contains the ${
                             gene("Milky", "milky")
@@ -378,6 +380,7 @@ class ItemsCategoryProvider(
 
                 spotlightPage(
                     basicHelix,
+                    "Basic Gene",
                     "DNA Helices have a chance of being ${minor("Basic")}. This means that they ${bad("don't contain any Gene")}, but they can still contribute to ${
                         item("Plasmids", "plasmid")
                     }."
@@ -540,6 +543,7 @@ class ItemsCategoryProvider(
             override fun generatePages() {
                 spotlightPage(
                     pcgStack,
+                    "Potion of Cell Growth",
                     paragraphs(
                         "${major("Potions of Cell Growth")}, like Organic Substrate, has no effect when imbibed. It's more of a crafting ingredient than a potion.",
                         "These recipes allow you to ${minor("improve your odds of getting certain rare Genes")}."
@@ -550,6 +554,7 @@ class ItemsCategoryProvider(
 
                 spotlightPage(
                     pcgStack,
+                    "Entity Set",
                     "A ${
                         item("Cell", "cell")
                     } can be brewed into the Potion of Cell Growth to ${minor("set the Potion to the Cell's entity type")}."
@@ -560,8 +565,9 @@ class ItemsCategoryProvider(
 
                 spotlightPage(
                     gmoStack,
+                    "Genetically Modified Cell",
                     "From there, certain entity types have recipes to make ${
-                        item("Genetically Modified Cells", "potion_cell_growth@gmo_cell")
+                        major("Genetically Modified Cells")
                     }, which are guaranteed to give a specific Gene.",
                 ).withAnchor("gmo_cell")
 

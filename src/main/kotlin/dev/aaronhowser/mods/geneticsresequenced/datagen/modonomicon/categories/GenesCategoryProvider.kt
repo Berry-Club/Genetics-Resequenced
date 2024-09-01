@@ -679,7 +679,7 @@ class GenesCategoryProvider(
             override fun firstPages() {
                 textPage(
                     "No Fall Damage",
-                    "The ${major("No Fall Damage")} Gene  ${minor("negates all fall damage")}."
+                    "The ${major("No Fall Damage")} Gene ${minor("negates all fall damage")}."
                 )
             }
         }
@@ -865,7 +865,7 @@ class GenesCategoryProvider(
             override fun firstPages() {
                 textPage(
                     "Shoot Fireballs",
-                    "The ${major("Shoot Fireballs")} Gene allows players to ${minor("shoot Fireballs")} when a Blaze Rod is used.."
+                    "The ${major("Shoot Fireballs")} Gene allows players to ${minor("shoot Fireballs")} when a Blaze Rod is used."
                 )
             }
         }
