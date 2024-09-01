@@ -1,7 +1,7 @@
 {
   "name": "Thorns",
   "category": "geneticsresequenced:genes",
-  "icon": "minecraft:egg",
+  "icon": "minecraft:cactus",
   "pages": [
     {
       "type": "patchouli:text",

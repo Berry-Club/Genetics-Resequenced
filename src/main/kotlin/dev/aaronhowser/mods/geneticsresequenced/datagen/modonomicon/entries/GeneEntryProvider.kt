@@ -25,7 +25,6 @@ abstract class GeneEntryProvider : BaseEntryProvider {
 
         this.plasmidStack = ModItems.PLASMID.toStack()
         PlasmidItem.setGene(this.plasmidStack, gene)
-        PlasmidItem.setDnaPoints(this.plasmidStack, gene.dnaPointsRequired)
 
     }
 
@@ -44,7 +43,6 @@ abstract class GeneEntryProvider : BaseEntryProvider {
 
         this.plasmidStack = ModItems.PLASMID.toStack()
         PlasmidItem.setGene(this.plasmidStack, gene)
-        PlasmidItem.setDnaPoints(this.plasmidStack, gene.dnaPointsRequired)
     }
 
     val gene: Gene

@@ -81,6 +81,17 @@ class GenesCategoryProvider(
         addEntry(poisonImmunity())
         addEntry(regeneration())
         addEntry(resistance())
+        addEntry(scareCreepers())
+        addEntry(scareSkeletons())
+        addEntry(scareSpiders())
+        addEntry(scareZombies())
+        addEntry(shootFireballs())
+        addEntry(slimyDeath())
+        addEntry(speed())
+        addEntry(stepAssist())
+        addEntry(strength())
+        addEntry(teleport())
+        addEntry(thorns())
     }
 
     private fun bioluminescence(): BookEntryModel {
@@ -762,6 +773,216 @@ class GenesCategoryProvider(
                         "The ${major("Resistance")} Gene gives entities the ${minor("Resistance")} effect.",
                         "Can be mutated into ${major("Resistance II")}, which gives the ${minor("Resistance II")} effect."
                     )
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun scareCreepers(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.SCARE_CREEPERS.get(),
+            "Scare Creepers",
+            Items.CREEPER_HEAD
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Scare Creepers",
+                    "The ${major("Scare Creepers")} Gene ${minor("causes Creepers to run away from you")}."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun scareSkeletons(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.SCARE_SKELETONS.get(),
+            "Scare Skeletons",
+            Items.SKELETON_SKULL
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Scare Skeletons",
+                    "The ${major("Scare Skeletons")} Gene ${minor("causes Skeletons to run away from you")}."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun scareSpiders(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.SCARE_SPIDERS.get(),
+            "Scare Spiders",
+            Items.SPIDER_EYE
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Scare Spiders",
+                    "The ${major("Scare Spiders")} Gene ${minor("causes Spiders to run away from you")}."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun scareZombies(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.SCARE_ZOMBIES.get(),
+            "Scare Zombies",
+            Items.ZOMBIE_HEAD
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Scare Zombies",
+                    "The ${major("Scare Zombies")} Gene ${minor("causes Zombies to run away from you")}."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun shootFireballs(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.SHOOT_FIREBALLS.get(),
+            "Shoot Fireballs",
+            Items.BLAZE_ROD
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Shoot Fireballs",
+                    "The ${major("Shoot Fireballs")} Gene allows players to ${minor("shoot Fireballs")} when a Blaze Rod is used.."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun slimyDeath(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.SLIMY_DEATH.get(),
+            "Slimy Death",
+            Items.SLIME_BALL
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Slimy Death",
+                    paragraphs(
+                        "The ${major("Slimy Death")} Gene makes it so, ${minor("upon the player dying, they are instantly revived and several friendly Support Slimes spawn")}.",
+                        "This has a configurable cooldown, with the default being 5 minutes."
+                    )
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun speed(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.SPEED.get(),
+            "Speed",
+            mcLoc("textures/mob_effect/speed.png")
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Speed",
+                    paragraphs(
+                        "The ${major("Speed")} Gene gives entities the ${minor("Speed")} effect.",
+                        "Can be mutated into ${major("Speed II")} and ${major("Speed IV")}."
+                    )
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun stepAssist(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.STEP_ASSIST.get(),
+            "Step Assist",
+            Items.COBBLESTONE_STAIRS
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Step Assist",
+                    "The ${major("Step Assist")} Gene allows players to ${minor("walk up single blocks")} as if they were stairs."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun strength(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.STRENGTH.get(),
+            "Strength",
+            mcLoc("textures/mob_effect/strength.png")
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Strength",
+                    paragraphs(
+                        "The ${major("Strength")} Gene gives entities the ${minor("Strength")} effect.",
+                        "Can be mutated into ${major("Strength II")}."
+                    )
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun teleport(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.TELEPORT.get(),
+            "Teleport",
+            Items.ENDER_PEARL
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Teleport",
+                    paragraphs(
+                        "The ${major("Teleport")} Gene allows players to ${minor("teleport forward")} when the \"Teleport\" keybind is pressed.",
+                        "This has a configurable cooldown, with the default being 1 second. The distance is also configurable, defaulting to 10 blocks."
+                    )
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun thorns(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.THORNS.get(),
+            "Thorns",
+            Items.CACTUS
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Thorns",
+                    "The ${major("Thorns")} Gene ${minor("reflects damage back to the attacker")}. This uses up some hunger"
                 )
             }
         }

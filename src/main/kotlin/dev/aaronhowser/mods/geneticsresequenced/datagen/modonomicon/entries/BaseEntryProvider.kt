@@ -8,6 +8,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel
 import com.mojang.datafixers.util.Either
 import com.mojang.datafixers.util.Pair
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.ChatFormatting
 import net.minecraft.resources.ResourceLocation
@@ -91,7 +92,7 @@ abstract class BaseEntryProvider : EntryProvider {
     }
 
     fun gene(text: String, entryId: String): String {
-        return "[${text}](entry://genes/${entryId})"
+        return "[${text}](entry://genes/${GeneticsResequenced.ID}/${entryId})"
     }
 
     fun block(text: String, entryId: String): String {
