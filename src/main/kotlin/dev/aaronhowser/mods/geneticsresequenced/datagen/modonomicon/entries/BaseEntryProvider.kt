@@ -6,23 +6,42 @@ import com.klikli_dev.modonomicon.api.datagen.EntryProvider
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookSpotlightPageModel
 import com.klikli_dev.modonomicon.api.datagen.book.page.BookTextPageModel
+import com.mojang.datafixers.util.Either
 import com.mojang.datafixers.util.Pair
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.ChatFormatting
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ItemLike
 
-abstract class BaseEntryProvider(
-    parent: CategoryProviderBase?,
-    val itemStack: ItemStack,
-    val entryId: String
-) : EntryProvider(parent) {
+abstract class BaseEntryProvider : EntryProvider {
 
     constructor(
         parent: CategoryProviderBase?,
-        itemLike: ItemLike,
+        icon: ResourceLocation,
         entryId: String
-    ) : this(parent, itemLike.itemStack, entryId)
+    ) : super(parent) {
+        this.entryId = entryId
+        this.icon = Either.left(icon)
+    }
+
+    constructor(
+        parent: CategoryProviderBase?,
+        icon: ItemStack,
+        entryId: String
+    ) : super(parent) {
+        this.entryId = entryId
+        this.icon = Either.right(icon)
+    }
+
+    constructor(
+        parent: CategoryProviderBase?,
+        icon: ItemLike,
+        entryId: String
+    ) : this(parent, icon.itemStack, entryId)
+
+    val entryId: String
+    val icon: Either<ResourceLocation, ItemStack>
 
     override fun entryId(): String {
         return this.entryId
@@ -33,7 +52,11 @@ abstract class BaseEntryProvider(
     }
 
     override fun entryIcon(): BookIconModel {
-        return BookIconModel.create(itemStack)
+        return if (this.icon.left().isPresent) {
+            BookIconModel.create(this.icon.left().get())
+        } else {
+            BookIconModel.create(this.icon.right().get())
+        }
     }
 
     override fun entryDescription(): String {
