@@ -15,7 +15,6 @@ class ModModonomiconProvider(
         return book
             .withCreativeTab(modLoc("creative_tab"))
             .withDisplayMode(BookDisplayMode.INDEX)
-            .withAllowOpenBooksWithInvalidLinks(true)
             .withBookTextOffsetX(3)
             .withBookTextOffsetY(3)
             .withBookTextOffsetWidth(-3)
