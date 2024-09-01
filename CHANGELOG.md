@@ -133,16 +133,15 @@
 
 ### 1.2.0
 
+- Support for Modonomicon!
 - You can now dupe Genetically Modified Cells using Organic Substrate
+- Fixed Genetically Modified Cells not having EMI recipe pages for turning into DNA Helices (#23)
+- GMO Recipes will have their logic printed in the tooltip of the Potion of Cell Growth in the Advanced Incubator
+- The Scare Genes can now be given to entities
+- The Scare Genes now apply based on an entity's tags (#geneticsresequenced:avoids_scare_creeper_gene etc) rather than based on their class (is or extends Creeper etc)
 - Reimplemented Curios support for the Keep Inventory gene (#20)
+- If the items given by the Keep Inventory Gene don't fit in your inventory, they're dropped at your feet instead of being tossed from your camera
 - Updated Patchouli support to use item components rather than NBT
 - Updated the Patchouli book to reflect changes since 1.19
 - The Patchouli book is now in the creative tab
-- GMO Recipes will have their logic printed in the tooltip of the Potion of Cell Growth in the Advanced Incubator
 - Fixed the Blood Purifier page in the Patchouli book having the Plasmid Injector instead
-- If the items given by the Keep Inventory Gene don't fit in your inventory, they're dropped at your feet instead of
-  being tossed from your camera
-- The Scare Genes can now be given to entities
-- The Scare Genes now apply based on an entity's tags (#geneticsresequenced:avoids_scare_creeper_gene etc) rather than
-  based on their class (is or extends Creeper etc)
-- Fixed Genetically Modified Cells not having EMI recipe pages for turning into DNA Helices (#23)
