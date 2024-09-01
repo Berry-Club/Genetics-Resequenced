@@ -5,6 +5,11 @@
   "description": "book.geneticsresequenced.guide.items.viral_agents.description",
   "hide_while_locked": false,
   "icon": {
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "geneticsresequenced:viral_agents"
+      }
+    },
     "item": "minecraft:potion"
   },
   "name": "book.geneticsresequenced.guide.items.viral_agents.name",
@@ -27,6 +32,11 @@
         "type": "modonomicon:none"
       },
       "item": {
+        "components": {
+          "minecraft:potion_contents": {
+            "potion": "geneticsresequenced:viral_agents"
+          }
+        },
         "item": "minecraft:potion"
       },
       "text": "book.geneticsresequenced.guide.items.viral_agents.page_1.text",

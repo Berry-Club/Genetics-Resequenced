@@ -5,6 +5,11 @@
   "description": "book.geneticsresequenced.guide.items.potion_mutation.description",
   "hide_while_locked": false,
   "icon": {
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "geneticsresequenced:mutation"
+      }
+    },
     "item": "minecraft:potion"
   },
   "name": "book.geneticsresequenced.guide.items.potion_mutation.name",
@@ -27,6 +32,11 @@
         "type": "modonomicon:none"
       },
       "item": {
+        "components": {
+          "minecraft:potion_contents": {
+            "potion": "geneticsresequenced:mutation"
+          }
+        },
         "item": "minecraft:potion"
       },
       "text": "book.geneticsresequenced.guide.items.potion_mutation.page_1.text",

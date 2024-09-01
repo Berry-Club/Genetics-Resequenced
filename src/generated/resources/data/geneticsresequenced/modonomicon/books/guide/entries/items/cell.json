@@ -27,6 +27,9 @@
         "type": "modonomicon:none"
       },
       "item": {
+        "components": {
+          "geneticsresequenced:entity_type": "minecraft:cow"
+        },
         "item": "geneticsresequenced:cell"
       },
       "text": "book.geneticsresequenced.guide.items.cell.page_1.text",

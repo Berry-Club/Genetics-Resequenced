@@ -10,7 +10,6 @@ import com.mojang.datafixers.util.Pair
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.ChatFormatting
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.level.ItemLike
 
 abstract class BaseEntryProvider(
@@ -59,8 +58,8 @@ abstract class BaseEntryProvider(
     }
 
     fun gene(text: String, entryId: String): String {
-//        return "[${text}](entry://genes/${entryId})"
-        return "[${text}]()"
+        return "[${text}](entry://genes/${entryId})"
+//        return "[${text}]()"
     }
 
     fun block(text: String, entryId: String): String {
@@ -131,20 +130,11 @@ abstract class BaseEntryProvider(
         text: String,
     ): BookSpotlightPageModel {
 
-        //FIXME: Doesn't work with DataComponentIngredient
-        val hasNonDefaultComponents = !itemStack.componentsPatch.isEmpty
-        val ingredient = if (hasNonDefaultComponents) {
-//            DataComponentIngredient.of(true, itemStack)
-            Ingredient.of(itemStack)
-        } else {
-            Ingredient.of(itemStack)
-        }
-
         val page = this.page("page_${this.pageIndex++}") {
             BookSpotlightPageModel.create()
                 .withTitle(this.context().pageTitle())
                 .withText(this.context().pageText())
-                .withItem(ingredient)
+                .withItem(itemStack)
         }
 
         this.pageTitle(title)

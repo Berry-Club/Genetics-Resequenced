@@ -5,6 +5,11 @@
   "description": "book.geneticsresequenced.guide.items.zombify_villager.description",
   "hide_while_locked": false,
   "icon": {
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "geneticsresequenced:zombify_villager"
+      }
+    },
     "item": "minecraft:potion"
   },
   "name": "book.geneticsresequenced.guide.items.zombify_villager.name",
@@ -27,6 +32,11 @@
         "type": "modonomicon:none"
       },
       "item": {
+        "components": {
+          "minecraft:potion_contents": {
+            "potion": "geneticsresequenced:zombify_villager"
+          }
+        },
         "item": "minecraft:potion"
       },
       "text": "book.geneticsresequenced.guide.items.zombify_villager.page_1.text",

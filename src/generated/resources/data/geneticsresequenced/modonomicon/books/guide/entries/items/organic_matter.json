@@ -27,6 +27,9 @@
         "type": "modonomicon:none"
       },
       "item": {
+        "components": {
+          "geneticsresequenced:entity_type": "minecraft:cow"
+        },
         "item": "geneticsresequenced:organic_matter"
       },
       "text": "book.geneticsresequenced.guide.items.organic_matter.page_1.text",

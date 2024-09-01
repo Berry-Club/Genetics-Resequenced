@@ -27,6 +27,9 @@
         "type": "modonomicon:none"
       },
       "item": {
+        "components": {
+          "geneticsresequenced:active": true
+        },
         "item": "geneticsresequenced:anti_field_orb"
       },
       "text": "book.geneticsresequenced.guide.items.anti_field_orb.page_1.text",

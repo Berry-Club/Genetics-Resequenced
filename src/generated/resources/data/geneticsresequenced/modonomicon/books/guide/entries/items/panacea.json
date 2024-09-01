@@ -5,6 +5,11 @@
   "description": "book.geneticsresequenced.guide.items.panacea.description",
   "hide_while_locked": false,
   "icon": {
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "geneticsresequenced:panacea"
+      }
+    },
     "item": "minecraft:potion"
   },
   "name": "book.geneticsresequenced.guide.items.panacea.name",
@@ -27,6 +32,11 @@
         "type": "modonomicon:none"
       },
       "item": {
+        "components": {
+          "minecraft:potion_contents": {
+            "potion": "geneticsresequenced:panacea"
+          }
+        },
         "item": "minecraft:potion"
       },
       "text": "book.geneticsresequenced.guide.items.panacea.page_1.text",

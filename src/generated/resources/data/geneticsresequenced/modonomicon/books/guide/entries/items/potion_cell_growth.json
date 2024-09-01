@@ -5,6 +5,12 @@
   "description": "book.geneticsresequenced.guide.items.potion_cell_growth.description",
   "hide_while_locked": false,
   "icon": {
+    "components": {
+      "geneticsresequenced:entity_type": "minecraft:blaze",
+      "minecraft:potion_contents": {
+        "potion": "geneticsresequenced:cell_growth"
+      }
+    },
     "item": "minecraft:potion"
   },
   "name": "book.geneticsresequenced.guide.items.potion_cell_growth.name",
@@ -16,6 +22,12 @@
         "type": "modonomicon:none"
       },
       "item": {
+        "components": {
+          "geneticsresequenced:entity_type": "minecraft:blaze",
+          "minecraft:potion_contents": {
+            "potion": "geneticsresequenced:cell_growth"
+          }
+        },
         "item": "minecraft:potion"
       },
       "text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_0.text",
@@ -28,6 +40,12 @@
         "type": "modonomicon:none"
       },
       "item": {
+        "components": {
+          "geneticsresequenced:entity_type": "minecraft:blaze",
+          "minecraft:potion_contents": {
+            "potion": "geneticsresequenced:cell_growth"
+          }
+        },
         "item": "minecraft:potion"
       },
       "text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_1.text",
@@ -40,6 +58,10 @@
         "type": "modonomicon:none"
       },
       "item": {
+        "components": {
+          "geneticsresequenced:entity_type": "minecraft:blaze",
+          "geneticsresequenced:gene": "geneticsresequenced:bioluminescence"
+        },
         "item": "geneticsresequenced:gmo_cell"
       },
       "text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_2.text",

@@ -18,6 +18,7 @@ class ModModonomiconProvider(
         return book
             .withCreativeTab(modLoc("creative_tab"))
             .withDisplayMode(BookDisplayMode.INDEX)
+            .withAllowOpenBooksWithInvalidLinks(true)
     }
 
     override fun generateCategories() {
