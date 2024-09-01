@@ -2,12 +2,12 @@
   "background_u_index": 0,
   "background_v_index": 0,
   "category": "geneticsresequenced:genes",
-  "description": "book.geneticsresequenced.guide.genes.geneticsresequenced/chatterbox.description",
+  "description": "book.geneticsresequenced.guide.genes.geneticsresequenced/wall_climbing.description",
   "hide_while_locked": false,
   "icon": {
-    "item": "minecraft:note_block"
+    "item": "minecraft:string"
   },
-  "name": "book.geneticsresequenced.guide.genes.geneticsresequenced/chatterbox.name",
+  "name": "book.geneticsresequenced.guide.genes.geneticsresequenced/wall_climbing.name",
   "pages": [
     {
       "type": "modonomicon:text",
@@ -16,8 +16,8 @@
         "type": "modonomicon:none"
       },
       "show_title_separator": true,
-      "text": "book.geneticsresequenced.guide.genes.geneticsresequenced/chatterbox.page_0.text",
-      "title": "book.geneticsresequenced.guide.genes.geneticsresequenced/chatterbox.page_0.title",
+      "text": "book.geneticsresequenced.guide.genes.geneticsresequenced/wall_climbing.page_0.text",
+      "title": "book.geneticsresequenced.guide.genes.geneticsresequenced/wall_climbing.page_0.title",
       "use_markdown_in_title": false
     },
     {
@@ -29,18 +29,18 @@
       "item": {
         "components": {
           "geneticsresequenced:plasmid_progress": {
-            "dnaPoints": 20,
-            "gene": "geneticsresequenced:chatterbox"
+            "dnaPoints": 40,
+            "gene": "geneticsresequenced:wall_climbing"
           }
         },
         "item": "geneticsresequenced:plasmid"
       },
-      "text": "book.geneticsresequenced.guide.genes.geneticsresequenced/chatterbox.page_1.text",
-      "title": "book.geneticsresequenced.guide.genes.geneticsresequenced/chatterbox.page_1.title"
+      "text": "book.geneticsresequenced.guide.genes.geneticsresequenced/wall_climbing.page_1.text",
+      "title": "book.geneticsresequenced.guide.genes.geneticsresequenced/wall_climbing.page_1.title"
     }
   ],
   "show_when_any_parent_unlocked": false,
-  "sort_number": 1,
+  "sort_number": 4,
   "x": 0,
   "y": 0
 }

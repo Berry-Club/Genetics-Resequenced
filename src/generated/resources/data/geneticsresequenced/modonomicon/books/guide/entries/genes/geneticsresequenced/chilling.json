@@ -21,15 +21,22 @@
       "use_markdown_in_title": false
     },
     {
-      "type": "modonomicon:text",
+      "type": "modonomicon:spotlight",
       "anchor": "",
       "condition": {
         "type": "modonomicon:none"
       },
-      "show_title_separator": true,
+      "item": {
+        "components": {
+          "geneticsresequenced:plasmid_progress": {
+            "dnaPoints": 20,
+            "gene": "geneticsresequenced:chilling"
+          }
+        },
+        "item": "geneticsresequenced:plasmid"
+      },
       "text": "book.geneticsresequenced.guide.genes.geneticsresequenced/chilling.page_1.text",
-      "title": "book.geneticsresequenced.guide.genes.geneticsresequenced/chilling.page_1.title",
-      "use_markdown_in_title": false
+      "title": "book.geneticsresequenced.guide.genes.geneticsresequenced/chilling.page_1.title"
     }
   ],
   "show_when_any_parent_unlocked": false,

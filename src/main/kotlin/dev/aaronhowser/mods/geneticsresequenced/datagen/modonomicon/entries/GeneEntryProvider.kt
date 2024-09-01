@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.level.ItemLike
 
@@ -47,6 +49,13 @@ abstract class GeneEntryProvider : BaseEntryProvider {
             "This Gene ${bad("cannot be given to mobs")}."
         }
 
-        textPage(canMobsHaveText)
+        val plasmid = ModItems.PLASMID.toStack()
+        PlasmidItem.setGene(plasmid, gene)
+        PlasmidItem.setDnaPoints(plasmid, gene.dnaPointsRequired)
+
+        spotlightPage(
+            plasmid,
+            canMobsHaveText,
+        )
     }
 }
