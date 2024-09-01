@@ -15,7 +15,9 @@ abstract class GeneEntryProvider : BaseEntryProvider {
         parent = parent,
         icon = iconRl,
         entryId = gene.id.toString().replace(":", "/")
-    )
+    ) {
+        this.gene = gene
+    }
 
     constructor(
         parent: CategoryProviderBase?,
@@ -25,5 +27,23 @@ abstract class GeneEntryProvider : BaseEntryProvider {
         parent = parent,
         icon = icon,
         entryId = gene.id.toString().replace(":", "/")
-    )
+    ) {
+        this.gene = gene
+    }
+
+    val gene: Gene
+
+    abstract fun firstPages()
+
+    final override fun generatePages() {
+        firstPages()
+
+        val canMobsHaveText = if (gene.canMobsHave) {
+            "This Gene ${minor("can be given to mobs")}."
+        } else {
+            "This Gene ${bad("cannot be given to mobs")}."
+        }
+
+        textPage(canMobsHaveText)
+    }
 }

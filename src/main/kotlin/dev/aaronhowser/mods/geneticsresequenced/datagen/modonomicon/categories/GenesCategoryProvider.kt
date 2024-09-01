@@ -46,42 +46,29 @@ class GenesCategoryProvider(
             index++
         }
 
-        addEntry(bioluminescence('b'))
-        addEntry(regeneration('r'))
+        addEntry(bioluminescence())
     }
 
-    private fun regeneration(location: Char): BookEntryModel {
-        val entry = object : GeneEntryProvider(
-            realThis,
-            ModGenes.REGENERATION.get(),
-            mcLoc("textures/mob_effect/regeneration.png")
-        ) {
-            override fun generatePages() {
-            }
-
-            override fun entryName(): String {
-                return "Regeneration"
-            }
-        }
-
-        return entry.generate(location)
-    }
-
-    private fun bioluminescence(location: Char): BookEntryModel {
+    private fun bioluminescence(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
             ModGenes.BIOLUMINESCENCE.get(),
             Blocks.GLOWSTONE
         ) {
-            override fun generatePages() {
+            override fun firstPages() {
+                textPage(
+                    "Bioluminescence",
+                    "The ${major("Bioluminescence")} Gene causes entities to ${minor("spawn light sources")} when in the dark."
+                )
             }
+
 
             override fun entryName(): String {
                 return "Bioluminescence"
             }
         }
 
-        return entry.generate(location)
+        return entry.generate()
     }
 
 }

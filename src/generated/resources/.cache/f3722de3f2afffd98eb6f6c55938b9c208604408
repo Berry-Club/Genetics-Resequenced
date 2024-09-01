@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-31T21:28:19.413953	Books: geneticsresequenced
+// 1.21.1	2024-09-01T02:28:12.2837619	Books: geneticsresequenced
 0127510a3bbb03e6572cdab5011b8addf97baa94 data/geneticsresequenced/modonomicon/books/guide/book.json
 dfa020cc33e9bb97b172a2ea98391d9cd7b4b1fc data/geneticsresequenced/modonomicon/books/guide/categories/blocks.json
 01110fc98009aab5873abeb8fd4d870826798bcc data/geneticsresequenced/modonomicon/books/guide/categories/genes.json
@@ -14,8 +14,7 @@ dfa020cc33e9bb97b172a2ea98391d9cd7b4b1fc data/geneticsresequenced/modonomicon/bo
 9393973dad8e1c0cfbface55f88465680f532038 data/geneticsresequenced/modonomicon/books/guide/entries/blocks/incubator.json
 4e944a0f4a2b481cdd44e0c54d1ab0e81c88ba08 data/geneticsresequenced/modonomicon/books/guide/entries/blocks/plasmid_infuser.json
 51e0c373e1cad7eb025300c90162a46cfebea4bb data/geneticsresequenced/modonomicon/books/guide/entries/blocks/plasmid_injector.json
-6dec5f76cf5103d917dff00e99de0ff93c436e4b data/geneticsresequenced/modonomicon/books/guide/entries/genes/geneticsresequenced/bioluminescence.json
-4f7379a800856917a8ce293dbbea5bfec0f1feb6 data/geneticsresequenced/modonomicon/books/guide/entries/genes/geneticsresequenced/regeneration.json
+b477a97646ae8e924491737d5aa180ec14a8d24c data/geneticsresequenced/modonomicon/books/guide/entries/genes/geneticsresequenced/bioluminescence.json
 3c73657423a4420219a6640c76ed52d0d0ecb9eb data/geneticsresequenced/modonomicon/books/guide/entries/getting_started/getting_genes.json
 5f1cd2272db5053c1c3342ba508fd4e8fc816747 data/geneticsresequenced/modonomicon/books/guide/entries/getting_started/what_are_genes.json
 a8628e9061e4e54343359aee352d3ec7ae07d87f data/geneticsresequenced/modonomicon/books/guide/entries/items/anti_field_orb.json
