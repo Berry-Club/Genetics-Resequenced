@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.Blocks
 
 class GenesCategoryProvider(
@@ -47,6 +48,9 @@ class GenesCategoryProvider(
         }
 
         addEntry(bioluminescence())
+        addEntry(chatterbox())
+        addEntry(chilling())
+        addEntry(claws())
     }
 
     private fun bioluminescence(): BookEntryModel {
@@ -60,6 +64,67 @@ class GenesCategoryProvider(
                 textPage(
                     "Bioluminescence",
                     "The ${major("Bioluminescence")} Gene causes entities to ${minor("spawn light sources")} when in the dark."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun chatterbox(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.CHATTERBOX.get(),
+            "Chatterbox",
+            Blocks.NOTE_BLOCK
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Chatterbox",
+                    paragraphs(
+                        "The ${major("Chatterbox")} Gene causes your chat messages to be ${minor("read by the game's narrator")}.",
+                        "This only applies to players within 64 blocks of you, and can be disabled in the client config."
+                    )
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun chilling(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.CHILLING.get(),
+            "Chilling",
+            Items.POWDER_SNOW_BUCKET
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Chilling",
+                    "The ${major("Chilling")} Gene makes your melee attacks have a chance of ${minor("inflicting a buildup of Freezing")}."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun claws(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.CLAWS.get(),
+            "Claws",
+            Items.STONE_SWORD
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Claws",
+                    paragraphs(
+                        "The ${major("Claws")} Gene gives entities a chance to ${minor("inflict Bleeding")} on empty-handed melee attacks.",
+                        "When mutated into Claws II, the chance is doubled."
+                    )
+                    //TODO: Add a link to the mutation page?
                 )
             }
         }
