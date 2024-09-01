@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Water Breathing/$ Gene gives entities the $(minor)Water Breathing effect/$.$(br2)This Gene can be $(minor)mutated into Resistance 2/$.$(br2)This Gene $(minor)can be given to mobs/$."
+      "text": "The $(major)Water Breathing/$ Gene gives entities the $(minor)Water Breathing effect/$.$(br2).$(br2)This Gene $(minor)can be given to mobs/$."
     }
   ]
 }

@@ -1,7 +1,7 @@
 {
   "name": "XP Attraction Field",
   "category": "geneticsresequenced:genes",
-  "icon": "minecraft:iron_ingot",
+  "icon": "minecraft:experience_bottle",
   "pages": [
     {
       "type": "patchouli:text",

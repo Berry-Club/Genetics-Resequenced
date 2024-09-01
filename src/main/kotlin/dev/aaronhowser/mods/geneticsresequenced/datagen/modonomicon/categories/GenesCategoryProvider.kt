@@ -92,6 +92,11 @@ class GenesCategoryProvider(
         addEntry(strength())
         addEntry(teleport())
         addEntry(thorns())
+        addEntry(waterBreathing())
+        addEntry(witherHit())
+        addEntry(witherProof())
+        addEntry(wooly())
+        addEntry(xpAttractionField())
     }
 
     private fun bioluminescence(): BookEntryModel {
@@ -983,6 +988,106 @@ class GenesCategoryProvider(
                 textPage(
                     "Thorns",
                     "The ${major("Thorns")} Gene ${minor("reflects damage back to the attacker")}. This uses up some hunger"
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun waterBreathing(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.WATER_BREATHING.get(),
+            "Water Breathing",
+            mcLoc("textures/mob_effect/water_breathing.png")
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Water Breathing",
+                    "The ${major("Water Breathing")} Gene gives entities the ${minor("Water Breathing")} effect."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun witherHit(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.WITHER_HIT.get(),
+            "Wither Hit",
+            Items.WITHER_ROSE
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Wither Hit",
+                    "The ${major("Wither Hit")} Gene causes entities to ${minor("inflict Wither when melee attacking")}."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun witherProof(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.WITHER_PROOF.get(),
+            "Wither Proof",
+            Items.WITHER_SKELETON_SKULL
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Wither Proof",
+                    "The ${major("Wither Proof")} Gene makes entities ${minor("immune to Wither")}."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun wooly(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.WOOLY.get(),
+            "Wooly",
+            Items.WHITE_WOOL
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Wooly",
+                    paragraphs(
+                        "The ${major("Wooly")} Gene allows entities to ${minor("be sheared for Wool")}.",
+                        "If a player has it, they can shear themselves by sneak right-clicking with Shears.",
+                        "This has a configurable cooldown, with the default being 1 minute."
+                    )
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun xpAttractionField(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.XP_MAGNET.get(),
+            "XP Attraction Field",
+            Items.EXPERIENCE_BOTTLE
+        ) {
+            override fun firstPages() {
+                val orb = item("Anti-Field Orb", "anti_field_orb")
+                val block = block("Anti-Field Block", "anti_field_block")
+
+                textPage(
+                    "XP Attraction Field",
+                    paragraphs(
+                        "The ${major("XP Attraction Field")} Gene causes players to ${minor("grab XP Orbs from much larger distances")}.",
+                        "This Gene is disabled when the player has an active $orb, is near an active $block, or when sneaking."
+                    )
                 )
             }
         }
