@@ -59,6 +59,7 @@ class GenesCategoryProvider(
         addEntry(enderDragonHealth())
         addEntry(explosiveExit())
         addEntry(fireProof())
+        addEntry(flight())
     }
 
     private fun bioluminescence(): BookEntryModel {
@@ -300,6 +301,32 @@ class GenesCategoryProvider(
                 textPage(
                     "Fire Proof",
                     "The ${major("Fire Proof")} Gene makes entities ${minor(" completely immune to fire damage")}.",
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun flight(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.FLIGHT.get(),
+            "Flight",
+            Items.ELYTRA
+        ) {
+            override fun firstPages() {
+
+                val teleport = gene("Teleport", "teleport")
+                val jumpBoost = gene("Jump Boost", "jump_boost")
+                val noFallDamage = gene("No Fall Damage", "no_fall_damage")
+
+                textPage(
+                    "Flight",
+                    paragraphs(
+                        "The ${major("Flight")} Gene allows players to ${minor("fly")} by double-tapping jump.",
+                        "By default, this Gene requires the following other Genes:\n- $teleport\n- $jumpBoost\n- $noFallDamage"
+                    )
                 )
             }
         }

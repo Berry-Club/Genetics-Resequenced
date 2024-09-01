@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ItemLike
 
 abstract class GeneEntryProvider : BaseEntryProvider {
@@ -21,6 +22,11 @@ abstract class GeneEntryProvider : BaseEntryProvider {
         entryId = gene.id.toString().replace(":", "/")
     ) {
         this.gene = gene
+
+        this.plasmidStack = ModItems.PLASMID.toStack()
+        PlasmidItem.setGene(this.plasmidStack, gene)
+        PlasmidItem.setDnaPoints(this.plasmidStack, gene.dnaPointsRequired)
+
     }
 
     constructor(
@@ -35,9 +41,14 @@ abstract class GeneEntryProvider : BaseEntryProvider {
         entryId = gene.id.toString().replace(":", "/")
     ) {
         this.gene = gene
+
+        this.plasmidStack = ModItems.PLASMID.toStack()
+        PlasmidItem.setGene(this.plasmidStack, gene)
+        PlasmidItem.setDnaPoints(this.plasmidStack, gene.dnaPointsRequired)
     }
 
     val gene: Gene
+    val plasmidStack: ItemStack
 
     abstract fun firstPages()
     final override fun generatePages() {
@@ -57,5 +68,7 @@ abstract class GeneEntryProvider : BaseEntryProvider {
             plasmid,
             canMobsHaveText,
         )
+
     }
+
 }
