@@ -76,6 +76,11 @@ class GenesCategoryProvider(
         addEntry(moreHearts())
         addEntry(nightVision())
         addEntry(noFallDamage())
+        addEntry(noHunger())
+        addEntry(photosynthesis())
+        addEntry(poisonImmunity())
+        addEntry(regeneration())
+        addEntry(resistance())
     }
 
     private fun bioluminescence(): BookEntryModel {
@@ -661,6 +666,102 @@ class GenesCategoryProvider(
                 textPage(
                     "No Fall Damage",
                     "The ${major("No Fall Damage")} Gene  ${minor("negates all fall damage")}."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun noHunger(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.NO_HUNGER.get(),
+            "No Hunger",
+            Items.BREAD
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "No Hunger",
+                    "The ${major("No Hunger")} Gene ${minor("prevents hunger from draining")} below a specific point, which defaults to halfway."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun photosynthesis(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.PHOTOSYNTHESIS.get(),
+            "Photosynthesis",
+            Items.SUNFLOWER
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Photosynthesis",
+                    "The ${major("Photosynthesis")} Gene ${minor("feeds the player when they're in direct sunlight")}.",
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun poisonImmunity(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.POISON_IMMUNITY.get(),
+            "Poison Immunity",
+            Items.FERMENTED_SPIDER_EYE
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Poison Immunity",
+                    "The ${major("Poison Immunity")} Gene ${minor("makes entities immune to Poison")}.",
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun regeneration(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.REGENERATION.get(),
+            "Regeneration",
+            mcLoc("textures/mob_effect/regeneration.png")
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Regeneration",
+                    paragraphs(
+                        "The ${major("Regeneration")} Gene gives entities the ${minor("Regeneration")} effect.",
+                        "Can be mutated into ${major("Regeneration IV")}, which gives the ${minor("Regeneration IV")} effect."
+                    )
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun resistance(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.RESISTANCE.get(),
+            "Resistance",
+            mcLoc("textures/mob_effect/resistance.png")
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Resistance",
+                    paragraphs(
+                        "The ${major("Resistance")} Gene gives entities the ${minor("Resistance")} effect.",
+                        "Can be mutated into ${major("Resistance II")}, which gives the ${minor("Resistance II")} effect."
+                    )
                 )
             }
         }
