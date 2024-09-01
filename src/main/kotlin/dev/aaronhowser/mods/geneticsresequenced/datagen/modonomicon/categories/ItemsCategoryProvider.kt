@@ -466,9 +466,9 @@ class ItemsCategoryProvider(
                     paragraphs(
                         "The ${major("Anti-Field Orb")} allows you to ${minor("temporarily disable certain Genes")}.",
                         "Specifically, it disables the ${
-                            gene("Item Attraction Field", "item_attraction_field")
+                            gene("Item Attraction Field", "item_magnet")
                         } and ${
-                            gene("XP Attraction Field", "xp_attraction_field")
+                            gene("XP Attraction Field", "xp_magnet")
                         } when enabled.",
                     )
                 )

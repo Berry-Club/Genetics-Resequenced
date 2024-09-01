@@ -349,10 +349,10 @@ class BlocksCategoryProvider(
                     paragraphs(
                         "The ${major("Anti-Field Block")} allows you to ${minor("temporarily disable certain Genes")}.",
                         "Specifically, it disabled the ${
-                            gene("Item Attraction Field", "item_attraction_field")
-                        } and ${gene("XP Attraction Field", "xp_attraction_field")} when enabled.",
+                            gene("Item Attraction Field", "item_magnet")
+                        } and ${gene("XP Attraction Field", "xp_magnet")} when enabled.",
                         "The ${
-                            gene("Anti-Field Orb", "anti_field_orb")
+                            item("Anti-Field Orb", "anti_field_orb")
                         } functions similarly, but in item form."
                     )
                 )
