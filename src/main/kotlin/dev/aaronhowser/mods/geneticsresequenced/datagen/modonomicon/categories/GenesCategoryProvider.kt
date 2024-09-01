@@ -30,9 +30,7 @@ class GenesCategoryProvider(
     }
 
     override fun generateEntryMap(): Array<String> {
-        return arrayOf(
-            "br",
-        )
+        return arrayOf("")
     }
 
     fun mcLoc(path: String): ResourceLocation {

@@ -4,10 +4,7 @@ import com.klikli_dev.modonomicon.api.datagen.SingleBookSubProvider
 import com.klikli_dev.modonomicon.api.datagen.book.BookModel
 import com.klikli_dev.modonomicon.book.BookDisplayMode
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.categories.BlocksCategoryProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.categories.GenesCategoryProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.categories.GettingStartedCategoryProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.categories.ItemsCategoryProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.categories.*
 import java.util.function.BiConsumer
 
 class ModModonomiconProvider(
@@ -29,6 +26,7 @@ class ModModonomiconProvider(
         this.add(ItemsCategoryProvider(this).generate())
         this.add(BlocksCategoryProvider(this).generate())
         this.add(GenesCategoryProvider(this).generate())
+        this.add(NegativeGenesCategoryProvider(this).generate())
     }
 
     override fun bookName(): String {
