@@ -4,7 +4,6 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase
 import com.klikli_dev.modonomicon.api.datagen.EntryBackground
 import com.klikli_dev.modonomicon.api.datagen.EntryProvider
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
-import com.mojang.datafixers.util.Either
 import com.mojang.datafixers.util.Pair
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import net.minecraft.resources.ResourceLocation
@@ -15,18 +14,9 @@ abstract class GeneEntryProvider : EntryProvider {
     constructor(
         parent: CategoryProviderBase?,
         gene: Gene,
-        iconEither: Either<ResourceLocation, ItemLike>
-    ) : super(parent) {
-        this.iconEither = iconEither
-        this.gene = gene
-    }
-
-    constructor(
-        parent: CategoryProviderBase?,
-        gene: Gene,
         iconRl: ResourceLocation
     ) : super(parent) {
-        this.iconEither = Either.left(iconRl)
+        this.icon = iconRl
         this.gene = gene
     }
 
@@ -35,12 +25,12 @@ abstract class GeneEntryProvider : EntryProvider {
         gene: Gene,
         icon: ItemLike
     ) : super(parent) {
-        this.iconEither = Either.right(icon)
+        this.icon = icon
         this.gene = gene
     }
 
     val gene: Gene
-    val iconEither: Either<ResourceLocation, ItemLike>
+    val icon: Any
 
     override fun entryDescription(): String {
         return ""
@@ -51,11 +41,16 @@ abstract class GeneEntryProvider : EntryProvider {
     }
 
     override fun entryIcon(): BookIconModel {
-        return if (iconEither.left().isPresent) {
-            BookIconModel.create(iconEither.left().get())
-        } else {
-            BookIconModel.create(iconEither.right().get())
+        if (icon is ResourceLocation) {
+            return BookIconModel.create(icon)
         }
+
+        if (icon is ItemLike) {
+            return BookIconModel.create(icon)
+        }
+
+        error("Invalid icon type: $icon")
+
     }
 
     override fun entryId(): String {

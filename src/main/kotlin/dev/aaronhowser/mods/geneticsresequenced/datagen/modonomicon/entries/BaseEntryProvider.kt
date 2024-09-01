@@ -50,7 +50,7 @@ abstract class BaseEntryProvider(
 
         fun major(text: String): String = coloredText(ChatFormatting.DARK_PURPLE, text)
         fun minor(text: String): String = coloredText(ChatFormatting.DARK_AQUA, text)
-        fun bad(text: String): String = coloredText(ChatFormatting.DARK_RED, text)
+        fun bad(text: String): String = coloredText(ChatFormatting.RED, text)
 
         fun paragraphs(vararg paragraphs: String): String {
             return paragraphs.joinToString(separator = " \\\n  \\\n")
@@ -59,7 +59,6 @@ abstract class BaseEntryProvider(
 
     fun gene(text: String, entryId: String): String {
         return "[${text}](entry://genes/${entryId})"
-//        return "[${text}]()"
     }
 
     fun block(text: String, entryId: String): String {
