@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:book"
+    },
+    "O": {
+      "item": "geneticsresequenced:organic_matter"
+    }
+  },
+  "pattern": [
+    "OB"
+  ],
+  "result": {
+    "components": {
+      "modonomicon:book_id": "geneticsresequenced:guide"
+    },
+    "count": 1,
+    "id": "modonomicon:modonomicon"
+  }
+}

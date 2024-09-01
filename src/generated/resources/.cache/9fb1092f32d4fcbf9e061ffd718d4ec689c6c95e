@@ -1,4 +1,4 @@
-// 1.21.1	2024-08-15T18:23:43.6911279	Recipes
+// 1.21.1	2024-09-01T05:49:37.933356	Recipes
 94f3ab0e6901a90869daf7e7ae5d95663764d7a2 data/geneticsresequenced/advancement/recipes/misc/advanced_incubator.json
 9c603c2d32ffd6148eb0c28a3af31bedfcf89888 data/geneticsresequenced/advancement/recipes/misc/anti_field_block.json
 5a0d29631f27efad28fe28723ee2850ff0d60a12 data/geneticsresequenced/advancement/recipes/misc/anti_field_orb.json
@@ -35,3 +35,5 @@ ae250d814546b18b18cfefe011189bb4615741d2 data/geneticsresequenced/recipe/plasmid
 8440bbba39f6c46b5d55a5a59fe9913972caa362 data/geneticsresequenced/recipe/set_anti_plasmid.json
 a35e00a4fb86f95518f9737b5e591c5212692d08 data/geneticsresequenced/recipe/syringe.json
 bb371d2adde718d1760352a2e6c8e998bebf08a4 data/geneticsresequenced/recipe/unset_anti_plasmid.json
+d6281e62547d18347dfcf8b99e16df24d72e3e18 data/modonomicon/advancement/recipes/misc/modonomicon.json
+746a1043223c9e3d79b7870d9627dfb58d69001d data/modonomicon/recipe/modonomicon.json

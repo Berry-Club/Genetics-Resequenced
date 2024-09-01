@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmid
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
 import net.minecraft.data.recipes.*
@@ -36,6 +37,7 @@ class ModRecipeProvider(
         plasmidInjector.save(pRecipeOutput)
         scraper.save(pRecipeOutput)
         syringe.save(pRecipeOutput)
+        modonomicon().save(pRecipeOutput)
     }
 
     companion object {
@@ -200,5 +202,21 @@ class ModRecipeProvider(
             .define('B', Items.GLASS_BOTTLE)
             .define('A', Items.ARROW)
             .unlockedBy("has_scraper", has(ModItems.SCRAPER.get()))
+
+        fun modonomicon(): ShapedRecipeBuilder {
+            val bookStack = com.klikli_dev.modonomicon.registry.ItemRegistry.MODONOMICON.get().itemStack
+            val bookIdComponent = com.klikli_dev.modonomicon.registry.DataComponentRegistry.BOOK_ID.get()
+
+            bookStack.set(bookIdComponent, OtherUtil.modResource("guide"))
+
+            val recipe = ShapedRecipeBuilder.shaped(RecipeCategory.MISC, bookStack)
+                .pattern("OB")
+                .define('O', ModItems.ORGANIC_MATTER)
+                .define('B', Items.BOOK)
+                .unlockedBy("has_scraper", has(ModItems.SCRAPER.get()))
+
+            return recipe
+        }
     }
+
 }

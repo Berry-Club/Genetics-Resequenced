@@ -145,3 +145,7 @@
 - Updated the Patchouli book to reflect changes since 1.19
 - The Patchouli book is now in the creative tab
 - Fixed the Blood Purifier page in the Patchouli book having the Plasmid Injector instead
+
+### 1.2.1
+
+- Added a recipe for the Modonomicon book
