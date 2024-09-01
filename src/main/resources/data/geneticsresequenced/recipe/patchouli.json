@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:book"
+    },
+    "O": {
+      "item": "geneticsresequenced:organic_matter"
+    }
+  },
+  "pattern": [
+    "BO"
+  ],
+  "result": {
+    "components": {
+      "patchouli:book": "geneticsresequenced:guide"
+    },
+    "count": 1,
+    "id": "patchouli:guide_book"
+  }
+}

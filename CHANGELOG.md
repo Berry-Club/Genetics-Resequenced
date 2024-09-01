@@ -149,3 +149,4 @@
 ### 1.2.1
 
 - Added a recipe for the Modonomicon book
+- Added a recipe for the Patchouli book
