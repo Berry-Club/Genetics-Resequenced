@@ -53,6 +53,7 @@ class GenesCategoryProvider(
         val entry = object : GeneEntryProvider(
             realThis,
             ModGenes.BIOLUMINESCENCE.get(),
+            "Bioluminescence",
             Blocks.GLOWSTONE
         ) {
             override fun firstPages() {
@@ -60,11 +61,6 @@ class GenesCategoryProvider(
                     "Bioluminescence",
                     "The ${major("Bioluminescence")} Gene causes entities to ${minor("spawn light sources")} when in the dark."
                 )
-            }
-
-
-            override fun entryName(): String {
-                return "Bioluminescence"
             }
         }
 

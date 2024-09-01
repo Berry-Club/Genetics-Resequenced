@@ -10,9 +10,11 @@ abstract class GeneEntryProvider : BaseEntryProvider {
     constructor(
         parent: CategoryProviderBase?,
         gene: Gene,
+        name: String,
         iconRl: ResourceLocation
     ) : super(
         parent = parent,
+        name = name,
         icon = iconRl,
         entryId = gene.id.toString().replace(":", "/")
     ) {
@@ -22,9 +24,11 @@ abstract class GeneEntryProvider : BaseEntryProvider {
     constructor(
         parent: CategoryProviderBase?,
         gene: Gene,
+        name: String,
         icon: ItemLike
     ) : super(
         parent = parent,
+        name = name,
         icon = icon,
         entryId = gene.id.toString().replace(":", "/")
     ) {
@@ -34,7 +38,6 @@ abstract class GeneEntryProvider : BaseEntryProvider {
     val gene: Gene
 
     abstract fun firstPages()
-
     final override fun generatePages() {
         firstPages()
 

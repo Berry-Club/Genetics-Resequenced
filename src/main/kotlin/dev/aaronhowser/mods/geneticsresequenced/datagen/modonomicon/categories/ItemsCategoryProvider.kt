@@ -65,6 +65,7 @@ class ItemsCategoryProvider(
 
         val zombifyEntry = object : BaseEntryProvider(
             realThis,
+            "Potion of Zombify Villager",
             zombifyStack,
             "zombify_villager"
         ) {
@@ -79,10 +80,6 @@ class ItemsCategoryProvider(
                     "Obviously, it's best utilized in Splash form."
                 )
             }
-
-            override fun entryName(): String {
-                return "Potion of Zombify Villager"
-            }
         }
 
         return zombifyEntry.generate(location)
@@ -93,6 +90,7 @@ class ItemsCategoryProvider(
 
         val viralEntry = object : BaseEntryProvider(
             realThis,
+            "Viral Agents",
             viralStack,
             "viral_agents"
         ) {
@@ -112,10 +110,6 @@ class ItemsCategoryProvider(
                     "Virus Cultivation recipes can be crafted in the Brewing Stand or in either Incubator."
                 )
             }
-
-            override fun entryName(): String {
-                return "Viral Agents"
-            }
         }
 
         return viralEntry.generate(location)
@@ -124,6 +118,7 @@ class ItemsCategoryProvider(
     fun syringe(location: Char): BookEntryModel {
         val syringeEntry = object : BaseEntryProvider(
             realThis,
+            "Syringe",
             ModItems.SYRINGE,
             "syringe"
         ) {
@@ -152,11 +147,6 @@ class ItemsCategoryProvider(
 
                 //FIXME: Forgot to mention Metal Syringes?
             }
-
-            override fun entryName(): String {
-                return "Syringe"
-            }
-
         }
 
         return syringeEntry.generate(location)
@@ -165,6 +155,7 @@ class ItemsCategoryProvider(
     fun plasmid(location: Char): BookEntryModel {
         val plasmidEntry = object : BaseEntryProvider(
             realThis,
+            "Plasmid",
             ModItems.PLASMID,
             "plasmid"
         ) {
@@ -220,10 +211,6 @@ class ItemsCategoryProvider(
                 )
 
             }
-
-            override fun entryName(): String {
-                return "Plasmid"
-            }
         }
 
         return plasmidEntry.generate(location)
@@ -234,6 +221,7 @@ class ItemsCategoryProvider(
 
         val panaceaEntry = object : BaseEntryProvider(
             realThis,
+            "Panacea",
             panaceaStack,
             "panacea"
         ) {
@@ -248,10 +236,6 @@ class ItemsCategoryProvider(
                     "Sure, you could do the same with a Bucket of Milk and an Anti-Plasmid, but this is much more convenient, sometimes, maybe."
                 )
             }
-
-            override fun entryName(): String {
-                return "Panacea"
-            }
         }
 
         return panaceaEntry.generate(location)
@@ -260,6 +244,7 @@ class ItemsCategoryProvider(
     fun overclocker(location: Char): BookEntryModel {
         val overclockerEntry = object : BaseEntryProvider(
             realThis,
+            "Overclocker",
             ModItems.OVERCLOCKER,
             "overclocker"
         ) {
@@ -277,10 +262,6 @@ class ItemsCategoryProvider(
                     "You can have ${minor("up to 8 Overclockers")} in a machine."
                 )
             }
-
-            override fun entryName(): String {
-                return "Overclocker"
-            }
         }
 
         return overclockerEntry.generate(location)
@@ -291,6 +272,7 @@ class ItemsCategoryProvider(
 
         val mutationEntry = object : BaseEntryProvider(
             realThis,
+            "Potion of Mutation",
             mutationStack,
             "potion_mutation"
         ) {
@@ -315,10 +297,6 @@ class ItemsCategoryProvider(
                     }.",
                 )
             }
-
-            override fun entryName(): String {
-                return "Potion of Mutation"
-            }
         }
 
         return mutationEntry.generate(location)
@@ -327,6 +305,7 @@ class ItemsCategoryProvider(
     fun dragonHealthCrystal(location: Char): BookEntryModel {
         val dragonCrystalEntry = object : BaseEntryProvider(
             realThis,
+            "Dragon Health Crystal",
             ModItems.DRAGON_HEALTH_CRYSTAL,
             "dragon_health_crystal"
         ) {
@@ -346,10 +325,6 @@ class ItemsCategoryProvider(
                     "A fresh Dragon health Crystal has ${minor("1,000 durability")}. Each half-heart deals 1 point of durability damage. It can be repaired with End Crystals."
                 )
             }
-
-            override fun entryName(): String {
-                return "Dragon Health Crystal"
-            }
         }
 
         return dragonCrystalEntry.generate(location)
@@ -358,6 +333,7 @@ class ItemsCategoryProvider(
     fun dnaHelix(location: Char): BookEntryModel {
         val dnaHelixEntry = object : BaseEntryProvider(
             realThis,
+            "DNA Helix",
             ModItems.DNA_HELIX,
             "dna_helix"
         ) {
@@ -408,11 +384,6 @@ class ItemsCategoryProvider(
                 )
 
             }
-
-            override fun entryName(): String {
-                return "DNA Helix"
-            }
-
         }
 
         return dnaHelixEntry.generate(location)
@@ -421,6 +392,7 @@ class ItemsCategoryProvider(
     fun organicMatter(location: Char): BookEntryModel {
         val organicMatterEntry = object : BaseEntryProvider(
             realThis,
+            "Organic Matter",
             ModItems.ORGANIC_MATTER,
             "organic_matter"
         ) {
@@ -448,10 +420,6 @@ class ItemsCategoryProvider(
                     )
                 )
             }
-
-            override fun entryName(): String {
-                return "Organic Matter"
-            }
         }
 
         return organicMatterEntry.generate(location)
@@ -460,6 +428,7 @@ class ItemsCategoryProvider(
     fun scraper(location: Char): BookEntryModel {
         val scraperEntry = object : BaseEntryProvider(
             realThis,
+            "Scraper",
             ModItems.SCRAPER,
             "scraper"
         ) {
@@ -479,10 +448,6 @@ class ItemsCategoryProvider(
                     "The Scraper can be enchanted with ${minor("Delicate Touch")} to prevent damaging and angering entities."
                 )
             }
-
-            override fun entryName(): String {
-                return "Scraper"
-            }
         }
 
         return scraperEntry.generate(location)
@@ -491,6 +456,7 @@ class ItemsCategoryProvider(
     fun antiFieldOrb(location: Char): BookEntryModel {
         val antiFieldEntry = object : BaseEntryProvider(
             realThis,
+            "Anti-Field Orb",
             ModItems.ANTI_FIELD_ORB,
             "anti_field_orb"
         ) {
@@ -516,10 +482,6 @@ class ItemsCategoryProvider(
                 )
 
             }
-
-            override fun entryName(): String {
-                return "Anti-Field Orb"
-            }
         }
 
         return antiFieldEntry.generate(location)
@@ -528,6 +490,7 @@ class ItemsCategoryProvider(
     fun cell(location: Char): BookEntryModel {
         val cellEntry = object : BaseEntryProvider(
             realThis,
+            "Cell",
             ModItems.CELL,
             "cell"
         ) {
@@ -558,13 +521,7 @@ class ItemsCategoryProvider(
                         "You can see the Cell's entity type in the item's tooltip."
                     )
                 )
-
             }
-
-            override fun entryName(): String {
-                return "Cell"
-            }
-
         }
 
         return cellEntry.generate(location)
@@ -575,6 +532,7 @@ class ItemsCategoryProvider(
 
         val pcgEntry = object : BaseEntryProvider(
             realThis,
+            "Potion of Cell Growth",
             pcgStack,
             "potion_cell_growth"
         ) {
@@ -614,10 +572,6 @@ class ItemsCategoryProvider(
                     )
                 )
 
-            }
-
-            override fun entryName(): String {
-                return "Potion of Cell Growth"
             }
         }
 

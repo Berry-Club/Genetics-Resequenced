@@ -18,30 +18,40 @@ abstract class BaseEntryProvider : EntryProvider {
 
     constructor(
         parent: CategoryProviderBase?,
+        name: String,
         icon: ResourceLocation,
         entryId: String
     ) : super(parent) {
+        this.name = name
         this.entryId = entryId
         this.icon = Either.left(icon)
     }
 
     constructor(
         parent: CategoryProviderBase?,
+        name: String,
         icon: ItemStack,
         entryId: String
     ) : super(parent) {
+        this.name = name
         this.entryId = entryId
         this.icon = Either.right(icon)
     }
 
     constructor(
         parent: CategoryProviderBase?,
+        name: String,
         icon: ItemLike,
         entryId: String
-    ) : this(parent, icon.itemStack, entryId)
+    ) : this(parent, name, icon.itemStack, entryId)
 
+    val name: String
     val entryId: String
     val icon: Either<ResourceLocation, ItemStack>
+
+    override fun entryName(): String {
+        return this.name
+    }
 
     override fun entryId(): String {
         return this.entryId

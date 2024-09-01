@@ -62,6 +62,7 @@ class BlocksCategoryProvider(
     private fun plasmidInjector(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
+            "Plasmid Injector",
             ModBlocks.PLASMID_INJECTOR,
             "plasmid_injector"
         ) {
@@ -86,10 +87,6 @@ class BlocksCategoryProvider(
                     )
                 )
             }
-
-            override fun entryName(): String {
-                return "Plasmid Injector"
-            }
         }
 
         return entry.generate(location)
@@ -98,6 +95,7 @@ class BlocksCategoryProvider(
     private fun plasmidInfuser(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
+            "Plasmid Infuser",
             ModBlocks.PLASMID_INFUSER,
             "plasmid_infuser"
         ) {
@@ -125,10 +123,6 @@ class BlocksCategoryProvider(
                 )
 
             }
-
-            override fun entryName(): String {
-                return "Plasmid Infuser"
-            }
         }
 
         return entry.generate(location)
@@ -137,6 +131,7 @@ class BlocksCategoryProvider(
     private fun advancedIncubator(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
+            "Advanced Incubator",
             ModBlocks.ADVANCED_INCUBATOR,
             "advanced_incubator"
         ) {
@@ -189,10 +184,6 @@ class BlocksCategoryProvider(
                 )
 
             }
-
-            override fun entryName(): String {
-                return "Advanced Incubator"
-            }
         }
 
         return entry.generate(location)
@@ -201,6 +192,7 @@ class BlocksCategoryProvider(
     private fun incubator(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
+            "Incubator",
             ModBlocks.INCUBATOR,
             "incubator"
         ) {
@@ -218,10 +210,6 @@ class BlocksCategoryProvider(
                 )
 
             }
-
-            override fun entryName(): String {
-                return "Incubator"
-            }
         }
 
         return entry.generate(location)
@@ -230,6 +218,7 @@ class BlocksCategoryProvider(
     private fun dnaDecryptor(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
+            "DNA Decryptor",
             ModBlocks.DNA_DECRYPTOR,
             "dna_decryptor"
         ) {
@@ -253,10 +242,6 @@ class BlocksCategoryProvider(
                 )
 
             }
-
-            override fun entryName(): String {
-                return "DNA Decryptor"
-            }
         }
 
         return entry.generate(location)
@@ -265,6 +250,7 @@ class BlocksCategoryProvider(
     private fun dnaExtractor(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
+            "DNA Extractor",
             ModBlocks.DNA_EXTRACTOR,
             "dna_extractor"
         ) {
@@ -277,10 +263,6 @@ class BlocksCategoryProvider(
                     } into encrypted ${item("DNA Helices", "dna_helix")}."
                 )
             }
-
-            override fun entryName(): String {
-                return "DNA Extractor"
-            }
         }
 
         return entry.generate(location)
@@ -289,6 +271,7 @@ class BlocksCategoryProvider(
     private fun coalGenerator(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
+            "Coal Generator",
             ModBlocks.COAL_GENERATOR,
             "coal_generator"
         ) {
@@ -307,10 +290,6 @@ class BlocksCategoryProvider(
                     "If the Coal Generator fills up with fuel burning, it ${minor("pauses until it has room for more energy")}, preventing waste!"
                 )
             }
-
-            override fun entryName(): String {
-                return "Coal Generator"
-            }
         }
 
         return entry.generate(location)
@@ -319,6 +298,7 @@ class BlocksCategoryProvider(
     private fun cellAnalyzer(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
+            "Cell Analyzer",
             ModBlocks.CELL_ANALYZER,
             "cell_analyzer"
         ) {
@@ -331,10 +311,6 @@ class BlocksCategoryProvider(
                     } into ${item("Cells", "cell")}."
                 )
             }
-
-            override fun entryName(): String {
-                return "Cell Analyzer"
-            }
         }
 
         return entry.generate(location)
@@ -343,6 +319,7 @@ class BlocksCategoryProvider(
     private fun bloodPurifierBlock(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
+            "Blood Purifier",
             ModBlocks.BLOOD_PURIFIER,
             "blood_purifier"
         ) {
@@ -354,10 +331,6 @@ class BlocksCategoryProvider(
                 )
 
             }
-
-            override fun entryName(): String {
-                return "Blood Purifier"
-            }
         }
 
         return entry.generate(location)
@@ -366,6 +339,7 @@ class BlocksCategoryProvider(
     private fun antiFieldBlock(location: Char): BookEntryModel {
         val entry = object : BaseEntryProvider(
             realThis,
+            "Anti-Field Block",
             ModBlocks.ANTI_FIELD_BLOCK,
             "anti_field_block"
         ) {
@@ -392,11 +366,6 @@ class BlocksCategoryProvider(
                 )
 
             }
-
-            override fun entryName(): String {
-                return "Anti-Field Block"
-            }
-
         }
 
         return entry.generate(location)
