@@ -61,6 +61,12 @@ class NegativeGenesCategoryProvider(
         addEntry(weaving())
         addEntry(windCharged())
         addEntry(wither())
+
+        addEntry(grayDeath())
+        addEntry(greenDeath())
+        addEntry(unUndeath())
+        addEntry(whiteDeath())
+        addEntry(blackDeath())
     }
 
     private fun badOmen(): BookEntryModel {
@@ -365,6 +371,101 @@ class NegativeGenesCategoryProvider(
                 textPage(
                     "Wither",
                     "The ${major("Wither")} gives entities the ${bad("Wither")} effect."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+
+    private fun grayDeath(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.GRAY_DEATH.get(),
+            "Gray Death",
+            Items.POISONOUS_POTATO
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Gray Death",
+                    "The ${major("Gray Death")} Plague Gene ${bad("kills any entity that can age")}",
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun greenDeath(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.GREEN_DEATH.get(),
+            "Green Death",
+            Items.CREEPER_HEAD
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Green Death",
+                    "The ${major("Green Death")} Plague Gene ${bad("kills Creepers")}.",
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun unUndeath(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.UN_UNDEATH.get(),
+            "Un-Undeath",
+            Items.ZOMBIE_HEAD
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Un-Undeath",
+                    "The ${major("Un-Undeath")} Plague Gene ${bad("kills the undead")}.",
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun whiteDeath(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.WHITE_DEATH.get(),
+            "White Death",
+            Items.BONE
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "White Death",
+                    "The ${major("White Death")} Plague Gene ${bad("kills monsters")}.",
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun blackDeath(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.BLACK_DEATH.get(),
+            "Black Death",
+            Items.WITHER_ROSE
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Black Death",
+                    paragraphs(
+                        "The ${major("Black Death")} Plague Gene ${bad("instantly kills whoever has it")}. Given its strength, this Gene is much harder to acquire than others.",
+                        "To craft its DNA Helix, you'll need to get a ${minor("Syringe with **every other negative gene** in the game")}. This includes other Plagues, but not disabled Genes.",
+                        "From there, simply brew that Syringe into a Potion of Viral Agents."
+                    )
                 )
             }
         }
