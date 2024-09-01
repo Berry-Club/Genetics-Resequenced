@@ -21,6 +21,7 @@ class ModModonomiconProvider(
             .withAllowOpenBooksWithInvalidLinks(true)
             .withBookTextOffsetX(3)
             .withBookTextOffsetY(3)
+            .withBookTextOffsetWidth(-3)
     }
 
     override fun generateCategories() {
