@@ -1,4 +1,4 @@
-// 1.21.1	2024-09-01T04:29:47.6088144	Books: geneticsresequenced
+// 1.21.1	2024-09-01T04:36:09.4811926	Books: geneticsresequenced
 b4dc606e8b68b5bc4bec788e9384638d68a8a92c data/geneticsresequenced/modonomicon/books/guide/book.json
 dfa020cc33e9bb97b172a2ea98391d9cd7b4b1fc data/geneticsresequenced/modonomicon/books/guide/categories/blocks.json
 01110fc98009aab5873abeb8fd4d870826798bcc data/geneticsresequenced/modonomicon/books/guide/categories/genes.json
@@ -81,3 +81,9 @@ b6c727251305fadac6ae07ffef9723e2859b3536 data/geneticsresequenced/modonomicon/bo
 979aaa876ad90d892a4e492f1586f65529009f76 data/geneticsresequenced/modonomicon/books/guide/entries/items/syringe.json
 fcbe7d0a8b59c6dbc782d67d46670eb851d6aa03 data/geneticsresequenced/modonomicon/books/guide/entries/items/viral_agents.json
 327682cdee64d1d3e9ffe243cc6c1aab0742f599 data/geneticsresequenced/modonomicon/books/guide/entries/items/zombify_villager.json
+49c721932a21305c2ec8157d6af77f63ed40eb14 data/geneticsresequenced/modonomicon/books/guide/entries/negative_genes/geneticsresequenced/bad_omen.json
+bdff35809c993519bc92b6fe9f1d1817cf168991 data/geneticsresequenced/modonomicon/books/guide/entries/negative_genes/geneticsresequenced/blindness.json
+67b0da2478081f74ced5a9f2c86e33378ab9b102 data/geneticsresequenced/modonomicon/books/guide/entries/negative_genes/geneticsresequenced/cringe.json
+1c5194b7c882c9feb3ced26e95d4512d1dfc7962 data/geneticsresequenced/modonomicon/books/guide/entries/negative_genes/geneticsresequenced/cursed.json
+38a86e2b915f5dc9ceca3176de761dfaad6efab1 data/geneticsresequenced/modonomicon/books/guide/entries/negative_genes/geneticsresequenced/flambe.json
+bc98abb36b9811db158e194818549d5d86b6e446 data/geneticsresequenced/modonomicon/books/guide/entries/negative_genes/geneticsresequenced/hunger.json
