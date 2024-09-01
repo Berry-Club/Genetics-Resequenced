@@ -59,7 +59,6 @@ abstract class BaseEntryProvider(
 
     fun gene(text: String, entryId: String): String {
         return "[${text}](entry://genes/${entryId})"
-//        return "[${text}]()"
     }
 
     fun block(text: String, entryId: String): String {
