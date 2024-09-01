@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(major)Lay Egg/$ Gene causes the entity to $(minor)spawn an Egg/$ every so often. This time is configurable, but defaults to once every 5 minutes. $(br2)This Gene $(minor)can be given to mobs/$."
+      "text": "The $(major)Lay Egg/$ Gene causes entities to $(minor)spawn an Egg/$ every so often.$(br2)This time is configurable, but defaults to once every 5 minutes. $(br2)This Gene $(minor)can be given to mobs/$."
     }
   ]
 }

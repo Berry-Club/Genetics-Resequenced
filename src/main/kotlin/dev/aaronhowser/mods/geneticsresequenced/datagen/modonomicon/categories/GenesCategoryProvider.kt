@@ -60,6 +60,16 @@ class GenesCategoryProvider(
         addEntry(explosiveExit())
         addEntry(fireProof())
         addEntry(flight())
+        addEntry(haste())
+        addEntry(infinity())
+        addEntry(invisible())
+        addEntry(itemAttractionField())
+        addEntry(johnny())
+        addEntry(jumpBoost())
+        addEntry(keepInventory())
+        addEntry(knockback())
+        addEntry(layEgg())
+        addEntry(luck())
     }
 
     private fun bioluminescence(): BookEntryModel {
@@ -327,6 +337,198 @@ class GenesCategoryProvider(
                         "The ${major("Flight")} Gene allows players to ${minor("fly")} by double-tapping jump.",
                         "By default, this Gene requires the following other Genes:\n- $teleport\n- $jumpBoost\n- $noFallDamage"
                     )
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun haste(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.HASTE.get(),
+            "Haste",
+            mcLoc("textures/mob_effect/haste.png")
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Haste",
+                    paragraphs(
+                        "The ${major("Haste")} Gene gives entities the ${minor("Haste")} effect.",
+                        "Can be mutated into ${(major("Haste II"))}."
+                    )
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun infinity(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.INFINITY.get(),
+            "Infinite",
+            Items.BOW
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Infinity",
+                    "The ${major("Infinity")} Gene allows players to ${minor("fire Arrows when none are in their inventory")}."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun invisible(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.INVISIBLE.get(),
+            "Invisible",
+            Items.POTION
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Invisible",
+                    "The ${major("Invisible")} Gene gives entities the ${minor("Invisibility")} effect."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun itemAttractionField(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.ITEM_MAGNET.get(),
+            "Item Attraction Field",
+            Items.IRON_INGOT
+        ) {
+            override fun firstPages() {
+                val orb = item("Anti-Field Orb", "anti_field_orb")
+                val block = block("Anti-Field Block", "anti_field_block")
+
+                textPage(
+                    "Item Attraction Field",
+                    paragraphs(
+                        "The ${major("Item Attraction Field")} Gene causes players to ${minor("grab items from much larger distances")}.",
+                        "This Gene is disabled when the player has an active $orb, is near an active $block, or when sneaking."
+                    )
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun johnny(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.JOHNNY.get(),
+            "Johnny",
+            Items.IRON_AXE
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Johnny",
+                    "The ${major("Johnny")} Gene ${minor("increases your attack damage when using Axes")}."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun jumpBoost(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.JUMP_BOOST.get(),
+            "Jump Boost",
+            mcLoc("textures/mob_effect/jump_boost.png")
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Jump Boost",
+                    "The ${major("Jump Boost")} Gene gives entities the ${minor("Jump Boost")} effect.",
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun keepInventory(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.KEEP_INVENTORY.get(),
+            "Keep Inventory",
+            Items.SKELETON_SKULL
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Keep Inventory",
+                    "The ${major("Keep Inventory")} Gene causes players to ${minor("keep their inventory upon death")}."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun knockback(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.KNOCKBACK.get(),
+            "Knockback",
+            Items.PISTON
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Knockback",
+                    "The ${major("Knockback")} Gene ${minor("increases your attack knockback")}."
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun layEgg(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.LAY_EGG.get(),
+            "Lay Egg",
+            Items.EGG
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Lay Egg",
+                    paragraphs(
+                        "The ${major("Lay Egg")} Gene causes entities to ${minor("spawn an Egg")} every so often.",
+                        "This time is configurable, but defaults to once every 5 minutes."
+                    )
+                )
+            }
+        }
+
+        return entry.generate()
+    }
+
+    private fun luck(): BookEntryModel {
+        val entry = object : GeneEntryProvider(
+            realThis,
+            ModGenes.LUCK.get(),
+            "Luck",
+            mcLoc("textures/mob_effect/luck.png")
+        ) {
+            override fun firstPages() {
+                textPage(
+                    "Luck",
+                    "The ${major("Luck")} Gene gives entities the ${minor("Luck")} effect."
                 )
             }
         }
