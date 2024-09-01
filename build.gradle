@@ -161,7 +161,7 @@ dependencies {
     implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
     // Modonomicon
-    implementation ("com.klikli_dev:modonomicon-${minecraft_version}-neoforge:${modonomicon_version}"){transitive=false}
+    implementation ("com.klikli_dev:modonomicon-1.21.1-neoforge:${modonomicon_version}"){transitive=false}
 
     // EMI
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
