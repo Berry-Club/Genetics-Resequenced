@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "geneticsresequenced:syringe"
+    },
+    "X": {
+      "tag": "c:ingots/iron"
+    },
+    "Y": {
+      "tag": "c:obsidians"
+    },
+    "Z": {
+      "tag": "c:gems/diamond"
+    }
+  },
+  "pattern": [
+    "XZX",
+    "XAX",
+    "XYX"
+  ],
+  "result": {
+    "count": 1,
+    "id": "geneticsresequenced:metal_syringe"
+  }
+}

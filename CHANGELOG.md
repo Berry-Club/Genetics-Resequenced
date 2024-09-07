@@ -150,3 +150,7 @@
 
 - Added a recipe for the Modonomicon book
 - Added a recipe for the Patchouli book
+
+### 1.2.2
+
+- Added a recipe for the Metal Syringe

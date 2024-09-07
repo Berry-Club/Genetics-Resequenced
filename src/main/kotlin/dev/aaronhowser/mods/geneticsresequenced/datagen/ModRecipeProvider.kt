@@ -10,6 +10,7 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
 import net.minecraft.data.recipes.*
 import net.minecraft.world.item.Items
+import net.neoforged.neoforge.common.Tags
 import java.util.concurrent.CompletableFuture
 
 class ModRecipeProvider(
@@ -37,6 +38,7 @@ class ModRecipeProvider(
         plasmidInjector.save(pRecipeOutput)
         scraper.save(pRecipeOutput)
         syringe.save(pRecipeOutput)
+        syringeMetal.save(pRecipeOutput)
         modonomicon().save(pRecipeOutput)
     }
 
@@ -202,6 +204,16 @@ class ModRecipeProvider(
             .define('B', Items.GLASS_BOTTLE)
             .define('A', Items.ARROW)
             .unlockedBy("has_scraper", has(ModItems.SCRAPER.get()))
+
+        private val syringeMetal = ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.METAL_SYRINGE.get())
+            .pattern("XZX")
+            .pattern("XAX")
+            .pattern("XYX")
+            .define('X', Tags.Items.INGOTS_IRON)
+            .define('Z', Tags.Items.GEMS_DIAMOND)
+            .define('A', ModItems.SYRINGE.get())
+            .define('Y', Tags.Items.OBSIDIANS)
+            .unlockedBy("has_syringe", has(ModItems.SYRINGE.get()))
 
         fun modonomicon(): ShapedRecipeBuilder {
             val bookStack = com.klikli_dev.modonomicon.registry.ItemRegistry.MODONOMICON.get().itemStack

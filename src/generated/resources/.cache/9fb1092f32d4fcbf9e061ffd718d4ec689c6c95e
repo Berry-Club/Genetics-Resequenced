@@ -1,4 +1,4 @@
-// 1.21.1	2024-09-01T05:49:37.933356	Recipes
+// 1.21.1	2024-09-07T09:42:37.8197758	Recipes
 94f3ab0e6901a90869daf7e7ae5d95663764d7a2 data/geneticsresequenced/advancement/recipes/misc/advanced_incubator.json
 9c603c2d32ffd6148eb0c28a3af31bedfcf89888 data/geneticsresequenced/advancement/recipes/misc/anti_field_block.json
 5a0d29631f27efad28fe28723ee2850ff0d60a12 data/geneticsresequenced/advancement/recipes/misc/anti_field_orb.json
@@ -10,6 +10,7 @@ d129d74a8647cf124cf53c7293502e304af91bdc data/geneticsresequenced/advancement/re
 0cad35e04eb14aeef3478553cae6f33921cf1728 data/geneticsresequenced/advancement/recipes/misc/dna_extractor.json
 e3ac616c1931e5fd1891d20e5ab49b1bf5d096a0 data/geneticsresequenced/advancement/recipes/misc/dragon_health_crystal.json
 33a4747d10c80a20deb9db2e65a122de0bb36219 data/geneticsresequenced/advancement/recipes/misc/incubator.json
+f40b65c279759c7dad03d1117d51a160664884bf data/geneticsresequenced/advancement/recipes/misc/metal_syringe.json
 a77ac8e19efcfbbe2c86a0db75c4776a08f00c39 data/geneticsresequenced/advancement/recipes/misc/overclocker.json
 f36817ae2ad308c671001678248d3ba6d41a805a data/geneticsresequenced/advancement/recipes/misc/plasmid.json
 6f83d4b6818d02f71bdf11d2b3c92ffd5387c1d8 data/geneticsresequenced/advancement/recipes/misc/plasmid_infuser.json
@@ -27,6 +28,7 @@ c186c39a12db34cbdf453a5b1259806dbd56968d data/geneticsresequenced/recipe/coal_ge
 b1c441bbe6971d4e3a397a7f42763586b6e7c30b data/geneticsresequenced/recipe/dna_extractor.json
 42d38a24af1ff6664fbc5bf5b1214c07772a1ae9 data/geneticsresequenced/recipe/dragon_health_crystal.json
 689ba1ec48ddfbfcf2346fae6da709a7b78f9a05 data/geneticsresequenced/recipe/incubator.json
+b97460850c3c2ad84f2d5c7462ef831d85b3af4d data/geneticsresequenced/recipe/metal_syringe.json
 791e505eccff8fa5091ce65d95c19cc404bb5978 data/geneticsresequenced/recipe/overclocker.json
 7368b3d350b8aa6ef2671b1411a6cacb131496d5 data/geneticsresequenced/recipe/plasmid.json
 ae250d814546b18b18cfefe011189bb4615741d2 data/geneticsresequenced/recipe/plasmid_infuser.json
