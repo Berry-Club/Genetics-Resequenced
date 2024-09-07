@@ -6,16 +6,16 @@
       "item": "minecraft:blaze_rod"
     },
     "G": {
-      "item": "minecraft:glass"
+      "tag": "c:glass_blocks/colorless"
     },
     "I": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     },
     "R": {
-      "item": "minecraft:redstone"
+      "tag": "c:ingots/iron"
     },
     "S": {
-      "item": "minecraft:stone"
+      "tag": "c:stones"
     }
   },
   "pattern": [

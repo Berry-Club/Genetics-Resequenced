@@ -6,7 +6,7 @@
       "item": "geneticsresequenced:cell"
     },
     "I": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     },
     "P": {
       "item": "minecraft:sticky_piston"

@@ -6,7 +6,7 @@
       "item": "minecraft:bucket"
     },
     "I": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     },
     "S": {
       "item": "geneticsresequenced:syringe"

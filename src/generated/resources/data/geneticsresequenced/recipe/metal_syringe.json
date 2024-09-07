@@ -2,23 +2,23 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "A": {
-      "item": "geneticsresequenced:syringe"
+    "D": {
+      "tag": "c:gems/diamond"
     },
-    "X": {
+    "I": {
       "tag": "c:ingots/iron"
     },
-    "Y": {
+    "O": {
       "tag": "c:obsidians"
     },
-    "Z": {
-      "tag": "c:gems/diamond"
+    "S": {
+      "item": "geneticsresequenced:syringe"
     }
   },
   "pattern": [
-    "XZX",
-    "XAX",
-    "XYX"
+    "IOI",
+    "ISI",
+    "IDI"
   ],
   "result": {
     "count": 1,

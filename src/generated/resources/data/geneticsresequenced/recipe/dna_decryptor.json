@@ -6,13 +6,13 @@
       "item": "geneticsresequenced:dna_helix"
     },
     "G": {
-      "item": "minecraft:gold_ingot"
+      "tag": "c:ingots/gold"
     },
     "I": {
-      "item": "minecraft:iron_ingot"
+      "tag": "c:ingots/iron"
     },
     "L": {
-      "item": "minecraft:glass"
+      "tag": "c:glass_blocks/colorless"
     }
   },
   "pattern": [

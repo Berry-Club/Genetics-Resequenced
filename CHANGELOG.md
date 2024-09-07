@@ -154,3 +154,4 @@
 ### 1.2.2
 
 - Added a recipe for the Metal Syringe
+- Moved most recipes to use item tags where possible

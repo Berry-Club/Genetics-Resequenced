@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "D": {
-      "item": "minecraft:diamond"
+      "tag": "c:gems/diamond"
     },
     "E": {
       "item": "minecraft:end_crystal"

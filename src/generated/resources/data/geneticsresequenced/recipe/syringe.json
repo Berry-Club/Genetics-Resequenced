@@ -9,7 +9,7 @@
       "item": "minecraft:glass_bottle"
     },
     "G": {
-      "item": "minecraft:glass"
+      "tag": "c:glass_blocks/colorless"
     },
     "P": {
       "item": "minecraft:piston"

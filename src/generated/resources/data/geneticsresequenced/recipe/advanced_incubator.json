@@ -3,13 +3,13 @@
   "category": "misc",
   "key": {
     "E": {
-      "item": "minecraft:end_stone"
+      "tag": "c:end_stones"
     },
     "I": {
       "item": "geneticsresequenced:incubator"
     },
     "O": {
-      "item": "minecraft:obsidian"
+      "tag": "c:obsidians"
     }
   },
   "pattern": [

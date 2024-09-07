@@ -6,7 +6,7 @@
       "item": "geneticsresequenced:cell"
     },
     "L": {
-      "item": "minecraft:lapis_lazuli"
+      "tag": "c:gems/lapis"
     },
     "O": {
       "item": "minecraft:clock"
