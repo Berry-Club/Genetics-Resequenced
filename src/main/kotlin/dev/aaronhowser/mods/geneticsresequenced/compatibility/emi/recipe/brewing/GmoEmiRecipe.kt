@@ -79,12 +79,8 @@ class GmoEmiRecipe(
     }
 
     private val tooltips: List<Component> = listOf(
-        ModLanguageProvider.Tooltips.GMO_LINE_ONE
-            .toComponent(String.format("%.2f%%", geneChance * 100), idealGene.nameComponent)
-            .withColor(ChatFormatting.GRAY),
-        CommonComponents.EMPTY,
-        ModLanguageProvider.Tooltips.GMO_LINE_TWO
-            .toComponent(ModGenes.BASIC.get().nameComponent)
+        ModLanguageProvider.Tooltips.GMO_TEMPERATURE_REQUIREMENT
+            .toComponent()
             .withColor(ChatFormatting.GRAY),
         CommonComponents.EMPTY,
         ModLanguageProvider.Tooltips.GMO_CHORUS

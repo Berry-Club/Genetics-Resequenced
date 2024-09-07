@@ -117,8 +117,7 @@ class ModLanguageProvider(
         const val BLACK_DEATH_RECIPE = "tooltip.geneticsresequenced.black_death_recipe"
         const val SYRINGE_ADDING_GENES = "tooltip.geneticsresequenced.syringe.adding"
         const val SYRINGE_REMOVING_GENES = "tooltip.geneticsresequenced.syringe.removing"
-        const val GMO_LINE_ONE = "tooltip.geneticsresequenced.gmo_recipe.line1"
-        const val GMO_LINE_TWO = "tooltip.geneticsresequenced.gmo_recipe.line2"
+        const val GMO_TEMPERATURE_REQUIREMENT = "tooltip.geneticsresequenced.gmo_temperature_requirement"
         const val GMO_CHORUS = "tooltip.geneticsresequenced.gmo_recipe.line3"
         const val GMO_SUCCESS = "tooltip.geneticsresequenced.gmo_recipe.success"
         const val GMO_FAILURE = "tooltip.geneticsresequenced.gmo_recipe.failure"
@@ -644,11 +643,7 @@ class ModLanguageProvider(
         add(Tooltips.BLACK_DEATH_RECIPE, "Requires a Syringe that has every negative Gene.")
         add(Tooltips.SYRINGE_ADDING_GENES, "Adding Genes:")
         add(Tooltips.SYRINGE_REMOVING_GENES, "Removing:")
-        add(
-            Tooltips.GMO_LINE_ONE,
-            "If in a low-temperature Advanced Incubator, it has a %1\$s chance of producing a %2\$s Gene."
-        )
-        add(Tooltips.GMO_LINE_TWO, "Otherwise, it always produces a %s Gene.")
+        add(Tooltips.GMO_TEMPERATURE_REQUIREMENT, "Advanced Incubator §lmust be low temperature§r")
         add(Tooltips.GMO_CHORUS, "Overclockers lower your chance, but Chorus Fruits increase it!")
         add(Tooltips.ITEM_MAGNET_BLACKLIST, "Blacklisted from Item Magnet Gene")
         add(Tooltips.FE, "%1\$s/%2\$s FE")
