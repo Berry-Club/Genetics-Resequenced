@@ -97,7 +97,7 @@ class PlasmidInfuserEmiRecipe(
     override fun addWidgets(widgets: WidgetHolder) {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
         widgets.addSlot(helix, 0, 0)
-        widgets.addSlot(plasmid, 58, 0).recipeContext(this);
+        widgets.addSlot(plasmid, 58, 0).recipeContext(this)
 
         widgets.addTooltipText(tooltips, 0, 0, 76, 18)
     }
