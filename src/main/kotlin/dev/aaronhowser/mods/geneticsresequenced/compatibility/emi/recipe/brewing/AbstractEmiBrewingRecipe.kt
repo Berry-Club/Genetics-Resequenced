@@ -55,7 +55,7 @@ abstract class AbstractEmiBrewingRecipe : EmiRecipe {
         widgets.addSlot(ingredient, 62, 2).drawBack(false)
         widgets.addSlot(output, 85, 36).drawBack(false).recipeContext(this)
 
-        widgets.addTooltipText(tooltips, 0, 0, 120, 61)
+        widgets.addTooltipText(tooltips, 0, 0, displayWidth, displayHeight)
     }
 
 }

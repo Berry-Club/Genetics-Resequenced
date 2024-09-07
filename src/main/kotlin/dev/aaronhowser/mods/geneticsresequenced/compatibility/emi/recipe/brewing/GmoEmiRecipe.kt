@@ -19,6 +19,7 @@ import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.ChatFormatting
+import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
@@ -87,10 +88,11 @@ class GmoEmiRecipe(
         ModLanguageProvider.Tooltips.GMO_LINE_ONE
             .toComponent(String.format("%.2f%%", geneChance * 100), idealGene.nameComponent)
             .withColor(ChatFormatting.GRAY),
+        CommonComponents.EMPTY,
         ModLanguageProvider.Tooltips.GMO_LINE_TWO
             .toComponent(ModGenes.BASIC.get().nameComponent)
             .withColor(ChatFormatting.GRAY),
-        Component.literal(""),
+        CommonComponents.EMPTY,
         ModLanguageProvider.Tooltips.GMO_CHORUS
             .toComponent()
             .withColor(ChatFormatting.GRAY)
