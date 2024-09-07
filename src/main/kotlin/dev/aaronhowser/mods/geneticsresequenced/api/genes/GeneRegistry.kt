@@ -15,8 +15,8 @@ object GeneRegistry {
         .sync(true)
         .create()
 
-    fun fromId(id: ResourceLocation): Gene? = GENE_REGISTRY.get(id)
-    fun fromId(id: String): Gene? = GENE_REGISTRY.get(ResourceLocation.parse(id))
+    fun fromResourceLocation(id: ResourceLocation): Gene? = GENE_REGISTRY.get(id)
+    fun fromString(id: String): Gene? = GENE_REGISTRY.get(ResourceLocation.parse(id))
 
     fun fromIdPath(path: String): Gene? = GENE_REGISTRY.find { it.id.path == path }
 

@@ -47,7 +47,7 @@ class Gene(properties: GeneProperties) {
             }
 
             for (disabledGene in disabledGeneStrings) {
-                val gene = GeneRegistry.fromId(disabledGene)
+                val gene = GeneRegistry.fromString(disabledGene)
 
                 if (gene == null) {
                     GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")

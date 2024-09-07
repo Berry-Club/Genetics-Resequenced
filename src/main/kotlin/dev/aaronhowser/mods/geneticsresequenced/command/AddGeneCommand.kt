@@ -91,7 +91,7 @@ object AddGeneCommand {
         geneRl: ResourceLocation,
         entities: MutableCollection<out Entity>? = null
     ): Int {
-        val gene = GeneRegistry.fromId(geneRl)
+        val gene = GeneRegistry.fromResourceLocation(geneRl)
             ?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
 
         return addGene(context, gene, entities)
