@@ -72,7 +72,6 @@ class GmoEmiRecipe(
         val gmoStack = ModItems.GMO_CELL.toStack()
         EntityDnaItem.setEntityType(gmoStack, entityType)
         DnaHelixItem.setGene(gmoStack, idealGene)
-
         output = EmiStack.of(gmoStack)
 
         val chorusStack = Items.CHORUS_FRUIT.itemStack
@@ -113,8 +112,23 @@ class GmoEmiRecipe(
         widgets.addSlot(tertiaryItem, 0, 2).drawBack(false)
         widgets.addSlot(input, 39, 36).drawBack(false)
         widgets.addSlot(ingredient, 62, 2).drawBack(false)
-        widgets.addSlot(output, 85, 36).drawBack(false).recipeContext(this)
-        widgets.addSlot(failureStack, 62, 43).drawBack(false).recipeContext(this)
+
+        widgets.addSlot(output, 85, 36)
+            .drawBack(false)
+            .recipeContext(this)
+            .appendTooltip(
+                ModLanguageProvider.Tooltips.GMO_SUCCESS
+                    .toComponent((geneChance * 100).toInt())
+                    .withColor(ChatFormatting.GREEN)
+            )
+        widgets.addSlot(failureStack, 62, 43)
+            .drawBack(false)
+            .recipeContext(this)
+            .appendTooltip(
+                ModLanguageProvider.Tooltips.GMO_FAILURE
+                    .toComponent((100 - geneChance * 100).toInt())
+                    .withColor(ChatFormatting.RED)
+            )
 
         widgets.addTooltipText(tooltips, 0, 0, 120, 61)
     }

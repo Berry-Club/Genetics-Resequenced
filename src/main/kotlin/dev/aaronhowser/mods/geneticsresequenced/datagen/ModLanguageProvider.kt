@@ -120,6 +120,8 @@ class ModLanguageProvider(
         const val GMO_LINE_ONE = "tooltip.geneticsresequenced.gmo_recipe.line1"
         const val GMO_LINE_TWO = "tooltip.geneticsresequenced.gmo_recipe.line2"
         const val GMO_CHORUS = "tooltip.geneticsresequenced.gmo_recipe.line3"
+        const val GMO_SUCCESS = "tooltip.geneticsresequenced.gmo_recipe.success"
+        const val GMO_FAILURE = "tooltip.geneticsresequenced.gmo_recipe.failure"
         const val ITEM_MAGNET_BLACKLIST = "tooltip.geneticsresequenced.item_magnet_blacklist"
         const val FE = "tooltip.geneticsresequenced.fe"
         const val GMO_BASE_CHANCE = "tooltip.geneticsresequenced.gmo.chance"
@@ -653,6 +655,8 @@ class ModLanguageProvider(
         add(Tooltips.GMO_BASE_CHANCE, "%1\$s Gene base chance: %2\$d%%")
         add(Tooltips.GMO_OVERCLOCKER_CHANCE, "%1\$d Overclockers lower chance to %2\$d%%")
         add(Tooltips.GMO_CHORUS_CHANCE, "%1\$d Chorus Fruit increase chance to %2\$d%%")
+        add(Tooltips.GMO_SUCCESS, "Base success chance: %d%%")
+        add(Tooltips.GMO_FAILURE, "Base failure chance: %d%%")
 
         add(Commands.LIST_ALL_GENES, "Gene List:")
         add(Commands.NO_GENES, "No Genes found!")

@@ -166,3 +166,4 @@
 
 - Added the Metal Syringe to the Syringe book entry
 - Fixed some weird phrasing in the Potion of Mutation entry
+- Improved the GMO Cell Incubating EMI page
