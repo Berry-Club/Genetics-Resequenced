@@ -1,10 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_decryptor
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
@@ -88,8 +86,9 @@ class DnaDecryptorBlockEntity(
             inventory.setItem(i, itemHandler.getStackInSlot(i))
         }
 
-        val inputItem = inventory.getItem(INPUT_SLOT_INDEX).item
-        if (inputItem != ModItems.DNA_HELIX.get()) return false
+        val inputStack = inventory.getItem(INPUT_SLOT_INDEX)
+        if (inputStack.item != ModItems.DNA_HELIX.get()) return false
+        if (DnaHelixItem.getGene(inputStack) != null) return false
 
         val outputItem = getOutputFromInput(inventory.getItem(INPUT_SLOT_INDEX)) ?: return false
 
