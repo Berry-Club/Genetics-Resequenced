@@ -11,7 +11,14 @@
     {
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:syringe",
+      "link_recipe": true,
       "text": "When you extract blood, it'll be $(bad)contaminated/$. You'll need to clean it up in the $(l:geneticsresequenced:blocks/blood_purifier)Blood Purifier/$ before it can be used.$(br2)Plasmids are added in the $(l:geneticsresequenced:blocks/plasmid_injector)Plasmid Injector/$."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:metal_syringe",
+      "link_recipe": true,
+      "text": "You can also use the $(major)Metal Syringe/$, which targets others instead of yourself!$(br2)This is how you would give Genes to entities."
     }
   ]
 }

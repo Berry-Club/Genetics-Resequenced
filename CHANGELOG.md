@@ -161,3 +161,7 @@
 - Fixed the Metal Syringe telling you that the wrong Genes can't be injected into mobs (it was displaying negative genes, rather than filtering against Gene.canMobsHave)
 - Fixed decrypted DNA Helices being able to be put through the DNA Decryptor
 - Added the failed Basic Gene GM Cells to EMI's GMO Cell Incubating recipe page
+
+### 1.2.3
+
+- Added the Metal Syringe to the books' Syringe entries

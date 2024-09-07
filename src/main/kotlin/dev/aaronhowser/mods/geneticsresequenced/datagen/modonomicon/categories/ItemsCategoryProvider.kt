@@ -145,7 +145,13 @@ class ItemsCategoryProvider(
                     )
                 )
 
-                //FIXME: Forgot to mention Metal Syringes?
+                spotlightPage(
+                    ModItems.METAL_SYRINGE.toStack(),
+                    paragraphs(
+                        "You can also use the ${major("Metal Syringe")}, which targets others instead of yourself!",
+                        "This is how you would give Genes to entities."
+                    )
+                )
             }
         }
 

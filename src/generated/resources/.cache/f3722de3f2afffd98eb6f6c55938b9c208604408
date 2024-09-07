@@ -1,4 +1,4 @@
-// 1.21.1	2024-09-01T05:16:07.8029592	Books: geneticsresequenced
+// 1.21.1	2024-09-07T14:38:30.8672144	Books: geneticsresequenced
 38e5f92c925dcf48bac8f8615fb3634c835dbca9 data/geneticsresequenced/modonomicon/books/guide/book.json
 dfa020cc33e9bb97b172a2ea98391d9cd7b4b1fc data/geneticsresequenced/modonomicon/books/guide/categories/blocks.json
 01110fc98009aab5873abeb8fd4d870826798bcc data/geneticsresequenced/modonomicon/books/guide/categories/genes.json
@@ -78,7 +78,7 @@ abe415873e99692ad84ce243aee29a6a317b21ba data/geneticsresequenced/modonomicon/bo
 3de5ae7e751c589753ddd5a2511723c701d46c36 data/geneticsresequenced/modonomicon/books/guide/entries/items/potion_cell_growth.json
 c1824e6bb8a25953a3d851a6d25de9f6499161ee data/geneticsresequenced/modonomicon/books/guide/entries/items/potion_mutation.json
 b6c727251305fadac6ae07ffef9723e2859b3536 data/geneticsresequenced/modonomicon/books/guide/entries/items/scraper.json
-979aaa876ad90d892a4e492f1586f65529009f76 data/geneticsresequenced/modonomicon/books/guide/entries/items/syringe.json
+ce215c421bfe1101a5d7d28ced01ebb1fbcc9c8f data/geneticsresequenced/modonomicon/books/guide/entries/items/syringe.json
 fcbe7d0a8b59c6dbc782d67d46670eb851d6aa03 data/geneticsresequenced/modonomicon/books/guide/entries/items/viral_agents.json
 327682cdee64d1d3e9ffe243cc6c1aab0742f599 data/geneticsresequenced/modonomicon/books/guide/entries/items/zombify_villager.json
 49c721932a21305c2ec8157d6af77f63ed40eb14 data/geneticsresequenced/modonomicon/books/guide/entries/negative_genes/geneticsresequenced/bad_omen.json

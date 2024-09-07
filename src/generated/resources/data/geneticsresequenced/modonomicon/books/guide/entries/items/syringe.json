@@ -31,6 +31,18 @@
       },
       "text": "book.geneticsresequenced.guide.items.syringe.page_1.text",
       "title": "book.geneticsresequenced.guide.items.syringe.page_1.title"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "geneticsresequenced:metal_syringe"
+      },
+      "text": "book.geneticsresequenced.guide.items.syringe.page_2.text",
+      "title": "book.geneticsresequenced.guide.items.syringe.page_2.title"
     }
   ],
   "show_when_any_parent_unlocked": false,

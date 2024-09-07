@@ -459,6 +459,8 @@
   "book.geneticsresequenced.guide.items.syringe.page_0.title": "Syringe",
   "book.geneticsresequenced.guide.items.syringe.page_1.text": "When you extract blood, it'll be [#](FF5555)contaminated[#](). You'll need to clean it in the [Blood Purifier](entry://blocks/blood_purifier) before it can be used. \\\n  \\\nPlasmids are added in the [Plasmid Injector](entry://blocks/plasmid_injector).",
   "book.geneticsresequenced.guide.items.syringe.page_1.title": "",
+  "book.geneticsresequenced.guide.items.syringe.page_2.text": "You can also use the [#](AA00AA)Metal Syringe[#](), which targets others instead of yourself! \\\n  \\\nThis is how you would give Genes to entities.",
+  "book.geneticsresequenced.guide.items.syringe.page_2.title": "",
   "book.geneticsresequenced.guide.items.viral_agents.description": "",
   "book.geneticsresequenced.guide.items.viral_agents.name": "Viral Agents",
   "book.geneticsresequenced.guide.items.viral_agents.page_0.text": "[#](AA00AA)Viral Agents[#]() are the final crafting potion of the mod. They are used to craft [negative Genes](category://genes/negative), which are generally just any gene that's harmful. \\\n  \\\nNegative Genes are always lost on death, regardless of config setting. Additionally, there's a config to prevent players from even being able to get negative Genes in the first place.",
