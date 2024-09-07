@@ -153,6 +153,8 @@
 
 ### 1.2.2
 
+- Updated to Minecraft 1.21.1
+- Updated to NeoForge 21.1.42
 - Added a recipe for the Metal Syringe
 - Moved most recipes to use item tags where possible
 - Made it so you can use the Metal Syringe and Scraper on Villagers without opening their menu (if the item is #geneticsresequenced:prevents_some_mob_interaction and the entity type is #geneticsresequenced:allows_preventing_interaction)
