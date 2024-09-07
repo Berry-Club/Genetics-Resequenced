@@ -650,8 +650,8 @@ class ModLanguageProvider(
         add(Tooltips.GMO_BASE_CHANCE, "%1\$s Gene base chance: %2\$d%%")
         add(Tooltips.GMO_OVERCLOCKER_CHANCE, "%1\$d Overclockers lower chance to %2\$d%%")
         add(Tooltips.GMO_CHORUS_CHANCE, "%1\$d Chorus Fruit increase chance to %2\$d%%")
-        add(Tooltips.GMO_SUCCESS, "Base success chance: %d%%")
-        add(Tooltips.GMO_FAILURE, "Base failure chance: %d%%")
+        add(Tooltips.GMO_SUCCESS, "Result on success")
+        add(Tooltips.GMO_FAILURE, "Result on failure")
 
         add(Commands.LIST_ALL_GENES, "Gene List:")
         add(Commands.NO_GENES, "No Genes found!")

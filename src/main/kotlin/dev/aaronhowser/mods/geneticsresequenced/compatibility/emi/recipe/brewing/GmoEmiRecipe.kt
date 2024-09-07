@@ -116,7 +116,7 @@ class GmoEmiRecipe(
             .recipeContext(this)
             .appendTooltip(
                 ModLanguageProvider.Tooltips.GMO_SUCCESS
-                    .toComponent((geneChance * 100).toInt())
+                    .toComponent()
                     .withColor(ChatFormatting.GREEN)
             )
 
@@ -124,7 +124,7 @@ class GmoEmiRecipe(
             .recipeContext(this)
             .appendTooltip(
                 ModLanguageProvider.Tooltips.GMO_FAILURE
-                    .toComponent((100 - geneChance * 100).toInt())
+                    .toComponent()
                     .withColor(ChatFormatting.RED)
             )
 
