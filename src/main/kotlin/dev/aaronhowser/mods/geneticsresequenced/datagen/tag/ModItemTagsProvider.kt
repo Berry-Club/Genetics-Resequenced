@@ -23,12 +23,15 @@ class ModItemTagsProvider(
 ) : ItemTagsProvider(pOutput, pLookupProvider, pBlockTags, GeneticsResequenced.ID, existingFileHelper) {
 
     companion object {
-        val WOOLY_ITEM_TAG: TagKey<Item> = ItemTags.create(OtherUtil.modResource("wooly"))
-        val FIREBALL_ITEM_TAG: TagKey<Item> = ItemTags.create(OtherUtil.modResource("fireball"))
-        val MAGNET_ITEM_BLACKLIST: TagKey<Item> = ItemTags.create(OtherUtil.modResource("magnet_blacklist"))
+        private fun create(id: String): TagKey<Item> {
+            return ItemTags.create(OtherUtil.modResource(id))
+        }
 
-        val ENCHANTABLE_DELICATE_TOUCH: TagKey<Item> =
-            ItemTags.create(OtherUtil.modResource("enchantable/delicate_touch"))
+        val WOOLY_ITEM_TAG: TagKey<Item> = create("wooly")
+        val FIREBALL_ITEM_TAG: TagKey<Item> = create("fireball")
+        val MAGNET_ITEM_BLACKLIST: TagKey<Item> = create("magnet_blacklist")
+        val ENCHANTABLE_DELICATE_TOUCH: TagKey<Item> = create("enchantable/delicate_touch")
+        val PREVENTS_SOME_MOB_INTERACTION: TagKey<Item> = create("prevents_some_mob_interaction")
     }
 
     override fun addTags(pProvider: HolderLookup.Provider) {
@@ -46,6 +49,11 @@ class ModItemTagsProvider(
         this.tag(ENCHANTABLE_DELICATE_TOUCH)
             .add(ModItems.SCRAPER.get())
 
+        this.tag(PREVENTS_SOME_MOB_INTERACTION)
+            .add(
+                ModItems.METAL_SYRINGE.get(),
+                ModItems.SCRAPER.get()
+            )
     }
 
 }

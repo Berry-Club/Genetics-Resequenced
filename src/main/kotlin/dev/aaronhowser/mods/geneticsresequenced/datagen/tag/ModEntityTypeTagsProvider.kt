@@ -27,6 +27,7 @@ class ModEntityTypeTagsProvider(
         val AVOIDS_SCARE_ZOMBIE_GENE = create("avoids_scare_zombie_gene")
         val AVOIDS_SCARE_SKELETON_GENE = create("avoids_scare_skeleton_gene")
         val AVOIDS_SCARE_SPIDER_GENE = create("avoids_scare_spider_gene")
+        val ALLOWS_PREVENTING_INTERACTION = create("allows_preventing_interaction")
     }
 
     override fun addTags(pProvider: HolderLookup.Provider) {
@@ -60,6 +61,13 @@ class ModEntityTypeTagsProvider(
                 EntityType.SPIDER,
                 EntityType.CAVE_SPIDER
             )
+
+        this.tag(ALLOWS_PREVENTING_INTERACTION)
+            .add(
+                EntityType.VILLAGER,
+                EntityType.WANDERING_TRADER
+            )
+
     }
 
 }
