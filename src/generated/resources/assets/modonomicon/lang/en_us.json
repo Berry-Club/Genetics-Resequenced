@@ -445,8 +445,6 @@
   "book.geneticsresequenced.guide.items.potion_mutation.name": "Potion of Mutation",
   "book.geneticsresequenced.guide.items.potion_mutation.page_0.text": "The [#](AA00AA)Potion of Mutation[#]() is used to craft [Genetically Modified Cells](entry://items/potion_cell_growth@gmo_cell) that are set to [#](00AAAA)mutation Genes[#](). \\\n  \\\nMutation Genes are effectively just [#](00AAAA)more powerful[#]() Genes, and generally [#](FF5555)require other Genes[#]().",
   "book.geneticsresequenced.guide.items.potion_mutation.page_0.title": "Potion of Mutation",
-  "book.geneticsresequenced.guide.items.potion_mutation.page_1.text": "Like [Potions of Cell Growth](entry://items/potion_cell_growth), to make GM Cells, you have to process through a low-temperature [Advanced Incubator](entry://blocks/advanced_incubator).",
-  "book.geneticsresequenced.guide.items.potion_mutation.page_1.title": "",
   "book.geneticsresequenced.guide.items.scraper.description": "",
   "book.geneticsresequenced.guide.items.scraper.name": "Scraper",
   "book.geneticsresequenced.guide.items.scraper.page_0.text": "The [#](AA00AA)Scraper[#]() is used to get [Organic Matter](entry://items/organic_matter) from mobs. \\\n  \\\nTo use it, simply right-click the mob. This damages the mob, which counts as an attack and will anger neutral entities.",

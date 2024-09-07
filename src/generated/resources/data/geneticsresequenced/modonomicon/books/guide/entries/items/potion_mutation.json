@@ -15,17 +15,6 @@
   "name": "book.geneticsresequenced.guide.items.potion_mutation.name",
   "pages": [
     {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.geneticsresequenced.guide.items.potion_mutation.page_0.text",
-      "title": "book.geneticsresequenced.guide.items.potion_mutation.page_0.title",
-      "use_markdown_in_title": false
-    },
-    {
       "type": "modonomicon:spotlight",
       "anchor": "",
       "condition": {
@@ -39,8 +28,8 @@
         },
         "item": "minecraft:potion"
       },
-      "text": "book.geneticsresequenced.guide.items.potion_mutation.page_1.text",
-      "title": "book.geneticsresequenced.guide.items.potion_mutation.page_1.title"
+      "text": "book.geneticsresequenced.guide.items.potion_mutation.page_0.text",
+      "title": "book.geneticsresequenced.guide.items.potion_mutation.page_0.title"
     }
   ],
   "show_when_any_parent_unlocked": false,

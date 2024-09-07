@@ -283,7 +283,8 @@ class ItemsCategoryProvider(
             "potion_mutation"
         ) {
             override fun generatePages() {
-                textPage(
+                spotlightPage(
+                    mutationStack,
                     "Potion of Mutation",
                     paragraphs(
                         "The ${major("Potion of Mutation")} is used to craft ${
@@ -291,16 +292,6 @@ class ItemsCategoryProvider(
                         } that are set to ${minor("mutation Genes")}.",
                         "Mutation Genes are effectively just ${minor("more powerful")} Genes, and generally ${bad("require other Genes")}."
                     )
-                )
-
-                //FIXME: Weirdly worded
-                spotlightPage(
-                    mutationStack,
-                    "Like ${
-                        item("Potions of Cell Growth", "potion_cell_growth")
-                    }, to make GM Cells, you have to process through a low-temperature ${
-                        block("Advanced Incubator", "advanced_incubator")
-                    }.",
                 )
             }
         }

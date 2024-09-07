@@ -164,4 +164,5 @@
 
 ### 1.2.3
 
-- Added the Metal Syringe to the books' Syringe entries
+- Added the Metal Syringe to the Syringe book entry
+- Fixed some weird phrasing in the Potion of Mutation entry
