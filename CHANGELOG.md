@@ -155,3 +155,4 @@
 
 - Added a recipe for the Metal Syringe
 - Moved most recipes to use item tags where possible
+- Made it so you can use the Metal Syringe and Scraper on Villagers without opening their menu
