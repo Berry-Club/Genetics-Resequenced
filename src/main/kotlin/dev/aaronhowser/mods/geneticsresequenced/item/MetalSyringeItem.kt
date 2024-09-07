@@ -65,9 +65,8 @@ class MetalSyringeItem : SyringeItem() {
             }
 
             if (pInteractionTarget !is Player) {
-
                 val syringeGenes = getGenes(syringeStack)
-                val genesCantAdd = syringeGenes.filter { it.isNegative }
+                val genesCantAdd = syringeGenes.filterNot { it.canMobsHave }
                 for (gene in genesCantAdd) {
                     sendMessage(
                         ModLanguageProvider.Messages.METAL_SYRINGE_NO_MOBS.toComponent(
@@ -75,7 +74,6 @@ class MetalSyringeItem : SyringeItem() {
                         )
                     )
                 }
-
             }
 
             injectEntity(syringeStack, pInteractionTarget)

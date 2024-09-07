@@ -156,3 +156,4 @@
 - Added a recipe for the Metal Syringe
 - Moved most recipes to use item tags where possible
 - Made it so you can use the Metal Syringe and Scraper on Villagers without opening their menu (if the item is #geneticsresequenced:prevents_some_mob_interaction and the entity type is #geneticsresequenced:allows_preventing_interaction)
+- Fixed the Metal Syringe telling you that the wrong Genes can't be injected into mobs (it was displaying negative genes, rather than filtering against Gene.canMobsHave)

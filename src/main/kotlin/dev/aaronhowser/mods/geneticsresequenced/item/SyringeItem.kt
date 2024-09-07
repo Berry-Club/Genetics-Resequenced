@@ -8,7 +8,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneListItemComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityUuid
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.hasEntity
@@ -89,8 +88,10 @@ open class SyringeItem : Item(
                 getGenes(syringeStack).filter { it.canMobsHave }.toSet()
             }
 
+            val genesToRemove = getAntigenes(syringeStack)
+
             addGenes(entity, genesToAdd)
-            removeGenes(entity, getAntigenes(syringeStack))
+            removeGenes(entity, genesToRemove)
 
             clearGenes(syringeStack)
             setEntity(syringeStack, null)
