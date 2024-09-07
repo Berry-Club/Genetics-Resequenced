@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorScreen
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorScreen
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
@@ -11,6 +12,7 @@ class Bubbles(
     x: Int,
     y: Int,
     val shouldRender: () -> Boolean,
+    val highTemperature: () -> Boolean
 ) : AbstractWidget(
     x, y,
     ScreenTextures.Elements.Bubbles.Dimensions.WIDTH,
@@ -32,7 +34,13 @@ class Bubbles(
     override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
         if (!shouldRender()) return
 
-        if (++bubblePosProgress % IncubatorScreen.FAST_BUBBLE_SPEED == 0) {
+        val bubbleSpeed = if (highTemperature()) {
+            IncubatorScreen.FAST_BUBBLE_SPEED
+        } else {
+            AdvancedIncubatorScreen.SLOW_BUBBLE_SPEED
+        }
+
+        if (++bubblePosProgress % bubbleSpeed == 0) {
             bubblePos++
             bubblePosProgress = 0
         }

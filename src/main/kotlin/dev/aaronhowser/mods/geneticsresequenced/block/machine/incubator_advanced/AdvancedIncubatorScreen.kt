@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.Bubbles
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.ProgressArrow
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.TemperatureIndicator
-import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Inventory
@@ -17,8 +16,7 @@ class AdvancedIncubatorScreen(
 ) : MachineScreen<AdvancedIncubatorMenu>(pMenu, pPlayerInventory, pTitle) {
 
     companion object {
-        private const val FAST_BUBBLE_SPEED = 12
-        private const val SLOW_BUBBLE_SPEED = 12 * 3
+        const val SLOW_BUBBLE_SPEED = 12 * 3
     }
 
     override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.INCUBATOR_ADVANCED
@@ -46,7 +44,8 @@ class AdvancedIncubatorScreen(
         bubbles = Bubbles(
             x = leftPos + ScreenTextures.Elements.Bubbles.Position.X,
             y = topPos + ScreenTextures.Elements.Bubbles.Position.Y,
-            shouldRender = { menu.isCrafting }
+            shouldRender = { menu.isCrafting },
+            highTemperature = { menu.isHighTemperature }
         )
 
         addRenderableWidget(temperatureIndicator)

@@ -40,7 +40,8 @@ class IncubatorScreen(
         bubbles = Bubbles(
             x = leftPos + ScreenTextures.Elements.Bubbles.Position.X,
             y = topPos + ScreenTextures.Elements.Bubbles.Position.Y,
-            shouldRender = { menu.isCrafting }
+            shouldRender = { menu.isCrafting },
+            highTemperature = { true }
         )
 
         addRenderableWidget(temperatureIndicator)

@@ -167,3 +167,4 @@
 - Added the Metal Syringe to the Syringe book entry
 - Fixed some weird phrasing in the Potion of Mutation entry
 - Major overhaul of the GMO Cell Incubating EMI recipe page
+- Fixed the Advanced Incubator screen bubbles not animating slower in low-temperature mode
