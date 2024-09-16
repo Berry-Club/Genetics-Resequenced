@@ -29,7 +29,7 @@ class PanaceaEffect : MobEffect(
     }
 
     private fun removeAllNegativeGenes(pLivingEntity: LivingEntity) {
-        val genes = pLivingEntity.geneHolders.filter { it.value().isNegative }.iterator()
+        val genes = pLivingEntity.geneHolders.filter { it.isNegative }.iterator()
 
         while (genes.hasNext()) {
             val gene = genes.next()

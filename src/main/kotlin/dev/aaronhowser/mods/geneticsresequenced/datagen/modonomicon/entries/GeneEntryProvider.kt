@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ItemLike
 
@@ -53,7 +52,7 @@ abstract class GeneEntryProvider : BaseEntryProvider {
     final override fun generatePages() {
         firstPages()
 
-        val canMobsHaveText = if (gene.allowedEntities.any { it.value() !== EntityType.PLAYER }) {
+        val canMobsHaveText = if (gene.allowsMobs) {
             "This Gene ${minor("can be given to mobs")}."
         } else {
             "This Gene ${bad("cannot be given to mobs")}."
