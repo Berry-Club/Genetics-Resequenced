@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.resources.ResourceKey
-import net.minecraft.world.effect.MobEffects
 
 object ModGenes {
 
