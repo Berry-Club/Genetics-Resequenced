@@ -196,7 +196,7 @@ object AddGeneCommand {
             return false
         }
 
-        val cantAddToMob = target !is Player && !geneToAdd.canMobsHave
+        val cantAddToMob = target !is Player && !geneToAdd.allowsMobs
         if (cantAddToMob) {
             GeneticsResequenced.LOGGER.info("Tried to add gene ${geneToAdd.id} to ${target.name.string}, but they can't have it!")
             return false
