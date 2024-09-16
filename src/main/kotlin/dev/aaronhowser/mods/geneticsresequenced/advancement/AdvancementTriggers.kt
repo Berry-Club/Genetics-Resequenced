@@ -102,7 +102,7 @@ object AdvancementTriggers {
         if (stack.item == ModItems.DNA_HELIX.get() || stack.item == ModItems.PLASMID.get()) {
             if (DnaHelixItem.getGene(stack) != ModGenes.BLACK_DEATH) return
         } else if (stack.isSyringe()) {
-            if (!SyringeItem.getGenes(stack).contains(ModGenes.BLACK_DEATH)) return
+            if (ModGenes.BLACK_DEATH !in SyringeItem.getGeneRks(stack)) return
         } else return
 
         val advancement =
