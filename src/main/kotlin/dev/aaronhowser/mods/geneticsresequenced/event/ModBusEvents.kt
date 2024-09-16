@@ -24,7 +24,7 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent
 import net.neoforged.neoforge.items.IItemHandler
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
-import net.neoforged.neoforge.registries.NewRegistryEvent
+import net.neoforged.neoforge.registries.DataPackRegistryEvent
 
 @EventBusSubscriber(
     modid = GeneticsResequenced.ID,
@@ -33,8 +33,12 @@ import net.neoforged.neoforge.registries.NewRegistryEvent
 object ModBusEvents {
 
     @SubscribeEvent
-    fun onNewRegistry(event: NewRegistryEvent) {
-        event.register(GeneRegistry.GENE_REGISTRY)
+    fun onNewDataPackRegistry(event: DataPackRegistryEvent.NewRegistry) {
+        event.dataPackRegistry(
+            GeneRegistry.GENE_REGISTRY_KEY,
+            Gene.CODEC,
+            Gene.CODEC
+        )
     }
 
     @SubscribeEvent

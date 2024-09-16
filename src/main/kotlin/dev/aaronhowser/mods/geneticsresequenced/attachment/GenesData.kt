@@ -54,7 +54,7 @@ data class GenesData(
                 return false
             }
 
-            if (this !is Player && !newGene.canMobsHave) {
+            if (this !is Player && !newGene.allowsMobs) {
                 GeneticsResequenced.LOGGER.debug("Tried to give gene $newGene to mob $this, but mobs cannot have that gene!")
                 return false
             }

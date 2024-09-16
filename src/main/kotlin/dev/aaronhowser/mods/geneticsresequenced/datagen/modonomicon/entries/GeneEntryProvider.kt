@@ -52,7 +52,7 @@ abstract class GeneEntryProvider : BaseEntryProvider {
     final override fun generatePages() {
         firstPages()
 
-        val canMobsHaveText = if (gene.canMobsHave) {
+        val canMobsHaveText = if (gene.allowsMobs) {
             "This Gene ${minor("can be given to mobs")}."
         } else {
             "This Gene ${bad("cannot be given to mobs")}."

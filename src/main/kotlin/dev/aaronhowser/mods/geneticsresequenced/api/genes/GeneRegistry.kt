@@ -9,31 +9,31 @@ import net.neoforged.neoforge.registries.RegistryBuilder
 object GeneRegistry {
 
     val GENE_REGISTRY_KEY: ResourceKey<Registry<Gene>> =
-        ResourceKey.createRegistryKey(OtherUtil.modResource("genes"))
+        ResourceKey.createRegistryKey(OtherUtil.modResource("gene"))
 
-    val GENE_REGISTRY: Registry<Gene> = RegistryBuilder(GENE_REGISTRY_KEY)
-        .sync(true)
-        .create()
+//    val GENE_REGISTRY: Registry<Gene> = RegistryBuilder(GENE_REGISTRY_KEY)
+//        .sync(true)
+//        .create()
 
-    fun fromResourceLocation(id: ResourceLocation): Gene? = GENE_REGISTRY.get(id)
-    fun fromString(id: String): Gene? = GENE_REGISTRY.get(ResourceLocation.parse(id))
+//    fun fromResourceLocation(id: ResourceLocation): Gene? = GENE_REGISTRY.get(id)
+//    fun fromString(id: String): Gene? = GENE_REGISTRY.get(ResourceLocation.parse(id))
 
-    fun fromIdPath(path: String): Gene? = GENE_REGISTRY.find { it.id.path == path }
+//    fun fromIdPath(path: String): Gene? = GENE_REGISTRY.find { it.id.path == path }
 
-    fun getRegistrySorted(): List<Gene> {
-        val mutations = mutableListOf<Gene>()
-        val negatives = mutableListOf<Gene>()
-        val other = mutableListOf<Gene>()
-
-        for (gene in GENE_REGISTRY) {
-            when {
-                gene.isMutation -> mutations.add(gene)
-                gene.isNegative -> negatives.add(gene)
-                else -> other.add(gene)
-            }
-        }
-
-        return other.sortedBy { it.id } + mutations.sortedBy { it.id } + negatives.sortedBy { it.id }
-    }
+//    fun getRegistrySorted(): List<Gene> {
+//        val mutations = mutableListOf<Gene>()
+//        val negatives = mutableListOf<Gene>()
+//        val other = mutableListOf<Gene>()
+//
+//        for (gene in GENE_REGISTRY) {
+//            when {
+//                gene.isMutation -> mutations.add(gene)
+//                gene.isNegative -> negatives.add(gene)
+//                else -> other.add(gene)
+//            }
+//        }
+//
+//        return other.sortedBy { it.id } + mutations.sortedBy { it.id } + negatives.sortedBy { it.id }
+//    }
 
 }
