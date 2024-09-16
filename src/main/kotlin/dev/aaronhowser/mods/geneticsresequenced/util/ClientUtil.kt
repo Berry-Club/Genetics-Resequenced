@@ -9,7 +9,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.client.Minecraft
 import net.minecraft.client.Options
 import net.minecraft.client.player.LocalPlayer
-import net.minecraft.core.RegistryAccess
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.world.entity.player.PlayerModelPart
@@ -18,9 +17,6 @@ object ClientUtil {
 
     val localPlayer: LocalPlayer?
         get() = Minecraft.getInstance().player
-
-    val localRegistryAccess: RegistryAccess?
-        get() = Minecraft.getInstance().level?.registryAccess()
 
     fun playerIsCreative(): Boolean = localPlayer?.isCreative ?: false
 
