@@ -14,13 +14,14 @@ import dev.emi.emi.api.render.EmiTexture
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
+import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.animal.Cow
 import net.minecraft.world.item.crafting.Ingredient
 
 class PlasmidInjectorEmiRecipe(
-    val gene: Gene,
+    val geneHolder: Holder<Gene>,
     val isMetal: Boolean,
     val isAntiPlasmid: Boolean
 ) : EmiRecipe {
@@ -32,11 +33,14 @@ class PlasmidInjectorEmiRecipe(
             val removingGlass: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
             val removingMetal: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
 
-            for (gene in GeneRegistry.getRegistrySorted().filterNot { it.isHidden }) {
-                addingGlass.add(PlasmidInjectorEmiRecipe(gene, isMetal = false, isAntiPlasmid = false))
-                addingMetal.add(PlasmidInjectorEmiRecipe(gene, isMetal = false, isAntiPlasmid = true))
-                removingGlass.add(PlasmidInjectorEmiRecipe(gene, isMetal = true, isAntiPlasmid = false))
-                removingMetal.add(PlasmidInjectorEmiRecipe(gene, isMetal = true, isAntiPlasmid = true))
+            for (geneHolder in GeneRegistry
+                .getRegistrySorted(ClientUtil.localRegistryAccess!!)
+                .filterNot { it.value().isHidden }
+            ) {
+                addingGlass.add(PlasmidInjectorEmiRecipe(geneHolder, isMetal = false, isAntiPlasmid = false))
+                addingMetal.add(PlasmidInjectorEmiRecipe(geneHolder, isMetal = false, isAntiPlasmid = true))
+                removingGlass.add(PlasmidInjectorEmiRecipe(geneHolder, isMetal = true, isAntiPlasmid = false))
+                removingMetal.add(PlasmidInjectorEmiRecipe(geneHolder, isMetal = true, isAntiPlasmid = true))
             }
 
             return addingGlass + addingMetal + removingGlass + removingMetal
@@ -49,7 +53,7 @@ class PlasmidInjectorEmiRecipe(
 
     init {
         val plasmidStack = if (isAntiPlasmid) ModItems.ANTI_PLASMID.toStack() else ModItems.PLASMID.toStack()
-        PlasmidItem.setGene(plasmidStack, gene, gene.dnaPointsRequired)
+        PlasmidItem.setGene(plasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
         plasmid = EmiIngredient.of(Ingredient.of(plasmidStack))
 
         val syringeStack = if (isMetal) ModItems.METAL_SYRINGE.toStack() else ModItems.SYRINGE.toStack()
@@ -66,9 +70,9 @@ class PlasmidInjectorEmiRecipe(
         syringeBefore = EmiIngredient.of(Ingredient.of(syringeStack))
 
         if (isAntiPlasmid) {
-            SyringeItem.addAntigene(syringeStack, gene)
+            SyringeItem.addAntigene(syringeStack, geneHolder)
         } else {
-            SyringeItem.addGene(syringeStack, gene)
+            SyringeItem.addGene(syringeStack, geneHolder)
         }
 
         syringeAfter = EmiStack.of(syringeStack)
@@ -79,7 +83,7 @@ class PlasmidInjectorEmiRecipe(
     }
 
     override fun getId(): ResourceLocation {
-        val geneString = gene.id.toString().replace(':', '/')
+        val geneString = geneHolder.value().id.toString().replace(':', '/')
         val syringeString = if (isMetal) "/metal" else ""
         val plasmidString = if (isAntiPlasmid) "/anti" else ""
 
