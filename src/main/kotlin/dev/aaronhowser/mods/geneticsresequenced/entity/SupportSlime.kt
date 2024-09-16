@@ -1,13 +1,16 @@
 package dev.aaronhowser.mods.geneticsresequenced.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.SupportSlimeAttackGoal
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.getUuidOrNull
 import net.minecraft.nbt.CompoundTag
@@ -62,10 +65,13 @@ class SupportSlime(
 
             if (!item.`is`(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())) return
 
-            if (!player.hasGene(ModGenes.SLIMY_DEATH.get())) {
+            if (!player.hasGene(ModGenes.SLIMY_DEATH)) {
                 player.sendSystemMessage(
                     ModLanguageProvider.Messages.SUPPORT_SLIME_CREATIVE.toComponent(
-                        ModGenes.SLIMY_DEATH.get().nameComponent
+                        GeneRegistry.fromResourceKey(
+                            ClientUtil.localRegistryAccess!!,
+                            ModGenes.SLIMY_DEATH
+                        )!!.value().nameComponent(ClientUtil.localRegistryAccess!!)
                     )
                 )
             }
@@ -101,7 +107,7 @@ class SupportSlime(
             boundingBox.inflate(10.0)
         ).sortedByDescending { distanceToSqr(it) }
 
-        val owner = nearbyLivingEntities.firstOrNull { it.hasGene(ModGenes.SLIMY_DEATH.get()) }
+        val owner = nearbyLivingEntities.firstOrNull { it.hasGene(ModGenes.SLIMY_DEATH) }
         if (owner != null) {
             setOwner(owner.uuid)
         } else {
