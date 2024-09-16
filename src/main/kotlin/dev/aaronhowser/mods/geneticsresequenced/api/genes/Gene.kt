@@ -85,7 +85,7 @@ data class Gene(
 
     val id = OtherUtil.modResource("gene")
 
-    private val requiredGenes: MutableSet<Gene> = mutableSetOf()
+    private val requiredGenes: MutableSet<Holder<Gene>> = mutableSetOf()
 
     fun isMutation(registries: HolderLookup.Provider): Boolean {
         return GeneRegistry.getAllGeneHolders(registries)
@@ -93,15 +93,15 @@ data class Gene(
             .not()
     }
 
-    fun addRequiredGenes(genes: Collection<Gene>) {
+    fun addRequiredGenes(genes: Collection<Holder<Gene>>) {
         requiredGenes.addAll(genes)
     }
 
-    fun removeRequiredGenes(genes: Collection<Gene>) {
+    fun removeRequiredGenes(genes: Collection<Holder<Gene>>) {
         requiredGenes.removeAll(genes.toSet())
     }
 
-    fun getRequiredGenes(): Set<Gene> {
+    fun getRequiredGeneHolders(): Set<Holder<Gene>> {
         return requiredGenes.toSet()
     }
 
