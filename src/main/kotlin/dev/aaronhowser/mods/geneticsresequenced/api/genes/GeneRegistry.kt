@@ -11,6 +11,8 @@ object GeneRegistry {
     val GENE_REGISTRY_KEY: ResourceKey<Registry<Gene>> =
         ResourceKey.createRegistryKey(OtherUtil.modResource("gene"))
 
+    val GENE_REGISTRY =
+
 //    val GENE_REGISTRY: Registry<Gene> = RegistryBuilder(GENE_REGISTRY_KEY)
 //        .sync(true)
 //        .create()
