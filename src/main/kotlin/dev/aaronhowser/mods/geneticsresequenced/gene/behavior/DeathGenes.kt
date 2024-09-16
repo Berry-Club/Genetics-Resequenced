@@ -9,7 +9,6 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.curios.KeepCurioIn
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.item.ItemEntity

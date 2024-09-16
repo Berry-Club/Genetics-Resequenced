@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.client.Minecraft
 import net.minecraft.client.Options
 import net.minecraft.client.player.LocalPlayer

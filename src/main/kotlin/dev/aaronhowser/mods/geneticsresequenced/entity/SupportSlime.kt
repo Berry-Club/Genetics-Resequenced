@@ -7,7 +7,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.SupportSlimeAttackGoal
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.getUuidOrNull
