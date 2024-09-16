@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
@@ -39,7 +39,7 @@ object AttributeGenes {
     fun returnModifiersOnDeath(event: PlayerRespawnEvent) {
         val player = event.entity
 
-        for (gene in player.geneHolders) {
+        for (gene in player.genes) {
             gene.setAttributeModifiers(player, true)
         }
 

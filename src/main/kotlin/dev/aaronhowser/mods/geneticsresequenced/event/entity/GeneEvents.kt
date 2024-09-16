@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event.entity
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -48,7 +48,7 @@ object GeneEvents {
 
     private fun checkForMissingRequirements(entity: LivingEntity) {
 
-        val genes = entity.geneHolders
+        val genes = entity.genes
 
         val genesWithMissingRequirements = genes.filter { gene ->
             !gene.getRequiredGenes().all { it in genes }

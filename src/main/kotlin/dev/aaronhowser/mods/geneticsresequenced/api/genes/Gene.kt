@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.api.genes
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -11,6 +12,7 @@ import io.netty.buffer.ByteBuf
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.HolderLookup.Provider
 import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistryCodecs
 import net.minecraft.core.registries.BuiltInRegistries
@@ -87,7 +89,9 @@ data class Gene(
     private val requiredGenes: MutableSet<Gene> = mutableSetOf()
 
     fun isMutation(registries: HolderLookup.Provider): Boolean {
-        return GeneRegistry.getAllGeneHolders(registries)
+        return registries
+            .lookupOrThrow(GeneRegistry.GENE_REGISTRY_KEY)
+            .listElements()
             .anyMatch { it.value().mutatesInto.getOrNull()?.value() === this }
             .not()
     }
@@ -108,7 +112,7 @@ data class Gene(
     @Suppress("MemberVisibilityCanBePrivate")
     val translationKey: String = "gene.${id.namespace}.${id.path}"
 
-    fun nameComponent(registries: HolderLookup.Provider): MutableComponent {
+    fun nameComponent(registries: Provider): MutableComponent {
         val color = if (isActive) {
             if (isNegative) {
                 ChatFormatting.RED

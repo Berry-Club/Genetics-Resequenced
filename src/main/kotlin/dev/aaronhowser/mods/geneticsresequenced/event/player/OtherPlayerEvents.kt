@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
@@ -61,7 +61,7 @@ object OtherPlayerEvents {
 
         InventoryListener.startListening(player)
 
-        for (gene in player.geneHolders) {
+        for (gene in player.genes) {
             ModPacketHandler.messagePlayer(
                 player,
                 GeneChangedPacket(
@@ -93,7 +93,7 @@ object OtherPlayerEvents {
         val player = event.entity as? ServerPlayer ?: return
 
         val entity = event.target as? LivingEntity ?: return
-        val genes = entity.geneHolders
+        val genes = entity.genes
 
         for (gene in genes) {
             ModPacketHandler.messagePlayer(
