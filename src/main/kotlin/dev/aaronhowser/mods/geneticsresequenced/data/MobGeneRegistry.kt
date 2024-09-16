@@ -8,6 +8,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.packs.resources.ResourceManager
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener
@@ -20,14 +21,14 @@ class MobGeneRegistry : SimpleJsonResourceReloadListener(
 ) {
 
     companion object {
-        private val entityGeneMap: MutableMap<EntityType<*>, Map<Gene, Int>> = mutableMapOf()
-        fun getRegistry(): Map<EntityType<*>, Map<Gene, Int>> = entityGeneMap.toMap()
+        private val entityGeneMap: MutableMap<EntityType<*>, Map<Holder<Gene>, Int>> = mutableMapOf()
+        fun getRegistry(): Map<EntityType<*>, Map<Holder<Gene>, Int>> = entityGeneMap.toMap()
 
-        fun getGeneWeights(entityType: EntityType<*>): Map<Gene, Int> {
+        fun getGeneWeights(entityType: EntityType<*>): Map<Holder<Gene>, Int> {
             return entityGeneMap[entityType] ?: emptyMap()
         }
 
-        fun getGeneWeights(entityRl: ResourceLocation): Map<Gene, Int> {
+        fun getGeneWeights(entityRl: ResourceLocation): Map<Holder<Gene>, Int> {
             val entityType = OtherUtil.getEntityType(entityRl)
 
             return getGeneWeights(entityType)
@@ -35,7 +36,7 @@ class MobGeneRegistry : SimpleJsonResourceReloadListener(
 
     }
 
-    private fun assignGenes(entityRl: ResourceLocation, genes: Map<Gene, Int>) {
+    private fun assignGenes(entityRl: ResourceLocation, genes: Map<Holder<Gene>, Int>) {
         val entityType = OtherUtil.getEntityType(entityRl)
 
         val currentGenes = entityGeneMap[entityType]?.toMutableMap() ?: mutableMapOf()
@@ -45,7 +46,7 @@ class MobGeneRegistry : SimpleJsonResourceReloadListener(
 
     data class EntityGenes(
         val entity: ResourceLocation,
-        val genes: Map<Gene, Int>
+        val genes: Map<Holder<Gene>, Int>
     ) {
         companion object {
             val CODEC: Codec<EntityGenes> = RecordCodecBuilder.create { instance ->

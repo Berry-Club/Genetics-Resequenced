@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Comp
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -162,7 +163,7 @@ class AdvancedIncubatorMenu(
                 index++,
                 ModLanguageProvider.Tooltips.GMO_BASE_CHANCE
                     .toComponent(
-                        recipe.idealGene.nameComponent,
+                        recipe.idealGene.nameComponent(ClientUtil.localRegistryAccess!!),
                         (baseChance * 100).toInt()
                     )
                     .withColor(ChatFormatting.GRAY)
