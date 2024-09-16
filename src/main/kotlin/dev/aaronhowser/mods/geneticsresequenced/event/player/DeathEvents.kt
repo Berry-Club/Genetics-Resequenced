@@ -72,11 +72,11 @@ object DeathEvents {
 
     private fun removeNegativeGenesOnDeath(event: PlayerEvent.PlayerRespawnEvent) {
         val player = event.entity
-        val playerGenes = player.geneHolders
+        val playerGeneHolders = player.geneHolders
 
-        if (playerGenes.isEmpty()) return
+        if (playerGeneHolders.isEmpty()) return
 
-        val negativeGenes = playerGenes.filter { it.isNegative }
+        val negativeGenes = playerGeneHolders.filter { it.value().isNegative }
         if (negativeGenes.isEmpty()) return
 
         val component =
