@@ -21,7 +21,6 @@ import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
-import net.minecraft.resources.RegistryFileCodec
 import net.minecraft.resources.RegistryFixedCodec
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectInstance
@@ -40,7 +39,7 @@ data class Gene(
     val mutatesInto: Optional<Holder<Gene>>,
     val potionDetails: Optional<PotionDetails>,
     val attributeModifiers: List<AttributeEntry>
-) : Holder<Gene> {
+) {
 
     data class AttributeEntry(
         val attribute: Holder<Attribute>,
@@ -50,12 +49,9 @@ data class Gene(
             val DIRECT_CODEC: Codec<AttributeEntry> = RecordCodecBuilder.create { instance ->
                 instance.group(
                     Attribute.CODEC.fieldOf("attribute").forGetter(AttributeEntry::attribute),
-                    AttributeModifier.MAP_CODEC.forGetter(AttributeEntry::modifier)
+                    AttributeModifier.MAP_CODEC.fieldOf("modifiers").forGetter(AttributeEntry::modifier)
                 ).apply(instance, ::AttributeEntry)
             }
-
-            val DIRECT_STREAM_CODEC: StreamCodec<ByteBuf, AttributeEntry> =
-                ByteBufCodecs.fromCodec(DIRECT_CODEC)
         }
     }
 
@@ -232,7 +228,6 @@ data class Gene(
                 instance.group(
                     Codec.BOOL.optionalFieldOf("negative", false).forGetter(Gene::isNegative),
                     Codec.BOOL.optionalFieldOf("hidden", false).forGetter(Gene::isHidden),
-                    Codec.INT.fieldOf("dna_points_required").forGetter(Gene::dnaPointsRequired),
                     RegistryCodecs
                         .homogeneousList(Registries.ENTITY_TYPE)
                         .optionalFieldOf(
@@ -240,6 +235,7 @@ data class Gene(
                             AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup())
                         )
                         .forGetter(Gene::allowedEntities),
+                    Codec.INT.fieldOf("dna_points_required").forGetter(Gene::dnaPointsRequired),
                     RegistryFixedCodec.create(GeneRegistry.GENE_REGISTRY_KEY).optionalFieldOf("mutates_into")
                         .forGetter(Gene::mutatesInto),
                     PotionDetails.DIRECT_CODEC.optionalFieldOf("potion_details").forGetter(Gene::potionDetails),
@@ -249,27 +245,23 @@ data class Gene(
             }
 
         val DIRECT_STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.optional(ByteBufCodecs.BOOL),
-            Gene::isNegative,
-            ByteBufCodecs.optional(ByteBufCodecs.BOOL),
-            Gene::isHidden,
-            ByteBufCodecs.INT,
-            Gene::dnaPointsRequired,
-            ByteBufCodecs.optional(ByteBufCodecs.holderSet(Registries.ENTITY_TYPE)),
-            Gene::allowedEntities,
-            ByteBufCodecs.optional(ByteBufCodecs.holder(GeneRegistry.GENE_REGISTRY_KEY, Gene.STREAM_CODEC)),
-            Gene::mutatesInto,
-            ByteBufCodecs.optional(PotionDetails.DIRECT_STREAM_CODEC),
-            Gene::potionDetails,
-            ByteBufCodecs.optional(AttributeEntry.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list())),
-            Gene::attributeModifiers,
+            ByteBufCodecs.BOOL, Gene::isNegative,
+            ByteBufCodecs.BOOL, Gene::isHidden,
+            ByteBufCodecs.BOOL, Gene::allowsMobs,
+            ByteBufCodecs.INT, Gene::dnaPointsRequired,
+            ByteBufCodecs.optional(Gene.STREAM_CODEC), Gene::mutatesInto,
+            ByteBufCodecs.optional(PotionDetails.DIRECT_STREAM_CODEC), Gene::potionDetails,
+            ByteBufCodecs.map(
+                Attribute.STREAM_CODEC,
+                AttributeModifier.STREAM_CODEC.apply(ByteBufCodecs.list())
+            ), Gene::attributeModifiers,
             ::Gene
         )
 
-        val CODEC: RegistryFileCodec<Gene> = RegistryFileCodec.create(GeneRegistry.GENE_REGISTRY_KEY, DIRECT_CODEC)
+        val CODEC: Codec<Gene> = GeneRegistry.GENE_REGISTRY.byNameCodec()
 
-        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Holder<Gene>> =
-            ByteBufCodecs.holder(GeneRegistry.GENE_REGISTRY_KEY, DIRECT_STREAM_CODEC)
+        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Gene> =
+            ByteBufCodecs.registry(GeneRegistry.GENE_REGISTRY_KEY)
 
     }
 
