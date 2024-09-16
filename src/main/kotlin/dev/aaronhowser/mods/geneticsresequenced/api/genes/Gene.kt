@@ -11,7 +11,6 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
-import net.minecraft.core.HolderLookup
 import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistryCodecs
 import net.minecraft.core.registries.BuiltInRegistries
@@ -33,7 +32,6 @@ import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs
 import net.neoforged.neoforge.registries.holdersets.AnyHolderSet
 import java.util.*
-import kotlin.jvm.optionals.getOrNull
 
 data class Gene(
     val isNegative: Boolean,
@@ -43,7 +41,7 @@ data class Gene(
     val mutatesInto: Optional<Holder<Gene>>,
     val potionDetails: Optional<PotionDetails>,
     val attributeModifiers: List<AttributeEntry>
-) {
+) : Holder<Gene> {
 
     data class AttributeEntry(
         val attribute: Holder<Attribute>,
@@ -87,13 +85,8 @@ data class Gene(
 
     private val requiredGenes: MutableSet<Gene> = mutableSetOf()
 
-    fun isMutation(registries: HolderLookup.Provider): Boolean {
-        return registries
-            .lookupOrThrow(GeneRegistry.GENE_REGISTRY_KEY)
-            .listElements()
-            .anyMatch { it.value().mutatesInto.getOrNull()?.value() === this }
-            .not()
-    }
+    val isMutation: Boolean
+        get() = GeneRegistry.GENE_REGISTRY.any { it.mutatesInto == this }
 
     fun addRequiredGenes(genes: Collection<Gene>) {
         requiredGenes.addAll(genes)
