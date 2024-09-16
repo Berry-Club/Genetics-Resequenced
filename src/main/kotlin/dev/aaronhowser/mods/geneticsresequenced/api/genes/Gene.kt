@@ -12,7 +12,6 @@ import io.netty.buffer.ByteBuf
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
-import net.minecraft.core.HolderLookup.Provider
 import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistryCodecs
 import net.minecraft.core.registries.BuiltInRegistries
@@ -112,46 +111,47 @@ data class Gene(
     @Suppress("MemberVisibilityCanBePrivate")
     val translationKey: String = "gene.${id.namespace}.${id.path}"
 
-    fun nameComponent(registries: Provider): MutableComponent {
-        val color = if (isActive) {
-            if (isNegative) {
-                ChatFormatting.RED
-            } else if (isMutation(registries)) {
-                ChatFormatting.DARK_PURPLE
+    val nameComponent: MutableComponent
+        get() {
+            val color = if (isActive) {
+                if (isNegative) {
+                    ChatFormatting.RED
+                } else if (isMutation) {
+                    ChatFormatting.DARK_PURPLE
+                } else {
+                    ChatFormatting.GRAY
+                }
             } else {
-                ChatFormatting.GRAY
-            }
-        } else {
-            ChatFormatting.DARK_RED
-        }
-
-        val component = translationKey
-            .toComponent()
-            .withStyle {
-                it
-                    .withColor(color)
-                    .withHoverEvent(
-                        HoverEvent(
-                            HoverEvent.Action.SHOW_TEXT,
-                            ModLanguageProvider.Tooltips.COPY_GENE.toComponent(id.toString())
-                        )
-                    )
-                    .withClickEvent(
-                        ClickEvent(
-                            ClickEvent.Action.COPY_TO_CLIPBOARD,
-                            id.toString()
-                        )
-                    )
+                ChatFormatting.DARK_RED
             }
 
-        if (!isActive) {
-            component.append(
-                ModLanguageProvider.Genes.GENE_DISABLED.toComponent()
-            )
-        }
+            val component = translationKey
+                .toComponent()
+                .withStyle {
+                    it
+                        .withColor(color)
+                        .withHoverEvent(
+                            HoverEvent(
+                                HoverEvent.Action.SHOW_TEXT,
+                                ModLanguageProvider.Tooltips.COPY_GENE.toComponent(id.toString())
+                            )
+                        )
+                        .withClickEvent(
+                            ClickEvent(
+                                ClickEvent.Action.COPY_TO_CLIPBOARD,
+                                id.toString()
+                            )
+                        )
+                }
 
-        return component
-    }
+            if (!isActive) {
+                component.append(
+                    ModLanguageProvider.Genes.GENE_DISABLED.toComponent()
+                )
+            }
+
+            return component
+        }
 
     var isActive: Boolean = true
         private set
@@ -167,7 +167,7 @@ data class Gene(
     }
 
     fun getPotion(): MobEffectInstance? {
-        val potionDetails = potionDetails.getOrNull() ?: return null
+        val potionDetails = potionDetails ?: return null
 
         return MobEffectInstance(
             potionDetails.effect,
@@ -181,15 +181,19 @@ data class Gene(
 
     fun setAttributeModifiers(livingEntity: LivingEntity, isAdding: Boolean) {
 
-        for ((attribute, modifier) in attributeModifiers) {
+        for ((attribute, modifiers) in attributeModifiers) {
 
             val attributeInstance = livingEntity.getAttribute(attribute)
                 ?: throw IllegalArgumentException("Living Entity does not have attribute $attribute")
 
-            if (isAdding) {
-                if (!attributeInstance.hasModifier(modifier.id)) attributeInstance.addPermanentModifier(modifier)
-            } else {
-                if (attributeInstance.hasModifier(modifier.id)) attributeInstance.removeModifier(modifier)
+            for (modifier in modifiers) {
+
+                if (isAdding) {
+                    if (!attributeInstance.hasModifier(modifier.id)) attributeInstance.addPermanentModifier(modifier)
+                } else {
+                    if (attributeInstance.hasModifier(modifier.id)) attributeInstance.removeModifier(modifier)
+                }
+
             }
 
         }
@@ -200,30 +204,30 @@ data class Gene(
 
         val unknownGeneComponent: MutableComponent = ModLanguageProvider.Genes.UNKNOWN.toComponent()
 
-//        fun checkDeactivationConfig() {
-//            val disabledGeneStrings = ServerConfig.disabledGenes.get()
-//
-//            val previouslyDisabledGenes = GeneRegistry.GENE_REGISTRY.filterNot { it.isActive }
-//            for (previouslyDisabledGene in previouslyDisabledGenes) {
-//                previouslyDisabledGene.reactivate()
-//            }
-//
-//            for (disabledGene in disabledGeneStrings) {
-//                val gene = GeneRegistry.fromString(disabledGene)
-//
-//                if (gene == null) {
-//                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")
-//                    continue
-//                }
-//
-//                if (gene in requiredGenes) {
-//                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it is required for the mod to function!")
-//                    continue
-//                }
-//
-//                gene.deactivate()
-//            }
-//        }
+        fun checkDeactivationConfig() {
+            val disabledGeneStrings = ServerConfig.disabledGenes.get()
+
+            val previouslyDisabledGenes = GeneRegistry.GENE_REGISTRY.filterNot { it.isActive }
+            for (previouslyDisabledGene in previouslyDisabledGenes) {
+                previouslyDisabledGene.reactivate()
+            }
+
+            for (disabledGene in disabledGeneStrings) {
+                val gene = GeneRegistry.fromString(disabledGene)
+
+                if (gene == null) {
+                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")
+                    continue
+                }
+
+                if (gene in requiredGenes) {
+                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it is required for the mod to function!")
+                    continue
+                }
+
+                gene.deactivate()
+            }
+        }
 
         private val requiredGenes by lazy {
             setOf(
