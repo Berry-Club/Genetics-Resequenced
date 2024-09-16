@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.Registry
