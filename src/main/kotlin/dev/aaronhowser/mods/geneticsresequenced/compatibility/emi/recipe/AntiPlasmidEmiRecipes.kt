@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.EmiRegistry
 import dev.emi.emi.api.recipe.EmiCraftingRecipe
@@ -16,18 +15,14 @@ object AntiPlasmidEmiRecipes {
     fun setAntiPlasmidRecipes(registry: EmiRegistry) {
         val emptyAntiPlasmid: EmiIngredient = EmiIngredient.of(Ingredient.of(ModItems.ANTI_PLASMID))
 
-        val visibleGenes = GeneRegistry
-            .getRegistrySorted(ClientUtil.localRegistryAccess!!)
-            .filterNot { it.value().isHidden }
-
-        for (geneHolder in visibleGenes) {
+        for (gene in GeneRegistry.getRegistrySorted().filterNot { it.isHidden }) {
             val plasmidStack = ModItems.PLASMID.toStack()
-            PlasmidItem.setGene(plasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
+            PlasmidItem.setGene(plasmidStack, gene, gene.dnaPointsRequired)
 
             val setAntiPlasmid = ModItems.ANTI_PLASMID.toStack()
-            PlasmidItem.setGene(setAntiPlasmid, geneHolder, geneHolder.value().dnaPointsRequired)
+            PlasmidItem.setGene(setAntiPlasmid, gene, gene.dnaPointsRequired)
 
-            val geneString = geneHolder.value().id.toString().replace(':', '/')
+            val geneString = gene.id.toString().replace(':', '/')
 
             registry.addRecipe(
                 EmiCraftingRecipe(
@@ -41,15 +36,11 @@ object AntiPlasmidEmiRecipes {
     }
 
     fun unsetAntiPlasmidRecipes(registry: EmiRegistry) {
-        val visibleGenes = GeneRegistry
-            .getRegistrySorted(ClientUtil.localRegistryAccess!!)
-            .filterNot { it.value().isHidden }
-
-        for (geneHolder in visibleGenes) {
+        for (gene in GeneRegistry.getRegistrySorted().filterNot { it.isHidden }) {
             val antiPlasmidStack = ModItems.ANTI_PLASMID.toStack()
-            PlasmidItem.setGene(antiPlasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
+            PlasmidItem.setGene(antiPlasmidStack, gene, gene.dnaPointsRequired)
 
-            val geneString = geneHolder.value().id.toString().replace(':', '/')
+            val geneString = gene.id.toString().replace(':', '/')
 
             registry.addRecipe(
                 EmiCraftingRecipe(

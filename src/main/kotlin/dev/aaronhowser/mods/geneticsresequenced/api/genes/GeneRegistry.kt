@@ -1,57 +1,39 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.genes
 
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.core.Holder
-import net.minecraft.core.HolderLookup
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
-import java.util.stream.Stream
-import kotlin.jvm.optionals.getOrNull
+import net.neoforged.neoforge.registries.RegistryBuilder
 
 object GeneRegistry {
 
     val GENE_REGISTRY_KEY: ResourceKey<Registry<Gene>> =
-        ResourceKey.createRegistryKey(OtherUtil.modResource("gene"))
+        ResourceKey.createRegistryKey(OtherUtil.modResource("genes"))
 
-    fun getGeneRegistry(registries: HolderLookup.Provider): HolderLookup.RegistryLookup<Gene> {
-        return registries.lookupOrThrow(GENE_REGISTRY_KEY)
-    }
+    val GENE_REGISTRY: Registry<Gene> = RegistryBuilder(GENE_REGISTRY_KEY)
+        .sync(true)
+        .create()
 
-    fun getAllGeneHolders(registries: HolderLookup.Provider): Stream<Holder.Reference<Gene>> {
-        return getGeneRegistry(registries).listElements()
-    }
+    fun fromResourceLocation(id: ResourceLocation): Gene? = GENE_REGISTRY.get(id)
+    fun fromString(id: String): Gene? = GENE_REGISTRY.get(ResourceLocation.parse(id))
 
-    fun fromResourceKey(registries: HolderLookup.Provider, rk: ResourceKey<Gene>): Holder.Reference<Gene>? {
-        return getGeneRegistry(registries).get(rk).getOrNull()
-    }
+    fun fromIdPath(path: String): Gene? = GENE_REGISTRY.find { it.id.path == path }
 
-    fun fromResourceLocation(registries: HolderLookup.Provider, rl: ResourceLocation): Holder.Reference<Gene>? {
-        return fromResourceKey(registries, ResourceKey.create(GENE_REGISTRY_KEY, rl))
-    }
+    fun getRegistrySorted(): List<Gene> {
+        val mutations = mutableListOf<Gene>()
+        val negatives = mutableListOf<Gene>()
+        val other = mutableListOf<Gene>()
 
-    fun fromString(registries: HolderLookup.Provider, id: String): Holder<Gene>? {
-        return fromResourceLocation(registries, ResourceLocation.parse(id))
-    }
-
-    fun fromIdPath(registries: HolderLookup.Provider, path: String): Holder.Reference<Gene>? {
-        return getAllGeneHolders(registries).filter { it.value().id.path == path }.findFirst().orElse(null)
-    }
-
-    fun getRegistrySorted(registries: HolderLookup.Provider): List<Holder<Gene>> {
-        val mutations = mutableListOf<Holder<Gene>>()
-        val negatives = mutableListOf<Holder<Gene>>()
-        val other = mutableListOf<Holder<Gene>>()
-
-        for (geneHolder in getAllGeneHolders(registries)) {
+        for (gene in GENE_REGISTRY) {
             when {
-                geneHolder.value().isMutation(registries) -> mutations.add(geneHolder)
-                geneHolder.value().isNegative -> negatives.add(geneHolder)
-                else -> other.add(geneHolder)
+                gene.isMutation -> mutations.add(gene)
+                gene.isNegative -> negatives.add(gene)
+                else -> other.add(gene)
             }
         }
 
-        return other.sortedBy { it.value().id } + mutations.sortedBy { it.value().id } + negatives.sortedBy { it.value().id }
+        return other.sortedBy { it.id } + mutations.sortedBy { it.id } + negatives.sortedBy { it.id }
     }
 
 }

@@ -2,11 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewin
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BlackDeathRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -41,14 +41,14 @@ class BlackDeathEmiRecipe(
 
         SyringeItem.setEntity(syringeStack, entity, setContaminated = false)
 
-        for (gene in BlackDeathRecipe.requiredGeneHolders) {
+        for (gene in BlackDeathRecipe.requiredGenes) {
             SyringeItem.addGene(syringeStack, gene)
         }
 
         ingredient = EmiIngredient.of(Ingredient.of(syringeStack))
 
         val helixStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGene(helixStack, ModGenes.BLACK_DEATH, ClientUtil.localRegistryAccess!!)
+        DnaHelixItem.setGene(helixStack, ModGenes.BLACK_DEATH)
         output = EmiStack.of(helixStack)
     }
 

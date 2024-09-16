@@ -11,6 +11,7 @@ import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.player.Player
 
 object AddAllGenesCommand {
 
@@ -49,9 +50,7 @@ object AddAllGenesCommand {
 
         for (target in targets) {
             val genesToAdd =
-                GeneRegistry
-                    .getAllGeneHolders(context.source.registryAccess())
-                    .filter { !it.value().isHidden && !it.value().isNegative && it.value().canEntityHave(target) }
+                GeneRegistry.GENE_REGISTRY.filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
 
             for (gene in genesToAdd) {
                 target.addGene(gene)
@@ -68,9 +67,7 @@ object AddAllGenesCommand {
 
     private fun handleSingleTarget(context: CommandContext<CommandSourceStack>, target: LivingEntity) {
         val genesToAdd =
-            GeneRegistry
-                .getAllGeneHolders(context.source.registryAccess())
-                .filter { !it.value().isHidden && !it.value().isNegative && it.value().canEntityHave(target) }
+            GeneRegistry.GENE_REGISTRY.filter { !it.isHidden && !it.isNegative && (target is Player || it.canMobsHave) }
 
         for (gene in genesToAdd) {
             target.addGene(gene)

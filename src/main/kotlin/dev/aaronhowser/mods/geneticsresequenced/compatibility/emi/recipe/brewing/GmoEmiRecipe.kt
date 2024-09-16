@@ -4,14 +4,13 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.GmoRecipe
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import dev.emi.emi.api.recipe.EmiRecipe
@@ -21,7 +20,6 @@ import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.ChatFormatting
-import net.minecraft.core.Holder
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -32,7 +30,7 @@ import net.minecraft.world.item.crafting.Ingredient
 class GmoEmiRecipe(
     val entityType: EntityType<*>,
     ingredientItem: Item,
-    val idealGeneHolder: Holder<Gene>,
+    val idealGene: Gene,
     val geneChance: Float,
     isMutation: Boolean
 ) : EmiRecipe {
@@ -45,7 +43,7 @@ class GmoEmiRecipe(
                 GmoEmiRecipe(
                     it.entityType,
                     it.ingredientItem,
-                    it.idealGeneHolder,
+                    it.idealGene,
                     it.geneChance,
                     it.isMutation
                 )
@@ -71,12 +69,12 @@ class GmoEmiRecipe(
 
         val gmoStack = ModItems.GMO_CELL.toStack()
         EntityDnaItem.setEntityType(gmoStack, entityType)
-        DnaHelixItem.setGene(gmoStack, idealGeneHolder)
+        DnaHelixItem.setGene(gmoStack, idealGene)
         goodOutput = EmiStack.of(gmoStack)
 
         val failCell = ModItems.GMO_CELL.toStack()
         EntityDnaItem.setEntityType(failCell, entityType)
-        DnaHelixItem.setGene(failCell, ModGenes.BASIC, ClientUtil.localRegistryAccess!!)
+        DnaHelixItem.setGene(failCell, ModGenes.BASIC.get())
         badOutput = EmiStack.of(failCell)
     }
 
@@ -92,7 +90,7 @@ class GmoEmiRecipe(
 
     override fun getId(): ResourceLocation {
         val entityTypeString = EntityType.getKey(entityType).toString().replace(':', '/')
-        val geneString = idealGeneHolder.value().id.toString().replace(':', '/')
+        val geneString = idealGene.id.toString().replace(':', '/')
 
         return OtherUtil.modResource("/gmo/$entityTypeString/$geneString")
     }

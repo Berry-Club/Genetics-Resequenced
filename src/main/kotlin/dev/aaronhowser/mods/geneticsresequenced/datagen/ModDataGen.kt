@@ -4,7 +4,6 @@ import com.klikli_dev.modonomicon.api.datagen.LanguageProviderCache
 import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider
 import com.klikli_dev.modonomicon.datagen.EnUsProvider
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
@@ -19,7 +18,6 @@ import net.minecraft.data.PackOutput
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.common.data.AdvancementProvider
-import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider
 import net.neoforged.neoforge.common.data.ExistingFileHelper
 import net.neoforged.neoforge.data.event.GatherDataEvent
 import java.util.concurrent.CompletableFuture
@@ -89,11 +87,6 @@ object ModDataGen {
         val modonomiconEnUsProvider = generator.addProvider(
             event.includeClient(),
             EnUsProvider(output, modonomiconEnUsCache)
-        )
-
-        val datapackRegistrySets = generator.addProvider(
-            event.includeServer(),
-            ModDatapackBuiltinEntriesProvider(output, lookupProvider)
         )
 
     }

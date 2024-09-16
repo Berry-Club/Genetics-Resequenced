@@ -24,7 +24,7 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent
 import net.neoforged.neoforge.items.IItemHandler
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
-import net.neoforged.neoforge.registries.DataPackRegistryEvent
+import net.neoforged.neoforge.registries.NewRegistryEvent
 
 @EventBusSubscriber(
     modid = GeneticsResequenced.ID,
@@ -33,12 +33,8 @@ import net.neoforged.neoforge.registries.DataPackRegistryEvent
 object ModBusEvents {
 
     @SubscribeEvent
-    fun onNewDataPackRegistry(event: DataPackRegistryEvent.NewRegistry) {
-        event.dataPackRegistry(
-            GeneRegistry.GENE_REGISTRY_KEY,
-            Gene.DIRECT_CODEC,
-            Gene.DIRECT_CODEC
-        )
+    fun onNewRegistry(event: NewRegistryEvent) {
+        event.register(GeneRegistry.GENE_REGISTRY)
     }
 
     @SubscribeEvent
@@ -49,7 +45,7 @@ object ModBusEvents {
 
         // Comparing spec didn't work for some reason
         if (config.modId == GeneticsResequenced.ID && config.type == ModConfig.Type.SERVER) {
-//            Gene.checkDeactivationConfig() TODO
+            Gene.checkDeactivationConfig()
         }
     }
 

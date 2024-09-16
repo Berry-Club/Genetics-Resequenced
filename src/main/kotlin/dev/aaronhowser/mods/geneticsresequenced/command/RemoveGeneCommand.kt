@@ -14,7 +14,6 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.commands.arguments.ResourceLocationArgument
-import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
@@ -90,7 +89,7 @@ object RemoveGeneCommand {
         entities: MutableCollection<out Entity>? = null
     ): Int {
 
-        val gene = GeneRegistry.fromResourceLocation(context.source.registryAccess(), geneRl)
+        val gene = GeneRegistry.fromResourceLocation(geneRl)
             ?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
 
         return removeGene(context, gene, entities)
@@ -102,7 +101,7 @@ object RemoveGeneCommand {
         entities: MutableCollection<out Entity>? = null
     ): Int {
 
-        val gene = GeneRegistry.fromIdPath(context.source.registryAccess(), geneString)
+        val gene = GeneRegistry.fromIdPath(geneString)
             ?: throw IllegalArgumentException("Gene with id $geneString does not exist!")
 
         return removeGene(context, gene, entities)
@@ -110,7 +109,7 @@ object RemoveGeneCommand {
 
     private fun removeGene(
         context: CommandContext<CommandSourceStack>,
-        geneToRemove: Holder<Gene>,
+        geneToRemove: Gene,
         entities: MutableCollection<out Entity>? = null
     ): Int {
 
@@ -129,7 +128,7 @@ object RemoveGeneCommand {
     private fun handleSingleTarget(
         context: CommandContext<CommandSourceStack>,
         target: LivingEntity,
-        geneToRemove: Holder<Gene>
+        geneToRemove: Gene
     ) {
 
         val success = removeGeneFromTarget(target, geneToRemove)
@@ -137,7 +136,7 @@ object RemoveGeneCommand {
         if (success) {
             val component =
                 ModLanguageProvider.Commands.REMOVE_SINGLE_SUCCESS.toComponent(
-                    geneToRemove.value().nameComponent(context.source.registryAccess()),
+                    geneToRemove.nameComponent,
                     target.displayName
                 )
 
@@ -145,7 +144,7 @@ object RemoveGeneCommand {
         } else {
             val component =
                 ModLanguageProvider.Commands.REMOVE_SINGLE_FAIL.toComponent(
-                    geneToRemove.value().nameComponent(context.source.registryAccess()),
+                    geneToRemove.nameComponent,
                     target.displayName
                 )
 
@@ -156,7 +155,7 @@ object RemoveGeneCommand {
     private fun handleMultipleTargets(
         context: CommandContext<CommandSourceStack>,
         targets: List<LivingEntity>,
-        geneToRemove: Holder<Gene>
+        geneToRemove: Gene
     ) {
         var amountSuccess = 0
         var amountFail = 0
@@ -169,7 +168,7 @@ object RemoveGeneCommand {
         if (amountSuccess != 0) {
             val component =
                 ModLanguageProvider.Commands.REMOVE_MULTIPLE_SUCCESS.toComponent(
-                    geneToRemove.value().nameComponent(context.source.registryAccess()),
+                    geneToRemove.nameComponent,
                     amountSuccess
                 )
             context.source.sendSuccess({ component }, true)
@@ -177,7 +176,7 @@ object RemoveGeneCommand {
         if (amountFail != 0) {
             val component =
                 ModLanguageProvider.Commands.REMOVE_MULTIPLE_FAIL.toComponent(
-                    geneToRemove.value().nameComponent(context.source.registryAccess()),
+                    geneToRemove.nameComponent,
                     amountFail
                 )
             context.source.sendFailure(component)
@@ -185,7 +184,7 @@ object RemoveGeneCommand {
 
     }
 
-    private fun removeGeneFromTarget(target: LivingEntity, geneToRemove: Holder<Gene>): Boolean {
+    private fun removeGeneFromTarget(target: LivingEntity, geneToRemove: Gene): Boolean {
         val success = target.removeGene(geneToRemove)
         return success
     }

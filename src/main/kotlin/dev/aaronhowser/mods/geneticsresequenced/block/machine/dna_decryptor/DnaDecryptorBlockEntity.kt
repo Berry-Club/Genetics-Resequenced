@@ -1,18 +1,15 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_decryptor
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
-import net.minecraft.core.Holder
-import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.SimpleContainer
@@ -65,13 +62,13 @@ class DnaDecryptorBlockEntity(
     }
 
     private var isNextGeneSet = false
-    private var nextGene: Holder<Gene>? = null
+    private var nextGene: Gene? = null
 
     override fun craftItem() {
         if (!hasRecipe()) return
 
         val inputItem = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
-        val outputItem = getOutputFromInput(inputItem, level?.registryAccess()!!) ?: return
+        val outputItem = getOutputFromInput(inputItem) ?: return
 
         val amountAlreadyInOutput = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX).count
         outputItem.count = amountAlreadyInOutput + 1
@@ -93,18 +90,15 @@ class DnaDecryptorBlockEntity(
         if (inputStack.item != ModItems.DNA_HELIX.get()) return false
         if (DnaHelixItem.getGene(inputStack) != null) return false
 
-        val outputItem = getOutputFromInput(
-            inventory.getItem(INPUT_SLOT_INDEX),
-            level?.registryAccess()!!
-        ) ?: return false
+        val outputItem = getOutputFromInput(inventory.getItem(INPUT_SLOT_INDEX)) ?: return false
 
         return outputSlotHasRoom(inventory, outputItem)
     }
 
-    private fun getOutputFromInput(input: ItemStack, registries: HolderLookup.Provider): ItemStack? {
-        val possibleGenes = getPossibleGenes(input, registries)
+    private fun getOutputFromInput(input: ItemStack): ItemStack? {
+        val possibleGenes = getPossibleGenes(input)
 
-        val gene: Holder<Gene>
+        val gene: Gene
         if (!isNextGeneSet) {
             gene = when (input.item) {
                 ModItems.DNA_HELIX.get() -> possibleGenes.random()
@@ -132,18 +126,15 @@ class DnaDecryptorBlockEntity(
         return helixStack
     }
 
-    private fun getPossibleGenes(input: ItemStack, registries: HolderLookup.Provider): List<Holder<Gene>> {
-
-        val basic = GeneRegistry.fromResourceKey(registries, ModGenes.BASIC)!!
-
-        val mobType = EntityDnaItem.getEntityType(input) ?: return listOf(basic)
+    private fun getPossibleGenes(input: ItemStack): List<Gene> {
+        val mobType = EntityDnaItem.getEntityType(input) ?: return listOf(ModGenes.BASIC.get())
 
         val genesFromMob = MobGeneRegistry.getGeneWeights(mobType)
-        if (genesFromMob.isEmpty()) return listOf(basic)
+        if (genesFromMob.isEmpty()) return listOf(ModGenes.BASIC.get())
 
         return genesFromMob
             .map { it.key }
-            .filter { it.value().isActive }
+            .filter { it.isActive }
     }
 
     private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {

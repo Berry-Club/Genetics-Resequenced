@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event.entity
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -12,9 +12,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
-import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.ComponentUtils
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
@@ -29,18 +27,18 @@ object GeneEvents {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun onGeneChanged(event: CustomEvents.GeneChangeEvent.Post) {
-        val (livingEntity: LivingEntity, geneHolder: Holder<Gene>, wasAdded: Boolean) = event
+        val (livingEntity: LivingEntity, gene: Gene, wasAdded: Boolean) = event
 
-        tellAllPlayersGeneChanged(livingEntity, geneHolder, wasAdded)
+        tellAllPlayersGeneChanged(livingEntity, gene, wasAdded)
 
-        geneHolder.value().setAttributeModifiers(livingEntity, wasAdded)
+        gene.setAttributeModifiers(livingEntity, wasAdded)
 
-        if (!wasAdded && geneHolder.value().getPotion() != null) {
-            TickGenes.handlePotionGeneRemoved(livingEntity, geneHolder)
+        if (!wasAdded && gene.getPotion() != null) {
+            TickGenes.handlePotionGeneRemoved(livingEntity, gene)
         }
 
         if (livingEntity is ServerPlayer) {
-            AdvancementTriggers.geneAdvancements(livingEntity, geneHolder, wasAdded)
+            AdvancementTriggers.geneAdvancements(livingEntity, gene, wasAdded)
         }
 
         ModScheduler.scheduleTaskInTicks(1) {
@@ -50,32 +48,28 @@ object GeneEvents {
 
     private fun checkForMissingRequirements(entity: LivingEntity) {
 
-        val geneHolders = entity.geneHolders
+        val genes = entity.genes
 
-        val genesWithMissingRequirements = geneHolders.filter { geneHolder ->
-            !geneHolder.value().getRequiredGeneHolders().all { it in geneHolders }
+        val genesWithMissingRequirements = genes.filter { gene ->
+            !gene.getRequiredGenes().all { it in genes }
         }
 
-        genesWithMissingRequirements.forEach { geneHolder ->
-            entity.removeGene(geneHolder)
-            val gene = geneHolder.value()
+        genesWithMissingRequirements.forEach { gene ->
+            entity.removeGene(gene)
 
             val requiredGenesComponent =
                 ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS_LIST.toComponent()
 
-            val missingGenes = gene.getRequiredGeneHolders().filter { it !in geneHolders }
+            for (requiredGene in gene.getRequiredGenes()) {
+                val hasGene = genes.contains(requiredGene)
+                if (hasGene) continue
 
-            requiredGenesComponent.append(
-                ComponentUtils.formatList(
-                    missingGenes.map { it.value().nameComponent(entity.registryAccess()) },
-                    Component.literal("\n - ")
-                )
-            )
-
+                requiredGenesComponent.append(Component.literal("\n - ").append(requiredGene.nameComponent))
+            }
             if (!entity.level().isClientSide) {
                 entity.sendSystemMessage(
                     ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS
-                        .toComponent(gene.nameComponent(entity.registryAccess()))
+                        .toComponent(gene.nameComponent)
                         .withStyle {
                             it.withHoverEvent(
                                 HoverEvent(
@@ -89,7 +83,7 @@ object GeneEvents {
         }
     }
 
-    private fun tellAllPlayersGeneChanged(entity: LivingEntity, changedGene: Holder<Gene>, wasAdded: Boolean) {
+    private fun tellAllPlayersGeneChanged(entity: LivingEntity, changedGene: Gene, wasAdded: Boolean) {
         if (entity.level().isClientSide) return
 
         val server = entity.server
@@ -101,7 +95,7 @@ object GeneEvents {
         ModPacketHandler.messageAllPlayers(
             GeneChangedPacket(
                 entity.id,
-                changedGene.value().id,
+                changedGene.id,
                 wasAdded
             )
         )

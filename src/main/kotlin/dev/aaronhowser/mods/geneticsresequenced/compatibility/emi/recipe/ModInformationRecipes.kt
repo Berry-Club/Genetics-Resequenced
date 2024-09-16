@@ -12,7 +12,6 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.recipe.EmiInfoRecipe
 import dev.emi.emi.api.stack.EmiIngredient
 import net.minecraft.ChatFormatting
-import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.world.entity.EntityType
@@ -21,23 +20,22 @@ import net.minecraft.world.item.crafting.Ingredient
 
 object ModInformationRecipes {
 
-    fun getInformationRecipes(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
-        return organicMatter(registries) + geneDescriptions(registries) + mobGenes(registries)
+    fun getInformationRecipes(): List<EmiInfoRecipe> {
+        return organicMatter() + geneDescriptions() + mobGenes()
     }
 
-    private fun geneDescriptions(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
+    private fun geneDescriptions(): List<EmiInfoRecipe> {
         val recipes = mutableListOf<EmiInfoRecipe>()
 
-        for (geneHolder in GeneRegistry.getRegistrySorted(registries)) {
-            if (geneHolder.value().isHidden || !geneHolder.value().isActive) continue
+        for (gene in GeneRegistry.getRegistrySorted()) {
+            if (gene.isHidden || !gene.isActive) continue
 
             val components: MutableList<MutableComponent> = mutableListOf()
             components.add(
-                geneHolder.value().nameComponent(registries).copy()
-                    .withStyle { it.withColor(ChatFormatting.RESET).withUnderlined(true) }
+                gene.nameComponent.copy().withStyle { it.withColor(ChatFormatting.RESET).withUnderlined(true) }
             )
 
-            val geneString = geneHolder.value().id.toString()
+            val geneString = gene.id.toString()
             val translationKey = "info.geneticsresequenced.gene_description.$geneString"
             val geneDesc = Component.translatable(translationKey)
 
@@ -47,20 +45,19 @@ object ModInformationRecipes {
 
             components.add(geneDesc)
 
-            val requiredGeneHolders = geneHolder.value().getRequiredGeneHolders()
-            if (requiredGeneHolders.isNotEmpty()) {
+            val requiredGenes = gene.getRequiredGenes()
+            if (requiredGenes.isNotEmpty()) {
                 components.add(Component.literal("\n"))
                 components.add(
                     ModLanguageProvider.Info.REQUIRED_GENES.toComponent()
                 )
 
-                for (requiredGeneHolder in requiredGeneHolders) {
-                    val requiredGene = requiredGeneHolder.value()
+                for (requiredGene in requiredGenes) {
 
-                    val requiredGeneComponent = if (requiredGene.isNegative || requiredGene.isMutation(registries)) {
-                        requiredGene.nameComponent(registries)
+                    val requiredGeneComponent = if (requiredGene.isNegative || requiredGene.isMutation) {
+                        requiredGene.nameComponent
                     } else {
-                        requiredGene.nameComponent(registries).copy().withStyle { it.withColor(ChatFormatting.RESET) }
+                        requiredGene.nameComponent.copy().withStyle { it.withColor(ChatFormatting.RESET) }
                     }
 
                     val line = Component.literal("• ").append(requiredGeneComponent)
@@ -70,7 +67,7 @@ object ModInformationRecipes {
             }
 
             val helix = ModItems.DNA_HELIX.toStack()
-            DnaHelixItem.setGene(helix, geneHolder)
+            DnaHelixItem.setGene(helix, gene)
 
             val recipe = EmiInfoRecipe(
                 listOf(
@@ -88,7 +85,7 @@ object ModInformationRecipes {
         return recipes
     }
 
-    private fun organicMatter(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
+    private fun organicMatter(): List<EmiInfoRecipe> {
         val recipes = mutableListOf<EmiInfoRecipe>()
 
         for (entityType in EntityDnaItem.validEntityTypes) {
@@ -116,7 +113,7 @@ object ModInformationRecipes {
         return recipes
     }
 
-    private fun mobGenes(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
+    private fun mobGenes(): List<EmiInfoRecipe> {
         val recipes = mutableListOf<EmiInfoRecipe>()
 
         val allMobGenePairs = MobGeneRegistry.getRegistry().entries
@@ -126,13 +123,13 @@ object ModInformationRecipes {
 
             val sumOfWeights = genes.values.sum()
 
-            for ((geneHolder, weight) in genes) {
+            for ((gene, weight) in genes) {
                 val chance = (weight.toDouble() / sumOfWeights.toDouble() * 100).toInt()
 
-                val geneComponent = if (geneHolder.value().isNegative || geneHolder.value().isMutation(registries)) {
-                    geneHolder.value().nameComponent(registries)
+                val geneComponent = if (gene.isNegative || gene.isMutation) {
+                    gene.nameComponent
                 } else {
-                    geneHolder.value().nameComponent(registries).copy().withStyle { it.withColor(ChatFormatting.RESET) }
+                    gene.nameComponent.copy().withStyle { it.withColor(ChatFormatting.RESET) }
                 }
 
                 val component =

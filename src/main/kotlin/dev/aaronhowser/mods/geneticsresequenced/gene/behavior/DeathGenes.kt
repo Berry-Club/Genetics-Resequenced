@@ -9,7 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.curios.KeepCurioIn
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.item.ItemEntity
@@ -28,7 +28,7 @@ object DeathGenes {
 
     //TODO: Test with grave mods
     fun saveInventory(player: Player) {
-        if (!ModGenes.KEEP_INVENTORY.isActive) return
+        if (!ModGenes.KEEP_INVENTORY.get().isActive) return
 
         player.level().apply {
             if (isClientSide) return
@@ -36,7 +36,7 @@ object DeathGenes {
             if (levelData.isHardcore) return
         }
 
-        if (!player.hasGene(ModGenes.KEEP_INVENTORY)) return
+        if (!player.hasGene(ModGenes.KEEP_INVENTORY.get())) return
 
         val playerItems =
             (player.inventory.items + player.inventory.armor + player.inventory.offhand).filter { !it.isEmpty }

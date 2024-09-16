@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -14,11 +14,9 @@ import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityIt
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.setEntity
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
-import net.minecraft.core.Holder
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
@@ -87,7 +85,7 @@ open class SyringeItem : Item(
             val genesToAdd = if (entity is Player) {
                 getGenes(syringeStack)
             } else {
-                getGenes(syringeStack).filter { it.value().allowsMobs }.toSet()
+                getGenes(syringeStack).filter { it.canMobsHave }.toSet()
             }
 
             val genesToRemove = getAntigenes(syringeStack)
@@ -99,32 +97,32 @@ open class SyringeItem : Item(
             setEntity(syringeStack, null)
         }
 
-        private fun removeGenes(entity: LivingEntity, syringeAntigenes: Set<Holder<Gene>>) {
+        private fun removeGenes(entity: LivingEntity, syringeAntigenes: Set<Gene>) {
 
-            val entityGenesBefore = entity.geneHolders
+            val entityGenesBefore = entity.genes
 
             for (antigene in syringeAntigenes) {
                 entity.removeGene(antigene)
             }
 
-            val entityGenesAfter = entity.geneHolders
+            val entityGenesAfter = entity.genes
             val genesRemoved = entityGenesBefore - entityGenesAfter
             val genesNotRemoved = syringeAntigenes - genesRemoved
 
             if (entity.level().isClientSide) {
 
-                for (removedGeneHolder in genesRemoved) {
+                for (removedGene in genesRemoved) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_SUCCESS.toComponent(
-                            removedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+                            removedGene.nameComponent
                         )
                     )
                 }
 
-                for (notRemovedGeneHolder in genesNotRemoved) {
+                for (notRemovedGene in genesNotRemoved) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_FAIL.toComponent(
-                            notRemovedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+                            notRemovedGene.nameComponent
                         )
                     )
                 }
@@ -132,9 +130,9 @@ open class SyringeItem : Item(
 
         }
 
-        private fun addGenes(entity: LivingEntity, syringeGenes: Set<Holder<Gene>>) {
+        private fun addGenes(entity: LivingEntity, syringeGenes: Set<Gene>) {
 
-            val entityGenesBefore = entity.geneHolders
+            val entityGenesBefore = entity.genes
 
             val genesToAdd = if (entity is Player) {
                 syringeGenes
@@ -146,24 +144,24 @@ open class SyringeItem : Item(
                 entity.addGene(gene)
             }
 
-            val entityGenesAfter = entity.geneHolders
+            val entityGenesAfter = entity.genes
             val genesAdded = entityGenesAfter - entityGenesBefore
             val genesNotAdded = genesToAdd - genesAdded
 
             if (entity.level().isClientSide) {
 
-                for (addedGeneHolder in genesAdded) {
+                for (addedGene in genesAdded) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_INJECTED.toComponent(
-                            addedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+                            addedGene.nameComponent
                         )
                     )
                 }
 
-                for (notAddedGeneHolder in genesNotAdded) {
+                for (notAddedGene in genesNotAdded) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_FAILED.toComponent(
-                            notAddedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+                            notAddedGene.nameComponent
                         )
                     )
                 }
@@ -175,19 +173,15 @@ open class SyringeItem : Item(
             return syringeStack.hasEntity()
         }
 
-        fun getGenes(syringeStack: ItemStack): Set<Holder<Gene>> {
+        fun getGenes(syringeStack: ItemStack): Set<Gene> {
             return syringeStack.get(ModDataComponents.GENES_COMPONENT)?.genes ?: emptySet()
         }
 
-        fun getGeneRks(syringeStack: ItemStack): Set<ResourceKey<Gene>> {
-            return getGenes(syringeStack).mapNotNull { it.key }.toSet()
+        fun canAddGene(syringeStack: ItemStack, gene: Gene): Boolean {
+            return hasBlood(syringeStack) && !getGenes(syringeStack).contains(gene)
         }
 
-        fun canAddGene(syringeStack: ItemStack, gene: Holder<Gene>): Boolean {
-            return hasBlood(syringeStack) && gene !in getGenes(syringeStack)
-        }
-
-        fun addGene(syringeStack: ItemStack, gene: Holder<Gene>): Boolean {
+        fun addGene(syringeStack: ItemStack, gene: Gene): Boolean {
             if (!canAddGene(syringeStack, gene)) return false
 
             val currentGenes = getGenes(syringeStack)
@@ -211,17 +205,17 @@ open class SyringeItem : Item(
             syringeStack.set(ModDataComponents.IS_CONTAMINATED_COMPONENT, BooleanItemComponent(value))
         }
 
-        fun getAntigenes(syringeStack: ItemStack): Set<Holder<Gene>> {
+        fun getAntigenes(syringeStack: ItemStack): Set<Gene> {
             return syringeStack.get(ModDataComponents.ANTIGENES_COMPONENT)?.genes ?: emptySet()
         }
 
-        fun canAddAntigene(syringeStack: ItemStack, gene: Holder<Gene>): Boolean {
+        fun canAddAntigene(syringeStack: ItemStack, gene: Gene): Boolean {
             return hasBlood(syringeStack)
-                    && gene !in getAntigenes(syringeStack)
-                    && gene !in getGenes(syringeStack)
+                    && !getAntigenes(syringeStack).contains(gene)
+                    && !getGenes(syringeStack).contains(gene)
         }
 
-        fun addAntigene(syringeStack: ItemStack, gene: Holder<Gene>): Boolean {
+        fun addAntigene(syringeStack: ItemStack, gene: Gene): Boolean {
             if (!canAddAntigene(syringeStack, gene)) return false
 
             val currentAntigenes = getAntigenes(syringeStack)
@@ -335,14 +329,13 @@ open class SyringeItem : Item(
                     .withColor(ChatFormatting.GRAY)
             )
 
-            for (geneHolder in addingGenes) {
-                val nameComponent = geneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+            for (gene in addingGenes) {
 
                 val component = Component
                     .literal("• ")
                     .withStyle {
-                        it.withColor(nameComponent.style.color)
-                    }.append(nameComponent)
+                        it.withColor(gene.nameComponent.style.color)
+                    }.append(gene.nameComponent)
 
                 pTooltipComponents.add(component)
             }
@@ -356,14 +349,13 @@ open class SyringeItem : Item(
                     .withColor(ChatFormatting.GRAY)
             )
 
-            for (geneHolder in removingGenes) {
-                val nameComponent = geneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+            for (gene in removingGenes) {
 
                 val component = Component
                     .literal("• ")
                     .withStyle {
-                        it.withColor(nameComponent.style.color)
-                    }.append(nameComponent)
+                        it.withColor(gene.nameComponent.style.color)
+                    }.append(gene.nameComponent)
 
                 pTooltipComponents.add(component)
             }
