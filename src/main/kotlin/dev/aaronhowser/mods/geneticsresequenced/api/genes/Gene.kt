@@ -25,7 +25,6 @@ import net.minecraft.resources.RegistryFileCodec
 import net.minecraft.resources.RegistryFixedCodec
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectInstance
-import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.Attribute
@@ -105,13 +104,6 @@ data class Gene(
         return requiredGenes.toSet()
     }
 
-    fun canEntityHave(entity: Entity): Boolean {
-        return canEntityTypeHave(entity.type)
-    }
-
-    fun canEntityTypeHave(entityType: EntityType<*>): Boolean {
-        return allowedEntities.map { it.value() }.contains(entityType)
-    }
 
     @Suppress("MemberVisibilityCanBePrivate")
     val translationKey: String = "gene.${id.namespace}.${id.path}"
