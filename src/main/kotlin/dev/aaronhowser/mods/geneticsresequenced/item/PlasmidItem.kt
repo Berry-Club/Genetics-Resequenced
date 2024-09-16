@@ -7,11 +7,8 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Comp
 import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
-import net.minecraft.core.Holder
-import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -23,13 +20,13 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
 
         fun hasGene(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.PLASMID_PROGRESS_COMPONENT)
 
-        fun getGene(itemStack: ItemStack): Holder<Gene>? {
+        fun getGene(itemStack: ItemStack): Gene? {
             return itemStack.get(ModDataComponents.PLASMID_PROGRESS_COMPONENT)?.gene
         }
 
-        fun setGene(itemStack: ItemStack, geneHolder: Holder<Gene>, amount: Int = 0) {
+        fun setGene(itemStack: ItemStack, gene: Gene, amount: Int = 0) {
             val component = PlasmidProgressItemComponent(
-                geneHolder,
+                gene,
                 amount
             )
             itemStack.set(ModDataComponents.PLASMID_PROGRESS_COMPONENT, component)
@@ -52,20 +49,18 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
         }
 
         fun isComplete(itemStack: ItemStack): Boolean {
-            val geneHolder = getGene(itemStack) ?: return false
-            return getDnaPoints(itemStack) >= geneHolder.value().dnaPointsRequired
+            val gene = getGene(itemStack) ?: return false
+            return getDnaPoints(itemStack) >= gene.dnaPointsRequired
         }
 
-        fun getCompletedPlasmid(geneHolder: Holder<Gene>): ItemStack {
+        fun getCompletedPlasmid(gene: Gene): ItemStack {
             return ModItems.PLASMID.toStack().apply {
-                setGene(this, geneHolder, geneHolder.value().dnaPointsRequired)
+                setGene(this, gene, gene.dnaPointsRequired)
             }
         }
 
-        fun getAllPlasmids(registries: HolderLookup.Provider): List<ItemStack> {
-            return GeneRegistry.getRegistrySorted(registries)
-                .filter { !it.value().isHidden }
-                .map { getCompletedPlasmid(it) }
+        fun getAllPlasmids(): List<ItemStack> {
+            return GeneRegistry.getRegistrySorted().filter { !it.isHidden }.map { getCompletedPlasmid(it) }
         }
 
     }
@@ -76,9 +71,9 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
         pTooltipComponents: MutableList<Component>,
         pTooltipFlag: TooltipFlag
     ) {
-        val geneHolder = getGene(pStack)
+        val gene = getGene(pStack)
 
-        if (geneHolder == null) {
+        if (gene == null) {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.PLASMID_EMPTY
                     .toComponent()
@@ -89,7 +84,7 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
 
         pTooltipComponents.add(
             ModLanguageProvider.Tooltips.PLASMID_GENE
-                .toComponent(geneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!))
+                .toComponent(gene.nameComponent)
                 .withColor(ChatFormatting.GRAY)
         )
 
@@ -100,7 +95,7 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
                     .withColor(ChatFormatting.GRAY)
             )
         } else {
-            val amountNeeded = geneHolder.value().dnaPointsRequired
+            val amountNeeded = gene.dnaPointsRequired
             val amount = getDnaPoints(pStack)
 
             pTooltipComponents.add(

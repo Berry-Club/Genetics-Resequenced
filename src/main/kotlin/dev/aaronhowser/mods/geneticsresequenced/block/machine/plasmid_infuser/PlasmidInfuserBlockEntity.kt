@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
@@ -95,7 +94,7 @@ class PlasmidInfuserBlockEntity(
         }
 
         when (DnaHelixItem.getGene(inputHelix)) {
-            ModGenes.BASIC -> PlasmidItem.increaseDnaPoints(outputPlasmid, 1)
+            ModGenes.BASIC.get() -> PlasmidItem.increaseDnaPoints(outputPlasmid, 1)
             plasmidGene -> PlasmidItem.increaseDnaPoints(outputPlasmid, 2)
             else -> return
         }
@@ -117,16 +116,16 @@ class PlasmidInfuserBlockEntity(
         if (PlasmidItem.isComplete(outputPlasmid)) return false
 
         val plasmidGene = PlasmidItem.getGene(outputPlasmid)
-        val inputGeneHolder = DnaHelixItem.getGene(inputHelix)
-        val helixIsBasic = inputGeneHolder == ModGenes.BASIC
+        val inputGene = DnaHelixItem.getGene(inputHelix)
+        val helixIsBasic = inputGene == ModGenes.BASIC.get()
 
         // If the Plasmid is unset, it can only accept a Helix that's neither basic nor null
         if (plasmidGene == null) {
-            return !helixIsBasic && inputGeneHolder != null
+            return !helixIsBasic && inputGene != null
         }
 
         if (!helixIsBasic) {
-            if (inputGeneHolder != plasmidGene) return false
+            if (inputGene != plasmidGene) return false
         }
 
         return true
