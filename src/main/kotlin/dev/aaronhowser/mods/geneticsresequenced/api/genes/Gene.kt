@@ -85,6 +85,8 @@ data class Gene(
 
     val id = OtherUtil.modResource("gene")
 
+    val allowsMobs = allowedEntities.any { it.value() != EntityType.PLAYER }
+
     private val requiredGenes: MutableSet<Holder<Gene>> = mutableSetOf()
 
     fun isMutation(registries: HolderLookup.Provider): Boolean {
