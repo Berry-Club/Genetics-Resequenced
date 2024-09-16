@@ -36,8 +36,8 @@ object ModBusEvents {
     fun onNewDataPackRegistry(event: DataPackRegistryEvent.NewRegistry) {
         event.dataPackRegistry(
             GeneRegistry.GENE_REGISTRY_KEY,
-            Gene.CODEC,
-            Gene.CODEC
+            Gene.DIRECT_CODEC,
+            Gene.DIRECT_CODEC
         )
     }
 
@@ -49,7 +49,7 @@ object ModBusEvents {
 
         // Comparing spec didn't work for some reason
         if (config.modId == GeneticsResequenced.ID && config.type == ModConfig.Type.SERVER) {
-            Gene.checkDeactivationConfig()
+//            Gene.checkDeactivationConfig() TODO
         }
     }
 
