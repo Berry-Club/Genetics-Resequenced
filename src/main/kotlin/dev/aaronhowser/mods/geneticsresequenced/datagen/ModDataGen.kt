@@ -18,6 +18,7 @@ import net.minecraft.data.PackOutput
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.common.data.AdvancementProvider
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider
 import net.neoforged.neoforge.common.data.ExistingFileHelper
 import net.neoforged.neoforge.data.event.GatherDataEvent
 import java.util.concurrent.CompletableFuture
@@ -87,6 +88,16 @@ object ModDataGen {
         val modonomiconEnUsProvider = generator.addProvider(
             event.includeClient(),
             EnUsProvider(output, modonomiconEnUsCache)
+        )
+
+        val genesProvider = generator.addProvider(
+            event.includeServer(),
+            DatapackBuiltinEntriesProvider(
+                output,
+                lookupProvider,
+                ModGeneProvider(),
+                setOf(GeneticsResequenced.ID)
+            )
         )
 
     }
