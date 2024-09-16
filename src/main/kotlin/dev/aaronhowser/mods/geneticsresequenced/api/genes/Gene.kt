@@ -36,13 +36,13 @@ import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
 data class Gene(
-    val isNegative: Boolean,
-    val isHidden: Boolean,
-    val dnaPointsRequired: Int,
-    val allowedEntities: HolderSet<EntityType<*>>,
-    val mutatesInto: Optional<Holder<Gene>>,
-    val potionDetails: Optional<PotionDetails>,
-    val attributeModifiers: List<AttributeEntry>
+    val isNegative: Boolean = false,
+    val isHidden: Boolean = false,
+    val dnaPointsRequired: Int = 1,
+    val allowedEntities: HolderSet<EntityType<*>> = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup()),
+    val mutatesInto: Optional<Holder<Gene>> = Optional.empty(),
+    val potionDetails: Optional<PotionDetails> = Optional.empty(),
+    val attributeModifiers: List<AttributeEntry> = emptyList()
 ) {
 
     data class AttributeEntry(
