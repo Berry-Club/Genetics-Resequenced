@@ -9,7 +9,6 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.ComponentUtils
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
@@ -51,12 +50,10 @@ object ListGenesCommand {
                 target.displayName
             )
 
-        messageComponent.append(
-            ComponentUtils.formatList(
-                targetGenesList.map { it.value().nameComponent(context.source.registryAccess()) },
-                Component.literal("\n• ")
-            )
-        )
+        for (gene in targetGenesList) {
+            val geneComponent = Component.literal("\n• ").append(gene.nameComponent)
+            messageComponent.append(geneComponent)
+        }
 
         context.source.sendSuccess({ messageComponent }, false)
         return 1
