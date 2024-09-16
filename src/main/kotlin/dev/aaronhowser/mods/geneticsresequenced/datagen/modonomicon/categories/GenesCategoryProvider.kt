@@ -5,6 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.GeneEntryProvider
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Items
@@ -99,7 +100,7 @@ class GenesCategoryProvider(
     private fun bioluminescence(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.BIOLUMINESCENCE.get(),
+            ModGenes.BIOLUMINESCENCE,
             "Bioluminescence",
             Blocks.GLOWSTONE
         ) {
@@ -117,7 +118,7 @@ class GenesCategoryProvider(
     private fun chatterbox(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.CHATTERBOX.get(),
+            ModGenes.CHATTERBOX,
             "Chatterbox",
             Blocks.NOTE_BLOCK
         ) {
@@ -138,7 +139,7 @@ class GenesCategoryProvider(
     private fun chilling(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.CHILLING.get(),
+            ModGenes.CHILLING,
             "Chilling",
             Items.POWDER_SNOW_BUCKET
         ) {
@@ -156,7 +157,7 @@ class GenesCategoryProvider(
     private fun claws(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.CLAWS.get(),
+            ModGenes.CLAWS,
             "Claws",
             Items.STONE_SWORD
         ) {
@@ -178,7 +179,7 @@ class GenesCategoryProvider(
     private fun climbWalls(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.WALL_CLIMBING.get(),
+            ModGenes.WALL_CLIMBING,
             "Climb Walls",
             Items.STRING
         ) {
@@ -199,7 +200,7 @@ class GenesCategoryProvider(
     private fun dragonsBreath(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.DRAGON_BREATH.get(),
+            ModGenes.DRAGON_BREATH,
             "Dragon's Breath",
             Items.DRAGON_BREATH
         ) {
@@ -220,7 +221,7 @@ class GenesCategoryProvider(
     private fun eatGrass(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.EAT_GRASS.get(),
+            ModGenes.EAT_GRASS,
             "Eat Grass",
             Items.GRASS_BLOCK
         ) {
@@ -238,7 +239,7 @@ class GenesCategoryProvider(
     private fun efficiency(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.EFFICIENCY.get(),
+            ModGenes.EFFICIENCY,
             "Efficiency",
             Items.DIAMOND_PICKAXE
         ) {
@@ -259,7 +260,7 @@ class GenesCategoryProvider(
     private fun emeraldHeart(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.EMERALD_HEART.get(),
+            ModGenes.EMERALD_HEART,
             "Emerald Heart",
             Items.EMERALD
         ) {
@@ -280,7 +281,7 @@ class GenesCategoryProvider(
     private fun enderDragonHealth(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.ENDER_DRAGON_HEALTH.get(),
+            ModGenes.ENDER_DRAGON_HEALTH,
             "Ender Dragon Health",
             ModItems.DRAGON_HEALTH_CRYSTAL
         ) {
@@ -306,7 +307,7 @@ class GenesCategoryProvider(
     private fun explosiveExit(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.EXPLOSIVE_EXIT.get(),
+            ModGenes.EXPLOSIVE_EXIT,
             "Explosive Exit",
             Items.TNT
         ) {
@@ -327,7 +328,7 @@ class GenesCategoryProvider(
     private fun fireProof(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.FIRE_PROOF.get(),
+            ModGenes.FIRE_PROOF,
             "Fire Proof",
             Items.FLINT_AND_STEEL
         ) {
@@ -345,7 +346,7 @@ class GenesCategoryProvider(
     private fun flight(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.FLIGHT.get(),
+            ModGenes.FLIGHT,
             "Flight",
             Items.ELYTRA
         ) {
@@ -371,7 +372,7 @@ class GenesCategoryProvider(
     private fun haste(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.HASTE.get(),
+            ModGenes.HASTE,
             "Haste",
             mcLoc("textures/mob_effect/haste.png")
         ) {
@@ -392,7 +393,7 @@ class GenesCategoryProvider(
     private fun infinity(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.INFINITY.get(),
+            ModGenes.INFINITY,
             "Infinite",
             Items.BOW
         ) {
@@ -410,7 +411,7 @@ class GenesCategoryProvider(
     private fun invisible(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.INVISIBLE.get(),
+            ModGenes.INVISIBLE,
             "Invisible",
             Items.POTION
         ) {
@@ -428,7 +429,7 @@ class GenesCategoryProvider(
     private fun itemAttractionField(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.ITEM_MAGNET.get(),
+            ModGenes.ITEM_MAGNET,
             "Item Attraction Field",
             Items.IRON_INGOT
         ) {
@@ -452,7 +453,7 @@ class GenesCategoryProvider(
     private fun johnny(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.JOHNNY.get(),
+            ModGenes.JOHNNY,
             "Johnny",
             Items.IRON_AXE
         ) {
@@ -470,7 +471,7 @@ class GenesCategoryProvider(
     private fun jumpBoost(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.JUMP_BOOST.get(),
+            ModGenes.JUMP_BOOST,
             "Jump Boost",
             mcLoc("textures/mob_effect/jump_boost.png")
         ) {
@@ -488,7 +489,7 @@ class GenesCategoryProvider(
     private fun keepInventory(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.KEEP_INVENTORY.get(),
+            ModGenes.KEEP_INVENTORY,
             "Keep Inventory",
             Items.SKELETON_SKULL
         ) {
@@ -506,7 +507,7 @@ class GenesCategoryProvider(
     private fun knockback(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.KNOCKBACK.get(),
+            ModGenes.KNOCKBACK,
             "Knockback",
             Items.PISTON
         ) {
@@ -524,7 +525,7 @@ class GenesCategoryProvider(
     private fun layEgg(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.LAY_EGG.get(),
+            ModGenes.LAY_EGG,
             "Lay Egg",
             Items.EGG
         ) {
@@ -545,7 +546,7 @@ class GenesCategoryProvider(
     private fun luck(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.LUCK.get(),
+            ModGenes.LUCK,
             "Luck",
             mcLoc("textures/mob_effect/luck.png")
         ) {
@@ -563,7 +564,7 @@ class GenesCategoryProvider(
     private fun meaty(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.MEATY.get(),
+            ModGenes.MEATY,
             "Meaty",
             Items.COOKED_PORKCHOP
         ) {
@@ -589,7 +590,7 @@ class GenesCategoryProvider(
     private fun milky(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.MILKY.get(),
+            ModGenes.MILKY,
             "Milky",
             Items.MILK_BUCKET
         ) {
@@ -611,7 +612,7 @@ class GenesCategoryProvider(
     private fun mobSight(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.MOB_SIGHT.get(),
+            ModGenes.MOB_SIGHT,
             "Mob Sight",
             Items.GOLDEN_CARROT
         ) {
@@ -632,7 +633,7 @@ class GenesCategoryProvider(
     private fun moreHearts(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.MORE_HEARTS.get(),
+            ModGenes.MORE_HEARTS,
             "More Hearts",
             Items.ENCHANTED_GOLDEN_APPLE
         ) {
@@ -653,7 +654,7 @@ class GenesCategoryProvider(
     private fun nightVision(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.NIGHT_VISION.get(),
+            ModGenes.NIGHT_VISION,
             "Night Vision",
             mcLoc("textures/mob_effect/night_vision.png")
         ) {
@@ -671,7 +672,7 @@ class GenesCategoryProvider(
     private fun noFallDamage(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.NO_FALL_DAMAGE.get(),
+            ModGenes.NO_FALL_DAMAGE,
             "No Fall Damage",
             Items.FEATHER
         ) {
@@ -689,7 +690,7 @@ class GenesCategoryProvider(
     private fun noHunger(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.NO_HUNGER.get(),
+            ModGenes.NO_HUNGER,
             "No Hunger",
             Items.BREAD
         ) {
@@ -707,7 +708,7 @@ class GenesCategoryProvider(
     private fun photosynthesis(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.PHOTOSYNTHESIS.get(),
+            ModGenes.PHOTOSYNTHESIS,
             "Photosynthesis",
             Items.SUNFLOWER
         ) {
@@ -725,7 +726,7 @@ class GenesCategoryProvider(
     private fun poisonImmunity(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.POISON_IMMUNITY.get(),
+            ModGenes.POISON_IMMUNITY,
             "Poison Immunity",
             Items.FERMENTED_SPIDER_EYE
         ) {
@@ -743,7 +744,7 @@ class GenesCategoryProvider(
     private fun regeneration(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.REGENERATION.get(),
+            ModGenes.REGENERATION,
             "Regeneration",
             mcLoc("textures/mob_effect/regeneration.png")
         ) {
@@ -764,7 +765,7 @@ class GenesCategoryProvider(
     private fun resistance(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.RESISTANCE.get(),
+            ModGenes.RESISTANCE,
             "Resistance",
             mcLoc("textures/mob_effect/resistance.png")
         ) {
@@ -785,7 +786,7 @@ class GenesCategoryProvider(
     private fun scareCreepers(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.SCARE_CREEPERS.get(),
+            ModGenes.SCARE_CREEPERS,
             "Scare Creepers",
             Items.CREEPER_HEAD
         ) {
@@ -803,7 +804,7 @@ class GenesCategoryProvider(
     private fun scareSkeletons(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.SCARE_SKELETONS.get(),
+            ModGenes.SCARE_SKELETONS,
             "Scare Skeletons",
             Items.SKELETON_SKULL
         ) {
@@ -821,7 +822,7 @@ class GenesCategoryProvider(
     private fun scareSpiders(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.SCARE_SPIDERS.get(),
+            ModGenes.SCARE_SPIDERS,
             "Scare Spiders",
             Items.SPIDER_EYE
         ) {
@@ -839,7 +840,7 @@ class GenesCategoryProvider(
     private fun scareZombies(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.SCARE_ZOMBIES.get(),
+            ModGenes.SCARE_ZOMBIES,
             "Scare Zombies",
             Items.ZOMBIE_HEAD
         ) {
@@ -857,7 +858,7 @@ class GenesCategoryProvider(
     private fun shootFireballs(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.SHOOT_FIREBALLS.get(),
+            ModGenes.SHOOT_FIREBALLS,
             "Shoot Fireballs",
             Items.BLAZE_ROD
         ) {
@@ -875,7 +876,7 @@ class GenesCategoryProvider(
     private fun slimyDeath(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.SLIMY_DEATH.get(),
+            ModGenes.SLIMY_DEATH,
             "Slimy Death",
             Items.SLIME_BALL
         ) {
@@ -896,7 +897,7 @@ class GenesCategoryProvider(
     private fun speed(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.SPEED.get(),
+            ModGenes.SPEED,
             "Speed",
             mcLoc("textures/mob_effect/speed.png")
         ) {
@@ -917,7 +918,7 @@ class GenesCategoryProvider(
     private fun stepAssist(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.STEP_ASSIST.get(),
+            ModGenes.STEP_ASSIST,
             "Step Assist",
             Items.COBBLESTONE_STAIRS
         ) {
@@ -935,7 +936,7 @@ class GenesCategoryProvider(
     private fun strength(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.STRENGTH.get(),
+            ModGenes.STRENGTH,
             "Strength",
             mcLoc("textures/mob_effect/strength.png")
         ) {
@@ -956,7 +957,7 @@ class GenesCategoryProvider(
     private fun teleport(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.TELEPORT.get(),
+            ModGenes.TELEPORT,
             "Teleport",
             Items.ENDER_PEARL
         ) {
@@ -977,7 +978,7 @@ class GenesCategoryProvider(
     private fun thorns(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.THORNS.get(),
+            ModGenes.THORNS,
             "Thorns",
             Items.CACTUS
         ) {
@@ -995,7 +996,7 @@ class GenesCategoryProvider(
     private fun waterBreathing(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.WATER_BREATHING.get(),
+            ModGenes.WATER_BREATHING,
             "Water Breathing",
             mcLoc("textures/mob_effect/water_breathing.png")
         ) {
@@ -1013,7 +1014,7 @@ class GenesCategoryProvider(
     private fun witherHit(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.WITHER_HIT.get(),
+            ModGenes.WITHER_HIT,
             "Wither Hit",
             Items.WITHER_ROSE
         ) {
@@ -1031,7 +1032,7 @@ class GenesCategoryProvider(
     private fun witherProof(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.WITHER_PROOF.get(),
+            ModGenes.WITHER_PROOF,
             "Wither Proof",
             Items.WITHER_SKELETON_SKULL
         ) {
@@ -1049,7 +1050,7 @@ class GenesCategoryProvider(
     private fun wooly(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.WOOLY.get(),
+            ModGenes.WOOLY,
             "Wooly",
             Items.WHITE_WOOL
         ) {
@@ -1071,7 +1072,7 @@ class GenesCategoryProvider(
     private fun xpAttractionField(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            ModGenes.XP_MAGNET.get(),
+            ModGenes.XP_MAGNET,
             "XP Attraction Field",
             Items.EXPERIENCE_BOTTLE
         ) {
