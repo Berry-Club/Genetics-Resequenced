@@ -2,33 +2,25 @@ package dev.aaronhowser.mods.geneticsresequenced.item.components
 
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData
 import io.netty.buffer.ByteBuf
-import net.minecraft.core.component.DataComponentType
+import net.minecraft.core.Holder
+import net.minecraft.core.HolderSet
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 
 data class GeneListItemComponent(
-    val genes: Set<Gene>
+    val genes: HolderSet<Gene>
 ) {
-
-    constructor() : this(HashSet())
+    constructor(collection: Collection<Holder<Gene>>) : this(HolderSet.direct(collection.toList()))
 
     companion object {
 
-        val CODEC: Codec<GeneListItemComponent> = Gene.CODEC.listOf().xmap(
-            { list: List<Gene> ->
-                GeneListItemComponent(
-                    HashSet<Gene>(list)
-                )
-            },
-            { genes: GeneListItemComponent ->
-                ArrayList<Gene>(
-                    genes.genes
-                )
-            })
+        val CODEC: Codec<GenesData> = Gene.CODEC.listOf().xmap(
+            (::GenesData)
+        ) { it.genes.toList() }
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, GeneListItemComponent> = ByteBufCodecs.fromCodec(CODEC)
+        val STREAM_CODEC: StreamCodec<ByteBuf, GenesData> = ByteBufCodecs.fromCodec(CODEC)
     }
 
 }
