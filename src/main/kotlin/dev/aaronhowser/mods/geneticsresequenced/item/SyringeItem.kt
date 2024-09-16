@@ -113,18 +113,18 @@ open class SyringeItem : Item(
 
             if (entity.level().isClientSide) {
 
-                for (removedGeneHolder in genesRemoved) {
+                for (removedGene in genesRemoved) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_SUCCESS.toComponent(
-                            removedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+                            removedGene.nameComponent
                         )
                     )
                 }
 
-                for (notRemovedGeneHolder in genesNotRemoved) {
+                for (notRemovedGene in genesNotRemoved) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_FAIL.toComponent(
-                            notRemovedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+                            notRemovedGene.nameComponent
                         )
                     )
                 }
@@ -152,18 +152,18 @@ open class SyringeItem : Item(
 
             if (entity.level().isClientSide) {
 
-                for (addedGeneHolder in genesAdded) {
+                for (addedGene in genesAdded) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_INJECTED.toComponent(
-                            addedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+                            addedGene.nameComponent
                         )
                     )
                 }
 
-                for (notAddedGeneHolder in genesNotAdded) {
+                for (notAddedGene in genesNotAdded) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_FAILED.toComponent(
-                            notAddedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+                            notAddedGene.nameComponent
                         )
                     )
                 }
