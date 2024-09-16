@@ -81,15 +81,15 @@ object ModDataGen {
             ModLootTableProvider.create(output, lookupProvider)
         )
 
-//        val modonomiconEnUsCache = LanguageProviderCache("en_us")
-//        val modonomiconBookProvider = generator.addProvider(
-//            event.includeServer(),
-//            NeoBookProvider.of(event, ModModonomiconProvider(modonomiconEnUsCache))
-//        )
-//        val modonomiconEnUsProvider = generator.addProvider(
-//            event.includeClient(),
-//            EnUsProvider(output, modonomiconEnUsCache)
-//        )
+        val modonomiconEnUsCache = LanguageProviderCache("en_us")
+        val modonomiconBookProvider = generator.addProvider(
+            event.includeServer(),
+            NeoBookProvider.of(event, ModModonomiconProvider(modonomiconEnUsCache))
+        )
+        val modonomiconEnUsProvider = generator.addProvider(
+            event.includeClient(),
+            EnUsProvider(output, modonomiconEnUsCache)
+        )
 
         val datapackRegistrySets = generator.addProvider(
             event.includeServer(),
