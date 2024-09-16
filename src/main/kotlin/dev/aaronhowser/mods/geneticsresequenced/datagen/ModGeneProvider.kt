@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistrySetBuilder
 import net.minecraft.data.worldgen.BootstrapContext
@@ -289,628 +290,559 @@ class ModGeneProvider : RegistrySetBuilder() {
                         effect = MobEffects.DIG_SPEED
                     )
                 ),
-                mutatesInto = Optional.of(defer(ModGenes.HASTE_TWO)),
-                allowedEntities = onlyPlayers
+                mutatesInto = Optional.of(defer(ModGenes.HASTE_TWO))
             )
         )
 
-        context.register(
-            ModGenes.INFINITY,
-            Gene(
+        ModGenes.HASTE = registerGene("haste") {
+            GeneProperties(
+                id = OtherUtil.modResource("haste"),
                 dnaPointsRequired = 30,
-                allowedEntities = onlyPlayers
+                potionDetails = GeneProperties.PotionDetails(MobEffects.DIG_SPEED),
+                mutatesInto = HASTE_TWO.get()
             )
-        )
+        }
 
-        context.register(
-            ModGenes.INVISIBLE,
-            Gene(
-                dnaPointsRequired = 50,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.INVISIBILITY
-                    )
-                )
-            )
-        )
-
-        context.register(
-            ModGenes.ITEM_MAGNET,
-            Gene(
-                dnaPointsRequired = 30,
-                allowedEntities = onlyPlayers
-            )
-        )
-
-        context.register(
-            ModGenes.JUMP_BOOST,
-            Gene(
-                dnaPointsRequired = 10,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.JUMP
-                    )
-                ),
-                mutatesInto = Optional.of(defer(ModGenes.FLIGHT))
-            )
-        )
-
-        context.register(
-            ModGenes.JOHNNY,
-            Gene(
-                dnaPointsRequired = 20
-            )
-        )
-
-        context.register(
-            ModGenes.KEEP_INVENTORY,
-            Gene(
-                dnaPointsRequired = 40,
-                allowedEntities = onlyPlayers
-            )
-        )
-
-        context.register(
-            ModGenes.KNOCKBACK,
-            Gene(
-                dnaPointsRequired = 20,
-                attributeModifiers = listOf(
-                    Gene.AttributeEntry(
-                        Attributes.ATTACK_KNOCKBACK,
-                        ModAttributes.knockbackAttributeModifier
-                    )
-                )
-            )
-        )
-
-        context.register(
-            ModGenes.LAY_EGG,
-            Gene(
-                dnaPointsRequired = 12
-            )
-        )
-
-        context.register(
-            ModGenes.LUCK,
-            Gene(
-                dnaPointsRequired = 50,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.LUCK
-                    )
-                )
-            )
-        )
-
-        context.register(
-            ModGenes.MEATY,
-            Gene(
-                dnaPointsRequired = 12,
-                mutatesInto = Optional.of(defer(ModGenes.MEATY_TWO))
-            )
-        )
-
-        context.register(
-            ModGenes.MILKY,
-            Gene(
-                dnaPointsRequired = 12
-            )
-        )
-
-        context.register(
-            ModGenes.MOB_SIGHT,
-            Gene(
-                dnaPointsRequired = 16,
-                allowedEntities = onlyPlayers
-            )
-        )
-
-        context.register(
-            ModGenes.MORE_HEARTS,
-            Gene(
-                dnaPointsRequired = 40,
-                attributeModifiers = listOf(
-                    Gene.AttributeEntry(
-                        Attributes.MAX_HEALTH,
-                        ModAttributes.moreHealthOneAttributeModifier
-                    )
-                ),
-                mutatesInto = Optional.of(defer(ModGenes.MORE_HEARTS_TWO))
-            )
-        )
-
-        context.register(
-            ModGenes.NIGHT_VISION,
-            Gene(
-                dnaPointsRequired = 16,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.NIGHT_VISION
-                    )
-                ),
-                allowedEntities = onlyPlayers
-            )
-        )
-
-        context.register(
-            ModGenes.NO_FALL_DAMAGE,
-            Gene(
+        ModGenes.INFINITY = registerGene("infinity") {
+            GeneProperties(
+                id = OtherUtil.modResource("infinity"),
                 dnaPointsRequired = 30
             )
-        )
+        }
 
-        context.register(
-            ModGenes.NO_HUNGER,
-            Gene(
-                dnaPointsRequired = 30,
-                allowedEntities = onlyPlayers
+        ModGenes.INVISIBLE = registerGene("invisible") {
+            GeneProperties(
+                id = OtherUtil.modResource("invisible"),
+                dnaPointsRequired = 50,
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.INVISIBILITY)
             )
-        )
+        }
 
-        context.register(
-            ModGenes.POISON_IMMUNITY,
-            Gene(
-                dnaPointsRequired = 24
+        ModGenes.ITEM_MAGNET = registerGene("item_magnet") {
+            GeneProperties(
+                id = OtherUtil.modResource("item_magnet"),
+                dnaPointsRequired = 30
             )
-        )
+        }
 
-        context.register(
-            ModGenes.REGENERATION,
-            Gene(
-                dnaPointsRequired = 60,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.REGENERATION
-                    )
-                ),
-                mutatesInto = Optional.of(defer(ModGenes.REGENERATION_FOUR))
-            )
-        )
-
-        context.register(
-            ModGenes.RESISTANCE,
-            Gene(
-                dnaPointsRequired = 30,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.DAMAGE_RESISTANCE
-                    )
-                ),
-                mutatesInto = Optional.of(defer(ModGenes.RESISTANCE_TWO))
-            )
-        )
-
-        context.register(
-            ModGenes.SCARE_CREEPERS,
-            Gene(
-                dnaPointsRequired = 20,
-                mutatesInto = Optional.of(defer(ModGenes.SCARE_ZOMBIES))
-            )
-        )
-
-        context.register(
-            ModGenes.SCARE_SKELETONS,
-            Gene(
-                dnaPointsRequired = 20,
-                mutatesInto = Optional.of(defer(ModGenes.SCARE_SPIDERS))
-            )
-        )
-
-        context.register(
-            ModGenes.SHOOT_FIREBALLS,
-            Gene(
-                dnaPointsRequired = 24,
-                allowedEntities = onlyPlayers
-            )
-        )
-
-        context.register(
-            ModGenes.SLIMY_DEATH,
-            Gene(
-                dnaPointsRequired = 60,
-                allowedEntities = onlyPlayers
-            )
-        )
-
-        context.register(
-            ModGenes.SPEED,
-            Gene(
-                dnaPointsRequired = 20,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.MOVEMENT_SPEED
-                    )
-                ),
-                mutatesInto = Optional.of(defer(ModGenes.SPEED_TWO))
-            )
-        )
-
-        context.register(
-            ModGenes.STEP_ASSIST,
-            Gene(
+        ModGenes.JUMP_BOOST = registerGene("jump_boost") {
+            GeneProperties(
+                id = OtherUtil.modResource("jump_boost"),
                 dnaPointsRequired = 10,
-                attributeModifiers = listOf(
-                    Gene.AttributeEntry(
-                        Attributes.STEP_HEIGHT,
-                        ModAttributes.stepAssistAttributeModifier
-                    )
-                )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.JUMP),
+                mutatesInto = FLIGHT.get()
             )
-        )
+        }
 
-        context.register(
-            ModGenes.STRENGTH,
-            Gene(
+        ModGenes.JOHNNY = registerGene("johnny") {
+            GeneProperties(
+                id = OtherUtil.modResource("johnny"),
                 dnaPointsRequired = 20,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.DAMAGE_BOOST
-                    )
-                ),
-                mutatesInto = Optional.of(defer(ModGenes.STRENGTH_TWO))
+                canMobsHave = true
             )
-        )
+        }
 
-        context.register(
-            ModGenes.TELEPORT,
-            Gene(
-                dnaPointsRequired = 24,
-                mutatesInto = Optional.of(defer(ModGenes.FLIGHT)),
-                allowedEntities = onlyPlayers
-            )
-        )
-
-        context.register(
-            ModGenes.THORNS,
-            Gene(
-                dnaPointsRequired = 12
-            )
-        )
-
-        context.register(
-            ModGenes.WALL_CLIMBING,
-            Gene(
-                dnaPointsRequired = 40,
-                allowedEntities = onlyPlayers
-            )
-        )
-
-        context.register(
-            ModGenes.WATER_BREATHING,
-            Gene(
-                dnaPointsRequired = 16
-            )
-        )
-
-        context.register(
-            ModGenes.WITHER_HIT,
-            Gene(
-                dnaPointsRequired = 20,
-            )
-        )
-
-        context.register(
-            ModGenes.WITHER_PROOF,
-            Gene(
+        ModGenes.KEEP_INVENTORY = registerGene("keep_inventory") {
+            GeneProperties(
+                id = OtherUtil.modResource("keep_inventory"),
                 dnaPointsRequired = 40
             )
-        )
+        }
 
-        context.register(
-            ModGenes.WOOLY,
-            Gene(
-                dnaPointsRequired = 12
+        ModGenes.KNOCKBACK = registerGene("knockback") {
+            GeneProperties(
+                id = OtherUtil.modResource("knockback"),
+                dnaPointsRequired = 20,
+                canMobsHave = true,
+                attributeModifiers = mapOf(
+                    Attributes.ATTACK_KNOCKBACK to listOf(ModAttributes.knockbackAttributeModifier)
+                )
             )
-        )
+        }
 
-        context.register(
-            ModGenes.XP_MAGNET,
-            Gene(
+        ModGenes.LAY_EGG = registerGene("lay_egg") {
+            GeneProperties(
+                id = OtherUtil.modResource("lay_egg"),
+                dnaPointsRequired = 12,
+                canMobsHave = true
+            )
+        }
+
+        ModGenes.LUCK = registerGene("luck") {
+            GeneProperties(
+                id = OtherUtil.modResource("luck"),
+                dnaPointsRequired = 50,
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.LUCK)
+            )
+        }
+
+        ModGenes.MEATY = registerGene("meaty") {
+            GeneProperties(
+                id = OtherUtil.modResource("meaty"),
+                dnaPointsRequired = 12,
+                canMobsHave = true,
+                mutatesInto = MEATY_TWO.get()
+            )
+        }
+
+        ModGenes.MILKY = registerGene("milky") {
+            GeneProperties(
+                id = OtherUtil.modResource("milky"),
+                dnaPointsRequired = 12,
+                canMobsHave = true
+            )
+        }
+
+        ModGenes.MOB_SIGHT = registerGene("mob_sight") {
+            GeneProperties(
+                id = OtherUtil.modResource("mob_sight"),
+                dnaPointsRequired = 16
+            )
+        }
+
+        ModGenes.MORE_HEARTS = registerGene("more_hearts") {
+            GeneProperties(
+                id = OtherUtil.modResource("more_hearts"),
+                dnaPointsRequired = 40,
+                canMobsHave = true,
+                mutatesInto = MORE_HEARTS_TWO.get(),
+                attributeModifiers = mapOf(Attributes.MAX_HEALTH to listOf(ModAttributes.moreHealthOneAttributeModifier))
+            )
+        }
+
+        ModGenes.NIGHT_VISION = registerGene("night_vision") {
+            GeneProperties(
+                id = OtherUtil.modResource("night_vision"),
+                dnaPointsRequired = 16,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.NIGHT_VISION)
+            )
+        }
+
+        ModGenes.NO_FALL_DAMAGE = registerGene("no_fall_damage") {
+            GeneProperties(
+                id = OtherUtil.modResource("no_fall_damage"),
                 dnaPointsRequired = 30,
-                allowedEntities = onlyPlayers
+                canMobsHave = true
             )
-        )
+        }
+
+        ModGenes.NO_HUNGER = registerGene("no_hunger") {
+            GeneProperties(
+                id = OtherUtil.modResource("no_hunger"),
+                dnaPointsRequired = 30
+            )
+        }
+
+        ModGenes.POISON_IMMUNITY = registerGene("poison_immunity") {
+            GeneProperties(
+                id = OtherUtil.modResource("poison_immunity"),
+                dnaPointsRequired = 24,
+                canMobsHave = true
+            )
+        }
+
+        ModGenes.REGENERATION = registerGene("regeneration") {
+            GeneProperties(
+                id = OtherUtil.modResource("regeneration"),
+                dnaPointsRequired = 60,
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.REGENERATION),
+                mutatesInto = REGENERATION_FOUR.get()
+            )
+        }
+
+        ModGenes.RESISTANCE = registerGene("resistance") {
+            GeneProperties(
+                id = OtherUtil.modResource("resistance"),
+                dnaPointsRequired = 30,
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.DAMAGE_RESISTANCE),
+                mutatesInto = RESISTANCE_TWO.get()
+            )
+        }
+
+        ModGenes.SCARE_CREEPERS = registerGene("scare_creepers") {
+            GeneProperties(
+                id = OtherUtil.modResource("scare_creepers"),
+                dnaPointsRequired = 20,
+                mutatesInto = SCARE_ZOMBIES.get(),
+                canMobsHave = true
+            )
+        }
+
+        ModGenes.SCARE_SKELETONS = registerGene("scare_skeletons") {
+            GeneProperties(
+                id = OtherUtil.modResource("scare_skeletons"),
+                dnaPointsRequired = 20,
+                mutatesInto = SCARE_SPIDERS.get(),
+                canMobsHave = true
+            )
+        }
+
+        ModGenes.SHOOT_FIREBALLS = registerGene("shoot_fireballs") {
+            GeneProperties(
+                id = OtherUtil.modResource("shoot_fireballs"),
+                dnaPointsRequired = 24
+            )
+        }
+
+        ModGenes.SLIMY_DEATH = registerGene("slimy_death") {
+            GeneProperties(
+                id = OtherUtil.modResource("slimy_death"),
+                dnaPointsRequired = 60
+            )
+        }
+
+        ModGenes.SPEED = registerGene("speed") {
+            GeneProperties(
+                id = OtherUtil.modResource("speed"),
+                dnaPointsRequired = 20,
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.MOVEMENT_SPEED),
+                mutatesInto = SPEED_TWO.get()
+            )
+        }
+
+        ModGenes.STEP_ASSIST = registerGene("step_assist") {
+            GeneProperties(
+                id = OtherUtil.modResource("step_assist"),
+                dnaPointsRequired = 10,
+                attributeModifiers = mapOf(
+                    Attributes.STEP_HEIGHT to listOf(ModAttributes.stepAssistAttributeModifier)
+                )
+            )
+        }
+
+        ModGenes.STRENGTH = registerGene("strength") {
+            GeneProperties(
+                id = OtherUtil.modResource("strength"),
+                dnaPointsRequired = 20,
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.DAMAGE_BOOST),
+                mutatesInto = STRENGTH_TWO.get()
+            )
+        }
+
+        ModGenes.TELEPORT = registerGene("teleport") {
+            GeneProperties(
+                id = OtherUtil.modResource("teleport"),
+                dnaPointsRequired = 24,
+                mutatesInto = FLIGHT.get()
+            )
+        }
+
+        ModGenes.THORNS = registerGene("thorns") {
+            GeneProperties(
+                id = OtherUtil.modResource("thorns"),
+                dnaPointsRequired = 12,
+                canMobsHave = true
+            )
+        }
+
+        ModGenes.WALL_CLIMBING = registerGene("wall_climbing") {
+            GeneProperties(
+                id = OtherUtil.modResource("wall_climbing"),
+                dnaPointsRequired = 40
+            )
+        }
+
+        ModGenes.WATER_BREATHING = registerGene("water_breathing") {
+            GeneProperties(
+                id = OtherUtil.modResource("water_breathing"),
+                dnaPointsRequired = 16,
+                canMobsHave = true
+            )
+        }
+
+        ModGenes.WITHER_HIT = registerGene("wither_hit") {
+            GeneProperties(
+                id = OtherUtil.modResource("wither_hit"),
+                dnaPointsRequired = 20,
+                canMobsHave = true
+            )
+        }
+
+        ModGenes.WITHER_PROOF = registerGene("wither_proof") {
+            GeneProperties(
+                id = OtherUtil.modResource("wither_proof"),
+                dnaPointsRequired = 40,
+                canMobsHave = true
+            )
+        }
+
+        ModGenes.WOOLY = registerGene("wooly") {
+            GeneProperties(
+                id = OtherUtil.modResource("wooly"),
+                dnaPointsRequired = 12,
+                canMobsHave = true
+            )
+        }
+
+        ModGenes.XP_MAGNET = registerGene("xp_magnet") {
+            GeneProperties(
+                id = OtherUtil.modResource("xp_magnet"),
+                dnaPointsRequired = 30
+            )
+        }
 
         //Negative effects
 
         //FIXME: This effect apparently has a sound on add now, probably want to remove that
-
-        context.register(
-            ModGenes.BAD_OMEN,
-            Gene(
+        ModGenes.BAD_OMEN = registerGene("bad_omen") {
+            GeneProperties(
+                id = OtherUtil.modResource("bad_omen"),
                 dnaPointsRequired = 20,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.BAD_OMEN
-                    )
-                )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.BAD_OMEN)
             )
-        )
+        }
 
-        context.register(
-            ModGenes.BLINDNESS,
-            Gene(
+        ModGenes.BLINDNESS = registerGene("blindness") {
+            GeneProperties(
+                id = OtherUtil.modResource("blindness"),
                 dnaPointsRequired = 1,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.BLINDNESS
-                    )
-                )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.BLINDNESS)
             )
-        )
+        }
 
-        context.register(
-            ModGenes.CRINGE,
-            Gene(
+        ModGenes.CRINGE = registerGene("cringe") {
+            GeneProperties(
+                id = OtherUtil.modResource("cringe"),
                 dnaPointsRequired = 20,
-                isNegative = true,
-                allowedEntities = onlyPlayers
-            )
-        )
-
-        context.register(
-            ModGenes.CURSED,
-            Gene(
-                dnaPointsRequired = 1,
-                isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.UNLUCK
-                    )
-                )
-            )
-        )
-
-        context.register(
-            ModGenes.FLAMBE,
-            Gene(
-                dnaPointsRequired = 1,
                 isNegative = true
             )
-        )
+        }
 
-        context.register(
-            ModGenes.HUNGER,
-            Gene(
+        ModGenes.CURSED = registerGene("cursed") {
+            GeneProperties(
+                id = OtherUtil.modResource("cursed"),
                 dnaPointsRequired = 1,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.HUNGER
-                    )
-                )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.UNLUCK)
             )
-        )
+        }
 
-        context.register(
-            ModGenes.INFESTED,
-            Gene(
+        ModGenes.FLAMBE = registerGene("flambe") {
+            GeneProperties(
+                id = OtherUtil.modResource("flambe"),
+                dnaPointsRequired = 1,
+                isNegative = true,
+                canMobsHave = true
+            )
+        }
+
+        ModGenes.HUNGER = registerGene("hunger") {
+            GeneProperties(
+                id = OtherUtil.modResource("hunger"),
+                dnaPointsRequired = 1,
+                isNegative = true,
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.HUNGER)
+            )
+        }
+
+        ModGenes.INFESTED = registerGene("infested") {
+            GeneProperties(
+                id = OtherUtil.modResource("infested"),
                 dnaPointsRequired = 10,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.INFESTED
-                    )
-                )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.INFESTED)
             )
-        )
+        }
 
-        context.register(
-            ModGenes.LEVITATION,
-            Gene(
+        ModGenes.LEVITATION = registerGene("levitation") {
+            GeneProperties(
+                id = OtherUtil.modResource("levitation"),
                 dnaPointsRequired = 1,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.LEVITATION
-                    )
-                )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.LEVITATION)
             )
-        )
+        }
 
-        context.register(
-            ModGenes.MINING_FATIGUE,
-            Gene(
+        ModGenes.MINING_FATIGUE = registerGene("mining_fatigue") {
+            GeneProperties(
+                id = OtherUtil.modResource("mining_fatigue"),
                 dnaPointsRequired = 1,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.DIG_SLOWDOWN
-                    )
-                )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.DIG_SLOWDOWN)
             )
-        )
+        }
 
-        context.register(
-            ModGenes.NAUSEA,
-            Gene(
+        ModGenes.NAUSEA = registerGene("nausea") {
+            GeneProperties(
+                id = OtherUtil.modResource("nausea"),
                 dnaPointsRequired = 1,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.CONFUSION
-                    )
-                )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.CONFUSION)
             )
-        )
+        }
 
-        context.register(
-            ModGenes.OOZING,
-            Gene(
+        ModGenes.OOZING = registerGene("oozing") {
+            GeneProperties(
+                id = OtherUtil.modResource("oozing"),
                 dnaPointsRequired = 10,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.OOZING
-                    )
-                )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.OOZING)
             )
-        )
+        }
 
-        context.register(
-            ModGenes.POISON,
-            Gene(
+        ModGenes.POISON = registerGene("poison") {
+            GeneProperties(
+                id = OtherUtil.modResource("poison"),
                 dnaPointsRequired = 1,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.POISON
-                    )
-                )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.POISON)
             )
-        )
+        }
 
-        context.register(
-            ModGenes.POISON_FOUR,
-            Gene(
+        ModGenes.POISON_FOUR = registerGene("poison_4") {
+            GeneProperties(
+                id = OtherUtil.modResource("poison_4"),
                 dnaPointsRequired = 1,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.POISON,
-                        level = 4
-                    )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(
+                    effect = MobEffects.POISON,
+                    level = 4
                 )
             )
-        )
+        }
 
-        context.register(
-            ModGenes.SLOWNESS,
-            Gene(
+        ModGenes.SLOWNESS = registerGene("slowness") {
+            GeneProperties(
+                id = OtherUtil.modResource("slowness"),
                 dnaPointsRequired = 1,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.MOVEMENT_SLOWDOWN
-                    )
-                )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.MOVEMENT_SLOWDOWN)
             )
-        )
+        }
 
-        context.register(
-            ModGenes.SLOWNESS_FOUR,
-            Gene(
+        ModGenes.SLOWNESS_FOUR = registerGene("slowness_4") {
+            GeneProperties(
+                id = OtherUtil.modResource("slowness_4"),
                 dnaPointsRequired = 1,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.MOVEMENT_SLOWDOWN,
-                        level = 4
-                    )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(
+                    effect = MobEffects.MOVEMENT_SLOWDOWN,
+                    level = 4
                 )
             )
-        )
+        }
 
-        context.register(
-            ModGenes.SLOWNESS_SIX,
-            Gene(
+        ModGenes.SLOWNESS_SIX = registerGene("slowness_6") {
+            GeneProperties(
+                id = OtherUtil.modResource("slowness_6"),
                 dnaPointsRequired = 1,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.MOVEMENT_SLOWDOWN,
-                        level = 6
-                    )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(
+                    effect = MobEffects.MOVEMENT_SLOWDOWN,
+                    level = 6
                 )
             )
-        )
+        }
 
-        context.register(
-            ModGenes.WEAVING,
-            Gene(
+        ModGenes.WEAVING = registerGene("weaving") {
+            GeneProperties(
+                id = OtherUtil.modResource("weaving"),
                 dnaPointsRequired = 10,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.WEAVING
-                    )
-                )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.WEAVING)
             )
-        )
+        }
 
-        context.register(
-            ModGenes.WEAKNESS,
-            Gene(
+        ModGenes.WEAKNESS = registerGene("weakness") {
+            GeneProperties(
+                id = OtherUtil.modResource("weakness"),
                 dnaPointsRequired = 1,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.WEAKNESS
-                    )
-                )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.WEAKNESS)
             )
-        )
+        }
 
-        context.register(
-            ModGenes.WIND_CHARGED,
-            Gene(
+        ModGenes.WIND_CHARGED = registerGene("wind_charged") {
+            GeneProperties(
+                id = OtherUtil.modResource("wind_charged"),
                 dnaPointsRequired = 10,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.WIND_CHARGED
-                    )
-                )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.WIND_CHARGED)
             )
-        )
+        }
 
-        context.register(
-            ModGenes.WITHER,
-            Gene(
+        ModGenes.WITHER = registerGene("wither") {
+            GeneProperties(
+                id = OtherUtil.modResource("wither"),
                 dnaPointsRequired = 1,
                 isNegative = true,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.WITHER
-                    )
-                )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(MobEffects.WITHER)
             )
-        )
+        }
 
         // Plagues
 
-        context.register(
-            ModGenes.BLACK_DEATH,
-            Gene(
+        ModGenes.BLACK_DEATH = registerGene("black_death") {
+            GeneProperties(
+                id = OtherUtil.modResource("black_death"),
                 dnaPointsRequired = 1,
-                isNegative = true
+                isNegative = true,
+                canMobsHave = true
             )
-        )
+        }
 
-        context.register(
-            ModGenes.GREEN_DEATH,
-            Gene(
+        ModGenes.GREEN_DEATH = registerGene("green_death") {
+            GeneProperties(
+                id = OtherUtil.modResource("green_death"),
                 dnaPointsRequired = 1,
-                isNegative = true
+                isNegative = true,
+                canMobsHave = true
             )
-        )
+        }
 
-        context.register(
-            ModGenes.WHITE_DEATH,
-            Gene(
+        ModGenes.WHITE_DEATH = registerGene("white_death") {
+            GeneProperties(
+                id = OtherUtil.modResource("white_death"),
                 dnaPointsRequired = 1,
-                isNegative = true
+                isNegative = true,
+                canMobsHave = true
             )
-        )
+        }
 
-        context.register(
-            ModGenes.GRAY_DEATH,
-            Gene(
+        ModGenes.GRAY_DEATH = registerGene("gray_death") {
+            GeneProperties(
+                id = OtherUtil.modResource("gray_death"),
                 dnaPointsRequired = 1,
-                isNegative = true
+                isNegative = true,
+                canMobsHave = true
             )
-        )
+        }
 
-        context.register(
-            ModGenes.UN_UNDEATH,
-            Gene(
+        ModGenes.UN_UNDEATH = registerGene("un_undeath") {
+            GeneProperties(
+                id = OtherUtil.modResource("un_undeath"),
                 dnaPointsRequired = 1,
-                isNegative = true
+                isNegative = true,
+                canMobsHave = true
             )
-        )
-
+        }
     }
 
 }
