@@ -4,13 +4,10 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.BaseEntryProvider
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.world.entity.EntityType
 
 class BlocksCategoryProvider(
@@ -163,7 +160,7 @@ class BlocksCategoryProvider(
                 GmoCell.setDetails(
                     gmoStack,
                     EntityType.IRON_GOLEM,
-                    GeneRegistry.fromResourceKey(ClientUtil.localRegistryAccess!!, ModGenes.REGENERATION)!!
+                    ModGenes.REGENERATION.get()
                 )
 
                 spotlightPage(
