@@ -12,6 +12,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
+import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.ComponentUtils
 import net.minecraft.network.chat.HoverEvent
@@ -28,18 +29,18 @@ object GeneEvents {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     fun onGeneChanged(event: CustomEvents.GeneChangeEvent.Post) {
-        val (livingEntity: LivingEntity, gene: Gene, wasAdded: Boolean) = event
+        val (livingEntity: LivingEntity, geneHolder: Holder<Gene>, wasAdded: Boolean) = event
 
-        tellAllPlayersGeneChanged(livingEntity, gene, wasAdded)
+        tellAllPlayersGeneChanged(livingEntity, geneHolder, wasAdded)
 
-        gene.setAttributeModifiers(livingEntity, wasAdded)
+        geneHolder.value().setAttributeModifiers(livingEntity, wasAdded)
 
-        if (!wasAdded && gene.getPotion() != null) {
-            TickGenes.handlePotionGeneRemoved(livingEntity, gene)
+        if (!wasAdded && geneHolder.value().getPotion() != null) {
+            TickGenes.handlePotionGeneRemoved(livingEntity, geneHolder)
         }
 
         if (livingEntity is ServerPlayer) {
-            AdvancementTriggers.geneAdvancements(livingEntity, gene, wasAdded)
+            AdvancementTriggers.geneAdvancements(livingEntity, geneHolder, wasAdded)
         }
 
         ModScheduler.scheduleTaskInTicks(1) {
@@ -88,7 +89,7 @@ object GeneEvents {
         }
     }
 
-    private fun tellAllPlayersGeneChanged(entity: LivingEntity, changedGene: Gene, wasAdded: Boolean) {
+    private fun tellAllPlayersGeneChanged(entity: LivingEntity, changedGene: Holder<Gene>, wasAdded: Boolean) {
         if (entity.level().isClientSide) return
 
         val server = entity.server
@@ -100,7 +101,7 @@ object GeneEvents {
         ModPacketHandler.messageAllPlayers(
             GeneChangedPacket(
                 entity.id,
-                changedGene.id,
+                changedGene.key!!.location(),
                 wasAdded
             )
         )

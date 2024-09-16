@@ -1,13 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.SupportSlimeAttackGoal
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
@@ -68,10 +68,9 @@ class SupportSlime(
             if (!player.hasGene(ModGenes.SLIMY_DEATH)) {
                 player.sendSystemMessage(
                     ModLanguageProvider.Messages.SUPPORT_SLIME_CREATIVE.toComponent(
-                        GeneRegistry.fromResourceKey(
-                            ClientUtil.localRegistryAccess!!,
-                            ModGenes.SLIMY_DEATH
-                        )!!.value().nameComponent(ClientUtil.localRegistryAccess!!)
+                        ModGenes.SLIMY_DEATH
+                            .getHolder(ClientUtil.localRegistryAccess!!)!!.value()
+                            .nameComponent(ClientUtil.localRegistryAccess!!)
                     )
                 )
             }

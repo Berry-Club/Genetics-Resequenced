@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
@@ -12,6 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Comp
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.AntiFieldOrbItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -40,8 +40,7 @@ import kotlin.math.max
 object TickGenes {
 
     fun handleBioluminescence(entity: LivingEntity) {
-        val bioluminescence =
-            GeneRegistry.fromResourceKey(entity.registryAccess(), ModGenes.BIOLUMINESCENCE) ?: return
+        val bioluminescence = ModGenes.BIOLUMINESCENCE.getHolder(entity.registryAccess()) ?: return
 
         if (!bioluminescence.value().isActive) return
 
@@ -63,8 +62,7 @@ object TickGenes {
     }
 
     fun handlePhotosynthesis(entity: LivingEntity) {
-        val photosynthesis =
-            GeneRegistry.fromResourceKey(entity.registryAccess(), ModGenes.PHOTOSYNTHESIS) ?: return
+        val photosynthesis = ModGenes.PHOTOSYNTHESIS.getHolder(entity.registryAccess()) ?: return
 
         if (photosynthesis.value().isActive) return
 
@@ -88,8 +86,7 @@ object TickGenes {
     }
 
     fun handleNoHunger(entity: Player) {
-        val noHunger =
-            GeneRegistry.fromResourceKey(entity.registryAccess(), ModGenes.NO_HUNGER) ?: return
+        val noHunger = ModGenes.NO_HUNGER.getHolder(entity.registryAccess()) ?: return
         if (!noHunger.value().isActive) return
 
         if (entity.tickCount % ServerConfig.noHungerCooldown.get() != 0) return
@@ -189,7 +186,7 @@ object TickGenes {
             }
         }
 
-        potionGenes.removeAll(genesToSkip.mapNotNull { GeneRegistry.fromResourceKey(entity.registryAccess(), it) })
+        potionGenes.removeAll(genesToSkip.mapNotNull { it.getHolder(entity.registryAccess()) })
 
         for (geneHolder in potionGenes) {
             val potion = geneHolder.value().getPotion() ?: continue
@@ -250,7 +247,7 @@ object TickGenes {
     }
 
     fun handleMobSight(entity: Player) {
-        val mobSight = GeneRegistry.fromResourceKey(entity.registryAccess(), ModGenes.MOB_SIGHT) ?: return
+        val mobSight = ModGenes.MOB_SIGHT.getHolder(entity.registryAccess()) ?: return
 
         if (!mobSight.value().isActive) return
         if (entity.tickCount % ServerConfig.mobSightCooldown.get() != 0) return
@@ -274,7 +271,7 @@ object TickGenes {
     }
 
     fun handleItemMagnet(player: Player) {
-        val itemMagnet = GeneRegistry.fromResourceKey(player.registryAccess(), ModGenes.ITEM_MAGNET) ?: return
+        val itemMagnet = ModGenes.ITEM_MAGNET.getHolder(player.registryAccess()) ?: return
         if (!itemMagnet.value().isActive) return
 
         if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
@@ -317,7 +314,7 @@ object TickGenes {
     }
 
     fun handleXpMagnet(player: Player) {
-        val xpMagnet = GeneRegistry.fromResourceKey(player.registryAccess(), ModGenes.XP_MAGNET) ?: return
+        val xpMagnet = ModGenes.XP_MAGNET.getHolder(player.registryAccess()) ?: return
         if (!xpMagnet.value().isActive) return
 
         if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return

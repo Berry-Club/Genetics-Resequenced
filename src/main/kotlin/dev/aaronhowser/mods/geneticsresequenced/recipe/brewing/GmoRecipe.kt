@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.brewing
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -65,7 +65,7 @@ class GmoRecipe(
         GmoCell.setDetails(
             output,
             entityType,
-            GeneRegistry.fromResourceKey(lookup, ModGenes.BASIC)!!
+            ModGenes.BASIC.getHolder(lookup)!!
         )
 
         return output

@@ -4,9 +4,9 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.BaseEntryProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
@@ -192,7 +192,7 @@ class ItemsCategoryProvider(
                 val plasmidOne = ModItems.PLASMID.toStack()
 
                 val scareCreepers =
-                    GeneRegistry.fromResourceKey(ClientUtil.localRegistryAccess!!, ModGenes.SCARE_CREEPERS)!!
+                    ModGenes.SCARE_CREEPERS.getHolder(ClientUtil.localRegistryAccess!!)!!
 
                 PlasmidItem.setGene(plasmidOne, scareCreepers)
                 PlasmidItem.setDnaPoints(plasmidOne, 1)
@@ -364,7 +364,7 @@ class ItemsCategoryProvider(
                     )
                 )
 
-                val milky = GeneRegistry.fromResourceKey(ClientUtil.localRegistryAccess!!, ModGenes.MILKY)!!
+                val milky = ModGenes.MILKY.getHolder(ClientUtil.localRegistryAccess!!)!!
 
                 val milkyHelix = ModItems.DNA_HELIX.toStack()
                 DnaHelixItem.setGene(milkyHelix, milky)
@@ -565,7 +565,7 @@ class ItemsCategoryProvider(
                 )
 
                 val bioluminescence =
-                    GeneRegistry.fromResourceKey(ClientUtil.localRegistryAccess!!, ModGenes.BIOLUMINESCENCE)!!
+                    ModGenes.BIOLUMINESCENCE.getHolder(ClientUtil.localRegistryAccess!!)!!
 
                 val gmoStack = ModItems.GMO_CELL.toStack()
                 GmoCell.setDetails(gmoStack, EntityType.BLAZE, bioluminescence)

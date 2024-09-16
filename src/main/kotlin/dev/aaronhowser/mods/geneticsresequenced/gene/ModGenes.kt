@@ -3,6 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import net.minecraft.core.Holder
+import net.minecraft.core.HolderLookup
 import net.minecraft.resources.ResourceKey
 
 object ModGenes {
@@ -110,4 +112,7 @@ object ModGenes {
     val GRAY_DEATH = resourceKey("gray_death")
     val UN_UNDEATH = resourceKey("un_undeath")
 
+
+    fun ResourceKey<Gene>.getHolder(registries: HolderLookup.Provider): Holder.Reference<Gene>? =
+        GeneRegistry.fromResourceKey(registries, this)
 }

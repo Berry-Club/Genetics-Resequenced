@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -54,7 +55,7 @@ class PlasmidInfuserEmiRecipe(
 
         DnaHelixItem.setGene(
             helixStack, if (basic) {
-                GeneRegistry.fromResourceKey(ClientUtil.localRegistryAccess!!, ModGenes.BASIC)!!
+                ModGenes.BASIC.getHolder(ClientUtil.localRegistryAccess!!)!!
             } else geneHolder
         )
         helix = EmiIngredient.of(Ingredient.of(helixStack))

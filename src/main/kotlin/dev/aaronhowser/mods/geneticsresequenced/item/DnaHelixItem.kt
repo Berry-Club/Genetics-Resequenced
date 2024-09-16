@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -37,7 +38,7 @@ class DnaHelixItem : EntityDnaItem() {
         }
 
         fun setGene(itemStack: ItemStack, geneRk: ResourceKey<Gene>, registries: HolderLookup.Provider): ItemStack {
-            val geneHolder = GeneRegistry.fromResourceKey(registries, geneRk)!!
+            val geneHolder = geneRk.getHolder(registries)!!
             return setGene(itemStack, geneHolder)
         }
 

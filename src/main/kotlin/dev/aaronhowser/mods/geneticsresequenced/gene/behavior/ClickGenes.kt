@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -8,6 +9,8 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
@@ -37,12 +40,13 @@ import kotlin.random.Random
 object ClickGenes {
 
     val recentlySheered = GeneCooldown(
-        ModGenes.WOOLY.get(),
+        ModGenes.WOOLY,
         ServerConfig.woolyCooldown.get()
     )
 
     fun handleWooly(event: PlayerInteractEvent.EntityInteract) {
-        if (!ModGenes.WOOLY.get().isActive) return
+        val wooly = ModGenes.WOOLY.getHolder(event.entity.registryAccess()) ?: return
+        if (!wooly.value().isActive) return
 
         val target = event.target as? LivingEntity ?: return
         val clicker = event.entity
@@ -53,7 +57,7 @@ object ClickGenes {
             is Sheep, is MushroomCow -> return
         }
 
-        if (!target.hasGene(ModGenes.WOOLY.get())) return
+        if (!target.hasGene(ModGenes.WOOLY)) return
 
         val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return
@@ -99,19 +103,20 @@ object ClickGenes {
     }
 
     val recentlyMeated = GeneCooldown(
-        ModGenes.MEATY.get(),
+        ModGenes.MEATY,
         ServerConfig.meatyCooldown.get()
     )
 
     fun handleMeaty(event: PlayerInteractEvent.EntityInteract) {
-        if (!ModGenes.MEATY.get().isActive) return
+        val meaty = ModGenes.MEATY.getHolder(event.level.registryAccess()) ?: return
+        if (!meaty.value().isActive) return
 
         val target = event.target as? LivingEntity ?: return
         val clicker = event.entity
 
         if (target.level().isClientSide) return
 
-        if (!target.hasGene(ModGenes.MEATY.get())) return
+        if (!target.hasGene(ModGenes.MEATY)) return
 
         val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.WOOLY_ITEM_TAG)
         if (!clickedWithShears) return

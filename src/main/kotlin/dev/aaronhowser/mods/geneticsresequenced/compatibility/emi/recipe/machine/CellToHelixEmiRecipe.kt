@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machin
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
@@ -72,7 +73,7 @@ class CellToHelixEmiRecipe(
                 GmoCell.setDetails(
                     badGmoStack,
                     entityType,
-                    GeneRegistry.fromResourceKey(lookup, ModGenes.BASIC)!!
+                    ModGenes.BASIC.getHolder(lookup)!!
                 )
 
                 val badHelix = ModItems.DNA_HELIX.toStack()
