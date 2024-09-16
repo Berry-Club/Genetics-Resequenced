@@ -1,0 +1,11 @@
+{
+  "attribute_modifiers": [
+    {
+      "amount": 1.0,
+      "attribute": "minecraft:generic.step_height",
+      "id": "geneticsresequenced:step_assist",
+      "operation": "add_value"
+    }
+  ],
+  "dna_points_required": 10
+}

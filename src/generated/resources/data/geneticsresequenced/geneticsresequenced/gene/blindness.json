@@ -1,0 +1,7 @@
+{
+  "dna_points_required": 1,
+  "negative": true,
+  "potion_details": {
+    "effect": "minecraft:blindness"
+  }
+}
