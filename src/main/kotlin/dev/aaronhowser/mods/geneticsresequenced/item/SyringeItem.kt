@@ -19,6 +19,7 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
+import net.minecraft.core.HolderSet
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
@@ -85,7 +86,7 @@ open class SyringeItem : Item(
             if (entity.uuid != syringeEntityUuid) return
 
             val genesToAdd = if (entity is Player) {
-                getGenes(syringeStack)
+                getGenes(syringeStack).toSet()
             } else {
                 getGenes(syringeStack).filter { it.value().allowsMobs }.toSet()
             }
@@ -175,8 +176,8 @@ open class SyringeItem : Item(
             return syringeStack.hasEntity()
         }
 
-        fun getGenes(syringeStack: ItemStack): Set<Holder<Gene>> {
-            return syringeStack.get(ModDataComponents.GENES_COMPONENT)?.genes ?: emptySet()
+        fun getGenes(syringeStack: ItemStack): HolderSet<Gene> {
+            return syringeStack.get(ModDataComponents.GENES_COMPONENT)?.genes ?: HolderSet.empty()
         }
 
         fun canAddGene(syringeStack: ItemStack, gene: Holder<Gene>): Boolean {
@@ -207,8 +208,8 @@ open class SyringeItem : Item(
             syringeStack.set(ModDataComponents.IS_CONTAMINATED_COMPONENT, BooleanItemComponent(value))
         }
 
-        fun getAntigenes(syringeStack: ItemStack): Set<Holder<Gene>> {
-            return syringeStack.get(ModDataComponents.ANTIGENES_COMPONENT)?.genes ?: emptySet()
+        fun getAntigenes(syringeStack: ItemStack): HolderSet<Gene> {
+            return syringeStack.get(ModDataComponents.ANTIGENES_COMPONENT)?.genes ?: HolderSet.empty()
         }
 
         fun canAddAntigene(syringeStack: ItemStack, gene: Holder<Gene>): Boolean {
@@ -323,7 +324,7 @@ open class SyringeItem : Item(
             )
         }
 
-        val addingGenes = getGenes(pStack)
+        val addingGenes = getGenes(pStack).toSet()
         if (addingGenes.isNotEmpty()) {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.SYRINGE_ADDING_GENES
@@ -344,7 +345,7 @@ open class SyringeItem : Item(
             }
         }
 
-        val removingGenes = getAntigenes(pStack)
+        val removingGenes = getAntigenes(pStack).toSet()
         if (removingGenes.isNotEmpty()) {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.SYRINGE_REMOVING_GENES
