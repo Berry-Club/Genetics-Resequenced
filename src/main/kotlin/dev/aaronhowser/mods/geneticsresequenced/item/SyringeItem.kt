@@ -113,18 +113,18 @@ open class SyringeItem : Item(
 
             if (entity.level().isClientSide) {
 
-                for (removedGene in genesRemoved) {
+                for (removedGeneHolder in genesRemoved) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_SUCCESS.toComponent(
-                            removedGene.nameComponent
+                            removedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
                         )
                     )
                 }
 
-                for (notRemovedGene in genesNotRemoved) {
+                for (notRemovedGeneHolder in genesNotRemoved) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_FAIL.toComponent(
-                            notRemovedGene.nameComponent
+                            notRemovedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
                         )
                     )
                 }
@@ -152,18 +152,18 @@ open class SyringeItem : Item(
 
             if (entity.level().isClientSide) {
 
-                for (addedGene in genesAdded) {
+                for (addedGeneHolder in genesAdded) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_INJECTED.toComponent(
-                            addedGene.nameComponent
+                            addedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
                         )
                     )
                 }
 
-                for (notAddedGene in genesNotAdded) {
+                for (notAddedGeneHolder in genesNotAdded) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_FAILED.toComponent(
-                            notAddedGene.nameComponent
+                            notAddedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
                         )
                     )
                 }
