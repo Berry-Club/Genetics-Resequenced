@@ -8,39 +8,34 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import net.minecraft.core.Holder
+import net.minecraft.core.HolderLookup
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
 
 
 data class GenesData(
-    val genes: Set<Gene>
+    val genes: Set<Holder<Gene>>
 ) {
-    constructor() : this(HashSet())
+    constructor() : this(emptySet())
 
-    @Suppress("LoggingSimilarMessage")
     companion object {
 
         val CODEC: Codec<GenesData> = Gene.CODEC.listOf().xmap(
-            { list: List<Gene> ->
-                GenesData(
-                    HashSet<Gene>(list)
-                )
-            },
-            { genes: GenesData ->
-                ArrayList<Gene>(
-                    genes.genes
-                )
-            })
+            { GenesData(it.toSet()) },
+            { it.genes.toList() }
+        )
 
-        var LivingEntity.genes: Set<Gene>
+        var LivingEntity.geneHolders: Set<Holder<Gene>>
             get() = this.getData(ModAttachmentTypes.GENE_CONTAINER).genes
             private set(value) {
                 this.setData(ModAttachmentTypes.GENE_CONTAINER, GenesData(value))
             }
 
-        fun LivingEntity.addGene(newGene: Gene): Boolean {
-            if (this.hasGene(newGene)) return false
+        fun LivingEntity.addGene(newGeneHolder: Holder<Gene>): Boolean {
+            if (this.hasGene(newGeneHolder)) return false
+            val newGene = newGeneHolder.value()
 
             if (newGene.isHidden) {
                 GeneticsResequenced.LOGGER.debug("Cannot add hidden gene $newGene to entity.")
@@ -54,7 +49,7 @@ data class GenesData(
                 return false
             }
 
-            if (this !is Player && !newGene.allowsMobs) {
+            if (this.type !in newGene.allowedEntities.map { it.value() }) {
                 GeneticsResequenced.LOGGER.debug("Tried to give gene $newGene to mob $this, but mobs cannot have that gene!")
                 return false
             }
@@ -66,7 +61,7 @@ data class GenesData(
                 return false
             }
 
-            this.genes += newGene
+            this.geneHolders += newGeneHolder
 
             val eventPost = CustomEvents.GeneChangeEvent.Post(this, newGene, true)
             FORGE_BUS.post(eventPost)
@@ -74,8 +69,9 @@ data class GenesData(
             return true
         }
 
-        fun LivingEntity.removeGene(removedGene: Gene): Boolean {
-            if (!this.hasGene(removedGene)) return false
+        fun LivingEntity.removeGene(removedGeneHolder: Holder<Gene>): Boolean {
+            if (!this.hasGene(removedGeneHolder)) return false
+            val removedGene = removedGeneHolder.value()
 
             val eventPre = CustomEvents.GeneChangeEvent.Pre(this, removedGene, false)
             val wasCanceled = FORGE_BUS.post(eventPre).isCanceled
@@ -84,7 +80,7 @@ data class GenesData(
                 return false
             }
 
-            this.genes -= removedGene
+            this.geneHolders -= removedGeneHolder
 
             val eventPost = CustomEvents.GeneChangeEvent.Post(this, removedGene, false)
             FORGE_BUS.post(eventPost)
@@ -92,19 +88,19 @@ data class GenesData(
             return true
         }
 
-        fun LivingEntity.hasGene(gene: Gene): Boolean {
-            return gene in this.genes
+        fun LivingEntity.hasGene(gene: Holder<Gene>): Boolean {
+            return gene in this.geneHolders
         }
 
         fun LivingEntity.removeAllGenes() {
-            for (gene in this.genes) {
+            for (gene in this.geneHolders) {
                 this.removeGene(gene)
             }
         }
 
-        fun LivingEntity.addAlLGenes(includeNegative: Boolean = false) {
+        fun LivingEntity.addAlLGenes(registries: HolderLookup.Provider, includeNegative: Boolean = false) {
             val genesToAdd =
-                GeneRegistry.GENE_REGISTRY.filter { includeNegative || !it.isNegative }
+                GeneRegistry.getAllGeneHolders(registries).filter { includeNegative || !it.value().isNegative }
 
             for (gene in genesToAdd) {
                 this.addGene(gene)
