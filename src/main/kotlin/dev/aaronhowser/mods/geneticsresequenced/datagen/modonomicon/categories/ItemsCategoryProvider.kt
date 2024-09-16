@@ -4,9 +4,7 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.BaseEntryProvider
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
@@ -16,7 +14,6 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.world.entity.EntityType
 
@@ -191,10 +188,7 @@ class ItemsCategoryProvider(
 
                 val plasmidOne = ModItems.PLASMID.toStack()
 
-                val scareCreepers =
-                    GeneRegistry.fromResourceKey(ClientUtil.localRegistryAccess!!, ModGenes.SCARE_CREEPERS)!!
-
-                PlasmidItem.setGene(plasmidOne, scareCreepers)
+                PlasmidItem.setGene(plasmidOne, ModGenes.SCARE_CREEPERS.get())
                 PlasmidItem.setDnaPoints(plasmidOne, 1)
 
                 spotlightPage(
@@ -209,7 +203,7 @@ class ItemsCategoryProvider(
                 )
 
                 val plasmidFull = ModItems.PLASMID.toStack()
-                PlasmidItem.setGene(plasmidFull, scareCreepers)
+                PlasmidItem.setGene(plasmidFull, ModGenes.SCARE_CREEPERS.get())
                 PlasmidItem.setDnaPoints(plasmidFull, 99999999)
                 spotlightPage(
                     plasmidFull,
@@ -364,10 +358,8 @@ class ItemsCategoryProvider(
                     )
                 )
 
-                val milky = GeneRegistry.fromResourceKey(ClientUtil.localRegistryAccess!!, ModGenes.MILKY)!!
-
                 val milkyHelix = ModItems.DNA_HELIX.toStack()
-                DnaHelixItem.setGene(milkyHelix, milky)
+                DnaHelixItem.setGene(milkyHelix, ModGenes.MILKY.get())
 
                 spotlightPage(
                     milkyHelix,
@@ -380,7 +372,7 @@ class ItemsCategoryProvider(
                 )
 
                 val basicHelix = ModItems.DNA_HELIX.toStack()
-                DnaHelixItem.setBasic(basicHelix, ClientUtil.localRegistryAccess!!)
+                DnaHelixItem.setBasic(basicHelix)
 
                 spotlightPage(
                     basicHelix,
@@ -564,11 +556,8 @@ class ItemsCategoryProvider(
                     } can be brewed into the Potion of Cell Growth to ${minor("set the Potion to the Cell's entity type")}."
                 )
 
-                val bioluminescence =
-                    GeneRegistry.fromResourceKey(ClientUtil.localRegistryAccess!!, ModGenes.BIOLUMINESCENCE)!!
-
                 val gmoStack = ModItems.GMO_CELL.toStack()
-                GmoCell.setDetails(gmoStack, EntityType.BLAZE, bioluminescence)
+                GmoCell.setDetails(gmoStack, EntityType.BLAZE, ModGenes.BIOLUMINESCENCE.get())
 
                 spotlightPage(
                     gmoStack,
