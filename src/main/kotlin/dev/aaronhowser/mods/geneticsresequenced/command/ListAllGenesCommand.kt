@@ -8,7 +8,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Comp
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.ComponentUtils
 
 object ListAllGenesCommand {
 
@@ -22,13 +21,13 @@ object ListAllGenesCommand {
 
         val messageComponent = ModLanguageProvider.Commands.LIST_ALL_GENES.toComponent()
 
-        messageComponent.append(
-            ComponentUtils.formatList(
-                GeneRegistry.getRegistrySorted(context.source.registryAccess())
-                    .map { it.value().nameComponent(context.source.registryAccess()) },
-                Component.literal("\n• ")
-            )
-        )
+        for (gene in GeneRegistry.getRegistrySorted()) {
+            val geneComponent = Component
+                .literal("\n• ")
+                .append(gene.nameComponent)
+
+            messageComponent.append(geneComponent)
+        }
 
         context.source.sendSuccess({ messageComponent }, false)
         return 1
