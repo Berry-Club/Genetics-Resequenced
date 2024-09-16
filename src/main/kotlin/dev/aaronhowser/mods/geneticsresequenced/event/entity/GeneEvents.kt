@@ -13,6 +13,7 @@ import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
+import net.minecraft.network.chat.ComponentUtils
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
@@ -48,28 +49,32 @@ object GeneEvents {
 
     private fun checkForMissingRequirements(entity: LivingEntity) {
 
-        val genes = entity.geneHolders
+        val geneHolders = entity.geneHolders
 
-        val genesWithMissingRequirements = genes.filter { gene ->
-            !gene.getRequiredGenes().all { it in genes }
+        val genesWithMissingRequirements = geneHolders.filter { geneHolder ->
+            !geneHolder.value().getRequiredGeneHolders().all { it in geneHolders }
         }
 
-        genesWithMissingRequirements.forEach { gene ->
-            entity.removeGene(gene)
+        genesWithMissingRequirements.forEach { geneHolder ->
+            entity.removeGene(geneHolder)
+            val gene = geneHolder.value()
 
             val requiredGenesComponent =
                 ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS_LIST.toComponent()
 
-            for (requiredGene in gene.getRequiredGenes()) {
-                val hasGene = genes.contains(requiredGene)
-                if (hasGene) continue
+            val missingGenes = gene.getRequiredGeneHolders().filter { it !in geneHolders }
 
-                requiredGenesComponent.append(Component.literal("\n - ").append(requiredGene.nameComponent))
-            }
+            requiredGenesComponent.append(
+                ComponentUtils.formatList(
+                    missingGenes.map { it.value().nameComponent(entity.registryAccess()) },
+                    Component.literal("\n - ")
+                )
+            )
+
             if (!entity.level().isClientSide) {
                 entity.sendSystemMessage(
                     ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS
-                        .toComponent(gene.nameComponent)
+                        .toComponent(gene.nameComponent(entity.registryAccess()))
                         .withStyle {
                             it.withHoverEvent(
                                 HoverEvent(

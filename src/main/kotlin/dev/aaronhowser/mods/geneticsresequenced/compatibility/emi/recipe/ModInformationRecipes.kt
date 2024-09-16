@@ -45,7 +45,7 @@ object ModInformationRecipes {
 
             components.add(geneDesc)
 
-            val requiredGenes = gene.getRequiredGenes()
+            val requiredGenes = gene.getRequiredGeneHolders()
             if (requiredGenes.isNotEmpty()) {
                 components.add(Component.literal("\n"))
                 components.add(
