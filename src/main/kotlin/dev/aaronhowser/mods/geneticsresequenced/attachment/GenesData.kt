@@ -26,9 +26,8 @@ data class GenesData(
     companion object {
 
         val CODEC: Codec<GenesData> = Gene.CODEC.listOf().xmap(
-            { GenesData(it.toSet()) },
-            { it.genes.toList() }
-        )
+            (::GenesData)
+        ) { it.genes.toList() }
 
         var LivingEntity.geneHolders: Set<Holder<Gene>>
             get() = this.getData(ModAttachmentTypes.GENE_CONTAINER).genes.toSet()

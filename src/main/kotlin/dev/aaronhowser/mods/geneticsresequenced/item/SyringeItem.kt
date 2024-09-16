@@ -179,10 +179,6 @@ open class SyringeItem : Item(
             return syringeStack.get(ModDataComponents.GENES_COMPONENT)?.genes ?: emptySet()
         }
 
-        fun getGeneRks(syringeStack: ItemStack): Set<ResourceKey<Gene>> {
-            return getGenes(syringeStack).mapNotNull { it.key }.toSet()
-        }
-
         fun canAddGene(syringeStack: ItemStack, gene: Holder<Gene>): Boolean {
             return hasBlood(syringeStack) && gene !in getGenes(syringeStack)
         }
