@@ -3,13 +3,17 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPlasmidEmiRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.ModInformationRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.*
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.*
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.PurifySyringeEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.OrganicMatterToCellEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.DecryptHelixEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.CellToHelixEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.PlasmidInfuserEmiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.PlasmidInjectorEmiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.EmiEntrypoint
 import dev.emi.emi.api.EmiPlugin
@@ -83,7 +87,7 @@ class ModEmiPlugin : EmiPlugin {
         AntiPlasmidEmiRecipes.setAntiPlasmidRecipes(registry)
         AntiPlasmidEmiRecipes.unsetAntiPlasmidRecipes(registry)
 
-        ModInformationRecipes.getInformationRecipes(ClientUtil.localRegistryAccess!!).forEach { registry.addRecipe(it) }
+        ModInformationRecipes.getInformationRecipes().forEach { registry.addRecipe(it) }
 
         comparisons(registry)
     }
