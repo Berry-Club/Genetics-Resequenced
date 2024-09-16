@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.effect
 
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects
 import net.minecraft.world.effect.MobEffect
@@ -29,7 +29,7 @@ class PanaceaEffect : MobEffect(
     }
 
     private fun removeAllNegativeGenes(pLivingEntity: LivingEntity) {
-        val genes = pLivingEntity.geneHolders.filter { it.isNegative }.iterator()
+        val genes = pLivingEntity.genes.filter { it.isNegative }.iterator()
 
         while (genes.hasNext()) {
             val gene = genes.next()

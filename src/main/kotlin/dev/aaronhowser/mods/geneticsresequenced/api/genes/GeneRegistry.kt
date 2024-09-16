@@ -1,25 +1,17 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.genes
 
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.core.Holder
-import net.minecraft.core.HolderLookup
-import net.minecraft.core.HolderLookup.Provider
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
-import java.util.stream.Stream
+import net.minecraft.resources.ResourceLocation
+import net.neoforged.neoforge.registries.RegistryBuilder
 
 object GeneRegistry {
 
     val GENE_REGISTRY_KEY: ResourceKey<Registry<Gene>> =
         ResourceKey.createRegistryKey(OtherUtil.modResource("gene"))
 
-    fun getGeneRegistry(registries: HolderLookup.Provider): HolderLookup.RegistryLookup<Gene> {
-        return registries.lookupOrThrow(GENE_REGISTRY_KEY)
-    }
-
-    fun getAllGeneHolders(registries: Provider): Stream<Holder.Reference<Gene>> {
-        return getGeneRegistry(registries).listElements()
-    }
+    val GENE_REGISTRY =
 
 //    val GENE_REGISTRY: Registry<Gene> = RegistryBuilder(GENE_REGISTRY_KEY)
 //        .sync(true)
