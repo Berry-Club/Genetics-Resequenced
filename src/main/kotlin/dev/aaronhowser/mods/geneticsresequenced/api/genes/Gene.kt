@@ -29,7 +29,6 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
-import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs
 import net.neoforged.neoforge.registries.holdersets.AnyHolderSet
 import java.util.*
 
@@ -249,14 +248,21 @@ data class Gene(
                 ).apply(instance, ::Gene)
             }
 
-        val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Gene> = NeoForgeStreamCodecs.composite(
-            ByteBufCodecs.BOOL, Gene::isNegative,
-            ByteBufCodecs.BOOL, Gene::isHidden,
-            ByteBufCodecs.INT, Gene::dnaPointsRequired,
-            ByteBufCodecs.holderSet(Registries.ENTITY_TYPE), Gene::allowedEntities,
-            ByteBufCodecs.optional(Gene.STREAM_CODEC), Gene::mutatesInto,
-            ByteBufCodecs.optional(PotionDetails.DIRECT_STREAM_CODEC), Gene::potionDetails,
-            AttributeEntry.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::attributeModifiers,
+        val DIRECT_STREAM_CODEC = StreamCodec.composite(
+            ByteBufCodecs.optional(ByteBufCodecs.BOOL),
+            Gene::isNegative,
+            ByteBufCodecs.optional(ByteBufCodecs.BOOL),
+            Gene::isHidden,
+            ByteBufCodecs.INT,
+            Gene::dnaPointsRequired,
+            ByteBufCodecs.optional(ByteBufCodecs.holderSet(Registries.ENTITY_TYPE)),
+            Gene::allowedEntities,
+            ByteBufCodecs.optional(ByteBufCodecs.holder(GeneRegistry.GENE_REGISTRY_KEY, Gene.STREAM_CODEC)),
+            Gene::mutatesInto,
+            ByteBufCodecs.optional(PotionDetails.DIRECT_STREAM_CODEC),
+            Gene::potionDetails,
+            ByteBufCodecs.optional(AttributeEntry.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list())),
+            Gene::attributeModifiers,
             ::Gene
         )
 
