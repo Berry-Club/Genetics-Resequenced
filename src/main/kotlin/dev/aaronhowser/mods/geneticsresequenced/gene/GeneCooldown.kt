@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -103,7 +104,7 @@ class GeneCooldown(
     override fun toString(): String = "GeneCooldown($gene)"
 
     companion object {
-        fun tellCooldownStarted(player: LivingEntity, gene: Gene, cooldownTicks: Int) {
+        fun tellCooldownStarted(player: LivingEntity, geneRk: ResourceKey<Gene>, cooldownTicks: Int) {
             val cooldownSeconds = cooldownTicks / 20
             val cooldownString: String
             if (cooldownSeconds > 60) {
@@ -114,8 +115,10 @@ class GeneCooldown(
                 cooldownString = "$cooldownSeconds seconds"
             }
 
+            val gene = GeneRegistry.fromResourceLocation()
+
             val message = Component.empty()
-                .append(gene.nameComponent)
+                .append(geneRk.nameComponent)
                 .append(ModLanguageProvider.Cooldown.STARTED.toComponent(cooldownString))
 
             player.sendSystemMessage(message)

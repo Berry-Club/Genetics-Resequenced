@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import net.minecraft.commands.CommandSourceStack
@@ -35,7 +35,7 @@ object ListGenesCommand {
             entity as? LivingEntity
         } ?: return 0
 
-        val targetGenesList = target.genes
+        val targetGenesList = target.geneHolders
 
         if (targetGenesList.isEmpty()) {
             context.source.sendSuccess(
