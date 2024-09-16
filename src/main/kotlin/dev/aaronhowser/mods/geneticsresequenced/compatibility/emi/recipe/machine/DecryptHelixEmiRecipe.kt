@@ -13,7 +13,6 @@ import dev.emi.emi.api.render.EmiTexture
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
-import net.minecraft.core.Holder
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -22,7 +21,7 @@ import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class DecryptHelixEmiRecipe(
     val entityType: EntityType<*>,
-    val geneHolder: Holder<Gene>,
+    val gene: Gene,
     val chance: Float
 ) : EmiRecipe {
 
@@ -33,10 +32,10 @@ class DecryptHelixEmiRecipe(
             for ((entityType, map) in MobGeneRegistry.getRegistry()) {
                 val totalWeight = map.values.sum()
 
-                for ((geneHolder, weight) in map) {
+                for ((gene, weight) in map) {
                     val chance = weight.toFloat() / totalWeight
 
-                    recipes.add(DecryptHelixEmiRecipe(entityType, geneHolder, chance))
+                    recipes.add(DecryptHelixEmiRecipe(entityType, gene, chance))
                 }
             }
 
@@ -53,7 +52,7 @@ class DecryptHelixEmiRecipe(
         encryptedHelix = EmiIngredient.of(DataComponentIngredient.of(true, helixStack))
 
         val decryptedHelixStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGene(decryptedHelixStack, geneHolder)
+        DnaHelixItem.setGene(decryptedHelixStack, gene)
         decryptedHelix = EmiStack.of(decryptedHelixStack)
     }
 
@@ -64,7 +63,7 @@ class DecryptHelixEmiRecipe(
     override fun getId(): ResourceLocation {
         val entityTypeRl = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
         val entityString = entityTypeRl.toString().replace(':', '/')
-        val geneString = geneHolder.value().id.toString().replace(':', '/')
+        val geneString = gene.id.toString().replace(':', '/')
 
         return OtherUtil.modResource("/dna_extractor/$entityString/to/$geneString")
     }
