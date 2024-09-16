@@ -10,13 +10,12 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.recipe.EmiRecipeCategory
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
-import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.crafting.Ingredient
 
 class VirusEmiRecipe(
-    val inputDnaGene: Holder<Gene>,
-    val outputGene: Holder<Gene>
+    val inputDnaGene: Gene,
+    val outputGene: Gene
 ) : AbstractEmiBrewingRecipe() {
 
     companion object {
@@ -51,8 +50,8 @@ class VirusEmiRecipe(
     }
 
     override fun getId(): ResourceLocation {
-        val inputGeneString = inputDnaGene.value().id.toString().replace(':', '/')
-        val outputGeneString = outputGene.value().id.toString().replace(':', '/')
+        val inputGeneString = inputDnaGene.id.toString().replace(':', '/')
+        val outputGeneString = outputGene.id.toString().replace(':', '/')
 
         return OtherUtil.modResource("/virus/$inputGeneString/$outputGeneString")
     }
