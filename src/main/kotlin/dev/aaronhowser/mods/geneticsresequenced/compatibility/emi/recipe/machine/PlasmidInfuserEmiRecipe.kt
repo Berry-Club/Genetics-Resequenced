@@ -5,11 +5,9 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import dev.emi.emi.api.recipe.EmiRecipe
@@ -19,13 +17,12 @@ import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.ChatFormatting
-import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.crafting.Ingredient
 
 class PlasmidInfuserEmiRecipe(
-    val geneHolder: Holder<Gene>,
+    val gene: Gene,
     val basic: Boolean
 ) : EmiRecipe {
 
@@ -33,12 +30,9 @@ class PlasmidInfuserEmiRecipe(
         fun getAllRecipes(): List<PlasmidInfuserEmiRecipe> {
             val recipes = mutableListOf<PlasmidInfuserEmiRecipe>()
 
-            for (geneHolder in GeneRegistry
-                .getRegistrySorted(ClientUtil.localRegistryAccess!!)
-                .filterNot { it.value().isHidden }
-            ) {
-                recipes.add(PlasmidInfuserEmiRecipe(geneHolder, basic = true))
-                recipes.add(PlasmidInfuserEmiRecipe(geneHolder, basic = false))
+            for (gene in GeneRegistry.getRegistrySorted().filterNot { it.isHidden }) {
+                recipes.add(PlasmidInfuserEmiRecipe(gene, basic = true))
+                recipes.add(PlasmidInfuserEmiRecipe(gene, basic = false))
             }
 
             return recipes
@@ -49,18 +43,14 @@ class PlasmidInfuserEmiRecipe(
     private val plasmid: EmiStack
 
     init {
-        val stackSize = if (basic) geneHolder.value().dnaPointsRequired else geneHolder.value().dnaPointsRequired / 2
+        val stackSize = if (basic) gene.dnaPointsRequired else gene.dnaPointsRequired / 2
         val helixStack = ModItems.DNA_HELIX.toStack(stackSize)
 
-        DnaHelixItem.setGene(
-            helixStack, if (basic) {
-                GeneRegistry.fromResourceKey(ClientUtil.localRegistryAccess!!, ModGenes.BASIC)!!
-            } else geneHolder
-        )
+        DnaHelixItem.setGene(helixStack, if (basic) ModGenes.BASIC.get() else gene)
         helix = EmiIngredient.of(Ingredient.of(helixStack))
 
         val plasmidStack = ModItems.PLASMID.toStack()
-        PlasmidItem.setGene(plasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
+        PlasmidItem.setGene(plasmidStack, gene, gene.dnaPointsRequired)
         plasmid = EmiStack.of(plasmidStack)
     }
 
@@ -69,7 +59,7 @@ class PlasmidInfuserEmiRecipe(
     }
 
     override fun getId(): ResourceLocation {
-        val geneString = geneHolder.value().id.toString().replace(':', '/')
+        val geneString = gene.id.toString().replace(':', '/')
         val basicString = if (basic) "/basic" else ""
 
         return OtherUtil.modResource("/plasmid_infuser/$geneString$basicString")
@@ -93,15 +83,7 @@ class PlasmidInfuserEmiRecipe(
 
     private val tooltips: List<Component> = listOf(
         ModLanguageProvider.Recipe.REQUIRES_POINTS
-            .toComponent(
-                geneHolder
-                    .value()
-                    .nameComponent(ClientUtil.localRegistryAccess!!)
-                    .withColor(ChatFormatting.GRAY),
-                geneHolder
-                    .value()
-                    .dnaPointsRequired
-            )
+            .toComponent(gene.nameComponent.withColor(ChatFormatting.GRAY), gene.dnaPointsRequired)
             .withColor(ChatFormatting.GRAY),
         ModLanguageProvider.Recipe.BASIC_WORTH
             .toComponent()
