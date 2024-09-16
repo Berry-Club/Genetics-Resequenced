@@ -85,7 +85,7 @@ open class SyringeItem : Item(
             val genesToAdd = if (entity is Player) {
                 getGenes(syringeStack)
             } else {
-                getGenes(syringeStack).filter { it.allowsMobs }.toSet()
+                getGenes(syringeStack).filter { it.canMobsHave }.toSet()
             }
 
             val genesToRemove = getAntigenes(syringeStack)

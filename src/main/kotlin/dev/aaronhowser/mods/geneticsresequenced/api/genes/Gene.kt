@@ -1,82 +1,80 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.genes
 
 import com.mojang.serialization.Codec
-import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import io.netty.buffer.ByteBuf
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
-import net.minecraft.core.HolderSet
-import net.minecraft.core.RegistryCodecs
-import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.core.registries.Registries
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
-import net.minecraft.resources.RegistryFixedCodec
-import net.minecraft.world.effect.MobEffect
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffectInstance
-import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
-import net.neoforged.neoforge.registries.holdersets.AnyHolderSet
-import java.util.*
 
-data class Gene(
-    val isNegative: Boolean,
-    val isHidden: Boolean,
-    val dnaPointsRequired: Int,
-    val allowedEntities: HolderSet<EntityType<*>>,
-    val mutatesInto: Optional<Holder<Gene>>,
-    val potionDetails: Optional<PotionDetails>,
-    val attributeModifiers: List<AttributeEntry>
-) {
+class Gene(properties: GeneProperties) {
 
-    data class AttributeEntry(
-        val attribute: Holder<Attribute>,
-        val modifier: AttributeModifier
-    ) {
-        companion object {
-            val DIRECT_CODEC: Codec<AttributeEntry> = RecordCodecBuilder.create { instance ->
-                instance.group(
-                    Attribute.CODEC.fieldOf("attribute").forGetter(AttributeEntry::attribute),
-                    AttributeModifier.MAP_CODEC.fieldOf("modifiers").forGetter(AttributeEntry::modifier)
-                ).apply(instance, ::AttributeEntry)
-            }
-        }
-    }
+    val id: ResourceLocation = properties.id
+    val isNegative: Boolean = properties.isNegative
+    val isHidden: Boolean = properties.isHidden
+    val canMobsHave: Boolean = properties.canMobsHave
+    val dnaPointsRequired: Int = properties.dnaPointsRequired
+    private val mutatesInto: Gene? = properties.mutatesInto
+    private val potionDetails: GeneProperties.PotionDetails? = properties.potionDetails
+    private val attributeModifiers: Map<Holder<Attribute>, Collection<AttributeModifier>> =
+        properties.attributeModifiers
 
-    data class PotionDetails(
-        val effect: Holder<MobEffect>,
-        val level: Int = 1,
-        val duration: Int = -1,
-        val showIcon: Boolean = false
-    ) {
-        companion object {
-            val DIRECT_CODEC: Codec<PotionDetails> = RecordCodecBuilder.create { instance ->
-                instance.group(
-                    MobEffect.CODEC.fieldOf("effect").forGetter(PotionDetails::effect),
-                    Codec.INT.optionalFieldOf("level", 1).forGetter(PotionDetails::level),
-                    Codec.INT.optionalFieldOf("duration", -1).forGetter(PotionDetails::duration),
-                    Codec.BOOL.optionalFieldOf("showIcon", false).forGetter(PotionDetails::showIcon)
-                ).apply(instance, ::PotionDetails)
+    override fun toString(): String = "Gene($id)"
+
+    companion object {
+
+        val unknownGeneComponent: MutableComponent = ModLanguageProvider.Genes.UNKNOWN.toComponent()
+
+        fun checkDeactivationConfig() {
+            val disabledGeneStrings = ServerConfig.disabledGenes.get()
+
+            val previouslyDisabledGenes = GeneRegistry.GENE_REGISTRY.filterNot { it.isActive }
+            for (previouslyDisabledGene in previouslyDisabledGenes) {
+                previouslyDisabledGene.reactivate()
             }
 
-            val DIRECT_STREAM_CODEC: StreamCodec<ByteBuf, PotionDetails> =
-                ByteBufCodecs.fromCodec(DIRECT_CODEC)
-        }
-    }
+            for (disabledGene in disabledGeneStrings) {
+                val gene = GeneRegistry.fromString(disabledGene)
 
-    val id = OtherUtil.modResource("gene")
+                if (gene == null) {
+                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")
+                    continue
+                }
+
+                if (gene in requiredGenes) {
+                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it is required for the mod to function!")
+                    continue
+                }
+
+                gene.deactivate()
+            }
+        }
+
+        private val requiredGenes by lazy {
+            setOf(
+                ModGenes.BASIC.get()
+            )
+        }
+
+        val CODEC: Codec<Gene> = GeneRegistry.GENE_REGISTRY.byNameCodec()
+
+        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Gene> =
+            ByteBufCodecs.registry(GeneRegistry.GENE_REGISTRY_KEY)
+
+    }
 
     private val requiredGenes: MutableSet<Gene> = mutableSetOf()
 
@@ -185,83 +183,6 @@ data class Gene(
             }
 
         }
-
-    }
-
-    companion object {
-
-        val unknownGeneComponent: MutableComponent = ModLanguageProvider.Genes.UNKNOWN.toComponent()
-
-        fun checkDeactivationConfig() {
-            val disabledGeneStrings = ServerConfig.disabledGenes.get()
-
-            val previouslyDisabledGenes = GeneRegistry.GENE_REGISTRY.filterNot { it.isActive }
-            for (previouslyDisabledGene in previouslyDisabledGenes) {
-                previouslyDisabledGene.reactivate()
-            }
-
-            for (disabledGene in disabledGeneStrings) {
-                val gene = GeneRegistry.fromString(disabledGene)
-
-                if (gene == null) {
-                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")
-                    continue
-                }
-
-                if (gene in requiredGenes) {
-                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it is required for the mod to function!")
-                    continue
-                }
-
-                gene.deactivate()
-            }
-        }
-
-        private val requiredGenes by lazy {
-            setOf(
-                ModGenes.BASIC.get()
-            )
-        }
-
-        val DIRECT_CODEC: Codec<Gene> =
-            RecordCodecBuilder.create { instance ->
-                instance.group(
-                    Codec.BOOL.optionalFieldOf("negative", false).forGetter(Gene::isNegative),
-                    Codec.BOOL.optionalFieldOf("hidden", false).forGetter(Gene::isHidden),
-                    RegistryCodecs
-                        .homogeneousList(Registries.ENTITY_TYPE)
-                        .optionalFieldOf(
-                            "allowed_entities",
-                            AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup())
-                        )
-                        .forGetter(Gene::allowedEntities),
-                    Codec.INT.fieldOf("dna_points_required").forGetter(Gene::dnaPointsRequired),
-                    RegistryFixedCodec.create(GeneRegistry.GENE_REGISTRY_KEY).optionalFieldOf("mutates_into")
-                        .forGetter(Gene::mutatesInto),
-                    PotionDetails.DIRECT_CODEC.optionalFieldOf("potion_details").forGetter(Gene::potionDetails),
-                    AttributeEntry.DIRECT_CODEC.listOf().optionalFieldOf("attribute_modifiers", emptyList())
-                        .forGetter(Gene::attributeModifiers)
-                ).apply(instance, ::Gene)
-            }
-
-        val DIRECT_STREAM_CODEC = StreamCodec.composite(
-            ByteBufCodecs.BOOL, Gene::isNegative,
-            ByteBufCodecs.BOOL, Gene::isHidden,
-            ByteBufCodecs.BOOL, Gene::allowsMobs,
-            ByteBufCodecs.INT, Gene::dnaPointsRequired,
-            ByteBufCodecs.optional(Gene.STREAM_CODEC), Gene::mutatesInto,
-            ByteBufCodecs.optional(PotionDetails.DIRECT_STREAM_CODEC), Gene::potionDetails,
-            ByteBufCodecs.map(
-                Attribute.STREAM_CODEC,
-                AttributeModifier.STREAM_CODEC.apply(ByteBufCodecs.list())
-            ), Gene::attributeModifiers,
-            ::Gene
-        )
-
-        val CODEC: Codec<Gene> = GeneRegistry.GENE_REGISTRY.byNameCodec()
-
-        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Gene> =
-            ByteBufCodecs.registry(GeneRegistry.GENE_REGISTRY_KEY)
 
     }
 
