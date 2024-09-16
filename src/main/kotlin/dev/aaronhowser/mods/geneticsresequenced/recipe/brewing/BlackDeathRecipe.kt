@@ -1,10 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.brewing
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.core.component.DataComponents
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -23,9 +25,10 @@ class BlackDeathRecipe : IBrewingRecipe {
     }
 
     companion object {
-        val requiredGenes =
-            GeneRegistry.getRegistrySorted()
-                .filter { it.isNegative && it.isActive && !it.isHidden } - ModGenes.BLACK_DEATH.get()
+        val requiredGeneHolders =
+            GeneRegistry.getRegistrySorted(ClientUtil.localRegistryAccess!!)
+                .filter { it.value().isNegative && it.value().isActive && !it.value().isHidden }
+        //TODO - ModGenes.BLACK_DEATH
     }
 
     override fun isIngredient(pTopSlot: ItemStack): Boolean {
@@ -35,7 +38,7 @@ class BlackDeathRecipe : IBrewingRecipe {
         if (SyringeItem.isContaminated(pTopSlot)) return false
 
         val syringeGenes = SyringeItem.getGenes(pTopSlot)
-        return syringeGenes.containsAll(requiredGenes)
+        return syringeGenes.containsAll(requiredGeneHolders)
     }
 
     override fun getOutput(pBottomSlot: ItemStack, pTopSlot: ItemStack): ItemStack {
@@ -43,7 +46,7 @@ class BlackDeathRecipe : IBrewingRecipe {
         if (!isIngredient(pTopSlot)) return ItemStack.EMPTY
 
         val output = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGene(output, ModGenes.BLACK_DEATH)
+        DnaHelixItem.setGene(output, ModGenes.BLACK_DEATH, ClientUtil.localRegistryAccess!!)
 
         return output
     }
