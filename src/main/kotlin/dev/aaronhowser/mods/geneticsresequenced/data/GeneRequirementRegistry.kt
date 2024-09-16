@@ -8,6 +8,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.packs.resources.ResourceManager
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener
@@ -19,8 +20,8 @@ class GeneRequirementRegistry : SimpleJsonResourceReloadListener(
 ) {
 
     data class GeneRequirement(
-        val gene: Gene,
-        val requiresGenes: List<Gene>
+        val gene: Holder<Gene>,
+        val requiresGenes: List<Holder<Gene>>
     ) {
         companion object {
             val CODEC: Codec<GeneRequirement> = RecordCodecBuilder.create { instance ->
@@ -37,9 +38,11 @@ class GeneRequirementRegistry : SimpleJsonResourceReloadListener(
         pResourceManager: ResourceManager,
         pProfiler: ProfilerFiller
     ) {
-        GeneRegistry.GENE_REGISTRY.forEach { it.removeRequiredGenes(it.getRequiredGenes()) }
+        GeneRegistry.getAllGeneHolders(registryLookup).forEach {
+            it.value().removeRequiredGenes(it.value().getRequiredGeneHolders())
+        }
 
-        val requirements = mutableMapOf<Gene, List<Gene>>()
+        val requirements = mutableMapOf<Holder<Gene>, List<Holder<Gene>>>()
 
         for ((key: ResourceLocation, value: JsonElement) in pObject) {
             try {
@@ -50,7 +53,7 @@ class GeneRequirementRegistry : SimpleJsonResourceReloadListener(
                     IllegalArgumentException("Failed to decode entity genes for $key")
                 }.first
 
-                val (gene: Gene, requiresGenes: List<Gene>) = geneRequirement
+                val (gene: Holder<Gene>, requiresGenes: List<Holder<Gene>>) = geneRequirement
                 requirements[gene] = requirements.getOrDefault(gene, emptyList()).plus(requiresGenes)
 
             } catch (e: Exception) {
@@ -59,9 +62,9 @@ class GeneRequirementRegistry : SimpleJsonResourceReloadListener(
 
         }
 
-        requirements.forEach { (gene: Gene, requiresGenes: List<Gene>) ->
+        requirements.forEach { (gene: Holder<Gene>, requiresGenes: List<Holder<Gene>>) ->
             GeneticsResequenced.LOGGER.debug("Adding required genes for $gene: ${requiresGenes.joinToString(", ")}")
-            gene.addRequiredGenes(requiresGenes)
+            gene.value().addRequiredGenes(requiresGenes)
         }
     }
 }
