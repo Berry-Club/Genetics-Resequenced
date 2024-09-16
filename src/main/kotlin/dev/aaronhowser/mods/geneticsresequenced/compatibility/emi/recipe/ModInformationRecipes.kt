@@ -28,16 +28,16 @@ object ModInformationRecipes {
     private fun geneDescriptions(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
         val recipes = mutableListOf<EmiInfoRecipe>()
 
-        for (gene in GeneRegistry.getRegistrySorted(registries)) {
-            if (gene.isHidden || !gene.isActive) continue
+        for (geneHolder in GeneRegistry.getRegistrySorted(registries)) {
+            if (geneHolder.value().isHidden || !geneHolder.value().isActive) continue
 
             val components: MutableList<MutableComponent> = mutableListOf()
             components.add(
-                gene.nameComponent(registries).copy()
+                geneHolder.value().nameComponent(registries).copy()
                     .withStyle { it.withColor(ChatFormatting.RESET).withUnderlined(true) }
             )
 
-            val geneString = gene.id.toString()
+            val geneString = geneHolder.value().id.toString()
             val translationKey = "info.geneticsresequenced.gene_description.$geneString"
             val geneDesc = Component.translatable(translationKey)
 
@@ -47,7 +47,7 @@ object ModInformationRecipes {
 
             components.add(geneDesc)
 
-            val requiredGeneHolders = gene.getRequiredGeneHolders()
+            val requiredGeneHolders = geneHolder.value().getRequiredGeneHolders()
             if (requiredGeneHolders.isNotEmpty()) {
                 components.add(Component.literal("\n"))
                 components.add(
@@ -70,7 +70,7 @@ object ModInformationRecipes {
             }
 
             val helix = ModItems.DNA_HELIX.toStack()
-            DnaHelixItem.setGene(helix, gene)
+            DnaHelixItem.setGene(helix, geneHolder)
 
             val recipe = EmiInfoRecipe(
                 listOf(
@@ -126,13 +126,13 @@ object ModInformationRecipes {
 
             val sumOfWeights = genes.values.sum()
 
-            for ((gene, weight) in genes) {
+            for ((geneHolder, weight) in genes) {
                 val chance = (weight.toDouble() / sumOfWeights.toDouble() * 100).toInt()
 
-                val geneComponent = if (gene.isNegative || gene.isMutation(registries)) {
-                    gene.nameComponent(registries)
+                val geneComponent = if (geneHolder.value().isNegative || geneHolder.value().isMutation(registries)) {
+                    geneHolder.value().nameComponent(registries)
                 } else {
-                    gene.nameComponent(registries).copy().withStyle { it.withColor(ChatFormatting.RESET) }
+                    geneHolder.value().nameComponent(registries).copy().withStyle { it.withColor(ChatFormatting.RESET) }
                 }
 
                 val component =
