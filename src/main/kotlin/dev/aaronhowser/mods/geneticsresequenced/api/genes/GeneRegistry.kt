@@ -38,20 +38,20 @@ object GeneRegistry {
         return getAllGeneHolders(registries).filter { it.value().id.path == path }.findFirst().orElse(null)
     }
 
-    fun getRegistrySorted(registries: HolderLookup.Provider): List<Holder<Gene>> {
-        val mutations = mutableListOf<Holder<Gene>>()
-        val negatives = mutableListOf<Holder<Gene>>()
-        val other = mutableListOf<Holder<Gene>>()
+    fun getRegistrySorted(registries: HolderLookup.Provider): List<Gene> {
+        val mutations = mutableListOf<Gene>()
+        val negatives = mutableListOf<Gene>()
+        val other = mutableListOf<Gene>()
 
-        for (geneHolder in getAllGeneHolders(registries)) {
+        for (gene in getAllGeneHolders(registries).map { it.value() }) {
             when {
-                geneHolder.value().isMutation(registries) -> mutations.add(geneHolder)
-                geneHolder.value().isNegative -> negatives.add(geneHolder)
-                else -> other.add(geneHolder)
+                gene.isMutation(registries) -> mutations.add(gene)
+                gene.isNegative -> negatives.add(gene)
+                else -> other.add(gene)
             }
         }
 
-        return other.sortedBy { it.value().id } + mutations.sortedBy { it.value().id } + negatives.sortedBy { it.value().id }
+        return other.sortedBy { it.id } + mutations.sortedBy { it.id } + negatives.sortedBy { it.id }
     }
 
 }
