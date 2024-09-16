@@ -7,11 +7,12 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.LivingEntity
 import java.util.*
 
 class GeneCooldown(
-    private val gene: Gene,
+    private val gene: ResourceKey<Gene>,
     private val cooldownTicks: Int,
     notifyPlayer: Boolean = true
 ) : MutableSet<UUID> {

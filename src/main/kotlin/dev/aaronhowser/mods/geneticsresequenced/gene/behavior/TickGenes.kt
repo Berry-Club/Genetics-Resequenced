@@ -181,15 +181,15 @@ object TickGenes {
     private fun handlePotionGenes(entity: LivingEntity, potionGenes: MutableList<Holder<Gene>>) {
         if (potionGenes.isEmpty()) return
 
-        val genesToSkip = mutableListOf<Gene>()
+        val genesToSkip = mutableListOf<ResourceKey<Gene>>()
 
         for (geneHolder in potionGenes.toList()) {
-            mapOfGeneToInferiorGenes[geneHolder]?.let { redundantGenes ->
+            mapOfGeneToInferiorGenes[geneHolder.key]?.let { redundantGenes ->
                 genesToSkip.addAll(redundantGenes)
             }
         }
 
-        potionGenes.removeAll(genesToSkip.toSet())
+        potionGenes.removeAll(genesToSkip.mapNotNull { GeneRegistry.fromResourceKey(entity.registryAccess(), it) })
 
         for (geneHolder in potionGenes) {
             val potion = geneHolder.value().getPotion() ?: continue
@@ -204,7 +204,7 @@ object TickGenes {
     }
 
     private val recentlyMeated2 = GeneCooldown(
-        ModGenes.MEATY_TWO.get(),
+        ModGenes.MEATY_TWO,
         ServerConfig.meaty2Cooldown.get(),
         notifyPlayer = false
     )
@@ -227,7 +227,7 @@ object TickGenes {
     }
 
     private val recentlyLaidEgg = GeneCooldown(
-        ModGenes.LAY_EGG.get(),
+        ModGenes.LAY_EGG,
         ServerConfig.eggCooldown.get(),
         notifyPlayer = false
     )
@@ -250,10 +250,12 @@ object TickGenes {
     }
 
     fun handleMobSight(entity: Player) {
-        if (!ModGenes.MOB_SIGHT.get().isActive) return
+        val mobSight = GeneRegistry.fromResourceKey(entity.registryAccess(), ModGenes.MOB_SIGHT) ?: return
+
+        if (!mobSight.value().isActive) return
         if (entity.tickCount % ServerConfig.mobSightCooldown.get() != 0) return
 
-        if (!entity.hasGene(ModGenes.MOB_SIGHT.get())) return
+        if (!entity.hasGene(ModGenes.MOB_SIGHT)) return
 
         val searchArea = entity.boundingBox.inflate(ServerConfig.mobSightRadius.get())
         val nearbyLivingEntities = entity.level().getEntities(entity, searchArea).filterIsInstance<Mob>()
@@ -272,12 +274,14 @@ object TickGenes {
     }
 
     fun handleItemMagnet(player: Player) {
-        if (!ModGenes.ITEM_MAGNET.get().isActive) return
+        val itemMagnet = GeneRegistry.fromResourceKey(player.registryAccess(), ModGenes.ITEM_MAGNET) ?: return
+        if (!itemMagnet.value().isActive) return
+
         if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 
         if (player.tickCount % ServerConfig.itemMagnetCooldown.get() != 0) return
 
-        if (!player.hasGene(ModGenes.ITEM_MAGNET.get())) return
+        if (!player.hasGene(ModGenes.ITEM_MAGNET)) return
 
         if (AntiFieldOrbItem.isActiveForPlayer(player)) return
 
@@ -301,7 +305,7 @@ object TickGenes {
         if (!ClientConfig.itemMagnetBlacklistTooltip.get()) return
 
         val player = event.entity ?: return
-        if (!player.hasGene(ModGenes.ITEM_MAGNET.get())) return
+        if (!player.hasGene(ModGenes.ITEM_MAGNET)) return
 
         val item = event.itemStack
         if (!item.`is`(ModItemTagsProvider.MAGNET_ITEM_BLACKLIST)) return
@@ -313,12 +317,14 @@ object TickGenes {
     }
 
     fun handleXpMagnet(player: Player) {
-        if (!ModGenes.XP_MAGNET.get().isActive) return
+        val xpMagnet = GeneRegistry.fromResourceKey(player.registryAccess(), ModGenes.XP_MAGNET) ?: return
+        if (!xpMagnet.value().isActive) return
+
         if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 
         if (player.tickCount % ServerConfig.xpMagnetCooldown.get() != 0) return
 
-        if (!player.hasGene(ModGenes.XP_MAGNET.get())) return
+        if (!player.hasGene(ModGenes.XP_MAGNET)) return
 
         if (AntiFieldOrbItem.isActiveForPlayer(player)) return
 
