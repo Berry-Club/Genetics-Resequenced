@@ -6,28 +6,31 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.HolderSet
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
 
 
 data class GenesData(
-    val genes: Set<Holder<Gene>>
+    val genes: HolderSet<Gene>
 ) {
-    constructor() : this(emptySet())
+    constructor() : this(HolderSet.empty())
+    constructor(set: Set<Holder<Gene>>) : this(HolderSet.direct(set.toList()))
 
     companion object {
 
         val CODEC: Codec<GenesData> = Gene.CODEC.listOf().xmap(
-            { GenesData(it.toSet()) },
-            { it.genes.toList() }
-        )
+            (::GenesData)
+        ) { it.genes.toList() }
 
         var LivingEntity.geneHolders: Set<Holder<Gene>>
-            get() = this.getData(ModAttachmentTypes.GENE_CONTAINER).genes
+            get() = this.getData(ModAttachmentTypes.GENE_CONTAINER).genes.toSet()
             private set(value) {
                 this.setData(ModAttachmentTypes.GENE_CONTAINER, GenesData(value))
             }
@@ -41,7 +44,12 @@ data class GenesData(
                 return false
             }
 
-            if (this is Player && newGene.isNegative && ServerConfig.disableGivingPlayersNegativeGenes.get() && newGene != ModGenes.CRINGE.get()) {
+            if (
+                this is Player
+                && newGene.isNegative
+                && ServerConfig.disableGivingPlayersNegativeGenes.get()
+                && newGeneHolder.key != ModGenes.CRINGE
+            ) {
                 GeneticsResequenced.LOGGER.debug(
                     "Tried to give negative gene $newGene to player $this, but \"disableGivingPlayersNegativeGenes\" is true in the server config."
                 )
@@ -53,7 +61,7 @@ data class GenesData(
                 return false
             }
 
-            val eventPre = CustomEvents.GeneChangeEvent.Pre(this, newGene, true)
+            val eventPre = CustomEvents.GeneChangeEvent.Pre(this, newGeneHolder, true)
             val wasCanceled = FORGE_BUS.post(eventPre).isCanceled
             if (wasCanceled) {
                 GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
@@ -62,7 +70,7 @@ data class GenesData(
 
             this.geneHolders += newGeneHolder
 
-            val eventPost = CustomEvents.GeneChangeEvent.Post(this, newGene, true)
+            val eventPost = CustomEvents.GeneChangeEvent.Post(this, newGeneHolder, true)
             FORGE_BUS.post(eventPost)
 
             return true
@@ -70,9 +78,8 @@ data class GenesData(
 
         fun LivingEntity.removeGene(removedGeneHolder: Holder<Gene>): Boolean {
             if (!this.hasGene(removedGeneHolder)) return false
-            val removedGene = removedGeneHolder.value()
 
-            val eventPre = CustomEvents.GeneChangeEvent.Pre(this, removedGene, false)
+            val eventPre = CustomEvents.GeneChangeEvent.Pre(this, removedGeneHolder, false)
             val wasCanceled = FORGE_BUS.post(eventPre).isCanceled
             if (wasCanceled) {
                 GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
@@ -81,7 +88,7 @@ data class GenesData(
 
             this.geneHolders -= removedGeneHolder
 
-            val eventPost = CustomEvents.GeneChangeEvent.Post(this, removedGene, false)
+            val eventPost = CustomEvents.GeneChangeEvent.Post(this, removedGeneHolder, false)
             FORGE_BUS.post(eventPost)
 
             return true
@@ -89,6 +96,10 @@ data class GenesData(
 
         fun LivingEntity.hasGene(gene: Holder<Gene>): Boolean {
             return gene in this.geneHolders
+        }
+
+        fun LivingEntity.hasGene(geneKey: ResourceKey<Gene>): Boolean {
+            return this.geneHolders.any { it.key == geneKey }
         }
 
         fun LivingEntity.removeAllGenes() {
