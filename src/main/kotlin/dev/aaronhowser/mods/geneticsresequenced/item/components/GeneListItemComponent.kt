@@ -5,13 +5,14 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData
 import io.netty.buffer.ByteBuf
 import net.minecraft.core.Holder
+import net.minecraft.core.HolderSet
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 
 data class GeneListItemComponent(
-    val genes: Set<Holder<Gene>>
+    val genes: HolderSet<Gene>
 ) {
-    constructor(collection: Collection<Holder<Gene>>) : this(collection.toSet())
+    constructor(collection: Collection<Holder<Gene>>) : this(HolderSet.direct(collection.toList()))
 
     companion object {
 
