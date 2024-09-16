@@ -66,11 +66,11 @@ class MetalSyringeItem : SyringeItem() {
 
             if (pInteractionTarget !is Player) {
                 val syringeGenes = getGenes(syringeStack)
-                val genesCantAdd = syringeGenes.filterNot { it.allowsMobs }
-                for (gene in genesCantAdd) {
+                val genesCantAdd = syringeGenes.filterNot { it.value().canEntityHave(pInteractionTarget) }
+                for (geneHolder in genesCantAdd) {
                     sendMessage(
                         ModLanguageProvider.Messages.METAL_SYRINGE_NO_MOBS.toComponent(
-                            gene.nameComponent
+                            geneHolder.value().nameComponent(pInteractionTarget.registryAccess())
                         )
                     )
                 }

@@ -1,14 +1,18 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.brewing
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -21,6 +25,7 @@ import net.neoforged.neoforge.common.brewing.IBrewingRecipe
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
+import net.neoforged.neoforge.registries.DeferredHolder
 
 object BrewingRecipes {
 
@@ -44,11 +49,11 @@ object BrewingRecipes {
             )
         }
 
-        val itemGene = DnaHelixItem.getGene(stack)
-        if (itemGene != null) {
+        val itemGeneHolder = DnaHelixItem.getGene(stack)
+        if (itemGeneHolder != null) {
             event.toolTip.add(
                 ModLanguageProvider.Tooltips.GENE
-                    .toComponent(itemGene.nameComponent)
+                    .toComponent(itemGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!))
                     .withStyle { it.withColor(ChatFormatting.GRAY) }
             )
         }
@@ -81,6 +86,10 @@ object BrewingRecipes {
     val panaceaPotionStack
         get() = OtherUtil.getPotionStack(ModPotions.PANACEA)
 
+    fun defer(geneRk: ResourceKey<Gene>): DeferredHolder<Gene, Gene> {
+        return DeferredHolder.create(geneRk)
+    }
+
     fun setRecipes(event: RegisterBrewingRecipesEvent) {
         allRecipes.clear()
 
@@ -91,7 +100,7 @@ object BrewingRecipes {
         )
         val cellGrowthRecipe = BrewingRecipe(
             ingredient(ModPotions.SUBSTRATE),
-            ingredient(DnaHelixItem.setBasic(ModItems.DNA_HELIX.toStack())),
+            ingredient(DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), defer(ModGenes.BASIC))),
             cellGrowthPotionStack
         )
         val mutationRecipe = BrewingRecipe(
@@ -106,7 +115,7 @@ object BrewingRecipes {
         )
         val panaceaRecipe = BrewingRecipe(
             ingredient(ModPotions.VIRAL_AGENTS),
-            ingredient(DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), ModGenes.REGENERATION)),
+            ingredient(DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), defer(ModGenes.REGENERATION))),
             panaceaPotionStack
         )
 
@@ -129,101 +138,101 @@ object BrewingRecipes {
         allRecipes.add(setPcgEntityRecipe)
 
         val geneFocusBrews = listOf(
-            GmoRecipe(EntityType.BLAZE, Items.GLOWSTONE_DUST, ModGenes.BIOLUMINESCENCE.get(), 0.85f),
-            GmoRecipe(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, ModGenes.BIOLUMINESCENCE.get(), 0.85f),
-            GmoRecipe(EntityType.VILLAGER, Items.EMERALD, ModGenes.EMERALD_HEART.get(), 0.85f),
-            GmoRecipe(EntityType.SHULKER, Items.EMERALD_BLOCK, ModGenes.KEEP_INVENTORY.get(), 0.45f),
-            GmoRecipe(EntityType.RABBIT, Items.GOLDEN_BOOTS, ModGenes.SPEED.get(), 0.65f),
-            GmoRecipe(EntityType.RABBIT, Items.EMERALD, ModGenes.LUCK.get(), 0.75f),
-            GmoRecipe(EntityType.IRON_GOLEM, Items.GOLDEN_APPLE, ModGenes.REGENERATION.get(), 0.3f),
-            GmoRecipe(EntityType.CHICKEN, Items.EGG, ModGenes.LAY_EGG.get(), 1f),
-            GmoRecipe(EntityType.PIG, Items.PORKCHOP, ModGenes.MEATY.get(), 1f),
-            GmoRecipe(EntityType.ENDERMAN, Items.ENDER_PEARL, ModGenes.TELEPORT.get(), 0.45f),
-            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.MORE_HEARTS.get(), 0.2f),
-            GmoRecipe(EntityType.MOOSHROOM, Items.MUSHROOM_STEM, ModGenes.PHOTOSYNTHESIS.get(), 0.7f),
+            GmoRecipe(EntityType.BLAZE, Items.GLOWSTONE_DUST, defer(ModGenes.BIOLUMINESCENCE), 0.85f),
+            GmoRecipe(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, defer(ModGenes.BIOLUMINESCENCE), 0.85f),
+            GmoRecipe(EntityType.VILLAGER, Items.EMERALD, defer(ModGenes.EMERALD_HEART), 0.85f),
+            GmoRecipe(EntityType.SHULKER, Items.EMERALD_BLOCK, defer(ModGenes.KEEP_INVENTORY), 0.45f),
+            GmoRecipe(EntityType.RABBIT, Items.GOLDEN_BOOTS, defer(ModGenes.SPEED), 0.65f),
+            GmoRecipe(EntityType.RABBIT, Items.EMERALD, defer(ModGenes.LUCK), 0.75f),
+            GmoRecipe(EntityType.IRON_GOLEM, Items.GOLDEN_APPLE, defer(ModGenes.REGENERATION), 0.3f),
+            GmoRecipe(EntityType.CHICKEN, Items.EGG, defer(ModGenes.LAY_EGG), 1f),
+            GmoRecipe(EntityType.PIG, Items.PORKCHOP, defer(ModGenes.MEATY), 1f),
+            GmoRecipe(EntityType.ENDERMAN, Items.ENDER_PEARL, defer(ModGenes.TELEPORT), 0.45f),
+            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, defer(ModGenes.MORE_HEARTS), 0.2f),
+            GmoRecipe(EntityType.MOOSHROOM, Items.MUSHROOM_STEM, defer(ModGenes.PHOTOSYNTHESIS), 0.7f),
         )
         allRecipes.addAll(geneFocusBrews)
 
         val mutationBrews = listOf(
-            GmoRecipe(EntityType.ENDER_DRAGON, Items.ELYTRA, ModGenes.FLIGHT.get(), 0.55f, isMutation = true),
+            GmoRecipe(EntityType.ENDER_DRAGON, Items.ELYTRA, defer(ModGenes.FLIGHT), 0.55f, isMutation = true),
             GmoRecipe(
                 EntityType.POLAR_BEAR,
                 Items.NETHERITE_SWORD,
-                ModGenes.STRENGTH_TWO.get(),
+                defer(ModGenes.STRENGTH_TWO),
                 0.5f,
                 isMutation = true
             ),
             GmoRecipe(
                 EntityType.SHULKER,
                 Items.NETHERITE_CHESTPLATE,
-                ModGenes.RESISTANCE_TWO.get(),
+                defer(ModGenes.RESISTANCE_TWO),
                 0.5f,
                 isMutation = true
             ),
-            GmoRecipe(EntityType.POLAR_BEAR, Items.DIAMOND_SWORD, ModGenes.CLAWS_TWO.get(), 0.75f, isMutation = true),
-            GmoRecipe(EntityType.RABBIT, Items.DIAMOND_BOOTS, ModGenes.SPEED_TWO.get(), 0.5f, isMutation = true),
-            GmoRecipe(EntityType.OCELOT, Items.NETHERITE_BOOTS, ModGenes.SPEED_FOUR.get(), 0.5f, isMutation = true),
-            GmoRecipe(EntityType.RABBIT, Items.NETHERITE_PICKAXE, ModGenes.HASTE_TWO.get(), 0.35f, isMutation = true),
+            GmoRecipe(EntityType.POLAR_BEAR, Items.DIAMOND_SWORD, defer(ModGenes.CLAWS_TWO), 0.75f, isMutation = true),
+            GmoRecipe(EntityType.RABBIT, Items.DIAMOND_BOOTS, defer(ModGenes.SPEED_TWO), 0.5f, isMutation = true),
+            GmoRecipe(EntityType.OCELOT, Items.NETHERITE_BOOTS, defer(ModGenes.SPEED_FOUR), 0.5f, isMutation = true),
+            GmoRecipe(EntityType.RABBIT, Items.NETHERITE_PICKAXE, defer(ModGenes.HASTE_TWO), 0.35f, isMutation = true),
             GmoRecipe(
                 EntityType.SILVERFISH,
                 Items.NETHERITE_PICKAXE,
-                ModGenes.EFFICIENCY_FOUR.get(),
+                defer(ModGenes.EFFICIENCY_FOUR),
                 0.25f,
                 isMutation = true
             ),
             GmoRecipe(
                 EntityType.ZOMBIE,
                 Items.FERMENTED_SPIDER_EYE,
-                ModGenes.SCARE_ZOMBIES.get(),
+                defer(ModGenes.SCARE_ZOMBIES),
                 0.5f,
                 isMutation = true
             ),
             GmoRecipe(
                 EntityType.SPIDER,
                 Items.FERMENTED_SPIDER_EYE,
-                ModGenes.SCARE_SPIDERS.get(),
+                defer(ModGenes.SCARE_SPIDERS),
                 0.5f,
                 isMutation = true
             ),
             GmoRecipe(
                 EntityType.ENDER_DRAGON,
                 Items.ENCHANTED_GOLDEN_APPLE,
-                ModGenes.REGENERATION_FOUR.get(),
+                defer(ModGenes.REGENERATION_FOUR),
                 0.35f,
                 isMutation = true
             ),
-            GmoRecipe(EntityType.PIG, Items.BLAZE_POWDER, ModGenes.MEATY_TWO.get(), 0.75f, isMutation = true),
-            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.MORE_HEARTS_TWO.get(), 0.25f, true)
+            GmoRecipe(EntityType.PIG, Items.BLAZE_POWDER, defer(ModGenes.MEATY_TWO), 0.75f, isMutation = true),
+            GmoRecipe(EntityType.ENDERMAN, Items.GOLDEN_APPLE, defer(ModGenes.MORE_HEARTS_TWO), 0.25f, true)
         )
         allRecipes.addAll(mutationBrews)
 
         val virusBrews = listOf(
-            VirusRecipe(ModGenes.POISON_IMMUNITY.get(), ModGenes.POISON.get()),
-            VirusRecipe(ModGenes.WITHER_HIT.get(), ModGenes.POISON_FOUR.get()),
-            VirusRecipe(ModGenes.WITHER_PROOF.get(), ModGenes.WITHER.get()),
-            VirusRecipe(ModGenes.STRENGTH.get(), ModGenes.WEAKNESS.get()),
-            VirusRecipe(ModGenes.NIGHT_VISION.get(), ModGenes.BLINDNESS.get()),
-            VirusRecipe(ModGenes.SPEED.get(), ModGenes.SLOWNESS.get()),
-            VirusRecipe(ModGenes.SPEED_TWO.get(), ModGenes.SLOWNESS_FOUR.get()),
-            VirusRecipe(ModGenes.SPEED_FOUR.get(), ModGenes.SLOWNESS_SIX.get()),
-            VirusRecipe(ModGenes.MILKY.get(), ModGenes.NAUSEA.get()),
-            VirusRecipe(ModGenes.MEATY.get(), ModGenes.NAUSEA.get()),
-            VirusRecipe(ModGenes.LAY_EGG.get(), ModGenes.NAUSEA.get()),
-            VirusRecipe(ModGenes.NO_HUNGER.get(), ModGenes.HUNGER.get()),
-            VirusRecipe(ModGenes.FIRE_PROOF.get(), ModGenes.FLAMBE.get()),
-            VirusRecipe(ModGenes.LUCK.get(), ModGenes.CURSED.get()),
-            VirusRecipe(ModGenes.HASTE.get(), ModGenes.MINING_FATIGUE.get()),
-            VirusRecipe(ModGenes.SCARE_CREEPERS.get(), ModGenes.GREEN_DEATH.get()),
-            VirusRecipe(ModGenes.SCARE_SKELETONS.get(), ModGenes.UN_UNDEATH.get()),
-            VirusRecipe(ModGenes.SCARE_ZOMBIES.get(), ModGenes.UN_UNDEATH.get()),
-            VirusRecipe(ModGenes.RESISTANCE.get(), ModGenes.GRAY_DEATH.get()),
-            VirusRecipe(ModGenes.DRAGON_BREATH.get(), ModGenes.WHITE_DEATH.get()),
+            VirusRecipe(defer(ModGenes.POISON_IMMUNITY), defer(ModGenes.POISON)),
+            VirusRecipe(defer(ModGenes.WITHER_HIT), defer(ModGenes.POISON_FOUR)),
+            VirusRecipe(defer(ModGenes.WITHER_PROOF), defer(ModGenes.WITHER)),
+            VirusRecipe(defer(ModGenes.STRENGTH), defer(ModGenes.WEAKNESS)),
+            VirusRecipe(defer(ModGenes.NIGHT_VISION), defer(ModGenes.BLINDNESS)),
+            VirusRecipe(defer(ModGenes.SPEED), defer(ModGenes.SLOWNESS)),
+            VirusRecipe(defer(ModGenes.SPEED_TWO), defer(ModGenes.SLOWNESS_FOUR)),
+            VirusRecipe(defer(ModGenes.SPEED_FOUR), defer(ModGenes.SLOWNESS_SIX)),
+            VirusRecipe(defer(ModGenes.MILKY), defer(ModGenes.NAUSEA)),
+            VirusRecipe(defer(ModGenes.MEATY), defer(ModGenes.NAUSEA)),
+            VirusRecipe(defer(ModGenes.LAY_EGG), defer(ModGenes.NAUSEA)),
+            VirusRecipe(defer(ModGenes.NO_HUNGER), defer(ModGenes.HUNGER)),
+            VirusRecipe(defer(ModGenes.FIRE_PROOF), defer(ModGenes.FLAMBE)),
+            VirusRecipe(defer(ModGenes.LUCK), defer(ModGenes.CURSED)),
+            VirusRecipe(defer(ModGenes.HASTE), defer(ModGenes.MINING_FATIGUE)),
+            VirusRecipe(defer(ModGenes.SCARE_CREEPERS), defer(ModGenes.GREEN_DEATH)),
+            VirusRecipe(defer(ModGenes.SCARE_SKELETONS), defer(ModGenes.UN_UNDEATH)),
+            VirusRecipe(defer(ModGenes.SCARE_ZOMBIES), defer(ModGenes.UN_UNDEATH)),
+            VirusRecipe(defer(ModGenes.RESISTANCE), defer(ModGenes.GRAY_DEATH)),
+            VirusRecipe(defer(ModGenes.DRAGON_BREATH), defer(ModGenes.WHITE_DEATH)),
 
             BlackDeathRecipe(),
 
             BrewingRecipe(
                 ingredient(viralAgentsPotionStack),
-                ingredient(DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), ModGenes.EMERALD_HEART)),
+                ingredient(DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), defer(ModGenes.EMERALD_HEART))),
                 OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER)
             )
         )

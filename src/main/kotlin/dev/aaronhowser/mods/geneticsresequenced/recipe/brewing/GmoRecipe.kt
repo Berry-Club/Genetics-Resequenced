@@ -2,22 +2,20 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.brewing
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
-import net.minecraft.core.HolderLookup
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.brewing.IBrewingRecipe
+import net.neoforged.neoforge.registries.DeferredHolder
 
 class GmoRecipe(
-    val lookup: HolderLookup.Provider,
     val entityType: EntityType<*>,
     val ingredientItem: Item,
     val idealGeneHolder: Holder<Gene>,
@@ -65,7 +63,7 @@ class GmoRecipe(
         GmoCell.setDetails(
             output,
             entityType,
-            ModGenes.BASIC.getHolder(lookup)!!
+            DeferredHolder.create(ModGenes.BASIC)
         )
 
         return output
