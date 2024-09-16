@@ -10,6 +10,7 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.item.ItemEntity
@@ -28,7 +29,8 @@ object DeathGenes {
 
     //TODO: Test with grave mods
     fun saveInventory(player: Player) {
-        if (!ModGenes.KEEP_INVENTORY.isActive) return
+        val keepInventory = ModGenes.KEEP_INVENTORY.getHolder(player.registryAccess()) ?: return
+        if (!keepInventory.value().isActive) return
 
         player.level().apply {
             if (isClientSide) return
@@ -66,15 +68,16 @@ object DeathGenes {
     }
 
     private val emeraldHeartCooldown = GeneCooldown(
-        ModGenes.EMERALD_HEART.get(),
+        ModGenes.EMERALD_HEART,
         ServerConfig.emeraldHeartCooldown.get()
     )
 
     fun handleEmeraldHeart(event: LivingDeathEvent) {
-        if (!ModGenes.EMERALD_HEART.get().isActive) return
+        val emeraldHeart = ModGenes.EMERALD_HEART.getHolder(event.entity.registryAccess()) ?: return
+        if (!emeraldHeart.value().isActive) return
 
         val entity = event.entity
-        if (!entity.hasGene(ModGenes.EMERALD_HEART.get())) return
+        if (!entity.hasGene(ModGenes.EMERALD_HEART)) return
 
         if (entity !is Player) {
             val itemEntity = ItemEntity(entity.level(), entity.x, entity.y, entity.z, ItemStack(Items.EMERALD, 1))
@@ -94,10 +97,11 @@ object DeathGenes {
     private const val GUNPOWDER_REQUIRED = 5
     private const val EXPLOSION_STRENGTH = 3f
     fun handleExplosiveExit(event: LivingDeathEvent) {
-        if (!ModGenes.EXPLOSIVE_EXIT.get().isActive) return
+        val explosiveExit = ModGenes.EXPLOSIVE_EXIT.getHolder(event.entity.registryAccess()) ?: return
+        if (!explosiveExit.value().isActive) return
 
         val entity = event.entity
-        if (!entity.hasGene(ModGenes.EXPLOSIVE_EXIT.get())) return
+        if (!entity.hasGene(ModGenes.EXPLOSIVE_EXIT)) return
 
         val shouldExplode = if (entity !is Player) {
             true
@@ -138,7 +142,8 @@ object DeathGenes {
     }
 
     fun explosiveExitDetonation(event: ExplosionEvent.Detonate) {
-        if (!ModGenes.EXPLOSIVE_EXIT.get().isActive) return
+        val explosiveExit = ModGenes.EXPLOSIVE_EXIT.getHolder(event.level.registryAccess()) ?: return
+        if (!explosiveExit.value().isActive) return
 
         val exploderUuid = event.explosion.directSourceEntity?.uuid
         if (exploderUuid !in recentlyExplodedEntities) return
@@ -148,16 +153,17 @@ object DeathGenes {
     }
 
     private val slimyDeathCooldown = GeneCooldown(
-        ModGenes.SLIMY_DEATH.get(),
+        ModGenes.SLIMY_DEATH,
         ServerConfig.slimyDeathCooldown.get()
     )
 
     fun handleSlimyDeath(event: LivingDeathEvent) {
-        if (!ModGenes.SLIMY_DEATH.get().isActive) return
+        val slimyDeath = ModGenes.SLIMY_DEATH.getHolder(event.entity.registryAccess()) ?: return
+        if (!slimyDeath.value().isActive) return
         if (event.isCanceled) return
 
         val entity: LivingEntity = event.entity
-        if (!entity.hasGene(ModGenes.SLIMY_DEATH.get())) return
+        if (!entity.hasGene(ModGenes.SLIMY_DEATH)) return
 
         val newlyUsed = slimyDeathCooldown.add(entity)
         if (!newlyUsed) return

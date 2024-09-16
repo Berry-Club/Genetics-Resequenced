@@ -3,6 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerPlayer
@@ -17,15 +19,16 @@ import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.toVec3i
 object PacketGenes {
 
     private val recentTeleports = GeneCooldown(
-        ModGenes.TELEPORT.get(),
+        ModGenes.TELEPORT,
         ServerConfig.teleportCooldown.get()
     )
 
     @Suppress("MoveVariableDeclarationIntoWhen")
     fun teleport(player: ServerPlayer) {
-        if (!ModGenes.TELEPORT.get().isActive) return
+        val teleport = ModGenes.TELEPORT.getHolder(player.registryAccess()) ?: return
+        if (!teleport.value().isActive) return
 
-        if (!player.hasGene(ModGenes.TELEPORT.get())) return
+        if (!player.hasGene(ModGenes.TELEPORT)) return
 
         val wasNotOnCooldown = recentTeleports.add(player)
         if (!wasNotOnCooldown) return
@@ -75,14 +78,15 @@ object PacketGenes {
     }
 
     private val recentDragonsBreath = GeneCooldown(
-        ModGenes.DRAGON_BREATH.get(),
+        ModGenes.DRAGON_BREATH,
         ServerConfig.dragonsBreathCooldown.get()
     )
 
     fun dragonBreath(player: ServerPlayer) {
-        if (!ModGenes.DRAGON_BREATH.get().isActive) return
+        val dragonBreath = ModGenes.DRAGON_BREATH.getHolder(player.registryAccess()) ?: return
+        if (!dragonBreath.value().isActive) return
 
-        if (!player.hasGene(ModGenes.DRAGON_BREATH.get())) return
+        if (!player.hasGene(ModGenes.DRAGON_BREATH)) return
 
         val wasNotOnCooldown = recentDragonsBreath.add(player)
 
