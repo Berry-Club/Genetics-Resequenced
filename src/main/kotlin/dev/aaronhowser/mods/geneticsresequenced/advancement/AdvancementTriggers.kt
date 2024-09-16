@@ -2,12 +2,14 @@ package dev.aaronhowser.mods.geneticsresequenced.advancement
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.advancements.AdvancementHolder
+import net.minecraft.core.Holder
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.item.ItemStack
 
@@ -36,28 +38,28 @@ object AdvancementTriggers {
         completeAdvancement(player, advancement)
     }
 
-    fun geneAdvancements(player: ServerPlayer, gene: Gene, wasAdded: Boolean) {
+    fun geneAdvancements(player: ServerPlayer, geneHolder: Holder<Gene>, wasAdded: Boolean) {
         if (wasAdded) {
             getAnyGeneAdvancement(player)
 
-            when (gene) {
-                ModGenes.CRINGE.get() -> getCringeGeneAdvancement(player)
-                ModGenes.FLIGHT.get() -> getFlightGeneAdvancement(player)
-                ModGenes.SCARE_SPIDERS.get() -> getAllScareGenes(player)
+            when (geneHolder) {
+                ModGenes.CRINGE -> getCringeGeneAdvancement(player)
+                ModGenes.FLIGHT -> getFlightGeneAdvancement(player)
+                ModGenes.SCARE_SPIDERS -> getAllScareGenes(player)
             }
 
         }
     }
 
     private fun getAllScareGenes(player: ServerPlayer) {
-        val genes =
+        val scareGeneKeys =
             listOf(
-                ModGenes.SCARE_SPIDERS.get(),
-                ModGenes.SCARE_CREEPERS.get(),
-                ModGenes.SCARE_SKELETONS.get(),
-                ModGenes.SCARE_ZOMBIES.get()
+                ModGenes.SCARE_SPIDERS,
+                ModGenes.SCARE_CREEPERS,
+                ModGenes.SCARE_SKELETONS,
+                ModGenes.SCARE_ZOMBIES
             )
-        if (genes.any { !player.hasGene(it) }) return
+        if (scareGeneKeys.any { !player.hasGene(it) }) return
 
         val advancement =
             player.server.advancements.get(OtherUtil.modResource("guide/get_all_scare_genes")) ?: return
