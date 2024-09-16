@@ -163,7 +163,7 @@ class AdvancedIncubatorMenu(
                 index++,
                 ModLanguageProvider.Tooltips.GMO_BASE_CHANCE
                     .toComponent(
-                        recipe.idealGene.nameComponent(ClientUtil.localRegistryAccess!!),
+                        recipe.idealGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!),
                         (baseChance * 100).toInt()
                     )
                     .withColor(ChatFormatting.GRAY)
