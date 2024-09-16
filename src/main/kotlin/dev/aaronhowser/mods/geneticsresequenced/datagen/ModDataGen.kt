@@ -4,7 +4,6 @@ import com.klikli_dev.modonomicon.api.datagen.LanguageProviderCache
 import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider
 import com.klikli_dev.modonomicon.datagen.EnUsProvider
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
@@ -91,9 +90,14 @@ object ModDataGen {
             EnUsProvider(output, modonomiconEnUsCache)
         )
 
-        val datapackRegistrySets = generator.addProvider(
+        val genesProvider = generator.addProvider(
             event.includeServer(),
-            ModDatapackBuiltinEntriesProvider(output, lookupProvider)
+            DatapackBuiltinEntriesProvider(
+                output,
+                lookupProvider,
+                ModGeneProvider(),
+                setOf(GeneticsResequenced.ID)
+            )
         )
 
     }

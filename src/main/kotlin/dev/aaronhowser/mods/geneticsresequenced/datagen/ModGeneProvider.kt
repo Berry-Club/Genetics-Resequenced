@@ -1,298 +1,255 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.core.HolderSet
+import net.minecraft.core.HolderLookup
+import net.minecraft.core.RegistryAccess
 import net.minecraft.core.RegistrySetBuilder
-import net.minecraft.data.worldgen.BootstrapContext
-import net.minecraft.resources.ResourceKey
 import net.minecraft.world.effect.MobEffects
-import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.neoforged.neoforge.common.NeoForgeMod
-import net.neoforged.neoforge.registries.DeferredHolder
-import java.util.*
 
 class ModGeneProvider : RegistrySetBuilder() {
 
-    fun bootstrap(context: BootstrapContext<Gene>) {
+    override fun build(registryAccess: RegistryAccess): HolderLookup.Provider {
 
-        fun defer(geneRk: ResourceKey<Gene>): DeferredHolder<Gene, Gene> {
-            return DeferredHolder.create(geneRk)
-        }
-
-        val noEntities: HolderSet<EntityType<*>> = HolderSet.empty()
-        val onlyPlayers = HolderSet.direct(EntityType.PLAYER.builtInRegistryHolder())
-
-        context.register(
-            ModGenes.BASIC,
-            Gene(
-                isHidden = true,
-                allowedEntities = noEntities
+        ModGenes.BASIC = registerGene("basic") {
+            GeneProperties(
+                id = OtherUtil.modResource("basic"),
+                isHidden = true
             )
-        )
+        }
 
         // Mutations (must be initialized first because they're used in arguments in ones below)
 
-        context.register(
-            ModGenes.CLAWS_TWO,
-            Gene(
-                dnaPointsRequired = 50
-            )
-        )
-
-        context.register(
-            ModGenes.EFFICIENCY_FOUR,
-            Gene(
+        ModGenes.CLAWS_TWO = registerGene("claws_2") {
+            GeneProperties(
+                id = OtherUtil.modResource("claws_2"),
                 dnaPointsRequired = 50,
-                attributeModifiers = listOf(
-                    Gene.AttributeEntry(
-                        ModAttributes.EFFICIENCY,
-                        ModAttributes.efficiencyFourAttributeModifier
-                    )
-                ),
-                allowedEntities = onlyPlayers
+                canMobsHave = true
             )
-        )
+        }
 
-        context.register(
-            ModGenes.FLIGHT,
-            Gene(
+        ModGenes.EFFICIENCY_FOUR = registerGene("efficiency_4") {
+            GeneProperties(
+                id = OtherUtil.modResource("efficiency_4"),
                 dnaPointsRequired = 50,
-                attributeModifiers = listOf(
-                    Gene.AttributeEntry(
-                        NeoForgeMod.CREATIVE_FLIGHT,
-                        ModAttributes.flightAttributeModifier
-                    )
-                ),
-                allowedEntities = onlyPlayers
+                attributeModifiers = mapOf(ModAttributes.EFFICIENCY to listOf(ModAttributes.efficiencyFourAttributeModifier))
             )
-        )
+        }
 
-        context.register(
-            ModGenes.HASTE_TWO,
-            Gene(
+        ModGenes.FLIGHT = registerGene("flight") {
+            GeneProperties(
+                id = OtherUtil.modResource("flight"),
                 dnaPointsRequired = 50,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.DIG_SPEED,
-                        level = 2
-                    )
+                attributeModifiers = mapOf(NeoForgeMod.CREATIVE_FLIGHT to listOf(ModAttributes.flightAttributeModifier))
+            )
+        }
+
+        ModGenes.HASTE_TWO = registerGene("haste_2") {
+            GeneProperties(
+                id = OtherUtil.modResource("haste_2"),
+                dnaPointsRequired = 50,
+                potionDetails = GeneProperties.PotionDetails(
+                    effect = MobEffects.DIG_SPEED,
+                    level = 2
                 )
             )
-        )
+        }
 
-        context.register(
-            ModGenes.MEATY_TWO,
-            Gene(
-                dnaPointsRequired = 50
-            )
-        )
-
-        context.register(
-            ModGenes.MORE_HEARTS_TWO,
-            Gene(
+        ModGenes.MEATY_TWO = registerGene("meaty_2") {
+            GeneProperties(
+                id = OtherUtil.modResource("meaty_2"),
                 dnaPointsRequired = 50,
-                attributeModifiers = listOf(
-                    Gene.AttributeEntry(
-                        Attributes.MAX_HEALTH,
-                        ModAttributes.moreHealthTwoAttributeModifier
-                    )
-                ),
-                allowedEntities = onlyPlayers
+                canMobsHave = true
             )
-        )
+        }
 
-        context.register(
-            ModGenes.PHOTOSYNTHESIS,
-            Gene(
-                dnaPointsRequired = 40,
-                allowedEntities = onlyPlayers
-            )
-        )
-
-        context.register(
-            ModGenes.REGENERATION_FOUR,
-            Gene(
+        ModGenes.MORE_HEARTS_TWO = registerGene("more_hearts_2") {
+            GeneProperties(
+                id = OtherUtil.modResource("more_hearts_2"),
                 dnaPointsRequired = 50,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.REGENERATION,
-                        level = 4
-                    )
+                canMobsHave = true,
+                attributeModifiers = mapOf(
+                    Attributes.MAX_HEALTH to listOf(ModAttributes.moreHealthTwoAttributeModifier)
                 )
             )
-        )
+        }
 
-        context.register(
-            ModGenes.RESISTANCE_TWO,
-            Gene(
+        ModGenes.PHOTOSYNTHESIS = registerGene("photosynthesis") {
+            GeneProperties(
+                id = OtherUtil.modResource("photosynthesis"),
+                dnaPointsRequired = 40
+            )
+        }
+
+        ModGenes.REGENERATION_FOUR = registerGene("regeneration_4") {
+            GeneProperties(
+                id = OtherUtil.modResource("regeneration_4"),
                 dnaPointsRequired = 50,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.DAMAGE_RESISTANCE,
-                        level = 2
-                    )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(
+                    effect = MobEffects.REGENERATION,
+                    level = 4
                 )
             )
-        )
+        }
 
-        context.register(
-            ModGenes.SPEED_FOUR,
-            Gene(
+        ModGenes.RESISTANCE_TWO = registerGene("resistance_2") {
+            GeneProperties(
+                id = OtherUtil.modResource("resistance_2"),
                 dnaPointsRequired = 50,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.MOVEMENT_SPEED,
-                        level = 4
-                    )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(
+                    effect = MobEffects.DAMAGE_RESISTANCE,
+                    level = 2
                 )
             )
-        )
+        }
 
-        context.register(
-            ModGenes.SPEED_TWO,
-            Gene(
+        ModGenes.SPEED_FOUR = registerGene("speed_4") {
+            GeneProperties(
+                id = OtherUtil.modResource("speed_4"),
                 dnaPointsRequired = 50,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.MOVEMENT_SPEED,
-                        level = 2
-                    )
-                ),
-                mutatesInto = Optional.of(defer(ModGenes.SPEED_FOUR))
-            )
-        )
-
-        context.register(
-            ModGenes.STRENGTH_TWO,
-            Gene(
-                dnaPointsRequired = 50,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.DAMAGE_BOOST,
-                        level = 2
-                    )
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(
+                    effect = MobEffects.MOVEMENT_SPEED,
+                    level = 4
                 )
             )
-        )
+        }
 
-        context.register(
-            ModGenes.SCARE_SPIDERS,
-            Gene(
-                dnaPointsRequired = 50
+        ModGenes.SPEED_TWO = registerGene("speed_2") {
+            GeneProperties(
+                id = OtherUtil.modResource("speed_2"),
+                dnaPointsRequired = 50,
+                canMobsHave = true,
+                mutatesInto = SPEED_FOUR.get(),
+                potionDetails = GeneProperties.PotionDetails(
+                    effect = MobEffects.MOVEMENT_SPEED,
+                    level = 2
+                )
             )
-        )
+        }
 
-        context.register(
-            ModGenes.SCARE_ZOMBIES,
-            Gene(
-                dnaPointsRequired = 50
+        ModGenes.STRENGTH_TWO = registerGene("strength_2") {
+            GeneProperties(
+                id = OtherUtil.modResource("strength_2"),
+                dnaPointsRequired = 50,
+                canMobsHave = true,
+                potionDetails = GeneProperties.PotionDetails(
+                    effect = MobEffects.DAMAGE_BOOST,
+                    level = 2
+                )
             )
-        )
+        }
+
+        ModGenes.SCARE_ZOMBIES = registerGene("scare_zombies") {
+            GeneProperties(
+                id = OtherUtil.modResource("scare_zombies"),
+                dnaPointsRequired = 50,
+                canMobsHave = true
+            )
+        }
+
+        ModGenes.SCARE_SPIDERS = registerGene("scare_spiders") {
+            GeneProperties(
+                id = OtherUtil.modResource("scare_spiders"),
+                dnaPointsRequired = 50,
+                canMobsHave = true
+            )
+        }
 
         //Standard list
 
-        context.register(
-            ModGenes.BIOLUMINESCENCE,
-            Gene(
-                dnaPointsRequired = 16
+        ModGenes.BIOLUMINESCENCE = registerGene("bioluminescence") {
+            GeneProperties(
+                id = OtherUtil.modResource("bioluminescence"),
+                dnaPointsRequired = 16,
+                canMobsHave = true
             )
-        )
+        }
 
-        context.register(
-            ModGenes.CHATTERBOX,
-            Gene(
+        ModGenes.CHATTERBOX = registerGene("chatterbox") {
+            GeneProperties(
+                id = OtherUtil.modResource("chatterbox"),
                 dnaPointsRequired = 20
             )
-        )
+        }
 
-        context.register(
-            ModGenes.CHILLING,
-            Gene(
+        ModGenes.CHILLING = registerGene("chilling") {
+            GeneProperties(
+                id = OtherUtil.modResource("chilling"),
+                dnaPointsRequired = 20,
+                canMobsHave = true
+            )
+        }
+
+        ModGenes.CLAWS = registerGene("claws") {
+            GeneProperties(
+                id = OtherUtil.modResource("claws"),
+                dnaPointsRequired = 20,
+                canMobsHave = true,
+                mutatesInto = CLAWS_TWO.get()
+            )
+        }
+
+        ModGenes.DRAGON_BREATH = registerGene("dragons_breath") {
+            GeneProperties(
+                id = OtherUtil.modResource("dragons_breath"),
                 dnaPointsRequired = 20
             )
-        )
+        }
 
-        context.register(
-            ModGenes.CLAWS,
-            Gene(
-                dnaPointsRequired = 20,
-                mutatesInto = Optional.of(defer(ModGenes.CLAWS_TWO))
+        ModGenes.EAT_GRASS = registerGene("eat_grass") {
+            GeneProperties(
+                id = OtherUtil.modResource("eat_grass"),
+                dnaPointsRequired = 16,
             )
-        )
+        }
 
-        context.register(
-            ModGenes.DRAGON_BREATH,
-            Gene(
-                dnaPointsRequired = 20,
-                allowedEntities = onlyPlayers
-            )
-        )
-
-        context.register(
-            ModGenes.EAT_GRASS,
-            Gene(
-                dnaPointsRequired = 16
-            )
-        )
-
-        context.register(
-            ModGenes.EFFICIENCY,
-            Gene(
+        ModGenes.EFFICIENCY = registerGene("efficiency") {
+            GeneProperties(
+                id = OtherUtil.modResource("efficiency"),
                 dnaPointsRequired = 30,
-                mutatesInto = Optional.of(defer(ModGenes.EFFICIENCY_FOUR)),
-                attributeModifiers = listOf(
-                    Gene.AttributeEntry(
-                        ModAttributes.EFFICIENCY,
-                        ModAttributes.efficiencyAttributeModifier
-                    )
+                mutatesInto = EFFICIENCY_FOUR.get(),
+                attributeModifiers = mapOf(
+                    ModAttributes.EFFICIENCY to listOf(ModAttributes.efficiencyAttributeModifier)
                 )
             )
-        )
+        }
 
-        context.register(
-            ModGenes.EMERALD_HEART,
-            Gene(
-                dnaPointsRequired = 30
+        ModGenes.EMERALD_HEART = registerGene("emerald_heart") {
+            GeneProperties(
+                id = OtherUtil.modResource("emerald_heart"),
+                dnaPointsRequired = 30,
+                canMobsHave = true
             )
-        )
+        }
 
-        context.register(
-            ModGenes.ENDER_DRAGON_HEALTH,
-            Gene(
+        ModGenes.ENDER_DRAGON_HEALTH = registerGene("ender_dragon_health") {
+            GeneProperties(
+                id = OtherUtil.modResource("ender_dragon_health"),
                 dnaPointsRequired = 60
             )
-        )
+        }
 
-        context.register(
-            ModGenes.EXPLOSIVE_EXIT,
-            Gene(
-                dnaPointsRequired = 20
+        ModGenes.EXPLOSIVE_EXIT = registerGene("explosive_exit") {
+            GeneProperties(
+                id = OtherUtil.modResource("explosive_exit"),
+                dnaPointsRequired = 20,
+                canMobsHave = true
             )
-        )
+        }
 
-        context.register(
-            ModGenes.FIRE_PROOF,
-            Gene(
-                dnaPointsRequired = 24
+        ModGenes.FIRE_PROOF = registerGene("fire_proof") {
+            GeneProperties(
+                id = OtherUtil.modResource("fire_proof"),
+                dnaPointsRequired = 24,
+                canMobsHave = true
             )
-        )
-
-        context.register(
-            ModGenes.HASTE,
-            Gene(
-                dnaPointsRequired = 30,
-                potionDetails = Optional.of(
-                    Gene.PotionDetails(
-                        effect = MobEffects.DIG_SPEED
-                    )
-                ),
-                mutatesInto = Optional.of(defer(ModGenes.HASTE_TWO))
-            )
-        )
+        }
 
         ModGenes.HASTE = registerGene("haste") {
             GeneProperties(
