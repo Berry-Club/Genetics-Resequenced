@@ -42,7 +42,7 @@ class CellToHelixEmiRecipe(
             val allGmoRecipes = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
             for (recipe in allGmoRecipes) {
                 val entityType = recipe.entityType
-                val goodGene = recipe.idealGene
+                val goodGene = recipe.idealGeneHolder
 
                 val goodGmoStack = ModItems.GMO_CELL.toStack()
                 GmoCell.setDetails(

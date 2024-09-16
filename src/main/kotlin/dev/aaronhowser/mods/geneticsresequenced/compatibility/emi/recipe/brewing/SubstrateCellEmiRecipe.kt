@@ -40,7 +40,7 @@ class SubstrateCellEmiRecipe(
             val allGmoRecipes = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
             for (recipe in allGmoRecipes) {
                 val entityType = recipe.entityType
-                val goodGene = recipe.idealGene
+                val goodGene = recipe.idealGeneHolder
 
                 val gmoCellStack = ModItems.GMO_CELL.toStack()
                 GmoCell.setDetails(
@@ -77,8 +77,8 @@ class SubstrateCellEmiRecipe(
         string += entityTypeString
 
         if (cellStack.item == ModItems.GMO_CELL.get()) {
-            val gene = DnaHelixItem.getGene(cellStack) ?: error("GMO Cell stack has no gene!")
-            val geneString = gene.id.toString().replace(':', '/')
+            val geneHolder = DnaHelixItem.getGene(cellStack) ?: error("GMO Cell stack has no gene!")
+            val geneString = geneHolder.value().id.toString().replace(':', '/')
 
             string += "/$geneString"
         }

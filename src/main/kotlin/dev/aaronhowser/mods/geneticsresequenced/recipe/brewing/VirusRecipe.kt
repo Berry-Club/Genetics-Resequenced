@@ -5,13 +5,14 @@ import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import net.minecraft.core.Holder
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.brewing.IBrewingRecipe
 
 class VirusRecipe(
-    val inputDnaGene: Gene,
-    val outputGene: Gene
+    val inputDnaGene: Holder<Gene>,
+    val outputGene: Holder<Gene>
 ) : IBrewingRecipe {
 
     override fun isInput(pBottomSlot: ItemStack): Boolean {
