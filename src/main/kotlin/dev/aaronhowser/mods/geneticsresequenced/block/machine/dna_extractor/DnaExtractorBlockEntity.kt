@@ -2,8 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setEntityType
@@ -108,7 +106,7 @@ class DnaExtractorBlockEntity(
         }
 
         if (input.item == ModItems.GMO_CELL.get()) {
-            val gene = DnaHelixItem.getGene(input) ?: return null
+            val gene = DnaHelixItem.getGene(input, this.level?.registryAccess()!!) ?: return null
             return DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), gene)
         }
 

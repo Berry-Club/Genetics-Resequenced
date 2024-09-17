@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
 import net.minecraft.world.item.ItemStack
@@ -26,7 +27,7 @@ class VirusRecipe(
     override fun isIngredient(pTopSlot: ItemStack): Boolean {
         if (pTopSlot.item != ModItems.DNA_HELIX.get()) return false
 
-        return DnaHelixItem.getGene(pTopSlot) == inputDnaGene
+        return DnaHelixItem.getGene(pTopSlot, ClientUtil.localRegistryAccess!!) == inputDnaGene
     }
 
     override fun getOutput(pBottomSlot: ItemStack, pTopSlot: ItemStack): ItemStack {

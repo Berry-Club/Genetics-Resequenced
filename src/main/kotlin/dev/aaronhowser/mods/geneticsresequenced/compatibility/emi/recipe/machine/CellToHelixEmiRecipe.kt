@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine
 
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
@@ -62,7 +61,10 @@ class CellToHelixEmiRecipe(
 
                 if (recipes.any {
                         EntityDnaItem.getEntityType(it.cellStack) == entityType
-                                && DnaHelixItem.getGene(it.helixStack) == ModGenes.BASIC
+                                && DnaHelixItem.getGene(
+                            it.helixStack,
+                            ClientUtil.localRegistryAccess!!
+                        ) == ModGenes.BASIC
                     }) {
                     continue
                 }
@@ -105,7 +107,7 @@ class CellToHelixEmiRecipe(
         if (cellStack.item == ModItems.GMO_CELL.get()) {
             string += "/gmo/"
 
-            val geneHolder = DnaHelixItem.getGene(helixStack) ?: error("Invalid gene")
+            val geneHolder = DnaHelixItem.getGene(helixStack, ClientUtil.localRegistryAccess!!) ?: error("Invalid gene")
             val geneString = geneHolder.value().id.toString().replace(':', '/')
 
             string += geneString

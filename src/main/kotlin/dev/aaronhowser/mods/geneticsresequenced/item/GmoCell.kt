@@ -51,7 +51,7 @@ class GmoCell : Item(Properties()) {
             pTooltipComponents.add(noEntityComponent)
         }
 
-        val geneHolder = DnaHelixItem.getGene(pStack)
+        val geneHolder = DnaHelixItem.getGene(pStack, ClientUtil.localRegistryAccess!!)
         if (geneHolder != null) {
             val geneComponent =
                 ModLanguageProvider.Tooltips.GENE

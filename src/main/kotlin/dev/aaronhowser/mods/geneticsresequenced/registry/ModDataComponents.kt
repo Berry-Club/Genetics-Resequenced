@@ -67,11 +67,11 @@ object ModDataComponents {
                 .networkSynchronized(PlasmidProgressItemComponent.STREAM_CODEC)
         }
 
-    val GENE_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<GeneItemComponent>> =
+    val GENE_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<GeneRkItemComponent>> =
         DATA_COMPONENT_REGISTRY.registerComponentType("gene") {
             it
-                .persistent(GeneItemComponent.CODEC)
-                .networkSynchronized(GeneItemComponent.STREAM_CODEC)
+                .persistent(GeneRkItemComponent.CODEC)
+                .networkSynchronized(GeneRkItemComponent.STREAM_CODEC)
         }
 
 }

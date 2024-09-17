@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -36,7 +37,7 @@ class SubstrateCellRecipe(
         val outputCell: ItemStack
 
         if (isGmoCell) {
-            val pIngredientGene = DnaHelixItem.getGene(pTopSlot) ?: return ItemStack.EMPTY
+            val pIngredientGene = DnaHelixItem.getGene(pTopSlot, ClientUtil.localRegistryAccess!!) ?: return ItemStack.EMPTY
 
             outputCell = ModItems.GMO_CELL.toStack()
             GmoCell.setDetails(outputCell, pIngredientEntity, pIngredientGene)

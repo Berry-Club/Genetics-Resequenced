@@ -49,7 +49,7 @@ object BrewingRecipes {
             )
         }
 
-        val itemGeneHolder = DnaHelixItem.getGene(stack)
+        val itemGeneHolder = DnaHelixItem.getGene(stack, ClientUtil.localRegistryAccess!!)
         if (itemGeneHolder != null) {
             event.toolTip.add(
                 ModLanguageProvider.Tooltips.GENE

@@ -83,7 +83,7 @@ class PlasmidInfuserBlockEntity(
         val outputPlasmid = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
         val plasmidGene = PlasmidItem.getGene(outputPlasmid)
-        val inputGene = DnaHelixItem.getGene(inputHelix)
+        val inputGene = DnaHelixItem.getGene(inputHelix, this.level?.registryAccess()!!)
 
         // If Plasmid is unset, set it to the Helix's gene and initialize the amount
         if (plasmidGene == null) {
@@ -94,7 +94,7 @@ class PlasmidInfuserBlockEntity(
             return
         }
 
-        when (DnaHelixItem.getGene(inputHelix)) {
+        when (DnaHelixItem.getGene(inputHelix, this.level?.registryAccess()!!)) {
             ModGenes.BASIC -> PlasmidItem.increaseDnaPoints(outputPlasmid, 1)
             plasmidGene -> PlasmidItem.increaseDnaPoints(outputPlasmid, 2)
             else -> return
@@ -117,7 +117,7 @@ class PlasmidInfuserBlockEntity(
         if (PlasmidItem.isComplete(outputPlasmid)) return false
 
         val plasmidGene = PlasmidItem.getGene(outputPlasmid)
-        val inputGeneHolder = DnaHelixItem.getGene(inputHelix)
+        val inputGeneHolder = DnaHelixItem.getGene(inputHelix, this.level?.registryAccess()!!)
         val helixIsBasic = inputGeneHolder == ModGenes.BASIC
 
         // If the Plasmid is unset, it can only accept a Helix that's neither basic nor null

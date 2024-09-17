@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import dev.emi.emi.api.recipe.EmiRecipeCategory
@@ -77,7 +78,8 @@ class SubstrateCellEmiRecipe(
         string += entityTypeString
 
         if (cellStack.item == ModItems.GMO_CELL.get()) {
-            val geneHolder = DnaHelixItem.getGene(cellStack) ?: error("GMO Cell stack has no gene!")
+            val geneHolder = DnaHelixItem.getGene(cellStack, ClientUtil.localRegistryAccess!!)
+                ?: error("GMO Cell stack has no gene!")
             val geneString = geneHolder.value().id.toString().replace(':', '/')
 
             string += "/$geneString"

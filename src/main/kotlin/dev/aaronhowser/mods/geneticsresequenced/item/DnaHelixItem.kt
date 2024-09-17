@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
-import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneRkItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
@@ -28,12 +28,12 @@ class DnaHelixItem : EntityDnaItem() {
             return itemStack.has(ModDataComponents.GENE_COMPONENT)
         }
 
-        fun getGene(itemStack: ItemStack): Holder<Gene>? {
-            return itemStack.get(ModDataComponents.GENE_COMPONENT)?.gene
+        fun getGene(itemStack: ItemStack, registries: HolderLookup.Provider): Holder<Gene>? {
+            return itemStack.get(ModDataComponents.GENE_COMPONENT)?.geneHolder(registries)
         }
 
         fun setGene(itemStack: ItemStack, geneHolder: Holder<Gene>): ItemStack {
-            itemStack.set(ModDataComponents.GENE_COMPONENT, GeneItemComponent(geneHolder))
+            itemStack.set(ModDataComponents.GENE_COMPONENT, GeneRkItemComponent(geneHolder))
             return itemStack
         }
 
@@ -58,7 +58,7 @@ class DnaHelixItem : EntityDnaItem() {
         pTooltipComponents: MutableList<Component>,
         pTooltipFlag: TooltipFlag
     ) {
-        val geneHolder = getGene(pStack)
+        val geneHolder = getGene(pStack, ClientUtil.localRegistryAccess!!)
 
         if (geneHolder == null) {
             showNoGeneTooltips(pStack, pTooltipComponents)
