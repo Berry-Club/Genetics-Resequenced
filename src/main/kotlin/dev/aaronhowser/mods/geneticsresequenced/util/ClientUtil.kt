@@ -32,7 +32,7 @@ object ClientUtil {
     fun shearPlayerSkin() {
         val enabledModelParts = options.modelParts.toMutableSet()
         if (!ClientConfig.woolyRemovesCape.get()) {
-            enabledModelParts -= PlayerModelPart.CAPE
+            enabledModelParts.remove(PlayerModelPart.CAPE)
         }
 
         for (part in enabledModelParts) {
