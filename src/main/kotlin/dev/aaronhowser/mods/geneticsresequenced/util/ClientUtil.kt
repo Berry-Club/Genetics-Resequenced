@@ -30,9 +30,9 @@ object ClientUtil {
 
     private var removedSkinLayers: Set<PlayerModelPart> = emptySet()
     fun shearPlayerSkin() {
-        var enabledModelParts = options.modelParts.toSet()
+        val enabledModelParts = options.modelParts.toMutableSet()
         if (!ClientConfig.woolyRemovesCape.get()) {
-            enabledModelParts = enabledModelParts.minus(PlayerModelPart.CAPE)
+            enabledModelParts -= PlayerModelPart.CAPE
         }
 
         for (part in enabledModelParts) {
