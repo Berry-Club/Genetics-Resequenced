@@ -25,7 +25,8 @@ object ClientUtil {
 
     fun playerIsCreative(): Boolean = localPlayer?.isCreative ?: false
 
-    private val options: Options = Minecraft.getInstance().options
+    private val options: Options
+        get() = Minecraft.getInstance().options
 
     private var removedSkinLayers: Set<PlayerModelPart> = emptySet()
     fun shearPlayerSkin() {
