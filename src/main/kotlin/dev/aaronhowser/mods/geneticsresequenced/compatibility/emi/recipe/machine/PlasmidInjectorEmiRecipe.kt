@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
@@ -35,7 +36,7 @@ class PlasmidInjectorEmiRecipe(
 
             for (geneHolder in GeneRegistry
                 .getRegistrySorted(ClientUtil.localRegistryAccess!!)
-                .filterNot { it.value().isHidden }
+                .filterNot { it.isHidden }
             ) {
                 addingGlass.add(PlasmidInjectorEmiRecipe(geneHolder, isMetal = false, isAntiPlasmid = false))
                 addingMetal.add(PlasmidInjectorEmiRecipe(geneHolder, isMetal = false, isAntiPlasmid = true))

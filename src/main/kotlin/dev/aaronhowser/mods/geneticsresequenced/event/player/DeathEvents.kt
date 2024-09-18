@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeAllGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
@@ -76,7 +77,7 @@ object DeathEvents {
 
         if (playerGeneHolders.isEmpty()) return
 
-        val negativeGenes = playerGeneHolders.filter { it.value().isNegative }
+        val negativeGenes = playerGeneHolders.filter { it.isNegative }
         if (negativeGenes.isEmpty()) return
 
         val component =

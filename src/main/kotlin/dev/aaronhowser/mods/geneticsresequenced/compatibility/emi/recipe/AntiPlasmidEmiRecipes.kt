@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -18,7 +19,7 @@ object AntiPlasmidEmiRecipes {
 
         val visibleGenes = GeneRegistry
             .getRegistrySorted(ClientUtil.localRegistryAccess!!)
-            .filterNot { it.value().isHidden }
+            .filterNot { it.isHidden }
 
         for (geneHolder in visibleGenes) {
             val plasmidStack = ModItems.PLASMID.toStack()
@@ -43,7 +44,7 @@ object AntiPlasmidEmiRecipes {
     fun unsetAntiPlasmidRecipes(registry: EmiRegistry) {
         val visibleGenes = GeneRegistry
             .getRegistrySorted(ClientUtil.localRegistryAccess!!)
-            .filterNot { it.value().isHidden }
+            .filterNot { it.isHidden }
 
         for (geneHolder in visibleGenes) {
             val antiPlasmidStack = ModItems.ANTI_PLASMID.toStack()
