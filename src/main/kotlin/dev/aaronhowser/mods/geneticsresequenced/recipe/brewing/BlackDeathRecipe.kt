@@ -1,14 +1,17 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.brewing
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
+import net.minecraft.core.Holder
+import net.minecraft.core.HolderLookup
 import net.minecraft.core.component.DataComponents
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -27,10 +30,17 @@ class BlackDeathRecipe : IBrewingRecipe {
     }
 
     companion object {
-        val requiredGeneHolders =
-            GeneRegistry.getRegistrySorted(ClientUtil.localRegistryAccess!!)
-                .filter { it.isNegative && it.value().isActive && !it.isHidden }
-        //TODO - ModGenes.BLACK_DEATH
+        fun setRequiredGeneHolders(registries: HolderLookup.Provider) {
+            requiredGeneHolders = GeneRegistry.getRegistrySorted(registries)
+                .filter { it.isNegative && !it.isHidden && it.value().isActive }
+
+            val blackDeath = ModGenes.BLACK_DEATH.getHolder(registries)
+            if (blackDeath != null) {
+                requiredGeneHolders -= blackDeath
+            }
+        }
+
+        var requiredGeneHolders: List<Holder<Gene>> = emptyList()
     }
 
     override fun isIngredient(pTopSlot: ItemStack): Boolean {
