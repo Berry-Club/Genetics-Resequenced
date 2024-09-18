@@ -35,7 +35,9 @@ object OtherEvents {
     //This is disgusting
     @SubscribeEvent
     fun onLevelLoad(event: LevelEvent.Load) {
-        BlackDeathRecipe.setRequiredGeneHolders(event.level.registryAccess())
+        GeneticsResequenced.levelRegistryAccess = event.level.registryAccess()
+
+        BlackDeathRecipe.setRequiredGeneHolders()
     }
 
 }

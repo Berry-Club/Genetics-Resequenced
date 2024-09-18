@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.brewing
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
@@ -11,7 +12,6 @@ import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import net.minecraft.core.Holder
-import net.minecraft.core.HolderLookup
 import net.minecraft.core.component.DataComponents
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
@@ -30,7 +30,9 @@ class BlackDeathRecipe : IBrewingRecipe {
     }
 
     companion object {
-        fun setRequiredGeneHolders(registries: HolderLookup.Provider) {
+        fun setRequiredGeneHolders() {
+            val registries = GeneticsResequenced.levelRegistryAccess ?: return
+
             requiredGeneHolders = GeneRegistry.getRegistrySorted(registries)
                 .filter { it.isNegative && !it.isHidden && it.value().isActive }
 

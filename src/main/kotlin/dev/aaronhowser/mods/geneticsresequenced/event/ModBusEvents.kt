@@ -49,7 +49,7 @@ object ModBusEvents {
 
         // Comparing spec didn't work for some reason
         if (config.modId == GeneticsResequenced.ID && config.type == ModConfig.Type.SERVER) {
-//            Gene.checkDeactivationConfig() TODO
+            Gene.checkDeactivationConfig()
         }
     }
 

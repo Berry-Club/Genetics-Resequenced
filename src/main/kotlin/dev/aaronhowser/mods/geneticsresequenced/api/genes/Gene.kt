@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.api.genes
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModGeneTagsProvider
@@ -106,7 +108,6 @@ data class Gene(
         return allowedEntities.map { it.value() }.contains(entityType)
     }
 
-    //TODO: Should this even exist still? It can be disabled via datapack
     var isActive: Boolean = true
         private set
 
@@ -209,30 +210,36 @@ data class Gene(
 
         val unknownGeneComponent: MutableComponent = ModLanguageProvider.Genes.UNKNOWN.toComponent()
 
-//        fun checkDeactivationConfig() {
-//            val disabledGeneStrings = ServerConfig.disabledGenes.get()
-//
-//            val previouslyDisabledGenes = GeneRegistry.GENE_REGISTRY.filterNot { it.isActive }
-//            for (previouslyDisabledGene in previouslyDisabledGenes) {
-//                previouslyDisabledGene.reactivate()
-//            }
-//
-//            for (disabledGene in disabledGeneStrings) {
-//                val gene = GeneRegistry.fromString(disabledGene)
-//
-//                if (gene == null) {
-//                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")
-//                    continue
-//                }
-//
+        fun checkDeactivationConfig() {
+            val registryAccess = GeneticsResequenced.levelRegistryAccess ?: return //FIXME
+
+            val previouslyDisabledGenes =
+                GeneRegistry.getAllGeneHolders(registryAccess).filter { !it.value().isActive }
+
+            for (previouslyDisabledGene in previouslyDisabledGenes) {
+                previouslyDisabledGene.value().isActive = true
+                GeneticsResequenced.LOGGER.info("Reactivating gene ${previouslyDisabledGene.key!!.location()}")
+            }
+
+            val disabledGeneStrings = ServerConfig.disabledGenes.get()
+
+            for (disabledGene in disabledGeneStrings) {
+                val geneHolder = GeneRegistry.fromString(registryAccess, disabledGene)
+
+                if (geneHolder == null) {
+                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")
+                    continue
+                }
+
 //                if (gene in requiredGenes) {
 //                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it is required for the mod to function!")
 //                    continue
 //                }
-//
-//                gene.deactivate()
-//            }
-//        }
+
+                geneHolder.value().isActive = false
+                GeneticsResequenced.LOGGER.info("Deactivating gene $disabledGene")
+            }
+        }
 
         val DIRECT_CODEC: Codec<Gene> =
             RecordCodecBuilder.create { instance ->
