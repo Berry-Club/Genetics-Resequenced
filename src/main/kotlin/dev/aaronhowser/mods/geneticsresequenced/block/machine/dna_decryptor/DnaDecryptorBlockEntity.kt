@@ -127,7 +127,7 @@ class DnaDecryptorBlockEntity(
         }
 
         val helixStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGene(helixStack, gene)
+        DnaHelixItem.setGeneRk(helixStack, gene)
 
         return helixStack
     }

@@ -29,26 +29,25 @@ class DnaHelixItem : EntityDnaItem() {
         }
 
         fun getGene(itemStack: ItemStack, registries: HolderLookup.Provider): Holder<Gene>? {
-            return itemStack.get(ModDataComponents.GENE_COMPONENT)?.geneHolder(registries)
+            return getGeneRk(itemStack)?.getHolder(registries)
         }
 
-        fun setGene(itemStack: ItemStack, geneHolder: Holder<Gene>): ItemStack {
+        fun getGeneRk(itemStack: ItemStack): ResourceKey<Gene>? {
+            return itemStack.get(ModDataComponents.GENE_COMPONENT)?.geneRk
+        }
+
+        fun setGeneRk(itemStack: ItemStack, geneHolder: ResourceKey<Gene>): ItemStack {
             itemStack.set(ModDataComponents.GENE_COMPONENT, GeneRkItemComponent(geneHolder))
             return itemStack
         }
 
-        fun setGene(itemStack: ItemStack, geneRk: ResourceKey<Gene>, registries: HolderLookup.Provider): ItemStack {
-            val geneHolder = geneRk.getHolder(registries)!!
-            return setGene(itemStack, geneHolder)
-        }
-
-        fun setBasic(itemStack: ItemStack, registries: HolderLookup.Provider): ItemStack {
-            return setGene(itemStack, ModGenes.BASIC, registries)
+        fun setBasic(itemStack: ItemStack): ItemStack {
+            return setGeneRk(itemStack, ModGenes.BASIC)
         }
 
         fun getAllHelices(registries: HolderLookup.Provider): List<ItemStack> {
             return GeneRegistry.getRegistrySorted(registries)
-                .map { gene -> ModItems.DNA_HELIX.toStack().apply { setGene(this, gene) } }
+                .map { gene -> ModItems.DNA_HELIX.toStack().apply { setGeneRk(this, gene.key!!) } }
         }
     }
 

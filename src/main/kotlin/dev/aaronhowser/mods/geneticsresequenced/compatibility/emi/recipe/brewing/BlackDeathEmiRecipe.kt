@@ -48,7 +48,7 @@ class BlackDeathEmiRecipe(
         ingredient = EmiIngredient.of(Ingredient.of(syringeStack))
 
         val helixStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGene(helixStack, ModGenes.BLACK_DEATH, ClientUtil.localRegistryAccess!!)
+        DnaHelixItem.setGeneRk(helixStack, ModGenes.BLACK_DEATH, ClientUtil.localRegistryAccess!!)
         output = EmiStack.of(helixStack)
     }
 

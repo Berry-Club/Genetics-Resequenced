@@ -367,7 +367,7 @@ class ItemsCategoryProvider(
                 val milky = ModGenes.MILKY.getHolder(ClientUtil.localRegistryAccess!!)!!
 
                 val milkyHelix = ModItems.DNA_HELIX.toStack()
-                DnaHelixItem.setGene(milkyHelix, milky)
+                DnaHelixItem.setGeneRk(milkyHelix, milky)
 
                 spotlightPage(
                     milkyHelix,

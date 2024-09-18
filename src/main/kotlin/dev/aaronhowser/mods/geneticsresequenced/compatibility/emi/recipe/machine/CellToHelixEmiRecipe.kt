@@ -55,7 +55,7 @@ class CellToHelixEmiRecipe(
                 )
 
                 val goodHelix = ModItems.DNA_HELIX.toStack()
-                DnaHelixItem.setGene(goodHelix, goodGene)
+                DnaHelixItem.setGeneRk(goodHelix, goodGene)
 
                 recipes.add(CellToHelixEmiRecipe(goodGmoStack, goodHelix))
 

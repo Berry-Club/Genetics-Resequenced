@@ -228,12 +228,6 @@ data class Gene(
 //            }
 //        }
 
-        private val requiredGenes by lazy {
-            setOf(
-                ModGenes.BASIC
-            )
-        }
-
         val DIRECT_CODEC: Codec<Gene> =
             RecordCodecBuilder.create { instance ->
                 instance.group(

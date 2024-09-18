@@ -53,7 +53,7 @@ class PlasmidInfuserEmiRecipe(
         val stackSize = if (basic) geneHolder.value().dnaPointsRequired else geneHolder.value().dnaPointsRequired / 2
         val helixStack = ModItems.DNA_HELIX.toStack(stackSize)
 
-        DnaHelixItem.setGene(
+        DnaHelixItem.setGeneRk(
             helixStack, if (basic) {
                 ModGenes.BASIC.getHolder(ClientUtil.localRegistryAccess!!)!!
             } else geneHolder

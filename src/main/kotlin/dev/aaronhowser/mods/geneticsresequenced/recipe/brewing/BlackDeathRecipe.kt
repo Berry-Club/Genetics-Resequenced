@@ -46,7 +46,7 @@ class BlackDeathRecipe : IBrewingRecipe {
         if (!isIngredient(pTopSlot)) return ItemStack.EMPTY
 
         val output = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGene(output, ModGenes.BLACK_DEATH, ClientUtil.localRegistryAccess!!)
+        DnaHelixItem.setGeneRk(output, ModGenes.BLACK_DEATH, ClientUtil.localRegistryAccess!!)
 
         return output
     }

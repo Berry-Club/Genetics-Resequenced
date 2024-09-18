@@ -107,7 +107,7 @@ class DnaExtractorBlockEntity(
 
         if (input.item == ModItems.GMO_CELL.get()) {
             val gene = DnaHelixItem.getGene(input, this.level?.registryAccess()!!) ?: return null
-            return DnaHelixItem.setGene(ModItems.DNA_HELIX.toStack(), gene)
+            return DnaHelixItem.setGeneRk(ModItems.DNA_HELIX.toStack(), gene)
         }
 
         return null
