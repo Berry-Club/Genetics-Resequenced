@@ -45,6 +45,8 @@ data class Gene(
     val attributeModifiers: List<AttributeEntry> = emptyList()
 ) {
 
+    //TODO: Maybe an entity holderset for entities to scare?
+
     data class AttributeEntry(
         val attribute: Holder<Attribute>,
         val modifier: AttributeModifier
