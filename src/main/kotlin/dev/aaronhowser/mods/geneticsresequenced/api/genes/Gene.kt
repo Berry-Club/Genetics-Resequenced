@@ -25,6 +25,7 @@ import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.RegistryFileCodec
 import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.Entity
@@ -210,35 +211,30 @@ data class Gene(
 
         val unknownGeneComponent: MutableComponent = ModLanguageProvider.Genes.UNKNOWN.toComponent()
 
-        fun checkDeactivationConfig() {
+        private var currentlyDisabledGeneRks: Set<ResourceKey<Gene>> = mutableSetOf()
+
+        private fun updateList() {
+            val disabledGeneStrings = ServerConfig.disabledGenes.get()
+            currentlyDisabledGeneRks = disabledGeneStrings.map {
+                ResourceKey.create(GeneRegistry.GENE_REGISTRY_KEY, ResourceLocation.parse(it))
+            }.toSet()
+        }
+
+        private fun useList() {
             val registryAccess = GeneticsResequenced.levelRegistryAccess ?: return //FIXME
 
-            val previouslyDisabledGenes =
-                GeneRegistry.getAllGeneHolders(registryAccess).filter { !it.value().isActive }
+            val allGenes = GeneRegistry.getAllGeneHolders(registryAccess)
+            for (geneHolder in allGenes) {
 
-            for (previouslyDisabledGene in previouslyDisabledGenes) {
-                previouslyDisabledGene.value().isActive = true
-                GeneticsResequenced.LOGGER.info("Reactivating gene ${previouslyDisabledGene.key!!.location()}")
+                val isDisab
+
+                geneHolder.value().isActive = true
             }
+        }
 
-            val disabledGeneStrings = ServerConfig.disabledGenes.get()
-
-            for (disabledGene in disabledGeneStrings) {
-                val geneHolder = GeneRegistry.fromString(registryAccess, disabledGene)
-
-                if (geneHolder == null) {
-                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it does not exist!")
-                    continue
-                }
-
-//                if (gene in requiredGenes) {
-//                    GeneticsResequenced.LOGGER.warn("Tried to disable gene $disabledGene, but it is required for the mod to function!")
-//                    continue
-//                }
-
-                geneHolder.value().isActive = false
-                GeneticsResequenced.LOGGER.info("Deactivating gene $disabledGene")
-            }
+        fun checkDeactivationConfig() {
+            updateList()
+            useList()
         }
 
         val DIRECT_CODEC: Codec<Gene> =
