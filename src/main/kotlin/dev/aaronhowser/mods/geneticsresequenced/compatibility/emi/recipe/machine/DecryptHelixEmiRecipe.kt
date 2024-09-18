@@ -53,7 +53,7 @@ class DecryptHelixEmiRecipe(
         encryptedHelix = EmiIngredient.of(DataComponentIngredient.of(true, helixStack))
 
         val decryptedHelixStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGeneRk(decryptedHelixStack, geneHolder)
+        DnaHelixItem.setGeneHolder(decryptedHelixStack, geneHolder)
         decryptedHelix = EmiStack.of(decryptedHelixStack)
     }
 

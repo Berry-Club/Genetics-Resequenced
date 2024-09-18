@@ -71,12 +71,12 @@ class GmoEmiRecipe(
 
         val gmoStack = ModItems.GMO_CELL.toStack()
         EntityDnaItem.setEntityType(gmoStack, entityType)
-        DnaHelixItem.setGeneRk(gmoStack, idealGeneHolder)
+        DnaHelixItem.setGeneHolder(gmoStack, idealGeneHolder)
         goodOutput = EmiStack.of(gmoStack)
 
         val failCell = ModItems.GMO_CELL.toStack()
         EntityDnaItem.setEntityType(failCell, entityType)
-        DnaHelixItem.setGeneRk(failCell, ModGenes.BASIC, ClientUtil.localRegistryAccess!!)
+        DnaHelixItem.setGeneRk(failCell, ModGenes.BASIC)
         badOutput = EmiStack.of(failCell)
     }
 

@@ -2,6 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isMutation
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
@@ -30,7 +33,7 @@ object ModInformationRecipes {
         val recipes = mutableListOf<EmiInfoRecipe>()
 
         for (geneHolder in GeneRegistry.getRegistrySorted(registries)) {
-            if (geneHolder.value().isHidden || !geneHolder.value().isActive) continue
+            if (geneHolder.isHidden || !geneHolder.value().isActive) continue
 
             val components: MutableList<MutableComponent> = mutableListOf()
             components.add(
@@ -56,9 +59,7 @@ object ModInformationRecipes {
                 )
 
                 for (requiredGeneHolder in requiredGeneHolders) {
-                    val requiredGene = requiredGeneHolder.value()
-
-                    val requiredGeneComponent = if (requiredGene.isNegative || requiredGene.isMutation) {
+                    val requiredGeneComponent = if (requiredGeneHolder.isNegative || requiredGeneHolder.isMutation) {
                         Gene.getNameComponent(geneHolder, registries)
                     } else {
                         Gene.getNameComponent(geneHolder, registries).copy()
@@ -72,7 +73,7 @@ object ModInformationRecipes {
             }
 
             val helix = ModItems.DNA_HELIX.toStack()
-            DnaHelixItem.setGeneRk(helix, geneHolder)
+            DnaHelixItem.setGeneRk(helix, geneHolder.key!!)
 
             val recipe = EmiInfoRecipe(
                 listOf(
@@ -131,7 +132,7 @@ object ModInformationRecipes {
             for ((geneHolder, weight) in genes) {
                 val chance = (weight.toDouble() / sumOfWeights.toDouble() * 100).toInt()
 
-                val geneComponent = if (geneHolder.value().isNegative || geneHolder.value().isMutation) {
+                val geneComponent = if (geneHolder.isNegative || geneHolder.isMutation) {
                     Gene.getNameComponent(geneHolder, registries)
                 } else {
                     Gene.getNameComponent(geneHolder, registries).withStyle { it.withColor(ChatFormatting.RESET) }

@@ -42,11 +42,11 @@ class VirusEmiRecipe(
 
     init {
         val helixStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGeneRk(helixStack, inputDnaGene)
+        DnaHelixItem.setGeneHolder(helixStack, inputDnaGene)
         ingredient = EmiIngredient.of(Ingredient.of(helixStack))
 
         val outputStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGeneRk(outputStack, outputGene)
+        DnaHelixItem.setGeneHolder(outputStack, outputGene)
         output = EmiStack.of(outputStack)
     }
 

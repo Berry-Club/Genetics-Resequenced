@@ -108,6 +108,7 @@ data class Gene(
         return allowedEntities.map { it.value() }.contains(entityType)
     }
 
+    //TODO: Should this even exist still? It can be disabled via datapack
     var isActive: Boolean = true
         private set
 
@@ -159,11 +160,20 @@ data class Gene(
                 return "gene.${location.namespace}.${location.path}"
             }
 
+        val Holder<Gene>.isNegative: Boolean
+            get() = this.`is`(ModGeneTagsProvider.NEGATIVE)
+
+        val Holder<Gene>.isMutation: Boolean
+            get() = this.`is`(ModGeneTagsProvider.MUTATION)
+
+        val Holder<Gene>.isHidden: Boolean
+            get() = this.`is`(ModGeneTagsProvider.HIDDEN)
+
         fun getNameComponent(geneHolder: Holder<Gene>, registries: HolderLookup.Provider): MutableComponent {
-            val color = if (!geneHolder.`is`(ModGeneTagsProvider.HIDDEN)) {
-                if (geneHolder.`is`(ModGeneTagsProvider.NEGATIVE)) {
+            val color = if (!geneHolder.isHidden) {
+                if (geneHolder.isNegative) {
                     ChatFormatting.RED
-                } else if (geneHolder.`is`(ModGeneTagsProvider.MUTATION)) {
+                } else if (geneHolder.isMutation) {
                     ChatFormatting.DARK_PURPLE
                 } else {
                     ChatFormatting.GRAY

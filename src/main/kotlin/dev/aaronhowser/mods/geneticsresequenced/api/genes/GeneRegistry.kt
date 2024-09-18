@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.genes
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isMutation
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
@@ -45,13 +47,13 @@ object GeneRegistry {
 
         for (geneHolder in getAllGeneHolders(registries)) {
             when {
-                geneHolder.value().isMutation -> mutations.add(geneHolder)
-                geneHolder.value().isNegative -> negatives.add(geneHolder)
+                geneHolder.isMutation -> mutations.add(geneHolder)
+                geneHolder.isNegative -> negatives.add(geneHolder)
                 else -> other.add(geneHolder)
             }
         }
 
-        return other.sortedBy { it.value().id } + mutations.sortedBy { it.value().id } + negatives.sortedBy { it.value().id }
+        return other.sortedBy { it.key } + mutations.sortedBy { it.key } + negatives.sortedBy { it.key }
     }
 
 }
