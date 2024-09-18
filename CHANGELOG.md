@@ -181,20 +181,15 @@
     - `dna_points_required`: The amount of DNA Points required to complete a Plasmid. Defaults to 0.
     - `negative`: If the Gene is negative. Defaults to false.
     - `hidden`: If the Gene is hidden, only used by default by the Basic Gene. Defaults to false.
-    - `allowed_entities`: A filter of entity types that the Gene can be injected into. Defaults
-      to `{"type": "neoforge:any"}`. Can also accept a single entity type (`"minecraft:player"`) or a list of entity
-      types (`["minecraft:cow","minecraft:chicken"]`)
+    - `allowed_entities`: A filter of entity types that the Gene can be injected into. Defaults to `{"type": "neoforge:any"}`. Can also accept a single entity type (`"minecraft:player"`) or a list of entity types (`["minecraft:cow","minecraft:chicken"]`)
     - `mutates_into`
     - `potion_details`: An object with the following fields, for a potion effect that's granted at all times:
         - `effect`: The effect to apply
         - `level`: The level of the effect (optional, defaults to 1)
         - `duration`: The duration of the effect (optional, defaults to -1, infinite)
         - `showIcon`: If the effect icon should be shown (optional, defaults to false)
-    - `attribute_modifiers`: A list of objects with the following fields, for attribute modifiers that are granted at
-      all
-      times:
+    - `attribute_modifiers`: A list of objects with the following fields, for attribute modifiers that are granted at all times:
         - `attribute`: The attribute to modify
         - `id`: A Resource Location ID for the modifier
-        - `operation`: The operation to apply to the attribute (`"add_value"`, `"add_multiplied_base"`,
-          or `"add_multiplied_total"`)
+        - `operation`: The operation to apply to the attribute (`"add_value"`, `"add_multiplied_base"`, or `"add_multiplied_total"`)
         - `amount`: The amount to modify the attribute by
