@@ -199,3 +199,5 @@
   - Flight no longer requires Jump Boost, but now requires Step Assist
   - Photosynthesis now requires Eat Grass
   - Scare Spiders and Scare Zombies are no longer Mutation genes, and don't require Scare Creepers or Scare Skeletons
+- Disabling Genes now uses the Gene tag `#geneticsresequenced:disabled`
+- Fixed an issue where the Photosynthesis Gene would stop working when enabled instead of when not enabled
