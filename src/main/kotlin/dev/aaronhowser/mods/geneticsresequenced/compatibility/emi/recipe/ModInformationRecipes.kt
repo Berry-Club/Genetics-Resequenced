@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isMutation
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
@@ -33,7 +34,7 @@ object ModInformationRecipes {
         val recipes = mutableListOf<EmiInfoRecipe>()
 
         for (geneHolder in GeneRegistry.getRegistrySorted(registries)) {
-            if (geneHolder.isHidden || !geneHolder.value().isActive) continue
+            if (geneHolder.isHidden || geneHolder.isDisabled) continue
 
             val components: MutableList<MutableComponent> = mutableListOf()
             components.add(

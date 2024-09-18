@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -70,7 +71,7 @@ object ClientUtil {
         //TODO: Make sure this actually works
         if (localRegistryAccess != null) {
             val cringe = ModGenes.CRINGE.getHolder(localRegistryAccess!!)
-            if (cringe != null && !cringe.value().isActive) return
+            if (cringe != null && cringe.isDisabled) return
         }
 
         if (ClientConfig.disableCringeLangChange.get()) {

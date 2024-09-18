@@ -42,18 +42,6 @@ object ModBusEvents {
     }
 
     @SubscribeEvent
-    fun onConfig(event: ModConfigEvent) {
-        if (event is ModConfigEvent.Unloading) return
-
-        val config = event.config
-
-        // Comparing spec didn't work for some reason
-        if (config.modId == GeneticsResequenced.ID && config.type == ModConfig.Type.SERVER) {
-            Gene.checkDeactivationConfig()
-        }
-    }
-
-    @SubscribeEvent
     fun onEntityAttributeCreation(event: EntityAttributeCreationEvent) {
         event.put(ModEntityTypes.SUPPORT_SLIME.get(), SupportSlime.setAttributes())
     }

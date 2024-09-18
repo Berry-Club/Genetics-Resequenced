@@ -26,8 +26,6 @@ class ServerConfig(
         lateinit var incubatorOverclockerChanceDecrease: ModConfigSpec.DoubleValue
         lateinit var incubatorChorusFruitChanceIncrease: ModConfigSpec.DoubleValue
 
-        // TODO: Make this a tag instead?
-        lateinit var disabledGenes: ModConfigSpec.ConfigValue<List<String>>
         lateinit var disableGivingPlayersNegativeGenes: ModConfigSpec.BooleanValue
 
         lateinit var bioluminescenceCooldown: ModConfigSpec.IntValue
@@ -128,15 +126,6 @@ class ServerConfig(
 
     private fun geneConfigs() {
         builder.push("genes")
-
-        disabledGenes = builder
-            .comment("List of genes to disable.\nExample: [\"geneticsresequenced:wooly\",\"geneticsresequenced:lay_egg\"]")
-            .defineListAllowEmpty(
-                "disabledGenes",
-                listOf(),
-                { "geneticsresequenced:example" },
-                { ResourceLocation.tryParse(it as? String ?: "") != null }
-            )
 
         disableGivingPlayersNegativeGenes = builder
             .comment("Set true to prevent players from being given negative genes")

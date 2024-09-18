@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.brewing
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
@@ -34,7 +35,7 @@ class BlackDeathRecipe : IBrewingRecipe {
             val registries = GeneticsResequenced.levelRegistryAccess ?: return
 
             requiredGeneHolders = GeneRegistry.getRegistrySorted(registries)
-                .filter { it.isNegative && !it.isHidden && it.value().isActive }
+                .filter { it.isNegative && !it.isHidden && !it.isDisabled }
 
             val blackDeath = ModGenes.BLACK_DEATH.getHolder(registries)
             if (blackDeath != null) {

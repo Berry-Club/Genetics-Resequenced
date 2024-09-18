@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -14,7 +15,7 @@ object AttributeGenes {
 
     fun handleEfficiency(event: PlayerEvent.BreakSpeed) {
         val efficiency = ModGenes.EFFICIENCY.getHolder(event.entity.registryAccess()) ?: return
-        if (!efficiency.value().isActive) return
+        if (efficiency.isDisabled) return
 
         val efficiencyAttribute = event.entity.attributes.getInstance(ModAttributes.EFFICIENCY) ?: return
         if (efficiencyAttribute.value <= 0.0) return
@@ -24,7 +25,7 @@ object AttributeGenes {
 
     fun handleWallClimbing(player: Player) {
         val wallClimbing = ModGenes.WALL_CLIMBING.getHolder(player.registryAccess()) ?: return
-        if (!wallClimbing.value().isActive) return
+        if (wallClimbing.isDisabled) return
 
         if (!player.hasGene(ModGenes.WALL_CLIMBING)) return
 

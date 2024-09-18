@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
@@ -42,7 +43,7 @@ object TickGenes {
     fun handleBioluminescence(entity: LivingEntity) {
         val bioluminescence = ModGenes.BIOLUMINESCENCE.getHolder(entity.registryAccess()) ?: return
 
-        if (!bioluminescence.value().isActive) return
+        if (bioluminescence.isDisabled) return
 
         if (entity.tickCount % ServerConfig.bioluminescenceCooldown.get() != 0) return
 
@@ -64,7 +65,7 @@ object TickGenes {
     fun handlePhotosynthesis(entity: LivingEntity) {
         val photosynthesis = ModGenes.PHOTOSYNTHESIS.getHolder(entity.registryAccess()) ?: return
 
-        if (photosynthesis.value().isActive) return
+        if (photosynthesis.isDisabled) return
 
         if (entity !is Player) return
         if (entity.tickCount % ServerConfig.photosynthesisCooldown.get() != 0) return
@@ -87,7 +88,7 @@ object TickGenes {
 
     fun handleNoHunger(entity: Player) {
         val noHunger = ModGenes.NO_HUNGER.getHolder(entity.registryAccess()) ?: return
-        if (!noHunger.value().isActive) return
+        if (noHunger.isDisabled) return
 
         if (entity.tickCount % ServerConfig.noHungerCooldown.get() != 0) return
 
@@ -107,7 +108,7 @@ object TickGenes {
         val potionGenes = mutableListOf<Holder<Gene>>()
 
         for (geneHolder in geneHolders) {
-            if (!geneHolder.value().isActive) continue
+            if (geneHolder.isDisabled) continue
 
             if (geneHolder.value().getPotion() != null) potionGenes.add(geneHolder)
 
@@ -249,7 +250,7 @@ object TickGenes {
     fun handleMobSight(entity: Player) {
         val mobSight = ModGenes.MOB_SIGHT.getHolder(entity.registryAccess()) ?: return
 
-        if (!mobSight.value().isActive) return
+        if (mobSight.isDisabled) return
         if (entity.tickCount % ServerConfig.mobSightCooldown.get() != 0) return
 
         if (!entity.hasGene(ModGenes.MOB_SIGHT)) return
@@ -272,7 +273,7 @@ object TickGenes {
 
     fun handleItemMagnet(player: Player) {
         val itemMagnet = ModGenes.ITEM_MAGNET.getHolder(player.registryAccess()) ?: return
-        if (!itemMagnet.value().isActive) return
+        if (itemMagnet.isDisabled) return
 
         if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 
@@ -315,7 +316,7 @@ object TickGenes {
 
     fun handleXpMagnet(player: Player) {
         val xpMagnet = ModGenes.XP_MAGNET.getHolder(player.registryAccess()) ?: return
-        if (!xpMagnet.value().isActive) return
+        if (xpMagnet.isDisabled) return
 
         if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 

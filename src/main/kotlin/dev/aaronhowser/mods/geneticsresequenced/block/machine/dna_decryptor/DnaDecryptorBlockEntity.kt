@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_decryptor
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
@@ -141,7 +142,7 @@ class DnaDecryptorBlockEntity(
 
         return genesFromMob
             .map { it.key }
-            .filter { it.value().isActive }
+            .filterNot { it.isDisabled }
     }
 
     private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {

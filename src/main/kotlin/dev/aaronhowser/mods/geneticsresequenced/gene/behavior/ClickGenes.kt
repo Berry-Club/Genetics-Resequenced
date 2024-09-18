@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -45,7 +46,7 @@ object ClickGenes {
 
     fun handleWooly(event: PlayerInteractEvent.EntityInteract) {
         val wooly = ModGenes.WOOLY.getHolder(event.entity.registryAccess()) ?: return
-        if (!wooly.value().isActive) return
+        if (wooly.isDisabled) return
 
         val target = event.target as? LivingEntity ?: return
         val clicker = event.entity
@@ -108,7 +109,7 @@ object ClickGenes {
 
     fun handleMeaty(event: PlayerInteractEvent.EntityInteract) {
         val meaty = ModGenes.MEATY.getHolder(event.level.registryAccess()) ?: return
-        if (!meaty.value().isActive) return
+        if (meaty.isDisabled) return
 
         val target = event.target as? LivingEntity ?: return
         val clicker = event.entity
@@ -160,7 +161,7 @@ object ClickGenes {
 
     fun handleMilky(event: PlayerInteractEvent.EntityInteract) {
         val milky = ModGenes.MILKY.getHolder(event.level.registryAccess()) ?: return
-        if (!milky.value().isActive) return
+        if (milky.isDisabled) return
 
         val target = event.target as? LivingEntity ?: return
         if (target.level().isClientSide) return
@@ -209,7 +210,7 @@ object ClickGenes {
 
     fun milkyItem(event: PlayerInteractEvent.RightClickItem) {
         val milky = ModGenes.MILKY.getHolder(event.entity.registryAccess()) ?: return
-        if (!milky.value().isActive) return
+        if (milky.isDisabled) return
 
         val player = event.entity
         if (player.level().isClientSide) return
@@ -249,7 +250,7 @@ object ClickGenes {
 
     fun woolyItem(event: PlayerInteractEvent.RightClickItem) {
         val wooly = ModGenes.WOOLY.getHolder(event.entity.registryAccess()) ?: return
-        if (!wooly.value().isActive) return
+        if (wooly.isDisabled) return
 
         val player = event.entity
 
@@ -297,7 +298,7 @@ object ClickGenes {
 
     fun meatyItem(event: PlayerInteractEvent.RightClickItem) {
         val meaty = ModGenes.MEATY.getHolder(event.entity.registryAccess()) ?: return
-        if (!meaty.value().isActive) return
+        if (meaty.isDisabled) return
 
         val player = event.entity
 
@@ -344,7 +345,7 @@ object ClickGenes {
 
     fun shootFireball(event: PlayerInteractEvent.RightClickItem) {
         val shootFireballs = ModGenes.SHOOT_FIREBALLS.getHolder(event.entity.registryAccess()) ?: return
-        if (!shootFireballs.value().isActive) return
+        if (shootFireballs.isDisabled) return
 
         val player = event.entity
         if (!player.hasGene(ModGenes.SHOOT_FIREBALLS)) return
@@ -378,7 +379,7 @@ object ClickGenes {
 
     fun eatGrass(event: PlayerInteractEvent.RightClickBlock) {
         val eatGrass = ModGenes.EAT_GRASS.getHolder(event.entity.registryAccess()) ?: return
-        if (!eatGrass.value().isActive) return
+        if (eatGrass.isDisabled) return
 
         if (!event.itemStack.isEmpty) return
 
@@ -442,7 +443,7 @@ object ClickGenes {
         val player = event.entity as? Player ?: return
 
         val infinity = ModGenes.INFINITY.getHolder(player.registryAccess()) ?: return
-        if (!infinity.value().isActive) return
+        if (infinity.isDisabled) return
         if (!player.hasGene(ModGenes.INFINITY)) return
 
         if (!event.projectileItemStack.isEmpty) return

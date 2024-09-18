@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
@@ -23,7 +24,7 @@ object ScareGenes {
         for ((tag, geneRk) in geneTagMap) {
             val geneHolder = geneRk.getHolder(entity.registryAccess()) ?: continue
 
-            if (!geneHolder.value().isActive) continue
+            if (geneHolder.isDisabled) continue
             if (!entity.type.`is`(tag)) continue
 
             entity.goalSelector.addGoal(

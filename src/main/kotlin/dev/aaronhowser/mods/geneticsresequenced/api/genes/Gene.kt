@@ -109,9 +109,6 @@ data class Gene(
         return allowedEntities.map { it.value() }.contains(entityType)
     }
 
-    var isActive: Boolean = true
-        private set
-
     fun getPotion(): MobEffectInstance? {
         val potionDetails = potionDetails.getOrNull() ?: return null
 
@@ -159,6 +156,9 @@ data class Gene(
         val Holder<Gene>.isHidden: Boolean
             get() = this.`is`(ModGeneTagsProvider.HIDDEN)
 
+        val Holder<Gene>.isDisabled: Boolean
+            get() = this.`is`(ModGeneTagsProvider.DISABLED)
+
         fun getNameComponent(
             geneRk: ResourceKey<Gene>,
             registries: HolderLookup.Provider = ClientUtil.localRegistryAccess!!
@@ -200,7 +200,7 @@ data class Gene(
                         )
                 }
 
-            if (!geneHolder.value().isActive) {
+            if (geneHolder.isDisabled) {
                 component.append(
                     ModLanguageProvider.Genes.GENE_DISABLED.toComponent()
                 )
@@ -210,32 +210,6 @@ data class Gene(
         }
 
         val unknownGeneComponent: MutableComponent = ModLanguageProvider.Genes.UNKNOWN.toComponent()
-
-        private var currentlyDisabledGeneRks: Set<ResourceKey<Gene>> = mutableSetOf()
-
-        private fun updateList() {
-            val disabledGeneStrings = ServerConfig.disabledGenes.get()
-            currentlyDisabledGeneRks = disabledGeneStrings.map {
-                ResourceKey.create(GeneRegistry.GENE_REGISTRY_KEY, ResourceLocation.parse(it))
-            }.toSet()
-        }
-
-        private fun useList() {
-            val registryAccess = GeneticsResequenced.levelRegistryAccess ?: return //FIXME
-
-            val allGenes = GeneRegistry.getAllGeneHolders(registryAccess)
-            for (geneHolder in allGenes) {
-
-                val isDisab
-
-                geneHolder.value().isActive = true
-            }
-        }
-
-        fun checkDeactivationConfig() {
-            updateList()
-            useList()
-        }
 
         val DIRECT_CODEC: Codec<Gene> =
             RecordCodecBuilder.create { instance ->

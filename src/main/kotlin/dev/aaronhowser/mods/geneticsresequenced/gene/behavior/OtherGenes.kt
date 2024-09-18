@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
@@ -26,7 +27,7 @@ object OtherGenes {
 
     fun handleEmeraldHeart(event: ServerChatEvent) {
         val emeraldHeart = ModGenes.EMERALD_HEART.getHolder(event.player.registryAccess()) ?: return
-        if (!emeraldHeart.value().isActive) return
+        if (emeraldHeart.isDisabled) return
 
         if (Random.nextDouble() > ServerConfig.emeraldHeartChatChance.get()) return
 
@@ -46,7 +47,7 @@ object OtherGenes {
 
     fun handleChatterbox(event: ServerChatEvent) {
         val chatterBox = ModGenes.CHATTERBOX.getHolder(event.player.registryAccess()) ?: return
-        if (!chatterBox.value().isActive) return
+        if (chatterBox.isDisabled) return
 
         val player = event.player
         if (!player.hasGene(ModGenes.CHATTERBOX)) return
@@ -116,7 +117,7 @@ object OtherGenes {
 
     fun handleCringeChat(event: ServerChatEvent) {
         val cringe = ModGenes.CRINGE.getHolder(event.player.registryAccess()) ?: return
-        if (!cringe.value().isActive) return
+        if (cringe.isDisabled) return
 
         val player = event.player
         if (!player.hasGene(ModGenes.CRINGE)) return
@@ -127,7 +128,7 @@ object OtherGenes {
 
     fun handleSlimyChat(event: ServerChatEvent) {
         val slimyDeath = ModGenes.SLIMY_DEATH.getHolder(event.player.registryAccess()) ?: return
-        if (!slimyDeath.value().isActive) return
+        if (slimyDeath.isDisabled) return
 
         val player = event.player
         if (!player.hasGene(ModGenes.SLIMY_DEATH)) return

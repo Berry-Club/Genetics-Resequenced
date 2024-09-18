@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.clearSavedInventory
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.getSavedInventory
@@ -30,7 +31,7 @@ object DeathGenes {
     //TODO: Test with grave mods
     fun saveInventory(player: Player) {
         val keepInventory = ModGenes.KEEP_INVENTORY.getHolder(player.registryAccess()) ?: return
-        if (!keepInventory.value().isActive) return
+        if (keepInventory.isDisabled) return
 
         player.level().apply {
             if (isClientSide) return
@@ -74,7 +75,7 @@ object DeathGenes {
 
     fun handleEmeraldHeart(event: LivingDeathEvent) {
         val emeraldHeart = ModGenes.EMERALD_HEART.getHolder(event.entity.registryAccess()) ?: return
-        if (!emeraldHeart.value().isActive) return
+        if (emeraldHeart.isDisabled) return
 
         val entity = event.entity
         if (!entity.hasGene(ModGenes.EMERALD_HEART)) return
@@ -98,7 +99,7 @@ object DeathGenes {
     private const val EXPLOSION_STRENGTH = 3f
     fun handleExplosiveExit(event: LivingDeathEvent) {
         val explosiveExit = ModGenes.EXPLOSIVE_EXIT.getHolder(event.entity.registryAccess()) ?: return
-        if (!explosiveExit.value().isActive) return
+        if (explosiveExit.isDisabled) return
 
         val entity = event.entity
         if (!entity.hasGene(ModGenes.EXPLOSIVE_EXIT)) return
@@ -143,7 +144,7 @@ object DeathGenes {
 
     fun explosiveExitDetonation(event: ExplosionEvent.Detonate) {
         val explosiveExit = ModGenes.EXPLOSIVE_EXIT.getHolder(event.level.registryAccess()) ?: return
-        if (!explosiveExit.value().isActive) return
+        if (explosiveExit.isDisabled) return
 
         val exploderUuid = event.explosion.directSourceEntity?.uuid
         if (exploderUuid !in recentlyExplodedEntities) return
@@ -159,7 +160,7 @@ object DeathGenes {
 
     fun handleSlimyDeath(event: LivingDeathEvent) {
         val slimyDeath = ModGenes.SLIMY_DEATH.getHolder(event.entity.registryAccess()) ?: return
-        if (!slimyDeath.value().isActive) return
+        if (slimyDeath.isDisabled) return
         if (event.isCanceled) return
 
         val entity: LivingEntity = event.entity

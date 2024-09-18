@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
@@ -26,7 +27,7 @@ object PacketGenes {
     @Suppress("MoveVariableDeclarationIntoWhen")
     fun teleport(player: ServerPlayer) {
         val teleport = ModGenes.TELEPORT.getHolder(player.registryAccess()) ?: return
-        if (!teleport.value().isActive) return
+        if (teleport.isDisabled) return
 
         if (!player.hasGene(ModGenes.TELEPORT)) return
 
@@ -84,7 +85,7 @@ object PacketGenes {
 
     fun dragonBreath(player: ServerPlayer) {
         val dragonBreath = ModGenes.DRAGON_BREATH.getHolder(player.registryAccess()) ?: return
-        if (!dragonBreath.value().isActive) return
+        if (dragonBreath.isDisabled) return
 
         if (!player.hasGene(ModGenes.DRAGON_BREATH)) return
 

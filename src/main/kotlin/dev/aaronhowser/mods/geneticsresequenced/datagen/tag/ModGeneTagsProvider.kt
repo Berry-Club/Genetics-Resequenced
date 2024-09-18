@@ -32,6 +32,7 @@ class ModGeneTagsProvider(
         val HIDDEN = create("hidden")
         val NEGATIVE = create("negative")
         val MUTATION = create("mutation")
+        val DISABLED = create("disabled")
     }
 
     override fun addTags(pProvider: HolderLookup.Provider) {
@@ -83,6 +84,8 @@ class ModGeneTagsProvider(
                 ModGenes.GRAY_DEATH,
                 ModGenes.UN_UNDEATH
             )
+
+        this.tag(DISABLED)
 
     }
 }
