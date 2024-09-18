@@ -138,9 +138,11 @@
 - Fixed Genetically Modified Cells not having EMI recipe pages for turning into DNA Helices (#23)
 - GMO Recipes will have their logic printed in the tooltip of the Potion of Cell Growth in the Advanced Incubator
 - The Scare Genes can now be given to entities
-- The Scare Genes now apply based on an entity's tags (#geneticsresequenced:avoids_scare_creeper_gene etc) rather than based on their class (is or extends Creeper etc)
+- The Scare Genes now apply based on an entity's tags (#geneticsresequenced:avoids_scare_creeper_gene etc) rather than
+  based on their class (is or extends Creeper etc)
 - Reimplemented Curios support for the Keep Inventory gene (#20)
-- If the items given by the Keep Inventory Gene don't fit in your inventory, they're dropped at your feet instead of being tossed from your camera
+- If the items given by the Keep Inventory Gene don't fit in your inventory, they're dropped at your feet instead of
+  being tossed from your camera
 - Updated Patchouli support to use item components rather than NBT
 - Updated the Patchouli book to reflect changes since 1.19
 - The Patchouli book is now in the creative tab
@@ -157,8 +159,11 @@
 - Updated to NeoForge 21.1.42
 - Added a recipe for the Metal Syringe
 - Moved most recipes to use item tags where possible
-- Made it so you can use the Metal Syringe and Scraper on Villagers without opening their menu (if the item is `#geneticsresequenced:prevents_some_mob_interaction` and the entity type is `#geneticsresequenced:allows_preventing_interaction`)
-- Fixed the Metal Syringe telling you that the wrong Genes can't be injected into mobs (it was displaying negative genes, rather than filtering against Gene.canMobsHave)
+- Made it so you can use the Metal Syringe and Scraper on Villagers without opening their menu (if the item
+  is `#geneticsresequenced:prevents_some_mob_interaction` and the entity type
+  is `#geneticsresequenced:allows_preventing_interaction`)
+- Fixed the Metal Syringe telling you that the wrong Genes can't be injected into mobs (it was displaying negative
+  genes, rather than filtering against Gene.canMobsHave)
 - Fixed decrypted DNA Helices being able to be put through the DNA Decryptor
 - Added the failed Basic Gene GM Cells to EMI's GMO Cell Incubating recipe page
 
@@ -168,3 +173,28 @@
 - Fixed some weird phrasing in the Potion of Mutation entry
 - Major overhaul of the GMO Cell Incubating EMI recipe page
 - Fixed the Advanced Incubator screen bubbles not animating slower in low-temperature mode
+
+### 1.3.0
+
+- Genes are now data-driven! They're in /data/_____/geneticsresequenced/gene/
+- They follow the following structure, all fields are optional:
+    - `dna_points_required`: The amount of DNA Points required to complete a Plasmid. Defaults to 0.
+    - `negative`: If the Gene is negative. Defaults to false.
+    - `hidden`: If the Gene is hidden, only used by default by the Basic Gene. Defaults to false.
+    - `allowed_entities`: A filter of entity types that the Gene can be injected into. Defaults
+      to `{"type": "neoforge:any"}`. Can also accept a single entity type (`"minecraft:player"`) or a list of entity
+      types (`["minecraft:cow","minecraft:chicken"]`)
+    - `mutates_into`
+    - `potion_details`: An object with the following fields, for a potion effect that's granted at all times:
+        - `effect`: The effect to apply
+        - `level`: The level of the effect (optional, defaults to 1)
+        - `duration`: The duration of the effect (optional, defaults to -1, infinite)
+        - `showIcon`: If the effect icon should be shown (optional, defaults to false)
+    - `attribute_modifiers`: A list of objects with the following fields, for attribute modifiers that are granted at
+      all
+      times:
+        - `attribute`: The attribute to modify
+        - `id`: A Resource Location ID for the modifier
+        - `operation`: The operation to apply to the attribute (`"add_value"`, `"add_multiplied_base"`,
+          or `"add_multiplied_total"`)
+        - `amount`: The amount to modify the attribute by
