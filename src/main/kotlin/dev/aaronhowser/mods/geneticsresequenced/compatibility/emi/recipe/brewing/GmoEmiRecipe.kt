@@ -20,9 +20,9 @@ import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.ChatFormatting
-import net.minecraft.core.Holder
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
@@ -31,7 +31,7 @@ import net.minecraft.world.item.crafting.Ingredient
 class GmoEmiRecipe(
     val entityType: EntityType<*>,
     ingredientItem: Item,
-    val idealGeneHolder: Holder<Gene>,
+    val idealResourceKey: ResourceKey<Gene>,
     val geneChance: Float,
     isMutation: Boolean
 ) : EmiRecipe {
@@ -70,7 +70,7 @@ class GmoEmiRecipe(
 
         val gmoStack = ModItems.GMO_CELL.toStack()
         EntityDnaItem.setEntityType(gmoStack, entityType)
-        DnaHelixItem.setGeneHolder(gmoStack, idealGeneHolder)
+        DnaHelixItem.setGeneRk(gmoStack, idealResourceKey)
         goodOutput = EmiStack.of(gmoStack)
 
         val failCell = ModItems.GMO_CELL.toStack()
@@ -91,7 +91,7 @@ class GmoEmiRecipe(
 
     override fun getId(): ResourceLocation {
         val entityTypeString = EntityType.getKey(entityType).toString().replace(':', '/')
-        val geneString = idealGeneHolder.value().id.toString().replace(':', '/')
+        val geneString = idealResourceKey.location().toString().replace(':', '/')
 
         return OtherUtil.modResource("/gmo/$entityTypeString/$geneString")
     }

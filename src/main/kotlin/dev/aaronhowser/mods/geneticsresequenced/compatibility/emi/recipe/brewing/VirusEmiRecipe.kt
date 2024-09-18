@@ -11,12 +11,13 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import net.minecraft.core.Holder
+import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.crafting.Ingredient
 
 class VirusEmiRecipe(
-    val inputDnaGene: Holder<Gene>,
-    val outputGene: Holder<Gene>
+    val inputDnaGene: ResourceKey<Gene>,
+    val outputGene: ResourceKey<Gene>
 ) : AbstractEmiBrewingRecipe() {
 
     companion object {
@@ -42,17 +43,17 @@ class VirusEmiRecipe(
 
     init {
         val helixStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGeneHolder(helixStack, inputDnaGene)
+        DnaHelixItem.setGeneRk(helixStack, inputDnaGene)
         ingredient = EmiIngredient.of(Ingredient.of(helixStack))
 
         val outputStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGeneHolder(outputStack, outputGene)
+        DnaHelixItem.setGeneRk(outputStack, outputGene)
         output = EmiStack.of(outputStack)
     }
 
     override fun getId(): ResourceLocation {
-        val inputGeneString = inputDnaGene.value().id.toString().replace(':', '/')
-        val outputGeneString = outputGene.value().id.toString().replace(':', '/')
+        val inputGeneString = inputDnaGene.location().toString().replace(':', '/')
+        val outputGeneString = outputGene.location().toString().replace(':', '/')
 
         return OtherUtil.modResource("/virus/$inputGeneString/$outputGeneString")
     }
