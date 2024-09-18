@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -20,11 +21,19 @@ class GmoCell : Item(Properties()) {
         fun setDetails(
             itemStack: ItemStack,
             entityType: EntityType<*>,
-            gene: Holder<Gene>,
+            geneHolder: Holder<Gene>,
         ) {
-
             EntityDnaItem.setEntityType(itemStack, entityType)
-            DnaHelixItem.setGeneRk(itemStack, gene)
+            DnaHelixItem.setGeneHolder(itemStack, geneHolder)
+        }
+
+        fun setDetails(
+            itemStack: ItemStack,
+            entityType: EntityType<*>,
+            geneRk: ResourceKey<Gene>
+        ) {
+            EntityDnaItem.setEntityType(itemStack, entityType)
+            DnaHelixItem.setGeneRk(itemStack, geneRk)
         }
 
     }

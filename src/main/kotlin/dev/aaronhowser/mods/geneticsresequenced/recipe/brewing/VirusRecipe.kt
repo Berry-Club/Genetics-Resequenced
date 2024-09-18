@@ -6,14 +6,14 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.core.Holder
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.brewing.IBrewingRecipe
 
 class VirusRecipe(
-    val inputDnaGene: Holder<Gene>,
-    val outputGene: Holder<Gene>
+    val inputDnaGene: ResourceKey<Gene>,
+    val outputGene: ResourceKey<Gene>
 ) : IBrewingRecipe {
 
     override fun isInput(pBottomSlot: ItemStack): Boolean {

@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.brewing
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
@@ -27,7 +29,7 @@ class BlackDeathRecipe : IBrewingRecipe {
     companion object {
         val requiredGeneHolders =
             GeneRegistry.getRegistrySorted(ClientUtil.localRegistryAccess!!)
-                .filter { it.value().isNegative && it.value().isActive && !it.value().isHidden }
+                .filter { it.isNegative && it.value().isActive && !it.isHidden }
         //TODO - ModGenes.BLACK_DEATH
     }
 
@@ -46,7 +48,7 @@ class BlackDeathRecipe : IBrewingRecipe {
         if (!isIngredient(pTopSlot)) return ItemStack.EMPTY
 
         val output = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGeneRk(output, ModGenes.BLACK_DEATH, ClientUtil.localRegistryAccess!!)
+        DnaHelixItem.setGeneRk(output, ModGenes.BLACK_DEATH)
 
         return output
     }

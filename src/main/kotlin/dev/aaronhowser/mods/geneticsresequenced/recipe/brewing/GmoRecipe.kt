@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.core.Holder
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -18,7 +18,7 @@ import net.neoforged.neoforge.registries.DeferredHolder
 class GmoRecipe(
     val entityType: EntityType<*>,
     val ingredientItem: Item,
-    val idealGeneHolder: Holder<Gene>,
+    val idealGeneHolder: ResourceKey<Gene>,
     val geneChance: Float,
     val isMutation: Boolean = false
 ) : IBrewingRecipe {

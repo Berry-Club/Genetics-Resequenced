@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -64,7 +65,7 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
 
         fun getAllPlasmids(registries: HolderLookup.Provider): List<ItemStack> {
             return GeneRegistry.getRegistrySorted(registries)
-                .filter { !it.value().isHidden }
+                .filter { !it.isHidden }
                 .map { getCompletedPlasmid(it) }
         }
 
