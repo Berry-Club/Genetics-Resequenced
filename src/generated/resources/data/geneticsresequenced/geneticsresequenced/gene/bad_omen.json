@@ -1,6 +1,5 @@
 {
   "dna_points_required": 20,
-  "negative": true,
   "potion_details": {
     "effect": "minecraft:bad_omen"
   }
