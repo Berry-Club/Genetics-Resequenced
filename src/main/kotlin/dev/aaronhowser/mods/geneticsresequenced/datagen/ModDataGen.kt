@@ -4,22 +4,17 @@ import com.klikli_dev.modonomicon.api.datagen.LanguageProviderCache
 import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider
 import com.klikli_dev.modonomicon.datagen.EnUsProvider
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.ModModonomiconProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModBlockTagsProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEnchantmentTagsProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.*
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.DataGenerator
 import net.minecraft.data.PackOutput
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.common.data.AdvancementProvider
-import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider
 import net.neoforged.neoforge.common.data.ExistingFileHelper
 import net.neoforged.neoforge.data.event.GatherDataEvent
 import java.util.concurrent.CompletableFuture
@@ -61,6 +56,10 @@ object ModDataGen {
         val itemTagProvider = generator.addProvider(
             event.includeServer(),
             ModItemTagsProvider(output, lookupProvider, blockTagProvider.contentsGetter(), existingFileHelper)
+        )
+        val geneTagProvider = generator.addProvider(
+            event.includeServer(),
+            ModGeneTagsProvider(output, lookupProvider, existingFileHelper)
         )
         val entityTypeTagProvider = generator.addProvider(
             event.includeServer(),
