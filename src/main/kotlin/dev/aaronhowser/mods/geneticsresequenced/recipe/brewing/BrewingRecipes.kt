@@ -51,9 +51,9 @@ object BrewingRecipes {
         if (itemGeneHolder != null) {
             event.toolTip.add(
                 ModLanguageProvider.Tooltips.GENE
-                    .toComponent(Gene.getNameComponent(itemGeneHolder, ClientUtil.localRegistryAccess!!))
-                    .withStyle { it.withColor(ChatFormatting.GRAY) }
-            )
+                    .toComponent(Gene.getNameComponent(itemGeneHolder)
+                        .withStyle { it.withColor(ChatFormatting.GRAY) }
+                    ))
         }
 
         val itemEntity = EntityDnaItem.getEntityType(stack)

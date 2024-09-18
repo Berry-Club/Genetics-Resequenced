@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.command
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
@@ -51,7 +53,7 @@ object AddAllGenesCommand {
             val genesToAdd =
                 GeneRegistry
                     .getAllGeneHolders(context.source.registryAccess())
-                    .filter { !it.value().isHidden && !it.value().isNegative && it.value().canEntityHave(target) }
+                    .filter { !it.isHidden && !it.isNegative && it.value().canEntityHave(target) }
 
             for (gene in genesToAdd) {
                 target.addGene(gene)
@@ -70,7 +72,7 @@ object AddAllGenesCommand {
         val genesToAdd =
             GeneRegistry
                 .getAllGeneHolders(context.source.registryAccess())
-                .filter { !it.value().isHidden && !it.value().isNegative && it.value().canEntityHave(target) }
+                .filter { !it.isHidden && !it.isNegative && it.value().canEntityHave(target) }
 
         for (gene in genesToAdd) {
             target.addGene(gene)
