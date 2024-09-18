@@ -8,7 +8,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.SupportSlimeAttackGoal
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
@@ -70,8 +69,7 @@ class SupportSlime(
                 player.sendSystemMessage(
                     ModLanguageProvider.Messages.SUPPORT_SLIME_CREATIVE.toComponent(
                         Gene.getNameComponent(
-                            ModGenes.SLIMY_DEATH
-                                .getHolder(ClientUtil.localRegistryAccess!!)!!,
+                            ModGenes.SLIMY_DEATH,
                             ClientUtil.localRegistryAccess!!
                         )
                     )

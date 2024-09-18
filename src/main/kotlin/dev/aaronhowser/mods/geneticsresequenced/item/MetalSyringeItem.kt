@@ -71,7 +71,7 @@ class MetalSyringeItem : SyringeItem() {
                 for (geneHolder in genesCantAdd) {
                     sendMessage(
                         ModLanguageProvider.Messages.METAL_SYRINGE_NO_MOBS.toComponent(
-                            Gene.getNameComponent(geneHolder, pInteractionTarget.registryAccess())
+                            Gene.getNameComponent(geneHolder)
                         )
                     )
                 }

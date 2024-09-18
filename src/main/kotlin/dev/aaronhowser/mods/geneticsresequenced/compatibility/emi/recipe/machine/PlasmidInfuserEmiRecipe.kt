@@ -50,7 +50,11 @@ class PlasmidInfuserEmiRecipe(
     private val plasmid: EmiStack
 
     init {
-        val stackSize = if (basic) geneHolder.value().dnaPointsRequired else geneHolder.value().dnaPointsRequired / 2
+        val stackSize = if (basic) {
+            geneHolder.value().dnaPointsRequired
+        } else {
+            geneHolder.value().dnaPointsRequired / 2
+        }
         val helixStack = ModItems.DNA_HELIX.toStack(stackSize)
 
         DnaHelixItem.setGeneRk(
@@ -98,7 +102,7 @@ class PlasmidInfuserEmiRecipe(
         ModLanguageProvider.Recipe.REQUIRES_POINTS
             .toComponent(
                 Gene
-                    .getNameComponent(geneHolder, ClientUtil.localRegistryAccess!!)
+                    .getNameComponent(geneHolder)
                     .withColor(ChatFormatting.GRAY),
                 geneHolder
                     .value()

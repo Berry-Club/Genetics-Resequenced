@@ -45,17 +45,17 @@ class CellToHelixEmiRecipe(
             val allGmoRecipes = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
             for (recipe in allGmoRecipes) {
                 val entityType = recipe.entityType
-                val goodGene = recipe.idealGeneRk
+                val goodGeneRk = recipe.idealGeneRk
 
                 val goodGmoStack = ModItems.GMO_CELL.toStack()
                 GmoCell.setDetails(
                     goodGmoStack,
                     entityType,
-                    goodGene
+                    goodGeneRk
                 )
 
                 val goodHelix = ModItems.DNA_HELIX.toStack()
-                DnaHelixItem.setGeneHolder(goodHelix, goodGene)
+                DnaHelixItem.setGeneRk(goodHelix, goodGeneRk)
 
                 recipes.add(CellToHelixEmiRecipe(goodGmoStack, goodHelix))
 
@@ -73,7 +73,7 @@ class CellToHelixEmiRecipe(
                 GmoCell.setDetails(
                     badGmoStack,
                     entityType,
-                    ModGenes.BASIC.getHolder(ClientUtil.localRegistryAccess!!)!!
+                    ModGenes.BASIC
                 )
 
                 val badHelix = ModItems.DNA_HELIX.toStack()

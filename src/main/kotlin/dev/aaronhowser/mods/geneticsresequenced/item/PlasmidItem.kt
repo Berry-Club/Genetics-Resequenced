@@ -90,7 +90,7 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
 
         pTooltipComponents.add(
             ModLanguageProvider.Tooltips.PLASMID_GENE
-                .toComponent(Gene.getNameComponent(geneHolder, ClientUtil.localRegistryAccess!!))
+                .toComponent(Gene.getNameComponent(geneHolder))
                 .withColor(ChatFormatting.GRAY)
         )
 

@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
@@ -31,8 +30,9 @@ class AntiPlasmidItem : Item(Properties().stacksTo(1)) {
         } else {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.PLASMID_GENE
-                    .toComponent(Gene.getNameComponent(geneHolder, ClientUtil.localRegistryAccess!!))
-                    .withColor(ChatFormatting.GRAY)
+                    .toComponent(
+                        Gene.getNameComponent(geneHolder).withColor(ChatFormatting.GRAY)
+                    )
             )
         }
 

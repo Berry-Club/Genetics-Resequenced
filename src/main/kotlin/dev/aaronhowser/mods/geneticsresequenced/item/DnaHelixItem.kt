@@ -68,7 +68,7 @@ class DnaHelixItem : EntityDnaItem() {
         } else {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.GENE
-                    .toComponent(Gene.getNameComponent(geneHolder, ClientUtil.localRegistryAccess!!))
+                    .toComponent(Gene.getNameComponent(geneHolder))
                     .withColor(ChatFormatting.GRAY)
             )
         }
