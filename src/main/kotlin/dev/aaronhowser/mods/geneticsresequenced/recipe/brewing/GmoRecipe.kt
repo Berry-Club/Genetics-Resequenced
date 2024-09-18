@@ -18,7 +18,7 @@ import net.neoforged.neoforge.registries.DeferredHolder
 class GmoRecipe(
     val entityType: EntityType<*>,
     val ingredientItem: Item,
-    val idealGeneHolder: ResourceKey<Gene>,
+    val idealGeneRk: ResourceKey<Gene>,
     val geneChance: Float,
     val isMutation: Boolean = false
 ) : IBrewingRecipe {
@@ -31,7 +31,7 @@ class GmoRecipe(
         GmoCell.setDetails(
             output,
             entityType,
-            idealGeneHolder
+            idealGeneRk
         )
 
         return output

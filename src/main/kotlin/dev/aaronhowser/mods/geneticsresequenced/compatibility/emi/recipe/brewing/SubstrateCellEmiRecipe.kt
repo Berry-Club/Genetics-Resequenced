@@ -41,7 +41,7 @@ class SubstrateCellEmiRecipe(
             val allGmoRecipes = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
             for (recipe in allGmoRecipes) {
                 val entityType = recipe.entityType
-                val goodGene = recipe.idealGeneHolder
+                val goodGene = recipe.idealGeneRk
 
                 val gmoCellStack = ModItems.GMO_CELL.toStack()
                 GmoCell.setDetails(

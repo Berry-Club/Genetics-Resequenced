@@ -6,6 +6,8 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModGeneTagsProvider
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
 import net.minecraft.ChatFormatting
@@ -169,7 +171,14 @@ data class Gene(
         val Holder<Gene>.isHidden: Boolean
             get() = this.`is`(ModGeneTagsProvider.HIDDEN)
 
-        fun getNameComponent(geneHolder: Holder<Gene>, registries: HolderLookup.Provider): MutableComponent {
+        fun getNameComponent(
+            geneRk: ResourceKey<Gene>,
+            registries: HolderLookup.Provider = ClientUtil.localRegistryAccess!!
+        ): MutableComponent {
+            return getNameComponent(geneRk.getHolder(registries)!!)
+        }
+
+        fun getNameComponent(geneHolder: Holder<Gene>): MutableComponent {
             val color = if (!geneHolder.isHidden) {
                 if (geneHolder.isNegative) {
                     ChatFormatting.RED
