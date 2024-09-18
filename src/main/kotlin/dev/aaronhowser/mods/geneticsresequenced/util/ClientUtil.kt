@@ -67,8 +67,11 @@ object ClientUtil {
         wasAdded: Boolean,
         countdownSeconds: Int = 10
     ) {
-        val cringe = ModGenes.CRINGE.getHolder(localRegistryAccess!!)!!
-        if (!cringe.value().isActive) return
+        //TODO: Make sure this actually works
+        if (localRegistryAccess != null) {
+            val cringe = ModGenes.CRINGE.getHolder(localRegistryAccess!!)
+            if (cringe != null && !cringe.value().isActive) return
+        }
 
         if (ClientConfig.disableCringeLangChange.get()) {
             GeneticsResequenced.LOGGER.info("Cringe language-changing is disabled in the config!")
