@@ -45,7 +45,7 @@ object GeneRegistry {
 
         for (geneHolder in getAllGeneHolders(registries)) {
             when {
-                geneHolder.value().isMutation(registries) -> mutations.add(geneHolder)
+                geneHolder.value().isMutation -> mutations.add(geneHolder)
                 geneHolder.value().isNegative -> negatives.add(geneHolder)
                 else -> other.add(geneHolder)
             }

@@ -57,7 +57,7 @@ object ModInformationRecipes {
                 for (requiredGeneHolder in requiredGeneHolders) {
                     val requiredGene = requiredGeneHolder.value()
 
-                    val requiredGeneComponent = if (requiredGene.isNegative || requiredGene.isMutation(registries)) {
+                    val requiredGeneComponent = if (requiredGene.isNegative || requiredGene.isMutation) {
                         requiredGene.nameComponent(registries)
                     } else {
                         requiredGene.nameComponent(registries).copy().withStyle { it.withColor(ChatFormatting.RESET) }
@@ -129,7 +129,7 @@ object ModInformationRecipes {
             for ((geneHolder, weight) in genes) {
                 val chance = (weight.toDouble() / sumOfWeights.toDouble() * 100).toInt()
 
-                val geneComponent = if (geneHolder.value().isNegative || geneHolder.value().isMutation(registries)) {
+                val geneComponent = if (geneHolder.value().isNegative || geneHolder.value().isMutation) {
                     geneHolder.value().nameComponent(registries)
                 } else {
                     geneHolder.value().nameComponent(registries).copy().withStyle { it.withColor(ChatFormatting.RESET) }
