@@ -137,7 +137,7 @@ object AddGeneCommand {
         if (geneWasAdded) {
             val component =
                 ModLanguageProvider.Commands.ADD_SINGLE_SUCCESS.toComponent(
-                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder),
                     target.name
                 )
 
@@ -145,7 +145,7 @@ object AddGeneCommand {
         } else {
             val component =
                 ModLanguageProvider.Commands.ADD_SINGLE_FAIL.toComponent(
-                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder),
                     target.name
                 )
 
@@ -169,7 +169,7 @@ object AddGeneCommand {
         if (amountSuccess != 0) {
             val component =
                 ModLanguageProvider.Commands.ADD_MULTIPLE_SUCCESS.toComponent(
-                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder),
                     amountSuccess
                 )
 
@@ -179,7 +179,7 @@ object AddGeneCommand {
         if (amountFail != 0) {
             val component =
                 ModLanguageProvider.Commands.ADD_MULTIPLE_FAIL.toComponent(
-                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder),
                     amountFail
                 )
             context.source.sendFailure(component)

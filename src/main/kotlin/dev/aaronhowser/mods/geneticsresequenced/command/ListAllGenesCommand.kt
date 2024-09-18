@@ -26,7 +26,7 @@ object ListAllGenesCommand {
         messageComponent.append(
             ComponentUtils.formatList(
                 GeneRegistry.getRegistrySorted(context.source.registryAccess())
-                    .map { Gene.getNameComponent(it, context.source.registryAccess()) },
+                    .map { Gene.getNameComponent(it) },
                 Component.literal("\n• ")
             )
         )

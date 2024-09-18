@@ -37,7 +37,7 @@ object ModInformationRecipes {
 
             val components: MutableList<MutableComponent> = mutableListOf()
             components.add(
-                Gene.getNameComponent(geneHolder, registries).copy()
+                Gene.getNameComponent(geneHolder)
                     .withStyle { it.withColor(ChatFormatting.RESET).withUnderlined(true) }
             )
 
@@ -60,9 +60,9 @@ object ModInformationRecipes {
 
                 for (requiredGeneHolder in requiredGeneHolders) {
                     val requiredGeneComponent = if (requiredGeneHolder.isNegative || requiredGeneHolder.isMutation) {
-                        Gene.getNameComponent(geneHolder, registries)
+                        Gene.getNameComponent(geneHolder)
                     } else {
-                        Gene.getNameComponent(geneHolder, registries).copy()
+                        Gene.getNameComponent(geneHolder)
                             .withStyle { it.withColor(ChatFormatting.RESET) }
                     }
 
@@ -133,9 +133,9 @@ object ModInformationRecipes {
                 val chance = (weight.toDouble() / sumOfWeights.toDouble() * 100).toInt()
 
                 val geneComponent = if (geneHolder.isNegative || geneHolder.isMutation) {
-                    Gene.getNameComponent(geneHolder, registries)
+                    Gene.getNameComponent(geneHolder)
                 } else {
-                    Gene.getNameComponent(geneHolder, registries).withStyle { it.withColor(ChatFormatting.RESET) }
+                    Gene.getNameComponent(geneHolder).withStyle { it.withColor(ChatFormatting.RESET) }
                 }
 
                 val component =

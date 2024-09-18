@@ -137,7 +137,7 @@ object RemoveGeneCommand {
         if (success) {
             val component =
                 ModLanguageProvider.Commands.REMOVE_SINGLE_SUCCESS.toComponent(
-                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder),
                     target.displayName
                 )
 
@@ -145,7 +145,7 @@ object RemoveGeneCommand {
         } else {
             val component =
                 ModLanguageProvider.Commands.REMOVE_SINGLE_FAIL.toComponent(
-                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder),
                     target.displayName
                 )
 
@@ -169,7 +169,7 @@ object RemoveGeneCommand {
         if (amountSuccess != 0) {
             val component =
                 ModLanguageProvider.Commands.REMOVE_MULTIPLE_SUCCESS.toComponent(
-                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder),
                     amountSuccess
                 )
             context.source.sendSuccess({ component }, true)
@@ -177,7 +177,7 @@ object RemoveGeneCommand {
         if (amountFail != 0) {
             val component =
                 ModLanguageProvider.Commands.REMOVE_MULTIPLE_FAIL.toComponent(
-                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder),
                     amountFail
                 )
             context.source.sendFailure(component)
