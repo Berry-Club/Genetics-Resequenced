@@ -1,6 +1,6 @@
 {
   "entity": "minecraft:frog",
-  "genes": {
+  "gene_weights": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:jump_boost": 3
   }

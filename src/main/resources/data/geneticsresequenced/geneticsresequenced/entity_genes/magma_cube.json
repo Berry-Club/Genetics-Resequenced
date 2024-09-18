@@ -1,6 +1,6 @@
 {
   "entity": "minecraft:magma_cube",
-  "genes": {
+  "gene_weights": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:fire_proof": 3,
     "geneticsresequenced:bioluminescence": 4

@@ -46,13 +46,13 @@ class MobGeneRegistry : SimpleJsonResourceReloadListener(
 
     data class EntityGenes(
         val entity: ResourceLocation,
-        val genes: Map<Holder<Gene>, Int>
+        val geneWeights: Map<Holder<Gene>, Int>
     ) {
         companion object {
             val CODEC: Codec<EntityGenes> = RecordCodecBuilder.create { instance ->
                 instance.group(
                     ResourceLocation.CODEC.fieldOf("entity").forGetter(EntityGenes::entity),
-                    Codec.unboundedMap(Gene.CODEC, Codec.INT).fieldOf("genes").forGetter(EntityGenes::genes)
+                    Codec.unboundedMap(Gene.CODEC, Codec.INT).fieldOf("genes_weights").forGetter(EntityGenes::geneWeights)
                 ).apply(instance, MobGeneRegistry::EntityGenes)
             }
         }
@@ -81,7 +81,7 @@ class MobGeneRegistry : SimpleJsonResourceReloadListener(
                     GeneticsResequenced.LOGGER.warn("Mob-Gene data for $key has the entity $entityName instead of $fileName. This may be a mistake.")
                 }
 
-                assignGenes(entityGenes.entity, entityGenes.genes)
+                assignGenes(entityGenes.entity, entityGenes.geneWeights)
 
                 GeneticsResequenced.LOGGER.debug("Loaded gene-mob data: $entityGenes")
             } catch (e: Exception) {

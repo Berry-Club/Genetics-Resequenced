@@ -1,6 +1,6 @@
 {
   "entity": "minecraft:evoker",
-  "genes": {
+  "gene_weights": {
     "geneticsresequenced:basic": 4,
     "geneticsresequenced:emerald_heart": 3,
     "geneticsresequenced:bad_omen": 4

@@ -1,6 +1,6 @@
 {
   "entity": "minecraft:piglin",
-  "genes": {
+  "gene_weights": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:meaty": 3
   }

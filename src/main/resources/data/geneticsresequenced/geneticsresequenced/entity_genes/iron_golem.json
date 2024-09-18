@@ -1,6 +1,6 @@
 {
   "entity": "minecraft:iron_golem",
-  "genes": {
+  "gene_weights": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:more_hearts": 2,
     "geneticsresequenced:regeneration": 2,

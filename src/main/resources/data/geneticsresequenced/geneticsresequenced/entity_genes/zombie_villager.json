@@ -1,6 +1,6 @@
 {
   "entity": "minecraft:zombie_villager",
-  "genes": {
+  "gene_weights": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:emerald_heart": 4
   }
