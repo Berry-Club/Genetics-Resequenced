@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityUuid
@@ -70,7 +71,7 @@ class MetalSyringeItem : SyringeItem() {
                 for (geneHolder in genesCantAdd) {
                     sendMessage(
                         ModLanguageProvider.Messages.METAL_SYRINGE_NO_MOBS.toComponent(
-                            geneHolder.value().nameComponent(pInteractionTarget.registryAccess())
+                            Gene.getNameComponent(geneHolder, pInteractionTarget.registryAccess())
                         )
                     )
                 }

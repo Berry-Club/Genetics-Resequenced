@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorBlockEntity.Companion.CHORUS_SLOT_INDEX
@@ -163,7 +164,7 @@ class AdvancedIncubatorMenu(
                 index++,
                 ModLanguageProvider.Tooltips.GMO_BASE_CHANCE
                     .toComponent(
-                        recipe.idealGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!),
+                        Gene.getNameComponent(recipe.idealGeneHolder, ClientUtil.localRegistryAccess!!),
                         (baseChance * 100).toInt()
                     )
                     .withColor(ChatFormatting.GRAY)

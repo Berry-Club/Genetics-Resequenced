@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
@@ -33,7 +34,7 @@ object ModInformationRecipes {
 
             val components: MutableList<MutableComponent> = mutableListOf()
             components.add(
-                geneHolder.value().nameComponent(registries).copy()
+                Gene.getNameComponent(geneHolder, registries).copy()
                     .withStyle { it.withColor(ChatFormatting.RESET).withUnderlined(true) }
             )
 
@@ -58,9 +59,10 @@ object ModInformationRecipes {
                     val requiredGene = requiredGeneHolder.value()
 
                     val requiredGeneComponent = if (requiredGene.isNegative || requiredGene.isMutation) {
-                        requiredGene.nameComponent(registries)
+                        Gene.getNameComponent(geneHolder, registries)
                     } else {
-                        requiredGene.nameComponent(registries).copy().withStyle { it.withColor(ChatFormatting.RESET) }
+                        Gene.getNameComponent(geneHolder, registries).copy()
+                            .withStyle { it.withColor(ChatFormatting.RESET) }
                     }
 
                     val line = Component.literal("• ").append(requiredGeneComponent)
@@ -130,9 +132,9 @@ object ModInformationRecipes {
                 val chance = (weight.toDouble() / sumOfWeights.toDouble() * 100).toInt()
 
                 val geneComponent = if (geneHolder.value().isNegative || geneHolder.value().isMutation) {
-                    geneHolder.value().nameComponent(registries)
+                    Gene.getNameComponent(geneHolder, registries)
                 } else {
-                    geneHolder.value().nameComponent(registries).copy().withStyle { it.withColor(ChatFormatting.RESET) }
+                    Gene.getNameComponent(geneHolder, registries).withStyle { it.withColor(ChatFormatting.RESET) }
                 }
 
                 val component =

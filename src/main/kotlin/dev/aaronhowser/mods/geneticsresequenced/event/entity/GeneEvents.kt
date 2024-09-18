@@ -67,7 +67,7 @@ object GeneEvents {
 
             requiredGenesComponent.append(
                 ComponentUtils.formatList(
-                    missingGenes.map { it.value().nameComponent(entity.registryAccess()) },
+                    missingGenes.map { Gene.getNameComponent(it, entity.registryAccess()) },
                     Component.literal("\n - ")
                 )
             )
@@ -75,7 +75,7 @@ object GeneEvents {
             if (!entity.level().isClientSide) {
                 entity.sendSystemMessage(
                     ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS
-                        .toComponent(gene.nameComponent(entity.registryAccess()))
+                        .toComponent(Gene.getNameComponent(geneHolder, entity.registryAccess()))
                         .withStyle {
                             it.withHoverEvent(
                                 HoverEvent(

@@ -53,7 +53,7 @@ object BrewingRecipes {
         if (itemGeneHolder != null) {
             event.toolTip.add(
                 ModLanguageProvider.Tooltips.GENE
-                    .toComponent(itemGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!))
+                    .toComponent(Gene.getNameComponent(itemGeneHolder, ClientUtil.localRegistryAccess!!))
                     .withStyle { it.withColor(ChatFormatting.GRAY) }
             )
         }

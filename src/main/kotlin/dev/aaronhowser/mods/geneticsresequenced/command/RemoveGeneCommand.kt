@@ -129,15 +129,15 @@ object RemoveGeneCommand {
     private fun handleSingleTarget(
         context: CommandContext<CommandSourceStack>,
         target: LivingEntity,
-        geneToRemove: Holder<Gene>
+        geneHolder: Holder<Gene>
     ) {
 
-        val success = removeGeneFromTarget(target, geneToRemove)
+        val success = removeGeneFromTarget(target, geneHolder)
 
         if (success) {
             val component =
                 ModLanguageProvider.Commands.REMOVE_SINGLE_SUCCESS.toComponent(
-                    geneToRemove.value().nameComponent(context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
                     target.displayName
                 )
 
@@ -145,7 +145,7 @@ object RemoveGeneCommand {
         } else {
             val component =
                 ModLanguageProvider.Commands.REMOVE_SINGLE_FAIL.toComponent(
-                    geneToRemove.value().nameComponent(context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
                     target.displayName
                 )
 
@@ -156,12 +156,12 @@ object RemoveGeneCommand {
     private fun handleMultipleTargets(
         context: CommandContext<CommandSourceStack>,
         targets: List<LivingEntity>,
-        geneToRemove: Holder<Gene>
+        geneHolder: Holder<Gene>
     ) {
         var amountSuccess = 0
         var amountFail = 0
         for (target in targets) {
-            val success = removeGeneFromTarget(target, geneToRemove)
+            val success = removeGeneFromTarget(target, geneHolder)
 
             if (success) amountSuccess++ else amountFail++
         }
@@ -169,7 +169,7 @@ object RemoveGeneCommand {
         if (amountSuccess != 0) {
             val component =
                 ModLanguageProvider.Commands.REMOVE_MULTIPLE_SUCCESS.toComponent(
-                    geneToRemove.value().nameComponent(context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
                     amountSuccess
                 )
             context.source.sendSuccess({ component }, true)
@@ -177,7 +177,7 @@ object RemoveGeneCommand {
         if (amountFail != 0) {
             val component =
                 ModLanguageProvider.Commands.REMOVE_MULTIPLE_FAIL.toComponent(
-                    geneToRemove.value().nameComponent(context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
                     amountFail
                 )
             context.source.sendFailure(component)

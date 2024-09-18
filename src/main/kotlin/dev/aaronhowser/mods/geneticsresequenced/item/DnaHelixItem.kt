@@ -36,9 +36,13 @@ class DnaHelixItem : EntityDnaItem() {
             return itemStack.get(ModDataComponents.GENE_COMPONENT)?.geneRk
         }
 
-        fun setGeneRk(itemStack: ItemStack, geneHolder: ResourceKey<Gene>): ItemStack {
-            itemStack.set(ModDataComponents.GENE_COMPONENT, GeneRkItemComponent(geneHolder))
+        fun setGeneRk(itemStack: ItemStack, geneRk: ResourceKey<Gene>): ItemStack {
+            itemStack.set(ModDataComponents.GENE_COMPONENT, GeneRkItemComponent(geneRk))
             return itemStack
+        }
+
+        fun setGeneHolder(itemStack: ItemStack, geneHolder: Holder<Gene>): ItemStack {
+            return setGeneRk(itemStack, geneHolder.key!!)
         }
 
         fun setBasic(itemStack: ItemStack): ItemStack {
@@ -64,7 +68,7 @@ class DnaHelixItem : EntityDnaItem() {
         } else {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.GENE
-                    .toComponent(geneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!))
+                    .toComponent(Gene.getNameComponent(geneHolder, ClientUtil.localRegistryAccess!!))
                     .withColor(ChatFormatting.GRAY)
             )
         }

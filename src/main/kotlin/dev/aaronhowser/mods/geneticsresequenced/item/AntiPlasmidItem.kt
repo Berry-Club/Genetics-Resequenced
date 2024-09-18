@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
@@ -30,7 +31,7 @@ class AntiPlasmidItem : Item(Properties().stacksTo(1)) {
         } else {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.PLASMID_GENE
-                    .toComponent(geneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!))
+                    .toComponent(Gene.getNameComponent(geneHolder, ClientUtil.localRegistryAccess!!))
                     .withColor(ChatFormatting.GRAY)
             )
         }

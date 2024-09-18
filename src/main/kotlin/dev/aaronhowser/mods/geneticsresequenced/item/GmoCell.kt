@@ -55,7 +55,7 @@ class GmoCell : Item(Properties()) {
         if (geneHolder != null) {
             val geneComponent =
                 ModLanguageProvider.Tooltips.GENE
-                    .toComponent(geneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!))
+                    .toComponent(Gene.getNameComponent(geneHolder, ClientUtil.localRegistryAccess!!))
                     .withColor(ChatFormatting.GRAY)
             pTooltipComponents.add(geneComponent)
         } else {

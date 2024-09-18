@@ -116,7 +116,7 @@ open class SyringeItem : Item(
                 for (removedGeneHolder in genesRemoved) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_SUCCESS.toComponent(
-                            removedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+                            Gene.getNameComponent(removedGeneHolder, ClientUtil.localRegistryAccess!!)
                         )
                     )
                 }
@@ -124,7 +124,7 @@ open class SyringeItem : Item(
                 for (notRemovedGeneHolder in genesNotRemoved) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_FAIL.toComponent(
-                            notRemovedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+                            Gene.getNameComponent(notRemovedGeneHolder, ClientUtil.localRegistryAccess!!)
                         )
                     )
                 }
@@ -155,7 +155,7 @@ open class SyringeItem : Item(
                 for (addedGeneHolder in genesAdded) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_INJECTED.toComponent(
-                            addedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+                            Gene.getNameComponent(addedGeneHolder, ClientUtil.localRegistryAccess!!)
                         )
                     )
                 }
@@ -163,7 +163,7 @@ open class SyringeItem : Item(
                 for (notAddedGeneHolder in genesNotAdded) {
                     entity.sendSystemMessage(
                         ModLanguageProvider.Messages.SYRINGE_FAILED.toComponent(
-                            notAddedGeneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+                            Gene.getNameComponent(notAddedGeneHolder, ClientUtil.localRegistryAccess!!)
                         )
                     )
                 }
@@ -336,7 +336,7 @@ open class SyringeItem : Item(
             )
 
             for (geneHolder in addingGenes) {
-                val nameComponent = geneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+                val nameComponent = Gene.getNameComponent(geneHolder, ClientUtil.localRegistryAccess!!)
 
                 val component = Component
                     .literal("• ")
@@ -357,7 +357,7 @@ open class SyringeItem : Item(
             )
 
             for (geneHolder in removingGenes) {
-                val nameComponent = geneHolder.value().nameComponent(ClientUtil.localRegistryAccess!!)
+                val nameComponent = Gene.getNameComponent(geneHolder, ClientUtil.localRegistryAccess!!)
 
                 val component = Component
                     .literal("• ")

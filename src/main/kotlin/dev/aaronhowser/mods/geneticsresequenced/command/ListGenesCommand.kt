@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -53,7 +54,7 @@ object ListGenesCommand {
 
         messageComponent.append(
             ComponentUtils.formatList(
-                targetGenesList.map { it.value().nameComponent(context.source.registryAccess()) },
+                targetGenesList.map { Gene.getNameComponent(it, context.source.registryAccess()) },
                 Component.literal("\n• ")
             )
         )

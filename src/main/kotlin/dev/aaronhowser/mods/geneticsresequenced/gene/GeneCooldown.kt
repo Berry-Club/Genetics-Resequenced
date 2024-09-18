@@ -115,28 +115,28 @@ class GeneCooldown(
                 cooldownString = "$cooldownSeconds seconds"
             }
 
-            val gene = GeneRegistry.fromResourceLocation(player.registryAccess(), geneRk.location())!!
+            val geneHolder = GeneRegistry.fromResourceLocation(player.registryAccess(), geneRk.location())!!
 
             val message = Component.empty()
-                .append(gene.value().nameComponent(player.registryAccess()))
+                .append(Gene.getNameComponent(geneHolder, player.registryAccess()))
                 .append(ModLanguageProvider.Cooldown.STARTED.toComponent(cooldownString))
 
             player.sendSystemMessage(message)
         }
 
         fun tellCooldownEnded(player: LivingEntity, geneRk: ResourceKey<Gene>) {
-            val gene = GeneRegistry.fromResourceLocation(player.registryAccess(), geneRk.location())!!
+            val geneHolder = GeneRegistry.fromResourceLocation(player.registryAccess(), geneRk.location())!!
             val message =
-                ModLanguageProvider.Cooldown.ENDED.toComponent(gene.value().nameComponent(player.registryAccess()))
+                ModLanguageProvider.Cooldown.ENDED
+                    .toComponent(Gene.getNameComponent(geneHolder, player.registryAccess()))
 
             player.sendSystemMessage(message)
         }
 
         fun tellOnCooldown(player: LivingEntity, geneRk: ResourceKey<Gene>) {
-            val gene = GeneRegistry.fromResourceLocation(player.registryAccess(), geneRk.location())!!
-            val message = ModLanguageProvider.Cooldown.ON_COOLDOWN.toComponent(
-                gene.value().nameComponent(player.registryAccess())
-            )
+            val geneHolder = GeneRegistry.fromResourceLocation(player.registryAccess(), geneRk.location())!!
+            val message = ModLanguageProvider.Cooldown.ON_COOLDOWN
+                .toComponent(Gene.getNameComponent(geneHolder, player.registryAccess()))
 
             player.sendSystemMessage(message)
         }

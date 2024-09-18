@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
@@ -68,9 +69,11 @@ class SupportSlime(
             if (!player.hasGene(ModGenes.SLIMY_DEATH)) {
                 player.sendSystemMessage(
                     ModLanguageProvider.Messages.SUPPORT_SLIME_CREATIVE.toComponent(
-                        ModGenes.SLIMY_DEATH
-                            .getHolder(ClientUtil.localRegistryAccess!!)!!.value()
-                            .nameComponent(ClientUtil.localRegistryAccess!!)
+                        Gene.getNameComponent(
+                            ModGenes.SLIMY_DEATH
+                                .getHolder(ClientUtil.localRegistryAccess!!)!!,
+                            ClientUtil.localRegistryAccess!!
+                        )
                     )
                 )
             }

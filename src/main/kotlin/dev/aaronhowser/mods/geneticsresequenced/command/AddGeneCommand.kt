@@ -132,14 +132,12 @@ object AddGeneCommand {
         target: LivingEntity,
         geneHolder: Holder<Gene>,
     ) {
-        val geneToAdd = geneHolder.value()
-
         val geneWasAdded = addGeneToTarget(target, geneHolder)
 
         if (geneWasAdded) {
             val component =
                 ModLanguageProvider.Commands.ADD_SINGLE_SUCCESS.toComponent(
-                    geneToAdd.nameComponent(context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
                     target.name
                 )
 
@@ -147,7 +145,7 @@ object AddGeneCommand {
         } else {
             val component =
                 ModLanguageProvider.Commands.ADD_SINGLE_FAIL.toComponent(
-                    geneToAdd.nameComponent(context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
                     target.name
                 )
 
@@ -163,8 +161,6 @@ object AddGeneCommand {
         var amountSuccess = 0
         var amountFail = 0
 
-        val geneToAdd = geneHolder.value()
-
         for (target in targets) {
             val geneWasAdded = addGeneToTarget(target, geneHolder)
             if (geneWasAdded) amountSuccess++ else amountFail++
@@ -173,7 +169,7 @@ object AddGeneCommand {
         if (amountSuccess != 0) {
             val component =
                 ModLanguageProvider.Commands.ADD_MULTIPLE_SUCCESS.toComponent(
-                    geneToAdd.nameComponent(context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
                     amountSuccess
                 )
 
@@ -183,7 +179,7 @@ object AddGeneCommand {
         if (amountFail != 0) {
             val component =
                 ModLanguageProvider.Commands.ADD_MULTIPLE_FAIL.toComponent(
-                    geneToAdd.nameComponent(context.source.registryAccess()),
+                    Gene.getNameComponent(geneHolder, context.source.registryAccess()),
                     amountFail
                 )
             context.source.sendFailure(component)

@@ -6,7 +6,6 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -55,8 +54,10 @@ class PlasmidInfuserEmiRecipe(
 
         DnaHelixItem.setGeneRk(
             helixStack, if (basic) {
-                ModGenes.BASIC.getHolder(ClientUtil.localRegistryAccess!!)!!
-            } else geneHolder
+                ModGenes.BASIC
+            } else {
+                geneHolder.key!!
+            }
         )
         helix = EmiIngredient.of(Ingredient.of(helixStack))
 
@@ -95,9 +96,8 @@ class PlasmidInfuserEmiRecipe(
     private val tooltips: List<Component> = listOf(
         ModLanguageProvider.Recipe.REQUIRES_POINTS
             .toComponent(
-                geneHolder
-                    .value()
-                    .nameComponent(ClientUtil.localRegistryAccess!!)
+                Gene
+                    .getNameComponent(geneHolder, ClientUtil.localRegistryAccess!!)
                     .withColor(ChatFormatting.GRAY),
                 geneHolder
                     .value()
