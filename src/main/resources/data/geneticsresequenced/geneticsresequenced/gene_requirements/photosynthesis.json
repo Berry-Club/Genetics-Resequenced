@@ -1,6 +1,0 @@
-{
-  "gene": "geneticsresequenced:photosynthesis",
-  "requiresGenes": [
-    "geneticsresequenced:thorns"
-  ]
-}
