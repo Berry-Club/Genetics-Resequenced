@@ -23,7 +23,6 @@ class ModGeneProvider : RegistrySetBuilder() {
             context.register(
                 ModGenes.BASIC,
                 Gene(
-                    isHidden = true,
                     allowedEntities = noEntities
                 )
             )
@@ -34,8 +33,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.CLAWS_TWO,
                 Gene(
                     dnaPointsRequired = 50,
-                    requiresGenes = listOf(ModGenes.CLAWS),
-                    isNegative = true
+                    requiresGenes = listOf(ModGenes.CLAWS)
                 )
             )
 
@@ -50,8 +48,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                         )
                     ),
                     allowedEntities = onlyPlayers,
-                    requiresGenes = listOf(ModGenes.EFFICIENCY),
-                    isNegative = true
+                    requiresGenes = listOf(ModGenes.EFFICIENCY)
                 )
             )
 
@@ -66,8 +63,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                         )
                     ),
                     allowedEntities = onlyPlayers,
-                    requiresGenes = listOf(ModGenes.TELEPORT, ModGenes.STEP_ASSIST, ModGenes.NO_FALL_DAMAGE),
-                    isNegative = true
+                    requiresGenes = listOf(ModGenes.TELEPORT, ModGenes.STEP_ASSIST, ModGenes.NO_FALL_DAMAGE)
                 )
             )
 
@@ -81,8 +77,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             level = 2
                         )
                     ),
-                    requiresGenes = listOf(ModGenes.HASTE),
-                    isNegative = true
+                    requiresGenes = listOf(ModGenes.HASTE)
                 )
             )
 
@@ -90,8 +85,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.MEATY_TWO,
                 Gene(
                     dnaPointsRequired = 50,
-                    requiresGenes = listOf(ModGenes.MEATY),
-                    isNegative = true
+                    requiresGenes = listOf(ModGenes.MEATY)
                 )
             )
 
@@ -106,8 +100,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                         )
                     ),
                     allowedEntities = onlyPlayers,
-                    requiresGenes = listOf(ModGenes.MORE_HEARTS),
-                    isNegative = true
+                    requiresGenes = listOf(ModGenes.MORE_HEARTS)
                 )
             )
 
@@ -116,8 +109,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                 Gene(
                     dnaPointsRequired = 40,
                     allowedEntities = onlyPlayers,
-                    requiresGenes = listOf(ModGenes.EAT_GRASS, ModGenes.THORNS),
-                    isNegative = true
+                    requiresGenes = listOf(ModGenes.EAT_GRASS, ModGenes.THORNS)
                 )
             )
 
@@ -131,8 +123,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             level = 4
                         )
                     ),
-                    requiresGenes = listOf(ModGenes.REGENERATION),
-                    isNegative = true
+                    requiresGenes = listOf(ModGenes.REGENERATION)
                 )
             )
 
@@ -146,8 +137,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             level = 2
                         )
                     ),
-                    requiresGenes = listOf(ModGenes.RESISTANCE),
-                    isNegative = true
+                    requiresGenes = listOf(ModGenes.RESISTANCE)
                 )
             )
 
@@ -161,8 +151,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             level = 4
                         )
                     ),
-                    requiresGenes = listOf(ModGenes.SPEED_TWO),
-                    isNegative = true
+                    requiresGenes = listOf(ModGenes.SPEED_TWO)
                 )
             )
 
@@ -176,8 +165,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             level = 2
                         )
                     ),
-                    requiresGenes = listOf(ModGenes.SPEED),
-                    isNegative = true
+                    requiresGenes = listOf(ModGenes.SPEED)
                 )
             )
 
@@ -191,8 +179,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             level = 2
                         )
                     ),
-                    requiresGenes = listOf(ModGenes.STRENGTH),
-                    isNegative = true
+                    requiresGenes = listOf(ModGenes.STRENGTH)
                 )
             )
 
@@ -624,7 +611,6 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.BAD_OMEN,
                 Gene(
                     dnaPointsRequired = 20,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.BAD_OMEN
@@ -636,8 +622,6 @@ class ModGeneProvider : RegistrySetBuilder() {
             context.register(
                 ModGenes.BLINDNESS,
                 Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.BLINDNESS
@@ -650,7 +634,6 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.CRINGE,
                 Gene(
                     dnaPointsRequired = 20,
-                    isNegative = true,
                     allowedEntities = onlyPlayers
                 )
             )
@@ -658,8 +641,6 @@ class ModGeneProvider : RegistrySetBuilder() {
             context.register(
                 ModGenes.CURSED,
                 Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.UNLUCK
@@ -671,16 +652,13 @@ class ModGeneProvider : RegistrySetBuilder() {
             context.register(
                 ModGenes.FLAMBE,
                 Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true
+                    dnaPointsRequired = 1
                 )
             )
 
             context.register(
                 ModGenes.HUNGER,
                 Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.HUNGER
@@ -693,7 +671,6 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.INFESTED,
                 Gene(
                     dnaPointsRequired = 10,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.INFESTED
@@ -705,8 +682,6 @@ class ModGeneProvider : RegistrySetBuilder() {
             context.register(
                 ModGenes.LEVITATION,
                 Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.LEVITATION
@@ -718,8 +693,6 @@ class ModGeneProvider : RegistrySetBuilder() {
             context.register(
                 ModGenes.MINING_FATIGUE,
                 Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.DIG_SLOWDOWN
@@ -731,8 +704,6 @@ class ModGeneProvider : RegistrySetBuilder() {
             context.register(
                 ModGenes.NAUSEA,
                 Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.CONFUSION
@@ -745,7 +716,6 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.OOZING,
                 Gene(
                     dnaPointsRequired = 10,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.OOZING
@@ -757,8 +727,6 @@ class ModGeneProvider : RegistrySetBuilder() {
             context.register(
                 ModGenes.POISON,
                 Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.POISON
@@ -770,8 +738,6 @@ class ModGeneProvider : RegistrySetBuilder() {
             context.register(
                 ModGenes.POISON_FOUR,
                 Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.POISON,
@@ -784,8 +750,6 @@ class ModGeneProvider : RegistrySetBuilder() {
             context.register(
                 ModGenes.SLOWNESS,
                 Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.MOVEMENT_SLOWDOWN
@@ -797,8 +761,6 @@ class ModGeneProvider : RegistrySetBuilder() {
             context.register(
                 ModGenes.SLOWNESS_FOUR,
                 Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.MOVEMENT_SLOWDOWN,
@@ -811,8 +773,6 @@ class ModGeneProvider : RegistrySetBuilder() {
             context.register(
                 ModGenes.SLOWNESS_SIX,
                 Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.MOVEMENT_SLOWDOWN,
@@ -826,7 +786,6 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.WEAVING,
                 Gene(
                     dnaPointsRequired = 10,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.WEAVING
@@ -838,8 +797,6 @@ class ModGeneProvider : RegistrySetBuilder() {
             context.register(
                 ModGenes.WEAKNESS,
                 Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.WEAKNESS
@@ -852,7 +809,6 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.WIND_CHARGED,
                 Gene(
                     dnaPointsRequired = 10,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.WIND_CHARGED
@@ -864,8 +820,6 @@ class ModGeneProvider : RegistrySetBuilder() {
             context.register(
                 ModGenes.WITHER,
                 Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true,
                     potionDetails = Optional.of(
                         Gene.PotionDetails(
                             effect = MobEffects.WITHER
@@ -878,42 +832,27 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.BLACK_DEATH,
-                Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true
-                )
+                Gene()
             )
 
             context.register(
                 ModGenes.GREEN_DEATH,
-                Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true
-                )
+                Gene()
             )
 
             context.register(
                 ModGenes.WHITE_DEATH,
-                Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true
-                )
+                Gene()
             )
 
             context.register(
                 ModGenes.GRAY_DEATH,
-                Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true
-                )
+                Gene()
             )
 
             context.register(
                 ModGenes.UN_UNDEATH,
-                Gene(
-                    dnaPointsRequired = 1,
-                    isNegative = true
-                )
+                Gene()
             )
 
         }

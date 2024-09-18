@@ -5,7 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModGeneTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
 import net.minecraft.ChatFormatting
@@ -30,15 +30,11 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
-import net.neoforged.neoforge.network.codec.NeoForgeStreamCodecs
 import net.neoforged.neoforge.registries.holdersets.AnyHolderSet
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
 data class Gene(
-    val isNegative: Boolean = false,
-    val isHidden: Boolean = false,
-    val isMutation: Boolean = false,
     val dnaPointsRequired: Int = 1,
     val requiresGenes: List<ResourceKey<Gene>> = emptyList(),
     val allowedEntities: HolderSet<EntityType<*>> = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup()),
@@ -112,50 +108,6 @@ data class Gene(
         return allowedEntities.map { it.value() }.contains(entityType)
     }
 
-    @Suppress("MemberVisibilityCanBePrivate")
-    val translationKey: String = "gene.${id.namespace}.${id.path}"
-
-    fun nameComponent(registries: HolderLookup.Provider): MutableComponent {
-        val color = if (isActive) {
-            if (isNegative) {
-                ChatFormatting.RED
-            } else if (isMutation) {
-                ChatFormatting.DARK_PURPLE
-            } else {
-                ChatFormatting.GRAY
-            }
-        } else {
-            ChatFormatting.DARK_RED
-        }
-
-        val component = translationKey
-            .toComponent()
-            .withStyle {
-                it
-                    .withColor(color)
-                    .withHoverEvent(
-                        HoverEvent(
-                            HoverEvent.Action.SHOW_TEXT,
-                            ModLanguageProvider.Tooltips.COPY_GENE.toComponent(id.toString())
-                        )
-                    )
-                    .withClickEvent(
-                        ClickEvent(
-                            ClickEvent.Action.COPY_TO_CLIPBOARD,
-                            id.toString()
-                        )
-                    )
-            }
-
-        if (!isActive) {
-            component.append(
-                ModLanguageProvider.Genes.GENE_DISABLED.toComponent()
-            )
-        }
-
-        return component
-    }
-
     var isActive: Boolean = true
         private set
 
@@ -201,6 +153,55 @@ data class Gene(
 
     companion object {
 
+        val Holder<Gene>.translationKey: String
+            get() {
+                val location = key!!.location()
+                return "gene.${location.namespace}.${location.path}"
+            }
+
+        fun getNameComponent(geneHolder: Holder<Gene>, registries: HolderLookup.Provider): MutableComponent {
+            val color = if (!geneHolder.`is`(ModGeneTagsProvider.HIDDEN)) {
+                if (geneHolder.`is`(ModGeneTagsProvider.NEGATIVE)) {
+                    ChatFormatting.RED
+                } else if (geneHolder.`is`(ModGeneTagsProvider.MUTATION)) {
+                    ChatFormatting.DARK_PURPLE
+                } else {
+                    ChatFormatting.GRAY
+                }
+            } else {
+                ChatFormatting.DARK_RED
+            }
+
+            val component = geneHolder.translationKey
+                .toComponent()
+                .withStyle {
+                    it
+                        .withColor(color)
+                        .withHoverEvent(
+                            HoverEvent(
+                                HoverEvent.Action.SHOW_TEXT,
+                                ModLanguageProvider.Tooltips.COPY_GENE.toComponent(
+                                    geneHolder.key!!.location().toString()
+                                )
+                            )
+                        )
+                        .withClickEvent(
+                            ClickEvent(
+                                ClickEvent.Action.COPY_TO_CLIPBOARD,
+                                geneHolder.key!!.location().toString()
+                            )
+                        )
+                }
+
+            if (!geneHolder.value().isActive) {
+                component.append(
+                    ModLanguageProvider.Genes.GENE_DISABLED.toComponent()
+                )
+            }
+
+            return component
+        }
+
         val unknownGeneComponent: MutableComponent = ModLanguageProvider.Genes.UNKNOWN.toComponent()
 
 //        fun checkDeactivationConfig() {
@@ -231,15 +232,6 @@ data class Gene(
         val DIRECT_CODEC: Codec<Gene> =
             RecordCodecBuilder.create { instance ->
                 instance.group(
-                    Codec.BOOL
-                        .optionalFieldOf("negative", false)
-                        .forGetter(Gene::isNegative),
-                    Codec.BOOL
-                        .optionalFieldOf("hidden", false)
-                        .forGetter(Gene::isHidden),
-                    Codec.BOOL
-                        .optionalFieldOf("mutation", false)
-                        .forGetter(Gene::isMutation),
                     Codec.INT
                         .optionalFieldOf("dna_points_required", 1)
                         .forGetter(Gene::dnaPointsRequired),
@@ -261,7 +253,14 @@ data class Gene(
                 ).apply(instance, ::Gene)
             }
 
-        val DIRECT_STREAM_CODEC: StreamCodec<ByteBuf, Gene> = ByteBufCodecs.fromCodec(DIRECT_CODEC)
+        val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Gene> = StreamCodec.composite(
+            ByteBufCodecs.INT, Gene::dnaPointsRequired,
+            ResourceKey.streamCodec(GeneRegistry.GENE_REGISTRY_KEY).apply(ByteBufCodecs.list()), Gene::requiresGenes,
+            ByteBufCodecs.holderSet(Registries.ENTITY_TYPE), Gene::allowedEntities,
+            ByteBufCodecs.optional(PotionDetails.DIRECT_STREAM_CODEC), Gene::potionDetails,
+            AttributeEntry.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::attributeModifiers,
+            ::Gene
+        )
 
         val CODEC: RegistryFileCodec<Gene> = RegistryFileCodec.create(GeneRegistry.GENE_REGISTRY_KEY, DIRECT_CODEC)
 
