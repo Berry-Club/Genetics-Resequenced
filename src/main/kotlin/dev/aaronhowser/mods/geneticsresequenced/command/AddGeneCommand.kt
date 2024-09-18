@@ -196,7 +196,7 @@ object AddGeneCommand {
             return false
         }
 
-        if (geneHolder.value().canEntityHave(target)) {
+        if (!geneHolder.value().canEntityHave(target)) {
             GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.location()} to ${target.name.string}, but they can't have it!")
             return false
         }
