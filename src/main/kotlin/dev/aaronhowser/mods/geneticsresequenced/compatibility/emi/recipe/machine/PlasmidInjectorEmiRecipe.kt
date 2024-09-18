@@ -84,7 +84,7 @@ class PlasmidInjectorEmiRecipe(
     }
 
     override fun getId(): ResourceLocation {
-        val geneString = geneHolder.value().id.toString().replace(':', '/')
+        val geneString = geneHolder.key!!.location().toString().replace(':', '/')
         val syringeString = if (isMetal) "/metal" else ""
         val plasmidString = if (isAntiPlasmid) "/anti" else ""
 

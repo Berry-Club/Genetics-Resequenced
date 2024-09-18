@@ -2,13 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.api.genes
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModGeneTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
@@ -84,8 +82,6 @@ data class Gene(
         }
     }
 
-    val id = OtherUtil.modResource("gene")
-
     val allowsMobs = allowedEntities.any { it.value() != EntityType.PLAYER }
 
     private val requiredGenes: MutableSet<Holder<Gene>> = mutableSetOf()
@@ -113,16 +109,6 @@ data class Gene(
     //TODO: Should this even exist still? It can be disabled via datapack
     var isActive: Boolean = true
         private set
-
-    private fun deactivate() {
-        isActive = false
-        GeneticsResequenced.LOGGER.info("Deactivated gene $id")
-    }
-
-    private fun reactivate() {
-        isActive = true
-        GeneticsResequenced.LOGGER.info("Reactivated gene $id")
-    }
 
     fun getPotion(): MobEffectInstance? {
         val potionDetails = potionDetails.getOrNull() ?: return null

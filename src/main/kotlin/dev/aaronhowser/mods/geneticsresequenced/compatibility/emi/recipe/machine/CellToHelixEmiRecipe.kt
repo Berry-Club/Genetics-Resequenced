@@ -106,7 +106,7 @@ class CellToHelixEmiRecipe(
             string += "/gmo/"
 
             val geneHolder = DnaHelixItem.getGene(helixStack, ClientUtil.localRegistryAccess!!) ?: error("Invalid gene")
-            val geneString = geneHolder.value().id.toString().replace(':', '/')
+            val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
             string += geneString
         }

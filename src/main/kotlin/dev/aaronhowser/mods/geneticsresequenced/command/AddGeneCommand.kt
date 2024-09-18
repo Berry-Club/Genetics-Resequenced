@@ -190,15 +190,14 @@ object AddGeneCommand {
         target: LivingEntity,
         geneHolder: Holder<Gene>,
     ): Boolean {
-        val geneToAdd = geneHolder.value()
         val alreadyHasGene = target.hasGene(geneHolder)
         if (alreadyHasGene) {
-            GeneticsResequenced.LOGGER.info("Tried to add gene ${geneToAdd.id} to ${target.name.string}, but they already have it!")
+            GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.location()} to ${target.name.string}, but they already have it!")
             return false
         }
 
-        if (geneToAdd.canEntityHave(target)) {
-            GeneticsResequenced.LOGGER.info("Tried to add gene ${geneToAdd.id} to ${target.name.string}, but they can't have it!")
+        if (geneHolder.value().canEntityHave(target)) {
+            GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.location()} to ${target.name.string}, but they can't have it!")
             return false
         }
 

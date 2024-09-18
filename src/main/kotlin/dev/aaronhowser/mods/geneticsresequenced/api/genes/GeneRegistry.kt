@@ -37,7 +37,7 @@ object GeneRegistry {
     }
 
     fun fromIdPath(registries: HolderLookup.Provider, path: String): Holder.Reference<Gene>? {
-        return getAllGeneHolders(registries).filter { it.value().id.path == path }.findFirst().orElse(null)
+        return getAllGeneHolders(registries).filter { it.key!!.location().path == path }.findFirst().orElse(null)
     }
 
     fun getRegistrySorted(registries: HolderLookup.Provider): List<Holder<Gene>> {

@@ -76,7 +76,7 @@ class PlasmidInfuserEmiRecipe(
     }
 
     override fun getId(): ResourceLocation {
-        val geneString = geneHolder.value().id.toString().replace(':', '/')
+        val geneString = geneHolder.key!!.location().toString().replace(':', '/')
         val basicString = if (basic) "/basic" else ""
 
         return OtherUtil.modResource("/plasmid_infuser/$geneString$basicString")

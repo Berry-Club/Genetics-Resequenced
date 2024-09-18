@@ -32,7 +32,7 @@ object ModCommands {
         SuggestionProvider { context: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
             val allGeneResourceLocations = GeneRegistry
                 .getRegistrySorted(context.source.registryAccess())
-                .filter { !it.isHidden }.map { it.value().id }
+                .filter { !it.isHidden }.map { it.key!!.location() }
 
             SharedSuggestionProvider.suggestResource(allGeneResourceLocations, suggestionsBuilder)
         }
@@ -41,7 +41,7 @@ object ModCommands {
         SuggestionProvider { context: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
             val allGeneStrings = GeneRegistry
                 .getRegistrySorted(context.source.registryAccess())
-                .filter { !it.isHidden }.map { it.value().id.path }
+                .filter { !it.isHidden }.map { it.key!!.location().toString() }
 
             SharedSuggestionProvider.suggest(allGeneStrings, suggestionsBuilder)
         }

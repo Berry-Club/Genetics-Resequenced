@@ -41,7 +41,7 @@ object ModInformationRecipes {
                     .withStyle { it.withColor(ChatFormatting.RESET).withUnderlined(true) }
             )
 
-            val geneString = geneHolder.value().id.toString()
+            val geneString = geneHolder.key!!.location().toString()
             val translationKey = "info.geneticsresequenced.gene_description.$geneString"
             val geneDesc = Component.translatable(translationKey)
 

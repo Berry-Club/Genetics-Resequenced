@@ -28,7 +28,7 @@ object AntiPlasmidEmiRecipes {
             val setAntiPlasmid = ModItems.ANTI_PLASMID.toStack()
             PlasmidItem.setGene(setAntiPlasmid, geneHolder, geneHolder.value().dnaPointsRequired)
 
-            val geneString = geneHolder.value().id.toString().replace(':', '/')
+            val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
             registry.addRecipe(
                 EmiCraftingRecipe(
@@ -50,7 +50,7 @@ object AntiPlasmidEmiRecipes {
             val antiPlasmidStack = ModItems.ANTI_PLASMID.toStack()
             PlasmidItem.setGene(antiPlasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
 
-            val geneString = geneHolder.value().id.toString().replace(':', '/')
+            val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
             registry.addRecipe(
                 EmiCraftingRecipe(

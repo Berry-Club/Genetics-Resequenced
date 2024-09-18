@@ -64,7 +64,7 @@ class DecryptHelixEmiRecipe(
     override fun getId(): ResourceLocation {
         val entityTypeRl = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
         val entityString = entityTypeRl.toString().replace(':', '/')
-        val geneString = geneHolder.value().id.toString().replace(':', '/')
+        val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
         return OtherUtil.modResource("/dna_extractor/$entityString/to/$geneString")
     }

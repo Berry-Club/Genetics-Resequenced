@@ -26,6 +26,7 @@ class ServerConfig(
         lateinit var incubatorOverclockerChanceDecrease: ModConfigSpec.DoubleValue
         lateinit var incubatorChorusFruitChanceIncrease: ModConfigSpec.DoubleValue
 
+        // TODO: Make this a tag instead?
         lateinit var disabledGenes: ModConfigSpec.ConfigValue<List<String>>
         lateinit var disableGivingPlayersNegativeGenes: ModConfigSpec.BooleanValue
 

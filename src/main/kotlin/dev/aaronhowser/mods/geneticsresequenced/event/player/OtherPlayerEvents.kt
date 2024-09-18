@@ -66,7 +66,7 @@ object OtherPlayerEvents {
                 player,
                 GeneChangedPacket(
                     player.id,
-                    gene.value().id,
+                    gene.key!!.location(),
                     true
                 )
             )
@@ -100,7 +100,7 @@ object OtherPlayerEvents {
                 player,
                 GeneChangedPacket(
                     entity.id,
-                    gene.value().id,
+                    gene.key!!.location(),
                     true
                 )
             )
