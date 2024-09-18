@@ -1,4 +1,9 @@
 {
   "allowed_entities": "minecraft:player",
-  "dna_points_required": 40
+  "dna_points_required": 40,
+  "negative": true,
+  "requires_genes": [
+    "geneticsresequenced:eat_grass",
+    "geneticsresequenced:thorns"
+  ]
 }

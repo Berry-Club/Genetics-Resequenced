@@ -8,5 +8,9 @@
       "operation": "add_value"
     }
   ],
-  "dna_points_required": 50
+  "dna_points_required": 50,
+  "negative": true,
+  "requires_genes": [
+    "geneticsresequenced:efficiency"
+  ]
 }

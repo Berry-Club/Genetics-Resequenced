@@ -22,6 +22,7 @@ import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.RegistryFileCodec
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.Entity
@@ -39,6 +40,7 @@ data class Gene(
     val isHidden: Boolean = false,
     val isMutation: Boolean = false,
     val dnaPointsRequired: Int = 1,
+    val requiresGenes: List<ResourceKey<Gene>> = emptyList(),
     val allowedEntities: HolderSet<EntityType<*>> = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup()),
     val potionDetails: Optional<PotionDetails> = Optional.empty(),
     val attributeModifiers: List<AttributeEntry> = emptyList()
@@ -235,33 +237,37 @@ data class Gene(
         val DIRECT_CODEC: Codec<Gene> =
             RecordCodecBuilder.create { instance ->
                 instance.group(
-                    Codec.BOOL.optionalFieldOf("negative", false).forGetter(Gene::isNegative),
-                    Codec.BOOL.optionalFieldOf("hidden", false).forGetter(Gene::isHidden),
-                    Codec.BOOL.optionalFieldOf("mutation", false).forGetter(Gene::isMutation),
-                    Codec.INT.optionalFieldOf("dna_points_required", 1).forGetter(Gene::dnaPointsRequired),
-                    RegistryCodecs
-                        .homogeneousList(Registries.ENTITY_TYPE)
+                    Codec.BOOL
+                        .optionalFieldOf("negative", false)
+                        .forGetter(Gene::isNegative),
+                    Codec.BOOL
+                        .optionalFieldOf("hidden", false)
+                        .forGetter(Gene::isHidden),
+                    Codec.BOOL
+                        .optionalFieldOf("mutation", false)
+                        .forGetter(Gene::isMutation),
+                    Codec.INT
+                        .optionalFieldOf("dna_points_required", 1)
+                        .forGetter(Gene::dnaPointsRequired),
+                    ResourceKey.codec(GeneRegistry.GENE_REGISTRY_KEY).listOf()
+                        .optionalFieldOf("requires_genes", emptyList())
+                        .forGetter(Gene::requiresGenes),
+                    RegistryCodecs.homogeneousList(Registries.ENTITY_TYPE)
                         .optionalFieldOf(
                             "allowed_entities",
                             AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup())
                         )
                         .forGetter(Gene::allowedEntities),
-                    PotionDetails.DIRECT_CODEC.optionalFieldOf("potion_details").forGetter(Gene::potionDetails),
-                    AttributeEntry.DIRECT_CODEC.listOf().optionalFieldOf("attribute_modifiers", emptyList())
+                    PotionDetails.DIRECT_CODEC
+                        .optionalFieldOf("potion_details")
+                        .forGetter(Gene::potionDetails),
+                    AttributeEntry.DIRECT_CODEC.listOf()
+                        .optionalFieldOf("attribute_modifiers", emptyList())
                         .forGetter(Gene::attributeModifiers)
                 ).apply(instance, ::Gene)
             }
 
-        val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Gene> = NeoForgeStreamCodecs.composite(
-            ByteBufCodecs.BOOL, Gene::isNegative,
-            ByteBufCodecs.BOOL, Gene::isHidden,
-            ByteBufCodecs.BOOL, Gene::isMutation,
-            ByteBufCodecs.INT, Gene::dnaPointsRequired,
-            ByteBufCodecs.holderSet(Registries.ENTITY_TYPE), Gene::allowedEntities,
-            ByteBufCodecs.optional(PotionDetails.DIRECT_STREAM_CODEC), Gene::potionDetails,
-            AttributeEntry.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::attributeModifiers,
-            ::Gene
-        )
+        val DIRECT_STREAM_CODEC: StreamCodec<ByteBuf, Gene> = ByteBufCodecs.fromCodec(DIRECT_CODEC)
 
         val CODEC: RegistryFileCodec<Gene> = RegistryFileCodec.create(GeneRegistry.GENE_REGISTRY_KEY, DIRECT_CODEC)
 
