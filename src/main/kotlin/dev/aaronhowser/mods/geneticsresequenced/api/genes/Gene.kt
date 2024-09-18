@@ -242,7 +242,7 @@ data class Gene(
                 instance.group(
                     Codec.BOOL.optionalFieldOf("negative", false).forGetter(Gene::isNegative),
                     Codec.BOOL.optionalFieldOf("hidden", false).forGetter(Gene::isHidden),
-                    Codec.INT.fieldOf("dna_points_required").forGetter(Gene::dnaPointsRequired),
+                    Codec.INT.optionalFieldOf("dna_points_required", 1).forGetter(Gene::dnaPointsRequired),
                     RegistryCodecs
                         .homogeneousList(Registries.ENTITY_TYPE)
                         .optionalFieldOf(
