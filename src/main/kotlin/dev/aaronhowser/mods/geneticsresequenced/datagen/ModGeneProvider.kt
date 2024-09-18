@@ -2,9 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistrySetBuilder
 import net.minecraft.data.worldgen.BootstrapContext
@@ -158,7 +156,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             level = 2
                         )
                     ),
-                    mutatesInto = Optional.of(ModGenes.SPEED_FOUR.getHolder(ClientUtil.localRegistryAccess!!)!!)
+//                    mutatesInto = Optional.of(ModGenes.SPEED_FOUR.getHolder(ClientUtil.localRegistryAccess!!)!!)
                 )
             )
 
@@ -216,7 +214,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.CLAWS,
                 Gene(
                     dnaPointsRequired = 20,
-                    mutatesInto = Optional.of(ModGenes.CLAWS_TWO.getHolder(ClientUtil.localRegistryAccess!!)!!)
+//                    mutatesInto = Optional.of(ModGenes.CLAWS_TWO.getHolder(ClientUtil.localRegistryAccess!!)!!)
                 )
             )
 
@@ -239,7 +237,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.EFFICIENCY,
                 Gene(
                     dnaPointsRequired = 30,
-                    mutatesInto = Optional.of(ModGenes.EFFICIENCY_FOUR.getHolder(ClientUtil.localRegistryAccess!!)!!),
+//                    mutatesInto = Optional.of(ModGenes.EFFICIENCY_FOUR.getHolder(ClientUtil.localRegistryAccess!!)!!),
                     attributeModifiers = listOf(
                         Gene.AttributeEntry(
                             ModAttributes.EFFICIENCY,
@@ -286,7 +284,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             effect = MobEffects.DIG_SPEED
                         )
                     ),
-                    mutatesInto = Optional.of(ModGenes.HASTE_TWO.getHolder(ClientUtil.localRegistryAccess!!)!!),
+//                    mutatesInto = Optional.of(ModGenes.HASTE_TWO.getHolder(ClientUtil.localRegistryAccess!!)!!),
                     allowedEntities = onlyPlayers
                 )
             )
@@ -328,7 +326,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             effect = MobEffects.JUMP
                         )
                     ),
-                    mutatesInto = Optional.of(ModGenes.FLIGHT.getHolder(ClientUtil.localRegistryAccess!!)!!)
+//                    mutatesInto = Optional.of(ModGenes.FLIGHT.getHolder(ClientUtil.localRegistryAccess!!)!!)
                 )
             )
 
@@ -383,7 +381,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.MEATY,
                 Gene(
                     dnaPointsRequired = 12,
-                    mutatesInto = Optional.of(ModGenes.MEATY_TWO.getHolder(ClientUtil.localRegistryAccess!!)!!)
+//                    mutatesInto = Optional.of(ModGenes.MEATY_TWO.getHolder(ClientUtil.localRegistryAccess!!)!!)
                 )
             )
 
@@ -412,7 +410,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             ModAttributes.moreHealthOneAttributeModifier
                         )
                     ),
-                    mutatesInto = Optional.of(ModGenes.MORE_HEARTS_TWO.getHolder(ClientUtil.localRegistryAccess!!)!!)
+//                    mutatesInto = Optional.of(ModGenes.MORE_HEARTS_TWO.getHolder(ClientUtil.localRegistryAccess!!)!!)
                 )
             )
 
@@ -460,7 +458,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             effect = MobEffects.REGENERATION
                         )
                     ),
-                    mutatesInto = Optional.of(ModGenes.REGENERATION_FOUR.getHolder(ClientUtil.localRegistryAccess!!)!!)
+//                    mutatesInto = Optional.of(ModGenes.REGENERATION_FOUR.getHolder(ClientUtil.localRegistryAccess!!)!!)
                 )
             )
 
@@ -473,7 +471,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             effect = MobEffects.DAMAGE_RESISTANCE
                         )
                     ),
-                    mutatesInto = Optional.of(ModGenes.RESISTANCE_TWO.getHolder(ClientUtil.localRegistryAccess!!)!!)
+//                    mutatesInto = Optional.of(ModGenes.RESISTANCE_TWO.getHolder(ClientUtil.localRegistryAccess!!)!!)
                 )
             )
 
@@ -481,7 +479,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.SCARE_CREEPERS,
                 Gene(
                     dnaPointsRequired = 20,
-                    mutatesInto = Optional.of(ModGenes.SCARE_ZOMBIES.getHolder(ClientUtil.localRegistryAccess!!)!!)
+//                    mutatesInto = Optional.of(ModGenes.SCARE_ZOMBIES.getHolder(ClientUtil.localRegistryAccess!!)!!)
                 )
             )
 
@@ -489,7 +487,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.SCARE_SKELETONS,
                 Gene(
                     dnaPointsRequired = 20,
-                    mutatesInto = Optional.of(ModGenes.SCARE_SPIDERS.getHolder(ClientUtil.localRegistryAccess!!)!!)
+//                    mutatesInto = Optional.of(ModGenes.SCARE_SPIDERS.getHolder(ClientUtil.localRegistryAccess!!)!!)
                 )
             )
 
@@ -518,7 +516,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             effect = MobEffects.MOVEMENT_SPEED
                         )
                     ),
-                    mutatesInto = Optional.of(ModGenes.SPEED_TWO.getHolder(ClientUtil.localRegistryAccess!!)!!)
+//                    mutatesInto = Optional.of(ModGenes.SPEED_TWO.getHolder(ClientUtil.localRegistryAccess!!)!!)
                 )
             )
 
@@ -544,7 +542,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             effect = MobEffects.DAMAGE_BOOST
                         )
                     ),
-                    mutatesInto = Optional.of(ModGenes.STRENGTH_TWO.getHolder(ClientUtil.localRegistryAccess!!)!!)
+//                    mutatesInto = Optional.of(ModGenes.STRENGTH_TWO.getHolder(ClientUtil.localRegistryAccess!!)!!)
                 )
             )
 
@@ -552,7 +550,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.TELEPORT,
                 Gene(
                     dnaPointsRequired = 24,
-                    mutatesInto = Optional.of(ModGenes.FLIGHT.getHolder(ClientUtil.localRegistryAccess!!)!!),
+//                    mutatesInto = Optional.of(ModGenes.FLIGHT.getHolder(ClientUtil.localRegistryAccess!!)!!),
                     allowedEntities = onlyPlayers
                 )
             )
