@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.api.genes
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModGeneTagsProvider
@@ -19,13 +18,13 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.ClickEvent
+import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.RegistryFileCodec
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.Entity
@@ -127,7 +126,14 @@ data class Gene(
         for ((attribute, modifier) in attributeModifiers) {
 
             val attributeInstance = livingEntity.getAttribute(attribute)
-                ?: throw IllegalArgumentException("Living Entity does not have attribute $attribute")
+
+            if (attributeInstance == null) {
+                livingEntity.sendSystemMessage(
+                    Component.literal("A Gene tried to modify an attribute ${attribute.key} that you don't have!")
+                )
+                GeneticsResequenced.LOGGER.error("A Gene tried to modify an attribute ${attribute.key} that entity ${livingEntity.name} does not have!")
+                continue
+            }
 
             if (isAdding) {
                 if (!attributeInstance.hasModifier(modifier.id)) attributeInstance.addPermanentModifier(modifier)
