@@ -6,11 +6,10 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
-import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.ComponentUtils
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
@@ -52,12 +51,9 @@ object ListGenesCommand {
                 target.displayName
             )
 
-        messageComponent.append(Component.literal("\n• "))
-
         messageComponent.append(
-            ComponentUtils.formatList(
-                targetGenesList.map { Gene.getNameComponent(it) },
-                Component.literal("\n• ")
+            OtherUtil.componentList(
+                targetGenesList.map { Gene.getNameComponent(it) }
             )
         )
 

@@ -12,9 +12,8 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
-import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.ComponentUtils
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
@@ -66,9 +65,8 @@ object GeneEvents {
             val missingGenes = gene.getRequiredGeneHolders().filter { it !in geneHolders }
 
             requiredGenesComponent.append(
-                ComponentUtils.formatList(
-                    missingGenes.map { Gene.getNameComponent(it) },
-                    Component.literal("\n - ")
+                OtherUtil.componentList(
+                    missingGenes.map { Gene.getNameComponent(it) }
                 )
             )
 

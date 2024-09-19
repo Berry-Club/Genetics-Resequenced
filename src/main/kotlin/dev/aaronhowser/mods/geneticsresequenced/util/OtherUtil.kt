@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.Registry
@@ -9,6 +8,7 @@ import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
@@ -99,6 +99,16 @@ object OtherUtil {
 
     fun getEnchantHolder(entity: Entity, enchantment: ResourceKey<Enchantment>): Holder.Reference<Enchantment> {
         return getEnchantmentRegistry(entity).getHolderOrThrow(enchantment)
+    }
+
+    fun componentList(components: List<Component>, separator: String = "\n• "): MutableComponent {
+        val mutableComponent = Component.empty()
+
+        for (component in components) {
+            mutableComponent.append(Component.literal(separator).append(component))
+        }
+
+        return mutableComponent
     }
 
 }
