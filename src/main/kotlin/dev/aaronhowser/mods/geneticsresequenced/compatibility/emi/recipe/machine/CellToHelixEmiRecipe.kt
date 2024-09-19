@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machin
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
@@ -82,7 +81,7 @@ class CellToHelixEmiRecipe(
                 recipes.add(CellToHelixEmiRecipe(badGmoStack, badHelix))
             }
 
-            return recipes
+            return recipes.distinctBy { it.id }
         }
     }
 
@@ -94,7 +93,7 @@ class CellToHelixEmiRecipe(
     }
 
     override fun getId(): ResourceLocation {
-        var string = "/cell_to_helix/"
+        var string = "cell_to_helix/"
 
         val entityType = EntityDnaItem.getEntityType(cellStack) ?: error("Invalid entity type")
         val entityTypeRl = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)

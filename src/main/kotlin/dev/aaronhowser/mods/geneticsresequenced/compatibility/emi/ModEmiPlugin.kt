@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPla
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.ModInformationRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.*
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.*
-import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
@@ -110,8 +109,8 @@ class ModEmiPlugin : EmiPlugin {
         registry.addCategory(CELL_ANALYZER_CATEGORY)
         registry.addWorkstation(CELL_ANALYZER_CATEGORY, CELL_ANALYZER_STACK)
 
-        for (entityType in EntityDnaItem.validEntityTypes) {
-            registry.addRecipe(OrganicMatterToCellEmiRecipe(entityType))
+        for (recipe in OrganicMatterToCellEmiRecipe.getAllRecipes()) {
+            registry.addRecipe(recipe)
         }
     }
 

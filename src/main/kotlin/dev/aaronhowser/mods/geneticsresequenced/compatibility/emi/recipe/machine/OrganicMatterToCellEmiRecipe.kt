@@ -19,6 +19,19 @@ class OrganicMatterToCellEmiRecipe(
     val entityType: EntityType<*>
 ) : EmiRecipe {
 
+    companion object {
+        fun getAllRecipes(): List<OrganicMatterToCellEmiRecipe> {
+            val recipes = mutableListOf<OrganicMatterToCellEmiRecipe>()
+
+            val validEntityTypes = EntityDnaItem.validEntityTypes
+            for (entityType in validEntityTypes) {
+                recipes.add(OrganicMatterToCellEmiRecipe(entityType))
+            }
+
+            return recipes.distinctBy { it.id }
+        }
+    }
+
     private val organicMatter: EmiIngredient
     private val cell: EmiStack
 

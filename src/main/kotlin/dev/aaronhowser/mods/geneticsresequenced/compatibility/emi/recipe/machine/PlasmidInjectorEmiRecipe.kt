@@ -44,7 +44,7 @@ class PlasmidInjectorEmiRecipe(
                 removingMetal.add(PlasmidInjectorEmiRecipe(geneHolder, isMetal = true, isAntiPlasmid = true))
             }
 
-            return addingGlass + addingMetal + removingGlass + removingMetal
+            return (addingGlass + addingMetal + removingGlass + removingMetal).distinctBy { it.id }
         }
     }
 

@@ -40,7 +40,7 @@ class DecryptHelixEmiRecipe(
                 }
             }
 
-            return recipes
+            return recipes.distinctBy { it.id }
         }
     }
 
