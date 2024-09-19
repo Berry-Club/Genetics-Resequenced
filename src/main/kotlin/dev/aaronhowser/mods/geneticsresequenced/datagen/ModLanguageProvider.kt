@@ -274,6 +274,7 @@ class ModLanguageProvider(
         const val BAD_OMEN = "info.geneticsresequenced.gene_description.geneticsresequenced:bad_omen"
         const val JOHNNY = "info.geneticsresequenced.gene_description.geneticsresequenced:johnny"
         const val CHILLING = "info.geneticsresequenced.gene_description.geneticsresequenced:chilling"
+        const val REACHING = "info.geneticsresequenced.gene_description.geneticsresequenced:reaching"
     }
 
     object Genes {
@@ -338,6 +339,7 @@ class ModLanguageProvider(
         const val EFFICIENCY = "gene.geneticsresequenced.efficiency"
         const val WALL_CLIMBING = "gene.geneticsresequenced.wall_climbing"
         const val MOB_SIGHT = "gene.geneticsresequenced.mob_sight"
+        const val REACHING = "gene.geneticsresequenced.reaching"
         const val REGENERATION = "gene.geneticsresequenced.regeneration"
         const val BAD_OMEN = "gene.geneticsresequenced.bad_omen"
         const val CRINGE = "gene.geneticsresequenced.cringe"
@@ -820,6 +822,7 @@ class ModLanguageProvider(
         add(Info.BAD_OMEN, "Inflicts the Bad Omen potion effect.")
         add(Info.JOHNNY, "Deal more damage using Axes")
         add(Info.CHILLING, "Has a chance of inflicting freezing damage on hit.")
+        add(Info.REACHING, "Increases your reach by 1.5 times.")
 
         add(Genes.UNKNOWN, "Unknown")
         add(Genes.BASIC, "Basic")
@@ -882,6 +885,7 @@ class ModLanguageProvider(
         add(Genes.EFFICIENCY, "Efficiency")
         add(Genes.WALL_CLIMBING, "Climb Walls")
         add(Genes.MOB_SIGHT, "Mob Sight")
+        add(Genes.REACHING, "Reaching")
         add(Genes.REGENERATION, "Regeneration")
         add(Genes.BAD_OMEN, "Bad Omen")
         add(Genes.CRINGE, "Cringe")

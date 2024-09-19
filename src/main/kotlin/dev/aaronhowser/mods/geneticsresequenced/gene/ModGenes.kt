@@ -63,6 +63,7 @@ object ModGenes {
     val NO_HUNGER = resourceKey("no_hunger")
     val POISON_IMMUNITY = resourceKey("poison_immunity")
     val REGENERATION = resourceKey("regeneration")
+    val REACHING = resourceKey("reaching")
     val RESISTANCE = resourceKey("resistance")
     val SCARE_CREEPERS = resourceKey("scare_creepers")
     val SCARE_SKELETONS = resourceKey("scare_skeletons")
