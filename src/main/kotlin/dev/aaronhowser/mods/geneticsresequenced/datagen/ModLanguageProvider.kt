@@ -201,7 +201,7 @@ class ModLanguageProvider(
         val namespace = gene.location().namespace
         val path = gene.location().path
 
-        add("info.geneticsresequenced.gene_description.$namespace.$path", info)
+        add("info.gene_description.$namespace.$path", info)
     }
 
     object Genes {
@@ -213,7 +213,7 @@ class ModLanguageProvider(
         val namespace = gene.location().namespace
         val path = gene.location().path
 
-        add("gene.geneticsresequenced.$namespace.$path", name)
+        add("gene.$namespace.$path", name)
     }
 
     object Advancements {
