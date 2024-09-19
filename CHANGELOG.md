@@ -201,5 +201,5 @@
   - Scare Spiders and Scare Zombies are no longer Mutation genes, and don't require Scare Creepers or Scare Skeletons
 - Disabling Genes now uses the Gene tag `#geneticsresequenced:disabled`
 - Fixed an issue where the Photosynthesis Gene would stop working when enabled instead of when not enabled
-- Added Reaching Gene, which allows you to reach 1.5 times further
+- Added Reaching Gene, which allows you to reach 1.25 times further
 - Fixed an issue where Genes that require 1 DNA Point would show as requiring 0 DNA Helices instead of 1 in EMI

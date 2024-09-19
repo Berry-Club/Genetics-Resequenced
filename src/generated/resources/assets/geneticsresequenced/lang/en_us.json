@@ -279,7 +279,7 @@
   "info.gene.geneticsresequenced.poison": "Inflicts the Poison potion effect.",
   "info.gene.geneticsresequenced.poison_4": "Inflicts the Poison IV potion effect.",
   "info.gene.geneticsresequenced.poison_immunity": "Automatically removes Poison.",
-  "info.gene.geneticsresequenced.reaching": "Increases your reach by 1.5 times.",
+  "info.gene.geneticsresequenced.reaching": "Increases your reach by 1.25 times.",
   "info.gene.geneticsresequenced.regeneration": "Gives you the Regeneration potion effect.",
   "info.gene.geneticsresequenced.regeneration_4": "Gives you the Regeneration IV potion effect.",
   "info.gene.geneticsresequenced.resistance": "Gives you the Resistance potion effect.",

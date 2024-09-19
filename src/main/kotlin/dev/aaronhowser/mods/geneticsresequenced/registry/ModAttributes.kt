@@ -66,7 +66,7 @@ object ModAttributes {
 
     val reachingAttributeModifier = AttributeModifier(
         OtherUtil.modResource("reaching"),
-        1.5,
+        1.25,
         AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
     )
 

@@ -671,7 +671,7 @@ class ModLanguageProvider(
         addGeneInfo(ModGenes.BAD_OMEN, "Inflicts the Bad Omen potion effect.")
         addGeneInfo(ModGenes.JOHNNY, "Deal more damage using Axes")
         addGeneInfo(ModGenes.CHILLING, "Has a chance of inflicting freezing damage on hit.")
-        addGeneInfo(ModGenes.REACHING, "Increases your reach by 1.5 times.")
+        addGeneInfo(ModGenes.REACHING, "Increases your reach by 1.25 times.")
 
         add(Genes.UNKNOWN, "Unknown")
         add(Genes.DISABLED, " (Disabled)")
