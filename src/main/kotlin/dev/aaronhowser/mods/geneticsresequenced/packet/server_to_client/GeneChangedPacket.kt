@@ -30,18 +30,18 @@ data class GeneChangedPacket(
         // Return if the entity does not exist on the client. This happens when the entity is not being tracked on the client, aka if it's too far away or whatever.
         val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return
 
-        val gene = GeneRegistry.fromResourceLocation(ClientUtil.localRegistryAccess!!, geneRl)
+        val geneHolder = GeneRegistry.fromResourceLocation(ClientUtil.localRegistryAccess!!, geneRl)
             ?: throw IllegalStateException("Received GeneChangedPacket with invalid gene id!")
 
         if (wasAdded) {
-            entity.addGene(gene)
+            entity.addGene(geneHolder)
         } else {
-            entity.removeGene(gene)
+            entity.removeGene(geneHolder)
         }
 
-        if (gene == ModGenes.CRINGE) ClientUtil.handleCringe(wasAdded)
+        if (geneHolder == ModGenes.CRINGE) ClientUtil.handleCringe(wasAdded)
 
-//        gene.setAttributeModifiers(entity, wasAdded) TODO
+        geneHolder.value().setAttributeModifiers(entity, wasAdded)
     }
 
     companion object {
