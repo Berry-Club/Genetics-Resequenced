@@ -50,11 +50,14 @@ class PlasmidInfuserEmiRecipe(
     private val plasmid: EmiStack
 
     init {
-        val stackSize = if (basic) {
-            geneHolder.value().dnaPointsRequired
-        } else {
-            geneHolder.value().dnaPointsRequired / 2
-        }
+        val stackSize = maxOf(
+            1, if (basic) {
+                geneHolder.value().dnaPointsRequired
+            } else {
+                geneHolder.value().dnaPointsRequired / 2
+            }
+        )
+
         val helixStack = ModItems.DNA_HELIX.toStack(stackSize)
 
         DnaHelixItem.setGeneRk(
