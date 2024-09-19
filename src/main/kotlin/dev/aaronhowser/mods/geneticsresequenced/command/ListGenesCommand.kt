@@ -52,6 +52,8 @@ object ListGenesCommand {
                 target.displayName
             )
 
+        messageComponent.append(Component.literal("\n• "))
+
         messageComponent.append(
             ComponentUtils.formatList(
                 targetGenesList.map { Gene.getNameComponent(it) },
