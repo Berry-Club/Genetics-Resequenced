@@ -20,6 +20,8 @@ class ModGeneProvider : RegistrySetBuilder() {
             val noEntities: HolderSet<EntityType<*>> = HolderSet.empty()
             val onlyPlayers = HolderSet.direct(EntityType.PLAYER.builtInRegistryHolder())
 
+            //TODO: A gene to improve reach distance (iron golem?)
+
             context.register(
                 ModGenes.BASIC,
                 Gene(
