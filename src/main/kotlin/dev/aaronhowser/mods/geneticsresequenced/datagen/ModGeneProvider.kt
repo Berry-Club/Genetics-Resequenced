@@ -35,7 +35,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.CLAWS_TWO,
                 Gene(
                     dnaPointsRequired = 50,
-                    requiresGenes = listOf(ModGenes.CLAWS)
+                    requiresGeneRks = listOf(ModGenes.CLAWS)
                 )
             )
 
@@ -50,7 +50,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                         )
                     ),
                     allowedEntities = onlyPlayers,
-                    requiresGenes = listOf(ModGenes.EFFICIENCY)
+                    requiresGeneRks = listOf(ModGenes.EFFICIENCY)
                 )
             )
 
@@ -65,7 +65,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                         )
                     ),
                     allowedEntities = onlyPlayers,
-                    requiresGenes = listOf(ModGenes.TELEPORT, ModGenes.STEP_ASSIST, ModGenes.NO_FALL_DAMAGE)
+                    requiresGeneRks = listOf(ModGenes.TELEPORT, ModGenes.STEP_ASSIST, ModGenes.NO_FALL_DAMAGE)
                 )
             )
 
@@ -79,7 +79,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             level = 2
                         )
                     ),
-                    requiresGenes = listOf(ModGenes.HASTE)
+                    requiresGeneRks = listOf(ModGenes.HASTE)
                 )
             )
 
@@ -87,7 +87,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.MEATY_TWO,
                 Gene(
                     dnaPointsRequired = 50,
-                    requiresGenes = listOf(ModGenes.MEATY)
+                    requiresGeneRks = listOf(ModGenes.MEATY)
                 )
             )
 
@@ -102,7 +102,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                         )
                     ),
                     allowedEntities = onlyPlayers,
-                    requiresGenes = listOf(ModGenes.MORE_HEARTS)
+                    requiresGeneRks = listOf(ModGenes.MORE_HEARTS)
                 )
             )
 
@@ -111,7 +111,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                 Gene(
                     dnaPointsRequired = 40,
                     allowedEntities = onlyPlayers,
-                    requiresGenes = listOf(ModGenes.EAT_GRASS, ModGenes.THORNS)
+                    requiresGeneRks = listOf(ModGenes.EAT_GRASS, ModGenes.THORNS)
                 )
             )
 
@@ -125,7 +125,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             level = 4
                         )
                     ),
-                    requiresGenes = listOf(ModGenes.REGENERATION)
+                    requiresGeneRks = listOf(ModGenes.REGENERATION)
                 )
             )
 
@@ -139,7 +139,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             level = 2
                         )
                     ),
-                    requiresGenes = listOf(ModGenes.RESISTANCE)
+                    requiresGeneRks = listOf(ModGenes.RESISTANCE)
                 )
             )
 
@@ -153,7 +153,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             level = 4
                         )
                     ),
-                    requiresGenes = listOf(ModGenes.SPEED_TWO)
+                    requiresGeneRks = listOf(ModGenes.SPEED_TWO)
                 )
             )
 
@@ -167,7 +167,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             level = 2
                         )
                     ),
-                    requiresGenes = listOf(ModGenes.SPEED)
+                    requiresGeneRks = listOf(ModGenes.SPEED)
                 )
             )
 
@@ -181,7 +181,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             level = 2
                         )
                     ),
-                    requiresGenes = listOf(ModGenes.STRENGTH)
+                    requiresGeneRks = listOf(ModGenes.STRENGTH)
                 )
             )
 

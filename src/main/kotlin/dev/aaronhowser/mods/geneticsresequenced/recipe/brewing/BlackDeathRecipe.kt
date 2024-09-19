@@ -32,7 +32,7 @@ class BlackDeathRecipe : IBrewingRecipe {
 
     companion object {
         fun setRequiredGeneHolders() {
-            val registries = GeneticsResequenced.levelRegistryAccess ?: return
+            val registries = GeneticsResequenced.registryAccess ?: return
 
             requiredGeneHolders = GeneRegistry.getRegistrySorted(registries)
                 .filter { it.isNegative && !it.isHidden && !it.isDisabled }

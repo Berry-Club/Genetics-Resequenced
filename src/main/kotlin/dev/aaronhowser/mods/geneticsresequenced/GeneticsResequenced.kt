@@ -25,7 +25,7 @@ class GeneticsResequenced(
         val LOGGER: Logger = LogManager.getLogger(ID)
 
         //FIXME: This is DISGUSTING I HATE IT
-        var levelRegistryAccess: RegistryAccess? = null
+        var registryAccess: RegistryAccess? = null
     }
 
     init {

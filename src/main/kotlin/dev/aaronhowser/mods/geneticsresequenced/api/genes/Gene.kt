@@ -38,7 +38,7 @@ import kotlin.jvm.optionals.getOrNull
 
 data class Gene(
     val dnaPointsRequired: Int = 1,
-    val requiresGenes: List<ResourceKey<Gene>> = emptyList(),
+    val requiresGeneRks: List<ResourceKey<Gene>> = emptyList(),
     val allowedEntities: HolderSet<EntityType<*>> = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup()),
     val potionDetails: Optional<PotionDetails> = Optional.empty(),
     val attributeModifiers: List<AttributeEntry> = emptyList()
@@ -86,17 +86,20 @@ data class Gene(
 
     val allowsMobs = allowedEntities.any { it.value() != EntityType.PLAYER }
 
-    private val requiredGenes: MutableSet<Holder<Gene>> = mutableSetOf()
+    fun getRequiredGeneHolders(registries: HolderLookup.Provider): Set<Holder<Gene>> {
+        val requiredGenes = mutableListOf<Holder<Gene>>()
 
-    fun addRequiredGenes(genes: Collection<Holder<Gene>>) {
-        requiredGenes.addAll(genes)
-    }
+        for (geneKey in this.requiresGeneRks) {
+            val gene = geneKey.getHolder(registries)
 
-    fun removeRequiredGenes(genes: Collection<Holder<Gene>>) {
-        requiredGenes.removeAll(genes.toSet())
-    }
+            if (gene == null) {
+                GeneticsResequenced.LOGGER.error("Gene $this requires gene $geneKey which does not exist!")
+                continue
+            }
 
-    fun getRequiredGeneHolders(): Set<Holder<Gene>> {
+            requiredGenes.add(gene)
+        }
+
         return requiredGenes.toSet()
     }
 
@@ -225,7 +228,7 @@ data class Gene(
                         .forGetter(Gene::dnaPointsRequired),
                     ResourceKey.codec(GeneRegistry.GENE_REGISTRY_KEY).listOf()
                         .optionalFieldOf("requires_genes", emptyList())
-                        .forGetter(Gene::requiresGenes),
+                        .forGetter(Gene::requiresGeneRks),
                     RegistryCodecs.homogeneousList(Registries.ENTITY_TYPE)
                         .optionalFieldOf(
                             "allowed_entities",
@@ -243,7 +246,7 @@ data class Gene(
 
         val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Gene> = StreamCodec.composite(
             ByteBufCodecs.INT, Gene::dnaPointsRequired,
-            ResourceKey.streamCodec(GeneRegistry.GENE_REGISTRY_KEY).apply(ByteBufCodecs.list()), Gene::requiresGenes,
+            ResourceKey.streamCodec(GeneRegistry.GENE_REGISTRY_KEY).apply(ByteBufCodecs.list()), Gene::requiresGeneRks,
             ByteBufCodecs.holderSet(Registries.ENTITY_TYPE), Gene::allowedEntities,
             ByteBufCodecs.optional(PotionDetails.DIRECT_STREAM_CODEC), Gene::potionDetails,
             AttributeEntry.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::attributeModifiers,
