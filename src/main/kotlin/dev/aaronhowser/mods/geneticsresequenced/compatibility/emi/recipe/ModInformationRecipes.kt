@@ -42,12 +42,11 @@ object ModInformationRecipes {
                     .withStyle { it.withColor(ChatFormatting.RESET).withUnderlined(true) }
             )
 
-            val geneString = geneHolder.key!!.location().toString()
-            val translationKey = "info.geneticsresequenced.gene_description.$geneString"
+            val translationKey = "info." + ModLanguageProvider.getGeneTranslationKey(geneHolder.key!!)
             val geneDesc = Component.translatable(translationKey)
 
             if (geneDesc.toString() == translationKey) {
-                GeneticsResequenced.LOGGER.error("Missing translation key: $translationKey")
+                GeneticsResequenced.LOGGER.error("Gene is missing information translation key: $translationKey")
             }
 
             components.add(geneDesc)
@@ -84,7 +83,7 @@ object ModInformationRecipes {
                     )
                 ),
                 components.toList(),
-                OtherUtil.modResource("/info/gene/${geneString.replace(':', '/')}")
+                OtherUtil.modResource("/info/gene/${geneHolder.key!!.location().toString().replace(':', '/')}")
             )
 
             recipes.add(recipe)

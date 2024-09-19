@@ -18,6 +18,13 @@ class ModLanguageProvider(
 
     companion object {
         fun String.toComponent(vararg args: Any?): MutableComponent = Component.translatable(this, *args)
+
+        fun getGeneTranslationKey(gene: ResourceKey<Gene>): String {
+            val namespace = gene.location().namespace
+            val path = gene.location().path
+
+            return "gene.$namespace.$path"
+        }
     }
 
     object Items {
@@ -197,23 +204,17 @@ class ModLanguageProvider(
         const val REQUIRED_GENES = "info.geneticsresequenced.requires_genes"
     }
 
-    fun addGeneInfo(gene: ResourceKey<Gene>, info: String) {
-        val namespace = gene.location().namespace
-        val path = gene.location().path
-
-        add("info.gene_description.$namespace.$path", info)
-    }
-
     object Genes {
         const val UNKNOWN = "gene.geneticsresequenced.unknown"
         const val DISABLED = "gene.geneticsresequenced.disabled"
     }
 
     fun addGene(gene: ResourceKey<Gene>, name: String) {
-        val namespace = gene.location().namespace
-        val path = gene.location().path
+        add(getGeneTranslationKey(gene), name)
+    }
 
-        add("gene.$namespace.$path", name)
+    fun addGeneInfo(gene: ResourceKey<Gene>, info: String) {
+        add("info.${getGeneTranslationKey(gene)}", info)
     }
 
     object Advancements {
