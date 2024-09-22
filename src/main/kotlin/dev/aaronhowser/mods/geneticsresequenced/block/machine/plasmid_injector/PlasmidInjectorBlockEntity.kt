@@ -40,10 +40,16 @@ class PlasmidInjectorBlockEntity(
             setChanged()
         }
 
+        private fun validForInput(stack: ItemStack): Boolean {
+            if (stack.item == ModItems.ANTI_PLASMID.get()) return true
+
+            return stack.item == ModItems.PLASMID.get()
+                    && PlasmidItem.isComplete(stack, this@PlasmidInjectorBlockEntity.level!!.registryAccess())
+        }
+
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
-                INPUT_SLOT_INDEX ->
-                    (stack.item == ModItems.PLASMID.get() && PlasmidItem.isComplete(stack)) || (stack.item == ModItems.ANTI_PLASMID.get())
+                INPUT_SLOT_INDEX -> validForInput(stack)
 
                 OUTPUT_SLOT_INDEX ->
                     SyringeItem.hasBlood(stack) && !SyringeItem.isContaminated(stack)
@@ -89,14 +95,14 @@ class PlasmidInjectorBlockEntity(
 
         when (plasmidStack.item) {
             ModItems.PLASMID.get() -> {
-                val plasmidGene = PlasmidItem.getGene(plasmidStack) ?: return false
-                if (!PlasmidItem.isComplete(plasmidStack)) return false
-                return SyringeItem.canAddGene(syringeStack, plasmidGene)
+                val plasmidGene = PlasmidItem.getGeneRk(plasmidStack) ?: return false
+                if (!PlasmidItem.isComplete(plasmidStack, this.level!!.registryAccess())) return false
+                return SyringeItem.canAddGeneRk(syringeStack, plasmidGene)
             }
 
             ModItems.ANTI_PLASMID.get() -> {
-                val antiPlasmidAntigene = PlasmidItem.getGene(plasmidStack) ?: return false
-                return SyringeItem.canAddAntigene(syringeStack, antiPlasmidAntigene)
+                val antiPlasmidAntigeneRk = PlasmidItem.getGeneRk(plasmidStack) ?: return false
+                return SyringeItem.canAddAntigeneRk(syringeStack, antiPlasmidAntigeneRk)
             }
 
             else -> return false
@@ -108,15 +114,15 @@ class PlasmidInjectorBlockEntity(
         val plasmidStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
         val syringeStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
-        val plasmidGene = PlasmidItem.getGene(plasmidStack) ?: return
+        val plasmidGeneRk = PlasmidItem.getGeneRk(plasmidStack) ?: return
 
         when (plasmidStack.item) {
             ModItems.PLASMID.get() -> {
-                SyringeItem.addGene(syringeStack, plasmidGene)
+                SyringeItem.addGeneRk(syringeStack, plasmidGeneRk)
             }
 
             ModItems.ANTI_PLASMID.get() -> {
-                SyringeItem.addAntigene(syringeStack, plasmidGene)
+                SyringeItem.addAntigeneRk(syringeStack, plasmidGeneRk)
             }
 
             else -> throw IllegalStateException("Invalid plasmid item")

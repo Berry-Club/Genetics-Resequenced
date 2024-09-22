@@ -28,7 +28,7 @@ abstract class GeneEntryProvider : BaseEntryProvider {
         this.geneHolder = geneRk.getHolder(registries())!!
 
         this.plasmidStack = ModItems.PLASMID.toStack()
-        PlasmidItem.setGene(this.plasmidStack, this.geneHolder)
+        PlasmidItem.setGeneRk(this.plasmidStack, geneRk)
 
     }
 
@@ -46,7 +46,7 @@ abstract class GeneEntryProvider : BaseEntryProvider {
         this.geneHolder = geneRk.getHolder(registries())!!
 
         this.plasmidStack = ModItems.PLASMID.toStack()
-        PlasmidItem.setGene(this.plasmidStack, this.geneHolder)
+        PlasmidItem.setGeneRk(this.plasmidStack, geneRk)
     }
 
     val geneHolder: Holder<Gene>
@@ -63,7 +63,7 @@ abstract class GeneEntryProvider : BaseEntryProvider {
         }
 
         val plasmid = ModItems.PLASMID.toStack()
-        PlasmidItem.setGene(plasmid, geneHolder)
+        PlasmidItem.setGeneRk(plasmid, geneHolder.key!!)
         PlasmidItem.setDnaPoints(plasmid, geneHolder.value().dnaPointsRequired)
 
         spotlightPage(

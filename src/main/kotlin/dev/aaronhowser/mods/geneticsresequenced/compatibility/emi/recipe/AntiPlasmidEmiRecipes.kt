@@ -22,13 +22,15 @@ object AntiPlasmidEmiRecipes {
             .filterNot { it.isHidden }
 
         for (geneHolder in visibleGenes) {
+            val geneRk = geneHolder.key!!
+
             val plasmidStack = ModItems.PLASMID.toStack()
-            PlasmidItem.setGene(plasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
+            PlasmidItem.setGeneRk(plasmidStack, geneRk, geneHolder.value().dnaPointsRequired)
 
             val setAntiPlasmid = ModItems.ANTI_PLASMID.toStack()
-            PlasmidItem.setGene(setAntiPlasmid, geneHolder, geneHolder.value().dnaPointsRequired)
+            PlasmidItem.setGeneRk(setAntiPlasmid, geneRk, geneHolder.value().dnaPointsRequired)
 
-            val geneString = geneHolder.key!!.location().toString().replace(':', '/')
+            val geneString = geneRk.location().toString().replace(':', '/')
 
             registry.addRecipe(
                 EmiCraftingRecipe(
@@ -47,10 +49,12 @@ object AntiPlasmidEmiRecipes {
             .filterNot { it.isHidden }
 
         for (geneHolder in visibleGenes) {
-            val antiPlasmidStack = ModItems.ANTI_PLASMID.toStack()
-            PlasmidItem.setGene(antiPlasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
+            val geneRk = geneHolder.key!!
 
-            val geneString = geneHolder.key!!.location().toString().replace(':', '/')
+            val antiPlasmidStack = ModItems.ANTI_PLASMID.toStack()
+            PlasmidItem.setGeneRk(antiPlasmidStack, geneRk, geneHolder.value().dnaPointsRequired)
+
+            val geneString = geneRk.location().toString().replace(':', '/')
 
             registry.addRecipe(
                 EmiCraftingRecipe(

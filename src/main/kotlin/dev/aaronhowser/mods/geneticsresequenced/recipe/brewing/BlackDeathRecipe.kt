@@ -7,13 +7,12 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidde
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
-import net.minecraft.core.Holder
 import net.minecraft.core.component.DataComponents
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.brewing.IBrewingRecipe
@@ -34,16 +33,14 @@ class BlackDeathRecipe : IBrewingRecipe {
         fun setRequiredGeneHolders() {
             val registries = GeneticsResequenced.registryAccess ?: return
 
-            requiredGeneHolders = GeneRegistry.getRegistrySorted(registries)
+            requiredGeneRks = GeneRegistry.getRegistrySorted(registries)
                 .filter { it.isNegative && !it.isHidden && !it.isDisabled }
+                .mapNotNull { it.key }
 
-            val blackDeath = ModGenes.BLACK_DEATH.getHolder(registries)
-            if (blackDeath != null) {
-                requiredGeneHolders -= blackDeath
-            }
+            requiredGeneRks -= ModGenes.BLACK_DEATH
         }
 
-        var requiredGeneHolders: List<Holder<Gene>> = emptyList()
+        var requiredGeneRks: List<ResourceKey<Gene>> = emptyList()
     }
 
     override fun isIngredient(pTopSlot: ItemStack): Boolean {
@@ -52,8 +49,8 @@ class BlackDeathRecipe : IBrewingRecipe {
 
         if (SyringeItem.isContaminated(pTopSlot)) return false
 
-        val syringeGenes = SyringeItem.getGenes(pTopSlot)
-        return syringeGenes.containsAll(requiredGeneHolders)
+        val syringeGeneRks = SyringeItem.getGeneRks(pTopSlot)
+        return syringeGeneRks.containsAll(requiredGeneRks)
     }
 
     override fun getOutput(pBottomSlot: ItemStack, pTopSlot: ItemStack): ItemStack {

@@ -19,7 +19,7 @@ class AntiPlasmidItem : Item(Properties().stacksTo(1)) {
         pTooltipFlag: TooltipFlag
     ) {
 
-        val geneHolder = PlasmidItem.getGene(pStack)
+        val geneHolder = PlasmidItem.getGeneRk(pStack)
 
         if (geneHolder == null) {
             pTooltipComponents.add(

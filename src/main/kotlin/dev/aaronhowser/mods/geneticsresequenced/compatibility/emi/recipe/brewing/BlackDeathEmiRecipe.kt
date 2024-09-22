@@ -41,8 +41,8 @@ class BlackDeathEmiRecipe(
 
         SyringeItem.setEntity(syringeStack, entity, setContaminated = false)
 
-        for (gene in BlackDeathRecipe.requiredGeneHolders) {
-            SyringeItem.addGene(syringeStack, gene)
+        for (geneRk in BlackDeathRecipe.requiredGeneRks) {
+            SyringeItem.addGeneRk(syringeStack, geneRk)
         }
 
         ingredient = EmiIngredient.of(Ingredient.of(syringeStack))

@@ -53,8 +53,10 @@ class PlasmidInjectorEmiRecipe(
     private val syringeAfter: EmiStack
 
     init {
+        val geneRk = geneHolder.key!!
+
         val plasmidStack = if (isAntiPlasmid) ModItems.ANTI_PLASMID.toStack() else ModItems.PLASMID.toStack()
-        PlasmidItem.setGene(plasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
+        PlasmidItem.setGeneRk(plasmidStack, geneRk, geneHolder.value().dnaPointsRequired)
         plasmid = EmiIngredient.of(Ingredient.of(plasmidStack))
 
         val syringeStack = if (isMetal) ModItems.METAL_SYRINGE.toStack() else ModItems.SYRINGE.toStack()
@@ -71,9 +73,9 @@ class PlasmidInjectorEmiRecipe(
         syringeBefore = EmiIngredient.of(Ingredient.of(syringeStack))
 
         if (isAntiPlasmid) {
-            SyringeItem.addAntigene(syringeStack, geneHolder)
+            SyringeItem.addAntigeneRk(syringeStack, geneRk)
         } else {
-            SyringeItem.addGene(syringeStack, geneHolder)
+            SyringeItem.addGeneRk(syringeStack, geneRk)
         }
 
         syringeAfter = EmiStack.of(syringeStack)
