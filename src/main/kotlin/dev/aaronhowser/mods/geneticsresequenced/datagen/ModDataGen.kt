@@ -59,7 +59,7 @@ object ModDataGen {
         )
         val geneTagProvider = generator.addProvider(
             event.includeServer(),
-            ModGeneTagsProvider(output, lookupProvider, existingFileHelper)
+            ModGeneTagsProvider(output, datapackRegistrySets.registryProvider, existingFileHelper)
         )
         val entityTypeTagProvider = generator.addProvider(
             event.includeServer(),
