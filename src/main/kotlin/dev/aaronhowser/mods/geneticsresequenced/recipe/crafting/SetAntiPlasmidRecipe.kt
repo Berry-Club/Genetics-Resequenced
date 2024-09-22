@@ -34,7 +34,7 @@ class SetAntiPlasmidRecipe(
 
         if (plasmid == null || antiPlasmid == null) return false
 
-        return !PlasmidItem.hasGene(antiPlasmid) && PlasmidItem.isComplete(plasmid, level.registryAccess())
+        return !PlasmidItem.hasGene(antiPlasmid) && PlasmidItem.isComplete(plasmid)
     }
 
     override fun assemble(input: CraftingInput, provider: HolderLookup.Provider): ItemStack {
@@ -48,10 +48,10 @@ class SetAntiPlasmidRecipe(
         }
         if (plasmidStack == null) return ItemStack.EMPTY
 
-        val plasmidGene = PlasmidItem.getGeneRk(plasmidStack) ?: return ItemStack.EMPTY
+        val plasmidGene = PlasmidItem.getGene(plasmidStack) ?: return ItemStack.EMPTY
 
         val antiPlasmidStack = ModItems.ANTI_PLASMID.toStack()
-        PlasmidItem.setGeneRk(antiPlasmidStack, plasmidGene)
+        PlasmidItem.setGene(antiPlasmidStack, plasmidGene)
 
         return antiPlasmidStack
     }

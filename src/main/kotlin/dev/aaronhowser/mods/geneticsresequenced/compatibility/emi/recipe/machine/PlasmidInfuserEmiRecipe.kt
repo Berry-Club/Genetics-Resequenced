@@ -60,19 +60,17 @@ class PlasmidInfuserEmiRecipe(
 
         val helixStack = ModItems.DNA_HELIX.toStack(stackSize)
 
-        val geneRk = geneHolder.key!!
-
         DnaHelixItem.setGeneRk(
             helixStack, if (basic) {
                 ModGenes.BASIC
             } else {
-                geneRk
+                geneHolder.key!!
             }
         )
         helix = EmiIngredient.of(Ingredient.of(helixStack))
 
         val plasmidStack = ModItems.PLASMID.toStack()
-        PlasmidItem.setGeneRk(plasmidStack, geneRk, geneHolder.value().dnaPointsRequired)
+        PlasmidItem.setGene(plasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
         plasmid = EmiStack.of(plasmidStack)
     }
 

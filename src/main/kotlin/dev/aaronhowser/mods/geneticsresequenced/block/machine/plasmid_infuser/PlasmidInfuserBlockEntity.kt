@@ -82,13 +82,13 @@ class PlasmidInfuserBlockEntity(
         val inputHelix = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
         val outputPlasmid = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
-        val plasmidGeneRk = PlasmidItem.getGeneRk(outputPlasmid)
-        val inputGeneRk = DnaHelixItem.getGeneRk(inputHelix)
+        val plasmidGene = PlasmidItem.getGene(outputPlasmid)
+        val inputGene = DnaHelixItem.getGene(inputHelix, this.level?.registryAccess()!!)
 
         // If Plasmid is unset, set it to the Helix's gene and initialize the amount
-        if (plasmidGeneRk == null) {
-            if (inputGeneRk == null) return
-            PlasmidItem.setGeneRk(outputPlasmid, inputGeneRk, 0)
+        if (plasmidGene == null) {
+            if (inputGene == null) return
+            PlasmidItem.setGene(outputPlasmid, inputGene, 0)
 
             itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
             return
@@ -96,7 +96,7 @@ class PlasmidInfuserBlockEntity(
 
         when (DnaHelixItem.getGene(inputHelix, this.level?.registryAccess()!!)) {
             ModGenes.BASIC -> PlasmidItem.increaseDnaPoints(outputPlasmid, 1)
-            plasmidGeneRk -> PlasmidItem.increaseDnaPoints(outputPlasmid, 2)
+            plasmidGene -> PlasmidItem.increaseDnaPoints(outputPlasmid, 2)
             else -> return
         }
 
@@ -114,19 +114,19 @@ class PlasmidInfuserBlockEntity(
 
         if (!inputHelix.`is`(ModItems.DNA_HELIX.get()) || !outputPlasmid.`is`(ModItems.PLASMID.get())) return false
 
-        if (PlasmidItem.isComplete(outputPlasmid, this.level!!.registryAccess())) return false
+        if (PlasmidItem.isComplete(outputPlasmid)) return false
 
-        val plasmidGeneRk = PlasmidItem.getGeneRk(outputPlasmid)
-        val inputGeneRk = DnaHelixItem.getGeneRk(inputHelix)
-        val helixIsBasic = inputGeneRk == ModGenes.BASIC
+        val plasmidGene = PlasmidItem.getGene(outputPlasmid)
+        val inputGeneHolder = DnaHelixItem.getGene(inputHelix, this.level?.registryAccess()!!)
+        val helixIsBasic = inputGeneHolder == ModGenes.BASIC
 
         // If the Plasmid is unset, it can only accept a Helix that's neither basic nor null
-        if (plasmidGeneRk == null) {
-            return !helixIsBasic && inputGeneRk != null
+        if (plasmidGene == null) {
+            return !helixIsBasic && inputGeneHolder != null
         }
 
         if (!helixIsBasic) {
-            if (inputGeneRk != plasmidGeneRk) return false
+            if (inputGeneHolder != plasmidGene) return false
         }
 
         return true

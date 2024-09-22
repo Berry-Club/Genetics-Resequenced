@@ -22,15 +22,13 @@ object AntiPlasmidEmiRecipes {
             .filterNot { it.isHidden }
 
         for (geneHolder in visibleGenes) {
-            val geneRk = geneHolder.key!!
-
             val plasmidStack = ModItems.PLASMID.toStack()
-            PlasmidItem.setGeneRk(plasmidStack, geneRk, geneHolder.value().dnaPointsRequired)
+            PlasmidItem.setGene(plasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
 
             val setAntiPlasmid = ModItems.ANTI_PLASMID.toStack()
-            PlasmidItem.setGeneRk(setAntiPlasmid, geneRk, geneHolder.value().dnaPointsRequired)
+            PlasmidItem.setGene(setAntiPlasmid, geneHolder, geneHolder.value().dnaPointsRequired)
 
-            val geneString = geneRk.location().toString().replace(':', '/')
+            val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
             registry.addRecipe(
                 EmiCraftingRecipe(
@@ -49,12 +47,10 @@ object AntiPlasmidEmiRecipes {
             .filterNot { it.isHidden }
 
         for (geneHolder in visibleGenes) {
-            val geneRk = geneHolder.key!!
-
             val antiPlasmidStack = ModItems.ANTI_PLASMID.toStack()
-            PlasmidItem.setGeneRk(antiPlasmidStack, geneRk, geneHolder.value().dnaPointsRequired)
+            PlasmidItem.setGene(antiPlasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
 
-            val geneString = geneRk.location().toString().replace(':', '/')
+            val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
             registry.addRecipe(
                 EmiCraftingRecipe(

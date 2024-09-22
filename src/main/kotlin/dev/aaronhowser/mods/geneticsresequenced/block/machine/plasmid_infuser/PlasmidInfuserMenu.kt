@@ -100,7 +100,7 @@ class PlasmidInfuserMenu(
             val plasmidSlotId = 37  //Evil magic number that i got by printing whatever slot I was hovering
 
             val outputItem = slots.getOrNull(plasmidSlotId)?.item ?: return
-            val outputGene = PlasmidItem.getGeneRk(outputItem) ?: return
+            val outputGene = PlasmidItem.getGene(outputItem) ?: return
 
             val component =
                 when (hoveredGeneHolder) {

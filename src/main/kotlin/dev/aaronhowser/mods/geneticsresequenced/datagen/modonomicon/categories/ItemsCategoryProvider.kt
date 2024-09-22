@@ -190,7 +190,10 @@ class ItemsCategoryProvider(
 
                 val plasmidOne = ModItems.PLASMID.toStack()
 
-                PlasmidItem.setGeneRk(plasmidOne, ModGenes.SCARE_CREEPERS)
+                val scareCreepers =
+                    ModGenes.SCARE_CREEPERS.getHolder(registries())!!
+
+                PlasmidItem.setGene(plasmidOne, scareCreepers)
                 PlasmidItem.setDnaPoints(plasmidOne, 1)
 
                 spotlightPage(
@@ -205,7 +208,7 @@ class ItemsCategoryProvider(
                 )
 
                 val plasmidFull = ModItems.PLASMID.toStack()
-                PlasmidItem.setGeneRk(plasmidFull, ModGenes.SCARE_CREEPERS)
+                PlasmidItem.setGene(plasmidFull, scareCreepers)
                 PlasmidItem.setDnaPoints(plasmidFull, 99999999)
                 spotlightPage(
                     plasmidFull,
