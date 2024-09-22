@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.api.genes
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isMutation
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -40,12 +42,19 @@ object GeneRegistry {
         return getAllGeneHolders(registries).filter { it.key!!.location().path == path }.findFirst().orElse(null)
     }
 
-    fun getRegistrySorted(registries: HolderLookup.Provider): List<Holder<Gene>> {
+    fun getRegistrySorted(
+        registries: HolderLookup.Provider,
+        includeHidden: Boolean = false,
+        includeDisabled: Boolean = false
+    ): List<Holder<Gene>> {
         val mutations = mutableListOf<Holder<Gene>>()
         val negatives = mutableListOf<Holder<Gene>>()
         val other = mutableListOf<Holder<Gene>>()
 
         for (geneHolder in getAllGeneHolders(registries)) {
+            if (geneHolder.isDisabled && !includeDisabled) continue
+            if (geneHolder.isHidden && !includeHidden) continue
+
             when {
                 geneHolder.isMutation -> mutations.add(geneHolder)
                 geneHolder.isNegative -> negatives.add(geneHolder)
