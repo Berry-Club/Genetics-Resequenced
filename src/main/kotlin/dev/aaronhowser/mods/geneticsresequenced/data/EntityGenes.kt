@@ -70,7 +70,7 @@ class EntityGenes : SimpleJsonResourceReloadListener(
                         ResourceKey.codec(GeneRegistry.GENE_REGISTRY_KEY),
                         Codec.INT
                     )
-                        .fieldOf("genes_weights")
+                        .fieldOf("gene_weights")
                         .forGetter(EntityGenes::geneWeights)
                 ).apply(instance, ::EntityGenes)
             }
