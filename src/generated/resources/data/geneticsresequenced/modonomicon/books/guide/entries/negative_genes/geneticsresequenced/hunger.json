@@ -32,7 +32,11 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 1,
-            "gene": "geneticsresequenced:hunger"
+            "gene": {
+              "potion_details": {
+                "effect": "minecraft:hunger"
+              }
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

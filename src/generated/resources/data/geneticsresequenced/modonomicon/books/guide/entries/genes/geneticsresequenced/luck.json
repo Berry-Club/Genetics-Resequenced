@@ -32,7 +32,12 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 50,
-            "gene": "geneticsresequenced:luck"
+            "gene": {
+              "dna_points_required": 50,
+              "potion_details": {
+                "effect": "minecraft:luck"
+              }
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

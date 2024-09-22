@@ -32,7 +32,11 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 1,
-            "gene": "geneticsresequenced:slowness"
+            "gene": {
+              "potion_details": {
+                "effect": "minecraft:slowness"
+              }
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

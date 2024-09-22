@@ -30,7 +30,9 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 60,
-            "gene": "geneticsresequenced:ender_dragon_health"
+            "gene": {
+              "dna_points_required": 60
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

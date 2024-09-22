@@ -32,7 +32,11 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 1,
-            "gene": "geneticsresequenced:nausea"
+            "gene": {
+              "potion_details": {
+                "effect": "minecraft:nausea"
+              }
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

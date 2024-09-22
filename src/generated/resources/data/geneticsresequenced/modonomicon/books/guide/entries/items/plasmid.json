@@ -42,7 +42,10 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 1,
-            "gene": "geneticsresequenced:scare_creepers"
+            "gene": {
+              "dna_points_required": 20,
+              "scares_entities_with_tag": "geneticsresequenced:avoids_scare_creeper_gene"
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"
@@ -60,7 +63,10 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 99999999,
-            "gene": "geneticsresequenced:scare_creepers"
+            "gene": {
+              "dna_points_required": 20,
+              "scares_entities_with_tag": "geneticsresequenced:avoids_scare_creeper_gene"
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

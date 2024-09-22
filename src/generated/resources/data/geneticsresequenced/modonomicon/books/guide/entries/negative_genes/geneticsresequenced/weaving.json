@@ -32,7 +32,12 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 10,
-            "gene": "geneticsresequenced:weaving"
+            "gene": {
+              "dna_points_required": 10,
+              "potion_details": {
+                "effect": "minecraft:weaving"
+              }
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

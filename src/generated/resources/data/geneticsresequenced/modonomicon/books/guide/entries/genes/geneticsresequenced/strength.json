@@ -32,7 +32,12 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 20,
-            "gene": "geneticsresequenced:strength"
+            "gene": {
+              "dna_points_required": 20,
+              "potion_details": {
+                "effect": "minecraft:strength"
+              }
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

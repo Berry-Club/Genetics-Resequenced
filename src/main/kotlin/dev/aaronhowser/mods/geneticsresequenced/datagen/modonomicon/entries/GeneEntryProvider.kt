@@ -2,11 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
@@ -27,7 +25,7 @@ abstract class GeneEntryProvider : BaseEntryProvider {
         icon = iconRl,
         entryId = geneRk.location().toString().replace(":", "/")
     ) {
-        this.geneHolder = geneRk.getHolder(ClientUtil.localRegistryAccess!!)!!
+        this.geneHolder = geneRk.getHolder(registries())!!
 
         this.plasmidStack = ModItems.PLASMID.toStack()
         PlasmidItem.setGene(this.plasmidStack, this.geneHolder)
@@ -45,7 +43,7 @@ abstract class GeneEntryProvider : BaseEntryProvider {
         icon = icon,
         entryId = geneRk.location().toString().replace(":", "/")
     ) {
-        this.geneHolder = geneRk.getHolder(ClientUtil.localRegistryAccess!!)!!
+        this.geneHolder = geneRk.getHolder(registries())!!
 
         this.plasmidStack = ModItems.PLASMID.toStack()
         PlasmidItem.setGene(this.plasmidStack, this.geneHolder)

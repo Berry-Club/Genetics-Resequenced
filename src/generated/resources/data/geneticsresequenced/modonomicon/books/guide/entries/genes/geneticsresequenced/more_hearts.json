@@ -30,7 +30,17 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 40,
-            "gene": "geneticsresequenced:more_hearts"
+            "gene": {
+              "attribute_modifiers": [
+                {
+                  "amount": 20.0,
+                  "attribute": "minecraft:generic.max_health",
+                  "id": "geneticsresequenced:more_health_one",
+                  "operation": "add_value"
+                }
+              ],
+              "dna_points_required": 40
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

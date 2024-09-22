@@ -88,7 +88,10 @@ object ModDataGen {
         val modonomiconEnUsCache = LanguageProviderCache("en_us")
         val modonomiconBookProvider = generator.addProvider(
             event.includeClient(),
-            NeoBookProvider.of(event, ModModonomiconProvider(modonomiconEnUsCache))
+            NeoBookProvider.of(
+                event,
+                ModModonomiconProvider(modonomiconEnUsCache, datapackRegistrySets.registryProvider)
+            )
         )
         val modonomiconEnUsProvider = generator.addProvider(
             event.includeClient(),

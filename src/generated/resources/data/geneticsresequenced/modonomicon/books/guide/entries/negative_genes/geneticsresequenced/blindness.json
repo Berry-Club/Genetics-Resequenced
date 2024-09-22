@@ -32,7 +32,11 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 1,
-            "gene": "geneticsresequenced:blindness"
+            "gene": {
+              "potion_details": {
+                "effect": "minecraft:blindness"
+              }
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

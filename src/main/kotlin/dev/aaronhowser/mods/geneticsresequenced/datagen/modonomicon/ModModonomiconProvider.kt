@@ -5,11 +5,18 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookModel
 import com.klikli_dev.modonomicon.book.BookDisplayMode
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.categories.*
+import net.minecraft.core.HolderLookup
+import java.util.concurrent.CompletableFuture
 import java.util.function.BiConsumer
 
 class ModModonomiconProvider(
-    defaultLang: BiConsumer<String, String>
+    defaultLang: BiConsumer<String, String>,
+    private val lookupProvider: CompletableFuture<HolderLookup.Provider>
 ) : SingleBookSubProvider("guide", GeneticsResequenced.ID, defaultLang) {
+
+    override fun registries(): HolderLookup.Provider {
+        return lookupProvider.get()
+    }
 
     override fun additionalSetup(book: BookModel): BookModel {
         return book

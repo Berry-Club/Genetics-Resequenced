@@ -30,7 +30,9 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 30,
-            "gene": "geneticsresequenced:no_fall_damage"
+            "gene": {
+              "dna_points_required": 30
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

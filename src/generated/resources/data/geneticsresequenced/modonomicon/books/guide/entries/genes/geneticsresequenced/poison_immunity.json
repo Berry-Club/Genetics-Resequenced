@@ -30,7 +30,9 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 24,
-            "gene": "geneticsresequenced:poison_immunity"
+            "gene": {
+              "dna_points_required": 24
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

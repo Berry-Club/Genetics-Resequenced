@@ -30,7 +30,10 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 20,
-            "gene": "geneticsresequenced:scare_skeletons"
+            "gene": {
+              "dna_points_required": 20,
+              "scares_entities_with_tag": "geneticsresequenced:avoids_scare_skeleton_gene"
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

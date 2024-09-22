@@ -32,7 +32,12 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 10,
-            "gene": "geneticsresequenced:wind_charged"
+            "gene": {
+              "dna_points_required": 10,
+              "potion_details": {
+                "effect": "minecraft:wind_charged"
+              }
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

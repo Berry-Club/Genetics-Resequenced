@@ -32,7 +32,11 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 1,
-            "gene": "geneticsresequenced:mining_fatigue"
+            "gene": {
+              "potion_details": {
+                "effect": "minecraft:mining_fatigue"
+              }
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"
