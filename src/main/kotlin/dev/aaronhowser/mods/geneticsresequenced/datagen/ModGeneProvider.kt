@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import net.minecraft.core.HolderSet
@@ -485,6 +486,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.SCARE_CREEPERS,
                 Gene(
                     dnaPointsRequired = 20,
+                    scaresEntitiesWithTag = Optional.of(ModEntityTypeTagsProvider.AVOIDS_SCARE_CREEPER_GENE)
                 )
             )
 
@@ -492,20 +494,23 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.SCARE_SKELETONS,
                 Gene(
                     dnaPointsRequired = 20,
+                    scaresEntitiesWithTag = Optional.of(ModEntityTypeTagsProvider.AVOIDS_SCARE_SKELETON_GENE)
                 )
             )
 
             context.register(
                 ModGenes.SCARE_SPIDERS,
                 Gene(
-                    dnaPointsRequired = 50
+                    dnaPointsRequired = 50,
+                    scaresEntitiesWithTag = Optional.of(ModEntityTypeTagsProvider.AVOIDS_SCARE_SPIDER_GENE)
                 )
             )
 
             context.register(
                 ModGenes.SCARE_ZOMBIES,
                 Gene(
-                    dnaPointsRequired = 50
+                    dnaPointsRequired = 50,
+                    scaresEntitiesWithTag = Optional.of(ModEntityTypeTagsProvider.AVOIDS_SCARE_ZOMBIE_GENE)
                 )
             )
 

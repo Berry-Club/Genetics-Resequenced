@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Comp
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModGeneTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
@@ -25,6 +26,7 @@ import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.RegistryFileCodec
 import net.minecraft.resources.ResourceKey
+import net.minecraft.tags.TagKey
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.Entity
@@ -41,10 +43,9 @@ data class Gene(
     val requiresGeneRks: List<ResourceKey<Gene>> = emptyList(),
     val allowedEntities: HolderSet<EntityType<*>> = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup()),
     val potionDetails: Optional<PotionDetails> = Optional.empty(),
-    val attributeModifiers: List<AttributeEntry> = emptyList()
+    val attributeModifiers: List<AttributeEntry> = emptyList(),
+    val scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>> = Optional.empty()
 ) {
-
-    //TODO: Maybe an entity holderset for entities to scare?
 
     data class AttributeEntry(
         val attribute: Holder<Attribute>,
@@ -240,7 +241,10 @@ data class Gene(
                         .forGetter(Gene::potionDetails),
                     AttributeEntry.DIRECT_CODEC.listOf()
                         .optionalFieldOf("attribute_modifiers", emptyList())
-                        .forGetter(Gene::attributeModifiers)
+                        .forGetter(Gene::attributeModifiers),
+                    TagKey.codec(Registries.ENTITY_TYPE)
+                        .optionalFieldOf("scares_entities_with_tag")
+                        .forGetter(Gene::scaresEntitiesWithTag)
                 ).apply(instance, ::Gene)
             }
 
@@ -250,6 +254,7 @@ data class Gene(
             ByteBufCodecs.holderSet(Registries.ENTITY_TYPE), Gene::allowedEntities,
             ByteBufCodecs.optional(PotionDetails.DIRECT_STREAM_CODEC), Gene::potionDetails,
             AttributeEntry.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::attributeModifiers,
+            ByteBufCodecs.optional(OtherUtil.tagKeyStreamCodec(Registries.ENTITY_TYPE)), Gene::scaresEntitiesWithTag,
             ::Gene
         )
 
