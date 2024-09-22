@@ -7,36 +7,48 @@ import com.mojang.serialization.JsonOps
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
+import net.minecraft.core.HolderLookup
+import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.packs.resources.ResourceManager
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener
 import net.minecraft.util.profiling.ProfilerFiller
 import net.minecraft.world.entity.EntityType
 
-class MobGeneRegistry : SimpleJsonResourceReloadListener(
+class EntityGenes : SimpleJsonResourceReloadListener(
     GsonBuilder().setPrettyPrinting().create(),
     GeneticsResequenced.ID + "/entity_genes"
 ) {
 
     companion object {
-        private val entityGeneMap: MutableMap<EntityType<*>, Map<Holder<Gene>, Int>> = mutableMapOf()
-        fun getRegistry(): Map<EntityType<*>, Map<Holder<Gene>, Int>> = entityGeneMap.toMap()
+        private val entityGeneMap: MutableMap<EntityType<*>, Map<ResourceKey<Gene>, Int>> = mutableMapOf()
+        fun getEntityGeneRkMap(): Map<EntityType<*>, Map<ResourceKey<Gene>, Int>> = entityGeneMap.toMap()
 
-        fun getGeneWeights(entityType: EntityType<*>): Map<Holder<Gene>, Int> {
+        fun getEntityGeneHolderMap(registries: HolderLookup.Provider): Map<EntityType<*>, Map<Holder<Gene>, Int>> {
+            return entityGeneMap.map { (entityType, geneRkMap) ->
+                val holders = getGeneHolderWeights(entityType, registries)
+
+                entityType to holders
+            }.toMap()
+        }
+
+        fun getGeneRkWeights(entityType: EntityType<*>): Map<ResourceKey<Gene>, Int> {
             return entityGeneMap[entityType] ?: emptyMap()
         }
 
-        fun getGeneWeights(entityRl: ResourceLocation): Map<Holder<Gene>, Int> {
-            val entityType = OtherUtil.getEntityType(entityRl)
-
-            return getGeneWeights(entityType)
+        fun getGeneHolderWeights(entityType: EntityType<*>, registries: HolderLookup.Provider): Map<Holder<Gene>, Int> {
+            return getGeneRkWeights(entityType).map { (rk, weight) ->
+                rk.getHolder(registries)!! to weight
+            }.toMap()
         }
 
     }
 
-    private fun assignGenes(entityRl: ResourceLocation, genes: Map<Holder<Gene>, Int>) {
+    private fun assignGenes(entityRl: ResourceLocation, genes: Map<ResourceKey<Gene>, Int>) {
         val entityType = OtherUtil.getEntityType(entityRl)
 
         val currentGenes = entityGeneMap[entityType]?.toMutableMap() ?: mutableMapOf()
@@ -46,14 +58,21 @@ class MobGeneRegistry : SimpleJsonResourceReloadListener(
 
     data class EntityGenes(
         val entity: ResourceLocation,
-        val geneWeights: Map<Holder<Gene>, Int>
+        val geneWeights: Map<ResourceKey<Gene>, Int>
     ) {
         companion object {
             val CODEC: Codec<EntityGenes> = RecordCodecBuilder.create { instance ->
                 instance.group(
-                    ResourceLocation.CODEC.fieldOf("entity").forGetter(EntityGenes::entity),
-                    Codec.unboundedMap(Gene.CODEC, Codec.INT).fieldOf("genes_weights").forGetter(EntityGenes::geneWeights)
-                ).apply(instance, MobGeneRegistry::EntityGenes)
+                    ResourceLocation.CODEC
+                        .fieldOf("entity")
+                        .forGetter(EntityGenes::entity),
+                    Codec.unboundedMap(
+                        ResourceKey.codec(GeneRegistry.GENE_REGISTRY_KEY),
+                        Codec.INT
+                    )
+                        .fieldOf("genes_weights")
+                        .forGetter(EntityGenes::geneWeights)
+                ).apply(instance, ::EntityGenes)
             }
         }
     }
