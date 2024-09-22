@@ -406,7 +406,7 @@
   "tooltip.geneticsresequenced.antifield_inactive": "Inactive",
   "tooltip.geneticsresequenced.black_death_recipe": "Requires a Syringe that has every negative Gene.",
   "tooltip.geneticsresequenced.coal_generator.total_fe": "Stack total: %d FE",
-  "tooltip.geneticsresequenced.copy_gene_id": "Click to copy ID: %s",
+  "tooltip.geneticsresequenced.copy_gene_id": "Click to copy ID:\n %s",
   "tooltip.geneticsresequenced.dna_item.creative": "Creative: Right-click mob to set.",
   "tooltip.geneticsresequenced.dna_item.empty": "Empty",
   "tooltip.geneticsresequenced.dna_item.filled": "Cell type: %s",

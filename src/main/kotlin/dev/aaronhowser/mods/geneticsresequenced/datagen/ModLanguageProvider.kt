@@ -465,7 +465,7 @@ class ModLanguageProvider(
 
         add(Tooltips.GENE, "Gene: %1\$s")
         add(Tooltips.HELIX_ENTITY, "Entity: %1\$s")
-        add(Tooltips.COPY_GENE, "Click to copy ID: %s")
+        add(Tooltips.COPY_GENE, "Click to copy ID:\n %s")
         add(Tooltips.ACTIVE, "Active")
         add(Tooltips.INACTIVE, "Inactive")
         add(Tooltips.CELL_MOB, "Cell type: %s")
