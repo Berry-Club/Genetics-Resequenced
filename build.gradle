@@ -151,6 +151,14 @@ repositories {
         }
     }
 
+    // For Mekanism
+    maven {
+        url "https://modmaven.dev/"
+        content {
+            includeGroup "mekanism"
+        }
+    }
+
 }
 
 dependencies {
@@ -171,7 +179,7 @@ dependencies {
     compileOnly "curse.maven:jei-238222:5532144"
 
     // Mekanism
-    runtimeOnly "curse.maven:mekanism-268560:5552293"
+    runtimeOnly "mekanism:Mekanism:${mekanism_version}"
 
     // Artifacts
     runtimeOnly "curse.maven:artifacts-312353:5624722"
