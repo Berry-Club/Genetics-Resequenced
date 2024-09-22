@@ -32,7 +32,9 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 16,
-            "gene": "geneticsresequenced:water_breathing"
+            "gene": {
+              "dna_points_required": 16
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

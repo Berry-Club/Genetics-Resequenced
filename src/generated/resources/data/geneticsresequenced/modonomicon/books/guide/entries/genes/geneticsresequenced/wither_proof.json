@@ -30,7 +30,9 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 40,
-            "gene": "geneticsresequenced:wither_proof"
+            "gene": {
+              "dna_points_required": 40
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

@@ -32,7 +32,11 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 1,
-            "gene": "geneticsresequenced:poison"
+            "gene": {
+              "potion_details": {
+                "effect": "minecraft:poison"
+              }
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

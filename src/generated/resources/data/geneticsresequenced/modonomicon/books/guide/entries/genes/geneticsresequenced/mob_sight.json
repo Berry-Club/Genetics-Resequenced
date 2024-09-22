@@ -30,7 +30,10 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 16,
-            "gene": "geneticsresequenced:mob_sight"
+            "gene": {
+              "allowed_entities": "minecraft:player",
+              "dna_points_required": 16
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

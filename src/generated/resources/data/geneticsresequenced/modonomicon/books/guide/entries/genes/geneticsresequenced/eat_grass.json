@@ -30,7 +30,9 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 16,
-            "gene": "geneticsresequenced:eat_grass"
+            "gene": {
+              "dna_points_required": 16
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

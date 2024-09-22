@@ -30,7 +30,10 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 40,
-            "gene": "geneticsresequenced:keep_inventory"
+            "gene": {
+              "allowed_entities": "minecraft:player",
+              "dna_points_required": 40
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

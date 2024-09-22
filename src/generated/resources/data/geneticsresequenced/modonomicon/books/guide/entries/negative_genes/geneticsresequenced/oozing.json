@@ -32,7 +32,12 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 10,
-            "gene": "geneticsresequenced:oozing"
+            "gene": {
+              "dna_points_required": 10,
+              "potion_details": {
+                "effect": "minecraft:oozing"
+              }
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

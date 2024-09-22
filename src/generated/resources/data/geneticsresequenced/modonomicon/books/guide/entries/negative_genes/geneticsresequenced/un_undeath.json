@@ -30,7 +30,7 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 1,
-            "gene": "geneticsresequenced:un_undeath"
+            "gene": {}
           }
         },
         "item": "geneticsresequenced:plasmid"

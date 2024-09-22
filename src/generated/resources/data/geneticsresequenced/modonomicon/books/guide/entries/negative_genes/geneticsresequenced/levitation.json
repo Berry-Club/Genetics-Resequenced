@@ -32,7 +32,11 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 1,
-            "gene": "geneticsresequenced:levitation"
+            "gene": {
+              "potion_details": {
+                "effect": "minecraft:levitation"
+              }
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"

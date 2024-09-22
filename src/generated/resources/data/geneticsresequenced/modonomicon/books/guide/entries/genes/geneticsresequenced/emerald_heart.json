@@ -30,7 +30,9 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 30,
-            "gene": "geneticsresequenced:emerald_heart"
+            "gene": {
+              "dna_points_required": 30
+            }
           }
         },
         "item": "geneticsresequenced:plasmid"
