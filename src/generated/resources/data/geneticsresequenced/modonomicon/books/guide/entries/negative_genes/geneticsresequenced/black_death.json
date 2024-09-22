@@ -30,7 +30,7 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 1,
-            "gene": {}
+            "gene": "geneticsresequenced:black_death"
           }
         },
         "item": "geneticsresequenced:plasmid"

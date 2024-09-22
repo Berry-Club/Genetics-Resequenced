@@ -30,10 +30,7 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 60,
-            "gene": {
-              "allowed_entities": "minecraft:player",
-              "dna_points_required": 60
-            }
+            "gene": "geneticsresequenced:slimy_death"
           }
         },
         "item": "geneticsresequenced:plasmid"

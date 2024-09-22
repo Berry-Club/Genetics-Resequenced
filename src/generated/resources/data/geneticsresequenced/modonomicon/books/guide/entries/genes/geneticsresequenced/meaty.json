@@ -41,9 +41,7 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 12,
-            "gene": {
-              "dna_points_required": 12
-            }
+            "gene": "geneticsresequenced:meaty"
           }
         },
         "item": "geneticsresequenced:plasmid"

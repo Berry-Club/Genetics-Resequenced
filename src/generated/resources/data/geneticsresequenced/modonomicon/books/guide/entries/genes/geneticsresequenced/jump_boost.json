@@ -32,12 +32,7 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 10,
-            "gene": {
-              "dna_points_required": 10,
-              "potion_details": {
-                "effect": "minecraft:jump_boost"
-              }
-            }
+            "gene": "geneticsresequenced:jump_boost"
           }
         },
         "item": "geneticsresequenced:plasmid"

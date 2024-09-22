@@ -30,17 +30,7 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 30,
-            "gene": {
-              "attribute_modifiers": [
-                {
-                  "amount": 1.0,
-                  "attribute": "geneticsresequenced:efficiency",
-                  "id": "geneticsresequenced:efficiency",
-                  "operation": "add_value"
-                }
-              ],
-              "dna_points_required": 30
-            }
+            "gene": "geneticsresequenced:efficiency"
           }
         },
         "item": "geneticsresequenced:plasmid"

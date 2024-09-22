@@ -30,10 +30,7 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 20,
-            "gene": {
-              "allowed_entities": "minecraft:player",
-              "dna_points_required": 20
-            }
+            "gene": "geneticsresequenced:cringe"
           }
         },
         "item": "geneticsresequenced:plasmid"

@@ -32,12 +32,7 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 20,
-            "gene": {
-              "dna_points_required": 20,
-              "potion_details": {
-                "effect": "minecraft:bad_omen"
-              }
-            }
+            "gene": "geneticsresequenced:bad_omen"
           }
         },
         "item": "geneticsresequenced:plasmid"

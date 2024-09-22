@@ -32,13 +32,7 @@
         "components": {
           "geneticsresequenced:plasmid_progress": {
             "dnaPoints": 16,
-            "gene": {
-              "allowed_entities": "minecraft:player",
-              "dna_points_required": 16,
-              "potion_details": {
-                "effect": "minecraft:night_vision"
-              }
-            }
+            "gene": "geneticsresequenced:night_vision"
           }
         },
         "item": "geneticsresequenced:plasmid"
