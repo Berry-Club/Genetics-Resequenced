@@ -189,7 +189,6 @@ class ItemsCategoryProvider(
                 )
 
                 val plasmidOne = ModItems.PLASMID.toStack()
-
                 val scareCreepers =
                     ModGenes.SCARE_CREEPERS.getHolder(registries())!!
 
