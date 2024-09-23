@@ -41,7 +41,12 @@
       "item": {
         "components": {
           "geneticsresequenced:entity_type": "minecraft:iron_golem",
-          "geneticsresequenced:gene": "geneticsresequenced:regeneration"
+          "geneticsresequenced:gene": {
+            "dna_points_required": 60,
+            "potion_details": {
+              "effect": "minecraft:regeneration"
+            }
+          }
         },
         "item": "geneticsresequenced:gmo_cell"
       },

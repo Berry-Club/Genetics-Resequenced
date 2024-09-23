@@ -82,21 +82,21 @@ class PlasmidInfuserBlockEntity(
         val inputHelix = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
         val outputPlasmid = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
-        val plasmidGene = PlasmidItem.getGene(outputPlasmid)
-        val inputGene = DnaHelixItem.getGene(inputHelix, this.level?.registryAccess()!!)
+        val plasmidGeneHolder = PlasmidItem.getGene(outputPlasmid)
+        val inputGeneHolder = DnaHelixItem.getGeneHolder(inputHelix)
 
         // If Plasmid is unset, set it to the Helix's gene and initialize the amount
-        if (plasmidGene == null) {
-            if (inputGene == null) return
-            PlasmidItem.setGene(outputPlasmid, inputGene, 0)
+        if (plasmidGeneHolder == null) {
+            if (inputGeneHolder == null) return
+            PlasmidItem.setGene(outputPlasmid, inputGeneHolder, 0)
 
             itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
             return
         }
 
-        when (DnaHelixItem.getGene(inputHelix, this.level?.registryAccess()!!)) {
+        when (DnaHelixItem.getGeneHolder(inputHelix)) {
             ModGenes.BASIC -> PlasmidItem.increaseDnaPoints(outputPlasmid, 1)
-            plasmidGene -> PlasmidItem.increaseDnaPoints(outputPlasmid, 2)
+            plasmidGeneHolder -> PlasmidItem.increaseDnaPoints(outputPlasmid, 2)
             else -> return
         }
 
@@ -116,17 +116,17 @@ class PlasmidInfuserBlockEntity(
 
         if (PlasmidItem.isComplete(outputPlasmid)) return false
 
-        val plasmidGene = PlasmidItem.getGene(outputPlasmid)
-        val inputGeneHolder = DnaHelixItem.getGene(inputHelix, this.level?.registryAccess()!!)
+        val plasmidGeneHolder = PlasmidItem.getGene(outputPlasmid)
+        val inputGeneHolder = DnaHelixItem.getGeneHolder(inputHelix)
         val helixIsBasic = inputGeneHolder == ModGenes.BASIC
 
         // If the Plasmid is unset, it can only accept a Helix that's neither basic nor null
-        if (plasmidGene == null) {
+        if (plasmidGeneHolder == null) {
             return !helixIsBasic && inputGeneHolder != null
         }
 
         if (!helixIsBasic) {
-            if (inputGeneHolder != plasmidGene) return false
+            if (inputGeneHolder != plasmidGeneHolder) return false
         }
 
         return true

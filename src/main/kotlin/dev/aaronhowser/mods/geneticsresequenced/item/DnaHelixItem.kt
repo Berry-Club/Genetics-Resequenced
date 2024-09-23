@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
-import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneRkItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
@@ -16,7 +16,6 @@ import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 
@@ -28,30 +27,24 @@ class DnaHelixItem : EntityDnaItem() {
             return itemStack.has(ModDataComponents.GENE_COMPONENT)
         }
 
-        fun getGene(itemStack: ItemStack, registries: HolderLookup.Provider): Holder<Gene>? {
-            return getGeneRk(itemStack)?.getHolder(registries)
-        }
-
-        fun getGeneRk(itemStack: ItemStack): ResourceKey<Gene>? {
-            return itemStack.get(ModDataComponents.GENE_COMPONENT)?.geneRk
-        }
-
-        fun setGeneRk(itemStack: ItemStack, geneRk: ResourceKey<Gene>): ItemStack {
-            itemStack.set(ModDataComponents.GENE_COMPONENT, GeneRkItemComponent(geneRk))
-            return itemStack
+        fun getGeneHolder(itemStack: ItemStack): Holder<Gene>? {
+            return itemStack.get(ModDataComponents.GENE_COMPONENT)?.geneHolder
         }
 
         fun setGeneHolder(itemStack: ItemStack, geneHolder: Holder<Gene>): ItemStack {
-            return setGeneRk(itemStack, geneHolder.key!!)
+            itemStack.set(ModDataComponents.GENE_COMPONENT, GeneItemComponent(geneHolder))
+            return itemStack
         }
 
-        fun setBasic(itemStack: ItemStack): ItemStack {
-            return setGeneRk(itemStack, ModGenes.BASIC)
+        fun setBasic(itemStack: ItemStack, registries: HolderLookup.Provider): ItemStack {
+            return setGeneHolder(itemStack, ModGenes.BASIC.getHolder(registries)!!)
         }
 
         fun getAllHelices(registries: HolderLookup.Provider): List<ItemStack> {
             return GeneRegistry.getRegistrySorted(registries)
-                .map { gene -> ModItems.DNA_HELIX.toStack().apply { setGeneRk(this, gene.key!!) } }
+                .map { geneHolder ->
+                    ModItems.DNA_HELIX.toStack().apply { setGeneHolder(this, geneHolder) }
+                }
         }
     }
 
@@ -61,7 +54,7 @@ class DnaHelixItem : EntityDnaItem() {
         pTooltipComponents: MutableList<Component>,
         pTooltipFlag: TooltipFlag
     ) {
-        val geneHolder = getGene(pStack, ClientUtil.localRegistryAccess!!)
+        val geneHolder = getGeneHolder(pStack)
 
         if (geneHolder == null) {
             showNoGeneTooltips(pStack, pTooltipComponents)

@@ -1,10 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.brewing
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.ItemStack
@@ -27,14 +28,17 @@ class VirusRecipe(
     override fun isIngredient(pTopSlot: ItemStack): Boolean {
         if (pTopSlot.item != ModItems.DNA_HELIX.get()) return false
 
-        return DnaHelixItem.getGene(pTopSlot, ClientUtil.localRegistryAccess!!) == inputDnaGene
+        return DnaHelixItem.getGeneHolder(pTopSlot) == inputDnaGene
     }
 
     override fun getOutput(pBottomSlot: ItemStack, pTopSlot: ItemStack): ItemStack {
         if (!isInput(pBottomSlot)) return ItemStack.EMPTY
         if (!isIngredient(pTopSlot)) return ItemStack.EMPTY
 
-        val output = DnaHelixItem.setGeneRk(ModItems.DNA_HELIX.toStack(), outputGene)
+        val output = DnaHelixItem.setGeneHolder(
+            ModItems.DNA_HELIX.toStack(),
+            outputGene.getHolder(GeneticsResequenced.registryAccess!!)!!
+        )
 
         return output
     }

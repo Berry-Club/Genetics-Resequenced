@@ -9,7 +9,7 @@ import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 
 data class PlasmidProgressItemComponent(
-    val gene: Holder<Gene>,
+    val geneHolder: Holder<Gene>,
     val dnaPoints: Int
 ) {
 
@@ -17,13 +17,13 @@ data class PlasmidProgressItemComponent(
 
         val CODEC: Codec<PlasmidProgressItemComponent> = RecordCodecBuilder.create { instance ->
             instance.group(
-                Gene.CODEC.fieldOf("gene").forGetter(PlasmidProgressItemComponent::gene),
+                Gene.CODEC.fieldOf("gene").forGetter(PlasmidProgressItemComponent::geneHolder),
                 Codec.INT.fieldOf("dnaPoints").forGetter(PlasmidProgressItemComponent::dnaPoints)
             ).apply(instance, ::PlasmidProgressItemComponent)
         }
 
         val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, PlasmidProgressItemComponent> = StreamCodec.composite(
-            Gene.STREAM_CODEC, PlasmidProgressItemComponent::gene,
+            Gene.STREAM_CODEC, PlasmidProgressItemComponent::geneHolder,
             ByteBufCodecs.INT, PlasmidProgressItemComponent::dnaPoints,
             ::PlasmidProgressItemComponent
         )

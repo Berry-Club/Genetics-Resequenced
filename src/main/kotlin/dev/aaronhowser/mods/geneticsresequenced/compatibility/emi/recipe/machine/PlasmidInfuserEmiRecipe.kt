@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
@@ -7,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -60,11 +62,11 @@ class PlasmidInfuserEmiRecipe(
 
         val helixStack = ModItems.DNA_HELIX.toStack(stackSize)
 
-        DnaHelixItem.setGeneRk(
+        DnaHelixItem.setGeneHolder(
             helixStack, if (basic) {
-                ModGenes.BASIC
+                ModGenes.BASIC.getHolder(GeneticsResequenced.registryAccess!!)!!
             } else {
-                geneHolder.key!!
+                geneHolder
             }
         )
         helix = EmiIngredient.of(Ingredient.of(helixStack))

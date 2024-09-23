@@ -1,14 +1,15 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.brewing
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
@@ -47,7 +48,7 @@ object BrewingRecipes {
             )
         }
 
-        val itemGeneHolder = DnaHelixItem.getGene(stack, ClientUtil.localRegistryAccess!!)
+        val itemGeneHolder = DnaHelixItem.getGeneHolder(stack)
         if (itemGeneHolder != null) {
             event.toolTip.add(
                 ModLanguageProvider.Tooltips.GENE
@@ -94,7 +95,7 @@ object BrewingRecipes {
         )
         val cellGrowthRecipe = BrewingRecipe(
             ingredient(ModPotions.SUBSTRATE),
-            ingredient(DnaHelixItem.setBasic(ModItems.DNA_HELIX.toStack())),
+            ingredient(DnaHelixItem.setBasic(ModItems.DNA_HELIX.toStack(), GeneticsResequenced.registryAccess!!)),
             cellGrowthPotionStack
         )
         val mutationRecipe = BrewingRecipe(
@@ -109,7 +110,12 @@ object BrewingRecipes {
         )
         val panaceaRecipe = BrewingRecipe(
             ingredient(ModPotions.VIRAL_AGENTS),
-            ingredient(DnaHelixItem.setGeneRk(ModItems.DNA_HELIX.toStack(), ModGenes.REGENERATION)),
+            ingredient(
+                DnaHelixItem.setGeneHolder(
+                    ModItems.DNA_HELIX.toStack(),
+                    ModGenes.REGENERATION.getHolder(GeneticsResequenced.registryAccess!!)!!
+                )
+            ),
             panaceaPotionStack
         )
 
@@ -226,7 +232,12 @@ object BrewingRecipes {
 
             BrewingRecipe(
                 ingredient(viralAgentsPotionStack),
-                ingredient(DnaHelixItem.setGeneRk(ModItems.DNA_HELIX.toStack(), ModGenes.EMERALD_HEART)),
+                ingredient(
+                    DnaHelixItem.setGeneHolder(
+                        ModItems.DNA_HELIX.toStack(),
+                        ModGenes.EMERALD_HEART.getHolder(GeneticsResequenced.registryAccess!!)!!
+                    )
+                ),
                 OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER)
             )
         )

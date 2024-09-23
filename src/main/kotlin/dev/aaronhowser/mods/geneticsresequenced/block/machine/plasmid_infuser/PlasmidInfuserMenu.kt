@@ -94,7 +94,7 @@ class PlasmidInfuserMenu(
             val hoverStack = event.itemStack
             if (hoverStack.item != ModItems.DNA_HELIX.get()) return
 
-            val hoveredGeneHolder = DnaHelixItem.getGene(hoverStack, ClientUtil.localRegistryAccess!!)
+            val hoveredGeneHolder = DnaHelixItem.getGeneHolder(hoverStack)
 
             val slots = event.entity?.containerMenu?.slots ?: return
             val plasmidSlotId = 37  //Evil magic number that i got by printing whatever slot I was hovering

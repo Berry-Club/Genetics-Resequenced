@@ -60,7 +60,9 @@
       "item": {
         "components": {
           "geneticsresequenced:entity_type": "minecraft:blaze",
-          "geneticsresequenced:gene": "geneticsresequenced:bioluminescence"
+          "geneticsresequenced:gene": {
+            "dna_points_required": 16
+          }
         },
         "item": "geneticsresequenced:gmo_cell"
       },

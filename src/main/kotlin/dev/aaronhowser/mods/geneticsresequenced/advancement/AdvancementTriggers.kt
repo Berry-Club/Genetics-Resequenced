@@ -100,7 +100,7 @@ object AdvancementTriggers {
     fun blackDeath(player: ServerPlayer, stack: ItemStack) {
 
         if (stack.item == ModItems.DNA_HELIX.get() || stack.item == ModItems.PLASMID.get()) {
-            if (DnaHelixItem.getGene(stack, player.registryAccess()) != ModGenes.BLACK_DEATH) return
+            if (DnaHelixItem.getGeneHolder(stack) != ModGenes.BLACK_DEATH) return
         } else if (stack.isSyringe()) {
             if (ModGenes.BLACK_DEATH !in SyringeItem.getGeneRks(stack)) return
         } else return

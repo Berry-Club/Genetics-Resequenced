@@ -92,7 +92,7 @@ class DnaDecryptorBlockEntity(
 
         val inputStack = inventory.getItem(INPUT_SLOT_INDEX)
         if (inputStack.item != ModItems.DNA_HELIX.get()) return false
-        if (DnaHelixItem.getGene(inputStack, this.level?.registryAccess()!!) != null) return false
+        if (DnaHelixItem.getGeneHolder(inputStack) != null) return false
 
         val outputItem = getOutputFromInput(
             inventory.getItem(INPUT_SLOT_INDEX),
@@ -150,8 +150,7 @@ class DnaDecryptorBlockEntity(
         if (currentItemInOutput.isEmpty) return true
         if (currentItemInOutput.count + potentialOutput.count > currentItemInOutput.maxStackSize) return false
 
-        return DnaHelixItem.getGene(currentItemInOutput, this.level?.registryAccess()!!) ==
-                DnaHelixItem.getGene(potentialOutput, this.level?.registryAccess()!!)
+        return DnaHelixItem.getGeneHolder(currentItemInOutput) == DnaHelixItem.getGeneHolder(potentialOutput)
     }
 
     companion object {

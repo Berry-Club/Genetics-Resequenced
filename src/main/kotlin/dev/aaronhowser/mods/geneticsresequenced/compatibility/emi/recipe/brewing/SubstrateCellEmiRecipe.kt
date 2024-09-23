@@ -78,7 +78,7 @@ class SubstrateCellEmiRecipe(
         string += entityTypeString
 
         if (cellStack.item == ModItems.GMO_CELL.get()) {
-            val geneHolder = DnaHelixItem.getGene(cellStack, ClientUtil.localRegistryAccess!!)
+            val geneHolder = DnaHelixItem.getGeneHolder(cellStack)
                 ?: error("GMO Cell stack has no gene!")
             val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 

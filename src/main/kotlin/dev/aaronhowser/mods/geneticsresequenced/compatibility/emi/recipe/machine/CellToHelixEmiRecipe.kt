@@ -1,14 +1,15 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.recipe.EmiRecipe
 import dev.emi.emi.api.recipe.EmiRecipeCategory
@@ -54,15 +55,14 @@ class CellToHelixEmiRecipe(
                 )
 
                 val goodHelix = ModItems.DNA_HELIX.toStack()
-                DnaHelixItem.setGeneRk(goodHelix, goodGeneRk)
+                DnaHelixItem.setGeneHolder(goodHelix, goodGeneRk.getHolder(GeneticsResequenced.registryAccess!!)!!)
 
                 recipes.add(CellToHelixEmiRecipe(goodGmoStack, goodHelix))
 
                 if (recipes.any {
                         EntityDnaItem.getEntityType(it.cellStack) == entityType
-                                && DnaHelixItem.getGene(
-                            it.helixStack,
-                            ClientUtil.localRegistryAccess!!
+                                && DnaHelixItem.getGeneHolder(
+                            it.helixStack
                         ) == ModGenes.BASIC
                     }) {
                     continue
@@ -76,7 +76,7 @@ class CellToHelixEmiRecipe(
                 )
 
                 val badHelix = ModItems.DNA_HELIX.toStack()
-                DnaHelixItem.setBasic(badHelix)
+                DnaHelixItem.setBasic(badHelix, GeneticsResequenced.registryAccess!!)
 
                 recipes.add(CellToHelixEmiRecipe(badGmoStack, badHelix))
             }
@@ -104,7 +104,8 @@ class CellToHelixEmiRecipe(
         if (cellStack.item == ModItems.GMO_CELL.get()) {
             string += "/gmo/"
 
-            val geneHolder = DnaHelixItem.getGene(helixStack, ClientUtil.localRegistryAccess!!) ?: error("Invalid gene")
+            val geneHolder =
+                DnaHelixItem.getGeneHolder(helixStack) ?: error("Invalid gene")
             val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
             string += geneString

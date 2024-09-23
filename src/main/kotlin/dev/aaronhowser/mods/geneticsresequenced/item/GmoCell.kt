@@ -1,8 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -33,7 +35,7 @@ class GmoCell : Item(Properties()) {
             geneRk: ResourceKey<Gene>
         ) {
             EntityDnaItem.setEntityType(itemStack, entityType)
-            DnaHelixItem.setGeneRk(itemStack, geneRk)
+            DnaHelixItem.setGeneHolder(itemStack, geneRk.getHolder(GeneticsResequenced.registryAccess!!)!!)
         }
 
     }
@@ -60,7 +62,7 @@ class GmoCell : Item(Properties()) {
             pTooltipComponents.add(noEntityComponent)
         }
 
-        val geneHolder = DnaHelixItem.getGene(pStack, ClientUtil.localRegistryAccess!!)
+        val geneHolder = DnaHelixItem.getGeneHolder(pStack)
         if (geneHolder != null) {
             val geneComponent =
                 ModLanguageProvider.Tooltips.GENE

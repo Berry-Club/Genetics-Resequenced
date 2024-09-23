@@ -14,7 +14,6 @@ import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityIt
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.setEntity
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -176,7 +175,7 @@ open class SyringeItem : Item(
         }
 
         fun getGenes(syringeStack: ItemStack): Set<Holder<Gene>> {
-            return syringeStack.get(ModDataComponents.GENES_COMPONENT)?.genes ?: emptySet()
+            return syringeStack.get(ModDataComponents.GENES_COMPONENT)?.geneHolders ?: emptySet()
         }
 
         fun getGeneRks(syringeStack: ItemStack): Set<ResourceKey<Gene>> {
@@ -212,7 +211,7 @@ open class SyringeItem : Item(
         }
 
         fun getAntigenes(syringeStack: ItemStack): Set<Holder<Gene>> {
-            return syringeStack.get(ModDataComponents.ANTIGENES_COMPONENT)?.genes ?: emptySet()
+            return syringeStack.get(ModDataComponents.ANTIGENES_COMPONENT)?.geneHolders ?: emptySet()
         }
 
         fun canAddAntigene(syringeStack: ItemStack, gene: Holder<Gene>): Boolean {

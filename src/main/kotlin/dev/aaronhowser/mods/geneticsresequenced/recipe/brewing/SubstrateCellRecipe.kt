@@ -37,7 +37,7 @@ class SubstrateCellRecipe(
         val outputCell: ItemStack
 
         if (isGmoCell) {
-            val pIngredientGene = DnaHelixItem.getGene(pTopSlot, ClientUtil.localRegistryAccess!!) ?: return ItemStack.EMPTY
+            val pIngredientGene = DnaHelixItem.getGeneHolder(pTopSlot) ?: return ItemStack.EMPTY
 
             outputCell = ModItems.GMO_CELL.toStack()
             GmoCell.setDetails(outputCell, pIngredientEntity, pIngredientGene)

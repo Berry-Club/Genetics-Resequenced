@@ -24,7 +24,7 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
         fun hasGene(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.PLASMID_PROGRESS_COMPONENT)
 
         fun getGene(itemStack: ItemStack): Holder<Gene>? {
-            return itemStack.get(ModDataComponents.PLASMID_PROGRESS_COMPONENT)?.gene
+            return itemStack.get(ModDataComponents.PLASMID_PROGRESS_COMPONENT)?.geneHolder
         }
 
         fun setGene(itemStack: ItemStack, geneHolder: Holder<Gene>, amount: Int = 0) {

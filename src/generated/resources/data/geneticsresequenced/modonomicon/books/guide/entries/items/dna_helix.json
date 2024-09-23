@@ -43,7 +43,9 @@
       },
       "item": {
         "components": {
-          "geneticsresequenced:gene": "geneticsresequenced:milky"
+          "geneticsresequenced:gene": {
+            "dna_points_required": 12
+          }
         },
         "item": "geneticsresequenced:dna_helix"
       },
@@ -58,7 +60,9 @@
       },
       "item": {
         "components": {
-          "geneticsresequenced:gene": "geneticsresequenced:basic"
+          "geneticsresequenced:gene": {
+            "allowed_entities": []
+          }
         },
         "item": "geneticsresequenced:dna_helix"
       },

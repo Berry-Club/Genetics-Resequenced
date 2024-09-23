@@ -1,7 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.VirusRecipe
@@ -10,14 +12,13 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.recipe.EmiRecipeCategory
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
-import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.crafting.Ingredient
 
 class VirusEmiRecipe(
-    val inputDnaGene: ResourceKey<Gene>,
-    val outputGene: ResourceKey<Gene>
+    val inputDnaGeneRk: ResourceKey<Gene>,
+    val outputGeneRk: ResourceKey<Gene>
 ) : AbstractEmiBrewingRecipe() {
 
     companion object {
@@ -43,17 +44,17 @@ class VirusEmiRecipe(
 
     init {
         val helixStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGeneRk(helixStack, inputDnaGene)
+        DnaHelixItem.setGeneHolder(helixStack, inputDnaGeneRk.getHolder(GeneticsResequenced.registryAccess!!)!!)
         ingredient = EmiIngredient.of(Ingredient.of(helixStack))
 
         val outputStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGeneRk(outputStack, outputGene)
+        DnaHelixItem.setGeneHolder(outputStack, outputGeneRk.getHolder(GeneticsResequenced.registryAccess!!)!!)
         output = EmiStack.of(outputStack)
     }
 
     override fun getId(): ResourceLocation {
-        val inputGeneString = inputDnaGene.location().toString().replace(':', '/')
-        val outputGeneString = outputGene.location().toString().replace(':', '/')
+        val inputGeneString = inputDnaGeneRk.location().toString().replace(':', '/')
+        val outputGeneString = outputGeneRk.location().toString().replace(':', '/')
 
         return OtherUtil.modResource("/virus/$inputGeneString/$outputGeneString")
     }
