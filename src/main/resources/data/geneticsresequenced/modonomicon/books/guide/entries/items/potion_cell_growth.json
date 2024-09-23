@@ -1,0 +1,86 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "geneticsresequenced:items",
+  "description": "book.geneticsresequenced.guide.items.potion_cell_growth.description",
+  "hide_while_locked": false,
+  "icon": {
+    "components": {
+      "geneticsresequenced:entity_type": "minecraft:blaze",
+      "minecraft:potion_contents": {
+        "potion": "geneticsresequenced:cell_growth"
+      }
+    },
+    "item": "minecraft:potion"
+  },
+  "name": "book.geneticsresequenced.guide.items.potion_cell_growth.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "components": {
+          "geneticsresequenced:entity_type": "minecraft:blaze",
+          "minecraft:potion_contents": {
+            "potion": "geneticsresequenced:cell_growth"
+          }
+        },
+        "item": "minecraft:potion"
+      },
+      "text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_0.text",
+      "title": "book.geneticsresequenced.guide.items.potion_cell_growth.page_0.title"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "components": {
+          "geneticsresequenced:entity_type": "minecraft:blaze",
+          "minecraft:potion_contents": {
+            "potion": "geneticsresequenced:cell_growth"
+          }
+        },
+        "item": "minecraft:potion"
+      },
+      "text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_1.text",
+      "title": "book.geneticsresequenced.guide.items.potion_cell_growth.page_1.title"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "gmo_cell",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "components": {
+          "geneticsresequenced:entity_type": "minecraft:blaze",
+          "geneticsresequenced:gene": "geneticsresequenced:bioluminescence"
+        },
+        "item": "geneticsresequenced:gmo_cell"
+      },
+      "text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_2.text",
+      "title": "book.geneticsresequenced.guide.items.potion_cell_growth.page_2.title"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_3.text",
+      "title": "book.geneticsresequenced.guide.items.potion_cell_growth.page_3.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 9,
+  "x": -3,
+  "y": 1
+}

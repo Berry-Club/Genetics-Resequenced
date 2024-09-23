@@ -1,0 +1,48 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "geneticsresequenced:negative_genes",
+  "description": "book.geneticsresequenced.guide.negative_genes.geneticsresequenced/poison.description",
+  "hide_while_locked": false,
+  "icon": {
+    "height": 16,
+    "texture": "minecraft:textures/mob_effect/poison.png",
+    "width": 16
+  },
+  "name": "book.geneticsresequenced.guide.negative_genes.geneticsresequenced/poison.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.negative_genes.geneticsresequenced/poison.page_0.text",
+      "title": "book.geneticsresequenced.guide.negative_genes.geneticsresequenced/poison.page_0.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "components": {
+          "geneticsresequenced:plasmid_progress": {
+            "dnaPoints": 1,
+            "gene": "geneticsresequenced:poison"
+          }
+        },
+        "item": "geneticsresequenced:plasmid"
+      },
+      "text": "book.geneticsresequenced.guide.negative_genes.geneticsresequenced/poison.page_1.text",
+      "title": "book.geneticsresequenced.guide.negative_genes.geneticsresequenced/poison.page_1.title"
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 11,
+  "x": 0,
+  "y": 0
+}

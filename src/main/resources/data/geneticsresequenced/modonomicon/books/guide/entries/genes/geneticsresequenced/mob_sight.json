@@ -1,0 +1,46 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "geneticsresequenced:genes",
+  "description": "book.geneticsresequenced.guide.genes.geneticsresequenced/mob_sight.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "minecraft:golden_carrot"
+  },
+  "name": "book.geneticsresequenced.guide.genes.geneticsresequenced/mob_sight.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.genes.geneticsresequenced/mob_sight.page_0.text",
+      "title": "book.geneticsresequenced.guide.genes.geneticsresequenced/mob_sight.page_0.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "components": {
+          "geneticsresequenced:plasmid_progress": {
+            "dnaPoints": 16,
+            "gene": "geneticsresequenced:mob_sight"
+          }
+        },
+        "item": "geneticsresequenced:plasmid"
+      },
+      "text": "book.geneticsresequenced.guide.genes.geneticsresequenced/mob_sight.page_1.text",
+      "title": "book.geneticsresequenced.guide.genes.geneticsresequenced/mob_sight.page_1.title"
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 25,
+  "x": 0,
+  "y": 0
+}
