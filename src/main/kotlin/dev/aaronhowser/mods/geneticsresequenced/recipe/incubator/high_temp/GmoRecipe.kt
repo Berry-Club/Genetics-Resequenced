@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.low_temp
+package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
@@ -80,11 +80,11 @@ class GmoRecipe(
     }
 
     override fun getSerializer(): RecipeSerializer<*> {
-        return ModRecipeSerializers.GMO_RECIPE.get()
+        return ModRecipeSerializers.GMO.get()
     }
 
     override fun getType(): RecipeType<*> {
-        return ModRecipeTypes.GMO_RECIPE.get()
+        return ModRecipeTypes.GMO.get()
     }
 
     override fun canCraftInDimensions(p0: Int, p1: Int): Boolean = true
