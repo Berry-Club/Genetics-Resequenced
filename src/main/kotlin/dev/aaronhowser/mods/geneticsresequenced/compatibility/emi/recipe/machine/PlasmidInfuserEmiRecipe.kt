@@ -64,7 +64,7 @@ class PlasmidInfuserEmiRecipe(
 
         DnaHelixItem.setGeneHolder(
             helixStack, if (basic) {
-                ModGenes.BASIC.getHolder(GeneticsResequenced.registryAccess!!)!!
+                ModGenes.BASIC.getHolder(GeneticsResequenced.registryAccess)!!
             } else {
                 geneHolder
             }

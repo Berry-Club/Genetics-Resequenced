@@ -55,7 +55,7 @@ class CellToHelixEmiRecipe(
                 )
 
                 val goodHelix = ModItems.DNA_HELIX.toStack()
-                DnaHelixItem.setGeneHolder(goodHelix, goodGeneRk.getHolder(GeneticsResequenced.registryAccess!!)!!)
+                DnaHelixItem.setGeneHolder(goodHelix, goodGeneRk.getHolder(GeneticsResequenced.registryAccess)!!)
 
                 recipes.add(CellToHelixEmiRecipe(goodGmoStack, goodHelix))
 
@@ -76,7 +76,7 @@ class CellToHelixEmiRecipe(
                 )
 
                 val badHelix = ModItems.DNA_HELIX.toStack()
-                DnaHelixItem.setBasic(badHelix, GeneticsResequenced.registryAccess!!)
+                DnaHelixItem.setBasic(badHelix, GeneticsResequenced.registryAccess)
 
                 recipes.add(CellToHelixEmiRecipe(badGmoStack, badHelix))
             }

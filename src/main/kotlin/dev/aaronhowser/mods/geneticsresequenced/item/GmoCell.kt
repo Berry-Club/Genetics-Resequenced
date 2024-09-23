@@ -35,7 +35,7 @@ class GmoCell : Item(Properties()) {
             geneRk: ResourceKey<Gene>
         ) {
             EntityDnaItem.setEntityType(itemStack, entityType)
-            DnaHelixItem.setGeneHolder(itemStack, geneRk.getHolder(GeneticsResequenced.registryAccess!!)!!)
+            DnaHelixItem.setGeneHolder(itemStack, geneRk.getHolder(GeneticsResequenced.registryAccess)!!)
         }
 
     }

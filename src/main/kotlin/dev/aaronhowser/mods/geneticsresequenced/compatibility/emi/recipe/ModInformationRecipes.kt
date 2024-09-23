@@ -53,7 +53,7 @@ object ModInformationRecipes {
             components.add(geneDesc)
 
             val requiredGeneHolders =
-                geneHolder.value().getRequiredGeneHolders(GeneticsResequenced.registryAccess!!)
+                geneHolder.value().getRequiredGeneHolders(GeneticsResequenced.registryAccess)
             if (requiredGeneHolders.isNotEmpty()) {
                 components.add(Component.literal("\n"))
                 components.add(

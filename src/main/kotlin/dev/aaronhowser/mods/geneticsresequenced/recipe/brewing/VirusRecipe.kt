@@ -37,7 +37,7 @@ class VirusRecipe(
 
         val output = DnaHelixItem.setGeneHolder(
             ModItems.DNA_HELIX.toStack(),
-            outputGene.getHolder(GeneticsResequenced.registryAccess!!)!!
+            outputGene.getHolder(GeneticsResequenced.registryAccess)!!
         )
 
         return output

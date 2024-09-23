@@ -95,7 +95,7 @@ object BrewingRecipes {
         )
         val cellGrowthRecipe = BrewingRecipe(
             ingredient(ModPotions.SUBSTRATE),
-            ingredient(DnaHelixItem.setBasic(ModItems.DNA_HELIX.toStack(), GeneticsResequenced.registryAccess!!)),
+            ingredient(DnaHelixItem.setBasic(ModItems.DNA_HELIX.toStack(), GeneticsResequenced.registryAccess)),
             cellGrowthPotionStack
         )
         val mutationRecipe = BrewingRecipe(
@@ -113,7 +113,7 @@ object BrewingRecipes {
             ingredient(
                 DnaHelixItem.setGeneHolder(
                     ModItems.DNA_HELIX.toStack(),
-                    ModGenes.REGENERATION.getHolder(GeneticsResequenced.registryAccess!!)!!
+                    ModGenes.REGENERATION.getHolder(GeneticsResequenced.registryAccess)!!
                 )
             ),
             panaceaPotionStack
@@ -235,7 +235,7 @@ object BrewingRecipes {
                 ingredient(
                     DnaHelixItem.setGeneHolder(
                         ModItems.DNA_HELIX.toStack(),
-                        ModGenes.EMERALD_HEART.getHolder(GeneticsResequenced.registryAccess!!)!!
+                        ModGenes.EMERALD_HEART.getHolder(GeneticsResequenced.registryAccess)!!
                     )
                 ),
                 OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER)

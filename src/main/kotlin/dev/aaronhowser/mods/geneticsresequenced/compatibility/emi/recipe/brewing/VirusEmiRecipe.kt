@@ -44,11 +44,11 @@ class VirusEmiRecipe(
 
     init {
         val helixStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGeneHolder(helixStack, inputDnaGeneRk.getHolder(GeneticsResequenced.registryAccess!!)!!)
+        DnaHelixItem.setGeneHolder(helixStack, inputDnaGeneRk.getHolder(GeneticsResequenced.registryAccess)!!)
         ingredient = EmiIngredient.of(Ingredient.of(helixStack))
 
         val outputStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGeneHolder(outputStack, outputGeneRk.getHolder(GeneticsResequenced.registryAccess!!)!!)
+        DnaHelixItem.setGeneHolder(outputStack, outputGeneRk.getHolder(GeneticsResequenced.registryAccess)!!)
         output = EmiStack.of(outputStack)
     }
 
