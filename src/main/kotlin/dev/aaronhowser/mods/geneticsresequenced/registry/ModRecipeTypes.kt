@@ -19,6 +19,9 @@ object ModRecipeTypes {
     val UNSET_ANTI_PLASMID_RECIPE_TYPE: DeferredHolder<RecipeType<*>, RecipeType<*>> =
         registerRecipeType("unset_anti_plasmid") { object : RecipeType<UnsetAntiPlasmidRecipe> {} }
 
+    val GMO_RECIPE =
+        registerRecipeType("gmo") { object : RecipeType<SetAntiPlasmidRecipe> {} }
+
     private fun registerRecipeType(
         name: String,
         factory: () -> RecipeType<*>

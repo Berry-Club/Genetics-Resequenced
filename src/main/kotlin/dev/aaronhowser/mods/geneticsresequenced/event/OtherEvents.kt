@@ -29,7 +29,7 @@ object OtherEvents {
 
     @SubscribeEvent
     fun onRegisterBrewingRecipes(event: RegisterBrewingRecipesEvent) {
-        BrewingRecipes.setRecipes(event)
+//        BrewingRecipes.setRecipes(event)
     }
 
     //This is disgusting
