@@ -256,7 +256,7 @@ data class Gene(
             ::Gene
         )
 
-        val CODEC: RegistryFileCodec<Gene> = RegistryFileCodec.create(GeneRegistry.GENE_REGISTRY_KEY, DIRECT_CODEC)
+        val CODEC: Codec<Holder<Gene>> = RegistryFileCodec.create(GeneRegistry.GENE_REGISTRY_KEY, DIRECT_CODEC)
 
         val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Holder<Gene>> =
             ByteBufCodecs.holder(GeneRegistry.GENE_REGISTRY_KEY, DIRECT_STREAM_CODEC)
