@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:gmo_geneticsresequenced_luck_from_minecraft_rabbit_and_minecraft_emerald_with_75_chance"
+        "recipe": "geneticsresequenced:gmo_emerald_heart_from_villager_and_emerald_with_85_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:gmo_geneticsresequenced_luck_from_minecraft_rabbit_and_minecraft_emerald_with_75_chance"
+      "geneticsresequenced:gmo_emerald_heart_from_villager_and_emerald_with_85_chance"
     ]
   }
 }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_haste_2_from_minecraft_rabbit_and_minecraft_netherite_pickaxe_with_35_chance"
+        "recipe": "geneticsresequenced:gmo_speed_from_rabbit_and_golden_boots_with_65_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:mutation_gmo_geneticsresequenced_haste_2_from_minecraft_rabbit_and_minecraft_netherite_pickaxe_with_35_chance"
+      "geneticsresequenced:gmo_speed_from_rabbit_and_golden_boots_with_65_chance"
     ]
   }
 }

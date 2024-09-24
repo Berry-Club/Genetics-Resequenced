@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_speed_2_from_minecraft_rabbit_and_minecraft_diamond_boots_with_50_chance"
+        "recipe": "geneticsresequenced:gmo_luck_from_rabbit_and_emerald_with_75_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:mutation_gmo_geneticsresequenced_speed_2_from_minecraft_rabbit_and_minecraft_diamond_boots_with_50_chance"
+      "geneticsresequenced:gmo_luck_from_rabbit_and_emerald_with_75_chance"
     ]
   }
 }

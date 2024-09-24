@@ -38,15 +38,9 @@ class GmoRecipeBuilder(
     }
 
     override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
-        val entityString = EntityType.getKey(entityType).toString().replace(':', '_')
-        val geneString = idealGeneRk.location().toString().replace(':', '_')
-        val itemString = BuiltInRegistries.ITEM.getKey(ingredientItem).toString().replace(':', '_')
-
-        val pathBuilder = StringBuilder()
-
-        if (isMutation) {
-            pathBuilder.append("mutation_")
-        }
+        val entityString = EntityType.getKey(entityType).path
+        val geneString = idealGeneRk.location().path
+        val itemString = BuiltInRegistries.ITEM.getKey(ingredientItem).path
 
         val chanceString = if (geneChance == 1f) {
             "100"
@@ -54,7 +48,14 @@ class GmoRecipeBuilder(
             (geneChance * 100).toInt().toString()
         }
 
+        val pathBuilder = StringBuilder()
         pathBuilder.append("gmo_")
+
+        if (isMutation) {
+            pathBuilder.append("mutation_")
+        }
+
+        pathBuilder
             .append(geneString)
             .append("_from_")
             .append(entityString)

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:gmo_geneticsresequenced_photosynthesis_from_minecraft_mooshroom_and_minecraft_mushroom_stem_with_70_chance"
+        "recipe": "geneticsresequenced:gmo_mutation_scare_zombies_from_zombie_and_fermented_spider_eye_with_50_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:gmo_geneticsresequenced_photosynthesis_from_minecraft_mooshroom_and_minecraft_mushroom_stem_with_70_chance"
+      "geneticsresequenced:gmo_mutation_scare_zombies_from_zombie_and_fermented_spider_eye_with_50_chance"
     ]
   }
 }

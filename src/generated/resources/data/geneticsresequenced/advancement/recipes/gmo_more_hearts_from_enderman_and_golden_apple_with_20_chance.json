@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_strength_2_from_minecraft_polar_bear_and_minecraft_netherite_sword_with_50_chance"
+        "recipe": "geneticsresequenced:gmo_more_hearts_from_enderman_and_golden_apple_with_20_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:mutation_gmo_geneticsresequenced_strength_2_from_minecraft_polar_bear_and_minecraft_netherite_sword_with_50_chance"
+      "geneticsresequenced:gmo_more_hearts_from_enderman_and_golden_apple_with_20_chance"
     ]
   }
 }

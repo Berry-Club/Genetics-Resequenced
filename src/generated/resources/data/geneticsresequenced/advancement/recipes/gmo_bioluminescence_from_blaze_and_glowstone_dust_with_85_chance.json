@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:gmo_geneticsresequenced_lay_egg_from_minecraft_chicken_and_minecraft_egg_with_100_chance"
+        "recipe": "geneticsresequenced:gmo_bioluminescence_from_blaze_and_glowstone_dust_with_85_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:gmo_geneticsresequenced_lay_egg_from_minecraft_chicken_and_minecraft_egg_with_100_chance"
+      "geneticsresequenced:gmo_bioluminescence_from_blaze_and_glowstone_dust_with_85_chance"
     ]
   }
 }

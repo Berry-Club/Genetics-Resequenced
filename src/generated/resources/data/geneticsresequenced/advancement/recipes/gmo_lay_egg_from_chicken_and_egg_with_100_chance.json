@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:gmo_geneticsresequenced_teleport_from_minecraft_enderman_and_minecraft_ender_pearl_with_45_chance"
+        "recipe": "geneticsresequenced:gmo_lay_egg_from_chicken_and_egg_with_100_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:gmo_geneticsresequenced_teleport_from_minecraft_enderman_and_minecraft_ender_pearl_with_45_chance"
+      "geneticsresequenced:gmo_lay_egg_from_chicken_and_egg_with_100_chance"
     ]
   }
 }

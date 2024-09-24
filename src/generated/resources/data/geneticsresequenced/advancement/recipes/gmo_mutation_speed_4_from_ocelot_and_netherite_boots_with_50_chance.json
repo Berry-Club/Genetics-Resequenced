@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_speed_4_from_minecraft_ocelot_and_minecraft_netherite_boots_with_50_chance"
+        "recipe": "geneticsresequenced:gmo_mutation_speed_4_from_ocelot_and_netherite_boots_with_50_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:mutation_gmo_geneticsresequenced_speed_4_from_minecraft_ocelot_and_minecraft_netherite_boots_with_50_chance"
+      "geneticsresequenced:gmo_mutation_speed_4_from_ocelot_and_netherite_boots_with_50_chance"
     ]
   }
 }

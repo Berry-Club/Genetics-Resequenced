@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_more_hearts_2_from_minecraft_enderman_and_minecraft_golden_apple_with_25_chance"
+        "recipe": "geneticsresequenced:gmo_mutation_speed_2_from_rabbit_and_diamond_boots_with_50_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:mutation_gmo_geneticsresequenced_more_hearts_2_from_minecraft_enderman_and_minecraft_golden_apple_with_25_chance"
+      "geneticsresequenced:gmo_mutation_speed_2_from_rabbit_and_diamond_boots_with_50_chance"
     ]
   }
 }

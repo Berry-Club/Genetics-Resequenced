@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_meaty_2_from_minecraft_pig_and_minecraft_blaze_powder_with_75_chance"
+        "recipe": "geneticsresequenced:gmo_mutation_scare_spiders_from_spider_and_fermented_spider_eye_with_50_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:mutation_gmo_geneticsresequenced_meaty_2_from_minecraft_pig_and_minecraft_blaze_powder_with_75_chance"
+      "geneticsresequenced:gmo_mutation_scare_spiders_from_spider_and_fermented_spider_eye_with_50_chance"
     ]
   }
 }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:gmo_geneticsresequenced_meaty_from_minecraft_pig_and_minecraft_porkchop_with_100_chance"
+        "recipe": "geneticsresequenced:gmo_mutation_more_hearts_2_from_enderman_and_golden_apple_with_25_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:gmo_geneticsresequenced_meaty_from_minecraft_pig_and_minecraft_porkchop_with_100_chance"
+      "geneticsresequenced:gmo_mutation_more_hearts_2_from_enderman_and_golden_apple_with_25_chance"
     ]
   }
 }

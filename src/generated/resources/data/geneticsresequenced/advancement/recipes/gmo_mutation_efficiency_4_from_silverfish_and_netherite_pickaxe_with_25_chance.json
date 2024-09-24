@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:gmo_geneticsresequenced_more_hearts_from_minecraft_enderman_and_minecraft_golden_apple_with_20_chance"
+        "recipe": "geneticsresequenced:gmo_mutation_efficiency_4_from_silverfish_and_netherite_pickaxe_with_25_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:gmo_geneticsresequenced_more_hearts_from_minecraft_enderman_and_minecraft_golden_apple_with_20_chance"
+      "geneticsresequenced:gmo_mutation_efficiency_4_from_silverfish_and_netherite_pickaxe_with_25_chance"
     ]
   }
 }
