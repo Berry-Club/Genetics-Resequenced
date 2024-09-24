@@ -164,7 +164,7 @@ class GmoRecipe(
         fun getGmoRecipes(level: Level): List<RecipeHolder<GmoRecipe>> {
             val incubatorRecipes = getIncubatorRecipes(level)
 
-            return incubatorRecipes.mapNotNull { it as? RecipeHolder<GmoRecipe> }
+            return incubatorRecipes.mapNotNull { if (it.value is GmoRecipe) it as? RecipeHolder<GmoRecipe> else null }
         }
 
         fun isValidIngredient(level: Level, itemStack: ItemStack): Boolean {

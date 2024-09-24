@@ -23,7 +23,7 @@ abstract class IncubatorRecipe : Recipe<IncubatorRecipeInput> {
         fun getIncubatorRecipes(level: Level): List<RecipeHolder<IncubatorRecipe>> {
             val recipeManager = level.recipeManager
 
-            return recipeManager.recipes.mapNotNull { it as? RecipeHolder<IncubatorRecipe> }
+            return recipeManager.recipes.mapNotNull { if (it.value is IncubatorRecipe) it as? RecipeHolder<IncubatorRecipe> else null }
         }
 
         fun isValidIngredient(level: Level, itemStack: ItemStack): Boolean {
