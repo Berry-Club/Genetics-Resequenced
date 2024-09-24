@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:gmo_geneticsresequenced_luck_from_minecraft_rabbit_with_75_chance"
+        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_meaty_2_from_minecraft_pig_and_minecraft_blaze_powder_with_75_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:gmo_geneticsresequenced_luck_from_minecraft_rabbit_with_75_chance"
+      "geneticsresequenced:mutation_gmo_geneticsresequenced_meaty_2_from_minecraft_pig_and_minecraft_blaze_powder_with_75_chance"
     ]
   }
 }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_efficiency_4_from_minecraft_silverfish_with_25_chance"
+        "recipe": "geneticsresequenced:gmo_geneticsresequenced_emerald_heart_from_minecraft_villager_and_minecraft_emerald_with_85_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:mutation_gmo_geneticsresequenced_efficiency_4_from_minecraft_silverfish_with_25_chance"
+      "geneticsresequenced:gmo_geneticsresequenced_emerald_heart_from_minecraft_villager_and_minecraft_emerald_with_85_chance"
     ]
   }
 }

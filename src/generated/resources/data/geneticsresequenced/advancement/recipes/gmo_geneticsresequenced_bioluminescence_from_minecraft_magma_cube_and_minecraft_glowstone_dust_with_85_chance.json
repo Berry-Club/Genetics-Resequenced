@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_scare_spiders_from_minecraft_spider_with_50_chance"
+        "recipe": "geneticsresequenced:gmo_geneticsresequenced_bioluminescence_from_minecraft_magma_cube_and_minecraft_glowstone_dust_with_85_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:mutation_gmo_geneticsresequenced_scare_spiders_from_minecraft_spider_with_50_chance"
+      "geneticsresequenced:gmo_geneticsresequenced_bioluminescence_from_minecraft_magma_cube_and_minecraft_glowstone_dust_with_85_chance"
     ]
   }
 }

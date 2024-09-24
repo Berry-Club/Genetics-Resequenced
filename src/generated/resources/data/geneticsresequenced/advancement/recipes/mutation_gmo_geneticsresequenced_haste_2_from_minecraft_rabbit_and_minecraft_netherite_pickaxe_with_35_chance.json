@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:gmo_geneticsresequenced_bioluminescence_from_minecraft_blaze_with_85_chance"
+        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_haste_2_from_minecraft_rabbit_and_minecraft_netherite_pickaxe_with_35_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:gmo_geneticsresequenced_bioluminescence_from_minecraft_blaze_with_85_chance"
+      "geneticsresequenced:mutation_gmo_geneticsresequenced_haste_2_from_minecraft_rabbit_and_minecraft_netherite_pickaxe_with_35_chance"
     ]
   }
 }

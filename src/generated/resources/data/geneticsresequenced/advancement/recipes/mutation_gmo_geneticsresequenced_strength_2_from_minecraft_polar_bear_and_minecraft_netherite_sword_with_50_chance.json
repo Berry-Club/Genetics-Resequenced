@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_scare_zombies_from_minecraft_zombie_with_50_chance"
+        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_strength_2_from_minecraft_polar_bear_and_minecraft_netherite_sword_with_50_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:mutation_gmo_geneticsresequenced_scare_zombies_from_minecraft_zombie_with_50_chance"
+      "geneticsresequenced:mutation_gmo_geneticsresequenced_strength_2_from_minecraft_polar_bear_and_minecraft_netherite_sword_with_50_chance"
     ]
   }
 }

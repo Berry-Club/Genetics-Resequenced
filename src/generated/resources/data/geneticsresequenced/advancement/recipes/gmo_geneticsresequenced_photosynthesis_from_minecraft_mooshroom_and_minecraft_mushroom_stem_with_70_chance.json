@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_claws_2_from_minecraft_polar_bear_with_75_chance"
+        "recipe": "geneticsresequenced:gmo_geneticsresequenced_photosynthesis_from_minecraft_mooshroom_and_minecraft_mushroom_stem_with_70_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:mutation_gmo_geneticsresequenced_claws_2_from_minecraft_polar_bear_with_75_chance"
+      "geneticsresequenced:gmo_geneticsresequenced_photosynthesis_from_minecraft_mooshroom_and_minecraft_mushroom_stem_with_70_chance"
     ]
   }
 }

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:gmo_geneticsresequenced_keep_inventory_from_minecraft_shulker_with_45_chance"
+        "recipe": "geneticsresequenced:gmo_geneticsresequenced_meaty_from_minecraft_pig_and_minecraft_porkchop_with_100_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:gmo_geneticsresequenced_keep_inventory_from_minecraft_shulker_with_45_chance"
+      "geneticsresequenced:gmo_geneticsresequenced_meaty_from_minecraft_pig_and_minecraft_porkchop_with_100_chance"
     ]
   }
 }

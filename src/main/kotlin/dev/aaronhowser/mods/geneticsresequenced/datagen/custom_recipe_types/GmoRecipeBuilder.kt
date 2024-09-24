@@ -7,6 +7,7 @@ import net.minecraft.advancements.AdvancementRequirements
 import net.minecraft.advancements.AdvancementRewards
 import net.minecraft.advancements.Criterion
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.resources.ResourceKey
@@ -39,6 +40,7 @@ class GmoRecipeBuilder(
     override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
         val entityString = EntityType.getKey(entityType).toString().replace(':', '_')
         val geneString = idealGeneRk.location().toString().replace(':', '_')
+        val itemString = BuiltInRegistries.ITEM.getKey(ingredientItem).toString().replace(':', '_')
 
         val pathBuilder = StringBuilder()
 
@@ -56,6 +58,8 @@ class GmoRecipeBuilder(
             .append(geneString)
             .append("_from_")
             .append(entityString)
+            .append("_and_")
+            .append(itemString)
             .append("_with_")
             .append(chanceString)
             .append("_chance")

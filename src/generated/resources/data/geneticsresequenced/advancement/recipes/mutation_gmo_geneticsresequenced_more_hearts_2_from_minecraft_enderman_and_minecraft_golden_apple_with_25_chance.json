@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_flight_from_minecraft_ender_dragon_with_55_chance"
+        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_more_hearts_2_from_minecraft_enderman_and_minecraft_golden_apple_with_25_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:mutation_gmo_geneticsresequenced_flight_from_minecraft_ender_dragon_with_55_chance"
+      "geneticsresequenced:mutation_gmo_geneticsresequenced_more_hearts_2_from_minecraft_enderman_and_minecraft_golden_apple_with_25_chance"
     ]
   }
 }

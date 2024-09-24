@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_speed_2_from_minecraft_rabbit_with_50_chance"
+        "recipe": "geneticsresequenced:gmo_geneticsresequenced_teleport_from_minecraft_enderman_and_minecraft_ender_pearl_with_45_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:mutation_gmo_geneticsresequenced_speed_2_from_minecraft_rabbit_with_50_chance"
+      "geneticsresequenced:gmo_geneticsresequenced_teleport_from_minecraft_enderman_and_minecraft_ender_pearl_with_45_chance"
     ]
   }
 }
