@@ -18,9 +18,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.Ingredient
-import net.minecraft.world.item.crafting.RecipeSerializer
-import net.minecraft.world.item.crafting.RecipeType
+import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
@@ -98,6 +96,15 @@ class VirusRecipe(
 
         }
 
+    }
+
+    companion object {
+        @Suppress("UNCHECKED_CAST")
+        fun getVirusRecipes(recipeManager: RecipeManager): List<RecipeHolder<VirusRecipe>> {
+            val incubatorRecipes = getIncubatorRecipes(recipeManager)
+
+            return incubatorRecipes.mapNotNull { if (it.value is VirusRecipe) it as? RecipeHolder<VirusRecipe> else null }
+        }
     }
 
 }

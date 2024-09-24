@@ -31,11 +31,6 @@ import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class BlackDeathRecipe private constructor() : IncubatorRecipe() {
 
-    fun getRequiredGenes(lookup: HolderLookup.Provider): List<Holder<Gene>> {
-        return GeneRegistry.getRegistrySorted(lookup)
-            .filter { it.isNegative && !it.isHidden && !it.isDisabled } - ModGenes.BLACK_DEATH.getHolder(lookup)!!
-    }
-
     private val potionIngredient: Ingredient =
         DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))
     private val syringeIngredient: Ingredient =
@@ -95,6 +90,11 @@ class BlackDeathRecipe private constructor() : IncubatorRecipe() {
 
     companion object {
         val INSTANCE = BlackDeathRecipe()
+
+        fun getRequiredGenes(lookup: HolderLookup.Provider): List<Holder<Gene>> {
+            return GeneRegistry.getRegistrySorted(lookup)
+                .filter { it.isNegative && !it.isHidden && !it.isDisabled } - ModGenes.BLACK_DEATH.getHolder(lookup)!!
+        }
     }
 
 }

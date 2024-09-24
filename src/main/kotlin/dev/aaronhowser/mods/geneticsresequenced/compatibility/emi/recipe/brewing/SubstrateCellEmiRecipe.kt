@@ -7,9 +7,8 @@ import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
-import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.GmoRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import dev.emi.emi.api.recipe.EmiRecipeCategory
@@ -21,13 +20,14 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.item.crafting.RecipeManager
 
 class SubstrateCellEmiRecipe(
     val cellStack: ItemStack
 ) : AbstractEmiBrewingRecipe() {
 
     companion object {
-        fun getAllRecipes(): List<SubstrateCellEmiRecipe> {
+        fun getAllRecipes(recipeManager: RecipeManager): List<SubstrateCellEmiRecipe> {
             val recipes = mutableListOf<SubstrateCellEmiRecipe>()
 
             val allEntityTypes = EntityDnaItem.validEntityTypes
@@ -38,10 +38,10 @@ class SubstrateCellEmiRecipe(
                 recipes.add(SubstrateCellEmiRecipe(cellStack))
             }
 
-            val allGmoRecipes = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
+            val allGmoRecipes = GmoRecipe.getGmoRecipes(recipeManager)
             for (recipe in allGmoRecipes) {
-                val entityType = recipe.entityType
-                val goodGene = recipe.idealGeneRk
+                val entityType = recipe.value.entityType
+                val goodGene = recipe.value.idealGeneRk
 
                 val gmoCellStack = ModItems.GMO_CELL.toStack()
                 GmoCell.setDetails(

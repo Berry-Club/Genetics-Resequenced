@@ -6,8 +6,8 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
-import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BlackDeathRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.BlackDeathRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -29,6 +29,17 @@ class BlackDeathEmiRecipe(
     override val input: EmiIngredient = EmiIngredient.of(Ingredient.of(BrewingRecipes.viralAgentsPotionStack))
     override val output: EmiStack
 
+    companion object {
+
+        fun getAllRecipes(): List<BlackDeathEmiRecipe> {
+            return listOf(
+                BlackDeathEmiRecipe(isMetal = false),
+                BlackDeathEmiRecipe(isMetal = true)
+            )
+        }
+
+    }
+
     init {
         val syringeStack = if (isMetal) ModItems.METAL_SYRINGE.toStack() else ModItems.SYRINGE.toStack()
 
@@ -42,7 +53,8 @@ class BlackDeathEmiRecipe(
 
         SyringeItem.setEntity(syringeStack, entity, setContaminated = false)
 
-        for (gene in BlackDeathRecipe.requiredGeneHolders) {
+        val requiredGenes = BlackDeathRecipe.getRequiredGenes(ClientUtil.localRegistryAccess!!)
+        for (gene in requiredGenes) {
             SyringeItem.addGene(syringeStack, gene)
         }
 

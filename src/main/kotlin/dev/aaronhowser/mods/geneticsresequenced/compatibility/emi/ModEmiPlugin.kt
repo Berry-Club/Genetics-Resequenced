@@ -154,8 +154,9 @@ class ModEmiPlugin : EmiPlugin {
         registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, INCUBATOR_STACK)
         registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, ADVANCED_INCUBATOR_STACK)
 
-        registry.addRecipe(BlackDeathEmiRecipe(false))
-        registry.addRecipe(BlackDeathEmiRecipe(true))
+        for (recipe in BlackDeathEmiRecipe.getAllRecipes()) {
+            registry.addRecipe(recipe)
+        }
 
         substrate(registry)
         setPotionEntity(registry)
@@ -169,7 +170,7 @@ class ModEmiPlugin : EmiPlugin {
         registry.addWorkstation(CELL_DUPE_CATEGORY, INCUBATOR_STACK)
         registry.addWorkstation(CELL_DUPE_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
-        for (recipe in SubstrateCellEmiRecipe.getAllRecipes()) {
+        for (recipe in SubstrateCellEmiRecipe.getAllRecipes(registry.recipeManager)) {
             registry.addRecipe(recipe)
         }
     }
@@ -191,7 +192,7 @@ class ModEmiPlugin : EmiPlugin {
         registry.addWorkstation(VIRUS_CATEGORY, INCUBATOR_STACK)
         registry.addWorkstation(VIRUS_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
-        for (recipe in VirusEmiRecipe.getAllRecipes()) {
+        for (recipe in VirusEmiRecipe.getAllRecipes(registry.recipeManager)) {
             registry.addRecipe(recipe)
         }
     }
@@ -200,7 +201,7 @@ class ModEmiPlugin : EmiPlugin {
         registry.addCategory(GMO_CATEGORY)
         registry.addWorkstation(GMO_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
-        for (recipe in GmoEmiRecipe.getAllRecipes()) {
+        for (recipe in GmoEmiRecipe.getAllRecipes(registry.recipeManager)) {
             registry.addRecipe(recipe)
         }
     }

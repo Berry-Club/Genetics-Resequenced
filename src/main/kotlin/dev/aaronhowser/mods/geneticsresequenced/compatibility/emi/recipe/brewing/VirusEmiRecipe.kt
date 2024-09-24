@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
-import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.VirusRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.VirusRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.recipe.EmiRecipeCategory
@@ -15,6 +15,7 @@ import dev.emi.emi.api.stack.EmiStack
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.item.crafting.RecipeManager
 
 class VirusEmiRecipe(
     val inputDnaGeneRk: ResourceKey<Gene>,
@@ -22,13 +23,13 @@ class VirusEmiRecipe(
 ) : AbstractEmiBrewingRecipe() {
 
     companion object {
-        fun getAllRecipes(): List<VirusEmiRecipe> {
-            val allRegularVirusRecipes = BrewingRecipes.allRecipes.filterIsInstance<VirusRecipe>()
+        fun getAllRecipes(recipeManager: RecipeManager): List<VirusEmiRecipe> {
+            val allRegularVirusRecipes = VirusRecipe.getVirusRecipes(recipeManager)
 
             return allRegularVirusRecipes.map {
                 VirusEmiRecipe(
-                    it.inputDnaGene,
-                    it.outputGene
+                    it.value.inputDnaGene,
+                    it.value.outputGene
                 )
             }
         }

@@ -9,8 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
-import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.GmoRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -29,6 +28,7 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.item.crafting.RecipeManager
 
 class GmoEmiRecipe(
     val entityType: EntityType<*>,
@@ -39,16 +39,16 @@ class GmoEmiRecipe(
 ) : EmiRecipe {
 
     companion object {
-        fun getAllRecipes(): List<GmoEmiRecipe> {
-            val allRegularGmoRecipes = BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
+        fun getAllRecipes(recipeManager: RecipeManager): List<GmoEmiRecipe> {
+            val allRegularGmoRecipes = GmoRecipe.getGmoRecipes(recipeManager)
 
             return allRegularGmoRecipes.map {
                 GmoEmiRecipe(
-                    it.entityType,
-                    it.ingredientItem,
-                    it.idealGeneRk,
-                    it.geneChance,
-                    it.isMutation
+                    it.value.entityType,
+                    it.value.ingredientItem,
+                    it.value.idealGeneRk,
+                    it.value.geneChance,
+                    it.value.isMutation
                 )
             }
         }
