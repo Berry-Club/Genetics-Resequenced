@@ -25,8 +25,8 @@ object ModRecipeTypes {
     val SET_POTION_ENTITY: DeferredHolder<RecipeType<*>, RecipeType<*>> =
         registerRecipeType("set_potion_entity") { object : RecipeType<SetAntiPlasmidRecipe> {} }
 
-    val SUBSTRATE_CELL: DeferredHolder<RecipeType<*>, RecipeType<*>> =
-        registerRecipeType("substrate_cell") { object : RecipeType<SetAntiPlasmidRecipe> {} }
+    val DUPE_CELL: DeferredHolder<RecipeType<*>, RecipeType<*>> =
+        registerRecipeType("dupe_cell") { object : RecipeType<SetAntiPlasmidRecipe> {} }
 
     private fun registerRecipeType(
         name: String,

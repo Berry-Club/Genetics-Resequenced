@@ -23,7 +23,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 
-class SubstrateCellRecipe(
+class DupeCellRecipe(
     val isGmoCell: Boolean = false
 ) : Recipe<IncubatorRecipeInput> {
 
@@ -65,38 +65,38 @@ class SubstrateCellRecipe(
     }
 
     override fun getSerializer(): RecipeSerializer<*> {
-        return ModRecipeSerializers.SUBSTRATE_CELL.get()
+        return ModRecipeSerializers.DUPE_CELL.get()
     }
 
     override fun getType(): RecipeType<*> {
-        return ModRecipeTypes.SUBSTRATE_CELL.get()
+        return ModRecipeTypes.DUPE_CELL.get()
     }
 
     override fun canCraftInDimensions(p0: Int, p1: Int): Boolean = true
 
-    class Serializer : RecipeSerializer<SubstrateCellRecipe> {
-        override fun codec(): MapCodec<SubstrateCellRecipe> {
+    class Serializer : RecipeSerializer<DupeCellRecipe> {
+        override fun codec(): MapCodec<DupeCellRecipe> {
             return CODEC
         }
 
-        override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, SubstrateCellRecipe> {
+        override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, DupeCellRecipe> {
             return STREAM_CODEC
         }
 
         companion object {
-            val CODEC: MapCodec<SubstrateCellRecipe> =
+            val CODEC: MapCodec<DupeCellRecipe> =
                 RecordCodecBuilder.mapCodec { instance ->
                     instance.group(
                         Codec.BOOL
                             .optionalFieldOf("is_gmo_cell", false)
-                            .forGetter(SubstrateCellRecipe::isGmoCell)
-                    ).apply(instance, ::SubstrateCellRecipe)
+                            .forGetter(DupeCellRecipe::isGmoCell)
+                    ).apply(instance, ::DupeCellRecipe)
                 }
 
-            val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SubstrateCellRecipe> =
+            val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, DupeCellRecipe> =
                 StreamCodec.composite(
-                    ByteBufCodecs.BOOL, SubstrateCellRecipe::isGmoCell,
-                    ::SubstrateCellRecipe
+                    ByteBufCodecs.BOOL, DupeCellRecipe::isGmoCell,
+                    ::DupeCellRecipe
                 )
         }
     }

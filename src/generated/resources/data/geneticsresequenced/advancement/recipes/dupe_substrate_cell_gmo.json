@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_gmo_cell": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:gmo_cell"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "geneticsresequenced:dupe_substrate_cell_gmo"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_gmo_cell"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "geneticsresequenced:dupe_substrate_cell_gmo"
+    ]
+  }
+}

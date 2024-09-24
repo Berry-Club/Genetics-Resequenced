@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.GmoRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.SetPotionEntityRecipeBuilder
+import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.DupeCellRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmidRecipe
@@ -74,6 +75,8 @@ class ModRecipeProvider(
 
         setPotionEntity.save(pRecipeOutput)
 
+        dupeCell.save(pRecipeOutput)
+        dupeGmoCell.save(pRecipeOutput)
     }
 
     companion object {
@@ -382,6 +385,12 @@ class ModRecipeProvider(
         private val setPotionEntity =
             SetPotionEntityRecipeBuilder()
                 .unlockedBy("has_cell", has(ModItems.CELL.get()))
+
+        private val dupeCell = DupeCellRecipeBuilder()
+            .unlockedBy("has_cell", has(ModItems.CELL.get()))
+
+        private val dupeGmoCell = DupeCellRecipeBuilder(true)
+            .unlockedBy("has_gmo_cell", has(ModItems.GMO_CELL.get()))
 
     }
 
