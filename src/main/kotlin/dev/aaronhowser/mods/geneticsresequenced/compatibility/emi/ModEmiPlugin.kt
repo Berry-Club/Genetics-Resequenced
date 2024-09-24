@@ -118,7 +118,7 @@ class ModEmiPlugin : EmiPlugin {
         registry.addCategory(DNA_EXTRACTOR_CATEGORY)
         registry.addWorkstation(DNA_EXTRACTOR_CATEGORY, DNA_EXTRACTOR_STACK)
 
-        for (recipe in CellToHelixEmiRecipe.getAllRecipes()) {
+        for (recipe in CellToHelixEmiRecipe.getAllRecipes(registry.recipeManager)) {
             registry.addRecipe(recipe)
         }
     }
