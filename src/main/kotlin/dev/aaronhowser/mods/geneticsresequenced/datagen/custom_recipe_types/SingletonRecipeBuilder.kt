@@ -39,6 +39,8 @@ class SingletonRecipeBuilder(
             .rewards(AdvancementRewards.Builder.recipe(id))
             .requirements(AdvancementRequirements.Strategy.OR)
 
+        criteria.forEach { (name, criterion) -> advancement.addCriterion(name, criterion) }
+
         output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
     }
 }
