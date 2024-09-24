@@ -6,7 +6,6 @@ import net.neoforged.neoforge.registries.DeferredRegister
 object ModRegistries {
 
     private val registries: List<DeferredRegister<out Any>> = listOf(
-//        ModGenes.GENE_REGISTRY,
         ModDataComponents.DATA_COMPONENT_REGISTRY,
         ModItems.ITEM_REGISTRY,
         ModBlocks.BLOCK_REGISTRY,
@@ -19,7 +18,8 @@ object ModRegistries {
         ModEffects.EFFECT_REGISTRY,
         ModPotions.POTION_REGISTRY,
         ModRecipeTypes.RECIPE_TYPES_REGISTRY,
-        ModRecipeSerializers.RECIPE_SERIALIZERS_REGISTRY
+        ModRecipeSerializers.RECIPE_SERIALIZERS_REGISTRY,
+        ModIngredientTypes.INGREDIENT_TYPE_REGISTRY,
     )
 
     fun register(modBus: IEventBus) {
