@@ -1,8 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
+import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.DupeCellRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.GmoRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.SetPotionEntityRecipeBuilder
-import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.DupeCellRecipeBuilder
+import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.VirusRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmidRecipe
@@ -77,6 +78,11 @@ class ModRecipeProvider(
 
         dupeCell.save(pRecipeOutput)
         dupeGmoCell.save(pRecipeOutput)
+
+        for (virusRecipe in virusRecipes) {
+            virusRecipe.save(pRecipeOutput)
+        }
+
     }
 
     companion object {
@@ -391,6 +397,29 @@ class ModRecipeProvider(
 
         private val dupeGmoCell = DupeCellRecipeBuilder(true)
             .unlockedBy("has_gmo_cell", has(ModItems.GMO_CELL.get()))
+
+        val virusRecipes = listOf(
+            VirusRecipeBuilder(ModGenes.POISON_IMMUNITY, ModGenes.POISON),
+            VirusRecipeBuilder(ModGenes.WITHER_HIT, ModGenes.POISON_FOUR),
+            VirusRecipeBuilder(ModGenes.WITHER_PROOF, ModGenes.WITHER),
+            VirusRecipeBuilder(ModGenes.STRENGTH, ModGenes.WEAKNESS),
+            VirusRecipeBuilder(ModGenes.NIGHT_VISION, ModGenes.BLINDNESS),
+            VirusRecipeBuilder(ModGenes.SPEED, ModGenes.SLOWNESS),
+            VirusRecipeBuilder(ModGenes.SPEED_TWO, ModGenes.SLOWNESS_FOUR),
+            VirusRecipeBuilder(ModGenes.SPEED_FOUR, ModGenes.SLOWNESS_SIX),
+            VirusRecipeBuilder(ModGenes.MILKY, ModGenes.NAUSEA),
+            VirusRecipeBuilder(ModGenes.MEATY, ModGenes.NAUSEA),
+            VirusRecipeBuilder(ModGenes.LAY_EGG, ModGenes.NAUSEA),
+            VirusRecipeBuilder(ModGenes.NO_HUNGER, ModGenes.HUNGER),
+            VirusRecipeBuilder(ModGenes.FIRE_PROOF, ModGenes.FLAMBE),
+            VirusRecipeBuilder(ModGenes.LUCK, ModGenes.CURSED),
+            VirusRecipeBuilder(ModGenes.HASTE, ModGenes.MINING_FATIGUE),
+            VirusRecipeBuilder(ModGenes.SCARE_CREEPERS, ModGenes.GREEN_DEATH),
+            VirusRecipeBuilder(ModGenes.SCARE_SKELETONS, ModGenes.UN_UNDEATH),
+            VirusRecipeBuilder(ModGenes.SCARE_ZOMBIES, ModGenes.UN_UNDEATH),
+            VirusRecipeBuilder(ModGenes.RESISTANCE, ModGenes.GRAY_DEATH),
+            VirusRecipeBuilder(ModGenes.DRAGON_BREATH, ModGenes.WHITE_DEATH)
+        )
 
     }
 

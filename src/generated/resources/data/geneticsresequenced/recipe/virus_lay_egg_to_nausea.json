@@ -1,0 +1,5 @@
+{
+  "type": "geneticsresequenced:virus",
+  "input_gene": "geneticsresequenced:lay_egg",
+  "output_gene": "geneticsresequenced:nausea"
+}

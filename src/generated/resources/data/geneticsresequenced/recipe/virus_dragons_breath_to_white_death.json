@@ -1,0 +1,5 @@
+{
+  "type": "geneticsresequenced:virus",
+  "input_gene": "geneticsresequenced:dragons_breath",
+  "output_gene": "geneticsresequenced:white_death"
+}
