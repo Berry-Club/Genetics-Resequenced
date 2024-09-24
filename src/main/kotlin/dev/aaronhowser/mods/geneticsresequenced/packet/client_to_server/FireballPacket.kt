@@ -9,7 +9,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.server.level.ServerPlayer
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
-class FireballPacket : ModPacket {
+class FireballPacket private constructor() : ModPacket {
 
     override fun receiveMessage(context: IPayloadContext) {
         val sender =
@@ -19,13 +19,13 @@ class FireballPacket : ModPacket {
 
     override fun type(): CustomPacketPayload.Type<FireballPacket> = TYPE
 
-    override fun equals(other: Any?): Boolean = other is FireballPacket
-
     companion object {
         val TYPE: CustomPacketPayload.Type<FireballPacket> =
             CustomPacketPayload.Type<FireballPacket>(OtherUtil.modResource("fireball"))
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, FireballPacket> = StreamCodec.unit(FireballPacket())
+        val INSTANCE = FireballPacket()
+
+        val STREAM_CODEC: StreamCodec<ByteBuf, FireballPacket> = StreamCodec.unit(INSTANCE)
     }
 
 }
