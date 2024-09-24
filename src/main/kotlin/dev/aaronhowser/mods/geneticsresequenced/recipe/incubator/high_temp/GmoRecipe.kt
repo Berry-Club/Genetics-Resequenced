@@ -27,10 +27,7 @@ import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.Ingredient
-import net.minecraft.world.item.crafting.RecipeHolder
-import net.minecraft.world.item.crafting.RecipeSerializer
-import net.minecraft.world.item.crafting.RecipeType
+import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
@@ -160,9 +157,14 @@ class GmoRecipe(
 
     companion object {
 
-        @Suppress("UNCHECKED_CAST")
         fun getGmoRecipes(level: Level): List<RecipeHolder<GmoRecipe>> {
-            val incubatorRecipes = getIncubatorRecipes(level)
+            val recipeManager = level.recipeManager
+            return getGmoRecipes(recipeManager)
+        }
+
+        @Suppress("UNCHECKED_CAST")
+        fun getGmoRecipes(recipeManager: RecipeManager): List<RecipeHolder<GmoRecipe>> {
+            val incubatorRecipes = getIncubatorRecipes(recipeManager)
 
             return incubatorRecipes.mapNotNull { if (it.value is GmoRecipe) it as? RecipeHolder<GmoRecipe> else null }
         }

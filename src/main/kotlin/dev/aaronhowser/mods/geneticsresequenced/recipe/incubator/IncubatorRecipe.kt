@@ -5,6 +5,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeHolder
+import net.minecraft.world.item.crafting.RecipeManager
 import net.minecraft.world.level.Level
 
 abstract class IncubatorRecipe : Recipe<IncubatorRecipeInput> {
@@ -19,10 +20,13 @@ abstract class IncubatorRecipe : Recipe<IncubatorRecipeInput> {
     }
 
     companion object {
-        @Suppress("UNCHECKED_CAST")
-        fun getIncubatorRecipes(level: Level): List<RecipeHolder<IncubatorRecipe>> {
-            val recipeManager = level.recipeManager
 
+        fun getIncubatorRecipes(level: Level): List<RecipeHolder<IncubatorRecipe>> {
+            return getIncubatorRecipes(level.recipeManager)
+        }
+
+        @Suppress("UNCHECKED_CAST")
+        fun getIncubatorRecipes(recipeManager: RecipeManager): List<RecipeHolder<IncubatorRecipe>> {
             return recipeManager.recipes.mapNotNull { if (it.value is IncubatorRecipe) it as? RecipeHolder<IncubatorRecipe> else null }
         }
 
