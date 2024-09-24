@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
-import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BlackDeathRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
@@ -29,15 +28,13 @@ object OtherEvents {
 
     @SubscribeEvent
     fun onRegisterBrewingRecipes(event: RegisterBrewingRecipesEvent) {
-//        BrewingRecipes.setRecipes(event)
+        BrewingRecipes.setRecipes(event)
     }
 
     //This is disgusting
     @SubscribeEvent
     fun onLevelLoad(event: LevelEvent.Load) {
         GeneticsResequenced.registryAccess = event.level.registryAccess()
-
-        BlackDeathRecipe.setRequiredGeneHolders()
     }
 
 }
