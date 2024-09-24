@@ -10,12 +10,11 @@ import net.minecraft.network.codec.StreamCodec
 data class GeneListItemComponent(
     val geneHolders: Set<Holder<Gene>>
 ) {
-    constructor(collection: Collection<Holder<Gene>>) : this(collection.toSet())
 
     companion object {
 
         val CODEC: Codec<GeneListItemComponent> = Gene.CODEC.listOf().xmap(
-            { GeneListItemComponent(it) },
+            { GeneListItemComponent(it.toSet()) },
             { it.geneHolders.toList() })
 
         val STREAM_CODEC: StreamCodec<ByteBuf, GeneListItemComponent> = ByteBufCodecs.fromCodec(CODEC)
