@@ -212,3 +212,4 @@
             - Optionally can have `"is_mutation": true` which makes a GM Cell and requires low temperature.
         - `geneticsresequenced:virus`
             - Takes in an input Gene and an output Gene, and makes a recipe that converts when crafted with Viral Agents
+- Support Slime Spawn Eggs have been added to the Spawn Eggs creative tab
