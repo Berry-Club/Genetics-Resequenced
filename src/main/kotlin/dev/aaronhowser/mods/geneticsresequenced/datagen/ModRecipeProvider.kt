@@ -344,11 +344,11 @@ class ModRecipeProvider(
         )
 
         private val setPotionEntity =
-            SingletonRecipeBuilder(SetPotionEntityRecipe(), Items.POTION, "set_potion_entity")
+            SingletonRecipeBuilder(SetPotionEntityRecipe.INSTANCE, Items.POTION, "set_potion_entity")
                 .unlockedBy("has_cell", has(ModItems.CELL.get()))
 
         private val blackDeath =
-            SingletonRecipeBuilder(BlackDeathRecipe(), ModItems.DNA_HELIX.get(), "black_death")
+            SingletonRecipeBuilder(BlackDeathRecipe.INSTANCE, ModItems.DNA_HELIX.get(), "black_death")
                 .unlockedBy("has_cell", has(ModItems.CELL.get()))
 
         private val dupeCell = DupeCellRecipeBuilder()

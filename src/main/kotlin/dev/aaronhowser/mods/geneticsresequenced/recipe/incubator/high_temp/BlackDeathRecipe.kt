@@ -29,7 +29,7 @@ import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
-class BlackDeathRecipe : IncubatorRecipe() {
+class BlackDeathRecipe private constructor() : IncubatorRecipe() {
 
     fun getRequiredGenes(lookup: HolderLookup.Provider): List<Holder<Gene>> {
         return GeneRegistry.getRegistrySorted(lookup)
@@ -85,12 +85,16 @@ class BlackDeathRecipe : IncubatorRecipe() {
         }
 
         companion object {
-            val CODEC: MapCodec<BlackDeathRecipe> = MapCodec.unit(BlackDeathRecipe())
+            val CODEC: MapCodec<BlackDeathRecipe> = MapCodec.unit(INSTANCE)
 
             val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, BlackDeathRecipe> =
-                StreamCodec.unit(BlackDeathRecipe())
+                StreamCodec.unit(INSTANCE)
         }
 
+    }
+
+    companion object {
+        val INSTANCE = BlackDeathRecipe()
     }
 
 }

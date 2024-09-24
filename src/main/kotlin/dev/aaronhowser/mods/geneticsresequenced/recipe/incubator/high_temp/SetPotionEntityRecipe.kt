@@ -18,7 +18,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 
-class SetPotionEntityRecipe : IncubatorRecipe() {
+class SetPotionEntityRecipe private constructor() : IncubatorRecipe() {
 
     private val cellIngredient = Ingredient.of(ModItems.CELL.get())
     private val potionIngredient = PotionTagIngredient(ModPotionTagsProvider.CAN_HAVE_ENTITY).toVanilla()
@@ -59,6 +59,7 @@ class SetPotionEntityRecipe : IncubatorRecipe() {
     }
 
     class Serializer : RecipeSerializer<SetPotionEntityRecipe> {
+
         override fun codec(): MapCodec<SetPotionEntityRecipe> {
             return CODEC
         }
@@ -68,12 +69,16 @@ class SetPotionEntityRecipe : IncubatorRecipe() {
         }
 
         companion object {
-            val CODEC: MapCodec<SetPotionEntityRecipe> = MapCodec.unit(SetPotionEntityRecipe())
+            val CODEC: MapCodec<SetPotionEntityRecipe> = MapCodec.unit(INSTANCE)
 
             val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> =
-                StreamCodec.unit(SetPotionEntityRecipe())
+                StreamCodec.unit(INSTANCE)
         }
 
+    }
+
+    companion object {
+        val INSTANCE = SetPotionEntityRecipe()
     }
 
 }
