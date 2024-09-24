@@ -27,6 +27,7 @@ class ModItemTagsProvider(
             return ItemTags.create(OtherUtil.modResource(id))
         }
 
+        val SYRINGE_ITEM_TAG: TagKey<Item> = create("syringe")
         val WOOLY_ITEM_TAG: TagKey<Item> = create("wooly")
         val FIREBALL_ITEM_TAG: TagKey<Item> = create("fireball")
         val MAGNET_ITEM_BLACKLIST: TagKey<Item> = create("magnet_blacklist")
@@ -35,6 +36,12 @@ class ModItemTagsProvider(
     }
 
     override fun addTags(pProvider: HolderLookup.Provider) {
+
+        this.tag(SYRINGE_ITEM_TAG)
+            .add(
+                ModItems.SYRINGE.get(),
+                ModItems.METAL_SYRINGE.get()
+            )
 
         this.tag(WOOLY_ITEM_TAG)
             .add(Items.SHEARS)

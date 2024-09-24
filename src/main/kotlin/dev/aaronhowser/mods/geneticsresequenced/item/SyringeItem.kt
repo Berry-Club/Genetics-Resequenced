@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.g
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneListItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityName
@@ -44,12 +45,8 @@ open class SyringeItem : Item(
 
     companion object {
 
-        fun Item.isSyringe(): Boolean {
-            return this == ModItems.SYRINGE.get() || this == ModItems.METAL_SYRINGE.get()
-        }
-
         fun ItemStack.isSyringe(): Boolean {
-            return this.item.isSyringe()
+            return this.`is`(ModItemTagsProvider.SYRINGE_ITEM_TAG)
         }
 
         fun isBeingUsed(syringeStack: ItemStack, entity: LivingEntity?): Boolean {

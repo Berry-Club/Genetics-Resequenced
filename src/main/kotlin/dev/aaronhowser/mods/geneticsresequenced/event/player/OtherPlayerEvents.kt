@@ -44,7 +44,7 @@ object OtherPlayerEvents {
         val originalStack = event.originalStack
         val player = event.player
 
-        if (originalStack.item.isSyringe()) {
+        if (originalStack.isSyringe()) {
             val thrower = event.itemEntity.owner as? LivingEntity
 
             player.hurt(SyringeItem.damageSourceStepOnSyringe(event.player.level(), thrower), 1.0f)
