@@ -30,9 +30,8 @@ class AntiPlasmidItem : Item(Properties().stacksTo(1)) {
         } else {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.PLASMID_GENE
-                    .toComponent(
-                        Gene.getNameComponent(geneHolder).withColor(ChatFormatting.GRAY)
-                    )
+                    .toComponent(Gene.getNameComponent(geneHolder))
+                    .withColor(ChatFormatting.GRAY)
             )
         }
 
