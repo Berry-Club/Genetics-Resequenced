@@ -46,7 +46,7 @@ open class SyringeItem : Item(
     companion object {
 
         fun ItemStack.isSyringe(): Boolean {
-            return this.`is`(ModItemTagsProvider.SYRINGE_ITEM_TAG)
+            return this.`is`(ModItemTagsProvider.SYRINGE)
         }
 
         fun isBeingUsed(syringeStack: ItemStack, entity: LivingEntity?): Boolean {
