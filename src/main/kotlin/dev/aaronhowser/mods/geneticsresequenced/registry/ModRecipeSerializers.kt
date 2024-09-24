@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmid
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.SetPotionEntityRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.DupeCellRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.VirusRecipe
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer
@@ -31,6 +32,9 @@ object ModRecipeSerializers {
 
     val DUPE_CELL: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
         registerRecipeSerializer("dupe_cell") { DupeCellRecipe.Serializer() }
+
+    val VIRUS =
+        registerRecipeSerializer("virus") { VirusRecipe.Serializer() }
 
     private fun registerRecipeSerializer(
         name: String,

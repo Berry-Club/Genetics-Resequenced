@@ -28,6 +28,9 @@ object ModRecipeTypes {
     val DUPE_CELL: DeferredHolder<RecipeType<*>, RecipeType<*>> =
         registerRecipeType("dupe_cell") { object : RecipeType<SetAntiPlasmidRecipe> {} }
 
+    val VIRUS: DeferredHolder<RecipeType<*>, RecipeType<*>> =
+        registerRecipeType("virus") { object : RecipeType<SetAntiPlasmidRecipe> {} }
+
     private fun registerRecipeType(
         name: String,
         factory: () -> RecipeType<*>
