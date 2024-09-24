@@ -38,6 +38,7 @@ class VirusRecipeBuilder(
         val idString = StringBuilder()
 
         idString
+            .append("incubator/")
             .append("virus/")
             .append(inputDnaGene.location().path)
             .append("_to_")

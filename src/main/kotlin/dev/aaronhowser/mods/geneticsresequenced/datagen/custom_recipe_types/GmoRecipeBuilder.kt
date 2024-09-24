@@ -49,7 +49,8 @@ class GmoRecipeBuilder(
         }
 
         val pathBuilder = StringBuilder()
-        pathBuilder.append("gmo/")
+            .append("incubator/")
+            .append("gmo/")
 
         if (isMutation) {
             pathBuilder.append("mutation/")

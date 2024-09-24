@@ -33,7 +33,7 @@ class DupeCellRecipeBuilder(
 
     override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
 
-        val idString = if (isGmoCell) "dupe_substrate_cell_gmo" else "dupe_substrate_cell"
+        val idString = if (isGmoCell) "incubator/dupe_substrate_cell_gmo" else "incubator/dupe_substrate_cell"
         val id = OtherUtil.modResource(idString)
 
         val advancement = output.advancement()
