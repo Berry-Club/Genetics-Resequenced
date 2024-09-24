@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
+import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.GmoRecipeBuilder
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
@@ -9,6 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
 import net.minecraft.data.recipes.*
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.Tags
 import java.util.concurrent.CompletableFuture
@@ -40,6 +43,33 @@ class ModRecipeProvider(
         syringe.save(pRecipeOutput)
         syringeMetal.save(pRecipeOutput)
         modonomicon().save(pRecipeOutput)
+
+        gmoBlazeBioluminescence.save(pRecipeOutput)
+        gmoMagmaCubeBioluminescence.save(pRecipeOutput)
+        gmoVillagerEmeraldHeart.save(pRecipeOutput)
+        gmoShulkerKeepInventory.save(pRecipeOutput)
+        gmoRabbitSpeed.save(pRecipeOutput)
+        gmoRabbitLuck.save(pRecipeOutput)
+        gmoIronGolemRegeneration.save(pRecipeOutput)
+        gmoChickenLayEgg.save(pRecipeOutput)
+        gmoPigMeaty.save(pRecipeOutput)
+        gmoEndermanTeleport.save(pRecipeOutput)
+        gmoEndermanMoreHearts.save(pRecipeOutput)
+        gmoMooshroomPhotosynthesis.save(pRecipeOutput)
+
+        gmoMutationEnderDragonFlight.save(pRecipeOutput)
+        gmoMutationPolarBearStrengthTwo.save(pRecipeOutput)
+        gmoMutationShulkerResistanceTwo.save(pRecipeOutput)
+        gmoMutationPolarBearClawsTwo.save(pRecipeOutput)
+        gmoMutationRabbitSpeedTwo.save(pRecipeOutput)
+        gmoMutationOcelotSpeedFour.save(pRecipeOutput)
+        gmoMutationRabbitHasteTwo.save(pRecipeOutput)
+        gmoMutationSilverfishEfficiencyFour.save(pRecipeOutput)
+        gmoMutationZombieScareZombies.save(pRecipeOutput)
+        gmoMutationSpiderScareSpiders.save(pRecipeOutput)
+        gmoMutationEnderDragonRegenerationFour.save(pRecipeOutput)
+        gmoMutationPigMeatyTwo.save(pRecipeOutput)
+        gmoMutationEndermanMoreHeartsTwo.save(pRecipeOutput)
     }
 
     companion object {
@@ -215,7 +245,7 @@ class ModRecipeProvider(
             .define('O', Tags.Items.OBSIDIANS)
             .unlockedBy("has_syringe", has(ModItems.SYRINGE.get()))
 
-        fun modonomicon(): ShapedRecipeBuilder {
+        private fun modonomicon(): ShapedRecipeBuilder {
             val bookStack = com.klikli_dev.modonomicon.registry.ItemRegistry.MODONOMICON.get().itemStack
             val bookIdComponent = com.klikli_dev.modonomicon.registry.DataComponentRegistry.BOOK_ID.get()
 
@@ -231,6 +261,120 @@ class ModRecipeProvider(
         }
 
         //TODO: Make Patchouli datagen eventually too
+
+        private val gmoBlazeBioluminescence =
+            GmoRecipeBuilder(EntityType.BLAZE, Items.GLOWSTONE_DUST, ModGenes.BIOLUMINESCENCE, 0.85f)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoMagmaCubeBioluminescence =
+            GmoRecipeBuilder(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, ModGenes.BIOLUMINESCENCE, 0.85f)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoVillagerEmeraldHeart =
+            GmoRecipeBuilder(EntityType.VILLAGER, Items.EMERALD, ModGenes.EMERALD_HEART, 0.85f)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoShulkerKeepInventory =
+            GmoRecipeBuilder(EntityType.SHULKER, Items.EMERALD_BLOCK, ModGenes.KEEP_INVENTORY, 0.45f)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoRabbitSpeed =
+            GmoRecipeBuilder(EntityType.RABBIT, Items.GOLDEN_BOOTS, ModGenes.SPEED, 0.65f)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoRabbitLuck =
+            GmoRecipeBuilder(EntityType.RABBIT, Items.EMERALD, ModGenes.LUCK, 0.75f)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoIronGolemRegeneration =
+            GmoRecipeBuilder(EntityType.IRON_GOLEM, Items.GOLDEN_APPLE, ModGenes.REGENERATION, 0.3f)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoChickenLayEgg =
+            GmoRecipeBuilder(EntityType.CHICKEN, Items.EGG, ModGenes.LAY_EGG, 1f)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoPigMeaty =
+            GmoRecipeBuilder(EntityType.PIG, Items.PORKCHOP, ModGenes.MEATY, 1f)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoEndermanTeleport =
+            GmoRecipeBuilder(EntityType.ENDERMAN, Items.ENDER_PEARL, ModGenes.TELEPORT, 0.45f)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoEndermanMoreHearts =
+            GmoRecipeBuilder(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.MORE_HEARTS, 0.2f)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoMooshroomPhotosynthesis =
+            GmoRecipeBuilder(EntityType.MOOSHROOM, Items.MUSHROOM_STEM, ModGenes.PHOTOSYNTHESIS, 0.7f)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+
+        private val gmoMutationEnderDragonFlight =
+            GmoRecipeBuilder(EntityType.ENDER_DRAGON, Items.ELYTRA, ModGenes.FLIGHT, 0.55f, isMutation = true)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoMutationPolarBearStrengthTwo =
+            GmoRecipeBuilder(
+                EntityType.POLAR_BEAR,
+                Items.NETHERITE_SWORD,
+                ModGenes.STRENGTH_TWO,
+                0.5f,
+                isMutation = true
+            )
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoMutationShulkerResistanceTwo =
+            GmoRecipeBuilder(
+                EntityType.SHULKER,
+                Items.NETHERITE_CHESTPLATE,
+                ModGenes.RESISTANCE_TWO,
+                0.5f,
+                isMutation = true
+            )
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoMutationPolarBearClawsTwo =
+            GmoRecipeBuilder(EntityType.POLAR_BEAR, Items.DIAMOND_SWORD, ModGenes.CLAWS_TWO, 0.75f, isMutation = true)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoMutationRabbitSpeedTwo =
+            GmoRecipeBuilder(EntityType.RABBIT, Items.DIAMOND_BOOTS, ModGenes.SPEED_TWO, 0.5f, isMutation = true)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoMutationOcelotSpeedFour =
+            GmoRecipeBuilder(EntityType.OCELOT, Items.NETHERITE_BOOTS, ModGenes.SPEED_FOUR, 0.5f, isMutation = true)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoMutationRabbitHasteTwo =
+            GmoRecipeBuilder(EntityType.RABBIT, Items.NETHERITE_PICKAXE, ModGenes.HASTE_TWO, 0.35f, isMutation = true)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoMutationSilverfishEfficiencyFour =
+            GmoRecipeBuilder(
+                EntityType.SILVERFISH,
+                Items.NETHERITE_PICKAXE,
+                ModGenes.EFFICIENCY_FOUR,
+                0.25f,
+                isMutation = true
+            )
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoMutationZombieScareZombies =
+            GmoRecipeBuilder(
+                EntityType.ZOMBIE,
+                Items.FERMENTED_SPIDER_EYE,
+                ModGenes.SCARE_ZOMBIES,
+                0.5f,
+                isMutation = true
+            )
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoMutationSpiderScareSpiders =
+            GmoRecipeBuilder(
+                EntityType.SPIDER,
+                Items.FERMENTED_SPIDER_EYE,
+                ModGenes.SCARE_SPIDERS,
+                0.5f,
+                isMutation = true
+            )
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoMutationEnderDragonRegenerationFour =
+            GmoRecipeBuilder(
+                EntityType.ENDER_DRAGON,
+                Items.ENCHANTED_GOLDEN_APPLE,
+                ModGenes.REGENERATION_FOUR,
+                0.35f,
+                isMutation = true
+            )
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoMutationPigMeatyTwo =
+            GmoRecipeBuilder(EntityType.PIG, Items.BLAZE_POWDER, ModGenes.MEATY_TWO, 0.75f, isMutation = true)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+        private val gmoMutationEndermanMoreHeartsTwo =
+            GmoRecipeBuilder(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.MORE_HEARTS_TWO, 0.25f, true)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+
     }
 
 }

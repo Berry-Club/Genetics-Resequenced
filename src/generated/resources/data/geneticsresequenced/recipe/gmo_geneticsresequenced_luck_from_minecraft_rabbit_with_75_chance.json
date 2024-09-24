@@ -1,0 +1,7 @@
+{
+  "type": "geneticsresequenced:gmo",
+  "entity_type": "minecraft:rabbit",
+  "gene_chance": 0.75,
+  "ideal_gene": "geneticsresequenced:luck",
+  "ingredient_item": "minecraft:emerald"
+}

@@ -1,0 +1,8 @@
+{
+  "type": "geneticsresequenced:gmo",
+  "entity_type": "minecraft:spider",
+  "gene_chance": 0.5,
+  "ideal_gene": "geneticsresequenced:scare_spiders",
+  "ingredient_item": "minecraft:fermented_spider_eye",
+  "is_mutation": true
+}

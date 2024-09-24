@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cell": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:cell"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "geneticsresequenced:mutation_gmo_geneticsresequenced_speed_2_from_minecraft_rabbit_with_50_chance"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cell"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "geneticsresequenced:mutation_gmo_geneticsresequenced_speed_2_from_minecraft_rabbit_with_50_chance"
+    ]
+  }
+}

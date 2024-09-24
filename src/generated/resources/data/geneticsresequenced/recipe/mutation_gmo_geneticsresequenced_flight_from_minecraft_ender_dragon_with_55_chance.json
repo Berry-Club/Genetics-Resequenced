@@ -1,0 +1,8 @@
+{
+  "type": "geneticsresequenced:gmo",
+  "entity_type": "minecraft:ender_dragon",
+  "gene_chance": 0.55,
+  "ideal_gene": "geneticsresequenced:flight",
+  "ingredient_item": "minecraft:elytra",
+  "is_mutation": true
+}
