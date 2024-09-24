@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.SetPotionEntityRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.SubstrateCellRecipe
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.SimpleCraftingRecipeSerializer
@@ -27,6 +28,9 @@ object ModRecipeSerializers {
 
     val SET_POTION_ENTITY: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
         registerRecipeSerializer("set_potion_entity") { SetPotionEntityRecipe.Serializer() }
+
+    val SUBSTRATE_CELL: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
+        registerRecipeSerializer("substrate_cell") { SubstrateCellRecipe.Serializer() }
 
     private fun registerRecipeSerializer(
         name: String,
