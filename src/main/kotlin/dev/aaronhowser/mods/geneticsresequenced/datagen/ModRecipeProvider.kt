@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.GmoRecipeBuilder
+import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.SetPotionEntityRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmidRecipe
@@ -70,6 +71,9 @@ class ModRecipeProvider(
         gmoMutationEnderDragonRegenerationFour.save(pRecipeOutput)
         gmoMutationPigMeatyTwo.save(pRecipeOutput)
         gmoMutationEndermanMoreHeartsTwo.save(pRecipeOutput)
+
+        setPotionEntity.save(pRecipeOutput)
+
     }
 
     companion object {
@@ -373,6 +377,10 @@ class ModRecipeProvider(
                 .unlockedBy("has_cell", has(ModItems.CELL.get()))
         private val gmoMutationEndermanMoreHeartsTwo =
             GmoRecipeBuilder(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.MORE_HEARTS_TWO, 0.25f, true)
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+
+        private val setPotionEntity =
+            SetPotionEntityRecipeBuilder()
                 .unlockedBy("has_cell", has(ModItems.CELL.get()))
 
     }
