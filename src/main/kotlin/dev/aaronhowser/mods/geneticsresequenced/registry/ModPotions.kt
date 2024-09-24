@@ -40,7 +40,7 @@ object ModPotions {
         })
 
     // To prevent name conflicts if other mods happen to use the same potion names
-    private val String.id
+    private val String.id: String
         get() = "${GeneticsResequenced.ID}.$this"
 
 }

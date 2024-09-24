@@ -1,13 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
-import com.klikli_dev.modonomicon.api.datagen.LanguageProviderCache
-import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider
-import com.klikli_dev.modonomicon.datagen.EnUsProvider
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.ModModonomiconProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.*
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.DataGenerator
@@ -68,6 +64,10 @@ object ModDataGen {
         val enchantmentTagProvider = generator.addProvider(
             event.includeServer(),
             ModEnchantmentTagsProvider(output, lookupProvider, existingFileHelper)
+        )
+        val potionTagProvider = generator.addProvider(
+            event.includeServer(),
+            ModPotionTagsProvider(output, lookupProvider, existingFileHelper)
         )
 
         val advancementProvider = generator.addProvider(
