@@ -27,11 +27,11 @@ import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
-import net.minecraft.world.item.crafting.Recipe
+import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class GmoRecipe(
     val entityType: EntityType<*>,
@@ -41,19 +41,32 @@ class GmoRecipe(
     val isMutation: Boolean = false
 ) : IncubatorRecipe() {
 
-    val requiredPotion = if (isMutation) ModPotions.MUTATION else ModPotions.CELL_GROWTH
+    private val inputIngredient = Ingredient.of(ingredientItem)
+    private val potionIngredient: Ingredient
+
+    init {
+        val potionStack = OtherUtil.getPotionStack(
+            if (isMutation) ModPotions.MUTATION else ModPotions.CELL_GROWTH
+        )
+
+        EntityDnaItem.setEntityType(potionStack, entityType)
+
+        potionIngredient = DataComponentIngredient.of(
+            false,
+            potionStack
+        )
+    }
+
+    override val ingredients: List<Ingredient> = listOf(inputIngredient, potionIngredient)
 
     override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
-        val topStack = input.getTopItem()
-        val bottomStack = input.getBottomItem()
+        val ingredientStack = input.getTopItem()
+        val potionStack = input.getBottomItem()
 
-        if (topStack.item != ingredientItem) return false
-        if (bottomStack.item != Items.POTION) return false
+        if (!inputIngredient.test(ingredientStack)) return false
+        if (!potionIngredient.test(potionStack)) return false
 
-        val inputPotion = OtherUtil.getPotion(bottomStack) ?: return false
-        if (inputPotion != requiredPotion) return false
-
-        return EntityDnaItem.getEntityType(bottomStack) == entityType
+        return true //TODO: Make sure it actually detects the entity type too
     }
 
     /**
