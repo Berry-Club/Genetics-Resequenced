@@ -213,3 +213,4 @@
         - `geneticsresequenced:virus`
             - Takes in an input Gene and an output Gene, and makes a recipe that converts when crafted with Viral Agents
 - Support Slime Spawn Eggs have been added to the Spawn Eggs creative tab
+- The Plasmid Injector EMI recipe page now says in the tooltip that you can have multiple Genes/Antigenes in the same Syringe

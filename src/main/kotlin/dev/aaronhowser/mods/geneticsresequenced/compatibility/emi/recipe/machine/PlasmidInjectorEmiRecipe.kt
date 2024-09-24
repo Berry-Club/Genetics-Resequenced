@@ -4,6 +4,8 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -111,6 +113,18 @@ class PlasmidInjectorEmiRecipe(
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 48, 1)
         widgets.addSlot(plasmid, 0, 0)
         widgets.addSlot(syringeBefore, 24, 0)
-        widgets.addSlot(syringeAfter, 78, 0).recipeContext(this);
+        widgets.addSlot(syringeAfter, 78, 0).recipeContext(this)
+
+        val tooltipComponent = if (isAntiPlasmid) {
+            ModLanguageProvider.Recipe.INJECTOR_ANTIGENES
+        } else {
+            ModLanguageProvider.Recipe.INJECTOR_GENES
+        }.toComponent()
+
+        widgets.addTooltipText(
+            listOf(tooltipComponent),
+            0, 0,
+            displayWidth, displayHeight
+        )
     }
 }
