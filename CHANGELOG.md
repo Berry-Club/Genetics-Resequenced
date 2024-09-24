@@ -193,7 +193,7 @@
         - `id`: A Resource Location ID for the modifier
         - `operation`: The operation to apply to the attribute (`"add_value"`, `"add_multiplied_base"`, or `"add_multiplied_total"`)
         - `amount`: The amount to modify the attribute by
-    - `requires_genes': A list of Resource Location IDs for Genes that are required to have this Gene
+    - `requires_genes`: A list of Resource Location IDs for Genes that are required to have this Gene
     - `scaresEntitiesWithTag`: An entity type tag that the Gene will scare
 - Genes requiring other Genes is now handled in the Gene's json, rather than a file in /gene_requirements/
 - Changed some default Gene requirements:
