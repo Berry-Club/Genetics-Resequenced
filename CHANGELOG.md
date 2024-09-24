@@ -204,3 +204,5 @@
 - Fixed an issue where the Photosynthesis Gene would stop working when enabled instead of when not enabled
 - Added Reaching Gene, which allows you to reach 1.25 times further
 - Fixed an issue where Genes that require 1 DNA Point would show as requiring 0 DNA Helices instead of 1 in EMI
+- Incubator recipes are no longer actually Brewing recipes, and can therefore no longer be used in a Brewing Stand
+  - Consequently, you can now make custom recipes that use the Incubator! See `/data/geneticsresequeced/recipe/incubator/`
