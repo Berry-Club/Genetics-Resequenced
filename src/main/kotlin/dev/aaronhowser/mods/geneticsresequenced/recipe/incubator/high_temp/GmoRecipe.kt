@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
@@ -38,7 +39,7 @@ class GmoRecipe(
     val idealGeneRk: ResourceKey<Gene>,
     val geneChance: Float,
     val isMutation: Boolean = false
-) : Recipe<IncubatorRecipeInput> {
+) : IncubatorRecipe() {
 
     val requiredPotion = if (isMutation) ModPotions.MUTATION else ModPotions.CELL_GROWTH
 
@@ -86,8 +87,6 @@ class GmoRecipe(
     override fun getType(): RecipeType<*> {
         return ModRecipeTypes.GMO.get()
     }
-
-    override fun canCraftInDimensions(p0: Int, p1: Int): Boolean = true
 
     class Serializer : RecipeSerializer<GmoRecipe> {
         override fun codec(): MapCodec<GmoRecipe> {

@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp
 
 import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
@@ -13,12 +14,11 @@ import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
-import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 
-class SetPotionEntityRecipe : Recipe<IncubatorRecipeInput> {
+class SetPotionEntityRecipe : IncubatorRecipe() {
 
     override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
         val topItem = input.getTopItem()
@@ -53,8 +53,6 @@ class SetPotionEntityRecipe : Recipe<IncubatorRecipeInput> {
     override fun getType(): RecipeType<*> {
         return ModRecipeTypes.SET_POTION_ENTITY.get()
     }
-
-    override fun canCraftInDimensions(p0: Int, p1: Int): Boolean = true
 
     class Serializer : RecipeSerializer<SetPotionEntityRecipe> {
         override fun codec(): MapCodec<SetPotionEntityRecipe> {
