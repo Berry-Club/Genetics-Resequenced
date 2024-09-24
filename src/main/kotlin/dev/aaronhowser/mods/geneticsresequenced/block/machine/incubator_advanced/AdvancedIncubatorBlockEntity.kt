@@ -4,13 +4,10 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockE
 import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
-import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.GmoRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
@@ -214,7 +211,7 @@ class AdvancedIncubatorBlockEntity(
             var output = potionBrewing?.mix(topStack, bottleStack) ?: continue
 
             if (output.item == ModItems.GMO_CELL.get() && !isHighTemperature) {
-                val thisRecipe = getGmoRecipe(topStack, bottleStack) ?: continue
+                val thisRecipe = GmoRecipe.getGmoRecipe(this.level!!, topStack, bottleStack) ?: continue
 
                 // The base chance
                 val geneChance = thisRecipe.geneChance
@@ -237,7 +234,7 @@ class AdvancedIncubatorBlockEntity(
                 val nextFloat = Random.nextFloat()
 
                 if (nextFloat <= finalChance) {
-                    output = thisRecipe.getSuccess()
+                    output = thisRecipe.getSuccess(this.level!!.registryAccess())
                 }
             }
 
@@ -279,19 +276,6 @@ class AdvancedIncubatorBlockEntity(
     }
 
     companion object {
-
-        val gmoRecipes by lazy {
-            BrewingRecipes.allRecipes.filterIsInstance<GmoRecipe>()
-        }
-
-
-        fun getGmoRecipe(topStack: ItemStack, bottomStack: ItemStack): GmoRecipe? {
-            return gmoRecipes.find {
-                it.ingredientItem == topStack.item
-                        && it.entityType == EntityDnaItem.getEntityType(bottomStack)
-                        && it.requiredPotion == OtherUtil.getPotion(bottomStack)
-            }
-        }
 
         fun tick(
             level: Level,

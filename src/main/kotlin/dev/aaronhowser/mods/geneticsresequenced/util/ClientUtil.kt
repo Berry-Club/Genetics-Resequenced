@@ -10,6 +10,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
 import net.minecraft.client.Minecraft
 import net.minecraft.client.Options
+import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.player.LocalPlayer
 import net.minecraft.core.RegistryAccess
 import net.minecraft.network.chat.Component
@@ -23,6 +24,9 @@ object ClientUtil {
 
     val localRegistryAccess: RegistryAccess?
         get() = Minecraft.getInstance().level?.registryAccess()
+
+    val localLevel: ClientLevel?
+        get() = Minecraft.getInstance().level
 
     fun playerIsCreative(): Boolean = localPlayer?.isCreative ?: false
 

@@ -28,6 +28,7 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
@@ -93,6 +94,18 @@ class GmoRecipe(
         return output
     }
 
+    fun getSuccess(lookup: HolderLookup.Provider): ItemStack {
+        val output = ModItems.GMO_CELL.toStack()
+
+        GmoCell.setDetails(
+            output,
+            entityType,
+            idealGeneRk.getHolder(lookup)!!
+        )
+
+        return output
+    }
+
     override fun getSerializer(): RecipeSerializer<*> {
         return ModRecipeSerializers.GMO.get()
     }
@@ -141,6 +154,33 @@ class GmoRecipe(
                     ByteBufCodecs.BOOL, GmoRecipe::isMutation,
                     ::GmoRecipe
                 )
+        }
+
+    }
+
+    companion object {
+
+        @Suppress("UNCHECKED_CAST")
+        fun getGmoRecipes(level: Level): List<RecipeHolder<GmoRecipe>> {
+            val incubatorRecipes = getIncubatorRecipes(level)
+
+            return incubatorRecipes.mapNotNull { it as? RecipeHolder<GmoRecipe> }
+        }
+
+        fun isValidIngredient(level: Level, itemStack: ItemStack): Boolean {
+            return getGmoRecipes(level).any { recipeHolder ->
+                recipeHolder.value.ingredients.any { ingredient -> ingredient.test(itemStack) }
+            }
+        }
+
+        fun getGmoRecipe(level: Level, incubatorRecipeInput: IncubatorRecipeInput): GmoRecipe? {
+            return getGmoRecipes(level).find { recipeHolder ->
+                recipeHolder.value.matches(incubatorRecipeInput, level)
+            }?.value
+        }
+
+        fun getGmoRecipe(level: Level, topStack: ItemStack, bottomStack: ItemStack): GmoRecipe? {
+            return getGmoRecipe(level, IncubatorRecipeInput(topStack, bottomStack))
         }
 
     }
