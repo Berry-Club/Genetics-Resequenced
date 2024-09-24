@@ -89,11 +89,12 @@ object BrewingRecipes {
             substratePotionStack
         )
 
-        val cellGrowthRecipe = BrewingRecipe(
-            ingredient(ModPotions.SUBSTRATE),
-            ingredient(DnaHelixItem.setBasic(ModItems.DNA_HELIX.toStack(), GeneticsResequenced.registryAccess)),
-            cellGrowthPotionStack
-        )
+        //FIXME
+//        val cellGrowthRecipe = BrewingRecipe(
+//            ingredient(ModPotions.SUBSTRATE),
+//            ingredient(DnaHelixItem.setBasic(ModItems.DNA_HELIX.toStack(), GeneticsResequenced.registryAccess)),
+//            cellGrowthPotionStack
+//        )
 
         val mutationRecipe = BrewingRecipe(
             ingredient(ModPotions.CELL_GROWTH),
@@ -107,35 +108,37 @@ object BrewingRecipes {
             viralAgentsPotionStack
         )
 
-        val panaceaRecipe = BrewingRecipe(
-            ingredient(ModPotions.VIRAL_AGENTS),
-            ingredient(
-                DnaHelixItem.setGeneHolder(
-                    ModItems.DNA_HELIX.toStack(),
-                    ModGenes.REGENERATION.getHolder(GeneticsResequenced.registryAccess)!!
-                )
-            ),
-            panaceaPotionStack
-        )
+        //FIXME
+//        val panaceaRecipe = BrewingRecipe(
+//            ingredient(ModPotions.VIRAL_AGENTS),
+//            ingredient(
+//                DnaHelixItem.setGeneHolder(
+//                    ModItems.DNA_HELIX.toStack(),
+//                    ModGenes.REGENERATION.getHolder(GeneticsResequenced.registryAccess)!!
+//                )
+//            ),
+//            panaceaPotionStack
+//        )
 
-        val zombifyVillagerRecipe = BrewingRecipe(
-            ingredient(viralAgentsPotionStack),
-            ingredient(
-                DnaHelixItem.setGeneHolder(
-                    ModItems.DNA_HELIX.toStack(),
-                    ModGenes.EMERALD_HEART.getHolder(GeneticsResequenced.registryAccess)!!
-                )
-            ),
-            OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER)
-        )
+        //FIXME
+//        val zombifyVillagerRecipe = BrewingRecipe(
+//            ingredient(viralAgentsPotionStack),
+//            ingredient(
+//                DnaHelixItem.setGeneHolder(
+//                    ModItems.DNA_HELIX.toStack(),
+//                    ModGenes.EMERALD_HEART.getHolder(GeneticsResequenced.registryAccess)!!
+//                )
+//            ),
+//            OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER)
+//        )
 
         val allRecipes = listOf(
             substrateRecipe,
-            cellGrowthRecipe,
+//            cellGrowthRecipe,
             mutationRecipe,
             viralRecipe,
-            panaceaRecipe,
-            zombifyVillagerRecipe
+//            panaceaRecipe,
+//            zombifyVillagerRecipe
         )
 
         for (recipe in allRecipes) {
