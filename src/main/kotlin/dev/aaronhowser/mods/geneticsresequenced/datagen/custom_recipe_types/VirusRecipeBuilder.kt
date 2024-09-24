@@ -38,7 +38,7 @@ class VirusRecipeBuilder(
         val idString = StringBuilder()
 
         idString
-            .append("virus_")
+            .append("virus/")
             .append(inputDnaGene.location().path)
             .append("_to_")
             .append(outputGene.location().path)

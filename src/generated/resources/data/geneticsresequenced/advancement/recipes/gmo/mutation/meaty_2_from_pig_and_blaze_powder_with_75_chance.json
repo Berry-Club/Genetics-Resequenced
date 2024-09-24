@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cell": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:cell"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "geneticsresequenced:gmo/mutation/meaty_2_from_pig_and_blaze_powder_with_75_chance"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cell"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "geneticsresequenced:gmo/mutation/meaty_2_from_pig_and_blaze_powder_with_75_chance"
+    ]
+  }
+}

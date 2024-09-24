@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cell": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:cell"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "geneticsresequenced:gmo/mutation/haste_2_from_rabbit_and_netherite_pickaxe_with_35_chance"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cell"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "geneticsresequenced:gmo/mutation/haste_2_from_rabbit_and_netherite_pickaxe_with_35_chance"
+    ]
+  }
+}
