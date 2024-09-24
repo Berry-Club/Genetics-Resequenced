@@ -6,11 +6,11 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisab
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
-import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -23,10 +23,11 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
+import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class BlackDeathRecipe : IncubatorRecipe() {
 
@@ -35,19 +36,23 @@ class BlackDeathRecipe : IncubatorRecipe() {
             .filter { it.isNegative && !it.isHidden && !it.isDisabled } - ModGenes.BLACK_DEATH.getHolder(lookup)!!
     }
 
+    private val potionIngredient: Ingredient =
+        DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))
+    private val syringeIngredient: Ingredient =
+        Ingredient.of(ModItemTagsProvider.SYRINGE_ITEM_TAG)
+
+    override val ingredients: List<Ingredient> = listOf(potionIngredient)
+
     override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
-        val topStack = input.getTopItem()
-        val bottomStack = input.getBottomItem()
+        val syringeStack = input.getTopItem()
+        val potionStack = input.getBottomItem()
 
-        if (bottomStack.item != Items.POTION) return false
-        if (!topStack.item.isSyringe()) return false
+        if (!potionIngredient.test(potionStack)) return false
+        if (!syringeIngredient.test(syringeStack)) return false
 
-        val inputPotion = OtherUtil.getPotion(bottomStack)
-        if (inputPotion != ModPotions.VIRAL_AGENTS) return false
+        if (!SyringeItem.hasBlood(syringeStack) || SyringeItem.isContaminated(syringeStack)) return false
 
-        if (SyringeItem.isContaminated(topStack)) return false
-
-        val syringeGenes = SyringeItem.getGenes(topStack)
+        val syringeGenes = SyringeItem.getGenes(syringeStack)
         return syringeGenes == getRequiredGenes(level.registryAccess())
     }
 
