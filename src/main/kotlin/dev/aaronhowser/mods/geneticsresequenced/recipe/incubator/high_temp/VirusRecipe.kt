@@ -18,27 +18,31 @@ import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
+import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
+import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class VirusRecipe(
     val inputDnaGene: ResourceKey<Gene>,
     val outputGene: ResourceKey<Gene>
 ) : IncubatorRecipe() {
 
+    private val helixIngredient: Ingredient = Ingredient.of(ModItems.DNA_HELIX.get())
+    private val potionIngredient: Ingredient =
+        DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))
+
+    override val ingredients: List<Ingredient> = listOf(helixIngredient, potionIngredient)
+
     override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
-        val topStack = input.getTopItem()
-        val bottomStack = input.getBottomItem()
+        val helixStack = input.getTopItem()
+        val potionStack = input.getBottomItem()
 
-        if (bottomStack.item != Items.POTION) return false
-        if (topStack.item != ModItems.DNA_HELIX.get()) return false
+        if (!helixIngredient.test(helixStack)) return false
+        if (!potionIngredient.test(potionStack)) return false
 
-        val inputPotion = OtherUtil.getPotion(bottomStack)
-        if (inputPotion != ModPotions.VIRAL_AGENTS) return false
-
-        return DnaHelixItem.getGeneHolder(topStack) == inputDnaGene
+        return DnaHelixItem.getGeneHolder(helixStack) == inputDnaGene
     }
 
     override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
