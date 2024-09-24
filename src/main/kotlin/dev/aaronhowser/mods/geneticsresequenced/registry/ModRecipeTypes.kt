@@ -13,10 +13,10 @@ object ModRecipeTypes {
     val RECIPE_TYPES_REGISTRY: DeferredRegister<RecipeType<*>> =
         DeferredRegister.create(BuiltInRegistries.RECIPE_TYPE, GeneticsResequenced.ID)
 
-    val ANTI_PLASMID_RECIPE_TYPE: DeferredHolder<RecipeType<*>, RecipeType<*>> =
+    val SET_ANTI_PLASMID: DeferredHolder<RecipeType<*>, RecipeType<*>> =
         registerRecipeType("set_anti_plasmid") { object : RecipeType<SetAntiPlasmidRecipe> {} }
 
-    val UNSET_ANTI_PLASMID_RECIPE_TYPE: DeferredHolder<RecipeType<*>, RecipeType<*>> =
+    val UNSET_ANTI_PLASMID: DeferredHolder<RecipeType<*>, RecipeType<*>> =
         registerRecipeType("unset_anti_plasmid") { object : RecipeType<UnsetAntiPlasmidRecipe> {} }
 
     val GMO: DeferredHolder<RecipeType<*>, RecipeType<*>> =
@@ -30,6 +30,9 @@ object ModRecipeTypes {
 
     val VIRUS: DeferredHolder<RecipeType<*>, RecipeType<*>> =
         registerRecipeType("virus") { object : RecipeType<SetAntiPlasmidRecipe> {} }
+
+    val BLACK_DEATH: DeferredHolder<RecipeType<*>, RecipeType<*>> =
+        registerRecipeType("black_death") { object : RecipeType<SetAntiPlasmidRecipe> {} }
 
     private fun registerRecipeType(
         name: String,
