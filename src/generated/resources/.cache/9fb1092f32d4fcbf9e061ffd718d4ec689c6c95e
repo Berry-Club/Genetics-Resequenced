@@ -1,4 +1,5 @@
-// 1.21.1	2024-09-23T20:12:19.5659424	Recipes
+// 1.21.1	2024-09-23T20:50:30.1472987	Recipes
+aaa0e32d59ecf60df630f78be03a653db3869b9a data/geneticsresequenced/advancement/recipes/black_death.json
 3f4b5b30d4f869c5b2e044b54310476eddd64901 data/geneticsresequenced/advancement/recipes/dupe_substrate_cell.json
 7b88bf38c90ece1ef51d865bfa7af40369345ab2 data/geneticsresequenced/advancement/recipes/dupe_substrate_cell_gmo.json
 b4d7f9c8544159f4fe676ea76892e26bc8c3d741 data/geneticsresequenced/advancement/recipes/gmo_bioluminescence_from_blaze_and_glowstone_dust_with_85_chance.json
@@ -69,6 +70,7 @@ fe01a954f1ed9d9d68385efbc77d6cbc9928f64c data/geneticsresequenced/advancement/re
 b343a9bf3a5a881df0f7d6008e729d867dcb1ccb data/geneticsresequenced/recipe/anti_field_block.json
 7b45a959d6b794a3c499f336eb616854321c0cb7 data/geneticsresequenced/recipe/anti_field_orb.json
 1e5b5cbac49fb8bfd30cf1070082b44eede6c0d4 data/geneticsresequenced/recipe/anti_plasmid.json
+10d2b63e81d1b1c9854203491b79bf1df297bff7 data/geneticsresequenced/recipe/black_death.json
 d4f05212fa1037e1513785b441a5d0076ecb548f data/geneticsresequenced/recipe/blood_purifier.json
 b1cf8372d2439768a8e0b7445a464a2ac238c2da data/geneticsresequenced/recipe/cell_analyzer.json
 a15df3b05c2dad663d1aae269296e985d217cfab data/geneticsresequenced/recipe/coal_generator.json

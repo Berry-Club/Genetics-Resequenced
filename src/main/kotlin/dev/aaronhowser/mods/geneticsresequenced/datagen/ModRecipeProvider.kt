@@ -2,11 +2,13 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.DupeCellRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.GmoRecipeBuilder
-import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.SetPotionEntityRecipeBuilder
+import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.SingletonRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.VirusRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmidRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.BlackDeathRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.SetPotionEntityRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -42,6 +44,7 @@ class ModRecipeProvider(
         }
 
         setPotionEntity.save(pRecipeOutput)
+        blackDeath.save(pRecipeOutput)
 
         dupeCell.save(pRecipeOutput)
         dupeGmoCell.save(pRecipeOutput)
@@ -341,7 +344,11 @@ class ModRecipeProvider(
         )
 
         private val setPotionEntity =
-            SetPotionEntityRecipeBuilder()
+            SingletonRecipeBuilder(SetPotionEntityRecipe(), Items.POTION, "set_potion_entity")
+                .unlockedBy("has_cell", has(ModItems.CELL.get()))
+
+        private val blackDeath =
+            SingletonRecipeBuilder(BlackDeathRecipe(), ModItems.DNA_HELIX.get(), "black_death")
                 .unlockedBy("has_cell", has(ModItems.CELL.get()))
 
         private val dupeCell = DupeCellRecipeBuilder()
