@@ -172,7 +172,7 @@ open class SyringeItem : Item(
         }
 
         fun getGenes(syringeStack: ItemStack): Set<Holder<Gene>> {
-            return syringeStack.get(ModDataComponents.GENES_COMPONENT)?.geneHolders ?: emptySet()
+            return syringeStack.get(ModDataComponents.GENES_COMPONENT)?.geneHolderSet?.toSet() ?: emptySet()
         }
 
         fun getGeneRks(syringeStack: ItemStack): Set<ResourceKey<Gene>> {
@@ -208,7 +208,7 @@ open class SyringeItem : Item(
         }
 
         fun getAntigenes(syringeStack: ItemStack): Set<Holder<Gene>> {
-            return syringeStack.get(ModDataComponents.ANTIGENES_COMPONENT)?.geneHolders ?: emptySet()
+            return syringeStack.get(ModDataComponents.ANTIGENES_COMPONENT)?.geneHolderSet?.toSet() ?: emptySet()
         }
 
         fun canAddAntigene(syringeStack: ItemStack, gene: Holder<Gene>): Boolean {
