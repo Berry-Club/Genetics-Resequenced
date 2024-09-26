@@ -196,6 +196,7 @@
     - There are 3 types (technically 5, but 2 of them are hardcoded with no parameters):
         - `geneticsresequenced:incubator_basic`
           - Takes two ingredients `top_slot` and `bottom_slot`, and an output itemstack `output`
+          - Optionally takes a `is_low_temperature`, which makes it require low temperature. Defaults to false, making it require high temperature
         - `geneticsresequenced:incubator_gmo`
             - Requires `entity_type` that the Cell Growth or Mutation Potion must be set to
             - Requires `ingredient` for the item in the top slot

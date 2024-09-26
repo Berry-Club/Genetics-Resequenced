@@ -182,7 +182,7 @@ class IncubatorBlockEntity(
         )
 
         return bottomStacks.any { bottomStack ->
-            val input = IncubatorRecipeInput(topStack, bottomStack, true)
+            val input = IncubatorRecipeInput(topStack, bottomStack, isHighTemp = true)
             AbstractIncubatorRecipe.hasIncubatorRecipe(level!!, input)
         }
     }

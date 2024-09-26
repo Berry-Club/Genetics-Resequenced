@@ -6,8 +6,11 @@ import net.minecraft.world.item.crafting.RecipeInput
 class IncubatorRecipeInput(
     private val topItem: ItemStack,
     private val bottomItem: ItemStack,
-    val isHighTemp: Boolean //TODO: Implement this or remove it
+    val isHighTemp: Boolean
 ) : RecipeInput {
+
+    val isLowTemp: Boolean
+        get() = !this.isHighTemp
 
     fun getTopItem(): ItemStack {
         return topItem

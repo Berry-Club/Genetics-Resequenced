@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
+import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
@@ -8,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeTypes
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.RegistryFriendlyByteBuf
+import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.*
@@ -16,7 +18,8 @@ import net.minecraft.world.level.Level
 class BasicIncubatorRecipe(
     val topSlotIngredient: Ingredient,
     val bottomSlotIngredient: Ingredient,
-    val outputStack: ItemStack
+    val outputStack: ItemStack,
+    val isLowTemp: Boolean = true
 ) : AbstractIncubatorRecipe() {
 
     override val ingredients: List<Ingredient> = listOf(topSlotIngredient, bottomSlotIngredient)
@@ -25,7 +28,9 @@ class BasicIncubatorRecipe(
         val topItem = input.getTopItem()
         val bottomItem = input.getBottomItem()
 
-        return topSlotIngredient.test(topItem) && bottomSlotIngredient.test(bottomItem)
+        return isLowTemp == input.isLowTemp
+                && topSlotIngredient.test(topItem)
+                && bottomSlotIngredient.test(bottomItem)
     }
 
     override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
@@ -66,7 +71,10 @@ class BasicIncubatorRecipe(
                             .forGetter(BasicIncubatorRecipe::bottomSlotIngredient),
                         ItemStack.CODEC
                             .fieldOf("output")
-                            .forGetter(BasicIncubatorRecipe::outputStack)
+                            .forGetter(BasicIncubatorRecipe::outputStack),
+                        Codec.BOOL
+                            .optionalFieldOf("is_low_temperature", true)
+                            .forGetter(BasicIncubatorRecipe::isLowTemp)
                     ).apply(instance, ::BasicIncubatorRecipe)
                 }
 
@@ -75,6 +83,7 @@ class BasicIncubatorRecipe(
                     Ingredient.CONTENTS_STREAM_CODEC, BasicIncubatorRecipe::topSlotIngredient,
                     Ingredient.CONTENTS_STREAM_CODEC, BasicIncubatorRecipe::bottomSlotIngredient,
                     ItemStack.STREAM_CODEC, BasicIncubatorRecipe::outputStack,
+                    ByteBufCodecs.BOOL, BasicIncubatorRecipe::isLowTemp,
                     ::BasicIncubatorRecipe
                 )
 

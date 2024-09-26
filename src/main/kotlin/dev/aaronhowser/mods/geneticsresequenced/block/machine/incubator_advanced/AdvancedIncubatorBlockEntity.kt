@@ -206,7 +206,7 @@ class AdvancedIncubatorBlockEntity(
             val incubatorInput = IncubatorRecipeInput(
                 topStack,
                 bottomStack,
-                isHighTemperature
+                isHighTemp = isHighTemperature
             )
 
             val incubatorRecipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, incubatorInput) ?: continue
@@ -262,7 +262,7 @@ class AdvancedIncubatorBlockEntity(
             IncubatorRecipeInput(
                 itemHandler.getStackInSlot(TOP_SLOT_INDEX),
                 itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX),
-                isHighTemperature
+                isHighTemp = isHighTemperature
             ),
             level!!.registryAccess()
         )
@@ -282,7 +282,7 @@ class AdvancedIncubatorBlockEntity(
         )
 
         return bottomStack.any { bottleStack ->
-            val input = IncubatorRecipeInput(topStack, bottleStack, isHighTemperature)
+            val input = IncubatorRecipeInput(topStack, bottleStack, isHighTemp = isHighTemperature)
             AbstractIncubatorRecipe.hasIncubatorRecipe(level!!, input)
         }
     }
