@@ -177,8 +177,8 @@ class GmoRecipe(
             }?.value
         }
 
-        fun getGmoRecipe(level: Level, topStack: ItemStack, bottomStack: ItemStack): GmoRecipe? {
-            return getGmoRecipe(level, IncubatorRecipeInput(topStack, bottomStack))
+        fun getGmoRecipe(level: Level, topStack: ItemStack, bottomStack: ItemStack, isHighTemp: Boolean): GmoRecipe? {
+            return getGmoRecipe(level, IncubatorRecipeInput(topStack, bottomStack, isHighTemp))
         }
 
     }

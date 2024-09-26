@@ -156,7 +156,7 @@ class IncubatorBlockEntity(
         for (slotIndex in bottleSlots) {
             val bottomStack = itemHandler.getStackInSlot(slotIndex)
 
-            val recipeInput = IncubatorRecipeInput(topStack, bottomStack)
+            val recipeInput = IncubatorRecipeInput(topStack, bottomStack, isHighTemp = true)
             val recipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, recipeInput) ?: continue
 
             val output = recipe.assemble(recipeInput, level!!.registryAccess())
@@ -173,17 +173,18 @@ class IncubatorBlockEntity(
     override fun hasRecipe(): Boolean {
         if (!hasEnoughEnergy()) return false
 
-        val topSlotStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
+        val topStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
 
-        val leftBottleStack = itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX)
-        val middleBottleStack = itemHandler.getStackInSlot(MIDDLE_BOTTLE_SLOT_INDEX)
-        val rightBottleStack = itemHandler.getStackInSlot(RIGHT_BOTTLE_SLOT_INDEX)
+        val bottomStacks = listOf(
+            itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX),
+            itemHandler.getStackInSlot(MIDDLE_BOTTLE_SLOT_INDEX),
+            itemHandler.getStackInSlot(RIGHT_BOTTLE_SLOT_INDEX)
+        )
 
-        val leftHasRecipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, topSlotStack, leftBottleStack) != null
-        val middleHasRecipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, topSlotStack, middleBottleStack) != null
-        val rightHasRecipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, topSlotStack, rightBottleStack) != null
-
-        return leftHasRecipe || middleHasRecipe || rightHasRecipe
+        return bottomStacks.any { bottomStack ->
+            val input = IncubatorRecipeInput(topStack, bottomStack, true)
+            AbstractIncubatorRecipe.hasIncubatorRecipe(level!!, input)
+        }
     }
 
     companion object {

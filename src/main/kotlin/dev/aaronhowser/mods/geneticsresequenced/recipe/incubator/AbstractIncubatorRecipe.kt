@@ -42,9 +42,31 @@ abstract class AbstractIncubatorRecipe : Recipe<IncubatorRecipeInput> {
             }?.value
         }
 
-        fun getIncubatorRecipe(level: Level, topStack: ItemStack, bottomStack: ItemStack): AbstractIncubatorRecipe? {
-            return getIncubatorRecipe(level, IncubatorRecipeInput(topStack, bottomStack))
+        fun getIncubatorRecipe(
+            level: Level,
+            topStack: ItemStack,
+            bottomStack: ItemStack,
+            isHighTemp: Boolean
+        ): AbstractIncubatorRecipe? {
+            return getIncubatorRecipe(level, IncubatorRecipeInput(topStack, bottomStack, isHighTemp))
         }
+
+        fun hasIncubatorRecipe(
+            level: Level,
+            incubatorRecipeInput: IncubatorRecipeInput
+        ): Boolean {
+            return getIncubatorRecipe(level, incubatorRecipeInput) != null
+        }
+
+        fun hasIncubatorRecipe(
+            level: Level,
+            topStack: ItemStack,
+            bottomStack: ItemStack,
+            isHighTemp: Boolean
+        ): Boolean {
+            return getIncubatorRecipe(level, topStack, bottomStack, isHighTemp) != null
+        }
+
     }
 
 }

@@ -135,7 +135,12 @@ class AdvancedIncubatorMenu(
 
             val topStack = blockEntity.itemHandler.getStackInSlot(AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX)
 
-            val recipe = GmoRecipe.getGmoRecipe(ClientUtil.localLevel!!, topStack, potionStack) ?: return
+            val recipe = GmoRecipe.getGmoRecipe(
+                ClientUtil.localLevel!!,
+                topStack,
+                potionStack,
+                blockEntity.isHighTemperature   // TODO: See if this works
+            ) ?: return
 
             val chanceDecreasePerOverclocker = ServerConfig.incubatorOverclockerChanceDecrease.get().toFloat()
             val chanceIncreasePerChorus = ServerConfig.incubatorChorusFruitChanceIncrease.get().toFloat()
