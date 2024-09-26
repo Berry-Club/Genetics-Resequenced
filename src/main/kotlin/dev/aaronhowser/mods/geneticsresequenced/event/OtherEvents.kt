@@ -9,7 +9,6 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.AddReloadListenerEvent
 import net.neoforged.neoforge.event.RegisterCommandsEvent
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent
-import net.neoforged.neoforge.event.level.LevelEvent
 
 @EventBusSubscriber(
     modid = GeneticsResequenced.ID
@@ -29,12 +28,6 @@ object OtherEvents {
     @SubscribeEvent
     fun onRegisterBrewingRecipes(event: RegisterBrewingRecipesEvent) {
         BrewingRecipes.setRecipes(event)
-    }
-
-    //This is disgusting
-    @SubscribeEvent
-    fun onLevelLoad(event: LevelEvent.Load) {
-        GeneticsResequenced.registryAccess = event.level.registryAccess()
     }
 
 }

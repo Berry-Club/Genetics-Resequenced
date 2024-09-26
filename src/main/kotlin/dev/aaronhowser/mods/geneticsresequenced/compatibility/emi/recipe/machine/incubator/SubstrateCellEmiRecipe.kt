@@ -3,12 +3,14 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machin
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import dev.emi.emi.api.recipe.EmiRecipeCategory
@@ -47,7 +49,7 @@ class SubstrateCellEmiRecipe(
                 GmoCell.setDetails(
                     gmoCellStack,
                     entityType,
-                    goodGene
+                    goodGene.getHolder(ClientUtil.localRegistryAccess!!)!!
                 )
 
                 recipes.add(SubstrateCellEmiRecipe(gmoCellStack))

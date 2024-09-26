@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRegistries
-import net.minecraft.core.RegistryAccess
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.fml.ModContainer
 import net.neoforged.fml.common.Mod
@@ -23,9 +22,6 @@ class GeneticsResequenced(
     companion object {
         const val ID = "geneticsresequenced"
         val LOGGER: Logger = LogManager.getLogger(ID)
-
-        //FIXME: This is DISGUSTING I HATE IT
-        lateinit var registryAccess: RegistryAccess
     }
 
     init {

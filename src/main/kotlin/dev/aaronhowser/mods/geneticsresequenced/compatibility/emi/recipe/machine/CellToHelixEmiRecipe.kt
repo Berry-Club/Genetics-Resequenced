@@ -51,7 +51,7 @@ class CellToHelixEmiRecipe(
                 GmoCell.setDetails(
                     goodGmoStack,
                     entityType,
-                    goodGeneRk
+                    goodGeneRk.getHolder(ClientUtil.localRegistryAccess!!)!!
                 )
 
                 val goodHelix = ModItems.DNA_HELIX.toStack()
@@ -72,7 +72,7 @@ class CellToHelixEmiRecipe(
                 GmoCell.setDetails(
                     badGmoStack,
                     entityType,
-                    ModGenes.BASIC
+                    ModGenes.BASIC.getHolder(ClientUtil.localRegistryAccess!!)!!
                 )
 
                 val badHelix = ModItems.DNA_HELIX.toStack()
