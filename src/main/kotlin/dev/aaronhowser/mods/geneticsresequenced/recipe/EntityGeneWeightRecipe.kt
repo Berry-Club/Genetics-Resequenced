@@ -124,12 +124,15 @@ class EntityGeneWeightRecipe(
         fun getEntityGeneMap(recipeManager: RecipeManager): MutableMap<EntityType<*>, Map<Holder<Gene>, Int>> {
             if (entityGeneMap.isEmpty()) {
                 for (recipe in getRecipes(recipeManager)) {
+                    val entityGeneWeights = entityGeneMap[recipe.entityType]?.toMutableMap() ?: mutableMapOf()
+
                     val gene = recipe.geneHolder
-                    val currentGeneWeights = entityGeneMap[recipe.entityType] ?: mutableMapOf()
+                    val oldWeightForThisGene = entityGeneWeights[gene] ?: 0
+                    val newWeightForThisGene = oldWeightForThisGene + recipe.weight
 
-                    val newWeight = currentGeneWeights.getOrDefault(recipe.geneHolder, 0) + recipe.weight
+                    entityGeneWeights[gene] = newWeightForThisGene
 
-                    entityGeneMap[recipe.entityType] = mapOf(gene to newWeight)
+                    entityGeneMap[recipe.entityType] = entityGeneWeights
                 }
             }
 
