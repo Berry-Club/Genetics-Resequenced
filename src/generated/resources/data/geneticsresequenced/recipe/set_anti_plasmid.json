@@ -1,4 +1,4 @@
 {
-  "type": "geneticsresequenced:set_anti_plasmid",
+  "type": "geneticsresequenced:anti_plasmid/set",
   "category": "misc"
 }

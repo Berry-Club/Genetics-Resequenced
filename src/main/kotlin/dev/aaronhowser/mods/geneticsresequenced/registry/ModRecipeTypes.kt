@@ -17,10 +17,10 @@ object ModRecipeTypes {
         DeferredRegister.create(BuiltInRegistries.RECIPE_TYPE, GeneticsResequenced.ID)
 
     val SET_ANTI_PLASMID: DeferredHolder<RecipeType<*>, RecipeType<SetAntiPlasmidRecipe>> =
-        registerRecipeType("set_anti_plasmid")
+        registerRecipeType("anti_plasmid/set")
 
     val UNSET_ANTI_PLASMID: DeferredHolder<RecipeType<*>, RecipeType<UnsetAntiPlasmidRecipe>> =
-        registerRecipeType("unset_anti_plasmid")
+        registerRecipeType("anti_plasmid/unset")
 
     val GMO: DeferredHolder<RecipeType<*>, RecipeType<GmoRecipe>> =
         registerRecipeType("incubator/gmo")

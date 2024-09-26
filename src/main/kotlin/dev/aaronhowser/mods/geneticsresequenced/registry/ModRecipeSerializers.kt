@@ -16,10 +16,10 @@ object ModRecipeSerializers {
         DeferredRegister.create(BuiltInRegistries.RECIPE_SERIALIZER, GeneticsResequenced.ID)
 
     val SET_ANTI_PLASMID: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
-        registerRecipeSerializer("set_anti_plasmid") { SimpleCraftingRecipeSerializer { SetAntiPlasmidRecipe() } }
+        registerRecipeSerializer("anti_plasmid/set") { SimpleCraftingRecipeSerializer { SetAntiPlasmidRecipe() } }
 
     val UNSET_ANTI_PLASMID: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
-        registerRecipeSerializer("unset_anti_plasmid") { SimpleCraftingRecipeSerializer { UnsetAntiPlasmidRecipe() } }
+        registerRecipeSerializer("anti_plasmid/unset") { SimpleCraftingRecipeSerializer { UnsetAntiPlasmidRecipe() } }
 
     val GMO: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
         registerRecipeSerializer("incubator/gmo") { GmoRecipe.Serializer() }
