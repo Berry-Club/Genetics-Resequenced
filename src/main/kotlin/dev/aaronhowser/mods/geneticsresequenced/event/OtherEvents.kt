@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
+import dev.aaronhowser.mods.geneticsresequenced.recipe.EntityGeneWeightRecipe
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.AddReloadListenerEvent
@@ -22,7 +23,7 @@ object OtherEvents {
 
     @SubscribeEvent
     fun addReloadListeners(event: AddReloadListenerEvent) {
-        event.addListener(EntityGenes())
+        event.addListener(EntityGeneWeightRecipe.ReloadListener())
     }
 
     @SubscribeEvent

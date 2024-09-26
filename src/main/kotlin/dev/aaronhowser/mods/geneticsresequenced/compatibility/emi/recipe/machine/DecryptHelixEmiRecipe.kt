@@ -2,9 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machin
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
-import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
+import dev.aaronhowser.mods.geneticsresequenced.recipe.EntityGeneWeightRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -31,7 +31,7 @@ class DecryptHelixEmiRecipe(
         fun getAllRecipes(): List<DecryptHelixEmiRecipe> {
             val recipes = mutableListOf<DecryptHelixEmiRecipe>()
 
-            for ((entityType, map) in EntityGenes.getEntityGeneHolderMap(ClientUtil.localRegistryAccess!!)) {
+            for ((entityType, map) in EntityGeneWeightRecipe.getEntityGeneMap(ClientUtil.localLevel!!.recipeManager)) {
                 val totalWeight = map.values.sum()
 
                 for ((geneHolder, weight) in map) {
