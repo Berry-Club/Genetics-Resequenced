@@ -1,0 +1,6 @@
+{
+  "type": "geneticsresequenced:entity_gene_weight",
+  "entity_type": "minecraft:blaze",
+  "gene": "geneticsresequenced:shoot_fireballs",
+  "weight": 3
+}

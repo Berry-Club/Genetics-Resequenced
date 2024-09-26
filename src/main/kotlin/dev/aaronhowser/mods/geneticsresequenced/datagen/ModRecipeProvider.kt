@@ -1,7 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.*
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmidRecipe
@@ -15,6 +17,7 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
 import net.minecraft.data.recipes.*
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.Tags
@@ -23,7 +26,7 @@ import java.util.concurrent.CompletableFuture
 
 class ModRecipeProvider(
     output: PackOutput,
-    lookupProvider: CompletableFuture<HolderLookup.Provider>
+    val lookupProvider: CompletableFuture<HolderLookup.Provider>
 ) : RecipeProvider(output, lookupProvider) {
 
     override fun buildRecipes(pRecipeOutput: RecipeOutput) {
@@ -55,6 +58,10 @@ class ModRecipeProvider(
 
         for (virusRecipe in virusRecipes) {
             virusRecipe.save(pRecipeOutput)
+        }
+
+        for (entityGeneWeightRecipe in entityGeneWeightRecipes.flatten()) {
+            entityGeneWeightRecipe.save(pRecipeOutput)
         }
 
     }
@@ -277,7 +284,6 @@ class ModRecipeProvider(
             OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER),
             "zombify_villager"
         )
-
     )
 
     private val gmoRecipes = listOf(
@@ -419,6 +425,73 @@ class ModRecipeProvider(
         VirusRecipeBuilder(ModGenes.SCARE_ZOMBIES, ModGenes.UN_UNDEATH),
         VirusRecipeBuilder(ModGenes.RESISTANCE, ModGenes.GRAY_DEATH),
         VirusRecipeBuilder(ModGenes.DRAGON_BREATH, ModGenes.WHITE_DEATH)
+    )
+
+    private fun entityGeneWeights(
+        entityType: EntityType<*>,
+        map: Map<ResourceKey<Gene>, Int>
+    ): List<EntityGeneWeightRecipeBuilder> {
+        val recipes = mutableListOf<EntityGeneWeightRecipeBuilder>()
+
+        for ((gene, weight) in map) {
+            recipes.add(EntityGeneWeightRecipeBuilder(entityType, gene.getHolder(lookupProvider.get())!!, weight))
+        }
+
+        return recipes.toList()
+    }
+
+    private val entityGeneWeightRecipes = listOf(
+        entityGeneWeights(EntityType.ALLAY, mapOf(ModGenes.BASIC to 3, ModGenes.ITEM_MAGNET to 5)),
+        entityGeneWeights(EntityType.AXOLOTL, mapOf(ModGenes.BASIC to 2, ModGenes.WATER_BREATHING to 5)),
+        entityGeneWeights(
+            EntityType.BAT,
+            mapOf(ModGenes.BASIC to 4, ModGenes.NIGHT_VISION to 1, ModGenes.MOB_SIGHT to 3)
+        ),
+        entityGeneWeights(EntityType.BEE, mapOf(ModGenes.BASIC to 5, ModGenes.THORNS to 3)),
+        entityGeneWeights(
+            EntityType.BLAZE,
+            mapOf(
+                ModGenes.BASIC to 5,
+                ModGenes.SHOOT_FIREBALLS to 3,
+                ModGenes.FIRE_PROOF to 1,
+                ModGenes.BIOLUMINESCENCE to 3
+            )
+        ),
+        entityGeneWeights(
+            EntityType.BREEZE,
+            mapOf(ModGenes.BASIC to 2, ModGenes.JUMP_BOOST to 5, ModGenes.WIND_CHARGED to 4)
+        ),
+        entityGeneWeights(EntityType.CAT, mapOf(ModGenes.BASIC to 5, ModGenes.SCARE_CREEPERS to 2)),
+        entityGeneWeights(
+            EntityType.CAVE_SPIDER,
+            mapOf(
+                ModGenes.BASIC to 7,
+                ModGenes.NIGHT_VISION to 5,
+                ModGenes.WALL_CLIMBING to 2,
+                ModGenes.POISON_IMMUNITY to 1
+            )
+        ),
+        entityGeneWeights(EntityType.CHICKEN, mapOf(ModGenes.BASIC to 5, ModGenes.NO_FALL_DAMAGE to 1, ModGenes.LAY_EGG to 4)),
+        entityGeneWeights(EntityType.COD, mapOf(ModGenes.BASIC to 5, ModGenes.WATER_BREATHING to 2)),
+        entityGeneWeights(EntityType.COW, mapOf(ModGenes.BASIC to 5, ModGenes.EAT_GRASS to 3, ModGenes.MILKY to 4)),
+        entityGeneWeights(EntityType.CREEPER, mapOf(ModGenes.BASIC to 5, ModGenes.EXPLOSIVE_EXIT to 3)),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
+//        entityGeneWeights(EntityType., mapOf()),
     )
 
 }
