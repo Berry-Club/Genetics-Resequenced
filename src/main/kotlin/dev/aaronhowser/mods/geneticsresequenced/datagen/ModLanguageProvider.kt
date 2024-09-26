@@ -540,6 +540,7 @@ class ModLanguageProvider(
         add(EMI.DNA_DECRYPTOR, "DNA Decryptor")
         add(EMI.PLASMID_INFUSER, "Plasmid Infuser")
         add(EMI.PLASMID_INJECTOR, "Plasmid Injector")
+        add(EMI.INCUBATOR, "Incubator")
         add(EMI.GMO, "GMO Cell Incubating")
         add(EMI.SET_ENTITY, "Set Potion Entity")
         add(EMI.SUBSTRATE_DUPE, "Substrate Cell Duplication")

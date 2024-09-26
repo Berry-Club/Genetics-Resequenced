@@ -80,6 +80,7 @@
   "emi.category.geneticsresequenced.dna_decryptor": "DNA Decryptor",
   "emi.category.geneticsresequenced.dna_extractor": "DNA Extractor",
   "emi.category.geneticsresequenced.gmo": "GMO Cell Incubating",
+  "emi.category.geneticsresequenced.incubator": "Incubator",
   "emi.category.geneticsresequenced.plasmid_infuser": "Plasmid Infuser",
   "emi.category.geneticsresequenced.plasmid_injector": "Plasmid Injector",
   "emi.category.geneticsresequenced.set_entity": "Set Potion Entity",
