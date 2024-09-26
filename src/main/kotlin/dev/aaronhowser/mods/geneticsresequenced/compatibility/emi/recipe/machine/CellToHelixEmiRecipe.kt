@@ -1,15 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
-import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.recipe.EmiRecipe
 import dev.emi.emi.api.recipe.EmiRecipeCategory
@@ -56,7 +55,7 @@ class CellToHelixEmiRecipe(
                 )
 
                 val goodHelix = ModItems.DNA_HELIX.toStack()
-                DnaHelixItem.setGeneHolder(goodHelix, goodGeneRk.getHolder(GeneticsResequenced.registryAccess)!!)
+                DnaHelixItem.setGeneHolder(goodHelix, goodGeneRk.getHolder(ClientUtil.localRegistryAccess!!)!!)
 
                 recipes.add(CellToHelixEmiRecipe(goodGmoStack, goodHelix))
 
@@ -77,7 +76,7 @@ class CellToHelixEmiRecipe(
                 )
 
                 val badHelix = ModItems.DNA_HELIX.toStack()
-                DnaHelixItem.setBasic(badHelix, GeneticsResequenced.registryAccess)
+                DnaHelixItem.setBasic(badHelix, ClientUtil.localRegistryAccess!!)
 
                 recipes.add(CellToHelixEmiRecipe(badGmoStack, badHelix))
             }

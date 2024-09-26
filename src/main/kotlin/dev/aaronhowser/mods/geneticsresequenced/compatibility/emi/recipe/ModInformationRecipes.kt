@@ -13,6 +13,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Comp
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.recipe.EmiInfoRecipe
 import dev.emi.emi.api.stack.EmiIngredient
@@ -53,7 +54,7 @@ object ModInformationRecipes {
             components.add(geneDesc)
 
             val requiredGeneHolders =
-                geneHolder.value().getRequiredGeneHolders(GeneticsResequenced.registryAccess)
+                geneHolder.value().getRequiredGeneHolders(ClientUtil.localRegistryAccess!!)
             if (requiredGeneHolders.isNotEmpty()) {
                 components.add(Component.literal("\n"))
                 components.add(

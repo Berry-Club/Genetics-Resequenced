@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.incubator
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
@@ -8,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.VirusRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.recipe.EmiRecipeCategory
 import dev.emi.emi.api.stack.EmiIngredient
@@ -45,11 +45,11 @@ class VirusEmiRecipe(
 
     init {
         val helixStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGeneHolder(helixStack, inputDnaGeneRk.getHolder(GeneticsResequenced.registryAccess)!!)
+        DnaHelixItem.setGeneHolder(helixStack, inputDnaGeneRk.getHolder(ClientUtil.localRegistryAccess!!)!!)
         ingredient = EmiIngredient.of(Ingredient.of(helixStack))
 
         val outputStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGeneHolder(outputStack, outputGeneRk.getHolder(GeneticsResequenced.registryAccess)!!)
+        DnaHelixItem.setGeneHolder(outputStack, outputGeneRk.getHolder(ClientUtil.localRegistryAccess!!)!!)
         output = EmiStack.of(outputStack)
     }
 

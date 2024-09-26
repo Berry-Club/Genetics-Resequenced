@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
@@ -64,7 +63,7 @@ class PlasmidInfuserEmiRecipe(
 
         DnaHelixItem.setGeneHolder(
             helixStack, if (basic) {
-                ModGenes.BASIC.getHolder(GeneticsResequenced.registryAccess)!!
+                ModGenes.BASIC.getHolder(ClientUtil.localRegistryAccess!!)!!
             } else {
                 geneHolder
             }
