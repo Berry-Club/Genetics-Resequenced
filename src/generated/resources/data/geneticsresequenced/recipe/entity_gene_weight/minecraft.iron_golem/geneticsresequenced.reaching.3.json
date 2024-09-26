@@ -1,6 +1,0 @@
-{
-  "type": "geneticsresequenced:entity_gene_weight",
-  "entity_type": "minecraft:iron_golem",
-  "gene": "geneticsresequenced:reaching",
-  "weight": 3
-}

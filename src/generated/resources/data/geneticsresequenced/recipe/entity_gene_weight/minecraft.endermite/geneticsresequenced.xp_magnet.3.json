@@ -1,6 +1,0 @@
-{
-  "type": "geneticsresequenced:entity_gene_weight",
-  "entity_type": "minecraft:endermite",
-  "gene": "geneticsresequenced:xp_magnet",
-  "weight": 3
-}

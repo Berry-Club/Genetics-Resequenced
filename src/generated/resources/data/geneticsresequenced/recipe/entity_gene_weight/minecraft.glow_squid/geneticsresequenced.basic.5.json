@@ -1,6 +1,0 @@
-{
-  "type": "geneticsresequenced:entity_gene_weight",
-  "entity_type": "minecraft:glow_squid",
-  "gene": "geneticsresequenced:basic",
-  "weight": 5
-}
