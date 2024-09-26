@@ -47,7 +47,9 @@ class BlackDeathRecipe private constructor() : AbstractIncubatorRecipe() {
         if (!SyringeItem.hasBlood(syringeStack) || SyringeItem.isContaminated(syringeStack)) return false
 
         val syringeGenes = SyringeItem.getGenes(syringeStack)
-        return syringeGenes == getRequiredGenes(level.registryAccess())
+        val requiredGenes = getRequiredGenes(level.registryAccess())
+
+        return syringeGenes.containsAll(requiredGenes)
     }
 
     override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
