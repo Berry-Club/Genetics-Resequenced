@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.recipe.EntityGeneWeightRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.*
@@ -40,9 +39,6 @@ object ModRecipeTypes {
 
     val BASIC_INCUBATOR: DeferredHolder<RecipeType<*>, RecipeType<BasicIncubatorRecipe>> =
         registerRecipeType("incubator/basic")
-
-    val ENTITY_GENE_WEIGHT: DeferredHolder<RecipeType<*>, RecipeType<EntityGeneWeightRecipe>> =
-        registerRecipeType("entity_gene_weight")
 
     private fun <T : Recipe<*>> registerRecipeType(
         name: String
