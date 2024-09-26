@@ -7,15 +7,14 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidde
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isMutation
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.recipe.EntityGeneWeightRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import dev.emi.emi.api.EmiRegistry
 import dev.emi.emi.api.recipe.EmiInfoRecipe
 import dev.emi.emi.api.stack.EmiIngredient
 import net.minecraft.ChatFormatting
@@ -26,18 +25,17 @@ import net.minecraft.network.chat.MutableComponent
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.SpawnEggItem
 import net.minecraft.world.item.crafting.Ingredient
-import net.minecraft.world.item.crafting.RecipeManager
 
 object ModInformationRecipes {
 
-    fun registerInformationRecipes(emiRegistry: EmiRegistry) {
+    fun registerInformationRecipes(registries: EmiRegistry) {
         val recipes =
             organicMatter() +
                     geneDescriptions(ClientUtil.localRegistryAccess!!) +
-                    mobGenes(emiRegistry.recipeManager)
+                    mobGenes(ClientUtil.localRegistryAccess!!)
 
         for (infoRecipe in recipes) {
-            emiRegistry.addRecipe(infoRecipe)
+            registries.addRecipe(infoRecipe)
         }
     }
 
@@ -130,11 +128,11 @@ object ModInformationRecipes {
         return recipes
     }
 
-    private fun mobGenes(recipeManager: RecipeManager): List<EmiInfoRecipe> {
+    private fun mobGenes(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
         val recipes = mutableListOf<EmiInfoRecipe>()
 
         val allEntityGeneHolderPairs: Map<EntityType<*>, Map<Holder<Gene>, Int>> =
-            EntityGeneWeightRecipe.getEntityGeneMap(recipeManager)
+            EntityGenes.getEntityGeneHolderMap(registries)
 
         for ((entityType, geneWeights) in allEntityGeneHolderPairs) {
             val informationTextComponent =
