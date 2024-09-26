@@ -47,6 +47,7 @@ class EntityGeneWeightRecipeBuilder(
             .append(BuiltInRegistries.ENTITY_TYPE.getKey(entityType).toString().replace(":", "."))
             .append("/")
             .append(geneHolder.key!!.location().toString().replace(":", "."))
+            .append(".$weight")
 
         val id = OtherUtil.modResource(stringBuilder.toString())
 
