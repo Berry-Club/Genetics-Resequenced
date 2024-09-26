@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:incubator/panacea"
+        "recipe": "geneticsresequenced:incubator/basic/zombify_villager"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:incubator/panacea"
+      "geneticsresequenced:incubator/basic/zombify_villager"
     ]
   }
 }

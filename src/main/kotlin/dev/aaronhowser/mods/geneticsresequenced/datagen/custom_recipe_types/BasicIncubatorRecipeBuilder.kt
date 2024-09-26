@@ -39,7 +39,7 @@ class BasicIncubatorRecipeBuilder(
         val idString = StringBuilder()
 
         idString
-            .append("incubator/")
+            .append("incubator/basic/")
             .append(recipeName ?: defaultId.path)
 
         val id = OtherUtil.modResource(idString.toString())

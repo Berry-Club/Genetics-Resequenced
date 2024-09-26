@@ -194,15 +194,15 @@
 - Incubator recipes are no longer actually Brewing recipes, and can therefore no longer be used in a Brewing Stand
     - Consequently, you can now make custom recipes that use the Incubator! See `/data/geneticsresequeced/recipe/incubator/`
     - There are 3 types (technically 5, but 2 of them are hardcoded with no parameters):
-        - `geneticsresequenced:incubator`
+        - `geneticsresequenced:incubator_basic`
           - Takes two ingredients `top_slot` and `bottom_slot`, and an output itemstack `output`
-        - `geneticsresequenced:gmo`
+        - `geneticsresequenced:incubator_gmo`
             - Requires `entity_type` that the Cell Growth or Mutation Potion must be set to
             - Requires `ingredient` for the item in the top slot
             - Requires `ideal_gene` for the Gene that a successful Cell will have
             - Optionally can have `gene_chance`, which is a number 0-1 for the chance of getting the Gene (giving Basic if it fails). Defaults to 1.
             - Optionally can have `is_mutation` which makes a GM Cell and requires low temperature. Defaults to false.
-        - `geneticsresequenced:virus`
+        - `geneticsresequenced:incubator_virus`
             - Takes in an input Gene and an output Gene, and makes a recipe that converts when crafted with Viral Agents
 - Support Slime Spawn Eggs have been added to the Spawn Eggs creative tab
 - The Plasmid Injector EMI recipe page now says in the tooltip that you can have multiple Genes/Antigenes in the same Syringe
