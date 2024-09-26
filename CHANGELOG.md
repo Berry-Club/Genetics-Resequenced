@@ -1,8 +1,4 @@
-# Changelog
-
-## 1.21
-
-### 1.1.0
+# 1.1.0
 
 - Updated to 1.21
 - Genes are now an actual Registry
@@ -45,7 +41,7 @@
 - Improved messages for Genes on cooldown
 - Scare Genes now have a longer distance, and scared mobs run away with more speed
 
-### 1.1.1
+# 1.1.1
 
 - Updated to NeoForge 21.0.53-beta
 - Added EMI support
@@ -55,38 +51,38 @@
 - Fixed a typo in a tooltip
 - Forgot the missing : in several places in the mod name
 
-### 1.1.2
+# 1.1.2
 
 - Added loot tables for all the blocks, now they should actually drop themselves!
 
-### 1.1.3
+# 1.1.3
 
 - Updated NeoForge to 21.0.87-beta
 - Updated Kotlin for Forge to 5.4.0
 - Fixed error spam on server close
 
-### 1.1.4
+# 1.1.4
 
 - Fix issues with JEI
 
-### 1.1.5
+# 1.1.5
 
 - Blocks are no longer instamine
 - Blocks now require an Iron Pickaxe to mine
 - Fixed chat spam from Lay Egg Gene, possibly others
 
-### 1.1.6
+# 1.1.6
 
 - Update to NeoForge 21.0.113-beta
 - Improvements to Infinity Gene. Turns out most of the code wasn't actually reachable, and also was pointless besides. Much simpler now. Also, fixed picking up fired arrows (#13)
 - Added support for NeoForge mod config menu
 - Rearranged configs
 
-### 1.1.7
+# 1.1.7
 
 - Fixed crash on servers
 
-### 1.1.8
+# 1.1.8
 
 - Update to NeoForge 21.0.140-beta
 - Fixed crash from trying to scrape invalid entities
@@ -98,7 +94,7 @@
 - Cells are no longer separated as far as EMI goes, so looking at any Cell will show all Cells
 - Mob Spawn Eggs now have the EMI info recipes for what genes they have
 
-### 1.1.9
+# 1.1.9
 
 - Fixed the Potion of Cell Growth recipe setting the entity when it shouldn't (#14)
 - Support Slimes now have a 100% chance to give the Slimy Death Gene. The file previously pointed at the entity `minecraft:slime` rather than `geneticsresequenced:support_slime`
@@ -106,7 +102,7 @@
 - Removed the reference to the Patchouli book from the first advancement, as Patchouli isn't on 1.21 yet
 - Moved to better practices (using less lazy values, mostly)
 
-### 1.1.10
+# 1.1.10
 
 - Update to NeoForge 21.1.4
 - Fixed the Scraper not working on the Ender Dragon (#15)
@@ -120,7 +116,7 @@
 - All machine menu progress arrows now show the percentage completion in the tooltip
 - Fixed Scrapers being unable to be enchanted (#16)
 
-### 1.2.0
+# 1.2.0
 
 - Support for Modonomicon!
 - You can now dupe Genetically Modified Cells using Organic Substrate
@@ -135,12 +131,12 @@
 - The Patchouli book is now in the creative tab
 - Fixed the Blood Purifier page in the Patchouli book having the Plasmid Injector instead
 
-### 1.2.1
+# 1.2.1
 
 - Added a recipe for the Modonomicon book
 - Added a recipe for the Patchouli book
 
-### 1.2.2
+# 1.2.2
 
 - Updated to Minecraft 1.21.1
 - Updated to NeoForge 21.1.42
@@ -152,16 +148,18 @@
 - Fixed decrypted DNA Helices being able to be put through the DNA Decryptor
 - Added the failed Basic Gene GM Cells to EMI's GMO Cell Incubating recipe page
 
-### 1.2.3
+# 1.2.3
 
 - Added the Metal Syringe to the Syringe book entry
 - Fixed some weird phrasing in the Potion of Mutation entry
 - Major overhaul of the GMO Cell Incubating EMI recipe page
 - Fixed the Advanced Incubator screen bubbles not animating slower in low-temperature mode
 
-### 1.3.0
+# 1.3.0
 
-- Genes are now data-driven! They're in /data/_____/geneticsresequenced/gene/
+## Data
+
+- Genes are now data-driven! They're in `/data/_____/geneticsresequenced/gene/`
 - They follow the following structure, all fields are optional:
     - `dna_points_required`: The amount of DNA Points required to complete a Plasmid. Defaults to 0
     - `negative`: If the Gene is negative. Defaults to false
@@ -182,21 +180,12 @@
         - `amount`: The amount to modify the attribute by
     - `requires_genes`: A list of Resource Location IDs for Genes that are required to have this Gene
     - `scares_entities_with_tag`: An entity type tag that the Gene will scare
-- Genes requiring other Genes is now handled in the Gene's json, rather than a file in /gene_requirements/
-- Changed some default Gene requirements:
-  - Flight no longer requires Jump Boost, but now requires Step Assist
-  - Photosynthesis now requires Eat Grass
-  - Scare Spiders and Scare Zombies are no longer Mutation genes, and don't require Scare Creepers or Scare Skeletons
-- Disabling Genes now uses the Gene tag `#geneticsresequenced:disabled`
-- Fixed an issue where the Photosynthesis Gene would stop working when enabled instead of when not enabled
-- Added Reaching Gene, which allows you to reach 1.25 times further
-- Fixed an issue where Genes that require 1 DNA Point would show as requiring 0 DNA Helices instead of 1 in EMI
 - Incubator recipes are no longer actually Brewing recipes, and can therefore no longer be used in a Brewing Stand
     - Consequently, you can now make custom recipes that use the Incubator! See `/data/geneticsresequeced/recipe/incubator/`
     - There are 3 types (technically 5, but 2 of them are hardcoded with no parameters):
         - `geneticsresequenced:incubator_basic`
-          - Requires two ingredients `top_slot` and `bottom_slot`, and an output itemstack `output`
-          - Optionally can have `is_low_temperature`, which makes it require low temperature. Defaults to false, making it require high temperature
+            - Requires two ingredients `top_slot` and `bottom_slot`, and an output itemstack `output`
+            - Optionally can have `is_low_temperature`, which makes it require low temperature. Defaults to false, making it require high temperature
         - `geneticsresequenced:incubator_gmo`
             - Requires `entity_type` that the Cell Growth or Mutation Potion must be set to
             - Requires `ingredient` for the item in the top slot
@@ -205,10 +194,26 @@
             - Optionally can have `needs_mutation_potion` which makes it require a Potion of Mutation instead of a Potion of Cell Growth. Defaults to false.
         - `geneticsresequenced:incubator_virus`
             - Takes in an input Gene and an output Gene, and makes a recipe that converts when crafted with Viral Agents
-- Support Slime Spawn Eggs have been added to the Spawn Eggs creative tab
-- The Plasmid Injector EMI recipe page now says in the tooltip that you can have multiple Genes/Antigenes in the same Syringe
-- Fixed an issue in the coloring of Anti-Plasmid tooltips
-- Removed the potion outlines from the Incubator background slots
-- Updated Incubator EMI recipe pages
-- Removed a rather large unused texture that was taking up space
+- Disabling Genes now uses the Gene tag `#geneticsresequenced:disabled`
+- Genes requiring other Genes is now handled in the Gene's definition json, rather than a file in /gene_requirements/
+- Changed some default Gene requirements:
+    - Flight no longer requires Jump Boost, but now requires Step Assist
+    - Photosynthesis now requires Eat Grass
+    - Scare Spiders and Scare Zombies are no longer Mutation genes, and don't require Scare Creepers or Scare Skeletons
 - Added the following entity types to `geneticsresequenced:allows_preventing_interaction`: Horse, Donkey, Mule, Llama, Trader Llama
+
+## Additions / Changes
+
+- Added Reaching Gene, which allows you to reach 1.25 times further
+- Support Slime Spawn Eggs have been added to the Spawn Eggs creative tab
+- Removed the potion outlines from the Incubator background slots
+- The Plasmid Injector EMI recipe page now says in the tooltip that you can have multiple Genes/Antigenes in the same Syringe
+- Updated Incubator EMI recipe pages
+
+## Fixes
+
+- Fixed an issue where the Photosynthesis Gene would stop working when enabled instead of when not enabled
+- Fixed an issue in the coloring of Anti-Plasmid tooltips
+- Fixed an issue where Genes that require 1 DNA Point would show as requiring 0 DNA Helices instead of 1 in EMI
+- Removed a rather large unused texture that was taking up space
+
