@@ -174,6 +174,7 @@ class IncubatorBlockEntity(
         if (!hasEnoughEnergy()) return false
 
         val topStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
+        if (topStack.isEmpty) return false
 
         val bottomStacks = listOf(
             itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX),
@@ -182,6 +183,8 @@ class IncubatorBlockEntity(
         )
 
         return bottomStacks.any { bottomStack ->
+            if (bottomStack.isEmpty) return@any false
+
             val input = IncubatorRecipeInput(topStack, bottomStack, isHighTemp = true)
             AbstractIncubatorRecipe.hasIncubatorRecipe(level!!, input)
         }
