@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.recipe.EntityGeneWeightRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.*
@@ -38,6 +39,9 @@ object ModRecipeSerializers {
 
     val BASIC_INCUBATOR: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
         registerRecipeSerializer("incubator/basic") { BasicIncubatorRecipe.Serializer() }
+
+    val ENTITY_GENE_WEIGHT =
+        registerRecipeSerializer("entity_gene_weight") { EntityGeneWeightRecipe.Serializer() }
 
     private fun registerRecipeSerializer(
         name: String,
