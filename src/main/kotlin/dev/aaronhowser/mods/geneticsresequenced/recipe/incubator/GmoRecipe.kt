@@ -32,13 +32,13 @@ import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class GmoRecipe(
     val entityType: EntityType<*>,
-    val ingredient: Ingredient,
+    val topSlotIngredient: Ingredient,
     val idealGeneRk: ResourceKey<Gene>,
     val geneChance: Float,
     val needsMutationPotion: Boolean,
 ) : AbstractIncubatorRecipe() {
 
-    private val potionIngredient: Ingredient
+    private val bottomSlotIngredient: Ingredient
 
     init {
         val potionStack = OtherUtil.getPotionStack(
@@ -47,21 +47,21 @@ class GmoRecipe(
 
         EntityDnaItem.setEntityType(potionStack, entityType)
 
-        potionIngredient = DataComponentIngredient.of(
+        bottomSlotIngredient = DataComponentIngredient.of(
             false,
             potionStack
         )
     }
 
-    override val ingredients: List<Ingredient> = listOf(ingredient, potionIngredient)
+    override val ingredients: List<Ingredient> = listOf(topSlotIngredient, bottomSlotIngredient)
 
     override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
-        val ingredientStack = input.getTopItem()
-        val potionStack = input.getBottomItem()
+        val topSlotStack = input.getTopItem()
+        val bottomSlotStack = input.getBottomItem()
 
         if (input.isHighTemp) return false
-        if (!ingredient.test(ingredientStack)) return false
-        if (!potionIngredient.test(potionStack)) return false
+        if (!topSlotIngredient.test(topSlotStack)) return false
+        if (!bottomSlotIngredient.test(bottomSlotStack)) return false
 
         return true //TODO: Make sure it actually detects the entity type too
     }
@@ -120,7 +120,7 @@ class GmoRecipe(
                             .forGetter(GmoRecipe::entityType),
                         Ingredient.CODEC_NONEMPTY
                             .fieldOf("ingredient")
-                            .forGetter(GmoRecipe::ingredient),
+                            .forGetter(GmoRecipe::topSlotIngredient),
                         ResourceKey.codec(GeneRegistry.GENE_REGISTRY_KEY)
                             .fieldOf("ideal_gene")
                             .forGetter(GmoRecipe::idealGeneRk),
@@ -136,7 +136,7 @@ class GmoRecipe(
             val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, GmoRecipe> =
                 StreamCodec.composite(
                     ByteBufCodecs.registry(Registries.ENTITY_TYPE), GmoRecipe::entityType,
-                    Ingredient.CONTENTS_STREAM_CODEC, GmoRecipe::ingredient,
+                    Ingredient.CONTENTS_STREAM_CODEC, GmoRecipe::topSlotIngredient,
                     ResourceKey.streamCodec(GeneRegistry.GENE_REGISTRY_KEY), GmoRecipe::idealGeneRk,
                     ByteBufCodecs.FLOAT, GmoRecipe::geneChance,
                     ByteBufCodecs.BOOL, GmoRecipe::needsMutationPotion,

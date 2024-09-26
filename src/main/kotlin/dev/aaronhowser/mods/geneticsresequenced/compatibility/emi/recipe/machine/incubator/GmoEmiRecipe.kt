@@ -44,7 +44,7 @@ class GmoEmiRecipe(
             return allRegularGmoRecipes.map {
                 GmoEmiRecipe(
                     it.value.entityType,
-                    it.value.ingredient,
+                    it.value.topSlotIngredient,
                     it.value.idealGeneRk,
                     it.value.geneChance,
                     it.value.needsMutationPotion
