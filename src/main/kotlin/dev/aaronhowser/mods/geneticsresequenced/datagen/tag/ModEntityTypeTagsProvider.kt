@@ -65,7 +65,12 @@ class ModEntityTypeTagsProvider(
         this.tag(ALLOWS_PREVENTING_INTERACTION)
             .add(
                 EntityType.VILLAGER,
-                EntityType.WANDERING_TRADER
+                EntityType.WANDERING_TRADER,
+                EntityType.HORSE,
+                EntityType.DONKEY,
+                EntityType.MULE,
+                EntityType.LLAMA,
+                EntityType.TRADER_LLAMA
             )
 
     }

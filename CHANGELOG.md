@@ -6,31 +6,26 @@
 
 - Updated to 1.21
 - Genes are now an actual Registry
-- Fixed Incubator and Advanced Incubator from not working (hasRecipe() returned false when hasEnoughEnergy was true
-  rather than when false)
+- Fixed Incubator and Advanced Incubator from not working (hasRecipe() returned false when hasEnoughEnergy was true rather than when false)
 - Fixed the Black Death recipe being broken
 - Item Magnet will show in the tooltip that an item is blacklisted (configurable)
 - Properly sync the player's Genes on client and server on login
 - Allowed the Gene Add/Remove commands to use the gene name string instead of the id Resource Location
 - The Keep Inventory Gene now uses Data Attachment, which means it persists across server stops
-- Efficiency Attribute now uses modifiers instead of modifying the attribute base value. No idea why I was doing that
-  originally, that's awful.
+- Efficiency Attribute now uses modifiers instead of modifying the attribute base value. No idea why I was doing that originally, that's awful.
 - The Flight gene now is an Attribute, rather than changing the player's ability to fly. Fixes #10
 - Wall Climbing is no longer an Attribute (Why was it? What was I thinking?)
 - The non-empty DNA Helices and Plasmids in the creative mode tab are now after everything else
 - Attribute Modifiers given by Genes are now kept on respawn
 - Changed the machines' energy texture to one made by TJKraft
-- Support Slime now only checks if it should despawn once every 40 ticks rather than every tick, which should improve
-  performance.
+- Support Slime now only checks if it should despawn once every 40 ticks rather than every tick, which should improve performance.
 - Emerald Heart chat function only worked if Emerald Heart was DISABLED, instead of ENABLED. Fixed that.
 - Improved command response messages, for example "Added Claws to Dev" instead of "Added Claws to 1 entities".
 - Item Magnet now has a delay against picking up items dropped by you
 - Increased the amount of Support Slimes spawned from 1-4 to 3-6
-- Poison Proof Gene now uses the new NeoForge Poison damage, rather than checking for magic damage while you have poison
-  effect
+- Poison Proof Gene now uses the new NeoForge Poison damage, rather than checking for magic damage while you have poison effect
 - Renamed The Cure to Panacea
-- The Coal Generator now allows extracting items from any side (in case of fuels like Lava Buckets, which leave an empty
-  Bucket behind)
+- The Coal Generator now allows extracting items from any side (in case of fuels like Lava Buckets, which leave an empty Bucket behind)
 - Machines now keep their progress if they run out of power
 - MobGeneRegistry and GeneRequirementRegistry loggers are now debug instead of info
 - The bubbles in the Incubator and Advanced Incubator now animate slower
@@ -55,8 +50,7 @@
 - Updated to NeoForge 21.0.53-beta
 - Added EMI support
 - Added 4 new Genes: Infested, Oozing, Weaving, and Wind Charged
-- Fixed a recipe conflict between Panacea and Zombify Villager potions, Panacea now requires a Regeneration Helix rather
-  than Emerald Heart
+- Fixed a recipe conflict between Panacea and Zombify Villager potions, Panacea now requires a Regeneration Helix rather than Emerald Heart
 - Sorted Genes in several places (Sorted firstly by regular/mutation/negative, then by id)
 - Fixed a typo in a tooltip
 - Forgot the missing : in several places in the mod name
@@ -84,8 +78,7 @@
 ### 1.1.6
 
 - Update to NeoForge 21.0.113-beta
-- Improvements to Infinity Gene. Turns out most of the code wasn't actually reachable, and also was pointless besides.
-  Much simpler now. Also, fixed picking up fired arrows (#13)
+- Improvements to Infinity Gene. Turns out most of the code wasn't actually reachable, and also was pointless besides. Much simpler now. Also, fixed picking up fired arrows (#13)
 - Added support for NeoForge mod config menu
 - Rearranged configs
 
@@ -97,8 +90,7 @@
 
 - Update to NeoForge 21.0.140-beta
 - Fixed crash from trying to scrape invalid entities
-- Made every machine GUI 6 pixels taller, with all elements being 6 pixels lower, to prevent the machine name clipping
-  through the energy bar
+- Made every machine GUI 6 pixels taller, with all elements being 6 pixels lower, to prevent the machine name clipping through the energy bar
 - Fixed the FE bar filling from top to bottom, rather than bottom to top
 - Fixed the Coal Generator's burn progress rendering incorrectly
 - Fixed the progress arrows in the Incubator and Advanced Incubator rendering incorrectly
@@ -109,8 +101,7 @@
 ### 1.1.9
 
 - Fixed the Potion of Cell Growth recipe setting the entity when it shouldn't (#14)
-- Support Slimes now have a 100% chance to give the Slimy Death Gene. The file previously pointed at the
-  entity `minecraft:slime` rather than `geneticsresequenced:support_slime`
+- Support Slimes now have a 100% chance to give the Slimy Death Gene. The file previously pointed at the entity `minecraft:slime` rather than `geneticsresequenced:support_slime`
 - Localized tags for EMI
 - Removed the reference to the Patchouli book from the first advancement, as Patchouli isn't on 1.21 yet
 - Moved to better practices (using less lazy values, mostly)
@@ -123,11 +114,9 @@
 - Fixed the Incubator not being able to output
 - Fixed the Plasmid Infuser giving +1 DNA Point for Helices of the same Gene rather than +2 (#18)
 - Fixed the Advanced Incubator ignoring Chorus Fruit (#17)
-- In the Plasmid Infuser, the initial DNA Helix infused into an empty Plasmid does not give it any DNA Points,
-  previously it gave +1
+- In the Plasmid Infuser, the initial DNA Helix infused into an empty Plasmid does not give it any DNA Points, previously it gave +1
 - The GMO chance increase/decrease per Overclocker and Chorus Fruit is now configurable
-- Massively improved the code for most Screens, moving a lot of things to Widgets rather than reimplementing them every
-  Screen
+- Massively improved the code for most Screens, moving a lot of things to Widgets rather than reimplementing them every Screen
 - All machine menu progress arrows now show the percentage completion in the tooltip
 - Fixed Scrapers being unable to be enchanted (#16)
 
@@ -138,11 +127,9 @@
 - Fixed Genetically Modified Cells not having EMI recipe pages for turning into DNA Helices (#23)
 - GMO Recipes will have their logic printed in the tooltip of the Potion of Cell Growth in the Advanced Incubator
 - The Scare Genes can now be given to entities
-- The Scare Genes now apply based on an entity's tags (#geneticsresequenced:avoids_scare_creeper_gene etc) rather than
-  based on their class (is or extends Creeper etc)
+- The Scare Genes now apply based on an entity's tags (#geneticsresequenced:avoids_scare_creeper_gene etc) rather than based on their class (is or extends Creeper etc)
 - Reimplemented Curios support for the Keep Inventory gene (#20)
-- If the items given by the Keep Inventory Gene don't fit in your inventory, they're dropped at your feet instead of
-  being tossed from your camera
+- If the items given by the Keep Inventory Gene don't fit in your inventory, they're dropped at your feet instead of being tossed from your camera
 - Updated Patchouli support to use item components rather than NBT
 - Updated the Patchouli book to reflect changes since 1.19
 - The Patchouli book is now in the creative tab
@@ -159,9 +146,7 @@
 - Updated to NeoForge 21.1.42
 - Added a recipe for the Metal Syringe
 - Moved most recipes to use item tags where possible
-- Made it so you can use the Metal Syringe and Scraper on Villagers without opening their menu (if the item
-  is `#geneticsresequenced:prevents_some_mob_interaction` and the entity type
-  is `#geneticsresequenced:allows_preventing_interaction`)
+- Made it so you can use the Metal Syringe and Scraper on Villagers without opening their menu (if the item is `#geneticsresequenced:prevents_some_mob_interaction` and the entity type is `#geneticsresequenced:allows_preventing_interaction`)
 - Fixed the Metal Syringe telling you that the wrong Genes can't be injected into mobs (it was displaying negative
   genes, rather than filtering against Gene.canMobsHave)
 - Fixed decrypted DNA Helices being able to be put through the DNA Decryptor
@@ -218,3 +203,4 @@
 - Removed the potion outlines from the Incubator background slots
 - Updated Incubator EMI recipe pages
 - Removed a rather large unused texture that was taking up space
+- Added the following entity types to `geneticsresequenced:allows_preventing_interaction`: Horse, Donkey, Mule, Llama, Trader Llama
