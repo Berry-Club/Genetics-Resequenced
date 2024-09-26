@@ -59,6 +59,7 @@ class GmoRecipe(
         val ingredientStack = input.getTopItem()
         val potionStack = input.getBottomItem()
 
+        if (isMutation != input.isLowTemp) return false
         if (!ingredient.test(ingredientStack)) return false
         if (!potionIngredient.test(potionStack)) return false
 
