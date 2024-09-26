@@ -193,7 +193,9 @@
 - Fixed an issue where Genes that require 1 DNA Point would show as requiring 0 DNA Helices instead of 1 in EMI
 - Incubator recipes are no longer actually Brewing recipes, and can therefore no longer be used in a Brewing Stand
     - Consequently, you can now make custom recipes that use the Incubator! See `/data/geneticsresequeced/recipe/incubator/`
-    - There are 2 types (technically 4, but 2 of them are hardcoded with no parameters): 
+    - There are 3 types (technically 5, but 2 of them are hardcoded with no parameters):
+        - `geneticsresequenced:incubator`
+          - Takes two ingredients `top_slot` and `bottom_slot`, and an output stack `output`
         - `geneticsresequenced:gmo`
             - Takes in Cell's entity type, an item to combine it with, the Gene it wants to make, and the chance of success.
             - Optionally can have `"is_mutation": true` which makes a GM Cell and requires low temperature.
