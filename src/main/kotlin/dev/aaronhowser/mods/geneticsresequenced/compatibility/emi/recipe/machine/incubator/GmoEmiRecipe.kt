@@ -8,7 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.GmoRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil

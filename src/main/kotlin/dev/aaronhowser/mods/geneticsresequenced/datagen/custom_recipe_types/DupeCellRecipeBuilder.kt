@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types
 
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.DupeCellRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.DupeCellRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.advancements.AdvancementRequirements

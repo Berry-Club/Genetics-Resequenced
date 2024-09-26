@@ -8,7 +8,7 @@ import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.item.crafting.RecipeManager
 import net.minecraft.world.level.Level
 
-abstract class IncubatorRecipe : Recipe<IncubatorRecipeInput> {
+abstract class AbstractIncubatorRecipe : Recipe<IncubatorRecipeInput> {
     override fun canCraftInDimensions(p0: Int, p1: Int): Boolean = true
 
     abstract val ingredients: List<Ingredient>
@@ -21,13 +21,13 @@ abstract class IncubatorRecipe : Recipe<IncubatorRecipeInput> {
 
     companion object {
 
-        fun getIncubatorRecipes(level: Level): List<RecipeHolder<IncubatorRecipe>> {
+        fun getIncubatorRecipes(level: Level): List<RecipeHolder<AbstractIncubatorRecipe>> {
             return getIncubatorRecipes(level.recipeManager)
         }
 
         @Suppress("UNCHECKED_CAST")
-        fun getIncubatorRecipes(recipeManager: RecipeManager): List<RecipeHolder<IncubatorRecipe>> {
-            return recipeManager.recipes.mapNotNull { if (it.value is IncubatorRecipe) it as? RecipeHolder<IncubatorRecipe> else null }
+        fun getIncubatorRecipes(recipeManager: RecipeManager): List<RecipeHolder<AbstractIncubatorRecipe>> {
+            return recipeManager.recipes.mapNotNull { if (it.value is AbstractIncubatorRecipe) it as? RecipeHolder<AbstractIncubatorRecipe> else null }
         }
 
         fun isValidIngredient(level: Level, itemStack: ItemStack): Boolean {
@@ -36,13 +36,13 @@ abstract class IncubatorRecipe : Recipe<IncubatorRecipeInput> {
             }
         }
 
-        fun getIncubatorRecipe(level: Level, incubatorRecipeInput: IncubatorRecipeInput): IncubatorRecipe? {
+        fun getIncubatorRecipe(level: Level, incubatorRecipeInput: IncubatorRecipeInput): AbstractIncubatorRecipe? {
             return getIncubatorRecipes(level).find { recipeHolder ->
                 recipeHolder.value.matches(incubatorRecipeInput, level)
             }?.value
         }
 
-        fun getIncubatorRecipe(level: Level, topStack: ItemStack, bottomStack: ItemStack): IncubatorRecipe? {
+        fun getIncubatorRecipe(level: Level, topStack: ItemStack, bottomStack: ItemStack): AbstractIncubatorRecipe? {
             return getIncubatorRecipe(level, IncubatorRecipeInput(topStack, bottomStack))
         }
     }

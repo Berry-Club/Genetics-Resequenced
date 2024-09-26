@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.BlackDeathRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.BlackDeathRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil

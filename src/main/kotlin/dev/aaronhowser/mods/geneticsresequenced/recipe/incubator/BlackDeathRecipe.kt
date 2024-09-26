@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp
+package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
 import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
@@ -11,8 +11,6 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
@@ -29,7 +27,7 @@ import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
-class BlackDeathRecipe private constructor() : IncubatorRecipe() {
+class BlackDeathRecipe private constructor() : AbstractIncubatorRecipe() {
 
     private val potionIngredient: Ingredient =
         DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))

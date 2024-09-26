@@ -7,8 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.GmoRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions

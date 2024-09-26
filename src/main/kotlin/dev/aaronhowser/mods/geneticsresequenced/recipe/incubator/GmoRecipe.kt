@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp
+package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
@@ -9,8 +9,6 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
@@ -37,7 +35,7 @@ class GmoRecipe(
     val idealGeneRk: ResourceKey<Gene>,
     val geneChance: Float,
     val isMutation: Boolean = false
-) : IncubatorRecipe() {
+) : AbstractIncubatorRecipe() {
 
     private val inputIngredient = Ingredient.of(ingredientItem)
     private val potionIngredient: Ingredient

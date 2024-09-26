@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp
+package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
@@ -6,8 +6,6 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
@@ -25,7 +23,7 @@ import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 class VirusRecipe(
     val inputDnaGene: ResourceKey<Gene>,
     val outputGene: ResourceKey<Gene>
-) : IncubatorRecipe() {
+) : AbstractIncubatorRecipe() {
 
     private val helixIngredient: Ingredient = Ingredient.of(ModItems.DNA_HELIX.get())
     private val potionIngredient: Ingredient =

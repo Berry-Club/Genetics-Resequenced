@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
@@ -54,11 +54,11 @@ class IncubatorBlockEntity(
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
-                TOP_SLOT_INDEX -> IncubatorRecipe.isValidIngredient(level!!, stack)
+                TOP_SLOT_INDEX -> AbstractIncubatorRecipe.isValidIngredient(level!!, stack)
 
                 LEFT_BOTTLE_SLOT_INDEX,
                 MIDDLE_BOTTLE_SLOT_INDEX,
-                RIGHT_BOTTLE_SLOT_INDEX -> IncubatorRecipe.isValidIngredient(level!!, stack)
+                RIGHT_BOTTLE_SLOT_INDEX -> AbstractIncubatorRecipe.isValidIngredient(level!!, stack)
 
                 OVERCLOCKER_SLOT_INDEX -> stack.item == ModItems.OVERCLOCKER.get()
 
@@ -157,7 +157,7 @@ class IncubatorBlockEntity(
             val bottomStack = itemHandler.getStackInSlot(slotIndex)
 
             val recipeInput = IncubatorRecipeInput(topStack, bottomStack)
-            val recipe = IncubatorRecipe.getIncubatorRecipe(level!!, recipeInput) ?: continue
+            val recipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, recipeInput) ?: continue
 
             val output = recipe.assemble(recipeInput, level!!.registryAccess())
 
@@ -179,9 +179,9 @@ class IncubatorBlockEntity(
         val middleBottleStack = itemHandler.getStackInSlot(MIDDLE_BOTTLE_SLOT_INDEX)
         val rightBottleStack = itemHandler.getStackInSlot(RIGHT_BOTTLE_SLOT_INDEX)
 
-        val leftHasRecipe = IncubatorRecipe.getIncubatorRecipe(level!!, topSlotStack, leftBottleStack) != null
-        val middleHasRecipe = IncubatorRecipe.getIncubatorRecipe(level!!, topSlotStack, middleBottleStack) != null
-        val rightHasRecipe = IncubatorRecipe.getIncubatorRecipe(level!!, topSlotStack, rightBottleStack) != null
+        val leftHasRecipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, topSlotStack, leftBottleStack) != null
+        val middleHasRecipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, topSlotStack, middleBottleStack) != null
+        val rightHasRecipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, topSlotStack, rightBottleStack) != null
 
         return leftHasRecipe || middleHasRecipe || rightHasRecipe
     }

@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp
+package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
@@ -6,8 +6,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
@@ -26,7 +24,7 @@ import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class DupeCellRecipe(
     val isGmoCell: Boolean = false
-) : IncubatorRecipe() {
+) : AbstractIncubatorRecipe() {
 
     private val potionIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.SUBSTRATE))
     private val cellIngredient = Ingredient.of(if (isGmoCell) ModItems.GMO_CELL.get() else ModItems.CELL.get())

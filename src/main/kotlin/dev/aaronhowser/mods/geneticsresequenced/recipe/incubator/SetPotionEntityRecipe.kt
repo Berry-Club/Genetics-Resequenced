@@ -1,11 +1,9 @@
-package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp
+package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
 import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModPotionTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.PotionTagIngredient
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeTypes
@@ -18,7 +16,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 
-class SetPotionEntityRecipe private constructor() : IncubatorRecipe() {
+class SetPotionEntityRecipe private constructor() : AbstractIncubatorRecipe() {
 
     private val cellIngredient = Ingredient.of(ModItems.CELL.get())
     private val potionIngredient = PotionTagIngredient(ModPotionTagsProvider.CAN_HAVE_ENTITY).toVanilla()

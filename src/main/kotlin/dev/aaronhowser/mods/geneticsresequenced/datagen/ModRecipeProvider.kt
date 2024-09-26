@@ -7,8 +7,8 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.Viru
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmidRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.BlackDeathRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.SetPotionEntityRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.BlackDeathRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.SetPotionEntityRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil

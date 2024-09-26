@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.high_temp.VirusRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.VirusRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
