@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.EmiEntrypoint
 import dev.emi.emi.api.EmiPlugin
@@ -79,7 +80,7 @@ class ModEmiPlugin : EmiPlugin {
         AntiPlasmidEmiRecipes.setAntiPlasmidRecipes(registry)
         AntiPlasmidEmiRecipes.unsetAntiPlasmidRecipes(registry)
 
-        ModInformationRecipes.registerInformationRecipes(registry)
+        ModInformationRecipes.getInformationRecipes(ClientUtil.localRegistryAccess!!).forEach { registry.addRecipe(it) }
 
         comparisons(registry)
     }
