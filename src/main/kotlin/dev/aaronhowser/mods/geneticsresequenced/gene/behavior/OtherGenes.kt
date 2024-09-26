@@ -93,7 +93,7 @@ object OtherGenes {
             .replace("?", "???")
 
         if (stringLength % 3 == 0) {
-            input = input.toUpperCase()
+            input = input.uppercase()
         }
 
         input = if (stringLength % 2 == 0) {
