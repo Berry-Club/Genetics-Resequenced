@@ -66,37 +66,29 @@ class GmoRecipe(
         return true //TODO: Make sure it actually detects the entity type too
     }
 
-    /**
-     * Always returns a Basic Gene! You can only get the ideal gene if you run it through an Advanced Incubator at low temperature!
-     * [dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorBlockEntity.craftItem]
-     */
     override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
         return getResultItem(lookup)
     }
 
-    /**
-     * Always returns a Basic Gene! You can only get the ideal gene if you run it through an Advanced Incubator at low temperature!
-     * [dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorBlockEntity.craftItem]
-     */
     override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
         val output = ModItems.GMO_CELL.itemStack
 
         GmoCell.setDetails(
             output,
             entityType,
-            ModGenes.BASIC.getHolder(lookup)!!
+            idealGeneRk.getHolder(lookup)!!
         )
 
         return output
     }
 
-    fun getSuccess(lookup: HolderLookup.Provider): ItemStack {
+    fun getFailure(lookup: HolderLookup.Provider): ItemStack {
         val output = ModItems.GMO_CELL.toStack()
 
         GmoCell.setDetails(
             output,
             entityType,
-            idealGeneRk.getHolder(lookup)!!
+            ModGenes.BASIC.getHolder(lookup)!!
         )
 
         return output

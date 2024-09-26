@@ -5,8 +5,8 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.WrappedHandle
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -251,9 +251,9 @@ class AdvancedIncubatorBlockEntity(
         val nextFloat = Random.nextFloat()
 
         return if (nextFloat <= finalChance) {
-            gmoRecipe.getSuccess(this.level!!.registryAccess())
-        } else {
             gmoRecipe.assemble(input, level!!.registryAccess())
+        } else {
+            gmoRecipe.getFailure(level!!.registryAccess())
         }
     }
 
