@@ -1,8 +1,0 @@
-{
-  "type": "geneticsresequenced:gmo",
-  "entity_type": "minecraft:polar_bear",
-  "gene_chance": 0.75,
-  "ideal_gene": "geneticsresequenced:claws_2",
-  "ingredient_item": "minecraft:diamond_sword",
-  "is_mutation": true
-}

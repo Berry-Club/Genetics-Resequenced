@@ -1,0 +1,8 @@
+{
+  "type": "geneticsresequenced:gmo",
+  "entity_type": "minecraft:chicken",
+  "ideal_gene": "geneticsresequenced:lay_egg",
+  "ingredient": {
+    "item": "minecraft:egg"
+  }
+}

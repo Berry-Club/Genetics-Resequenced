@@ -1,7 +1,0 @@
-{
-  "type": "geneticsresequenced:gmo",
-  "entity_type": "minecraft:villager",
-  "gene_chance": 0.85,
-  "ideal_gene": "geneticsresequenced:emerald_heart",
-  "ingredient_item": "minecraft:emerald"
-}

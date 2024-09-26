@@ -7,21 +7,36 @@ import net.minecraft.advancements.AdvancementRequirements
 import net.minecraft.advancements.AdvancementRewards
 import net.minecraft.advancements.Criterion
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.crafting.Ingredient
 
 class GmoRecipeBuilder(
     private val entityType: EntityType<*>,
-    private val ingredientItem: Item,
+    private val ingredient: Ingredient,
     private val idealGeneRk: ResourceKey<Gene>,
     private val geneChance: Float,
     private val isMutation: Boolean = false
 ) : RecipeBuilder {
+
+    constructor(
+        entityType: EntityType<*>,
+        ingredientItem: Item,
+        idealGeneRk: ResourceKey<Gene>,
+        geneChance: Float,
+        isMutation: Boolean = false
+    ) : this(
+        entityType,
+        Ingredient.of(ingredientItem),
+        idealGeneRk,
+        geneChance,
+        isMutation
+    )
+
     private val criteria: MutableMap<String, Criterion<*>> = mutableMapOf()
 
     override fun unlockedBy(name: String, criterion: Criterion<*>): RecipeBuilder {
@@ -40,7 +55,6 @@ class GmoRecipeBuilder(
     override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
         val entityString = EntityType.getKey(entityType).path
         val geneString = idealGeneRk.location().path
-        val itemString = BuiltInRegistries.ITEM.getKey(ingredientItem).path
 
         val chanceString = if (geneChance == 1f) {
             "100"
@@ -60,8 +74,6 @@ class GmoRecipeBuilder(
             .append(geneString)
             .append("_from_")
             .append(entityString)
-            .append("_and_")
-            .append(itemString)
             .append("_with_")
             .append(chanceString)
             .append("_chance")
@@ -80,7 +92,7 @@ class GmoRecipeBuilder(
 
         val recipe = GmoRecipe(
             entityType,
-            ingredientItem,
+            ingredient,
             idealGeneRk,
             geneChance,
             isMutation

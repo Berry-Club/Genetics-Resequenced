@@ -1,7 +1,0 @@
-{
-  "type": "geneticsresequenced:gmo",
-  "entity_type": "minecraft:pig",
-  "gene_chance": 1.0,
-  "ideal_gene": "geneticsresequenced:meaty",
-  "ingredient_item": "minecraft:porkchop"
-}

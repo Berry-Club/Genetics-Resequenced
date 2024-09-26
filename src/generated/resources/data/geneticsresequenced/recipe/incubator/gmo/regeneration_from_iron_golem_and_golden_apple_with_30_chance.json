@@ -1,7 +1,0 @@
-{
-  "type": "geneticsresequenced:gmo",
-  "entity_type": "minecraft:iron_golem",
-  "gene_chance": 0.3,
-  "ideal_gene": "geneticsresequenced:regeneration",
-  "ingredient_item": "minecraft:golden_apple"
-}

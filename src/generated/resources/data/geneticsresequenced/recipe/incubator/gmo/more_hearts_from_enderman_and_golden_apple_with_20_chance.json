@@ -1,7 +1,0 @@
-{
-  "type": "geneticsresequenced:gmo",
-  "entity_type": "minecraft:enderman",
-  "gene_chance": 0.2,
-  "ideal_gene": "geneticsresequenced:more_hearts",
-  "ingredient_item": "minecraft:golden_apple"
-}

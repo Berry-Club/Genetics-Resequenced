@@ -1,0 +1,9 @@
+{
+  "type": "geneticsresequenced:gmo",
+  "entity_type": "minecraft:enderman",
+  "gene_chance": 0.45,
+  "ideal_gene": "geneticsresequenced:teleport",
+  "ingredient": {
+    "item": "minecraft:ender_pearl"
+  }
+}

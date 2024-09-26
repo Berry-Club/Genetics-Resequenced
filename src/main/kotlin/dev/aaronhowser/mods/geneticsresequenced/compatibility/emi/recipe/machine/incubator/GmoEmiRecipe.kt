@@ -26,13 +26,12 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.item.Item
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeManager
 
 class GmoEmiRecipe(
     val entityType: EntityType<*>,
-    ingredientItem: Item,
+    ingredient: Ingredient,
     val idealResourceKey: ResourceKey<Gene>,
     val geneChance: Float,
     isMutation: Boolean
@@ -45,7 +44,7 @@ class GmoEmiRecipe(
             return allRegularGmoRecipes.map {
                 GmoEmiRecipe(
                     it.value.entityType,
-                    it.value.ingredientItem,
+                    it.value.ingredient,
                     it.value.idealGeneRk,
                     it.value.geneChance,
                     it.value.isMutation
@@ -54,7 +53,7 @@ class GmoEmiRecipe(
         }
     }
 
-    private val ingredient: EmiIngredient = EmiIngredient.of(Ingredient.of(ingredientItem))
+    private val ingredient: EmiIngredient = EmiIngredient.of(ingredient)
     private val input: EmiIngredient
     private val goodOutput: EmiStack
     private val badOutput: EmiStack

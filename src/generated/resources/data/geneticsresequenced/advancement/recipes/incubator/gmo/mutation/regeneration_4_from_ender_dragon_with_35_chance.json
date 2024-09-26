@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cell": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:cell"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "geneticsresequenced:incubator/gmo/mutation/regeneration_4_from_ender_dragon_with_35_chance"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cell"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "geneticsresequenced:incubator/gmo/mutation/regeneration_4_from_ender_dragon_with_35_chance"
+    ]
+  }
+}

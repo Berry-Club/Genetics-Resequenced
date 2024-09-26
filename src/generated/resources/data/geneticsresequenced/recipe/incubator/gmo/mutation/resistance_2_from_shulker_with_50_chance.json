@@ -1,0 +1,10 @@
+{
+  "type": "geneticsresequenced:gmo",
+  "entity_type": "minecraft:shulker",
+  "gene_chance": 0.5,
+  "ideal_gene": "geneticsresequenced:resistance_2",
+  "ingredient": {
+    "item": "minecraft:netherite_chestplate"
+  },
+  "is_mutation": true
+}

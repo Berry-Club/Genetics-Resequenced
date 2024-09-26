@@ -1,7 +1,0 @@
-{
-  "type": "geneticsresequenced:gmo",
-  "entity_type": "minecraft:magma_cube",
-  "gene_chance": 0.85,
-  "ideal_gene": "geneticsresequenced:bioluminescence",
-  "ingredient_item": "minecraft:glowstone_dust"
-}
