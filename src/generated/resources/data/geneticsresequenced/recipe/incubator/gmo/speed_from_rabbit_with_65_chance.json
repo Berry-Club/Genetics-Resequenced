@@ -1,5 +1,5 @@
 {
-  "type": "geneticsresequenced:gmo",
+  "type": "geneticsresequenced:incubator/gmo",
   "entity_type": "minecraft:rabbit",
   "gene_chance": 0.65,
   "ideal_gene": "geneticsresequenced:speed",

@@ -22,22 +22,22 @@ object ModRecipeSerializers {
         registerRecipeSerializer("unset_anti_plasmid") { SimpleCraftingRecipeSerializer { UnsetAntiPlasmidRecipe() } }
 
     val GMO: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
-        registerRecipeSerializer("gmo") { GmoRecipe.Serializer() }
+        registerRecipeSerializer("incubator/gmo") { GmoRecipe.Serializer() }
 
     val SET_POTION_ENTITY: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
-        registerRecipeSerializer("set_potion_entity") { SetPotionEntityRecipe.Serializer() }
+        registerRecipeSerializer("incubator/set_potion_entity") { SetPotionEntityRecipe.Serializer() }
 
     val DUPE_CELL: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
-        registerRecipeSerializer("dupe_cell") { DupeCellRecipe.Serializer() }
+        registerRecipeSerializer("incubator/dupe_cell") { DupeCellRecipe.Serializer() }
 
     val VIRUS: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
-        registerRecipeSerializer("virus") { VirusRecipe.Serializer() }
+        registerRecipeSerializer("incubator/virus") { VirusRecipe.Serializer() }
 
     val BLACK_DEATH: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
-        registerRecipeSerializer("black_death") { BlackDeathRecipe.Serializer() }
+        registerRecipeSerializer("incubator/black_death") { BlackDeathRecipe.Serializer() }
 
     val BASIC_INCUBATOR: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
-        registerRecipeSerializer("incubator") { BasicIncubatorRecipe.Serializer() }
+        registerRecipeSerializer("incubator/basic") { BasicIncubatorRecipe.Serializer() }
 
     private fun registerRecipeSerializer(
         name: String,

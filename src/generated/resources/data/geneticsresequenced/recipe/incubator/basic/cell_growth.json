@@ -1,5 +1,5 @@
 {
-  "type": "geneticsresequenced:incubator",
+  "type": "geneticsresequenced:incubator/basic",
   "bottom_slot": {
     "type": "neoforge:components",
     "components": {

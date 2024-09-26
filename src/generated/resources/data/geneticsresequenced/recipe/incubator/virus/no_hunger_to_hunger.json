@@ -1,5 +1,5 @@
 {
-  "type": "geneticsresequenced:virus",
+  "type": "geneticsresequenced:incubator/virus",
   "input_gene": "geneticsresequenced:no_hunger",
   "output_gene": "geneticsresequenced:hunger"
 }

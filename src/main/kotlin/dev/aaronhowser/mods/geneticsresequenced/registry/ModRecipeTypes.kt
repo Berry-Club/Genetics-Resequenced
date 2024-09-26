@@ -23,22 +23,22 @@ object ModRecipeTypes {
         registerRecipeType("unset_anti_plasmid")
 
     val GMO: DeferredHolder<RecipeType<*>, RecipeType<GmoRecipe>> =
-        registerRecipeType("incubator_gmo")
+        registerRecipeType("incubator/gmo")
 
     val SET_POTION_ENTITY: DeferredHolder<RecipeType<*>, RecipeType<SetPotionEntityRecipe>> =
-        registerRecipeType("set_potion_entity")
+        registerRecipeType("incubator/set_potion_entity")
 
     val DUPE_CELL: DeferredHolder<RecipeType<*>, RecipeType<DupeCellRecipe>> =
-        registerRecipeType("dupe_cell")
+        registerRecipeType("incubator/dupe_cell")
 
     val VIRUS: DeferredHolder<RecipeType<*>, RecipeType<VirusRecipe>> =
-        registerRecipeType("incubator_virus")
+        registerRecipeType("incubator/virus")
 
     val BLACK_DEATH: DeferredHolder<RecipeType<*>, RecipeType<BlackDeathRecipe>> =
-        registerRecipeType("black_death")
+        registerRecipeType("incubator/black_death")
 
     val BASIC_INCUBATOR: DeferredHolder<RecipeType<*>, RecipeType<BasicIncubatorRecipe>> =
-        registerRecipeType("basic_incubator")
+        registerRecipeType("incubator/basic")
 
     private fun <T : Recipe<*>> registerRecipeType(
         name: String
