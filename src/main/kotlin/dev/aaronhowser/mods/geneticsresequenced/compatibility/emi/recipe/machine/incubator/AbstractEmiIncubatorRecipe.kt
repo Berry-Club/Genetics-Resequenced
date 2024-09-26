@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.incubator
 
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.recipe.EmiRecipe
 import dev.emi.emi.api.recipe.EmiRecipeCategory
-import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
@@ -21,7 +21,7 @@ abstract class AbstractEmiIncubatorRecipe : EmiRecipe {
     abstract val output: EmiStack
 
     override fun getCategory(): EmiRecipeCategory {
-        return VanillaEmiRecipeCategories.BREWING
+        return ModEmiPlugin.INCUBATOR_CATEGORY
     }
 
     override fun getInputs(): List<EmiIngredient> {
