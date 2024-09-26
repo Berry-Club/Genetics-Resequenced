@@ -217,3 +217,4 @@
 - Fixed an issue in the coloring of Anti-Plasmid tooltips
 - Removed the potion outlines from the Incubator background slots
 - Updated Incubator EMI recipe pages
+- Removed a rather large unused texture that was taking up space
