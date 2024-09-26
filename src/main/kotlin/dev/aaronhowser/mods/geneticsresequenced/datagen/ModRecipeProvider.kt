@@ -249,31 +249,31 @@ class ModRecipeProvider(
 
     private val basicIncubatorRecipe = listOf(
         BasicIncubatorRecipeBuilder(
-            DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.SUBSTRATE)),
             DataComponentIngredient.of(
                 false,
                 DnaHelixItem.getHelixStack(ModGenes.BASIC, lookupProvider.get())
             ),
+            DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.SUBSTRATE)),
             OtherUtil.getPotionStack(ModPotions.CELL_GROWTH),
             "cell_growth"
         ),
 
         BasicIncubatorRecipeBuilder(
-            DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
             DataComponentIngredient.of(
                 false,
                 DnaHelixItem.getHelixStack(ModGenes.REGENERATION, lookupProvider.get())
             ),
+            DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
             OtherUtil.getPotionStack(ModPotions.PANACEA),
             "panacea"
         ),
 
         BasicIncubatorRecipeBuilder(
-            DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
             DataComponentIngredient.of(
                 false,
                 DnaHelixItem.getHelixStack(ModGenes.EMERALD_HEART, lookupProvider.get())
             ),
+            DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
             OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER),
             "zombify_villager"
         )
