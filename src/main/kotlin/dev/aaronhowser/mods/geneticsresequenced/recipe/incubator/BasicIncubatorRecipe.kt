@@ -8,9 +8,7 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.Ingredient
-import net.minecraft.world.item.crafting.RecipeSerializer
-import net.minecraft.world.item.crafting.RecipeType
+import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
 
 class BasicIncubatorRecipe(
@@ -79,7 +77,15 @@ class BasicIncubatorRecipe(
                 )
 
         }
+    }
 
+    companion object {
+        @Suppress("UNCHECKED_CAST")
+        fun getBasicRecipes(recipeManager: RecipeManager): List<RecipeHolder<BasicIncubatorRecipe>> {
+            val incubatorRecipes = getIncubatorRecipes(recipeManager)
+
+            return incubatorRecipes.mapNotNull { if (it.value is BasicIncubatorRecipe) it as? RecipeHolder<BasicIncubatorRecipe> else null }
+        }
     }
 
 }

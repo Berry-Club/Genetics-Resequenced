@@ -2,8 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPlasmidEmiRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.ModInformationRecipes
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.incubator.*
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.*
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.incubator.*
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
@@ -46,6 +46,9 @@ class ModEmiPlugin : EmiPlugin {
             EmiRecipeCategory(OtherUtil.modResource("plasmid_injector"), PLASMID_INJECTOR_STACK)
 
         val INCUBATOR_STACK: EmiStack = EmiStack.of(ModBlocks.INCUBATOR)
+        val INCUBATOR_CATEGORY: EmiRecipeCategory =
+            EmiRecipeCategory(OtherUtil.modResource("incubator"), INCUBATOR_STACK)
+
         val ADVANCED_INCUBATOR_STACK: EmiStack = EmiStack.of(ModBlocks.ADVANCED_INCUBATOR)
 
         val CELL_STACK: EmiStack = EmiStack.of(ModItems.CELL)
@@ -72,8 +75,7 @@ class ModEmiPlugin : EmiPlugin {
         dnaDecryptor(registry)
         plasmidInfuser(registry)
         plasmidInjector(registry)
-
-        potions(registry)
+        incubator(registry)
 
         AntiPlasmidEmiRecipes.setAntiPlasmidRecipes(registry)
         AntiPlasmidEmiRecipes.unsetAntiPlasmidRecipes(registry)
@@ -146,15 +148,26 @@ class ModEmiPlugin : EmiPlugin {
         }
     }
 
-    private fun potions(registry: EmiRegistry) {
-        for (recipe in BlackDeathEmiRecipe.getAllRecipes()) {
-            registry.addRecipe(recipe)
-        }
-
+    private fun incubator(registry: EmiRegistry) {
+        basicIncubatorRecipes(registry)
         substrate(registry)
         setPotionEntity(registry)
         virus(registry)
         gmo(registry)
+
+        for (recipe in BlackDeathEmiRecipe.getAllRecipes()) {
+            registry.addRecipe(recipe)
+        }
+    }
+
+    private fun basicIncubatorRecipes(registry: EmiRegistry) {
+        registry.addCategory(INCUBATOR_CATEGORY)
+        registry.addWorkstation(INCUBATOR_CATEGORY, INCUBATOR_STACK)
+        registry.addWorkstation(INCUBATOR_CATEGORY, ADVANCED_INCUBATOR_STACK)
+
+        for (recipe in BasicIncubatorEmiRecipe.getAllRecipes(registry.recipeManager)) {
+            registry.addRecipe(recipe)
+        }
     }
 
     private fun substrate(registry: EmiRegistry) {
@@ -162,7 +175,7 @@ class ModEmiPlugin : EmiPlugin {
         registry.addWorkstation(CELL_DUPE_CATEGORY, INCUBATOR_STACK)
         registry.addWorkstation(CELL_DUPE_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
-        for (recipe in SubstrateCellEmiRecipe.getAllRecipes(registry.recipeManager)) {
+        for (recipe in CellDupeEmiRecipe.getAllRecipes(registry.recipeManager)) {
             registry.addRecipe(recipe)
         }
     }
