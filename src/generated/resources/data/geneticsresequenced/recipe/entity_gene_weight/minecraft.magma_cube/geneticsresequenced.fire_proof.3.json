@@ -1,0 +1,6 @@
+{
+  "type": "geneticsresequenced:entity_gene_weight",
+  "entity_type": "minecraft:magma_cube",
+  "gene": "geneticsresequenced:fire_proof",
+  "weight": 3
+}

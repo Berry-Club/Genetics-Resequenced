@@ -1,0 +1,6 @@
+{
+  "type": "geneticsresequenced:entity_gene_weight",
+  "entity_type": "minecraft:phantom",
+  "gene": "geneticsresequenced:basic",
+  "weight": 5
+}

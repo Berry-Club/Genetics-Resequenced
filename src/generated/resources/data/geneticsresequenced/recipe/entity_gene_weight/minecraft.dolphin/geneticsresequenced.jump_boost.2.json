@@ -1,0 +1,6 @@
+{
+  "type": "geneticsresequenced:entity_gene_weight",
+  "entity_type": "minecraft:dolphin",
+  "gene": "geneticsresequenced:jump_boost",
+  "weight": 2
+}

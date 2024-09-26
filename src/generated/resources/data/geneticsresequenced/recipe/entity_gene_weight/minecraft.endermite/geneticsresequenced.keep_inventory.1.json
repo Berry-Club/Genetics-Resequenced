@@ -1,0 +1,6 @@
+{
+  "type": "geneticsresequenced:entity_gene_weight",
+  "entity_type": "minecraft:endermite",
+  "gene": "geneticsresequenced:keep_inventory",
+  "weight": 1
+}

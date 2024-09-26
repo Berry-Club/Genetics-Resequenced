@@ -1,0 +1,6 @@
+{
+  "type": "geneticsresequenced:entity_gene_weight",
+  "entity_type": "minecraft:ender_dragon",
+  "gene": "geneticsresequenced:ender_dragon_health",
+  "weight": 3
+}
