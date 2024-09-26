@@ -28,8 +28,15 @@ import net.minecraft.world.item.crafting.Ingredient
 
 object ModInformationRecipes {
 
-    fun getInformationRecipes(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
-        return organicMatter() + geneDescriptions(registries) + mobGenes(registries)
+    fun registerInformationRecipes(registries: EmiRegistry) {
+        val recipes =
+            organicMatter() +
+                    geneDescriptions(ClientUtil.localRegistryAccess!!) +
+                    mobGenes(ClientUtil.localRegistryAccess!!)
+
+        for (infoRecipe in recipes) {
+            registries.addRecipe(infoRecipe)
+        }
     }
 
     private fun geneDescriptions(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
