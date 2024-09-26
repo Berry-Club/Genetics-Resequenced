@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands
+import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.recipe.EntityGeneWeightRecipe
 import net.neoforged.bus.api.SubscribeEvent
