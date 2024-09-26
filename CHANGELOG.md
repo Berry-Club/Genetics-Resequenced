@@ -217,3 +217,6 @@
 - Fixed an issue where Genes that require 1 DNA Point would show as requiring 0 DNA Helices instead of 1 in EMI
 - Removed a rather large unused texture that was taking up space
 
+# 1.3.1
+
+- Moved Gene.PotionDetails.CODEC to use `show_icon` instead of `showIcon`

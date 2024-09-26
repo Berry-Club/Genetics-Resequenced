@@ -90,7 +90,7 @@ data class Gene(
                         .optionalFieldOf("duration", -1)
                         .forGetter(PotionDetails::duration),
                     Codec.BOOL
-                        .optionalFieldOf("showIcon", false)
+                        .optionalFieldOf("show_icon", false)
                         .forGetter(PotionDetails::showIcon)
                 ).apply(instance, ::PotionDetails)
             }
