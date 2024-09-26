@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:bat",
+  "gene_weights": {
+    "geneticsresequenced:basic": 4,
+    "geneticsresequenced:night_vision": 1,
+    "geneticsresequenced:mob_sight": 3
+  }
+}

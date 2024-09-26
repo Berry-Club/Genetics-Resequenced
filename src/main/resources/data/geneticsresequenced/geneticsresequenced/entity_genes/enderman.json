@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:enderman",
+  "gene_weights": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:more_hearts": 1,
+    "geneticsresequenced:teleport": 3
+  }
+}

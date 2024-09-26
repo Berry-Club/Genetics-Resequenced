@@ -1,0 +1,7 @@
+{
+  "entity": "minecraft:cat",
+  "gene_weights": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:scare_creepers": 2
+  }
+}
