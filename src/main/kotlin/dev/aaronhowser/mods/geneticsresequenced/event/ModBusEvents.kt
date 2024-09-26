@@ -15,8 +15,6 @@ import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
-import net.neoforged.fml.config.ModConfig
-import net.neoforged.fml.event.config.ModConfigEvent
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
 import net.neoforged.neoforge.energy.EnergyStorage
@@ -24,7 +22,7 @@ import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent
 import net.neoforged.neoforge.items.IItemHandler
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
-import net.neoforged.neoforge.registries.NewRegistryEvent
+import net.neoforged.neoforge.registries.DataPackRegistryEvent
 
 @EventBusSubscriber(
     modid = GeneticsResequenced.ID,
@@ -33,20 +31,12 @@ import net.neoforged.neoforge.registries.NewRegistryEvent
 object ModBusEvents {
 
     @SubscribeEvent
-    fun onNewRegistry(event: NewRegistryEvent) {
-        event.register(GeneRegistry.GENE_REGISTRY)
-    }
-
-    @SubscribeEvent
-    fun onConfig(event: ModConfigEvent) {
-        if (event is ModConfigEvent.Unloading) return
-
-        val config = event.config
-
-        // Comparing spec didn't work for some reason
-        if (config.modId == GeneticsResequenced.ID && config.type == ModConfig.Type.SERVER) {
-            Gene.checkDeactivationConfig()
-        }
+    fun onNewDataPackRegistry(event: DataPackRegistryEvent.NewRegistry) {
+        event.dataPackRegistry(
+            GeneRegistry.GENE_REGISTRY_KEY,
+            Gene.DIRECT_CODEC,
+            Gene.DIRECT_CODEC
+        )
     }
 
     @SubscribeEvent

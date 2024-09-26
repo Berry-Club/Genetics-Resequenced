@@ -1,6 +1,6 @@
 {
   "entity": "minecraft:witch",
-  "genes": {
+  "gene_weights": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:poison_immunity": 2
   }

@@ -1,0 +1,13 @@
+{
+  "attribute_modifiers": [
+    {
+      "attribute": "minecraft:generic.attack_knockback",
+      "modifier": {
+        "amount": 2.0,
+        "id": "geneticsresequenced:knockback",
+        "operation": "add_value"
+      }
+    }
+  ],
+  "dna_points_required": 20
+}

@@ -1,6 +1,6 @@
 {
   "entity": "minecraft:mooshroom",
-  "genes": {
+  "gene_weights": {
     "geneticsresequenced:eat_grass": 4,
     "geneticsresequenced:milky": 4,
     "geneticsresequenced:photosynthesis": 3

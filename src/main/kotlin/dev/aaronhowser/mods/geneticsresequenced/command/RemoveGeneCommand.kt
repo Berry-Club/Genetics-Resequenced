@@ -14,6 +14,7 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.commands.arguments.ResourceLocationArgument
+import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
@@ -89,7 +90,7 @@ object RemoveGeneCommand {
         entities: MutableCollection<out Entity>? = null
     ): Int {
 
-        val gene = GeneRegistry.fromResourceLocation(geneRl)
+        val gene = GeneRegistry.fromResourceLocation(context.source.registryAccess(), geneRl)
             ?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
 
         return removeGene(context, gene, entities)
@@ -101,7 +102,7 @@ object RemoveGeneCommand {
         entities: MutableCollection<out Entity>? = null
     ): Int {
 
-        val gene = GeneRegistry.fromIdPath(geneString)
+        val gene = GeneRegistry.fromIdPath(context.source.registryAccess(), geneString)
             ?: throw IllegalArgumentException("Gene with id $geneString does not exist!")
 
         return removeGene(context, gene, entities)
@@ -109,7 +110,7 @@ object RemoveGeneCommand {
 
     private fun removeGene(
         context: CommandContext<CommandSourceStack>,
-        geneToRemove: Gene,
+        geneToRemove: Holder<Gene>,
         entities: MutableCollection<out Entity>? = null
     ): Int {
 
@@ -128,15 +129,15 @@ object RemoveGeneCommand {
     private fun handleSingleTarget(
         context: CommandContext<CommandSourceStack>,
         target: LivingEntity,
-        geneToRemove: Gene
+        geneHolder: Holder<Gene>
     ) {
 
-        val success = removeGeneFromTarget(target, geneToRemove)
+        val success = removeGeneFromTarget(target, geneHolder)
 
         if (success) {
             val component =
                 ModLanguageProvider.Commands.REMOVE_SINGLE_SUCCESS.toComponent(
-                    geneToRemove.nameComponent,
+                    Gene.getNameComponent(geneHolder),
                     target.displayName
                 )
 
@@ -144,7 +145,7 @@ object RemoveGeneCommand {
         } else {
             val component =
                 ModLanguageProvider.Commands.REMOVE_SINGLE_FAIL.toComponent(
-                    geneToRemove.nameComponent,
+                    Gene.getNameComponent(geneHolder),
                     target.displayName
                 )
 
@@ -155,12 +156,12 @@ object RemoveGeneCommand {
     private fun handleMultipleTargets(
         context: CommandContext<CommandSourceStack>,
         targets: List<LivingEntity>,
-        geneToRemove: Gene
+        geneHolder: Holder<Gene>
     ) {
         var amountSuccess = 0
         var amountFail = 0
         for (target in targets) {
-            val success = removeGeneFromTarget(target, geneToRemove)
+            val success = removeGeneFromTarget(target, geneHolder)
 
             if (success) amountSuccess++ else amountFail++
         }
@@ -168,7 +169,7 @@ object RemoveGeneCommand {
         if (amountSuccess != 0) {
             val component =
                 ModLanguageProvider.Commands.REMOVE_MULTIPLE_SUCCESS.toComponent(
-                    geneToRemove.nameComponent,
+                    Gene.getNameComponent(geneHolder),
                     amountSuccess
                 )
             context.source.sendSuccess({ component }, true)
@@ -176,7 +177,7 @@ object RemoveGeneCommand {
         if (amountFail != 0) {
             val component =
                 ModLanguageProvider.Commands.REMOVE_MULTIPLE_FAIL.toComponent(
-                    geneToRemove.nameComponent,
+                    Gene.getNameComponent(geneHolder),
                     amountFail
                 )
             context.source.sendFailure(component)
@@ -184,7 +185,7 @@ object RemoveGeneCommand {
 
     }
 
-    private fun removeGeneFromTarget(target: LivingEntity, geneToRemove: Gene): Boolean {
+    private fun removeGeneFromTarget(target: LivingEntity, geneToRemove: Holder<Gene>): Boolean {
         val success = target.removeGene(geneToRemove)
         return success
     }

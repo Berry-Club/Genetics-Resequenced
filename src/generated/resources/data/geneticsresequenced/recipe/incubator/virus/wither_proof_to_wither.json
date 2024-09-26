@@ -1,0 +1,5 @@
+{
+  "type": "geneticsresequenced:incubator/virus",
+  "input_gene": "geneticsresequenced:wither_proof",
+  "output_gene": "geneticsresequenced:wither"
+}

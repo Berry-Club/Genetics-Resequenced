@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
+import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
@@ -18,11 +19,10 @@ class GmoCell : Item(Properties()) {
         fun setDetails(
             itemStack: ItemStack,
             entityType: EntityType<*>,
-            gene: Gene,
+            geneHolder: Holder<Gene>,
         ) {
-
             EntityDnaItem.setEntityType(itemStack, entityType)
-            DnaHelixItem.setGene(itemStack, gene)
+            DnaHelixItem.setGeneHolder(itemStack, geneHolder)
         }
 
     }
@@ -49,11 +49,11 @@ class GmoCell : Item(Properties()) {
             pTooltipComponents.add(noEntityComponent)
         }
 
-        val gene = DnaHelixItem.getGene(pStack)
-        if (gene != null) {
+        val geneHolder = DnaHelixItem.getGeneHolder(pStack)
+        if (geneHolder != null) {
             val geneComponent =
                 ModLanguageProvider.Tooltips.GENE
-                    .toComponent(gene.nameComponent)
+                    .toComponent(Gene.getNameComponent(geneHolder))
                     .withColor(ChatFormatting.GRAY)
             pTooltipComponents.add(geneComponent)
         } else {

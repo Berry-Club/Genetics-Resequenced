@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
@@ -44,7 +44,7 @@ object OtherPlayerEvents {
         val originalStack = event.originalStack
         val player = event.player
 
-        if (originalStack.item.isSyringe()) {
+        if (originalStack.isSyringe()) {
             val thrower = event.itemEntity.owner as? LivingEntity
 
             player.hurt(SyringeItem.damageSourceStepOnSyringe(event.player.level(), thrower), 1.0f)
@@ -61,12 +61,12 @@ object OtherPlayerEvents {
 
         InventoryListener.startListening(player)
 
-        for (gene in player.genes) {
+        for (gene in player.geneHolders) {
             ModPacketHandler.messagePlayer(
                 player,
                 GeneChangedPacket(
                     player.id,
-                    gene.id,
+                    gene.key!!.location(),
                     true
                 )
             )
@@ -93,14 +93,14 @@ object OtherPlayerEvents {
         val player = event.entity as? ServerPlayer ?: return
 
         val entity = event.target as? LivingEntity ?: return
-        val genes = entity.genes
+        val genes = entity.geneHolders
 
         for (gene in genes) {
             ModPacketHandler.messagePlayer(
                 player,
                 GeneChangedPacket(
                     entity.id,
-                    gene.id,
+                    gene.key!!.location(),
                     true
                 )
             )

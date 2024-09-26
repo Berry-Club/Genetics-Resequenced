@@ -1,9 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
-import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.util.Mth
 import net.minecraft.world.damagesource.DamageTypes
@@ -26,49 +28,53 @@ object DamageGenes {
     // Canceling
 
     fun handleNoFallDamage(event: LivingIncomingDamageEvent) {
-        if (!ModGenes.NO_FALL_DAMAGE.get().isActive) return
+        val noFallDamage = ModGenes.NO_FALL_DAMAGE.getHolder(event.entity.registryAccess()) ?: return
+        if (noFallDamage.isDisabled) return
 
         if (!event.source.`is`(DamageTypes.FALL)) return
 
         val entity = event.entity
-        if (entity.hasGene(ModGenes.NO_FALL_DAMAGE.get())) {
+        if (entity.hasGene(ModGenes.NO_FALL_DAMAGE)) {
             event.amount = 0f
         }
     }
 
     fun handleWitherProof(event: LivingIncomingDamageEvent) {
-        if (!ModGenes.WITHER_PROOF.get().isActive) return
+        val witherProof = ModGenes.WITHER_PROOF.getHolder(event.entity.registryAccess()) ?: return
+        if (witherProof.isDisabled) return
 
         if (!event.source.`is`(DamageTypes.WITHER)) return
 
         val entity = event.entity
 
-        if (entity.hasGene(ModGenes.WITHER_PROOF.get())) {
+        if (entity.hasGene(ModGenes.WITHER_PROOF)) {
             entity.removeEffect(MobEffects.WITHER)
             event.amount = 0f
         }
     }
 
     fun handleFireProof(event: LivingIncomingDamageEvent) {
-        if (!ModGenes.FIRE_PROOF.get().isActive) return
+        val fireProof = ModGenes.FIRE_PROOF.getHolder(event.entity.registryAccess()) ?: return
+        if (fireProof.isDisabled) return
 
         if (!event.source.`is`(DamageTypes.IN_FIRE) && !event.source.`is`(DamageTypes.ON_FIRE)) return
 
         val entity = event.entity
 
-        if (entity.hasGene(ModGenes.FIRE_PROOF.get())) {
+        if (entity.hasGene(ModGenes.FIRE_PROOF)) {
             entity.clearFire()
             event.amount = 0f
         }
     }
 
     fun handlePoisonProof(event: LivingIncomingDamageEvent) {
-        if (!ModGenes.POISON_IMMUNITY.get().isActive) return
+        val poisonImmunity = ModGenes.POISON_IMMUNITY.getHolder(event.entity.registryAccess()) ?: return
+        if (poisonImmunity.isDisabled) return
 
         if (!event.source.`is`(NeoForgeMod.POISON_DAMAGE)) return
 
         val entity = event.entity
-        if (entity.hasGene(ModGenes.POISON_IMMUNITY.get())) {
+        if (entity.hasGene(ModGenes.POISON_IMMUNITY)) {
             entity.removeEffect(MobEffects.POISON)
             event.amount = 0f
         }
@@ -77,14 +83,15 @@ object DamageGenes {
     // Changing amount (not just canceling)
 
     fun handleDragonHealth(event: LivingDamageEvent.Pre) {
-        if (!ModGenes.ENDER_DRAGON_HEALTH.get().isActive) return
+        val enderDragonHealth = ModGenes.ENDER_DRAGON_HEALTH.getHolder(event.entity.registryAccess()) ?: return
+        if (enderDragonHealth.isDisabled) return
 
         if (event.container.newDamage == 0f) return
         val entity = event.entity
 
         if (entity.level().isClientSide) return
 
-        if (!entity.hasGene(ModGenes.ENDER_DRAGON_HEALTH.get())) return
+        if (!entity.hasGene(ModGenes.ENDER_DRAGON_HEALTH)) return
 
         val items = entity.handSlots.toMutableList()
         if (entity is Player) items += entity.inventory.items
@@ -102,10 +109,11 @@ object DamageGenes {
     }
 
     fun handleJohnny(event: LivingDamageEvent.Pre) {
-        if (!ModGenes.JOHNNY.get().isActive) return
+        val johnny = ModGenes.JOHNNY.getHolder(event.entity.registryAccess()) ?: return
+        if (johnny.isDisabled) return
 
         val attacker = event.container.source.entity as? LivingEntity ?: return
-        if (!attacker.hasGene(ModGenes.JOHNNY.get())) return
+        if (!attacker.hasGene(ModGenes.JOHNNY)) return
 
         val weaponIsAxe = attacker.mainHandItem.item is AxeItem //Is there a better way of doing this?
         if (!weaponIsAxe) return
@@ -116,13 +124,14 @@ object DamageGenes {
     // Triggers
 
     fun handleWitherHit(event: LivingDamageEvent.Post) {
-        if (!ModGenes.WITHER_HIT.get().isActive) return
+        val witherHit = ModGenes.WITHER_HIT.getHolder(event.entity.registryAccess()) ?: return
+        if (witherHit.isDisabled) return
 
         // Makes it not proc if it's an arrow or whatever
         if (!event.source.isDirect) return
 
         val attacker = event.source.entity as? LivingEntity ?: return
-        if (!attacker.hasGene(ModGenes.WITHER_HIT.get())) return
+        if (!attacker.hasGene(ModGenes.WITHER_HIT)) return
 
         val witherEffect = MobEffectInstance(
             MobEffects.WITHER,
@@ -133,7 +142,8 @@ object DamageGenes {
     }
 
     fun handleThorns(event: LivingDamageEvent.Post) {
-        if (!ModGenes.THORNS.get().isActive) return
+        val thorns = ModGenes.THORNS.getHolder(event.entity.registryAccess()) ?: return
+        if (thorns.isDisabled) return
 
         val attacker = event.source.entity as? LivingEntity ?: return
 
@@ -144,7 +154,7 @@ object DamageGenes {
         val targetChestplateMissingOrLeather = chestPlate.isEmpty || chestPlate.`is`(Items.LEATHER_CHESTPLATE)
         if (!targetChestplateMissingOrLeather) return
 
-        if (!target.hasGene(ModGenes.THORNS.get())) return
+        if (!target.hasGene(ModGenes.THORNS)) return
 
         if (Random.nextDouble() > ServerConfig.thornsChance.get()) return
 
@@ -157,15 +167,17 @@ object DamageGenes {
     }
 
     fun handleClaws(event: LivingDamageEvent.Post) {
-        if (!ModGenes.CLAWS.get().isActive) return
+        val claws = ModGenes.CLAWS.getHolder(event.entity.registryAccess()) ?: return
+        if (claws.isDisabled) return
 
         val attacker = event.source.entity as? LivingEntity ?: return
 
         if (!attacker.mainHandItem.isEmpty) return
 
-        val clawsLevel: Int = if (ModGenes.CLAWS_TWO.get().isActive && attacker.hasGene(ModGenes.CLAWS_TWO.get())) {
+        val clawsTwo = ModGenes.CLAWS_TWO.getHolder(event.entity.registryAccess()) ?: return
+        val clawsLevel: Int = if (!clawsTwo.isDisabled && attacker.hasGene(ModGenes.CLAWS_TWO)) {
             2
-        } else if (attacker.hasGene(ModGenes.CLAWS.get())) {
+        } else if (attacker.hasGene(ModGenes.CLAWS)) {
             1
         } else {
             return
@@ -189,12 +201,13 @@ object DamageGenes {
     }
 
     fun handleChilling(event: LivingDamageEvent.Post) {
-        if (!ModGenes.CHILLING.get().isActive) return
+        val chilling = ModGenes.CHILLING.getHolder(event.entity.registryAccess()) ?: return
+        if (chilling.isDisabled) return
 
         if (!event.source.isDirect) return
 
         val attacker = event.source.entity as? LivingEntity ?: return
-        if (!attacker.hasGene(ModGenes.CHILLING.get())) return
+        if (!attacker.hasGene(ModGenes.CHILLING)) return
 
         if (Random.nextDouble() > ServerConfig.chillChance.get()) return
 

@@ -1,0 +1,10 @@
+{
+  "dna_points_required": 50,
+  "potion_details": {
+    "effect": "minecraft:strength",
+    "level": 2
+  },
+  "requires_genes": [
+    "geneticsresequenced:strength"
+  ]
+}

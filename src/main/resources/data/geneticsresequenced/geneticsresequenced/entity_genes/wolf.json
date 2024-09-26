@@ -1,6 +1,6 @@
 {
   "entity": "minecraft:wolf",
-  "genes": {
+  "gene_weights": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:scare_skeletons": 2,
     "geneticsresequenced:night_vision": 3,

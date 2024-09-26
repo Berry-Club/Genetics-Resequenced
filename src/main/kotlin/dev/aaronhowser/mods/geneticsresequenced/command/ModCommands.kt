@@ -5,6 +5,7 @@ import com.mojang.brigadier.context.CommandContext
 import com.mojang.brigadier.suggestion.SuggestionProvider
 import com.mojang.brigadier.suggestion.SuggestionsBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
@@ -28,14 +29,20 @@ object ModCommands {
     }
 
     val SUGGEST_GENE_RLS: SuggestionProvider<CommandSourceStack> =
-        SuggestionProvider { _: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
-            val allGeneResourceLocations = GeneRegistry.getRegistrySorted().filter { !it.isHidden }.map { it.id }
+        SuggestionProvider { context: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
+            val allGeneResourceLocations = GeneRegistry
+                .getRegistrySorted(context.source.registryAccess())
+                .filter { !it.isHidden }.map { it.key!!.location() }
+
             SharedSuggestionProvider.suggestResource(allGeneResourceLocations, suggestionsBuilder)
         }
 
     val SUGGEST_GENE_STRINGS: SuggestionProvider<CommandSourceStack> =
-        SuggestionProvider { _: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
-            val allGeneStrings = GeneRegistry.getRegistrySorted().filter { !it.isHidden }.map { it.id.path }
+        SuggestionProvider { context: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
+            val allGeneStrings = GeneRegistry
+                .getRegistrySorted(context.source.registryAccess())
+                .filter { !it.isHidden }.map { it.key!!.location().path.toString() }
+
             SharedSuggestionProvider.suggest(allGeneStrings, suggestionsBuilder)
         }
 

@@ -1,0 +1,10 @@
+{
+  "type": "geneticsresequenced:incubator/gmo",
+  "entity_type": "minecraft:rabbit",
+  "gene_chance": 0.35,
+  "ideal_gene": "geneticsresequenced:haste_2",
+  "ingredient": {
+    "item": "minecraft:netherite_pickaxe"
+  },
+  "needs_mutation_potion": true
+}

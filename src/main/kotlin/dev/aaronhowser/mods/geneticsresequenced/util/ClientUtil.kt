@@ -1,14 +1,18 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.client.Minecraft
 import net.minecraft.client.Options
+import net.minecraft.client.multiplayer.ClientLevel
 import net.minecraft.client.player.LocalPlayer
+import net.minecraft.core.RegistryAccess
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.world.entity.player.PlayerModelPart
@@ -18,15 +22,22 @@ object ClientUtil {
     val localPlayer: LocalPlayer?
         get() = Minecraft.getInstance().player
 
+    val localRegistryAccess: RegistryAccess?
+        get() = Minecraft.getInstance().level?.registryAccess()
+
+    val localLevel: ClientLevel?
+        get() = Minecraft.getInstance().level
+
     fun playerIsCreative(): Boolean = localPlayer?.isCreative ?: false
 
-    private val options: Options = Minecraft.getInstance().options
+    private val options: Options
+        get() = Minecraft.getInstance().options
 
     private var removedSkinLayers: Set<PlayerModelPart> = emptySet()
     fun shearPlayerSkin() {
-        var enabledModelParts = options.modelParts.toSet()
+        val enabledModelParts = options.modelParts.toMutableSet()
         if (!ClientConfig.woolyRemovesCape.get()) {
-            enabledModelParts = enabledModelParts.minus(PlayerModelPart.CAPE)
+            enabledModelParts.remove(PlayerModelPart.CAPE)
         }
 
         for (part in enabledModelParts) {
@@ -61,7 +72,11 @@ object ClientUtil {
         wasAdded: Boolean,
         countdownSeconds: Int = 10
     ) {
-        if (!ModGenes.CRINGE.get().isActive) return
+        //TODO: Make sure this actually works
+        if (localRegistryAccess != null) {
+            val cringe = ModGenes.CRINGE.getHolder(localRegistryAccess!!)
+            if (cringe != null && cringe.isDisabled) return
+        }
 
         if (ClientConfig.disableCringeLangChange.get()) {
             GeneticsResequenced.LOGGER.info("Cringe language-changing is disabled in the config!")

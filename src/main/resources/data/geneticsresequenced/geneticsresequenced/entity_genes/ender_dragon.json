@@ -1,6 +1,6 @@
 {
   "entity": "minecraft:ender_dragon",
-  "genes": {
+  "gene_weights": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:dragons_breath": 6,
     "geneticsresequenced:ender_dragon_health": 3,

@@ -1,6 +1,6 @@
 {
   "entity": "minecraft:ocelot",
-  "genes": {
+  "gene_weights": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:speed": 2,
     "geneticsresequenced:scare_creepers": 3

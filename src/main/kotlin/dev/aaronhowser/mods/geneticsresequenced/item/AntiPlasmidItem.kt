@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
@@ -18,9 +19,9 @@ class AntiPlasmidItem : Item(Properties().stacksTo(1)) {
         pTooltipFlag: TooltipFlag
     ) {
 
-        val gene = PlasmidItem.getGene(pStack)
+        val geneHolder = PlasmidItem.getGene(pStack)
 
-        if (gene == null) {
+        if (geneHolder == null) {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.ANTI_PLASMID_EMPTY
                     .toComponent()
@@ -29,7 +30,7 @@ class AntiPlasmidItem : Item(Properties().stacksTo(1)) {
         } else {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.PLASMID_GENE
-                    .toComponent(gene.nameComponent)
+                    .toComponent(Gene.getNameComponent(geneHolder))
                     .withColor(ChatFormatting.GRAY)
             )
         }

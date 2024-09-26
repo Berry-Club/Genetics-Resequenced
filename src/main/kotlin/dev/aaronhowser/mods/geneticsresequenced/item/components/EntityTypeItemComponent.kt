@@ -9,17 +9,17 @@ import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.entity.EntityType
 
 data class EntityTypeItemComponent(
-    val entity: EntityType<*>
+    val entityType: EntityType<*>
 ) {
 
     companion object {
 
         val CODEC: Codec<EntityTypeItemComponent> =
-            BuiltInRegistries.ENTITY_TYPE.byNameCodec().xmap(::EntityTypeItemComponent, EntityTypeItemComponent::entity)
+            BuiltInRegistries.ENTITY_TYPE.byNameCodec().xmap(::EntityTypeItemComponent, EntityTypeItemComponent::entityType)
 
         val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, EntityTypeItemComponent> =
             ByteBufCodecs.registry(Registries.ENTITY_TYPE)
-                .map(::EntityTypeItemComponent, EntityTypeItemComponent::entity)
+                .map(::EntityTypeItemComponent, EntityTypeItemComponent::entityType)
 
     }
 

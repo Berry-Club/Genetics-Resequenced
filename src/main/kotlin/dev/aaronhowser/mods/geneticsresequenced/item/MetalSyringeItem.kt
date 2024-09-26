@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityUuid
@@ -66,11 +67,11 @@ class MetalSyringeItem : SyringeItem() {
 
             if (pInteractionTarget !is Player) {
                 val syringeGenes = getGenes(syringeStack)
-                val genesCantAdd = syringeGenes.filterNot { it.canMobsHave }
-                for (gene in genesCantAdd) {
+                val genesCantAdd = syringeGenes.filterNot { it.value().canEntityHave(pInteractionTarget) }
+                for (geneHolder in genesCantAdd) {
                     sendMessage(
                         ModLanguageProvider.Messages.METAL_SYRINGE_NO_MOBS.toComponent(
-                            gene.nameComponent
+                            Gene.getNameComponent(geneHolder)
                         )
                     )
                 }

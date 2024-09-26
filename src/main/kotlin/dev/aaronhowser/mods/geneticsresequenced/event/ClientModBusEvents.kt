@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.client.renderer.item.ItemPropertyFunction
+import net.minecraft.world.item.CreativeModeTabs
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
@@ -18,6 +19,7 @@ import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.client.event.ModelEvent
 import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent
 
 @EventBusSubscriber(
     modid = GeneticsResequenced.ID,
@@ -73,6 +75,13 @@ object ClientModBusEvents {
     @SubscribeEvent
     fun onRegisterMenuScreens(event: RegisterMenuScreensEvent) {
         ModMenuTypes.registerScreens(event)
+    }
+
+    @SubscribeEvent
+    fun addToCreativeTab(event: BuildCreativeModeTabContentsEvent) {
+        if (event.tabKey == CreativeModeTabs.SPAWN_EGGS) {
+            event.accept(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())
+        }
     }
 
 }

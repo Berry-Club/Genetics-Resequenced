@@ -1,0 +1,9 @@
+{
+  "type": "geneticsresequenced:incubator/gmo",
+  "entity_type": "minecraft:shulker",
+  "gene_chance": 0.45,
+  "ideal_gene": "geneticsresequenced:keep_inventory",
+  "ingredient": {
+    "item": "minecraft:emerald_block"
+  }
+}

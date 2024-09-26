@@ -1,0 +1,10 @@
+{
+  "type": "geneticsresequenced:incubator/gmo",
+  "entity_type": "minecraft:pig",
+  "gene_chance": 0.75,
+  "ideal_gene": "geneticsresequenced:meaty_2",
+  "ingredient": {
+    "item": "minecraft:blaze_powder"
+  },
+  "needs_mutation_potion": true
+}

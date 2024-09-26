@@ -2,13 +2,14 @@ package dev.aaronhowser.mods.geneticsresequenced.command
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.genes
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
-import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
@@ -35,7 +36,7 @@ object ListGenesCommand {
             entity as? LivingEntity
         } ?: return 0
 
-        val targetGenesList = target.genes
+        val targetGenesList = target.geneHolders
 
         if (targetGenesList.isEmpty()) {
             context.source.sendSuccess(
@@ -50,10 +51,11 @@ object ListGenesCommand {
                 target.displayName
             )
 
-        for (gene in targetGenesList) {
-            val geneComponent = Component.literal("\n• ").append(gene.nameComponent)
-            messageComponent.append(geneComponent)
-        }
+        messageComponent.append(
+            OtherUtil.componentList(
+                targetGenesList.map { Gene.getNameComponent(it) }
+            )
+        )
 
         context.source.sendSuccess({ messageComponent }, false)
         return 1

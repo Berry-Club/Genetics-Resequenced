@@ -3,8 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -18,7 +18,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.alchemy.PotionBrewing
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.items.IItemHandlerModifiable
@@ -47,8 +46,6 @@ class IncubatorBlockEntity(
         return ModBlocks.INCUBATOR.get().name
     }
 
-    private val potionBrewing: PotionBrewing? by lazy { level?.potionBrewing() }
-
     override val amountOfItemSlots: Int = 5
     override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {
         override fun onContentsChanged(slot: Int) {
@@ -57,11 +54,11 @@ class IncubatorBlockEntity(
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
-                TOP_SLOT_INDEX -> potionBrewing?.isIngredient(stack) ?: false
+                TOP_SLOT_INDEX -> AbstractIncubatorRecipe.isValidIngredient(level!!, stack)
 
                 LEFT_BOTTLE_SLOT_INDEX,
                 MIDDLE_BOTTLE_SLOT_INDEX,
-                RIGHT_BOTTLE_SLOT_INDEX -> potionBrewing?.isInput(stack) ?: false
+                RIGHT_BOTTLE_SLOT_INDEX -> AbstractIncubatorRecipe.isValidIngredient(level!!, stack)
 
                 OVERCLOCKER_SLOT_INDEX -> stack.item == ModItems.OVERCLOCKER.get()
 
@@ -148,7 +145,6 @@ class IncubatorBlockEntity(
     }
 
     override fun craftItem() {
-
         val topStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
 
         val bottleSlots = listOf(
@@ -158,8 +154,12 @@ class IncubatorBlockEntity(
         )
 
         for (slotIndex in bottleSlots) {
-            val bottleStack = itemHandler.getStackInSlot(slotIndex)
-            val output = potionBrewing?.mix(topStack, bottleStack) ?: continue
+            val bottomStack = itemHandler.getStackInSlot(slotIndex)
+
+            val recipeInput = IncubatorRecipeInput(topStack, bottomStack, isHighTemp = true)
+            val recipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, recipeInput) ?: continue
+
+            val output = recipe.assemble(recipeInput, level!!.registryAccess())
 
             if (!output.isEmpty) {
                 itemHandler.setStackInSlot(slotIndex, output)
@@ -173,15 +173,21 @@ class IncubatorBlockEntity(
     override fun hasRecipe(): Boolean {
         if (!hasEnoughEnergy()) return false
 
-        val topSlotStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
+        val topStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
+        if (topStack.isEmpty) return false
 
-        potionBrewing?.apply {
-            if (hasMix(itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX), topSlotStack)) return true
-            if (hasMix(itemHandler.getStackInSlot(MIDDLE_BOTTLE_SLOT_INDEX), topSlotStack)) return true
-            if (hasMix(itemHandler.getStackInSlot(RIGHT_BOTTLE_SLOT_INDEX), topSlotStack)) return true
+        val bottomStacks = listOf(
+            itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX),
+            itemHandler.getStackInSlot(MIDDLE_BOTTLE_SLOT_INDEX),
+            itemHandler.getStackInSlot(RIGHT_BOTTLE_SLOT_INDEX)
+        )
+
+        return bottomStacks.any { bottomStack ->
+            if (bottomStack.isEmpty) return@any false
+
+            val input = IncubatorRecipeInput(topStack, bottomStack, isHighTemp = true)
+            AbstractIncubatorRecipe.hasIncubatorRecipe(level!!, input)
         }
-
-        return false
     }
 
     companion object {

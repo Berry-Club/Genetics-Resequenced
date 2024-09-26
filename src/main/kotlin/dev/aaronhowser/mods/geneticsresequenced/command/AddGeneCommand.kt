@@ -16,10 +16,10 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.commands.arguments.ResourceLocationArgument
+import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.player.Player
 
 object AddGeneCommand {
 
@@ -91,7 +91,7 @@ object AddGeneCommand {
         geneRl: ResourceLocation,
         entities: MutableCollection<out Entity>? = null
     ): Int {
-        val gene = GeneRegistry.fromResourceLocation(geneRl)
+        val gene = GeneRegistry.fromResourceLocation(context.source.registryAccess(), geneRl)
             ?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
 
         return addGene(context, gene, entities)
@@ -103,7 +103,7 @@ object AddGeneCommand {
         entities: MutableCollection<out Entity>? = null
     ): Int {
 
-        val gene = GeneRegistry.fromIdPath(geneString)
+        val gene = GeneRegistry.fromIdPath(context.source.registryAccess(), geneString)
             ?: throw IllegalArgumentException("Gene with id $geneString does not exist!")
 
         return addGene(context, gene, entities)
@@ -111,7 +111,7 @@ object AddGeneCommand {
 
     private fun addGene(
         context: CommandContext<CommandSourceStack>,
-        geneToAdd: Gene,
+        geneToAdd: Holder<Gene>,
         entities: MutableCollection<out Entity>? = null
     ): Int {
 
@@ -130,14 +130,14 @@ object AddGeneCommand {
     private fun handleSingleTarget(
         context: CommandContext<CommandSourceStack>,
         target: LivingEntity,
-        geneToAdd: Gene,
+        geneHolder: Holder<Gene>,
     ) {
-        val geneWasAdded = addGeneToTarget(target, geneToAdd)
+        val geneWasAdded = addGeneToTarget(target, geneHolder)
 
         if (geneWasAdded) {
             val component =
                 ModLanguageProvider.Commands.ADD_SINGLE_SUCCESS.toComponent(
-                    geneToAdd.nameComponent,
+                    Gene.getNameComponent(geneHolder),
                     target.name
                 )
 
@@ -145,7 +145,7 @@ object AddGeneCommand {
         } else {
             val component =
                 ModLanguageProvider.Commands.ADD_SINGLE_FAIL.toComponent(
-                    geneToAdd.nameComponent,
+                    Gene.getNameComponent(geneHolder),
                     target.name
                 )
 
@@ -156,20 +156,20 @@ object AddGeneCommand {
     private fun handleMultipleTargets(
         context: CommandContext<CommandSourceStack>,
         targets: List<LivingEntity>,
-        geneToAdd: Gene
+        geneHolder: Holder<Gene>
     ) {
         var amountSuccess = 0
         var amountFail = 0
 
         for (target in targets) {
-            val geneAdded = addGeneToTarget(target, geneToAdd)
-            if (geneAdded) amountSuccess++ else amountFail++
+            val geneWasAdded = addGeneToTarget(target, geneHolder)
+            if (geneWasAdded) amountSuccess++ else amountFail++
         }
 
         if (amountSuccess != 0) {
             val component =
                 ModLanguageProvider.Commands.ADD_MULTIPLE_SUCCESS.toComponent(
-                    geneToAdd.nameComponent,
+                    Gene.getNameComponent(geneHolder),
                     amountSuccess
                 )
 
@@ -179,7 +179,7 @@ object AddGeneCommand {
         if (amountFail != 0) {
             val component =
                 ModLanguageProvider.Commands.ADD_MULTIPLE_FAIL.toComponent(
-                    geneToAdd.nameComponent,
+                    Gene.getNameComponent(geneHolder),
                     amountFail
                 )
             context.source.sendFailure(component)
@@ -188,21 +188,20 @@ object AddGeneCommand {
 
     private fun addGeneToTarget(
         target: LivingEntity,
-        geneToAdd: Gene,
+        geneHolder: Holder<Gene>,
     ): Boolean {
-        val alreadyHasGene = target.hasGene(geneToAdd)
+        val alreadyHasGene = target.hasGene(geneHolder)
         if (alreadyHasGene) {
-            GeneticsResequenced.LOGGER.info("Tried to add gene ${geneToAdd.id} to ${target.name.string}, but they already have it!")
+            GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.location()} to ${target.name.string}, but they already have it!")
             return false
         }
 
-        val cantAddToMob = target !is Player && !geneToAdd.canMobsHave
-        if (cantAddToMob) {
-            GeneticsResequenced.LOGGER.info("Tried to add gene ${geneToAdd.id} to ${target.name.string}, but they can't have it!")
+        if (!geneHolder.value().canEntityHave(target)) {
+            GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.location()} to ${target.name.string}, but they can't have it!")
             return false
         }
 
-        val success = target.addGene(geneToAdd)
+        val success = target.addGene(geneHolder)
 
         return success
     }

@@ -2,15 +2,15 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
-import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.FriendlyByteBuf
@@ -94,7 +94,7 @@ class PlasmidInfuserMenu(
             val hoverStack = event.itemStack
             if (hoverStack.item != ModItems.DNA_HELIX.get()) return
 
-            val hoverGene = DnaHelixItem.getGene(hoverStack)
+            val hoveredGeneHolder = DnaHelixItem.getGeneHolder(hoverStack)
 
             val slots = event.entity?.containerMenu?.slots ?: return
             val plasmidSlotId = 37  //Evil magic number that i got by printing whatever slot I was hovering
@@ -103,8 +103,8 @@ class PlasmidInfuserMenu(
             val outputGene = PlasmidItem.getGene(outputItem) ?: return
 
             val component =
-                when (hoverGene) {
-                    ModGenes.BASIC.get() -> {
+                when (hoveredGeneHolder) {
+                    ModGenes.BASIC -> {
                         ModLanguageProvider.Tooltips.INFUSER_BASIC.toComponent()
                     }
 

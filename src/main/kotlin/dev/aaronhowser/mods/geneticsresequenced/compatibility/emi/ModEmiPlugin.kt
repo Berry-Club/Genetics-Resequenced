@@ -2,27 +2,20 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPlasmidEmiRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.ModInformationRecipes
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing.*
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.PurifySyringeEmiRecipe
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.OrganicMatterToCellEmiRecipe
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.DecryptHelixEmiRecipe
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.CellToHelixEmiRecipe
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.PlasmidInfuserEmiRecipe
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.PlasmidInjectorEmiRecipe
-import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.*
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.incubator.*
+import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.EmiEntrypoint
 import dev.emi.emi.api.EmiPlugin
 import dev.emi.emi.api.EmiRegistry
 import dev.emi.emi.api.recipe.EmiRecipeCategory
-import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories
 import dev.emi.emi.api.stack.Comparison
 import dev.emi.emi.api.stack.EmiStack
-import net.minecraft.world.item.Items
 
 @EmiEntrypoint
 class ModEmiPlugin : EmiPlugin {
@@ -53,6 +46,9 @@ class ModEmiPlugin : EmiPlugin {
             EmiRecipeCategory(OtherUtil.modResource("plasmid_injector"), PLASMID_INJECTOR_STACK)
 
         val INCUBATOR_STACK: EmiStack = EmiStack.of(ModBlocks.INCUBATOR)
+        val INCUBATOR_CATEGORY: EmiRecipeCategory =
+            EmiRecipeCategory(OtherUtil.modResource("incubator"), INCUBATOR_STACK)
+
         val ADVANCED_INCUBATOR_STACK: EmiStack = EmiStack.of(ModBlocks.ADVANCED_INCUBATOR)
 
         val CELL_STACK: EmiStack = EmiStack.of(ModItems.CELL)
@@ -60,8 +56,6 @@ class ModEmiPlugin : EmiPlugin {
         val DNA_HELIX_STACK: EmiStack = EmiStack.of(ModItems.DNA_HELIX)
         val PLASMID_STACK: EmiStack = EmiStack.of(ModItems.PLASMID)
         val ANTI_PLASMID_STACK: EmiStack = EmiStack.of(ModItems.ANTI_PLASMID)
-
-        val BREWING_STAND_STACK: EmiStack = EmiStack.of(Items.BREWING_STAND)
 
         val GMO_CATEGORY: EmiRecipeCategory =
             EmiRecipeCategory(OtherUtil.modResource("gmo"), GMO_CELL_STACK)
@@ -81,13 +75,12 @@ class ModEmiPlugin : EmiPlugin {
         dnaDecryptor(registry)
         plasmidInfuser(registry)
         plasmidInjector(registry)
-
-        potions(registry)
+        incubator(registry)
 
         AntiPlasmidEmiRecipes.setAntiPlasmidRecipes(registry)
         AntiPlasmidEmiRecipes.unsetAntiPlasmidRecipes(registry)
 
-        ModInformationRecipes.getInformationRecipes().forEach { registry.addRecipe(it) }
+        ModInformationRecipes.getInformationRecipes(ClientUtil.localRegistryAccess!!).forEach { registry.addRecipe(it) }
 
         comparisons(registry)
     }
@@ -114,8 +107,8 @@ class ModEmiPlugin : EmiPlugin {
         registry.addCategory(CELL_ANALYZER_CATEGORY)
         registry.addWorkstation(CELL_ANALYZER_CATEGORY, CELL_ANALYZER_STACK)
 
-        for (entityType in EntityDnaItem.validEntityTypes) {
-            registry.addRecipe(OrganicMatterToCellEmiRecipe(entityType))
+        for (recipe in OrganicMatterToCellEmiRecipe.getAllRecipes()) {
+            registry.addRecipe(recipe)
         }
     }
 
@@ -123,7 +116,7 @@ class ModEmiPlugin : EmiPlugin {
         registry.addCategory(DNA_EXTRACTOR_CATEGORY)
         registry.addWorkstation(DNA_EXTRACTOR_CATEGORY, DNA_EXTRACTOR_STACK)
 
-        for (recipe in CellToHelixEmiRecipe.getAllRecipes()) {
+        for (recipe in CellToHelixEmiRecipe.getAllRecipes(registry.recipeManager)) {
             registry.addRecipe(recipe)
         }
     }
@@ -155,33 +148,40 @@ class ModEmiPlugin : EmiPlugin {
         }
     }
 
-    private fun potions(registry: EmiRegistry) {
-        registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, INCUBATOR_STACK)
-        registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, ADVANCED_INCUBATOR_STACK)
-
-        registry.addRecipe(BlackDeathEmiRecipe(false))
-        registry.addRecipe(BlackDeathEmiRecipe(true))
-
+    private fun incubator(registry: EmiRegistry) {
+        basicIncubatorRecipes(registry)
         substrate(registry)
         setPotionEntity(registry)
         virus(registry)
         gmo(registry)
+
+        for (recipe in BlackDeathEmiRecipe.getAllRecipes()) {
+            registry.addRecipe(recipe)
+        }
+    }
+
+    private fun basicIncubatorRecipes(registry: EmiRegistry) {
+        registry.addCategory(INCUBATOR_CATEGORY)
+        registry.addWorkstation(INCUBATOR_CATEGORY, INCUBATOR_STACK)
+        registry.addWorkstation(INCUBATOR_CATEGORY, ADVANCED_INCUBATOR_STACK)
+
+        for (recipe in BasicIncubatorEmiRecipe.getAllRecipes(registry.recipeManager)) {
+            registry.addRecipe(recipe)
+        }
     }
 
     private fun substrate(registry: EmiRegistry) {
         registry.addCategory(CELL_DUPE_CATEGORY)
-        registry.addWorkstation(CELL_DUPE_CATEGORY, BREWING_STAND_STACK)
         registry.addWorkstation(CELL_DUPE_CATEGORY, INCUBATOR_STACK)
         registry.addWorkstation(CELL_DUPE_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
-        for (recipe in SubstrateCellEmiRecipe.getAllRecipes()) {
+        for (recipe in CellDupeEmiRecipe.getAllRecipes(registry.recipeManager)) {
             registry.addRecipe(recipe)
         }
     }
 
     private fun setPotionEntity(registry: EmiRegistry) {
         registry.addCategory(SET_ENTITY_CATEGORY)
-        registry.addWorkstation(SET_ENTITY_CATEGORY, BREWING_STAND_STACK)
         registry.addWorkstation(SET_ENTITY_CATEGORY, INCUBATOR_STACK)
         registry.addWorkstation(SET_ENTITY_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
@@ -192,11 +192,10 @@ class ModEmiPlugin : EmiPlugin {
 
     private fun virus(registry: EmiRegistry) {
         registry.addCategory(VIRUS_CATEGORY)
-        registry.addWorkstation(VIRUS_CATEGORY, BREWING_STAND_STACK)
         registry.addWorkstation(VIRUS_CATEGORY, INCUBATOR_STACK)
         registry.addWorkstation(VIRUS_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
-        for (recipe in VirusEmiRecipe.getAllRecipes()) {
+        for (recipe in VirusEmiRecipe.getAllRecipes(registry.recipeManager)) {
             registry.addRecipe(recipe)
         }
     }
@@ -205,7 +204,7 @@ class ModEmiPlugin : EmiPlugin {
         registry.addCategory(GMO_CATEGORY)
         registry.addWorkstation(GMO_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
-        for (recipe in GmoEmiRecipe.getAllRecipes()) {
+        for (recipe in GmoEmiRecipe.getAllRecipes(registry.recipeManager)) {
             registry.addRecipe(recipe)
         }
     }

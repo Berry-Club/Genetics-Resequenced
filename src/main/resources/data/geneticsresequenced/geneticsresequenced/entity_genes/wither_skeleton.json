@@ -1,6 +1,6 @@
 {
   "entity": "minecraft:wither_skeleton",
-  "genes": {
+  "gene_weights": {
     "geneticsresequenced:basic": 5,
     "geneticsresequenced:wither_hit": 2
   }

@@ -6,31 +6,26 @@
 
 - Updated to 1.21
 - Genes are now an actual Registry
-- Fixed Incubator and Advanced Incubator from not working (hasRecipe() returned false when hasEnoughEnergy was true
-  rather than when false)
+- Fixed Incubator and Advanced Incubator from not working (hasRecipe() returned false when hasEnoughEnergy was true rather than when false)
 - Fixed the Black Death recipe being broken
 - Item Magnet will show in the tooltip that an item is blacklisted (configurable)
 - Properly sync the player's Genes on client and server on login
 - Allowed the Gene Add/Remove commands to use the gene name string instead of the id Resource Location
 - The Keep Inventory Gene now uses Data Attachment, which means it persists across server stops
-- Efficiency Attribute now uses modifiers instead of modifying the attribute base value. No idea why I was doing that
-  originally, that's awful.
+- Efficiency Attribute now uses modifiers instead of modifying the attribute base value. No idea why I was doing that originally, that's awful.
 - The Flight gene now is an Attribute, rather than changing the player's ability to fly. Fixes #10
 - Wall Climbing is no longer an Attribute (Why was it? What was I thinking?)
 - The non-empty DNA Helices and Plasmids in the creative mode tab are now after everything else
 - Attribute Modifiers given by Genes are now kept on respawn
 - Changed the machines' energy texture to one made by TJKraft
-- Support Slime now only checks if it should despawn once every 40 ticks rather than every tick, which should improve
-  performance.
+- Support Slime now only checks if it should despawn once every 40 ticks rather than every tick, which should improve performance.
 - Emerald Heart chat function only worked if Emerald Heart was DISABLED, instead of ENABLED. Fixed that.
 - Improved command response messages, for example "Added Claws to Dev" instead of "Added Claws to 1 entities".
 - Item Magnet now has a delay against picking up items dropped by you
 - Increased the amount of Support Slimes spawned from 1-4 to 3-6
-- Poison Proof Gene now uses the new NeoForge Poison damage, rather than checking for magic damage while you have poison
-  effect
+- Poison Proof Gene now uses the new NeoForge Poison damage, rather than checking for magic damage while you have poison effect
 - Renamed The Cure to Panacea
-- The Coal Generator now allows extracting items from any side (in case of fuels like Lava Buckets, which leave an empty
-  Bucket behind)
+- The Coal Generator now allows extracting items from any side (in case of fuels like Lava Buckets, which leave an empty Bucket behind)
 - Machines now keep their progress if they run out of power
 - MobGeneRegistry and GeneRequirementRegistry loggers are now debug instead of info
 - The bubbles in the Incubator and Advanced Incubator now animate slower
@@ -55,8 +50,7 @@
 - Updated to NeoForge 21.0.53-beta
 - Added EMI support
 - Added 4 new Genes: Infested, Oozing, Weaving, and Wind Charged
-- Fixed a recipe conflict between Panacea and Zombify Villager potions, Panacea now requires a Regeneration Helix rather
-  than Emerald Heart
+- Fixed a recipe conflict between Panacea and Zombify Villager potions, Panacea now requires a Regeneration Helix rather than Emerald Heart
 - Sorted Genes in several places (Sorted firstly by regular/mutation/negative, then by id)
 - Fixed a typo in a tooltip
 - Forgot the missing : in several places in the mod name
@@ -84,8 +78,7 @@
 ### 1.1.6
 
 - Update to NeoForge 21.0.113-beta
-- Improvements to Infinity Gene. Turns out most of the code wasn't actually reachable, and also was pointless besides.
-  Much simpler now. Also, fixed picking up fired arrows (#13)
+- Improvements to Infinity Gene. Turns out most of the code wasn't actually reachable, and also was pointless besides. Much simpler now. Also, fixed picking up fired arrows (#13)
 - Added support for NeoForge mod config menu
 - Rearranged configs
 
@@ -97,8 +90,7 @@
 
 - Update to NeoForge 21.0.140-beta
 - Fixed crash from trying to scrape invalid entities
-- Made every machine GUI 6 pixels taller, with all elements being 6 pixels lower, to prevent the machine name clipping
-  through the energy bar
+- Made every machine GUI 6 pixels taller, with all elements being 6 pixels lower, to prevent the machine name clipping through the energy bar
 - Fixed the FE bar filling from top to bottom, rather than bottom to top
 - Fixed the Coal Generator's burn progress rendering incorrectly
 - Fixed the progress arrows in the Incubator and Advanced Incubator rendering incorrectly
@@ -109,8 +101,7 @@
 ### 1.1.9
 
 - Fixed the Potion of Cell Growth recipe setting the entity when it shouldn't (#14)
-- Support Slimes now have a 100% chance to give the Slimy Death Gene. The file previously pointed at the
-  entity `minecraft:slime` rather than `geneticsresequenced:support_slime`
+- Support Slimes now have a 100% chance to give the Slimy Death Gene. The file previously pointed at the entity `minecraft:slime` rather than `geneticsresequenced:support_slime`
 - Localized tags for EMI
 - Removed the reference to the Patchouli book from the first advancement, as Patchouli isn't on 1.21 yet
 - Moved to better practices (using less lazy values, mostly)
@@ -123,11 +114,9 @@
 - Fixed the Incubator not being able to output
 - Fixed the Plasmid Infuser giving +1 DNA Point for Helices of the same Gene rather than +2 (#18)
 - Fixed the Advanced Incubator ignoring Chorus Fruit (#17)
-- In the Plasmid Infuser, the initial DNA Helix infused into an empty Plasmid does not give it any DNA Points,
-  previously it gave +1
+- In the Plasmid Infuser, the initial DNA Helix infused into an empty Plasmid does not give it any DNA Points, previously it gave +1
 - The GMO chance increase/decrease per Overclocker and Chorus Fruit is now configurable
-- Massively improved the code for most Screens, moving a lot of things to Widgets rather than reimplementing them every
-  Screen
+- Massively improved the code for most Screens, moving a lot of things to Widgets rather than reimplementing them every Screen
 - All machine menu progress arrows now show the percentage completion in the tooltip
 - Fixed Scrapers being unable to be enchanted (#16)
 
@@ -158,7 +147,8 @@
 - Added a recipe for the Metal Syringe
 - Moved most recipes to use item tags where possible
 - Made it so you can use the Metal Syringe and Scraper on Villagers without opening their menu (if the item is `#geneticsresequenced:prevents_some_mob_interaction` and the entity type is `#geneticsresequenced:allows_preventing_interaction`)
-- Fixed the Metal Syringe telling you that the wrong Genes can't be injected into mobs (it was displaying negative genes, rather than filtering against Gene.canMobsHave)
+- Fixed the Metal Syringe telling you that the wrong Genes can't be injected into mobs (it was displaying negative
+  genes, rather than filtering against Gene.canMobsHave)
 - Fixed decrypted DNA Helices being able to be put through the DNA Decryptor
 - Added the failed Basic Gene GM Cells to EMI's GMO Cell Incubating recipe page
 
@@ -168,3 +158,57 @@
 - Fixed some weird phrasing in the Potion of Mutation entry
 - Major overhaul of the GMO Cell Incubating EMI recipe page
 - Fixed the Advanced Incubator screen bubbles not animating slower in low-temperature mode
+
+### 1.3.0
+
+- Genes are now data-driven! They're in /data/_____/geneticsresequenced/gene/
+- They follow the following structure, all fields are optional:
+    - `dna_points_required`: The amount of DNA Points required to complete a Plasmid. Defaults to 0
+    - `negative`: If the Gene is negative. Defaults to false
+    - `mutation`: If the Gene is a mutation. Defaults to false
+    - `hidden`: If the Gene is hidden, only used by default by the Basic Gene. Defaults to false
+    - `allowed_entities`: A filter of entity types that the Gene can be injected into
+      - Defaults to `{"type": "neoforge:any"}`. 
+      - Can also accept a single entity type (`"minecraft:player"`) or a list of entity types (`["minecraft:cow","minecraft:chicken"]`)
+    - `potion_details`: An object with the following fields, for a potion effect that's granted at all times:
+        - `effect`: The effect to apply
+        - `level`: The level of the effect (optional, defaults to 1)
+        - `duration`: The duration of the effect (optional, defaults to -1, infinite)
+        - `showIcon`: If the effect icon should be shown (optional, defaults to false)
+    - `attribute_modifiers`: A list of objects with the following fields, for attribute modifiers that are granted at all times:
+        - `attribute`: The attribute to modify
+        - `id`: A Resource Location ID for the modifier
+        - `operation`: The operation to apply to the attribute (`"add_value"`, `"add_multiplied_base"`, or `"add_multiplied_total"`)
+        - `amount`: The amount to modify the attribute by
+    - `requires_genes`: A list of Resource Location IDs for Genes that are required to have this Gene
+    - `scares_entities_with_tag`: An entity type tag that the Gene will scare
+- Genes requiring other Genes is now handled in the Gene's json, rather than a file in /gene_requirements/
+- Changed some default Gene requirements:
+  - Flight no longer requires Jump Boost, but now requires Step Assist
+  - Photosynthesis now requires Eat Grass
+  - Scare Spiders and Scare Zombies are no longer Mutation genes, and don't require Scare Creepers or Scare Skeletons
+- Disabling Genes now uses the Gene tag `#geneticsresequenced:disabled`
+- Fixed an issue where the Photosynthesis Gene would stop working when enabled instead of when not enabled
+- Added Reaching Gene, which allows you to reach 1.25 times further
+- Fixed an issue where Genes that require 1 DNA Point would show as requiring 0 DNA Helices instead of 1 in EMI
+- Incubator recipes are no longer actually Brewing recipes, and can therefore no longer be used in a Brewing Stand
+    - Consequently, you can now make custom recipes that use the Incubator! See `/data/geneticsresequeced/recipe/incubator/`
+    - There are 3 types (technically 5, but 2 of them are hardcoded with no parameters):
+        - `geneticsresequenced:incubator_basic`
+          - Requires two ingredients `top_slot` and `bottom_slot`, and an output itemstack `output`
+          - Optionally can have `is_low_temperature`, which makes it require low temperature. Defaults to false, making it require high temperature
+        - `geneticsresequenced:incubator_gmo`
+            - Requires `entity_type` that the Cell Growth or Mutation Potion must be set to
+            - Requires `ingredient` for the item in the top slot
+            - Requires `ideal_gene` for the Gene that a successful Cell will have
+            - Optionally can have `gene_chance`, which is a number 0-1 for the chance of getting the Gene (giving Basic if it fails). Defaults to 1.
+            - Optionally can have `needs_mutation_potion` which makes it require a Potion of Mutation instead of a Potion of Cell Growth. Defaults to false.
+        - `geneticsresequenced:incubator_virus`
+            - Takes in an input Gene and an output Gene, and makes a recipe that converts when crafted with Viral Agents
+- Support Slime Spawn Eggs have been added to the Spawn Eggs creative tab
+- The Plasmid Injector EMI recipe page now says in the tooltip that you can have multiple Genes/Antigenes in the same Syringe
+- Fixed an issue in the coloring of Anti-Plasmid tooltips
+- Removed the potion outlines from the Incubator background slots
+- Updated Incubator EMI recipe pages
+- Removed a rather large unused texture that was taking up space
+- Added the following entity types to `geneticsresequenced:allows_preventing_interaction`: Horse, Donkey, Mule, Llama, Trader Llama

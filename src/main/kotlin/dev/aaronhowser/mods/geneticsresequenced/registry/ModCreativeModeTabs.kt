@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.CreativeModeTab
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -24,8 +25,8 @@ object ModCreativeModeTabs {
             .displayItems { _: CreativeModeTab.ItemDisplayParameters, output: CreativeModeTab.Output ->
                 output.acceptAll(ModItems.ITEM_REGISTRY.entries.map { (it as DeferredItem).toStack() })
 
-                output.acceptAll(DnaHelixItem.getAllHelices())
-                output.acceptAll(PlasmidItem.getAllPlasmids())
+                output.acceptAll(DnaHelixItem.getAllHelices(ClientUtil.localRegistryAccess!!))
+                output.acceptAll(PlasmidItem.getAllPlasmids(ClientUtil.localRegistryAccess!!))
             }
             .build()
     })

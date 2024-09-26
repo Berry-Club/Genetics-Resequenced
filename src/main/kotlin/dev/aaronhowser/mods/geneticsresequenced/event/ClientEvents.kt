@@ -10,7 +10,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.TeleportPlayerPacket
-import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
+import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.neoforged.api.distmarker.Dist
@@ -29,11 +29,11 @@ object ClientEvents {
     @SubscribeEvent
     fun onKeyInputEvent(event: InputEvent.Key) {
         if (ModKeyMappings.TELEPORT.consumeClick()) {
-            ModPacketHandler.messageServer(TeleportPlayerPacket())
+            ModPacketHandler.messageServer(TeleportPlayerPacket.INSTANCE)
         }
 
         if (ModKeyMappings.DRAGONS_BREATH.consumeClick()) {
-            ModPacketHandler.messageServer(FireballPacket())
+            ModPacketHandler.messageServer(FireballPacket.INSTANCE)
         }
     }
 

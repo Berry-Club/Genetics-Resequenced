@@ -27,8 +27,9 @@ class ModItemTagsProvider(
             return ItemTags.create(OtherUtil.modResource(id))
         }
 
-        val WOOLY_ITEM_TAG: TagKey<Item> = create("wooly")
-        val FIREBALL_ITEM_TAG: TagKey<Item> = create("fireball")
+        val SYRINGE: TagKey<Item> = create("syringe")
+        val ACTIVATES_WOOLY: TagKey<Item> = create("wooly")
+        val ACTIVATES_SHOOT_FIREBALL: TagKey<Item> = create("fireball")
         val MAGNET_ITEM_BLACKLIST: TagKey<Item> = create("magnet_blacklist")
         val ENCHANTABLE_DELICATE_TOUCH: TagKey<Item> = create("enchantable/delicate_touch")
         val PREVENTS_SOME_MOB_INTERACTION: TagKey<Item> = create("prevents_some_mob_interaction")
@@ -36,14 +37,20 @@ class ModItemTagsProvider(
 
     override fun addTags(pProvider: HolderLookup.Provider) {
 
-        this.tag(WOOLY_ITEM_TAG)
+        this.tag(SYRINGE)
+            .add(
+                ModItems.SYRINGE.get(),
+                ModItems.METAL_SYRINGE.get()
+            )
+
+        this.tag(ACTIVATES_WOOLY)
             .add(Items.SHEARS)
             .addTags(Tags.Items.TOOLS_SHEAR)
 
         this.tag(MAGNET_ITEM_BLACKLIST)
             .add(Items.COBBLESTONE)
 
-        this.tag(FIREBALL_ITEM_TAG)
+        this.tag(ACTIVATES_SHOOT_FIREBALL)
             .add(Items.BLAZE_ROD)
 
         this.tag(ENCHANTABLE_DELICATE_TOUCH)

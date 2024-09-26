@@ -1,6 +1,6 @@
 {
   "entity": "minecraft:zombie_horse",
-  "genes": {
+  "gene_weights": {
     "geneticsresequenced:jump_boost": 4,
     "geneticsresequenced:step_assist": 4,
     "geneticsresequenced:speed": 4

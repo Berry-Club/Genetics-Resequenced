@@ -39,7 +39,7 @@ open class EntityDnaItem : Item(Properties()) {
         fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.ENTITY_TYPE_COMPONENT)
 
         fun getEntityType(itemStack: ItemStack): EntityType<*>? {
-            return itemStack.get(ModDataComponents.ENTITY_TYPE_COMPONENT)?.entity
+            return itemStack.get(ModDataComponents.ENTITY_TYPE_COMPONENT)?.entityType
         }
 
         val includeTheseEntityTypes = mutableSetOf(

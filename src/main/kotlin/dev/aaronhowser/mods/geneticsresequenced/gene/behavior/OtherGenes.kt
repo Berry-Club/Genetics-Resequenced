@@ -1,13 +1,15 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.NarratorPacket
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
@@ -24,13 +26,14 @@ object OtherGenes {
     )
 
     fun handleEmeraldHeart(event: ServerChatEvent) {
-        if (!ModGenes.EMERALD_HEART.get().isActive) return
+        val emeraldHeart = ModGenes.EMERALD_HEART.getHolder(event.player.registryAccess()) ?: return
+        if (emeraldHeart.isDisabled) return
 
         if (Random.nextDouble() > ServerConfig.emeraldHeartChatChance.get()) return
 
         val player = event.player
 
-        if (player.hasGene(ModGenes.EMERALD_HEART.get())) {
+        if (player.hasGene(ModGenes.EMERALD_HEART)) {
             player.level().playSound(
                 null,
                 player.blockPosition(),
@@ -43,10 +46,11 @@ object OtherGenes {
     }
 
     fun handleChatterbox(event: ServerChatEvent) {
-        if (!ModGenes.CHATTERBOX.get().isActive) return
+        val chatterBox = ModGenes.CHATTERBOX.getHolder(event.player.registryAccess()) ?: return
+        if (chatterBox.isDisabled) return
 
         val player = event.player
-        if (!player.hasGene(ModGenes.CHATTERBOX.get())) return
+        if (!player.hasGene(ModGenes.CHATTERBOX)) return
 
         val message = event.message
 
@@ -89,7 +93,7 @@ object OtherGenes {
             .replace("?", "???")
 
         if (stringLength % 3 == 0) {
-            input = input.toUpperCase()
+            input = input.uppercase()
         }
 
         input = if (stringLength % 2 == 0) {
@@ -112,20 +116,22 @@ object OtherGenes {
 
 
     fun handleCringeChat(event: ServerChatEvent) {
-        if (!ModGenes.CRINGE.get().isActive) return
+        val cringe = ModGenes.CRINGE.getHolder(event.player.registryAccess()) ?: return
+        if (cringe.isDisabled) return
 
         val player = event.player
-        if (!player.hasGene(ModGenes.CRINGE.get())) return
+        if (!player.hasGene(ModGenes.CRINGE)) return
 
         val input = event.message.string
         event.message = Component.literal(uwufyString(input))
     }
 
     fun handleSlimyChat(event: ServerChatEvent) {
-        if (!ModGenes.SLIMY_DEATH.get().isActive) return
+        val slimyDeath = ModGenes.SLIMY_DEATH.getHolder(event.player.registryAccess()) ?: return
+        if (slimyDeath.isDisabled) return
 
         val player = event.player
-        if (!player.hasGene(ModGenes.SLIMY_DEATH.get())) return
+        if (!player.hasGene(ModGenes.SLIMY_DEATH)) return
 
         val nearbySupportSlimes = player.level().getEntities(
             player,

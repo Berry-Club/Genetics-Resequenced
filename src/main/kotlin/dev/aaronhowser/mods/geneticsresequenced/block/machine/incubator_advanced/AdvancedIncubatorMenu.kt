@@ -1,14 +1,17 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorBlockEntity.Companion.CHORUS_SLOT_INDEX
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -132,7 +135,12 @@ class AdvancedIncubatorMenu(
 
             val topStack = blockEntity.itemHandler.getStackInSlot(AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX)
 
-            val recipe = AdvancedIncubatorBlockEntity.getGmoRecipe(topStack, potionStack) ?: return
+            val recipe = GmoRecipe.getGmoRecipe(
+                ClientUtil.localLevel!!,
+                topStack,
+                potionStack,
+                blockEntity.isHighTemperature   // TODO: See if this works
+            ) ?: return
 
             val chanceDecreasePerOverclocker = ServerConfig.incubatorOverclockerChanceDecrease.get().toFloat()
             val chanceIncreasePerChorus = ServerConfig.incubatorChorusFruitChanceIncrease.get().toFloat()
@@ -162,7 +170,7 @@ class AdvancedIncubatorMenu(
                 index++,
                 ModLanguageProvider.Tooltips.GMO_BASE_CHANCE
                     .toComponent(
-                        recipe.idealGene.nameComponent,
+                        Gene.getNameComponent(recipe.idealGeneRk),
                         (baseChance * 100).toInt()
                     )
                     .withColor(ChatFormatting.GRAY)

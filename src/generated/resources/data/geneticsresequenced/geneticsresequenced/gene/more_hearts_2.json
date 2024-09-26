@@ -1,0 +1,17 @@
+{
+  "allowed_entities": "minecraft:player",
+  "attribute_modifiers": [
+    {
+      "attribute": "minecraft:generic.max_health",
+      "modifier": {
+        "amount": 20.0,
+        "id": "geneticsresequenced:more_health_two",
+        "operation": "add_value"
+      }
+    }
+  ],
+  "dna_points_required": 50,
+  "requires_genes": [
+    "geneticsresequenced:more_hearts"
+  ]
+}

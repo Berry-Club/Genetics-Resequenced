@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -8,11 +9,12 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
@@ -38,12 +40,13 @@ import kotlin.random.Random
 object ClickGenes {
 
     val recentlySheered = GeneCooldown(
-        ModGenes.WOOLY.get(),
+        ModGenes.WOOLY,
         ServerConfig.woolyCooldown.get()
     )
 
     fun handleWooly(event: PlayerInteractEvent.EntityInteract) {
-        if (!ModGenes.WOOLY.get().isActive) return
+        val wooly = ModGenes.WOOLY.getHolder(event.entity.registryAccess()) ?: return
+        if (wooly.isDisabled) return
 
         val target = event.target as? LivingEntity ?: return
         val clicker = event.entity
@@ -54,9 +57,9 @@ object ClickGenes {
             is Sheep, is MushroomCow -> return
         }
 
-        if (!target.hasGene(ModGenes.WOOLY.get())) return
+        if (!target.hasGene(ModGenes.WOOLY)) return
 
-        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.WOOLY_ITEM_TAG)
+        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.ACTIVATES_WOOLY)
         if (!clickedWithShears) return
 
         val newlySheared = recentlySheered.add(target)
@@ -100,21 +103,22 @@ object ClickGenes {
     }
 
     val recentlyMeated = GeneCooldown(
-        ModGenes.MEATY.get(),
+        ModGenes.MEATY,
         ServerConfig.meatyCooldown.get()
     )
 
     fun handleMeaty(event: PlayerInteractEvent.EntityInteract) {
-        if (!ModGenes.MEATY.get().isActive) return
+        val meaty = ModGenes.MEATY.getHolder(event.level.registryAccess()) ?: return
+        if (meaty.isDisabled) return
 
         val target = event.target as? LivingEntity ?: return
         val clicker = event.entity
 
         if (target.level().isClientSide) return
 
-        if (!target.hasGene(ModGenes.MEATY.get())) return
+        if (!target.hasGene(ModGenes.MEATY)) return
 
-        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.WOOLY_ITEM_TAG)
+        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.ACTIVATES_WOOLY)
         if (!clickedWithShears) return
 
         val newlyMeated = recentlyMeated.add(target)
@@ -151,12 +155,13 @@ object ClickGenes {
     }
 
     val recentlyMilked = GeneCooldown(
-        ModGenes.MILKY.get(),
+        ModGenes.MILKY,
         ServerConfig.milkyCooldown.get()
     )
 
     fun handleMilky(event: PlayerInteractEvent.EntityInteract) {
-        if (!ModGenes.MILKY.get().isActive) return
+        val milky = ModGenes.MILKY.getHolder(event.level.registryAccess()) ?: return
+        if (milky.isDisabled) return
 
         val target = event.target as? LivingEntity ?: return
         if (target.level().isClientSide) return
@@ -165,7 +170,7 @@ object ClickGenes {
             is Cow, is Goat -> return
         }
 
-        if (!target.hasGene(ModGenes.MILKY.get())) return
+        if (!target.hasGene(ModGenes.MILKY)) return
 
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
         if (!clickedWithBucket) return
@@ -204,7 +209,8 @@ object ClickGenes {
     }
 
     fun milkyItem(event: PlayerInteractEvent.RightClickItem) {
-        if (!ModGenes.MILKY.get().isActive) return
+        val milky = ModGenes.MILKY.getHolder(event.entity.registryAccess()) ?: return
+        if (milky.isDisabled) return
 
         val player = event.entity
         if (player.level().isClientSide) return
@@ -213,7 +219,7 @@ object ClickGenes {
         val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
         if (!clickedWithBucket) return
 
-        if (!player.hasGene(ModGenes.MILKY.get())) return
+        if (!player.hasGene(ModGenes.MILKY)) return
 
         val newlyMilked = recentlyMilked.add(player)
 
@@ -243,17 +249,18 @@ object ClickGenes {
     }
 
     fun woolyItem(event: PlayerInteractEvent.RightClickItem) {
-        if (!ModGenes.WOOLY.get().isActive) return
+        val wooly = ModGenes.WOOLY.getHolder(event.entity.registryAccess()) ?: return
+        if (wooly.isDisabled) return
 
         val player = event.entity
 
         if (player.level().isClientSide) return
 
         if (!player.isCrouching) return
-        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.WOOLY_ITEM_TAG)
+        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.ACTIVATES_WOOLY)
         if (!clickedWithShears) return
 
-        if (!player.hasGene(ModGenes.WOOLY.get())) return
+        if (!player.hasGene(ModGenes.WOOLY)) return
 
         val newlySheared = recentlySheered.add(player)
 
@@ -290,17 +297,18 @@ object ClickGenes {
     }
 
     fun meatyItem(event: PlayerInteractEvent.RightClickItem) {
-        if (!ModGenes.MEATY.get().isActive) return
+        val meaty = ModGenes.MEATY.getHolder(event.entity.registryAccess()) ?: return
+        if (meaty.isDisabled) return
 
         val player = event.entity
 
         if (player.level().isClientSide) return
 
         if (!player.isCrouching) return
-        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.WOOLY_ITEM_TAG)
+        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.ACTIVATES_WOOLY)
         if (!clickedWithShears) return
 
-        if (!player.hasGene(ModGenes.MEATY.get())) return
+        if (!player.hasGene(ModGenes.MEATY)) return
 
         val newlyMeated = recentlyMeated.add(player)
 
@@ -336,13 +344,14 @@ object ClickGenes {
     }
 
     fun shootFireball(event: PlayerInteractEvent.RightClickItem) {
-        if (!ModGenes.SHOOT_FIREBALLS.get().isActive) return
+        val shootFireballs = ModGenes.SHOOT_FIREBALLS.getHolder(event.entity.registryAccess()) ?: return
+        if (shootFireballs.isDisabled) return
 
         val player = event.entity
-        if (!player.hasGene(ModGenes.SHOOT_FIREBALLS.get())) return
+        if (!player.hasGene(ModGenes.SHOOT_FIREBALLS)) return
 
         if (!player.isCrouching) return
-        if (!event.itemStack.`is`(ModItemTagsProvider.FIREBALL_ITEM_TAG)) return
+        if (!event.itemStack.`is`(ModItemTagsProvider.ACTIVATES_SHOOT_FIREBALL)) return
 
         val lookVec = player.lookAngle
 
@@ -369,12 +378,13 @@ object ClickGenes {
     }
 
     fun eatGrass(event: PlayerInteractEvent.RightClickBlock) {
-        if (!ModGenes.EAT_GRASS.get().isActive) return
+        val eatGrass = ModGenes.EAT_GRASS.getHolder(event.entity.registryAccess()) ?: return
+        if (eatGrass.isDisabled) return
 
         if (!event.itemStack.isEmpty) return
 
         val player = event.entity
-        if (!player.hasGene(ModGenes.EAT_GRASS.get())) return
+        if (!player.hasGene(ModGenes.EAT_GRASS)) return
 
         val isHungry = player.foodData.foodLevel < 20
         if (!isHungry) return
@@ -410,7 +420,7 @@ object ClickGenes {
 
         if (player.uuid in recentlySheered) {
             recentlySheered.remove(player.uuid)
-            GeneCooldown.tellCooldownEnded(player, ModGenes.WOOLY.get())
+            GeneCooldown.tellCooldownEnded(player, ModGenes.WOOLY)
         }
 
     }
@@ -420,9 +430,10 @@ object ClickGenes {
 
         val player = event.entity
 
-        if (!player.hasGene(ModGenes.CRINGE.get())) return
+        if (!player.hasGene(ModGenes.CRINGE)) return
 
-        player.removeGene(ModGenes.CRINGE.get())
+        val cringe = ModGenes.CRINGE.getHolder(event.entity.registryAccess()) ?: return
+        player.removeGene(cringe)
         if (!player.level().isClientSide) {
             player.sendSystemMessage(ModLanguageProvider.Messages.CRINGE_GRASS.toComponent())
         }
@@ -431,8 +442,9 @@ object ClickGenes {
     fun handleInfinityGetProjectile(event: LivingGetProjectileEvent) {
         val player = event.entity as? Player ?: return
 
-        if (!ModGenes.INFINITY.get().isActive) return
-        if (!player.hasGene(ModGenes.INFINITY.get())) return
+        val infinity = ModGenes.INFINITY.getHolder(player.registryAccess()) ?: return
+        if (infinity.isDisabled) return
+        if (!player.hasGene(ModGenes.INFINITY)) return
 
         if (!event.projectileItemStack.isEmpty) return
 

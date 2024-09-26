@@ -1,6 +1,6 @@
 {
   "entity": "minecraft:cave_spider",
-  "genes": {
+  "gene_weights": {
     "geneticsresequenced:basic": 7,
     "geneticsresequenced:night_vision": 5,
     "geneticsresequenced:wall_climbing": 2,

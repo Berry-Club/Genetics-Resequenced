@@ -1,0 +1,17 @@
+{
+  "allowed_entities": "minecraft:player",
+  "attribute_modifiers": [
+    {
+      "attribute": "geneticsresequenced:efficiency",
+      "modifier": {
+        "amount": 3.0,
+        "id": "geneticsresequenced:efficiency_four",
+        "operation": "add_value"
+      }
+    }
+  ],
+  "dna_points_required": 50,
+  "requires_genes": [
+    "geneticsresequenced:efficiency"
+  ]
+}

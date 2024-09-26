@@ -2,10 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machin
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
-import dev.aaronhowser.mods.geneticsresequenced.data.MobGeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.recipe.EmiRecipe
 import dev.emi.emi.api.recipe.EmiRecipeCategory
@@ -13,6 +14,7 @@ import dev.emi.emi.api.render.EmiTexture
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
+import net.minecraft.core.Holder
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -21,7 +23,7 @@ import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class DecryptHelixEmiRecipe(
     val entityType: EntityType<*>,
-    val gene: Gene,
+    val geneHolder: Holder<Gene>,
     val chance: Float
 ) : EmiRecipe {
 
@@ -29,17 +31,17 @@ class DecryptHelixEmiRecipe(
         fun getAllRecipes(): List<DecryptHelixEmiRecipe> {
             val recipes = mutableListOf<DecryptHelixEmiRecipe>()
 
-            for ((entityType, map) in MobGeneRegistry.getRegistry()) {
+            for ((entityType, map) in EntityGenes.getEntityGeneHolderMap(ClientUtil.localRegistryAccess!!)) {
                 val totalWeight = map.values.sum()
 
-                for ((gene, weight) in map) {
+                for ((geneHolder, weight) in map) {
                     val chance = weight.toFloat() / totalWeight
 
-                    recipes.add(DecryptHelixEmiRecipe(entityType, gene, chance))
+                    recipes.add(DecryptHelixEmiRecipe(entityType, geneHolder, chance))
                 }
             }
 
-            return recipes
+            return recipes.distinctBy { it.id }
         }
     }
 
@@ -51,8 +53,7 @@ class DecryptHelixEmiRecipe(
         EntityDnaItem.setEntityType(helixStack, entityType)
         encryptedHelix = EmiIngredient.of(DataComponentIngredient.of(true, helixStack))
 
-        val decryptedHelixStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGene(decryptedHelixStack, gene)
+        val decryptedHelixStack = DnaHelixItem.getHelixStack(geneHolder)
         decryptedHelix = EmiStack.of(decryptedHelixStack)
     }
 
@@ -63,7 +64,7 @@ class DecryptHelixEmiRecipe(
     override fun getId(): ResourceLocation {
         val entityTypeRl = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
         val entityString = entityTypeRl.toString().replace(':', '/')
-        val geneString = gene.id.toString().replace(':', '/')
+        val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
         return OtherUtil.modResource("/dna_extractor/$entityString/to/$geneString")
     }

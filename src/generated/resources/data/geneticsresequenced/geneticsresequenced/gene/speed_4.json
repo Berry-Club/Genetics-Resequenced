@@ -1,0 +1,10 @@
+{
+  "dna_points_required": 50,
+  "potion_details": {
+    "effect": "minecraft:speed",
+    "level": 4
+  },
+  "requires_genes": [
+    "geneticsresequenced:speed_2"
+  ]
+}
