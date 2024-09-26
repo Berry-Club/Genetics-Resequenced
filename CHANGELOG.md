@@ -195,7 +195,7 @@
     - Consequently, you can now make custom recipes that use the Incubator! See `/data/geneticsresequeced/recipe/incubator/`
     - There are 3 types (technically 5, but 2 of them are hardcoded with no parameters):
         - `geneticsresequenced:incubator`
-          - Takes two ingredients `top_slot` and `bottom_slot`, and an output stack `output`
+          - Takes two ingredients `top_slot` and `bottom_slot`, and an output itemstack `output`
         - `geneticsresequenced:gmo`
             - Requires `entity_type` that the Cell Growth or Mutation Potion must be set to
             - Requires `ingredient` for the item in the top slot
