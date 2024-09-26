@@ -20,7 +20,7 @@ class GmoRecipeBuilder(
     private val ingredient: Ingredient,
     private val idealGeneRk: ResourceKey<Gene>,
     private val geneChance: Float,
-    private val isMutation: Boolean = false
+    private val needsMutationPotion: Boolean = false
 ) : RecipeBuilder {
 
     constructor(
@@ -66,7 +66,7 @@ class GmoRecipeBuilder(
             .append("incubator/")
             .append("gmo/")
 
-        if (isMutation) {
+        if (needsMutationPotion) {
             pathBuilder.append("mutation/")
         }
 
@@ -95,7 +95,7 @@ class GmoRecipeBuilder(
             ingredient,
             idealGeneRk,
             geneChance,
-            isMutation
+            needsMutationPotion
         )
 
         output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))

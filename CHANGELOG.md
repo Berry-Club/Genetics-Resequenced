@@ -202,7 +202,7 @@
             - Requires `ingredient` for the item in the top slot
             - Requires `ideal_gene` for the Gene that a successful Cell will have
             - Optionally can have `gene_chance`, which is a number 0-1 for the chance of getting the Gene (giving Basic if it fails). Defaults to 1.
-            - Optionally can have `is_mutation` which makes a GM Cell and requires low temperature. Defaults to false.
+            - Optionally can have `needs_mutation_potion` which makes it require a Potion of Mutation instead of a Potion of Cell Growth. Defaults to false.
         - `geneticsresequenced:incubator_virus`
             - Takes in an input Gene and an output Gene, and makes a recipe that converts when crafted with Viral Agents
 - Support Slime Spawn Eggs have been added to the Spawn Eggs creative tab

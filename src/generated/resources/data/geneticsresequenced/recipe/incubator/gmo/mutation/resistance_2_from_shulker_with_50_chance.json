@@ -6,5 +6,5 @@
   "ingredient": {
     "item": "minecraft:netherite_chestplate"
   },
-  "is_mutation": true
+  "needs_mutation_potion": true
 }

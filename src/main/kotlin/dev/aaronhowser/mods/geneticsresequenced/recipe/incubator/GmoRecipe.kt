@@ -35,14 +35,14 @@ class GmoRecipe(
     val ingredient: Ingredient,
     val idealGeneRk: ResourceKey<Gene>,
     val geneChance: Float,
-    val isMutation: Boolean = false
+    val needsMutationPotion: Boolean,
 ) : AbstractIncubatorRecipe() {
 
     private val potionIngredient: Ingredient
 
     init {
         val potionStack = OtherUtil.getPotionStack(
-            if (isMutation) ModPotions.MUTATION else ModPotions.CELL_GROWTH
+            if (needsMutationPotion) ModPotions.MUTATION else ModPotions.CELL_GROWTH
         )
 
         EntityDnaItem.setEntityType(potionStack, entityType)
@@ -59,7 +59,7 @@ class GmoRecipe(
         val ingredientStack = input.getTopItem()
         val potionStack = input.getBottomItem()
 
-        if (isMutation != input.isLowTemp) return false
+        if (input.isHighTemp) return false
         if (!ingredient.test(ingredientStack)) return false
         if (!potionIngredient.test(potionStack)) return false
 
@@ -128,8 +128,8 @@ class GmoRecipe(
                             .optionalFieldOf("gene_chance", 1f)
                             .forGetter(GmoRecipe::geneChance),
                         Codec.BOOL
-                            .optionalFieldOf("is_mutation", false)
-                            .forGetter(GmoRecipe::isMutation)
+                            .optionalFieldOf("needs_mutation_potion", false)
+                            .forGetter(GmoRecipe::needsMutationPotion)
                     ).apply(instance, ::GmoRecipe)
                 }
 
@@ -139,7 +139,7 @@ class GmoRecipe(
                     Ingredient.CONTENTS_STREAM_CODEC, GmoRecipe::ingredient,
                     ResourceKey.streamCodec(GeneRegistry.GENE_REGISTRY_KEY), GmoRecipe::idealGeneRk,
                     ByteBufCodecs.FLOAT, GmoRecipe::geneChance,
-                    ByteBufCodecs.BOOL, GmoRecipe::isMutation,
+                    ByteBufCodecs.BOOL, GmoRecipe::needsMutationPotion,
                     ::GmoRecipe
                 )
         }

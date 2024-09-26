@@ -47,7 +47,7 @@ class GmoEmiRecipe(
                     it.value.ingredient,
                     it.value.idealGeneRk,
                     it.value.geneChance,
-                    it.value.isMutation
+                    it.value.needsMutationPotion
                 )
             }
         }
