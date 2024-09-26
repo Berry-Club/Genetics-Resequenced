@@ -1,0 +1,6 @@
+{
+  "type": "geneticsresequenced:entity_gene_weight",
+  "entity_type": "minecraft:wolf",
+  "gene": "geneticsresequenced:night_vision",
+  "weight": 3
+}

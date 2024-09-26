@@ -1,0 +1,6 @@
+{
+  "type": "geneticsresequenced:entity_gene_weight",
+  "entity_type": "minecraft:warden",
+  "gene": "geneticsresequenced:more_hearts",
+  "weight": 5
+}

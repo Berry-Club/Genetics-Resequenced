@@ -1,0 +1,6 @@
+{
+  "type": "geneticsresequenced:entity_gene_weight",
+  "entity_type": "minecraft:polar_bear",
+  "gene": "geneticsresequenced:strength",
+  "weight": 4
+}

@@ -1,0 +1,6 @@
+{
+  "type": "geneticsresequenced:entity_gene_weight",
+  "entity_type": "minecraft:snow_golem",
+  "gene": "geneticsresequenced:chilling",
+  "weight": 2
+}

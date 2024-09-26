@@ -1,0 +1,6 @@
+{
+  "type": "geneticsresequenced:entity_gene_weight",
+  "entity_type": "minecraft:turtle",
+  "gene": "geneticsresequenced:water_breathing",
+  "weight": 2
+}

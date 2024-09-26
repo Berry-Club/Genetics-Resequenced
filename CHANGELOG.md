@@ -211,3 +211,4 @@
 - Updated Incubator EMI recipe pages
 - Removed a rather large unused texture that was taking up space
 - Added the following entity types to `geneticsresequenced:allows_preventing_interaction`: Horse, Donkey, Mule, Llama, Trader Llama
+- Turtles can now give the Resistance Gene with a weight of 2
