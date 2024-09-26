@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPla
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.ModInformationRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.*
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.incubator.*
-import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
+import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
