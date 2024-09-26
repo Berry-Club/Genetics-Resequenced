@@ -1,8 +1,0 @@
-{
-  "entity": "minecraft:zombified_piglin",
-  "gene_weights": {
-    "geneticsresequenced:basic": 5,
-    "geneticsresequenced:fire_proof": 3,
-    "geneticsresequenced:meaty": 3
-  }
-}

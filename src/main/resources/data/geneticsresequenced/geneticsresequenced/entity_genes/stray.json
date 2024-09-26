@@ -1,7 +1,0 @@
-{
-  "entity": "minecraft:stray",
-  "gene_weights": {
-    "geneticsresequenced:basic": 5,
-    "geneticsresequenced:infinity": 3
-  }
-}

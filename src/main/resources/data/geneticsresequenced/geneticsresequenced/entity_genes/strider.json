@@ -1,7 +1,0 @@
-{
-  "entity": "minecraft:strider",
-  "gene_weights": {
-    "geneticsresequenced:basic": 5,
-    "geneticsresequenced:fire_proof": 4
-  }
-}
