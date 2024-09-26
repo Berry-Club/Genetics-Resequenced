@@ -6,6 +6,8 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.base.AbstractIncubatorRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers

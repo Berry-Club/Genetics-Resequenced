@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
+package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.base
 
 import net.minecraft.core.NonNullList
 import net.minecraft.world.item.ItemStack

@@ -6,6 +6,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.base.AbstractIncubatorRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers

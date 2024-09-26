@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.base.AbstractIncubatorRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeTypes
 import net.minecraft.core.HolderLookup
