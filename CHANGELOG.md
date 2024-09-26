@@ -215,3 +215,4 @@
 - Support Slime Spawn Eggs have been added to the Spawn Eggs creative tab
 - The Plasmid Injector EMI recipe page now says in the tooltip that you can have multiple Genes/Antigenes in the same Syringe
 - Fixed an issue in the coloring of Anti-Plasmid tooltips
+- Removed the potion outlines from the Incubator background slots
