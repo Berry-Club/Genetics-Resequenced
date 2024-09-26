@@ -172,10 +172,17 @@ data class Gene(
 
     companion object {
 
+        val ResourceKey<Gene>.translationKey: String
+            get() {
+                val namespace = this.location().namespace
+                val path = this.location().path
+
+                return "gene.$namespace.$path"
+            }
+
         val Holder<Gene>.translationKey: String
             get() {
-                val location = key!!.location()
-                return "gene.${location.namespace}.${location.path}"
+                return this.key!!.translationKey
             }
 
         val Holder<Gene>.isNegative: Boolean

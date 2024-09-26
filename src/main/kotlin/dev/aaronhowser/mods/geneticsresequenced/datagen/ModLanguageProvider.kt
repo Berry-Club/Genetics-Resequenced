@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.translationKey
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects
@@ -18,13 +19,6 @@ class ModLanguageProvider(
 
     companion object {
         fun String.toComponent(vararg args: Any?): MutableComponent = Component.translatable(this, *args)
-
-        fun getGeneTranslationKey(gene: ResourceKey<Gene>): String {
-            val namespace = gene.location().namespace
-            val path = gene.location().path
-
-            return "gene.$namespace.$path"
-        }
     }
 
     object Items {
@@ -210,11 +204,11 @@ class ModLanguageProvider(
     }
 
     fun addGene(gene: ResourceKey<Gene>, name: String) {
-        add(getGeneTranslationKey(gene), name)
+        add(gene.translationKey, name)
     }
 
     fun addGeneInfo(gene: ResourceKey<Gene>, info: String) {
-        add("info.${getGeneTranslationKey(gene)}", info)
+        add("info.${gene.translationKey}", info)
     }
 
     object Advancements {
