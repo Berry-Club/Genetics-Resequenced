@@ -24,20 +24,20 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeManager
 
-class SubstrateCellEmiRecipe(
+class CellDupeEmiRecipe(
     val cellStack: ItemStack
 ) : AbstractEmiIncubatorRecipe() {
 
     companion object {
-        fun getAllRecipes(recipeManager: RecipeManager): List<SubstrateCellEmiRecipe> {
-            val recipes = mutableListOf<SubstrateCellEmiRecipe>()
+        fun getAllRecipes(recipeManager: RecipeManager): List<CellDupeEmiRecipe> {
+            val recipes = mutableListOf<CellDupeEmiRecipe>()
 
             val allEntityTypes = EntityDnaItem.validEntityTypes
             for (entityType in allEntityTypes) {
                 val cellStack = ModItems.CELL.toStack()
                 EntityDnaItem.setEntityType(cellStack, entityType)
 
-                recipes.add(SubstrateCellEmiRecipe(cellStack))
+                recipes.add(CellDupeEmiRecipe(cellStack))
             }
 
             val allGmoRecipes = GmoRecipe.getGmoRecipes(recipeManager)
@@ -52,7 +52,7 @@ class SubstrateCellEmiRecipe(
                     goodGene.getHolder(ClientUtil.localRegistryAccess!!)!!
                 )
 
-                recipes.add(SubstrateCellEmiRecipe(gmoCellStack))
+                recipes.add(CellDupeEmiRecipe(gmoCellStack))
             }
 
             return recipes
