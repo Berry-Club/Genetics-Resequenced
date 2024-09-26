@@ -14,10 +14,8 @@ import dev.emi.emi.api.EmiEntrypoint
 import dev.emi.emi.api.EmiPlugin
 import dev.emi.emi.api.EmiRegistry
 import dev.emi.emi.api.recipe.EmiRecipeCategory
-import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories
 import dev.emi.emi.api.stack.Comparison
 import dev.emi.emi.api.stack.EmiStack
-import net.minecraft.world.item.Items
 
 @EmiEntrypoint
 class ModEmiPlugin : EmiPlugin {
@@ -55,8 +53,6 @@ class ModEmiPlugin : EmiPlugin {
         val DNA_HELIX_STACK: EmiStack = EmiStack.of(ModItems.DNA_HELIX)
         val PLASMID_STACK: EmiStack = EmiStack.of(ModItems.PLASMID)
         val ANTI_PLASMID_STACK: EmiStack = EmiStack.of(ModItems.ANTI_PLASMID)
-
-        val BREWING_STAND_STACK: EmiStack = EmiStack.of(Items.BREWING_STAND)
 
         val GMO_CATEGORY: EmiRecipeCategory =
             EmiRecipeCategory(OtherUtil.modResource("gmo"), GMO_CELL_STACK)
@@ -151,9 +147,6 @@ class ModEmiPlugin : EmiPlugin {
     }
 
     private fun potions(registry: EmiRegistry) {
-        registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, INCUBATOR_STACK)
-        registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, ADVANCED_INCUBATOR_STACK)
-
         for (recipe in BlackDeathEmiRecipe.getAllRecipes()) {
             registry.addRecipe(recipe)
         }
@@ -166,7 +159,6 @@ class ModEmiPlugin : EmiPlugin {
 
     private fun substrate(registry: EmiRegistry) {
         registry.addCategory(CELL_DUPE_CATEGORY)
-        registry.addWorkstation(CELL_DUPE_CATEGORY, BREWING_STAND_STACK)
         registry.addWorkstation(CELL_DUPE_CATEGORY, INCUBATOR_STACK)
         registry.addWorkstation(CELL_DUPE_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
@@ -177,7 +169,6 @@ class ModEmiPlugin : EmiPlugin {
 
     private fun setPotionEntity(registry: EmiRegistry) {
         registry.addCategory(SET_ENTITY_CATEGORY)
-        registry.addWorkstation(SET_ENTITY_CATEGORY, BREWING_STAND_STACK)
         registry.addWorkstation(SET_ENTITY_CATEGORY, INCUBATOR_STACK)
         registry.addWorkstation(SET_ENTITY_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
@@ -188,7 +179,6 @@ class ModEmiPlugin : EmiPlugin {
 
     private fun virus(registry: EmiRegistry) {
         registry.addCategory(VIRUS_CATEGORY)
-        registry.addWorkstation(VIRUS_CATEGORY, BREWING_STAND_STACK)
         registry.addWorkstation(VIRUS_CATEGORY, INCUBATOR_STACK)
         registry.addWorkstation(VIRUS_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
