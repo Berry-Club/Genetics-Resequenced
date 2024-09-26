@@ -10,7 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmid
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.BlackDeathRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.SetPotionEntityRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -571,88 +570,41 @@ class ModRecipeProvider(
             mapOf(ModGenes.BASIC to 5, ModGenes.EMERALD_HEART to 2, ModGenes.BAD_OMEN to 3)
         ),
         entityGeneWeights(EntityType.PLAYER, mapOf(ModGenes.CRINGE to Int.MAX_VALUE)),
-        entityGeneWeights(
-            EntityType.POLAR_BEAR,
-            mapOf(ModGenes.BASIC to 5, ModGenes.STRENGTH to 4, ModGenes.CLAWS to 3, ModGenes.STEP_ASSIST to 4)
-        ),
-        entityGeneWeights(
-            EntityType.PUFFERFISH,
-            mapOf(ModGenes.BASIC to 5, ModGenes.WATER_BREATHING to 4, ModGenes.POISON to 3, ModGenes.THORNS to 4)
-        ),
-        entityGeneWeights(
-            EntityType.RABBIT,
-            mapOf(ModGenes.BASIC to 5, ModGenes.JUMP_BOOST to 5, ModGenes.SPEED to 3, ModGenes.LUCK to 4)
-        ),
-        entityGeneWeights(
-            EntityType.RAVAGER,
-            mapOf(ModGenes.BASIC to 5, ModGenes.STRENGTH to 5, ModGenes.RESISTANCE to 4, ModGenes.MORE_HEARTS to 3)
-        ),
-        entityGeneWeights(EntityType.SALMON, mapOf(ModGenes.BASIC to 5, ModGenes.WATER_BREATHING to 3)),
-        entityGeneWeights(EntityType.SHEEP, mapOf(ModGenes.BASIC to 5, ModGenes.EAT_GRASS to 3, ModGenes.WOOLY to 4)),
-        entityGeneWeights(
-            EntityType.SHULKER,
-            mapOf(ModGenes.BASIC to 3, ModGenes.RESISTANCE to 4, ModGenes.LEVITATION to 4)
-        ),
-        entityGeneWeights(
-            EntityType.SILVERFISH,
-            mapOf(ModGenes.BASIC to 3, ModGenes.HASTE to 3, ModGenes.EFFICIENCY to 1, ModGenes.INFESTED to 4)
-        ),
-        entityGeneWeights(
-            EntityType.SKELETON_HORSE,
-            mapOf(ModGenes.JUMP_BOOST to 4, ModGenes.STEP_ASSIST to 4, ModGenes.SPEED to 4)
-        ),
-        entityGeneWeights(EntityType.SKELETON, mapOf(ModGenes.BASIC to 5, ModGenes.INFINITY to 1)),
-        entityGeneWeights(
-            EntityType.SLIME,
-            mapOf(ModGenes.BASIC to 5, ModGenes.NO_FALL_DAMAGE to 4, ModGenes.SLIMY_DEATH to 2, ModGenes.OOZING to 5)
-        ),
-        entityGeneWeights(EntityType.SNOW_GOLEM, mapOf(ModGenes.BASIC to 5, ModGenes.CHILLING to 2)),
-        entityGeneWeights(
-            EntityType.SPIDER,
-            mapOf(ModGenes.BASIC to 4, ModGenes.NIGHT_VISION to 3, ModGenes.WALL_CLIMBING to 2, ModGenes.WEAVING to 4)
-        ),
-        entityGeneWeights(EntityType.SQUID, mapOf(ModGenes.BASIC to 5, ModGenes.WATER_BREATHING to 2)),
-        entityGeneWeights(EntityType.STRAY, mapOf(ModGenes.BASIC to 5, ModGenes.INFINITY to 3)),
-        entityGeneWeights(EntityType.STRIDER, mapOf(ModGenes.BASIC to 5, ModGenes.FIRE_PROOF to 4)),
-        entityGeneWeights(ModEntityTypes.SUPPORT_SLIME.get(), mapOf(ModGenes.SLIMY_DEATH to 1)),
-        entityGeneWeights(EntityType.TADPOLE, mapOf(ModGenes.BASIC to 5, ModGenes.WATER_BREATHING to 4)),
-        entityGeneWeights(EntityType.TROPICAL_FISH, mapOf(ModGenes.BASIC to 5, ModGenes.WATER_BREATHING to 2)),
-        entityGeneWeights(
-            EntityType.TURTLE,
-            mapOf(ModGenes.BASIC to 5, ModGenes.WATER_BREATHING to 2, ModGenes.RESISTANCE to 2)
-        ),
-        entityGeneWeights(EntityType.VILLAGER, mapOf(ModGenes.BASIC to 5, ModGenes.EMERALD_HEART to 2)),
-        entityGeneWeights(
-            EntityType.VINDICATOR,
-            mapOf(ModGenes.BASIC to 5, ModGenes.EMERALD_HEART to 2, ModGenes.BAD_OMEN to 3, ModGenes.JOHNNY to 3)
-        ),
-        entityGeneWeights(EntityType.WARDEN, mapOf(ModGenes.MORE_HEARTS to 5, ModGenes.MOB_SIGHT to 5)),
-        entityGeneWeights(EntityType.WITCH, mapOf(ModGenes.BASIC to 5, ModGenes.POISON_IMMUNITY to 2)),
-        entityGeneWeights(EntityType.WITHER_SKELETON, mapOf(ModGenes.BASIC to 5, ModGenes.WITHER_HIT to 2)),
-        entityGeneWeights(
-            EntityType.WITHER,
-            mapOf(ModGenes.BASIC to 5, ModGenes.WITHER_PROOF to 3, ModGenes.WITHER_HIT to 4, ModGenes.FLIGHT to 3)
-        ),
-        entityGeneWeights(
-            EntityType.WOLF,
-            mapOf(
-                ModGenes.BASIC to 5,
-                ModGenes.SCARE_SKELETONS to 2,
-                ModGenes.NIGHT_VISION to 3,
-                ModGenes.NO_HUNGER to 1
-            )
-        ),
-        entityGeneWeights(EntityType.ZOGLIN, mapOf(ModGenes.BASIC to 5, ModGenes.MEATY to 4)),
-        entityGeneWeights(
-            EntityType.ZOMBIE_HORSE,
-            mapOf(ModGenes.JUMP_BOOST to 4, ModGenes.STEP_ASSIST to 4, ModGenes.SPEED to 4)
-        ),
-        entityGeneWeights(EntityType.ZOMBIE_VILLAGER, mapOf(ModGenes.BASIC to 5, ModGenes.EMERALD_HEART to 4)),
-        entityGeneWeights(EntityType.ZOMBIE, mapOf(ModGenes.BASIC to 7, ModGenes.RESISTANCE to 1)),
-        entityGeneWeights(
-            EntityType.ZOMBIFIED_PIGLIN,
-            mapOf(ModGenes.BASIC to 5, ModGenes.FIRE_PROOF to 3, ModGenes.MEATY to 3)
-        ),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
+        entityGeneWeights(EntityType., mapOf()),
     )
 
 }

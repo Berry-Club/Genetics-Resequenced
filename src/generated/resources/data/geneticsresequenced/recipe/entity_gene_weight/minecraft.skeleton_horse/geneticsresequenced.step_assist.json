@@ -1,6 +1,0 @@
-{
-  "type": "geneticsresequenced:entity_gene_weight",
-  "entity_type": "minecraft:skeleton_horse",
-  "gene": "geneticsresequenced:step_assist",
-  "weight": 4
-}

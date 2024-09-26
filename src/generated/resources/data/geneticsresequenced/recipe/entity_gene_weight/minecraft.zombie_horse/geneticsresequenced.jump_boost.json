@@ -1,6 +1,0 @@
-{
-  "type": "geneticsresequenced:entity_gene_weight",
-  "entity_type": "minecraft:zombie_horse",
-  "gene": "geneticsresequenced:jump_boost",
-  "weight": 4
-}

@@ -1,6 +1,0 @@
-{
-  "type": "geneticsresequenced:entity_gene_weight",
-  "entity_type": "minecraft:slime",
-  "gene": "geneticsresequenced:oozing",
-  "weight": 5
-}
