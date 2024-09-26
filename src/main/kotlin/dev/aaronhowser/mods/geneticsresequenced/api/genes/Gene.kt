@@ -54,13 +54,21 @@ data class Gene(
         companion object {
             val DIRECT_CODEC: Codec<AttributeEntry> = RecordCodecBuilder.create { instance ->
                 instance.group(
-                    Attribute.CODEC.fieldOf("attribute").forGetter(AttributeEntry::attribute),
-                    AttributeModifier.MAP_CODEC.forGetter(AttributeEntry::modifier)
+                    Attribute.CODEC
+                        .fieldOf("attribute")
+                        .forGetter(AttributeEntry::attribute),
+                    AttributeModifier.CODEC
+                        .fieldOf("modifier")
+                        .forGetter(AttributeEntry::modifier)
                 ).apply(instance, ::AttributeEntry)
             }
 
-            val DIRECT_STREAM_CODEC: StreamCodec<ByteBuf, AttributeEntry> =
-                ByteBufCodecs.fromCodec(DIRECT_CODEC)
+            val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, AttributeEntry> =
+                StreamCodec.composite(
+                    Attribute.STREAM_CODEC, AttributeEntry::attribute,
+                    AttributeModifier.STREAM_CODEC, AttributeEntry::modifier,
+                    ::AttributeEntry
+                )
         }
     }
 

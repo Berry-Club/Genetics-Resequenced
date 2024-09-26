@@ -2,16 +2,20 @@
   "allowed_entities": "minecraft:player",
   "attribute_modifiers": [
     {
-      "amount": 1.25,
       "attribute": "minecraft:player.entity_interaction_range",
-      "id": "geneticsresequenced:reaching",
-      "operation": "add_multiplied_total"
+      "modifier": {
+        "amount": 1.25,
+        "id": "geneticsresequenced:reaching",
+        "operation": "add_multiplied_total"
+      }
     },
     {
-      "amount": 1.25,
       "attribute": "minecraft:player.block_interaction_range",
-      "id": "geneticsresequenced:reaching",
-      "operation": "add_multiplied_total"
+      "modifier": {
+        "amount": 1.25,
+        "id": "geneticsresequenced:reaching",
+        "operation": "add_multiplied_total"
+      }
     }
   ],
   "dna_points_required": 50

@@ -2,10 +2,12 @@
   "allowed_entities": "minecraft:player",
   "attribute_modifiers": [
     {
-      "amount": 1.0,
       "attribute": "neoforge:creative_flight",
-      "id": "geneticsresequenced:flight",
-      "operation": "add_value"
+      "modifier": {
+        "amount": 1.0,
+        "id": "geneticsresequenced:flight",
+        "operation": "add_value"
+      }
     }
   ],
   "dna_points_required": 50,
