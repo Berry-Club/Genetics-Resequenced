@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.recipe
+package dev.aaronhowser.mods.geneticsresequenced.recipe.base
 
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder

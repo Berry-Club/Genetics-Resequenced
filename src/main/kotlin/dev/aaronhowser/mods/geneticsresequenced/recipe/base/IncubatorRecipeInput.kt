@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.base
+package dev.aaronhowser.mods.geneticsresequenced.recipe.base
 
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeInput
