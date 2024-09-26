@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing
+package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -23,7 +23,7 @@ import net.minecraft.world.item.crafting.Ingredient
 
 class BlackDeathEmiRecipe(
     val isMetal: Boolean
-) : AbstractEmiBrewingRecipe() {
+) : AbstractEmiIncubatorRecipe() {
 
     override val ingredient: EmiIngredient
     override val input: EmiIngredient = EmiIngredient.of(Ingredient.of(BrewingRecipes.viralAgentsPotionStack))

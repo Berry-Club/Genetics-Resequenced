@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing
+package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
@@ -20,7 +20,7 @@ import net.minecraft.world.item.crafting.RecipeManager
 class VirusEmiRecipe(
     val inputDnaGeneRk: ResourceKey<Gene>,
     val outputGeneRk: ResourceKey<Gene>
-) : AbstractEmiBrewingRecipe() {
+) : AbstractEmiIncubatorRecipe() {
 
     companion object {
         fun getAllRecipes(recipeManager: RecipeManager): List<VirusEmiRecipe> {

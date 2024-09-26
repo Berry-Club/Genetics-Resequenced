@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing
+package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
@@ -24,7 +24,7 @@ import net.minecraft.world.item.crafting.RecipeManager
 
 class SubstrateCellEmiRecipe(
     val cellStack: ItemStack
-) : AbstractEmiBrewingRecipe() {
+) : AbstractEmiIncubatorRecipe() {
 
     companion object {
         fun getAllRecipes(recipeManager: RecipeManager): List<SubstrateCellEmiRecipe> {

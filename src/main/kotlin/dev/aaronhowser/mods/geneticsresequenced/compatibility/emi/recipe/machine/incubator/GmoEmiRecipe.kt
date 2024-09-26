@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing
+package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene

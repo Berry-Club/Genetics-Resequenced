@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing
+package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.incubator
 
 import dev.emi.emi.api.recipe.EmiRecipe
 import dev.emi.emi.api.recipe.EmiRecipeCategory
@@ -10,7 +10,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Items
 
-abstract class AbstractEmiBrewingRecipe : EmiRecipe {
+abstract class AbstractEmiIncubatorRecipe : EmiRecipe {
 
     companion object {
         val BACKGROUND: ResourceLocation =

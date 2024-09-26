@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.brewing
+package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
@@ -15,7 +15,7 @@ import net.minecraft.world.item.crafting.Ingredient
 class SetPotionEntityEmiRecipe(
     val entityType: EntityType<*>,
     val isMutation: Boolean
-) : AbstractEmiBrewingRecipe() {
+) : AbstractEmiIncubatorRecipe() {
 
     companion object {
         fun getAllRecipes(): List<SetPotionEntityEmiRecipe> {
