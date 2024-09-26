@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.*
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmidRecipe
@@ -253,23 +252,17 @@ class ModRecipeProvider(
             DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.SUBSTRATE)),
             DataComponentIngredient.of(
                 false,
-                ModItems.DNA_HELIX.itemStack.apply { DnaHelixItem.setBasic(this, lookupProvider.get()) }),
+                DnaHelixItem.getHelixStack(ModGenes.BASIC, lookupProvider.get())
+            ),
             OtherUtil.getPotionStack(ModPotions.CELL_GROWTH),
             "cell_growth"
         ),
-
-        //TODO: Make DnaHelixItem.getStack(gene)
 
         BasicIncubatorRecipeBuilder(
             DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
             DataComponentIngredient.of(
                 false,
-                ModItems.DNA_HELIX.itemStack.apply {
-                    DnaHelixItem.setGeneHolder(
-                        this,
-                        ModGenes.REGENERATION.getHolder(lookupProvider.get())!!
-                    )
-                }
+                DnaHelixItem.getHelixStack(ModGenes.REGENERATION, lookupProvider.get())
             ),
             OtherUtil.getPotionStack(ModPotions.PANACEA),
             "panacea"
@@ -279,12 +272,7 @@ class ModRecipeProvider(
             DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
             DataComponentIngredient.of(
                 false,
-                ModItems.DNA_HELIX.itemStack.apply {
-                    DnaHelixItem.setGeneHolder(
-                        this,
-                        ModGenes.EMERALD_HEART.getHolder(lookupProvider.get())!!
-                    )
-                }
+                DnaHelixItem.getHelixStack(ModGenes.EMERALD_HEART, lookupProvider.get())
             ),
             OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER),
             "zombify_villager"

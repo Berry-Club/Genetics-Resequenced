@@ -75,8 +75,7 @@ object ModInformationRecipes {
                 }
             }
 
-            val helix = ModItems.DNA_HELIX.toStack()
-            DnaHelixItem.setGeneHolder(helix, geneHolder)
+            val helix = DnaHelixItem.getHelixStack(geneHolder)
 
             val recipe = EmiInfoRecipe(
                 listOf(

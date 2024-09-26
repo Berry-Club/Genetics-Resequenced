@@ -16,6 +16,7 @@ import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 
@@ -36,15 +37,19 @@ class DnaHelixItem : EntityDnaItem() {
             return itemStack
         }
 
-        fun setBasic(itemStack: ItemStack, registries: HolderLookup.Provider): ItemStack {
-            return setGeneHolder(itemStack, ModGenes.BASIC.getHolder(registries)!!)
+        fun getHelixStack(geneRk: ResourceKey<Gene>, registries: HolderLookup.Provider): ItemStack {
+            return getHelixStack(geneRk.getHolder(registries)!!)
+        }
+
+        fun getHelixStack(geneHolder: Holder<Gene>): ItemStack {
+            val itemStack = ModItems.DNA_HELIX.toStack()
+            setGeneHolder(itemStack, geneHolder)
+            return itemStack
         }
 
         fun getAllHelices(registries: HolderLookup.Provider): List<ItemStack> {
             return GeneRegistry.getRegistrySorted(registries)
-                .map { geneHolder ->
-                    ModItems.DNA_HELIX.toStack().apply { setGeneHolder(this, geneHolder) }
-                }
+                .map { geneHolder -> getHelixStack(geneHolder) }
         }
     }
 

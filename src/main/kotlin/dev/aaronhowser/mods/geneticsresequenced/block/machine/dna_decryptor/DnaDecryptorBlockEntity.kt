@@ -66,7 +66,7 @@ class DnaDecryptorBlockEntity(
     }
 
     private var isNextGeneSet = false
-    private var nextGene: Holder<Gene>? = null
+    private var nextGeneHolder: Holder<Gene>? = null
 
     override fun craftItem() {
         if (!hasRecipe()) return
@@ -103,32 +103,31 @@ class DnaDecryptorBlockEntity(
     }
 
     private fun getOutputFromInput(input: ItemStack, registries: HolderLookup.Provider): ItemStack? {
-        val possibleGenes = getPossibleGenes(input, registries)
+        val possibleGeneHolders = getPossibleGenes(input, registries)
 
-        val gene: Holder<Gene>
+        val geneHolder: Holder<Gene>
         if (!isNextGeneSet) {
-            gene = when (input.item) {
-                ModItems.DNA_HELIX.get() -> possibleGenes.random()
+            geneHolder = when (input.item) {
+                ModItems.DNA_HELIX.get() -> possibleGeneHolders.random()
                 else -> throw IllegalStateException("Invalid item in input slot")
             }
 
-            nextGene = gene
+            nextGeneHolder = geneHolder
             isNextGeneSet = true
         } else {
-            if (nextGene !in possibleGenes) {
+            if (nextGeneHolder !in possibleGeneHolders) {
                 isNextGeneSet = false
                 return null
             }
 
-            if (nextGene != null) {
-                gene = nextGene!!
+            if (nextGeneHolder != null) {
+                geneHolder = nextGeneHolder!!
             } else {
                 return null
             }
         }
 
-        val helixStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGeneHolder(helixStack, gene)
+        val helixStack = DnaHelixItem.getHelixStack(geneHolder)
 
         return helixStack
     }

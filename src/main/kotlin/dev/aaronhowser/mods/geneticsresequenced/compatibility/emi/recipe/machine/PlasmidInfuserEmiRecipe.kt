@@ -59,15 +59,14 @@ class PlasmidInfuserEmiRecipe(
             }
         )
 
-        val helixStack = ModItems.DNA_HELIX.toStack(stackSize)
-
-        DnaHelixItem.setGeneHolder(
-            helixStack, if (basic) {
+        val helixStack = DnaHelixItem.getHelixStack(
+            if (basic) {
                 ModGenes.BASIC.getHolder(ClientUtil.localRegistryAccess!!)!!
             } else {
                 geneHolder
             }
         )
+
         helix = EmiIngredient.of(Ingredient.of(helixStack))
 
         val plasmidStack = ModItems.PLASMID.toStack()

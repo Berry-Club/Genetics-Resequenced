@@ -362,8 +362,7 @@ class ItemsCategoryProvider(
                     )
                 )
 
-                val milkyHelix = ModItems.DNA_HELIX.toStack()
-                DnaHelixItem.setGeneHolder(milkyHelix, ModGenes.MILKY.getHolder(registries())!!)
+                val milkyHelix = DnaHelixItem.getHelixStack(ModGenes.MILKY, registries())
 
                 println("AAAAAAAAAAAAAAAAAAA")
                 println(milkyHelix.componentsPatch.toString())
@@ -378,8 +377,7 @@ class ItemsCategoryProvider(
                     )
                 )
 
-                val basicHelix = ModItems.DNA_HELIX.toStack()
-                DnaHelixItem.setBasic(basicHelix, registries())
+                val basicHelix = DnaHelixItem.getHelixStack(ModGenes.BASIC, registries())
 
                 spotlightPage(
                     basicHelix,

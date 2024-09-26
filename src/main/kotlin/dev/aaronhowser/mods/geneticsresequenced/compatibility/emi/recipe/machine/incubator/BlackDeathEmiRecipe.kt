@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.brewing.BrewingRecipes
@@ -60,8 +59,7 @@ class BlackDeathEmiRecipe(
 
         ingredient = EmiIngredient.of(Ingredient.of(syringeStack))
 
-        val helixStack = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGeneHolder(helixStack, ModGenes.BLACK_DEATH.getHolder(ClientUtil.localRegistryAccess!!)!!)
+        val helixStack = DnaHelixItem.getHelixStack(ModGenes.BLACK_DEATH, ClientUtil.localRegistryAccess!!)
         output = EmiStack.of(helixStack)
     }
 

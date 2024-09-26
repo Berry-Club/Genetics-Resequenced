@@ -11,7 +11,6 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeTypes
@@ -54,10 +53,7 @@ class BlackDeathRecipe private constructor() : AbstractIncubatorRecipe() {
     }
 
     override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
-        val output = ModItems.DNA_HELIX.toStack()
-        DnaHelixItem.setGeneHolder(output, ModGenes.BLACK_DEATH.getHolder(lookup)!!)
-
-        return output
+        return DnaHelixItem.getHelixStack(ModGenes.BLACK_DEATH.getHolder(lookup)!!)
     }
 
     override fun getSerializer(): RecipeSerializer<*> {
