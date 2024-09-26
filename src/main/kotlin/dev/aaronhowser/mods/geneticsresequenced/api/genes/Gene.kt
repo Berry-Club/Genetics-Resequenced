@@ -9,7 +9,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModGeneTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import io.netty.buffer.ByteBuf
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
@@ -81,15 +80,29 @@ data class Gene(
         companion object {
             val DIRECT_CODEC: Codec<PotionDetails> = RecordCodecBuilder.create { instance ->
                 instance.group(
-                    MobEffect.CODEC.fieldOf("effect").forGetter(PotionDetails::effect),
-                    Codec.INT.optionalFieldOf("level", 1).forGetter(PotionDetails::level),
-                    Codec.INT.optionalFieldOf("duration", -1).forGetter(PotionDetails::duration),
-                    Codec.BOOL.optionalFieldOf("showIcon", false).forGetter(PotionDetails::showIcon)
+                    MobEffect.CODEC
+                        .fieldOf("effect")
+                        .forGetter(PotionDetails::effect),
+                    Codec.INT
+                        .optionalFieldOf("level", 1)
+                        .forGetter(PotionDetails::level),
+                    Codec.INT
+                        .optionalFieldOf("duration", -1)
+                        .forGetter(PotionDetails::duration),
+                    Codec.BOOL
+                        .optionalFieldOf("showIcon", false)
+                        .forGetter(PotionDetails::showIcon)
                 ).apply(instance, ::PotionDetails)
             }
 
-            val DIRECT_STREAM_CODEC: StreamCodec<ByteBuf, PotionDetails> =
-                ByteBufCodecs.fromCodec(DIRECT_CODEC)
+            val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, PotionDetails> =
+                StreamCodec.composite(
+                    MobEffect.STREAM_CODEC, PotionDetails::effect,
+                    ByteBufCodecs.VAR_INT, PotionDetails::level,
+                    ByteBufCodecs.VAR_INT, PotionDetails::duration,
+                    ByteBufCodecs.BOOL, PotionDetails::showIcon,
+                    ::PotionDetails
+                )
         }
     }
 
