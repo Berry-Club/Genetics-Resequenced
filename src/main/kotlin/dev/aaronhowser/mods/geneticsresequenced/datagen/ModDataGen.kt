@@ -33,6 +33,8 @@ object ModDataGen {
             ModDatapackBuiltinEntriesProvider(output, lookupProvider)
         )
 
+        val lookupWithGenes: CompletableFuture<HolderLookup.Provider> = datapackRegistrySets.registryProvider
+
         val languageProvider = generator.addProvider(event.includeClient(), ModLanguageProvider(output))
         val itemModelProvider = generator.addProvider(
             event.includeClient(),
@@ -43,7 +45,10 @@ object ModDataGen {
             ModBlockStateProvider(output, existingFileHelper)
         )
 
-        val recipeProvider = generator.addProvider(event.includeServer(), ModRecipeProvider(output, lookupProvider))
+        val recipeProvider = generator.addProvider(
+            event.includeServer(),
+            ModRecipeProvider(output, lookupWithGenes)
+        )
 
         val blockTagProvider = generator.addProvider(
             event.includeServer(),
@@ -55,7 +60,7 @@ object ModDataGen {
         )
         val geneTagProvider = generator.addProvider(
             event.includeServer(),
-            ModGeneTagsProvider(output, datapackRegistrySets.registryProvider, existingFileHelper)
+            ModGeneTagsProvider(output, lookupWithGenes, existingFileHelper)
         )
         val entityTypeTagProvider = generator.addProvider(
             event.includeServer(),
@@ -90,7 +95,7 @@ object ModDataGen {
 //            event.includeClient(),
 //            NeoBookProvider.of(
 //                event,
-//                ModModonomiconProvider(modonomiconEnUsCache, datapackRegistrySets.registryProvider)
+//                ModModonomiconProvider(modonomiconEnUsCache, lookupWithGenes)
 //            )
 //        )
 //        val modonomiconEnUsProvider = generator.addProvider(

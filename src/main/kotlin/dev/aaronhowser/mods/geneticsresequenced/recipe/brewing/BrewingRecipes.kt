@@ -1,11 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.brewing
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -13,7 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
-import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.Potions
@@ -68,7 +64,6 @@ object BrewingRecipes {
         DataComponentIngredient.of(false, OtherUtil.getPotionStack(potion))
 
     private fun ingredient(itemLike: ItemLike): Ingredient = Ingredient.of(itemLike)
-    private fun ingredient(itemStack: ItemStack): Ingredient = DataComponentIngredient.of(false, itemStack)
 
     val substratePotionStack
         get() = OtherUtil.getPotionStack(ModPotions.SUBSTRATE)
@@ -89,13 +84,6 @@ object BrewingRecipes {
             substratePotionStack
         )
 
-        //FIXME
-//        val cellGrowthRecipe = BrewingRecipe(
-//            ingredient(ModPotions.SUBSTRATE),
-//            ingredient(DnaHelixItem.setBasic(ModItems.DNA_HELIX.toStack(), GeneticsResequenced.registryAccess)),
-//            cellGrowthPotionStack
-//        )
-
         val mutationRecipe = BrewingRecipe(
             ingredient(ModPotions.CELL_GROWTH),
             ingredient(Items.FERMENTED_SPIDER_EYE),
@@ -108,37 +96,10 @@ object BrewingRecipes {
             viralAgentsPotionStack
         )
 
-        //FIXME
-//        val panaceaRecipe = BrewingRecipe(
-//            ingredient(ModPotions.VIRAL_AGENTS),
-//            ingredient(
-//                DnaHelixItem.setGeneHolder(
-//                    ModItems.DNA_HELIX.toStack(),
-//                    ModGenes.REGENERATION.getHolder(GeneticsResequenced.registryAccess)!!
-//                )
-//            ),
-//            panaceaPotionStack
-//        )
-
-        //FIXME
-//        val zombifyVillagerRecipe = BrewingRecipe(
-//            ingredient(viralAgentsPotionStack),
-//            ingredient(
-//                DnaHelixItem.setGeneHolder(
-//                    ModItems.DNA_HELIX.toStack(),
-//                    ModGenes.EMERALD_HEART.getHolder(GeneticsResequenced.registryAccess)!!
-//                )
-//            ),
-//            OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER)
-//        )
-
         val allRecipes = listOf(
             substrateRecipe,
-//            cellGrowthRecipe,
             mutationRecipe,
             viralRecipe,
-//            panaceaRecipe,
-//            zombifyVillagerRecipe
         )
 
         for (recipe in allRecipes) {

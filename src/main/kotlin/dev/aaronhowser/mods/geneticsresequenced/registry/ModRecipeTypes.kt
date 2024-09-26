@@ -34,6 +34,9 @@ object ModRecipeTypes {
     val BLACK_DEATH: DeferredHolder<RecipeType<*>, RecipeType<*>> =
         registerRecipeType("black_death") { object : RecipeType<SetAntiPlasmidRecipe> {} }
 
+    val BASIC_INCUBATOR: DeferredHolder<RecipeType<*>, RecipeType<*>> =
+        registerRecipeType("incubator") { object : RecipeType<SetAntiPlasmidRecipe> {} }
+
     private fun registerRecipeType(
         name: String,
         factory: () -> RecipeType<*>

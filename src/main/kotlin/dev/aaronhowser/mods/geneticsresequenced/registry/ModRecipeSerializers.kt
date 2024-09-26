@@ -36,6 +36,9 @@ object ModRecipeSerializers {
     val BLACK_DEATH: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
         registerRecipeSerializer("black_death") { BlackDeathRecipe.Serializer() }
 
+    val BASIC_INCUBATOR: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
+        registerRecipeSerializer("incubator") { BasicIncubatorRecipe.Serializer() }
+
     private fun registerRecipeSerializer(
         name: String,
         factory: () -> RecipeSerializer<*>
