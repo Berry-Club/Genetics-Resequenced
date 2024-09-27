@@ -24,9 +24,6 @@ object ModCreativeModeTabs {
             .icon { ModItems.SYRINGE.toStack() }
             .displayItems { _: CreativeModeTab.ItemDisplayParameters, output: CreativeModeTab.Output ->
                 output.acceptAll(ModItems.ITEM_REGISTRY.entries.map { (it as DeferredItem).toStack() })
-
-                output.acceptAll(DnaHelixItem.getAllHelices(ClientUtil.localRegistryAccess!!))
-                output.acceptAll(PlasmidItem.getAllPlasmids(ClientUtil.localRegistryAccess!!))
             }
             .build()
     })

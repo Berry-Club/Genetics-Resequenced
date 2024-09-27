@@ -219,4 +219,5 @@
 
 # 1.3.1
 
+- Moved some nullable things from the creative tab's builder to the BuildCreativeModeTabContentsEvent, where hopefully they won't be null, and fixed an NPE if it is
 - Moved Gene.PotionDetails.CODEC to use `show_icon` instead of `showIcon`

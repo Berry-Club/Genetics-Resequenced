@@ -3,10 +3,14 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.entity.client.SupportSlimeRenderer
+import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
+import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModCreativeModeTabs
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.item.ItemProperties
@@ -81,6 +85,12 @@ object ClientModBusEvents {
     fun addToCreativeTab(event: BuildCreativeModeTabContentsEvent) {
         if (event.tabKey == CreativeModeTabs.SPAWN_EGGS) {
             event.accept(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())
+        }
+
+        val registryAccess = ClientUtil.localRegistryAccess
+        if (event.tab == ModCreativeModeTabs.MOD_TAB.get() && registryAccess != null) {
+            event.acceptAll(DnaHelixItem.getAllHelices(registryAccess))
+            event.acceptAll(PlasmidItem.getAllPlasmids(registryAccess))
         }
     }
 
