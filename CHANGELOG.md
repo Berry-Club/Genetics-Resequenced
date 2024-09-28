@@ -229,6 +229,7 @@
 - Reworked how the entity genes datapack system worked
   - Previously, it would simply set the gene weights
   - Now, it adds adds the weight to the gene, so you can have multiple files adding weight to the same gene
+- Re-included the lang file for the Modonomicon book, so now you can actually read it
 - Changed some tags:
     - `#geneticsresequenced:syringe` is now `#geneticsresequenced:syringes`
     - `#geneticsresequenced:fireball` is now `#geneticsresequenced:activates_shoot_fireball_gene`
