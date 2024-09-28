@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "G": {
+      "tag": "c:glass_blocks"
+    },
+    "I": {
+      "tag": "c:ingots/iron"
+    },
+    "S": {
+      "item": "geneticsresequenced:syringe"
+    }
+  },
+  "pattern": [
+    "III",
+    "IGI",
+    "ISI"
+  ],
+  "result": {
+    "count": 1,
+    "id": "geneticsresequenced:gene_checker"
+  }
+}

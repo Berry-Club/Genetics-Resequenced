@@ -227,7 +227,16 @@ class ModRecipeProvider(
             .define('O', Tags.Items.OBSIDIANS)
             .unlockedBy("has_syringe", has(ModItems.SYRINGE.get())),
 
-        modonomicon()
+        modonomicon(),
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.GENE_CHECKER.get())
+            .pattern("III")
+            .pattern("IGI")
+            .pattern("ISI")
+            .define('I', Tags.Items.INGOTS_IRON)
+            .define('G', Tags.Items.GLASS_BLOCKS)
+            .define('S', ModItems.SYRINGE.get())
+            .unlockedBy("has_scraper", has(ModItems.SCRAPER.get())),
     )
 
     private fun modonomicon(): ShapedRecipeBuilder {
