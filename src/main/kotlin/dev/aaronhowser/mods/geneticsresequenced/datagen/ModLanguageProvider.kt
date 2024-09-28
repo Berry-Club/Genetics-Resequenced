@@ -372,6 +372,7 @@ class ModLanguageProvider(
         addItem(ModItems.OVERCLOCKER, "Overclocker")
         addItem(ModItems.FRIENDLY_SLIME_SPAWN_EGG, "Support Slime Spawn Egg")
         addItem(ModItems.ANTI_PLASMID, "Anti-Plasmid")
+        addItem(ModItems.GENE_CHECKER, "Gene Checker")
 
         addEffect(ModEffects.BLEED, "Bleed")
         addEffect(ModEffects.SUBSTRATE, "Substrate")
