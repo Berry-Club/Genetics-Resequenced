@@ -11,7 +11,6 @@ import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.Block
-import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
 
@@ -27,30 +26,25 @@ class ModItemTagsProvider(
             return ItemTags.create(OtherUtil.modResource(id))
         }
 
-        val SYRINGE: TagKey<Item> = create("syringe")
-        val ACTIVATES_WOOLY: TagKey<Item> = create("wooly")
-        val ACTIVATES_SHOOT_FIREBALL: TagKey<Item> = create("fireball")
-        val MAGNET_ITEM_BLACKLIST: TagKey<Item> = create("magnet_blacklist")
+        val SYRINGES: TagKey<Item> = create("syringes")
+        val ACTIVATES_SHOOT_FIREBALL_GENE: TagKey<Item> = create("activates_shoot_fireball_gene")
+        val MAGNET_ITEM_BLACKLIST: TagKey<Item> = create("item_magnet_gene_blacklist")
         val ENCHANTABLE_DELICATE_TOUCH: TagKey<Item> = create("enchantable/delicate_touch")
         val PREVENTS_SOME_MOB_INTERACTION: TagKey<Item> = create("prevents_some_mob_interaction")
     }
 
     override fun addTags(pProvider: HolderLookup.Provider) {
 
-        this.tag(SYRINGE)
+        this.tag(SYRINGES)
             .add(
                 ModItems.SYRINGE.get(),
                 ModItems.METAL_SYRINGE.get()
             )
 
-        this.tag(ACTIVATES_WOOLY)
-            .add(Items.SHEARS)
-            .addTags(Tags.Items.TOOLS_SHEAR)
-
         this.tag(MAGNET_ITEM_BLACKLIST)
             .add(Items.COBBLESTONE)
 
-        this.tag(ACTIVATES_SHOOT_FIREBALL)
+        this.tag(ACTIVATES_SHOOT_FIREBALL_GENE)
             .add(Items.BLAZE_ROD)
 
         this.tag(ENCHANTABLE_DELICATE_TOUCH)

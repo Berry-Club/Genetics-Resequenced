@@ -33,7 +33,7 @@ class BlackDeathRecipe private constructor() : AbstractIncubatorRecipe() {
     private val potionIngredient: Ingredient =
         DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))
     private val syringeIngredient: Ingredient =
-        Ingredient.of(ModItemTagsProvider.SYRINGE)
+        Ingredient.of(ModItemTagsProvider.SYRINGES)
 
     override val ingredients: List<Ingredient> = listOf(potionIngredient, syringeIngredient)
 

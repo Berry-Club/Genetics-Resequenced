@@ -32,6 +32,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.ProjectileWeaponItem
 import net.minecraft.world.level.block.Blocks
+import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent
 import net.neoforged.neoforge.event.entity.living.LivingGetProjectileEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
@@ -59,7 +60,7 @@ object ClickGenes {
 
         if (!target.hasGene(ModGenes.WOOLY)) return
 
-        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.ACTIVATES_WOOLY)
+        val clickedWithShears = event.itemStack.`is`(Tags.Items.TOOLS_SHEAR)
         if (!clickedWithShears) return
 
         val newlySheared = recentlySheered.add(target)
@@ -118,7 +119,7 @@ object ClickGenes {
 
         if (!target.hasGene(ModGenes.MEATY)) return
 
-        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.ACTIVATES_WOOLY)
+        val clickedWithShears = event.itemStack.`is`(Tags.Items.TOOLS_SHEAR)
         if (!clickedWithShears) return
 
         val newlyMeated = recentlyMeated.add(target)
@@ -257,7 +258,7 @@ object ClickGenes {
         if (player.level().isClientSide) return
 
         if (!player.isCrouching) return
-        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.ACTIVATES_WOOLY)
+        val clickedWithShears = event.itemStack.`is`(Tags.Items.TOOLS_SHEAR)
         if (!clickedWithShears) return
 
         if (!player.hasGene(ModGenes.WOOLY)) return
@@ -305,7 +306,7 @@ object ClickGenes {
         if (player.level().isClientSide) return
 
         if (!player.isCrouching) return
-        val clickedWithShears = event.itemStack.`is`(ModItemTagsProvider.ACTIVATES_WOOLY)
+        val clickedWithShears = event.itemStack.`is`(Tags.Items.TOOLS_SHEAR)
         if (!clickedWithShears) return
 
         if (!player.hasGene(ModGenes.MEATY)) return
@@ -351,7 +352,7 @@ object ClickGenes {
         if (!player.hasGene(ModGenes.SHOOT_FIREBALLS)) return
 
         if (!player.isCrouching) return
-        if (!event.itemStack.`is`(ModItemTagsProvider.ACTIVATES_SHOOT_FIREBALL)) return
+        if (!event.itemStack.`is`(ModItemTagsProvider.ACTIVATES_SHOOT_FIREBALL_GENE)) return
 
         val lookVec = player.lookAngle
 

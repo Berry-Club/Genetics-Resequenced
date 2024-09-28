@@ -1,7 +1,6 @@
-// 1.21.1	2024-09-27T20:58:34.8194066	Tags for minecraft:item mod id geneticsresequenced
+// 1.21.1	2024-09-27T21:29:16.084367	Tags for minecraft:item mod id geneticsresequenced
+d1cec38b1d173c06bbbfd0f5289c0235de5db1d9 data/geneticsresequenced/tags/item/activates_shoot_fireball_gene.json
 4579276888fe4247c5bedef56555a19253577c5d data/geneticsresequenced/tags/item/enchantable/delicate_touch.json
-d1cec38b1d173c06bbbfd0f5289c0235de5db1d9 data/geneticsresequenced/tags/item/fireball.json
-4299a3aeb550dac5d1182404571c32a720c12c01 data/geneticsresequenced/tags/item/magnet_blacklist.json
+4299a3aeb550dac5d1182404571c32a720c12c01 data/geneticsresequenced/tags/item/item_magnet_gene_blacklist.json
 84dfaea0872c678f179d30e68cf7e86cd9e506e5 data/geneticsresequenced/tags/item/prevents_some_mob_interaction.json
-83422e34d74936932379d0ae6e1d90a689cd82a0 data/geneticsresequenced/tags/item/syringe.json
-62709973080a42a57179b14bd9d994f286400622 data/geneticsresequenced/tags/item/wooly.json
+83422e34d74936932379d0ae6e1d90a689cd82a0 data/geneticsresequenced/tags/item/syringes.json
