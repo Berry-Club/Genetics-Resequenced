@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.command
+package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext

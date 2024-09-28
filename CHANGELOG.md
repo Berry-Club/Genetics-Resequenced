@@ -238,3 +238,7 @@
 - Added EMI tag translations
 - The command `/geneticsresequenced removeNearbyLights` has been renamed to `/geneticsresequenced clearBioluminescenceBlocks`
   - Additionally, it no longer requires op permissions. Its range argument does, however
+
+# 1.5.0
+
+- Combined the Gene commands to be arguments of `/geneticsresequenced gene`

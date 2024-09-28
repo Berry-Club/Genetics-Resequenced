@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.command
+package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
@@ -14,7 +14,7 @@ object ListAllGenesCommand {
 
     fun register(): ArgumentBuilder<CommandSourceStack, *> {
         return Commands
-            .literal("listAllGenes")
+            .literal("listAll")
             .executes { listAllGenes(it) }
     }
 

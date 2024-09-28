@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.command
+package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
@@ -17,7 +17,7 @@ object RemoveAllGenesCommand {
 
     fun register(): ArgumentBuilder<CommandSourceStack, *> {
         return Commands
-            .literal("removeAllGenes")
+            .literal("removeAll")
             .requires { it.hasPermission(2) }
             .then(
                 Commands
