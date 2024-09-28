@@ -46,6 +46,7 @@ class ItemsCategoryProvider(
         }
 
         addEntry(scraper('z'))
+        addEntry(geneChecker('v'))
         addEntry(organicMatter('m'))
         addEntry(cell('c'))
         addEntry(dnaHelix('d'))
@@ -450,6 +451,29 @@ class ItemsCategoryProvider(
                 spotlightPage(
                     ModItems.SCRAPER.toStack(),
                     "The Scraper can be enchanted with ${minor("Delicate Touch")} to prevent damaging and angering entities."
+                )
+            }
+        }
+
+        return scraperEntry.generate(location)
+    }
+
+    fun geneChecker(location: Char): BookEntryModel {
+        val scraperEntry = object : BaseEntryProvider(
+            realThis,
+            "Gene Checker",
+            ModItems.GENE_CHECKER,
+            "gene_checker"
+        ) {
+            override fun generatePages() {
+                textPage(
+                    "gene_checker",
+                    "The ${major("Gene Checker")}, as the name implies, is used to ${minor("check what Genes an entity has")}."
+                )
+
+                spotlightPage(
+                    ModItems.GENE_CHECKER.toStack(),
+                    "If you're looking at an entity, its Genes will be listed. Otherwise, it'll list your own Genes instead."
                 )
             }
         }
