@@ -69,7 +69,7 @@ object ClearBioluminescenceBlocksCommand {
             }
             level.addFreshEntity(blockDisplayEntity)
 
-            ModScheduler.scheduleTaskInTicks(20 * 5) {
+            ModScheduler.scheduleTaskInTicks(20 * 2) {
                 blockDisplayEntity.remove(Entity.RemovalReason.DISCARDED)
             }
         }
