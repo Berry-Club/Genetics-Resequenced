@@ -227,5 +227,6 @@
 - Added the Gene Checker, which lets you see the Genes of either yourself or the entity you're looking at
 - Changed some tags:
     - `#geneticsresequenced:syringe` is now `#geneticsresequenced:syringes`
+    - `#geneticsresequenced:fireball` is now `#geneticsresequenced:activates_shoot_fireball_gene`
     - `#geneticsresequenced:magnet_blacklist` is now `#geneticsresequenced:item_magnet_gene_blacklist`
 - Removed the tag `#geneticsresequenced:wooly`, it just uses `#c:tools/shear` now
