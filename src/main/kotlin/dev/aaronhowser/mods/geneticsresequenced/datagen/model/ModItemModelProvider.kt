@@ -23,6 +23,7 @@ class ModItemModelProvider(
         basicItem(ModItems.OVERCLOCKER.get())
         basicItem(ModItems.ANTI_FIELD_ORB.get())
         basicItem(ModItems.DRAGON_HEALTH_CRYSTAL.get())
+        basicItem(ModItems.GENE_CHECKER.get())
 
         this.withExistingParent(
             ModItems.FRIENDLY_SLIME_SPAWN_EGG.id.path,

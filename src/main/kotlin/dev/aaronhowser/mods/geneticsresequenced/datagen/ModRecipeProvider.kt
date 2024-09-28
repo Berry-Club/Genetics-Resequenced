@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.*
+import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
@@ -235,7 +236,7 @@ class ModRecipeProvider(
             .pattern("ISI")
             .define('I', Tags.Items.INGOTS_IRON)
             .define('G', Tags.Items.GLASS_BLOCKS)
-            .define('S', ModItems.SYRINGE.get())
+            .define('S', ModItemTagsProvider.SYRINGES)
             .unlockedBy("has_scraper", has(ModItems.SCRAPER.get())),
     )
 
