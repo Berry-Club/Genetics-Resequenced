@@ -90,6 +90,8 @@ class ModLanguageProvider(
         const val CRINGE_CONFIG = "message.geneticsresequenced.cringe.resources.tooltip"
         const val CRINGE_RELOADING = "message.geneticsresequenced.cringe.resources.reloading"
         const val SLIME_SPAM = "message.geneticsresequenced.slimy_spam"
+        const val GENE_CHECKER_NO_GENES = "message.geneticsresequenced.gene_checker.no_genes"
+        const val GENE_CHECKER_LIST = "message.geneticsresequenced.gene_checker.list"
     }
 
     object Tooltips {
@@ -431,7 +433,7 @@ class ModLanguageProvider(
             Messages.MISSING_GENE_REQUIREMENTS,
             "You feel the %s Gene fade away...\nIt seems you §cdo not meet the requirements§r for it."
         )
-        add(Messages.MISSING_GENE_REQUIREMENTS_LIST, "Required Genes:")
+        add(Messages.MISSING_GENE_REQUIREMENTS_LIST, "Required Genes:\n")
         add(Messages.CRINGE_GRASS, "With the touch of Grass, you feel the cringe leave your body.")
         add(
             Messages.CRINGE_ADDED,
@@ -444,6 +446,8 @@ class ModLanguageProvider(
         )
         add(Messages.CRINGE_RELOADING, "Reloading resources now!")
         add(Messages.SLIME_SPAM, "%s's Slime %d")
+        add(Messages.GENE_CHECKER_NO_GENES, "You have no Genes!")
+        add(Messages.GENE_CHECKER_LIST, "You have the following Genes:\n%s")
 
         addBlock(ModBlocks.BIOLUMINESCENCE_BLOCK, "Bioluminescence Glow")
         addBlock(ModBlocks.CELL_ANALYZER, "Cell Analyzer")
@@ -495,9 +499,9 @@ class ModLanguageProvider(
         add(Tooltips.GMO_SUCCESS, "Result on success")
         add(Tooltips.GMO_FAILURE, "Result on failure")
 
-        add(Commands.LIST_ALL_GENES, "Gene List:")
+        add(Commands.LIST_ALL_GENES, "Gene List:\n")
         add(Commands.NO_GENES, "No Genes found!")
-        add(Commands.THEIR_GENES, "%1\$s's Genes:")
+        add(Commands.THEIR_GENES, "%1\$s's Genes:\n")
         add(Commands.REMOVED_LIGHTS, "Removed %d nearby bioluminescence light sources.")
         add(Commands.REMOVED_LIGHTS_RANGE_TOO_HIGH, "Range too high! Must be between 1 and 100.")
         add(Commands.ADD_SINGLE_SUCCESS, "Added %1\$s to %2\$s!")

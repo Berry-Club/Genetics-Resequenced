@@ -104,11 +104,14 @@ object OtherUtil {
         return getEnchantmentRegistry(entity).getHolderOrThrow(enchantment)
     }
 
-    fun componentList(components: List<Component>, separator: String = "\n• "): MutableComponent {
+    fun componentList(components: List<Component>): MutableComponent {
         val mutableComponent = Component.empty()
 
         for (component in components) {
-            mutableComponent.append(Component.literal(separator).append(component))
+            mutableComponent.append("• ").append(component)
+            if (component != components.last()) {
+                mutableComponent.append("\n")
+            }
         }
 
         return mutableComponent
