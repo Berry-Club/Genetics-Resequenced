@@ -226,7 +226,7 @@
 
 - Added the Gene Checker, which lets you see the Genes of either yourself or the entity you're looking at
   - Since this exists, `/geneticsresequenced list` now requires op permissions
-- Reworked how the entity genes system worked
+- Reworked how the entity genes datapack system worked
   - Previously, it would simply set the gene weights
   - Now, it adds adds the weight to the gene, so you can have multiple files adding weight to the same gene
 - Changed some tags:
