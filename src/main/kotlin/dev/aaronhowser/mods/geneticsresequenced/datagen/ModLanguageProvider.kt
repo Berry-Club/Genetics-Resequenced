@@ -90,8 +90,10 @@ class ModLanguageProvider(
         const val CRINGE_CONFIG = "message.geneticsresequenced.cringe.resources.tooltip"
         const val CRINGE_RELOADING = "message.geneticsresequenced.cringe.resources.reloading"
         const val SLIME_SPAM = "message.geneticsresequenced.slimy_spam"
-        const val GENE_CHECKER_NO_GENES = "message.geneticsresequenced.gene_checker.no_genes"
-        const val GENE_CHECKER_LIST = "message.geneticsresequenced.gene_checker.list"
+        const val GENE_CHECKER_SELF_NO_GENES = "message.geneticsresequenced.gene_checker.no_genes"
+        const val GENE_CHECKER_SELF_LIST = "message.geneticsresequenced.gene_checker.list"
+        const val GENE_CHECKER_TARGET_NO_GENES = "message.geneticsresequenced.gene_checker.target.no_genes"
+        const val GENE_CHECKER_TARGET_LIST = "message.geneticsresequenced.gene_checker.target.list"
     }
 
     object Tooltips {
@@ -446,8 +448,10 @@ class ModLanguageProvider(
         )
         add(Messages.CRINGE_RELOADING, "Reloading resources now!")
         add(Messages.SLIME_SPAM, "%s's Slime %d")
-        add(Messages.GENE_CHECKER_NO_GENES, "You have no Genes!")
-        add(Messages.GENE_CHECKER_LIST, "You have the following Genes:\n%s")
+        add(Messages.GENE_CHECKER_SELF_NO_GENES, "You have no Genes!")
+        add(Messages.GENE_CHECKER_SELF_LIST, "You have the following Genes:\n%s")
+        add(Messages.GENE_CHECKER_TARGET_NO_GENES, "%s has no Genes!")
+        add(Messages.GENE_CHECKER_TARGET_LIST, "%s has the following Genes:\n%s")
 
         addBlock(ModBlocks.BIOLUMINESCENCE_BLOCK, "Bioluminescence Glow")
         addBlock(ModBlocks.CELL_ANALYZER, "Cell Analyzer")

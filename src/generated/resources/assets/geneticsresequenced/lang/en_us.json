@@ -370,6 +370,8 @@
   "message.geneticsresequenced.death_negative_gene_removal": "Death has remove your negative Genes!",
   "message.geneticsresequenced.gene_checker.list": "You have the following Genes:\n%s",
   "message.geneticsresequenced.gene_checker.no_genes": "You have no Genes!",
+  "message.geneticsresequenced.gene_checker.target.list": "%s has the following Genes:\n%s",
+  "message.geneticsresequenced.gene_checker.target.no_genes": "%s has no Genes!",
   "message.geneticsresequenced.gene_missing_requirements": "You feel the %s Gene fade away...\nIt seems you §cdo not meet the requirements§r for it.",
   "message.geneticsresequenced.gene_missing_requirements.list": "Required Genes:\n",
   "message.geneticsresequenced.meaty.recent": "This entity has already been meated recently!",

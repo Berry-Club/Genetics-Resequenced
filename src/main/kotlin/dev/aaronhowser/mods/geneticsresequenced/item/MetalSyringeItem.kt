@@ -13,7 +13,6 @@ import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.UseAnim
@@ -129,15 +128,13 @@ class MetalSyringeItem : SyringeItem() {
         }
     }
 
-    override fun releaseUsing(pStack: ItemStack, pLevel: Level, pLivingEntity: LivingEntity, pTimeLeft: Int) {
+    override fun releaseUsing(pStack: ItemStack, pLevel: Level, pLivingEntity: LivingEntity, pTimeCharged: Int) {
         if (pLivingEntity !is Player) return
-        if (pTimeLeft > 1) return
+        if (pTimeCharged > 1) return
 
         if (pLivingEntity is FakePlayer) return
 
-        val reachDistance = pLivingEntity.getAttribute(Attributes.ENTITY_INTERACTION_RANGE)?.value ?: 3.0
-
-        val targetEntity = OtherUtil.getLookedAtEntity(pLivingEntity, reachDistance) as? LivingEntity ?: return
+        val targetEntity = OtherUtil.getLookedAtEntity(pLivingEntity) as? LivingEntity ?: return
 
         if (hasBlood(pStack)) {
             useFullSyringe(pStack, pLivingEntity, targetEntity)

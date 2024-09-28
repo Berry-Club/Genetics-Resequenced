@@ -18,6 +18,7 @@ import net.minecraft.tags.TagKey
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.entity.projectile.ProjectileUtil
 import net.minecraft.world.item.ItemStack
@@ -76,14 +77,16 @@ object OtherUtil {
         return entityType
     }
 
-    fun getLookedAtEntity(livingEntity: LivingEntity, range: Double = 4.0): Entity? {
+    fun getLookedAtEntity(livingEntity: LivingEntity): Entity? {
+        val reach = livingEntity.getAttributeValue(Attributes.ENTITY_INTERACTION_RANGE)
+
         val entityHitResult = ProjectileUtil.getEntityHitResult(
             livingEntity,
             livingEntity.eyePosition,
-            livingEntity.eyePosition.add(livingEntity.lookAngle.scale(range)),
-            livingEntity.boundingBox.inflate(range),
+            livingEntity.eyePosition.add(livingEntity.lookAngle.scale(reach)),
+            livingEntity.boundingBox.inflate(reach),
             { true },
-            range
+            reach
         )
 
         return entityHitResult?.entity

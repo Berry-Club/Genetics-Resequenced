@@ -59,7 +59,8 @@ class ModItemTagsProvider(
         this.tag(PREVENTS_SOME_MOB_INTERACTION)
             .add(
                 ModItems.METAL_SYRINGE.get(),
-                ModItems.SCRAPER.get()
+                ModItems.SCRAPER.get(),
+                ModItems.GENE_CHECKER.get()
             )
     }
 
