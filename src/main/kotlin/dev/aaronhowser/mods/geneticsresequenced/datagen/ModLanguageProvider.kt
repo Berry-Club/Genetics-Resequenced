@@ -508,7 +508,7 @@ class ModLanguageProvider(
         add(Commands.LIST_ALL_GENES, "Gene List:\n")
         add(Commands.NO_GENES, "No Genes found!")
         add(Commands.THEIR_GENES, "%1\$s's Genes:\n")
-        add(Commands.REMOVED_LIGHTS, "Removed %d nearby bioluminescence light sources.")
+        add(Commands.REMOVED_LIGHTS, "Removed %d nearby Bioluminescence Gene light sources.")
         add(Commands.REMOVED_LIGHTS_RANGE_TOO_HIGH, "Range too high! Must be between 1 and 100.")
         add(Commands.ADD_SINGLE_SUCCESS, "Added %1\$s to %2\$s!")
         add(Commands.ADD_SINGLE_FAIL, "Failed to add %1\$s to %2\$s!")

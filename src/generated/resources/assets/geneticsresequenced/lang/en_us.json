@@ -58,7 +58,7 @@
   "command.geneticsresequenced.remove_gene.single_target.fail": "Failed to remove %1$s from %2$s!",
   "command.geneticsresequenced.remove_gene.single_target.success": "Removed %1$s from %2$s!",
   "command.geneticsresequenced.remove_nearby_lights.range_too_high": "Range too high! Must be between 1 and 100.",
-  "command.geneticsresequenced.remove_nearby_lights.success": "Removed %d nearby bioluminescence light sources.",
+  "command.geneticsresequenced.remove_nearby_lights.success": "Removed %d nearby Bioluminescence Gene light sources.",
   "cooldown.geneticsresequenced.ended": "%s has come off cooldown!",
   "cooldown.geneticsresequenced.on_cooldown": "%s is on cooldown!",
   "cooldown.geneticsresequenced.started": " triggered! Cooldown started: %s",
