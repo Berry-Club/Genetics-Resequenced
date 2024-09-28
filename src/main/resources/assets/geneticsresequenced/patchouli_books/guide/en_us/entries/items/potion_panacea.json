@@ -2,7 +2,7 @@
   "name": "Panacea",
   "category": "geneticsresequenced:items",
   "icon": "minecraft:potion[potion_contents={potion:'geneticsresequenced:panacea'}]",
-  "sortnum": 14,
+  "sortnum": 15,
   "pages": [
     {
       "type": "patchouli:text",

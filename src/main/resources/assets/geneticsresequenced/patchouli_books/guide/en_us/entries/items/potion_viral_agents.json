@@ -2,7 +2,7 @@
   "name": "Viral Agents",
   "category": "geneticsresequenced:items",
   "icon": "minecraft:potion[potion_contents={potion:'geneticsresequenced:viral_agents'}]",
-  "sortnum": 12,
+  "sortnum": 14,
   "pages": [
     {
       "type": "patchouli:text",

@@ -2,7 +2,7 @@
   "name": "Dragon Health Crystal",
   "category": "geneticsresequenced:items",
   "icon": "geneticsresequenced:dragon_health_crystal",
-  "sortnum": 9,
+  "sortnum": 10,
   "pages": [
     {
       "type": "patchouli:text",

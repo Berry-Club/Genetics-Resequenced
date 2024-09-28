@@ -2,7 +2,7 @@
   "name": "Overclocker",
   "category": "geneticsresequenced:items",
   "icon": "geneticsresequenced:overclocker",
-  "sortnum": 7,
+  "sortnum": 8,
   "pages": [
     {
       "type": "patchouli:text",

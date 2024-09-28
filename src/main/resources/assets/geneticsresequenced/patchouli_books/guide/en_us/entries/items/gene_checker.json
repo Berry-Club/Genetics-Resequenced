@@ -1,0 +1,18 @@
+{
+  "name": "Gene Checker",
+  "category": "geneticsresequenced:items",
+  "icon": "geneticsresequenced:gene_checker",
+  "sortnum": 7,
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(major)Gene Checker/$, as the name implies, is used to $(minor)check what Genes an entity has/$."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:gene_checker",
+      "link_recipe": true,
+      "text": "If you're looking at an entity, its Genes will be listed. Otherwise, it'll list your own Genes instead."
+    }
+  ]
+}

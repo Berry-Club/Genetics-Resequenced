@@ -2,7 +2,7 @@
   "name": "Potion of Mutation",
   "category": "geneticsresequenced:items",
   "icon": "minecraft:potion[potion_contents={potion:'geneticsresequenced:mutation'}]",
-  "sortnum": 11,
+  "sortnum": 13,
   "pages": [
     {
       "type": "patchouli:text",

@@ -2,7 +2,7 @@
   "name": "Organic Substrate",
   "category": "geneticsresequenced:items",
   "icon": "minecraft:potion[potion_contents={potion:'geneticsresequenced:substrate'}]",
-  "sortnum": 10,
+  "sortnum": 11,
   "pages": [
     {
       "type": "patchouli:text",

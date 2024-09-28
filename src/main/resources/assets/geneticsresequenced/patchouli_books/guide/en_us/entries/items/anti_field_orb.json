@@ -2,7 +2,7 @@
   "name": "Anti-Field Orb",
   "category": "geneticsresequenced:items",
   "icon": "geneticsresequenced:anti_field_orb",
-  "sortnum": 8,
+  "sortnum": 9,
   "pages": [
     {
       "type": "patchouli:text",

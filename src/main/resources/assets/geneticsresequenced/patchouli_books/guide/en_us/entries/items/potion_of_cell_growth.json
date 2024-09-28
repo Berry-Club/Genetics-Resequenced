@@ -2,7 +2,7 @@
   "name": "Potion of Cell Growth",
   "category": "geneticsresequenced:items",
   "icon": "minecraft:potion[potion_contents={potion:'geneticsresequenced:cell_growth'}]",
-  "sortnum": 10,
+  "sortnum": 12,
   "pages": [
     {
       "type": "patchouli:spotlight",

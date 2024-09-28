@@ -2,7 +2,7 @@
   "name": "Potion of Zombify Villager",
   "category": "geneticsresequenced:items",
   "icon": "minecraft:potion[potion_contents={potion:'geneticsresequenced:zombify_villager'}]",
-  "sortnum": 14,
+  "sortnum": 16,
   "pages": [
     {
       "type": "patchouli:text",
