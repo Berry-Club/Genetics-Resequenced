@@ -20,6 +20,7 @@ object ListGenesCommand {
     fun register(): ArgumentBuilder<CommandSourceStack, *> {
         return Commands
             .literal("list")
+            .requires { it.hasPermission(2) }
             .then(
                 Commands
                     .argument(TARGET_ARGUMENT, EntityArgument.entity())
