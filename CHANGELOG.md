@@ -162,9 +162,7 @@
 - Genes are now data-driven! They're in `/data/_____/geneticsresequenced/gene/`
 - They follow the following structure, all fields are optional:
     - `dna_points_required`: The amount of DNA Points required to complete a Plasmid. Defaults to 0
-    - `negative`: If the Gene is negative. Defaults to false
-    - `mutation`: If the Gene is a mutation. Defaults to false
-    - `hidden`: If the Gene is hidden, only used by default by the Basic Gene. Defaults to false
+    - `requires_genes`: A list of Resource Location IDs for Genes that are required to have this Gene
     - `allowed_entities`: A filter of entity types that the Gene can be injected into
       - Defaults to `{"type": "neoforge:any"}`. 
       - Can also accept a single entity type (`"minecraft:player"`) or a list of entity types (`["minecraft:cow","minecraft:chicken"]`)
@@ -178,7 +176,6 @@
         - `id`: A Resource Location ID for the modifier
         - `operation`: The operation to apply to the attribute (`"add_value"`, `"add_multiplied_base"`, or `"add_multiplied_total"`)
         - `amount`: The amount to modify the attribute by
-    - `requires_genes`: A list of Resource Location IDs for Genes that are required to have this Gene
     - `scares_entities_with_tag`: An entity type tag that the Gene will scare
 - Incubator recipes are no longer actually Brewing recipes, and can therefore no longer be used in a Brewing Stand
     - Consequently, you can now make custom recipes that use the Incubator! See `/data/geneticsresequeced/recipe/incubator/`
