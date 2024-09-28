@@ -17,6 +17,8 @@ object ModItems {
         ITEM_REGISTRY.registerItem("syringe") { SyringeItem() }
     val METAL_SYRINGE: DeferredItem<MetalSyringeItem> =
         ITEM_REGISTRY.registerItem("metal_syringe") { MetalSyringeItem() }
+    val GENE_CHECKER: DeferredItem<GeneCheckerItem> =
+        ITEM_REGISTRY.registerItem("gene_checker") { GeneCheckerItem() }
     val ORGANIC_MATTER: DeferredItem<EntityDnaItem> =
         ITEM_REGISTRY.registerItem("organic_matter") { EntityDnaItem() }
     val CELL: DeferredItem<EntityDnaItem> =
