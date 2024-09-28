@@ -16,25 +16,25 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.level.block.Blocks
 
-object RemoveNearbyLightsCommand {
+object ClearBioluminescenceBlocksCommand {
 
     private const val RANGE_ARGUMENT = "range"
 
     fun register(): ArgumentBuilder<CommandSourceStack, *> {
         return Commands
-            .literal("removeNearbyLights")
-            .requires { it.hasPermission(2) }
+            .literal("`clearBioluminescenceBlocks")
             .then(
                 Commands
                     .argument(RANGE_ARGUMENT, IntegerArgumentType.integer(1, Integer.MAX_VALUE))
+                    .requires { it.hasPermission(2) }
                     .executes { cmd ->
                         removeNearbyLights(cmd, IntegerArgumentType.getInteger(cmd, RANGE_ARGUMENT))
                     }
             )
-            .executes { cmd -> removeNearbyLights(cmd) }
+            .executes { cmd -> removeNearbyLights(cmd, 25) }
     }
 
-    private fun removeNearbyLights(context: CommandContext<CommandSourceStack>, range: Int = 25): Int {
+    private fun removeNearbyLights(context: CommandContext<CommandSourceStack>, range: Int): Int {
         val player = context.source.entity as? LivingEntity ?: return 0
 
         if (range !in 1..100) {

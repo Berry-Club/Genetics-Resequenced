@@ -23,7 +23,7 @@ object ModCommands {
                 .then(RemoveAllGenesCommand.register())
                 .then(ListGenesCommand.register())
                 .then(ListAllGenesCommand.register())
-                .then(RemoveNearbyLightsCommand.register())
+                .then(ClearBioluminescenceBlocksCommand.register())
         )
 
     }

@@ -235,3 +235,5 @@
     - `#geneticsresequenced:magnet_blacklist` is now `#geneticsresequenced:item_magnet_gene_blacklist`
 - Removed the tag `#geneticsresequenced:wooly`, it just uses `#c:tools/shear` now
 - Added EMI tag translations
+- The command `/geneticsresequenced removeNearbyLights` has been renamed to `/geneticsresequenced clearBioluminescenceBlocks`
+  - Additionally, it no longer requires op permissions. Its range argument does, however
