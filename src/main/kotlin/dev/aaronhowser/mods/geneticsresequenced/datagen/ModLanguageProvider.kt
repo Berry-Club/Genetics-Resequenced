@@ -176,10 +176,11 @@ class ModLanguageProvider(
         const val SET_ENTITY = "emi.category.geneticsresequenced.set_entity"
         const val VIRUS = "emi.category.geneticsresequenced.virus"
 
+        const val SYRINGES = "tag.item.geneticsresequenced.syringes"
         const val DELICATE_TOUCH_TAG = "tag.item.geneticsresequenced.enchantable.delicate_touch"
-        const val FIREBALL_TAG = "tag.item.geneticsresequenced.fireball"
-        const val MAGNET_BLACKLIST_TAG = "tag.item.geneticsresequenced.magnet_blacklist"
-        const val WOOLY_TAG = "tag.item.geneticsresequenced.wooly"
+        const val FIREBALL_TAG = "tag.item.geneticsresequenced.activates_shoot_fireball_gene"
+        const val MAGNET_BLACKLIST_TAG = "tag.item.geneticsresequenced.item_magnet_gene_blacklist"
+        const val BLOCKS_MOB_INTERACTION_TAG = "tag.item.geneticsresequenced.prevents_some_mob_interaction"
     }
 
     object Recipe {
@@ -549,10 +550,11 @@ class ModLanguageProvider(
         add(EMI.SUBSTRATE_DUPE, "Substrate Cell Duplication")
         add(EMI.VIRUS, "Virus Cultivation")
 
+        add(EMI.SYRINGES, "Syringes")
         add(EMI.DELICATE_TOUCH_TAG, "Delicate Touch Enchantable")
         add(EMI.FIREBALL_TAG, "Usable for \"Shoot Fireballs\" Gene")
         add(EMI.MAGNET_BLACKLIST_TAG, "Blacklisted from \"Item Magnet\" Gene")
-        add(EMI.WOOLY_TAG, "Can shear entities with the \"Wooly\" or \"Meaty\" Genes")
+        add(EMI.BLOCKS_MOB_INTERACTION_TAG, "Prevents item interaction with entities that have the #geneticsresequenced:allows_preventing_interaction tag\nUsed for Villagers etc that already have their own interactions")
 
         add(Info.ORGANIC_MATTER, "Acquired by clicking a %1\$s with a Scraper.")
         add(Info.MOB_GENE_ONE, "%1\$s has these Genes:")
