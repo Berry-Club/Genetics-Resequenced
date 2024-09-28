@@ -48,11 +48,16 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 
     }
 
-    private fun assignGenes(entityRl: ResourceLocation, genes: Map<ResourceKey<Gene>, Int>) {
+    private fun addGeneWeights(entityRl: ResourceLocation, newGeneWeights: Map<ResourceKey<Gene>, Int>) {
         val entityType = OtherUtil.getEntityType(entityRl)
 
         val currentGenes = entityGeneMap[entityType]?.toMutableMap() ?: mutableMapOf()
-        currentGenes.putAll(genes)
+
+        for ((gene, weight) in newGeneWeights) {
+            val currentWeightForGene = currentGenes[gene] ?: 0
+            currentGenes[gene] = currentWeightForGene + weight
+        }
+
         entityGeneMap[entityType] = currentGenes
     }
 
@@ -100,7 +105,7 @@ class EntityGenes : SimpleJsonResourceReloadListener(
                     GeneticsResequenced.LOGGER.warn("Mob-Gene data for $key has the entity $entityName instead of $fileName. This may be a mistake.")
                 }
 
-                assignGenes(entityGenes.entity, entityGenes.geneWeights)
+                addGeneWeights(entityGenes.entity, entityGenes.geneWeights)
 
                 GeneticsResequenced.LOGGER.debug("Loaded gene-mob data: $entityGenes")
             } catch (e: Exception) {

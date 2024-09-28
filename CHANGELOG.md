@@ -225,6 +225,9 @@
 # 1.4.0
 
 - Added the Gene Checker, which lets you see the Genes of either yourself or the entity you're looking at
+- Reworked how the entity genes system worked
+  - Previously, it would simply set the gene weights
+  - Now, it adds adds the weight to the gene, so you can have multiple files adding weight to the same gene
 - Changed some tags:
     - `#geneticsresequenced:syringe` is now `#geneticsresequenced:syringes`
     - `#geneticsresequenced:fireball` is now `#geneticsresequenced:activates_shoot_fireball_gene`
