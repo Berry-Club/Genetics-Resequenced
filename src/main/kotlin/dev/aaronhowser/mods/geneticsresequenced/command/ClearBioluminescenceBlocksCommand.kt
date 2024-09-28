@@ -22,7 +22,7 @@ object ClearBioluminescenceBlocksCommand {
 
     fun register(): ArgumentBuilder<CommandSourceStack, *> {
         return Commands
-            .literal("`clearBioluminescenceBlocks")
+            .literal("clearBioluminescenceBlocks")
             .then(
                 Commands
                     .argument(RANGE_ARGUMENT, IntegerArgumentType.integer(1, Integer.MAX_VALUE))
