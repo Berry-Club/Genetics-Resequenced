@@ -239,3 +239,4 @@
 # 1.5.0
 
 - Combined the Gene commands to be arguments of `/geneticsresequenced gene`
+- Localized into Simplified Chinese, thanks to @shenyx110! (#31)
