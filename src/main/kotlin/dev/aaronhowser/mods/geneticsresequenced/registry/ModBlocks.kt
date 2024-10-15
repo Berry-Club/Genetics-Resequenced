@@ -13,7 +13,6 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.PlasmidInfuserBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector.PlasmidInjectorBlock
 import net.minecraft.world.level.block.Block
-import net.minecraft.world.level.block.state.BlockBehaviour
 import net.neoforged.neoforge.registries.DeferredBlock
 import net.neoforged.neoforge.registries.DeferredRegister
 
@@ -47,7 +46,7 @@ object ModBlocks {
 
     private fun <T : Block> registerBlock(
         name: String,
-        supplier: () -> T = { Block(BlockBehaviour.Properties.of()) as T }
+        supplier: () -> T
     ): DeferredBlock<T> {
         val block = BLOCK_REGISTRY.register(name, supplier)
 
