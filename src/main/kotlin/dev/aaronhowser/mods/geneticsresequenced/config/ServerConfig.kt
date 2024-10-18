@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.config
 
-import net.minecraft.resources.ResourceLocation
 import net.neoforged.neoforge.common.ModConfigSpec
 import org.apache.commons.lang3.tuple.Pair
 
