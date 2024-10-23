@@ -9,18 +9,13 @@ import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
-import net.minecraft.core.Direction
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.level.block.entity.BlockEntity
-import net.minecraft.world.level.block.entity.BlockEntityType
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
-import net.neoforged.neoforge.energy.EnergyStorage
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent
-import net.neoforged.neoforge.items.IItemHandler
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 import net.neoforged.neoforge.registries.DataPackRegistryEvent
 
@@ -46,35 +41,28 @@ object ModBusEvents {
 
     @SubscribeEvent
     fun onRegisterCapabilities(event: RegisterCapabilitiesEvent) {
-
-        fun getItemCap(blockEntity: BlockEntity, direction: Direction): IItemHandler? {
-            if (blockEntity is InventoryEnergyBlockEntity) {
-                return blockEntity.getItemHandler(direction)
-            }
-            return null
-        }
-
-        fun getEnergyCap(blockEntity: BlockEntity, direction: Direction): EnergyStorage? {
-            if (blockEntity is InventoryEnergyBlockEntity) {
-                return blockEntity.getEnergyCapability(direction)
-            }
-            return null
-        }
-
-        for (blockEntityType: BlockEntityType<*> in ModBlockEntities.BLOCK_ENTITY_REGISTRY.entries.map { it.get() }) {
+        for (deferredBlockEntityType in ModBlockEntities.BLOCK_ENTITY_REGISTRY.entries) {
+            val blockEntityType = deferredBlockEntityType.get()
 
             event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 blockEntityType
-            ) { blockEntity, direction -> getItemCap(blockEntity, direction) }
+            ) { blockEntity, direction ->
+                if (blockEntity is InventoryEnergyBlockEntity) {
+                    blockEntity.getItemHandler(direction)
+                } else null
+            }
 
             event.registerBlockEntity(
                 Capabilities.EnergyStorage.BLOCK,
                 blockEntityType
-            ) { blockEntity, direction -> getEnergyCap(blockEntity, direction) }
+            ) { blockEntity, direction ->
+                if (blockEntity is InventoryEnergyBlockEntity) {
+                    blockEntity.getEnergyCapability(direction)
+                } else null
+            }
 
         }
-
     }
 
     @SubscribeEvent
