@@ -3,12 +3,12 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machin
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
@@ -76,7 +76,7 @@ class GmoEmiRecipe(
 
         val failCell = ModItems.GMO_CELL.toStack()
         EntityDnaItem.setEntityType(failCell, entityType)
-        DnaHelixItem.setGeneHolder(failCell, BaseModGenes.BASIC.getHolder(ClientUtil.localRegistryAccess!!)!!)
+        DnaHelixItem.setGeneHolder(failCell, ModGenes.BASIC.getHolder(ClientUtil.localRegistryAccess!!)!!)
         badOutput = EmiStack.of(failCell)
     }
 

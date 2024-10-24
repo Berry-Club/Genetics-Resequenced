@@ -1,10 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacket
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
@@ -39,7 +38,7 @@ data class GeneChangedPacket(
             entity.removeGene(geneHolder)
         }
 
-        if (geneHolder == BaseModGenes.CRINGE) ClientUtil.handleCringe(wasAdded)
+        if (geneHolder == ModGenes.CRINGE) ClientUtil.handleCringe(wasAdded)
 
         geneHolder.value().setAttributeModifiers(entity, wasAdded)
     }

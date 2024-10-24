@@ -5,7 +5,7 @@ import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.GeneEntryProvider
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Items
@@ -72,7 +72,7 @@ class NegativeGenesCategoryProvider(
     private fun badOmen(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.BAD_OMEN,
+            ModGenes.BAD_OMEN,
             "Bad Omen",
             mcLoc("textures/mob_effect/bad_omen.png")
         ) {
@@ -90,7 +90,7 @@ class NegativeGenesCategoryProvider(
     private fun blindness(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.BLINDNESS,
+            ModGenes.BLINDNESS,
             "Blindness",
             mcLoc("textures/mob_effect/blindness.png")
         ) {
@@ -108,7 +108,7 @@ class NegativeGenesCategoryProvider(
     private fun cringe(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.CRINGE,
+            ModGenes.CRINGE,
             "Cringe",
             Items.PLAYER_HEAD
         ) {
@@ -129,7 +129,7 @@ class NegativeGenesCategoryProvider(
     private fun cursed(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.CURSED,
+            ModGenes.CURSED,
             "Cursed",
             mcLoc("textures/mob_effect/unluck.png")
         ) {
@@ -147,7 +147,7 @@ class NegativeGenesCategoryProvider(
     private fun flambe(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.FLAMBE,
+            ModGenes.FLAMBE,
             "Flambé",
             Items.BLAZE_POWDER
         ) {
@@ -165,7 +165,7 @@ class NegativeGenesCategoryProvider(
     private fun hunger(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.HUNGER,
+            ModGenes.HUNGER,
             "Hunger",
             mcLoc("textures/mob_effect/hunger.png")
         ) {
@@ -183,7 +183,7 @@ class NegativeGenesCategoryProvider(
     private fun infested(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.INFESTED,
+            ModGenes.INFESTED,
             "Infested",
             mcLoc("textures/mob_effect/infested.png")
         ) {
@@ -201,7 +201,7 @@ class NegativeGenesCategoryProvider(
     private fun levitation(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.LEVITATION,
+            ModGenes.LEVITATION,
             "Levitation",
             mcLoc("textures/mob_effect/levitation.png")
         ) {
@@ -219,7 +219,7 @@ class NegativeGenesCategoryProvider(
     private fun miningFatigue(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.MINING_FATIGUE,
+            ModGenes.MINING_FATIGUE,
             "Mining Fatigue",
             mcLoc("textures/mob_effect/mining_fatigue.png")
         ) {
@@ -237,7 +237,7 @@ class NegativeGenesCategoryProvider(
     private fun nausea(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.NAUSEA,
+            ModGenes.NAUSEA,
             "Nausea",
             mcLoc("textures/mob_effect/nausea.png")
         ) {
@@ -255,7 +255,7 @@ class NegativeGenesCategoryProvider(
     private fun oozing(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.OOZING,
+            ModGenes.OOZING,
             "Oozing",
             mcLoc("textures/mob_effect/oozing.png")
         ) {
@@ -273,7 +273,7 @@ class NegativeGenesCategoryProvider(
     private fun poison(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.POISON,
+            ModGenes.POISON,
             "Poison",
             mcLoc("textures/mob_effect/poison.png")
         ) {
@@ -291,7 +291,7 @@ class NegativeGenesCategoryProvider(
     private fun slowness(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.SLOWNESS,
+            ModGenes.SLOWNESS,
             "Slowness",
             mcLoc("textures/mob_effect/slowness.png")
         ) {
@@ -309,7 +309,7 @@ class NegativeGenesCategoryProvider(
     private fun weakness(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.WEAKNESS,
+            ModGenes.WEAKNESS,
             "Weakness",
             mcLoc("textures/mob_effect/weakness.png")
         ) {
@@ -327,7 +327,7 @@ class NegativeGenesCategoryProvider(
     private fun weaving(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.WEAVING,
+            ModGenes.WEAVING,
             "Weaving",
             mcLoc("textures/mob_effect/weaving.png")
         ) {
@@ -345,7 +345,7 @@ class NegativeGenesCategoryProvider(
     private fun windCharged(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.WIND_CHARGED,
+            ModGenes.WIND_CHARGED,
             "Wind Charged",
             mcLoc("textures/mob_effect/wind_charged.png")
         ) {
@@ -363,7 +363,7 @@ class NegativeGenesCategoryProvider(
     private fun wither(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.WITHER,
+            ModGenes.WITHER,
             "Wither",
             mcLoc("textures/mob_effect/wither.png")
         ) {
@@ -382,7 +382,7 @@ class NegativeGenesCategoryProvider(
     private fun grayDeath(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.GRAY_DEATH,
+            ModGenes.GRAY_DEATH,
             "Gray Death",
             Items.POISONOUS_POTATO
         ) {
@@ -400,7 +400,7 @@ class NegativeGenesCategoryProvider(
     private fun greenDeath(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.GREEN_DEATH,
+            ModGenes.GREEN_DEATH,
             "Green Death",
             Items.CREEPER_HEAD
         ) {
@@ -418,7 +418,7 @@ class NegativeGenesCategoryProvider(
     private fun unUndeath(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.UN_UNDEATH,
+            ModGenes.UN_UNDEATH,
             "Un-Undeath",
             Items.ZOMBIE_HEAD
         ) {
@@ -436,7 +436,7 @@ class NegativeGenesCategoryProvider(
     private fun whiteDeath(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.WHITE_DEATH,
+            ModGenes.WHITE_DEATH,
             "White Death",
             Items.BONE
         ) {
@@ -454,7 +454,7 @@ class NegativeGenesCategoryProvider(
     private fun blackDeath(): BookEntryModel {
         val entry = object : GeneEntryProvider(
             realThis,
-            BaseModGenes.BLACK_DEATH,
+            ModGenes.BLACK_DEATH,
             "Black Death",
             Items.WITHER_ROSE
         ) {

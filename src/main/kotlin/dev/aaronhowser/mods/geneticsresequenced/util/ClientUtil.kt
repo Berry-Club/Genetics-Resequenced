@@ -4,10 +4,10 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import net.minecraft.client.Minecraft
 import net.minecraft.client.Options
 import net.minecraft.client.multiplayer.ClientLevel
@@ -74,7 +74,7 @@ object ClientUtil {
     ) {
         //TODO: Make sure this actually works
         if (localRegistryAccess != null) {
-            val cringe = BaseModGenes.CRINGE.getHolder(localRegistryAccess!!)
+            val cringe = ModGenes.CRINGE.getHolder(localRegistryAccess!!)
             if (cringe != null && cringe.isDisabled) return
         }
 

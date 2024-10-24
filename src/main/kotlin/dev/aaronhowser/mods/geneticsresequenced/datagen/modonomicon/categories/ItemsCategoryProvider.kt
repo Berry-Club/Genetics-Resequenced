@@ -5,8 +5,6 @@ import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.BaseEntryProvider
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
@@ -14,6 +12,8 @@ import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -191,7 +191,7 @@ class ItemsCategoryProvider(
 
                 val plasmidOne = ModItems.PLASMID.toStack()
                 val scareCreepers =
-                    BaseModGenes.SCARE_CREEPERS.getHolder(registries())!!
+                    ModGenes.SCARE_CREEPERS.getHolder(registries())!!
 
                 PlasmidItem.setGene(plasmidOne, scareCreepers)
                 PlasmidItem.setDnaPoints(plasmidOne, 1)
@@ -363,7 +363,7 @@ class ItemsCategoryProvider(
                     )
                 )
 
-                val milkyHelix = DnaHelixItem.getHelixStack(BaseModGenes.MILKY, registries())
+                val milkyHelix = DnaHelixItem.getHelixStack(ModGenes.MILKY, registries())
 
                 println("AAAAAAAAAAAAAAAAAAA")
                 println(milkyHelix.componentsPatch.toString())
@@ -378,7 +378,7 @@ class ItemsCategoryProvider(
                     )
                 )
 
-                val basicHelix = DnaHelixItem.getHelixStack(BaseModGenes.BASIC, registries())
+                val basicHelix = DnaHelixItem.getHelixStack(ModGenes.BASIC, registries())
 
                 spotlightPage(
                     basicHelix,
@@ -586,7 +586,7 @@ class ItemsCategoryProvider(
                 )
 
                 val bioluminescence =
-                    BaseModGenes.BIOLUMINESCENCE.getHolder(registries())!!
+                    ModGenes.BIOLUMINESCENCE.getHolder(registries())!!
 
                 val gmoStack = ModItems.GMO_CELL.toStack()
                 GmoCell.setDetails(gmoStack, EntityType.BLAZE, bioluminescence)

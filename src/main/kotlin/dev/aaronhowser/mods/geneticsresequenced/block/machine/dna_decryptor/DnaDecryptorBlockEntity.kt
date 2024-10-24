@@ -2,14 +2,14 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_decryptor
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Holder
@@ -133,7 +133,7 @@ class DnaDecryptorBlockEntity(
     }
 
     private fun getPossibleGenes(input: ItemStack, registries: HolderLookup.Provider): List<Holder<Gene>> {
-        val basic = BaseModGenes.BASIC.getHolder(registries)!!
+        val basic = ModGenes.BASIC.getHolder(registries)!!
         val mobType = EntityDnaItem.getEntityType(input) ?: return listOf(basic)
 
         val genesFromMob = EntityGenes.getGeneHolderWeights(mobType, registries)

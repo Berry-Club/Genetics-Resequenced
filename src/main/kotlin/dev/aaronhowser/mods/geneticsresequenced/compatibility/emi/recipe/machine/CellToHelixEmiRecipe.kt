@@ -1,12 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -62,7 +62,7 @@ class CellToHelixEmiRecipe(
                         EntityDnaItem.getEntityType(it.cellStack) == entityType
                                 && DnaHelixItem.getGeneHolder(
                             it.helixStack
-                        ) == BaseModGenes.BASIC
+                        ) == ModGenes.BASIC
                     }) {
                     continue
                 }
@@ -71,10 +71,10 @@ class CellToHelixEmiRecipe(
                 GmoCell.setDetails(
                     badGmoStack,
                     entityType,
-                    BaseModGenes.BASIC.getHolder(ClientUtil.localRegistryAccess!!)!!
+                    ModGenes.BASIC.getHolder(ClientUtil.localRegistryAccess!!)!!
                 )
 
-                val badHelix = DnaHelixItem.getHelixStack(BaseModGenes.BASIC, ClientUtil.localRegistryAccess!!)
+                val badHelix = DnaHelixItem.getHelixStack(ModGenes.BASIC, ClientUtil.localRegistryAccess!!)
 
                 recipes.add(CellToHelixEmiRecipe(badGmoStack, badHelix))
             }
@@ -131,6 +131,6 @@ class CellToHelixEmiRecipe(
     override fun addWidgets(widgets: WidgetHolder) {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
         widgets.addSlot(cell, 0, 0)
-        widgets.addSlot(helix, 58, 0).recipeContext(this);
+        widgets.addSlot(helix, 58, 0).recipeContext(this)
     }
 }

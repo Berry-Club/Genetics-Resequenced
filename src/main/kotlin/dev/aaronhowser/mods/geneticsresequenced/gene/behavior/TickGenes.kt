@@ -8,13 +8,13 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.item.AntiFieldOrbItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -41,7 +41,7 @@ import kotlin.math.max
 object TickGenes {
 
     fun handleBioluminescence(entity: LivingEntity) {
-        val bioluminescence = BaseModGenes.BIOLUMINESCENCE.getHolder(entity.registryAccess()) ?: return
+        val bioluminescence = ModGenes.BIOLUMINESCENCE.getHolder(entity.registryAccess()) ?: return
 
         if (bioluminescence.isDisabled) return
 
@@ -51,7 +51,7 @@ object TickGenes {
 
         if (level.getBrightness(LightLayer.BLOCK, entity.blockPosition()) > 8) return
 
-        if (!entity.hasGene(BaseModGenes.BIOLUMINESCENCE)) return
+        if (!entity.hasGene(ModGenes.BIOLUMINESCENCE)) return
 
         val headBlock = level.getBlockState(entity.blockPosition().above())
         if (!headBlock.isAir) return
@@ -63,14 +63,14 @@ object TickGenes {
     }
 
     fun handlePhotosynthesis(entity: LivingEntity) {
-        val photosynthesis = BaseModGenes.PHOTOSYNTHESIS.getHolder(entity.registryAccess()) ?: return
+        val photosynthesis = ModGenes.PHOTOSYNTHESIS.getHolder(entity.registryAccess()) ?: return
 
         if (photosynthesis.isDisabled) return
 
         if (entity !is Player) return
         if (entity.tickCount % ServerConfig.photosynthesisCooldown.get() != 0) return
 
-        if (!entity.hasGene(BaseModGenes.PHOTOSYNTHESIS)) return
+        if (!entity.hasGene(ModGenes.PHOTOSYNTHESIS)) return
 
         val foodData = entity.foodData
 
@@ -87,12 +87,12 @@ object TickGenes {
     }
 
     fun handleNoHunger(entity: Player) {
-        val noHunger = BaseModGenes.NO_HUNGER.getHolder(entity.registryAccess()) ?: return
+        val noHunger = ModGenes.NO_HUNGER.getHolder(entity.registryAccess()) ?: return
         if (noHunger.isDisabled) return
 
         if (entity.tickCount % ServerConfig.noHungerCooldown.get() != 0) return
 
-        if (!entity.hasGene(BaseModGenes.NO_HUNGER)) return
+        if (!entity.hasGene(ModGenes.NO_HUNGER)) return
 
         val foodData = entity.foodData
 
@@ -113,16 +113,16 @@ object TickGenes {
             if (geneHolder.value().getPotion() != null) potionGenes.add(geneHolder)
 
             when (geneHolder) {
-                BaseModGenes.WATER_BREATHING -> entity.airSupply = entity.maxAirSupply
-                BaseModGenes.FLAMBE -> entity.remainingFireTicks = ServerConfig.passivesCheckCooldown.get() * 2 * 20
-                BaseModGenes.LAY_EGG -> handleLayEgg(entity)
-                BaseModGenes.MEATY_TWO -> handleMeaty2(entity)
+                ModGenes.WATER_BREATHING -> entity.airSupply = entity.maxAirSupply
+                ModGenes.FLAMBE -> entity.remainingFireTicks = ServerConfig.passivesCheckCooldown.get() * 2 * 20
+                ModGenes.LAY_EGG -> handleLayEgg(entity)
+                ModGenes.MEATY_TWO -> handleMeaty2(entity)
 
-                BaseModGenes.GREEN_DEATH,
-                BaseModGenes.UN_UNDEATH,
-                BaseModGenes.GRAY_DEATH,
-                BaseModGenes.WHITE_DEATH,
-                BaseModGenes.BLACK_DEATH -> {
+                ModGenes.GREEN_DEATH,
+                ModGenes.UN_UNDEATH,
+                ModGenes.GRAY_DEATH,
+                ModGenes.WHITE_DEATH,
+                ModGenes.BLACK_DEATH -> {
                     handleDeathGenes(entity, geneHolder)
                 }
             }
@@ -132,7 +132,7 @@ object TickGenes {
     }
 
     private fun handleDeathGenes(entity: LivingEntity, gene: Holder<Gene>) {
-        if (gene == BaseModGenes.BLACK_DEATH) {
+        if (gene == ModGenes.BLACK_DEATH) {
             entity.hurt(virusDamageSource(entity.level()), entity.maxHealth * 1000)
             entity.kill()
 
@@ -150,10 +150,10 @@ object TickGenes {
         }
 
         val entityPredicate: (LivingEntity) -> Boolean = when (gene) {
-            BaseModGenes.GREEN_DEATH -> { it -> it is Creeper }
-            BaseModGenes.UN_UNDEATH -> { it -> it.type.`is`(EntityTypeTags.UNDEAD) }
-            BaseModGenes.GRAY_DEATH -> { it -> it is AgeableMob || it is Zombie || it is Piglin }
-            BaseModGenes.WHITE_DEATH -> { it -> it.type.category == MobCategory.MONSTER }
+            ModGenes.GREEN_DEATH -> { it -> it is Creeper }
+            ModGenes.UN_UNDEATH -> { it -> it.type.`is`(EntityTypeTags.UNDEAD) }
+            ModGenes.GRAY_DEATH -> { it -> it is AgeableMob || it is Zombie || it is Piglin }
+            ModGenes.WHITE_DEATH -> { it -> it.type.category == MobCategory.MONSTER }
             else -> return
         }
 
@@ -165,15 +165,15 @@ object TickGenes {
     private fun virusDamageSource(level: Level): DamageSource = level.damageSources().source(virusDamageKey)
 
     private val mapOfGeneToInferiorGenes: Map<ResourceKey<Gene>, List<ResourceKey<Gene>>> = mapOf(
-        BaseModGenes.SPEED_FOUR to listOf(BaseModGenes.SPEED, BaseModGenes.SPEED_TWO),
-        BaseModGenes.SPEED_TWO to listOf(BaseModGenes.SPEED),
-        BaseModGenes.REGENERATION_FOUR to listOf(BaseModGenes.REGENERATION),
-        BaseModGenes.HASTE_TWO to listOf(BaseModGenes.HASTE),
-        BaseModGenes.RESISTANCE_TWO to listOf(BaseModGenes.RESISTANCE),
-        BaseModGenes.STRENGTH_TWO to listOf(BaseModGenes.STRENGTH),
-        BaseModGenes.POISON_FOUR to listOf(BaseModGenes.POISON),
-        BaseModGenes.SLOWNESS_FOUR to listOf(BaseModGenes.SLOWNESS),
-        BaseModGenes.SLOWNESS_SIX to listOf(BaseModGenes.SLOWNESS, BaseModGenes.SLOWNESS_FOUR)
+        ModGenes.SPEED_FOUR to listOf(ModGenes.SPEED, ModGenes.SPEED_TWO),
+        ModGenes.SPEED_TWO to listOf(ModGenes.SPEED),
+        ModGenes.REGENERATION_FOUR to listOf(ModGenes.REGENERATION),
+        ModGenes.HASTE_TWO to listOf(ModGenes.HASTE),
+        ModGenes.RESISTANCE_TWO to listOf(ModGenes.RESISTANCE),
+        ModGenes.STRENGTH_TWO to listOf(ModGenes.STRENGTH),
+        ModGenes.POISON_FOUR to listOf(ModGenes.POISON),
+        ModGenes.SLOWNESS_FOUR to listOf(ModGenes.SLOWNESS),
+        ModGenes.SLOWNESS_SIX to listOf(ModGenes.SLOWNESS, ModGenes.SLOWNESS_FOUR)
     )
 
     private fun handlePotionGenes(entity: LivingEntity, potionGenes: MutableList<Holder<Gene>>) {
@@ -202,7 +202,7 @@ object TickGenes {
     }
 
     private val recentlyMeated2 = GeneCooldown(
-        BaseModGenes.MEATY_TWO,
+        ModGenes.MEATY_TWO,
         ServerConfig.meaty2Cooldown.get(),
         notifyPlayer = false
     )
@@ -225,7 +225,7 @@ object TickGenes {
     }
 
     private val recentlyLaidEgg = GeneCooldown(
-        BaseModGenes.LAY_EGG,
+        ModGenes.LAY_EGG,
         ServerConfig.eggCooldown.get(),
         notifyPlayer = false
     )
@@ -248,12 +248,12 @@ object TickGenes {
     }
 
     fun handleMobSight(entity: Player) {
-        val mobSight = BaseModGenes.MOB_SIGHT.getHolder(entity.registryAccess()) ?: return
+        val mobSight = ModGenes.MOB_SIGHT.getHolder(entity.registryAccess()) ?: return
 
         if (mobSight.isDisabled) return
         if (entity.tickCount % ServerConfig.mobSightCooldown.get() != 0) return
 
-        if (!entity.hasGene(BaseModGenes.MOB_SIGHT)) return
+        if (!entity.hasGene(ModGenes.MOB_SIGHT)) return
 
         val searchArea = entity.boundingBox.inflate(ServerConfig.mobSightRadius.get())
         val nearbyLivingEntities = entity.level().getEntities(entity, searchArea).filterIsInstance<Mob>()
@@ -272,14 +272,14 @@ object TickGenes {
     }
 
     fun handleItemMagnet(player: Player) {
-        val itemMagnet = BaseModGenes.ITEM_MAGNET.getHolder(player.registryAccess()) ?: return
+        val itemMagnet = ModGenes.ITEM_MAGNET.getHolder(player.registryAccess()) ?: return
         if (itemMagnet.isDisabled) return
 
         if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 
         if (player.tickCount % ServerConfig.itemMagnetCooldown.get() != 0) return
 
-        if (!player.hasGene(BaseModGenes.ITEM_MAGNET)) return
+        if (!player.hasGene(ModGenes.ITEM_MAGNET)) return
 
         if (AntiFieldOrbItem.isActiveForPlayer(player)) return
 
@@ -303,7 +303,7 @@ object TickGenes {
         if (!ClientConfig.itemMagnetBlacklistTooltip.get()) return
 
         val player = event.entity ?: return
-        if (!player.hasGene(BaseModGenes.ITEM_MAGNET)) return
+        if (!player.hasGene(ModGenes.ITEM_MAGNET)) return
 
         val item = event.itemStack
         if (!item.`is`(ModItemTagsProvider.MAGNET_ITEM_BLACKLIST)) return
@@ -315,14 +315,14 @@ object TickGenes {
     }
 
     fun handleXpMagnet(player: Player) {
-        val xpMagnet = BaseModGenes.XP_MAGNET.getHolder(player.registryAccess()) ?: return
+        val xpMagnet = ModGenes.XP_MAGNET.getHolder(player.registryAccess()) ?: return
         if (xpMagnet.isDisabled) return
 
         if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 
         if (player.tickCount % ServerConfig.xpMagnetCooldown.get() != 0) return
 
-        if (!player.hasGene(BaseModGenes.XP_MAGNET)) return
+        if (!player.hasGene(ModGenes.XP_MAGNET)) return
 
         if (AntiFieldOrbItem.isActiveForPlayer(player)) return
 

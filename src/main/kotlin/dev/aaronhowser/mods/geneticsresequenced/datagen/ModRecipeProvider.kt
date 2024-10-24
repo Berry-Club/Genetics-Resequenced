@@ -2,13 +2,13 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.*
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.BlackDeathRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.SetPotionEntityRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -261,7 +261,7 @@ class ModRecipeProvider(
         BasicIncubatorRecipeBuilder(
             DataComponentIngredient.of(
                 false,
-                DnaHelixItem.getHelixStack(BaseModGenes.BASIC, lookupProvider.get())
+                DnaHelixItem.getHelixStack(ModGenes.BASIC, lookupProvider.get())
             ),
             DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.SUBSTRATE)),
             OtherUtil.getPotionStack(ModPotions.CELL_GROWTH),
@@ -271,7 +271,7 @@ class ModRecipeProvider(
         BasicIncubatorRecipeBuilder(
             DataComponentIngredient.of(
                 false,
-                DnaHelixItem.getHelixStack(BaseModGenes.REGENERATION, lookupProvider.get())
+                DnaHelixItem.getHelixStack(ModGenes.REGENERATION, lookupProvider.get())
             ),
             DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
             OtherUtil.getPotionStack(ModPotions.PANACEA),
@@ -281,7 +281,7 @@ class ModRecipeProvider(
         BasicIncubatorRecipeBuilder(
             DataComponentIngredient.of(
                 false,
-                DnaHelixItem.getHelixStack(BaseModGenes.EMERALD_HEART, lookupProvider.get())
+                DnaHelixItem.getHelixStack(ModGenes.EMERALD_HEART, lookupProvider.get())
             ),
             DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
             OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER),
@@ -291,40 +291,40 @@ class ModRecipeProvider(
     )
 
     private val gmoRecipes = listOf(
-        GmoRecipeBuilder(EntityType.BLAZE, Items.GLOWSTONE_DUST, BaseModGenes.BIOLUMINESCENCE, 0.85f)
+        GmoRecipeBuilder(EntityType.BLAZE, Items.GLOWSTONE_DUST, ModGenes.BIOLUMINESCENCE, 0.85f)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
-        GmoRecipeBuilder(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, BaseModGenes.BIOLUMINESCENCE, 0.85f)
+        GmoRecipeBuilder(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, ModGenes.BIOLUMINESCENCE, 0.85f)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
-        GmoRecipeBuilder(EntityType.VILLAGER, Items.EMERALD, BaseModGenes.EMERALD_HEART, 0.85f)
+        GmoRecipeBuilder(EntityType.VILLAGER, Items.EMERALD, ModGenes.EMERALD_HEART, 0.85f)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
-        GmoRecipeBuilder(EntityType.SHULKER, Items.EMERALD_BLOCK, BaseModGenes.KEEP_INVENTORY, 0.45f)
+        GmoRecipeBuilder(EntityType.SHULKER, Items.EMERALD_BLOCK, ModGenes.KEEP_INVENTORY, 0.45f)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
-        GmoRecipeBuilder(EntityType.RABBIT, Items.GOLDEN_BOOTS, BaseModGenes.SPEED, 0.65f)
+        GmoRecipeBuilder(EntityType.RABBIT, Items.GOLDEN_BOOTS, ModGenes.SPEED, 0.65f)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
-        GmoRecipeBuilder(EntityType.RABBIT, Items.EMERALD, BaseModGenes.LUCK, 0.75f)
+        GmoRecipeBuilder(EntityType.RABBIT, Items.EMERALD, ModGenes.LUCK, 0.75f)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
-        GmoRecipeBuilder(EntityType.IRON_GOLEM, Items.GOLDEN_APPLE, BaseModGenes.REGENERATION, 0.3f)
+        GmoRecipeBuilder(EntityType.IRON_GOLEM, Items.GOLDEN_APPLE, ModGenes.REGENERATION, 0.3f)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
-        GmoRecipeBuilder(EntityType.CHICKEN, Items.EGG, BaseModGenes.LAY_EGG, 1f)
+        GmoRecipeBuilder(EntityType.CHICKEN, Items.EGG, ModGenes.LAY_EGG, 1f)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
-        GmoRecipeBuilder(EntityType.PIG, Items.PORKCHOP, BaseModGenes.MEATY, 1f)
+        GmoRecipeBuilder(EntityType.PIG, Items.PORKCHOP, ModGenes.MEATY, 1f)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
-        GmoRecipeBuilder(EntityType.ENDERMAN, Items.ENDER_PEARL, BaseModGenes.TELEPORT, 0.45f)
+        GmoRecipeBuilder(EntityType.ENDERMAN, Items.ENDER_PEARL, ModGenes.TELEPORT, 0.45f)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
-        GmoRecipeBuilder(EntityType.ENDERMAN, Items.GOLDEN_APPLE, BaseModGenes.MORE_HEARTS, 0.2f)
+        GmoRecipeBuilder(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.MORE_HEARTS, 0.2f)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
-        GmoRecipeBuilder(EntityType.MOOSHROOM, Items.MUSHROOM_STEM, BaseModGenes.PHOTOSYNTHESIS, 0.7f)
+        GmoRecipeBuilder(EntityType.MOOSHROOM, Items.MUSHROOM_STEM, ModGenes.PHOTOSYNTHESIS, 0.7f)
             .unlockedBy("has_cell", has(ModItems.CELL.get()))
     )
 
     val mutationRecipes = listOf(
-        GmoRecipeBuilder(EntityType.ENDER_DRAGON, Items.ELYTRA, BaseModGenes.FLIGHT, 0.55f, isMutation = true)
+        GmoRecipeBuilder(EntityType.ENDER_DRAGON, Items.ELYTRA, ModGenes.FLIGHT, 0.55f, isMutation = true)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
 
         GmoRecipeBuilder(
             EntityType.POLAR_BEAR,
             Items.NETHERITE_SWORD,
-            BaseModGenes.STRENGTH_TWO,
+            ModGenes.STRENGTH_TWO,
             0.5f,
             isMutation = true
         ).unlockedBy("has_cell", has(ModItems.CELL.get())),
@@ -332,27 +332,27 @@ class ModRecipeProvider(
         GmoRecipeBuilder(
             EntityType.SHULKER,
             Items.NETHERITE_CHESTPLATE,
-            BaseModGenes.RESISTANCE_TWO,
+            ModGenes.RESISTANCE_TWO,
             0.5f,
             isMutation = true
         ).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-        GmoRecipeBuilder(EntityType.POLAR_BEAR, Items.DIAMOND_SWORD, BaseModGenes.CLAWS_TWO, 0.75f, isMutation = true)
+        GmoRecipeBuilder(EntityType.POLAR_BEAR, Items.DIAMOND_SWORD, ModGenes.CLAWS_TWO, 0.75f, isMutation = true)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-        GmoRecipeBuilder(EntityType.RABBIT, Items.DIAMOND_BOOTS, BaseModGenes.SPEED_TWO, 0.5f, isMutation = true)
+        GmoRecipeBuilder(EntityType.RABBIT, Items.DIAMOND_BOOTS, ModGenes.SPEED_TWO, 0.5f, isMutation = true)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-        GmoRecipeBuilder(EntityType.OCELOT, Items.NETHERITE_BOOTS, BaseModGenes.SPEED_FOUR, 0.5f, isMutation = true)
+        GmoRecipeBuilder(EntityType.OCELOT, Items.NETHERITE_BOOTS, ModGenes.SPEED_FOUR, 0.5f, isMutation = true)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-        GmoRecipeBuilder(EntityType.RABBIT, Items.NETHERITE_PICKAXE, BaseModGenes.HASTE_TWO, 0.35f, isMutation = true)
+        GmoRecipeBuilder(EntityType.RABBIT, Items.NETHERITE_PICKAXE, ModGenes.HASTE_TWO, 0.35f, isMutation = true)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
 
         GmoRecipeBuilder(
             EntityType.SILVERFISH,
             Items.NETHERITE_PICKAXE,
-            BaseModGenes.EFFICIENCY_FOUR,
+            ModGenes.EFFICIENCY_FOUR,
             0.25f,
             isMutation = true
         ).unlockedBy("has_cell", has(ModItems.CELL.get())),
@@ -360,7 +360,7 @@ class ModRecipeProvider(
         GmoRecipeBuilder(
             EntityType.ZOMBIE,
             Items.FERMENTED_SPIDER_EYE,
-            BaseModGenes.SCARE_ZOMBIES,
+            ModGenes.SCARE_ZOMBIES,
             0.5f,
             isMutation = true
         ).unlockedBy("has_cell", has(ModItems.CELL.get())),
@@ -368,7 +368,7 @@ class ModRecipeProvider(
         GmoRecipeBuilder(
             EntityType.SPIDER,
             Items.FERMENTED_SPIDER_EYE,
-            BaseModGenes.SCARE_SPIDERS,
+            ModGenes.SCARE_SPIDERS,
             0.5f,
             isMutation = true
         ).unlockedBy("has_cell", has(ModItems.CELL.get())),
@@ -376,15 +376,15 @@ class ModRecipeProvider(
         GmoRecipeBuilder(
             EntityType.ENDER_DRAGON,
             Items.ENCHANTED_GOLDEN_APPLE,
-            BaseModGenes.REGENERATION_FOUR,
+            ModGenes.REGENERATION_FOUR,
             0.35f,
             isMutation = true
         ).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-        GmoRecipeBuilder(EntityType.PIG, Items.BLAZE_POWDER, BaseModGenes.MEATY_TWO, 0.75f, isMutation = true)
+        GmoRecipeBuilder(EntityType.PIG, Items.BLAZE_POWDER, ModGenes.MEATY_TWO, 0.75f, isMutation = true)
             .unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-        GmoRecipeBuilder(EntityType.ENDERMAN, Items.GOLDEN_APPLE, BaseModGenes.MORE_HEARTS_TWO, 0.25f, true)
+        GmoRecipeBuilder(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.MORE_HEARTS_TWO, 0.25f, true)
             .unlockedBy("has_cell", has(ModItems.CELL.get()))
     )
 
@@ -409,26 +409,26 @@ class ModRecipeProvider(
         .unlockedBy("has_gmo_cell", has(ModItems.GMO_CELL.get()))
 
     val virusRecipes = listOf(
-        VirusRecipeBuilder(BaseModGenes.POISON_IMMUNITY, BaseModGenes.POISON),
-        VirusRecipeBuilder(BaseModGenes.WITHER_HIT, BaseModGenes.POISON_FOUR),
-        VirusRecipeBuilder(BaseModGenes.WITHER_PROOF, BaseModGenes.WITHER),
-        VirusRecipeBuilder(BaseModGenes.STRENGTH, BaseModGenes.WEAKNESS),
-        VirusRecipeBuilder(BaseModGenes.NIGHT_VISION, BaseModGenes.BLINDNESS),
-        VirusRecipeBuilder(BaseModGenes.SPEED, BaseModGenes.SLOWNESS),
-        VirusRecipeBuilder(BaseModGenes.SPEED_TWO, BaseModGenes.SLOWNESS_FOUR),
-        VirusRecipeBuilder(BaseModGenes.SPEED_FOUR, BaseModGenes.SLOWNESS_SIX),
-        VirusRecipeBuilder(BaseModGenes.MILKY, BaseModGenes.NAUSEA),
-        VirusRecipeBuilder(BaseModGenes.MEATY, BaseModGenes.NAUSEA),
-        VirusRecipeBuilder(BaseModGenes.LAY_EGG, BaseModGenes.NAUSEA),
-        VirusRecipeBuilder(BaseModGenes.NO_HUNGER, BaseModGenes.HUNGER),
-        VirusRecipeBuilder(BaseModGenes.FIRE_PROOF, BaseModGenes.FLAMBE),
-        VirusRecipeBuilder(BaseModGenes.LUCK, BaseModGenes.CURSED),
-        VirusRecipeBuilder(BaseModGenes.HASTE, BaseModGenes.MINING_FATIGUE),
-        VirusRecipeBuilder(BaseModGenes.SCARE_CREEPERS, BaseModGenes.GREEN_DEATH),
-        VirusRecipeBuilder(BaseModGenes.SCARE_SKELETONS, BaseModGenes.UN_UNDEATH),
-        VirusRecipeBuilder(BaseModGenes.SCARE_ZOMBIES, BaseModGenes.UN_UNDEATH),
-        VirusRecipeBuilder(BaseModGenes.RESISTANCE, BaseModGenes.GRAY_DEATH),
-        VirusRecipeBuilder(BaseModGenes.DRAGON_BREATH, BaseModGenes.WHITE_DEATH)
+        VirusRecipeBuilder(ModGenes.POISON_IMMUNITY, ModGenes.POISON),
+        VirusRecipeBuilder(ModGenes.WITHER_HIT, ModGenes.POISON_FOUR),
+        VirusRecipeBuilder(ModGenes.WITHER_PROOF, ModGenes.WITHER),
+        VirusRecipeBuilder(ModGenes.STRENGTH, ModGenes.WEAKNESS),
+        VirusRecipeBuilder(ModGenes.NIGHT_VISION, ModGenes.BLINDNESS),
+        VirusRecipeBuilder(ModGenes.SPEED, ModGenes.SLOWNESS),
+        VirusRecipeBuilder(ModGenes.SPEED_TWO, ModGenes.SLOWNESS_FOUR),
+        VirusRecipeBuilder(ModGenes.SPEED_FOUR, ModGenes.SLOWNESS_SIX),
+        VirusRecipeBuilder(ModGenes.MILKY, ModGenes.NAUSEA),
+        VirusRecipeBuilder(ModGenes.MEATY, ModGenes.NAUSEA),
+        VirusRecipeBuilder(ModGenes.LAY_EGG, ModGenes.NAUSEA),
+        VirusRecipeBuilder(ModGenes.NO_HUNGER, ModGenes.HUNGER),
+        VirusRecipeBuilder(ModGenes.FIRE_PROOF, ModGenes.FLAMBE),
+        VirusRecipeBuilder(ModGenes.LUCK, ModGenes.CURSED),
+        VirusRecipeBuilder(ModGenes.HASTE, ModGenes.MINING_FATIGUE),
+        VirusRecipeBuilder(ModGenes.SCARE_CREEPERS, ModGenes.GREEN_DEATH),
+        VirusRecipeBuilder(ModGenes.SCARE_SKELETONS, ModGenes.UN_UNDEATH),
+        VirusRecipeBuilder(ModGenes.SCARE_ZOMBIES, ModGenes.UN_UNDEATH),
+        VirusRecipeBuilder(ModGenes.RESISTANCE, ModGenes.GRAY_DEATH),
+        VirusRecipeBuilder(ModGenes.DRAGON_BREATH, ModGenes.WHITE_DEATH)
     )
 
 }

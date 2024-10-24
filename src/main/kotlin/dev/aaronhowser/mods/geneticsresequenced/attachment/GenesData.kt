@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
-import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
@@ -49,7 +48,7 @@ data class GenesData(
                 this is Player
                 && newGeneHolder.isNegative
                 && ServerConfig.disableGivingPlayersNegativeGenes.get()
-                && newGeneHolder.key != BaseModGenes.CRINGE
+                && newGeneHolder.key != ModGenes.CRINGE
             ) {
                 GeneticsResequenced.LOGGER.debug(
                     "Tried to give negative gene $newGeneHolder to player $this, but \"disableGivingPlayersNegativeGenes\" is true in the server config."
