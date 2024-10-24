@@ -1,0 +1,7 @@
+{
+  "entity": "minecraft:warden",
+  "gene_weights": {
+    "geneticsresequenced:mob_sight": 5,
+    "geneticsresequenced:more_hearts": 5
+  }
+}
