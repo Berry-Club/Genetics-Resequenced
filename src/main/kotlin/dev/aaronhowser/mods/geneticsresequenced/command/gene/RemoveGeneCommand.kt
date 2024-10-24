@@ -4,7 +4,7 @@ import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_STRINGS
@@ -90,7 +90,7 @@ object RemoveGeneCommand {
         entities: MutableCollection<out Entity>? = null
     ): Int {
 
-        val gene = GeneRegistry.fromResourceLocation(context.source.registryAccess(), geneRl)
+        val gene = ModGenes.fromResourceLocation(context.source.registryAccess(), geneRl)
             ?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
 
         return removeGene(context, gene, entities)
@@ -102,7 +102,7 @@ object RemoveGeneCommand {
         entities: MutableCollection<out Entity>? = null
     ): Int {
 
-        val gene = GeneRegistry.fromIdPath(context.source.registryAccess(), geneString)
+        val gene = ModGenes.fromIdPath(context.source.registryAccess(), geneString)
             ?: throw IllegalArgumentException("Gene with id $geneString does not exist!")
 
         return removeGene(context, gene, entities)

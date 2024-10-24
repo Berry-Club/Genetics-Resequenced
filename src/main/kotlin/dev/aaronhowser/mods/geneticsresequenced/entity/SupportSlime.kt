@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.SupportSlimeAttackGoal
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
@@ -65,11 +65,11 @@ class SupportSlime(
 
             if (!item.`is`(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())) return
 
-            if (!player.hasGene(ModGenes.SLIMY_DEATH)) {
+            if (!player.hasGene(BaseModGenes.SLIMY_DEATH)) {
                 player.sendSystemMessage(
                     ModLanguageProvider.Messages.SUPPORT_SLIME_CREATIVE.toComponent(
                         Gene.getNameComponent(
-                            ModGenes.SLIMY_DEATH,
+                            BaseModGenes.SLIMY_DEATH,
                             ClientUtil.localRegistryAccess!!
                         )
                     )
@@ -107,7 +107,7 @@ class SupportSlime(
             boundingBox.inflate(10.0)
         ).sortedByDescending { distanceToSqr(it) }
 
-        val owner = nearbyLivingEntities.firstOrNull { it.hasGene(ModGenes.SLIMY_DEATH) }
+        val owner = nearbyLivingEntities.firstOrNull { it.hasGene(BaseModGenes.SLIMY_DEATH) }
         if (owner != null) {
             setOwner(owner.uuid)
         } else {

@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -30,7 +30,7 @@ data class GeneChangedPacket(
         // Return if the entity does not exist on the client. This happens when the entity is not being tracked on the client, aka if it's too far away or whatever.
         val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return
 
-        val geneHolder = GeneRegistry.fromResourceLocation(ClientUtil.localRegistryAccess!!, geneRl)
+        val geneHolder = ModGenes.fromResourceLocation(ClientUtil.localRegistryAccess!!, geneRl)
             ?: throw IllegalStateException("Received GeneChangedPacket with invalid gene id!")
 
         if (wasAdded) {
@@ -39,7 +39,7 @@ data class GeneChangedPacket(
             entity.removeGene(geneHolder)
         }
 
-        if (geneHolder == ModGenes.CRINGE) ClientUtil.handleCringe(wasAdded)
+        if (geneHolder == BaseModGenes.CRINGE) ClientUtil.handleCringe(wasAdded)
 
         geneHolder.value().setAttributeModifiers(entity, wasAdded)
     }

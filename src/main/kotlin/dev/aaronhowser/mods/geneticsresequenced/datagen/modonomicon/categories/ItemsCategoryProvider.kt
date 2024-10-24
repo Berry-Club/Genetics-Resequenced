@@ -5,8 +5,8 @@ import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.BaseEntryProvider
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
@@ -191,7 +191,7 @@ class ItemsCategoryProvider(
 
                 val plasmidOne = ModItems.PLASMID.toStack()
                 val scareCreepers =
-                    ModGenes.SCARE_CREEPERS.getHolder(registries())!!
+                    BaseModGenes.SCARE_CREEPERS.getHolder(registries())!!
 
                 PlasmidItem.setGene(plasmidOne, scareCreepers)
                 PlasmidItem.setDnaPoints(plasmidOne, 1)
@@ -363,7 +363,7 @@ class ItemsCategoryProvider(
                     )
                 )
 
-                val milkyHelix = DnaHelixItem.getHelixStack(ModGenes.MILKY, registries())
+                val milkyHelix = DnaHelixItem.getHelixStack(BaseModGenes.MILKY, registries())
 
                 println("AAAAAAAAAAAAAAAAAAA")
                 println(milkyHelix.componentsPatch.toString())
@@ -378,7 +378,7 @@ class ItemsCategoryProvider(
                     )
                 )
 
-                val basicHelix = DnaHelixItem.getHelixStack(ModGenes.BASIC, registries())
+                val basicHelix = DnaHelixItem.getHelixStack(BaseModGenes.BASIC, registries())
 
                 spotlightPage(
                     basicHelix,
@@ -586,7 +586,7 @@ class ItemsCategoryProvider(
                 )
 
                 val bioluminescence =
-                    ModGenes.BIOLUMINESCENCE.getHolder(registries())!!
+                    BaseModGenes.BIOLUMINESCENCE.getHolder(registries())!!
 
                 val gmoStack = ModItems.GMO_CELL.toStack()
                 GmoCell.setDetails(gmoStack, EntityType.BLAZE, bioluminescence)

@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.block.base.InventoryEnergyBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
@@ -28,7 +28,7 @@ object ModBusEvents {
     @SubscribeEvent
     fun onNewDataPackRegistry(event: DataPackRegistryEvent.NewRegistry) {
         event.dataPackRegistry(
-            GeneRegistry.GENE_REGISTRY_KEY,
+            ModGenes.GENE_REGISTRY_KEY,
             Gene.DIRECT_CODEC,
             Gene.DIRECT_CODEC
         )

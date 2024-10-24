@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machin
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -36,7 +36,7 @@ class PlasmidInjectorEmiRecipe(
             val removingGlass: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
             val removingMetal: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
 
-            for (geneHolder in GeneRegistry
+            for (geneHolder in ModGenes
                 .getRegistrySorted(ClientUtil.localRegistryAccess!!)
                 .filterNot { it.isHidden }
             ) {

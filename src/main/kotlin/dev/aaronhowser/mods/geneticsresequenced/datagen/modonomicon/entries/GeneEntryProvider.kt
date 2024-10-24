@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.Holder

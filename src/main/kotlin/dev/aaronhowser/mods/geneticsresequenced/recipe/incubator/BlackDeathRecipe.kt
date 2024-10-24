@@ -5,10 +5,10 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
@@ -57,7 +57,7 @@ class BlackDeathRecipe private constructor() : AbstractIncubatorRecipe() {
     }
 
     override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
-        return DnaHelixItem.getHelixStack(ModGenes.BLACK_DEATH.getHolder(lookup)!!)
+        return DnaHelixItem.getHelixStack(BaseModGenes.BLACK_DEATH.getHolder(lookup)!!)
     }
 
     override fun getSerializer(): RecipeSerializer<*> {
@@ -90,8 +90,8 @@ class BlackDeathRecipe private constructor() : AbstractIncubatorRecipe() {
         val INSTANCE = BlackDeathRecipe()
 
         fun getRequiredGenes(lookup: HolderLookup.Provider): List<Holder<Gene>> {
-            return GeneRegistry.getRegistrySorted(lookup)
-                .filter { it.isNegative && !it.isHidden && !it.isDisabled } - ModGenes.BLACK_DEATH.getHolder(lookup)!!
+            return ModGenes.getRegistrySorted(lookup)
+                .filter { it.isNegative && !it.isHidden && !it.isDisabled } - BaseModGenes.BLACK_DEATH.getHolder(lookup)!!
         }
     }
 

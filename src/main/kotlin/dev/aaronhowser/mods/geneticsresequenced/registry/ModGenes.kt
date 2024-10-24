@@ -1,5 +1,6 @@
-package dev.aaronhowser.mods.geneticsresequenced.api.genes
+package dev.aaronhowser.mods.geneticsresequenced.registry
 
+import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isMutation
@@ -13,7 +14,7 @@ import net.minecraft.resources.ResourceLocation
 import java.util.stream.Stream
 import kotlin.jvm.optionals.getOrNull
 
-object GeneRegistry {
+object ModGenes {
 
     val GENE_REGISTRY_KEY: ResourceKey<Registry<Gene>> =
         ResourceKey.createRegistryKey(OtherUtil.modResource("gene"))

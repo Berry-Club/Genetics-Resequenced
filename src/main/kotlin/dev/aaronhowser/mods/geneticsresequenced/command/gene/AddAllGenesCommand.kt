@@ -4,7 +4,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -51,7 +51,7 @@ object AddAllGenesCommand {
 
         for (target in targets) {
             val genesToAdd =
-                GeneRegistry
+                ModGenes
                     .getAllGeneHolders(context.source.registryAccess())
                     .filter { !it.isHidden && !it.isNegative && it.value().canEntityHave(target) }
 
@@ -70,7 +70,7 @@ object AddAllGenesCommand {
 
     private fun handleSingleTarget(context: CommandContext<CommandSourceStack>, target: LivingEntity) {
         val genesToAdd =
-            GeneRegistry
+            ModGenes
                 .getAllGeneHolders(context.source.registryAccess())
                 .filter { !it.isHidden && !it.isNegative && it.value().canEntityHave(target) }
 

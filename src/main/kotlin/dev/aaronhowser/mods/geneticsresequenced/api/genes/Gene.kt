@@ -6,7 +6,8 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModGeneTagsProvider
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.ChatFormatting
@@ -253,7 +254,7 @@ data class Gene(
                     Codec.INT
                         .optionalFieldOf("dna_points_required", 1)
                         .forGetter(Gene::dnaPointsRequired),
-                    ResourceKey.codec(GeneRegistry.GENE_REGISTRY_KEY).listOf()
+                    ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY).listOf()
                         .optionalFieldOf("requires_genes", emptyList())
                         .forGetter(Gene::requiresGeneRks),
                     RegistryCodecs.homogeneousList(Registries.ENTITY_TYPE)
@@ -276,7 +277,7 @@ data class Gene(
 
         val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Gene> = StreamCodec.composite(
             ByteBufCodecs.INT, Gene::dnaPointsRequired,
-            ResourceKey.streamCodec(GeneRegistry.GENE_REGISTRY_KEY).apply(ByteBufCodecs.list()), Gene::requiresGeneRks,
+            ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY).apply(ByteBufCodecs.list()), Gene::requiresGeneRks,
             ByteBufCodecs.holderSet(Registries.ENTITY_TYPE), Gene::allowedEntities,
             ByteBufCodecs.optional(PotionDetails.DIRECT_STREAM_CODEC), Gene::potionDetails,
             AttributeEntry.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::attributeModifiers,
@@ -284,10 +285,10 @@ data class Gene(
             ::Gene
         )
 
-        val CODEC: Codec<Holder<Gene>> = RegistryFileCodec.create(GeneRegistry.GENE_REGISTRY_KEY, DIRECT_CODEC)
+        val CODEC: Codec<Holder<Gene>> = RegistryFileCodec.create(ModGenes.GENE_REGISTRY_KEY, DIRECT_CODEC)
 
         val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Holder<Gene>> =
-            ByteBufCodecs.holder(GeneRegistry.GENE_REGISTRY_KEY, DIRECT_STREAM_CODEC)
+            ByteBufCodecs.holder(ModGenes.GENE_REGISTRY_KEY, DIRECT_STREAM_CODEC)
 
     }
 

@@ -4,8 +4,8 @@ import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isDisab
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes.getHolder
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerPlayer
@@ -20,16 +20,16 @@ import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.toVec3i
 object PacketGenes {
 
     private val recentTeleports = GeneCooldown(
-        ModGenes.TELEPORT,
+        BaseModGenes.TELEPORT,
         ServerConfig.teleportCooldown.get()
     )
 
     @Suppress("MoveVariableDeclarationIntoWhen")
     fun teleport(player: ServerPlayer) {
-        val teleport = ModGenes.TELEPORT.getHolder(player.registryAccess()) ?: return
+        val teleport = BaseModGenes.TELEPORT.getHolder(player.registryAccess()) ?: return
         if (teleport.isDisabled) return
 
-        if (!player.hasGene(ModGenes.TELEPORT)) return
+        if (!player.hasGene(BaseModGenes.TELEPORT)) return
 
         val wasNotOnCooldown = recentTeleports.add(player)
         if (!wasNotOnCooldown) return
@@ -79,15 +79,15 @@ object PacketGenes {
     }
 
     private val recentDragonsBreath = GeneCooldown(
-        ModGenes.DRAGON_BREATH,
+        BaseModGenes.DRAGON_BREATH,
         ServerConfig.dragonsBreathCooldown.get()
     )
 
     fun dragonBreath(player: ServerPlayer) {
-        val dragonBreath = ModGenes.DRAGON_BREATH.getHolder(player.registryAccess()) ?: return
+        val dragonBreath = BaseModGenes.DRAGON_BREATH.getHolder(player.registryAccess()) ?: return
         if (dragonBreath.isDisabled) return
 
-        if (!player.hasGene(ModGenes.DRAGON_BREATH)) return
+        if (!player.hasGene(BaseModGenes.DRAGON_BREATH)) return
 
         val wasNotOnCooldown = recentDragonsBreath.add(player)
 

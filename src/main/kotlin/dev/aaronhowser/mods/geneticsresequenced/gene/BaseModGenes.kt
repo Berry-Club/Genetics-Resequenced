@@ -1,16 +1,16 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene
 
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.resources.ResourceKey
 
-object ModGenes {
+object BaseModGenes {
 
     private fun resourceKey(geneName: String): ResourceKey<Gene> {
-        return ResourceKey.create(GeneRegistry.GENE_REGISTRY_KEY, OtherUtil.modResource(geneName))
+        return ResourceKey.create(ModGenes.GENE_REGISTRY_KEY, OtherUtil.modResource(geneName))
     }
 
     val BASIC = resourceKey("basic")
@@ -115,5 +115,5 @@ object ModGenes {
 
 
     fun ResourceKey<Gene>.getHolder(registries: HolderLookup.Provider): Holder.Reference<Gene>? =
-        GeneRegistry.fromResourceKey(registries, this)
+        ModGenes.fromResourceKey(registries, this)
 }

@@ -1,8 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.RegistrySetBuilder
 import net.minecraft.data.PackOutput
@@ -21,7 +20,7 @@ class ModDatapackBuiltinEntriesProvider(
 
     companion object {
         val BUILDER: RegistrySetBuilder = RegistrySetBuilder()
-            .add(GeneRegistry.GENE_REGISTRY_KEY, ModGeneProvider::bootstrap)
+            .add(ModGenes.GENE_REGISTRY_KEY, ModGeneProvider::bootstrap)
     }
 
 }

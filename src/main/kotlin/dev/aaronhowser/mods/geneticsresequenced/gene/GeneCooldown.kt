@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
@@ -115,7 +115,7 @@ class GeneCooldown(
                 cooldownString = "$cooldownSeconds seconds"
             }
 
-            val geneHolder = GeneRegistry.fromResourceLocation(player.registryAccess(), geneRk.location())!!
+            val geneHolder = ModGenes.fromResourceLocation(player.registryAccess(), geneRk.location())!!
 
             val message = Component.empty()
                 .append(Gene.getNameComponent(geneHolder))
@@ -125,7 +125,7 @@ class GeneCooldown(
         }
 
         fun tellCooldownEnded(player: LivingEntity, geneRk: ResourceKey<Gene>) {
-            val geneHolder = GeneRegistry.fromResourceLocation(player.registryAccess(), geneRk.location())!!
+            val geneHolder = ModGenes.fromResourceLocation(player.registryAccess(), geneRk.location())!!
             val message =
                 ModLanguageProvider.Cooldown.ENDED
                     .toComponent(Gene.getNameComponent(geneHolder))
@@ -134,7 +134,7 @@ class GeneCooldown(
         }
 
         fun tellOnCooldown(player: LivingEntity, geneRk: ResourceKey<Gene>) {
-            val geneHolder = GeneRegistry.fromResourceLocation(player.registryAccess(), geneRk.location())!!
+            val geneHolder = ModGenes.fromResourceLocation(player.registryAccess(), geneRk.location())!!
             val message = ModLanguageProvider.Cooldown.ON_COOLDOWN
                 .toComponent(Gene.getNameComponent(geneHolder))
 

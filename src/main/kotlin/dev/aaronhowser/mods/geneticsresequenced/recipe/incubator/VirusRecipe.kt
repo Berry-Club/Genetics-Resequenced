@@ -3,8 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
@@ -78,10 +78,10 @@ class VirusRecipe(
             val CODEC: MapCodec<VirusRecipe> =
                 RecordCodecBuilder.mapCodec { instance ->
                     instance.group(
-                        ResourceKey.codec(GeneRegistry.GENE_REGISTRY_KEY)
+                        ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
                             .fieldOf("input_gene")
                             .forGetter(VirusRecipe::inputDnaGene),
-                        ResourceKey.codec(GeneRegistry.GENE_REGISTRY_KEY)
+                        ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
                             .fieldOf("output_gene")
                             .forGetter(VirusRecipe::outputGene)
                     ).apply(instance, ::VirusRecipe)
@@ -89,8 +89,8 @@ class VirusRecipe(
 
             val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, VirusRecipe> =
                 StreamCodec.composite(
-                    ResourceKey.streamCodec(GeneRegistry.GENE_REGISTRY_KEY), VirusRecipe::inputDnaGene,
-                    ResourceKey.streamCodec(GeneRegistry.GENE_REGISTRY_KEY), VirusRecipe::outputGene,
+                    ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), VirusRecipe::inputDnaGene,
+                    ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), VirusRecipe::outputGene,
                     ::VirusRecipe
                 )
 

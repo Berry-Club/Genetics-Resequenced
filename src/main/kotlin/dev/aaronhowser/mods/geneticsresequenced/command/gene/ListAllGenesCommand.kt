@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command.gene
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -24,7 +24,7 @@ object ListAllGenesCommand {
 
         messageComponent.append(
             OtherUtil.componentList(
-                GeneRegistry.getRegistrySorted(context.source.registryAccess())
+                ModGenes.getRegistrySorted(context.source.registryAccess())
                     .map { Gene.getNameComponent(it) }
             )
         )

@@ -5,10 +5,10 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene.Companion.isNegative
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
@@ -49,7 +49,7 @@ data class GenesData(
                 this is Player
                 && newGeneHolder.isNegative
                 && ServerConfig.disableGivingPlayersNegativeGenes.get()
-                && newGeneHolder.key != ModGenes.CRINGE
+                && newGeneHolder.key != BaseModGenes.CRINGE
             ) {
                 GeneticsResequenced.LOGGER.debug(
                     "Tried to give negative gene $newGeneHolder to player $this, but \"disableGivingPlayersNegativeGenes\" is true in the server config."
@@ -111,7 +111,7 @@ data class GenesData(
 
         fun LivingEntity.addAlLGenes(registries: HolderLookup.Provider, includeNegative: Boolean = false) {
             val genesToAdd =
-                GeneRegistry.getAllGeneHolders(registries).filter { includeNegative || !it.isNegative }
+                ModGenes.getAllGeneHolders(registries).filter { includeNegative || !it.isNegative }
 
             for (gene in genesToAdd) {
                 this.addGene(gene)

@@ -4,9 +4,9 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.GeneRegistry
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.BaseModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
@@ -88,7 +88,7 @@ class GmoRecipe(
         GmoCell.setDetails(
             output,
             entityType,
-            ModGenes.BASIC.getHolder(lookup)!!
+            BaseModGenes.BASIC.getHolder(lookup)!!
         )
 
         return output
@@ -121,7 +121,7 @@ class GmoRecipe(
                         Ingredient.CODEC_NONEMPTY
                             .fieldOf("ingredient")
                             .forGetter(GmoRecipe::topSlotIngredient),
-                        ResourceKey.codec(GeneRegistry.GENE_REGISTRY_KEY)
+                        ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
                             .fieldOf("ideal_gene")
                             .forGetter(GmoRecipe::idealGeneRk),
                         Codec.FLOAT
@@ -137,7 +137,7 @@ class GmoRecipe(
                 StreamCodec.composite(
                     ByteBufCodecs.registry(Registries.ENTITY_TYPE), GmoRecipe::entityType,
                     Ingredient.CONTENTS_STREAM_CODEC, GmoRecipe::topSlotIngredient,
-                    ResourceKey.streamCodec(GeneRegistry.GENE_REGISTRY_KEY), GmoRecipe::idealGeneRk,
+                    ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), GmoRecipe::idealGeneRk,
                     ByteBufCodecs.FLOAT, GmoRecipe::geneChance,
                     ByteBufCodecs.BOOL, GmoRecipe::needsMutationPotion,
                     ::GmoRecipe
