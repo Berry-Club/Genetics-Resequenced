@@ -22,10 +22,12 @@ import net.minecraft.world.entity.EntityType
 
 class EntityGenes : SimpleJsonResourceReloadListener(
     GsonBuilder().setPrettyPrinting().create(),
-    GeneticsResequenced.ID + "/entity_genes"
+    DIRECTORY
 ) {
 
     companion object {
+        const val DIRECTORY = GeneticsResequenced.ID + "/entity_genes"
+
         private val entityGeneMap: MutableMap<EntityType<*>, Map<ResourceKey<Gene>, Int>> = mutableMapOf()
         fun getEntityGeneRkMap(): Map<EntityType<*>, Map<ResourceKey<Gene>, Int>> = entityGeneMap.toMap()
 
@@ -63,23 +65,23 @@ class EntityGenes : SimpleJsonResourceReloadListener(
         entityGeneMap[entityType] = currentGenes
     }
 
-    private data class EntityGenes(
+    data class EntityGenesData(
         val entity: ResourceKey<EntityType<*>>,
         val geneWeights: Map<ResourceKey<Gene>, Int>
     ) {
         companion object {
-            val CODEC: Codec<EntityGenes> = RecordCodecBuilder.create { instance ->
+            val CODEC: Codec<EntityGenesData> = RecordCodecBuilder.create { instance ->
                 instance.group(
                     ResourceKey.codec(Registries.ENTITY_TYPE)
                         .fieldOf("entity")
-                        .forGetter(EntityGenes::entity),
+                        .forGetter(EntityGenesData::entity),
                     Codec.unboundedMap(
                         ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY),
                         Codec.INT
                     )
                         .fieldOf("gene_weights")
-                        .forGetter(EntityGenes::geneWeights)
-                ).apply(instance, ::EntityGenes)
+                        .forGetter(EntityGenesData::geneWeights)
+                ).apply(instance, ::EntityGenesData)
             }
         }
     }
@@ -89,30 +91,29 @@ class EntityGenes : SimpleJsonResourceReloadListener(
         pResourceManager: ResourceManager,
         pProfiler: ProfilerFiller
     ) {
-
         entityGeneMap.clear()
 
         for ((key: ResourceLocation, value: JsonElement) in pObject) {
             try {
-                val entityGenes: EntityGenes = EntityGenes.CODEC.decode(
+                val entityGenesData: EntityGenesData = EntityGenesData.CODEC.decode(
                     JsonOps.INSTANCE,
                     value
                 ).getOrThrow {
                     IllegalArgumentException("Failed to decode entity genes for $key")
                 }.first
 
-                val entityName = entityGenes.entity.location().path
+                val entityName = entityGenesData.entity.location().path
                 val fileName = key.toString().split(":")[1]
                 if (entityName != fileName) {
                     GeneticsResequenced.LOGGER.warn("Gene-mob data for $key has the entity $entityName instead of $fileName. This may be a mistake.")
                 }
 
                 addGeneWeights(
-                    entityGenes.entity,
-                    entityGenes.geneWeights
+                    entityGenesData.entity,
+                    entityGenesData.geneWeights
                 )
 
-                GeneticsResequenced.LOGGER.debug("Loaded gene-mob data for ${entityGenes.entity.location()}, with ${entityGenes.geneWeights.size} genes")
+                GeneticsResequenced.LOGGER.debug("Loaded gene-mob data for ${entityGenesData.entity.location()}, with ${entityGenesData.geneWeights.size} genes")
             } catch (e: Exception) {
                 e.printStackTrace()
             }
