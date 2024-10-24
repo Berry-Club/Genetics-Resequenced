@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
+import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
@@ -23,6 +24,7 @@ object OtherEvents {
     @SubscribeEvent
     fun addReloadListeners(event: AddReloadListenerEvent) {
         event.addListener(EntityGenes())
+        event.addListener(GeneRequirements())
     }
 
     @SubscribeEvent
