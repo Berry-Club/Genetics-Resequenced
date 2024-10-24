@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.datagen
+package dev.aaronhowser.mods.geneticsresequenced.datagen.gene
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
