@@ -9,9 +9,10 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.packs.resources.ResourceManager
@@ -48,27 +49,28 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 
     }
 
-    private fun addGeneWeights(entityRl: ResourceLocation, newGeneWeights: Map<ResourceKey<Gene>, Int>) {
-        val entityType = OtherUtil.getEntityType(entityRl)
-
+    private fun addGeneWeights(
+        entityRk: ResourceKey<EntityType<*>>,
+        newGeneWeights: Map<ResourceKey<Gene>, Int>
+    ) {
+        val entityType = BuiltInRegistries.ENTITY_TYPE.get(entityRk)!!
         val currentGenes = entityGeneMap[entityType]?.toMutableMap() ?: mutableMapOf()
 
         for ((gene, weight) in newGeneWeights) {
-            val currentWeightForGene = currentGenes[gene] ?: 0
-            currentGenes[gene] = currentWeightForGene + weight
+            currentGenes[gene] = currentGenes[gene]?.plus(weight) ?: weight
         }
 
         entityGeneMap[entityType] = currentGenes
     }
 
-    data class EntityGenes(
-        val entity: ResourceLocation,
+    private data class EntityGenes(
+        val entity: ResourceKey<EntityType<*>>,
         val geneWeights: Map<ResourceKey<Gene>, Int>
     ) {
         companion object {
             val CODEC: Codec<EntityGenes> = RecordCodecBuilder.create { instance ->
                 instance.group(
-                    ResourceLocation.CODEC
+                    ResourceKey.codec(Registries.ENTITY_TYPE)
                         .fieldOf("entity")
                         .forGetter(EntityGenes::entity),
                     Codec.unboundedMap(
@@ -99,15 +101,18 @@ class EntityGenes : SimpleJsonResourceReloadListener(
                     IllegalArgumentException("Failed to decode entity genes for $key")
                 }.first
 
-                val entityName = entityGenes.entity.toString().split(":")[1]
+                val entityName = entityGenes.entity.location().path
                 val fileName = key.toString().split(":")[1]
                 if (entityName != fileName) {
-                    GeneticsResequenced.LOGGER.warn("Mob-Gene data for $key has the entity $entityName instead of $fileName. This may be a mistake.")
+                    GeneticsResequenced.LOGGER.warn("Gene-mob data for $key has the entity $entityName instead of $fileName. This may be a mistake.")
                 }
 
-                addGeneWeights(entityGenes.entity, entityGenes.geneWeights)
+                addGeneWeights(
+                    entityGenes.entity,
+                    entityGenes.geneWeights
+                )
 
-                GeneticsResequenced.LOGGER.debug("Loaded gene-mob data: $entityGenes")
+                GeneticsResequenced.LOGGER.debug("Loaded gene-mob data for ${entityGenes.entity.location()}, with ${entityGenes.geneWeights.size} genes")
             } catch (e: Exception) {
                 e.printStackTrace()
             }

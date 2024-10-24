@@ -241,3 +241,4 @@
 - Combined the Gene commands to be arguments of `/geneticsresequenced gene`
 - Localized into Simplified Chinese, thanks to @shenyx110! (#31)
 - Fixed a crash with Jade (and probably similar mods) (#37)
+- Minor improvements to the Entity Genes datapack loader
