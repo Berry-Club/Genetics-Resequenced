@@ -243,3 +243,5 @@
 - Localized into Simplified Chinese, thanks to @shenyx110! (#31)
 - Fixed a crash with Jade (and probably similar mods) (#37)
 - Minor improvements to the Entity Genes datapack loader
+- Entity Genes are now datagenned rather than manually typed
+- The Ender Dragon no longer can give the Basic Gene

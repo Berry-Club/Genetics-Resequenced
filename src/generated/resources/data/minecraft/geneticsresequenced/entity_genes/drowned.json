@@ -1,0 +1,7 @@
+{
+  "entity": "minecraft:drowned",
+  "gene_weights": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:resistance": 4
+  }
+}
