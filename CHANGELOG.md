@@ -238,6 +238,7 @@
 
 # 1.5.0
 
+- Moved Gene requirements from the Gene constructor to a separate datapack system, located in `/data/____/geneticsresequenced/geme_requirements/`
 - Combined the Gene commands to be arguments of `/geneticsresequenced gene`
 - Localized into Simplified Chinese, thanks to @shenyx110! (#31)
 - Fixed a crash with Jade (and probably similar mods) (#37)

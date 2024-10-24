@@ -1,6 +1,3 @@
 {
-  "dna_points_required": 50,
-  "requires_genes": [
-    "geneticsresequenced:claws"
-  ]
+  "dna_points_required": 50
 }

@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.datagen
+package dev.aaronhowser.mods.geneticsresequenced.datagen.gene
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -33,8 +33,7 @@ class ModGeneProvider : RegistrySetBuilder() {
             context.register(
                 ModGenes.CLAWS_TWO,
                 Gene(
-                    dnaPointsRequired = 50,
-                    requiresGeneRks = listOf(ModGenes.CLAWS)
+                    dnaPointsRequired = 50
                 )
             )
 
@@ -48,8 +47,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             ModAttributes.efficiencyFourAttributeModifier
                         )
                     ),
-                    allowedEntities = onlyPlayers,
-                    requiresGeneRks = listOf(ModGenes.EFFICIENCY)
+                    allowedEntities = onlyPlayers
                 )
             )
 
@@ -63,8 +61,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             ModAttributes.flightAttributeModifier
                         )
                     ),
-                    allowedEntities = onlyPlayers,
-                    requiresGeneRks = listOf(ModGenes.TELEPORT, ModGenes.STEP_ASSIST, ModGenes.NO_FALL_DAMAGE)
+                    allowedEntities = onlyPlayers
                 )
             )
 
@@ -77,16 +74,14 @@ class ModGeneProvider : RegistrySetBuilder() {
                             effect = MobEffects.DIG_SPEED,
                             level = 2
                         )
-                    ),
-                    requiresGeneRks = listOf(ModGenes.HASTE)
+                    )
                 )
             )
 
             context.register(
                 ModGenes.MEATY_TWO,
                 Gene(
-                    dnaPointsRequired = 50,
-                    requiresGeneRks = listOf(ModGenes.MEATY)
+                    dnaPointsRequired = 50
                 )
             )
 
@@ -100,8 +95,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             ModAttributes.moreHealthTwoAttributeModifier
                         )
                     ),
-                    allowedEntities = onlyPlayers,
-                    requiresGeneRks = listOf(ModGenes.MORE_HEARTS)
+                    allowedEntities = onlyPlayers
                 )
             )
 
@@ -109,8 +103,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                 ModGenes.PHOTOSYNTHESIS,
                 Gene(
                     dnaPointsRequired = 40,
-                    allowedEntities = onlyPlayers,
-                    requiresGeneRks = listOf(ModGenes.EAT_GRASS, ModGenes.THORNS)
+                    allowedEntities = onlyPlayers
                 )
             )
 
@@ -123,8 +116,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             effect = MobEffects.REGENERATION,
                             level = 4
                         )
-                    ),
-                    requiresGeneRks = listOf(ModGenes.REGENERATION)
+                    )
                 )
             )
 
@@ -137,8 +129,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             effect = MobEffects.DAMAGE_RESISTANCE,
                             level = 2
                         )
-                    ),
-                    requiresGeneRks = listOf(ModGenes.RESISTANCE)
+                    )
                 )
             )
 
@@ -151,8 +142,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             effect = MobEffects.MOVEMENT_SPEED,
                             level = 4
                         )
-                    ),
-                    requiresGeneRks = listOf(ModGenes.SPEED_TWO)
+                    )
                 )
             )
 
@@ -165,8 +155,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             effect = MobEffects.MOVEMENT_SPEED,
                             level = 2
                         )
-                    ),
-                    requiresGeneRks = listOf(ModGenes.SPEED)
+                    )
                 )
             )
 
@@ -179,8 +168,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             effect = MobEffects.DAMAGE_BOOST,
                             level = 2
                         )
-                    ),
-                    requiresGeneRks = listOf(ModGenes.STRENGTH)
+                    )
                 )
             )
 

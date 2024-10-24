@@ -3,8 +3,5 @@
   "potion_details": {
     "effect": "minecraft:resistance",
     "level": 2
-  },
-  "requires_genes": [
-    "geneticsresequenced:resistance"
-  ]
+  }
 }

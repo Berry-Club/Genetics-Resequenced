@@ -19,10 +19,12 @@ import net.minecraft.util.profiling.ProfilerFiller
 
 class GeneRequirements : SimpleJsonResourceReloadListener(
     GsonBuilder().setPrettyPrinting().create(),
-    GeneticsResequenced.ID + "/gene_requirements"
+    DIRECTORY
 ) {
 
     companion object {
+        const val DIRECTORY = GeneticsResequenced.ID + "/gene_requirements"
+
         private val geneRequirements: MutableMap<ResourceKey<Gene>, Set<ResourceKey<Gene>>> = mutableMapOf()
         fun getGeneRequirements(): Map<ResourceKey<Gene>, Set<ResourceKey<Gene>>> = geneRequirements.toMap()
 
@@ -44,7 +46,7 @@ class GeneRequirements : SimpleJsonResourceReloadListener(
         geneRequirements[gene] = geneRequirements[gene]?.plus(requirements) ?: requirements.toSet()
     }
 
-    private data class GeneRequirementsData(
+    data class GeneRequirementsData(
         val gene: ResourceKey<Gene>,
         val requirements: List<ResourceKey<Gene>>
     ) {

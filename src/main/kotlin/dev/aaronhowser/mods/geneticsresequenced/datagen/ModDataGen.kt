@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneRequirementsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
@@ -102,6 +103,11 @@ object ModDataGen {
 //            event.includeClient(),
 //            EnUsProvider(output, modonomiconEnUsCache)
 //        )
+
+        val modGeneRequirementsProvider = generator.addProvider(
+            event.includeServer(),
+            ModGeneRequirementsProvider(output, lookupProvider, existingFileHelper)
+        )
 
     }
 

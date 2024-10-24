@@ -10,8 +10,5 @@
       }
     }
   ],
-  "dna_points_required": 50,
-  "requires_genes": [
-    "geneticsresequenced:efficiency"
-  ]
+  "dna_points_required": 50
 }
