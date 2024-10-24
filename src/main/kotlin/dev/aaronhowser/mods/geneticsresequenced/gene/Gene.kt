@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.api.genes
+package dev.aaronhowser.mods.geneticsresequenced.gene
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
@@ -60,14 +60,14 @@ data class Gene(
                     AttributeModifier.CODEC
                         .fieldOf("modifier")
                         .forGetter(AttributeEntry::modifier)
-                ).apply(instance, ::AttributeEntry)
+                ).apply(instance, Gene::AttributeEntry)
             }
 
             val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, AttributeEntry> =
                 StreamCodec.composite(
                     Attribute.STREAM_CODEC, AttributeEntry::attribute,
                     AttributeModifier.STREAM_CODEC, AttributeEntry::modifier,
-                    ::AttributeEntry
+                    Gene::AttributeEntry
                 )
         }
     }
@@ -93,7 +93,7 @@ data class Gene(
                     Codec.BOOL
                         .optionalFieldOf("show_icon", false)
                         .forGetter(PotionDetails::showIcon)
-                ).apply(instance, ::PotionDetails)
+                ).apply(instance, Gene::PotionDetails)
             }
 
             val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, PotionDetails> =
@@ -102,7 +102,7 @@ data class Gene(
                     ByteBufCodecs.VAR_INT, PotionDetails::level,
                     ByteBufCodecs.VAR_INT, PotionDetails::duration,
                     ByteBufCodecs.BOOL, PotionDetails::showIcon,
-                    ::PotionDetails
+                    Gene::PotionDetails
                 )
         }
     }

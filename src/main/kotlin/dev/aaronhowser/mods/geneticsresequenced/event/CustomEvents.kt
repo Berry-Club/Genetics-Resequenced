@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.event
 
-import dev.aaronhowser.mods.geneticsresequenced.api.genes.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import net.minecraft.core.Holder
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
