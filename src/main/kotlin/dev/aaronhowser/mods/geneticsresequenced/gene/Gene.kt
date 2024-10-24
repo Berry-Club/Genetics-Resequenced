@@ -40,7 +40,6 @@ import kotlin.jvm.optionals.getOrNull
 
 data class Gene(
     val dnaPointsRequired: Int = 1,
-    val requiresGeneRks: List<ResourceKey<Gene>> = emptyList(),
     val allowedEntities: HolderSet<EntityType<*>> = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup()),
     val potionDetails: Optional<PotionDetails> = Optional.empty(),
     val attributeModifiers: List<AttributeEntry> = emptyList(),
@@ -108,23 +107,6 @@ data class Gene(
     }
 
     val allowsMobs = allowedEntities.any { it.value() != EntityType.PLAYER }
-
-    fun getRequiredGeneHolders(registries: HolderLookup.Provider): Set<Holder<Gene>> {
-        val requiredGenes = mutableListOf<Holder<Gene>>()
-
-        for (geneKey in this.requiresGeneRks) {
-            val gene = geneKey.getHolder(registries)
-
-            if (gene == null) {
-                GeneticsResequenced.LOGGER.error("Gene $this requires gene $geneKey which does not exist!")
-                continue
-            }
-
-            requiredGenes.add(gene)
-        }
-
-        return requiredGenes.toSet()
-    }
 
     fun canEntityHave(entity: Entity): Boolean {
         return canEntityTypeHave(entity.type)
@@ -254,9 +236,6 @@ data class Gene(
                     Codec.INT
                         .optionalFieldOf("dna_points_required", 1)
                         .forGetter(Gene::dnaPointsRequired),
-                    ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY).listOf()
-                        .optionalFieldOf("requires_genes", emptyList())
-                        .forGetter(Gene::requiresGeneRks),
                     RegistryCodecs.homogeneousList(Registries.ENTITY_TYPE)
                         .optionalFieldOf(
                             "allowed_entities",
@@ -277,7 +256,6 @@ data class Gene(
 
         val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Gene> = StreamCodec.composite(
             ByteBufCodecs.INT, Gene::dnaPointsRequired,
-            ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY).apply(ByteBufCodecs.list()), Gene::requiresGeneRks,
             ByteBufCodecs.holderSet(Registries.ENTITY_TYPE), Gene::allowedEntities,
             ByteBufCodecs.optional(PotionDetails.DIRECT_STREAM_CODEC), Gene::potionDetails,
             AttributeEntry.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::attributeModifiers,

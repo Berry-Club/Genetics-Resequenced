@@ -8,6 +8,9 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
+import net.minecraft.core.Holder
+import net.minecraft.core.HolderLookup
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.packs.resources.ResourceManager
@@ -23,9 +26,18 @@ class GeneRequirements : SimpleJsonResourceReloadListener(
         private val geneRequirements: MutableMap<ResourceKey<Gene>, Set<ResourceKey<Gene>>> = mutableMapOf()
         fun getGeneRequirements(): Map<ResourceKey<Gene>, Set<ResourceKey<Gene>>> = geneRequirements.toMap()
 
-        fun getRequirementsForGene(gene: ResourceKey<Gene>): Set<ResourceKey<Gene>> {
+        fun getGeneRequiredGeneRks(gene: ResourceKey<Gene>): Set<ResourceKey<Gene>> {
             return geneRequirements[gene] ?: emptySet()
         }
+
+        fun getGeneRequiredGeneRks(gene: Holder<Gene>): Set<ResourceKey<Gene>> {
+            return getGeneRequiredGeneRks(gene.key!!)
+        }
+
+        fun getGeneRequiredGeneHolders(gene: Holder<Gene>, registries: HolderLookup.Provider): Set<Holder<Gene>> {
+            return getGeneRequiredGeneRks(gene).mapNotNull { it.getHolder(registries) }.toSet()
+        }
+
     }
 
     private fun addGeneRequirements(gene: ResourceKey<Gene>, requirements: List<ResourceKey<Gene>>) {

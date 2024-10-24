@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
@@ -48,21 +49,25 @@ object GeneEvents {
     }
 
     private fun checkForMissingRequirements(entity: LivingEntity) {
+        val entityGeneHolders = entity.geneHolders
 
-        val geneHolders = entity.geneHolders
+        for (geneHolder in entityGeneHolders) {
+            val genesWithMissingRequirements = GeneRequirements.getGeneRequiredGeneHolders(
+                geneHolder,
+                entity.registryAccess()
+            ).filter { it !in entityGeneHolders }
 
-        val genesWithMissingRequirements = geneHolders.filter { geneHolder ->
-            !geneHolder.value().getRequiredGeneHolders(entity.registryAccess()).all { it in geneHolders }
-        }
+            if (genesWithMissingRequirements.isEmpty()) continue
 
-        genesWithMissingRequirements.forEach { geneHolder ->
             entity.removeGene(geneHolder)
-            val gene = geneHolder.value()
 
             val requiredGenesComponent =
                 ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS_LIST.toComponent()
 
-            val missingGenes = gene.getRequiredGeneHolders(entity.registryAccess()).filter { it !in geneHolders }
+            val missingGenes = GeneRequirements.getGeneRequiredGeneHolders(
+                geneHolder,
+                entity.registryAccess()
+            ).filter { it !in entityGeneHolders }
 
             requiredGenesComponent.append(
                 OtherUtil.componentList(
