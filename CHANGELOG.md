@@ -164,8 +164,8 @@
     - `dna_points_required`: The amount of DNA Points required to complete a Plasmid. Defaults to 0
     - `requires_genes`: A list of Resource Location IDs for Genes that are required to have this Gene
     - `allowed_entities`: A filter of entity types that the Gene can be injected into
-      - Defaults to `{"type": "neoforge:any"}`. 
-      - Can also accept a single entity type (`"minecraft:player"`) or a list of entity types (`["minecraft:cow","minecraft:chicken"]`)
+        - Defaults to `{"type": "neoforge:any"}`.
+        - Can also accept a single entity type (`"minecraft:player"`) or a list of entity types (`["minecraft:cow","minecraft:chicken"]`)
     - `potion_details`: An object with the following fields, for a potion effect that's granted at all times:
         - `effect`: The effect to apply
         - `level`: The level of the effect (optional, defaults to 1)
@@ -222,10 +222,10 @@
 # 1.4.0
 
 - Added the Gene Checker, which lets you see the Genes of either yourself or the entity you're looking at
-  - Since this exists, `/geneticsresequenced list` now requires op permissions
+    - Since this exists, `/geneticsresequenced list` now requires op permissions
 - Reworked how the entity genes datapack system worked
-  - Previously, it would simply set the gene weights
-  - Now, it adds adds the weight to the gene, so you can have multiple files adding weight to the same gene
+    - Previously, it would simply set the gene weights
+    - Now, it adds adds the weight to the gene, so you can have multiple files adding weight to the same gene
 - Re-included the lang file for the Modonomicon book, so now you can actually read it
 - Changed some tags:
     - `#geneticsresequenced:syringe` is now `#geneticsresequenced:syringes`
@@ -234,7 +234,7 @@
 - Removed the tag `#geneticsresequenced:wooly`, it just uses `#c:tools/shear` now
 - Added EMI tag translations
 - The command `/geneticsresequenced removeNearbyLights` has been renamed to `/geneticsresequenced clearBioluminescenceBlocks`
-  - Additionally, it no longer requires op permissions. Its range argument does, however
+    - Additionally, it no longer requires op permissions. Its range argument does, however
 
 # 1.5.0
 
@@ -248,3 +248,5 @@
 - The info pages that show what entities give what genes now uses an Organic Matter item rather than a DNA Helix item
 - Added every Organic Matter item to the creative tab and EMI
 - EMI now considers each type of Organic Matter to be separate
+- Improved the method used to make mobs that don't have any Gene weights always give the Basic Gene
+  - Consequently, their info pages now show that they have a 100% chance of giving the Basic Gene, rather than not having an info page at all

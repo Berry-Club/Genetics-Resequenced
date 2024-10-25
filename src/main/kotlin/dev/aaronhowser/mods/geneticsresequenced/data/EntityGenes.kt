@@ -40,7 +40,7 @@ class EntityGenes : SimpleJsonResourceReloadListener(
         }
 
         fun getGeneRkWeights(entityType: EntityType<*>): Map<ResourceKey<Gene>, Int> {
-            return entityGeneMap[entityType] ?: emptyMap()
+            return entityGeneMap[entityType] ?: mapOf(ModGenes.BASIC to 1)
         }
 
         fun getGeneHolderWeights(entityType: EntityType<*>, registries: HolderLookup.Provider): Map<Holder<Gene>, Int> {

@@ -19,7 +19,6 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.recipe.EmiInfoRecipe
 import dev.emi.emi.api.stack.EmiIngredient
 import net.minecraft.ChatFormatting
-import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
@@ -125,10 +124,9 @@ object ModInformationRecipes {
     private fun mobGenes(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
         val recipes = mutableListOf<EmiInfoRecipe>()
 
-        val allEntityGeneHolderPairs: Map<EntityType<*>, Map<Holder<Gene>, Int>> =
-            EntityGenes.getEntityGeneHolderMap(registries)
+        for (entityType in EntityDnaItem.validEntityTypes) {
+            val geneWeights = EntityGenes.getGeneHolderWeights(entityType, registries)
 
-        for ((entityType, geneWeights) in allEntityGeneHolderPairs) {
             val informationTextComponent =
                 ModLanguageProvider.Info.MOB_GENE_ONE.toComponent(entityType.description)
 

@@ -137,7 +137,6 @@ class DnaDecryptorBlockEntity(
         val mobType = EntityDnaItem.getEntityType(input) ?: return listOf(basic)
 
         val genesFromMob = EntityGenes.getGeneHolderWeights(mobType, registries)
-        if (genesFromMob.isEmpty()) return listOf(basic)
 
         return genesFromMob
             .map { it.key }
