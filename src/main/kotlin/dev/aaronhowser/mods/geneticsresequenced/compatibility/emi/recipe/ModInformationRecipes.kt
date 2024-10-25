@@ -150,14 +150,17 @@ object ModInformationRecipes {
                 informationTextComponent.append(component)
             }
 
-            val helixStack = ModItems.DNA_HELIX.toStack()
-            EntityDnaItem.setEntityType(helixStack, entityType)
+            val organicMatterStack = ModItems.ORGANIC_MATTER.toStack()
+            EntityDnaItem.setEntityType(organicMatterStack, entityType)
 
             val mobSpawnEgg = SpawnEggItem.byId(entityType)
 
-            val list = mutableListOf(helixStack)
-            if (mobSpawnEgg != null) {
-                list.add(mobSpawnEgg.defaultInstance)
+            val list = buildList {
+                add(organicMatterStack)
+
+                if (mobSpawnEgg != null) {
+                    add(mobSpawnEgg.defaultInstance)
+                }
             }
 
             val entityString = EntityType.getKey(entityType).toString().replace(':', '/')
