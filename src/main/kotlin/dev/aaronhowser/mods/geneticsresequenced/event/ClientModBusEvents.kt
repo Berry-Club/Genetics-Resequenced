@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.entity.client.SupportSlimeRenderer
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
+import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModCreativeModeTabs
@@ -87,10 +88,14 @@ object ClientModBusEvents {
             event.accept(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())
         }
 
-        val registryAccess = ClientUtil.localRegistryAccess
-        if (event.tab == ModCreativeModeTabs.MOD_TAB.get() && registryAccess != null) {
-            event.acceptAll(DnaHelixItem.getAllHelices(registryAccess))
-            event.acceptAll(PlasmidItem.getAllPlasmids(registryAccess))
+        if (event.tab == ModCreativeModeTabs.MOD_TAB.get()) {
+            event.acceptAll(EntityDnaItem.getAllOrganicMatterStacks())
+
+            val registryAccess = ClientUtil.localRegistryAccess
+            if (registryAccess != null) {
+                event.acceptAll(DnaHelixItem.getAllHelices(registryAccess))
+                event.acceptAll(PlasmidItem.getAllPlasmids(registryAccess))
+            }
         }
     }
 

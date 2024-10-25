@@ -246,3 +246,5 @@
 - Entity Genes are now datagenned rather than manually typed
 - The Ender Dragon no longer can give the Basic Gene
 - The info pages that show what entities give what genes now uses an Organic Matter item rather than a DNA Helix item
+- Added every Organic Matter item to the creative tab and EMI
+- EMI now considers each type of Organic Matter to be separate

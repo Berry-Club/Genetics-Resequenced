@@ -51,6 +51,7 @@ class ModEmiPlugin : EmiPlugin {
 
         val ADVANCED_INCUBATOR_STACK: EmiStack = EmiStack.of(ModBlocks.ADVANCED_INCUBATOR)
 
+        val ORGANIC_MATTER_STACK: EmiStack = EmiStack.of(ModItems.ORGANIC_MATTER)
         val CELL_STACK: EmiStack = EmiStack.of(ModItems.CELL)
         val GMO_CELL_STACK: EmiStack = EmiStack.of(ModItems.GMO_CELL)
         val DNA_HELIX_STACK: EmiStack = EmiStack.of(ModItems.DNA_HELIX)
@@ -80,17 +81,20 @@ class ModEmiPlugin : EmiPlugin {
         AntiPlasmidEmiRecipes.setAntiPlasmidRecipes(registry)
         AntiPlasmidEmiRecipes.unsetAntiPlasmidRecipes(registry)
 
-        ModInformationRecipes.getInformationRecipes(ClientUtil.localRegistryAccess!!).forEach { registry.addRecipe(it) }
+        for (infoRecipe in ModInformationRecipes.getInformationRecipes(ClientUtil.localRegistryAccess!!)) {
+            registry.addRecipe(infoRecipe)
+        }
 
-        comparisons(registry)
+        setComparisons(registry)
     }
 
-    private fun comparisons(registry: EmiRegistry) {
+    private fun setComparisons(registry: EmiRegistry) {
         val plasmidProgressComparison =
             Comparison.compareData { it.get(ModDataComponents.PLASMID_PROGRESS_COMPONENT.get()) }
 
         registry.setDefaultComparison(GMO_CELL_STACK, Comparison.compareComponents())
         registry.setDefaultComparison(DNA_HELIX_STACK, Comparison.compareComponents())
+        registry.setDefaultComparison(ORGANIC_MATTER_STACK, Comparison.compareComponents())
         registry.setDefaultComparison(PLASMID_STACK, plasmidProgressComparison)
         registry.setDefaultComparison(ANTI_PLASMID_STACK, plasmidProgressComparison)
     }
