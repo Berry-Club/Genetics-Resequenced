@@ -250,3 +250,5 @@
 - EMI now considers each type of Organic Matter to be separate
 - Improved the method used to make mobs that don't have any Gene weights always give the Basic Gene
   - Consequently, their info pages now show that they have a 100% chance of giving the Basic Gene, rather than not having an info page at all
+- Fixed info pages for required Genes, now it lists the actually required Genes rather than repeating the Gene itself
+  - Previously, Claws II would say it needs Claws II, rather than needing Claws I. That's fixed now

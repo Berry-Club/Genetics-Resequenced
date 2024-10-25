@@ -63,9 +63,9 @@ object ModInformationRecipes {
 
                 for (requiredGeneHolder in requiredGeneHolders) {
                     val requiredGeneComponent = if (requiredGeneHolder.isNegative || requiredGeneHolder.isMutation) {
-                        Gene.getNameComponent(geneHolder)
+                        Gene.getNameComponent(requiredGeneHolder)
                     } else {
-                        Gene.getNameComponent(geneHolder)
+                        Gene.getNameComponent(requiredGeneHolder)
                             .withStyle { it.withColor(ChatFormatting.RESET) }
                     }
 
