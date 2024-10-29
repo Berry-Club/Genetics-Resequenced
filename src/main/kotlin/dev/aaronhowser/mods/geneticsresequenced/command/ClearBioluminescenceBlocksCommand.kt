@@ -49,21 +49,21 @@ object ClearBioluminescenceBlocksCommand {
         val level = player.level()
         val playerPos = player.blockPosition()
 
-        val lightSpots = mutableSetOf<BlockPos>()
+        val lightSpots = buildSet {
+            for (x in -range..range) for (y in -range..range) for (z in -range..range) {
+                val pos = BlockPos(playerPos.x + x, playerPos.y + y, playerPos.z + z)
 
-        for (x in -range..range) for (y in -range..range) for (z in -range..range) {
-            val pos = BlockPos(playerPos.x + x, playerPos.y + y, playerPos.z + z)
-
-            if (level.getBlockState(pos).block == ModBlocks.BIOLUMINESCENCE_BLOCK.get()) {
-                lightSpots.add(pos)
+                if (level.getBlockState(pos).block == ModBlocks.BIOLUMINESCENCE_BLOCK.get()) {
+                    add(pos)
+                }
             }
         }
 
-        lightSpots.forEach {
-            level.removeBlock(it, false)
+        for (blockPos in lightSpots) {
+            level.removeBlock(blockPos, false)
 
             val blockDisplayEntity = BlockDisplay(EntityType.BLOCK_DISPLAY, level).apply {
-                setPos(it.x.toDouble(), it.y.toDouble(), it.z.toDouble())
+                setPos(blockPos.x.toDouble(), blockPos.y.toDouble(), blockPos.z.toDouble())
                 setGlowingTag(true)
                 setBlockState(Blocks.GLOWSTONE.defaultBlockState())
             }

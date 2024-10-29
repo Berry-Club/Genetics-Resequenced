@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Compani
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.getSavedInventory
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.saveInventory
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.ItemStack
 import top.theillusivec4.curios.api.CuriosApi
 import kotlin.jvm.optionals.getOrNull
 
@@ -14,12 +13,13 @@ object KeepCurioInventory {
         val playerCuriosInventory = CuriosApi.getCuriosInventory(player).getOrNull() ?: return
 
         val equippedCurios = playerCuriosInventory.equippedCurios
-        val curioStacks = mutableListOf<ItemStack>()
-        for (i in 0 until equippedCurios.slots) {
-            val stack = equippedCurios.getStackInSlot(i)
-            if (!stack.isEmpty) {
-                curioStacks.add(stack.copy())
-                equippedCurios.extractItem(i, stack.count, false)
+        val curioStacks = buildList {
+            for (i in 0 until equippedCurios.slots) {
+                val stack = equippedCurios.getStackInSlot(i)
+                if (!stack.isEmpty) {
+                    add(stack.copy())
+                    equippedCurios.extractItem(i, stack.count, false)
+                }
             }
         }
 
