@@ -250,9 +250,14 @@
 - Added every Organic Matter item to the creative tab and EMI
 - EMI now considers each type of Organic Matter to be separate
 - Improved the method used to make mobs that don't have any Gene weights always give the Basic Gene
-  - Consequently, their info pages now show that they have a 100% chance of giving the Basic Gene, rather than not having an info page at all
+    - Consequently, their info pages now show that they have a 100% chance of giving the Basic Gene, rather than not having an info page at all
 - Fixed info pages for required Genes, now it lists the actually required Genes rather than repeating the Gene itself
-  - Previously, Claws II would say it needs Claws II, rather than needing Claws I. That's fixed now
+    - Previously, Claws II would say it needs Claws II, rather than needing Claws I. That's fixed now
 - The following Genes can now be held by any mob, rather than only players: Haste, More Hearts II, Night Vision
-- Removed classes for several Data Components, because they really weren't needed. This shouldn't affect anything
-- Moved several Data Component keys to snake_case from camelCase (for example, `dnaPoints` is now `dna_points`). This should be a non-breaking change
+- Removed classes for several Data Components, because they really weren't needed
+    - This should be a non-breaking change
+- Moved several Data Component keys to snake_case from camelCase (for example, `dnaPoints` is now `dna_points`)
+    - This should also be a non-breaking change
+- The Data Component `geneticsresequenced:specific_entity` now uses a Component instead of a String for the name field.
+  - Consequently, Syringe tooltips should look better in some cases
+  - This shouldn't be a breaking change, but if it is, it only affects filled Syringes

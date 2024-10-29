@@ -11,7 +11,6 @@ import net.minecraft.advancements.critereon.ImpossibleTrigger
 import net.minecraft.advancements.critereon.InventoryChangeTrigger
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.data.AdvancementProvider
 import net.neoforged.neoforge.common.data.ExistingFileHelper
@@ -200,7 +199,7 @@ class ModAdvancementSubProvider : AdvancementProvider.AdvancementGenerator {
                             ModDataComponents.SPECIFIC_ENTITY_COMPONENT,
                             SpecificEntityItemComponent(
                                 UUID.fromString("b0aa4edd-29e0-421f-b65c-be90055071b0"), //Arbitrary UUID
-                                "A Fake Mob"
+                                Component.literal("A Fake Mob")
                             )
                         )
                     },

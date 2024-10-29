@@ -71,7 +71,7 @@ open class SyringeItem : Item(
             return syringeStack.getEntityUuid()
         }
 
-        fun getEntityName(syringeStack: ItemStack): String? {
+        fun getEntityName(syringeStack: ItemStack): Component? {
             return syringeStack.getEntityName()
         }
 
