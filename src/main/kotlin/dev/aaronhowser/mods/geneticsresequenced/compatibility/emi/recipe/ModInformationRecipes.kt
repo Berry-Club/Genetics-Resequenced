@@ -34,7 +34,7 @@ object ModInformationRecipes {
     private fun geneDescriptions(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
         val recipes = mutableListOf<EmiInfoRecipe>()
 
-        for (geneHolder in ModGenes.getRegistrySorted(registries)) {
+        for (geneHolder in ModGenes.getRegistrySorted(registries, includeHelixOnly = true)) {
             if (geneHolder.isDisabled) continue
 
             val components: MutableList<MutableComponent> = mutableListOf()
