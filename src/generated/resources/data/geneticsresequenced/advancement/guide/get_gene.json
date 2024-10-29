@@ -12,8 +12,8 @@
     "icon": {
       "components": {
         "geneticsresequenced:specific_entity": {
-          "entityName": "A Fake Mob",
-          "entityUuid": "b0aa4edd-29e0-421f-b65c-be90055071b0"
+          "name": "A Fake Mob",
+          "uuid": "b0aa4edd-29e0-421f-b65c-be90055071b0"
         }
       },
       "count": 1,
