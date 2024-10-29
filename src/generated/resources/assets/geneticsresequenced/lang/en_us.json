@@ -231,6 +231,7 @@
   "geneticsresequenced.configuration.xpMagnetCooldown": "XP Magnet cooldown",
   "geneticsresequenced.configuration.xpMagnetRadius": "XP Magnet radius",
   "info.gene.geneticsresequenced.bad_omen": "Inflicts the Bad Omen potion effect.",
+  "info.gene.geneticsresequenced.basic": "The most basic Gene, which does nothing, and can't even be injected.\n\nIt can be used as a crafting ingredient, as it's worth 1 DNA Point in the Plasmid Infuser.",
   "info.gene.geneticsresequenced.bioluminescence": "Makes you leave behind a trail of light, which lasts a short while.",
   "info.gene.geneticsresequenced.black_death": "Instantly kills.",
   "info.gene.geneticsresequenced.blindness": "Inflicts the Blindness potion effect.",

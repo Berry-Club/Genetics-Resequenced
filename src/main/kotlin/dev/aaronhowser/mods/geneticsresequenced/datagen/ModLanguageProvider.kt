@@ -562,6 +562,7 @@ class ModLanguageProvider(
         add(Info.MOB_GENE_ONE, "%1\$s has these Genes:")
         add(Info.MOB_GENE_TWO, "\n%d%% of %2\$s")
         add(Info.REQUIRED_GENES, "Required Genes:")
+        addGeneInfo(ModGenes.BASIC, "The most basic Gene, which does nothing, and can't even be injected.\n\nIt can be used as a crafting ingredient, as it's worth 1 DNA Point in the Plasmid Infuser.")
         addGeneInfo(ModGenes.CLAWS_TWO, "Doubles the chances of inflicting Bleeding on hit.")
         addGeneInfo(
             ModGenes.EFFICIENCY_FOUR,

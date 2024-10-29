@@ -258,10 +258,11 @@
 - Moved several Data Component keys to snake_case from camelCase (for example, `dnaPoints` is now `dna_points`)
     - This should also be a non-breaking change
 - Renamed the Data Component `geneticsresequenced:active` to `geneticsresequenced:is_active`
-  - This is a breaking change, but only for Anti-Field Orbs, and it basically just resets them to false
+    - This is a breaking change, but only for Anti-Field Orbs, and it basically just resets them to false
 - The Data Component `geneticsresequenced:specific_entity` now uses a Component instead of a String for the name field.
     - Consequently, Syringe tooltips should look better in some cases
     - This shouldn't be a breaking change, but if it is, it only affects filled Syringes
 - The Gene tag `#geneticsresequenced:hidden` is now `#geneticsresequenced:helix_only`
-  - It's only for Genes that can only be held by DNA Helices, and not Plasmids or entities
-  - This fixes a point of confusion, because the only Gene currently set to this is the Basic Gene. It being called "hidden" made it look like it should be hidden from EMI etc too, which isn't the case
+    - It's only for Genes that can only be held by DNA Helices, and not Plasmids or entities
+    - This fixes a point of confusion, because the only Gene currently set to this is the Basic Gene. It being called "hidden" made it look like it should be hidden from EMI etc too, which isn't the case
+        - As a result, a DNA Helix with the Basic Gene now shows up in EMI. It also now has an information page.
