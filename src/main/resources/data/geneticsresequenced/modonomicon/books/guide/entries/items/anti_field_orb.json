@@ -28,7 +28,7 @@
       },
       "item": {
         "components": {
-          "geneticsresequenced:active": true
+          "geneticsresequenced:is_active": true
         },
         "item": "geneticsresequenced:anti_field_orb"
       },

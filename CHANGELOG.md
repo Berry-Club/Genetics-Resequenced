@@ -247,7 +247,6 @@
 - Entity Genes are now datagenned rather than manually typed
 - The Ender Dragon no longer can give the Basic Gene
 - The info pages that show what entities give what genes now uses an Organic Matter item rather than a DNA Helix item
-- Added every Organic Matter item to the creative tab and EMI
 - EMI now considers each type of Organic Matter to be separate
 - Improved the method used to make mobs that don't have any Gene weights always give the Basic Gene
     - Consequently, their info pages now show that they have a 100% chance of giving the Basic Gene, rather than not having an info page at all
@@ -258,6 +257,8 @@
     - This should be a non-breaking change
 - Moved several Data Component keys to snake_case from camelCase (for example, `dnaPoints` is now `dna_points`)
     - This should also be a non-breaking change
+- Renamed the Data Component `geneticsresequenced:active` to `geneticsresequenced:is_active`
+  - This is a breaking change, but only for Anti-Field Orbs, and it basically just resets them to false
 - The Data Component `geneticsresequenced:specific_entity` now uses a Component instead of a String for the name field.
-  - Consequently, Syringe tooltips should look better in some cases
-  - This shouldn't be a breaking change, but if it is, it only affects filled Syringes
+    - Consequently, Syringe tooltips should look better in some cases
+    - This shouldn't be a breaking change, but if it is, it only affects filled Syringes
