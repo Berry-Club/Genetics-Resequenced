@@ -72,22 +72,6 @@ object ModGenes {
 
     val BASIC = resourceKey("basic")
 
-    // Mutations
-    val CLAWS_TWO = resourceKey("claws_2")
-    val EFFICIENCY_FOUR = resourceKey("efficiency_4")
-    val FLIGHT = resourceKey("flight")
-    val HASTE_TWO = resourceKey("haste_2")
-    val MEATY_TWO = resourceKey("meaty_2")
-    val MORE_HEARTS_TWO = resourceKey("more_hearts_2")
-    val PHOTOSYNTHESIS = resourceKey("photosynthesis")
-    val REGENERATION_FOUR = resourceKey("regeneration_4")
-    val RESISTANCE_TWO = resourceKey("resistance_2")
-    val SPEED_FOUR = resourceKey("speed_4")
-    val SPEED_TWO = resourceKey("speed_2")
-    val STRENGTH_TWO = resourceKey("strength_2")
-    val SCARE_ZOMBIES = resourceKey("scare_zombies")
-    val SCARE_SPIDERS = resourceKey("scare_spiders")
-
     //Standard list
 
     val BIOLUMINESCENCE = resourceKey("bioluminescence")
@@ -137,6 +121,22 @@ object ModGenes {
     val WITHER_PROOF = resourceKey("wither_proof")
     val WOOLY = resourceKey("wooly")
     val XP_MAGNET = resourceKey("xp_magnet")
+
+    // Mutations
+    val CLAWS_TWO = resourceKey("claws_2")
+    val EFFICIENCY_FOUR = resourceKey("efficiency_4")
+    val FLIGHT = resourceKey("flight")
+    val HASTE_TWO = resourceKey("haste_2")
+    val MEATY_TWO = resourceKey("meaty_2")
+    val MORE_HEARTS_TWO = resourceKey("more_hearts_2")
+    val PHOTOSYNTHESIS = resourceKey("photosynthesis")
+    val REGENERATION_FOUR = resourceKey("regeneration_4")
+    val RESISTANCE_TWO = resourceKey("resistance_2")
+    val SPEED_FOUR = resourceKey("speed_4")
+    val SPEED_TWO = resourceKey("speed_2")
+    val STRENGTH_TWO = resourceKey("strength_2")
+    val SCARE_ZOMBIES = resourceKey("scare_zombies")
+    val SCARE_SPIDERS = resourceKey("scare_spiders")
 
     //Negative effects
 
