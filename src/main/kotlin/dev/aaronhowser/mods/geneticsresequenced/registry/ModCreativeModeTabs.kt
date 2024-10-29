@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
-import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.CreativeModeTab
@@ -23,11 +22,16 @@ object ModCreativeModeTabs {
             .title(ModLanguageProvider.Items.CREATIVE_TAB.toComponent())
             .icon { ModItems.SYRINGE.toStack() }
             .displayItems { displayContext: CreativeModeTab.ItemDisplayParameters, output: CreativeModeTab.Output ->
-                output.acceptAll(ModItems.ITEM_REGISTRY.entries.map { (it as DeferredItem).toStack() })
+                val regularItems =
+                    ModItems.ITEM_REGISTRY.entries - ModItems.DNA_HELIX - ModItems.PLASMID
 
-                output.acceptAll(EntityDnaItem.getAllOrganicMatterStacks())
-                output.acceptAll(DnaHelixItem.getAllHelices(displayContext.holders))
-                output.acceptAll(PlasmidItem.getAllPlasmids(displayContext.holders))
+                val itemsToDisplay = buildList {
+                    addAll(regularItems.map { (it as DeferredItem).toStack() })
+                    addAll(DnaHelixItem.getAllHelices(displayContext.holders))
+                    addAll(PlasmidItem.getAllPlasmids(displayContext.holders))
+                }
+
+                output.acceptAll(itemsToDisplay)
             }
             .build()
     })
