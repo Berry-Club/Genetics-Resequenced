@@ -1,5 +1,4 @@
 {
-  "allowed_entities": "minecraft:player",
   "attribute_modifiers": [
     {
       "attribute": "minecraft:generic.max_health",

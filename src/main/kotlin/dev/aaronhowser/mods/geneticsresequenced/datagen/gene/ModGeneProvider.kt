@@ -106,8 +106,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                             Attributes.MAX_HEALTH,
                             ModAttributes.moreHealthTwoAttributeModifier
                         )
-                    ),
-                    allowedEntities = onlyPlayers
+                    )
                 )
             )
 
@@ -278,8 +277,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                         PotionDetails(
                             effect = MobEffects.DIG_SPEED
                         )
-                    ),
-                    allowedEntities = onlyPlayers
+                    )
                 )
             )
 
@@ -413,8 +411,7 @@ class ModGeneProvider : RegistrySetBuilder() {
                         PotionDetails(
                             effect = MobEffects.NIGHT_VISION
                         )
-                    ),
-                    allowedEntities = onlyPlayers
+                    )
                 )
             )
 
