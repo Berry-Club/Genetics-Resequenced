@@ -94,7 +94,17 @@ object ModInformationRecipes {
     }
 
     private fun organicMatter(): List<EmiInfoRecipe> {
-        val recipes = mutableListOf<EmiInfoRecipe>()
+        val noEntityRecipe = EmiInfoRecipe(
+            listOf(
+                EmiIngredient.of(
+                    Ingredient.of(ModItems.ORGANIC_MATTER.toStack())
+                )
+            ),
+            listOf(ModLanguageProvider.Info.ORGANIC_MATTER_EMPTY.toComponent()),
+            OtherUtil.modResource("/info/organic_matter/no_entity")
+        )
+
+        val recipes: MutableList<EmiInfoRecipe> = mutableListOf(noEntityRecipe)
 
         for (entityType in EntityDnaItem.validEntityTypes) {
 

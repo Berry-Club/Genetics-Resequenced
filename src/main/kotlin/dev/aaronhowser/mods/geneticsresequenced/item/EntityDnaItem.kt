@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -53,15 +52,6 @@ open class EntityDnaItem : Item(Properties()) {
             BuiltInRegistries.ENTITY_TYPE
                 .filter { it.category != MobCategory.MISC || it in includeTheseEntityTypes }
                 .toMutableSet()
-
-        fun getOrganicMatterStack(entityType: EntityType<*>): ItemStack {
-            val itemStack = ModItems.ORGANIC_MATTER.toStack()
-            return if (setEntityType(itemStack, entityType)) itemStack else ItemStack.EMPTY
-        }
-
-        fun getAllOrganicMatterStacks(): List<ItemStack> {
-            return validEntityTypes.map { getOrganicMatterStack(it) }
-        }
 
     }
 

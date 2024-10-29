@@ -198,6 +198,7 @@ class ModLanguageProvider(
 
     object Info {
         const val ORGANIC_MATTER = "info.geneticsresequenced.organic_matter"
+        const val ORGANIC_MATTER_EMPTY = "info.geneticsresequenced.organic_matter.empty"
         const val MOB_GENE_ONE = "info.geneticsresequenced.mob_gene.line1"
         const val MOB_GENE_TWO = "info.geneticsresequenced.mob_gene.line2"
         const val REQUIRED_GENES = "info.geneticsresequenced.requires_genes"
@@ -557,6 +558,7 @@ class ModLanguageProvider(
         add(EMI.BLOCKS_MOB_INTERACTION_TAG, "Prevents item interaction with entities that have the #geneticsresequenced:allows_preventing_interaction tag\nUsed for Villagers etc that already have their own interactions")
 
         add(Info.ORGANIC_MATTER, "Acquired by clicking a %1\$s with a Scraper.")
+        add(Info.ORGANIC_MATTER_EMPTY, "Acquired by clicking an entity with a Scraper.")
         add(Info.MOB_GENE_ONE, "%1\$s has these Genes:")
         add(Info.MOB_GENE_TWO, "\n%d%% of %2\$s")
         add(Info.REQUIRED_GENES, "Required Genes:")

@@ -315,6 +315,7 @@
   "info.geneticsresequenced.mob_gene.line1": "%1$s has these Genes:",
   "info.geneticsresequenced.mob_gene.line2": "\n%d%% of %2$s",
   "info.geneticsresequenced.organic_matter": "Acquired by clicking a %1$s with a Scraper.",
+  "info.geneticsresequenced.organic_matter.empty": "Acquired by clicking an entity with a Scraper.",
   "info.geneticsresequenced.requires_genes": "Required Genes:",
   "item.geneticsresequenced.anti_field_orb": "Anti-Field Orb",
   "item.geneticsresequenced.anti_plasmid": "Anti-Plasmid",
