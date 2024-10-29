@@ -166,7 +166,7 @@ dependencies {
     runtimeOnly "curse.maven:architectury-api-419699:5553800"
     runtimeOnly "curse.maven:cloth-config-348521:5623420"
 
-    // KubeJs
+    // KubeJS
     runtimeOnly "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
 }
 
