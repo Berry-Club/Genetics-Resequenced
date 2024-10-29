@@ -29,7 +29,7 @@ class ModGeneProvider : RegistrySetBuilder() {
         ) = Gene(dnaPointsRequired, allowedEntities, potionDetails, attributeModifiers, scaresEntitiesWithTag)
 
         val noEntities: HolderSet<EntityType<*>> = HolderSet.empty()
-        val onlyPlayers = HolderSet.direct(EntityType.PLAYER.builtInRegistryHolder())
+        val onlyPlayers: HolderSet.Direct<EntityType<*>> = HolderSet.direct(EntityType.PLAYER.builtInRegistryHolder())
 
         fun bootstrap(context: BootstrapContext<Gene>) {
 
