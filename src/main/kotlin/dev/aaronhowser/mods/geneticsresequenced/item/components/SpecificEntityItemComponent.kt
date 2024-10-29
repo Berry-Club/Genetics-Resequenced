@@ -8,6 +8,7 @@ import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
+import net.neoforged.neoforge.common.util.NeoForgeExtraCodecs
 import java.util.*
 
 data class SpecificEntityItemComponent(
@@ -31,8 +32,12 @@ data class SpecificEntityItemComponent(
 
         val CODEC: Codec<SpecificEntityItemComponent> = RecordCodecBuilder.create { instance ->
             instance.group(
-                UUID_CODEC.fieldOf("entityUuid").forGetter(SpecificEntityItemComponent::entityUuid),
-                Codec.STRING.fieldOf("entityName").forGetter(SpecificEntityItemComponent::entityName)
+                NeoForgeExtraCodecs
+                    .aliasedFieldOf(UUID_CODEC, "entity_uuid", "entityUuid")
+                    .forGetter(SpecificEntityItemComponent::entityUuid),
+                NeoForgeExtraCodecs
+                    .aliasedFieldOf(Codec.STRING, "entity_name", "entityName")
+                    .forGetter(SpecificEntityItemComponent::entityName)
             ).apply(instance, ::SpecificEntityItemComponent)
         }
 

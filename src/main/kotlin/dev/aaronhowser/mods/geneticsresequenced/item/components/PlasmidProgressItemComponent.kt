@@ -7,6 +7,7 @@ import net.minecraft.core.Holder
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
+import net.neoforged.neoforge.common.util.NeoForgeExtraCodecs
 
 data class PlasmidProgressItemComponent(
     val geneHolder: Holder<Gene>,
@@ -17,8 +18,13 @@ data class PlasmidProgressItemComponent(
 
         val CODEC: Codec<PlasmidProgressItemComponent> = RecordCodecBuilder.create { instance ->
             instance.group(
-                Gene.CODEC.fieldOf("gene").forGetter(PlasmidProgressItemComponent::geneHolder),
-                Codec.INT.fieldOf("dnaPoints").forGetter(PlasmidProgressItemComponent::dnaPoints)
+                Gene.CODEC
+                    .fieldOf("gene")
+                    .forGetter(PlasmidProgressItemComponent::geneHolder),
+                // Should make it start writing as dna_points, but won't break existing saves
+                NeoForgeExtraCodecs
+                    .aliasedFieldOf(Codec.INT, "dna_points", "dnaPoints")
+                    .forGetter(PlasmidProgressItemComponent::dnaPoints)
             ).apply(instance, ::PlasmidProgressItemComponent)
         }
 
