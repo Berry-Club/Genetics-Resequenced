@@ -4,8 +4,8 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
+import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.CreativeModeTab
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -22,8 +22,12 @@ object ModCreativeModeTabs {
         CreativeModeTab.builder()
             .title(ModLanguageProvider.Items.CREATIVE_TAB.toComponent())
             .icon { ModItems.SYRINGE.toStack() }
-            .displayItems { _: CreativeModeTab.ItemDisplayParameters, output: CreativeModeTab.Output ->
+            .displayItems { displayContext: CreativeModeTab.ItemDisplayParameters, output: CreativeModeTab.Output ->
                 output.acceptAll(ModItems.ITEM_REGISTRY.entries.map { (it as DeferredItem).toStack() })
+
+                output.acceptAll(EntityDnaItem.getAllOrganicMatterStacks())
+                output.acceptAll(DnaHelixItem.getAllHelices(displayContext.holders))
+                output.acceptAll(PlasmidItem.getAllPlasmids(displayContext.holders))
             }
             .build()
     })
