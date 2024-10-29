@@ -4,8 +4,10 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
+import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.CreativeModeTab
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredItem
@@ -23,10 +25,13 @@ object ModCreativeModeTabs {
             .icon { ModItems.SYRINGE.toStack() }
             .displayItems { displayContext: CreativeModeTab.ItemDisplayParameters, output: CreativeModeTab.Output ->
                 val regularItems =
-                    ModItems.ITEM_REGISTRY.entries - ModItems.DNA_HELIX - ModItems.PLASMID
+                    ModItems.ITEM_REGISTRY.entries - ModItems.DNA_HELIX - ModItems.PLASMID - ModItems.ORGANIC_MATTER - ModItems.CELL
 
                 val itemsToDisplay = buildList {
                     addAll(regularItems.map { (it as DeferredItem).toStack() })
+
+                    add(EntityDnaItem.getOrganicStack(EntityType.PIG))
+                    add(EntityDnaItem.getCell(EntityType.PIG))
                     addAll(DnaHelixItem.getAllHelices(displayContext.holders))
                     addAll(PlasmidItem.getAllPlasmids(displayContext.holders))
                 }

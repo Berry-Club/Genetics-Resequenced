@@ -24,17 +24,18 @@ open class EntityDnaItem : Item(Properties()) {
 
     companion object {
 
-        fun getOrganicStack(entityType: EntityType<*>): ItemStack {
-            val itemStack = ModItems.ORGANIC_MATTER.toStack()
-            setEntityType(itemStack, entityType)
-            return itemStack
-        }
+        val includeTheseEntityTypes = mutableSetOf(
+            EntityType.PLAYER,
+            EntityType.IRON_GOLEM,
+            EntityType.SNOW_GOLEM,
+            EntityType.VILLAGER
+        )
 
-        fun getCell(entityType: EntityType<*>): ItemStack {
-            val itemStack = ModItems.CELL.toStack()
-            setEntityType(itemStack, entityType)
-            return itemStack
-        }
+        val validEntityTypes: MutableSet<EntityType<*>> =
+            BuiltInRegistries.ENTITY_TYPE
+                .filter { it.category != MobCategory.MISC || it in includeTheseEntityTypes }
+                .toMutableSet()
+
 
         fun setEntityType(itemStack: ItemStack, entityType: EntityType<*>): Boolean {
             if (entityType !in validEntityTypes) {
@@ -48,24 +49,23 @@ open class EntityDnaItem : Item(Properties()) {
             return true
         }
 
+        fun getOrganicStack(entityType: EntityType<*>): ItemStack {
+            val itemStack = ModItems.ORGANIC_MATTER.toStack()
+            setEntityType(itemStack, entityType)
+            return itemStack
+        }
+
+        fun getCell(entityType: EntityType<*>): ItemStack {
+            val itemStack = ModItems.CELL.toStack()
+            setEntityType(itemStack, entityType)
+            return itemStack
+        }
+
         fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.ENTITY_TYPE_COMPONENT)
 
         fun getEntityType(itemStack: ItemStack): EntityType<*>? {
             return itemStack.get(ModDataComponents.ENTITY_TYPE_COMPONENT)
         }
-
-        val includeTheseEntityTypes = mutableSetOf(
-            EntityType.PLAYER,
-            EntityType.IRON_GOLEM,
-            EntityType.SNOW_GOLEM,
-            EntityType.VILLAGER
-        )
-
-        val validEntityTypes: MutableSet<EntityType<*>> =
-            BuiltInRegistries.ENTITY_TYPE
-                .filter { it.category != MobCategory.MISC || it in includeTheseEntityTypes }
-                .toMutableSet()
-
     }
 
     override fun interactLivingEntity(
