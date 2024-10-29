@@ -2,20 +2,34 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.gene
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.AttributeEntry
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.PotionDetails
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistrySetBuilder
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.data.worldgen.BootstrapContext
+import net.minecraft.tags.TagKey
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.neoforged.neoforge.common.NeoForgeMod
+import net.neoforged.neoforge.registries.holdersets.AnyHolderSet
 import java.util.*
 
 class ModGeneProvider : RegistrySetBuilder() {
 
     companion object {
+
+        private fun makeGene(
+            dnaPointsRequired: Int = 1,
+            allowedEntities: HolderSet<EntityType<*>> = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup()),
+            potionDetails: Optional<PotionDetails> = Optional.empty(),
+            attributeModifiers: List<AttributeEntry> = emptyList(),
+            scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>> = Optional.empty()
+        ) = Gene(dnaPointsRequired, allowedEntities, potionDetails, attributeModifiers, scaresEntitiesWithTag)
+
         fun bootstrap(context: BootstrapContext<Gene>) {
 
             val noEntities: HolderSet<EntityType<*>> = HolderSet.empty()
@@ -23,7 +37,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.BASIC,
-                Gene(
+                makeGene(
                     allowedEntities = noEntities
                 )
             )
@@ -32,17 +46,17 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.CLAWS_TWO,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50
                 )
             )
 
             context.register(
                 ModGenes.EFFICIENCY_FOUR,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50,
                     attributeModifiers = listOf(
-                        Gene.AttributeEntry(
+                        AttributeEntry(
                             ModAttributes.EFFICIENCY,
                             ModAttributes.efficiencyFourAttributeModifier
                         )
@@ -53,10 +67,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.FLIGHT,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50,
                     attributeModifiers = listOf(
-                        Gene.AttributeEntry(
+                        AttributeEntry(
                             NeoForgeMod.CREATIVE_FLIGHT,
                             ModAttributes.flightAttributeModifier
                         )
@@ -67,10 +81,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.HASTE_TWO,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.DIG_SPEED,
                             level = 2
                         )
@@ -80,17 +94,17 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.MEATY_TWO,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50
                 )
             )
 
             context.register(
                 ModGenes.MORE_HEARTS_TWO,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50,
                     attributeModifiers = listOf(
-                        Gene.AttributeEntry(
+                        AttributeEntry(
                             Attributes.MAX_HEALTH,
                             ModAttributes.moreHealthTwoAttributeModifier
                         )
@@ -101,7 +115,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.PHOTOSYNTHESIS,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 40,
                     allowedEntities = onlyPlayers
                 )
@@ -109,10 +123,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.REGENERATION_FOUR,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.REGENERATION,
                             level = 4
                         )
@@ -122,10 +136,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.RESISTANCE_TWO,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.DAMAGE_RESISTANCE,
                             level = 2
                         )
@@ -135,10 +149,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.SPEED_FOUR,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.MOVEMENT_SPEED,
                             level = 4
                         )
@@ -148,10 +162,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.SPEED_TWO,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.MOVEMENT_SPEED,
                             level = 2
                         )
@@ -161,10 +175,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.STRENGTH_TWO,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.DAMAGE_BOOST,
                             level = 2
                         )
@@ -176,35 +190,35 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.BIOLUMINESCENCE,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 16
                 )
             )
 
             context.register(
                 ModGenes.CHATTERBOX,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 20
                 )
             )
 
             context.register(
                 ModGenes.CHILLING,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 20
                 )
             )
 
             context.register(
                 ModGenes.CLAWS,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 20,
                 )
             )
 
             context.register(
                 ModGenes.DRAGON_BREATH,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 20,
                     allowedEntities = onlyPlayers
                 )
@@ -212,17 +226,17 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.EAT_GRASS,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 16
                 )
             )
 
             context.register(
                 ModGenes.EFFICIENCY,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 30,
                     attributeModifiers = listOf(
-                        Gene.AttributeEntry(
+                        AttributeEntry(
                             ModAttributes.EFFICIENCY,
                             ModAttributes.efficiencyAttributeModifier
                         )
@@ -232,38 +246,38 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.EMERALD_HEART,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 30
                 )
             )
 
             context.register(
                 ModGenes.ENDER_DRAGON_HEALTH,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 60
                 )
             )
 
             context.register(
                 ModGenes.EXPLOSIVE_EXIT,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 20
                 )
             )
 
             context.register(
                 ModGenes.FIRE_PROOF,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 24
                 )
             )
 
             context.register(
                 ModGenes.HASTE,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 30,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.DIG_SPEED
                         )
                     ),
@@ -273,7 +287,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.INFINITY,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 30,
                     allowedEntities = onlyPlayers
                 )
@@ -281,10 +295,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.INVISIBLE,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.INVISIBILITY
                         )
                     )
@@ -293,7 +307,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.ITEM_MAGNET,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 30,
                     allowedEntities = onlyPlayers
                 )
@@ -301,10 +315,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.JUMP_BOOST,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 10,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.JUMP
                         )
                     ),
@@ -313,14 +327,14 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.JOHNNY,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 20
                 )
             )
 
             context.register(
                 ModGenes.KEEP_INVENTORY,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 40,
                     allowedEntities = onlyPlayers
                 )
@@ -328,10 +342,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.KNOCKBACK,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 20,
                     attributeModifiers = listOf(
-                        Gene.AttributeEntry(
+                        AttributeEntry(
                             Attributes.ATTACK_KNOCKBACK,
                             ModAttributes.knockbackAttributeModifier
                         )
@@ -341,17 +355,17 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.LAY_EGG,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 12
                 )
             )
 
             context.register(
                 ModGenes.LUCK,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.LUCK
                         )
                     )
@@ -360,21 +374,21 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.MEATY,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 12,
                 )
             )
 
             context.register(
                 ModGenes.MILKY,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 12
                 )
             )
 
             context.register(
                 ModGenes.MOB_SIGHT,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 16,
                     allowedEntities = onlyPlayers
                 )
@@ -382,10 +396,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.MORE_HEARTS,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 40,
                     attributeModifiers = listOf(
-                        Gene.AttributeEntry(
+                        AttributeEntry(
                             Attributes.MAX_HEALTH,
                             ModAttributes.moreHealthOneAttributeModifier
                         )
@@ -395,10 +409,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.NIGHT_VISION,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 16,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.NIGHT_VISION
                         )
                     ),
@@ -408,14 +422,14 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.NO_FALL_DAMAGE,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 30
                 )
             )
 
             context.register(
                 ModGenes.NO_HUNGER,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 30,
                     allowedEntities = onlyPlayers
                 )
@@ -423,22 +437,22 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.POISON_IMMUNITY,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 24
                 )
             )
 
             context.register(
                 ModGenes.REACHING,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50,
                     allowedEntities = onlyPlayers,
                     attributeModifiers = listOf(
-                        Gene.AttributeEntry(
+                        AttributeEntry(
                             Attributes.ENTITY_INTERACTION_RANGE,
                             ModAttributes.reachingAttributeModifier
                         ),
-                        Gene.AttributeEntry(
+                        AttributeEntry(
                             Attributes.BLOCK_INTERACTION_RANGE,
                             ModAttributes.reachingAttributeModifier
                         )
@@ -448,10 +462,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.REGENERATION,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 60,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.REGENERATION
                         )
                     ),
@@ -460,10 +474,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.RESISTANCE,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 30,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.DAMAGE_RESISTANCE
                         )
                     ),
@@ -472,7 +486,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.SCARE_CREEPERS,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 20,
                     scaresEntitiesWithTag = Optional.of(ModEntityTypeTagsProvider.AVOIDS_SCARE_CREEPER_GENE)
                 )
@@ -480,7 +494,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.SCARE_SKELETONS,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 20,
                     scaresEntitiesWithTag = Optional.of(ModEntityTypeTagsProvider.AVOIDS_SCARE_SKELETON_GENE)
                 )
@@ -488,7 +502,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.SCARE_SPIDERS,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50,
                     scaresEntitiesWithTag = Optional.of(ModEntityTypeTagsProvider.AVOIDS_SCARE_SPIDER_GENE)
                 )
@@ -496,7 +510,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.SCARE_ZOMBIES,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 50,
                     scaresEntitiesWithTag = Optional.of(ModEntityTypeTagsProvider.AVOIDS_SCARE_ZOMBIE_GENE)
                 )
@@ -504,7 +518,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.SHOOT_FIREBALLS,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 24,
                     allowedEntities = onlyPlayers
                 )
@@ -512,7 +526,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.SLIMY_DEATH,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 60,
                     allowedEntities = onlyPlayers
                 )
@@ -520,10 +534,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.SPEED,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 20,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.MOVEMENT_SPEED
                         )
                     ),
@@ -532,10 +546,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.STEP_ASSIST,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 10,
                     attributeModifiers = listOf(
-                        Gene.AttributeEntry(
+                        AttributeEntry(
                             Attributes.STEP_HEIGHT,
                             ModAttributes.stepAssistAttributeModifier
                         )
@@ -545,10 +559,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.STRENGTH,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 20,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.DAMAGE_BOOST
                         )
                     ),
@@ -557,7 +571,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.TELEPORT,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 24,
                     allowedEntities = onlyPlayers
                 )
@@ -565,14 +579,14 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.THORNS,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 12
                 )
             )
 
             context.register(
                 ModGenes.WALL_CLIMBING,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 40,
                     allowedEntities = onlyPlayers
                 )
@@ -580,35 +594,35 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.WATER_BREATHING,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 16
                 )
             )
 
             context.register(
                 ModGenes.WITHER_HIT,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 20,
                 )
             )
 
             context.register(
                 ModGenes.WITHER_PROOF,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 40
                 )
             )
 
             context.register(
                 ModGenes.WOOLY,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 12
                 )
             )
 
             context.register(
                 ModGenes.XP_MAGNET,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 30,
                     allowedEntities = onlyPlayers
                 )
@@ -620,10 +634,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.BAD_OMEN,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 20,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.BAD_OMEN
                         )
                     )
@@ -632,9 +646,9 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.BLINDNESS,
-                Gene(
+                makeGene(
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.BLINDNESS
                         )
                     )
@@ -643,7 +657,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.CRINGE,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 20,
                     allowedEntities = onlyPlayers
                 )
@@ -651,9 +665,9 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.CURSED,
-                Gene(
+                makeGene(
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.UNLUCK
                         )
                     )
@@ -662,16 +676,16 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.FLAMBE,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 1
                 )
             )
 
             context.register(
                 ModGenes.HUNGER,
-                Gene(
+                makeGene(
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.HUNGER
                         )
                     )
@@ -680,10 +694,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.INFESTED,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 10,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.INFESTED
                         )
                     )
@@ -692,9 +706,9 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.LEVITATION,
-                Gene(
+                makeGene(
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.LEVITATION
                         )
                     )
@@ -703,9 +717,9 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.MINING_FATIGUE,
-                Gene(
+                makeGene(
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.DIG_SLOWDOWN
                         )
                     )
@@ -714,9 +728,9 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.NAUSEA,
-                Gene(
+                makeGene(
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.CONFUSION
                         )
                     )
@@ -725,10 +739,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.OOZING,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 10,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.OOZING
                         )
                     )
@@ -737,9 +751,9 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.POISON,
-                Gene(
+                makeGene(
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.POISON
                         )
                     )
@@ -748,9 +762,9 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.POISON_FOUR,
-                Gene(
+                makeGene(
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.POISON,
                             level = 4
                         )
@@ -760,9 +774,9 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.SLOWNESS,
-                Gene(
+                makeGene(
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.MOVEMENT_SLOWDOWN
                         )
                     )
@@ -771,9 +785,9 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.SLOWNESS_FOUR,
-                Gene(
+                makeGene(
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.MOVEMENT_SLOWDOWN,
                             level = 4
                         )
@@ -783,9 +797,9 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.SLOWNESS_SIX,
-                Gene(
+                makeGene(
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.MOVEMENT_SLOWDOWN,
                             level = 6
                         )
@@ -795,10 +809,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.WEAVING,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 10,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.WEAVING
                         )
                     )
@@ -807,9 +821,9 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.WEAKNESS,
-                Gene(
+                makeGene(
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.WEAKNESS
                         )
                     )
@@ -818,10 +832,10 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.WIND_CHARGED,
-                Gene(
+                makeGene(
                     dnaPointsRequired = 10,
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.WIND_CHARGED
                         )
                     )
@@ -830,9 +844,9 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.WITHER,
-                Gene(
+                makeGene(
                     potionDetails = Optional.of(
-                        Gene.PotionDetails(
+                        PotionDetails(
                             effect = MobEffects.WITHER
                         )
                     )
@@ -843,27 +857,27 @@ class ModGeneProvider : RegistrySetBuilder() {
 
             context.register(
                 ModGenes.BLACK_DEATH,
-                Gene()
+                makeGene()
             )
 
             context.register(
                 ModGenes.GREEN_DEATH,
-                Gene()
+                makeGene()
             )
 
             context.register(
                 ModGenes.WHITE_DEATH,
-                Gene()
+                makeGene()
             )
 
             context.register(
                 ModGenes.GRAY_DEATH,
-                Gene()
+                makeGene()
             )
 
             context.register(
                 ModGenes.UN_UNDEATH,
-                Gene()
+                makeGene()
             )
 
         }

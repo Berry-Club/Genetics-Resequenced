@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.item.*
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.SpawnEggItem
+import net.neoforged.neoforge.common.DeferredSpawnEggItem
 import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
 
@@ -39,8 +40,8 @@ object ModItems {
         ITEM_REGISTRY.registerItem("dragon_health_crystal") { DragonHealthCrystal() }
     val FRIENDLY_SLIME_SPAWN_EGG: DeferredItem<SpawnEggItem> =
         ITEM_REGISTRY.registerItem("support_slime_spawn_egg") {
-            SpawnEggItem(
-                ModEntityTypes.SUPPORT_SLIME.get(),
+            DeferredSpawnEggItem(
+                ModEntityTypes.SUPPORT_SLIME,
                 0x00FF00,
                 0x0000FF,
                 Item.Properties()

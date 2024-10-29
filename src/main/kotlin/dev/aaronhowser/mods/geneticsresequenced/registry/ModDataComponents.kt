@@ -3,13 +3,14 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.item.components.*
 import net.minecraft.core.component.DataComponentType
+import net.minecraft.core.registries.Registries
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 
 object ModDataComponents {
 
     val DATA_COMPONENT_REGISTRY: DeferredRegister.DataComponents =
-        DeferredRegister.createDataComponents(GeneticsResequenced.ID)
+        DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, GeneticsResequenced.ID)
 
     val ENTITY_TYPE_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<EntityTypeItemComponent>> =
         DATA_COMPONENT_REGISTRY.registerComponentType("entity_type") {

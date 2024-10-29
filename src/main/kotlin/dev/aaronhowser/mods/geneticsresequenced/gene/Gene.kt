@@ -9,7 +9,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModGeneTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
@@ -39,11 +38,11 @@ import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
 data class Gene(
-    val dnaPointsRequired: Int = 1,
-    val allowedEntities: HolderSet<EntityType<*>> = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup()),
-    val potionDetails: Optional<PotionDetails> = Optional.empty(),
-    val attributeModifiers: List<AttributeEntry> = emptyList(),
-    val scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>> = Optional.empty()
+    val dnaPointsRequired: Int,
+    val allowedEntities: HolderSet<EntityType<*>>,
+    val potionDetails: Optional<PotionDetails>,
+    val attributeModifiers: List<AttributeEntry>,
+    val scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>>
 ) {
 
     data class AttributeEntry(
