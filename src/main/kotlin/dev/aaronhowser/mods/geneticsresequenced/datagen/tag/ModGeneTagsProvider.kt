@@ -28,7 +28,7 @@ class ModGeneTagsProvider(
             return TagKey.create(ModGenes.GENE_REGISTRY_KEY, OtherUtil.modResource(name))
         }
 
-        val HIDDEN = create("hidden")
+        val HELIX_ONLY = create("helix_only")
         val NEGATIVE = create("negative")
         val MUTATION = create("mutation")
         val DISABLED = create("disabled")
@@ -36,7 +36,7 @@ class ModGeneTagsProvider(
 
     override fun addTags(pProvider: HolderLookup.Provider) {
 
-        this.tag(HIDDEN)
+        this.tag(HELIX_ONLY)
             .add(ModGenes.BASIC)
 
         this.tag(MUTATION)

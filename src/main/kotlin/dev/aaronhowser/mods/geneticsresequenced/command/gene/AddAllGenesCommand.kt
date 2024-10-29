@@ -5,7 +5,7 @@ import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHidden
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.commands.CommandSourceStack
@@ -53,7 +53,7 @@ object AddAllGenesCommand {
             val genesToAdd =
                 ModGenes
                     .getAllGeneHolders(context.source.registryAccess())
-                    .filter { !it.isHidden && !it.isNegative && it.value().canEntityHave(target) }
+                    .filter { !it.isDisabled && !it.isNegative && it.value().canEntityHave(target) }
 
             for (gene in genesToAdd) {
                 target.addGene(gene)
@@ -72,7 +72,7 @@ object AddAllGenesCommand {
         val genesToAdd =
             ModGenes
                 .getAllGeneHolders(context.source.registryAccess())
-                .filter { !it.isHidden && !it.isNegative && it.value().canEntityHave(target) }
+                .filter { !it.isDisabled && !it.isNegative && it.value().canEntityHave(target) }
 
         for (gene in genesToAdd) {
             target.addGene(gene)

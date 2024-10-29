@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHidden
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -39,8 +39,8 @@ data class GenesData(
 
         fun LivingEntity.addGene(newGeneHolder: Holder<Gene>): Boolean {
             if (this.hasGene(newGeneHolder)) return false
-            if (newGeneHolder.isHidden) {
-                GeneticsResequenced.LOGGER.debug("Cannot add hidden gene $newGeneHolder to entity.")
+            if (newGeneHolder.isHelixOnly) {
+                GeneticsResequenced.LOGGER.debug("Cannot add gene $newGeneHolder to entities, as it has tag `#geneticsresequenced:helix_only`.")
                 return false
             }
 
@@ -48,7 +48,7 @@ data class GenesData(
                 this is Player
                 && newGeneHolder.isNegative
                 && ServerConfig.disableGivingPlayersNegativeGenes.get()
-                && newGeneHolder.key != ModGenes.CRINGE
+                && !newGeneHolder.`is`(ModGenes.CRINGE)
             ) {
                 GeneticsResequenced.LOGGER.debug(
                     "Tried to give negative gene $newGeneHolder to player $this, but \"disableGivingPlayersNegativeGenes\" is true in the server config."

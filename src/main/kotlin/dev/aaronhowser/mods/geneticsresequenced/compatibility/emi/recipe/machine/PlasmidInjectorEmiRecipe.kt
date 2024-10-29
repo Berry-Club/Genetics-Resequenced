@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -37,8 +36,7 @@ class PlasmidInjectorEmiRecipe(
             val removingMetal: MutableList<PlasmidInjectorEmiRecipe> = mutableListOf()
 
             for (geneHolder in ModGenes
-                .getRegistrySorted(ClientUtil.localRegistryAccess!!)
-                .filterNot { it.isHidden }
+                .getRegistrySorted(ClientUtil.localRegistryAccess!!, includeHelixOnly = false)
             ) {
                 addingGlass.add(PlasmidInjectorEmiRecipe(geneHolder, isMetal = false, isAntiPlasmid = false))
                 addingMetal.add(PlasmidInjectorEmiRecipe(geneHolder, isMetal = false, isAntiPlasmid = true))

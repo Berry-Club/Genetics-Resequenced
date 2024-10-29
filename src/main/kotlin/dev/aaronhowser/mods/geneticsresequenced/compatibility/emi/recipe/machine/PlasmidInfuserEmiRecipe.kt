@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -35,8 +34,7 @@ class PlasmidInfuserEmiRecipe(
             val recipes = mutableListOf<PlasmidInfuserEmiRecipe>()
 
             for (geneHolder in ModGenes
-                .getRegistrySorted(ClientUtil.localRegistryAccess!!)
-                .filterNot { it.isHidden }
+                .getRegistrySorted(ClientUtil.localRegistryAccess!!, includeHelixOnly = false)
             ) {
                 recipes.add(PlasmidInfuserEmiRecipe(geneHolder, basic = true))
                 recipes.add(PlasmidInfuserEmiRecipe(geneHolder, basic = false))

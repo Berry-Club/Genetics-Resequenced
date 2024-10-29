@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -63,8 +62,7 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
         }
 
         fun getAllPlasmids(registries: HolderLookup.Provider): List<ItemStack> {
-            return ModGenes.getRegistrySorted(registries)
-                .filter { !it.isHidden }
+            return ModGenes.getRegistrySorted(registries, includeHelixOnly = false)
                 .map { getCompletedPlasmid(it) }
         }
 

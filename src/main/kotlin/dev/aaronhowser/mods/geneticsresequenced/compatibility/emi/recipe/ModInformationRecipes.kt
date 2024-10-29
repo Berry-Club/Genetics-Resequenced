@@ -7,7 +7,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHidden
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isMutation
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.translationKey
@@ -36,7 +35,7 @@ object ModInformationRecipes {
         val recipes = mutableListOf<EmiInfoRecipe>()
 
         for (geneHolder in ModGenes.getRegistrySorted(registries)) {
-            if (geneHolder.isHidden || geneHolder.isDisabled) continue
+            if (geneHolder.isDisabled) continue
 
             val components: MutableList<MutableComponent> = mutableListOf()
             components.add(

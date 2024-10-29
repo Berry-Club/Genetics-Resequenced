@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHidden
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isMutation
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -45,7 +45,7 @@ object ModGenes {
 
     fun getRegistrySorted(
         registries: HolderLookup.Provider,
-        includeHidden: Boolean = false,
+        includeHelixOnly: Boolean = false,
         includeDisabled: Boolean = false
     ): List<Holder<Gene>> {
         val mutations = mutableListOf<Holder<Gene>>()
@@ -54,7 +54,7 @@ object ModGenes {
 
         for (geneHolder in getAllGeneHolders(registries)) {
             if (geneHolder.isDisabled && !includeDisabled) continue
-            if (geneHolder.isHidden && !includeHidden) continue
+            if (geneHolder.isHelixOnly && !includeHelixOnly) continue
 
             when {
                 geneHolder.isMutation -> mutations.add(geneHolder)

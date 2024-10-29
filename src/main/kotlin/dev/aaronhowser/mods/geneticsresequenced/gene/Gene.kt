@@ -175,8 +175,8 @@ data class Gene(
         val Holder<Gene>.isMutation: Boolean
             get() = this.`is`(ModGeneTagsProvider.MUTATION)
 
-        val Holder<Gene>.isHidden: Boolean
-            get() = this.`is`(ModGeneTagsProvider.HIDDEN)
+        val Holder<Gene>.isHelixOnly: Boolean
+            get() = this.`is`(ModGeneTagsProvider.HELIX_ONLY)
 
         val Holder<Gene>.isDisabled: Boolean
             get() = this.`is`(ModGeneTagsProvider.DISABLED)

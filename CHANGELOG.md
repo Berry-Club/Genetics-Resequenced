@@ -262,3 +262,6 @@
 - The Data Component `geneticsresequenced:specific_entity` now uses a Component instead of a String for the name field.
     - Consequently, Syringe tooltips should look better in some cases
     - This shouldn't be a breaking change, but if it is, it only affects filled Syringes
+- The Gene tag `#geneticsresequenced:hidden` is now `#geneticsresequenced:helix_only`
+  - It's only for Genes that can only be held by DNA Helices, and not Plasmids or entities
+  - This fixes a point of confusion, because the only Gene currently set to this is the Basic Gene. It being called "hidden" made it look like it should be hidden from EMI etc too, which isn't the case

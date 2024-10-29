@@ -4,7 +4,7 @@ import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHidden
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
@@ -90,7 +90,7 @@ class BlackDeathRecipe private constructor() : AbstractIncubatorRecipe() {
 
         fun getRequiredGenes(lookup: HolderLookup.Provider): List<Holder<Gene>> {
             return ModGenes.getRegistrySorted(lookup)
-                .filter { it.isNegative && !it.isHidden && !it.isDisabled } - ModGenes.BLACK_DEATH.getHolder(lookup)!!
+                .filter { it.isNegative && !it.isHelixOnly && !it.isDisabled } - ModGenes.BLACK_DEATH.getHolder(lookup)!!
         }
     }
 
