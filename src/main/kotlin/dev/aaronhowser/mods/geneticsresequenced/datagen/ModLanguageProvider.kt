@@ -558,7 +558,7 @@ class ModLanguageProvider(
         add(EMI.BLOCKS_MOB_INTERACTION_TAG, "Prevents item interaction with entities that have the #geneticsresequenced:allows_preventing_interaction tag\nUsed for Villagers etc that already have their own interactions")
 
         add(Info.ORGANIC_MATTER, "Acquired by clicking a %1\$s with a Scraper.")
-        add(Info.ORGANIC_MATTER_EMPTY, "Acquired by clicking an entity with a Scraper.")
+        add(Info.ORGANIC_MATTER_EMPTY, "Acquired by clicking an entity with a Scraper.\n\nFor more information, look at one that actually has an entity set 😉")
         add(Info.MOB_GENE_ONE, "%1\$s has these Genes:")
         add(Info.MOB_GENE_TWO, "\n%d%% of %2\$s")
         add(Info.REQUIRED_GENES, "Required Genes:")

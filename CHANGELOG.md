@@ -247,7 +247,9 @@
 - Entity Genes are now datagenned rather than manually typed
 - The Ender Dragon no longer can give the Basic Gene
 - The info pages that show what entities give what genes now uses an Organic Matter item rather than a DNA Helix item
-- EMI now considers each type of Organic Matter to be separate
+- EMI now considers each type of Organic Matter and Cell to be separate
+    - Hid the empty ones from EMI, but added all the non-empty ones
+- In entity gene info pages, the left stack now shows both the Organic Matter and the Cell for that entity type
 - Improved the method used to make mobs that don't have any Gene weights always give the Basic Gene
     - Consequently, their info pages now show that they have a 100% chance of giving the Basic Gene, rather than not having an info page at all
 - Fixed info pages for required Genes, now it lists the actually required Genes rather than repeating the Gene itself

@@ -157,23 +157,30 @@ object ModInformationRecipes {
                 informationTextComponent.append(component)
             }
 
-            val organicMatterStack = ModItems.ORGANIC_MATTER.toStack()
-            EntityDnaItem.setEntityType(organicMatterStack, entityType)
+            val organicMatterStack = EntityDnaItem.getOrganicStack(entityType)
+            val cellStack = EntityDnaItem.getCell(entityType)
 
             val mobSpawnEgg = SpawnEggItem.byId(entityType)
 
             val list = buildList {
-                add(organicMatterStack)
+                add(
+                    EmiIngredient.of(
+                        listOf(
+                            EmiIngredient.of(Ingredient.of(organicMatterStack)),
+                            EmiIngredient.of(Ingredient.of(cellStack))
+                        )
+                    )
+                )
 
                 if (mobSpawnEgg != null) {
-                    add(mobSpawnEgg.defaultInstance)
+                    add(EmiIngredient.of(Ingredient.of(mobSpawnEgg.defaultInstance)))
                 }
             }
 
             val entityString = EntityType.getKey(entityType).toString().replace(':', '/')
 
             val recipe = EmiInfoRecipe(
-                list.map { EmiIngredient.of(Ingredient.of(it)) },
+                list,
                 listOf(informationTextComponent),
                 OtherUtil.modResource("/info/mob_genes/$entityString")
             )

@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
@@ -22,6 +23,18 @@ import net.minecraft.world.item.TooltipFlag
 open class EntityDnaItem : Item(Properties()) {
 
     companion object {
+
+        fun getOrganicStack(entityType: EntityType<*>): ItemStack {
+            val itemStack = ModItems.ORGANIC_MATTER.toStack()
+            setEntityType(itemStack, entityType)
+            return itemStack
+        }
+
+        fun getCell(entityType: EntityType<*>): ItemStack {
+            val itemStack = ModItems.CELL.toStack()
+            setEntityType(itemStack, entityType)
+            return itemStack
+        }
 
         fun setEntityType(itemStack: ItemStack, entityType: EntityType<*>): Boolean {
             if (entityType !in validEntityTypes) {
