@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModGeneTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
@@ -270,6 +271,25 @@ data class Gene(
         val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Holder<Gene>> =
             ByteBufCodecs.holder(ModGenes.GENE_REGISTRY_KEY, DIRECT_STREAM_CODEC)
 
+    }
+
+    override fun toString(): String {
+        return StringBuilder()
+            .append("Gene{")
+            .append("dnaPointsRequired=").append(dnaPointsRequired)
+            .append(", allowedEntities=").append(
+                when (allowedEntities) {
+                    defaultAllowedEntities -> "any"
+                    ModGeneProvider.noEntities -> "none"
+                    ModGeneProvider.onlyPlayers -> "players"
+                    else -> allowedEntities
+                }
+            )
+            .append(", potionDetails=").append(potionDetails)
+            .append(", attributeModifiers=").append(attributeModifiers)
+            .append(", scaresEntitiesWithTag=").append(scaresEntitiesWithTag)
+            .append("}")
+            .toString()
     }
 
 }
