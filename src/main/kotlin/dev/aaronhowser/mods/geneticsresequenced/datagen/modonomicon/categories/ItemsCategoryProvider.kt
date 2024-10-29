@@ -9,7 +9,6 @@ import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
-import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -502,7 +501,7 @@ class ItemsCategoryProvider(
                 )
 
                 val activeOrb = ModItems.ANTI_FIELD_ORB.toStack()
-                activeOrb.set(ModDataComponents.IS_ACTIVE_COMPONENT, BooleanItemComponent(true))
+                activeOrb.set(ModDataComponents.IS_ACTIVE_COMPONENT, true)
 
                 spotlightPage(
                     activeOrb,

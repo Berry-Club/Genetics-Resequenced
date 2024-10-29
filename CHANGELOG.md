@@ -254,3 +254,4 @@
 - Fixed info pages for required Genes, now it lists the actually required Genes rather than repeating the Gene itself
   - Previously, Claws II would say it needs Claws II, rather than needing Claws I. That's fixed now
 - The following Genes can now be held by any mob, rather than only players: Haste, More Hearts II, Night Vision
+- Removed classes for several Data Components, because they really weren't needed. This shouldn't affect anything

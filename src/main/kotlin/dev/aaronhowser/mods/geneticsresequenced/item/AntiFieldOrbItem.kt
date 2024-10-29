@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.BooleanItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
@@ -21,20 +20,20 @@ class AntiFieldOrbItem : Item(
         .stacksTo(1)
         .component(
             ModDataComponents.IS_ACTIVE_COMPONENT,
-            BooleanItemComponent(false)
+            false
         )
 ) {
 
     companion object {
 
         private fun isEnabled(itemStack: ItemStack): Boolean {
-            return itemStack.get(ModDataComponents.IS_ACTIVE_COMPONENT)?.value ?: false
+            return itemStack.get(ModDataComponents.IS_ACTIVE_COMPONENT) ?: false
         }
 
         private fun toggleEnabled(itemStack: ItemStack) {
             itemStack.set(
                 ModDataComponents.IS_ACTIVE_COMPONENT,
-                BooleanItemComponent(!isEnabled(itemStack))
+                !isEnabled(itemStack)
             )
         }
 

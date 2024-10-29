@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
@@ -32,7 +31,7 @@ open class EntityDnaItem : Item(Properties()) {
 
             itemStack.set(
                 ModDataComponents.ENTITY_TYPE_COMPONENT,
-                EntityTypeItemComponent(entityType)
+                entityType
             )
             return true
         }
@@ -40,7 +39,7 @@ open class EntityDnaItem : Item(Properties()) {
         fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.ENTITY_TYPE_COMPONENT)
 
         fun getEntityType(itemStack: ItemStack): EntityType<*>? {
-            return itemStack.get(ModDataComponents.ENTITY_TYPE_COMPONENT)?.entityType
+            return itemStack.get(ModDataComponents.ENTITY_TYPE_COMPONENT)
         }
 
         val includeTheseEntityTypes = mutableSetOf(
