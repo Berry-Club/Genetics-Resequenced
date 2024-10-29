@@ -238,6 +238,7 @@
 
 # 1.5.0
 
+- Updated NeoForge from 21.1.36 to 21.1.73
 - Moved Gene requirements from the Gene constructor to a separate datapack system, located in `/data/____/geneticsresequenced/geme_requirements/`
 - Combined the Gene commands to be arguments of `/geneticsresequenced gene`
 - Localized into Simplified Chinese, thanks to @shenyx110! (#31)
