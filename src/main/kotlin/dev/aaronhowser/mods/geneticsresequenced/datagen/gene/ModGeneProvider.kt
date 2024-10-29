@@ -8,14 +8,12 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistrySetBuilder
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.data.worldgen.BootstrapContext
 import net.minecraft.tags.TagKey
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.neoforged.neoforge.common.NeoForgeMod
-import net.neoforged.neoforge.registries.holdersets.AnyHolderSet
 import java.util.*
 
 class ModGeneProvider : RegistrySetBuilder() {
@@ -24,7 +22,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 
         private fun makeGene(
             dnaPointsRequired: Int = 1,
-            allowedEntities: HolderSet<EntityType<*>> = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup()),
+            allowedEntities: HolderSet<EntityType<*>> = Gene.defaultAllowedEntities,
             potionDetails: Optional<PotionDetails> = Optional.empty(),
             attributeModifiers: List<AttributeEntry> = emptyList(),
             scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>> = Optional.empty()

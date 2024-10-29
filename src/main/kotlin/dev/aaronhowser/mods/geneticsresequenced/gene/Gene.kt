@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModGeneTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
@@ -229,6 +230,8 @@ data class Gene(
 
         val unknownGeneComponent: MutableComponent = ModLanguageProvider.Genes.UNKNOWN.toComponent()
 
+        val defaultAllowedEntities = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup())
+
         val DIRECT_CODEC: Codec<Gene> =
             RecordCodecBuilder.create { instance ->
                 instance.group(
@@ -238,7 +241,7 @@ data class Gene(
                     RegistryCodecs.homogeneousList(Registries.ENTITY_TYPE)
                         .optionalFieldOf(
                             "allowed_entities",
-                            AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup())
+                            defaultAllowedEntities
                         )
                         .forGetter(Gene::allowedEntities),
                     PotionDetails.DIRECT_CODEC
