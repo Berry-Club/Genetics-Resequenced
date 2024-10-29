@@ -12,8 +12,8 @@ import net.neoforged.neoforge.common.util.NeoForgeExtraCodecs
 import java.util.*
 
 data class SpecificEntityItemComponent(
-    val entityUuid: UUID,
-    val entityName: String
+    val uuid: UUID,
+    val name: String
 ) {
 
     companion object {
@@ -33,17 +33,17 @@ data class SpecificEntityItemComponent(
         val CODEC: Codec<SpecificEntityItemComponent> = RecordCodecBuilder.create { instance ->
             instance.group(
                 NeoForgeExtraCodecs
-                    .aliasedFieldOf(UUID_CODEC, "entity_uuid", "entityUuid")
-                    .forGetter(SpecificEntityItemComponent::entityUuid),
+                    .aliasedFieldOf(UUID_CODEC, "uuid", "entityUuid", "entity_uuid")
+                    .forGetter(SpecificEntityItemComponent::uuid),
                 NeoForgeExtraCodecs
-                    .aliasedFieldOf(Codec.STRING, "entity_name", "entityName")
-                    .forGetter(SpecificEntityItemComponent::entityName)
+                    .aliasedFieldOf(Codec.STRING, "name", "entityName", "entity_name")
+                    .forGetter(SpecificEntityItemComponent::name)
             ).apply(instance, ::SpecificEntityItemComponent)
         }
 
         val STREAM_CODEC: StreamCodec<ByteBuf, SpecificEntityItemComponent> = StreamCodec.composite(
-            UUID_STREAM_CODEC, SpecificEntityItemComponent::entityUuid,
-            ByteBufCodecs.STRING_UTF8, SpecificEntityItemComponent::entityName,
+            UUID_STREAM_CODEC, SpecificEntityItemComponent::uuid,
+            ByteBufCodecs.STRING_UTF8, SpecificEntityItemComponent::name,
             ::SpecificEntityItemComponent
         )
 
@@ -61,11 +61,11 @@ data class SpecificEntityItemComponent(
         }
 
         fun ItemStack.getEntityUuid(): UUID? {
-            return this.get(ModDataComponents.SPECIFIC_ENTITY_COMPONENT)?.entityUuid
+            return this.get(ModDataComponents.SPECIFIC_ENTITY_COMPONENT)?.uuid
         }
 
         fun ItemStack.getEntityName(): String? {
-            return this.get(ModDataComponents.SPECIFIC_ENTITY_COMPONENT)?.entityName
+            return this.get(ModDataComponents.SPECIFIC_ENTITY_COMPONENT)?.name
         }
 
     }
