@@ -156,7 +156,7 @@ dependencies {
     implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
     // Modonomicon
-    implementation ("com.klikli_dev:modonomicon-1.21.1-neoforge:${modonomicon_version}"){transitive=false}
+    implementation("com.klikli_dev:modonomicon-1.21.1-neoforge:${modonomicon_version}") { transitive = false }
 
     // EMI
     compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
@@ -167,11 +167,6 @@ dependencies {
 
     // Mekanism
     runtimeOnly "mekanism:Mekanism:${mekanism_version}"
-
-    // Artifacts
-    runtimeOnly "curse.maven:artifacts-312353:5624722"
-    runtimeOnly "curse.maven:architectury-api-419699:5553800"
-    runtimeOnly "curse.maven:cloth-config-348521:5623420"
 
     // KubeJS
     runtimeOnly "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
