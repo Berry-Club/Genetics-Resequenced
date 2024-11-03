@@ -268,3 +268,7 @@
     - It's only for Genes that can only be held by DNA Helices, and not Plasmids or entities
     - This fixes a point of confusion, because the only Gene currently set to this is the Basic Gene. It being called "hidden" made it look like it should be hidden from EMI etc too, which isn't the case
         - As a result, a DNA Helix with the Basic Gene now shows up in EMI. It also now has an information page.
+
+# 1.6.0
+
+- Bioluminescent Blocks now have the block tag `#minecraft:air` 

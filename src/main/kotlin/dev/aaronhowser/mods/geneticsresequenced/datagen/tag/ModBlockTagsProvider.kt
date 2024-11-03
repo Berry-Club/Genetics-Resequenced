@@ -18,6 +18,9 @@ class ModBlockTagsProvider(
     override fun addTags(pProvider: HolderLookup.Provider) {
         this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
             .add(*ModBlocks.BLOCK_REGISTRY.entries.map { it.get() }.toTypedArray())
+
+        this.tag(BlockTags.AIR)
+            .add(ModBlocks.BIOLUMINESCENCE_BLOCK.get())
     }
 
 }
