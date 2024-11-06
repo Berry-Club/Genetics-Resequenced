@@ -271,4 +271,5 @@
 
 # 1.6.0
 
-- Bioluminescent Blocks now have the block tag `#minecraft:air` 
+- Re-added the empty Plasmid to the creative tab, and therefore EMI
+- Bioluminescent Blocks now have the block tag `#minecraft:air`

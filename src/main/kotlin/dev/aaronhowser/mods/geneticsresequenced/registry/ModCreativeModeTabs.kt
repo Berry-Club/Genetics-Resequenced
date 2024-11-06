@@ -25,7 +25,7 @@ object ModCreativeModeTabs {
             .icon { ModItems.SYRINGE.toStack() }
             .displayItems { displayContext: CreativeModeTab.ItemDisplayParameters, output: CreativeModeTab.Output ->
                 val regularItems =
-                    ModItems.ITEM_REGISTRY.entries - ModItems.DNA_HELIX - ModItems.PLASMID - ModItems.ORGANIC_MATTER - ModItems.CELL
+                    ModItems.ITEM_REGISTRY.entries - ModItems.DNA_HELIX - ModItems.ORGANIC_MATTER - ModItems.CELL
 
                 val itemsToDisplay = buildList {
                     addAll(regularItems.map { (it as DeferredItem).toStack() })
