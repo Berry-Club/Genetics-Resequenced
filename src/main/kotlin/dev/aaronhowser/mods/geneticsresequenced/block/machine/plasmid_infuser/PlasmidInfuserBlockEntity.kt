@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
@@ -78,6 +79,7 @@ class PlasmidInfuserBlockEntity(
 
     override fun craftItem() {
         if (!hasRecipe()) return
+        val level = level ?: return
 
         val inputHelix = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
         val outputPlasmid = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
@@ -94,11 +96,13 @@ class PlasmidInfuserBlockEntity(
             return
         }
 
-        when (DnaHelixItem.getGeneHolder(inputHelix)) {
-            ModGenes.BASIC -> PlasmidItem.increaseDnaPoints(outputPlasmid, 1)
-            plasmidGeneHolder -> PlasmidItem.increaseDnaPoints(outputPlasmid, 2)
+        val inputAmount = when (inputGeneHolder) {
+            ModGenes.BASIC.getHolder(level.registryAccess()) -> 1
+            plasmidGeneHolder -> 2
             else -> return
         }
+
+        PlasmidItem.increaseDnaPoints(outputPlasmid, inputAmount)
 
         itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
     }
@@ -118,7 +122,10 @@ class PlasmidInfuserBlockEntity(
 
         val plasmidGeneHolder = PlasmidItem.getGene(outputPlasmid)
         val inputGeneHolder = DnaHelixItem.getGeneHolder(inputHelix)
-        val helixIsBasic = inputGeneHolder == ModGenes.BASIC
+
+        val level = level ?: return false
+
+        val helixIsBasic = inputGeneHolder == ModGenes.BASIC.getHolder(level.registryAccess())
 
         // If the Plasmid is unset, it can only accept a Helix that's neither basic nor null
         if (plasmidGeneHolder == null) {

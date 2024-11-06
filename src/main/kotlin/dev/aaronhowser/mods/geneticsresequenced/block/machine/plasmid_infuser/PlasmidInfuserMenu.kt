@@ -8,8 +8,10 @@ import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.FriendlyByteBuf
@@ -103,7 +105,7 @@ class PlasmidInfuserMenu(
 
             val component =
                 when (hoveredGeneHolder) {
-                    ModGenes.BASIC -> {
+                    ModGenes.BASIC.getHolder(ClientUtil.localRegistryAccess!!) -> {
                         ModLanguageProvider.Tooltips.INFUSER_BASIC.toComponent()
                     }
 

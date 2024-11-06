@@ -269,7 +269,8 @@
     - This fixes a point of confusion, because the only Gene currently set to this is the Basic Gene. It being called "hidden" made it look like it should be hidden from EMI etc too, which isn't the case
         - As a result, a DNA Helix with the Basic Gene now shows up in EMI. It also now has an information page.
 
-# 1.6.0
+# 1.5.1
 
 - Re-added the empty Plasmid to the creative tab, and therefore EMI
+- Fixed not being able to infuse Basic Genes into Plasmids for +1 DNA Point
 - Bioluminescent Blocks now have the block tag `#minecraft:air`
