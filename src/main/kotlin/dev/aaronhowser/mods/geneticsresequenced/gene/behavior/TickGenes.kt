@@ -10,13 +10,13 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Comp
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.item.AntiFieldOrbItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.registries.Registries
@@ -131,8 +131,8 @@ object TickGenes {
         handlePotionGenes(entity, potionGenes)
     }
 
-    private fun handleDeathGenes(entity: LivingEntity, gene: Holder<Gene>) {
-        if (gene == ModGenes.BLACK_DEATH) {
+    private fun handleDeathGenes(entity: LivingEntity, geneHolder: Holder<Gene>) {
+        if (geneHolder.isGene(ModGenes.BLACK_DEATH)) {
             entity.hurt(virusDamageSource(entity.level()), entity.maxHealth * 1000)
             entity.kill()
 
@@ -149,7 +149,7 @@ object TickGenes {
             }
         }
 
-        val entityPredicate: (LivingEntity) -> Boolean = when (gene) {
+        val entityPredicate: (LivingEntity) -> Boolean = when (geneHolder) {
             ModGenes.GREEN_DEATH -> { it -> it is Creeper }
             ModGenes.UN_UNDEATH -> { it -> it.type.`is`(EntityTypeTags.UNDEAD) }
             ModGenes.GRAY_DEATH -> { it -> it is AgeableMob || it is Zombie || it is Piglin }

@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
@@ -58,14 +59,12 @@ class CellToHelixEmiRecipe(
 
                 recipes.add(CellToHelixEmiRecipe(goodGmoStack, goodHelix))
 
-                if (recipes.any {
-                        EntityDnaItem.getEntityType(it.cellStack) == entityType
-                                && DnaHelixItem.getGeneHolder(
-                            it.helixStack
-                        ) == ModGenes.BASIC
-                    }) {
-                    continue
+                val recipeAlreadyExists = recipes.any {
+                    EntityDnaItem.getEntityType(it.cellStack) == entityType
+                            && DnaHelixItem.getGeneHolder(it.helixStack).isGene(ModGenes.BASIC)
                 }
+
+                if (recipeAlreadyExists) continue
 
                 val badGmoStack = ModItems.GMO_CELL.toStack()
                 GmoCell.setDetails(

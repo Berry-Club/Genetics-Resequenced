@@ -169,6 +169,14 @@ data class Gene(
                 return this.key!!.translationKey
             }
 
+        fun Holder<Gene>?.isGene(geneRk: ResourceKey<Gene>?): Boolean {
+            return this != null && geneRk != null && this.key == geneRk
+        }
+
+        fun Holder<Gene>?.isGene(geneHolder: Holder<Gene>): Boolean {
+            return this == geneHolder || this.isGene(geneHolder.key)
+        }
+
         val Holder<Gene>.isNegative: Boolean
             get() = this.`is`(ModGeneTagsProvider.NEGATIVE)
 

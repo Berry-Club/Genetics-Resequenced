@@ -1,12 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
@@ -98,9 +98,9 @@ class PlasmidInfuserBlockEntity(
 
         if (inputGeneHolder == null) return
 
-        val inputAmount = when (inputGeneHolder.key) {
-            ModGenes.BASIC -> 1
-            plasmidGeneHolder.key -> 2
+        val inputAmount = when {
+            inputGeneHolder.isGene(ModGenes.BASIC) -> 1
+            inputGeneHolder.isGene(plasmidGeneHolder) -> 2
             else -> return
         }
 
@@ -125,9 +125,7 @@ class PlasmidInfuserBlockEntity(
         val plasmidGeneHolder = PlasmidItem.getGene(outputPlasmid)
         val inputGeneHolder = DnaHelixItem.getGeneHolder(inputHelix)
 
-        val level = level ?: return false
-
-        val helixIsBasic = inputGeneHolder == ModGenes.BASIC.getHolder(level.registryAccess())
+        val helixIsBasic = inputGeneHolder.isGene(ModGenes.BASIC)
 
         // If the Plasmid is unset, it can only accept a Helix that's neither basic nor null
         if (plasmidGeneHolder == null) {

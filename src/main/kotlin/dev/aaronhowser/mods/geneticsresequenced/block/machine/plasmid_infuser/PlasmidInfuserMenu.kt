@@ -4,13 +4,13 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockE
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.entity.player.Inventory
@@ -101,20 +101,13 @@ class PlasmidInfuserMenu(
             val outputItem = slots.getOrNull(plasmidSlotId)?.item ?: return
             val outputGene = PlasmidItem.getGene(outputItem) ?: return
 
-            val component =
-                when (hoveredGeneHolder.key) {
-                    ModGenes.BASIC -> {
-                        ModLanguageProvider.Tooltips.INFUSER_BASIC.toComponent()
-                    }
+            val component = when {
+                hoveredGeneHolder.isGene(ModGenes.BASIC) -> ModLanguageProvider.Tooltips.INFUSER_BASIC.toComponent()
 
-                    outputGene.key -> {
-                        ModLanguageProvider.Tooltips.INFUSER_MATCHING.toComponent()
-                    }
+                hoveredGeneHolder.isGene(outputGene) -> ModLanguageProvider.Tooltips.INFUSER_MATCHING.toComponent()
 
-                    else -> {
-                        ModLanguageProvider.Tooltips.INFUSER_MISMATCH.toComponent()
-                    }
-                }.withColor(ChatFormatting.GRAY)
+                else -> ModLanguageProvider.Tooltips.INFUSER_MISMATCH.toComponent()
+            }.withStyle(ChatFormatting.GRAY)
 
             event.toolTip.add(2, component)
         }
