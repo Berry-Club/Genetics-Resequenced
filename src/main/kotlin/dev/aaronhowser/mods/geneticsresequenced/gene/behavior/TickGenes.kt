@@ -112,7 +112,7 @@ object TickGenes {
 
             if (geneHolder.value().getPotion() != null) potionGenes.add(geneHolder)
 
-            when (geneHolder) {
+            when (geneHolder.key) {
                 ModGenes.WATER_BREATHING -> entity.airSupply = entity.maxAirSupply
                 ModGenes.FLAMBE -> entity.remainingFireTicks = ServerConfig.passivesCheckCooldown.get() * 2 * 20
                 ModGenes.LAY_EGG -> handleLayEgg(entity)

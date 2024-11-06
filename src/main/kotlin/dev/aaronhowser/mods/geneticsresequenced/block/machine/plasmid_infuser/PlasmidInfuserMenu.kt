@@ -8,10 +8,8 @@ import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.FriendlyByteBuf
@@ -95,7 +93,7 @@ class PlasmidInfuserMenu(
             val hoverStack = event.itemStack
             if (hoverStack.item != ModItems.DNA_HELIX.get()) return
 
-            val hoveredGeneHolder = DnaHelixItem.getGeneHolder(hoverStack)
+            val hoveredGeneHolder = DnaHelixItem.getGeneHolder(hoverStack) ?: return
 
             val slots = event.entity?.containerMenu?.slots ?: return
             val plasmidSlotId = 37  //Evil magic number that i got by printing whatever slot I was hovering
@@ -104,12 +102,12 @@ class PlasmidInfuserMenu(
             val outputGene = PlasmidItem.getGene(outputItem) ?: return
 
             val component =
-                when (hoveredGeneHolder) {
-                    ModGenes.BASIC.getHolder(ClientUtil.localRegistryAccess!!) -> {
+                when (hoveredGeneHolder.key) {
+                    ModGenes.BASIC -> {
                         ModLanguageProvider.Tooltips.INFUSER_BASIC.toComponent()
                     }
 
-                    outputGene -> {
+                    outputGene.key -> {
                         ModLanguageProvider.Tooltips.INFUSER_MATCHING.toComponent()
                     }
 

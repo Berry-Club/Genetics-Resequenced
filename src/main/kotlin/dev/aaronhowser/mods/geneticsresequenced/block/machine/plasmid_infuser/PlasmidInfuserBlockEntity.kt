@@ -96,9 +96,11 @@ class PlasmidInfuserBlockEntity(
             return
         }
 
-        val inputAmount = when (inputGeneHolder) {
-            ModGenes.BASIC.getHolder(level.registryAccess()) -> 1
-            plasmidGeneHolder -> 2
+        if (inputGeneHolder == null) return
+
+        val inputAmount = when (inputGeneHolder.key) {
+            ModGenes.BASIC -> 1
+            plasmidGeneHolder.key -> 2
             else -> return
         }
 
