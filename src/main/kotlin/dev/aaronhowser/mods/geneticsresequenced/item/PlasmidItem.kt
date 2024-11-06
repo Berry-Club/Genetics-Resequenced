@@ -7,7 +7,6 @@ import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressI
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
@@ -80,7 +79,7 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.PLASMID_EMPTY
                     .toComponent()
-                    .withColor(ChatFormatting.GRAY)
+                    .withStyle(ChatFormatting.GRAY)
             )
             return
         }
@@ -88,14 +87,14 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
         pTooltipComponents.add(
             ModLanguageProvider.Tooltips.PLASMID_GENE
                 .toComponent(Gene.getNameComponent(geneHolder))
-                .withColor(ChatFormatting.GRAY)
+                .withStyle(ChatFormatting.GRAY)
         )
 
         if (isComplete(pStack)) {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.PLASMID_COMPLETE
                     .toComponent()
-                    .withColor(ChatFormatting.GRAY)
+                    .withStyle(ChatFormatting.GRAY)
             )
         } else {
             val amountNeeded = geneHolder.value().dnaPointsRequired
@@ -104,7 +103,7 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.PLASMID_PROGRESS
                     .toComponent(amount, amountNeeded)
-                    .withColor(ChatFormatting.GRAY)
+                    .withStyle(ChatFormatting.GRAY)
             )
         }
     }

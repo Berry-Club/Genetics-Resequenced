@@ -14,7 +14,6 @@ import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityIt
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderSet
@@ -310,7 +309,7 @@ open class SyringeItem : Item(
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.SYRINGE_OWNER
                     .toComponent(bloodOwner)
-                    .withColor(ChatFormatting.GRAY)
+                    .withStyle(ChatFormatting.GRAY)
             )
         }
 
@@ -318,7 +317,7 @@ open class SyringeItem : Item(
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.SYRINGE_CONTAMINATED
                     .toComponent()
-                    .withColor(ChatFormatting.DARK_GREEN)
+                    .withStyle(ChatFormatting.DARK_GREEN)
             )
         }
 
@@ -327,7 +326,7 @@ open class SyringeItem : Item(
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.SYRINGE_ADDING_GENES
                     .toComponent()
-                    .withColor(ChatFormatting.GRAY)
+                    .withStyle(ChatFormatting.GRAY)
             )
 
             for (geneHolder in addingGenes) {
@@ -348,7 +347,7 @@ open class SyringeItem : Item(
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.SYRINGE_REMOVING_GENES
                     .toComponent()
-                    .withColor(ChatFormatting.GRAY)
+                    .withStyle(ChatFormatting.GRAY)
             )
 
             for (geneHolder in removingGenes) {

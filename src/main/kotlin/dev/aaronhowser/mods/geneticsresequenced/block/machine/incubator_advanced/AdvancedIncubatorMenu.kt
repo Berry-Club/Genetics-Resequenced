@@ -13,7 +13,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.network.chat.CommonComponents
@@ -173,7 +172,7 @@ class AdvancedIncubatorMenu(
                         Gene.getNameComponent(recipe.idealGeneRk),
                         (baseChance * 100).toInt()
                     )
-                    .withColor(ChatFormatting.GRAY)
+                    .withStyle(ChatFormatting.GRAY)
             )
 
             if (amountOverclockers != 0) {
@@ -184,7 +183,7 @@ class AdvancedIncubatorMenu(
                             amountOverclockers,
                             (reducedChance * 100).toInt()
                         )
-                        .withColor(ChatFormatting.GRAY)
+                        .withStyle(ChatFormatting.GRAY)
                 )
             }
 
@@ -196,7 +195,7 @@ class AdvancedIncubatorMenu(
                             chorusUsed,
                             (finalChance * 100).toInt()
                         )
-                        .withColor(ChatFormatting.GRAY)
+                        .withStyle(ChatFormatting.GRAY)
                 )
             }
         }

@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import io.netty.buffer.ByteBuf
-import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.Registry
 import net.minecraft.core.component.DataComponents
@@ -37,8 +36,6 @@ object OtherUtil {
 
     val ItemLike.itemStack: ItemStack
         get() = this.asItem().defaultInstance
-
-    fun MutableComponent.withColor(color: ChatFormatting): MutableComponent = this.withStyle { it.withColor(color) }
 
     private val entityUuidMap: MutableMap<UUID, LivingEntity> = mutableMapOf()
     fun getNearbyEntityFromUuid(uuid: UUID, searchAroundEntity: LivingEntity): LivingEntity? {

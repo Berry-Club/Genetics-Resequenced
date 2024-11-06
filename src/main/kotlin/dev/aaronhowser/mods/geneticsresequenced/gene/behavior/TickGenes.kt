@@ -310,7 +310,7 @@ object TickGenes {
 
         val component = ModLanguageProvider.Tooltips.ITEM_MAGNET_BLACKLIST
             .toComponent()
-            .withColor(ChatFormatting.DARK_GRAY)
+            .withStyle(ChatFormatting.DARK_GRAY)
         event.toolTip.add(component)
     }
 

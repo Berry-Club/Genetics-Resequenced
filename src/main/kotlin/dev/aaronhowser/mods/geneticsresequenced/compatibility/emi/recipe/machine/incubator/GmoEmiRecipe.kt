@@ -13,7 +13,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import dev.emi.emi.api.recipe.EmiRecipe
 import dev.emi.emi.api.recipe.EmiRecipeCategory
 import dev.emi.emi.api.render.EmiTexture
@@ -83,11 +82,11 @@ class GmoEmiRecipe(
     private val tooltips: List<Component> = listOf(
         ModLanguageProvider.Tooltips.GMO_TEMPERATURE_REQUIREMENT
             .toComponent()
-            .withColor(ChatFormatting.GRAY),
+            .withStyle(ChatFormatting.GRAY),
         CommonComponents.EMPTY,
         ModLanguageProvider.Tooltips.GMO_CHORUS
             .toComponent()
-            .withColor(ChatFormatting.GRAY)
+            .withStyle(ChatFormatting.GRAY)
     )
 
     override fun getId(): ResourceLocation {
@@ -119,7 +118,7 @@ class GmoEmiRecipe(
             .appendTooltip(
                 ModLanguageProvider.Tooltips.GMO_SUCCESS
                     .toComponent()
-                    .withColor(ChatFormatting.GREEN)
+                    .withStyle(ChatFormatting.GREEN)
             )
 
         widgets.addSlot(badOutput, x, 2 + 18 + 2)
@@ -127,7 +126,7 @@ class GmoEmiRecipe(
             .appendTooltip(
                 ModLanguageProvider.Tooltips.GMO_FAILURE
                     .toComponent()
-                    .withColor(ChatFormatting.RED)
+                    .withStyle(ChatFormatting.RED)
             )
 
         x += slotSize + buffer
@@ -135,7 +134,7 @@ class GmoEmiRecipe(
         val successChance = (geneChance * 100).toInt()
 
         widgets.addText(
-            Component.literal("Success: $successChance%").withColor(ChatFormatting.GREEN),
+            Component.literal("Success: $successChance%").withStyle(ChatFormatting.GREEN),
             x,
             6,
             0x000000,
@@ -145,7 +144,7 @@ class GmoEmiRecipe(
         val failureChance = 100 - successChance
 
         widgets.addText(
-            Component.literal("Failure: $failureChance%").withColor(ChatFormatting.RED),
+            Component.literal("Failure: $failureChance%").withStyle(ChatFormatting.RED),
             x,
             6 + 18 + 2,
             0x000000,

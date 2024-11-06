@@ -6,7 +6,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Comp
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
@@ -105,13 +104,13 @@ open class EntityDnaItem : Item(Properties()) {
             val component =
                 ModLanguageProvider.Tooltips.CELL_MOB
                     .toComponent(entityType.description)
-                    .withColor(ChatFormatting.GRAY)
+                    .withStyle(ChatFormatting.GRAY)
             pTooltipComponents.add(component)
         } else {
             val component =
                 ModLanguageProvider.Tooltips.CELL_NO_MOB
                     .toComponent()
-                    .withColor(ChatFormatting.GRAY)
+                    .withStyle(ChatFormatting.GRAY)
             pTooltipComponents.add(component)
         }
 
@@ -120,7 +119,7 @@ open class EntityDnaItem : Item(Properties()) {
                 val component =
                     ModLanguageProvider.Tooltips.CELL_CREATIVE
                         .toComponent()
-                        .withColor(ChatFormatting.GRAY)
+                        .withStyle(ChatFormatting.GRAY)
 
                 pTooltipComponents.add(component)
             }

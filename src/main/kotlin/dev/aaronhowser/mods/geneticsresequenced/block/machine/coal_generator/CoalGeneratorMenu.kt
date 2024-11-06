@@ -1,12 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.coal_generator
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
-import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.Component
@@ -84,7 +82,7 @@ class CoalGeneratorMenu(
             val feStringPer = NumberFormat.getNumberInstance().format(feProducedPer)
 
             event.toolTip.add(
-                1, Component.literal("$feStringPer FE").withColor(ChatFormatting.GRAY)
+                1, Component.literal("$feStringPer FE").withStyle(ChatFormatting.GRAY)
             )
 
             val amount = itemStack.count
@@ -96,7 +94,7 @@ class CoalGeneratorMenu(
                     2,
                     ModLanguageProvider.Tooltips.COAL_GEN_TOTAL_FE
                         .toComponent(feStringTotal)
-                        .withColor(ChatFormatting.GRAY)
+                        .withStyle(ChatFormatting.GRAY)
                 )
             }
 

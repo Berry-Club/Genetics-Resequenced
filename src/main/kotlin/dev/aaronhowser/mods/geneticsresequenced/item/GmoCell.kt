@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
@@ -39,13 +38,13 @@ class GmoCell : Item(Properties()) {
             val entityComponent =
                 ModLanguageProvider.Tooltips.CELL_MOB
                     .toComponent(entityType.description)
-                    .withColor(ChatFormatting.GRAY)
+                    .withStyle(ChatFormatting.GRAY)
             pTooltipComponents.add(entityComponent)
         } else {
             val noEntityComponent =
                 ModLanguageProvider.Tooltips.CELL_NO_MOB
                     .toComponent()
-                    .withColor(ChatFormatting.GRAY)
+                    .withStyle(ChatFormatting.GRAY)
             pTooltipComponents.add(noEntityComponent)
         }
 
@@ -54,13 +53,13 @@ class GmoCell : Item(Properties()) {
             val geneComponent =
                 ModLanguageProvider.Tooltips.GENE
                     .toComponent(Gene.getNameComponent(geneHolder))
-                    .withColor(ChatFormatting.GRAY)
+                    .withStyle(ChatFormatting.GRAY)
             pTooltipComponents.add(geneComponent)
         } else {
             val noGeneComponent =
                 ModLanguageProvider.Tooltips.GENE
                     .toComponent(Gene.unknownGeneComponent)
-                    .withColor(ChatFormatting.GRAY)
+                    .withStyle(ChatFormatting.GRAY)
             pTooltipComponents.add(noGeneComponent)
         }
 

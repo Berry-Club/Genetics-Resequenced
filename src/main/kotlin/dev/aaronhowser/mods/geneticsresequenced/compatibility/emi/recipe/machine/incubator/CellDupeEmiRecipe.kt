@@ -12,7 +12,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import dev.emi.emi.api.recipe.EmiRecipeCategory
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
@@ -68,7 +67,7 @@ class CellDupeEmiRecipe(
     }
 
     override val tooltips: List<Component> = listOf(
-        ModLanguageProvider.Recipe.SUBSTRATE.toComponent().withColor(ChatFormatting.GRAY)
+        ModLanguageProvider.Recipe.SUBSTRATE.toComponent().withStyle(ChatFormatting.GRAY)
     )
 
     override fun getId(): ResourceLocation {

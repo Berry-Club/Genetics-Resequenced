@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
@@ -64,7 +63,7 @@ class AntiFieldOrbItem : Item(
         pTooltipComponents.add(
             componentString
                 .toComponent()
-                .withColor(ChatFormatting.GRAY)
+                .withStyle(ChatFormatting.GRAY)
         )
 
         super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag)

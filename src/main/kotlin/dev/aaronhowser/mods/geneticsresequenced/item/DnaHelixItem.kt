@@ -9,7 +9,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
@@ -65,7 +64,7 @@ class DnaHelixItem : EntityDnaItem() {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.GENE
                     .toComponent(Gene.getNameComponent(geneHolder))
-                    .withColor(ChatFormatting.GRAY)
+                    .withStyle(ChatFormatting.GRAY)
             )
         }
 
@@ -79,7 +78,7 @@ class DnaHelixItem : EntityDnaItem() {
         pTooltipComponents.add(
             ModLanguageProvider.Tooltips.GENE
                 .toComponent(Gene.unknownGeneComponent)
-                .withColor(ChatFormatting.GRAY)
+                .withStyle(ChatFormatting.GRAY)
         )
 
         val entity = getEntityType(pStack)
@@ -87,7 +86,7 @@ class DnaHelixItem : EntityDnaItem() {
             pTooltipComponents.add(
                 ModLanguageProvider.Tooltips.HELIX_ENTITY
                     .toComponent(entity.description)
-                    .withColor(ChatFormatting.GRAY)
+                    .withStyle(ChatFormatting.GRAY)
             )
         }
 
@@ -98,7 +97,7 @@ class DnaHelixItem : EntityDnaItem() {
                 val component =
                     ModLanguageProvider.Tooltips.CELL_CREATIVE
                         .toComponent()
-                        .withColor(ChatFormatting.GRAY)
+                        .withStyle(ChatFormatting.GRAY)
                 pTooltipComponents.add(component)
             }
         } catch (e: Exception) {

@@ -10,7 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Comp
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import net.minecraft.ChatFormatting
 import net.minecraft.world.entity.player.Player
 import net.neoforged.bus.api.EventPriority
@@ -65,7 +64,7 @@ object DeathEvents {
 
         val component =
             ModLanguageProvider.Messages.DEATH_GENE_REMOVAL.toComponent()
-                .withColor(ChatFormatting.GRAY)
+                .withStyle(ChatFormatting.GRAY)
 
         player.sendSystemMessage(component)
         player.removeAllGenes()
@@ -82,7 +81,7 @@ object DeathEvents {
 
         val component =
             ModLanguageProvider.Messages.DEATH_NEGATIVE_GENE_REMOVAL.toComponent()
-                .withColor(ChatFormatting.GRAY)
+                .withStyle(ChatFormatting.GRAY)
 
         player.sendSystemMessage(component)
 

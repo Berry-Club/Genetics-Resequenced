@@ -10,7 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import net.minecraft.ChatFormatting
@@ -64,7 +63,7 @@ class BlackDeathEmiRecipe(
     }
 
     override val tooltips: List<Component> = listOf(
-        ModLanguageProvider.Recipe.BLACK_DEATH.toComponent().withColor(ChatFormatting.GRAY)
+        ModLanguageProvider.Recipe.BLACK_DEATH.toComponent().withStyle(ChatFormatting.GRAY)
     )
 
     override fun getId(): ResourceLocation {

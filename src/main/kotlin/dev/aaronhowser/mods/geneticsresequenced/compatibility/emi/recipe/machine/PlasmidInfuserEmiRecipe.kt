@@ -11,7 +11,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.withColor
 import dev.emi.emi.api.recipe.EmiRecipe
 import dev.emi.emi.api.recipe.EmiRecipeCategory
 import dev.emi.emi.api.render.EmiTexture
@@ -103,18 +102,18 @@ class PlasmidInfuserEmiRecipe(
             .toComponent(
                 Gene
                     .getNameComponent(geneHolder)
-                    .withColor(ChatFormatting.GRAY),
+                    .withStyle(ChatFormatting.GRAY),
                 geneHolder
                     .value()
                     .dnaPointsRequired
             )
-            .withColor(ChatFormatting.GRAY),
+            .withStyle(ChatFormatting.GRAY),
         ModLanguageProvider.Recipe.BASIC_WORTH
             .toComponent()
-            .withColor(ChatFormatting.GRAY),
+            .withStyle(ChatFormatting.GRAY),
         ModLanguageProvider.Recipe.MATCHING_WORTH
             .toComponent()
-            .withColor(ChatFormatting.GRAY)
+            .withStyle(ChatFormatting.GRAY)
     )
 
     override fun addWidgets(widgets: WidgetHolder) {
