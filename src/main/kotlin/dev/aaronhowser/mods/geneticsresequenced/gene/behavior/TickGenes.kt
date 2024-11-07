@@ -99,6 +99,18 @@ object TickGenes {
         foodData.foodLevel = max(foodData.foodLevel, ServerConfig.noHungerMinimum.get())
     }
 
+
+    private fun isDeathGene(geneHolder: Holder<Gene>): Boolean {
+        return when {
+            geneHolder.isGene(ModGenes.BLACK_DEATH) -> true
+            geneHolder.isGene(ModGenes.GREEN_DEATH) -> true
+            geneHolder.isGene(ModGenes.GRAY_DEATH) -> true
+            geneHolder.isGene(ModGenes.UN_UNDEATH) -> true
+            geneHolder.isGene(ModGenes.WHITE_DEATH) -> true
+            else -> false
+        }
+    }
+
     fun handleTickingGenes(entity: LivingEntity) {
         if (entity.tickCount % ServerConfig.passivesCheckCooldown.get() != 0) return
         if (entity !is Mob && entity !is Player) return
@@ -112,19 +124,13 @@ object TickGenes {
 
             if (geneHolder.value().getPotion() != null) potionGenes.add(geneHolder)
 
-            when (geneHolder.key) {
-                ModGenes.WATER_BREATHING -> entity.airSupply = entity.maxAirSupply
-                ModGenes.FLAMBE -> entity.remainingFireTicks = ServerConfig.passivesCheckCooldown.get() * 2 * 20
-                ModGenes.LAY_EGG -> handleLayEgg(entity)
-                ModGenes.MEATY_TWO -> handleMeaty2(entity)
+            when {
+                geneHolder.isGene(ModGenes.WATER_BREATHING) -> entity.airSupply = entity.maxAirSupply
+                geneHolder.isGene(ModGenes.FLAMBE) -> entity.remainingFireTicks = ServerConfig.passivesCheckCooldown.get() * 2 * 20
+                geneHolder.isGene(ModGenes.LAY_EGG) -> handleLayEgg(entity)
+                geneHolder.isGene(ModGenes.MEATY_TWO) -> handleMeaty2(entity)
 
-                ModGenes.GREEN_DEATH,
-                ModGenes.UN_UNDEATH,
-                ModGenes.GRAY_DEATH,
-                ModGenes.WHITE_DEATH,
-                ModGenes.BLACK_DEATH -> {
-                    handleDeathGenes(entity, geneHolder)
-                }
+                isDeathGene(geneHolder) -> handleDeathGenes(entity, geneHolder)
             }
         }
 
@@ -149,11 +155,11 @@ object TickGenes {
             }
         }
 
-        val entityPredicate: (LivingEntity) -> Boolean = when (geneHolder) {
-            ModGenes.GREEN_DEATH -> { it -> it is Creeper }
-            ModGenes.UN_UNDEATH -> { it -> it.type.`is`(EntityTypeTags.UNDEAD) }
-            ModGenes.GRAY_DEATH -> { it -> it is AgeableMob || it is Zombie || it is Piglin }
-            ModGenes.WHITE_DEATH -> { it -> it.type.category == MobCategory.MONSTER }
+        val entityPredicate: (LivingEntity) -> Boolean = when {
+            geneHolder.isGene(ModGenes.GREEN_DEATH) -> { it -> it is Creeper }
+            geneHolder.isGene(ModGenes.UN_UNDEATH) -> { it -> it.type.`is`(EntityTypeTags.UNDEAD) }
+            geneHolder.isGene(ModGenes.GRAY_DEATH) -> { it -> it is AgeableMob || it is Zombie || it is Piglin }
+            geneHolder.isGene(ModGenes.WHITE_DEATH) -> { it -> it.type.category == MobCategory.MONSTER }
             else -> return
         }
 

@@ -274,3 +274,19 @@
 - Re-added the empty Plasmid to the creative tab, and therefore EMI
 - Fixed not being able to infuse Basic Genes into Plasmids for +1 DNA Point
 - Bioluminescent Blocks now have the block tag `#minecraft:air`
+
+# 1.5.2
+
+- Fixed a bug that would cause a LOT of Genes to not work properly!
+    - The problem was that I was comparing the Holder<Gene> to the ResourceKey<Gene>, which would always return false
+    - This was effecting:
+        - Water Breathing
+        - Flambé
+        - Lay Egg
+        - Meaty II
+        - Green Death
+        - Un-Undeath
+        - Gray Death
+        - White Death
+        - Black Death 
+        - Advancements that require Genes

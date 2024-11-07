@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
@@ -99,7 +100,7 @@ data class GenesData(
         }
 
         fun LivingEntity.hasGene(geneKey: ResourceKey<Gene>): Boolean {
-            return this.geneHolders.any { it.key == geneKey }
+            return this.geneHolders.any { it.isGene(geneKey) }
         }
 
         fun LivingEntity.removeAllGenes() {

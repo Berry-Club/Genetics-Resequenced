@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.advancement
 
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
@@ -42,10 +43,10 @@ object AdvancementTriggers {
         if (wasAdded) {
             getAnyGeneAdvancement(player)
 
-            when (geneHolder) {
-                ModGenes.CRINGE -> getCringeGeneAdvancement(player)
-                ModGenes.FLIGHT -> getFlightGeneAdvancement(player)
-                ModGenes.SCARE_SPIDERS -> getAllScareGenes(player)
+            when {
+                geneHolder.isGene(ModGenes.CRINGE) -> getCringeGeneAdvancement(player)
+                geneHolder.isGene(ModGenes.FLIGHT) -> getFlightGeneAdvancement(player)
+                geneHolder.isGene(ModGenes.SCARE_SPIDERS) -> getAllScareGenes(player)
             }
 
         }
