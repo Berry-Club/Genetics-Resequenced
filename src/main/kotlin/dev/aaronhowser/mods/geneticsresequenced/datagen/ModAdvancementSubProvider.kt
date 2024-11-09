@@ -170,7 +170,7 @@ class ModAdvancementSubProvider(
                             .of(ModItems.DNA_HELIX)
                             .withSubPredicate(
                                 ModItemSubPredicates.HELIX_GENE.get(),
-                                HelixGenePredicate.blackDeath(lookupProvider.get())
+                                HelixGenePredicate.blackDeath()
                             )
                             .build()
                     )

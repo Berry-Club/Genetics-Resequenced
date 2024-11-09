@@ -2,58 +2,46 @@ package dev.aaronhowser.mods.geneticsresequenced.advancement
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.advancements.critereon.ItemSubPredicate
-import net.minecraft.advancements.critereon.SingleComponentItemPredicate
-import net.minecraft.core.Holder
-import net.minecraft.core.HolderLookup
-import net.minecraft.core.component.DataComponentType
+import net.minecraft.util.StringRepresentable
 import net.minecraft.world.item.ItemStack
-import java.util.*
 
-/**
- * Predicate for checking if an item has a specific gene.
- *
- * An empty optional means that it will return true if the stack has any gene.
- */
+//TODO: Move away from something as hardcoded as this
 data class HelixGenePredicate(
-    val gene: Optional<Holder<Gene>>
-) : SingleComponentItemPredicate<Holder<Gene>> {
+    val helixType: HelixType
+) : ItemSubPredicate {
 
-    override fun matches(stack: ItemStack, requiredGene: Holder<Gene>): Boolean {
-        if (gene.isEmpty) return DnaHelixItem.hasGene(stack)
+    enum class HelixType : StringRepresentable {
+        ANY, BLACK_DEATH;
 
-        val stackGene = DnaHelixItem.getGeneHolder(stack) ?: return false
-        return stackGene.isGene(requiredGene)
+        override fun getSerializedName(): String {
+            return name
+        }
     }
 
-    override fun componentType(): DataComponentType<Holder<Gene>> {
-        return ModDataComponents.GENE_COMPONENT.get()
+    override fun matches(stack: ItemStack): Boolean {
+        return when (helixType) {
+            HelixType.ANY -> DnaHelixItem.hasGene(stack)
+            HelixType.BLACK_DEATH -> DnaHelixItem.getGeneHolder(stack).isGene(ModGenes.BLACK_DEATH)
+        }
     }
 
     companion object {
-        fun any() = HelixGenePredicate(Optional.empty())
+        fun any() = HelixGenePredicate(HelixType.ANY)
 
-
-        fun blackDeath(lookup: HolderLookup.Provider): HelixGenePredicate {
-            val blackDeathGeneHolder = ModGenes.BLACK_DEATH.getHolderOrThrow(lookup)
-
-            return HelixGenePredicate(
-                Optional.of(blackDeathGeneHolder)
-            )
+        fun blackDeath(): HelixGenePredicate {
+            return HelixGenePredicate(HelixType.BLACK_DEATH)
         }
 
         val CODEC: Codec<HelixGenePredicate> =
             RecordCodecBuilder.create { instance ->
                 instance.group(
-                    Gene.CODEC
-                        .optionalFieldOf("gene")
-                        .forGetter(HelixGenePredicate::gene),
+                    StringRepresentable.fromEnum { HelixType.entries.toTypedArray() }
+                        .fieldOf("helix_type")
+                        .forGetter(HelixGenePredicate::helixType),
                 ).apply(instance, ::HelixGenePredicate)
             }
 

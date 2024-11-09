@@ -8,7 +8,7 @@
             "items": "geneticsresequenced:dna_helix",
             "predicates": {
               "geneticsresequenced:helix_gene": {
-                "gene": {}
+                "helix_type": "BLACK_DEATH"
               }
             }
           }
