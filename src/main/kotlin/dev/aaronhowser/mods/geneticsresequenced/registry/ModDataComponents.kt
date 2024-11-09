@@ -11,7 +11,6 @@ import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.codec.ByteBufCodecs
-import net.minecraft.resources.HolderSetCodec
 import net.minecraft.world.entity.EntityType
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -54,8 +53,8 @@ object ModDataComponents {
     private fun geneListComponent(name: String): DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =
         DATA_COMPONENT_REGISTRY.registerComponentType(name) {
             it
-                .persistent(HolderSetCodec.create(ModGenes.GENE_REGISTRY_KEY, Gene.CODEC, false))
-                .networkSynchronized(ByteBufCodecs.holderSet(ModGenes.GENE_REGISTRY_KEY))
+                .persistent(Gene.HOLDER_SET_CODEC)
+                .networkSynchronized(Gene.HOLDER_SET_STREAM_CODEC)
         }
 
     val GENES_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =

@@ -25,6 +25,7 @@ import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
+import net.minecraft.resources.HolderSetCodec
 import net.minecraft.resources.RegistryFileCodec
 import net.minecraft.resources.ResourceKey
 import net.minecraft.tags.TagKey
@@ -278,6 +279,12 @@ data class Gene(
 
         val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Holder<Gene>> =
             ByteBufCodecs.holder(ModGenes.GENE_REGISTRY_KEY, DIRECT_STREAM_CODEC)
+
+        val HOLDER_SET_CODEC: Codec<HolderSet<Gene>> =
+            HolderSetCodec.create(ModGenes.GENE_REGISTRY_KEY, CODEC, false)
+
+        val HOLDER_SET_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, HolderSet<Gene>> =
+            ByteBufCodecs.holderSet(ModGenes.GENE_REGISTRY_KEY)
 
     }
 
