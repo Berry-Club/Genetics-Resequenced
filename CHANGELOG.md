@@ -290,3 +290,4 @@
         - White Death
         - Black Death 
         - Advancements that require Genes
+- Fixed a bug causing the Wither Hit to proc when you damage yourself, such as via Syringes

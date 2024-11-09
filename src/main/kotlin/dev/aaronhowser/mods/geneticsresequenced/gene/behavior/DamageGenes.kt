@@ -130,7 +130,11 @@ object DamageGenes {
         // Makes it not proc if it's an arrow or whatever
         if (!event.source.isDirect) return
 
+        val victim = event.entity
         val attacker = event.source.entity as? LivingEntity ?: return
+
+        if (attacker == victim) return
+
         if (!attacker.hasGene(ModGenes.WITHER_HIT)) return
 
         val witherEffect = MobEffectInstance(
@@ -138,7 +142,7 @@ object DamageGenes {
             100
         )
 
-        event.entity.addEffect(witherEffect)
+        victim.addEffect(witherEffect)
     }
 
     fun handleThorns(event: LivingDamageEvent.Post) {
