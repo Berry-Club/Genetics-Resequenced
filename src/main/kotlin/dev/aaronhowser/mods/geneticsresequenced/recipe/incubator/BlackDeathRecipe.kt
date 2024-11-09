@@ -11,7 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeTypes
@@ -56,7 +56,7 @@ class BlackDeathRecipe private constructor() : AbstractIncubatorRecipe() {
     }
 
     override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
-        return DnaHelixItem.getHelixStack(ModGenes.BLACK_DEATH.getHolder(lookup)!!)
+        return DnaHelixItem.getHelixStack(ModGenes.BLACK_DEATH.getHolderOrThrow(lookup))
     }
 
     override fun getSerializer(): RecipeSerializer<*> {
@@ -90,7 +90,8 @@ class BlackDeathRecipe private constructor() : AbstractIncubatorRecipe() {
 
         fun getRequiredGenes(lookup: HolderLookup.Provider): List<Holder<Gene>> {
             return ModGenes.getRegistrySorted(lookup)
-                .filter { it.isNegative && !it.isHelixOnly && !it.isDisabled } - ModGenes.BLACK_DEATH.getHolder(lookup)!!
+                .filter { it.isNegative && !it.isHelixOnly && !it.isDisabled }
+                .minus(ModGenes.BLACK_DEATH.getHolderOrThrow(lookup))
         }
     }
 

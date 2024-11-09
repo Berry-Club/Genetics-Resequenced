@@ -8,7 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.Base
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.world.entity.EntityType
 
@@ -162,7 +162,7 @@ class BlocksCategoryProvider(
                 GmoCell.setDetails(
                     gmoStack,
                     EntityType.IRON_GOLEM,
-                    ModGenes.REGENERATION.getHolder(registries())!!
+                    ModGenes.REGENERATION.getHolderOrThrow(registries())
                 )
 
                 spotlightPage(

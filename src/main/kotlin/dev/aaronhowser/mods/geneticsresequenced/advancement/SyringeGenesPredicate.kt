@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.advancements.critereon.ItemSubPredicate
 import net.minecraft.advancements.critereon.SingleComponentItemPredicate
 import net.minecraft.core.HolderLookup
@@ -43,7 +43,7 @@ data class SyringeGenesPredicate(
     companion object {
 
         fun blackDeath(lookup: HolderLookup.Provider): SyringeGenesPredicate {
-            val blackDeathGeneHolder = ModGenes.BLACK_DEATH.getHolder(lookup)!!
+            val blackDeathGeneHolder = ModGenes.BLACK_DEATH.getHolderOrThrow(lookup)
 
             return SyringeGenesPredicate(
                 HolderSet.direct(blackDeathGeneHolder),

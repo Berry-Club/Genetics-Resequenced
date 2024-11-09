@@ -9,7 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.NarratorPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
 import net.minecraft.server.level.ServerLevel
@@ -26,7 +26,7 @@ object OtherGenes {
     )
 
     fun handleEmeraldHeart(event: ServerChatEvent) {
-        val emeraldHeart = ModGenes.EMERALD_HEART.getHolder(event.player.registryAccess()) ?: return
+        val emeraldHeart = ModGenes.EMERALD_HEART.getHolderOrThrow(event.player.registryAccess())
         if (emeraldHeart.isDisabled) return
 
         if (Random.nextDouble() > ServerConfig.emeraldHeartChatChance.get()) return
@@ -46,7 +46,7 @@ object OtherGenes {
     }
 
     fun handleChatterbox(event: ServerChatEvent) {
-        val chatterBox = ModGenes.CHATTERBOX.getHolder(event.player.registryAccess()) ?: return
+        val chatterBox = ModGenes.CHATTERBOX.getHolderOrThrow(event.player.registryAccess())
         if (chatterBox.isDisabled) return
 
         val player = event.player
@@ -116,7 +116,7 @@ object OtherGenes {
 
 
     fun handleCringeChat(event: ServerChatEvent) {
-        val cringe = ModGenes.CRINGE.getHolder(event.player.registryAccess()) ?: return
+        val cringe = ModGenes.CRINGE.getHolderOrThrow(event.player.registryAccess())
         if (cringe.isDisabled) return
 
         val player = event.player
@@ -127,7 +127,7 @@ object OtherGenes {
     }
 
     fun handleSlimyChat(event: ServerChatEvent) {
-        val slimyDeath = ModGenes.SLIMY_DEATH.getHolder(event.player.registryAccess()) ?: return
+        val slimyDeath = ModGenes.SLIMY_DEATH.getHolderOrThrow(event.player.registryAccess())
         if (slimyDeath.isDisabled) return
 
         val player = event.player

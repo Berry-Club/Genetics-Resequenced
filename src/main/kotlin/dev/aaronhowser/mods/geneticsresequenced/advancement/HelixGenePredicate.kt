@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.advancements.critereon.ItemSubPredicate
 import net.minecraft.advancements.critereon.SingleComponentItemPredicate
 import net.minecraft.core.Holder
@@ -41,7 +41,7 @@ data class HelixGenePredicate(
 
 
         fun blackDeath(lookup: HolderLookup.Provider): HelixGenePredicate {
-            val blackDeathGeneHolder = ModGenes.BLACK_DEATH.getHolder(lookup)!!
+            val blackDeathGeneHolder = ModGenes.BLACK_DEATH.getHolderOrThrow(lookup)
 
             return HelixGenePredicate(
                 Optional.of(blackDeathGeneHolder)

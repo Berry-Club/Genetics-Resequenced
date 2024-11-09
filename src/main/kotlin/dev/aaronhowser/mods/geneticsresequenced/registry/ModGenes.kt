@@ -174,4 +174,7 @@ object ModGenes {
     fun ResourceKey<Gene>.getHolder(registries: HolderLookup.Provider): Holder.Reference<Gene>? =
         fromResourceKey(registries, this)
 
+    fun ResourceKey<Gene>.getHolderOrThrow(registries: HolderLookup.Provider): Holder.Reference<Gene> =
+        getHolder(registries) ?: throw IllegalArgumentException("Gene ${location()} not found")
+
 }

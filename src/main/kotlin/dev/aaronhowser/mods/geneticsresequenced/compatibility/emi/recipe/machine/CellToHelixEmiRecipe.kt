@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -52,7 +52,7 @@ class CellToHelixEmiRecipe(
                 GmoCell.setDetails(
                     goodGmoStack,
                     entityType,
-                    goodGeneRk.getHolder(ClientUtil.localRegistryAccess!!)!!
+                    goodGeneRk.getHolderOrThrow(ClientUtil.localRegistryAccess!!)
                 )
 
                 val goodHelix = DnaHelixItem.getHelixStack(goodGeneRk, ClientUtil.localRegistryAccess!!)
@@ -70,7 +70,7 @@ class CellToHelixEmiRecipe(
                 GmoCell.setDetails(
                     badGmoStack,
                     entityType,
-                    ModGenes.BASIC.getHolder(ClientUtil.localRegistryAccess!!)!!
+                    ModGenes.BASIC.getHolderOrThrow(ClientUtil.localRegistryAccess!!)
                 )
 
                 val badHelix = DnaHelixItem.getHelixStack(ModGenes.BASIC, ClientUtil.localRegistryAccess!!)

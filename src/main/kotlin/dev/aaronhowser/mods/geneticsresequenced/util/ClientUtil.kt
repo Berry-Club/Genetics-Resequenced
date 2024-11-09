@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Comp
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.client.Minecraft
 import net.minecraft.client.Options
 import net.minecraft.client.multiplayer.ClientLevel
@@ -73,9 +73,10 @@ object ClientUtil {
         countdownSeconds: Int = 10
     ) {
         //TODO: Make sure this actually works
-        if (localRegistryAccess != null) {
-            val cringe = ModGenes.CRINGE.getHolder(localRegistryAccess!!)
-            if (cringe != null && cringe.isDisabled) return
+        val access = localRegistryAccess
+        if (access != null) {
+            val cringe = ModGenes.CRINGE.getHolderOrThrow(access)
+            if (cringe.isDisabled) return
         }
 
         if (ClientConfig.disableCringeLangChange.get()) {

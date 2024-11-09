@@ -12,7 +12,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -190,7 +190,7 @@ class ItemsCategoryProvider(
 
                 val plasmidOne = ModItems.PLASMID.toStack()
                 val scareCreepers =
-                    ModGenes.SCARE_CREEPERS.getHolder(registries())!!
+                    ModGenes.SCARE_CREEPERS.getHolderOrThrow(registries())
 
                 PlasmidItem.setGene(plasmidOne, scareCreepers)
                 PlasmidItem.setDnaPoints(plasmidOne, 1)
@@ -585,7 +585,7 @@ class ItemsCategoryProvider(
                 )
 
                 val bioluminescence =
-                    ModGenes.BIOLUMINESCENCE.getHolder(registries())!!
+                    ModGenes.BIOLUMINESCENCE.getHolderOrThrow(registries())
 
                 val gmoStack = ModItems.GMO_CELL.toStack()
                 GmoCell.setDetails(gmoStack, EntityType.BLAZE, bioluminescence)

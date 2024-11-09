@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.*
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.RegistryFriendlyByteBuf
@@ -46,7 +46,7 @@ class VirusRecipe(
     override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
         val output = DnaHelixItem.setGeneHolder(
             ModItems.DNA_HELIX.toStack(),
-            outputGene.getHolder(lookup)!!
+            outputGene.getHolderOrThrow(lookup)
         )
 
         return output

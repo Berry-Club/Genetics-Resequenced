@@ -8,7 +8,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.resources.ResourceKey
@@ -37,7 +37,7 @@ class GeneRequirements : SimpleJsonResourceReloadListener(
         }
 
         fun getGeneRequiredGeneHolders(gene: Holder<Gene>, registries: HolderLookup.Provider): Set<Holder<Gene>> {
-            return getGeneRequiredGeneRks(gene).mapNotNull { it.getHolder(registries) }.toSet()
+            return getGeneRequiredGeneRks(gene).map { it.getHolderOrThrow(registries) }.toSet()
         }
 
     }

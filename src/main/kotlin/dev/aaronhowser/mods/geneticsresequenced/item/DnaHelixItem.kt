@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Comp
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.ChatFormatting
@@ -35,7 +35,7 @@ class DnaHelixItem : EntityDnaItem() {
         }
 
         fun getHelixStack(geneRk: ResourceKey<Gene>, registries: HolderLookup.Provider): ItemStack {
-            return getHelixStack(geneRk.getHolder(registries)!!)
+            return getHelixStack(geneRk.getHolderOrThrow(registries))
         }
 
         fun getHelixStack(geneHolder: Holder<Gene>): ItemStack {

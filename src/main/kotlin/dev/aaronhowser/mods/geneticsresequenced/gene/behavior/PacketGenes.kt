@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerPlayer
@@ -26,7 +26,7 @@ object PacketGenes {
 
     @Suppress("MoveVariableDeclarationIntoWhen")
     fun teleport(player: ServerPlayer) {
-        val teleport = ModGenes.TELEPORT.getHolder(player.registryAccess()) ?: return
+        val teleport = ModGenes.TELEPORT.getHolderOrThrow(player.registryAccess())
         if (teleport.isDisabled) return
 
         if (!player.hasGene(ModGenes.TELEPORT)) return
@@ -84,7 +84,7 @@ object PacketGenes {
     )
 
     fun dragonBreath(player: ServerPlayer) {
-        val dragonBreath = ModGenes.DRAGON_BREATH.getHolder(player.registryAccess()) ?: return
+        val dragonBreath = ModGenes.DRAGON_BREATH.getHolderOrThrow(player.registryAccess())
         if (dragonBreath.isDisabled) return
 
         if (!player.hasGene(ModGenes.DRAGON_BREATH)) return

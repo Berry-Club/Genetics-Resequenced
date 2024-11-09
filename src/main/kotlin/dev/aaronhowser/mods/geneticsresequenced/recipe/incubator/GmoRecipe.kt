@@ -9,7 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.*
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.HolderLookup
@@ -71,7 +71,7 @@ class GmoRecipe(
         GmoCell.setDetails(
             output,
             entityType,
-            idealGeneRk.getHolder(lookup)!!
+            idealGeneRk.getHolderOrThrow(lookup)
         )
 
         return output
@@ -83,7 +83,7 @@ class GmoRecipe(
         GmoCell.setDetails(
             output,
             entityType,
-            ModGenes.BASIC.getHolder(lookup)!!
+            ModGenes.BASIC.getHolderOrThrow(lookup)
         )
 
         return output
