@@ -7,7 +7,7 @@
           {
             "items": "geneticsresequenced:dna_helix",
             "predicates": {
-              "geneticsresequenced:item_gene": {}
+              "geneticsresequenced:helix_gene": {}
             }
           }
         ]

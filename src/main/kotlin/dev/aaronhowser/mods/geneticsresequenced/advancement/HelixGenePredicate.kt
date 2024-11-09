@@ -18,7 +18,7 @@ import java.util.*
  *
  * An empty optional means that it will return true if the stack has any gene.
  */
-class ItemGenePredicate(
+class HelixGenePredicate(
     val gene: Optional<Holder<Gene>>
 ) : SingleComponentItemPredicate<Holder<Gene>> {
 
@@ -34,18 +34,18 @@ class ItemGenePredicate(
     }
 
     companion object {
-        fun any() = ItemGenePredicate(Optional.empty())
+        fun any() = HelixGenePredicate(Optional.empty())
 
-        val CODEC: Codec<ItemGenePredicate> =
+        val CODEC: Codec<HelixGenePredicate> =
             RecordCodecBuilder.create { instance ->
                 instance.group(
                     Gene.CODEC
                         .optionalFieldOf("gene")
-                        .forGetter(ItemGenePredicate::gene),
-                ).apply(instance, ::ItemGenePredicate)
+                        .forGetter(HelixGenePredicate::gene),
+                ).apply(instance, ::HelixGenePredicate)
             }
 
-        val TYPE: ItemSubPredicate.Type<ItemGenePredicate> = ItemSubPredicate.Type(CODEC)
+        val TYPE: ItemSubPredicate.Type<HelixGenePredicate> = ItemSubPredicate.Type(CODEC)
     }
 
 }

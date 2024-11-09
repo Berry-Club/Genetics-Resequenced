@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
-import dev.aaronhowser.mods.geneticsresequenced.advancement.ItemGenePredicate
+import dev.aaronhowser.mods.geneticsresequenced.advancement.HelixGenePredicate
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
@@ -138,7 +138,7 @@ class ModAdvancementSubProvider : AdvancementProvider.AdvancementGenerator {
                         ItemPredicate.Builder
                             .item()
                             .of(ModItems.DNA_HELIX.get())
-                            .withSubPredicate(ModItemSubPredicates.ITEM_GENE.get(), ItemGenePredicate.any())
+                            .withSubPredicate(ModItemSubPredicates.HELIX_GENE.get(), HelixGenePredicate.any())
                             .build()
                     )
                 )
