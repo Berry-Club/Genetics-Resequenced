@@ -1,14 +1,17 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
+import dev.aaronhowser.mods.geneticsresequenced.advancement.ItemGenePredicate
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItemSubPredicates
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.advancements.*
 import net.minecraft.advancements.critereon.ImpossibleTrigger
 import net.minecraft.advancements.critereon.InventoryChangeTrigger
+import net.minecraft.advancements.critereon.ItemPredicate
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.Items
@@ -130,8 +133,14 @@ class ModAdvancementSubProvider : AdvancementProvider.AdvancementGenerator {
                     true, true, false
                 )
                 .addCriterion(
-                    "impossible",
-                    CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
+                    "decrypted_dna",
+                    InventoryChangeTrigger.TriggerInstance.hasItems(
+                        ItemPredicate.Builder
+                            .item()
+                            .of(ModItems.DNA_HELIX.get())
+                            .withSubPredicate(ModItemSubPredicates.ITEM_GENE.get(), ItemGenePredicate.any())
+                            .build()
+                    )
                 )
                 .build(guide("decrypt_dna"))
                 .add()

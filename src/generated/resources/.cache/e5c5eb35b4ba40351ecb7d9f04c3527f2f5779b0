@@ -1,8 +1,8 @@
-// 1.21.1	2024-10-29T08:12:06.5862855	Advancements
+// 1.21.1	2024-11-09T00:16:16.060068	Advancements
 fcf2c70a8484c08f2c83e3c7074c7c62b3628543 data/geneticsresequenced/advancement/guide/black_death.json
 038f240fcb9daa57cd717e4f9f937c44cd338d4c data/geneticsresequenced/advancement/guide/blood_purifier.json
 8fc98844e20d50de9acdc8e5e8e4738b599d140a data/geneticsresequenced/advancement/guide/cell_analyzer.json
-edeec64e01e1eecd3e34413c83d505c02b84eaa0 data/geneticsresequenced/advancement/guide/decrypt_dna.json
+3f442c9b0986fb54e3a19ccef2af3067acf7cb47 data/geneticsresequenced/advancement/guide/decrypt_dna.json
 bcde9633da1ee32e13521fce33361c9938d1150e data/geneticsresequenced/advancement/guide/dna_decryptor.json
 e0e1fde94cbe9f3d602d699745ca7ce928583c67 data/geneticsresequenced/advancement/guide/dna_extractor.json
 0cecbb432879fdc0fb57a418500c5e0214cbe70a data/geneticsresequenced/advancement/guide/get_all_scare_genes.json

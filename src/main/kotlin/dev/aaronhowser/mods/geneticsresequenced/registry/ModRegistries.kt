@@ -20,6 +20,7 @@ object ModRegistries {
         ModRecipeTypes.RECIPE_TYPES_REGISTRY,
         ModRecipeSerializers.RECIPE_SERIALIZERS_REGISTRY,
         ModIngredientTypes.INGREDIENT_TYPE_REGISTRY,
+        ModItemSubPredicates.ITEM_SUB_PREDICATES
     )
 
     fun register(modBus: IEventBus) {

@@ -30,15 +30,6 @@ object AdvancementTriggers {
 
     }
 
-    fun decryptDnaAdvancement(player: ServerPlayer, stack: ItemStack) {
-        if (stack.item != ModItems.DNA_HELIX.get()) return
-        if (!DnaHelixItem.hasGene(stack)) return
-
-        val advancement =
-            player.server.advancements.get(OtherUtil.modResource("guide/decrypt_dna")) ?: return
-        completeAdvancement(player, advancement)
-    }
-
     fun geneAdvancements(player: ServerPlayer, geneHolder: Holder<Gene>, wasAdded: Boolean) {
         if (wasAdded) {
             getAnyGeneAdvancement(player)

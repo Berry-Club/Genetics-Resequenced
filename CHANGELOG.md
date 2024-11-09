@@ -293,3 +293,5 @@
 - Fixed a bug causing the Wither Hit to proc when you damage yourself, such as via Syringes
 - Fixed high-temperature Incubator recipes actually requiring low-temperature
   - This effected Cell Growth, Panacea, and Zombify Villager recipes
+- Made some new ItemSubPredicates for advancements, removing the need for the custom PlayerInventoryChangeEvent
+  - This event was only used for two advancements, and the InventoryListener that called it had a memory leak (#44)

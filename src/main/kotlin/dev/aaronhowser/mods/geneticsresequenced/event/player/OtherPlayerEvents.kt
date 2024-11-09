@@ -111,7 +111,6 @@ object OtherPlayerEvents {
     fun onInventoryChange(event: CustomEvents.PlayerInventoryChangeEvent) {
         val (player: ServerPlayer, slot: Int, stack: ItemStack) = event
 
-        AdvancementTriggers.decryptDnaAdvancement(player, stack)
         AdvancementTriggers.blackDeath(player, stack)
     }
 
