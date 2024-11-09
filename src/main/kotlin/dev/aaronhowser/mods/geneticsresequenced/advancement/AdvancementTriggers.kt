@@ -3,16 +3,11 @@ package dev.aaronhowser.mods.geneticsresequenced.advancement
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
-import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
-import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
-import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.core.Holder
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.item.ItemStack
 
 object AdvancementTriggers {
 
@@ -39,7 +34,6 @@ object AdvancementTriggers {
                 geneHolder.isGene(ModGenes.FLIGHT) -> getFlightGeneAdvancement(player)
                 geneHolder.isGene(ModGenes.SCARE_SPIDERS) -> getAllScareGenes(player)
             }
-
         }
     }
 
@@ -53,54 +47,36 @@ object AdvancementTriggers {
             )
         if (scareGeneKeys.any { !player.hasGene(it) }) return
 
-        val advancement =
-            player.server.advancements.get(OtherUtil.modResource("guide/get_all_scare_genes")) ?: return
+        val advancement = getAdvancement(player, "guide/get_all_scare_genes") ?: return
         completeAdvancement(player, advancement)
     }
 
     private fun getFlightGeneAdvancement(player: ServerPlayer) {
-        val advancement = player.server.advancements.get(OtherUtil.modResource("guide/get_flight"))
-            ?: return
+        val advancement = getAdvancement(player, "guide/get_flight") ?: return
         completeAdvancement(player, advancement)
     }
 
     fun slimyDeathAdvancement(player: ServerPlayer) {
-        val advancement =
-            player.server.advancements.get(OtherUtil.modResource("guide/trigger_slimy_death"))
-                ?: return
+        val advancement = getAdvancement(player, "guide/trigger_slimy_death") ?: return
         completeAdvancement(player, advancement)
     }
 
     private fun getCringeGeneAdvancement(player: ServerPlayer) {
-        val advancement = player.server.advancements.get(OtherUtil.modResource("guide/get_cringe"))
-            ?: return
+        val advancement = getAdvancement(player, "guide/get_cringe") ?: return
         completeAdvancement(player, advancement)
     }
 
     private fun getAnyGeneAdvancement(player: ServerPlayer) {
-        val advancement = player.server.advancements.get(OtherUtil.modResource("guide/get_gene"))
-            ?: return
+        val advancement = getAdvancement(player, "guide/get_gene") ?: return
         completeAdvancement(player, advancement)
     }
 
     fun getMilkedAdvancement(player: ServerPlayer) {
-        val advancement = player.server.advancements.get(OtherUtil.modResource("guide/get_milked"))
-            ?: return
+        val advancement = getAdvancement(player, "guide/get_milked") ?: return
         completeAdvancement(player, advancement)
     }
 
-    fun blackDeath(player: ServerPlayer, stack: ItemStack) {
-
-        if (stack.item == ModItems.DNA_HELIX.get() || stack.item == ModItems.PLASMID.get()) {
-            if (DnaHelixItem.getGeneHolder(stack) != ModGenes.BLACK_DEATH) return
-        } else if (stack.isSyringe()) {
-            if (ModGenes.BLACK_DEATH !in SyringeItem.getGeneRks(stack)) return
-        } else return
-
-        val advancement =
-            player.server.advancements.get(OtherUtil.modResource("guide/black_death")) ?: return
-        completeAdvancement(player, advancement)
-    }
-
+    fun getAdvancement(player: ServerPlayer, advancementName: String): AdvancementHolder? =
+        player.server.advancements.get(OtherUtil.modResource(advancementName))
 
 }
