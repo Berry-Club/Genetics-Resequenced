@@ -262,7 +262,7 @@ class AdvancedIncubatorBlockEntity(
             IncubatorRecipeInput(
                 itemHandler.getStackInSlot(TOP_SLOT_INDEX),
                 itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX),
-                isHighTemp = isHighTemperature
+                isHighTemp = this.isHighTemperature
             ),
             level!!.registryAccess()
         )
