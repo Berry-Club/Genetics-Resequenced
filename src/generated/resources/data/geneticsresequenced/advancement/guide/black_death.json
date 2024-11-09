@@ -1,8 +1,20 @@
 {
   "parent": "geneticsresequenced:guide/decrypt_dna",
   "criteria": {
-    "impossible": {
-      "trigger": "minecraft:impossible"
+    "black_death_helix": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:dna_helix",
+            "predicates": {
+              "geneticsresequenced:helix_gene": {
+                "gene": {}
+              }
+            }
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
     }
   },
   "display": {
@@ -19,7 +31,7 @@
   },
   "requirements": [
     [
-      "impossible"
+      "black_death_helix"
     ]
   ],
   "sends_telemetry_event": true

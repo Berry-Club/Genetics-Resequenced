@@ -18,6 +18,7 @@ import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.data.AdvancementProvider
 import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.*
+import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
 class ModAdvancementSubProvider(
@@ -140,7 +141,10 @@ class ModAdvancementSubProvider(
                         ItemPredicate.Builder
                             .item()
                             .of(ModItems.DNA_HELIX.get())
-                            .withSubPredicate(ModItemSubPredicates.HELIX_GENE.get(), HelixGenePredicate.any())
+                            .withSubPredicate(
+                                ModItemSubPredicates.HELIX_GENE.get(),
+                                HelixGenePredicate.any()
+                            )
                             .build()
                     )
                 )
@@ -159,8 +163,17 @@ class ModAdvancementSubProvider(
                     true, true, false
                 )
                 .addCriterion(
-                    "impossible",
-                    CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
+                    "black_death_helix",
+                    InventoryChangeTrigger.TriggerInstance.hasItems(
+                        ItemPredicate.Builder
+                            .item()
+                            .of(ModItems.DNA_HELIX)
+                            .withSubPredicate(
+                                ModItemSubPredicates.HELIX_GENE.get(),
+                                HelixGenePredicate.blackDeath(lookupProvider.get())
+                            )
+                            .build()
+                    )
                 )
                 .build(guide("black_death"))
                 .add()

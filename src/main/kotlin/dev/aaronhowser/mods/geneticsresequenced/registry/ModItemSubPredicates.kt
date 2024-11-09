@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.HelixGenePredicate
+import dev.aaronhowser.mods.geneticsresequenced.advancement.SyringeGenesPredicate
 import net.minecraft.advancements.critereon.ItemSubPredicate
 import net.minecraft.core.registries.Registries
 import net.neoforged.neoforge.registries.DeferredHolder
@@ -15,5 +16,8 @@ object ModItemSubPredicates {
 
     val HELIX_GENE: DeferredHolder<ItemSubPredicate.Type<*>, ItemSubPredicate.Type<HelixGenePredicate>> =
         ITEM_SUB_PREDICATES.register("helix_gene", Supplier { HelixGenePredicate.TYPE })
+
+    val SYRINGE_GENES: DeferredHolder<ItemSubPredicate.Type<*>, ItemSubPredicate.Type<SyringeGenesPredicate>> =
+        ITEM_SUB_PREDICATES.register("syringe_genes", Supplier { SyringeGenesPredicate.TYPE })
 
 }

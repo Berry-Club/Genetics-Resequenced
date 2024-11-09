@@ -6,9 +6,12 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolder
 import net.minecraft.advancements.critereon.ItemSubPredicate
 import net.minecraft.advancements.critereon.SingleComponentItemPredicate
 import net.minecraft.core.Holder
+import net.minecraft.core.HolderLookup
 import net.minecraft.core.component.DataComponentType
 import net.minecraft.world.item.ItemStack
 import java.util.*
@@ -18,15 +21,15 @@ import java.util.*
  *
  * An empty optional means that it will return true if the stack has any gene.
  */
-class HelixGenePredicate(
+data class HelixGenePredicate(
     val gene: Optional<Holder<Gene>>
 ) : SingleComponentItemPredicate<Holder<Gene>> {
 
-    override fun matches(stack: ItemStack, value: Holder<Gene>): Boolean {
+    override fun matches(stack: ItemStack, requiredGene: Holder<Gene>): Boolean {
         if (gene.isEmpty) return DnaHelixItem.hasGene(stack)
 
         val stackGene = DnaHelixItem.getGeneHolder(stack) ?: return false
-        return stackGene.isGene(value)
+        return stackGene.isGene(requiredGene)
     }
 
     override fun componentType(): DataComponentType<Holder<Gene>> {
@@ -35,6 +38,15 @@ class HelixGenePredicate(
 
     companion object {
         fun any() = HelixGenePredicate(Optional.empty())
+
+
+        fun blackDeath(lookup: HolderLookup.Provider): HelixGenePredicate {
+            val blackDeathGeneHolder = ModGenes.BLACK_DEATH.getHolder(lookup)!!
+
+            return HelixGenePredicate(
+                Optional.of(blackDeathGeneHolder)
+            )
+        }
 
         val CODEC: Codec<HelixGenePredicate> =
             RecordCodecBuilder.create { instance ->
