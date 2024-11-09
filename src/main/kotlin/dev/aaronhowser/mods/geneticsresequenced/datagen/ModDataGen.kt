@@ -83,7 +83,7 @@ object ModDataGen {
                 output,
                 lookupProvider,
                 existingFileHelper,
-                listOf(ModAdvancementSubProvider())
+                listOf(ModAdvancementSubProvider(lookupWithGenes))
             )
         )
 

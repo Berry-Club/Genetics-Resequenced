@@ -20,7 +20,9 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.*
 import java.util.function.Consumer
 
-class ModAdvancementSubProvider : AdvancementProvider.AdvancementGenerator {
+class ModAdvancementSubProvider(
+    val lookupProvider: CompletableFuture<HolderLookup.Provider>
+) : AdvancementProvider.AdvancementGenerator {
 
     private lateinit var registries: HolderLookup.Provider
     private lateinit var saver: Consumer<AdvancementHolder>
