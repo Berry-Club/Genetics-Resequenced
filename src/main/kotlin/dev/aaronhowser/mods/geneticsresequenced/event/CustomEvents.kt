@@ -2,19 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import net.minecraft.core.Holder
-import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.item.ItemStack
 import net.neoforged.bus.api.Event
 import net.neoforged.bus.api.ICancellableEvent
 
 object CustomEvents {
-
-    data class PlayerInventoryChangeEvent(
-        val player: ServerPlayer,
-        val slot: Int,
-        val stack: ItemStack
-    ) : Event()
 
     abstract class GeneChangeEvent : Event() {
 

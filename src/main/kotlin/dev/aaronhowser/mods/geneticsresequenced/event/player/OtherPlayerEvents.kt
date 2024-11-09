@@ -1,9 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
-import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
@@ -12,12 +10,10 @@ import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isCon
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
-import dev.aaronhowser.mods.geneticsresequenced.util.InventoryListener
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.item.ItemStack
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.ServerChatEvent
@@ -59,8 +55,6 @@ object OtherPlayerEvents {
     fun onLogIn(event: PlayerEvent.PlayerLoggedInEvent) {
         val player = event.entity as? ServerPlayer ?: return
 
-        InventoryListener.startListening(player)
-
         for (gene in player.geneHolders) {
             ModPacketHandler.messagePlayer(
                 player,
@@ -71,13 +65,6 @@ object OtherPlayerEvents {
                 )
             )
         }
-    }
-
-    @SubscribeEvent
-    fun onLogOut(event: PlayerEvent.PlayerLoggedOutEvent) {
-        val player = event.entity as? ServerPlayer ?: return
-
-        InventoryListener.stopListening(player)
     }
 
     @SubscribeEvent
@@ -106,13 +93,5 @@ object OtherPlayerEvents {
             )
         }
     }
-
-    @SubscribeEvent
-    fun onInventoryChange(event: CustomEvents.PlayerInventoryChangeEvent) {
-        val (player: ServerPlayer, slot: Int, stack: ItemStack) = event
-
-        AdvancementTriggers.blackDeath(player, stack)
-    }
-
 
 }
