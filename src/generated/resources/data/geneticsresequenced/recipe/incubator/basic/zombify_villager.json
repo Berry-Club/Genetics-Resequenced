@@ -19,6 +19,7 @@
     },
     "items": "minecraft:potion"
   },
+  "is_low_temperature": false,
   "output": {
     "components": {
       "minecraft:potion_contents": {

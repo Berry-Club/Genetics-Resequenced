@@ -51,7 +51,12 @@ class BasicIncubatorRecipeBuilder(
 
         criteria.forEach { (name, criterion) -> advancement.addCriterion(name, criterion) }
 
-        val recipe = BasicIncubatorRecipe(topSlotIngredient, bottomSlotIngredient, outputStack)
+        val recipe = BasicIncubatorRecipe(
+            topSlotIngredient,
+            bottomSlotIngredient,
+            outputStack,
+            isLowTemp = false
+        )
 
         output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
     }

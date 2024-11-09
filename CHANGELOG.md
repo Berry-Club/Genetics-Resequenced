@@ -291,3 +291,5 @@
         - Black Death 
         - Advancements that require Genes
 - Fixed a bug causing the Wither Hit to proc when you damage yourself, such as via Syringes
+- Fixed high-temperature Incubator recipes actually requiring low-temperature
+  - This effected Cell Growth, Panacea, and Zombify Villager recipes

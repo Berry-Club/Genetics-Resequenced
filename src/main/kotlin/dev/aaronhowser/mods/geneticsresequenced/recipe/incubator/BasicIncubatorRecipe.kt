@@ -19,7 +19,7 @@ class BasicIncubatorRecipe(
     val topSlotIngredient: Ingredient,
     val bottomSlotIngredient: Ingredient,
     val outputStack: ItemStack,
-    val isLowTemp: Boolean = true
+    val isLowTemp: Boolean
 ) : AbstractIncubatorRecipe() {
 
     override val ingredients: List<Ingredient> = listOf(topSlotIngredient, bottomSlotIngredient)
@@ -73,7 +73,7 @@ class BasicIncubatorRecipe(
                             .fieldOf("output")
                             .forGetter(BasicIncubatorRecipe::outputStack),
                         Codec.BOOL
-                            .optionalFieldOf("is_low_temperature", true)
+                            .fieldOf("is_low_temperature")
                             .forGetter(BasicIncubatorRecipe::isLowTemp)
                     ).apply(instance, ::BasicIncubatorRecipe)
                 }
