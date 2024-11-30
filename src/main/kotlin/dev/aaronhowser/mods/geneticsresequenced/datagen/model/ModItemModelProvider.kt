@@ -31,11 +31,11 @@ class ModItemModelProvider(
         spawnEggItem(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())
 
         syringe()
+        metalSyringe()
 
     }
 
     private fun syringe() {
-
         val item = ModItems.SYRINGE.get()
 
         val emptyFlipped = getBuilder(OtherUtil.modResource("syringe_flipped_empty").toString())
@@ -71,8 +71,23 @@ class ModItemModelProvider(
             .predicate(OtherUtil.modResource("full"), 1f)
             .model(fullFlipped)
             .end()
+    }
 
+    private fun metalSyringe() {
+        val item = ModItems.METAL_SYRINGE.get()
 
+        val full = getBuilder(OtherUtil.modResource("metal_syringe_full").toString())
+            .parent(ModelFile.UncheckedModelFile("item/generated"))
+            .texture("layer0", OtherUtil.modResource("item/metal_syringe_full"))
+
+        getBuilder(BuiltInRegistries.ITEM.getKey(item).toString())
+            .parent(ModelFile.UncheckedModelFile("item/generated"))
+            .texture("layer0", OtherUtil.modResource("item/metal_syringe_empty"))
+
+            .override()
+            .predicate(OtherUtil.modResource("full"), 1f)
+            .model(full)
+            .end()
     }
 
 }
