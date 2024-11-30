@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
-import dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types.*
+import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.*
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe

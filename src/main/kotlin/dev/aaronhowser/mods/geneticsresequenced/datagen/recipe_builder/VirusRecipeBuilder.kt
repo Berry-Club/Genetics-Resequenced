@@ -1,6 +1,7 @@
-package dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types
+package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder
 
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.DupeCellRecipe
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.VirusRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.advancements.AdvancementRequirements
@@ -9,11 +10,13 @@ import net.minecraft.advancements.Criterion
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger
 import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeOutput
+import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 
-class DupeCellRecipeBuilder(
-    val isGmoCell: Boolean = false
+class VirusRecipeBuilder(
+    val inputDnaGene: ResourceKey<Gene>,
+    val outputGene: ResourceKey<Gene>
 ) : RecipeBuilder {
 
     private val criteria: MutableMap<String, Criterion<*>> = mutableMapOf()
@@ -28,13 +31,20 @@ class DupeCellRecipeBuilder(
     }
 
     override fun getResult(): Item {
-        return ModItems.CELL.get()
+        return ModItems.DNA_HELIX.get()
     }
 
     override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
+        val idString = StringBuilder()
 
-        val idString = if (isGmoCell) "incubator/dupe_substrate_cell_gmo" else "incubator/dupe_substrate_cell"
-        val id = OtherUtil.modResource(idString)
+        idString
+            .append("incubator/")
+            .append("virus/")
+            .append(inputDnaGene.location().path)
+            .append("_to_")
+            .append(outputGene.location().path)
+
+        val id = OtherUtil.modResource(idString.toString())
 
         val advancement = output.advancement()
             .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
@@ -43,7 +53,7 @@ class DupeCellRecipeBuilder(
 
         criteria.forEach { (name, criterion) -> advancement.addCriterion(name, criterion) }
 
-        val recipe = DupeCellRecipe(isGmoCell)
+        val recipe = VirusRecipe(inputDnaGene, outputGene)
 
         output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
     }

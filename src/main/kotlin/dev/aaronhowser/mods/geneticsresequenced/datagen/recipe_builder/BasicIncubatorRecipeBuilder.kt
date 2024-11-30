@@ -1,5 +1,6 @@
-package dev.aaronhowser.mods.geneticsresequenced.datagen.custom_recipe_types
+package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder
 
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.BasicIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.advancements.AdvancementRequirements
 import net.minecraft.advancements.AdvancementRewards
@@ -9,13 +10,16 @@ import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
-import net.minecraft.world.item.crafting.Recipe
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.Ingredient
 
-class SingletonRecipeBuilder(
-    val recipe: Recipe<*>,
-    val resultItem: Item,
-    val idString: String
+class BasicIncubatorRecipeBuilder(
+    val topSlotIngredient: Ingredient,
+    val bottomSlotIngredient: Ingredient,
+    val outputStack: ItemStack,
+    val recipeName: String? = null
 ) : RecipeBuilder {
+
     private val criteria: MutableMap<String, Criterion<*>> = mutableMapOf()
 
     override fun unlockedBy(name: String, criterion: Criterion<*>): RecipeBuilder {
@@ -28,11 +32,17 @@ class SingletonRecipeBuilder(
     }
 
     override fun getResult(): Item {
-        return resultItem
+        return outputStack.item
     }
 
     override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
-        val id = OtherUtil.modResource(idString)
+        val idString = StringBuilder()
+
+        idString
+            .append("incubator/basic/")
+            .append(recipeName ?: defaultId.path)
+
+        val id = OtherUtil.modResource(idString.toString())
 
         val advancement = output.advancement()
             .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
@@ -40,6 +50,13 @@ class SingletonRecipeBuilder(
             .requirements(AdvancementRequirements.Strategy.OR)
 
         criteria.forEach { (name, criterion) -> advancement.addCriterion(name, criterion) }
+
+        val recipe = BasicIncubatorRecipe(
+            topSlotIngredient,
+            bottomSlotIngredient,
+            outputStack,
+            isLowTemp = false
+        )
 
         output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
     }
