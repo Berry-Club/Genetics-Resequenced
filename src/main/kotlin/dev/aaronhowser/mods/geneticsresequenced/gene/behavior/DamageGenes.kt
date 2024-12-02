@@ -96,7 +96,7 @@ object DamageGenes {
         val items = entity.handSlots.toMutableList()
         if (entity is Player) items += entity.inventory.items
 
-        val healthCrystal = items.find { it.item == ModItems.DRAGON_HEALTH_CRYSTAL } ?: return
+        val healthCrystal = items.find { it.item == ModItems.DRAGON_HEALTH_CRYSTAL.get() } ?: return
 
         val amountDamaged = Mth.ceil(event.container.newDamage)
         val crystalDurabilityRemaining = healthCrystal.maxDamage - healthCrystal.damageValue

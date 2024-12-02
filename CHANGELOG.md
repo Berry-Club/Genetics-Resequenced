@@ -288,10 +288,14 @@
         - Un-Undeath
         - Gray Death
         - White Death
-        - Black Death 
+        - Black Death
         - Advancements that require Genes
 - Fixed a bug causing the Wither Hit to proc when you damage yourself, such as via Syringes
 - Fixed high-temperature Incubator recipes actually requiring low-temperature
-  - This effected Cell Growth, Panacea, and Zombify Villager recipes
+    - This effected Cell Growth, Panacea, and Zombify Villager recipes
 - Made a new advancement ItemSubPredicate, removing the need for the custom PlayerInventoryChangeEvent
-  - This event was only used for two advancements, and the InventoryListener that called it had a memory leak (#44)
+    - This event was only used for two advancements, and the InventoryListener that called it had a memory leak (#44)
+
+# 1.5.3
+
+- Fixed Ender Dragon Health Gene not detecting Dragon Health Crystals
