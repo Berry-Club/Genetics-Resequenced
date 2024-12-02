@@ -38,7 +38,7 @@ class BasicIncubatorRecipe(
     }
 
     override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
-        return outputStack
+        return outputStack.copy()
     }
 
     override fun getSerializer(): RecipeSerializer<*> {

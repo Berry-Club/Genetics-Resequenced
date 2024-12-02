@@ -13,17 +13,17 @@ class IncubatorRecipeInput(
         get() = !this.isHighTemp
 
     fun getTopItem(): ItemStack {
-        return topItem
+        return topItem.copy()
     }
 
     fun getBottomItem(): ItemStack {
-        return bottomItem
+        return bottomItem.copy()
     }
 
     override fun getItem(index: Int): ItemStack {
         return when (index) {
-            0 -> topItem
-            1 -> bottomItem
+            0 -> topItem.copy()
+            1 -> bottomItem.copy()
             else -> error("Invalid index $index")
         }
     }

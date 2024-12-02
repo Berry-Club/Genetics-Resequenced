@@ -287,7 +287,6 @@ class ModRecipeProvider(
             OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER),
             "zombify_villager"
         )
-
     )
 
     private val gmoRecipes = listOf(

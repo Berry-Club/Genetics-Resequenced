@@ -298,4 +298,8 @@
 
 # 1.5.3
 
+- Fixed basic Incubator recipes being _incredibly broken_
+  - Previously, basic Incubator recipes would use the same instance of the output ItemStack every time.
+  - This means that mutating the ItemStack (by, for example, removing it from the machine) would also mutate the one in the recipe.
+  - The recipe would then output an ItemStack with size 0, which would be treated as if it had no output at all.
 - Fixed Ender Dragon Health Gene not detecting Dragon Health Crystals
