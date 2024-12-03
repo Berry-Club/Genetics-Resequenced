@@ -364,9 +364,6 @@ class ItemsCategoryProvider(
 
                 val milkyHelix = DnaHelixItem.getHelixStack(ModGenes.MILKY, registries())
 
-                println("AAAAAAAAAAAAAAAAAAA")
-                println(milkyHelix.componentsPatch.toString())
-
                 spotlightPage(
                     milkyHelix,
                     "Decrypted Helix",
