@@ -1,7 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
-import com.klikli_dev.modonomicon.api.datagen.BookProvider
-import com.klikli_dev.modonomicon.api.datagen.LanguageProviderCache
 import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModEntityGenesProvider
@@ -94,6 +92,7 @@ object ModDataGen {
             event.includeServer(),
             ModLootTableProvider.create(output, lookupProvider)
         )
+
         val languageProvider = ModLanguageProvider(output)
 
         val modonomiconBookProvider = generator.addProvider(
