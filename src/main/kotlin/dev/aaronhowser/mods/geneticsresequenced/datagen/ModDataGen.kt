@@ -1,11 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
+import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModEntityGenesProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneRequirementsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.ModModonomiconProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.*
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.DataGenerator
@@ -37,7 +39,6 @@ object ModDataGen {
 
         val lookupWithGenes: CompletableFuture<HolderLookup.Provider> = datapackRegistrySets.registryProvider
 
-        val languageProvider = generator.addProvider(event.includeClient(), ModLanguageProvider(output))
         val itemModelProvider = generator.addProvider(
             event.includeClient(),
             ModItemModelProvider(output, existingFileHelper)
@@ -92,18 +93,20 @@ object ModDataGen {
             ModLootTableProvider.create(output, lookupProvider)
         )
 
-//        val modonomiconEnUsCache = LanguageProviderCache("en_us")
-//        val modonomiconBookProvider = generator.addProvider(
-//            event.includeClient(),
-//            NeoBookProvider.of(
-//                event,
-//                ModModonomiconProvider(modonomiconEnUsCache, lookupWithGenes)
-//            )
-//        )
-//        val modonomiconEnUsProvider = generator.addProvider(
-//            event.includeClient(),
-//            EnUsProvider(output, modonomiconEnUsCache)
-//        )
+        val languageProvider = ModLanguageProvider(output)
+
+        val modonomiconBookProvider = generator.addProvider(
+            event.includeClient(),
+            NeoBookProvider.of(
+                event, lookupWithGenes, ModModonomiconProvider(languageProvider::add)
+            )
+        )
+        //Note by Klikli: There are two ways to integrate modonomicon with language providers.
+        //                One is to register the language provider AFTER the book provider (as done here) which hopefully ensures that
+        //                  the language provider is called after the book provider finishes, and allows the lang provider
+        //                  to write both mod text and book text.
+        //                The other is to use the AbstractModonomiconLanguageProvider for the mod texts together with a LanguageProviderCache
+        generator.addProvider(event.includeClient(), languageProvider)
 
         val modGeneRequirementsProvider = generator.addProvider(
             event.includeServer(),
