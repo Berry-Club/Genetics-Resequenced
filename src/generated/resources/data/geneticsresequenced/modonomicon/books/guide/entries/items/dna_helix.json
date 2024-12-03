@@ -1,0 +1,73 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "items",
+  "description": "book.geneticsresequenced.guide.items.dna_helix.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "geneticsresequenced:dna_helix"
+  },
+  "name": "book.geneticsresequenced.guide.items.dna_helix.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.items.dna_helix.page_0.text",
+      "title": "book.geneticsresequenced.guide.items.dna_helix.page_0.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "components": {
+          "geneticsresequenced:entity_type": "minecraft:cow"
+        },
+        "item": "geneticsresequenced:dna_helix"
+      },
+      "text": "book.geneticsresequenced.guide.items.dna_helix.page_1.text",
+      "title": "book.geneticsresequenced.guide.items.dna_helix.page_1.title"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "components": {
+          "geneticsresequenced:gene": "geneticsresequenced:milky"
+        },
+        "item": "geneticsresequenced:dna_helix"
+      },
+      "text": "book.geneticsresequenced.guide.items.dna_helix.page_2.text",
+      "title": "book.geneticsresequenced.guide.items.dna_helix.page_2.title"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "components": {
+          "geneticsresequenced:gene": "geneticsresequenced:basic"
+        },
+        "item": "geneticsresequenced:dna_helix"
+      },
+      "text": "book.geneticsresequenced.guide.items.dna_helix.page_3.text",
+      "title": "book.geneticsresequenced.guide.items.dna_helix.page_3.title"
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 4,
+  "x": 0,
+  "y": -1
+}

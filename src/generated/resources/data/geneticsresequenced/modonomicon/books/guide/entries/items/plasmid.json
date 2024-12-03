@@ -1,0 +1,76 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "items",
+  "description": "book.geneticsresequenced.guide.items.plasmid.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "geneticsresequenced:plasmid"
+  },
+  "name": "book.geneticsresequenced.guide.items.plasmid.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.items.plasmid.page_0.text",
+      "title": "book.geneticsresequenced.guide.items.plasmid.page_0.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "geneticsresequenced:plasmid"
+      },
+      "text": "book.geneticsresequenced.guide.items.plasmid.page_1.text",
+      "title": "book.geneticsresequenced.guide.items.plasmid.page_1.title"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "components": {
+          "geneticsresequenced:plasmid_progress": {
+            "dna_points": 1,
+            "gene": "geneticsresequenced:scare_creepers"
+          }
+        },
+        "item": "geneticsresequenced:plasmid"
+      },
+      "text": "book.geneticsresequenced.guide.items.plasmid.page_2.text",
+      "title": "book.geneticsresequenced.guide.items.plasmid.page_2.title"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "components": {
+          "geneticsresequenced:plasmid_progress": {
+            "dna_points": 99999999,
+            "gene": "geneticsresequenced:scare_creepers"
+          }
+        },
+        "item": "geneticsresequenced:plasmid"
+      },
+      "text": "book.geneticsresequenced.guide.items.plasmid.page_3.text",
+      "title": "book.geneticsresequenced.guide.items.plasmid.page_3.title"
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 5,
+  "x": 1,
+  "y": -1
+}

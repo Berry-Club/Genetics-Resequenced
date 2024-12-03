@@ -11,12 +11,7 @@ import java.util.function.BiConsumer
 
 class ModModonomiconProvider(
     defaultLang: BiConsumer<String, String>,
-    private val lookupProvider: CompletableFuture<HolderLookup.Provider>
 ) : SingleBookSubProvider("guide", GeneticsResequenced.ID, defaultLang) {
-
-    override fun registries(): HolderLookup.Provider {
-        return lookupProvider.get()
-    }
 
     override fun additionalSetup(book: BookModel): BookModel {
         return book

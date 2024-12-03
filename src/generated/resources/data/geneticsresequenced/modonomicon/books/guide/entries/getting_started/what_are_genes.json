@@ -1,0 +1,39 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "getting_started",
+  "description": "book.geneticsresequenced.guide.getting_started.what_are_genes.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "geneticsresequenced:dna_helix"
+  },
+  "name": "book.geneticsresequenced.guide.getting_started.what_are_genes.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.getting_started.what_are_genes.page_0.text",
+      "title": "book.geneticsresequenced.guide.getting_started.what_are_genes.page_0.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.getting_started.what_are_genes.page_1.text",
+      "title": "book.geneticsresequenced.guide.getting_started.what_are_genes.page_1.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 0,
+  "x": 0,
+  "y": 0
+}

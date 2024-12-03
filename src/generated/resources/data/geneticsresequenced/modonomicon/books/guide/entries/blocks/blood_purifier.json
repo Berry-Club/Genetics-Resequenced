@@ -1,0 +1,29 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "blocks",
+  "description": "book.geneticsresequenced.guide.blocks.blood_purifier.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "geneticsresequenced:blood_purifier"
+  },
+  "name": "book.geneticsresequenced.guide.blocks.blood_purifier.name",
+  "pages": [
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "item": "geneticsresequenced:blood_purifier"
+      },
+      "text": "book.geneticsresequenced.guide.blocks.blood_purifier.page_0.text",
+      "title": "book.geneticsresequenced.guide.blocks.blood_purifier.page_0.title"
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 4,
+  "x": 0,
+  "y": 0
+}

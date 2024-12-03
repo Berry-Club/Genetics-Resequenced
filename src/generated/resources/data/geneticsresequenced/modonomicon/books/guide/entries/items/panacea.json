@@ -1,0 +1,50 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "items",
+  "description": "book.geneticsresequenced.guide.items.panacea.description",
+  "hide_while_locked": false,
+  "icon": {
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "geneticsresequenced:panacea"
+      }
+    },
+    "item": "minecraft:potion"
+  },
+  "name": "book.geneticsresequenced.guide.items.panacea.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.items.panacea.page_0.text",
+      "title": "book.geneticsresequenced.guide.items.panacea.page_0.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "components": {
+          "minecraft:potion_contents": {
+            "potion": "geneticsresequenced:panacea"
+          }
+        },
+        "item": "minecraft:potion"
+      },
+      "text": "book.geneticsresequenced.guide.items.panacea.page_1.text",
+      "title": "book.geneticsresequenced.guide.items.panacea.page_1.title"
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 12,
+  "x": -1,
+  "y": 1
+}

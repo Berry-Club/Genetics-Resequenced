@@ -26,7 +26,7 @@ import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.HolderSetCodec
-import net.minecraft.resources.RegistryFileCodec
+import net.minecraft.resources.RegistryFixedCodec
 import net.minecraft.resources.ResourceKey
 import net.minecraft.tags.TagKey
 import net.minecraft.world.effect.MobEffect
@@ -275,7 +275,7 @@ data class Gene(
             ::Gene
         )
 
-        val CODEC: Codec<Holder<Gene>> = RegistryFileCodec.create(ModGenes.GENE_REGISTRY_KEY, DIRECT_CODEC, false)
+        val CODEC: Codec<Holder<Gene>> = RegistryFixedCodec.create(ModGenes.GENE_REGISTRY_KEY);
 
         val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Holder<Gene>> =
             ByteBufCodecs.holder(ModGenes.GENE_REGISTRY_KEY, DIRECT_STREAM_CODEC)
