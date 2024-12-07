@@ -303,3 +303,11 @@
   - This means that mutating the ItemStack (by, for example, removing it from the machine) would also mutate the one in the recipe.
   - The recipe would then output an ItemStack with size 0, which would be treated as if it had no output at all.
 - Fixed Ender Dragon Health Gene not detecting Dragon Health Crystals
+
+# 1.5.4
+
+- Added tags to the damage types:
+  - All damage types have the following tags:
+  - `#minecraft:no_impact`
+  - `#minecraft:no_anger`
+  - `#minecraft:no_knockback`

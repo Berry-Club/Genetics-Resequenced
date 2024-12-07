@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.g
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModDamageTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityName
@@ -13,17 +14,14 @@ import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityIt
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.setEntity
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderSet
-import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.damagesource.DamageSource
-import net.minecraft.world.damagesource.DamageType
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
@@ -227,18 +225,12 @@ open class SyringeItem : Item(
             return true
         }
 
-        private val stepOnSyringeDamageKey: ResourceKey<DamageType> =
-            ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource("step_on_syringe"))
-
         fun damageSourceStepOnSyringe(level: Level, thrower: LivingEntity?): DamageSource {
-            return level.damageSources().source(stepOnSyringeDamageKey, thrower)
+            return level.damageSources().source(ModDamageTypeTagsProvider.STEP_ON_SYRINGE, thrower)
         }
 
-        private val useSyringeDamageKey: ResourceKey<DamageType> =
-            ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource("use_syringe"))
-
         fun damageSourceUseSyringe(level: Level, thrower: LivingEntity?): DamageSource {
-            return level.damageSources().source(useSyringeDamageKey, thrower)
+            return level.damageSources().source(ModDamageTypeTagsProvider.USE_SYRINGE, thrower)
         }
 
     }

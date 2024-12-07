@@ -2,19 +2,17 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModDamageTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.enchantment.ModEnchantments
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setEntityType
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.core.registries.Registries
-import net.minecraft.resources.ResourceKey
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.damagesource.DamageSource
-import net.minecraft.world.damagesource.DamageType
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -72,11 +70,8 @@ class ScraperItem : Item(
             return true
         }
 
-        private val useSyringeDamageKey: ResourceKey<DamageType> =
-            ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource("use_scraper"))
-
         private fun getDamageSource(level: Level, source: LivingEntity? = null): DamageSource {
-            return level.damageSources().source(useSyringeDamageKey, source)
+            return level.damageSources().source(ModDamageTypeTagsProvider.USE_SCRAPER, source)
         }
     }
 

@@ -77,6 +77,10 @@ object ModDataGen {
             event.includeServer(),
             ModPotionTagsProvider(output, lookupProvider, existingFileHelper)
         )
+        val damageTypeTagProvider = generator.addProvider(
+            event.includeServer(),
+            ModDamageTypeTagsProvider(output, lookupProvider, existingFileHelper)
+        )
 
         val advancementProvider = generator.addProvider(
             event.includeServer(),
