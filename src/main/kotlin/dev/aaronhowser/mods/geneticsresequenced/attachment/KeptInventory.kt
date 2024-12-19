@@ -13,10 +13,8 @@ data class KeptInventory(
 
     companion object {
 
-        val CODEC: Codec<KeptInventory> = ItemStack.CODEC.listOf().xmap(
-            { list -> KeptInventory(list) },
-            { inv -> inv.stacks }
-        )
+        val CODEC: Codec<KeptInventory> =
+            ItemStack.CODEC.listOf().xmap(::KeptInventory, KeptInventory::stacks)
 
         fun Player.saveInventory(list: List<ItemStack>) {
             this.setData(ModAttachmentTypes.KEPT_INVENTORY, KeptInventory(list))

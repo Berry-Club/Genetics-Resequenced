@@ -17,7 +17,7 @@ object ModAttachmentTypes {
     val GENE_CONTAINER: DeferredHolder<AttachmentType<*>, AttachmentType<GenesData>> =
         ATTACHMENT_TYPES_REGISTRY.register("genes", Supplier {
             AttachmentType
-                .builder(Supplier { GenesData() })
+                .builder(::GenesData)
                 .serialize(GenesData.CODEC)
                 .copyOnDeath()
                 .build()
@@ -26,7 +26,7 @@ object ModAttachmentTypes {
     val KEPT_INVENTORY: DeferredHolder<AttachmentType<*>, AttachmentType<KeptInventory>> =
         ATTACHMENT_TYPES_REGISTRY.register("kept_inventory", Supplier {
             AttachmentType
-                .builder(Supplier { KeptInventory() })
+                .builder(::KeptInventory)
                 .serialize(KeptInventory.CODEC)
                 .copyOnDeath()
                 .build()
