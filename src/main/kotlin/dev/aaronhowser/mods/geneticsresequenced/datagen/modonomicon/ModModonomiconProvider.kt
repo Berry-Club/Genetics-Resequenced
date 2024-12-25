@@ -5,8 +5,6 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookModel
 import com.klikli_dev.modonomicon.book.BookDisplayMode
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.categories.*
-import net.minecraft.core.HolderLookup
-import java.util.concurrent.CompletableFuture
 import java.util.function.BiConsumer
 
 class ModModonomiconProvider(

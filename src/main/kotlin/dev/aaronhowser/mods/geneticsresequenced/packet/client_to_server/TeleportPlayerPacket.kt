@@ -9,7 +9,7 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.server.level.ServerPlayer
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
-class TeleportPlayerPacket private constructor(): ModPacket {
+class TeleportPlayerPacket private constructor() : ModPacket {
     override fun receiveMessage(context: IPayloadContext) {
         val sender = context.player() as? ServerPlayer
             ?: throw IllegalStateException("Received TeleportPlayerPacket on wrong side!")

@@ -11,14 +11,14 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_decryptor.DnaD
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_decryptor.DnaDecryptorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.DnaExtractorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.DnaExtractorScreen
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.PlasmidInfuserScreen
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector.PlasmidInjectorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.PlasmidInfuserMenu
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.PlasmidInfuserScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector.PlasmidInjectorMenu
+import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector.PlasmidInjectorScreen
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.inventory.MenuType
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent

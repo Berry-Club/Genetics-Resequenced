@@ -3,9 +3,9 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModPotionTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.PotionTagIngredient
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
+import dev.aaronhowser.mods.geneticsresequenced.recipe.base.PotionTagIngredient
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeTypes

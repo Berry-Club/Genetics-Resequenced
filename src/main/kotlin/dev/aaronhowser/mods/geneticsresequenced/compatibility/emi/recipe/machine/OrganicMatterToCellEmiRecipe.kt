@@ -76,6 +76,6 @@ class OrganicMatterToCellEmiRecipe(
     override fun addWidgets(widgets: WidgetHolder) {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
         widgets.addSlot(organicMatter, 0, 0)
-        widgets.addSlot(cell, 58, 0).recipeContext(this);
+        widgets.addSlot(cell, 58, 0).recipeContext(this)
     }
 }

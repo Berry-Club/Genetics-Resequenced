@@ -73,6 +73,6 @@ class PurifySyringeEmiRecipe(
     override fun addWidgets(widgets: WidgetHolder) {
         widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
         widgets.addSlot(contaminatedSyringe, 0, 0)
-        widgets.addSlot(decontaminatedSyringe, 58, 0).recipeContext(this);
+        widgets.addSlot(decontaminatedSyringe, 58, 0).recipeContext(this)
     }
 }

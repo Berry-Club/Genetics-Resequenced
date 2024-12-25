@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.coal_generator
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part.GeneratorBurn
-import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Inventory
