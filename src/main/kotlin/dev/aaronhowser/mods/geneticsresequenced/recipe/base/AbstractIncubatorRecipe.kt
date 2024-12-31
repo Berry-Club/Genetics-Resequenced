@@ -12,6 +12,7 @@ abstract class AbstractIncubatorRecipe(
     val topIngredient: Ingredient,
     val bottomIngredient: Ingredient
 ) : Recipe<IncubatorRecipeInput> {
+
     override fun canCraftInDimensions(p0: Int, p1: Int): Boolean = true
 
     override fun getIngredients(): NonNullList<Ingredient> {
@@ -31,12 +32,22 @@ abstract class AbstractIncubatorRecipe(
             }
         }
 
-        fun isValidIngredient(level: Level, itemStack: ItemStack): Boolean {
+        fun isValidTopIngredient(level: Level, itemStack: ItemStack): Boolean {
             val usedInIncubatorRecipe = getIncubatorRecipes(level.recipeManager).any { recipeHolder ->
-                recipeHolder.value.ingredients.any { ingredient -> ingredient.test(itemStack) }
+                recipeHolder.value.topIngredient.test(itemStack)
             }
 
-            val usedInBrewingRecipe = level.potionBrewing().isIngredient(itemStack) || level.potionBrewing().isInput(itemStack)
+            val usedInBrewingRecipe = level.potionBrewing().isIngredient(itemStack)
+
+            return usedInIncubatorRecipe || usedInBrewingRecipe
+        }
+
+        fun isValidBottomIngredient(level: Level, itemStack: ItemStack): Boolean {
+            val usedInIncubatorRecipe = getIncubatorRecipes(level.recipeManager).any { recipeHolder ->
+                recipeHolder.value.bottomIngredient.test(itemStack)
+            }
+
+            val usedInBrewingRecipe = level.potionBrewing().isInput(itemStack)
 
             return usedInIncubatorRecipe || usedInBrewingRecipe
         }

@@ -63,11 +63,11 @@ class AdvancedIncubatorBlockEntity(
 
         override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
             return when (slot) {
-                TOP_SLOT_INDEX -> AbstractIncubatorRecipe.isValidIngredient(level!!, stack)
+                TOP_SLOT_INDEX -> AbstractIncubatorRecipe.isValidTopIngredient(level!!, stack)
 
                 LEFT_BOTTLE_SLOT_INDEX,
                 MIDDLE_BOTTLE_SLOT_INDEX,
-                RIGHT_BOTTLE_SLOT_INDEX -> AbstractIncubatorRecipe.isValidIngredient(level!!, stack)
+                RIGHT_BOTTLE_SLOT_INDEX -> AbstractIncubatorRecipe.isValidBottomIngredient(level!!, stack)
 
                 OVERCLOCKER_SLOT_INDEX -> stack.item == ModItems.OVERCLOCKER.get()
 
