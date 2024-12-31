@@ -90,25 +90,27 @@ class CellToHelixEmiRecipe(
     }
 
     override fun getId(): ResourceLocation {
-        var string = "cell_to_helix/"
+
+        val stringBuilder = StringBuilder()
+            .append("/cell_to_helix/")
 
         val entityType = EntityDnaItem.getEntityType(cellStack) ?: error("Invalid entity type")
         val entityTypeRl = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
         val entityString = entityTypeRl.toString().replace(':', '/')
 
-        string += entityString
+        stringBuilder.append(entityString)
 
         if (cellStack.item == ModItems.GMO_CELL.get()) {
-            string += "/gmo/"
+            stringBuilder.append("/gmo/")
 
             val geneHolder =
                 DnaHelixItem.getGeneHolder(helixStack) ?: error("Invalid gene")
             val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
-            string += geneString
+            stringBuilder.append(geneString)
         }
 
-        return OtherUtil.modResource(string)
+        return OtherUtil.modResource(stringBuilder.toString())
     }
 
     override fun getInputs(): List<EmiIngredient> {
