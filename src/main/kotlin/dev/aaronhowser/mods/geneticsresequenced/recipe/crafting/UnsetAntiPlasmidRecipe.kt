@@ -17,7 +17,7 @@ class UnsetAntiPlasmidRecipe(
         var antiPlasmid: ItemStack? = null
 
         for (stack in input.items()) {
-            if (stack.item == ModItems.ANTI_PLASMID.get()) {
+            if (stack.item == ModItems.ANTI_PLASMID.get() && PlasmidItem.hasGene(stack)) {
                 if (antiPlasmid != null) return false
                 antiPlasmid = stack
             } else if (!stack.isEmpty) {
@@ -25,9 +25,7 @@ class UnsetAntiPlasmidRecipe(
             }
         }
 
-        if (antiPlasmid == null) return false
-
-        return PlasmidItem.hasGene(antiPlasmid)
+        return antiPlasmid != null
     }
 
     override fun assemble(input: CraftingInput, provider: HolderLookup.Provider): ItemStack {
@@ -35,7 +33,7 @@ class UnsetAntiPlasmidRecipe(
     }
 
     override fun canCraftInDimensions(pWidth: Int, pHeight: Int): Boolean {
-        return pWidth * pHeight >= 2
+        return pWidth * pHeight >= 1
     }
 
     override fun getSerializer(): RecipeSerializer<*> {
