@@ -307,6 +307,7 @@
 # 1.5.4
 
 - Incubators now work as Brewing Stands again
+- Substrate Cell Duplication recipes no longer consume the input Cell
 - Added these tags to all custom damage types: `#minecraft:no_impact`, `#minecraft:no_anger`, `#minecraft:no_knockback`
 - Fixed Genes desyncing on client when you change dimensions or respawn (#51)
 - Fixed Set/Unset Anti-Plasmid recipes not working (#50)

@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.Incubato
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.DupeCellRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
@@ -200,6 +201,8 @@ class AdvancedIncubatorBlockEntity(
             RIGHT_BOTTLE_SLOT_INDEX
         )
 
+        var onlyDupeCellRecipes = true
+
         for (slotIndex in bottleSlots) {
             val bottomStack = itemHandler.getStackInSlot(slotIndex)
 
@@ -212,6 +215,8 @@ class AdvancedIncubatorBlockEntity(
             val incubatorRecipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, incubatorInput)
 
             if (incubatorRecipe != null) {
+                if (incubatorRecipe !is DupeCellRecipe) onlyDupeCellRecipes = false
+
                 val output = if (incubatorRecipe is GmoRecipe) {
                     gmoRecipeOutput(incubatorRecipe, incubatorInput)
                 } else {
@@ -226,6 +231,8 @@ class AdvancedIncubatorBlockEntity(
                 val hasMix = potionBrewing.hasMix(bottomStack, topStack)
 
                 if (hasMix) {
+                    onlyDupeCellRecipes = false
+
                     val output = potionBrewing.mix(topStack, bottomStack)
 
                     if (!output.isEmpty) {
@@ -235,7 +242,7 @@ class AdvancedIncubatorBlockEntity(
             }
         }
 
-        topStack.shrink(1)
+        if (!onlyDupeCellRecipes) topStack.shrink(1)
         setChanged()
     }
 
