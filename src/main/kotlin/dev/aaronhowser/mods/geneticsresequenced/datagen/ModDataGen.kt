@@ -97,6 +97,16 @@ object ModDataGen {
             ModLootTableProvider.create(output, lookupProvider)
         )
 
+        val modGeneRequirementsProvider = generator.addProvider(
+            event.includeServer(),
+            ModGeneRequirementsProvider(output, lookupWithGenes, existingFileHelper)
+        )
+
+        val modEntityGenesProvider = generator.addProvider(
+            event.includeServer(),
+            ModEntityGenesProvider(output, lookupProvider, existingFileHelper)
+        )
+
         val languageProvider = ModLanguageProvider(output)
 
         val modonomiconBookProvider = generator.addProvider(
@@ -111,16 +121,6 @@ object ModDataGen {
         //                  to write both mod text and book text.
         //                The other is to use the AbstractModonomiconLanguageProvider for the mod texts together with a LanguageProviderCache
         generator.addProvider(event.includeClient(), languageProvider)
-
-        val modGeneRequirementsProvider = generator.addProvider(
-            event.includeServer(),
-            ModGeneRequirementsProvider(output, lookupProvider, existingFileHelper)
-        )
-
-        val modEntityGenesProvider = generator.addProvider(
-            event.includeServer(),
-            ModEntityGenesProvider(output, lookupProvider, existingFileHelper)
-        )
 
     }
 
