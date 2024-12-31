@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.base
 
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.alchemy.PotionBrewing
 import net.minecraft.world.item.crafting.RecipeInput
 
 class IncubatorRecipeInput(
@@ -8,6 +9,12 @@ class IncubatorRecipeInput(
     private val bottomItem: ItemStack,
     val isHighTemp: Boolean
 ) : RecipeInput {
+
+    fun isValidPotionRecipe(potionBrewing: PotionBrewing): Boolean {
+        return isHighTemp
+                && potionBrewing.isInput(topItem)
+                && potionBrewing.isIngredient(bottomItem)
+    }
 
     val isLowTemp: Boolean
         get() = !this.isHighTemp

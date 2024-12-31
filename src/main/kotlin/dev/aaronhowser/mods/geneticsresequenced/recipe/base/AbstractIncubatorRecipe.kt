@@ -21,34 +21,27 @@ abstract class AbstractIncubatorRecipe : Recipe<IncubatorRecipeInput> {
 
     companion object {
 
-        fun getIncubatorRecipes(level: Level): List<RecipeHolder<AbstractIncubatorRecipe>> {
-            return getIncubatorRecipes(level.recipeManager)
-        }
-
         @Suppress("UNCHECKED_CAST")
         fun getIncubatorRecipes(recipeManager: RecipeManager): List<RecipeHolder<AbstractIncubatorRecipe>> {
-            return recipeManager.recipes.mapNotNull { if (it.value is AbstractIncubatorRecipe) it as? RecipeHolder<AbstractIncubatorRecipe> else null }
-        }
-
-        fun isValidIngredient(level: Level, itemStack: ItemStack): Boolean {
-            return getIncubatorRecipes(level).any { recipeHolder ->
-                recipeHolder.value.ingredients.any { ingredient -> ingredient.test(itemStack) }
+            return recipeManager.recipes.mapNotNull {
+                if (it.value is AbstractIncubatorRecipe) it as? RecipeHolder<AbstractIncubatorRecipe> else null
             }
         }
 
-        fun getIncubatorRecipe(level: Level, incubatorRecipeInput: IncubatorRecipeInput): AbstractIncubatorRecipe? {
-            return getIncubatorRecipes(level).find { recipeHolder ->
-                recipeHolder.value.matches(incubatorRecipeInput, level)
-            }?.value
+        fun isValidIngredient(level: Level, itemStack: ItemStack): Boolean {
+            val usedInIncubatorRecipe = getIncubatorRecipes(level.recipeManager).any { recipeHolder ->
+                recipeHolder.value.ingredients.any { ingredient -> ingredient.test(itemStack) }
+            }
+
+            val usedInBrewingRecipe = level.potionBrewing().isIngredient(itemStack)
+
+            return usedInIncubatorRecipe || usedInBrewingRecipe
         }
 
-        fun getIncubatorRecipe(
-            level: Level,
-            topStack: ItemStack,
-            bottomStack: ItemStack,
-            isHighTemp: Boolean
-        ): AbstractIncubatorRecipe? {
-            return getIncubatorRecipe(level, IncubatorRecipeInput(topStack, bottomStack, isHighTemp))
+        fun getIncubatorRecipe(level: Level, incubatorRecipeInput: IncubatorRecipeInput): AbstractIncubatorRecipe? {
+            return getIncubatorRecipes(level.recipeManager).find { recipeHolder ->
+                recipeHolder.value.matches(incubatorRecipeInput, level)
+            }?.value
         }
 
         fun hasIncubatorRecipe(
@@ -56,15 +49,6 @@ abstract class AbstractIncubatorRecipe : Recipe<IncubatorRecipeInput> {
             incubatorRecipeInput: IncubatorRecipeInput
         ): Boolean {
             return getIncubatorRecipe(level, incubatorRecipeInput) != null
-        }
-
-        fun hasIncubatorRecipe(
-            level: Level,
-            topStack: ItemStack,
-            bottomStack: ItemStack,
-            isHighTemp: Boolean
-        ): Boolean {
-            return getIncubatorRecipe(level, topStack, bottomStack, isHighTemp) != null
         }
 
     }
