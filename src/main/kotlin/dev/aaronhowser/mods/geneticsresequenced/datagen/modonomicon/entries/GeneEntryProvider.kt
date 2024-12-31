@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase
-import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
+import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneRequirementsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
@@ -67,16 +67,18 @@ abstract class GeneEntryProvider : BaseEntryProvider {
 
         spotlightPageText.append(canMobsHaveText)
 
-        //FIXME: This doesn't work
-        val geneRequirements = GeneRequirements.getGeneRequiredGeneHolders(geneHolder, registries())
+        val requiredGenes = ModGeneRequirementsProvider.DEFAULT[geneHolder.key!!]
 
-        if (geneRequirements.isNotEmpty()) {
+        if (!requiredGenes.isNullOrEmpty()) {
+
             spotlightPageText.append("\n\n")
-            spotlightPageText.append("This Gene ${bad("requires")} the following Genes to be present:")
-            spotlightPageText.append("\n")
-            geneRequirements.forEach {
-                spotlightPageText.append(" - ${it.key}")
-                spotlightPageText.append("\n")
+            spotlightPageText.append("By default, this Gene ${bad("requires")} the following Genes to be present:")
+
+            for (requiredGene in requiredGenes) {
+                val requiredGeneHolder = requiredGene.getHolderOrThrow(registries())
+                val requiredGeneName = Gene.getNameComponent(requiredGeneHolder)
+
+                spotlightPageText.append("\n - ${requiredGeneName.string}")
             }
         }
 

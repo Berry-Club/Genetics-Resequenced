@@ -10,6 +10,8 @@ import net.minecraft.resources.ResourceKey
 import net.minecraft.server.packs.PackType
 import net.neoforged.neoforge.common.data.ExistingFileHelper
 import net.neoforged.neoforge.common.data.JsonCodecProvider
+import org.antlr.v4.runtime.misc.MultiMap
+import org.jetbrains.annotations.ApiStatus.Internal
 import java.util.concurrent.CompletableFuture
 
 class ModGeneRequirementsProvider(
@@ -27,10 +29,17 @@ class ModGeneRequirementsProvider(
     existingFileHelper
 ) {
 
+    companion object {
+        @Internal
+        val DEFAULT: MultiMap<ResourceKey<Gene>, ResourceKey<Gene>> = MultiMap()
+    }
+
     private fun addRequirements(
         geneRk: ResourceKey<Gene>,
         vararg requirements: ResourceKey<Gene>
     ) {
+        DEFAULT.getOrPut(geneRk) { mutableListOf() }.addAll(requirements)
+
         this.unconditional(
             geneRk.location(),
             GeneRequirements.GeneRequirementsData(
