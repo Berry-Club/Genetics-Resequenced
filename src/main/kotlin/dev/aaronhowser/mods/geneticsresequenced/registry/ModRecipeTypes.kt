@@ -1,8 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.UnsetAntiPlasmidRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.*
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.crafting.Recipe
@@ -15,12 +13,6 @@ object ModRecipeTypes {
 
     val RECIPE_TYPES_REGISTRY: DeferredRegister<RecipeType<*>> =
         DeferredRegister.create(BuiltInRegistries.RECIPE_TYPE, GeneticsResequenced.ID)
-
-    val SET_ANTI_PLASMID: DeferredHolder<RecipeType<*>, RecipeType<SetAntiPlasmidRecipe>> =
-        registerRecipeType("anti_plasmid/set")
-
-    val UNSET_ANTI_PLASMID: DeferredHolder<RecipeType<*>, RecipeType<UnsetAntiPlasmidRecipe>> =
-        registerRecipeType("anti_plasmid/unset")
 
     val GMO: DeferredHolder<RecipeType<*>, RecipeType<GmoRecipe>> =
         registerRecipeType("incubator/gmo")

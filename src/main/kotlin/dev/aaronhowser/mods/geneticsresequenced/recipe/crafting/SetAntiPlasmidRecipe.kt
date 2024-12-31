@@ -3,10 +3,12 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.crafting
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeTypes
 import net.minecraft.core.HolderLookup
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.*
+import net.minecraft.world.item.crafting.CraftingBookCategory
+import net.minecraft.world.item.crafting.CraftingInput
+import net.minecraft.world.item.crafting.CustomRecipe
+import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 class SetAntiPlasmidRecipe(
@@ -58,10 +60,6 @@ class SetAntiPlasmidRecipe(
 
     override fun getSerializer(): RecipeSerializer<*> {
         return ModRecipeSerializers.SET_ANTI_PLASMID.get()
-    }
-
-    override fun getType(): RecipeType<*> {
-        return ModRecipeTypes.SET_ANTI_PLASMID.get()
     }
 
 }
