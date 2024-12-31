@@ -311,3 +311,4 @@
   - `#minecraft:no_impact`
   - `#minecraft:no_anger`
   - `#minecraft:no_knockback`
+- Fixed Genes desyncing on client when you change dimensions

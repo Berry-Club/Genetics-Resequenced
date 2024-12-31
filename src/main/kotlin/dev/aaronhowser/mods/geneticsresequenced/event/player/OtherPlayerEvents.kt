@@ -68,6 +68,22 @@ object OtherPlayerEvents {
     }
 
     @SubscribeEvent
+    fun onChangeDimension(event: PlayerEvent.PlayerChangedDimensionEvent) {
+        val player = event.entity as? ServerPlayer ?: return
+
+        for (gene in player.geneHolders) {
+            ModPacketHandler.messagePlayer(
+                player,
+                GeneChangedPacket(
+                    player.id,
+                    gene.key!!.location(),
+                    true
+                )
+            )
+        }
+    }
+
+    @SubscribeEvent
     fun onSendChatMessage(event: ServerChatEvent) {
         OtherGenes.handleEmeraldHeart(event)
         OtherGenes.handleCringeChat(event)
