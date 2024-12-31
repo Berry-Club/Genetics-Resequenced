@@ -8,14 +8,12 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.PotionTagIngredient
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeTypes
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
-import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 
 class SetPotionEntityRecipe private constructor() : AbstractIncubatorRecipe(
@@ -50,10 +48,6 @@ class SetPotionEntityRecipe private constructor() : AbstractIncubatorRecipe(
 
     override fun getSerializer(): RecipeSerializer<*> {
         return ModRecipeSerializers.SET_POTION_ENTITY.get()
-    }
-
-    override fun getType(): RecipeType<*> {
-        return ModRecipeTypes.SET_POTION_ENTITY.get()
     }
 
     class Serializer : RecipeSerializer<SetPotionEntityRecipe> {

@@ -6,15 +6,21 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
-import dev.aaronhowser.mods.geneticsresequenced.registry.*
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.*
+import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.item.crafting.RecipeHolder
+import net.minecraft.world.item.crafting.RecipeManager
+import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
@@ -51,10 +57,6 @@ class VirusRecipe(
 
     override fun getSerializer(): RecipeSerializer<*> {
         return ModRecipeSerializers.VIRUS.get()
-    }
-
-    override fun getType(): RecipeType<*> {
-        return ModRecipeTypes.VIRUS.get()
     }
 
     class Serializer : RecipeSerializer<VirusRecipe> {

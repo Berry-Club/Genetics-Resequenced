@@ -14,7 +14,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
@@ -23,7 +22,6 @@ import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
-import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
@@ -57,10 +55,6 @@ class BlackDeathRecipe private constructor() : AbstractIncubatorRecipe(
 
     override fun getSerializer(): RecipeSerializer<*> {
         return ModRecipeSerializers.BLACK_DEATH.get()
-    }
-
-    override fun getType(): RecipeType<*> {
-        return ModRecipeTypes.BLACK_DEATH.get()
     }
 
     class Serializer : RecipeSerializer<BlackDeathRecipe> {

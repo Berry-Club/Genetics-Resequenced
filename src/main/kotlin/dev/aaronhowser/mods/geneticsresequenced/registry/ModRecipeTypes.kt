@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.*
+import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeType
@@ -14,23 +14,8 @@ object ModRecipeTypes {
     val RECIPE_TYPES_REGISTRY: DeferredRegister<RecipeType<*>> =
         DeferredRegister.create(BuiltInRegistries.RECIPE_TYPE, GeneticsResequenced.ID)
 
-    val GMO: DeferredHolder<RecipeType<*>, RecipeType<GmoRecipe>> =
-        registerRecipeType("incubator/gmo")
-
-    val SET_POTION_ENTITY: DeferredHolder<RecipeType<*>, RecipeType<SetPotionEntityRecipe>> =
-        registerRecipeType("incubator/set_potion_entity")
-
-    val DUPE_CELL: DeferredHolder<RecipeType<*>, RecipeType<DupeCellRecipe>> =
-        registerRecipeType("incubator/dupe_cell")
-
-    val VIRUS: DeferredHolder<RecipeType<*>, RecipeType<VirusRecipe>> =
-        registerRecipeType("incubator/virus")
-
-    val BLACK_DEATH: DeferredHolder<RecipeType<*>, RecipeType<BlackDeathRecipe>> =
-        registerRecipeType("incubator/black_death")
-
-    val BASIC_INCUBATOR: DeferredHolder<RecipeType<*>, RecipeType<BasicIncubatorRecipe>> =
-        registerRecipeType("incubator/basic")
+    val INCUBATOR: DeferredHolder<RecipeType<*>, RecipeType<AbstractIncubatorRecipe>> =
+        registerRecipeType("incubator")
 
     private fun <T : Recipe<*>> registerRecipeType(
         name: String

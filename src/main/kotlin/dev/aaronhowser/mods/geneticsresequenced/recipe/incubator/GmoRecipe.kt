@@ -8,8 +8,11 @@ import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
-import dev.aaronhowser.mods.geneticsresequenced.registry.*
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.HolderLookup
@@ -21,7 +24,10 @@ import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.*
+import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.item.crafting.RecipeHolder
+import net.minecraft.world.item.crafting.RecipeManager
+import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
@@ -77,10 +83,6 @@ class GmoRecipe(
 
     override fun getSerializer(): RecipeSerializer<*> {
         return ModRecipeSerializers.GMO.get()
-    }
-
-    override fun getType(): RecipeType<*> {
-        return ModRecipeTypes.GMO.get()
     }
 
     class Serializer : RecipeSerializer<GmoRecipe> {

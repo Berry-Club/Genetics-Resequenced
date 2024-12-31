@@ -6,13 +6,15 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeTypes
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.*
+import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.item.crafting.RecipeHolder
+import net.minecraft.world.item.crafting.RecipeManager
+import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 class BasicIncubatorRecipe(
@@ -41,10 +43,6 @@ class BasicIncubatorRecipe(
 
     override fun getSerializer(): RecipeSerializer<*> {
         return ModRecipeSerializers.BASIC_INCUBATOR.get()
-    }
-
-    override fun getType(): RecipeType<*> {
-        return ModRecipeTypes.BASIC_INCUBATOR.get()
     }
 
     class Serializer : RecipeSerializer<BasicIncubatorRecipe> {

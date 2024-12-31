@@ -1,11 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.base
 
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeTypes
 import net.minecraft.core.NonNullList
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.Ingredient
-import net.minecraft.world.item.crafting.Recipe
-import net.minecraft.world.item.crafting.RecipeHolder
-import net.minecraft.world.item.crafting.RecipeManager
+import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
 
 abstract class AbstractIncubatorRecipe(
@@ -14,6 +12,10 @@ abstract class AbstractIncubatorRecipe(
 ) : Recipe<IncubatorRecipeInput> {
 
     override fun canCraftInDimensions(p0: Int, p1: Int): Boolean = true
+
+    final override fun getType(): RecipeType<*> {
+        return ModRecipeTypes.INCUBATOR.get()
+    }
 
     override fun getIngredients(): NonNullList<Ingredient> {
         val list = NonNullList.create<Ingredient>()
@@ -25,11 +27,8 @@ abstract class AbstractIncubatorRecipe(
 
     companion object {
 
-        @Suppress("UNCHECKED_CAST")
         fun getIncubatorRecipes(recipeManager: RecipeManager): List<RecipeHolder<AbstractIncubatorRecipe>> {
-            return recipeManager.recipes.mapNotNull {
-                if (it.value is AbstractIncubatorRecipe) it as? RecipeHolder<AbstractIncubatorRecipe> else null
-            }
+            return recipeManager.getAllRecipesFor(ModRecipeTypes.INCUBATOR.get())
         }
 
         fun isValidTopIngredient(level: Level, itemStack: ItemStack): Boolean {
