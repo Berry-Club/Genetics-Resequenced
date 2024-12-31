@@ -157,12 +157,25 @@ class IncubatorBlockEntity(
             val bottomStack = itemHandler.getStackInSlot(slotIndex)
 
             val recipeInput = IncubatorRecipeInput(topStack, bottomStack, isHighTemp = true)
-            val recipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, recipeInput) ?: continue
+            val incubatorRecipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, recipeInput)
 
-            val output = recipe.assemble(recipeInput, level!!.registryAccess())
+            if (incubatorRecipe != null) {
+                val output = incubatorRecipe.assemble(recipeInput, level!!.registryAccess())
 
-            if (!output.isEmpty) {
-                itemHandler.setStackInSlot(slotIndex, output)
+                if (!output.isEmpty) {
+                    itemHandler.setStackInSlot(slotIndex, output)
+                }
+            } else {
+                val potionBrewing = level!!.potionBrewing()
+                val hasMix = potionBrewing.hasMix(bottomStack, topStack)
+
+                if (hasMix) {
+                    val output = potionBrewing.mix(topStack, bottomStack)
+
+                    if (!output.isEmpty) {
+                        itemHandler.setStackInSlot(slotIndex, output)
+                    }
+                }
             }
         }
 

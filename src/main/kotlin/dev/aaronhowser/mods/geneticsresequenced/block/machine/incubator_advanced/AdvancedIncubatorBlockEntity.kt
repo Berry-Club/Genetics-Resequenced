@@ -209,16 +209,29 @@ class AdvancedIncubatorBlockEntity(
                 isHighTemp = isHighTemperature
             )
 
-            val incubatorRecipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, incubatorInput) ?: continue
+            val incubatorRecipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, incubatorInput)
 
-            val output = if (incubatorRecipe is GmoRecipe) {
-                gmoRecipeOutput(incubatorRecipe, incubatorInput)
+            if (incubatorRecipe != null) {
+                val output = if (incubatorRecipe is GmoRecipe) {
+                    gmoRecipeOutput(incubatorRecipe, incubatorInput)
+                } else {
+                    nonGmoRecipeOutput(incubatorRecipe)
+                }
+
+                if (!output.isEmpty) {
+                    itemHandler.setStackInSlot(slotIndex, output)
+                }
             } else {
-                nonGmoRecipeOutput(incubatorRecipe)
-            }
+                val potionBrewing = level!!.potionBrewing()
+                val hasMix = potionBrewing.hasMix(bottomStack, topStack)
 
-            if (!output.isEmpty) {
-                itemHandler.setStackInSlot(slotIndex, output)
+                if (hasMix) {
+                    val output = potionBrewing.mix(topStack, bottomStack)
+
+                    if (!output.isEmpty) {
+                        itemHandler.setStackInSlot(slotIndex, output)
+                    }
+                }
             }
         }
 

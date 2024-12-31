@@ -11,9 +11,7 @@ class IncubatorRecipeInput(
 ) : RecipeInput {
 
     fun isValidPotionRecipe(potionBrewing: PotionBrewing): Boolean {
-        return isHighTemp
-                && potionBrewing.isInput(topItem)
-                && potionBrewing.isIngredient(bottomItem)
+        return isHighTemp && potionBrewing.hasMix(bottomItem, topItem)
     }
 
     val isLowTemp: Boolean

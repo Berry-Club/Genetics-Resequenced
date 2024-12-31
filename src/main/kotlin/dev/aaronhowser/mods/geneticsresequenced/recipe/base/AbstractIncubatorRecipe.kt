@@ -62,7 +62,7 @@ abstract class AbstractIncubatorRecipe(
             level: Level,
             incubatorRecipeInput: IncubatorRecipeInput
         ): Boolean {
-            return getIncubatorRecipe(level, incubatorRecipeInput) != null
+            return getIncubatorRecipe(level, incubatorRecipeInput) != null || incubatorRecipeInput.isValidPotionRecipe(level.potionBrewing())
         }
 
     }
