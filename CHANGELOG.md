@@ -311,6 +311,7 @@
 - Substrate Cell Duplication recipes no longer consume the input Cell
 - Set Potion Entity recipes are invalid if the potion already has the cell's entity type
 - Fixed Set/Unset Anti-Plasmid recipes not working (#50)
+- Fixed Virus recipes not working (#48)
 - Added these tags to all custom damage types: `#minecraft:no_impact`, `#minecraft:no_anger`, `#minecraft:no_knockback`
 - Mod commands can now use any of the following: "/geneticsresequenced", "/genetics", "gr"
 - Renamed the command "/gr clearBioluminescenceBlocks" to "/gr clearBioGlow"

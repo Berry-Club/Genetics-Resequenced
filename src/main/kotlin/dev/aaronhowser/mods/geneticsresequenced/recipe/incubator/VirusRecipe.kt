@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
@@ -39,7 +40,7 @@ class VirusRecipe(
         if (!topIngredient.test(helixStack)) return false
         if (!bottomIngredient.test(potionStack)) return false
 
-        return DnaHelixItem.getGeneHolder(helixStack) == inputDnaGene
+        return DnaHelixItem.getGeneHolder(helixStack).isGene(inputDnaGene)
     }
 
     override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
