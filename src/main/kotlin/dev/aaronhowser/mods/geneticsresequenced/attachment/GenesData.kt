@@ -8,12 +8,15 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
+import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
+import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.HolderSet
 import net.minecraft.resources.ResourceKey
+import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
@@ -31,6 +34,21 @@ data class GenesData(
             { GenesData(it.toSet()) },
             { it.genes.toList() }
         )
+
+        fun syncPlayer(player: Player) {
+            if (player !is ServerPlayer) return
+
+            for (gene in player.geneHolders) {
+                ModPacketHandler.messagePlayer(
+                    player,
+                    GeneChangedPacket(
+                        player.id,
+                        gene.key!!.location(),
+                        true
+                    )
+                )
+            }
+        }
 
         var LivingEntity.geneHolders: Set<Holder<Gene>>
             get() = this.getData(ModAttachmentTypes.GENE_CONTAINER).genes.toSet()

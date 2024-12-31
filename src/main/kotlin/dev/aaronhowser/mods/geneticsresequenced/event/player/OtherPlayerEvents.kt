@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
@@ -14,6 +15,7 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
+import net.neoforged.bus.api.EventPriority
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.ServerChatEvent
@@ -53,34 +55,17 @@ object OtherPlayerEvents {
 
     @SubscribeEvent
     fun onLogIn(event: PlayerEvent.PlayerLoggedInEvent) {
-        val player = event.entity as? ServerPlayer ?: return
-
-        for (gene in player.geneHolders) {
-            ModPacketHandler.messagePlayer(
-                player,
-                GeneChangedPacket(
-                    player.id,
-                    gene.key!!.location(),
-                    true
-                )
-            )
-        }
+        GenesData.syncPlayer(event.entity)
     }
 
     @SubscribeEvent
     fun onChangeDimension(event: PlayerEvent.PlayerChangedDimensionEvent) {
-        val player = event.entity as? ServerPlayer ?: return
+        GenesData.syncPlayer(event.entity)
+    }
 
-        for (gene in player.geneHolders) {
-            ModPacketHandler.messagePlayer(
-                player,
-                GeneChangedPacket(
-                    player.id,
-                    gene.key!!.location(),
-                    true
-                )
-            )
-        }
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    fun onPlayerRespawn(event: PlayerEvent.PlayerRespawnEvent) {
+        GenesData.syncPlayer(event.entity)
     }
 
     @SubscribeEvent
@@ -94,11 +79,9 @@ object OtherPlayerEvents {
     @SubscribeEvent
     fun onStartTracking(event: PlayerEvent.StartTracking) {
         val player = event.entity as? ServerPlayer ?: return
-
         val entity = event.target as? LivingEntity ?: return
-        val genes = entity.geneHolders
 
-        for (gene in genes) {
+        for (gene in entity.geneHolders) {
             ModPacketHandler.messagePlayer(
                 player,
                 GeneChangedPacket(
