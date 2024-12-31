@@ -56,7 +56,6 @@ object ModPacketHandler {
             TeleportPlayerPacket.TYPE,
             TeleportPlayerPacket.STREAM_CODEC
         )
-
     }
 
     fun messageNearbyPlayers(packet: ModPacket, serverLevel: ServerLevel, origin: Vec3, radius: Double) {
