@@ -14,11 +14,10 @@ abstract class AbstractIncubatorRecipe(
 ) : Recipe<IncubatorRecipeInput> {
     override fun canCraftInDimensions(p0: Int, p1: Int): Boolean = true
 
-    val ingredients: List<Ingredient> = listOf(topIngredient, bottomIngredient)
-
     override fun getIngredients(): NonNullList<Ingredient> {
         val list = NonNullList.create<Ingredient>()
-        list.addAll(ingredients)
+        list.add(topIngredient)
+        list.add(bottomIngredient)
 
         return list
     }
