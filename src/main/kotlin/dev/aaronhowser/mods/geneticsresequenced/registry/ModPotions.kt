@@ -1,8 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects.instance
 import net.minecraft.core.registries.Registries
+import net.minecraft.world.effect.MobEffect
+import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.item.alchemy.Potion
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -14,33 +15,23 @@ object ModPotions {
         DeferredRegister.create(Registries.POTION, GeneticsResequenced.ID)
 
     val SUBSTRATE: DeferredHolder<Potion, Potion> =
-        POTION_REGISTRY.register("substrate", Supplier {
-            Potion("substrate".id, ModEffects.SUBSTRATE.instance)
-        })
+        register("substrate", ModEffects.SUBSTRATE)
     val CELL_GROWTH: DeferredHolder<Potion, Potion> =
-        POTION_REGISTRY.register("cell_growth", Supplier {
-            Potion("cell_growth".id, ModEffects.CELL_GROWTH.instance)
-        })
+        register("cell_growth", ModEffects.CELL_GROWTH)
     val MUTATION: DeferredHolder<Potion, Potion> =
-        POTION_REGISTRY.register("mutation", Supplier {
-            Potion("mutation".id, ModEffects.MUTATION.instance)
-        })
+        register("mutation", ModEffects.MUTATION)
     val VIRAL_AGENTS: DeferredHolder<Potion, Potion> =
-        POTION_REGISTRY.register("viral_agents", Supplier {
-            Potion("viral_agents".id, ModEffects.VIRAL_AGENTS.instance)
-        })
+        register("viral_agents", ModEffects.VIRAL_AGENTS)
 
     val PANACEA: DeferredHolder<Potion, Potion> =
-        POTION_REGISTRY.register("panacea", Supplier {
-            Potion("panacea".id, ModEffects.PANACEA.instance)
-        })
+        register("panacea", ModEffects.PANACEA)
     val ZOMBIFY_VILLAGER: DeferredHolder<Potion, Potion> =
-        POTION_REGISTRY.register("zombify_villager", Supplier {
-            Potion("zombify_villager".id, ModEffects.ZOMBIFY_VILLAGER.instance)
-        })
+        register("zombify_villager", ModEffects.ZOMBIFY_VILLAGER)
 
-    // To prevent name conflicts if other mods happen to use the same potion names
-    private val String.id: String
-        get() = "${GeneticsResequenced.ID}.$this"
+    private fun register(id: String, effect: DeferredHolder<MobEffect, out MobEffect>): DeferredHolder<Potion, Potion> {
+        val potionId = "${GeneticsResequenced.ID}.$id"  // Required for localization
+
+        return POTION_REGISTRY.register(id, Supplier { Potion(potionId, MobEffectInstance(effect)) })
+    }
 
 }
