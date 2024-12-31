@@ -306,11 +306,11 @@
 
 # 1.5.4
 
+- Fixed Genes desyncing on client when you change dimensions or respawn (#51)
 - Incubators now work as Brewing Stands again
 - Substrate Cell Duplication recipes no longer consume the input Cell
 - Set Potion Entity recipes are invalid if the potion already has the cell's entity type
-- Added these tags to all custom damage types: `#minecraft:no_impact`, `#minecraft:no_anger`, `#minecraft:no_knockback`
-- Fixed Genes desyncing on client when you change dimensions or respawn (#51)
 - Fixed Set/Unset Anti-Plasmid recipes not working (#50)
-- Renamed the command "/geneticsresequenced clearBioluminescenceBlocks" to "/geneticsresequenced clearBioGlow"
+- Added these tags to all custom damage types: `#minecraft:no_impact`, `#minecraft:no_anger`, `#minecraft:no_knockback`
 - Mod commands can now use any of the following: "/geneticsresequenced", "/genetics", "gr"
+- Renamed the command "/gr clearBioluminescenceBlocks" to "/gr clearBioGlow"
