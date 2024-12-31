@@ -21,8 +21,6 @@ data class GeneChangedPacket(
     val wasAdded: Boolean
 ) : ModPacket {
 
-    override fun type(): CustomPacketPayload.Type<GeneChangedPacket> = TYPE
-
     override fun receiveMessage(context: IPayloadContext) {
         context.enqueueWork {
             // Return if the entity does not exist on the client. This happens when the entity is not being tracked on the client, aka if it's too far away or whatever.
@@ -42,6 +40,8 @@ data class GeneChangedPacket(
             geneHolder.value().setAttributeModifiers(entity, wasAdded)
         }
     }
+
+    override fun type(): CustomPacketPayload.Type<GeneChangedPacket> = TYPE
 
     companion object {
         val TYPE: CustomPacketPayload.Type<GeneChangedPacket> =

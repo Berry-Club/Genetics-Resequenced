@@ -10,7 +10,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isContaminated
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
-import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
+import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.SetGenesPacket
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
@@ -81,16 +81,13 @@ object OtherPlayerEvents {
         val player = event.entity as? ServerPlayer ?: return
         val entity = event.target as? LivingEntity ?: return
 
-        for (gene in entity.geneHolders) {
-            ModPacketHandler.messagePlayer(
-                player,
-                GeneChangedPacket(
-                    entity.id,
-                    gene.key!!.location(),
-                    true
-                )
+        ModPacketHandler.messagePlayer(
+            player,
+            SetGenesPacket(
+                entity.id,
+                entity.geneHolders
             )
-        }
+        )
     }
 
 }

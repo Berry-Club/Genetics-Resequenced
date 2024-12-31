@@ -132,9 +132,7 @@ data class Gene(
     }
 
     fun setAttributeModifiers(livingEntity: LivingEntity, isAdding: Boolean) {
-
         for ((attribute, modifier) in attributeModifiers) {
-
             val attributeInstance = livingEntity.getAttribute(attribute)
 
             if (attributeInstance == null) {
@@ -150,9 +148,7 @@ data class Gene(
             } else {
                 if (attributeInstance.hasModifier(modifier.id)) attributeInstance.removeModifier(modifier)
             }
-
         }
-
     }
 
     companion object {

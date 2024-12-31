@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.Fireball
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.TeleportPlayerPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.NarratorPacket
+import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.SetGenesPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
@@ -20,6 +21,15 @@ object ModPacketHandler {
         registrar.playToClient(
             GeneChangedPacket.TYPE,
             GeneChangedPacket.STREAM_CODEC,
+            DirectionalPayloadHandler(
+                { packet, context -> packet.receiveMessage(context) },
+                { packet, context -> packet.receiveMessage(context) }
+            )
+        )
+
+        registrar.playToServer(
+            SetGenesPacket.TYPE,
+            SetGenesPacket.STREAM_CODEC,
             DirectionalPayloadHandler(
                 { packet, context -> packet.receiveMessage(context) },
                 { packet, context -> packet.receiveMessage(context) }
