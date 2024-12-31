@@ -14,7 +14,6 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.phys.Vec3
 import net.neoforged.neoforge.network.PacketDistributor
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
-import net.neoforged.neoforge.network.handling.IPayloadHandler
 import net.neoforged.neoforge.network.registration.PayloadRegistrar
 
 object ModPacketHandler {
@@ -26,37 +25,37 @@ object ModPacketHandler {
             registrar,
             GeneChangedPacket.TYPE,
             GeneChangedPacket.STREAM_CODEC
-        ) { packet, context -> packet.receiveOnClient(context) }
+        )
 
         toClient(
             registrar,
             SetGenesPacket.TYPE,
             SetGenesPacket.STREAM_CODEC
-        ) { packet, context -> packet.receiveOnClient(context) }
+        )
 
         toClient(
             registrar,
             NarratorPacket.TYPE,
             NarratorPacket.STREAM_CODEC
-        ) { packet, context -> packet.receiveOnClient(context) }
+        )
 
         toClient(
             registrar,
             ShearedPacket.TYPE,
             ShearedPacket.STREAM_CODEC
-        ) { packet, context -> packet.receiveOnClient(context) }
+        )
 
         toServer(
             registrar,
             FireballPacket.TYPE,
             FireballPacket.STREAM_CODEC
-        ) { packet, context -> packet.receiveOnServer(context) }
+        )
 
         toServer(
             registrar,
             TeleportPlayerPacket.TYPE,
             TeleportPlayerPacket.STREAM_CODEC
-        ) { packet, context -> packet.receiveOnServer(context) }
+        )
 
     }
 
@@ -85,26 +84,22 @@ object ModPacketHandler {
         registrar: PayloadRegistrar,
         packetType: CustomPacketPayload.Type<T>,
         streamCodec: StreamCodec<in RegistryFriendlyByteBuf, T>,
-        payloadHandler: IPayloadHandler<T>
     ) {
         registrar.playToClient(
             packetType,
-            streamCodec,
-            payloadHandler
-        )
+            streamCodec
+        ) { packet, context -> packet.receiveOnClient(context) }
     }
 
     private fun <T : ModPacket> toServer(
         registrar: PayloadRegistrar,
         packetType: CustomPacketPayload.Type<T>,
-        streamCodec: StreamCodec<in RegistryFriendlyByteBuf, T>,
-        payloadHandler: IPayloadHandler<T>
+        streamCodec: StreamCodec<in RegistryFriendlyByteBuf, T>
     ) {
         registrar.playToServer(
             packetType,
-            streamCodec,
-            payloadHandler
-        )
+            streamCodec
+        ) { packet, context -> packet.receiveOnServer(context) }
     }
 
 }
