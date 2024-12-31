@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries
 
 import com.klikli_dev.modonomicon.api.datagen.CategoryProviderBase
-import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
@@ -57,27 +56,10 @@ abstract class GeneEntryProvider : BaseEntryProvider {
     final override fun generatePages() {
         firstPages()
 
-        val spotlightPageText = StringBuilder()
-
         val canMobsHaveText = if (geneHolder.value().allowedEntities.any { it.value() !== EntityType.PLAYER }) {
             "This Gene ${minor("can be given to mobs")}."
         } else {
             "This Gene ${bad("cannot be given to mobs")}."
-        }
-
-        spotlightPageText.append(canMobsHaveText)
-
-        //FIXME: This doesn't work
-        val geneRequirements = GeneRequirements.getGeneRequiredGeneHolders(geneHolder, registries())
-
-        if (geneRequirements.isNotEmpty()) {
-            spotlightPageText.append("\n\n")
-            spotlightPageText.append("This Gene ${bad("requires")} the following Genes to be present:")
-            spotlightPageText.append("\n")
-            geneRequirements.forEach {
-                spotlightPageText.append(" - ${it.key}")
-                spotlightPageText.append("\n")
-            }
         }
 
         val plasmid = ModItems.PLASMID.toStack()
@@ -86,7 +68,7 @@ abstract class GeneEntryProvider : BaseEntryProvider {
 
         spotlightPage(
             plasmid,
-            spotlightPageText.toString()
+            canMobsHaveText,
         )
 
     }
