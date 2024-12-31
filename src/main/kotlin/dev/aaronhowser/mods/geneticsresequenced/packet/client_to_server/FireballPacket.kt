@@ -11,7 +11,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 
 class FireballPacket private constructor() : ModPacket {
 
-    override fun receiveMessage(context: IPayloadContext) {
+    override fun receiveOnServer(context: IPayloadContext) {
         context.enqueueWork {
             val sender = context.player() as? ServerPlayer ?: return@enqueueWork
             PacketGenes.dragonBreath(sender)

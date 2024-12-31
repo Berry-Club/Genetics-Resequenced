@@ -12,7 +12,8 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 data class ShearedPacket(
     val removingSkin: Boolean
 ) : ModPacket {
-    override fun receiveMessage(context: IPayloadContext) {
+
+    override fun receiveOnClient(context: IPayloadContext) {
         context.enqueueWork {
             if (removingSkin) {
                 ClientUtil.shearPlayerSkin()

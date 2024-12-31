@@ -6,71 +6,57 @@ import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChan
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.NarratorPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.SetGenesPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
+import net.minecraft.network.RegistryFriendlyByteBuf
+import net.minecraft.network.codec.StreamCodec
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.phys.Vec3
 import net.neoforged.neoforge.network.PacketDistributor
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
-import net.neoforged.neoforge.network.handling.DirectionalPayloadHandler
+import net.neoforged.neoforge.network.handling.IPayloadHandler
+import net.neoforged.neoforge.network.registration.PayloadRegistrar
 
 object ModPacketHandler {
 
     fun registerPayloads(event: RegisterPayloadHandlersEvent) {
         val registrar = event.registrar("1")
 
-        registrar.playToClient(
+        toClient(
+            registrar,
             GeneChangedPacket.TYPE,
-            GeneChangedPacket.STREAM_CODEC,
-            DirectionalPayloadHandler(
-                { packet, context -> packet.receiveMessage(context) },
-                { packet, context -> packet.receiveMessage(context) }
-            )
-        )
+            GeneChangedPacket.STREAM_CODEC
+        ) { packet, context -> packet.receiveOnClient(context) }
 
-        registrar.playToServer(
+        toClient(
+            registrar,
             SetGenesPacket.TYPE,
-            SetGenesPacket.STREAM_CODEC,
-            DirectionalPayloadHandler(
-                { packet, context -> packet.receiveMessage(context) },
-                { packet, context -> packet.receiveMessage(context) }
-            )
-        )
+            SetGenesPacket.STREAM_CODEC
+        ) { packet, context -> packet.receiveOnClient(context) }
 
-        registrar.playToClient(
+        toClient(
+            registrar,
             NarratorPacket.TYPE,
-            NarratorPacket.STREAM_CODEC,
-            DirectionalPayloadHandler(
-                { packet, context -> packet.receiveMessage(context) },
-                { packet, context -> packet.receiveMessage(context) }
-            )
-        )
+            NarratorPacket.STREAM_CODEC
+        ) { packet, context -> packet.receiveOnClient(context) }
 
-        registrar.playToClient(
+        toClient(
+            registrar,
             ShearedPacket.TYPE,
-            ShearedPacket.STREAM_CODEC,
-            DirectionalPayloadHandler(
-                { packet, context -> packet.receiveMessage(context) },
-                { packet, context -> packet.receiveMessage(context) }
-            )
-        )
+            ShearedPacket.STREAM_CODEC
+        ) { packet, context -> packet.receiveOnClient(context) }
 
-        registrar.playToServer(
+        toServer(
+            registrar,
             FireballPacket.TYPE,
-            FireballPacket.STREAM_CODEC,
-            DirectionalPayloadHandler(
-                { packet, context -> packet.receiveMessage(context) },
-                { packet, context -> packet.receiveMessage(context) }
-            )
-        )
+            FireballPacket.STREAM_CODEC
+        ) { packet, context -> packet.receiveOnServer(context) }
 
-        registrar.playToServer(
+        toServer(
+            registrar,
             TeleportPlayerPacket.TYPE,
-            TeleportPlayerPacket.STREAM_CODEC,
-            DirectionalPayloadHandler(
-                { packet, context -> packet.receiveMessage(context) },
-                { packet, context -> packet.receiveMessage(context) }
-            )
-        )
+            TeleportPlayerPacket.STREAM_CODEC
+        ) { packet, context -> packet.receiveOnServer(context) }
 
     }
 
@@ -93,6 +79,32 @@ object ModPacketHandler {
 
     fun messageServer(packet: ModPacket) {
         PacketDistributor.sendToServer(packet)
+    }
+
+    private fun <T : ModPacket> toClient(
+        registrar: PayloadRegistrar,
+        packetType: CustomPacketPayload.Type<T>,
+        streamCodec: StreamCodec<in RegistryFriendlyByteBuf, T>,
+        payloadHandler: IPayloadHandler<T>
+    ) {
+        registrar.playToClient(
+            packetType,
+            streamCodec,
+            payloadHandler
+        )
+    }
+
+    private fun <T : ModPacket> toServer(
+        registrar: PayloadRegistrar,
+        packetType: CustomPacketPayload.Type<T>,
+        streamCodec: StreamCodec<in RegistryFriendlyByteBuf, T>,
+        payloadHandler: IPayloadHandler<T>
+    ) {
+        registrar.playToServer(
+            packetType,
+            streamCodec,
+            payloadHandler
+        )
     }
 
 }

@@ -13,7 +13,8 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 data class NarratorPacket(
     val message: String
 ) : ModPacket {
-    override fun receiveMessage(context: IPayloadContext) {
+
+    override fun receiveOnClient(context: IPayloadContext) {
         context.enqueueWork {
             if (ClientConfig.disableParrotNarrator.get()) return@enqueueWork
 

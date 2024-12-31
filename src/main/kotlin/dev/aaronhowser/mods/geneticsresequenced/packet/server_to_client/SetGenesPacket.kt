@@ -25,7 +25,7 @@ data class SetGenesPacket(
         genes: Collection<Holder<Gene>>
     ) : this(entityId, HolderSet.direct(*genes.toTypedArray()))
 
-    override fun receiveMessage(context: IPayloadContext) {
+    override fun receiveOnClient(context: IPayloadContext) {
         context.enqueueWork {
             val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
 
