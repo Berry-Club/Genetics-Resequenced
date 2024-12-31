@@ -26,19 +26,17 @@ import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class DupeCellRecipe(
     val isGmoCell: Boolean = false
-) : AbstractIncubatorRecipe() {
-
-    private val potionIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.SUBSTRATE))
-    private val cellIngredient = Ingredient.of(if (isGmoCell) ModItems.GMO_CELL.get() else ModItems.CELL.get())
-
-    override val ingredients: List<Ingredient> = listOf(potionIngredient, cellIngredient)
+) : AbstractIncubatorRecipe(
+    topIngredient = Ingredient.of(if (isGmoCell) ModItems.GMO_CELL.get() else ModItems.CELL.get()),
+    bottomIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.SUBSTRATE)),
+) {
 
     override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
         val topStack = input.getTopItem()
         val potionStack = input.getBottomItem()
 
-        if (!potionIngredient.test(potionStack)) return false
-        if (!cellIngredient.test(topStack)) return false
+        if (!topIngredient.test(topStack)) return false
+        if (!bottomIngredient.test(potionStack)) return false
 
         return EntityDnaItem.hasEntity(topStack)
     }

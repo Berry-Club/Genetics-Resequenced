@@ -13,8 +13,8 @@ class BasicIncubatorEmiRecipe(
     recipe: BasicIncubatorRecipe
 ) : AbstractEmiIncubatorRecipe() {
 
-    override val ingredient: EmiIngredient = EmiIngredient.of(recipe.topSlotIngredient)
-    override val input: EmiIngredient = EmiIngredient.of(recipe.bottomSlotIngredient)
+    override val ingredient: EmiIngredient = EmiIngredient.of(recipe.topIngredient)
+    override val input: EmiIngredient = EmiIngredient.of(recipe.bottomIngredient)
     override val output: EmiStack = EmiStack.of(recipe.outputStack)
 
     companion object {

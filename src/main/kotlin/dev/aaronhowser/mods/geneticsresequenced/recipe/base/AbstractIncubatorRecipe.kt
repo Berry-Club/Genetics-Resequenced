@@ -8,10 +8,14 @@ import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.item.crafting.RecipeManager
 import net.minecraft.world.level.Level
 
-abstract class AbstractIncubatorRecipe : Recipe<IncubatorRecipeInput> {
+abstract class AbstractIncubatorRecipe(
+    val topIngredient: Ingredient,
+    val bottomIngredient: Ingredient
+) : Recipe<IncubatorRecipeInput> {
     override fun canCraftInDimensions(p0: Int, p1: Int): Boolean = true
 
-    abstract val ingredients: List<Ingredient>
+    val ingredients: List<Ingredient> = listOf(topIngredient, bottomIngredient)
+
     override fun getIngredients(): NonNullList<Ingredient> {
         val list = NonNullList.create<Ingredient>()
         list.addAll(ingredients)
@@ -33,7 +37,7 @@ abstract class AbstractIncubatorRecipe : Recipe<IncubatorRecipeInput> {
                 recipeHolder.value.ingredients.any { ingredient -> ingredient.test(itemStack) }
             }
 
-            val usedInBrewingRecipe = level.potionBrewing().isIngredient(itemStack)
+            val usedInBrewingRecipe = level.potionBrewing().isIngredient(itemStack) || level.potionBrewing().isInput(itemStack)
 
             return usedInIncubatorRecipe || usedInBrewingRecipe
         }

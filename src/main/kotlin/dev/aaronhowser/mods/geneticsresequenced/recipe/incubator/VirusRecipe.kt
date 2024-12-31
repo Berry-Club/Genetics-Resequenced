@@ -21,20 +21,17 @@ import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 class VirusRecipe(
     val inputDnaGene: ResourceKey<Gene>,
     val outputGene: ResourceKey<Gene>
-) : AbstractIncubatorRecipe() {
-
-    private val helixIngredient: Ingredient = Ingredient.of(ModItems.DNA_HELIX.get())
-    private val potionIngredient: Ingredient =
-        DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))
-
-    override val ingredients: List<Ingredient> = listOf(helixIngredient, potionIngredient)
+) : AbstractIncubatorRecipe(
+    topIngredient = Ingredient.of(ModItems.DNA_HELIX.get()),
+    bottomIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))
+) {
 
     override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
         val helixStack = input.getTopItem()
         val potionStack = input.getBottomItem()
 
-        if (!helixIngredient.test(helixStack)) return false
-        if (!potionIngredient.test(potionStack)) return false
+        if (!topIngredient.test(helixStack)) return false
+        if (!bottomIngredient.test(potionStack)) return false
 
         return DnaHelixItem.getGeneHolder(helixStack) == inputDnaGene
     }

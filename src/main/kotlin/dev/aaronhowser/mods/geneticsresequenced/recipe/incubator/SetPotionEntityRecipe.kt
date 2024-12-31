@@ -18,19 +18,17 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 
-class SetPotionEntityRecipe private constructor() : AbstractIncubatorRecipe() {
-
-    private val cellIngredient = Ingredient.of(ModItems.CELL.get())
-    private val potionIngredient = PotionTagIngredient(ModPotionTagsProvider.CAN_HAVE_ENTITY).toVanilla()
-
-    override val ingredients: List<Ingredient> = listOf(cellIngredient, potionIngredient)
+class SetPotionEntityRecipe private constructor() : AbstractIncubatorRecipe(
+    topIngredient = Ingredient.of(ModItems.CELL.get()),
+    bottomIngredient = PotionTagIngredient(ModPotionTagsProvider.CAN_HAVE_ENTITY).toVanilla()
+) {
 
     override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
         val cellStack = input.getTopItem()
         val potionStack = input.getBottomItem()
 
-        if (!cellIngredient.test(cellStack)) return false
-        if (!potionIngredient.test(potionStack)) return false
+        if (!topIngredient.test(cellStack)) return false
+        if (!bottomIngredient.test(potionStack)) return false
 
         return EntityDnaItem.hasEntity(cellStack)
     }

@@ -16,21 +16,19 @@ import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
 
 class BasicIncubatorRecipe(
-    val topSlotIngredient: Ingredient,
-    val bottomSlotIngredient: Ingredient,
+    topIngredient: Ingredient,
+    bottomIngredient: Ingredient,
     val outputStack: ItemStack,
     val isLowTemp: Boolean
-) : AbstractIncubatorRecipe() {
-
-    override val ingredients: List<Ingredient> = listOf(topSlotIngredient, bottomSlotIngredient)
+) : AbstractIncubatorRecipe(topIngredient, bottomIngredient) {
 
     override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
         val topItem = input.getTopItem()
         val bottomItem = input.getBottomItem()
 
         return isLowTemp == input.isLowTemp
-                && topSlotIngredient.test(topItem)
-                && bottomSlotIngredient.test(bottomItem)
+                && topIngredient.test(topItem)
+                && bottomIngredient.test(bottomItem)
     }
 
     override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
@@ -65,10 +63,10 @@ class BasicIncubatorRecipe(
                     instance.group(
                         Ingredient.CODEC_NONEMPTY
                             .fieldOf("top_slot")
-                            .forGetter(BasicIncubatorRecipe::topSlotIngredient),
+                            .forGetter(BasicIncubatorRecipe::topIngredient),
                         Ingredient.CODEC_NONEMPTY
                             .fieldOf("bottom_slot")
-                            .forGetter(BasicIncubatorRecipe::bottomSlotIngredient),
+                            .forGetter(BasicIncubatorRecipe::bottomIngredient),
                         ItemStack.CODEC
                             .fieldOf("output")
                             .forGetter(BasicIncubatorRecipe::outputStack),
@@ -80,8 +78,8 @@ class BasicIncubatorRecipe(
 
             val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, BasicIncubatorRecipe> =
                 StreamCodec.composite(
-                    Ingredient.CONTENTS_STREAM_CODEC, BasicIncubatorRecipe::topSlotIngredient,
-                    Ingredient.CONTENTS_STREAM_CODEC, BasicIncubatorRecipe::bottomSlotIngredient,
+                    Ingredient.CONTENTS_STREAM_CODEC, BasicIncubatorRecipe::topIngredient,
+                    Ingredient.CONTENTS_STREAM_CODEC, BasicIncubatorRecipe::bottomIngredient,
                     ItemStack.STREAM_CODEC, BasicIncubatorRecipe::outputStack,
                     ByteBufCodecs.BOOL, BasicIncubatorRecipe::isLowTemp,
                     ::BasicIncubatorRecipe
