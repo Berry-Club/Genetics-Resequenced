@@ -14,6 +14,7 @@ import dev.emi.emi.api.EmiEntrypoint
 import dev.emi.emi.api.EmiPlugin
 import dev.emi.emi.api.EmiRegistry
 import dev.emi.emi.api.recipe.EmiRecipeCategory
+import dev.emi.emi.api.recipe.VanillaEmiRecipeCategories
 import dev.emi.emi.api.stack.Comparison
 import dev.emi.emi.api.stack.EmiStack
 
@@ -154,6 +155,9 @@ class ModEmiPlugin : EmiPlugin {
     }
 
     private fun incubator(registry: EmiRegistry) {
+        registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, INCUBATOR_STACK)
+        registry.addWorkstation(VanillaEmiRecipeCategories.BREWING, ADVANCED_INCUBATOR_STACK)
+
         basicIncubatorRecipes(registry)
         substrate(registry)
         setPotionEntity(registry)
