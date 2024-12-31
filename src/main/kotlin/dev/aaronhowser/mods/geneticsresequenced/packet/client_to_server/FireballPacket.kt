@@ -12,9 +12,10 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 class FireballPacket private constructor() : ModPacket {
 
     override fun receiveMessage(context: IPayloadContext) {
-        val sender =
-            context.player() as? ServerPlayer ?: throw IllegalStateException("Received FireballPacket on wrong side!")
-        PacketGenes.dragonBreath(sender)
+        context.enqueueWork {
+            val sender = context.player() as? ServerPlayer ?: return@enqueueWork
+            PacketGenes.dragonBreath(sender)
+        }
     }
 
     override fun type(): CustomPacketPayload.Type<FireballPacket> = TYPE

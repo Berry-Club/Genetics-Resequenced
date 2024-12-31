@@ -11,9 +11,10 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 
 class TeleportPlayerPacket private constructor() : ModPacket {
     override fun receiveMessage(context: IPayloadContext) {
-        val sender = context.player() as? ServerPlayer
-            ?: throw IllegalStateException("Received TeleportPlayerPacket on wrong side!")
-        PacketGenes.teleport(sender)
+        context.enqueueWork {
+            val sender = context.player() as? ServerPlayer ?: return@enqueueWork
+            PacketGenes.teleport(sender)
+        }
     }
 
     override fun type(): CustomPacketPayload.Type<TeleportPlayerPacket> = TYPE

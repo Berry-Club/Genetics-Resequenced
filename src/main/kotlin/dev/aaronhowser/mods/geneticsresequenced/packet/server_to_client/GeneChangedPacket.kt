@@ -10,7 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
-import net.minecraft.network.protocol.PacketFlow
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.LivingEntity
@@ -25,35 +24,36 @@ data class GeneChangedPacket(
     override fun type(): CustomPacketPayload.Type<GeneChangedPacket> = TYPE
 
     override fun receiveMessage(context: IPayloadContext) {
-        require(context.flow() == PacketFlow.CLIENTBOUND) { "Received GeneChangedPacket on wrong side!" }
+        context.enqueueWork {
+            // Return if the entity does not exist on the client. This happens when the entity is not being tracked on the client, aka if it's too far away or whatever.
+            val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
 
-        // Return if the entity does not exist on the client. This happens when the entity is not being tracked on the client, aka if it's too far away or whatever.
-        val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return
+            val geneHolder = ModGenes.fromResourceLocation(entity.registryAccess(), geneRl)
+                ?: throw IllegalStateException("Received GeneChangedPacket with invalid gene id!")
 
-        val geneHolder = ModGenes.fromResourceLocation(ClientUtil.localRegistryAccess!!, geneRl)
-            ?: throw IllegalStateException("Received GeneChangedPacket with invalid gene id!")
+            if (wasAdded) {
+                entity.addGene(geneHolder)
+            } else {
+                entity.removeGene(geneHolder)
+            }
 
-        if (wasAdded) {
-            entity.addGene(geneHolder)
-        } else {
-            entity.removeGene(geneHolder)
+            if (geneHolder.isGene(ModGenes.CRINGE)) ClientUtil.handleCringe(wasAdded)
+
+            geneHolder.value().setAttributeModifiers(entity, wasAdded)
         }
-
-        if (geneHolder.isGene(ModGenes.CRINGE)) ClientUtil.handleCringe(wasAdded)
-
-        geneHolder.value().setAttributeModifiers(entity, wasAdded)
     }
 
     companion object {
         val TYPE: CustomPacketPayload.Type<GeneChangedPacket> =
             CustomPacketPayload.Type(OtherUtil.modResource("gene_changed"))
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, GeneChangedPacket> = StreamCodec.composite(
-            ByteBufCodecs.INT, GeneChangedPacket::entityId,
-            ResourceLocation.STREAM_CODEC, GeneChangedPacket::geneRl,
-            ByteBufCodecs.BOOL, GeneChangedPacket::wasAdded,
-            ::GeneChangedPacket
-        )
+        val STREAM_CODEC: StreamCodec<ByteBuf, GeneChangedPacket> =
+            StreamCodec.composite(
+                ByteBufCodecs.INT, GeneChangedPacket::entityId,
+                ResourceLocation.STREAM_CODEC, GeneChangedPacket::geneRl,
+                ByteBufCodecs.BOOL, GeneChangedPacket::wasAdded,
+                ::GeneChangedPacket
+            )
     }
 
 }

@@ -6,7 +6,6 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
-import net.minecraft.network.protocol.PacketFlow
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
@@ -14,12 +13,12 @@ data class ShearedPacket(
     val removingSkin: Boolean
 ) : ModPacket {
     override fun receiveMessage(context: IPayloadContext) {
-        require(context.flow() == PacketFlow.CLIENTBOUND) { "Received GeneChangedPacket on wrong side!" }
-
-        if (removingSkin) {
-            ClientUtil.shearPlayerSkin()
-        } else {
-            ClientUtil.addSkinLayersBack()
+        context.enqueueWork {
+            if (removingSkin) {
+                ClientUtil.shearPlayerSkin()
+            } else {
+                ClientUtil.addSkinLayersBack()
+            }
         }
     }
 
