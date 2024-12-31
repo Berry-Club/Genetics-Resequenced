@@ -25,7 +25,6 @@ data class NarratorPacket(
     override fun type(): CustomPacketPayload.Type<NarratorPacket> = TYPE
 
     companion object {
-
         val TYPE: CustomPacketPayload.Type<NarratorPacket> =
             CustomPacketPayload.Type(OtherUtil.modResource("narrator"))
 
