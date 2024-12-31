@@ -14,8 +14,7 @@ class IncubatorRecipeInput(
         return isHighTemp && potionBrewing.hasMix(bottomItem, topItem)
     }
 
-    val isLowTemp: Boolean
-        get() = !this.isHighTemp
+    val isLowTemp: Boolean = !this.isHighTemp
 
     fun getTopItem(): ItemStack {
         return topItem.copy()
