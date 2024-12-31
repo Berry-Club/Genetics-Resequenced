@@ -14,7 +14,6 @@ class SetAntiPlasmidRecipe(
 ) : CustomRecipe(craftingCategory) {
 
     override fun matches(input: CraftingInput, level: Level): Boolean {
-
         var plasmid: ItemStack? = null
         var antiPlasmid: ItemStack? = null
 
@@ -36,7 +35,6 @@ class SetAntiPlasmidRecipe(
     }
 
     override fun assemble(input: CraftingInput, provider: HolderLookup.Provider): ItemStack {
-
         var plasmidStack: ItemStack? = null
         for (stack in input.items()) {
             if (stack.item == ModItems.PLASMID.get()) {
