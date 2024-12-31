@@ -315,3 +315,4 @@
 - Added these tags to all custom damage types: `#minecraft:no_impact`, `#minecraft:no_anger`, `#minecraft:no_knockback`
 - Mod commands can now use any of the following: "/geneticsresequenced", "/genetics", "gr"
 - Renamed the command "/gr clearBioluminescenceBlocks" to "/gr clearBioGlow"
+- Updated the Patchouli book to show changes to Flight's default required Genes (#49, #46 kinda)
