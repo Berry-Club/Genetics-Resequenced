@@ -12,12 +12,20 @@ import net.minecraft.commands.SharedSuggestionProvider
 
 object ModCommands {
 
+    private val commandBaseStrings = listOf(
+        GeneticsResequenced.ID,
+        "genetics",
+        "gr"
+    )
+
     fun register(dispatcher: CommandDispatcher<CommandSourceStack>) {
-        dispatcher.register(
-            Commands.literal(GeneticsResequenced.ID)
-                .then(GeneCommand.register())
-                .then(ClearBioluminescenceBlocksCommand.register())
-        )
+        for (commandBaseString in commandBaseStrings) {
+            dispatcher.register(
+                Commands.literal(commandBaseString)
+                    .then(GeneCommand.register())
+                    .then(ClearBioGlowCommand.register())
+            )
+        }
     }
 
     val SUGGEST_GENE_RLS: SuggestionProvider<CommandSourceStack> =

@@ -309,3 +309,5 @@
 - Added these tags to all custom damage types: `#minecraft:no_impact`, `#minecraft:no_anger`, `#minecraft:no_knockback`
 - Fixed Genes desyncing on client when you change dimensions or respawn (#51)
 - Fixed Set/Unset Anti-Plasmid recipes not working (#50)
+- Renamed the command "/geneticsresequenced clearBioluminescenceBlocks" to "/geneticsresequenced clearBioGlow"
+- Mod commands can now use any of the following: "/geneticsresequenced", "/genetics", "gr"

@@ -16,13 +16,13 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.level.block.Blocks
 
-object ClearBioluminescenceBlocksCommand {
+object ClearBioGlowCommand {
 
     private const val RANGE_ARGUMENT = "range"
 
     fun register(): ArgumentBuilder<CommandSourceStack, *> {
         return Commands
-            .literal("clearBioluminescenceBlocks")
+            .literal("clearBioGlow")
             .then(
                 Commands
                     .argument(RANGE_ARGUMENT, IntegerArgumentType.integer(1, Integer.MAX_VALUE))
