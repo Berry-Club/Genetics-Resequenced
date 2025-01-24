@@ -55,7 +55,6 @@ class BasicIncubatorRecipe(
         }
 
         companion object {
-
             val CODEC: MapCodec<BasicIncubatorRecipe> =
                 RecordCodecBuilder.mapCodec { instance ->
                     instance.group(
@@ -82,7 +81,6 @@ class BasicIncubatorRecipe(
                     ByteBufCodecs.BOOL, BasicIncubatorRecipe::isLowTemp,
                     ::BasicIncubatorRecipe
                 )
-
         }
     }
 
