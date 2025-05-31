@@ -19,10 +19,10 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
 
 	companion object {
 
-		fun hasGene(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.PLASMID_PROGRESS_COMPONENT)
+		fun hasGene(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.PLASMID_PROGRESS)
 
 		fun getGene(itemStack: ItemStack): Holder<Gene>? {
-			return itemStack.get(ModDataComponents.PLASMID_PROGRESS_COMPONENT)?.geneHolder
+			return itemStack.get(ModDataComponents.PLASMID_PROGRESS)?.geneHolder
 		}
 
 		fun setGene(itemStack: ItemStack, geneHolder: Holder<Gene>, amount: Int = 0) {
@@ -30,11 +30,11 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
 				geneHolder,
 				amount
 			)
-			itemStack.set(ModDataComponents.PLASMID_PROGRESS_COMPONENT, component)
+			itemStack.set(ModDataComponents.PLASMID_PROGRESS, component)
 		}
 
 		fun getDnaPoints(itemStack: ItemStack): Int {
-			return itemStack.get(ModDataComponents.PLASMID_PROGRESS_COMPONENT)?.dnaPoints ?: 0
+			return itemStack.get(ModDataComponents.PLASMID_PROGRESS)?.dnaPoints ?: 0
 		}
 
 		fun setDnaPoints(itemStack: ItemStack, amount: Int) {
@@ -42,7 +42,7 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
 				getGene(itemStack) ?: return,
 				amount
 			)
-			itemStack.set(ModDataComponents.PLASMID_PROGRESS_COMPONENT, component)
+			itemStack.set(ModDataComponents.PLASMID_PROGRESS, component)
 		}
 
 		fun increaseDnaPoints(itemStack: ItemStack, amount: Int = 1) {

@@ -22,15 +22,15 @@ class DnaHelixItem : EntityDnaItem() {
 	companion object {
 
 		fun hasGene(itemStack: ItemStack): Boolean {
-			return itemStack.has(ModDataComponents.GENE_COMPONENT)
+			return itemStack.has(ModDataComponents.GENE)
 		}
 
 		fun getGeneHolder(itemStack: ItemStack): Holder<Gene>? {
-			return itemStack.get(ModDataComponents.GENE_COMPONENT)
+			return itemStack.get(ModDataComponents.GENE)
 		}
 
 		fun setGeneHolder(itemStack: ItemStack, geneHolder: Holder<Gene>): ItemStack {
-			itemStack.set(ModDataComponents.GENE_COMPONENT, geneHolder)
+			itemStack.set(ModDataComponents.GENE, geneHolder)
 			return itemStack
 		}
 

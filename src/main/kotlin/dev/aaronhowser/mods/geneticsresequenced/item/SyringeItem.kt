@@ -53,7 +53,7 @@ open class SyringeItem : Item(
 
 		fun setEntity(pStack: ItemStack, entity: LivingEntity?, setContaminated: Boolean = true) {
 			if (entity == null) {
-				pStack.remove(ModDataComponents.SPECIFIC_ENTITY_COMPONENT)
+				pStack.remove(ModDataComponents.SPECIFIC_ENTITY)
 				return
 			}
 
@@ -168,7 +168,7 @@ open class SyringeItem : Item(
 		}
 
 		fun getGenes(syringeStack: ItemStack): Set<Holder<Gene>> {
-			return syringeStack.get(ModDataComponents.GENES_COMPONENT)?.toSet() ?: emptySet()
+			return syringeStack.get(ModDataComponents.GENE_SET)?.toSet() ?: emptySet()
 		}
 
 		fun getGeneRks(syringeStack: ItemStack): Set<ResourceKey<Gene>> {
@@ -186,25 +186,25 @@ open class SyringeItem : Item(
 			val newGenes = currentGenes + gene
 			val newHolderSet = HolderSet.direct(newGenes.toList())
 
-			syringeStack.set(ModDataComponents.GENES_COMPONENT, newHolderSet)
+			syringeStack.set(ModDataComponents.GENE_SET, newHolderSet)
 
 			return true
 		}
 
 		private fun clearGenes(syringeStack: ItemStack) {
-			syringeStack.remove(ModDataComponents.GENES_COMPONENT)
+			syringeStack.remove(ModDataComponents.GENE_SET)
 		}
 
 		fun isContaminated(syringeStack: ItemStack): Boolean {
-			return syringeStack.get(ModDataComponents.IS_CONTAMINATED_COMPONENT) ?: false
+			return syringeStack.get(ModDataComponents.IS_CONTAMINATED) ?: false
 		}
 
 		fun setContaminated(syringeStack: ItemStack, value: Boolean) {
-			syringeStack.set(ModDataComponents.IS_CONTAMINATED_COMPONENT, value)
+			syringeStack.set(ModDataComponents.IS_CONTAMINATED, value)
 		}
 
 		fun getAntigenes(syringeStack: ItemStack): Set<Holder<Gene>> {
-			return syringeStack.get(ModDataComponents.ANTIGENES_COMPONENT)?.toSet() ?: emptySet()
+			return syringeStack.get(ModDataComponents.ANTIGENE_SET)?.toSet() ?: emptySet()
 		}
 
 		fun canAddAntigene(syringeStack: ItemStack, gene: Holder<Gene>): Boolean {
@@ -220,7 +220,7 @@ open class SyringeItem : Item(
 			val newGenes = currentAntigenes + gene
 			val holderSet = HolderSet.direct(newGenes.toList())
 
-			syringeStack.set(ModDataComponents.ANTIGENES_COMPONENT, holderSet)
+			syringeStack.set(ModDataComponents.ANTIGENE_SET, holderSet)
 
 			return true
 		}

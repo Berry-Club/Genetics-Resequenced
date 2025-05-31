@@ -34,9 +34,9 @@ data class SyringeGenesPredicate(
 
 	override fun componentType(): DataComponentType<HolderSet<Gene>> {
 		return if (isAntigene) {
-			ModDataComponents.ANTIGENES_COMPONENT.get()
+			ModDataComponents.ANTIGENE_SET.get()
 		} else {
-			ModDataComponents.GENES_COMPONENT.get()
+			ModDataComponents.GENE_SET.get()
 		}
 	}
 

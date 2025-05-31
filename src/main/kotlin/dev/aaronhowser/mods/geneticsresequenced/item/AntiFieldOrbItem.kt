@@ -18,7 +18,7 @@ class AntiFieldOrbItem : Item(
 	Properties()
 		.stacksTo(1)
 		.component(
-			ModDataComponents.IS_ACTIVE_COMPONENT,
+			ModDataComponents.IS_ACTIVE,
 			false
 		)
 ) {
@@ -26,12 +26,12 @@ class AntiFieldOrbItem : Item(
 	companion object {
 
 		private fun isEnabled(itemStack: ItemStack): Boolean {
-			return itemStack.get(ModDataComponents.IS_ACTIVE_COMPONENT) ?: false
+			return itemStack.get(ModDataComponents.IS_ACTIVE) ?: false
 		}
 
 		private fun toggleEnabled(itemStack: ItemStack) {
 			itemStack.set(
-				ModDataComponents.IS_ACTIVE_COMPONENT,
+				ModDataComponents.IS_ACTIVE,
 				!isEnabled(itemStack)
 			)
 		}

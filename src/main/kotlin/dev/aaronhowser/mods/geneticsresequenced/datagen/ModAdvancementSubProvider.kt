@@ -220,7 +220,7 @@ class ModAdvancementSubProvider(
 				.display(
 					ModItems.SYRINGE.toStack().apply {
 						set(
-							ModDataComponents.SPECIFIC_ENTITY_COMPONENT,
+							ModDataComponents.SPECIFIC_ENTITY,
 							SpecificEntityItemComponent(
 								UUID.fromString("b0aa4edd-29e0-421f-b65c-be90055071b0"), //Arbitrary UUID
 								Component.literal("A Fake Mob")

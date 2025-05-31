@@ -498,7 +498,7 @@ class ItemsCategoryProvider(
 				)
 
 				val activeOrb = ModItems.ANTI_FIELD_ORB.toStack()
-				activeOrb.set(ModDataComponents.IS_ACTIVE_COMPONENT, true)
+				activeOrb.set(ModDataComponents.IS_ACTIVE, true)
 
 				spotlightPage(
 					activeOrb,

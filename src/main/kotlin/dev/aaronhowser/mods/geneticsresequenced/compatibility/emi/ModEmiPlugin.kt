@@ -91,7 +91,7 @@ class ModEmiPlugin : EmiPlugin {
 
 	private fun setComparisons(registry: EmiRegistry) {
 		val plasmidProgressComparison =
-			Comparison.compareData { it.get(ModDataComponents.PLASMID_PROGRESS_COMPONENT.get()) }
+			Comparison.compareData { it.get(ModDataComponents.PLASMID_PROGRESS.get()) }
 
 		registry.setDefaultComparison(CELL_STACK, Comparison.compareComponents())
 		registry.setDefaultComparison(GMO_CELL_STACK, Comparison.compareComponents())

@@ -43,19 +43,19 @@ data class SpecificEntityItemComponent(
 
 			val entityComponent = SpecificEntityItemComponent(uuid, name)
 
-			this.set(ModDataComponents.SPECIFIC_ENTITY_COMPONENT, entityComponent)
+			this.set(ModDataComponents.SPECIFIC_ENTITY, entityComponent)
 		}
 
 		fun ItemStack.hasEntity(): Boolean {
-			return this.has(ModDataComponents.SPECIFIC_ENTITY_COMPONENT)
+			return this.has(ModDataComponents.SPECIFIC_ENTITY)
 		}
 
 		fun ItemStack.getEntityUuid(): UUID? {
-			return this.get(ModDataComponents.SPECIFIC_ENTITY_COMPONENT)?.uuid
+			return this.get(ModDataComponents.SPECIFIC_ENTITY)?.uuid
 		}
 
 		fun ItemStack.getEntityName(): Component? {
-			return this.get(ModDataComponents.SPECIFIC_ENTITY_COMPONENT)?.name
+			return this.get(ModDataComponents.SPECIFIC_ENTITY)?.name
 		}
 
 	}

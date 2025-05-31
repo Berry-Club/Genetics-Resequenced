@@ -107,7 +107,7 @@ open class EntityDnaItem : Item(Properties()) {
 			}
 
 			itemStack.set(
-				ModDataComponents.ENTITY_TYPE_COMPONENT,
+				ModDataComponents.ENTITY_TYPE,
 				entityType
 			)
 			return true
@@ -125,10 +125,10 @@ open class EntityDnaItem : Item(Properties()) {
 			return itemStack
 		}
 
-		fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.ENTITY_TYPE_COMPONENT)
+		fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.ENTITY_TYPE)
 
 		fun getEntityType(itemStack: ItemStack): EntityType<*>? {
-			return itemStack.get(ModDataComponents.ENTITY_TYPE_COMPONENT)
+			return itemStack.get(ModDataComponents.ENTITY_TYPE)
 		}
 	}
 }
