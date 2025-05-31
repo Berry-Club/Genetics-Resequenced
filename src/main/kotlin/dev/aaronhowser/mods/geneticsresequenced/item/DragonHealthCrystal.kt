@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 
 class DragonHealthCrystal : Item(
-    Properties().durability(1000)
+    Properties()
 ) {
 
     override fun getBreakingSound(): SoundEvent = SoundEvents.ENDER_DRAGON_HURT

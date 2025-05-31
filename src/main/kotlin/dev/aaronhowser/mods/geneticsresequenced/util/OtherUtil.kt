@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
+import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import io.netty.buffer.ByteBuf
 import net.minecraft.core.Holder
@@ -10,6 +11,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
+import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
@@ -31,96 +33,100 @@ import kotlin.jvm.optionals.getOrNull
 
 object OtherUtil {
 
-    fun modResource(path: String): ResourceLocation =
-        ResourceLocation.fromNamespaceAndPath(GeneticsResequenced.ID, path)
+	fun modResource(path: String): ResourceLocation =
+		ResourceLocation.fromNamespaceAndPath(GeneticsResequenced.ID, path)
 
-    val ItemLike.itemStack: ItemStack
-        get() = this.asItem().defaultInstance
+	val ItemLike.itemStack: ItemStack
+		get() = this.asItem().defaultInstance
 
-    private val entityUuidMap: MutableMap<UUID, LivingEntity> = mutableMapOf()
-    fun getNearbyEntityFromUuid(uuid: UUID, searchAroundEntity: LivingEntity): LivingEntity? {
-        val mappedValue = entityUuidMap[uuid]
-        if (mappedValue != null) return mappedValue
+	private val entityUuidMap: MutableMap<UUID, LivingEntity> = mutableMapOf()
+	fun getNearbyEntityFromUuid(uuid: UUID, searchAroundEntity: LivingEntity): LivingEntity? {
+		val mappedValue = entityUuidMap[uuid]
+		if (mappedValue != null) return mappedValue
 
-        val nearbyEntities = searchAroundEntity.level().getNearbyEntities(
-            LivingEntity::class.java,
-            TargetingConditions.DEFAULT,
-            searchAroundEntity,
-            searchAroundEntity.boundingBox.inflate(50.0)
-        )
+		val nearbyEntities = searchAroundEntity.level().getNearbyEntities(
+			LivingEntity::class.java,
+			TargetingConditions.DEFAULT,
+			searchAroundEntity,
+			searchAroundEntity.boundingBox.inflate(50.0)
+		)
 
-        for (entity in nearbyEntities) {
-            if (entity.uuid == uuid) {
-                entityUuidMap[uuid] = entity
-                return entity
-            }
-        }
+		for (entity in nearbyEntities) {
+			if (entity.uuid == uuid) {
+				entityUuidMap[uuid] = entity
+				return entity
+			}
+		}
 
-        return null
-    }
+		return null
+	}
 
-    fun CompoundTag.getUuidOrNull(key: String): UUID? {
-        if (!this.hasUUID(key)) return null
-        return this.getUUID(key)
-    }
+	fun CompoundTag.getUuidOrNull(key: String): UUID? {
+		if (!this.hasUUID(key)) return null
+		return this.getUUID(key)
+	}
 
-    fun getEntityType(resourceLocation: ResourceLocation): EntityType<*> {
-        val entityType = BuiltInRegistries.ENTITY_TYPE.get(resourceLocation)
+	fun getEntityType(resourceLocation: ResourceLocation): EntityType<*> {
+		val entityType = BuiltInRegistries.ENTITY_TYPE.get(resourceLocation)
 
-        if (entityType === EntityType.PIG && resourceLocation != BuiltInRegistries.ENTITY_TYPE.defaultKey) {
-            throw IllegalArgumentException("Unknown entity type: $resourceLocation")
-        }
+		if (entityType === EntityType.PIG && resourceLocation != BuiltInRegistries.ENTITY_TYPE.defaultKey) {
+			throw IllegalArgumentException("Unknown entity type: $resourceLocation")
+		}
 
-        return entityType
-    }
+		return entityType
+	}
 
-    fun getLookedAtEntity(livingEntity: LivingEntity): Entity? {
-        val reach = livingEntity.getAttributeValue(Attributes.ENTITY_INTERACTION_RANGE)
+	fun getLookedAtEntity(livingEntity: LivingEntity): Entity? {
+		val reach = livingEntity.getAttributeValue(Attributes.ENTITY_INTERACTION_RANGE)
 
-        val entityHitResult = ProjectileUtil.getEntityHitResult(
-            livingEntity,
-            livingEntity.eyePosition,
-            livingEntity.eyePosition.add(livingEntity.lookAngle.scale(reach)),
-            livingEntity.boundingBox.inflate(reach),
-            { true },
-            reach
-        )
+		val entityHitResult = ProjectileUtil.getEntityHitResult(
+			livingEntity,
+			livingEntity.eyePosition,
+			livingEntity.eyePosition.add(livingEntity.lookAngle.scale(reach)),
+			livingEntity.boundingBox.inflate(reach),
+			{ true },
+			reach
+		)
 
-        return entityHitResult?.entity
-    }
+		return entityHitResult?.entity
+	}
 
-    fun getPotionContents(itemStack: ItemStack): PotionContents? = itemStack.get(DataComponents.POTION_CONTENTS)
-    fun getPotion(itemStack: ItemStack): Holder<Potion>? = getPotionContents(itemStack)?.potion?.getOrNull()
+	fun getPotionContents(itemStack: ItemStack): PotionContents? = itemStack.get(DataComponents.POTION_CONTENTS)
+	fun getPotion(itemStack: ItemStack): Holder<Potion>? = getPotionContents(itemStack)?.potion?.getOrNull()
 
-    fun getPotionStack(potion: Holder<Potion>): ItemStack {
-        return PotionContents.createItemStack(Items.POTION, potion)
-    }
+	fun getPotionStack(potion: Holder<Potion>): ItemStack {
+		return PotionContents.createItemStack(Items.POTION, potion)
+	}
 
-    fun getEnchantmentRegistry(entity: Entity): Registry<Enchantment> {
-        return entity.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT)
-    }
+	fun getEnchantmentRegistry(entity: Entity): Registry<Enchantment> {
+		return entity.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT)
+	}
 
-    fun getEnchantHolder(entity: Entity, enchantment: ResourceKey<Enchantment>): Holder.Reference<Enchantment> {
-        return getEnchantmentRegistry(entity).getHolderOrThrow(enchantment)
-    }
+	fun getEnchantHolder(entity: Entity, enchantment: ResourceKey<Enchantment>): Holder.Reference<Enchantment> {
+		return getEnchantmentRegistry(entity).getHolderOrThrow(enchantment)
+	}
 
-    fun componentList(components: List<Component>): MutableComponent {
-        val mutableComponent = Component.empty()
+	fun componentList(components: List<Component>): MutableComponent {
+		val mutableComponent = Component.empty()
 
-        for (component in components) {
-            mutableComponent.append("• ").append(component)
-            if (component != components.last()) {
-                mutableComponent.append("\n")
-            }
-        }
+		for (component in components) {
+			mutableComponent.append("• ").append(component)
+			if (component != components.last()) {
+				mutableComponent.append("\n")
+			}
+		}
 
-        return mutableComponent
-    }
+		return mutableComponent
+	}
 
-    fun <T> tagKeyStreamCodec(registry: ResourceKey<out Registry<T>>): StreamCodec<ByteBuf, TagKey<T>> {
-        return ResourceLocation.STREAM_CODEC.map(
-            { TagKey.create(registry, it) },
-            { it.location() }
-        )
-    }
+	fun <T> tagKeyStreamCodec(registry: ResourceKey<out Registry<T>>): StreamCodec<ByteBuf, TagKey<T>> {
+		return ResourceLocation.STREAM_CODEC.map(
+			{ TagKey.create(registry, it) },
+			{ it.location() }
+		)
+	}
+
+	val UUID_CODEC: Codec<UUID> = Codec.STRING.xmap(UUID::fromString, UUID::toString)
+	val UUID_STREAM_CODEC: StreamCodec<ByteBuf, UUID> = ByteBufCodecs.STRING_UTF8.map(UUID::fromString, UUID::toString)
+
 }
