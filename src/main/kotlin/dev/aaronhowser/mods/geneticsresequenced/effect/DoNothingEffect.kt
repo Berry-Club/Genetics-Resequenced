@@ -15,7 +15,7 @@ class DoNothingEffect(
 	color
 ) {
 
-	override fun isInstantenous(): Boolean = removeImmediately
+	override fun isInstantenous(): Boolean = this.removeImmediately
 
 	override fun applyInstantenousEffect(
 		pSource: Entity?,
@@ -24,7 +24,7 @@ class DoNothingEffect(
 		pAmplifier: Int,
 		pHealth: Double
 	) {
-		if (removeImmediately) pLivingEntity.removeEffect(Holder.direct(this))
+		if (this.removeImmediately) pLivingEntity.removeEffect(Holder.direct(this))
 	}
 
 }

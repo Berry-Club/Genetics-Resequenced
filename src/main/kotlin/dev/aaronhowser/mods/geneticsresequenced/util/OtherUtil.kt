@@ -39,7 +39,7 @@ object OtherUtil {
 	val ItemLike.itemStack: ItemStack
 		get() = this.asItem().defaultInstance
 
-	val Entity.isClient: Boolean
+	val Entity.isClientSide: Boolean
 		get() = this.level().isClientSide
 
 	private val entityUuidMap: MutableMap<UUID, LivingEntity> = mutableMapOf()

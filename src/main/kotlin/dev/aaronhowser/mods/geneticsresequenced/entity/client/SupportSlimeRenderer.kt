@@ -31,14 +31,12 @@ import kotlin.math.sin
 @OnlyIn(Dist.CLIENT)
 class SupportSlimeRenderer(
 	context: EntityRendererProvider.Context
-) : MobRenderer<SupportSlime, SlimeModel<SupportSlime>>
-	(
+) : MobRenderer<SupportSlime, SlimeModel<SupportSlime>>(
 	context,
-	SlimeModel(
-		context.bakeLayer(ModelLayers.SLIME)
-	),
+	SlimeModel(context.bakeLayer(ModelLayers.SLIME)),
 	0.25f
 ) {
+
 	init {
 		this.addLayer(SlimeOuterLayer(this, context.modelSet))
 	}

@@ -13,6 +13,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.getUuidOrNull
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.isClientSide
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
@@ -44,47 +45,6 @@ class SupportSlime(
 		setOwner(ownerUuid)
 	}
 
-	companion object {
-		fun setAttributes(): AttributeSupplier {
-			return Monster.createMobAttributes()
-				.add(Attributes.MAX_HEALTH, 10.0)
-				.add(Attributes.MOVEMENT_SPEED, 0.25)
-				.add(Attributes.ATTACK_DAMAGE, 20.0)
-				.build()
-		}
-
-		private const val OWNER_UUID_NBT_KEY = "OwnerUUID"
-		private val OWNER: EntityDataAccessor<Optional<UUID>> =
-			SynchedEntityData.defineId(SupportSlime::class.java, EntityDataSerializers.OPTIONAL_UUID)
-
-		fun spawnEggMessage(event: PlayerInteractEvent.RightClickBlock) {
-			if (event.side.isClient) return
-
-			val player = event.entity
-			val item = event.itemStack
-
-			if (!item.`is`(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())) return
-
-			if (!player.hasGene(ModGenes.SLIMY_DEATH)) {
-				player.sendSystemMessage(
-					ModLanguageProvider.Messages.SUPPORT_SLIME_CREATIVE.toComponent(
-						Gene.getNameComponent(
-							ModGenes.SLIMY_DEATH,
-							ClientUtil.localRegistryAccess!!
-						)
-					)
-				)
-			}
-
-			if (player.level().difficulty == Difficulty.PEACEFUL) {
-				player.sendSystemMessage(
-					ModLanguageProvider.Messages.SUPPORT_SLIME_PEACEFUL.toComponent()
-				)
-			}
-
-		}
-	}
-
 	override fun defineSynchedData(pBuilder: SynchedEntityData.Builder) {
 		pBuilder.define(OWNER, Optional.empty())
 		super.defineSynchedData(pBuilder)
@@ -92,7 +52,7 @@ class SupportSlime(
 
 	override fun onAddedToLevel() {
 
-		if (!level().isClientSide) {
+		if (!this.isClientSide) {
 			if (getOwnerUuid() == null) {
 				setOwnerIfNotSet()
 			}
@@ -104,7 +64,7 @@ class SupportSlime(
 	private fun setOwnerIfNotSet() {
 		val nearbyLivingEntities = level().getEntitiesOfClass(
 			LivingEntity::class.java,
-			boundingBox.inflate(10.0)
+			this.boundingBox.inflate(10.0)
 		).sortedByDescending { distanceToSqr(it) }
 
 		val owner = nearbyLivingEntities.firstOrNull { it.hasGene(ModGenes.SLIMY_DEATH) }
@@ -118,14 +78,14 @@ class SupportSlime(
 
 	fun getOwnerUuid(): UUID? {
 		return try {
-			entityData.get(OWNER).orElse(null)
+			this.entityData.get(OWNER).orElse(null)
 		} catch (e: NullPointerException) {
 			null
 		}
 	}
 
 	private fun setOwner(ownerUuid: UUID) {
-		entityData.set(OWNER, Optional.of(ownerUuid))
+		this.entityData.set(OWNER, Optional.of(ownerUuid))
 	}
 
 	override fun tick() {
@@ -137,14 +97,14 @@ class SupportSlime(
 	private var despawnAnimationPlaying = false
 
 	private fun checkIfShouldDespawn() {
-		if (isNoAi) return
-		if (despawnAnimationPlaying) return
+		if (this.isNoAi) return
+		if (this.despawnAnimationPlaying) return
 
-		if (tickCount % ServerConfig.slimyDeathDespawnCheckTimer.get() != 0) return
+		if (this.tickCount % ServerConfig.slimyDeathDespawnCheckTimer.get() != 0) return
 
 		val nearbyEntities = level().getEntities(
 			this,
-			boundingBox.inflate(16.0)
+			this.boundingBox.inflate(16.0)
 		)
 
 		var nearEnemies = false
@@ -167,24 +127,24 @@ class SupportSlime(
 		}
 
 		if (nearEnemies) {
-			ticksWithoutTarget = 0
+			this.ticksWithoutTarget = 0
 		} else {
-			ticksWithoutTarget += ServerConfig.slimyDeathDespawnCheckTimer.get()
-			if (ticksWithoutTarget > ServerConfig.slimyDeathDespawnTime.get()) {
+			this.ticksWithoutTarget += ServerConfig.slimyDeathDespawnCheckTimer.get()
+			if (this.ticksWithoutTarget > ServerConfig.slimyDeathDespawnTime.get()) {
 				despawn()
 			}
 		}
 	}
 
 	private fun despawn() {
-		despawnAnimationPlaying = true
+		this.despawnAnimationPlaying = true
 
-		if (size <= 1) {
+		if (this.size <= 1) {
 			this.remove(RemovalReason.DISCARDED)
 			return
 		}
 
-		setSize(size - 1, true)
+		setSize(this.size - 1, true)
 
 		ModScheduler.scheduleTaskInTicks(30) {
 			despawn()
@@ -230,10 +190,10 @@ class SupportSlime(
 
 	override fun registerGoals() {
 		super.registerGoals()
-		goalSelector.addGoal(1, SupportSlimeAttackGoal(this))
+		this.goalSelector.addGoal(1, SupportSlimeAttackGoal(this))
 
-		targetSelector.removeAllGoals { true }
-		targetSelector.addGoal(
+		this.targetSelector.removeAllGoals { true }
+		this.targetSelector.addGoal(
 			1,
 			NearestAttackableTargetGoal(
 				this,
@@ -244,5 +204,45 @@ class SupportSlime(
 
 	}
 
+	companion object {
+		fun setAttributes(): AttributeSupplier {
+			return Monster.createMobAttributes()
+				.add(Attributes.MAX_HEALTH, 10.0)
+				.add(Attributes.MOVEMENT_SPEED, 0.25)
+				.add(Attributes.ATTACK_DAMAGE, 20.0)
+				.build()
+		}
+
+		private const val OWNER_UUID_NBT_KEY = "OwnerUUID"
+		private val OWNER: EntityDataAccessor<Optional<UUID>> =
+			SynchedEntityData.defineId(SupportSlime::class.java, EntityDataSerializers.OPTIONAL_UUID)
+
+		fun spawnEggMessage(event: PlayerInteractEvent.RightClickBlock) {
+			if (event.side.isClient) return
+
+			val player = event.entity
+			val item = event.itemStack
+
+			if (!item.`is`(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())) return
+
+			if (!player.hasGene(ModGenes.SLIMY_DEATH)) {
+				player.sendSystemMessage(
+					ModLanguageProvider.Messages.SUPPORT_SLIME_CREATIVE.toComponent(
+						Gene.getNameComponent(
+							ModGenes.SLIMY_DEATH,
+							ClientUtil.localRegistryAccess!!
+						)
+					)
+				)
+			}
+
+			if (player.level().difficulty == Difficulty.PEACEFUL) {
+				player.sendSystemMessage(
+					ModLanguageProvider.Messages.SUPPORT_SLIME_PEACEFUL.toComponent()
+				)
+			}
+
+		}
+	}
 
 }

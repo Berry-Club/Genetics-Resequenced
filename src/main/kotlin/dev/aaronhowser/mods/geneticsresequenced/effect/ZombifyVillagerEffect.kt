@@ -19,9 +19,7 @@ class ZombifyVillagerEffect : MobEffect(
 
 	override fun isInstantenous(): Boolean = true
 
-	/**
-	 * See [net.minecraft.world.entity.monster.Zombie.killedEntity]
-	 */
+	/** @see [net.minecraft.world.entity.monster.Zombie.killedEntity] */
 	override fun applyInstantenousEffect(
 		pSource: Entity?,
 		pIndirectSource: Entity?,
@@ -29,26 +27,23 @@ class ZombifyVillagerEffect : MobEffect(
 		pAmplifier: Int,
 		pHealth: Double
 	) {
-		if (villager.level().isClientSide) return
-		if (villager !is Villager) return
+		if (villager !is Villager || villager.isClientSide) return
 
 		val serverLevel = villager.level() as? ServerLevel ?: return
 
 		val zombieVillager = villager.convertTo(EntityType.ZOMBIE_VILLAGER, false) ?: return
-		zombieVillager.apply {
 
-			finalizeSpawn(
-				serverLevel,
-				serverLevel.getCurrentDifficultyAt(zombieVillager.blockPosition()),
-				MobSpawnType.CONVERSION,
-				ZombieGroupData(false, true),
-			)
+		zombieVillager.finalizeSpawn(
+			serverLevel,
+			serverLevel.getCurrentDifficultyAt(zombieVillager.blockPosition()),
+			MobSpawnType.CONVERSION,
+			ZombieGroupData(false, true),
+		)
 
-			villagerData = villager.villagerData
-			setGossips(villager.gossips.store(NbtOps.INSTANCE))
-			setTradeOffers(villager.offers.copy())
-			villagerXp = villager.villagerXp
-		}
+		zombieVillager.villagerData = villager.villagerData
+		zombieVillager.setGossips(villager.gossips.store(NbtOps.INSTANCE))
+		zombieVillager.setTradeOffers(villager.offers.copy())
+		zombieVillager.villagerXp = villager.villagerXp
 
 		EventHooks.onLivingConvert(villager, zombieVillager)
 

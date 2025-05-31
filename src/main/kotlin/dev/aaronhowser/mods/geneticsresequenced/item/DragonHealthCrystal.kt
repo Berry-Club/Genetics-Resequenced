@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.isClient
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.isClientSide
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.util.Mth
@@ -45,7 +45,7 @@ class DragonHealthCrystal : Item(
 			if (event.container.newDamage == 0f) return
 			val entity = event.entity
 
-			if (entity.isClient) return
+			if (entity.isClientSide) return
 			if (!entity.hasGene(ModGenes.ENDER_DRAGON_HEALTH)) return
 
 			val heldStacks = entity.handSlots.toMutableSet()

@@ -13,29 +13,29 @@ class SupportSlimeAttackGoal(
 	override fun canUse(): Boolean = true
 
 	override fun start() {
-		val target = mob.target
+		val target = this.mob.target
 
 		if (target == null) {
-			mob.isAggressive = false
+			this.mob.isAggressive = false
 			return
 		}
 
-		mob.isAggressive = true
-		mob.navigation.moveTo(target, 1.0)
-		ticksUntilNextAttack = 0
+		this.mob.isAggressive = true
+		this.mob.navigation.moveTo(target, 1.0)
+		this.ticksUntilNextAttack = 0
 	}
 
 	override fun stop() {
-		mob.isAggressive = false
-		mob.target = null
-		mob.navigation.stop()
+		this.mob.isAggressive = false
+		this.mob.target = null
+		this.mob.navigation.stop()
 	}
 
 	override fun tick() {
-		val target = mob.target ?: return
-		mob.lookControl.setLookAt(target)
+		val target = this.mob.target ?: return
+		this.mob.lookControl.setLookAt(target)
 
-		val distanceSqr = mob.distanceToSqr(target)
+		val distanceSqr = this.mob.distanceToSqr(target)
 
 		this.ticksUntilNextAttack = maxOf(
 			ticksUntilNextAttack - 1,
@@ -55,7 +55,7 @@ class SupportSlimeAttackGoal(
 	}
 
 	private fun getAttackReachSqr(pAttackTarget: LivingEntity): Double {
-		return (mob.bbWidth * 2.0f * mob.bbWidth * 2.0f + pAttackTarget.bbWidth).toDouble()
+		return (this.mob.bbWidth * 2.0f * this.mob.bbWidth * 2.0f + pAttackTarget.bbWidth).toDouble()
 	}
 
 	private fun resetAttackCooldown() {
