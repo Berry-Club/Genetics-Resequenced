@@ -39,19 +39,21 @@ import kotlin.random.Random
 
 object ClickGenes {
 
-	val recentlySheered = GeneCooldown(
+	private val RECENTLY_SHEARED_ENTITIES = GeneCooldown(
 		ModGenes.WOOLY,
 		ServerConfig.woolyCooldown.get()
 	)
 
-	fun handleWooly(event: PlayerInteractEvent.EntityInteract) {
+	fun handleWoolyOther(event: PlayerInteractEvent.EntityInteract) {
 		val wooly = ModGenes.WOOLY.getHolderOrThrow(event.entity.registryAccess())
 		if (wooly.isDisabled) return
 
 		val target = event.target as? LivingEntity ?: return
 		val clicker = event.entity
 
-		if (target.level().isClientSide) return
+		val level = target.level()
+
+		if (level.isClientSide) return
 
 		when (target) {
 			is Sheep, is MushroomCow -> return
@@ -62,7 +64,7 @@ object ClickGenes {
 		val clickedWithShears = event.itemStack.`is`(Tags.Items.TOOLS_SHEAR)
 		if (!clickedWithShears) return
 
-		val newlySheared = recentlySheered.add(target)
+		val newlySheared = RECENTLY_SHEARED_ENTITIES.add(target)
 
 		if (!newlySheared) {
 			clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_WOOLY.toComponent())
@@ -87,7 +89,7 @@ object ClickGenes {
 
 		event.itemStack.hurtAndBreak(1, clicker, clicker.getEquipmentSlotForItem(event.itemStack))
 
-		event.level.playSound(
+		level.playSound(
 			null,
 			target,
 			SoundEvents.SHEEP_SHEAR,
@@ -99,156 +101,9 @@ object ClickGenes {
 		if (target is ServerPlayer) {
 			ModPacketHandler.messagePlayer(target, ShearedPacket(removingSkin = true))
 		}
-
 	}
 
-	val recentlyMeated = GeneCooldown(
-		ModGenes.MEATY,
-		ServerConfig.meatyCooldown.get()
-	)
-
-	fun handleMeaty(event: PlayerInteractEvent.EntityInteract) {
-		val meaty = ModGenes.MEATY.getHolderOrThrow(event.level.registryAccess())
-		if (meaty.isDisabled) return
-
-		val target = event.target as? LivingEntity ?: return
-		val clicker = event.entity
-
-		if (target.level().isClientSide) return
-
-		if (!target.hasGene(ModGenes.MEATY)) return
-
-		val clickedWithShears = event.itemStack.`is`(Tags.Items.TOOLS_SHEAR)
-		if (!clickedWithShears) return
-
-		val newlyMeated = recentlyMeated.add(target)
-
-		if (!newlyMeated) {
-			clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_MEATY.toComponent())
-			return
-		}
-
-		val porkEntity = ItemEntity(
-			event.level,
-			target.eyePosition.x,
-			target.eyePosition.y,
-			target.eyePosition.z,
-			ItemStack(Items.PORKCHOP)
-		)
-		event.level.addFreshEntity(porkEntity)
-		porkEntity.setDeltaMovement(
-			Random.nextDouble(-0.05, 0.05),
-			Random.nextDouble(0.05, 0.1),
-			Random.nextDouble(-0.05, 0.05)
-		)
-
-		event.itemStack.hurtAndBreak(1, clicker, clicker.getEquipmentSlotForItem(event.itemStack))
-
-		event.level.playSound(
-			null,
-			target,
-			SoundEvents.SHEEP_SHEAR,
-			SoundSource.PLAYERS,
-			1.0f,
-			1.0f
-		)
-	}
-
-	val recentlyMilked = GeneCooldown(
-		ModGenes.MILKY,
-		ServerConfig.milkyCooldown.get()
-	)
-
-	fun handleMilky(event: PlayerInteractEvent.EntityInteract) {
-		val milky = ModGenes.MILKY.getHolderOrThrow(event.level.registryAccess())
-		if (milky.isDisabled) return
-
-		val target = event.target as? LivingEntity ?: return
-		if (target.level().isClientSide) return
-
-		when (target) {
-			is Cow, is Goat -> return
-		}
-
-		if (!target.hasGene(ModGenes.MILKY)) return
-
-		val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
-		if (!clickedWithBucket) return
-
-		val newlyMilked = recentlyMilked.add(target)
-
-		val clicker = event.entity
-		if (!newlyMilked) {
-			clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_MILKY.toComponent())
-			return
-		}
-
-		target.sendSystemMessage(ModLanguageProvider.Messages.MILK_MILKED.toComponent())
-
-		event.itemStack.shrink(1)
-		clicker.addItem(ItemStack(Items.MILK_BUCKET))
-
-		val sound = if (target is Player && Random.nextFloat() < 0.05f) {
-			SoundEvents.GOAT_SCREAMING_MILK
-		} else {
-			if (Random.nextBoolean()) SoundEvents.COW_MILK else SoundEvents.GOAT_MILK
-		}
-
-		event.level.playSound(
-			null,
-			target,
-			sound,
-			SoundSource.PLAYERS,
-			1.0f,
-			1.0f
-		)
-
-		if (target is ServerPlayer) {
-			AdvancementTriggers.getMilkedAdvancement(target)
-		}
-	}
-
-	fun milkyItem(event: PlayerInteractEvent.RightClickItem) {
-		val milky = ModGenes.MILKY.getHolderOrThrow(event.entity.registryAccess())
-		if (milky.isDisabled) return
-
-		val player = event.entity
-		if (player.level().isClientSide) return
-
-		if (!player.isCrouching) return
-		val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
-		if (!clickedWithBucket) return
-
-		if (!player.hasGene(ModGenes.MILKY)) return
-
-		val newlyMilked = recentlyMilked.add(player)
-
-		if (!newlyMilked) return
-
-		event.itemStack.shrink(1)
-		player.addItem(ItemStack(Items.MILK_BUCKET))
-
-		val sound = if (Random.nextFloat() < 0.05f) {
-			SoundEvents.GOAT_SCREAMING_MILK
-		} else {
-			if (Random.nextBoolean()) SoundEvents.COW_MILK else SoundEvents.GOAT_MILK
-		}
-
-		event.level.playSound(
-			null,
-			player,
-			sound,
-			SoundSource.PLAYERS,
-			1.0f,
-			1.0f
-		)
-
-		if (player is ServerPlayer) {
-			AdvancementTriggers.getMilkedAdvancement(player)
-		}
-	}
-
-	fun woolyItem(event: PlayerInteractEvent.RightClickItem) {
+	fun handleWoolySelf(event: PlayerInteractEvent.RightClickItem) {
 		val wooly = ModGenes.WOOLY.getHolderOrThrow(event.entity.registryAccess())
 		if (wooly.isDisabled) return
 
@@ -262,7 +117,7 @@ object ClickGenes {
 
 		if (!player.hasGene(ModGenes.WOOLY)) return
 
-		val newlySheared = recentlySheered.add(player)
+		val newlySheared = RECENTLY_SHEARED_ENTITIES.add(player)
 
 		if (!newlySheared) return
 
@@ -296,7 +151,59 @@ object ClickGenes {
 		ModPacketHandler.messagePlayer(player as ServerPlayer, ShearedPacket(removingSkin = true))
 	}
 
-	fun meatyItem(event: PlayerInteractEvent.RightClickItem) {
+	private val RECENTLY_MEATED_PLAYERS = GeneCooldown(
+		ModGenes.MEATY,
+		ServerConfig.meatyCooldown.get()
+	)
+
+	fun handleMeatyOther(event: PlayerInteractEvent.EntityInteract) {
+		val meaty = ModGenes.MEATY.getHolderOrThrow(event.level.registryAccess())
+		if (meaty.isDisabled) return
+
+		val target = event.target as? LivingEntity ?: return
+		val clicker = event.entity
+
+		if (target.level().isClientSide) return
+
+		if (!target.hasGene(ModGenes.MEATY)) return
+
+		val clickedWithShears = event.itemStack.`is`(Tags.Items.TOOLS_SHEAR)
+		if (!clickedWithShears) return
+
+		val newlyMeated = RECENTLY_MEATED_PLAYERS.add(target)
+
+		if (!newlyMeated) {
+			clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_MEATY.toComponent())
+			return
+		}
+
+		val porkEntity = ItemEntity(
+			event.level,
+			target.eyePosition.x,
+			target.eyePosition.y,
+			target.eyePosition.z,
+			ItemStack(Items.PORKCHOP)
+		)
+		event.level.addFreshEntity(porkEntity)
+		porkEntity.setDeltaMovement(
+			Random.nextDouble(-0.05, 0.05),
+			Random.nextDouble(0.05, 0.1),
+			Random.nextDouble(-0.05, 0.05)
+		)
+
+		event.itemStack.hurtAndBreak(1, clicker, clicker.getEquipmentSlotForItem(event.itemStack))
+
+		event.level.playSound(
+			null,
+			target,
+			SoundEvents.SHEEP_SHEAR,
+			SoundSource.PLAYERS,
+			1.0f,
+			1.0f
+		)
+	}
+
+	fun handleMeatySelf(event: PlayerInteractEvent.RightClickItem) {
 		val meaty = ModGenes.MEATY.getHolderOrThrow(event.entity.registryAccess())
 		if (meaty.isDisabled) return
 
@@ -310,7 +217,7 @@ object ClickGenes {
 
 		if (!player.hasGene(ModGenes.MEATY)) return
 
-		val newlyMeated = recentlyMeated.add(player)
+		val newlyMeated = RECENTLY_MEATED_PLAYERS.add(player)
 
 		if (!newlyMeated) {
 			player.sendSystemMessage(ModLanguageProvider.Messages.RECENT_MEATY.toComponent())
@@ -343,6 +250,100 @@ object ClickGenes {
 		)
 	}
 
+	private val RECENTLY_MILKED_ENTITIES = GeneCooldown(
+		ModGenes.MILKY,
+		ServerConfig.milkyCooldown.get()
+	)
+
+	fun handleMilkyOther(event: PlayerInteractEvent.EntityInteract) {
+		val milky = ModGenes.MILKY.getHolderOrThrow(event.level.registryAccess())
+		if (milky.isDisabled) return
+
+		val target = event.target as? LivingEntity ?: return
+		if (target.level().isClientSide) return
+
+		when (target) {
+			is Cow, is Goat -> return
+		}
+
+		if (!target.hasGene(ModGenes.MILKY)) return
+
+		val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
+		if (!clickedWithBucket) return
+
+		val newlyMilked = RECENTLY_MILKED_ENTITIES.add(target)
+
+		val clicker = event.entity
+		if (!newlyMilked) {
+			clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_MILKY.toComponent())
+			return
+		}
+
+		target.sendSystemMessage(ModLanguageProvider.Messages.MILK_MILKED.toComponent())
+
+		event.itemStack.shrink(1)
+		clicker.addItem(ItemStack(Items.MILK_BUCKET))
+
+		val sound = if (target is Player && Random.nextFloat() < 0.05f) {
+			SoundEvents.GOAT_SCREAMING_MILK
+		} else {
+			if (Random.nextBoolean()) SoundEvents.COW_MILK else SoundEvents.GOAT_MILK
+		}
+
+		event.level.playSound(
+			null,
+			target,
+			sound,
+			SoundSource.PLAYERS,
+			1.0f,
+			1.0f
+		)
+
+		if (target is ServerPlayer) {
+			AdvancementTriggers.getMilkedAdvancement(target)
+		}
+	}
+
+	fun handleMilkySelf(event: PlayerInteractEvent.RightClickItem) {
+		val milky = ModGenes.MILKY.getHolderOrThrow(event.entity.registryAccess())
+		if (milky.isDisabled) return
+
+		val player = event.entity
+		if (player.level().isClientSide) return
+
+		if (!player.isCrouching) return
+		val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
+		if (!clickedWithBucket) return
+
+		if (!player.hasGene(ModGenes.MILKY)) return
+
+		val newlyMilked = RECENTLY_MILKED_ENTITIES.add(player)
+
+		if (!newlyMilked) return
+
+		event.itemStack.shrink(1)
+		player.addItem(ItemStack(Items.MILK_BUCKET))
+
+		val sound = if (Random.nextFloat() < 0.05f) {
+			SoundEvents.GOAT_SCREAMING_MILK
+		} else {
+			if (Random.nextBoolean()) SoundEvents.COW_MILK else SoundEvents.GOAT_MILK
+		}
+
+		event.level.playSound(
+			null,
+			player,
+			sound,
+			SoundSource.PLAYERS,
+			1.0f,
+			1.0f
+		)
+
+		if (player is ServerPlayer) {
+			AdvancementTriggers.getMilkedAdvancement(player)
+		}
+	}
+
 	fun shootFireball(event: PlayerInteractEvent.RightClickItem) {
 		val shootFireballs = ModGenes.SHOOT_FIREBALLS.getHolderOrThrow(event.entity.registryAccess())
 		if (shootFireballs.isDisabled) return
@@ -359,9 +360,9 @@ object ClickGenes {
 			event.level,
 			player,
 			lookVec
-		).apply {
-			setPos(x, player.eyeY, z)
-		}
+		)
+
+		fireball.setPos(fireball.x, player.eyeY, fireball.z)
 
 		event.level.addFreshEntity(fireball)
 
@@ -418,11 +419,10 @@ object ClickGenes {
 			1.0f
 		)
 
-		if (player.uuid in recentlySheered) {
-			recentlySheered.remove(player.uuid)
+		if (player.uuid in RECENTLY_SHEARED_ENTITIES) {
+			RECENTLY_SHEARED_ENTITIES.remove(player.uuid)
 			GeneCooldown.tellCooldownEnded(player, ModGenes.WOOLY)
 		}
-
 	}
 
 	fun cureCringe(event: PlayerInteractEvent.RightClickBlock) {

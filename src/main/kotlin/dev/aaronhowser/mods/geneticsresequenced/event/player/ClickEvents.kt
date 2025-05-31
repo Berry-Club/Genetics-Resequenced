@@ -21,9 +21,9 @@ object ClickEvents {
 
 	@SubscribeEvent
 	fun onInteractEntity(event: PlayerInteractEvent.EntityInteract) {
-		ClickGenes.handleWooly(event)
-		ClickGenes.handleMilky(event)
-		ClickGenes.handleMeaty(event)
+		ClickGenes.handleWoolyOther(event)
+		ClickGenes.handleMilkyOther(event)
+		ClickGenes.handleMeatyOther(event)
 
 		checkShouldCancel(event)
 	}
@@ -45,9 +45,9 @@ object ClickEvents {
 
 	@SubscribeEvent
 	fun onUseItem(event: PlayerInteractEvent.RightClickItem) {
-		ClickGenes.woolyItem(event)
-		ClickGenes.milkyItem(event)
-		ClickGenes.meatyItem(event)
+		ClickGenes.handleWoolySelf(event)
+		ClickGenes.handleMilkySelf(event)
+		ClickGenes.handleMeatySelf(event)
 		ClickGenes.shootFireball(event)
 	}
 
