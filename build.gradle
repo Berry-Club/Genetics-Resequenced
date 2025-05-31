@@ -86,6 +86,7 @@ configurations {
 repositories {
     // NeoForged MDK includes mavenLocal by default
     mavenLocal()
+
     // REQUIRED for using Kotlin for Forge
     maven {
         name = 'Kotlin for Forge'
@@ -93,10 +94,11 @@ repositories {
         content { includeGroup "thedarkcolour" }
     }
 
-    // For Curios
-    maven {
-        name = "OctoStudios"
-        url = uri("https://maven.octo-studios.com/releases")
+    repositories {
+        maven {
+            name = "Illusive Soulworks maven"
+            url = "https://maven.theillusivec4.top/"
+        }
     }
 
     //For REI
@@ -160,7 +162,12 @@ dependencies {
     implementation 'thedarkcolour:kotlinforforge-neoforge:5.4.0'
 
     // Curios
-    implementation "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    dependencies {
+        // Compile against only the API artifact
+        compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+        // Use the full Curios API jar at runtime
+        runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
+    }
 
     // Modonomicon
     implementation("com.klikli_dev:modonomicon-1.21.1-neoforge:${modonomicon_version}") { transitive = false }
