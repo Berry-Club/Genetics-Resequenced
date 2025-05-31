@@ -25,44 +25,18 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 	DIRECTORY
 ) {
 
-	companion object {
-		const val DIRECTORY = GeneticsResequenced.ID + "/entity_genes"
-
-		private val entityGeneMap: MutableMap<EntityType<*>, Map<ResourceKey<Gene>, Int>> = mutableMapOf()
-		fun getEntityGeneRkMap(): Map<EntityType<*>, Map<ResourceKey<Gene>, Int>> = entityGeneMap.toMap()
-
-		fun getEntityGeneHolderMap(registries: HolderLookup.Provider): Map<EntityType<*>, Map<Holder<Gene>, Int>> {
-			return entityGeneMap.map { (entityType, geneRkMap) ->
-				val holders = getGeneHolderWeights(entityType, registries)
-
-				entityType to holders
-			}.toMap()
-		}
-
-		fun getGeneRkWeights(entityType: EntityType<*>): Map<ResourceKey<Gene>, Int> {
-			return entityGeneMap[entityType] ?: mapOf(ModGenes.BASIC to 1)
-		}
-
-		fun getGeneHolderWeights(entityType: EntityType<*>, registries: HolderLookup.Provider): Map<Holder<Gene>, Int> {
-			return getGeneRkWeights(entityType).map { (rk, weight) ->
-				rk.getHolderOrThrow(registries) to weight
-			}.toMap()
-		}
-
-	}
-
 	private fun addGeneWeights(
 		entityRk: ResourceKey<EntityType<*>>,
 		newGeneWeights: Map<ResourceKey<Gene>, Int>
 	) {
 		val entityType = BuiltInRegistries.ENTITY_TYPE.get(entityRk)!!
-		val currentGenes = entityGeneMap[entityType]?.toMutableMap() ?: mutableMapOf()
+		val currentGenes = ENTITY_GENE_MAP[entityType]?.toMutableMap() ?: mutableMapOf()
 
 		for ((gene, weight) in newGeneWeights) {
 			currentGenes[gene] = currentGenes[gene]?.plus(weight) ?: weight
 		}
 
-		entityGeneMap[entityType] = currentGenes
+		ENTITY_GENE_MAP[entityType] = currentGenes
 	}
 
 	data class EntityGenesData(
@@ -91,7 +65,7 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 		pResourceManager: ResourceManager,
 		pProfiler: ProfilerFiller
 	) {
-		entityGeneMap.clear()
+		ENTITY_GENE_MAP.clear()
 
 		for ((key: ResourceLocation, value: JsonElement) in pObject) {
 			try {
@@ -121,5 +95,31 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 		}
 	}
 
+	companion object {
+		const val DIRECTORY = GeneticsResequenced.ID + "/entity_genes"
+
+		//TODO: There's probably a better way to do this that doesn't rely on a static map
+		private val ENTITY_GENE_MAP: MutableMap<EntityType<*>, Map<ResourceKey<Gene>, Int>> = mutableMapOf()
+		fun getEntityGeneRkMap(): Map<EntityType<*>, Map<ResourceKey<Gene>, Int>> = ENTITY_GENE_MAP.toMap()
+
+		fun getEntityGeneHolderMap(registries: HolderLookup.Provider): Map<EntityType<*>, Map<Holder<Gene>, Int>> {
+			return ENTITY_GENE_MAP.map { (entityType, _) ->
+				entityType to getGeneHolderWeights(entityType, registries)
+			}.toMap()
+		}
+
+		fun getGeneResourceKeyWeights(entityType: EntityType<*>): Map<ResourceKey<Gene>, Int> {
+			return ENTITY_GENE_MAP[entityType] ?: mapOf(ModGenes.BASIC to 1)
+		}
+
+		fun getGeneHolderWeights(entityType: EntityType<*>, registries: HolderLookup.Provider): Map<Holder<Gene>, Int> {
+			val geneWeights = getGeneResourceKeyWeights(entityType)
+
+			return geneWeights.map { (resourceKey, weight) ->
+				resourceKey.getHolderOrThrow(registries) to weight
+			}.toMap()
+		}
+
+	}
 
 }

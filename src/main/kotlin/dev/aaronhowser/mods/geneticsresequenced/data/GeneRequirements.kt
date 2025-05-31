@@ -22,28 +22,8 @@ class GeneRequirements : SimpleJsonResourceReloadListener(
 	DIRECTORY
 ) {
 
-	companion object {
-		const val DIRECTORY = GeneticsResequenced.ID + "/gene_requirements"
-
-		private val geneRequirements: MutableMap<ResourceKey<Gene>, Set<ResourceKey<Gene>>> = mutableMapOf()
-		fun getGeneRequirements(): Map<ResourceKey<Gene>, Set<ResourceKey<Gene>>> = geneRequirements.toMap()
-
-		fun getGeneRequiredGeneRks(gene: ResourceKey<Gene>): Set<ResourceKey<Gene>> {
-			return geneRequirements[gene] ?: emptySet()
-		}
-
-		fun getGeneRequiredGeneRks(gene: Holder<Gene>): Set<ResourceKey<Gene>> {
-			return getGeneRequiredGeneRks(gene.key!!)
-		}
-
-		fun getGeneRequiredGeneHolders(gene: Holder<Gene>, registries: HolderLookup.Provider): Set<Holder<Gene>> {
-			return getGeneRequiredGeneRks(gene).map { it.getHolderOrThrow(registries) }.toSet()
-		}
-
-	}
-
 	private fun addGeneRequirements(gene: ResourceKey<Gene>, requirements: List<ResourceKey<Gene>>) {
-		geneRequirements[gene] = geneRequirements[gene]?.plus(requirements) ?: requirements.toSet()
+		GENE_REQUIREMENTS_MAP[gene] = GENE_REQUIREMENTS_MAP[gene]?.plus(requirements) ?: requirements.toSet()
 	}
 
 	data class GeneRequirementsData(
@@ -69,7 +49,7 @@ class GeneRequirements : SimpleJsonResourceReloadListener(
 		pResourceManager: ResourceManager,
 		pProfiler: ProfilerFiller
 	) {
-		geneRequirements.clear()
+		GENE_REQUIREMENTS_MAP.clear()
 
 		for ((key: ResourceLocation, value: JsonElement) in pObject) {
 
@@ -88,4 +68,25 @@ class GeneRequirements : SimpleJsonResourceReloadListener(
 			GeneticsResequenced.LOGGER.info("Loaded gene requirements for ${geneRequirements.gene}")
 		}
 	}
+
+	companion object {
+		const val DIRECTORY = GeneticsResequenced.ID + "/gene_requirements"
+
+		//TODO: There's probably a better way to do this that doesn't rely on a static map
+		private val GENE_REQUIREMENTS_MAP: MutableMap<ResourceKey<Gene>, Set<ResourceKey<Gene>>> = mutableMapOf()
+		fun getGeneRequirements(): Map<ResourceKey<Gene>, Set<ResourceKey<Gene>>> = GENE_REQUIREMENTS_MAP.toMap()
+
+		fun getGeneRequiredGeneRks(gene: ResourceKey<Gene>): Set<ResourceKey<Gene>> {
+			return GENE_REQUIREMENTS_MAP[gene] ?: emptySet()
+		}
+
+		fun getGeneRequiredGeneRks(gene: Holder<Gene>): Set<ResourceKey<Gene>> {
+			return getGeneRequiredGeneRks(gene.key!!)
+		}
+
+		fun getGeneRequiredGeneHolders(gene: Holder<Gene>, registries: HolderLookup.Provider): Set<Holder<Gene>> {
+			return getGeneRequiredGeneRks(gene).map { it.getHolderOrThrow(registries) }.toSet()
+		}
+	}
+
 }

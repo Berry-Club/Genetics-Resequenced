@@ -48,17 +48,19 @@ data class GenesData(
 		}
 
 		var LivingEntity.geneHolders: Set<Holder<Gene>>
-			get() {
-				return this.getData(ModAttachmentTypes.GENE_CONTAINER).genes.toSet()
-			}
+			get() = this.getData(ModAttachmentTypes.GENE_CONTAINER).genes.toSet()
 			private set(value) {
 				this.setData(ModAttachmentTypes.GENE_CONTAINER, GenesData(value))
 			}
 
+		@JvmStatic
 		fun LivingEntity.addGene(newGeneHolder: Holder<Gene>): Boolean {
 			if (this.hasGene(newGeneHolder)) return false
+
 			if (newGeneHolder.isHelixOnly) {
-				GeneticsResequenced.LOGGER.debug("Cannot add gene $newGeneHolder to entities, as it has tag `#geneticsresequenced:helix_only`.")
+				GeneticsResequenced.LOGGER.debug(
+					"Cannot add gene $newGeneHolder to entities, as it has tag `#geneticsresequenced:helix_only`."
+				)
 				return false
 			}
 
@@ -69,31 +71,35 @@ data class GenesData(
 				&& !newGeneHolder.`is`(ModGenes.CRINGE)
 			) {
 				GeneticsResequenced.LOGGER.debug(
-					"Tried to give negative gene $newGeneHolder to player $this, but \"disableGivingPlayersNegativeGenes\" is true in the server config."
+					"Tried to give negative gene $newGeneHolder to player ${this@addGene.name.string}, but \"disableGivingPlayersNegativeGenes\" is true in the server config."
 				)
 				return false
 			}
 
-			if (this.type !in newGeneHolder.value().allowedEntities.map { it.value() }) {
-				GeneticsResequenced.LOGGER.debug("Tried to give gene $newGeneHolder to mob $this, but mobs cannot have that gene!")
+			val allowedTypes = newGeneHolder.value().allowedEntities.map { it.value() }
+			if (this.type !in allowedTypes) {
+				GeneticsResequenced.LOGGER.debug(
+					"Tried to give gene $newGeneHolder to mob ${this@addGene.name.string}, but mobs cannot have that gene!"
+				)
 				return false
 			}
 
-			val eventPre = CustomEvents.GeneChangeEvent.Pre(this, newGeneHolder, true)
-			val wasCanceled = FORGE_BUS.post(eventPre).isCanceled
-			if (wasCanceled) {
+			val eventPre = CustomEvents.GeneChangeEvent.Pre(this@addGene, newGeneHolder, true)
+			if (FORGE_BUS.post(eventPre).isCanceled) {
 				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
 				return false
 			}
 
 			this.geneHolders += newGeneHolder
 
-			val eventPost = CustomEvents.GeneChangeEvent.Post(this, newGeneHolder, true)
+			val eventPost = CustomEvents.GeneChangeEvent.Post(this@addGene, newGeneHolder, true)
 			FORGE_BUS.post(eventPost)
 
 			return true
 		}
 
+
+		@JvmStatic
 		fun LivingEntity.removeGene(removedGeneHolder: Holder<Gene>): Boolean {
 			if (!this.hasGene(removedGeneHolder)) return false
 

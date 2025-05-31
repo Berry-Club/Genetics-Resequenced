@@ -12,7 +12,6 @@ import net.minecraft.server.level.ServerPlayer
 object AdvancementTriggers {
 
 	private fun completeAdvancement(player: ServerPlayer, advancement: AdvancementHolder) {
-
 		val progress = player.advancements.getOrStartProgress(advancement)
 		if (progress.isDone) return
 
@@ -22,18 +21,17 @@ object AdvancementTriggers {
 			val criterion = criteria.next()
 			player.advancements.award(advancement, criterion)
 		}
-
 	}
 
 	fun geneAdvancements(player: ServerPlayer, geneHolder: Holder<Gene>, wasAdded: Boolean) {
-		if (wasAdded) {
-			getAnyGeneAdvancement(player)
+		if (!wasAdded) return
 
-			when {
-				geneHolder.isGene(ModGenes.CRINGE) -> getCringeGeneAdvancement(player)
-				geneHolder.isGene(ModGenes.FLIGHT) -> getFlightGeneAdvancement(player)
-				geneHolder.isGene(ModGenes.SCARE_SPIDERS) -> getAllScareGenes(player)
-			}
+		getAnyGeneAdvancement(player)
+
+		when {
+			geneHolder.isGene(ModGenes.CRINGE) -> getCringeGeneAdvancement(player)
+			geneHolder.isGene(ModGenes.FLIGHT) -> getFlightGeneAdvancement(player)
+			geneHolder.isGene(ModGenes.SCARE_SPIDERS) -> getAllScareGenes(player)
 		}
 	}
 
@@ -45,6 +43,7 @@ object AdvancementTriggers {
 				ModGenes.SCARE_SKELETONS,
 				ModGenes.SCARE_ZOMBIES
 			)
+
 		if (scareGeneKeys.any { !player.hasGene(it) }) return
 
 		val advancement = getAdvancement(player, "guide/get_all_scare_genes") ?: return
