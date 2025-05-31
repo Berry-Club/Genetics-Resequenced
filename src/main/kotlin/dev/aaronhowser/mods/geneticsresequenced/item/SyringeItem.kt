@@ -8,9 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Comp
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModDamageTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityName
-import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityUuid
-import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.hasEntity
+import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.setEntity
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -35,15 +33,12 @@ import net.neoforged.neoforge.common.util.FakePlayer
 import java.util.*
 
 open class SyringeItem : Item(
-	Properties()
-		.stacksTo(1)
+	Properties().stacksTo(1)
 ) {
 
 	companion object {
 
-		fun ItemStack.isSyringe(): Boolean {
-			return this.`is`(ModItemTagsProvider.SYRINGES)
-		}
+		fun ItemStack.isSyringe(): Boolean = this.`is`(ModItemTagsProvider.SYRINGES)
 
 		fun isBeingUsed(syringeStack: ItemStack, entity: LivingEntity?): Boolean {
 			if (entity == null) return false
@@ -64,13 +59,8 @@ open class SyringeItem : Item(
 			}
 		}
 
-		private fun getEntityUuid(syringeStack: ItemStack): UUID? {
-			return syringeStack.getEntityUuid()
-		}
-
-		fun getEntityName(syringeStack: ItemStack): Component? {
-			return syringeStack.getEntityName()
-		}
+		private fun getEntityUuid(syringeStack: ItemStack): UUID? = SpecificEntityItemComponent.getEntityUuid(syringeStack)
+		fun getEntityName(syringeStack: ItemStack): Component? = SpecificEntityItemComponent.getEntityName(syringeStack)
 
 		fun injectEntity(syringeStack: ItemStack, entity: LivingEntity) {
 			val syringeEntityUuid = getEntityUuid(syringeStack) ?: return
@@ -163,9 +153,7 @@ open class SyringeItem : Item(
 
 		}
 
-		fun hasBlood(syringeStack: ItemStack): Boolean {
-			return syringeStack.hasEntity()
-		}
+		fun hasBlood(syringeStack: ItemStack): Boolean = SpecificEntityItemComponent.hasEntity(syringeStack)
 
 		fun getGenes(syringeStack: ItemStack): Set<Holder<Gene>> {
 			return syringeStack.get(ModDataComponents.GENE_SET)?.toSet() ?: emptySet()

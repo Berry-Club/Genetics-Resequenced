@@ -50,7 +50,7 @@ object ClientUtil {
 
 		val addLayersBackTask = { addSkinLayersBack() }
 
-		ClickGenes.RECENTLY_SHEARED.cooldownEndedTasks.add(addLayersBackTask)
+		ClickGenes.RECENTLY_SHEARED_ENTITIES.cooldownEndedTasks.add(addLayersBackTask)
 	}
 
 	fun addSkinLayersBack() {

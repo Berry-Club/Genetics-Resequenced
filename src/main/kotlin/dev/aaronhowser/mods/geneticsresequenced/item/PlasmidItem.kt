@@ -17,8 +17,48 @@ import net.minecraft.world.item.TooltipFlag
 
 class PlasmidItem : Item(Properties().stacksTo(1)) {
 
-	companion object {
+	override fun appendHoverText(
+		pStack: ItemStack,
+		pContext: TooltipContext,
+		pTooltipComponents: MutableList<Component>,
+		pTooltipFlag: TooltipFlag
+	) {
+		val geneHolder = getGene(pStack)
 
+		if (geneHolder == null) {
+			pTooltipComponents.add(
+				ModLanguageProvider.Tooltips.PLASMID_EMPTY
+					.toComponent()
+					.withStyle(ChatFormatting.GRAY)
+			)
+			return
+		}
+
+		pTooltipComponents.add(
+			ModLanguageProvider.Tooltips.PLASMID_GENE
+				.toComponent(Gene.getNameComponent(geneHolder))
+				.withStyle(ChatFormatting.GRAY)
+		)
+
+		if (isComplete(pStack)) {
+			pTooltipComponents.add(
+				ModLanguageProvider.Tooltips.PLASMID_COMPLETE
+					.toComponent()
+					.withStyle(ChatFormatting.GRAY)
+			)
+		} else {
+			val amountNeeded = geneHolder.value().dnaPointsRequired
+			val amount = getDnaPoints(pStack)
+
+			pTooltipComponents.add(
+				ModLanguageProvider.Tooltips.PLASMID_PROGRESS
+					.toComponent(amount, amountNeeded)
+					.withStyle(ChatFormatting.GRAY)
+			)
+		}
+	}
+
+	companion object {
 		fun hasGene(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.PLASMID_PROGRESS)
 
 		fun getGene(itemStack: ItemStack): Holder<Gene>? {
@@ -65,47 +105,6 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
 				.map { getCompletedPlasmid(it) }
 		}
 
-	}
-
-	override fun appendHoverText(
-		pStack: ItemStack,
-		pContext: TooltipContext,
-		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
-	) {
-		val geneHolder = getGene(pStack)
-
-		if (geneHolder == null) {
-			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.PLASMID_EMPTY
-					.toComponent()
-					.withStyle(ChatFormatting.GRAY)
-			)
-			return
-		}
-
-		pTooltipComponents.add(
-			ModLanguageProvider.Tooltips.PLASMID_GENE
-				.toComponent(Gene.getNameComponent(geneHolder))
-				.withStyle(ChatFormatting.GRAY)
-		)
-
-		if (isComplete(pStack)) {
-			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.PLASMID_COMPLETE
-					.toComponent()
-					.withStyle(ChatFormatting.GRAY)
-			)
-		} else {
-			val amountNeeded = geneHolder.value().dnaPointsRequired
-			val amount = getDnaPoints(pStack)
-
-			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.PLASMID_PROGRESS
-					.toComponent(amount, amountNeeded)
-					.withStyle(ChatFormatting.GRAY)
-			)
-		}
 	}
 
 }

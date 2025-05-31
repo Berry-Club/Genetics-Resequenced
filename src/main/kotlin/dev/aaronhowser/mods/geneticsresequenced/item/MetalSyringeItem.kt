@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.getEntityUuid
+import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.setEntity
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.chat.Component
@@ -29,7 +29,7 @@ class MetalSyringeItem : SyringeItem() {
 
 		if (!hasBlood(pStack)) return
 
-		val entityUuid = pStack.getEntityUuid() ?: return
+		val entityUuid = SpecificEntityItemComponent.getEntityUuid(pStack) ?: return
 		val target = OtherUtil.getNearbyEntityFromUuid(entityUuid, pEntity) ?: return
 
 		target.addEffect(
@@ -96,8 +96,7 @@ class MetalSyringeItem : SyringeItem() {
 			pPlayer: Player,
 			pTarget: LivingEntity
 		) {
-			val uuid = syringeStack.getEntityUuid()
-
+			val uuid = SpecificEntityItemComponent.getEntityUuid(syringeStack)
 			if (pTarget.uuid != uuid) return
 
 			if (isContaminated(syringeStack)) {
@@ -118,7 +117,7 @@ class MetalSyringeItem : SyringeItem() {
 			pPlayer: Player,
 			pInteractionTarget: LivingEntity
 		) {
-			val entityUuid = syringeStack.getEntityUuid() ?: return
+			val entityUuid = SpecificEntityItemComponent.getEntityUuid(syringeStack) ?: return
 
 			fun sendMessage(message: Component) {
 				if (!pPlayer.level().isClientSide) {

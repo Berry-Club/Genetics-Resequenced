@@ -39,7 +39,7 @@ import kotlin.random.Random
 
 object ClickGenes {
 
-	private val RECENTLY_SHEARED_ENTITIES = GeneCooldown(
+	val RECENTLY_SHEARED_ENTITIES = GeneCooldown(
 		ModGenes.WOOLY,
 		ServerConfig.woolyCooldown.get()
 	)

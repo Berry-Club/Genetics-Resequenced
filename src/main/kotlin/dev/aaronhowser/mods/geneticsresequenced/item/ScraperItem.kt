@@ -22,11 +22,75 @@ import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.util.FakePlayer
 
 class ScraperItem : Item(
-	Properties()
-		.durability(200)
+	Properties().durability(200)
 ) {
 
+	override fun use(
+		pLevel: Level,
+		pPlayer: Player,
+		pInteractionHand: InteractionHand
+	): InteractionResultHolder<ItemStack> {
+		val realStack = pPlayer.getItemInHand(pInteractionHand)
+
+		if (pLevel.isClientSide) return InteractionResultHolder.pass(realStack)
+
+		// If the player is sneaking, try to scrape themselves
+		if (pPlayer.isCrouching) return tryScrapeSelf(pPlayer, realStack)
+
+		val lookedAtEntity = OtherUtil.getLookedAtEntity(pPlayer) ?: return InteractionResultHolder.pass(realStack)
+		val scrapeWorked = scrapeEntity(pPlayer as ServerPlayer, realStack, lookedAtEntity)
+
+		return if (scrapeWorked) {
+			InteractionResultHolder.success(realStack)
+		} else {
+			InteractionResultHolder.pass(realStack)
+		}
+	}
+
+	override fun interactLivingEntity(
+		pStack: ItemStack,
+		pPlayer: Player,
+		pInteractionTarget: LivingEntity,
+		pUsedHand: InteractionHand
+	): InteractionResult {
+
+		if (pPlayer !is ServerPlayer) return InteractionResult.PASS
+
+		if (pInteractionTarget.type.`is`(ModEntityTypeTagsProvider.SCRAPER_ENTITY_BLACKLIST)) {
+			pPlayer.sendSystemMessage(
+				ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent()
+			)
+
+			return InteractionResult.CONSUME
+		}
+
+		return if (scrapeEntity(pPlayer, pStack, pInteractionTarget)) {
+			InteractionResult.SUCCESS
+		} else {
+			InteractionResult.CONSUME
+		}
+
+	}
+
+	override fun getEnchantmentValue(stack: ItemStack): Int = 5
+
 	companion object {
+
+		private fun tryScrapeSelf(
+			pPlayer: Player,
+			realStack: ItemStack
+		): InteractionResultHolder<ItemStack> {
+			if (pPlayer is FakePlayer) return InteractionResultHolder.pass(realStack)
+			if (pPlayer !is ServerPlayer) return InteractionResultHolder.pass(realStack)
+
+			val scrapeWorked = scrapeEntity(pPlayer, realStack, pPlayer)
+
+			return if (scrapeWorked) {
+				InteractionResultHolder.success(realStack)
+			} else {
+				InteractionResultHolder.pass(realStack)
+			}
+		}
 
 		private fun scrapeEntity(
 			player: ServerPlayer,
@@ -73,73 +137,6 @@ class ScraperItem : Item(
 		private fun getDamageSource(level: Level, source: LivingEntity? = null): DamageSource {
 			return level.damageSources().source(ModDamageTypeTagsProvider.USE_SCRAPER, source)
 		}
-	}
-
-	override fun use(
-		pLevel: Level,
-		pPlayer: Player,
-		pInteractionHand: InteractionHand
-	): InteractionResultHolder<ItemStack> {
-		val realStack = pPlayer.getItemInHand(pInteractionHand)
-
-		if (pLevel.isClientSide) return InteractionResultHolder.pass(realStack)
-
-		// If the player is sneaking, try to scrape themselves
-		if (pPlayer.isCrouching) return tryScrapeSelf(pPlayer, realStack)
-
-		val lookedAtEntity = OtherUtil.getLookedAtEntity(pPlayer) ?: return InteractionResultHolder.pass(realStack)
-		val scrapeWorked = scrapeEntity(pPlayer as ServerPlayer, realStack, lookedAtEntity)
-
-		return if (scrapeWorked) {
-			InteractionResultHolder.success(realStack)
-		} else {
-			InteractionResultHolder.pass(realStack)
-		}
-	}
-
-	private fun tryScrapeSelf(
-		pPlayer: Player,
-		realStack: ItemStack
-	): InteractionResultHolder<ItemStack> {
-		if (pPlayer is FakePlayer) return InteractionResultHolder.pass(realStack)
-		if (pPlayer !is ServerPlayer) return InteractionResultHolder.pass(realStack)
-
-		val scrapeWorked = scrapeEntity(pPlayer, realStack, pPlayer)
-
-		return if (scrapeWorked) {
-			InteractionResultHolder.success(realStack)
-		} else {
-			InteractionResultHolder.pass(realStack)
-		}
-	}
-
-	override fun interactLivingEntity(
-		pStack: ItemStack,
-		pPlayer: Player,
-		pInteractionTarget: LivingEntity,
-		pUsedHand: InteractionHand
-	): InteractionResult {
-
-		if (pPlayer !is ServerPlayer) return InteractionResult.PASS
-
-		if (pInteractionTarget.type.`is`(ModEntityTypeTagsProvider.SCRAPER_ENTITY_BLACKLIST)) {
-			pPlayer.sendSystemMessage(
-				ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent()
-			)
-
-			return InteractionResult.CONSUME
-		}
-
-		return if (scrapeEntity(pPlayer, pStack, pInteractionTarget)) {
-			InteractionResult.SUCCESS
-		} else {
-			InteractionResult.CONSUME
-		}
-
-	}
-
-	override fun getEnchantmentValue(stack: ItemStack): Int {
-		return 5
 	}
 
 }

@@ -46,17 +46,9 @@ data class SpecificEntityItemComponent(
 			this.set(ModDataComponents.SPECIFIC_ENTITY, entityComponent)
 		}
 
-		fun ItemStack.hasEntity(): Boolean {
-			return this.has(ModDataComponents.SPECIFIC_ENTITY)
-		}
-
-		fun ItemStack.getEntityUuid(): UUID? {
-			return this.get(ModDataComponents.SPECIFIC_ENTITY)?.uuid
-		}
-
-		fun ItemStack.getEntityName(): Component? {
-			return this.get(ModDataComponents.SPECIFIC_ENTITY)?.name
-		}
+		fun hasEntity(stack: ItemStack): Boolean = stack.has(ModDataComponents.SPECIFIC_ENTITY)
+		fun getEntityUuid(stack: ItemStack): UUID? = stack.get(ModDataComponents.SPECIFIC_ENTITY)?.uuid
+		fun getEntityName(stack: ItemStack): Component? = stack.get(ModDataComponents.SPECIFIC_ENTITY)?.name
 
 	}
 
