@@ -23,10 +23,11 @@ class DragonHealthCrystal : Item(
 	override fun getBreakingSound(): SoundEvent = SoundEvents.ENDER_DRAGON_HURT
 
 	override fun isDamageable(stack: ItemStack): Boolean = true
+	override fun isBarVisible(stack: ItemStack): Boolean = getDamage(stack) < getMaxDamage(stack)
 	override fun getMaxDamage(stack: ItemStack): Int = Mth.ceil(MAX_DAMAGE)
 	override fun getDamage(stack: ItemStack): Int {
-		val damage = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0f)
-		return Mth.ceil(damage)
+		val damageRemaining = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0f)
+		return Mth.ceil(MAX_DAMAGE - damageRemaining)
 	}
 
 	override fun isValidRepairItem(pStack: ItemStack, pRepairCandidate: ItemStack): Boolean {
