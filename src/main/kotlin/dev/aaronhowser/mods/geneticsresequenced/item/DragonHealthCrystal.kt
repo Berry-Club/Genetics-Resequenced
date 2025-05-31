@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.isClient
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundEvents
+import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -21,11 +22,21 @@ class DragonHealthCrystal : Item(
 
 	override fun getBreakingSound(): SoundEvent = SoundEvents.ENDER_DRAGON_HURT
 
+	override fun isDamageable(stack: ItemStack): Boolean = true
+	override fun getMaxDamage(stack: ItemStack): Int = Mth.ceil(MAX_DAMAGE)
+	override fun getDamage(stack: ItemStack): Int {
+		val damage = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0f)
+		return Mth.ceil(damage)
+	}
+
 	override fun isValidRepairItem(pStack: ItemStack, pRepairCandidate: ItemStack): Boolean {
 		return pRepairCandidate.item === Items.END_CRYSTAL
 	}
 
 	companion object {
+
+		const val MAX_DAMAGE = 1000f
+
 		fun handleIncomingDamage(event: LivingDamageEvent.Pre) {
 			val enderDragonHealth = ModGenes.ENDER_DRAGON_HEALTH.getHolderOrThrow(event.entity.registryAccess())
 			if (enderDragonHealth.isDisabled) return
@@ -49,6 +60,7 @@ class DragonHealthCrystal : Item(
 				event.container.newDamage -= amountToRemove
 
 				val newDamage = damageLeft - amountToRemove
+				crystal.set(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, newDamage)
 				if (newDamage <= 0f) {
 					crystal.shrink(1)
 					entity.onEquippedItemBroken(crystal.item, entity.getEquipmentSlotForItem(crystal))
