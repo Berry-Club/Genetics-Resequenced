@@ -316,3 +316,9 @@
 - Mod commands can now use any of the following: `/geneticsresequenced`, `/genetics`, `/gr`
 - Renamed the command `/gr clearBioluminescenceBlocks` to `/gr clearBioGlow`
 - Updated the Patchouli book to show changes to Flight's default required Genes (#49, #46 kinda)
+
+# 1.6.0
+
+- Update NeoForge to 21.1.173
+- Update KFF to 5.8.0
+- Dragon Health Crystal no longer uses durability, but has its own separate data component (#58)

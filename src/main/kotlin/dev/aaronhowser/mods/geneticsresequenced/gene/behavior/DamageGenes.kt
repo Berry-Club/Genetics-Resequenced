@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
+import dev.aaronhowser.mods.geneticsresequenced.item.DragonHealthCrystal
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
@@ -83,29 +84,7 @@ object DamageGenes {
 	// Changing amount (not just canceling)
 
 	fun handleDragonHealth(event: LivingDamageEvent.Pre) {
-		val enderDragonHealth = ModGenes.ENDER_DRAGON_HEALTH.getHolderOrThrow(event.entity.registryAccess())
-		if (enderDragonHealth.isDisabled) return
-
-		if (event.container.newDamage == 0f) return
-		val entity = event.entity
-
-		if (entity.level().isClientSide) return
-
-		if (!entity.hasGene(ModGenes.ENDER_DRAGON_HEALTH)) return
-
-		val items = entity.handSlots.toMutableList()
-		if (entity is Player) items += entity.inventory.items
-
-		val healthCrystal = items.find { it.item == ModItems.DRAGON_HEALTH_CRYSTAL.get() } ?: return
-
-		val amountDamaged = Mth.ceil(event.container.newDamage)
-		val crystalDurabilityRemaining = healthCrystal.maxDamage - healthCrystal.damageValue
-		val amountToBlock = minOf(amountDamaged, crystalDurabilityRemaining)
-
-		healthCrystal.hurtAndBreak(amountToBlock, entity, entity.getEquipmentSlotForItem(healthCrystal))
-
-		event.container.newDamage -= amountToBlock
-		if (event.container.newDamage < 0f) event.container.newDamage = 0f
+		DragonHealthCrystal.handleIncomingDamage(event)
 	}
 
 	fun handleJohnny(event: LivingDamageEvent.Pre) {

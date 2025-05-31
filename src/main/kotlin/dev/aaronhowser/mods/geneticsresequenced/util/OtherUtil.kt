@@ -39,6 +39,9 @@ object OtherUtil {
 	val ItemLike.itemStack: ItemStack
 		get() = this.asItem().defaultInstance
 
+	val Entity.isClient: Boolean
+		get() = this.level().isClientSide
+
 	private val entityUuidMap: MutableMap<UUID, LivingEntity> = mutableMapOf()
 	fun getNearbyEntityFromUuid(uuid: UUID, searchAroundEntity: LivingEntity): LivingEntity? {
 		val mappedValue = entityUuidMap[uuid]

@@ -43,6 +43,13 @@ object ModDataComponents {
 	val IS_INFINITY_ARROW: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
 		boolean("is_infinity_arrow")
 
+	val DRAGON_HEALTH_CRYSTAL_DAMAGE: DeferredHolder<DataComponentType<*>, DataComponentType<Float>> =
+		DATA_COMPONENT_REGISTRY.registerComponentType("dragon_health_crystal_damage") {
+			it
+				.persistent(Codec.FLOAT)
+				.networkSynchronized(ByteBufCodecs.FLOAT)
+		}
+
 	val GENE: DeferredHolder<DataComponentType<*>, DataComponentType<Holder<Gene>>> =
 		DATA_COMPONENT_REGISTRY.registerComponentType("gene") {
 			it
