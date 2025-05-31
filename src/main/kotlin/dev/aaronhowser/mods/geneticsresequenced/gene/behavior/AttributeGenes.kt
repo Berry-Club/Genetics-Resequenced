@@ -46,12 +46,10 @@ object AttributeGenes {
 		for (geneHolder in player.geneHolders) {
 			geneHolder.value().setAttributeModifiers(player, true)
 		}
-
 	}
 
 	fun respawnWithMaxHealth(event: PlayerRespawnEvent) {
 		val player = event.entity
-
 		player.health = player.maxHealth
 	}
 

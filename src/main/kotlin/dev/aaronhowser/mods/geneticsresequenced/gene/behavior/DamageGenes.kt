@@ -7,8 +7,6 @@ import dev.aaronhowser.mods.geneticsresequenced.item.DragonHealthCrystal
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import net.minecraft.util.Mth
 import net.minecraft.world.damagesource.DamageTypes
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
@@ -21,9 +19,7 @@ import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.NeoForgeMod
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
-import kotlin.random.Random
 
-@Suppress("UnstableApiUsage")
 object DamageGenes {
 
 	// Canceling
@@ -139,7 +135,7 @@ object DamageGenes {
 
 		if (!target.hasGene(ModGenes.THORNS)) return
 
-		if (Random.nextDouble() > ServerConfig.thornsChance.get()) return
+		if (target.level().random.nextDouble() > ServerConfig.thornsChance.get()) return
 
 		val thornsDamageSource = target.level().damageSources().thorns(target)
 		attacker.hurt(thornsDamageSource, ServerConfig.thornsDamage.get().toFloat())
@@ -168,7 +164,7 @@ object DamageGenes {
 
 		val chanceOfHappening = ServerConfig.clawsChance.get() * clawsLevel
 
-		if (Random.nextDouble() > chanceOfHappening) return
+		if (attacker.level().random.nextDouble() > chanceOfHappening) return
 
 		event.entity.addEffect(
 			MobEffectInstance(
@@ -192,7 +188,7 @@ object DamageGenes {
 		val attacker = event.source.entity as? LivingEntity ?: return
 		if (!attacker.hasGene(ModGenes.CHILLING)) return
 
-		if (Random.nextDouble() > ServerConfig.chillChance.get()) return
+		if (attacker.level().random.nextDouble() > ServerConfig.chillChance.get()) return
 
 		val target = event.entity
 		target.ticksFrozen = ServerConfig.chillDuration.get()
