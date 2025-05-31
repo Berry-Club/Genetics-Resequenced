@@ -5,7 +5,7 @@ import net.neoforged.neoforge.registries.DeferredRegister
 
 object ModRegistries {
 
-	private val registries: List<DeferredRegister<out Any>> = listOf(
+	private val REGISTRIES: List<DeferredRegister<*>> = listOf(
 		ModDataComponents.DATA_COMPONENT_REGISTRY,
 		ModItems.ITEM_REGISTRY,
 		ModBlocks.BLOCK_REGISTRY,
@@ -24,7 +24,7 @@ object ModRegistries {
 	)
 
 	fun register(modBus: IEventBus) {
-		registries.forEach { it.register(modBus) }
+		REGISTRIES.forEach { it.register(modBus) }
 	}
 
 }
