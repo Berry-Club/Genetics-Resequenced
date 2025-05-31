@@ -22,124 +22,124 @@ import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.util.FakePlayer
 
 class ScraperItem : Item(
-    Properties()
-        .durability(200)
+	Properties()
+		.durability(200)
 ) {
 
-    companion object {
+	companion object {
 
-        private fun scrapeEntity(
-            player: ServerPlayer,
-            stack: ItemStack,
-            target: Entity
-        ): Boolean {
+		private fun scrapeEntity(
+			player: ServerPlayer,
+			stack: ItemStack,
+			target: Entity
+		): Boolean {
 
-            if (player.cooldowns.isOnCooldown(ModItems.SCRAPER.get())) return false
-            if (target is LivingEntity && target.hurtTime > 0) return false
+			if (player.cooldowns.isOnCooldown(ModItems.SCRAPER.get())) return false
+			if (target is LivingEntity && target.hurtTime > 0) return false
 
-            val organicStack = ModItems.ORGANIC_MATTER.toStack()
-            val successfullySetEntity = setEntityType(organicStack, target.type)
+			val organicStack = ModItems.ORGANIC_MATTER.toStack()
+			val successfullySetEntity = setEntityType(organicStack, target.type)
 
-            if (!successfullySetEntity) {
-                player.displayClientMessage(
-                    ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent(target.type.description),
-                    true
-                )
-                return false
-            }
+			if (!successfullySetEntity) {
+				player.displayClientMessage(
+					ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent(target.type.description),
+					true
+				)
+				return false
+			}
 
-            if (!player.inventory.add(organicStack)) {
-                player.drop(organicStack, false)
-            }
+			if (!player.inventory.add(organicStack)) {
+				player.drop(organicStack, false)
+			}
 
 
-            val hasDelicateTouch =
-                stack.getEnchantmentLevel(ModEnchantments.getDelicateTouchHolder(player)) != 0
+			val hasDelicateTouch =
+				stack.getEnchantmentLevel(ModEnchantments.getDelicateTouchHolder(player)) != 0
 
-            // Only put on cooldown if the entity was not damaged
-            if (hasDelicateTouch) {
-                player.cooldowns.addCooldown(ModItems.SCRAPER.get(), 10)
-            } else {
-                target.hurt(getDamageSource(player.level(), player), 1f)
-            }
+			// Only put on cooldown if the entity was not damaged
+			if (hasDelicateTouch) {
+				player.cooldowns.addCooldown(ModItems.SCRAPER.get(), 10)
+			} else {
+				target.hurt(getDamageSource(player.level(), player), 1f)
+			}
 
-            val equipmentSlot = player.getEquipmentSlotForItem(stack)
+			val equipmentSlot = player.getEquipmentSlotForItem(stack)
 
-            stack.hurtAndBreak(1, player, equipmentSlot)
+			stack.hurtAndBreak(1, player, equipmentSlot)
 
-            return true
-        }
+			return true
+		}
 
-        private fun getDamageSource(level: Level, source: LivingEntity? = null): DamageSource {
-            return level.damageSources().source(ModDamageTypeTagsProvider.USE_SCRAPER, source)
-        }
-    }
+		private fun getDamageSource(level: Level, source: LivingEntity? = null): DamageSource {
+			return level.damageSources().source(ModDamageTypeTagsProvider.USE_SCRAPER, source)
+		}
+	}
 
-    override fun use(
-        pLevel: Level,
-        pPlayer: Player,
-        pInteractionHand: InteractionHand
-    ): InteractionResultHolder<ItemStack> {
-        val realStack = pPlayer.getItemInHand(pInteractionHand)
+	override fun use(
+		pLevel: Level,
+		pPlayer: Player,
+		pInteractionHand: InteractionHand
+	): InteractionResultHolder<ItemStack> {
+		val realStack = pPlayer.getItemInHand(pInteractionHand)
 
-        if (pLevel.isClientSide) return InteractionResultHolder.pass(realStack)
+		if (pLevel.isClientSide) return InteractionResultHolder.pass(realStack)
 
-        // If the player is sneaking, try to scrape themselves
-        if (pPlayer.isCrouching) return tryScrapeSelf(pPlayer, realStack)
+		// If the player is sneaking, try to scrape themselves
+		if (pPlayer.isCrouching) return tryScrapeSelf(pPlayer, realStack)
 
-        val lookedAtEntity = OtherUtil.getLookedAtEntity(pPlayer) ?: return InteractionResultHolder.pass(realStack)
-        val scrapeWorked = scrapeEntity(pPlayer as ServerPlayer, realStack, lookedAtEntity)
+		val lookedAtEntity = OtherUtil.getLookedAtEntity(pPlayer) ?: return InteractionResultHolder.pass(realStack)
+		val scrapeWorked = scrapeEntity(pPlayer as ServerPlayer, realStack, lookedAtEntity)
 
-        return if (scrapeWorked) {
-            InteractionResultHolder.success(realStack)
-        } else {
-            InteractionResultHolder.pass(realStack)
-        }
-    }
+		return if (scrapeWorked) {
+			InteractionResultHolder.success(realStack)
+		} else {
+			InteractionResultHolder.pass(realStack)
+		}
+	}
 
-    private fun tryScrapeSelf(
-        pPlayer: Player,
-        realStack: ItemStack
-    ): InteractionResultHolder<ItemStack> {
-        if (pPlayer is FakePlayer) return InteractionResultHolder.pass(realStack)
-        if (pPlayer !is ServerPlayer) return InteractionResultHolder.pass(realStack)
+	private fun tryScrapeSelf(
+		pPlayer: Player,
+		realStack: ItemStack
+	): InteractionResultHolder<ItemStack> {
+		if (pPlayer is FakePlayer) return InteractionResultHolder.pass(realStack)
+		if (pPlayer !is ServerPlayer) return InteractionResultHolder.pass(realStack)
 
-        val scrapeWorked = scrapeEntity(pPlayer, realStack, pPlayer)
+		val scrapeWorked = scrapeEntity(pPlayer, realStack, pPlayer)
 
-        return if (scrapeWorked) {
-            InteractionResultHolder.success(realStack)
-        } else {
-            InteractionResultHolder.pass(realStack)
-        }
-    }
+		return if (scrapeWorked) {
+			InteractionResultHolder.success(realStack)
+		} else {
+			InteractionResultHolder.pass(realStack)
+		}
+	}
 
-    override fun interactLivingEntity(
-        pStack: ItemStack,
-        pPlayer: Player,
-        pInteractionTarget: LivingEntity,
-        pUsedHand: InteractionHand
-    ): InteractionResult {
+	override fun interactLivingEntity(
+		pStack: ItemStack,
+		pPlayer: Player,
+		pInteractionTarget: LivingEntity,
+		pUsedHand: InteractionHand
+	): InteractionResult {
 
-        if (pPlayer !is ServerPlayer) return InteractionResult.PASS
+		if (pPlayer !is ServerPlayer) return InteractionResult.PASS
 
-        if (pInteractionTarget.type.`is`(ModEntityTypeTagsProvider.SCRAPER_ENTITY_BLACKLIST)) {
-            pPlayer.sendSystemMessage(
-                ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent()
-            )
+		if (pInteractionTarget.type.`is`(ModEntityTypeTagsProvider.SCRAPER_ENTITY_BLACKLIST)) {
+			pPlayer.sendSystemMessage(
+				ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent()
+			)
 
-            return InteractionResult.CONSUME
-        }
+			return InteractionResult.CONSUME
+		}
 
-        return if (scrapeEntity(pPlayer, pStack, pInteractionTarget)) {
-            InteractionResult.SUCCESS
-        } else {
-            InteractionResult.CONSUME
-        }
+		return if (scrapeEntity(pPlayer, pStack, pInteractionTarget)) {
+			InteractionResult.SUCCESS
+		} else {
+			InteractionResult.CONSUME
+		}
 
-    }
+	}
 
-    override fun getEnchantmentValue(stack: ItemStack): Int {
-        return 5
-    }
+	override fun getEnchantmentValue(stack: ItemStack): Int {
+		return 5
+	}
 
 }

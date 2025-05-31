@@ -12,34 +12,34 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 class UnsetAntiPlasmidRecipe(
-    craftingCategory: CraftingBookCategory = CraftingBookCategory.MISC
+	craftingCategory: CraftingBookCategory = CraftingBookCategory.MISC
 ) : CustomRecipe(craftingCategory) {
 
-    override fun matches(input: CraftingInput, level: Level): Boolean {
-        var antiPlasmid: ItemStack? = null
+	override fun matches(input: CraftingInput, level: Level): Boolean {
+		var antiPlasmid: ItemStack? = null
 
-        for (stack in input.items()) {
-            if (stack.item == ModItems.ANTI_PLASMID.get() && PlasmidItem.hasGene(stack)) {
-                if (antiPlasmid != null) return false
-                antiPlasmid = stack
-            } else if (!stack.isEmpty) {
-                return false
-            }
-        }
+		for (stack in input.items()) {
+			if (stack.item == ModItems.ANTI_PLASMID.get() && PlasmidItem.hasGene(stack)) {
+				if (antiPlasmid != null) return false
+				antiPlasmid = stack
+			} else if (!stack.isEmpty) {
+				return false
+			}
+		}
 
-        return antiPlasmid != null
-    }
+		return antiPlasmid != null
+	}
 
-    override fun assemble(input: CraftingInput, provider: HolderLookup.Provider): ItemStack {
-        return ModItems.ANTI_PLASMID.toStack()
-    }
+	override fun assemble(input: CraftingInput, provider: HolderLookup.Provider): ItemStack {
+		return ModItems.ANTI_PLASMID.toStack()
+	}
 
-    override fun canCraftInDimensions(pWidth: Int, pHeight: Int): Boolean {
-        return pWidth * pHeight >= 1
-    }
+	override fun canCraftInDimensions(pWidth: Int, pHeight: Int): Boolean {
+		return pWidth * pHeight >= 1
+	}
 
-    override fun getSerializer(): RecipeSerializer<*> {
-        return ModRecipeSerializers.UNSET_ANTI_PLASMID.get()
-    }
+	override fun getSerializer(): RecipeSerializer<*> {
+		return ModRecipeSerializers.UNSET_ANTI_PLASMID.get()
+	}
 
 }

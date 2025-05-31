@@ -1,6 +1,6 @@
 {
-  "dna_points_required": 50,
-  "potion_details": {
-    "effect": "minecraft:invisibility"
-  }
+	"dna_points_required": 50,
+	"potion_details": {
+		"effect": "minecraft:invisibility"
+	}
 }

@@ -12,24 +12,24 @@ import net.neoforged.neoforge.event.RegisterCommandsEvent
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent
 
 @EventBusSubscriber(
-    modid = GeneticsResequenced.ID
+	modid = GeneticsResequenced.ID
 )
 object OtherEvents {
 
-    @SubscribeEvent
-    fun onRegisterCommandsEvent(event: RegisterCommandsEvent) {
-        ModCommands.register(event.dispatcher)
-    }
+	@SubscribeEvent
+	fun onRegisterCommandsEvent(event: RegisterCommandsEvent) {
+		ModCommands.register(event.dispatcher)
+	}
 
-    @SubscribeEvent
-    fun addReloadListeners(event: AddReloadListenerEvent) {
-        event.addListener(EntityGenes())
-        event.addListener(GeneRequirements())
-    }
+	@SubscribeEvent
+	fun addReloadListeners(event: AddReloadListenerEvent) {
+		event.addListener(EntityGenes())
+		event.addListener(GeneRequirements())
+	}
 
-    @SubscribeEvent
-    fun onRegisterBrewingRecipes(event: RegisterBrewingRecipesEvent) {
-        BrewingRecipes.setRecipes(event)
-    }
+	@SubscribeEvent
+	fun onRegisterBrewingRecipes(event: RegisterBrewingRecipesEvent) {
+		BrewingRecipes.setRecipes(event)
+	}
 
 }

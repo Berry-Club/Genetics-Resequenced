@@ -1,27 +1,27 @@
 {
-  "type": "minecraft:crafting_shaped",
-  "category": "misc",
-  "key": {
-    "F": {
-      "item": "minecraft:furnace"
-    },
-    "G": {
-      "tag": "c:glass_blocks/colorless"
-    },
-    "I": {
-      "tag": "c:ingots/iron"
-    },
-    "R": {
-      "tag": "c:ingots/iron"
-    }
-  },
-  "pattern": [
-    "III",
-    "GFG",
-    "GRG"
-  ],
-  "result": {
-    "count": 1,
-    "id": "geneticsresequenced:coal_generator"
-  }
+	"type": "minecraft:crafting_shaped",
+	"category": "misc",
+	"key": {
+		"F": {
+			"item": "minecraft:furnace"
+		},
+		"G": {
+			"tag": "c:glass_blocks/colorless"
+		},
+		"I": {
+			"tag": "c:ingots/iron"
+		},
+		"R": {
+			"tag": "c:ingots/iron"
+		}
+	},
+	"pattern": [
+		"III",
+		"GFG",
+		"GRG"
+	],
+	"result": {
+		"count": 1,
+		"id": "geneticsresequenced:coal_generator"
+	}
 }

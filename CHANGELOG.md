@@ -161,42 +161,42 @@
 
 - Genes are now data-driven! They're in `/data/_____/geneticsresequenced/gene/`
 - They follow the following structure, all fields are optional:
-    - `dna_points_required`: The amount of DNA Points required to complete a Plasmid. Defaults to 0
-    - `requires_genes`: A list of Resource Location IDs for Genes that are required to have this Gene
-    - `allowed_entities`: A filter of entity types that the Gene can be injected into
-        - Defaults to `{"type": "neoforge:any"}`.
-        - Can also accept a single entity type (`"minecraft:player"`) or a list of entity types (`["minecraft:cow","minecraft:chicken"]`)
-    - `potion_details`: An object with the following fields, for a potion effect that's granted at all times:
-        - `effect`: The effect to apply
-        - `level`: The level of the effect (optional, defaults to 1)
-        - `duration`: The duration of the effect (optional, defaults to -1, infinite)
-        - `showIcon`: If the effect icon should be shown (optional, defaults to false)
-    - `attribute_modifiers`: A list of objects with the following fields, for attribute modifiers that are granted at all times:
-        - `attribute`: The attribute to modify
-        - `id`: A Resource Location ID for the modifier
-        - `operation`: The operation to apply to the attribute (`"add_value"`, `"add_multiplied_base"`, or `"add_multiplied_total"`)
-        - `amount`: The amount to modify the attribute by
-    - `scares_entities_with_tag`: An entity type tag that the Gene will scare
+	- `dna_points_required`: The amount of DNA Points required to complete a Plasmid. Defaults to 0
+	- `requires_genes`: A list of Resource Location IDs for Genes that are required to have this Gene
+	- `allowed_entities`: A filter of entity types that the Gene can be injected into
+		- Defaults to `{"type": "neoforge:any"}`.
+		- Can also accept a single entity type (`"minecraft:player"`) or a list of entity types (`["minecraft:cow","minecraft:chicken"]`)
+	- `potion_details`: An object with the following fields, for a potion effect that's granted at all times:
+		- `effect`: The effect to apply
+		- `level`: The level of the effect (optional, defaults to 1)
+		- `duration`: The duration of the effect (optional, defaults to -1, infinite)
+		- `showIcon`: If the effect icon should be shown (optional, defaults to false)
+	- `attribute_modifiers`: A list of objects with the following fields, for attribute modifiers that are granted at all times:
+		- `attribute`: The attribute to modify
+		- `id`: A Resource Location ID for the modifier
+		- `operation`: The operation to apply to the attribute (`"add_value"`, `"add_multiplied_base"`, or `"add_multiplied_total"`)
+		- `amount`: The amount to modify the attribute by
+	- `scares_entities_with_tag`: An entity type tag that the Gene will scare
 - Incubator recipes are no longer actually Brewing recipes, and can therefore no longer be used in a Brewing Stand
-    - Consequently, you can now make custom recipes that use the Incubator! See `/data/geneticsresequeced/recipe/incubator/`
-    - There are 3 types (technically 5, but 2 of them are hardcoded with no parameters):
-        - `geneticsresequenced:incubator_basic`
-            - Requires two ingredients `top_slot` and `bottom_slot`, and an output itemstack `output`
-            - Optionally can have `is_low_temperature`, which makes it require low temperature. Defaults to false, making it require high temperature
-        - `geneticsresequenced:incubator_gmo`
-            - Requires `entity_type` that the Cell Growth or Mutation Potion must be set to
-            - Requires `ingredient` for the item in the top slot
-            - Requires `ideal_gene` for the Gene that a successful Cell will have
-            - Optionally can have `gene_chance`, which is a number 0-1 for the chance of getting the Gene (giving Basic if it fails). Defaults to 1.
-            - Optionally can have `needs_mutation_potion` which makes it require a Potion of Mutation instead of a Potion of Cell Growth. Defaults to false.
-        - `geneticsresequenced:incubator_virus`
-            - Takes in an input Gene and an output Gene, and makes a recipe that converts when crafted with Viral Agents
+	- Consequently, you can now make custom recipes that use the Incubator! See `/data/geneticsresequeced/recipe/incubator/`
+	- There are 3 types (technically 5, but 2 of them are hardcoded with no parameters):
+		- `geneticsresequenced:incubator_basic`
+			- Requires two ingredients `top_slot` and `bottom_slot`, and an output itemstack `output`
+			- Optionally can have `is_low_temperature`, which makes it require low temperature. Defaults to false, making it require high temperature
+		- `geneticsresequenced:incubator_gmo`
+			- Requires `entity_type` that the Cell Growth or Mutation Potion must be set to
+			- Requires `ingredient` for the item in the top slot
+			- Requires `ideal_gene` for the Gene that a successful Cell will have
+			- Optionally can have `gene_chance`, which is a number 0-1 for the chance of getting the Gene (giving Basic if it fails). Defaults to 1.
+			- Optionally can have `needs_mutation_potion` which makes it require a Potion of Mutation instead of a Potion of Cell Growth. Defaults to false.
+		- `geneticsresequenced:incubator_virus`
+			- Takes in an input Gene and an output Gene, and makes a recipe that converts when crafted with Viral Agents
 - Disabling Genes now uses the Gene tag `#geneticsresequenced:disabled`
 - Genes requiring other Genes is now handled in the Gene's definition json, rather than a file in /gene_requirements/
 - Changed some default Gene requirements:
-    - Flight no longer requires Jump Boost, but now requires Step Assist
-    - Photosynthesis now requires Eat Grass
-    - Scare Spiders and Scare Zombies are no longer Mutation genes, and don't require Scare Creepers or Scare Skeletons
+	- Flight no longer requires Jump Boost, but now requires Step Assist
+	- Photosynthesis now requires Eat Grass
+	- Scare Spiders and Scare Zombies are no longer Mutation genes, and don't require Scare Creepers or Scare Skeletons
 - Added the following entity types to `geneticsresequenced:allows_preventing_interaction`: Horse, Donkey, Mule, Llama, Trader Llama
 
 ## Additions / Changes
@@ -222,19 +222,19 @@
 # 1.4.0
 
 - Added the Gene Checker, which lets you see the Genes of either yourself or the entity you're looking at
-    - Since this exists, `/geneticsresequenced list` now requires op permissions
+	- Since this exists, `/geneticsresequenced list` now requires op permissions
 - Reworked how the entity genes datapack system worked
-    - Previously, it would simply set the gene weights
-    - Now, it adds adds the weight to the gene, so you can have multiple files adding weight to the same gene
+	- Previously, it would simply set the gene weights
+	- Now, it adds adds the weight to the gene, so you can have multiple files adding weight to the same gene
 - Re-included the lang file for the Modonomicon book, so now you can actually read it
 - Changed some tags:
-    - `#geneticsresequenced:syringe` is now `#geneticsresequenced:syringes`
-    - `#geneticsresequenced:fireball` is now `#geneticsresequenced:activates_shoot_fireball_gene`
-    - `#geneticsresequenced:magnet_blacklist` is now `#geneticsresequenced:item_magnet_gene_blacklist`
+	- `#geneticsresequenced:syringe` is now `#geneticsresequenced:syringes`
+	- `#geneticsresequenced:fireball` is now `#geneticsresequenced:activates_shoot_fireball_gene`
+	- `#geneticsresequenced:magnet_blacklist` is now `#geneticsresequenced:item_magnet_gene_blacklist`
 - Removed the tag `#geneticsresequenced:wooly`, it just uses `#c:tools/shear` now
 - Added EMI tag translations
 - The command `/geneticsresequenced removeNearbyLights` has been renamed to `/geneticsresequenced clearBioluminescenceBlocks`
-    - Additionally, it no longer requires op permissions. Its range argument does, however
+	- Additionally, it no longer requires op permissions. Its range argument does, however
 
 # 1.5.0
 
@@ -248,26 +248,26 @@
 - The Ender Dragon no longer can give the Basic Gene
 - The info pages that show what entities give what genes now uses an Organic Matter item rather than a DNA Helix item
 - EMI now considers each type of Organic Matter and Cell to be separate
-    - Hid the empty ones from EMI, but added the filled one for each set to Pig
+	- Hid the empty ones from EMI, but added the filled one for each set to Pig
 - In entity gene info pages, the left stack now shows both the Organic Matter and the Cell for that entity type
 - Improved the method used to make mobs that don't have any Gene weights always give the Basic Gene
-    - Consequently, their info pages now show that they have a 100% chance of giving the Basic Gene, rather than not having an info page at all
+	- Consequently, their info pages now show that they have a 100% chance of giving the Basic Gene, rather than not having an info page at all
 - Fixed info pages for required Genes, now it lists the actually required Genes rather than repeating the Gene itself
-    - Previously, Claws II would say it needs Claws II, rather than needing Claws I. That's fixed now
+	- Previously, Claws II would say it needs Claws II, rather than needing Claws I. That's fixed now
 - The following Genes can now be held by any mob, rather than only players: Haste, More Hearts II, Night Vision
 - Removed classes for several Data Components, because they really weren't needed
-    - This should be a non-breaking change
+	- This should be a non-breaking change
 - Moved several Data Component keys to snake_case from camelCase (for example, `dnaPoints` is now `dna_points`)
-    - This should also be a non-breaking change
+	- This should also be a non-breaking change
 - Renamed the Data Component `geneticsresequenced:active` to `geneticsresequenced:is_active`
-    - This is a breaking change, but only for Anti-Field Orbs, and it basically just resets them to false
+	- This is a breaking change, but only for Anti-Field Orbs, and it basically just resets them to false
 - The Data Component `geneticsresequenced:specific_entity` now uses a Component instead of a String for the name field.
-    - Consequently, Syringe tooltips should look better in some cases
-    - This shouldn't be a breaking change, but if it is, it only affects filled Syringes
+	- Consequently, Syringe tooltips should look better in some cases
+	- This shouldn't be a breaking change, but if it is, it only affects filled Syringes
 - The Gene tag `#geneticsresequenced:hidden` is now `#geneticsresequenced:helix_only`
-    - It's only for Genes that can only be held by DNA Helices, and not Plasmids or entities
-    - This fixes a point of confusion, because the only Gene currently set to this is the Basic Gene. It being called "hidden" made it look like it should be hidden from EMI etc too, which isn't the case
-        - As a result, a DNA Helix with the Basic Gene now shows up in EMI. It also now has an information page.
+	- It's only for Genes that can only be held by DNA Helices, and not Plasmids or entities
+	- This fixes a point of confusion, because the only Gene currently set to this is the Basic Gene. It being called "hidden" made it look like it should be hidden from EMI etc too, which isn't the case
+		- As a result, a DNA Helix with the Basic Gene now shows up in EMI. It also now has an information page.
 
 # 1.5.1
 
@@ -278,30 +278,30 @@
 # 1.5.2
 
 - Fixed a bug that would cause a LOT of Genes to not work properly!
-    - The problem was that I was comparing the Holder<Gene> to the ResourceKey<Gene>, which would always return false
-    - This was effecting:
-        - Water Breathing
-        - Flambé
-        - Lay Egg
-        - Meaty II
-        - Green Death
-        - Un-Undeath
-        - Gray Death
-        - White Death
-        - Black Death
-        - Advancements that require Genes
+	- The problem was that I was comparing the Holder<Gene> to the ResourceKey<Gene>, which would always return false
+	- This was effecting:
+		- Water Breathing
+		- Flambé
+		- Lay Egg
+		- Meaty II
+		- Green Death
+		- Un-Undeath
+		- Gray Death
+		- White Death
+		- Black Death
+		- Advancements that require Genes
 - Fixed a bug causing the Wither Hit to proc when you damage yourself, such as via Syringes
 - Fixed high-temperature Incubator recipes actually requiring low-temperature
-    - This effected Cell Growth, Panacea, and Zombify Villager recipes
+	- This effected Cell Growth, Panacea, and Zombify Villager recipes
 - Made a new advancement ItemSubPredicate, removing the need for the custom PlayerInventoryChangeEvent
-    - This event was only used for two advancements, and the InventoryListener that called it had a memory leak (#44)
+	- This event was only used for two advancements, and the InventoryListener that called it had a memory leak (#44)
 
 # 1.5.3
 
 - Fixed basic Incubator recipes being _incredibly broken_
-    - Previously, basic Incubator recipes would use the same instance of the output ItemStack every time.
-    - This means that mutating the ItemStack (by, for example, removing it from the machine) would also mutate the one in the recipe.
-    - The recipe would then output an ItemStack with size 0, which would be treated as if it had no output at all.
+	- Previously, basic Incubator recipes would use the same instance of the output ItemStack every time.
+	- This means that mutating the ItemStack (by, for example, removing it from the machine) would also mutate the one in the recipe.
+	- The recipe would then output an ItemStack with size 0, which would be treated as if it had no output at all.
 - Fixed Ender Dragon Health Gene not detecting Dragon Health Crystals
 
 # 1.5.4

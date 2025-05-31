@@ -26,63 +26,63 @@ import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class BlackDeathRecipe private constructor() : AbstractIncubatorRecipe(
-    topIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
-    bottomIngredient = Ingredient.of(ModItemTagsProvider.SYRINGES)
+	topIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
+	bottomIngredient = Ingredient.of(ModItemTagsProvider.SYRINGES)
 ) {
 
-    override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
-        val syringeStack = input.getTopItem()
-        val potionStack = input.getBottomItem()
+	override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
+		val syringeStack = input.getTopItem()
+		val potionStack = input.getBottomItem()
 
-        if (!topIngredient.test(potionStack)) return false
-        if (!bottomIngredient.test(syringeStack)) return false
+		if (!topIngredient.test(potionStack)) return false
+		if (!bottomIngredient.test(syringeStack)) return false
 
-        if (!SyringeItem.hasBlood(syringeStack) || SyringeItem.isContaminated(syringeStack)) return false
+		if (!SyringeItem.hasBlood(syringeStack) || SyringeItem.isContaminated(syringeStack)) return false
 
-        val syringeGenes = SyringeItem.getGenes(syringeStack)
-        val requiredGenes = getRequiredGenes(level.registryAccess())
+		val syringeGenes = SyringeItem.getGenes(syringeStack)
+		val requiredGenes = getRequiredGenes(level.registryAccess())
 
-        return syringeGenes.containsAll(requiredGenes)
-    }
+		return syringeGenes.containsAll(requiredGenes)
+	}
 
-    override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
-        return getResultItem(lookup)
-    }
+	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
+		return getResultItem(lookup)
+	}
 
-    override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
-        return DnaHelixItem.getHelixStack(ModGenes.BLACK_DEATH.getHolderOrThrow(lookup))
-    }
+	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
+		return DnaHelixItem.getHelixStack(ModGenes.BLACK_DEATH.getHolderOrThrow(lookup))
+	}
 
-    override fun getSerializer(): RecipeSerializer<*> {
-        return ModRecipeSerializers.BLACK_DEATH.get()
-    }
+	override fun getSerializer(): RecipeSerializer<*> {
+		return ModRecipeSerializers.BLACK_DEATH.get()
+	}
 
-    class Serializer : RecipeSerializer<BlackDeathRecipe> {
-        override fun codec(): MapCodec<BlackDeathRecipe> {
-            return CODEC
-        }
+	class Serializer : RecipeSerializer<BlackDeathRecipe> {
+		override fun codec(): MapCodec<BlackDeathRecipe> {
+			return CODEC
+		}
 
-        override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, BlackDeathRecipe> {
-            return STREAM_CODEC
-        }
+		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, BlackDeathRecipe> {
+			return STREAM_CODEC
+		}
 
-        companion object {
-            val CODEC: MapCodec<BlackDeathRecipe> = MapCodec.unit(INSTANCE)
+		companion object {
+			val CODEC: MapCodec<BlackDeathRecipe> = MapCodec.unit(INSTANCE)
 
-            val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, BlackDeathRecipe> =
-                StreamCodec.unit(INSTANCE)
-        }
+			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, BlackDeathRecipe> =
+				StreamCodec.unit(INSTANCE)
+		}
 
-    }
+	}
 
-    companion object {
-        val INSTANCE = BlackDeathRecipe()
+	companion object {
+		val INSTANCE = BlackDeathRecipe()
 
-        fun getRequiredGenes(lookup: HolderLookup.Provider): List<Holder<Gene>> {
-            return ModGenes.getRegistrySorted(lookup)
-                .filter { it.isNegative && !it.isHelixOnly && !it.isDisabled }
-                .minus(ModGenes.BLACK_DEATH.getHolderOrThrow(lookup))
-        }
-    }
+		fun getRequiredGenes(lookup: HolderLookup.Provider): List<Holder<Gene>> {
+			return ModGenes.getRegistrySorted(lookup)
+				.filter { it.isNegative && !it.isHelixOnly && !it.isDisabled }
+				.minus(ModGenes.BLACK_DEATH.getHolderOrThrow(lookup))
+		}
+	}
 
 }

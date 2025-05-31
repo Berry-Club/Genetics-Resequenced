@@ -11,26 +11,26 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
 class BloodPurifierBlock(
-    properties: Properties = defaultProperties
+	properties: Properties = defaultProperties
 ) : CraftingMachineBlock(
-    properties,
-    BloodPurifierBlockEntity::class.java
+	properties,
+	BloodPurifierBlockEntity::class.java
 ) {
 
-    override fun codec(): MapCodec<BloodPurifierBlock> {
-        return simpleCodec(::BloodPurifierBlock)
-    }
+	override fun codec(): MapCodec<BloodPurifierBlock> {
+		return simpleCodec(::BloodPurifierBlock)
+	}
 
-    override fun <T : BlockEntity?> getTicker(
-        pLevel: Level,
-        pState: BlockState,
-        pBlockEntityType: BlockEntityType<T>
-    ): BlockEntityTicker<T>? {
-        return BaseEntityBlock.createTickerHelper(
-            pBlockEntityType,
-            ModBlockEntities.BLOOD_PURIFIER.get(),
-            BloodPurifierBlockEntity::tick
-        )
-    }
+	override fun <T : BlockEntity?> getTicker(
+		pLevel: Level,
+		pState: BlockState,
+		pBlockEntityType: BlockEntityType<T>
+	): BlockEntityTicker<T>? {
+		return BaseEntityBlock.createTickerHelper(
+			pBlockEntityType,
+			ModBlockEntities.BLOOD_PURIFIER.get(),
+			BloodPurifierBlockEntity::tick
+		)
+	}
 
 }

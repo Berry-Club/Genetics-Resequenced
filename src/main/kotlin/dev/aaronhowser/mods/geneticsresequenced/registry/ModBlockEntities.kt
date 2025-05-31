@@ -18,79 +18,79 @@ import java.util.function.Supplier
 
 object ModBlockEntities {
 
-    val BLOCK_ENTITY_REGISTRY: DeferredRegister<BlockEntityType<*>> =
-        DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, GeneticsResequenced.ID)
+	val BLOCK_ENTITY_REGISTRY: DeferredRegister<BlockEntityType<*>> =
+		DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, GeneticsResequenced.ID)
 
-    val COAL_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<CoalGeneratorBlockEntity>> =
-        BLOCK_ENTITY_REGISTRY.register("coal_generator", Supplier {
-            BlockEntityType.Builder.of(
-                { pos, state -> CoalGeneratorBlockEntity(pos, state) },
-                ModBlocks.COAL_GENERATOR.get()
-            ).build(null)
-        })
+	val COAL_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<CoalGeneratorBlockEntity>> =
+		BLOCK_ENTITY_REGISTRY.register("coal_generator", Supplier {
+			BlockEntityType.Builder.of(
+				{ pos, state -> CoalGeneratorBlockEntity(pos, state) },
+				ModBlocks.COAL_GENERATOR.get()
+			).build(null)
+		})
 
-    val CELL_ANALYZER: DeferredHolder<BlockEntityType<*>, BlockEntityType<CellAnalyzerBlockEntity>> =
-        BLOCK_ENTITY_REGISTRY.register("cell_analyzer", Supplier {
-            BlockEntityType.Builder.of(
-                { pos, state -> CellAnalyzerBlockEntity(pos, state) },
-                ModBlocks.CELL_ANALYZER.get()
-            ).build(null)
-        })
+	val CELL_ANALYZER: DeferredHolder<BlockEntityType<*>, BlockEntityType<CellAnalyzerBlockEntity>> =
+		BLOCK_ENTITY_REGISTRY.register("cell_analyzer", Supplier {
+			BlockEntityType.Builder.of(
+				{ pos, state -> CellAnalyzerBlockEntity(pos, state) },
+				ModBlocks.CELL_ANALYZER.get()
+			).build(null)
+		})
 
-    val DNA_EXTRACTOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DnaExtractorBlockEntity>> =
-        BLOCK_ENTITY_REGISTRY.register("dna_extractor", Supplier {
-            BlockEntityType.Builder.of(
-                { pos, state -> DnaExtractorBlockEntity(pos, state) },
-                ModBlocks.DNA_EXTRACTOR.get()
-            ).build(null)
-        })
+	val DNA_EXTRACTOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DnaExtractorBlockEntity>> =
+		BLOCK_ENTITY_REGISTRY.register("dna_extractor", Supplier {
+			BlockEntityType.Builder.of(
+				{ pos, state -> DnaExtractorBlockEntity(pos, state) },
+				ModBlocks.DNA_EXTRACTOR.get()
+			).build(null)
+		})
 
-    val DNA_DECRYPTOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DnaDecryptorBlockEntity>> =
-        BLOCK_ENTITY_REGISTRY.register("dna_decryptor", Supplier {
-            BlockEntityType.Builder.of(
-                { pos, state -> DnaDecryptorBlockEntity(pos, state) },
-                ModBlocks.DNA_DECRYPTOR.get()
-            ).build(null)
-        })
+	val DNA_DECRYPTOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DnaDecryptorBlockEntity>> =
+		BLOCK_ENTITY_REGISTRY.register("dna_decryptor", Supplier {
+			BlockEntityType.Builder.of(
+				{ pos, state -> DnaDecryptorBlockEntity(pos, state) },
+				ModBlocks.DNA_DECRYPTOR.get()
+			).build(null)
+		})
 
-    val PLASMID_INFUSER: DeferredHolder<BlockEntityType<*>, BlockEntityType<PlasmidInfuserBlockEntity>> =
-        BLOCK_ENTITY_REGISTRY.register("plasmid_infuser", Supplier {
-            BlockEntityType.Builder.of(
-                { pos, state -> PlasmidInfuserBlockEntity(pos, state) },
-                ModBlocks.PLASMID_INFUSER.get()
-            ).build(null)
-        })
+	val PLASMID_INFUSER: DeferredHolder<BlockEntityType<*>, BlockEntityType<PlasmidInfuserBlockEntity>> =
+		BLOCK_ENTITY_REGISTRY.register("plasmid_infuser", Supplier {
+			BlockEntityType.Builder.of(
+				{ pos, state -> PlasmidInfuserBlockEntity(pos, state) },
+				ModBlocks.PLASMID_INFUSER.get()
+			).build(null)
+		})
 
-    val PLASMID_INJECTOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<PlasmidInjectorBlockEntity>> =
-        BLOCK_ENTITY_REGISTRY.register("plasmid_injector", Supplier {
-            BlockEntityType.Builder.of(
-                { pos, state -> PlasmidInjectorBlockEntity(pos, state) },
-                ModBlocks.PLASMID_INJECTOR.get()
-            ).build(null)
-        })
+	val PLASMID_INJECTOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<PlasmidInjectorBlockEntity>> =
+		BLOCK_ENTITY_REGISTRY.register("plasmid_injector", Supplier {
+			BlockEntityType.Builder.of(
+				{ pos, state -> PlasmidInjectorBlockEntity(pos, state) },
+				ModBlocks.PLASMID_INJECTOR.get()
+			).build(null)
+		})
 
-    val BLOOD_PURIFIER: DeferredHolder<BlockEntityType<*>, BlockEntityType<BloodPurifierBlockEntity>> =
-        BLOCK_ENTITY_REGISTRY.register("blood_purifier", Supplier {
-            BlockEntityType.Builder.of(
-                { pos, state -> BloodPurifierBlockEntity(pos, state) },
-                ModBlocks.BLOOD_PURIFIER.get()
-            ).build(null)
-        })
+	val BLOOD_PURIFIER: DeferredHolder<BlockEntityType<*>, BlockEntityType<BloodPurifierBlockEntity>> =
+		BLOCK_ENTITY_REGISTRY.register("blood_purifier", Supplier {
+			BlockEntityType.Builder.of(
+				{ pos, state -> BloodPurifierBlockEntity(pos, state) },
+				ModBlocks.BLOOD_PURIFIER.get()
+			).build(null)
+		})
 
-    val INCUBATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<IncubatorBlockEntity>> =
-        BLOCK_ENTITY_REGISTRY.register("incubator", Supplier {
-            BlockEntityType.Builder.of(
-                { pos, state -> IncubatorBlockEntity(pos, state) },
-                ModBlocks.INCUBATOR.get()
-            ).build(null)
-        })
+	val INCUBATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<IncubatorBlockEntity>> =
+		BLOCK_ENTITY_REGISTRY.register("incubator", Supplier {
+			BlockEntityType.Builder.of(
+				{ pos, state -> IncubatorBlockEntity(pos, state) },
+				ModBlocks.INCUBATOR.get()
+			).build(null)
+		})
 
-    val ADVANCED_INCUBATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<AdvancedIncubatorBlockEntity>> =
-        BLOCK_ENTITY_REGISTRY.register("advanced_incubator", Supplier {
-            BlockEntityType.Builder.of(
-                { pos, state -> AdvancedIncubatorBlockEntity(pos, state) },
-                ModBlocks.ADVANCED_INCUBATOR.get()
-            ).build(null)
-        })
+	val ADVANCED_INCUBATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<AdvancedIncubatorBlockEntity>> =
+		BLOCK_ENTITY_REGISTRY.register("advanced_incubator", Supplier {
+			BlockEntityType.Builder.of(
+				{ pos, state -> AdvancedIncubatorBlockEntity(pos, state) },
+				ModBlocks.ADVANCED_INCUBATOR.get()
+			).build(null)
+		})
 
 }

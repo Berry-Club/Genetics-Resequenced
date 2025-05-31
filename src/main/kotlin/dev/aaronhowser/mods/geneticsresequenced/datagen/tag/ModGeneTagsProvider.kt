@@ -12,79 +12,79 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
 
 class ModGeneTagsProvider(
-    output: PackOutput,
-    lookupProvider: CompletableFuture<HolderLookup.Provider>,
-    existingFileHelper: ExistingFileHelper?
+	output: PackOutput,
+	lookupProvider: CompletableFuture<HolderLookup.Provider>,
+	existingFileHelper: ExistingFileHelper?
 ) : TagsProvider<Gene>(
-    output,
-    ModGenes.GENE_REGISTRY_KEY,
-    lookupProvider,
-    GeneticsResequenced.ID,
-    existingFileHelper
+	output,
+	ModGenes.GENE_REGISTRY_KEY,
+	lookupProvider,
+	GeneticsResequenced.ID,
+	existingFileHelper
 ) {
 
-    companion object {
-        private fun create(name: String): TagKey<Gene> {
-            return TagKey.create(ModGenes.GENE_REGISTRY_KEY, OtherUtil.modResource(name))
-        }
+	companion object {
+		private fun create(name: String): TagKey<Gene> {
+			return TagKey.create(ModGenes.GENE_REGISTRY_KEY, OtherUtil.modResource(name))
+		}
 
-        val HELIX_ONLY = create("helix_only")
-        val NEGATIVE = create("negative")
-        val MUTATION = create("mutation")
-        val DISABLED = create("disabled")
-    }
+		val HELIX_ONLY = create("helix_only")
+		val NEGATIVE = create("negative")
+		val MUTATION = create("mutation")
+		val DISABLED = create("disabled")
+	}
 
-    override fun addTags(pProvider: HolderLookup.Provider) {
+	override fun addTags(pProvider: HolderLookup.Provider) {
 
-        this.tag(HELIX_ONLY)
-            .add(ModGenes.BASIC)
+		this.tag(HELIX_ONLY)
+			.add(ModGenes.BASIC)
 
-        this.tag(MUTATION)
-            .add(
-                ModGenes.CLAWS_TWO,
-                ModGenes.EFFICIENCY_FOUR,
-                ModGenes.FLIGHT,
-                ModGenes.HASTE_TWO,
-                ModGenes.MEATY_TWO,
-                ModGenes.MORE_HEARTS_TWO,
-                ModGenes.PHOTOSYNTHESIS,
-                ModGenes.REGENERATION_FOUR,
-                ModGenes.RESISTANCE_TWO,
-                ModGenes.SPEED_FOUR,
-                ModGenes.SPEED_TWO,
-                ModGenes.STRENGTH_TWO
-            )
+		this.tag(MUTATION)
+			.add(
+				ModGenes.CLAWS_TWO,
+				ModGenes.EFFICIENCY_FOUR,
+				ModGenes.FLIGHT,
+				ModGenes.HASTE_TWO,
+				ModGenes.MEATY_TWO,
+				ModGenes.MORE_HEARTS_TWO,
+				ModGenes.PHOTOSYNTHESIS,
+				ModGenes.REGENERATION_FOUR,
+				ModGenes.RESISTANCE_TWO,
+				ModGenes.SPEED_FOUR,
+				ModGenes.SPEED_TWO,
+				ModGenes.STRENGTH_TWO
+			)
 
-        this.tag(NEGATIVE)
-            .add(
-                ModGenes.BAD_OMEN,
-                ModGenes.BLINDNESS,
-                ModGenes.CRINGE,
-                ModGenes.CURSED,
-                ModGenes.FLAMBE,
-                ModGenes.HUNGER,
-                ModGenes.INFESTED,
-                ModGenes.LEVITATION,
-                ModGenes.MINING_FATIGUE,
-                ModGenes.NAUSEA,
-                ModGenes.OOZING,
-                ModGenes.POISON,
-                ModGenes.POISON_FOUR,
-                ModGenes.SLOWNESS,
-                ModGenes.SLOWNESS_FOUR,
-                ModGenes.SLOWNESS_SIX,
-                ModGenes.WEAVING,
-                ModGenes.WEAKNESS,
-                ModGenes.WIND_CHARGED,
-                ModGenes.WITHER,
-                ModGenes.BLACK_DEATH,
-                ModGenes.GREEN_DEATH,
-                ModGenes.WHITE_DEATH,
-                ModGenes.GRAY_DEATH,
-                ModGenes.UN_UNDEATH
-            )
+		this.tag(NEGATIVE)
+			.add(
+				ModGenes.BAD_OMEN,
+				ModGenes.BLINDNESS,
+				ModGenes.CRINGE,
+				ModGenes.CURSED,
+				ModGenes.FLAMBE,
+				ModGenes.HUNGER,
+				ModGenes.INFESTED,
+				ModGenes.LEVITATION,
+				ModGenes.MINING_FATIGUE,
+				ModGenes.NAUSEA,
+				ModGenes.OOZING,
+				ModGenes.POISON,
+				ModGenes.POISON_FOUR,
+				ModGenes.SLOWNESS,
+				ModGenes.SLOWNESS_FOUR,
+				ModGenes.SLOWNESS_SIX,
+				ModGenes.WEAVING,
+				ModGenes.WEAKNESS,
+				ModGenes.WIND_CHARGED,
+				ModGenes.WITHER,
+				ModGenes.BLACK_DEATH,
+				ModGenes.GREEN_DEATH,
+				ModGenes.WHITE_DEATH,
+				ModGenes.GRAY_DEATH,
+				ModGenes.UN_UNDEATH
+			)
 
-        this.tag(DISABLED)
+		this.tag(DISABLED)
 
-    }
+	}
 }

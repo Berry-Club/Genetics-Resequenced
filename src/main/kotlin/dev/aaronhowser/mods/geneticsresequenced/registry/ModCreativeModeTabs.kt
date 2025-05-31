@@ -16,29 +16,29 @@ import java.util.function.Supplier
 
 object ModCreativeModeTabs {
 
-    val TABS_REGISTRY: DeferredRegister<CreativeModeTab> =
-        DeferredRegister.create(BuiltInRegistries.CREATIVE_MODE_TAB, GeneticsResequenced.ID)
+	val TABS_REGISTRY: DeferredRegister<CreativeModeTab> =
+		DeferredRegister.create(BuiltInRegistries.CREATIVE_MODE_TAB, GeneticsResequenced.ID)
 
-    val MOD_TAB: DeferredHolder<CreativeModeTab, CreativeModeTab> = TABS_REGISTRY.register("creative_tab", Supplier {
-        CreativeModeTab.builder()
-            .title(ModLanguageProvider.Items.CREATIVE_TAB.toComponent())
-            .icon { ModItems.SYRINGE.toStack() }
-            .displayItems { displayContext: CreativeModeTab.ItemDisplayParameters, output: CreativeModeTab.Output ->
-                val regularItems =
-                    ModItems.ITEM_REGISTRY.entries - ModItems.DNA_HELIX - ModItems.ORGANIC_MATTER - ModItems.CELL
+	val MOD_TAB: DeferredHolder<CreativeModeTab, CreativeModeTab> = TABS_REGISTRY.register("creative_tab", Supplier {
+		CreativeModeTab.builder()
+			.title(ModLanguageProvider.Items.CREATIVE_TAB.toComponent())
+			.icon { ModItems.SYRINGE.toStack() }
+			.displayItems { displayContext: CreativeModeTab.ItemDisplayParameters, output: CreativeModeTab.Output ->
+				val regularItems =
+					ModItems.ITEM_REGISTRY.entries - ModItems.DNA_HELIX - ModItems.ORGANIC_MATTER - ModItems.CELL
 
-                val itemsToDisplay = buildList {
-                    addAll(regularItems.map { (it as DeferredItem).toStack() })
+				val itemsToDisplay = buildList {
+					addAll(regularItems.map { (it as DeferredItem).toStack() })
 
-                    add(EntityDnaItem.getOrganicStack(EntityType.PIG))
-                    add(EntityDnaItem.getCell(EntityType.PIG))
-                    addAll(DnaHelixItem.getAllHelices(displayContext.holders))
-                    addAll(PlasmidItem.getAllPlasmids(displayContext.holders))
-                }
+					add(EntityDnaItem.getOrganicStack(EntityType.PIG))
+					add(EntityDnaItem.getCell(EntityType.PIG))
+					addAll(DnaHelixItem.getAllHelices(displayContext.holders))
+					addAll(PlasmidItem.getAllPlasmids(displayContext.holders))
+				}
 
-                output.acceptAll(itemsToDisplay)
-            }
-            .build()
-    })
+				output.acceptAll(itemsToDisplay)
+			}
+			.build()
+	})
 
 }

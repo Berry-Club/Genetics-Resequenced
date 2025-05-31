@@ -16,41 +16,41 @@ import net.minecraft.world.entity.LivingEntity
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
 data class SetGenesPacket(
-    val entityId: Int,
-    val geneSet: HolderSet<Gene>
+	val entityId: Int,
+	val geneSet: HolderSet<Gene>
 ) : ModPacket {
 
-    constructor(
-        entityId: Int,
-        genes: Collection<Holder<Gene>>
-    ) : this(entityId, HolderSet.direct(*genes.toTypedArray()))
+	constructor(
+		entityId: Int,
+		genes: Collection<Holder<Gene>>
+	) : this(entityId, HolderSet.direct(*genes.toTypedArray()))
 
-    override fun receiveOnClient(context: IPayloadContext) {
-        context.enqueueWork {
-            val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
+	override fun receiveOnClient(context: IPayloadContext) {
+		context.enqueueWork {
+			val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
 
-            entity.removeAllGenes()
+			entity.removeAllGenes()
 
-            for (gene in geneSet) {
-                entity.addGene(gene)
-            }
-        }
-    }
+			for (gene in geneSet) {
+				entity.addGene(gene)
+			}
+		}
+	}
 
-    override fun type(): CustomPacketPayload.Type<SetGenesPacket> {
-        return TYPE
-    }
+	override fun type(): CustomPacketPayload.Type<SetGenesPacket> {
+		return TYPE
+	}
 
-    companion object {
-        val TYPE: CustomPacketPayload.Type<SetGenesPacket> =
-            CustomPacketPayload.Type(OtherUtil.modResource("set_genes"))
+	companion object {
+		val TYPE: CustomPacketPayload.Type<SetGenesPacket> =
+			CustomPacketPayload.Type(OtherUtil.modResource("set_genes"))
 
-        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SetGenesPacket> =
-            StreamCodec.composite(
-                ByteBufCodecs.INT, SetGenesPacket::entityId,
-                ByteBufCodecs.holderSet(ModGenes.GENE_REGISTRY_KEY), SetGenesPacket::geneSet,
-                ::SetGenesPacket
-            )
-    }
+		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SetGenesPacket> =
+			StreamCodec.composite(
+				ByteBufCodecs.INT, SetGenesPacket::entityId,
+				ByteBufCodecs.holderSet(ModGenes.GENE_REGISTRY_KEY), SetGenesPacket::geneSet,
+				::SetGenesPacket
+			)
+	}
 
 }

@@ -13,48 +13,48 @@ import net.minecraft.world.entity.npc.Villager
 import net.neoforged.neoforge.event.EventHooks
 
 class ZombifyVillagerEffect : MobEffect(
-    MobEffectCategory.HARMFUL,
-    0x63873D
+	MobEffectCategory.HARMFUL,
+	0x63873D
 ) {
 
-    override fun isInstantenous(): Boolean = true
+	override fun isInstantenous(): Boolean = true
 
-    /**
-     * See [net.minecraft.world.entity.monster.Zombie.killedEntity]
-     */
-    override fun applyInstantenousEffect(
-        pSource: Entity?,
-        pIndirectSource: Entity?,
-        villager: LivingEntity,
-        pAmplifier: Int,
-        pHealth: Double
-    ) {
-        if (villager.level().isClientSide) return
-        if (villager !is Villager) return
+	/**
+	 * See [net.minecraft.world.entity.monster.Zombie.killedEntity]
+	 */
+	override fun applyInstantenousEffect(
+		pSource: Entity?,
+		pIndirectSource: Entity?,
+		villager: LivingEntity,
+		pAmplifier: Int,
+		pHealth: Double
+	) {
+		if (villager.level().isClientSide) return
+		if (villager !is Villager) return
 
-        val serverLevel = villager.level() as? ServerLevel ?: return
+		val serverLevel = villager.level() as? ServerLevel ?: return
 
-        val zombieVillager = villager.convertTo(EntityType.ZOMBIE_VILLAGER, false) ?: return
-        zombieVillager.apply {
+		val zombieVillager = villager.convertTo(EntityType.ZOMBIE_VILLAGER, false) ?: return
+		zombieVillager.apply {
 
-            finalizeSpawn(
-                serverLevel,
-                serverLevel.getCurrentDifficultyAt(zombieVillager.blockPosition()),
-                MobSpawnType.CONVERSION,
-                ZombieGroupData(false, true),
-            )
+			finalizeSpawn(
+				serverLevel,
+				serverLevel.getCurrentDifficultyAt(zombieVillager.blockPosition()),
+				MobSpawnType.CONVERSION,
+				ZombieGroupData(false, true),
+			)
 
-            villagerData = villager.villagerData
-            setGossips(villager.gossips.store(NbtOps.INSTANCE))
-            setTradeOffers(villager.offers.copy())
-            villagerXp = villager.villagerXp
-        }
+			villagerData = villager.villagerData
+			setGossips(villager.gossips.store(NbtOps.INSTANCE))
+			setTradeOffers(villager.offers.copy())
+			villagerXp = villager.villagerXp
+		}
 
-        EventHooks.onLivingConvert(villager, zombieVillager)
+		EventHooks.onLivingConvert(villager, zombieVillager)
 
-        if (!villager.isSilent) {
-            serverLevel.levelEvent(null, 1026, villager.blockPosition(), 0)
-        }
-    }
+		if (!villager.isSilent) {
+			serverLevel.levelEvent(null, 1026, villager.blockPosition(), 0)
+		}
+	}
 
 }

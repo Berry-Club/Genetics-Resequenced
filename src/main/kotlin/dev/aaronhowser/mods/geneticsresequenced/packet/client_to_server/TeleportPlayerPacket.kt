@@ -11,22 +11,22 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 
 class TeleportPlayerPacket private constructor() : ModPacket {
 
-    override fun receiveOnServer(context: IPayloadContext) {
-        context.enqueueWork {
-            val sender = context.player() as? ServerPlayer ?: return@enqueueWork
-            PacketGenes.teleport(sender)
-        }
-    }
+	override fun receiveOnServer(context: IPayloadContext) {
+		context.enqueueWork {
+			val sender = context.player() as? ServerPlayer ?: return@enqueueWork
+			PacketGenes.teleport(sender)
+		}
+	}
 
-    override fun type(): CustomPacketPayload.Type<TeleportPlayerPacket> = TYPE
+	override fun type(): CustomPacketPayload.Type<TeleportPlayerPacket> = TYPE
 
-    companion object {
-        val TYPE: CustomPacketPayload.Type<TeleportPlayerPacket> =
-            CustomPacketPayload.Type<TeleportPlayerPacket>(OtherUtil.modResource("teleport"))
+	companion object {
+		val TYPE: CustomPacketPayload.Type<TeleportPlayerPacket> =
+			CustomPacketPayload.Type<TeleportPlayerPacket>(OtherUtil.modResource("teleport"))
 
-        val INSTANCE = TeleportPlayerPacket()
+		val INSTANCE = TeleportPlayerPacket()
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, TeleportPlayerPacket> = StreamCodec.unit(INSTANCE)
-    }
+		val STREAM_CODEC: StreamCodec<ByteBuf, TeleportPlayerPacket> = StreamCodec.unit(INSTANCE)
+	}
 
 }

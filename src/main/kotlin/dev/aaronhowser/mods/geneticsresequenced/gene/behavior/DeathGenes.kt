@@ -28,169 +28,169 @@ import kotlin.random.Random
 
 object DeathGenes {
 
-    //TODO: Test with grave mods
-    fun saveInventory(player: Player) {
-        val keepInventory = ModGenes.KEEP_INVENTORY.getHolderOrThrow(player.registryAccess())
-        if (keepInventory.isDisabled) return
+	//TODO: Test with grave mods
+	fun saveInventory(player: Player) {
+		val keepInventory = ModGenes.KEEP_INVENTORY.getHolderOrThrow(player.registryAccess())
+		if (keepInventory.isDisabled) return
 
-        player.level().apply {
-            if (isClientSide) return
-            if (gameRules.getBoolean(GameRules.RULE_KEEPINVENTORY)) return
-            if (levelData.isHardcore) return
-        }
+		player.level().apply {
+			if (isClientSide) return
+			if (gameRules.getBoolean(GameRules.RULE_KEEPINVENTORY)) return
+			if (levelData.isHardcore) return
+		}
 
-        if (!player.hasGene(ModGenes.KEEP_INVENTORY)) return
+		if (!player.hasGene(ModGenes.KEEP_INVENTORY)) return
 
-        val playerItems =
-            (player.inventory.items + player.inventory.armor + player.inventory.offhand).filter { !it.isEmpty }
+		val playerItems =
+			(player.inventory.items + player.inventory.armor + player.inventory.offhand).filter { !it.isEmpty }
 
-        player.saveInventory(playerItems)
+		player.saveInventory(playerItems)
 
-        val curiosIsLoaded = ModList.get().isLoaded("curios")
-        if (curiosIsLoaded) {
-            KeepCurioInventory.saveCurios(player)
-        }
+		val curiosIsLoaded = ModList.get().isLoaded("curios")
+		if (curiosIsLoaded) {
+			KeepCurioInventory.saveCurios(player)
+		}
 
-        player.inventory.clearContent()
-    }
+		player.inventory.clearContent()
+	}
 
-    fun returnInventory(player: Player) {
-        val items = player.getSavedInventory()
-        if (items.isEmpty()) return
+	fun returnInventory(player: Player) {
+		val items = player.getSavedInventory()
+		if (items.isEmpty()) return
 
-        items.forEach { itemStack: ItemStack ->
-            if (!player.inventory.add(itemStack)) {
-                val itemEntity = ItemEntity(player.level(), player.x, player.y, player.z, itemStack)
-                player.level().addFreshEntity(itemEntity)
-            }
-        }
+		items.forEach { itemStack: ItemStack ->
+			if (!player.inventory.add(itemStack)) {
+				val itemEntity = ItemEntity(player.level(), player.x, player.y, player.z, itemStack)
+				player.level().addFreshEntity(itemEntity)
+			}
+		}
 
-        player.clearSavedInventory()
-    }
+		player.clearSavedInventory()
+	}
 
-    private val emeraldHeartCooldown = GeneCooldown(
-        ModGenes.EMERALD_HEART,
-        ServerConfig.emeraldHeartCooldown.get()
-    )
+	private val emeraldHeartCooldown = GeneCooldown(
+		ModGenes.EMERALD_HEART,
+		ServerConfig.emeraldHeartCooldown.get()
+	)
 
-    fun handleEmeraldHeart(event: LivingDeathEvent) {
-        val emeraldHeart = ModGenes.EMERALD_HEART.getHolderOrThrow(event.entity.registryAccess())
-        if (emeraldHeart.isDisabled) return
+	fun handleEmeraldHeart(event: LivingDeathEvent) {
+		val emeraldHeart = ModGenes.EMERALD_HEART.getHolderOrThrow(event.entity.registryAccess())
+		if (emeraldHeart.isDisabled) return
 
-        val entity = event.entity
-        if (!entity.hasGene(ModGenes.EMERALD_HEART)) return
+		val entity = event.entity
+		if (!entity.hasGene(ModGenes.EMERALD_HEART)) return
 
-        if (entity !is Player) {
-            val itemEntity = ItemEntity(entity.level(), entity.x, entity.y, entity.z, ItemStack(Items.EMERALD, 1))
-            entity.level().addFreshEntity(itemEntity)
-            return
-        }
+		if (entity !is Player) {
+			val itemEntity = ItemEntity(entity.level(), entity.x, entity.y, entity.z, ItemStack(Items.EMERALD, 1))
+			entity.level().addFreshEntity(itemEntity)
+			return
+		}
 
-        val wasNotOnCooldown = emeraldHeartCooldown.add(entity)
+		val wasNotOnCooldown = emeraldHeartCooldown.add(entity)
 
-        if (!wasNotOnCooldown) return
+		if (!wasNotOnCooldown) return
 
-        entity.inventory.add(ItemStack(Items.EMERALD, 1))
-    }
+		entity.inventory.add(ItemStack(Items.EMERALD, 1))
+	}
 
-    private val recentlyExplodedEntities: MutableSet<UUID> = mutableSetOf()
+	private val recentlyExplodedEntities: MutableSet<UUID> = mutableSetOf()
 
-    private const val GUNPOWDER_REQUIRED = 5
-    private const val EXPLOSION_STRENGTH = 3f
-    fun handleExplosiveExit(event: LivingDeathEvent) {
-        val explosiveExit = ModGenes.EXPLOSIVE_EXIT.getHolderOrThrow(event.entity.registryAccess())
-        if (explosiveExit.isDisabled) return
+	private const val GUNPOWDER_REQUIRED = 5
+	private const val EXPLOSION_STRENGTH = 3f
+	fun handleExplosiveExit(event: LivingDeathEvent) {
+		val explosiveExit = ModGenes.EXPLOSIVE_EXIT.getHolderOrThrow(event.entity.registryAccess())
+		if (explosiveExit.isDisabled) return
 
-        val entity = event.entity
-        if (!entity.hasGene(ModGenes.EXPLOSIVE_EXIT)) return
+		val entity = event.entity
+		if (!entity.hasGene(ModGenes.EXPLOSIVE_EXIT)) return
 
-        val shouldExplode = if (entity !is Player) {
-            true
-        } else {
-            val amountGunpowder = entity.inventory.items.sumOf { if (it.item == Items.GUNPOWDER) it.count else 0 }
-            amountGunpowder >= GUNPOWDER_REQUIRED
-        }
+		val shouldExplode = if (entity !is Player) {
+			true
+		} else {
+			val amountGunpowder = entity.inventory.items.sumOf { if (it.item == Items.GUNPOWDER) it.count else 0 }
+			amountGunpowder >= GUNPOWDER_REQUIRED
+		}
 
-        if (!shouldExplode) return
+		if (!shouldExplode) return
 
-        recentlyExplodedEntities.add(entity.uuid)
+		recentlyExplodedEntities.add(entity.uuid)
 
-        entity.level().explode(
-            entity,
-            entity.x,
-            entity.y,
-            entity.z,
-            EXPLOSION_STRENGTH,
-            Level.ExplosionInteraction.NONE // What the heck does this do
-        )
+		entity.level().explode(
+			entity,
+			entity.x,
+			entity.y,
+			entity.z,
+			EXPLOSION_STRENGTH,
+			Level.ExplosionInteraction.NONE // What the heck does this do
+		)
 
-        recentlyExplodedEntities.remove(entity.uuid)
+		recentlyExplodedEntities.remove(entity.uuid)
 
-        if (entity is Player) {
-            var amountGunpowderRemoved = 0
-            for (stack in entity.inventory.items) {
-                if (stack.item != Items.GUNPOWDER) continue
+		if (entity is Player) {
+			var amountGunpowderRemoved = 0
+			for (stack in entity.inventory.items) {
+				if (stack.item != Items.GUNPOWDER) continue
 
-                while (stack.count > 0 && amountGunpowderRemoved < GUNPOWDER_REQUIRED) {
-                    stack.shrink(1)
-                    amountGunpowderRemoved++
-                }
+				while (stack.count > 0 && amountGunpowderRemoved < GUNPOWDER_REQUIRED) {
+					stack.shrink(1)
+					amountGunpowderRemoved++
+				}
 
-                if (amountGunpowderRemoved >= GUNPOWDER_REQUIRED) break
-            }
-        }
+				if (amountGunpowderRemoved >= GUNPOWDER_REQUIRED) break
+			}
+		}
 
-    }
+	}
 
-    fun explosiveExitDetonation(event: ExplosionEvent.Detonate) {
-        val explosiveExit = ModGenes.EXPLOSIVE_EXIT.getHolderOrThrow(event.level.registryAccess())
-        if (explosiveExit.isDisabled) return
+	fun explosiveExitDetonation(event: ExplosionEvent.Detonate) {
+		val explosiveExit = ModGenes.EXPLOSIVE_EXIT.getHolderOrThrow(event.level.registryAccess())
+		if (explosiveExit.isDisabled) return
 
-        val exploderUuid = event.explosion.directSourceEntity?.uuid
-        if (exploderUuid !in recentlyExplodedEntities) return
+		val exploderUuid = event.explosion.directSourceEntity?.uuid
+		if (exploderUuid !in recentlyExplodedEntities) return
 
-        event.affectedEntities.removeAll { it !is LivingEntity }
-        event.affectedBlocks.clear()
-    }
+		event.affectedEntities.removeAll { it !is LivingEntity }
+		event.affectedBlocks.clear()
+	}
 
-    private val slimyDeathCooldown = GeneCooldown(
-        ModGenes.SLIMY_DEATH,
-        ServerConfig.slimyDeathCooldown.get()
-    )
+	private val slimyDeathCooldown = GeneCooldown(
+		ModGenes.SLIMY_DEATH,
+		ServerConfig.slimyDeathCooldown.get()
+	)
 
-    fun handleSlimyDeath(event: LivingDeathEvent) {
-        val slimyDeath = ModGenes.SLIMY_DEATH.getHolderOrThrow(event.entity.registryAccess())
-        if (slimyDeath.isDisabled) return
-        if (event.isCanceled) return
+	fun handleSlimyDeath(event: LivingDeathEvent) {
+		val slimyDeath = ModGenes.SLIMY_DEATH.getHolderOrThrow(event.entity.registryAccess())
+		if (slimyDeath.isDisabled) return
+		if (event.isCanceled) return
 
-        val entity: LivingEntity = event.entity
-        if (!entity.hasGene(ModGenes.SLIMY_DEATH)) return
+		val entity: LivingEntity = event.entity
+		if (!entity.hasGene(ModGenes.SLIMY_DEATH)) return
 
-        val newlyUsed = slimyDeathCooldown.add(entity)
-        if (!newlyUsed) return
+		val newlyUsed = slimyDeathCooldown.add(entity)
+		if (!newlyUsed) return
 
-        val amount = Random.nextInt(3, 6)
+		val amount = Random.nextInt(3, 6)
 
-        repeat(amount) {
-            val supportSlime = SupportSlime(entity.level(), entity.uuid)
+		repeat(amount) {
+			val supportSlime = SupportSlime(entity.level(), entity.uuid)
 
-            val randomNearbyPosition = entity.position().add(
-                Random.nextDouble(-1.0, 1.0),
-                0.0,
-                Random.nextDouble(-1.0, 1.0)
-            )
+			val randomNearbyPosition = entity.position().add(
+				Random.nextDouble(-1.0, 1.0),
+				0.0,
+				Random.nextDouble(-1.0, 1.0)
+			)
 
-            supportSlime.moveTo(randomNearbyPosition.x, randomNearbyPosition.y, randomNearbyPosition.z)
-            entity.level().addFreshEntity(supportSlime)
-        }
+			supportSlime.moveTo(randomNearbyPosition.x, randomNearbyPosition.y, randomNearbyPosition.z)
+			entity.level().addFreshEntity(supportSlime)
+		}
 
-        event.isCanceled = true
-        entity.health = entity.maxHealth * ServerConfig.slimyDeathHealthMultiplier.get().toFloat()
+		event.isCanceled = true
+		entity.health = entity.maxHealth * ServerConfig.slimyDeathHealthMultiplier.get().toFloat()
 
-        if (entity is ServerPlayer) {
-            AdvancementTriggers.slimyDeathAdvancement(entity)
-        }
+		if (entity is ServerPlayer) {
+			AdvancementTriggers.slimyDeathAdvancement(entity)
+		}
 
-    }
+	}
 
 }

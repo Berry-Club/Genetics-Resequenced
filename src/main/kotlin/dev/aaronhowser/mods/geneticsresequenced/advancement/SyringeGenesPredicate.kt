@@ -16,54 +16,54 @@ import net.minecraft.core.component.DataComponentType
 import net.minecraft.world.item.ItemStack
 
 data class SyringeGenesPredicate(
-    val genes: HolderSet<Gene>,
-    val isAntigene: Boolean
+	val genes: HolderSet<Gene>,
+	val isAntigene: Boolean
 ) : SingleComponentItemPredicate<HolderSet<Gene>> {
 
-    override fun matches(stack: ItemStack, requiredGenes: HolderSet<Gene>): Boolean {
-        val stackGenes = if (isAntigene) {
-            SyringeItem.getAntigenes(stack)
-        } else {
-            SyringeItem.getGenes(stack)
-        }
+	override fun matches(stack: ItemStack, requiredGenes: HolderSet<Gene>): Boolean {
+		val stackGenes = if (isAntigene) {
+			SyringeItem.getAntigenes(stack)
+		} else {
+			SyringeItem.getGenes(stack)
+		}
 
-        return requiredGenes.all { requiredGene ->
-            stackGenes.any { it.isGene(requiredGene) }
-        }
-    }
+		return requiredGenes.all { requiredGene ->
+			stackGenes.any { it.isGene(requiredGene) }
+		}
+	}
 
-    override fun componentType(): DataComponentType<HolderSet<Gene>> {
-        return if (isAntigene) {
-            ModDataComponents.ANTIGENES_COMPONENT.get()
-        } else {
-            ModDataComponents.GENES_COMPONENT.get()
-        }
-    }
+	override fun componentType(): DataComponentType<HolderSet<Gene>> {
+		return if (isAntigene) {
+			ModDataComponents.ANTIGENES_COMPONENT.get()
+		} else {
+			ModDataComponents.GENES_COMPONENT.get()
+		}
+	}
 
-    companion object {
+	companion object {
 
-        fun blackDeath(lookup: HolderLookup.Provider): SyringeGenesPredicate {
-            val blackDeathGeneHolder = ModGenes.BLACK_DEATH.getHolderOrThrow(lookup)
+		fun blackDeath(lookup: HolderLookup.Provider): SyringeGenesPredicate {
+			val blackDeathGeneHolder = ModGenes.BLACK_DEATH.getHolderOrThrow(lookup)
 
-            return SyringeGenesPredicate(
-                HolderSet.direct(blackDeathGeneHolder),
-                false
-            )
-        }
+			return SyringeGenesPredicate(
+				HolderSet.direct(blackDeathGeneHolder),
+				false
+			)
+		}
 
-        val CODEC: Codec<SyringeGenesPredicate> =
-            RecordCodecBuilder.create { instance ->
-                instance.group(
-                    Gene.HOLDER_SET_CODEC
-                        .fieldOf("genes")
-                        .forGetter(SyringeGenesPredicate::genes),
-                    Codec.BOOL
-                        .optionalFieldOf("is_antigene", false)
-                        .forGetter(SyringeGenesPredicate::isAntigene)
-                ).apply(instance, ::SyringeGenesPredicate)
-            }
+		val CODEC: Codec<SyringeGenesPredicate> =
+			RecordCodecBuilder.create { instance ->
+				instance.group(
+					Gene.HOLDER_SET_CODEC
+						.fieldOf("genes")
+						.forGetter(SyringeGenesPredicate::genes),
+					Codec.BOOL
+						.optionalFieldOf("is_antigene", false)
+						.forGetter(SyringeGenesPredicate::isAntigene)
+				).apply(instance, ::SyringeGenesPredicate)
+			}
 
-        val TYPE: ItemSubPredicate.Type<SyringeGenesPredicate> = ItemSubPredicate.Type(CODEC)
-    }
+		val TYPE: ItemSubPredicate.Type<SyringeGenesPredicate> = ItemSubPredicate.Type(CODEC)
+	}
 
 }

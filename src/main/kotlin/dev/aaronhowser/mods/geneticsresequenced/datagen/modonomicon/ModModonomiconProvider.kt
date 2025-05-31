@@ -8,36 +8,36 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.categories.*
 import java.util.function.BiConsumer
 
 class ModModonomiconProvider(
-    defaultLang: BiConsumer<String, String>,
+	defaultLang: BiConsumer<String, String>,
 ) : SingleBookSubProvider("guide", GeneticsResequenced.ID, defaultLang) {
 
-    override fun additionalSetup(book: BookModel): BookModel {
-        return book
-            .withCreativeTab(modLoc("creative_tab"))
-            .withDisplayMode(BookDisplayMode.INDEX)
-            .withBookTextOffsetX(3)
-            .withBookTextOffsetY(3)
-            .withBookTextOffsetWidth(-3)
-    }
+	override fun additionalSetup(book: BookModel): BookModel {
+		return book
+			.withCreativeTab(modLoc("creative_tab"))
+			.withDisplayMode(BookDisplayMode.INDEX)
+			.withBookTextOffsetX(3)
+			.withBookTextOffsetY(3)
+			.withBookTextOffsetWidth(-3)
+	}
 
-    override fun generateCategories() {
-        this.add(GettingStartedCategoryProvider(this).generate())
-        this.add(ItemsCategoryProvider(this).generate())
-        this.add(BlocksCategoryProvider(this).generate())
-        this.add(GenesCategoryProvider(this).generate())
-        this.add(NegativeGenesCategoryProvider(this).generate())
-    }
+	override fun generateCategories() {
+		this.add(GettingStartedCategoryProvider(this).generate())
+		this.add(ItemsCategoryProvider(this).generate())
+		this.add(BlocksCategoryProvider(this).generate())
+		this.add(GenesCategoryProvider(this).generate())
+		this.add(NegativeGenesCategoryProvider(this).generate())
+	}
 
-    override fun bookName(): String {
-        return "Big Book of Genetics"
-    }
+	override fun bookName(): String {
+		return "Big Book of Genetics"
+	}
 
-    override fun bookTooltip(): String {
-        return "A guide to all things genetic"
-    }
+	override fun bookTooltip(): String {
+		return "A guide to all things genetic"
+	}
 
-    override fun registerDefaultMacros() {
-        // Nothing
-    }
+	override fun registerDefaultMacros() {
+		// Nothing
+	}
 
 }

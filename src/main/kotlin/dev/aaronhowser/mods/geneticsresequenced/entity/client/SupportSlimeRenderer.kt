@@ -30,121 +30,121 @@ import kotlin.math.sin
 
 @OnlyIn(Dist.CLIENT)
 class SupportSlimeRenderer(
-    context: EntityRendererProvider.Context
+	context: EntityRendererProvider.Context
 ) : MobRenderer<SupportSlime, SlimeModel<SupportSlime>>
-    (
-    context,
-    SlimeModel(
-        context.bakeLayer(ModelLayers.SLIME)
-    ),
-    0.25f
+	(
+	context,
+	SlimeModel(
+		context.bakeLayer(ModelLayers.SLIME)
+	),
+	0.25f
 ) {
-    init {
-        this.addLayer(SlimeOuterLayer(this, context.modelSet))
-    }
+	init {
+		this.addLayer(SlimeOuterLayer(this, context.modelSet))
+	}
 
-    private val itemRenderer: ItemRenderer = context.itemRenderer
+	private val itemRenderer: ItemRenderer = context.itemRenderer
 
-    private var headStack: ItemStack? = null
+	private var headStack: ItemStack? = null
 
-    private fun getHead(pEntity: SupportSlime): ItemStack {
-        if (headStack != null) return headStack!!
+	private fun getHead(pEntity: SupportSlime): ItemStack {
+		if (headStack != null) return headStack!!
 
-        val ownerUuid = pEntity.getOwnerUuid()
-        val owner = ownerUuid?.let { pEntity.level().getPlayerByUUID(it) }
+		val ownerUuid = pEntity.getOwnerUuid()
+		val owner = ownerUuid?.let { pEntity.level().getPlayerByUUID(it) }
 
-        if (owner == null) return ItemStack.EMPTY
+		if (owner == null) return ItemStack.EMPTY
 
-        val ownerProfile = owner.gameProfile
-        val ownerProfileComponent = ResolvableProfile(ownerProfile)
+		val ownerProfile = owner.gameProfile
+		val ownerProfileComponent = ResolvableProfile(ownerProfile)
 
-        val newHeadStack = Items.PLAYER_HEAD.itemStack
-        newHeadStack.set(
-            DataComponents.PROFILE,
-            ownerProfileComponent
-        )
+		val newHeadStack = Items.PLAYER_HEAD.itemStack
+		newHeadStack.set(
+			DataComponents.PROFILE,
+			ownerProfileComponent
+		)
 
-        headStack = newHeadStack
-        return newHeadStack
-    }
+		headStack = newHeadStack
+		return newHeadStack
+	}
 
-    override fun render(
-        pEntity: SupportSlime,
-        pEntityYaw: Float,
-        pPartialTicks: Float,
-        pPoseStack: PoseStack,
-        pBuffer: MultiBufferSource,
-        pPackedLight: Int
-    ) {
+	override fun render(
+		pEntity: SupportSlime,
+		pEntityYaw: Float,
+		pPartialTicks: Float,
+		pPoseStack: PoseStack,
+		pBuffer: MultiBufferSource,
+		pPackedLight: Int
+	) {
 
-        if (ClientConfig.supportSlimeRenderDebug.get()) {
-            super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight)
-        }
+		if (ClientConfig.supportSlimeRenderDebug.get()) {
+			super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight)
+		}
 
-        /**
-         * FIXME:
-         *  Hitbox is a bit broken.
-         *  This isn't super important because they never attack players, but still.
-         */
-        pPoseStack.translate(
-            0.0,
-            pEntity.size.toDouble() / 4,
-            0.0
-        )
-        pPoseStack.scale(
-            pEntity.size.toFloat(),
-            pEntity.size.toFloat(),
-            pEntity.size.toFloat()
-        )
+		/**
+		 * FIXME:
+		 *  Hitbox is a bit broken.
+		 *  This isn't super important because they never attack players, but still.
+		 */
+		pPoseStack.translate(
+			0.0,
+			pEntity.size.toDouble() / 4,
+			0.0
+		)
+		pPoseStack.scale(
+			pEntity.size.toFloat(),
+			pEntity.size.toFloat(),
+			pEntity.size.toFloat()
+		)
 
 
-        // I don't understand this bit at ALL. It's copied from the 1.19 constructor Quaternion(Vector3f pRotationAxis, float pRotationAngle, boolean pDegrees)
-        val lerpedRotY = Mth.lerp(pPartialTicks, pEntity.yRotO, pEntity.yRot)
-        val vectorPositiveY = Vector3f(0f, 1f, 0f)
-        val rotationAngleDegrees = lerpedRotY * 0.017453292f
-        val thing = sin(rotationAngleDegrees / 2f)
-        val quaternion = Quaternionf(
-            vectorPositiveY.x * thing,
-            vectorPositiveY.y * thing,
-            vectorPositiveY.z * thing,
-            cos(rotationAngleDegrees / 2f)
-        )
+		// I don't understand this bit at ALL. It's copied from the 1.19 constructor Quaternion(Vector3f pRotationAxis, float pRotationAngle, boolean pDegrees)
+		val lerpedRotY = Mth.lerp(pPartialTicks, pEntity.yRotO, pEntity.yRot)
+		val vectorPositiveY = Vector3f(0f, 1f, 0f)
+		val rotationAngleDegrees = lerpedRotY * 0.017453292f
+		val thing = sin(rotationAngleDegrees / 2f)
+		val quaternion = Quaternionf(
+			vectorPositiveY.x * thing,
+			vectorPositiveY.y * thing,
+			vectorPositiveY.z * thing,
+			cos(rotationAngleDegrees / 2f)
+		)
 
-        pPoseStack.mulPose(quaternion)
+		pPoseStack.mulPose(quaternion)
 
-        itemRenderer.renderStatic(
-            getHead(pEntity),
-            ItemDisplayContext.FIXED,
-            pPackedLight,
-            OverlayTexture.NO_OVERLAY,
-            pPoseStack,
-            pBuffer,
-            pEntity.level(),
-            pEntity.id
-        )
-    }
+		itemRenderer.renderStatic(
+			getHead(pEntity),
+			ItemDisplayContext.FIXED,
+			pPackedLight,
+			OverlayTexture.NO_OVERLAY,
+			pPoseStack,
+			pBuffer,
+			pEntity.level(),
+			pEntity.id
+		)
+	}
 
-    override fun scale(
-        pLivingEntity: SupportSlime,
-        pMatrixStack: PoseStack,
-        pPartialTickTime: Float
-    ) {
-        pMatrixStack.scale(0.999f, 0.999f, 0.999f)
-        pMatrixStack.translate(0.0, 0.001, 0.0)
-        val sizeFactor = pLivingEntity.size.toFloat()
-        val squishFactor = Mth.lerp(
-            pPartialTickTime,
-            pLivingEntity.oSquish,
-            pLivingEntity.squish
-        ) / (sizeFactor * 0.5f + 1.0f)
-        val inverseSquish = 1.0f / (squishFactor + 1.0f)
-        pMatrixStack.scale(inverseSquish * sizeFactor, 1.0f / inverseSquish * sizeFactor, inverseSquish * sizeFactor)
-    }
+	override fun scale(
+		pLivingEntity: SupportSlime,
+		pMatrixStack: PoseStack,
+		pPartialTickTime: Float
+	) {
+		pMatrixStack.scale(0.999f, 0.999f, 0.999f)
+		pMatrixStack.translate(0.0, 0.001, 0.0)
+		val sizeFactor = pLivingEntity.size.toFloat()
+		val squishFactor = Mth.lerp(
+			pPartialTickTime,
+			pLivingEntity.oSquish,
+			pLivingEntity.squish
+		) / (sizeFactor * 0.5f + 1.0f)
+		val inverseSquish = 1.0f / (squishFactor + 1.0f)
+		pMatrixStack.scale(inverseSquish * sizeFactor, 1.0f / inverseSquish * sizeFactor, inverseSquish * sizeFactor)
+	}
 
-    /**
-     * Returns the location of an entity's texture.
-     */
-    override fun getTextureLocation(pEntity: SupportSlime): ResourceLocation {
-        return SlimeRenderer.SLIME_LOCATION
-    }
+	/**
+	 * Returns the location of an entity's texture.
+	 */
+	override fun getTextureLocation(pEntity: SupportSlime): ResourceLocation {
+		return SlimeRenderer.SLIME_LOCATION
+	}
 }

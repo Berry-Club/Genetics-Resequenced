@@ -10,27 +10,27 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
 data class ShearedPacket(
-    val removingSkin: Boolean
+	val removingSkin: Boolean
 ) : ModPacket {
 
-    override fun receiveOnClient(context: IPayloadContext) {
-        context.enqueueWork {
-            if (removingSkin) {
-                ClientUtil.shearPlayerSkin()
-            } else {
-                ClientUtil.addSkinLayersBack()
-            }
-        }
-    }
+	override fun receiveOnClient(context: IPayloadContext) {
+		context.enqueueWork {
+			if (removingSkin) {
+				ClientUtil.shearPlayerSkin()
+			} else {
+				ClientUtil.addSkinLayersBack()
+			}
+		}
+	}
 
-    override fun type(): CustomPacketPayload.Type<ShearedPacket> = TYPE
+	override fun type(): CustomPacketPayload.Type<ShearedPacket> = TYPE
 
-    companion object {
-        val TYPE: CustomPacketPayload.Type<ShearedPacket> =
-            CustomPacketPayload.Type<ShearedPacket>(OtherUtil.modResource("sheared"))
+	companion object {
+		val TYPE: CustomPacketPayload.Type<ShearedPacket> =
+			CustomPacketPayload.Type<ShearedPacket>(OtherUtil.modResource("sheared"))
 
-        val STREAM_CODEC: StreamCodec<ByteBuf, ShearedPacket> =
-            ByteBufCodecs.BOOL.map(::ShearedPacket, ShearedPacket::removingSkin)
-    }
+		val STREAM_CODEC: StreamCodec<ByteBuf, ShearedPacket> =
+			ByteBufCodecs.BOOL.map(::ShearedPacket, ShearedPacket::removingSkin)
+	}
 
 }

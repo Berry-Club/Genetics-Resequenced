@@ -19,89 +19,89 @@ import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.toVec3i
 
 object PacketGenes {
 
-    private val recentTeleports = GeneCooldown(
-        ModGenes.TELEPORT,
-        ServerConfig.teleportCooldown.get()
-    )
+	private val recentTeleports = GeneCooldown(
+		ModGenes.TELEPORT,
+		ServerConfig.teleportCooldown.get()
+	)
 
-    @Suppress("MoveVariableDeclarationIntoWhen")
-    fun teleport(player: ServerPlayer) {
-        val teleport = ModGenes.TELEPORT.getHolderOrThrow(player.registryAccess())
-        if (teleport.isDisabled) return
+	@Suppress("MoveVariableDeclarationIntoWhen")
+	fun teleport(player: ServerPlayer) {
+		val teleport = ModGenes.TELEPORT.getHolderOrThrow(player.registryAccess())
+		if (teleport.isDisabled) return
 
-        if (!player.hasGene(ModGenes.TELEPORT)) return
+		if (!player.hasGene(ModGenes.TELEPORT)) return
 
-        val wasNotOnCooldown = recentTeleports.add(player)
-        if (!wasNotOnCooldown) return
+		val wasNotOnCooldown = recentTeleports.add(player)
+		if (!wasNotOnCooldown) return
 
-        val teleportDestination = player.lookAngle.normalize().scale(ServerConfig.teleportDistance.get())
+		val teleportDestination = player.lookAngle.normalize().scale(ServerConfig.teleportDistance.get())
 
-        val lookingAtBlock: BlockHitResult = player.level().clip(
-            ClipContext(
-                player.eyePosition,
-                player.eyePosition.add(teleportDestination),
-                ClipContext.Block.OUTLINE,
-                ClipContext.Fluid.NONE,
-                player
-            )
-        )
+		val lookingAtBlock: BlockHitResult = player.level().clip(
+			ClipContext(
+				player.eyePosition,
+				player.eyePosition.add(teleportDestination),
+				ClipContext.Block.OUTLINE,
+				ClipContext.Fluid.NONE,
+				player
+			)
+		)
 
-        var destination = if (lookingAtBlock.type == HitResult.Type.MISS) {
-            player.eyePosition.add(teleportDestination)
-        } else {
+		var destination = if (lookingAtBlock.type == HitResult.Type.MISS) {
+			player.eyePosition.add(teleportDestination)
+		} else {
 
-            val blockLocation = lookingAtBlock.location
-            val sideHit = lookingAtBlock.direction
+			val blockLocation = lookingAtBlock.location
+			val sideHit = lookingAtBlock.direction
 
-            val offset = when (sideHit) {
-                Direction.DOWN -> Vec3(0.0, -2.0, 0.0)
-                Direction.UP -> Vec3(0.0, 0.5, 0.0)
-                else -> sideHit.normal.toVec3()
-            }
+			val offset = when (sideHit) {
+				Direction.DOWN -> Vec3(0.0, -2.0, 0.0)
+				Direction.UP -> Vec3(0.0, 0.5, 0.0)
+				else -> sideHit.normal.toVec3()
+			}
 
-            blockLocation.add(offset)
-        }
+			blockLocation.add(offset)
+		}
 
-        val blockAtNewFootLocation = player
-            .level()
-            .getBlockState(
-                BlockPos(destination.toVec3i().offset(0, -1, 0))
-            )
-        val footBlockIsSolid = blockAtNewFootLocation.entityCanStandOn(
-            player.level(),
-            BlockPos(destination.toVec3i()),
-            player
-        )
+		val blockAtNewFootLocation = player
+			.level()
+			.getBlockState(
+				BlockPos(destination.toVec3i().offset(0, -1, 0))
+			)
+		val footBlockIsSolid = blockAtNewFootLocation.entityCanStandOn(
+			player.level(),
+			BlockPos(destination.toVec3i()),
+			player
+		)
 
-        if (footBlockIsSolid) destination = destination.add(0.0, 1.0, 0.0)
+		if (footBlockIsSolid) destination = destination.add(0.0, 1.0, 0.0)
 
-        player.teleportTo(destination.x, destination.y, destination.z)
-    }
+		player.teleportTo(destination.x, destination.y, destination.z)
+	}
 
-    private val recentDragonsBreath = GeneCooldown(
-        ModGenes.DRAGON_BREATH,
-        ServerConfig.dragonsBreathCooldown.get()
-    )
+	private val recentDragonsBreath = GeneCooldown(
+		ModGenes.DRAGON_BREATH,
+		ServerConfig.dragonsBreathCooldown.get()
+	)
 
-    fun dragonBreath(player: ServerPlayer) {
-        val dragonBreath = ModGenes.DRAGON_BREATH.getHolderOrThrow(player.registryAccess())
-        if (dragonBreath.isDisabled) return
+	fun dragonBreath(player: ServerPlayer) {
+		val dragonBreath = ModGenes.DRAGON_BREATH.getHolderOrThrow(player.registryAccess())
+		if (dragonBreath.isDisabled) return
 
-        if (!player.hasGene(ModGenes.DRAGON_BREATH)) return
+		if (!player.hasGene(ModGenes.DRAGON_BREATH)) return
 
-        val wasNotOnCooldown = recentDragonsBreath.add(player)
+		val wasNotOnCooldown = recentDragonsBreath.add(player)
 
-        if (!wasNotOnCooldown) return
+		if (!wasNotOnCooldown) return
 
-        val entityDragonFireball = DragonFireball(
-            player.level(),
-            player,
-            player.lookAngle
-        ).apply {
-            setPos(player.eyePosition)
-        }
+		val entityDragonFireball = DragonFireball(
+			player.level(),
+			player,
+			player.lookAngle
+		).apply {
+			setPos(player.eyePosition)
+		}
 
-        player.level().addFreshEntity(entityDragonFireball)
-    }
+		player.level().addFreshEntity(entityDragonFireball)
+	}
 
 }

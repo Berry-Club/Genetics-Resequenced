@@ -22,89 +22,89 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 
 object BrewingRecipes {
 
-    private val modPotions: List<Potion>
-        get() = ModPotions.POTION_REGISTRY.entries.map { it.get() }
+	private val modPotions: List<Potion>
+		get() = ModPotions.POTION_REGISTRY.entries.map { it.get() }
 
-    fun tooltip(event: ItemTooltipEvent) {
-        val stack = event.itemStack
-        val itemPotion = OtherUtil.getPotion(stack) ?: return
+	fun tooltip(event: ItemTooltipEvent) {
+		val stack = event.itemStack
+		val itemPotion = OtherUtil.getPotion(stack) ?: return
 
-        if (itemPotion == ModPotions.ZOMBIFY_VILLAGER || itemPotion == ModPotions.PANACEA) return
-        if (itemPotion.value() !in modPotions) return
+		if (itemPotion == ModPotions.ZOMBIFY_VILLAGER || itemPotion == ModPotions.PANACEA) return
+		if (itemPotion.value() !in modPotions) return
 
-        if (stack.item != Items.POTION) {
-            event.toolTip.add(
-                ModLanguageProvider.Tooltips.IGNORE_POTION
-                    .toComponent()
-                    .withStyle { it.withColor(ChatFormatting.RED) }
-            )
-        }
+		if (stack.item != Items.POTION) {
+			event.toolTip.add(
+				ModLanguageProvider.Tooltips.IGNORE_POTION
+					.toComponent()
+					.withStyle { it.withColor(ChatFormatting.RED) }
+			)
+		}
 
-        val itemGeneHolder = DnaHelixItem.getGeneHolder(stack)
-        if (itemGeneHolder != null) {
-            event.toolTip.add(
-                ModLanguageProvider.Tooltips.GENE
-                    .toComponent(Gene.getNameComponent(itemGeneHolder)
-                        .withStyle { it.withColor(ChatFormatting.GRAY) }
-                    ))
-        }
+		val itemGeneHolder = DnaHelixItem.getGeneHolder(stack)
+		if (itemGeneHolder != null) {
+			event.toolTip.add(
+				ModLanguageProvider.Tooltips.GENE
+					.toComponent(Gene.getNameComponent(itemGeneHolder)
+						.withStyle { it.withColor(ChatFormatting.GRAY) }
+					))
+		}
 
-        val itemEntity = EntityDnaItem.getEntityType(stack)
-        if (itemEntity != null) {
-            event.toolTip.add(
-                ModLanguageProvider.Tooltips.HELIX_ENTITY
-                    .toComponent(itemEntity.description)
-                    .withStyle { it.withColor(ChatFormatting.GRAY) }
-            )
-        }
+		val itemEntity = EntityDnaItem.getEntityType(stack)
+		if (itemEntity != null) {
+			event.toolTip.add(
+				ModLanguageProvider.Tooltips.HELIX_ENTITY
+					.toComponent(itemEntity.description)
+					.withStyle { it.withColor(ChatFormatting.GRAY) }
+			)
+		}
 
-    }
+	}
 
-    private fun ingredient(potion: Holder<Potion>): Ingredient =
-        DataComponentIngredient.of(false, OtherUtil.getPotionStack(potion))
+	private fun ingredient(potion: Holder<Potion>): Ingredient =
+		DataComponentIngredient.of(false, OtherUtil.getPotionStack(potion))
 
-    private fun ingredient(itemLike: ItemLike): Ingredient = Ingredient.of(itemLike)
+	private fun ingredient(itemLike: ItemLike): Ingredient = Ingredient.of(itemLike)
 
-    val substratePotionStack
-        get() = OtherUtil.getPotionStack(ModPotions.SUBSTRATE)
-    val cellGrowthPotionStack
-        get() = OtherUtil.getPotionStack(ModPotions.CELL_GROWTH)
-    val mutationPotionStack
-        get() = OtherUtil.getPotionStack(ModPotions.MUTATION)
-    val viralAgentsPotionStack
-        get() = OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)
-    val panaceaPotionStack
-        get() = OtherUtil.getPotionStack(ModPotions.PANACEA)
+	val substratePotionStack
+		get() = OtherUtil.getPotionStack(ModPotions.SUBSTRATE)
+	val cellGrowthPotionStack
+		get() = OtherUtil.getPotionStack(ModPotions.CELL_GROWTH)
+	val mutationPotionStack
+		get() = OtherUtil.getPotionStack(ModPotions.MUTATION)
+	val viralAgentsPotionStack
+		get() = OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)
+	val panaceaPotionStack
+		get() = OtherUtil.getPotionStack(ModPotions.PANACEA)
 
-    fun setRecipes(event: RegisterBrewingRecipesEvent) {
+	fun setRecipes(event: RegisterBrewingRecipesEvent) {
 
-        val substrateRecipe = BrewingRecipe(
-            ingredient(Potions.MUNDANE),
-            ingredient(ModItems.ORGANIC_MATTER),
-            substratePotionStack
-        )
+		val substrateRecipe = BrewingRecipe(
+			ingredient(Potions.MUNDANE),
+			ingredient(ModItems.ORGANIC_MATTER),
+			substratePotionStack
+		)
 
-        val mutationRecipe = BrewingRecipe(
-            ingredient(ModPotions.CELL_GROWTH),
-            ingredient(Items.FERMENTED_SPIDER_EYE),
-            mutationPotionStack
-        )
+		val mutationRecipe = BrewingRecipe(
+			ingredient(ModPotions.CELL_GROWTH),
+			ingredient(Items.FERMENTED_SPIDER_EYE),
+			mutationPotionStack
+		)
 
-        val viralRecipe = BrewingRecipe(
-            ingredient(ModPotions.MUTATION),
-            ingredient(Items.CHORUS_FRUIT),
-            viralAgentsPotionStack
-        )
+		val viralRecipe = BrewingRecipe(
+			ingredient(ModPotions.MUTATION),
+			ingredient(Items.CHORUS_FRUIT),
+			viralAgentsPotionStack
+		)
 
-        val allRecipes = listOf(
-            substrateRecipe,
-            mutationRecipe,
-            viralRecipe,
-        )
+		val allRecipes = listOf(
+			substrateRecipe,
+			mutationRecipe,
+			viralRecipe,
+		)
 
-        for (recipe in allRecipes) {
-            event.builder.addRecipe(recipe)
-        }
-    }
+		for (recipe in allRecipes) {
+			event.builder.addRecipe(recipe)
+		}
+	}
 
 }

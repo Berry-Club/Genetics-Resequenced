@@ -17,63 +17,63 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 class SetPotionEntityRecipe private constructor() : AbstractIncubatorRecipe(
-    topIngredient = Ingredient.of(ModItems.CELL.get()),
-    bottomIngredient = PotionTagIngredient(ModPotionTagsProvider.CAN_HAVE_ENTITY).toVanilla()
+	topIngredient = Ingredient.of(ModItems.CELL.get()),
+	bottomIngredient = PotionTagIngredient(ModPotionTagsProvider.CAN_HAVE_ENTITY).toVanilla()
 ) {
 
-    override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
-        val cellStack = input.getTopItem()
-        val potionStack = input.getBottomItem()
+	override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
+		val cellStack = input.getTopItem()
+		val potionStack = input.getBottomItem()
 
-        if (!topIngredient.test(cellStack)) return false
-        if (!bottomIngredient.test(potionStack)) return false
+		if (!topIngredient.test(cellStack)) return false
+		if (!bottomIngredient.test(potionStack)) return false
 
-        val topEntity = EntityDnaItem.getEntityType(cellStack) ?: return false
-        val bottomEntity = EntityDnaItem.getEntityType(potionStack) ?: return true
+		val topEntity = EntityDnaItem.getEntityType(cellStack) ?: return false
+		val bottomEntity = EntityDnaItem.getEntityType(potionStack) ?: return true
 
-        return topEntity != bottomEntity
-    }
+		return topEntity != bottomEntity
+	}
 
-    override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
-        val topItem = input.getTopItem()
-        val bottomItem = input.getBottomItem()
+	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
+		val topItem = input.getTopItem()
+		val bottomItem = input.getBottomItem()
 
-        val topEntity = EntityDnaItem.getEntityType(topItem) ?: return ItemStack.EMPTY
+		val topEntity = EntityDnaItem.getEntityType(topItem) ?: return ItemStack.EMPTY
 
-        val output = bottomItem.copy()
-        EntityDnaItem.setEntityType(output, topEntity)
-        return output
-    }
+		val output = bottomItem.copy()
+		EntityDnaItem.setEntityType(output, topEntity)
+		return output
+	}
 
-    override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
-        return ItemStack.EMPTY
-    }
+	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
+		return ItemStack.EMPTY
+	}
 
-    override fun getSerializer(): RecipeSerializer<*> {
-        return ModRecipeSerializers.SET_POTION_ENTITY.get()
-    }
+	override fun getSerializer(): RecipeSerializer<*> {
+		return ModRecipeSerializers.SET_POTION_ENTITY.get()
+	}
 
-    class Serializer : RecipeSerializer<SetPotionEntityRecipe> {
+	class Serializer : RecipeSerializer<SetPotionEntityRecipe> {
 
-        override fun codec(): MapCodec<SetPotionEntityRecipe> {
-            return CODEC
-        }
+		override fun codec(): MapCodec<SetPotionEntityRecipe> {
+			return CODEC
+		}
 
-        override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> {
-            return STREAM_CODEC
-        }
+		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> {
+			return STREAM_CODEC
+		}
 
-        companion object {
-            val CODEC: MapCodec<SetPotionEntityRecipe> = MapCodec.unit(INSTANCE)
+		companion object {
+			val CODEC: MapCodec<SetPotionEntityRecipe> = MapCodec.unit(INSTANCE)
 
-            val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> =
-                StreamCodec.unit(INSTANCE)
-        }
+			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> =
+				StreamCodec.unit(INSTANCE)
+		}
 
-    }
+	}
 
-    companion object {
-        val INSTANCE = SetPotionEntityRecipe()
-    }
+	companion object {
+		val INSTANCE = SetPotionEntityRecipe()
+	}
 
 }

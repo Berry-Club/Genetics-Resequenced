@@ -10,10 +10,10 @@ import java.util.function.Supplier
 
 object ModIngredientTypes {
 
-    val INGREDIENT_TYPE_REGISTRY: DeferredRegister<IngredientType<*>> =
-        DeferredRegister.create(NeoForgeRegistries.INGREDIENT_TYPES, GeneticsResequenced.ID)
+	val INGREDIENT_TYPE_REGISTRY: DeferredRegister<IngredientType<*>> =
+		DeferredRegister.create(NeoForgeRegistries.INGREDIENT_TYPES, GeneticsResequenced.ID)
 
-    val POTION_TAG: DeferredHolder<IngredientType<*>, IngredientType<PotionTagIngredient>> =
-        INGREDIENT_TYPE_REGISTRY.register("potion_tag", Supplier { IngredientType(PotionTagIngredient.CODEC) })
+	val POTION_TAG: DeferredHolder<IngredientType<*>, IngredientType<PotionTagIngredient>> =
+		INGREDIENT_TYPE_REGISTRY.register("potion_tag", Supplier { IngredientType(PotionTagIngredient.CODEC) })
 
 }

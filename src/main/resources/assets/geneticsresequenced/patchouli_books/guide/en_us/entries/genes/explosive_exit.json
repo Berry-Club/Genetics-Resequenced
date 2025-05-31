@@ -1,11 +1,11 @@
 {
-  "name": "Explosive Exit",
-  "category": "geneticsresequenced:genes",
-  "icon": "minecraft:tnt",
-  "pages": [
-    {
-      "type": "patchouli:text",
-      "text": "The $(major)Explosive Exit/$ Gene causes entities to $(minor)explode upon death/$.$(br2)If a player has this Gene, they only explode if they have 5 Gunpowder in their inventory, which is removed upon detonation.$(br2)This Gene $(minor)can be given to mobs/$."
-    }
-  ]
+	"name": "Explosive Exit",
+	"category": "geneticsresequenced:genes",
+	"icon": "minecraft:tnt",
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "The $(major)Explosive Exit/$ Gene causes entities to $(minor)explode upon death/$.$(br2)If a player has this Gene, they only explode if they have 5 Gunpowder in their inventory, which is removed upon detonation.$(br2)This Gene $(minor)can be given to mobs/$."
+		}
+	]
 }

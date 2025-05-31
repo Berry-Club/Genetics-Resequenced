@@ -17,62 +17,62 @@ import net.minecraft.world.entity.animal.Cow
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class PurifySyringeEmiRecipe(
-    val isMetal: Boolean = false
+	val isMetal: Boolean = false
 ) : EmiRecipe {
 
-    private val contaminatedSyringe: EmiIngredient
-    private val decontaminatedSyringe: EmiStack
+	private val contaminatedSyringe: EmiIngredient
+	private val decontaminatedSyringe: EmiStack
 
-    init {
-        val syringeStack = if (isMetal) {
-            ModItems.METAL_SYRINGE.toStack()
-        } else {
-            ModItems.SYRINGE.toStack()
-        }
+	init {
+		val syringeStack = if (isMetal) {
+			ModItems.METAL_SYRINGE.toStack()
+		} else {
+			ModItems.SYRINGE.toStack()
+		}
 
-        val localPlayer = ClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
+		val localPlayer = ClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
 
-        val entity = if (isMetal) {
-            Cow(EntityType.COW, localPlayer.level())
-        } else {
-            localPlayer
-        }
+		val entity = if (isMetal) {
+			Cow(EntityType.COW, localPlayer.level())
+		} else {
+			localPlayer
+		}
 
-        SyringeItem.setEntity(syringeStack, entity, setContaminated = true)
-        contaminatedSyringe = EmiIngredient.of(DataComponentIngredient.of(true, syringeStack))
+		SyringeItem.setEntity(syringeStack, entity, setContaminated = true)
+		contaminatedSyringe = EmiIngredient.of(DataComponentIngredient.of(true, syringeStack))
 
-        SyringeItem.setContaminated(syringeStack, false)
-        decontaminatedSyringe = EmiStack.of(syringeStack)
-    }
+		SyringeItem.setContaminated(syringeStack, false)
+		decontaminatedSyringe = EmiStack.of(syringeStack)
+	}
 
-    override fun getCategory(): EmiRecipeCategory {
-        return ModEmiPlugin.BLOOD_PURIFIER_CATEGORY
-    }
+	override fun getCategory(): EmiRecipeCategory {
+		return ModEmiPlugin.BLOOD_PURIFIER_CATEGORY
+	}
 
-    override fun getId(): ResourceLocation {
-        val type = if (isMetal) "metal" else "glass"
-        return OtherUtil.modResource("/purify_syringe/$type")
-    }
+	override fun getId(): ResourceLocation {
+		val type = if (isMetal) "metal" else "glass"
+		return OtherUtil.modResource("/purify_syringe/$type")
+	}
 
-    override fun getInputs(): List<EmiIngredient> {
-        return listOf(contaminatedSyringe)
-    }
+	override fun getInputs(): List<EmiIngredient> {
+		return listOf(contaminatedSyringe)
+	}
 
-    override fun getOutputs(): List<EmiStack> {
-        return listOf(decontaminatedSyringe)
-    }
+	override fun getOutputs(): List<EmiStack> {
+		return listOf(decontaminatedSyringe)
+	}
 
-    override fun getDisplayWidth(): Int {
-        return 76
-    }
+	override fun getDisplayWidth(): Int {
+		return 76
+	}
 
-    override fun getDisplayHeight(): Int {
-        return 18
-    }
+	override fun getDisplayHeight(): Int {
+		return 18
+	}
 
-    override fun addWidgets(widgets: WidgetHolder) {
-        widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
-        widgets.addSlot(contaminatedSyringe, 0, 0)
-        widgets.addSlot(decontaminatedSyringe, 58, 0).recipeContext(this)
-    }
+	override fun addWidgets(widgets: WidgetHolder) {
+		widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
+		widgets.addSlot(contaminatedSyringe, 0, 0)
+		widgets.addSlot(decontaminatedSyringe, 58, 0).recipeContext(this)
+	}
 }

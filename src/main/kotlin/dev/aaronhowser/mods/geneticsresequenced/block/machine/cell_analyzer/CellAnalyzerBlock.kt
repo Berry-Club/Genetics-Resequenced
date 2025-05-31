@@ -11,26 +11,26 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
 class CellAnalyzerBlock(
-    properties: Properties = defaultProperties
+	properties: Properties = defaultProperties
 ) : CraftingMachineBlock(
-    properties,
-    CellAnalyzerBlockEntity::class.java
+	properties,
+	CellAnalyzerBlockEntity::class.java
 ) {
 
-    override fun codec(): MapCodec<CellAnalyzerBlock> {
-        return simpleCodec(::CellAnalyzerBlock)
-    }
+	override fun codec(): MapCodec<CellAnalyzerBlock> {
+		return simpleCodec(::CellAnalyzerBlock)
+	}
 
-    override fun <T : BlockEntity> getTicker(
-        pLevel: Level,
-        pState: BlockState,
-        pBlockEntityType: BlockEntityType<T>
-    ): BlockEntityTicker<T>? {
-        return BaseEntityBlock.createTickerHelper(
-            pBlockEntityType,
-            ModBlockEntities.CELL_ANALYZER.get(),
-            CellAnalyzerBlockEntity::tick
-        )
-    }
+	override fun <T : BlockEntity> getTicker(
+		pLevel: Level,
+		pState: BlockState,
+		pBlockEntityType: BlockEntityType<T>
+	): BlockEntityTicker<T>? {
+		return BaseEntityBlock.createTickerHelper(
+			pBlockEntityType,
+			ModBlockEntities.CELL_ANALYZER.get(),
+			CellAnalyzerBlockEntity::tick
+		)
+	}
 
 }

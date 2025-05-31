@@ -9,25 +9,25 @@ import kotlin.jvm.optionals.getOrNull
 
 object KeepCurioInventory {
 
-    fun saveCurios(player: Player) {
-        val playerCuriosInventory = CuriosApi.getCuriosInventory(player).getOrNull() ?: return
+	fun saveCurios(player: Player) {
+		val playerCuriosInventory = CuriosApi.getCuriosInventory(player).getOrNull() ?: return
 
-        val equippedCurios = playerCuriosInventory.equippedCurios
-        val curioStacks = buildList {
-            for (i in 0 until equippedCurios.slots) {
-                val stack = equippedCurios.getStackInSlot(i)
-                if (!stack.isEmpty) {
-                    add(stack.copy())
-                    equippedCurios.extractItem(i, stack.count, false)
-                }
-            }
-        }
+		val equippedCurios = playerCuriosInventory.equippedCurios
+		val curioStacks = buildList {
+			for (i in 0 until equippedCurios.slots) {
+				val stack = equippedCurios.getStackInSlot(i)
+				if (!stack.isEmpty) {
+					add(stack.copy())
+					equippedCurios.extractItem(i, stack.count, false)
+				}
+			}
+		}
 
-        val keptInventory = player.getSavedInventory()
-        val newList = keptInventory + curioStacks
+		val keptInventory = player.getSavedInventory()
+		val newList = keptInventory + curioStacks
 
-        player.clearSavedInventory()
-        player.saveInventory(newList)
-    }
+		player.clearSavedInventory()
+		player.saveInventory(newList)
+	}
 
 }

@@ -11,26 +11,26 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
 class PlasmidInfuserBlock(
-    properties: Properties = defaultProperties
+	properties: Properties = defaultProperties
 ) : CraftingMachineBlock(
-    properties,
-    PlasmidInfuserBlockEntity::class.java
+	properties,
+	PlasmidInfuserBlockEntity::class.java
 ) {
 
-    override fun codec(): MapCodec<PlasmidInfuserBlock> {
-        return simpleCodec(::PlasmidInfuserBlock)
-    }
+	override fun codec(): MapCodec<PlasmidInfuserBlock> {
+		return simpleCodec(::PlasmidInfuserBlock)
+	}
 
-    override fun <T : BlockEntity> getTicker(
-        pLevel: Level,
-        pState: BlockState,
-        pBlockEntityType: BlockEntityType<T>
-    ): BlockEntityTicker<T>? {
-        return BaseEntityBlock.createTickerHelper(
-            pBlockEntityType,
-            ModBlockEntities.PLASMID_INFUSER.get(),
-            PlasmidInfuserBlockEntity::tick
-        )
-    }
+	override fun <T : BlockEntity> getTicker(
+		pLevel: Level,
+		pState: BlockState,
+		pBlockEntityType: BlockEntityType<T>
+	): BlockEntityTicker<T>? {
+		return BaseEntityBlock.createTickerHelper(
+			pBlockEntityType,
+			ModBlockEntities.PLASMID_INFUSER.get(),
+			PlasmidInfuserBlockEntity::tick
+		)
+	}
 
 }

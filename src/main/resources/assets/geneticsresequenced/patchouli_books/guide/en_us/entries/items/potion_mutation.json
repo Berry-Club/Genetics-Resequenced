@@ -1,16 +1,16 @@
 {
-  "name": "Potion of Mutation",
-  "category": "geneticsresequenced:items",
-  "icon": "minecraft:potion[potion_contents={potion:'geneticsresequenced:mutation'}]",
-  "sortnum": 13,
-  "pages": [
-    {
-      "type": "patchouli:text",
-      "text": "The $(major)Potion of Mutation/$ is used to craft $(l:geneticsresequenced:items/cell_growth#gmo_cell)Genetically Modified Cells/$ that are set to $(minor)mutation Genes/$.$(br2)Mutation Genes are effectively just $(minor)more powerful/$ Genes, and generally $(bad)require other Genes/$."
-    },
-    {
-      "type": "patchouli:spotlight",
-      "item": "minecraft:potion[potion_contents={potion:'geneticsresequenced:mutation'}]"
-    }
-  ]
+	"name": "Potion of Mutation",
+	"category": "geneticsresequenced:items",
+	"icon": "minecraft:potion[potion_contents={potion:'geneticsresequenced:mutation'}]",
+	"sortnum": 13,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "The $(major)Potion of Mutation/$ is used to craft $(l:geneticsresequenced:items/cell_growth#gmo_cell)Genetically Modified Cells/$ that are set to $(minor)mutation Genes/$.$(br2)Mutation Genes are effectively just $(minor)more powerful/$ Genes, and generally $(bad)require other Genes/$."
+		},
+		{
+			"type": "patchouli:spotlight",
+			"item": "minecraft:potion[potion_contents={potion:'geneticsresequenced:mutation'}]"
+		}
+	]
 }

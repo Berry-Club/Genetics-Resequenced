@@ -19,147 +19,147 @@ import kotlin.random.Random
 
 object OtherGenes {
 
-    private val villagerSounds = listOf(
-        SoundEvents.VILLAGER_TRADE,
-        SoundEvents.VILLAGER_AMBIENT,
-        SoundEvents.VILLAGER_CELEBRATE
-    )
+	private val villagerSounds = listOf(
+		SoundEvents.VILLAGER_TRADE,
+		SoundEvents.VILLAGER_AMBIENT,
+		SoundEvents.VILLAGER_CELEBRATE
+	)
 
-    fun handleEmeraldHeart(event: ServerChatEvent) {
-        val emeraldHeart = ModGenes.EMERALD_HEART.getHolderOrThrow(event.player.registryAccess())
-        if (emeraldHeart.isDisabled) return
+	fun handleEmeraldHeart(event: ServerChatEvent) {
+		val emeraldHeart = ModGenes.EMERALD_HEART.getHolderOrThrow(event.player.registryAccess())
+		if (emeraldHeart.isDisabled) return
 
-        if (Random.nextDouble() > ServerConfig.emeraldHeartChatChance.get()) return
+		if (Random.nextDouble() > ServerConfig.emeraldHeartChatChance.get()) return
 
-        val player = event.player
+		val player = event.player
 
-        if (player.hasGene(ModGenes.EMERALD_HEART)) {
-            player.level().playSound(
-                null,
-                player.blockPosition(),
-                villagerSounds.random(),
-                player.soundSource,
-                1f,
-                1f
-            )
-        }
-    }
+		if (player.hasGene(ModGenes.EMERALD_HEART)) {
+			player.level().playSound(
+				null,
+				player.blockPosition(),
+				villagerSounds.random(),
+				player.soundSource,
+				1f,
+				1f
+			)
+		}
+	}
 
-    fun handleChatterbox(event: ServerChatEvent) {
-        val chatterBox = ModGenes.CHATTERBOX.getHolderOrThrow(event.player.registryAccess())
-        if (chatterBox.isDisabled) return
+	fun handleChatterbox(event: ServerChatEvent) {
+		val chatterBox = ModGenes.CHATTERBOX.getHolderOrThrow(event.player.registryAccess())
+		if (chatterBox.isDisabled) return
 
-        val player = event.player
-        if (!player.hasGene(ModGenes.CHATTERBOX)) return
+		val player = event.player
+		if (!player.hasGene(ModGenes.CHATTERBOX)) return
 
-        val message = event.message
+		val message = event.message
 
-        ModPacketHandler.messageNearbyPlayers(
-            NarratorPacket(message.string),
-            player.level() as ServerLevel,
-            player.position(),
-            64.0
-        )
-    }
+		ModPacketHandler.messageNearbyPlayers(
+			NarratorPacket(message.string),
+			player.level() as ServerLevel,
+			player.position(),
+			64.0
+		)
+	}
 
-    private val randomPhrases = listOf(
-        "UwU",
-        "owo",
-        "OwO",
-        "uwu",
-        ">w<",
-        "^w^",
-        ":3",
-        "^-^",
-        "^_^",
-        "^w^",
-        ":3"
-    )
+	private val randomPhrases = listOf(
+		"UwU",
+		"owo",
+		"OwO",
+		"uwu",
+		">w<",
+		"^w^",
+		":3",
+		"^-^",
+		"^_^",
+		"^w^",
+		":3"
+	)
 
-    /**
-     * [From Create: Estrogen](https://github.com/MayaqqDev/Estrogen/blob/architectury-1.20.1/common/src/main/java/dev/mayaqq/estrogen/utils/UwUfy.java#L18)
-     */
-    fun uwufyString(pInput: String): String {
-        var input = pInput
-        val stringLength: Int = input.length
+	/**
+	 * [From Create: Estrogen](https://github.com/MayaqqDev/Estrogen/blob/architectury-1.20.1/common/src/main/java/dev/mayaqq/estrogen/utils/UwUfy.java#L18)
+	 */
+	fun uwufyString(pInput: String): String {
+		var input = pInput
+		val stringLength: Int = input.length
 
-        input = input
-            .replace(Regex("[rl]"), "w")
-            .replace(Regex("[RL]"), "W")
-            .replace("ove", "uv")
-            .replace("o", "owo")
-            .replace("O", "OwO")
-            .replace("!", "!!!")
-            .replace("?", "???")
+		input = input
+			.replace(Regex("[rl]"), "w")
+			.replace(Regex("[RL]"), "W")
+			.replace("ove", "uv")
+			.replace("o", "owo")
+			.replace("O", "OwO")
+			.replace("!", "!!!")
+			.replace("?", "???")
 
-        if (stringLength % 3 == 0) {
-            input = input.uppercase()
-        }
+		if (stringLength % 3 == 0) {
+			input = input.uppercase()
+		}
 
-        input = if (stringLength % 2 == 0) {
-            input.replace(
-                Regex("([a-zA-Z])(\\b)"),
-                "$1$1$1$1$2"
-            )
-        } else {
-            // 50% chance to duplicate the first letter and add '-'
-            input.replace(
-                Regex("\\b([a-zA-Z])([a-zA-Z]*)\\b"),
-                "$1-$1$2"
-            )
-        }
+		input = if (stringLength % 2 == 0) {
+			input.replace(
+				Regex("([a-zA-Z])(\\b)"),
+				"$1$1$1$1$2"
+			)
+		} else {
+			// 50% chance to duplicate the first letter and add '-'
+			input.replace(
+				Regex("\\b([a-zA-Z])([a-zA-Z]*)\\b"),
+				"$1-$1$2"
+			)
+		}
 
-        val tildes = "~".repeat(Random.nextInt(0, 4))
+		val tildes = "~".repeat(Random.nextInt(0, 4))
 
-        return input + "$tildes " + randomPhrases.random()
-    }
+		return input + "$tildes " + randomPhrases.random()
+	}
 
 
-    fun handleCringeChat(event: ServerChatEvent) {
-        val cringe = ModGenes.CRINGE.getHolderOrThrow(event.player.registryAccess())
-        if (cringe.isDisabled) return
+	fun handleCringeChat(event: ServerChatEvent) {
+		val cringe = ModGenes.CRINGE.getHolderOrThrow(event.player.registryAccess())
+		if (cringe.isDisabled) return
 
-        val player = event.player
-        if (!player.hasGene(ModGenes.CRINGE)) return
+		val player = event.player
+		if (!player.hasGene(ModGenes.CRINGE)) return
 
-        val input = event.message.string
-        event.message = Component.literal(uwufyString(input))
-    }
+		val input = event.message.string
+		event.message = Component.literal(uwufyString(input))
+	}
 
-    fun handleSlimyChat(event: ServerChatEvent) {
-        val slimyDeath = ModGenes.SLIMY_DEATH.getHolderOrThrow(event.player.registryAccess())
-        if (slimyDeath.isDisabled) return
+	fun handleSlimyChat(event: ServerChatEvent) {
+		val slimyDeath = ModGenes.SLIMY_DEATH.getHolderOrThrow(event.player.registryAccess())
+		if (slimyDeath.isDisabled) return
 
-        val player = event.player
-        if (!player.hasGene(ModGenes.SLIMY_DEATH)) return
+		val player = event.player
+		if (!player.hasGene(ModGenes.SLIMY_DEATH)) return
 
-        val nearbySupportSlimes = player.level().getEntities(
-            player,
-            player.boundingBox.inflate(64.0)
-        ).filter { it is SupportSlime && it.getOwnerUuid() == player.uuid }
+		val nearbySupportSlimes = player.level().getEntities(
+			player,
+			player.boundingBox.inflate(64.0)
+		).filter { it is SupportSlime && it.getOwnerUuid() == player.uuid }
 
-        val amountSlimes = nearbySupportSlimes.size
-        val allPlayers = player.server.playerList.players
+		val amountSlimes = nearbySupportSlimes.size
+		val allPlayers = player.server.playerList.players
 
-        for (i in 0 until amountSlimes) {
-            val message = Component
-                .literal("<")
-                .append(
-                    ModLanguageProvider.Messages.SLIME_SPAM.toComponent(
-                        player.displayName,
-                        i + 1
-                    )
-                )
-                .append(Component.literal("> "))
-                .append(event.message)
+		for (i in 0 until amountSlimes) {
+			val message = Component
+				.literal("<")
+				.append(
+					ModLanguageProvider.Messages.SLIME_SPAM.toComponent(
+						player.displayName,
+						i + 1
+					)
+				)
+				.append(Component.literal("> "))
+				.append(event.message)
 
-            ModScheduler.scheduleTaskInTicks(i + 1) {
-                allPlayers.forEach {
-                    it.sendSystemMessage(message)
-                }
-            }
-        }
-    }
+			ModScheduler.scheduleTaskInTicks(i + 1) {
+				allPlayers.forEach {
+					it.sendSystemMessage(message)
+				}
+			}
+		}
+	}
 
 
 }

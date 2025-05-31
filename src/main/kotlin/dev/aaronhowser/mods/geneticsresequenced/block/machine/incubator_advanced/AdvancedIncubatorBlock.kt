@@ -11,26 +11,26 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
 class AdvancedIncubatorBlock(
-    properties: Properties = defaultProperties
+	properties: Properties = defaultProperties
 ) : CraftingMachineBlock(
-    properties,
-    AdvancedIncubatorBlockEntity::class.java
+	properties,
+	AdvancedIncubatorBlockEntity::class.java
 ) {
 
-    override fun codec(): MapCodec<AdvancedIncubatorBlock> {
-        return simpleCodec(::AdvancedIncubatorBlock)
-    }
+	override fun codec(): MapCodec<AdvancedIncubatorBlock> {
+		return simpleCodec(::AdvancedIncubatorBlock)
+	}
 
-    override fun <T : BlockEntity> getTicker(
-        pLevel: Level,
-        pState: BlockState,
-        pBlockEntityType: BlockEntityType<T>
-    ): BlockEntityTicker<T>? {
-        return BaseEntityBlock.createTickerHelper(
-            pBlockEntityType,
-            ModBlockEntities.ADVANCED_INCUBATOR.get(),
-            AdvancedIncubatorBlockEntity::tick
-        )
-    }
+	override fun <T : BlockEntity> getTicker(
+		pLevel: Level,
+		pState: BlockState,
+		pBlockEntityType: BlockEntityType<T>
+	): BlockEntityTicker<T>? {
+		return BaseEntityBlock.createTickerHelper(
+			pBlockEntityType,
+			ModBlockEntities.ADVANCED_INCUBATOR.get(),
+			AdvancedIncubatorBlockEntity::tick
+		)
+	}
 
 }

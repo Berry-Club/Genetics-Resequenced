@@ -1,5 +1,5 @@
 {
-  "potion_details": {
-    "effect": "minecraft:blindness"
-  }
+	"potion_details": {
+		"effect": "minecraft:blindness"
+	}
 }

@@ -23,93 +23,93 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.phys.BlockHitResult
 
 class CoalGeneratorBlock(
-    properties: Properties = defaultProperties
+	properties: Properties = defaultProperties
 ) : MachineBlock() {
 
-    companion object {
-        val BURNING: BooleanProperty = BlockStateProperties.LIT
-    }
+	companion object {
+		val BURNING: BooleanProperty = BlockStateProperties.LIT
+	}
 
-    init {
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))
-        registerDefaultState(stateDefinition.any().setValue(BURNING, false))
-    }
+	init {
+		registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))
+		registerDefaultState(stateDefinition.any().setValue(BURNING, false))
+	}
 
-    override fun codec(): MapCodec<CoalGeneratorBlock> {
-        return simpleCodec(::CoalGeneratorBlock)
-    }
+	override fun codec(): MapCodec<CoalGeneratorBlock> {
+		return simpleCodec(::CoalGeneratorBlock)
+	}
 
-    override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
-        return defaultBlockState()
-            .setValue(FACING, pContext.horizontalDirection.opposite)
-            .setValue(BURNING, false)
-    }
+	override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
+		return defaultBlockState()
+			.setValue(FACING, pContext.horizontalDirection.opposite)
+			.setValue(BURNING, false)
+	}
 
-    override fun createBlockStateDefinition(pBuilder: StateDefinition.Builder<Block, BlockState>) {
-        super.createBlockStateDefinition(pBuilder)
-        pBuilder.add(FACING)
-        pBuilder.add(BURNING)
-    }
+	override fun createBlockStateDefinition(pBuilder: StateDefinition.Builder<Block, BlockState>) {
+		super.createBlockStateDefinition(pBuilder)
+		pBuilder.add(FACING)
+		pBuilder.add(BURNING)
+	}
 
-    // BLOCK ENTITY STUFF
+	// BLOCK ENTITY STUFF
 
-    @Suppress("OVERRIDE_DEPRECATION")
-    override fun getRenderShape(pState: BlockState): RenderShape {
-        return RenderShape.MODEL
-    }
+	@Suppress("OVERRIDE_DEPRECATION")
+	override fun getRenderShape(pState: BlockState): RenderShape {
+		return RenderShape.MODEL
+	}
 
-    override fun onRemove(
-        pState: BlockState,
-        pLevel: Level,
-        pPos: BlockPos,
-        pNewState: BlockState,
-        pMovedByPiston: Boolean
-    ) {
+	override fun onRemove(
+		pState: BlockState,
+		pLevel: Level,
+		pPos: BlockPos,
+		pNewState: BlockState,
+		pMovedByPiston: Boolean
+	) {
 
-        if (pState.block != pNewState.block) {
-            val blockEntity = pLevel.getBlockEntity(pPos)
-            if (blockEntity is CoalGeneratorBlockEntity) {
-                blockEntity.dropDrops()
-            }
-        }
+		if (pState.block != pNewState.block) {
+			val blockEntity = pLevel.getBlockEntity(pPos)
+			if (blockEntity is CoalGeneratorBlockEntity) {
+				blockEntity.dropDrops()
+			}
+		}
 
-        super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston)
-    }
+		super.onRemove(pState, pLevel, pPos, pNewState, pMovedByPiston)
+	}
 
-    override fun useWithoutItem(
-        pState: BlockState,
-        pLevel: Level,
-        pPos: BlockPos,
-        pPlayer: Player,
-        pHitResult: BlockHitResult
-    ): InteractionResult {
+	override fun useWithoutItem(
+		pState: BlockState,
+		pLevel: Level,
+		pPos: BlockPos,
+		pPlayer: Player,
+		pHitResult: BlockHitResult
+	): InteractionResult {
 
-        if (pPlayer !is ServerPlayer) {
-            return InteractionResult.CONSUME
-        }
+		if (pPlayer !is ServerPlayer) {
+			return InteractionResult.CONSUME
+		}
 
-        val blockEntity = pLevel.getBlockEntity(pPos) as? CoalGeneratorBlockEntity
-            ?: throw IllegalStateException("No block entity found at $pPos")
+		val blockEntity = pLevel.getBlockEntity(pPos) as? CoalGeneratorBlockEntity
+			?: throw IllegalStateException("No block entity found at $pPos")
 
-        pPlayer.openMenu(blockEntity, pPos)
+		pPlayer.openMenu(blockEntity, pPos)
 
-        return InteractionResult.SUCCESS
-    }
+		return InteractionResult.SUCCESS
+	}
 
-    override fun newBlockEntity(pPos: BlockPos, pState: BlockState): BlockEntity {
-        return CoalGeneratorBlockEntity(pPos, pState)
-    }
+	override fun newBlockEntity(pPos: BlockPos, pState: BlockState): BlockEntity {
+		return CoalGeneratorBlockEntity(pPos, pState)
+	}
 
-    override fun <T : BlockEntity?> getTicker(
-        pLevel: Level,
-        pState: BlockState,
-        pBlockEntityType: BlockEntityType<T>
-    ): BlockEntityTicker<T>? {
-        return BaseEntityBlock.createTickerHelper(
-            pBlockEntityType,
-            ModBlockEntities.COAL_GENERATOR.get(),
-            CoalGeneratorBlockEntity::tick
-        )
-    }
+	override fun <T : BlockEntity?> getTicker(
+		pLevel: Level,
+		pState: BlockState,
+		pBlockEntityType: BlockEntityType<T>
+	): BlockEntityTicker<T>? {
+		return BaseEntityBlock.createTickerHelper(
+			pBlockEntityType,
+			ModBlockEntities.COAL_GENERATOR.get(),
+			CoalGeneratorBlockEntity::tick
+		)
+	}
 
 }

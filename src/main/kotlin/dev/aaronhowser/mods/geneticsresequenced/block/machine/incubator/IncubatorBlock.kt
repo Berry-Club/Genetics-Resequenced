@@ -11,26 +11,26 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
 class IncubatorBlock(
-    properties: Properties = defaultProperties
+	properties: Properties = defaultProperties
 ) : CraftingMachineBlock(
-    properties,
-    IncubatorBlockEntity::class.java
+	properties,
+	IncubatorBlockEntity::class.java
 ) {
 
-    override fun codec(): MapCodec<IncubatorBlock> {
-        return simpleCodec(::IncubatorBlock)
-    }
+	override fun codec(): MapCodec<IncubatorBlock> {
+		return simpleCodec(::IncubatorBlock)
+	}
 
-    override fun <T : BlockEntity> getTicker(
-        pLevel: Level,
-        pState: BlockState,
-        pBlockEntityType: BlockEntityType<T>
-    ): BlockEntityTicker<T>? {
-        return BaseEntityBlock.createTickerHelper(
-            pBlockEntityType,
-            ModBlockEntities.INCUBATOR.get(),
-            IncubatorBlockEntity::tick
-        )
-    }
+	override fun <T : BlockEntity> getTicker(
+		pLevel: Level,
+		pState: BlockState,
+		pBlockEntityType: BlockEntityType<T>
+	): BlockEntityTicker<T>? {
+		return BaseEntityBlock.createTickerHelper(
+			pBlockEntityType,
+			ModBlockEntities.INCUBATOR.get(),
+			IncubatorBlockEntity::tick
+		)
+	}
 
 }

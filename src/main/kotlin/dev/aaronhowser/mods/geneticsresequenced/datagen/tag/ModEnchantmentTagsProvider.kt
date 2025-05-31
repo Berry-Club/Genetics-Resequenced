@@ -10,15 +10,15 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
 
 class ModEnchantmentTagsProvider(
-    pOutput: PackOutput,
-    pProvider: CompletableFuture<HolderLookup.Provider>,
-    existingFileHelper: ExistingFileHelper
+	pOutput: PackOutput,
+	pProvider: CompletableFuture<HolderLookup.Provider>,
+	existingFileHelper: ExistingFileHelper
 ) : EnchantmentTagsProvider(pOutput, pProvider, GeneticsResequenced.ID, existingFileHelper) {
 
-    override fun addTags(p0: HolderLookup.Provider) {
-        this.tag(EnchantmentTags.NON_TREASURE)
-            .add(ModEnchantments.DELICATE_TOUCH)
-    }
+	override fun addTags(p0: HolderLookup.Provider) {
+		this.tag(EnchantmentTags.NON_TREASURE)
+			.add(ModEnchantments.DELICATE_TOUCH)
+	}
 
 
 }

@@ -14,74 +14,74 @@ import net.neoforged.neoforge.items.SlotItemHandler
 
 
 class DnaDecryptorMenu(
-    id: Int,
-    inventory: Inventory,
-    blockEntity: DnaDecryptorBlockEntity,
-    private val containerData: ContainerData
+	id: Int,
+	inventory: Inventory,
+	blockEntity: DnaDecryptorBlockEntity,
+	private val containerData: ContainerData
 ) : MachineMenu(
-    ModMenuTypes.DNA_DECRYPTOR.get(),
-    blockEntity,
-    id,
-    inventory
+	ModMenuTypes.DNA_DECRYPTOR.get(),
+	blockEntity,
+	id,
+	inventory
 ) {
-    constructor(id: Int, inventory: Inventory, extraData: FriendlyByteBuf) :
-            this(
-                id,
-                inventory,
-                inventory.player.level().getBlockEntity(extraData.readBlockPos()) as DnaDecryptorBlockEntity,
-                SimpleContainerData(CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
-            )
+	constructor(id: Int, inventory: Inventory, extraData: FriendlyByteBuf) :
+			this(
+				id,
+				inventory,
+				inventory.player.level().getBlockEntity(extraData.readBlockPos()) as DnaDecryptorBlockEntity,
+				SimpleContainerData(CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
+			)
 
-    init {
-        checkContainerSize(inventory, CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
+	init {
+		checkContainerSize(inventory, CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
 
-        addPlayerInventory(inventory)
-        addPlayerHotbar(inventory)
+		addPlayerInventory(inventory)
+		addPlayerHotbar(inventory)
 
-        val itemHandler = this.blockEntity.itemHandler
+		val itemHandler = this.blockEntity.itemHandler
 
-        this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42))
-        this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42))
-        this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54))
+		this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42))
+		this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42))
+		this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54))
 
-        addDataSlots(containerData)
-    }
+		addDataSlots(containerData)
+	}
 
-    override fun getPercentDone(): Float {
-        return if (maxProgress != 0) {
-            progress.toFloat() / maxProgress.toFloat()
-        } else {
-            0f
-        }
-    }
+	override fun getPercentDone(): Float {
+		return if (maxProgress != 0) {
+			progress.toFloat() / maxProgress.toFloat()
+		} else {
+			0f
+		}
+	}
 
-    override fun stillValid(pPlayer: Player): Boolean {
-        return stillValid(
-            ContainerLevelAccess.create(level, blockEntity.blockPos),
-            pPlayer,
-            ModBlocks.DNA_DECRYPTOR.get()
-        )
-    }
+	override fun stillValid(pPlayer: Player): Boolean {
+		return stillValid(
+			ContainerLevelAccess.create(level, blockEntity.blockPos),
+			pPlayer,
+			ModBlocks.DNA_DECRYPTOR.get()
+		)
+	}
 
-    private var progress: Int
-        get() = containerData.get(DATA_PROGRESS_INDEX)
-        set(value) {
-            containerData.set(DATA_PROGRESS_INDEX, value)
-        }
+	private var progress: Int
+		get() = containerData.get(DATA_PROGRESS_INDEX)
+		set(value) {
+			containerData.set(DATA_PROGRESS_INDEX, value)
+		}
 
-    private var maxProgress: Int
-        get() = containerData.get(DATA_MAX_PROGRESS_INDEX)
-        set(value) {
-            containerData.set(DATA_MAX_PROGRESS_INDEX, value)
-        }
+	private var maxProgress: Int
+		get() = containerData.get(DATA_MAX_PROGRESS_INDEX)
+		set(value) {
+			containerData.set(DATA_MAX_PROGRESS_INDEX, value)
+		}
 
-    val isCrafting
-        get() = progress > 0
+	val isCrafting
+		get() = progress > 0
 
-    companion object {
+	companion object {
 
-        private const val DATA_PROGRESS_INDEX = 0
-        private const val DATA_MAX_PROGRESS_INDEX = 1
-    }
+		private const val DATA_PROGRESS_INDEX = 0
+		private const val DATA_MAX_PROGRESS_INDEX = 1
+	}
 
 }

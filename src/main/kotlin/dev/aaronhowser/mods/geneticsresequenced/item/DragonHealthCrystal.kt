@@ -7,13 +7,13 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 
 class DragonHealthCrystal : Item(
-    Properties()
+	Properties()
 ) {
 
-    override fun getBreakingSound(): SoundEvent = SoundEvents.ENDER_DRAGON_HURT
+	override fun getBreakingSound(): SoundEvent = SoundEvents.ENDER_DRAGON_HURT
 
-    override fun isValidRepairItem(pStack: ItemStack, pRepairCandidate: ItemStack): Boolean {
-        return pRepairCandidate.item === Items.END_CRYSTAL
-    }
+	override fun isValidRepairItem(pStack: ItemStack, pRepairCandidate: ItemStack): Boolean {
+		return pRepairCandidate.item === Items.END_CRYSTAL
+	}
 
 }

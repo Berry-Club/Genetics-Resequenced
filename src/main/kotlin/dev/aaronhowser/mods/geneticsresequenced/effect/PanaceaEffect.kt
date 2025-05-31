@@ -10,43 +10,43 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
 class PanaceaEffect : MobEffect(
-    MobEffectCategory.BENEFICIAL,
-    0xa83283
+	MobEffectCategory.BENEFICIAL,
+	0xa83283
 ) {
 
-    override fun isInstantenous(): Boolean = true
+	override fun isInstantenous(): Boolean = true
 
-    override fun applyInstantenousEffect(
-        pSource: Entity?,
-        pIndirectSource: Entity?,
-        pLivingEntity: LivingEntity,
-        pAmplifier: Int,
-        pHealth: Double
-    ) {
-        removeAllNegativeGenes(pLivingEntity)
-        removeAllNegativeEffects(pLivingEntity)
+	override fun applyInstantenousEffect(
+		pSource: Entity?,
+		pIndirectSource: Entity?,
+		pLivingEntity: LivingEntity,
+		pAmplifier: Int,
+		pHealth: Double
+	) {
+		removeAllNegativeGenes(pLivingEntity)
+		removeAllNegativeEffects(pLivingEntity)
 
-        pLivingEntity.removeEffect(ModEffects.PANACEA)
-    }
+		pLivingEntity.removeEffect(ModEffects.PANACEA)
+	}
 
-    private fun removeAllNegativeGenes(pLivingEntity: LivingEntity) {
-        val genes = pLivingEntity.geneHolders.filter { it.isNegative }.iterator()
+	private fun removeAllNegativeGenes(pLivingEntity: LivingEntity) {
+		val genes = pLivingEntity.geneHolders.filter { it.isNegative }.iterator()
 
-        while (genes.hasNext()) {
-            val gene = genes.next()
-            pLivingEntity.removeGene(gene)
-        }
-    }
+		while (genes.hasNext()) {
+			val gene = genes.next()
+			pLivingEntity.removeGene(gene)
+		}
+	}
 
-    private fun removeAllNegativeEffects(pLivingEntity: LivingEntity) {
-        val harmfulEffects = pLivingEntity.activeEffects
-            .filter { it.effect.value().category == MobEffectCategory.HARMFUL }
-            .iterator()
+	private fun removeAllNegativeEffects(pLivingEntity: LivingEntity) {
+		val harmfulEffects = pLivingEntity.activeEffects
+			.filter { it.effect.value().category == MobEffectCategory.HARMFUL }
+			.iterator()
 
-        while (harmfulEffects.hasNext()) {
-            val effect = harmfulEffects.next()
-            pLivingEntity.removeEffect(effect.effect)
-        }
-    }
+		while (harmfulEffects.hasNext()) {
+			val effect = harmfulEffects.next()
+			pLivingEntity.removeEffect(effect.effect)
+		}
+	}
 
 }

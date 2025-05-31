@@ -18,87 +18,87 @@ import net.neoforged.neoforge.network.registration.PayloadRegistrar
 
 object ModPacketHandler {
 
-    fun registerPayloads(event: RegisterPayloadHandlersEvent) {
-        val registrar = event.registrar("1")
+	fun registerPayloads(event: RegisterPayloadHandlersEvent) {
+		val registrar = event.registrar("1")
 
-        toClient(
-            registrar,
-            GeneChangedPacket.TYPE,
-            GeneChangedPacket.STREAM_CODEC
-        )
+		toClient(
+			registrar,
+			GeneChangedPacket.TYPE,
+			GeneChangedPacket.STREAM_CODEC
+		)
 
-        toClient(
-            registrar,
-            SetGenesPacket.TYPE,
-            SetGenesPacket.STREAM_CODEC
-        )
+		toClient(
+			registrar,
+			SetGenesPacket.TYPE,
+			SetGenesPacket.STREAM_CODEC
+		)
 
-        toClient(
-            registrar,
-            NarratorPacket.TYPE,
-            NarratorPacket.STREAM_CODEC
-        )
+		toClient(
+			registrar,
+			NarratorPacket.TYPE,
+			NarratorPacket.STREAM_CODEC
+		)
 
-        toClient(
-            registrar,
-            ShearedPacket.TYPE,
-            ShearedPacket.STREAM_CODEC
-        )
+		toClient(
+			registrar,
+			ShearedPacket.TYPE,
+			ShearedPacket.STREAM_CODEC
+		)
 
-        toServer(
-            registrar,
-            FireballPacket.TYPE,
-            FireballPacket.STREAM_CODEC
-        )
+		toServer(
+			registrar,
+			FireballPacket.TYPE,
+			FireballPacket.STREAM_CODEC
+		)
 
-        toServer(
-            registrar,
-            TeleportPlayerPacket.TYPE,
-            TeleportPlayerPacket.STREAM_CODEC
-        )
-    }
+		toServer(
+			registrar,
+			TeleportPlayerPacket.TYPE,
+			TeleportPlayerPacket.STREAM_CODEC
+		)
+	}
 
-    fun messageNearbyPlayers(packet: ModPacket, serverLevel: ServerLevel, origin: Vec3, radius: Double) {
-        for (player in serverLevel.players()) {
-            val distance = player.distanceToSqr(origin.x(), origin.y(), origin.z())
-            if (distance < radius * radius) {
-                messagePlayer(player, packet)
-            }
-        }
-    }
+	fun messageNearbyPlayers(packet: ModPacket, serverLevel: ServerLevel, origin: Vec3, radius: Double) {
+		for (player in serverLevel.players()) {
+			val distance = player.distanceToSqr(origin.x(), origin.y(), origin.z())
+			if (distance < radius * radius) {
+				messagePlayer(player, packet)
+			}
+		}
+	}
 
-    fun messagePlayer(player: ServerPlayer, packet: ModPacket) {
-        PacketDistributor.sendToPlayer(player, packet)
-    }
+	fun messagePlayer(player: ServerPlayer, packet: ModPacket) {
+		PacketDistributor.sendToPlayer(player, packet)
+	}
 
-    fun messageAllPlayers(packet: ModPacket) {
-        PacketDistributor.sendToAllPlayers(packet)
-    }
+	fun messageAllPlayers(packet: ModPacket) {
+		PacketDistributor.sendToAllPlayers(packet)
+	}
 
-    fun messageServer(packet: ModPacket) {
-        PacketDistributor.sendToServer(packet)
-    }
+	fun messageServer(packet: ModPacket) {
+		PacketDistributor.sendToServer(packet)
+	}
 
-    private fun <T : ModPacket> toClient(
-        registrar: PayloadRegistrar,
-        packetType: CustomPacketPayload.Type<T>,
-        streamCodec: StreamCodec<in RegistryFriendlyByteBuf, T>,
-    ) {
-        registrar.playToClient(
-            packetType,
-            streamCodec
-        ) { packet, context -> packet.receiveOnClient(context) }
-    }
+	private fun <T : ModPacket> toClient(
+		registrar: PayloadRegistrar,
+		packetType: CustomPacketPayload.Type<T>,
+		streamCodec: StreamCodec<in RegistryFriendlyByteBuf, T>,
+	) {
+		registrar.playToClient(
+			packetType,
+			streamCodec
+		) { packet, context -> packet.receiveOnClient(context) }
+	}
 
-    private fun <T : ModPacket> toServer(
-        registrar: PayloadRegistrar,
-        packetType: CustomPacketPayload.Type<T>,
-        streamCodec: StreamCodec<in RegistryFriendlyByteBuf, T>
-    ) {
-        registrar.playToServer(
-            packetType,
-            streamCodec
-        ) { packet, context -> packet.receiveOnServer(context) }
-    }
+	private fun <T : ModPacket> toServer(
+		registrar: PayloadRegistrar,
+		packetType: CustomPacketPayload.Type<T>,
+		streamCodec: StreamCodec<in RegistryFriendlyByteBuf, T>
+	) {
+		registrar.playToServer(
+			packetType,
+			streamCodec
+		) { packet, context -> packet.receiveOnServer(context) }
+	}
 
 }

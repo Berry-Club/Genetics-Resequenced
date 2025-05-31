@@ -1,38 +1,38 @@
 {
-  "parent": "geneticsresequenced:guide/dna_decryptor",
-  "criteria": {
-    "decrypted_dna": {
-      "conditions": {
-        "items": [
-          {
-            "items": "geneticsresequenced:dna_helix",
-            "predicates": {
-              "geneticsresequenced:helix_gene": {
-                "helix_type": "ANY"
-              }
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    }
-  },
-  "display": {
-    "description": {
-      "translate": "advancement.geneticsresequenced.decrypt_dna.desc"
-    },
-    "icon": {
-      "count": 1,
-      "id": "geneticsresequenced:dna_helix"
-    },
-    "title": {
-      "translate": "advancement.geneticsresequenced.decrypt_dna.title"
-    }
-  },
-  "requirements": [
-    [
-      "decrypted_dna"
-    ]
-  ],
-  "sends_telemetry_event": true
+	"parent": "geneticsresequenced:guide/dna_decryptor",
+	"criteria": {
+		"decrypted_dna": {
+			"conditions": {
+				"items": [
+					{
+						"items": "geneticsresequenced:dna_helix",
+						"predicates": {
+							"geneticsresequenced:helix_gene": {
+								"helix_type": "ANY"
+							}
+						}
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"display": {
+		"description": {
+			"translate": "advancement.geneticsresequenced.decrypt_dna.desc"
+		},
+		"icon": {
+			"count": 1,
+			"id": "geneticsresequenced:dna_helix"
+		},
+		"title": {
+			"translate": "advancement.geneticsresequenced.decrypt_dna.title"
+		}
+	},
+	"requirements": [
+		[
+			"decrypted_dna"
+		]
+	],
+	"sends_telemetry_event": true
 }

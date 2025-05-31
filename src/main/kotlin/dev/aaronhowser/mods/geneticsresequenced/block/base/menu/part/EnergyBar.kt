@@ -12,54 +12,54 @@ import net.minecraft.network.chat.Component
 import net.minecraft.util.Mth
 
 class EnergyBar(
-    x: Int,
-    y: Int,
-    val energyStorage: ModEnergyStorage,
-    val font: Font
+	x: Int,
+	y: Int,
+	val energyStorage: ModEnergyStorage,
+	val font: Font
 ) : AbstractWidget(
-    x, y,
-    ScreenTextures.Elements.Energy.Dimensions.WIDTH,
-    ScreenTextures.Elements.Energy.Dimensions.HEIGHT,
-    Component.empty()
+	x, y,
+	ScreenTextures.Elements.Energy.Dimensions.WIDTH,
+	ScreenTextures.Elements.Energy.Dimensions.HEIGHT,
+	Component.empty()
 ) {
 
-    override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
-        val percentFull = energyStorage.energyStored.toFloat() / energyStorage.maxEnergyStored.toFloat()
+	override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
+		val percentFull = energyStorage.energyStored.toFloat() / energyStorage.maxEnergyStored.toFloat()
 
-        val energyTotalHeight = this.height
-        val energyCurrentHeight = Mth.ceil(energyTotalHeight.toDouble() * percentFull)
+		val energyTotalHeight = this.height
+		val energyCurrentHeight = Mth.ceil(energyTotalHeight.toDouble() * percentFull)
 
-        pGuiGraphics.blitSprite(
-            ScreenTextures.Elements.Energy.TEXTURE,
-            ScreenTextures.Elements.Energy.TEXTURE_SIZE,
-            ScreenTextures.Elements.Energy.TEXTURE_SIZE,
-            0,
-            energyTotalHeight - energyCurrentHeight,
-            x,
-            y + energyTotalHeight - energyCurrentHeight,
-            ScreenTextures.Elements.Energy.TEXTURE_SIZE,
-            energyCurrentHeight
-        )
+		pGuiGraphics.blitSprite(
+			ScreenTextures.Elements.Energy.TEXTURE,
+			ScreenTextures.Elements.Energy.TEXTURE_SIZE,
+			ScreenTextures.Elements.Energy.TEXTURE_SIZE,
+			0,
+			energyTotalHeight - energyCurrentHeight,
+			x,
+			y + energyTotalHeight - energyCurrentHeight,
+			ScreenTextures.Elements.Energy.TEXTURE_SIZE,
+			energyCurrentHeight
+		)
 
-        if (isHovered) renderTooltip(pGuiGraphics, pMouseX, pMouseY)
-    }
+		if (isHovered) renderTooltip(pGuiGraphics, pMouseX, pMouseY)
+	}
 
-    private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
-        val currentAmountString = String.format("%,d", energyStorage.energyStored)
-        val maxAmountString = String.format("%,d", energyStorage.maxEnergyStored)
+	private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
+		val currentAmountString = String.format("%,d", energyStorage.energyStored)
+		val maxAmountString = String.format("%,d", energyStorage.maxEnergyStored)
 
-        val component = ModLanguageProvider.Tooltips.FE.toComponent(currentAmountString, maxAmountString)
+		val component = ModLanguageProvider.Tooltips.FE.toComponent(currentAmountString, maxAmountString)
 
-        pGuiGraphics.renderComponentTooltip(
-            font,
-            listOf(component),
-            pMouseX,
-            pMouseY
-        )
-    }
+		pGuiGraphics.renderComponentTooltip(
+			font,
+			listOf(component),
+			pMouseX,
+			pMouseY
+		)
+	}
 
-    override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {
-        return this.defaultButtonNarrationText(pNarrationElementOutput)
-    }
+	override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {
+		return this.defaultButtonNarrationText(pNarrationElementOutput)
+	}
 
 }

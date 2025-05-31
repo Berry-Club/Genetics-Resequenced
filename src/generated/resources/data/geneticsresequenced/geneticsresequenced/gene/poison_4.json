@@ -1,6 +1,6 @@
 {
-  "potion_details": {
-    "effect": "minecraft:poison",
-    "level": 4
-  }
+	"potion_details": {
+		"effect": "minecraft:poison",
+		"level": 4
+	}
 }

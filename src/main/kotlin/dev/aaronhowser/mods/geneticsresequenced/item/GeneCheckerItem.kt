@@ -15,34 +15,34 @@ import net.minecraft.world.level.Level
 
 class GeneCheckerItem : Item(Properties().stacksTo(1)) {
 
-    override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
-        val usedStack = player.getItemInHand(usedHand)
+	override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
+		val usedStack = player.getItemInHand(usedHand)
 
-        if (!level.isClientSide) {
-            val targetEntity = OtherUtil.getLookedAtEntity(player) as? LivingEntity ?: player
+		if (!level.isClientSide) {
+			val targetEntity = OtherUtil.getLookedAtEntity(player) as? LivingEntity ?: player
 
-            val targetGeneHolders = targetEntity.geneHolders
+			val targetGeneHolders = targetEntity.geneHolders
 
-            val component = if (targetGeneHolders.isEmpty()) {
-                if (targetEntity == player) {
-                    ModLanguageProvider.Messages.GENE_CHECKER_SELF_NO_GENES.toComponent()
-                } else {
-                    ModLanguageProvider.Messages.GENE_CHECKER_TARGET_NO_GENES.toComponent(targetEntity.name)
-                }
-            } else {
-                val genesComponent = OtherUtil.componentList(targetGeneHolders.map { Gene.getNameComponent(it) })
+			val component = if (targetGeneHolders.isEmpty()) {
+				if (targetEntity == player) {
+					ModLanguageProvider.Messages.GENE_CHECKER_SELF_NO_GENES.toComponent()
+				} else {
+					ModLanguageProvider.Messages.GENE_CHECKER_TARGET_NO_GENES.toComponent(targetEntity.name)
+				}
+			} else {
+				val genesComponent = OtherUtil.componentList(targetGeneHolders.map { Gene.getNameComponent(it) })
 
-                if (targetEntity == player) {
-                    ModLanguageProvider.Messages.GENE_CHECKER_SELF_LIST.toComponent(genesComponent)
-                } else {
-                    ModLanguageProvider.Messages.GENE_CHECKER_TARGET_LIST.toComponent(targetEntity.name, genesComponent)
-                }
-            }
+				if (targetEntity == player) {
+					ModLanguageProvider.Messages.GENE_CHECKER_SELF_LIST.toComponent(genesComponent)
+				} else {
+					ModLanguageProvider.Messages.GENE_CHECKER_TARGET_LIST.toComponent(targetEntity.name, genesComponent)
+				}
+			}
 
-            player.sendSystemMessage(component)
-        }
+			player.sendSystemMessage(component)
+		}
 
-        return InteractionResultHolder.success(usedStack)
-    }
+		return InteractionResultHolder.success(usedStack)
+	}
 
 }

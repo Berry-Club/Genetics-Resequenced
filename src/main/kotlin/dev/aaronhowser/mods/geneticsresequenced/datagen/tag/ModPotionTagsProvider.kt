@@ -13,30 +13,30 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
 
 class ModPotionTagsProvider(
-    output: PackOutput,
-    lookupProvider: CompletableFuture<HolderLookup.Provider>,
-    existingFileHelper: ExistingFileHelper?
+	output: PackOutput,
+	lookupProvider: CompletableFuture<HolderLookup.Provider>,
+	existingFileHelper: ExistingFileHelper?
 ) : TagsProvider<Potion>(
-    output,
-    Registries.POTION,
-    lookupProvider,
-    GeneticsResequenced.ID,
-    existingFileHelper
+	output,
+	Registries.POTION,
+	lookupProvider,
+	GeneticsResequenced.ID,
+	existingFileHelper
 ) {
 
-    companion object {
-        private fun create(id: String): TagKey<Potion> {
-            return TagKey.create(Registries.POTION, OtherUtil.modResource(id))
-        }
+	companion object {
+		private fun create(id: String): TagKey<Potion> {
+			return TagKey.create(Registries.POTION, OtherUtil.modResource(id))
+		}
 
-        val CAN_HAVE_ENTITY = create("can_have_entity")
-    }
+		val CAN_HAVE_ENTITY = create("can_have_entity")
+	}
 
-    override fun addTags(p0: HolderLookup.Provider) {
-        this.tag(CAN_HAVE_ENTITY)
-            .add(
-                ModPotions.CELL_GROWTH.key!!,
-                ModPotions.MUTATION.key!!
-            )
-    }
+	override fun addTags(p0: HolderLookup.Provider) {
+		this.tag(CAN_HAVE_ENTITY)
+			.add(
+				ModPotions.CELL_GROWTH.key!!,
+				ModPotions.MUTATION.key!!
+			)
+	}
 }

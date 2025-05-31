@@ -11,16 +11,16 @@ import java.util.function.Supplier
 
 object ModEntityTypes {
 
-    val ENTITY_TYPE_REGISTRY: DeferredRegister<EntityType<*>> =
-        DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, GeneticsResequenced.ID)
+	val ENTITY_TYPE_REGISTRY: DeferredRegister<EntityType<*>> =
+		DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, GeneticsResequenced.ID)
 
-    val SUPPORT_SLIME: DeferredHolder<EntityType<*>, EntityType<SupportSlime>> = ENTITY_TYPE_REGISTRY.register("support_slime", Supplier {
-        EntityType.Builder.of(
-            { type, level -> SupportSlime(type, level) },
-            MobCategory.CREATURE
-        )
-            .sized(0.75f, 0.75f)
-            .build("support_slime")
-    })
+	val SUPPORT_SLIME: DeferredHolder<EntityType<*>, EntityType<SupportSlime>> = ENTITY_TYPE_REGISTRY.register("support_slime", Supplier {
+		EntityType.Builder.of(
+			{ type, level -> SupportSlime(type, level) },
+			MobCategory.CREATURE
+		)
+			.sized(0.75f, 0.75f)
+			.build("support_slime")
+	})
 
 }

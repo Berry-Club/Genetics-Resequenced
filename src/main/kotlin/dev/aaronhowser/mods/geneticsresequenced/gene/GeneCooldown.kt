@@ -12,133 +12,133 @@ import net.minecraft.world.entity.LivingEntity
 import java.util.*
 
 class GeneCooldown(
-    private val gene: ResourceKey<Gene>,
-    private val cooldownTicks: Int,
-    notifyPlayer: Boolean = true
+	private val gene: ResourceKey<Gene>,
+	private val cooldownTicks: Int,
+	notifyPlayer: Boolean = true
 ) : MutableSet<UUID> {
 
-    private val uuidsOnCooldown: MutableSet<UUID> = mutableSetOf()
-    private val actuallyNotify = notifyPlayer && cooldownTicks >= ServerConfig.minimumCooldownForNotification.get()
+	private val uuidsOnCooldown: MutableSet<UUID> = mutableSetOf()
+	private val actuallyNotify = notifyPlayer && cooldownTicks >= ServerConfig.minimumCooldownForNotification.get()
 
-    private var addedViaEntity = false
+	private var addedViaEntity = false
 
-    val cooldownEndedTasks: MutableSet<() -> Unit> = mutableSetOf()
+	val cooldownEndedTasks: MutableSet<() -> Unit> = mutableSetOf()
 
-    fun add(entity: LivingEntity): Boolean {
+	fun add(entity: LivingEntity): Boolean {
 
-        addedViaEntity = true
+		addedViaEntity = true
 
-        val success = add(entity.uuid)
+		val success = add(entity.uuid)
 
-        if (success) {
-            onAddSucceed(entity)
-        } else {
-            onAddFail(entity)
-        }
+		if (success) {
+			onAddSucceed(entity)
+		} else {
+			onAddFail(entity)
+		}
 
-        return success
-    }
+		return success
+	}
 
-    private fun onAddSucceed(entity: LivingEntity) {
-        if (actuallyNotify) tellCooldownStarted(entity, gene, cooldownTicks)
+	private fun onAddSucceed(entity: LivingEntity) {
+		if (actuallyNotify) tellCooldownStarted(entity, gene, cooldownTicks)
 
-        ModScheduler.scheduleTaskInTicks(cooldownTicks) {
-            remove(entity)
-        }
-    }
+		ModScheduler.scheduleTaskInTicks(cooldownTicks) {
+			remove(entity)
+		}
+	}
 
-    private fun onAddFail(entity: LivingEntity) {
-        if (actuallyNotify) tellOnCooldown(entity, gene)
-    }
+	private fun onAddFail(entity: LivingEntity) {
+		if (actuallyNotify) tellOnCooldown(entity, gene)
+	}
 
-    fun remove(entity: LivingEntity): Boolean {
-        if (entity.uuid in this) {
-            if (actuallyNotify) tellCooldownEnded(entity, gene)
-        }
+	fun remove(entity: LivingEntity): Boolean {
+		if (entity.uuid in this) {
+			if (actuallyNotify) tellCooldownEnded(entity, gene)
+		}
 
-        return remove(entity.uuid)
-    }
+		return remove(entity.uuid)
+	}
 
-    override fun add(element: UUID): Boolean {
-        if (!addedViaEntity) throw UnsupportedOperationException(
-            "Cannot add UUIDs directly to GeneCooldown"
-        )
+	override fun add(element: UUID): Boolean {
+		if (!addedViaEntity) throw UnsupportedOperationException(
+			"Cannot add UUIDs directly to GeneCooldown"
+		)
 
-        if (element in uuidsOnCooldown) return false
+		if (element in uuidsOnCooldown) return false
 
-        return uuidsOnCooldown.add(element)
-    }
+		return uuidsOnCooldown.add(element)
+	}
 
-    override fun remove(element: UUID): Boolean {
-        if (cooldownEndedTasks.isNotEmpty()) {
-            for (task in cooldownEndedTasks) {
-                task()
-            }
-            GeneticsResequenced.LOGGER.debug("$this ran ${cooldownEndedTasks.size} tasks as it ended")
-        }
+	override fun remove(element: UUID): Boolean {
+		if (cooldownEndedTasks.isNotEmpty()) {
+			for (task in cooldownEndedTasks) {
+				task()
+			}
+			GeneticsResequenced.LOGGER.debug("$this ran ${cooldownEndedTasks.size} tasks as it ended")
+		}
 
-        cooldownEndedTasks.clear()
+		cooldownEndedTasks.clear()
 
-        return uuidsOnCooldown.remove(element)
-    }
+		return uuidsOnCooldown.remove(element)
+	}
 
-    override val size: Int = uuidsOnCooldown.size
+	override val size: Int = uuidsOnCooldown.size
 
-    override fun clear() = uuidsOnCooldown.clear()
+	override fun clear() = uuidsOnCooldown.clear()
 
-    override fun isEmpty(): Boolean = uuidsOnCooldown.isEmpty()
+	override fun isEmpty(): Boolean = uuidsOnCooldown.isEmpty()
 
-    override fun iterator(): MutableIterator<UUID> = uuidsOnCooldown.iterator()
+	override fun iterator(): MutableIterator<UUID> = uuidsOnCooldown.iterator()
 
-    override fun retainAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.retainAll(elements.toSet())
+	override fun retainAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.retainAll(elements.toSet())
 
-    override fun removeAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.removeAll(elements.toSet())
+	override fun removeAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.removeAll(elements.toSet())
 
-    override fun containsAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.containsAll(elements)
+	override fun containsAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.containsAll(elements)
 
-    override fun contains(element: UUID): Boolean = uuidsOnCooldown.contains(element)
+	override fun contains(element: UUID): Boolean = uuidsOnCooldown.contains(element)
 
-    override fun addAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.addAll(elements)
+	override fun addAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.addAll(elements)
 
-    override fun toString(): String = "GeneCooldown($gene)"
+	override fun toString(): String = "GeneCooldown($gene)"
 
-    companion object {
-        fun tellCooldownStarted(player: LivingEntity, geneRk: ResourceKey<Gene>, cooldownTicks: Int) {
-            val cooldownSeconds = cooldownTicks / 20
-            val cooldownString: String
-            if (cooldownSeconds > 60) {
-                val minutes = cooldownSeconds / 60
-                val seconds = cooldownSeconds % 60
-                cooldownString = "$minutes minutes and $seconds seconds"
-            } else {
-                cooldownString = "$cooldownSeconds seconds"
-            }
+	companion object {
+		fun tellCooldownStarted(player: LivingEntity, geneRk: ResourceKey<Gene>, cooldownTicks: Int) {
+			val cooldownSeconds = cooldownTicks / 20
+			val cooldownString: String
+			if (cooldownSeconds > 60) {
+				val minutes = cooldownSeconds / 60
+				val seconds = cooldownSeconds % 60
+				cooldownString = "$minutes minutes and $seconds seconds"
+			} else {
+				cooldownString = "$cooldownSeconds seconds"
+			}
 
-            val geneHolder = ModGenes.fromResourceLocation(player.registryAccess(), geneRk.location())!!
+			val geneHolder = ModGenes.fromResourceLocation(player.registryAccess(), geneRk.location())!!
 
-            val message = Component.empty()
-                .append(Gene.getNameComponent(geneHolder))
-                .append(ModLanguageProvider.Cooldown.STARTED.toComponent(cooldownString))
+			val message = Component.empty()
+				.append(Gene.getNameComponent(geneHolder))
+				.append(ModLanguageProvider.Cooldown.STARTED.toComponent(cooldownString))
 
-            player.sendSystemMessage(message)
-        }
+			player.sendSystemMessage(message)
+		}
 
-        fun tellCooldownEnded(player: LivingEntity, geneRk: ResourceKey<Gene>) {
-            val geneHolder = ModGenes.fromResourceLocation(player.registryAccess(), geneRk.location())!!
-            val message =
-                ModLanguageProvider.Cooldown.ENDED
-                    .toComponent(Gene.getNameComponent(geneHolder))
+		fun tellCooldownEnded(player: LivingEntity, geneRk: ResourceKey<Gene>) {
+			val geneHolder = ModGenes.fromResourceLocation(player.registryAccess(), geneRk.location())!!
+			val message =
+				ModLanguageProvider.Cooldown.ENDED
+					.toComponent(Gene.getNameComponent(geneHolder))
 
-            player.sendSystemMessage(message)
-        }
+			player.sendSystemMessage(message)
+		}
 
-        fun tellOnCooldown(player: LivingEntity, geneRk: ResourceKey<Gene>) {
-            val geneHolder = ModGenes.fromResourceLocation(player.registryAccess(), geneRk.location())!!
-            val message = ModLanguageProvider.Cooldown.ON_COOLDOWN
-                .toComponent(Gene.getNameComponent(geneHolder))
+		fun tellOnCooldown(player: LivingEntity, geneRk: ResourceKey<Gene>) {
+			val geneHolder = ModGenes.fromResourceLocation(player.registryAccess(), geneRk.location())!!
+			val message = ModLanguageProvider.Cooldown.ON_COOLDOWN
+				.toComponent(Gene.getNameComponent(geneHolder))
 
-            player.sendSystemMessage(message)
-        }
-    }
+			player.sendSystemMessage(message)
+		}
+	}
 
 }

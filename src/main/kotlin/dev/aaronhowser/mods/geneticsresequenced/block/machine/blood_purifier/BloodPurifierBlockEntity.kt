@@ -16,74 +16,74 @@ import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.items.ItemStackHandler
 
 class BloodPurifierBlockEntity(
-    pPos: BlockPos,
-    pBlockState: BlockState
+	pPos: BlockPos,
+	pBlockState: BlockState
 ) : CraftingMachineBlockEntity(
-    ModBlockEntities.BLOOD_PURIFIER.get(),
-    pPos,
-    pBlockState
+	ModBlockEntities.BLOOD_PURIFIER.get(),
+	pPos,
+	pBlockState
 ) {
 
-    override val machineName: String = "blood_purifier"
+	override val machineName: String = "blood_purifier"
 
-    override val energyMaximum: Int = 60_000
-    override val energyTransferMaximum: Int = 256
-    override val baseEnergyCostPerTick: Int = 32
+	override val energyMaximum: Int = 60_000
+	override val energyTransferMaximum: Int = 256
+	override val baseEnergyCostPerTick: Int = 32
 
-    override val amountOfItemSlots: Int = 3
+	override val amountOfItemSlots: Int = 3
 
-    override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {
-        override fun onContentsChanged(slot: Int) {
-            setChanged()
-        }
+	override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {
+		override fun onContentsChanged(slot: Int) {
+			setChanged()
+		}
 
-        override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
-            return when (slot) {
-                INPUT_SLOT_INDEX -> SyringeItem.hasBlood(stack)
-                OVERCLOCK_SLOT_INDEX -> stack.item == ModItems.OVERCLOCKER.get()
-                OUTPUT_SLOT_INDEX -> false
-                else -> false
-            }
-        }
-    }
+		override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
+			return when (slot) {
+				INPUT_SLOT_INDEX -> SyringeItem.hasBlood(stack)
+				OVERCLOCK_SLOT_INDEX -> stack.item == ModItems.OVERCLOCKER.get()
+				OUTPUT_SLOT_INDEX -> false
+				else -> false
+			}
+		}
+	}
 
-    override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
-        return BloodPurifierMenu(pContainerId, pPlayerInventory, this, this.containerData)
-    }
+	override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
+		return BloodPurifierMenu(pContainerId, pPlayerInventory, this, this.containerData)
+	}
 
-    override fun getDisplayName(): Component {
-        return ModBlocks.BLOOD_PURIFIER.get().name
-    }
+	override fun getDisplayName(): Component {
+		return ModBlocks.BLOOD_PURIFIER.get().name
+	}
 
-    override fun craftItem() {
-        if (!hasRecipe()) return
+	override fun craftItem() {
+		if (!hasRecipe()) return
 
-        val inputItem = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
-        SyringeItem.setContaminated(inputItem, false)
+		val inputItem = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
+		SyringeItem.setContaminated(inputItem, false)
 
-        itemHandler.setStackInSlot(OUTPUT_SLOT_INDEX, inputItem.copy())
-        itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
-    }
+		itemHandler.setStackInSlot(OUTPUT_SLOT_INDEX, inputItem.copy())
+		itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
+	}
 
-    override fun hasRecipe(): Boolean {
-        val outputStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
-        if (!outputStack.isEmpty) return false
+	override fun hasRecipe(): Boolean {
+		val outputStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
+		if (!outputStack.isEmpty) return false
 
-        val inputItem = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
-        return SyringeItem.isContaminated(inputItem)
-    }
+		val inputItem = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
+		return SyringeItem.isContaminated(inputItem)
+	}
 
-    companion object {
+	companion object {
 
-        fun tick(
-            level: Level,
-            blockPos: BlockPos,
-            blockState: BlockState,
-            blockEntity: BloodPurifierBlockEntity
-        ) {
-            if (level.isClientSide) return
-            blockEntity.tick()
-        }
+		fun tick(
+			level: Level,
+			blockPos: BlockPos,
+			blockState: BlockState,
+			blockEntity: BloodPurifierBlockEntity
+		) {
+			if (level.isClientSide) return
+			blockEntity.tick()
+		}
 
-    }
+	}
 }

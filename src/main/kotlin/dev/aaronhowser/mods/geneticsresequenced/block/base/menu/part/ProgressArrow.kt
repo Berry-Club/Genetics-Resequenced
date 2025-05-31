@@ -10,100 +10,100 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 
 class ProgressArrow(
-    x: Int,
-    y: Int,
-    val arrowDirection: ArrowDirection,
-    val font: Font,
-    val percentDoneFunction: () -> Float,
-    val shouldRenderProgress: () -> Boolean,
-    val onClickFunction: (Double, Double, Int) -> Unit
+	x: Int,
+	y: Int,
+	val arrowDirection: ArrowDirection,
+	val font: Font,
+	val percentDoneFunction: () -> Float,
+	val shouldRenderProgress: () -> Boolean,
+	val onClickFunction: (Double, Double, Int) -> Unit
 ) : AbstractWidget(
-    x, y,
-    arrowDirection.width,
-    arrowDirection.height,
-    Component.empty()
+	x, y,
+	arrowDirection.width,
+	arrowDirection.height,
+	Component.empty()
 ) {
 
-    enum class ArrowDirection(
-        val width: Int,
-        val height: Int,
-        val texture: ResourceLocation,
-        val textureSize: Int
-    ) {
-        DOWN(
-            ScreenTextures.Elements.ArrowDown.Dimensions.WIDTH,
-            ScreenTextures.Elements.ArrowDown.Dimensions.HEIGHT,
-            ScreenTextures.Elements.ArrowDown.TEXTURE,
-            ScreenTextures.Elements.ArrowDown.TEXTURE_SIZE
-        ),
-        RIGHT(
-            ScreenTextures.Elements.ArrowRight.Dimensions.WIDTH,
-            ScreenTextures.Elements.ArrowRight.Dimensions.HEIGHT,
-            ScreenTextures.Elements.ArrowRight.TEXTURE,
-            ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
-        )
-    }
+	enum class ArrowDirection(
+		val width: Int,
+		val height: Int,
+		val texture: ResourceLocation,
+		val textureSize: Int
+	) {
+		DOWN(
+			ScreenTextures.Elements.ArrowDown.Dimensions.WIDTH,
+			ScreenTextures.Elements.ArrowDown.Dimensions.HEIGHT,
+			ScreenTextures.Elements.ArrowDown.TEXTURE,
+			ScreenTextures.Elements.ArrowDown.TEXTURE_SIZE
+		),
+		RIGHT(
+			ScreenTextures.Elements.ArrowRight.Dimensions.WIDTH,
+			ScreenTextures.Elements.ArrowRight.Dimensions.HEIGHT,
+			ScreenTextures.Elements.ArrowRight.TEXTURE,
+			ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
+		)
+	}
 
-    override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
+	override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
 
-        if (arrowDirection == ArrowDirection.DOWN) {
-            renderDownArrow(pGuiGraphics)
-        } else {
-            renderRightArrow(pGuiGraphics)
-        }
+		if (arrowDirection == ArrowDirection.DOWN) {
+			renderDownArrow(pGuiGraphics)
+		} else {
+			renderRightArrow(pGuiGraphics)
+		}
 
-        if (isHovered) renderTooltip(pGuiGraphics, pMouseX, pMouseY)
-    }
+		if (isHovered) renderTooltip(pGuiGraphics, pMouseX, pMouseY)
+	}
 
-    private fun renderDownArrow(pGuiGraphics: GuiGraphics) {
-        if (!shouldRenderProgress()) return
+	private fun renderDownArrow(pGuiGraphics: GuiGraphics) {
+		if (!shouldRenderProgress()) return
 
-        pGuiGraphics.blitSprite(
-            arrowDirection.texture,
-            arrowDirection.textureSize, arrowDirection.textureSize,
-            0, 0,
-            this.x,
-            this.y,
-            this.width,
-            Mth.floor(this.height * percentDoneFunction()),
-        )
-    }
+		pGuiGraphics.blitSprite(
+			arrowDirection.texture,
+			arrowDirection.textureSize, arrowDirection.textureSize,
+			0, 0,
+			this.x,
+			this.y,
+			this.width,
+			Mth.floor(this.height * percentDoneFunction()),
+		)
+	}
 
-    private fun renderRightArrow(pGuiGraphics: GuiGraphics) {
-        if (!shouldRenderProgress()) return
+	private fun renderRightArrow(pGuiGraphics: GuiGraphics) {
+		if (!shouldRenderProgress()) return
 
-        pGuiGraphics.blitSprite(
-            arrowDirection.texture,
-            arrowDirection.textureSize, arrowDirection.textureSize,
-            0, 0,
-            this.x,
-            this.y,
-            Mth.floor(this.width * percentDoneFunction()),
-            this.height
-        )
-    }
+		pGuiGraphics.blitSprite(
+			arrowDirection.texture,
+			arrowDirection.textureSize, arrowDirection.textureSize,
+			0, 0,
+			this.x,
+			this.y,
+			Mth.floor(this.width * percentDoneFunction()),
+			this.height
+		)
+	}
 
-    private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
-        if (percentDoneFunction() <= 0f) return
+	private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
+		if (percentDoneFunction() <= 0f) return
 
-        val percentString = (percentDoneFunction() * 100).toInt().toString() + "%"
+		val percentString = (percentDoneFunction() * 100).toInt().toString() + "%"
 
-        pGuiGraphics.renderComponentTooltip(
-            font,
-            listOf(Component.literal(percentString)),
-            pMouseX,
-            pMouseY
-        )
-    }
+		pGuiGraphics.renderComponentTooltip(
+			font,
+			listOf(Component.literal(percentString)),
+			pMouseX,
+			pMouseY
+		)
+	}
 
-    override fun onClick(mouseX: Double, mouseY: Double, button: Int) {
-        super.onClick(mouseX, mouseY, button)
+	override fun onClick(mouseX: Double, mouseY: Double, button: Int) {
+		super.onClick(mouseX, mouseY, button)
 
-        onClickFunction(mouseX, mouseY, button)
-    }
+		onClickFunction(mouseX, mouseY, button)
+	}
 
-    override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {
-        return this.defaultButtonNarrationText(pNarrationElementOutput)
-    }
+	override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {
+		return this.defaultButtonNarrationText(pNarrationElementOutput)
+	}
 
 }

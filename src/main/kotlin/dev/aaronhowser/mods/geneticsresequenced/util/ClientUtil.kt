@@ -19,163 +19,163 @@ import net.minecraft.world.entity.player.PlayerModelPart
 
 object ClientUtil {
 
-    val localPlayer: LocalPlayer?
-        get() = Minecraft.getInstance().player
+	val localPlayer: LocalPlayer?
+		get() = Minecraft.getInstance().player
 
-    val localRegistryAccess: RegistryAccess?
-        get() = Minecraft.getInstance().level?.registryAccess()
+	val localRegistryAccess: RegistryAccess?
+		get() = Minecraft.getInstance().level?.registryAccess()
 
-    val localLevel: ClientLevel?
-        get() = Minecraft.getInstance().level
+	val localLevel: ClientLevel?
+		get() = Minecraft.getInstance().level
 
-    fun playerIsCreative(): Boolean = localPlayer?.isCreative ?: false
+	fun playerIsCreative(): Boolean = localPlayer?.isCreative ?: false
 
-    private val options: Options
-        get() = Minecraft.getInstance().options
+	private val options: Options
+		get() = Minecraft.getInstance().options
 
-    private var removedSkinLayers: Set<PlayerModelPart> = emptySet()
-    fun shearPlayerSkin() {
-        val enabledModelParts = options.modelParts.toMutableSet()
-        if (!ClientConfig.woolyRemovesCape.get()) {
-            enabledModelParts.remove(PlayerModelPart.CAPE)
-        }
+	private var removedSkinLayers: Set<PlayerModelPart> = emptySet()
+	fun shearPlayerSkin() {
+		val enabledModelParts = options.modelParts.toMutableSet()
+		if (!ClientConfig.woolyRemovesCape.get()) {
+			enabledModelParts.remove(PlayerModelPart.CAPE)
+		}
 
-        for (part in enabledModelParts) {
-            options.toggleModelPart(part, false)
-        }
+		for (part in enabledModelParts) {
+			options.toggleModelPart(part, false)
+		}
 
-        removedSkinLayers = enabledModelParts
+		removedSkinLayers = enabledModelParts
 
-        GeneticsResequenced.LOGGER.info("Sheared layers off player skin: ${removedSkinLayers.joinToString(", ")}")
+		GeneticsResequenced.LOGGER.info("Sheared layers off player skin: ${removedSkinLayers.joinToString(", ")}")
 
-        val addLayersBackTask = { addSkinLayersBack() }
+		val addLayersBackTask = { addSkinLayersBack() }
 
-        ClickGenes.recentlySheered.cooldownEndedTasks.add(addLayersBackTask)
-    }
+		ClickGenes.recentlySheered.cooldownEndedTasks.add(addLayersBackTask)
+	}
 
-    fun addSkinLayersBack() {
-        if (removedSkinLayers.isEmpty()) return
-        for (part in removedSkinLayers) {
-            options.toggleModelPart(part, true)
-        }
+	fun addSkinLayersBack() {
+		if (removedSkinLayers.isEmpty()) return
+		for (part in removedSkinLayers) {
+			options.toggleModelPart(part, true)
+		}
 
-        GeneticsResequenced.LOGGER.info("Added layers back to player skin: ${removedSkinLayers.joinToString(", ")}")
-        removedSkinLayers = emptySet()
-    }
+		GeneticsResequenced.LOGGER.info("Added layers back to player skin: ${removedSkinLayers.joinToString(", ")}")
+		removedSkinLayers = emptySet()
+	}
 
-    private var amountTryingToChangeLanguage = 0
-        set(value) {
-            field = value.coerceAtLeast(0)
-        }
-    private var nonCringeLanguage: String? = null
-    fun handleCringe(
-        wasAdded: Boolean,
-        countdownSeconds: Int = 10
-    ) {
-        //TODO: Make sure this actually works
-        val access = localRegistryAccess
-        if (access != null) {
-            val cringe = ModGenes.CRINGE.getHolderOrThrow(access)
-            if (cringe.isDisabled) return
-        }
+	private var amountTryingToChangeLanguage = 0
+		set(value) {
+			field = value.coerceAtLeast(0)
+		}
+	private var nonCringeLanguage: String? = null
+	fun handleCringe(
+		wasAdded: Boolean,
+		countdownSeconds: Int = 10
+	) {
+		//TODO: Make sure this actually works
+		val access = localRegistryAccess
+		if (access != null) {
+			val cringe = ModGenes.CRINGE.getHolderOrThrow(access)
+			if (cringe.isDisabled) return
+		}
 
-        if (ClientConfig.disableCringeLangChange.get()) {
-            GeneticsResequenced.LOGGER.info("Cringe language-changing is disabled in the config!")
-            return
-        }
+		if (ClientConfig.disableCringeLangChange.get()) {
+			GeneticsResequenced.LOGGER.info("Cringe language-changing is disabled in the config!")
+			return
+		}
 
-        val languageManager = Minecraft.getInstance().languageManager
-        val currentLanguage = languageManager.selected
+		val languageManager = Minecraft.getInstance().languageManager
+		val currentLanguage = languageManager.selected
 
-        val lolcat = "lol_us"
+		val lolcat = "lol_us"
 
-        if (wasAdded) {
-            if (!currentLanguage.startsWith("en_")) {
-                GeneticsResequenced.LOGGER.warn("Cringe language-changing is only available in English!")
-                return
-            }
+		if (wasAdded) {
+			if (!currentLanguage.startsWith("en_")) {
+				GeneticsResequenced.LOGGER.warn("Cringe language-changing is only available in English!")
+				return
+			}
 
-            nonCringeLanguage = currentLanguage
-            languageManager.selected = lolcat
+			nonCringeLanguage = currentLanguage
+			languageManager.selected = lolcat
 
-            GeneticsResequenced.LOGGER.info("Changed language to cringe!")
-        } else {
-            if (languageManager.selected != lolcat) return
+			GeneticsResequenced.LOGGER.info("Changed language to cringe!")
+		} else {
+			if (languageManager.selected != lolcat) return
 
-            if (nonCringeLanguage == null && languageManager.selected == lolcat) {
-                GeneticsResequenced.LOGGER.warn("Tried to remove cringe language, but no non-cringe language was saved!")
-                return
-            }
+			if (nonCringeLanguage == null && languageManager.selected == lolcat) {
+				GeneticsResequenced.LOGGER.warn("Tried to remove cringe language, but no non-cringe language was saved!")
+				return
+			}
 
-            languageManager.selected = nonCringeLanguage ?: "en_us"
-            nonCringeLanguage = null
+			languageManager.selected = nonCringeLanguage ?: "en_us"
+			nonCringeLanguage = null
 
-            GeneticsResequenced.LOGGER.info("Changed language back to non-cringe!")
-        }
+			GeneticsResequenced.LOGGER.info("Changed language back to non-cringe!")
+		}
 
-        fun sendSystemMessage(message: Component) {
-            localPlayer?.sendSystemMessage(message)
-        }
+		fun sendSystemMessage(message: Component) {
+			localPlayer?.sendSystemMessage(message)
+		}
 
-        ModScheduler.scheduleTaskInTicks(1) {
+		ModScheduler.scheduleTaskInTicks(1) {
 
-            val component = if (wasAdded) {
-                ModLanguageProvider.Messages.CRINGE_ADDED.toComponent(countdownSeconds)
-            } else {
-                ModLanguageProvider.Messages.CRINGE_REMOVED.toComponent(countdownSeconds)
-            }.withStyle {
-                it.withHoverEvent(
-                    HoverEvent(
-                        HoverEvent.Action.SHOW_TEXT,
-                        ModLanguageProvider.Messages.CRINGE_CONFIG.toComponent()
-                    )
-                )
-            }
+			val component = if (wasAdded) {
+				ModLanguageProvider.Messages.CRINGE_ADDED.toComponent(countdownSeconds)
+			} else {
+				ModLanguageProvider.Messages.CRINGE_REMOVED.toComponent(countdownSeconds)
+			}.withStyle {
+				it.withHoverEvent(
+					HoverEvent(
+						HoverEvent.Action.SHOW_TEXT,
+						ModLanguageProvider.Messages.CRINGE_CONFIG.toComponent()
+					)
+				)
+			}
 
-            sendSystemMessage(component)
-        }
+			sendSystemMessage(component)
+		}
 
-        var secondsLeft = countdownSeconds
+		var secondsLeft = countdownSeconds
 
-        while (secondsLeft > 0) {
-            val scheduleIn = 20 * (countdownSeconds - secondsLeft)
-            if (scheduleIn != 0) {
-                val secondsLeftFinal = secondsLeft
+		while (secondsLeft > 0) {
+			val scheduleIn = 20 * (countdownSeconds - secondsLeft)
+			if (scheduleIn != 0) {
+				val secondsLeftFinal = secondsLeft
 
-                ModScheduler.scheduleTaskInTicks(scheduleIn) {
-                    localPlayer?.displayClientMessage(
-                        Component.literal("$secondsLeftFinal..."),
-                        true
-                    )
-                }
-            }
+				ModScheduler.scheduleTaskInTicks(scheduleIn) {
+					localPlayer?.displayClientMessage(
+						Component.literal("$secondsLeftFinal..."),
+						true
+					)
+				}
+			}
 
-            secondsLeft--
-        }
+			secondsLeft--
+		}
 
-        amountTryingToChangeLanguage++
-        ModScheduler.scheduleTaskInTicks(20 * countdownSeconds) {
-            sendSystemMessage(
-                ModLanguageProvider.Messages.CRINGE_RELOADING
-                    .toComponent()
-                    .withStyle {
-                        it.withHoverEvent(
-                            HoverEvent(
-                                HoverEvent.Action.SHOW_TEXT,
-                                ModLanguageProvider.Messages.CRINGE_CONFIG.toComponent()
-                            )
-                        )
-                    }
-            )
+		amountTryingToChangeLanguage++
+		ModScheduler.scheduleTaskInTicks(20 * countdownSeconds) {
+			sendSystemMessage(
+				ModLanguageProvider.Messages.CRINGE_RELOADING
+					.toComponent()
+					.withStyle {
+						it.withHoverEvent(
+							HoverEvent(
+								HoverEvent.Action.SHOW_TEXT,
+								ModLanguageProvider.Messages.CRINGE_CONFIG.toComponent()
+							)
+						)
+					}
+			)
 
-            if (amountTryingToChangeLanguage == 1) {
-                Minecraft.getInstance().reloadResourcePacks()
-                amountTryingToChangeLanguage--
-            } else {
-                GeneticsResequenced.LOGGER.warn("Tried to reload resources, but it would have caused a concurrency error!")
-            }
-        }
+			if (amountTryingToChangeLanguage == 1) {
+				Minecraft.getInstance().reloadResourcePacks()
+				amountTryingToChangeLanguage--
+			} else {
+				GeneticsResequenced.LOGGER.warn("Tried to reload resources, but it would have caused a concurrency error!")
+			}
+		}
 
-    }
+	}
 
 }

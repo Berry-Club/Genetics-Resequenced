@@ -10,17 +10,17 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
 
 class ModBlockTagsProvider(
-    output: PackOutput,
-    lookupProvider: CompletableFuture<HolderLookup.Provider>,
-    existingFileHelper: ExistingFileHelper?
+	output: PackOutput,
+	lookupProvider: CompletableFuture<HolderLookup.Provider>,
+	existingFileHelper: ExistingFileHelper?
 ) : BlockTagsProvider(output, lookupProvider, GeneticsResequenced.ID, existingFileHelper) {
 
-    override fun addTags(pProvider: HolderLookup.Provider) {
-        this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
-            .add(*ModBlocks.BLOCK_REGISTRY.entries.map { it.get() }.toTypedArray())
+	override fun addTags(pProvider: HolderLookup.Provider) {
+		this.tag(BlockTags.MINEABLE_WITH_PICKAXE)
+			.add(*ModBlocks.BLOCK_REGISTRY.entries.map { it.get() }.toTypedArray())
 
-        this.tag(BlockTags.AIR)
-            .add(ModBlocks.BIOLUMINESCENCE_BLOCK.get())
-    }
+		this.tag(BlockTags.AIR)
+			.add(ModBlocks.BIOLUMINESCENCE_BLOCK.get())
+	}
 
 }

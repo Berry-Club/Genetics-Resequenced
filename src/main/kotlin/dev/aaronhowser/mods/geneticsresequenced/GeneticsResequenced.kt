@@ -16,23 +16,23 @@ import thedarkcolour.kotlinforforge.neoforge.forge.runWhenOn
 
 @Mod(GeneticsResequenced.ID)
 class GeneticsResequenced(
-    modContainer: ModContainer
+	modContainer: ModContainer
 ) {
 
-    companion object {
-        const val ID = "geneticsresequenced"
-        val LOGGER: Logger = LogManager.getLogger(ID)
-    }
+	companion object {
+		const val ID = "geneticsresequenced"
+		val LOGGER: Logger = LogManager.getLogger(ID)
+	}
 
-    init {
-        ModRegistries.register(MOD_BUS)
+	init {
+		ModRegistries.register(MOD_BUS)
 
-        runWhenOn(Dist.CLIENT) {
-            val screenFactory = IConfigScreenFactory { container, screen -> ConfigurationScreen(container, screen) }
-            modContainer.registerExtensionPoint(IConfigScreenFactory::class.java, screenFactory)
-        }
+		runWhenOn(Dist.CLIENT) {
+			val screenFactory = IConfigScreenFactory { container, screen -> ConfigurationScreen(container, screen) }
+			modContainer.registerExtensionPoint(IConfigScreenFactory::class.java, screenFactory)
+		}
 
-        modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.CONFIG_SPEC)
-        modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.CONFIG_SPEC)
-    }
+		modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.CONFIG_SPEC)
+		modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.CONFIG_SPEC)
+	}
 }

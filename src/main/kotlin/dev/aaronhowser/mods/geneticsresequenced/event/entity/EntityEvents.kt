@@ -17,61 +17,61 @@ import net.neoforged.neoforge.event.level.ExplosionEvent
 import net.neoforged.neoforge.event.tick.EntityTickEvent
 
 @EventBusSubscriber(
-    modid = GeneticsResequenced.ID
+	modid = GeneticsResequenced.ID
 )
 object EntityEvents {
 
-    @SubscribeEvent
-    fun onLivingDeath(event: LivingDeathEvent) {
-        DeathGenes.handleEmeraldHeart(event)
-        DeathGenes.handleExplosiveExit(event)
-        DeathGenes.handleSlimyDeath(event)
-    }
+	@SubscribeEvent
+	fun onLivingDeath(event: LivingDeathEvent) {
+		DeathGenes.handleEmeraldHeart(event)
+		DeathGenes.handleExplosiveExit(event)
+		DeathGenes.handleSlimyDeath(event)
+	}
 
-    @SubscribeEvent
-    fun onDetonate(event: ExplosionEvent.Detonate) {
-        DeathGenes.explosiveExitDetonation(event)
-    }
+	@SubscribeEvent
+	fun onDetonate(event: ExplosionEvent.Detonate) {
+		DeathGenes.explosiveExitDetonation(event)
+	}
 
-    @SubscribeEvent
-    fun onLivingAboutToBeDamaged(event: LivingIncomingDamageEvent) {
-        DamageGenes.handleNoFallDamage(event)
-        DamageGenes.handleWitherProof(event)
-        DamageGenes.handleFireProof(event)
-        DamageGenes.handlePoisonProof(event)
-    }
+	@SubscribeEvent
+	fun onLivingAboutToBeDamaged(event: LivingIncomingDamageEvent) {
+		DamageGenes.handleNoFallDamage(event)
+		DamageGenes.handleWitherProof(event)
+		DamageGenes.handleFireProof(event)
+		DamageGenes.handlePoisonProof(event)
+	}
 
-    @SubscribeEvent
-    fun onLivingDamagePre(event: LivingDamageEvent.Pre) {
-        DamageGenes.handleDragonHealth(event)
-        DamageGenes.handleJohnny(event)
-    }
+	@SubscribeEvent
+	fun onLivingDamagePre(event: LivingDamageEvent.Pre) {
+		DamageGenes.handleDragonHealth(event)
+		DamageGenes.handleJohnny(event)
+	}
 
-    @SubscribeEvent
-    fun onLivingHurtPost(event: LivingDamageEvent.Post) {
-        if (event.newDamage <= 0f) return
+	@SubscribeEvent
+	fun onLivingHurtPost(event: LivingDamageEvent.Post) {
+		if (event.newDamage <= 0f) return
 
-        DamageGenes.handleThorns(event)
-        DamageGenes.handleClaws(event)
-        DamageGenes.handleWitherHit(event)
-        DamageGenes.handleChilling(event)
-    }
+		DamageGenes.handleThorns(event)
+		DamageGenes.handleClaws(event)
+		DamageGenes.handleWitherHit(event)
+		DamageGenes.handleChilling(event)
+	}
 
-    @SubscribeEvent
-    fun onEntityTick(event: EntityTickEvent.Pre) {
-        val entity = event.entity as? LivingEntity ?: return
+	@SubscribeEvent
+	fun onEntityTick(event: EntityTickEvent.Pre) {
+		val entity = event.entity as? LivingEntity ?: return
 
-        TickGenes.handleBioluminescence(entity)
-        TickGenes.handlePhotosynthesis(entity)
-        TickGenes.handleTickingGenes(entity)
-    }
+		TickGenes.handleBioluminescence(entity)
+		TickGenes.handlePhotosynthesis(entity)
+		TickGenes.handleTickingGenes(entity)
+	}
 
-    @SubscribeEvent
-    fun onEntitySpawn(event: EntityJoinLevelEvent) {
-        val entity = event.entity
-        if (entity is PathfinderMob) {
-            ScareGenes.attachScareTask(entity)
-        }
-    }
+	@SubscribeEvent
+	fun onEntitySpawn(event: EntityJoinLevelEvent) {
+		val entity = event.entity
+		if (entity is PathfinderMob) {
+			ScareGenes.attachScareTask(entity)
+		}
+	}
 
 }

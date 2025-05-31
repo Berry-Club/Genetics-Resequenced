@@ -10,18 +10,18 @@ import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider
 import java.util.concurrent.CompletableFuture
 
 class ModDatapackBuiltinEntriesProvider(
-    output: PackOutput,
-    registries: CompletableFuture<HolderLookup.Provider>
+	output: PackOutput,
+	registries: CompletableFuture<HolderLookup.Provider>
 ) : DatapackBuiltinEntriesProvider(
-    output,
-    registries,
-    BUILDER,
-    setOf(GeneticsResequenced.ID)
+	output,
+	registries,
+	BUILDER,
+	setOf(GeneticsResequenced.ID)
 ) {
 
-    companion object {
-        val BUILDER: RegistrySetBuilder = RegistrySetBuilder()
-            .add(ModGenes.GENE_REGISTRY_KEY, ModGeneProvider::bootstrap)
-    }
+	companion object {
+		val BUILDER: RegistrySetBuilder = RegistrySetBuilder()
+			.add(ModGenes.GENE_REGISTRY_KEY, ModGeneProvider::bootstrap)
+	}
 
 }

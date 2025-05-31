@@ -1,4 +1,4 @@
 {
-  "allowed_entities": "minecraft:player",
-  "dna_points_required": 16
+	"allowed_entities": "minecraft:player",
+	"dna_points_required": 16
 }

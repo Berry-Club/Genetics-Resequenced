@@ -23,97 +23,97 @@ import net.neoforged.neoforge.items.SlotItemHandler
 
 
 class PlasmidInfuserMenu(
-    id: Int,
-    inventory: Inventory,
-    blockEntity: PlasmidInfuserBlockEntity,
-    private val containerData: ContainerData
+	id: Int,
+	inventory: Inventory,
+	blockEntity: PlasmidInfuserBlockEntity,
+	private val containerData: ContainerData
 ) : MachineMenu(
-    ModMenuTypes.PLASMID_INFUSER.get(),
-    blockEntity,
-    id,
-    inventory
+	ModMenuTypes.PLASMID_INFUSER.get(),
+	blockEntity,
+	id,
+	inventory
 ) {
-    constructor(id: Int, inventory: Inventory, extraData: FriendlyByteBuf) :
-            this(
-                id,
-                inventory,
-                inventory.player.level().getBlockEntity(extraData.readBlockPos()) as PlasmidInfuserBlockEntity,
-                SimpleContainerData(CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
-            )
+	constructor(id: Int, inventory: Inventory, extraData: FriendlyByteBuf) :
+			this(
+				id,
+				inventory,
+				inventory.player.level().getBlockEntity(extraData.readBlockPos()) as PlasmidInfuserBlockEntity,
+				SimpleContainerData(CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
+			)
 
-    init {
-        checkContainerSize(inventory, CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
+	init {
+		checkContainerSize(inventory, CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
 
-        addPlayerInventory(inventory)
-        addPlayerHotbar(inventory)
+		addPlayerInventory(inventory)
+		addPlayerHotbar(inventory)
 
-        val itemHandler = this.blockEntity.itemHandler
+		val itemHandler = this.blockEntity.itemHandler
 
-        this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42))
-        this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42))
-        this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54))
+		this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42))
+		this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42))
+		this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54))
 
-        addDataSlots(containerData)
-    }
+		addDataSlots(containerData)
+	}
 
-    override fun getPercentDone(): Float {
-        return if (maxProgress == 0) {
-            0.0f
-        } else {
-            progress.toFloat() / maxProgress.toFloat()
-        }
-    }
+	override fun getPercentDone(): Float {
+		return if (maxProgress == 0) {
+			0.0f
+		} else {
+			progress.toFloat() / maxProgress.toFloat()
+		}
+	}
 
-    override fun stillValid(pPlayer: Player): Boolean {
-        return stillValid(
-            ContainerLevelAccess.create(level, blockEntity.blockPos),
-            pPlayer,
-            ModBlocks.PLASMID_INFUSER.get()
-        )
-    }
+	override fun stillValid(pPlayer: Player): Boolean {
+		return stillValid(
+			ContainerLevelAccess.create(level, blockEntity.blockPos),
+			pPlayer,
+			ModBlocks.PLASMID_INFUSER.get()
+		)
+	}
 
-    private var progress: Int
-        get() = containerData.get(DATA_PROGRESS_INDEX)
-        set(value) {
-            containerData.set(DATA_PROGRESS_INDEX, value)
-        }
+	private var progress: Int
+		get() = containerData.get(DATA_PROGRESS_INDEX)
+		set(value) {
+			containerData.set(DATA_PROGRESS_INDEX, value)
+		}
 
-    private var maxProgress: Int
-        get() = containerData.get(DATA_MAX_PROGRESS_INDEX)
-        set(value) {
-            containerData.set(DATA_MAX_PROGRESS_INDEX, value)
-        }
+	private var maxProgress: Int
+		get() = containerData.get(DATA_MAX_PROGRESS_INDEX)
+		set(value) {
+			containerData.set(DATA_MAX_PROGRESS_INDEX, value)
+		}
 
-    val isCrafting
-        get() = progress > 0
+	val isCrafting
+		get() = progress > 0
 
-    companion object {
+	companion object {
 
-        fun showTooltip(event: ItemTooltipEvent) {
-            val hoverStack = event.itemStack
-            if (hoverStack.item != ModItems.DNA_HELIX.get()) return
+		fun showTooltip(event: ItemTooltipEvent) {
+			val hoverStack = event.itemStack
+			if (hoverStack.item != ModItems.DNA_HELIX.get()) return
 
-            val hoveredGeneHolder = DnaHelixItem.getGeneHolder(hoverStack) ?: return
+			val hoveredGeneHolder = DnaHelixItem.getGeneHolder(hoverStack) ?: return
 
-            val slots = event.entity?.containerMenu?.slots ?: return
-            val plasmidSlotId = 37  //Evil magic number that i got by printing whatever slot I was hovering
+			val slots = event.entity?.containerMenu?.slots ?: return
+			val plasmidSlotId = 37  //Evil magic number that i got by printing whatever slot I was hovering
 
-            val outputItem = slots.getOrNull(plasmidSlotId)?.item ?: return
-            val outputGene = PlasmidItem.getGene(outputItem) ?: return
+			val outputItem = slots.getOrNull(plasmidSlotId)?.item ?: return
+			val outputGene = PlasmidItem.getGene(outputItem) ?: return
 
-            val component = when {
-                hoveredGeneHolder.isGene(ModGenes.BASIC) -> ModLanguageProvider.Tooltips.INFUSER_BASIC.toComponent()
+			val component = when {
+				hoveredGeneHolder.isGene(ModGenes.BASIC) -> ModLanguageProvider.Tooltips.INFUSER_BASIC.toComponent()
 
-                hoveredGeneHolder.isGene(outputGene) -> ModLanguageProvider.Tooltips.INFUSER_MATCHING.toComponent()
+				hoveredGeneHolder.isGene(outputGene) -> ModLanguageProvider.Tooltips.INFUSER_MATCHING.toComponent()
 
-                else -> ModLanguageProvider.Tooltips.INFUSER_MISMATCH.toComponent()
-            }.withStyle(ChatFormatting.GRAY)
+				else -> ModLanguageProvider.Tooltips.INFUSER_MISMATCH.toComponent()
+			}.withStyle(ChatFormatting.GRAY)
 
-            event.toolTip.add(2, component)
-        }
+			event.toolTip.add(2, component)
+		}
 
-        private const val DATA_PROGRESS_INDEX = 0
-        private const val DATA_MAX_PROGRESS_INDEX = 1
-    }
+		private const val DATA_PROGRESS_INDEX = 0
+		private const val DATA_MAX_PROGRESS_INDEX = 1
+	}
 
 }

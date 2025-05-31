@@ -12,25 +12,25 @@ import net.minecraft.commands.Commands
 
 object ListAllGenesCommand {
 
-    fun register(): ArgumentBuilder<CommandSourceStack, *> {
-        return Commands
-            .literal("listAll")
-            .executes { listAllGenes(it) }
-    }
+	fun register(): ArgumentBuilder<CommandSourceStack, *> {
+		return Commands
+			.literal("listAll")
+			.executes { listAllGenes(it) }
+	}
 
-    private fun listAllGenes(context: CommandContext<CommandSourceStack>): Int {
+	private fun listAllGenes(context: CommandContext<CommandSourceStack>): Int {
 
-        val messageComponent = ModLanguageProvider.Commands.LIST_ALL_GENES.toComponent()
+		val messageComponent = ModLanguageProvider.Commands.LIST_ALL_GENES.toComponent()
 
-        messageComponent.append(
-            OtherUtil.componentList(
-                ModGenes.getRegistrySorted(context.source.registryAccess())
-                    .map { Gene.getNameComponent(it) }
-            )
-        )
+		messageComponent.append(
+			OtherUtil.componentList(
+				ModGenes.getRegistrySorted(context.source.registryAccess())
+					.map { Gene.getNameComponent(it) }
+			)
+		)
 
-        context.source.sendSuccess({ messageComponent }, false)
-        return 1
-    }
+		context.source.sendSuccess({ messageComponent }, false)
+		return 1
+	}
 
 }

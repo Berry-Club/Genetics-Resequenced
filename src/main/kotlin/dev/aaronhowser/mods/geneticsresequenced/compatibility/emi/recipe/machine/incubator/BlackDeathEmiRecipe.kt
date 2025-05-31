@@ -20,54 +20,54 @@ import net.minecraft.world.entity.animal.Cow
 import net.minecraft.world.item.crafting.Ingredient
 
 class BlackDeathEmiRecipe(
-    val isMetal: Boolean
+	val isMetal: Boolean
 ) : AbstractEmiIncubatorRecipe() {
 
-    override val ingredient: EmiIngredient
-    override val input: EmiIngredient = EmiIngredient.of(Ingredient.of(BrewingRecipes.viralAgentsPotionStack))
-    override val output: EmiStack
+	override val ingredient: EmiIngredient
+	override val input: EmiIngredient = EmiIngredient.of(Ingredient.of(BrewingRecipes.viralAgentsPotionStack))
+	override val output: EmiStack
 
-    companion object {
+	companion object {
 
-        fun getAllRecipes(): List<BlackDeathEmiRecipe> {
-            return listOf(
-                BlackDeathEmiRecipe(isMetal = false),
-                BlackDeathEmiRecipe(isMetal = true)
-            )
-        }
+		fun getAllRecipes(): List<BlackDeathEmiRecipe> {
+			return listOf(
+				BlackDeathEmiRecipe(isMetal = false),
+				BlackDeathEmiRecipe(isMetal = true)
+			)
+		}
 
-    }
+	}
 
-    init {
-        val syringeStack = if (isMetal) ModItems.METAL_SYRINGE.toStack() else ModItems.SYRINGE.toStack()
+	init {
+		val syringeStack = if (isMetal) ModItems.METAL_SYRINGE.toStack() else ModItems.SYRINGE.toStack()
 
-        val localPlayer = ClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
+		val localPlayer = ClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
 
-        val entity = if (isMetal) {
-            Cow(EntityType.COW, localPlayer.level())
-        } else {
-            localPlayer
-        }
+		val entity = if (isMetal) {
+			Cow(EntityType.COW, localPlayer.level())
+		} else {
+			localPlayer
+		}
 
-        SyringeItem.setEntity(syringeStack, entity, setContaminated = false)
+		SyringeItem.setEntity(syringeStack, entity, setContaminated = false)
 
-        val requiredGenes = BlackDeathRecipe.getRequiredGenes(ClientUtil.localRegistryAccess!!)
-        for (gene in requiredGenes) {
-            SyringeItem.addGene(syringeStack, gene)
-        }
+		val requiredGenes = BlackDeathRecipe.getRequiredGenes(ClientUtil.localRegistryAccess!!)
+		for (gene in requiredGenes) {
+			SyringeItem.addGene(syringeStack, gene)
+		}
 
-        ingredient = EmiIngredient.of(Ingredient.of(syringeStack))
+		ingredient = EmiIngredient.of(Ingredient.of(syringeStack))
 
-        val helixStack = DnaHelixItem.getHelixStack(ModGenes.BLACK_DEATH, ClientUtil.localRegistryAccess!!)
-        output = EmiStack.of(helixStack)
-    }
+		val helixStack = DnaHelixItem.getHelixStack(ModGenes.BLACK_DEATH, ClientUtil.localRegistryAccess!!)
+		output = EmiStack.of(helixStack)
+	}
 
-    override val tooltips: List<Component> = listOf(
-        ModLanguageProvider.Recipe.BLACK_DEATH.toComponent().withStyle(ChatFormatting.GRAY)
-    )
+	override val tooltips: List<Component> = listOf(
+		ModLanguageProvider.Recipe.BLACK_DEATH.toComponent().withStyle(ChatFormatting.GRAY)
+	)
 
-    override fun getId(): ResourceLocation {
-        val type = if (isMetal) "/metal" else ""
-        return OtherUtil.modResource("/brewing/black_death$type")
-    }
+	override fun getId(): ResourceLocation {
+		val type = if (isMetal) "/metal" else ""
+		return OtherUtil.modResource("/brewing/black_death$type")
+	}
 }

@@ -17,41 +17,41 @@ import net.minecraft.world.entity.LivingEntity
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
 data class GeneChangedPacket(
-    val entityId: Int,
-    val geneHolder: Holder<Gene>,
-    val wasAdded: Boolean
+	val entityId: Int,
+	val geneHolder: Holder<Gene>,
+	val wasAdded: Boolean
 ) : ModPacket {
 
-    override fun receiveOnClient(context: IPayloadContext) {
-        context.enqueueWork {
-            // Return if the entity does not exist on the client. This happens when the entity is not being tracked on the client, aka if it's too far away or whatever.
-            val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
+	override fun receiveOnClient(context: IPayloadContext) {
+		context.enqueueWork {
+			// Return if the entity does not exist on the client. This happens when the entity is not being tracked on the client, aka if it's too far away or whatever.
+			val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
 
-            if (wasAdded) {
-                entity.addGene(geneHolder)
-            } else {
-                entity.removeGene(geneHolder)
-            }
+			if (wasAdded) {
+				entity.addGene(geneHolder)
+			} else {
+				entity.removeGene(geneHolder)
+			}
 
-            if (geneHolder.isGene(ModGenes.CRINGE)) ClientUtil.handleCringe(wasAdded)
+			if (geneHolder.isGene(ModGenes.CRINGE)) ClientUtil.handleCringe(wasAdded)
 
-            geneHolder.value().setAttributeModifiers(entity, wasAdded)
-        }
-    }
+			geneHolder.value().setAttributeModifiers(entity, wasAdded)
+		}
+	}
 
-    override fun type(): CustomPacketPayload.Type<GeneChangedPacket> = TYPE
+	override fun type(): CustomPacketPayload.Type<GeneChangedPacket> = TYPE
 
-    companion object {
-        val TYPE: CustomPacketPayload.Type<GeneChangedPacket> =
-            CustomPacketPayload.Type(OtherUtil.modResource("gene_changed"))
+	companion object {
+		val TYPE: CustomPacketPayload.Type<GeneChangedPacket> =
+			CustomPacketPayload.Type(OtherUtil.modResource("gene_changed"))
 
-        val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, GeneChangedPacket> =
-            StreamCodec.composite(
-                ByteBufCodecs.INT, GeneChangedPacket::entityId,
-                Gene.STREAM_CODEC, GeneChangedPacket::geneHolder,
-                ByteBufCodecs.BOOL, GeneChangedPacket::wasAdded,
-                ::GeneChangedPacket
-            )
-    }
+		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, GeneChangedPacket> =
+			StreamCodec.composite(
+				ByteBufCodecs.INT, GeneChangedPacket::entityId,
+				Gene.STREAM_CODEC, GeneChangedPacket::geneHolder,
+				ByteBufCodecs.BOOL, GeneChangedPacket::wasAdded,
+				::GeneChangedPacket
+			)
+	}
 
 }

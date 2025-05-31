@@ -1,38 +1,38 @@
 {
-  "parent": "geneticsresequenced:guide/decrypt_dna",
-  "criteria": {
-    "black_death_helix": {
-      "conditions": {
-        "items": [
-          {
-            "items": "geneticsresequenced:dna_helix",
-            "predicates": {
-              "geneticsresequenced:helix_gene": {
-                "helix_type": "BLACK_DEATH"
-              }
-            }
-          }
-        ]
-      },
-      "trigger": "minecraft:inventory_changed"
-    }
-  },
-  "display": {
-    "description": {
-      "translate": "advancement.geneticsresequenced.black_death.desc"
-    },
-    "icon": {
-      "count": 1,
-      "id": "minecraft:wither_rose"
-    },
-    "title": {
-      "translate": "advancement.geneticsresequenced.black_death.title"
-    }
-  },
-  "requirements": [
-    [
-      "black_death_helix"
-    ]
-  ],
-  "sends_telemetry_event": true
+	"parent": "geneticsresequenced:guide/decrypt_dna",
+	"criteria": {
+		"black_death_helix": {
+			"conditions": {
+				"items": [
+					{
+						"items": "geneticsresequenced:dna_helix",
+						"predicates": {
+							"geneticsresequenced:helix_gene": {
+								"helix_type": "BLACK_DEATH"
+							}
+						}
+					}
+				]
+			},
+			"trigger": "minecraft:inventory_changed"
+		}
+	},
+	"display": {
+		"description": {
+			"translate": "advancement.geneticsresequenced.black_death.desc"
+		},
+		"icon": {
+			"count": 1,
+			"id": "minecraft:wither_rose"
+		},
+		"title": {
+			"translate": "advancement.geneticsresequenced.black_death.title"
+		}
+	},
+	"requirements": [
+		[
+			"black_death_helix"
+		]
+	],
+	"sends_telemetry_event": true
 }

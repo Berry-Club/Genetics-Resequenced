@@ -15,66 +15,66 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 
 @EventBusSubscriber(
-    modid = GeneticsResequenced.ID
+	modid = GeneticsResequenced.ID
 )
 object ClickEvents {
 
-    @SubscribeEvent
-    fun onInteractEntity(event: PlayerInteractEvent.EntityInteract) {
-        ClickGenes.handleWooly(event)
-        ClickGenes.handleMilky(event)
-        ClickGenes.handleMeaty(event)
+	@SubscribeEvent
+	fun onInteractEntity(event: PlayerInteractEvent.EntityInteract) {
+		ClickGenes.handleWooly(event)
+		ClickGenes.handleMilky(event)
+		ClickGenes.handleMeaty(event)
 
-        checkShouldCancel(event)
-    }
+		checkShouldCancel(event)
+	}
 
-    private fun checkShouldCancel(event: PlayerInteractEvent.EntityInteract) {
-        val entity = event.target
-        if (!entity.type.`is`(ModEntityTypeTagsProvider.ALLOWS_PREVENTING_INTERACTION)) return
+	private fun checkShouldCancel(event: PlayerInteractEvent.EntityInteract) {
+		val entity = event.target
+		if (!entity.type.`is`(ModEntityTypeTagsProvider.ALLOWS_PREVENTING_INTERACTION)) return
 
-        val mainHandStack = event.entity.getItemInHand(InteractionHand.MAIN_HAND)
-        val offHandStack = event.entity.getItemInHand(InteractionHand.OFF_HAND)
+		val mainHandStack = event.entity.getItemInHand(InteractionHand.MAIN_HAND)
+		val offHandStack = event.entity.getItemInHand(InteractionHand.OFF_HAND)
 
-        if (
-            mainHandStack.`is`(ModItemTagsProvider.PREVENTS_SOME_MOB_INTERACTION)
-            || offHandStack.`is`(ModItemTagsProvider.PREVENTS_SOME_MOB_INTERACTION)
-        ) {
-            event.isCanceled = true
-        }
-    }
+		if (
+			mainHandStack.`is`(ModItemTagsProvider.PREVENTS_SOME_MOB_INTERACTION)
+			|| offHandStack.`is`(ModItemTagsProvider.PREVENTS_SOME_MOB_INTERACTION)
+		) {
+			event.isCanceled = true
+		}
+	}
 
-    @SubscribeEvent
-    fun onUseItem(event: PlayerInteractEvent.RightClickItem) {
-        ClickGenes.woolyItem(event)
-        ClickGenes.milkyItem(event)
-        ClickGenes.meatyItem(event)
-        ClickGenes.shootFireball(event)
-    }
+	@SubscribeEvent
+	fun onUseItem(event: PlayerInteractEvent.RightClickItem) {
+		ClickGenes.woolyItem(event)
+		ClickGenes.milkyItem(event)
+		ClickGenes.meatyItem(event)
+		ClickGenes.shootFireball(event)
+	}
 
-    @SubscribeEvent
-    fun onDigSpeed(event: PlayerEvent.BreakSpeed) {
-        AttributeGenes.handleEfficiency(event)
-    }
+	@SubscribeEvent
+	fun onDigSpeed(event: PlayerEvent.BreakSpeed) {
+		AttributeGenes.handleEfficiency(event)
+	}
 
-    @SubscribeEvent
-    fun onClickBlock(event: PlayerInteractEvent.RightClickBlock) {
-        SupportSlime.spawnEggMessage(event)
-    }
+	@SubscribeEvent
+	fun onClickBlock(event: PlayerInteractEvent.RightClickBlock) {
+		SupportSlime.spawnEggMessage(event)
+	}
 
-    @SubscribeEvent
-    fun onInteractWithBlock(event: PlayerInteractEvent.RightClickBlock) {
-        ClickGenes.eatGrass(event)
-        ClickGenes.cureCringe(event)
-    }
+	@SubscribeEvent
+	fun onInteractWithBlock(event: PlayerInteractEvent.RightClickBlock) {
+		ClickGenes.eatGrass(event)
+		ClickGenes.cureCringe(event)
+	}
 
-    @SubscribeEvent
-    fun onGetProjectile(event: LivingGetProjectileEvent) {
-        ClickGenes.handleInfinityGetProjectile(event)
-    }
+	@SubscribeEvent
+	fun onGetProjectile(event: LivingGetProjectileEvent) {
+		ClickGenes.handleInfinityGetProjectile(event)
+	}
 
-    @SubscribeEvent
-    fun onProjectileAdded(event: EntityJoinLevelEvent) {
-        ClickGenes.handleInfinityArrow(event)
-    }
+	@SubscribeEvent
+	fun onProjectileAdded(event: EntityJoinLevelEvent) {
+		ClickGenes.handleInfinityArrow(event)
+	}
 
 }

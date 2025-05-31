@@ -1,5 +1,5 @@
 {
-  "potion_details": {
-    "effect": "minecraft:mining_fatigue"
-  }
+	"potion_details": {
+		"effect": "minecraft:mining_fatigue"
+	}
 }

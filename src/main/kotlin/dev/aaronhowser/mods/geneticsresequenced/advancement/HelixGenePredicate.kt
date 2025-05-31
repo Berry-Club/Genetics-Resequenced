@@ -11,41 +11,41 @@ import net.minecraft.world.item.ItemStack
 
 //TODO: Move away from something as hardcoded as this
 data class HelixGenePredicate(
-    val helixType: HelixType
+	val helixType: HelixType
 ) : ItemSubPredicate {
 
-    enum class HelixType : StringRepresentable {
-        ANY, BLACK_DEATH;
+	enum class HelixType : StringRepresentable {
+		ANY, BLACK_DEATH;
 
-        override fun getSerializedName(): String {
-            return name
-        }
-    }
+		override fun getSerializedName(): String {
+			return name
+		}
+	}
 
-    override fun matches(stack: ItemStack): Boolean {
-        return when (helixType) {
-            HelixType.ANY -> DnaHelixItem.hasGene(stack)
-            HelixType.BLACK_DEATH -> DnaHelixItem.getGeneHolder(stack).isGene(ModGenes.BLACK_DEATH)
-        }
-    }
+	override fun matches(stack: ItemStack): Boolean {
+		return when (helixType) {
+			HelixType.ANY -> DnaHelixItem.hasGene(stack)
+			HelixType.BLACK_DEATH -> DnaHelixItem.getGeneHolder(stack).isGene(ModGenes.BLACK_DEATH)
+		}
+	}
 
-    companion object {
-        fun any() = HelixGenePredicate(HelixType.ANY)
+	companion object {
+		fun any() = HelixGenePredicate(HelixType.ANY)
 
-        fun blackDeath(): HelixGenePredicate {
-            return HelixGenePredicate(HelixType.BLACK_DEATH)
-        }
+		fun blackDeath(): HelixGenePredicate {
+			return HelixGenePredicate(HelixType.BLACK_DEATH)
+		}
 
-        val CODEC: Codec<HelixGenePredicate> =
-            RecordCodecBuilder.create { instance ->
-                instance.group(
-                    StringRepresentable.fromEnum { HelixType.entries.toTypedArray() }
-                        .fieldOf("helix_type")
-                        .forGetter(HelixGenePredicate::helixType),
-                ).apply(instance, ::HelixGenePredicate)
-            }
+		val CODEC: Codec<HelixGenePredicate> =
+			RecordCodecBuilder.create { instance ->
+				instance.group(
+					StringRepresentable.fromEnum { HelixType.entries.toTypedArray() }
+						.fieldOf("helix_type")
+						.forGetter(HelixGenePredicate::helixType),
+				).apply(instance, ::HelixGenePredicate)
+			}
 
-        val TYPE: ItemSubPredicate.Type<HelixGenePredicate> = ItemSubPredicate.Type(CODEC)
-    }
+		val TYPE: ItemSubPredicate.Type<HelixGenePredicate> = ItemSubPredicate.Type(CODEC)
+	}
 
 }

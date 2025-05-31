@@ -27,168 +27,168 @@ import net.minecraft.world.item.crafting.Ingredient
 
 object ModInformationRecipes {
 
-    fun getInformationRecipes(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
-        return organicMatter() + geneDescriptions(registries) + mobGenes(registries)
-    }
+	fun getInformationRecipes(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
+		return organicMatter() + geneDescriptions(registries) + mobGenes(registries)
+	}
 
-    private fun geneDescriptions(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
-        val recipes = mutableListOf<EmiInfoRecipe>()
+	private fun geneDescriptions(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
+		val recipes = mutableListOf<EmiInfoRecipe>()
 
-        for (geneHolder in ModGenes.getRegistrySorted(registries, includeHelixOnly = true)) {
-            if (geneHolder.isDisabled) continue
+		for (geneHolder in ModGenes.getRegistrySorted(registries, includeHelixOnly = true)) {
+			if (geneHolder.isDisabled) continue
 
-            val components: MutableList<MutableComponent> = mutableListOf()
-            components.add(
-                Gene.getNameComponent(geneHolder)
-                    .withStyle { it.withColor(ChatFormatting.RESET).withUnderlined(true) }
-            )
+			val components: MutableList<MutableComponent> = mutableListOf()
+			components.add(
+				Gene.getNameComponent(geneHolder)
+					.withStyle { it.withColor(ChatFormatting.RESET).withUnderlined(true) }
+			)
 
-            val translationKey = "info." + geneHolder.translationKey
-            val geneDesc = Component.translatable(translationKey)
+			val translationKey = "info." + geneHolder.translationKey
+			val geneDesc = Component.translatable(translationKey)
 
-            if (geneDesc.toString() == translationKey) {
-                GeneticsResequenced.LOGGER.error("Gene is missing information translation key: $translationKey")
-            }
+			if (geneDesc.toString() == translationKey) {
+				GeneticsResequenced.LOGGER.error("Gene is missing information translation key: $translationKey")
+			}
 
-            components.add(geneDesc)
+			components.add(geneDesc)
 
-            val requiredGeneHolders = GeneRequirements.getGeneRequiredGeneHolders(geneHolder, registries)
+			val requiredGeneHolders = GeneRequirements.getGeneRequiredGeneHolders(geneHolder, registries)
 
-            if (requiredGeneHolders.isNotEmpty()) {
-                components.add(Component.literal("\n"))
-                components.add(
-                    ModLanguageProvider.Info.REQUIRED_GENES.toComponent()
-                )
+			if (requiredGeneHolders.isNotEmpty()) {
+				components.add(Component.literal("\n"))
+				components.add(
+					ModLanguageProvider.Info.REQUIRED_GENES.toComponent()
+				)
 
-                for (requiredGeneHolder in requiredGeneHolders) {
-                    val requiredGeneComponent = if (requiredGeneHolder.isNegative || requiredGeneHolder.isMutation) {
-                        Gene.getNameComponent(requiredGeneHolder)
-                    } else {
-                        Gene.getNameComponent(requiredGeneHolder)
-                            .withStyle { it.withColor(ChatFormatting.RESET) }
-                    }
+				for (requiredGeneHolder in requiredGeneHolders) {
+					val requiredGeneComponent = if (requiredGeneHolder.isNegative || requiredGeneHolder.isMutation) {
+						Gene.getNameComponent(requiredGeneHolder)
+					} else {
+						Gene.getNameComponent(requiredGeneHolder)
+							.withStyle { it.withColor(ChatFormatting.RESET) }
+					}
 
-                    val line = Component.literal("• ").append(requiredGeneComponent)
-                    components.add(line)
+					val line = Component.literal("• ").append(requiredGeneComponent)
+					components.add(line)
 
-                }
-            }
+				}
+			}
 
-            val helix = DnaHelixItem.getHelixStack(geneHolder)
+			val helix = DnaHelixItem.getHelixStack(geneHolder)
 
-            val recipe = EmiInfoRecipe(
-                listOf(
-                    EmiIngredient.of(
-                        Ingredient.of(helix)
-                    )
-                ),
-                components.toList(),
-                OtherUtil.modResource("/info/gene/${geneHolder.key!!.location().toString().replace(':', '/')}")
-            )
+			val recipe = EmiInfoRecipe(
+				listOf(
+					EmiIngredient.of(
+						Ingredient.of(helix)
+					)
+				),
+				components.toList(),
+				OtherUtil.modResource("/info/gene/${geneHolder.key!!.location().toString().replace(':', '/')}")
+			)
 
-            recipes.add(recipe)
-        }
+			recipes.add(recipe)
+		}
 
-        return recipes
-    }
+		return recipes
+	}
 
-    private fun organicMatter(): List<EmiInfoRecipe> {
-        val noEntityRecipe = EmiInfoRecipe(
-            listOf(
-                EmiIngredient.of(
-                    Ingredient.of(ModItems.ORGANIC_MATTER.toStack())
-                )
-            ),
-            listOf(ModLanguageProvider.Info.ORGANIC_MATTER_EMPTY.toComponent()),
-            OtherUtil.modResource("/info/organic_matter/no_entity")
-        )
+	private fun organicMatter(): List<EmiInfoRecipe> {
+		val noEntityRecipe = EmiInfoRecipe(
+			listOf(
+				EmiIngredient.of(
+					Ingredient.of(ModItems.ORGANIC_MATTER.toStack())
+				)
+			),
+			listOf(ModLanguageProvider.Info.ORGANIC_MATTER_EMPTY.toComponent()),
+			OtherUtil.modResource("/info/organic_matter/no_entity")
+		)
 
-        val recipes: MutableList<EmiInfoRecipe> = mutableListOf(noEntityRecipe)
+		val recipes: MutableList<EmiInfoRecipe> = mutableListOf(noEntityRecipe)
 
-        for (entityType in EntityDnaItem.validEntityTypes) {
+		for (entityType in EntityDnaItem.validEntityTypes) {
 
-            val component = ModLanguageProvider.Info.ORGANIC_MATTER.toComponent(entityType.description)
+			val component = ModLanguageProvider.Info.ORGANIC_MATTER.toComponent(entityType.description)
 
-            val organicMatterStack = ModItems.ORGANIC_MATTER.toStack()
-            EntityDnaItem.setEntityType(organicMatterStack, entityType)
+			val organicMatterStack = ModItems.ORGANIC_MATTER.toStack()
+			EntityDnaItem.setEntityType(organicMatterStack, entityType)
 
-            val entityString = EntityType.getKey(entityType).toString().replace(':', '/')
+			val entityString = EntityType.getKey(entityType).toString().replace(':', '/')
 
-            val recipe = EmiInfoRecipe(
-                listOf(
-                    EmiIngredient.of(
-                        Ingredient.of(organicMatterStack)
-                    )
-                ),
-                listOf(component),
-                OtherUtil.modResource("/info/organic_matter/${entityString}")
-            )
+			val recipe = EmiInfoRecipe(
+				listOf(
+					EmiIngredient.of(
+						Ingredient.of(organicMatterStack)
+					)
+				),
+				listOf(component),
+				OtherUtil.modResource("/info/organic_matter/${entityString}")
+			)
 
-            recipes.add(recipe)
-        }
+			recipes.add(recipe)
+		}
 
-        return recipes
-    }
+		return recipes
+	}
 
-    private fun mobGenes(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
-        val recipes = mutableListOf<EmiInfoRecipe>()
+	private fun mobGenes(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
+		val recipes = mutableListOf<EmiInfoRecipe>()
 
-        for (entityType in EntityDnaItem.validEntityTypes) {
-            val geneWeights = EntityGenes.getGeneHolderWeights(entityType, registries)
+		for (entityType in EntityDnaItem.validEntityTypes) {
+			val geneWeights = EntityGenes.getGeneHolderWeights(entityType, registries)
 
-            val informationTextComponent =
-                ModLanguageProvider.Info.MOB_GENE_ONE.toComponent(entityType.description)
+			val informationTextComponent =
+				ModLanguageProvider.Info.MOB_GENE_ONE.toComponent(entityType.description)
 
-            val sumOfWeights = geneWeights.values.sum()
+			val sumOfWeights = geneWeights.values.sum()
 
-            for ((geneHolder, weight) in geneWeights) {
-                val chance = (weight.toDouble() / sumOfWeights.toDouble() * 100).toInt()
+			for ((geneHolder, weight) in geneWeights) {
+				val chance = (weight.toDouble() / sumOfWeights.toDouble() * 100).toInt()
 
-                val geneComponent = if (geneHolder.isNegative || geneHolder.isMutation) {
-                    Gene.getNameComponent(geneHolder)
-                } else {
-                    Gene.getNameComponent(geneHolder).withStyle { it.withColor(ChatFormatting.RESET) }
-                }
+				val geneComponent = if (geneHolder.isNegative || geneHolder.isMutation) {
+					Gene.getNameComponent(geneHolder)
+				} else {
+					Gene.getNameComponent(geneHolder).withStyle { it.withColor(ChatFormatting.RESET) }
+				}
 
-                val component =
-                    ModLanguageProvider.Info.MOB_GENE_TWO
-                        .toComponent(chance, geneComponent)
+				val component =
+					ModLanguageProvider.Info.MOB_GENE_TWO
+						.toComponent(chance, geneComponent)
 
-                informationTextComponent.append(component)
-            }
+				informationTextComponent.append(component)
+			}
 
-            val organicMatterStack = EntityDnaItem.getOrganicStack(entityType)
-            val cellStack = EntityDnaItem.getCell(entityType)
+			val organicMatterStack = EntityDnaItem.getOrganicStack(entityType)
+			val cellStack = EntityDnaItem.getCell(entityType)
 
-            val mobSpawnEgg = SpawnEggItem.byId(entityType)
+			val mobSpawnEgg = SpawnEggItem.byId(entityType)
 
-            val list = buildList {
-                add(
-                    EmiIngredient.of(
-                        listOf(
-                            EmiIngredient.of(Ingredient.of(organicMatterStack)),
-                            EmiIngredient.of(Ingredient.of(cellStack))
-                        )
-                    )
-                )
+			val list = buildList {
+				add(
+					EmiIngredient.of(
+						listOf(
+							EmiIngredient.of(Ingredient.of(organicMatterStack)),
+							EmiIngredient.of(Ingredient.of(cellStack))
+						)
+					)
+				)
 
-                if (mobSpawnEgg != null) {
-                    add(EmiIngredient.of(Ingredient.of(mobSpawnEgg.defaultInstance)))
-                }
-            }
+				if (mobSpawnEgg != null) {
+					add(EmiIngredient.of(Ingredient.of(mobSpawnEgg.defaultInstance)))
+				}
+			}
 
-            val entityString = EntityType.getKey(entityType).toString().replace(':', '/')
+			val entityString = EntityType.getKey(entityType).toString().replace(':', '/')
 
-            val recipe = EmiInfoRecipe(
-                list,
-                listOf(informationTextComponent),
-                OtherUtil.modResource("/info/mob_genes/$entityString")
-            )
+			val recipe = EmiInfoRecipe(
+				list,
+				listOf(informationTextComponent),
+				OtherUtil.modResource("/info/mob_genes/$entityString")
+			)
 
-            recipes.add(recipe)
-        }
+			recipes.add(recipe)
+		}
 
-        return recipes
-    }
+		return recipes
+	}
 
 }

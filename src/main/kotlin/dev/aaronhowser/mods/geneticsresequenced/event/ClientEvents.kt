@@ -21,46 +21,46 @@ import net.neoforged.neoforge.client.event.InputEvent
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 
 @EventBusSubscriber(
-    modid = GeneticsResequenced.ID,
-    value = [Dist.CLIENT]
+	modid = GeneticsResequenced.ID,
+	value = [Dist.CLIENT]
 )
 object ClientEvents {
 
-    @SubscribeEvent
-    fun onKeyInputEvent(event: InputEvent.Key) {
-        if (ModKeyMappings.TELEPORT.consumeClick()) {
-            ModPacketHandler.messageServer(TeleportPlayerPacket.INSTANCE)
-        }
+	@SubscribeEvent
+	fun onKeyInputEvent(event: InputEvent.Key) {
+		if (ModKeyMappings.TELEPORT.consumeClick()) {
+			ModPacketHandler.messageServer(TeleportPlayerPacket.INSTANCE)
+		}
 
-        if (ModKeyMappings.DRAGONS_BREATH.consumeClick()) {
-            ModPacketHandler.messageServer(FireballPacket.INSTANCE)
-        }
-    }
+		if (ModKeyMappings.DRAGONS_BREATH.consumeClick()) {
+			ModPacketHandler.messageServer(FireballPacket.INSTANCE)
+		}
+	}
 
-    @SubscribeEvent
-    fun tooltip(event: ItemTooltipEvent) {
-        BrewingRecipes.tooltip(event)
-        TickGenes.itemMagnetBlacklistTooltip(event)
+	@SubscribeEvent
+	fun tooltip(event: ItemTooltipEvent) {
+		BrewingRecipes.tooltip(event)
+		TickGenes.itemMagnetBlacklistTooltip(event)
 
-        handleScreens(event)
-    }
+		handleScreens(event)
+	}
 
-    private fun handleScreens(event: ItemTooltipEvent) {
-        val screen: AbstractContainerMenu = event.entity?.containerMenu ?: return
+	private fun handleScreens(event: ItemTooltipEvent) {
+		val screen: AbstractContainerMenu = event.entity?.containerMenu ?: return
 
-        when (screen) {
-            is CoalGeneratorMenu -> CoalGeneratorMenu.showFuelTooltip(event)
-            is PlasmidInfuserMenu -> PlasmidInfuserMenu.showTooltip(event)
-            is PlasmidInjectorMenu -> PlasmidInjectorMenu.showTooltip(event)
-            is AdvancedIncubatorMenu -> AdvancedIncubatorMenu.showChanceTooltip(event)
-            else -> return
-        }
-    }
+		when (screen) {
+			is CoalGeneratorMenu -> CoalGeneratorMenu.showFuelTooltip(event)
+			is PlasmidInfuserMenu -> PlasmidInfuserMenu.showTooltip(event)
+			is PlasmidInjectorMenu -> PlasmidInjectorMenu.showTooltip(event)
+			is AdvancedIncubatorMenu -> AdvancedIncubatorMenu.showChanceTooltip(event)
+			else -> return
+		}
+	}
 
-    @SubscribeEvent
-    fun onLeaveServer(event: ClientPlayerNetworkEvent.LoggingOut) {
-        ClientUtil.addSkinLayersBack()
-        ClientUtil.handleCringe(false, 0)
-    }
+	@SubscribeEvent
+	fun onLeaveServer(event: ClientPlayerNetworkEvent.LoggingOut) {
+		ClientUtil.addSkinLayersBack()
+		ClientUtil.handleCringe(false, 0)
+	}
 
 }

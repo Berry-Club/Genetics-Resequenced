@@ -15,58 +15,58 @@ import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
 class AntiFieldOrbItem : Item(
-    Properties()
-        .stacksTo(1)
-        .component(
-            ModDataComponents.IS_ACTIVE_COMPONENT,
-            false
-        )
+	Properties()
+		.stacksTo(1)
+		.component(
+			ModDataComponents.IS_ACTIVE_COMPONENT,
+			false
+		)
 ) {
 
-    companion object {
+	companion object {
 
-        private fun isEnabled(itemStack: ItemStack): Boolean {
-            return itemStack.get(ModDataComponents.IS_ACTIVE_COMPONENT) ?: false
-        }
+		private fun isEnabled(itemStack: ItemStack): Boolean {
+			return itemStack.get(ModDataComponents.IS_ACTIVE_COMPONENT) ?: false
+		}
 
-        private fun toggleEnabled(itemStack: ItemStack) {
-            itemStack.set(
-                ModDataComponents.IS_ACTIVE_COMPONENT,
-                !isEnabled(itemStack)
-            )
-        }
+		private fun toggleEnabled(itemStack: ItemStack) {
+			itemStack.set(
+				ModDataComponents.IS_ACTIVE_COMPONENT,
+				!isEnabled(itemStack)
+			)
+		}
 
-        fun isActiveForPlayer(player: Player): Boolean {
-            return player.inventory.items.any { it.item == ModItems.ANTI_FIELD_ORB.get() && isEnabled(it) }
-        }
+		fun isActiveForPlayer(player: Player): Boolean {
+			return player.inventory.items.any { it.item == ModItems.ANTI_FIELD_ORB.get() && isEnabled(it) }
+		}
 
-    }
+	}
 
-    override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
-        toggleEnabled(pPlayer.getItemInHand(pUsedHand))
-        return super.use(pLevel, pPlayer, pUsedHand)
-    }
+	override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
+		toggleEnabled(pPlayer.getItemInHand(pUsedHand))
+		return super.use(pLevel, pPlayer, pUsedHand)
+	}
 
-    override fun isFoil(pStack: ItemStack): Boolean {
-        return isEnabled(pStack)
-    }
+	override fun isFoil(pStack: ItemStack): Boolean {
+		return isEnabled(pStack)
+	}
 
-    override fun appendHoverText(
-        pStack: ItemStack,
-        pContext: TooltipContext,
-        pTooltipComponents: MutableList<Component>,
-        pTooltipFlag: TooltipFlag
-    ) {
-        val componentString =
-            if (isEnabled(pStack)) ModLanguageProvider.Tooltips.ACTIVE else ModLanguageProvider.Tooltips.INACTIVE
+	override fun appendHoverText(
+		pStack: ItemStack,
+		pContext: TooltipContext,
+		pTooltipComponents: MutableList<Component>,
+		pTooltipFlag: TooltipFlag
+	) {
+		val componentString =
+			if (isEnabled(pStack)) ModLanguageProvider.Tooltips.ACTIVE else ModLanguageProvider.Tooltips.INACTIVE
 
-        pTooltipComponents.add(
-            componentString
-                .toComponent()
-                .withStyle(ChatFormatting.GRAY)
-        )
+		pTooltipComponents.add(
+			componentString
+				.toComponent()
+				.withStyle(ChatFormatting.GRAY)
+		)
 
-        super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag)
-    }
+		super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag)
+	}
 
 }

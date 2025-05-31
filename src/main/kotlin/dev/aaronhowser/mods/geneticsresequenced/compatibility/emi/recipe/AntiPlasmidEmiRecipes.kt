@@ -13,52 +13,52 @@ import net.minecraft.world.item.crafting.Ingredient
 
 object AntiPlasmidEmiRecipes {
 
-    fun setAntiPlasmidRecipes(registry: EmiRegistry) {
-        val emptyAntiPlasmid: EmiIngredient = EmiIngredient.of(Ingredient.of(ModItems.ANTI_PLASMID))
+	fun setAntiPlasmidRecipes(registry: EmiRegistry) {
+		val emptyAntiPlasmid: EmiIngredient = EmiIngredient.of(Ingredient.of(ModItems.ANTI_PLASMID))
 
-        val visibleGenes = ModGenes
-            .getRegistrySorted(ClientUtil.localRegistryAccess!!, includeHelixOnly = false)
+		val visibleGenes = ModGenes
+			.getRegistrySorted(ClientUtil.localRegistryAccess!!, includeHelixOnly = false)
 
-        for (geneHolder in visibleGenes) {
-            val plasmidStack = ModItems.PLASMID.toStack()
-            PlasmidItem.setGene(plasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
+		for (geneHolder in visibleGenes) {
+			val plasmidStack = ModItems.PLASMID.toStack()
+			PlasmidItem.setGene(plasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
 
-            val setAntiPlasmid = ModItems.ANTI_PLASMID.toStack()
-            PlasmidItem.setGene(setAntiPlasmid, geneHolder, geneHolder.value().dnaPointsRequired)
+			val setAntiPlasmid = ModItems.ANTI_PLASMID.toStack()
+			PlasmidItem.setGene(setAntiPlasmid, geneHolder, geneHolder.value().dnaPointsRequired)
 
-            val geneString = geneHolder.key!!.location().toString().replace(':', '/')
+			val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
-            registry.addRecipe(
-                EmiCraftingRecipe(
-                    listOf(emptyAntiPlasmid, EmiIngredient.of(Ingredient.of(plasmidStack))),
-                    EmiStack.of(setAntiPlasmid),
-                    OtherUtil.modResource("/set_anti_plasmid/${geneString}"),
-                    true
-                )
-            )
-        }
-    }
+			registry.addRecipe(
+				EmiCraftingRecipe(
+					listOf(emptyAntiPlasmid, EmiIngredient.of(Ingredient.of(plasmidStack))),
+					EmiStack.of(setAntiPlasmid),
+					OtherUtil.modResource("/set_anti_plasmid/${geneString}"),
+					true
+				)
+			)
+		}
+	}
 
-    fun unsetAntiPlasmidRecipes(registry: EmiRegistry) {
-        val visibleGenes = ModGenes
-            .getRegistrySorted(ClientUtil.localRegistryAccess!!, includeHelixOnly = false)
+	fun unsetAntiPlasmidRecipes(registry: EmiRegistry) {
+		val visibleGenes = ModGenes
+			.getRegistrySorted(ClientUtil.localRegistryAccess!!, includeHelixOnly = false)
 
-        for (geneHolder in visibleGenes) {
-            val antiPlasmidStack = ModItems.ANTI_PLASMID.toStack()
-            PlasmidItem.setGene(antiPlasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
+		for (geneHolder in visibleGenes) {
+			val antiPlasmidStack = ModItems.ANTI_PLASMID.toStack()
+			PlasmidItem.setGene(antiPlasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
 
-            val geneString = geneHolder.key!!.location().toString().replace(':', '/')
+			val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
-            registry.addRecipe(
-                EmiCraftingRecipe(
-                    listOf(EmiIngredient.of(Ingredient.of(antiPlasmidStack))),
-                    EmiStack.of(ModItems.ANTI_PLASMID),
-                    OtherUtil.modResource("/unset_anti_plasmid/${geneString}"),
-                    true
-                )
-            )
-        }
+			registry.addRecipe(
+				EmiCraftingRecipe(
+					listOf(EmiIngredient.of(Ingredient.of(antiPlasmidStack))),
+					EmiStack.of(ModItems.ANTI_PLASMID),
+					OtherUtil.modResource("/unset_anti_plasmid/${geneString}"),
+					true
+				)
+			)
+		}
 
-    }
+	}
 
 }

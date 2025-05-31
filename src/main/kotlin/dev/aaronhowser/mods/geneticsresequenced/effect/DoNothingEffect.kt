@@ -7,24 +7,24 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
 class DoNothingEffect(
-    color: Int,
-    isBad: Boolean = false,
-    private val removeImmediately: Boolean = true
+	color: Int,
+	isBad: Boolean = false,
+	private val removeImmediately: Boolean = true
 ) : MobEffect(
-    if (isBad) MobEffectCategory.HARMFUL else MobEffectCategory.NEUTRAL,
-    color
+	if (isBad) MobEffectCategory.HARMFUL else MobEffectCategory.NEUTRAL,
+	color
 ) {
 
-    override fun isInstantenous(): Boolean = removeImmediately
+	override fun isInstantenous(): Boolean = removeImmediately
 
-    override fun applyInstantenousEffect(
-        pSource: Entity?,
-        pIndirectSource: Entity?,
-        pLivingEntity: LivingEntity,
-        pAmplifier: Int,
-        pHealth: Double
-    ) {
-        if (removeImmediately) pLivingEntity.removeEffect(Holder.direct(this))
-    }
+	override fun applyInstantenousEffect(
+		pSource: Entity?,
+		pIndirectSource: Entity?,
+		pLivingEntity: LivingEntity,
+		pAmplifier: Int,
+		pHealth: Double
+	) {
+		if (removeImmediately) pLivingEntity.removeEffect(Holder.direct(this))
+	}
 
 }

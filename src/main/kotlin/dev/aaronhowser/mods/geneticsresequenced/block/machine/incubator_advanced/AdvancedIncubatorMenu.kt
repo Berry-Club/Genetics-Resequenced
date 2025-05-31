@@ -29,176 +29,176 @@ import kotlin.math.min
 
 
 class AdvancedIncubatorMenu(
-    id: Int,
-    inventory: Inventory,
-    blockEntity: AdvancedIncubatorBlockEntity,
-    private val containerData: ContainerData
+	id: Int,
+	inventory: Inventory,
+	blockEntity: AdvancedIncubatorBlockEntity,
+	private val containerData: ContainerData
 ) : MachineMenu(
-    ModMenuTypes.ADVANCED_INCUBATOR.get(),
-    blockEntity,
-    id,
-    inventory
+	ModMenuTypes.ADVANCED_INCUBATOR.get(),
+	blockEntity,
+	id,
+	inventory
 ) {
 
-    constructor(id: Int, inventory: Inventory, extraData: FriendlyByteBuf) :
-            this(
-                id,
-                inventory,
-                inventory.player.level().getBlockEntity(extraData.readBlockPos()) as AdvancedIncubatorBlockEntity,
-                SimpleContainerData(AdvancedIncubatorBlockEntity.SIMPLE_CONTAINER_SIZE)
-            )
+	constructor(id: Int, inventory: Inventory, extraData: FriendlyByteBuf) :
+			this(
+				id,
+				inventory,
+				inventory.player.level().getBlockEntity(extraData.readBlockPos()) as AdvancedIncubatorBlockEntity,
+				SimpleContainerData(AdvancedIncubatorBlockEntity.SIMPLE_CONTAINER_SIZE)
+			)
 
-    init {
-        checkContainerSize(inventory, AdvancedIncubatorBlockEntity.SIMPLE_CONTAINER_SIZE)
+	init {
+		checkContainerSize(inventory, AdvancedIncubatorBlockEntity.SIMPLE_CONTAINER_SIZE)
 
-        addPlayerInventory(inventory)
-        addPlayerHotbar(inventory)
+		addPlayerInventory(inventory)
+		addPlayerHotbar(inventory)
 
-        val itemHandler = this.blockEntity.itemHandler
+		val itemHandler = this.blockEntity.itemHandler
 
-        this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX, 83, 21))
-        this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 55))
-        this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX, 83, 62))
-        this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX, 106, 55))
-        this.addSlot(SlotItemHandler(itemHandler, CHORUS_SLOT_INDEX, 141, 38))
-        this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.OVERCLOCKER_SLOT_INDEX, 141, 60))
+		this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX, 83, 21))
+		this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 55))
+		this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX, 83, 62))
+		this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX, 106, 55))
+		this.addSlot(SlotItemHandler(itemHandler, CHORUS_SLOT_INDEX, 141, 38))
+		this.addSlot(SlotItemHandler(itemHandler, AdvancedIncubatorBlockEntity.OVERCLOCKER_SLOT_INDEX, 141, 60))
 
-        addDataSlots(containerData)
-    }
+		addDataSlots(containerData)
+	}
 
-    override fun stillValid(pPlayer: Player): Boolean {
-        return stillValid(
-            ContainerLevelAccess.create(level, blockEntity.blockPos),
-            pPlayer,
-            ModBlocks.ADVANCED_INCUBATOR.get()
-        )
-    }
+	override fun stillValid(pPlayer: Player): Boolean {
+		return stillValid(
+			ContainerLevelAccess.create(level, blockEntity.blockPos),
+			pPlayer,
+			ModBlocks.ADVANCED_INCUBATOR.get()
+		)
+	}
 
-    private var ticksRemaining: Int
-        get() = containerData.get(AdvancedIncubatorBlockEntity.REMAINING_TICKS_INDEX)
-        set(value) {
-            containerData.set(AdvancedIncubatorBlockEntity.REMAINING_TICKS_INDEX, value)
-        }
+	private var ticksRemaining: Int
+		get() = containerData.get(AdvancedIncubatorBlockEntity.REMAINING_TICKS_INDEX)
+		set(value) {
+			containerData.set(AdvancedIncubatorBlockEntity.REMAINING_TICKS_INDEX, value)
+		}
 
-    var isHighTemperature: Boolean
-        get() = containerData.get(AdvancedIncubatorBlockEntity.IS_HIGH_TEMPERATURE_INDEX) == 1
-        private set(value) {
-            containerData.set(AdvancedIncubatorBlockEntity.IS_HIGH_TEMPERATURE_INDEX, if (value) 1 else 0)
-        }
+	var isHighTemperature: Boolean
+		get() = containerData.get(AdvancedIncubatorBlockEntity.IS_HIGH_TEMPERATURE_INDEX) == 1
+		private set(value) {
+			containerData.set(AdvancedIncubatorBlockEntity.IS_HIGH_TEMPERATURE_INDEX, if (value) 1 else 0)
+		}
 
-    val isCrafting
-        get() = ticksRemaining > 0
+	val isCrafting
+		get() = ticksRemaining > 0
 
-    override fun getPercentDone(): Float {
-        if (ticksRemaining <= 0) return 0f
+	override fun getPercentDone(): Float {
+		if (ticksRemaining <= 0) return 0f
 
-        val maxProgress = IncubatorBlockEntity.ticksPerBrew
-        val progress = maxProgress - ticksRemaining
+		val maxProgress = IncubatorBlockEntity.ticksPerBrew
+		val progress = maxProgress - ticksRemaining
 
-        return if (maxProgress != 0) {
-            progress.toFloat() / maxProgress.toFloat()
-        } else {
-            0f
-        }
-    }
+		return if (maxProgress != 0) {
+			progress.toFloat() / maxProgress.toFloat()
+		} else {
+			0f
+		}
+	}
 
-    override fun clickMenuButton(pPlayer: Player, pId: Int): Boolean {
-        if (pPlayer is ServerPlayer) {
-            if (pId == 1) {
-                toggleTemperature()
-                return true
-            }
-        }
+	override fun clickMenuButton(pPlayer: Player, pId: Int): Boolean {
+		if (pPlayer is ServerPlayer) {
+			if (pId == 1) {
+				toggleTemperature()
+				return true
+			}
+		}
 
-        return false
-    }
+		return false
+	}
 
-    private fun toggleTemperature() {
-        isHighTemperature = !isHighTemperature
-        (blockEntity as AdvancedIncubatorBlockEntity).resetBrewTime()
-    }
+	private fun toggleTemperature() {
+		isHighTemperature = !isHighTemperature
+		(blockEntity as AdvancedIncubatorBlockEntity).resetBrewTime()
+	}
 
-    companion object {
-        fun showChanceTooltip(event: ItemTooltipEvent) {
-            val potionStack = event.itemStack
+	companion object {
+		fun showChanceTooltip(event: ItemTooltipEvent) {
+			val potionStack = event.itemStack
 
-            val potion = OtherUtil.getPotion(potionStack) ?: return
-            if (
-                potion != ModPotions.CELL_GROWTH
-                && potion != ModPotions.MUTATION
-            ) return
+			val potion = OtherUtil.getPotion(potionStack) ?: return
+			if (
+				potion != ModPotions.CELL_GROWTH
+				&& potion != ModPotions.MUTATION
+			) return
 
-            val player = event.entity ?: return
-            val menu = player.containerMenu as? AdvancedIncubatorMenu ?: return
-            val blockEntity = menu.blockEntity as? AdvancedIncubatorBlockEntity ?: return
+			val player = event.entity ?: return
+			val menu = player.containerMenu as? AdvancedIncubatorMenu ?: return
+			val blockEntity = menu.blockEntity as? AdvancedIncubatorBlockEntity ?: return
 
-            val topStack = blockEntity.itemHandler.getStackInSlot(AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX)
+			val topStack = blockEntity.itemHandler.getStackInSlot(AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX)
 
-            val recipe = GmoRecipe.getGmoRecipe(
-                ClientUtil.localLevel!!,
-                topStack,
-                potionStack,
-                blockEntity.isHighTemperature   // TODO: See if this works
-            ) ?: return
+			val recipe = GmoRecipe.getGmoRecipe(
+				ClientUtil.localLevel!!,
+				topStack,
+				potionStack,
+				blockEntity.isHighTemperature   // TODO: See if this works
+			) ?: return
 
-            val chanceDecreasePerOverclocker = ServerConfig.incubatorOverclockerChanceDecrease.get().toFloat()
-            val chanceIncreasePerChorus = ServerConfig.incubatorChorusFruitChanceIncrease.get().toFloat()
+			val chanceDecreasePerOverclocker = ServerConfig.incubatorOverclockerChanceDecrease.get().toFloat()
+			val chanceIncreasePerChorus = ServerConfig.incubatorChorusFruitChanceIncrease.get().toFloat()
 
-            val baseChance = recipe.geneChance
+			val baseChance = recipe.geneChance
 
-            val amountOverclockers = blockEntity.amountOfOverclockers
-            val overclockerChanceFactor =
-                1 - amountOverclockers * chanceDecreasePerOverclocker
-            val reducedChance = (baseChance * overclockerChanceFactor).coerceIn(0f, 1f)
+			val amountOverclockers = blockEntity.amountOfOverclockers
+			val overclockerChanceFactor =
+				1 - amountOverclockers * chanceDecreasePerOverclocker
+			val reducedChance = (baseChance * overclockerChanceFactor).coerceIn(0f, 1f)
 
-            val chorusRequiredForMaxChance = Mth.ceil((1f - reducedChance) / chanceIncreasePerChorus)
-            val chorusAvailable = blockEntity.itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).count
-            val chorusUsed = min(chorusRequiredForMaxChance, chorusAvailable)
+			val chorusRequiredForMaxChance = Mth.ceil((1f - reducedChance) / chanceIncreasePerChorus)
+			val chorusAvailable = blockEntity.itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).count
+			val chorusUsed = min(chorusRequiredForMaxChance, chorusAvailable)
 
-            val chorusBoost = chorusUsed * chanceIncreasePerChorus
-            val finalChance = reducedChance + chorusBoost
+			val chorusBoost = chorusUsed * chanceIncreasePerChorus
+			val finalChance = reducedChance + chorusBoost
 
-            var index = event.toolTip.size
+			var index = event.toolTip.size
 
-            event.toolTip.add(
-                index++,
-                CommonComponents.EMPTY
-            )
+			event.toolTip.add(
+				index++,
+				CommonComponents.EMPTY
+			)
 
-            event.toolTip.add(
-                index++,
-                ModLanguageProvider.Tooltips.GMO_BASE_CHANCE
-                    .toComponent(
-                        Gene.getNameComponent(recipe.idealGeneRk),
-                        (baseChance * 100).toInt()
-                    )
-                    .withStyle(ChatFormatting.GRAY)
-            )
+			event.toolTip.add(
+				index++,
+				ModLanguageProvider.Tooltips.GMO_BASE_CHANCE
+					.toComponent(
+						Gene.getNameComponent(recipe.idealGeneRk),
+						(baseChance * 100).toInt()
+					)
+					.withStyle(ChatFormatting.GRAY)
+			)
 
-            if (amountOverclockers != 0) {
-                event.toolTip.add(
-                    index++,
-                    ModLanguageProvider.Tooltips.GMO_OVERCLOCKER_CHANCE
-                        .toComponent(
-                            amountOverclockers,
-                            (reducedChance * 100).toInt()
-                        )
-                        .withStyle(ChatFormatting.GRAY)
-                )
-            }
+			if (amountOverclockers != 0) {
+				event.toolTip.add(
+					index++,
+					ModLanguageProvider.Tooltips.GMO_OVERCLOCKER_CHANCE
+						.toComponent(
+							amountOverclockers,
+							(reducedChance * 100).toInt()
+						)
+						.withStyle(ChatFormatting.GRAY)
+				)
+			}
 
-            if (chorusUsed != 0) {
-                event.toolTip.add(
-                    index,
-                    ModLanguageProvider.Tooltips.GMO_CHORUS_CHANCE
-                        .toComponent(
-                            chorusUsed,
-                            (finalChance * 100).toInt()
-                        )
-                        .withStyle(ChatFormatting.GRAY)
-                )
-            }
-        }
-    }
+			if (chorusUsed != 0) {
+				event.toolTip.add(
+					index,
+					ModLanguageProvider.Tooltips.GMO_CHORUS_CHANCE
+						.toComponent(
+							chorusUsed,
+							(finalChance * 100).toInt()
+						)
+						.withStyle(ChatFormatting.GRAY)
+				)
+			}
+		}
+	}
 
 }

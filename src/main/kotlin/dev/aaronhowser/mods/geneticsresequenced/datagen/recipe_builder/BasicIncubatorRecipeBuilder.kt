@@ -14,50 +14,50 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 
 class BasicIncubatorRecipeBuilder(
-    val topSlotIngredient: Ingredient,
-    val bottomSlotIngredient: Ingredient,
-    val outputStack: ItemStack,
-    val recipeName: String? = null
+	val topSlotIngredient: Ingredient,
+	val bottomSlotIngredient: Ingredient,
+	val outputStack: ItemStack,
+	val recipeName: String? = null
 ) : RecipeBuilder {
 
-    private val criteria: MutableMap<String, Criterion<*>> = mutableMapOf()
+	private val criteria: MutableMap<String, Criterion<*>> = mutableMapOf()
 
-    override fun unlockedBy(name: String, criterion: Criterion<*>): RecipeBuilder {
-        criteria[name] = criterion
-        return this
-    }
+	override fun unlockedBy(name: String, criterion: Criterion<*>): RecipeBuilder {
+		criteria[name] = criterion
+		return this
+	}
 
-    override fun group(p0: String?): RecipeBuilder {
-        error("Unsupported")
-    }
+	override fun group(p0: String?): RecipeBuilder {
+		error("Unsupported")
+	}
 
-    override fun getResult(): Item {
-        return outputStack.item
-    }
+	override fun getResult(): Item {
+		return outputStack.item
+	}
 
-    override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
-        val idString = StringBuilder()
+	override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
+		val idString = StringBuilder()
 
-        idString
-            .append("incubator/basic/")
-            .append(recipeName ?: defaultId.path)
+		idString
+			.append("incubator/basic/")
+			.append(recipeName ?: defaultId.path)
 
-        val id = OtherUtil.modResource(idString.toString())
+		val id = OtherUtil.modResource(idString.toString())
 
-        val advancement = output.advancement()
-            .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
-            .rewards(AdvancementRewards.Builder.recipe(id))
-            .requirements(AdvancementRequirements.Strategy.OR)
+		val advancement = output.advancement()
+			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
+			.rewards(AdvancementRewards.Builder.recipe(id))
+			.requirements(AdvancementRequirements.Strategy.OR)
 
-        criteria.forEach { (name, criterion) -> advancement.addCriterion(name, criterion) }
+		criteria.forEach { (name, criterion) -> advancement.addCriterion(name, criterion) }
 
-        val recipe = BasicIncubatorRecipe(
-            topSlotIngredient,
-            bottomSlotIngredient,
-            outputStack,
-            isLowTemp = false
-        )
+		val recipe = BasicIncubatorRecipe(
+			topSlotIngredient,
+			bottomSlotIngredient,
+			outputStack,
+			isLowTemp = false
+		)
 
-        output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
-    }
+		output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
+	}
 }

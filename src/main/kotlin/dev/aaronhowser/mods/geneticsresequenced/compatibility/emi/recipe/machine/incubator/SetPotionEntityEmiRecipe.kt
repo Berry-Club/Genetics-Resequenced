@@ -13,56 +13,56 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.crafting.Ingredient
 
 class SetPotionEntityEmiRecipe(
-    val entityType: EntityType<*>,
-    val isMutation: Boolean
+	val entityType: EntityType<*>,
+	val isMutation: Boolean
 ) : AbstractEmiIncubatorRecipe() {
 
-    companion object {
-        fun getAllRecipes(): List<SetPotionEntityEmiRecipe> {
-            val allEntityTypes = EntityDnaItem.validEntityTypes
+	companion object {
+		fun getAllRecipes(): List<SetPotionEntityEmiRecipe> {
+			val allEntityTypes = EntityDnaItem.validEntityTypes
 
-            val pcgRecipes: MutableList<SetPotionEntityEmiRecipe> = mutableListOf()
-            val mutationRecipes: MutableList<SetPotionEntityEmiRecipe> = mutableListOf()
+			val pcgRecipes: MutableList<SetPotionEntityEmiRecipe> = mutableListOf()
+			val mutationRecipes: MutableList<SetPotionEntityEmiRecipe> = mutableListOf()
 
-            allEntityTypes.forEach {
-                pcgRecipes.add(SetPotionEntityEmiRecipe(it, false))
-                mutationRecipes.add(SetPotionEntityEmiRecipe(it, true))
-            }
+			allEntityTypes.forEach {
+				pcgRecipes.add(SetPotionEntityEmiRecipe(it, false))
+				mutationRecipes.add(SetPotionEntityEmiRecipe(it, true))
+			}
 
-            return pcgRecipes + mutationRecipes
-        }
-    }
+			return pcgRecipes + mutationRecipes
+		}
+	}
 
-    override val ingredient: EmiIngredient
-    override val input: EmiIngredient
-    override val output: EmiStack
+	override val ingredient: EmiIngredient
+	override val input: EmiIngredient
+	override val output: EmiStack
 
-    override fun getCategory(): EmiRecipeCategory {
-        return ModEmiPlugin.SET_ENTITY_CATEGORY
-    }
+	override fun getCategory(): EmiRecipeCategory {
+		return ModEmiPlugin.SET_ENTITY_CATEGORY
+	}
 
-    init {
-        val cellStack = ModItems.CELL.toStack()
-        EntityDnaItem.setEntityType(cellStack, entityType)
-        ingredient = EmiIngredient.of(Ingredient.of(cellStack))
+	init {
+		val cellStack = ModItems.CELL.toStack()
+		EntityDnaItem.setEntityType(cellStack, entityType)
+		ingredient = EmiIngredient.of(Ingredient.of(cellStack))
 
-        val potionStack = if (isMutation) {
-            BrewingRecipes.mutationPotionStack
-        } else {
-            BrewingRecipes.cellGrowthPotionStack
-        }
+		val potionStack = if (isMutation) {
+			BrewingRecipes.mutationPotionStack
+		} else {
+			BrewingRecipes.cellGrowthPotionStack
+		}
 
-        input = EmiIngredient.of(Ingredient.of(potionStack))
+		input = EmiIngredient.of(Ingredient.of(potionStack))
 
-        EntityDnaItem.setEntityType(potionStack, entityType)
-        output = EmiStack.of(potionStack)
-    }
+		EntityDnaItem.setEntityType(potionStack, entityType)
+		output = EmiStack.of(potionStack)
+	}
 
-    override fun getId(): ResourceLocation {
-        val potionString = if (isMutation) "mutation" else "pcg"
-        val entityTypeString = EntityType.getKey(entityType).toString().replace(':', '/')
+	override fun getId(): ResourceLocation {
+		val potionString = if (isMutation) "mutation" else "pcg"
+		val entityTypeString = EntityType.getKey(entityType).toString().replace(':', '/')
 
-        return OtherUtil.modResource("/set_potion_entity/$potionString/$entityTypeString")
-    }
+		return OtherUtil.modResource("/set_potion_entity/$potionString/$entityTypeString")
+	}
 
 }

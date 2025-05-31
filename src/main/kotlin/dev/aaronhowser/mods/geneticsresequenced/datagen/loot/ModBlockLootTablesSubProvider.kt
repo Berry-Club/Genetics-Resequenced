@@ -7,17 +7,17 @@ import net.minecraft.world.flag.FeatureFlags
 import net.minecraft.world.level.block.Block
 
 class ModBlockLootTablesSubProvider(
-    provider: HolderLookup.Provider
+	provider: HolderLookup.Provider
 ) : BlockLootSubProvider(setOf(), FeatureFlags.REGISTRY.allFlags(), provider) {
 
-    override fun generate() {
-        for (block in knownBlocks) {
-            dropSelf(block)
-        }
-    }
+	override fun generate() {
+		for (block in knownBlocks) {
+			dropSelf(block)
+		}
+	}
 
-    override fun getKnownBlocks(): List<Block> {
-        return ModBlocks.BLOCK_REGISTRY.entries.map { it.get() } - ModBlocks.BIOLUMINESCENCE_BLOCK.get()
-    }
+	override fun getKnownBlocks(): List<Block> {
+		return ModBlocks.BLOCK_REGISTRY.entries.map { it.get() } - ModBlocks.BIOLUMINESCENCE_BLOCK.get()
+	}
 
 }

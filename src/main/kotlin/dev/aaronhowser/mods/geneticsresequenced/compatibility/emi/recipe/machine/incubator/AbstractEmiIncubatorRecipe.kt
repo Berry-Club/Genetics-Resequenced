@@ -12,43 +12,43 @@ import net.minecraft.resources.ResourceLocation
 
 abstract class AbstractEmiIncubatorRecipe : EmiRecipe {
 
-    companion object {
-        val BACKGROUND: ResourceLocation = OtherUtil.modResource("textures/gui/container/incubator_emi.png")
-    }
+	companion object {
+		val BACKGROUND: ResourceLocation = OtherUtil.modResource("textures/gui/container/incubator_emi.png")
+	}
 
-    abstract val ingredient: EmiIngredient
-    abstract val input: EmiIngredient
-    abstract val output: EmiStack
+	abstract val ingredient: EmiIngredient
+	abstract val input: EmiIngredient
+	abstract val output: EmiStack
 
-    override fun getCategory(): EmiRecipeCategory {
-        return ModEmiPlugin.INCUBATOR_CATEGORY
-    }
+	override fun getCategory(): EmiRecipeCategory {
+		return ModEmiPlugin.INCUBATOR_CATEGORY
+	}
 
-    override fun getInputs(): List<EmiIngredient> {
-        return listOf(input, ingredient)
-    }
+	override fun getInputs(): List<EmiIngredient> {
+		return listOf(input, ingredient)
+	}
 
-    override fun getOutputs(): List<EmiStack> {
-        return listOf(output)
-    }
+	override fun getOutputs(): List<EmiStack> {
+		return listOf(output)
+	}
 
-    override fun getDisplayWidth(): Int {
-        return 75
-    }
+	override fun getDisplayWidth(): Int {
+		return 75
+	}
 
-    override fun getDisplayHeight(): Int {
-        return 61
-    }
+	override fun getDisplayHeight(): Int {
+		return 61
+	}
 
-    open val tooltips: List<Component> = emptyList()
+	open val tooltips: List<Component> = emptyList()
 
-    override fun addWidgets(widgets: WidgetHolder) {
-        widgets.addTexture(BACKGROUND, 5, 0, 65, 61, 55, 14)
-        widgets.addSlot(input, 5, 36).drawBack(false)
-        widgets.addSlot(ingredient, 28, 2).drawBack(false)
-        widgets.addSlot(output, 51, 36).drawBack(false).recipeContext(this)
+	override fun addWidgets(widgets: WidgetHolder) {
+		widgets.addTexture(BACKGROUND, 5, 0, 65, 61, 55, 14)
+		widgets.addSlot(input, 5, 36).drawBack(false)
+		widgets.addSlot(ingredient, 28, 2).drawBack(false)
+		widgets.addSlot(output, 51, 36).drawBack(false).recipeContext(this)
 
-        widgets.addTooltipText(tooltips, 0, 0, displayWidth, displayHeight)
-    }
+		widgets.addTooltipText(tooltips, 0, 0, displayWidth, displayHeight)
+	}
 
 }

@@ -11,28 +11,28 @@ import kotlin.jvm.optionals.getOrNull
 
 object ScareGenes {
 
-    fun attachScareTask(entity: PathfinderMob) {
-        val allGenes = ModGenes.getAllGeneHolders(entity.registryAccess())
+	fun attachScareTask(entity: PathfinderMob) {
+		val allGenes = ModGenes.getAllGeneHolders(entity.registryAccess())
 
-        for (gene in allGenes) {
-            if (gene.isDisabled) continue
-            val cowardTag = gene.value().scaresEntitiesWithTag.getOrNull() ?: continue
+		for (gene in allGenes) {
+			if (gene.isDisabled) continue
+			val cowardTag = gene.value().scaresEntitiesWithTag.getOrNull() ?: continue
 
-            if (!entity.type.`is`(cowardTag)) continue
+			if (!entity.type.`is`(cowardTag)) continue
 
-            entity.goalSelector.addGoal(
-                1,
-                AvoidEntityGoal(
-                    entity,
-                    LivingEntity::class.java,
-                    { otherEntity: LivingEntity -> otherEntity.hasGene(gene) },
-                    12.0f,
-                    1.2,
-                    1.6,
-                    EntitySelector.NO_SPECTATORS::test
-                )
-            )
-        }
-    }
+			entity.goalSelector.addGoal(
+				1,
+				AvoidEntityGoal(
+					entity,
+					LivingEntity::class.java,
+					{ otherEntity: LivingEntity -> otherEntity.hasGene(gene) },
+					12.0f,
+					1.2,
+					1.6,
+					EntitySelector.NO_SPECTATORS::test
+				)
+			)
+		}
+	}
 
 }

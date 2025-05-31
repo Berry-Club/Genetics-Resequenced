@@ -24,70 +24,70 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent
 import net.neoforged.neoforge.event.tick.PlayerTickEvent
 
 @EventBusSubscriber(
-    modid = GeneticsResequenced.ID
+	modid = GeneticsResequenced.ID
 )
 object OtherPlayerEvents {
 
-    @SubscribeEvent
-    fun onPlayerTick(event: PlayerTickEvent.Pre) {
-        TickGenes.handleNoHunger(event.entity)
-        TickGenes.handleMobSight(event.entity)
-        AttributeGenes.handleWallClimbing(event.entity)     // Requires clientside handling
-        TickGenes.handleItemMagnet(event.entity)
-        TickGenes.handleXpMagnet(event.entity)
-    }
+	@SubscribeEvent
+	fun onPlayerTick(event: PlayerTickEvent.Pre) {
+		TickGenes.handleNoHunger(event.entity)
+		TickGenes.handleMobSight(event.entity)
+		AttributeGenes.handleWallClimbing(event.entity)     // Requires clientside handling
+		TickGenes.handleItemMagnet(event.entity)
+		TickGenes.handleXpMagnet(event.entity)
+	}
 
-    @SubscribeEvent
-    fun onPickUpItem(event: ItemEntityPickupEvent.Post) {
-        val originalStack = event.originalStack
-        val player = event.player
+	@SubscribeEvent
+	fun onPickUpItem(event: ItemEntityPickupEvent.Post) {
+		val originalStack = event.originalStack
+		val player = event.player
 
-        if (originalStack.isSyringe()) {
-            val thrower = event.itemEntity.owner as? LivingEntity
+		if (originalStack.isSyringe()) {
+			val thrower = event.itemEntity.owner as? LivingEntity
 
-            player.hurt(SyringeItem.damageSourceStepOnSyringe(event.player.level(), thrower), 1.0f)
+			player.hurt(SyringeItem.damageSourceStepOnSyringe(event.player.level(), thrower), 1.0f)
 
-            if (isContaminated(originalStack)) {
-                player.addEffect(MobEffectInstance(MobEffects.POISON, 20 * 3))
-            }
-        }
-    }
+			if (isContaminated(originalStack)) {
+				player.addEffect(MobEffectInstance(MobEffects.POISON, 20 * 3))
+			}
+		}
+	}
 
-    @SubscribeEvent
-    fun onLogIn(event: PlayerEvent.PlayerLoggedInEvent) {
-        GenesData.syncPlayer(event.entity)
-    }
+	@SubscribeEvent
+	fun onLogIn(event: PlayerEvent.PlayerLoggedInEvent) {
+		GenesData.syncPlayer(event.entity)
+	}
 
-    @SubscribeEvent
-    fun onChangeDimension(event: PlayerEvent.PlayerChangedDimensionEvent) {
-        GenesData.syncPlayer(event.entity)
-    }
+	@SubscribeEvent
+	fun onChangeDimension(event: PlayerEvent.PlayerChangedDimensionEvent) {
+		GenesData.syncPlayer(event.entity)
+	}
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    fun onPlayerRespawn(event: PlayerEvent.PlayerRespawnEvent) {
-        GenesData.syncPlayer(event.entity)
-    }
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	fun onPlayerRespawn(event: PlayerEvent.PlayerRespawnEvent) {
+		GenesData.syncPlayer(event.entity)
+	}
 
-    @SubscribeEvent
-    fun onSendChatMessage(event: ServerChatEvent) {
-        OtherGenes.handleEmeraldHeart(event)
-        OtherGenes.handleCringeChat(event)
-        OtherGenes.handleChatterbox(event)
-        OtherGenes.handleSlimyChat(event)
-    }
+	@SubscribeEvent
+	fun onSendChatMessage(event: ServerChatEvent) {
+		OtherGenes.handleEmeraldHeart(event)
+		OtherGenes.handleCringeChat(event)
+		OtherGenes.handleChatterbox(event)
+		OtherGenes.handleSlimyChat(event)
+	}
 
-    @SubscribeEvent
-    fun onStartTracking(event: PlayerEvent.StartTracking) {
-        val player = event.entity as? ServerPlayer ?: return
-        val entity = event.target as? LivingEntity ?: return
+	@SubscribeEvent
+	fun onStartTracking(event: PlayerEvent.StartTracking) {
+		val player = event.entity as? ServerPlayer ?: return
+		val entity = event.target as? LivingEntity ?: return
 
-        ModPacketHandler.messagePlayer(
-            player,
-            SetGenesPacket(
-                entity.id,
-                entity.geneHolders
-            )
-        )
-    }
+		ModPacketHandler.messagePlayer(
+			player,
+			SetGenesPacket(
+				entity.id,
+				entity.geneHolders
+			)
+		)
+	}
 
 }

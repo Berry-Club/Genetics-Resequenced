@@ -7,13 +7,13 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Inventory
 
 class BloodPurifierScreen(
-    pMenu: BloodPurifierMenu,
-    pPlayerInventory: Inventory,
-    pTitle: Component
+	pMenu: BloodPurifierMenu,
+	pPlayerInventory: Inventory,
+	pTitle: Component
 ) : MachineScreen<BloodPurifierMenu>(pMenu, pPlayerInventory, pTitle) {
 
-    override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.BASIC
+	override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.BASIC
 
-    override fun shouldRenderProgressArrow() = menu.isCrafting
+	override fun shouldRenderProgressArrow() = menu.isCrafting
 
 }

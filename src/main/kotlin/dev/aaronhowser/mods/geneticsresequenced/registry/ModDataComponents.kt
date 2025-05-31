@@ -17,64 +17,64 @@ import net.neoforged.neoforge.registries.DeferredRegister
 
 object ModDataComponents {
 
-    val DATA_COMPONENT_REGISTRY: DeferredRegister.DataComponents =
-        DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, GeneticsResequenced.ID)
+	val DATA_COMPONENT_REGISTRY: DeferredRegister.DataComponents =
+		DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, GeneticsResequenced.ID)
 
-    val ENTITY_TYPE_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<EntityType<*>>> =
-        DATA_COMPONENT_REGISTRY.registerComponentType("entity_type") {
-            it
-                .persistent(BuiltInRegistries.ENTITY_TYPE.byNameCodec())
-                .networkSynchronized(ByteBufCodecs.registry(Registries.ENTITY_TYPE))
-        }
+	val ENTITY_TYPE_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<EntityType<*>>> =
+		DATA_COMPONENT_REGISTRY.registerComponentType("entity_type") {
+			it
+				.persistent(BuiltInRegistries.ENTITY_TYPE.byNameCodec())
+				.networkSynchronized(ByteBufCodecs.registry(Registries.ENTITY_TYPE))
+		}
 
-    val SPECIFIC_ENTITY_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<SpecificEntityItemComponent>> =
-        DATA_COMPONENT_REGISTRY.registerComponentType("specific_entity") {
-            it
-                .persistent(SpecificEntityItemComponent.CODEC)
-                .networkSynchronized(SpecificEntityItemComponent.STREAM_CODEC)
-        }
+	val SPECIFIC_ENTITY_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<SpecificEntityItemComponent>> =
+		DATA_COMPONENT_REGISTRY.registerComponentType("specific_entity") {
+			it
+				.persistent(SpecificEntityItemComponent.CODEC)
+				.networkSynchronized(SpecificEntityItemComponent.STREAM_CODEC)
+		}
 
-    val IS_ACTIVE_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
-        boolCodec("is_active")
+	val IS_ACTIVE_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
+		boolCodec("is_active")
 
-    val IS_CONTAMINATED_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
-        boolCodec("is_contaminated")
+	val IS_CONTAMINATED_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
+		boolCodec("is_contaminated")
 
-    val IS_INFINITY_ARROW: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
-        boolCodec("is_infinity_arrow")
+	val IS_INFINITY_ARROW: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
+		boolCodec("is_infinity_arrow")
 
-    val GENES_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =
-        geneListComponent("genes")
+	val GENES_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =
+		geneListComponent("genes")
 
-    val ANTIGENES_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =
-        geneListComponent("antigenes")
+	val ANTIGENES_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =
+		geneListComponent("antigenes")
 
-    val PLASMID_PROGRESS_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<PlasmidProgressItemComponent>> =
-        DATA_COMPONENT_REGISTRY.registerComponentType("plasmid_progress") {
-            it
-                .persistent(PlasmidProgressItemComponent.CODEC)
-                .networkSynchronized(PlasmidProgressItemComponent.STREAM_CODEC)
-        }
+	val PLASMID_PROGRESS_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<PlasmidProgressItemComponent>> =
+		DATA_COMPONENT_REGISTRY.registerComponentType("plasmid_progress") {
+			it
+				.persistent(PlasmidProgressItemComponent.CODEC)
+				.networkSynchronized(PlasmidProgressItemComponent.STREAM_CODEC)
+		}
 
-    val GENE_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<Holder<Gene>>> =
-        DATA_COMPONENT_REGISTRY.registerComponentType("gene") {
-            it
-                .persistent(Gene.CODEC)
-                .networkSynchronized(Gene.STREAM_CODEC)
-        }
+	val GENE_COMPONENT: DeferredHolder<DataComponentType<*>, DataComponentType<Holder<Gene>>> =
+		DATA_COMPONENT_REGISTRY.registerComponentType("gene") {
+			it
+				.persistent(Gene.CODEC)
+				.networkSynchronized(Gene.STREAM_CODEC)
+		}
 
-    private fun geneListComponent(name: String): DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =
-        DATA_COMPONENT_REGISTRY.registerComponentType(name) {
-            it
-                .persistent(Gene.HOLDER_SET_CODEC)
-                .networkSynchronized(Gene.HOLDER_SET_STREAM_CODEC)
-        }
+	private fun geneListComponent(name: String): DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =
+		DATA_COMPONENT_REGISTRY.registerComponentType(name) {
+			it
+				.persistent(Gene.HOLDER_SET_CODEC)
+				.networkSynchronized(Gene.HOLDER_SET_STREAM_CODEC)
+		}
 
-    private fun boolCodec(name: String): DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
-        DATA_COMPONENT_REGISTRY.registerComponentType(name) {
-            it
-                .persistent(Codec.BOOL)
-                .networkSynchronized(ByteBufCodecs.BOOL)
-        }
+	private fun boolCodec(name: String): DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
+		DATA_COMPONENT_REGISTRY.registerComponentType(name) {
+			it
+				.persistent(Codec.BOOL)
+				.networkSynchronized(ByteBufCodecs.BOOL)
+		}
 
 }

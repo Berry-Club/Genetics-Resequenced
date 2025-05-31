@@ -26,81 +26,81 @@ import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class VirusRecipe(
-    val inputDnaGene: ResourceKey<Gene>,
-    val outputGene: ResourceKey<Gene>
+	val inputDnaGene: ResourceKey<Gene>,
+	val outputGene: ResourceKey<Gene>
 ) : AbstractIncubatorRecipe(
-    topIngredient = Ingredient.of(ModItems.DNA_HELIX.get()),
-    bottomIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))
+	topIngredient = Ingredient.of(ModItems.DNA_HELIX.get()),
+	bottomIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))
 ) {
 
-    override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
-        val helixStack = input.getTopItem()
-        val potionStack = input.getBottomItem()
+	override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
+		val helixStack = input.getTopItem()
+		val potionStack = input.getBottomItem()
 
-        if (!topIngredient.test(helixStack)) return false
-        if (!bottomIngredient.test(potionStack)) return false
+		if (!topIngredient.test(helixStack)) return false
+		if (!bottomIngredient.test(potionStack)) return false
 
-        return DnaHelixItem.getGeneHolder(helixStack).isGene(inputDnaGene)
-    }
+		return DnaHelixItem.getGeneHolder(helixStack).isGene(inputDnaGene)
+	}
 
-    override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
-        return getResultItem(lookup)
-    }
+	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
+		return getResultItem(lookup)
+	}
 
-    override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
-        val output = DnaHelixItem.setGeneHolder(
-            ModItems.DNA_HELIX.toStack(),
-            outputGene.getHolderOrThrow(lookup)
-        )
+	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
+		val output = DnaHelixItem.setGeneHolder(
+			ModItems.DNA_HELIX.toStack(),
+			outputGene.getHolderOrThrow(lookup)
+		)
 
-        return output
-    }
+		return output
+	}
 
-    override fun getSerializer(): RecipeSerializer<*> {
-        return ModRecipeSerializers.VIRUS.get()
-    }
+	override fun getSerializer(): RecipeSerializer<*> {
+		return ModRecipeSerializers.VIRUS.get()
+	}
 
-    class Serializer : RecipeSerializer<VirusRecipe> {
+	class Serializer : RecipeSerializer<VirusRecipe> {
 
-        override fun codec(): MapCodec<VirusRecipe> {
-            return CODEC
-        }
+		override fun codec(): MapCodec<VirusRecipe> {
+			return CODEC
+		}
 
-        override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, VirusRecipe> {
-            return STREAM_CODEC
-        }
+		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, VirusRecipe> {
+			return STREAM_CODEC
+		}
 
-        companion object {
-            val CODEC: MapCodec<VirusRecipe> =
-                RecordCodecBuilder.mapCodec { instance ->
-                    instance.group(
-                        ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
-                            .fieldOf("input_gene")
-                            .forGetter(VirusRecipe::inputDnaGene),
-                        ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
-                            .fieldOf("output_gene")
-                            .forGetter(VirusRecipe::outputGene)
-                    ).apply(instance, ::VirusRecipe)
-                }
+		companion object {
+			val CODEC: MapCodec<VirusRecipe> =
+				RecordCodecBuilder.mapCodec { instance ->
+					instance.group(
+						ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
+							.fieldOf("input_gene")
+							.forGetter(VirusRecipe::inputDnaGene),
+						ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
+							.fieldOf("output_gene")
+							.forGetter(VirusRecipe::outputGene)
+					).apply(instance, ::VirusRecipe)
+				}
 
-            val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, VirusRecipe> =
-                StreamCodec.composite(
-                    ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), VirusRecipe::inputDnaGene,
-                    ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), VirusRecipe::outputGene,
-                    ::VirusRecipe
-                )
+			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, VirusRecipe> =
+				StreamCodec.composite(
+					ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), VirusRecipe::inputDnaGene,
+					ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), VirusRecipe::outputGene,
+					::VirusRecipe
+				)
 
-        }
+		}
 
-    }
+	}
 
-    companion object {
-        @Suppress("UNCHECKED_CAST")
-        fun getVirusRecipes(recipeManager: RecipeManager): List<RecipeHolder<VirusRecipe>> {
-            val incubatorRecipes = getIncubatorRecipes(recipeManager)
+	companion object {
+		@Suppress("UNCHECKED_CAST")
+		fun getVirusRecipes(recipeManager: RecipeManager): List<RecipeHolder<VirusRecipe>> {
+			val incubatorRecipes = getIncubatorRecipes(recipeManager)
 
-            return incubatorRecipes.mapNotNull { if (it.value is VirusRecipe) it as? RecipeHolder<VirusRecipe> else null }
-        }
-    }
+			return incubatorRecipes.mapNotNull { if (it.value is VirusRecipe) it as? RecipeHolder<VirusRecipe> else null }
+		}
+	}
 
 }

@@ -7,11 +7,11 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Inventory
 
 class DnaExtractorScreen(
-    pMenu: DnaExtractorMenu,
-    pPlayerInventory: Inventory,
-    pTitle: Component
+	pMenu: DnaExtractorMenu,
+	pPlayerInventory: Inventory,
+	pTitle: Component
 ) : MachineScreen<DnaExtractorMenu>(pMenu, pPlayerInventory, pTitle) {
-    override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.DNA_EXTRACTOR
+	override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.DNA_EXTRACTOR
 
-    override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
+	override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
 }

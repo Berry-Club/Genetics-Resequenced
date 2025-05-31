@@ -20,59 +20,59 @@ import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
 
 @EventBusSubscriber(
-    modid = GeneticsResequenced.ID,
-    bus = EventBusSubscriber.Bus.MOD,
-    value = [Dist.CLIENT]
+	modid = GeneticsResequenced.ID,
+	bus = EventBusSubscriber.Bus.MOD,
+	value = [Dist.CLIENT]
 )
 object ClientModBusEvents {
 
-    @SubscribeEvent
-    fun onKeyRegister(event: RegisterKeyMappingsEvent) {
-        event.register(ModKeyMappings.DRAGONS_BREATH)
-        event.register(ModKeyMappings.TELEPORT)
-    }
+	@SubscribeEvent
+	fun onKeyRegister(event: RegisterKeyMappingsEvent) {
+		event.register(ModKeyMappings.DRAGONS_BREATH)
+		event.register(ModKeyMappings.TELEPORT)
+	}
 
-    @SubscribeEvent
-    fun onClientSetup(event: FMLClientSetupEvent) {
-        registerEntityRenderers()
-    }
+	@SubscribeEvent
+	fun onClientSetup(event: FMLClientSetupEvent) {
+		registerEntityRenderers()
+	}
 
-    private fun registerEntityRenderers() {
-        EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::SupportSlimeRenderer)
-    }
+	private fun registerEntityRenderers() {
+		EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::SupportSlimeRenderer)
+	}
 
-    @SubscribeEvent
-    fun onModelRegistry(event: ModelEvent.RegisterAdditional) {
+	@SubscribeEvent
+	fun onModelRegistry(event: ModelEvent.RegisterAdditional) {
 
-        ItemProperties.register(
-            ModItems.SYRINGE.get(),
-            OtherUtil.modResource("full"),
-            ItemPropertyFunction { stack, _, _, _ ->
-                if (SyringeItem.hasBlood(stack)) 1f else 0f
-            }
-        )
+		ItemProperties.register(
+			ModItems.SYRINGE.get(),
+			OtherUtil.modResource("full"),
+			ItemPropertyFunction { stack, _, _, _ ->
+				if (SyringeItem.hasBlood(stack)) 1f else 0f
+			}
+		)
 
-        ItemProperties.register(
-            ModItems.SYRINGE.get(),
-            OtherUtil.modResource("injecting"),
-            ItemPropertyFunction { stack, _, entity, _ ->
-                if (SyringeItem.isBeingUsed(stack, entity)) 1f else 0f
-            }
-        )
+		ItemProperties.register(
+			ModItems.SYRINGE.get(),
+			OtherUtil.modResource("injecting"),
+			ItemPropertyFunction { stack, _, entity, _ ->
+				if (SyringeItem.isBeingUsed(stack, entity)) 1f else 0f
+			}
+		)
 
-        ItemProperties.register(
-            ModItems.METAL_SYRINGE.get(),
-            OtherUtil.modResource("full"),
-            ItemPropertyFunction { stack, _, _, _ ->
-                if (SyringeItem.hasBlood(stack)) 1f else 0f
-            }
-        )
+		ItemProperties.register(
+			ModItems.METAL_SYRINGE.get(),
+			OtherUtil.modResource("full"),
+			ItemPropertyFunction { stack, _, _, _ ->
+				if (SyringeItem.hasBlood(stack)) 1f else 0f
+			}
+		)
 
-    }
+	}
 
-    @SubscribeEvent
-    fun onRegisterMenuScreens(event: RegisterMenuScreensEvent) {
-        ModMenuTypes.registerScreens(event)
-    }
+	@SubscribeEvent
+	fun onRegisterMenuScreens(event: RegisterMenuScreensEvent) {
+		ModMenuTypes.registerScreens(event)
+	}
 
 }

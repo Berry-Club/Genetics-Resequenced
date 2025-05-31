@@ -15,40 +15,40 @@ import net.neoforged.neoforge.common.crafting.IngredientType
 import java.util.stream.Stream
 
 class PotionTagIngredient(
-    val potionTag: TagKey<Potion>
+	val potionTag: TagKey<Potion>
 ) : ICustomIngredient {
 
-    override fun test(stack: ItemStack): Boolean {
-        if (stack.item != Items.POTION) return false
+	override fun test(stack: ItemStack): Boolean {
+		if (stack.item != Items.POTION) return false
 
-        val potion = OtherUtil.getPotion(stack) ?: return false
-        return potion.`is`(potionTag)
-    }
+		val potion = OtherUtil.getPotion(stack) ?: return false
+		return potion.`is`(potionTag)
+	}
 
-    override fun getItems(): Stream<ItemStack> {
-        val allPotions = BuiltInRegistries.POTION.holders()
-        val validPotions = allPotions.filter { test(OtherUtil.getPotionStack(it)) }
+	override fun getItems(): Stream<ItemStack> {
+		val allPotions = BuiltInRegistries.POTION.holders()
+		val validPotions = allPotions.filter { test(OtherUtil.getPotionStack(it)) }
 
-        return validPotions.map { OtherUtil.getPotionStack(it) }
-    }
+		return validPotions.map { OtherUtil.getPotionStack(it) }
+	}
 
-    override fun isSimple(): Boolean {
-        return false
-    }
+	override fun isSimple(): Boolean {
+		return false
+	}
 
-    override fun getType(): IngredientType<*> {
-        return ModIngredientTypes.POTION_TAG.get()
-    }
+	override fun getType(): IngredientType<*> {
+		return ModIngredientTypes.POTION_TAG.get()
+	}
 
-    companion object {
-        val CODEC: MapCodec<PotionTagIngredient> =
-            RecordCodecBuilder.mapCodec { instance ->
-                instance.group(
-                    TagKey.codec(Registries.POTION)
-                        .fieldOf("potion_tag")
-                        .forGetter(PotionTagIngredient::potionTag)
-                ).apply(instance, ::PotionTagIngredient)
-            }
-    }
+	companion object {
+		val CODEC: MapCodec<PotionTagIngredient> =
+			RecordCodecBuilder.mapCodec { instance ->
+				instance.group(
+					TagKey.codec(Registries.POTION)
+						.fieldOf("potion_tag")
+						.forGetter(PotionTagIngredient::potionTag)
+				).apply(instance, ::PotionTagIngredient)
+			}
+	}
 
 }

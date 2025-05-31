@@ -15,71 +15,71 @@ import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.phys.BlockHitResult
 
 abstract class CraftingMachineBlock(
-    properties: Properties = defaultProperties,
-    private val blockEntityType: Class<out CraftingMachineBlockEntity>
+	properties: Properties = defaultProperties,
+	private val blockEntityType: Class<out CraftingMachineBlockEntity>
 ) : MachineBlock() {
 
-    init {
-        registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))
-    }
+	init {
+		registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))
+	}
 
-    override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState {
-        return defaultBlockState().setValue(FACING, pContext.horizontalDirection.opposite)
-    }
+	override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState {
+		return defaultBlockState().setValue(FACING, pContext.horizontalDirection.opposite)
+	}
 
-    override fun createBlockStateDefinition(pBuilder: StateDefinition.Builder<Block, BlockState>) {
-        super.createBlockStateDefinition(pBuilder)
-        pBuilder.add(FACING)
-    }
+	override fun createBlockStateDefinition(pBuilder: StateDefinition.Builder<Block, BlockState>) {
+		super.createBlockStateDefinition(pBuilder)
+		pBuilder.add(FACING)
+	}
 
-    @Suppress("OVERRIDE_DEPRECATION")
-    override fun getRenderShape(pState: BlockState): RenderShape {
-        return RenderShape.MODEL
-    }
+	@Suppress("OVERRIDE_DEPRECATION")
+	override fun getRenderShape(pState: BlockState): RenderShape {
+		return RenderShape.MODEL
+	}
 
-    override fun onRemove(
-        pState: BlockState,
-        pLevel: Level,
-        pPos: BlockPos,
-        pNewState: BlockState,
-        pIsMoving: Boolean
-    ) {
+	override fun onRemove(
+		pState: BlockState,
+		pLevel: Level,
+		pPos: BlockPos,
+		pNewState: BlockState,
+		pIsMoving: Boolean
+	) {
 
-        if (pState.block != pNewState.block) {
-            val blockEntity = pLevel.getBlockEntity(pPos) as? CraftingMachineBlockEntity
-                ?: throw IllegalStateException("No block entity found at $pPos")
+		if (pState.block != pNewState.block) {
+			val blockEntity = pLevel.getBlockEntity(pPos) as? CraftingMachineBlockEntity
+				?: throw IllegalStateException("No block entity found at $pPos")
 
-            blockEntity.dropDrops()
-        }
+			blockEntity.dropDrops()
+		}
 
-        super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving)
-    }
+		super.onRemove(pState, pLevel, pPos, pNewState, pIsMoving)
+	}
 
-    override fun newBlockEntity(pPos: BlockPos, pState: BlockState): BlockEntity? {
-        return blockEntityType
-            .getConstructor(BlockPos::class.java, BlockState::class.java)
-            .newInstance(pPos, pState)
-    }
+	override fun newBlockEntity(pPos: BlockPos, pState: BlockState): BlockEntity? {
+		return blockEntityType
+			.getConstructor(BlockPos::class.java, BlockState::class.java)
+			.newInstance(pPos, pState)
+	}
 
-    override fun useWithoutItem(
-        pState: BlockState,
-        pLevel: Level,
-        pPos: BlockPos,
-        pPlayer: Player,
-        pHitResult: BlockHitResult
-    ): InteractionResult {
+	override fun useWithoutItem(
+		pState: BlockState,
+		pLevel: Level,
+		pPos: BlockPos,
+		pPlayer: Player,
+		pHitResult: BlockHitResult
+	): InteractionResult {
 
-        if (pPlayer !is ServerPlayer) {
-            return InteractionResult.CONSUME
-        }
+		if (pPlayer !is ServerPlayer) {
+			return InteractionResult.CONSUME
+		}
 
-        val blockEntity =
-            pLevel.getBlockEntity(pPos) as? CraftingMachineBlockEntity
-                ?: throw IllegalStateException("No block entity found at $pPos")
+		val blockEntity =
+			pLevel.getBlockEntity(pPos) as? CraftingMachineBlockEntity
+				?: throw IllegalStateException("No block entity found at $pPos")
 
-        pPlayer.openMenu(blockEntity, pPos)
+		pPlayer.openMenu(blockEntity, pPos)
 
-        return InteractionResult.SUCCESS
-    }
+		return InteractionResult.SUCCESS
+	}
 
 }

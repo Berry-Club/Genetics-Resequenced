@@ -7,11 +7,11 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Inventory
 
 class PlasmidInfuserScreen(
-    pMenu: PlasmidInfuserMenu,
-    pPlayerInventory: Inventory,
-    pTitle: Component
+	pMenu: PlasmidInfuserMenu,
+	pPlayerInventory: Inventory,
+	pTitle: Component
 ) : MachineScreen<PlasmidInfuserMenu>(pMenu, pPlayerInventory, pTitle) {
-    override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.PLASMID_INFUSER
+	override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.PLASMID_INFUSER
 
-    override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
+	override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
 }

@@ -22,80 +22,80 @@ import net.minecraft.world.entity.EntityType
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class DecryptHelixEmiRecipe(
-    val entityType: EntityType<*>,
-    val geneHolder: Holder<Gene>,
-    val chance: Float
+	val entityType: EntityType<*>,
+	val geneHolder: Holder<Gene>,
+	val chance: Float
 ) : EmiRecipe {
 
-    companion object {
-        fun getAllRecipes(): List<DecryptHelixEmiRecipe> {
-            val recipes = mutableListOf<DecryptHelixEmiRecipe>()
+	companion object {
+		fun getAllRecipes(): List<DecryptHelixEmiRecipe> {
+			val recipes = mutableListOf<DecryptHelixEmiRecipe>()
 
-            for ((entityType, map) in EntityGenes.getEntityGeneHolderMap(ClientUtil.localRegistryAccess!!)) {
-                val totalWeight = map.values.sum()
+			for ((entityType, map) in EntityGenes.getEntityGeneHolderMap(ClientUtil.localRegistryAccess!!)) {
+				val totalWeight = map.values.sum()
 
-                for ((geneHolder, weight) in map) {
-                    val chance = weight.toFloat() / totalWeight
+				for ((geneHolder, weight) in map) {
+					val chance = weight.toFloat() / totalWeight
 
-                    recipes.add(DecryptHelixEmiRecipe(entityType, geneHolder, chance))
-                }
-            }
+					recipes.add(DecryptHelixEmiRecipe(entityType, geneHolder, chance))
+				}
+			}
 
-            return recipes.distinctBy { it.id }
-        }
-    }
+			return recipes.distinctBy { it.id }
+		}
+	}
 
-    private val encryptedHelix: EmiIngredient
-    private val decryptedHelix: EmiStack
+	private val encryptedHelix: EmiIngredient
+	private val decryptedHelix: EmiStack
 
-    init {
-        val helixStack = ModItems.DNA_HELIX.toStack()
-        EntityDnaItem.setEntityType(helixStack, entityType)
-        encryptedHelix = EmiIngredient.of(DataComponentIngredient.of(true, helixStack))
+	init {
+		val helixStack = ModItems.DNA_HELIX.toStack()
+		EntityDnaItem.setEntityType(helixStack, entityType)
+		encryptedHelix = EmiIngredient.of(DataComponentIngredient.of(true, helixStack))
 
-        val decryptedHelixStack = DnaHelixItem.getHelixStack(geneHolder)
-        decryptedHelix = EmiStack.of(decryptedHelixStack)
-    }
+		val decryptedHelixStack = DnaHelixItem.getHelixStack(geneHolder)
+		decryptedHelix = EmiStack.of(decryptedHelixStack)
+	}
 
-    override fun getCategory(): EmiRecipeCategory {
-        return ModEmiPlugin.DNA_DECRYPTOR_CATEGORY
-    }
+	override fun getCategory(): EmiRecipeCategory {
+		return ModEmiPlugin.DNA_DECRYPTOR_CATEGORY
+	}
 
-    override fun getId(): ResourceLocation {
-        val entityTypeRl = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
-        val entityString = entityTypeRl.toString().replace(':', '/')
-        val geneString = geneHolder.key!!.location().toString().replace(':', '/')
+	override fun getId(): ResourceLocation {
+		val entityTypeRl = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
+		val entityString = entityTypeRl.toString().replace(':', '/')
+		val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
-        return OtherUtil.modResource("/dna_extractor/$entityString/to/$geneString")
-    }
+		return OtherUtil.modResource("/dna_extractor/$entityString/to/$geneString")
+	}
 
-    override fun getInputs(): List<EmiIngredient> {
-        return listOf(encryptedHelix)
-    }
+	override fun getInputs(): List<EmiIngredient> {
+		return listOf(encryptedHelix)
+	}
 
-    override fun getOutputs(): List<EmiStack> {
-        return listOf(decryptedHelix)
-    }
+	override fun getOutputs(): List<EmiStack> {
+		return listOf(decryptedHelix)
+	}
 
-    override fun getDisplayWidth(): Int {
-        return 76
-    }
+	override fun getDisplayWidth(): Int {
+		return 76
+	}
 
-    override fun getDisplayHeight(): Int {
-        return 18
-    }
+	override fun getDisplayHeight(): Int {
+		return 18
+	}
 
-    override fun addWidgets(widgets: WidgetHolder) {
+	override fun addWidgets(widgets: WidgetHolder) {
 
-        widgets.addText(
-            Component.literal(
-                String.format("%.2f%%", chance * 100)
-            ),
-            -8 * 5, 4, 0x3E3E3E, false
-        )
+		widgets.addText(
+			Component.literal(
+				String.format("%.2f%%", chance * 100)
+			),
+			-8 * 5, 4, 0x3E3E3E, false
+		)
 
-        widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
-        widgets.addSlot(encryptedHelix, 0, 0)
-        widgets.addSlot(decryptedHelix, 58, 0).recipeContext(this)
-    }
+		widgets.addTexture(EmiTexture.EMPTY_ARROW, 26, 1)
+		widgets.addSlot(encryptedHelix, 0, 0)
+		widgets.addSlot(decryptedHelix, 58, 0).recipeContext(this)
+	}
 }

@@ -7,11 +7,11 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Inventory
 
 class CellAnalyzerScreen(
-    pMenu: CellAnalyzerMenu,
-    pPlayerInventory: Inventory,
-    pTitle: Component
+	pMenu: CellAnalyzerMenu,
+	pPlayerInventory: Inventory,
+	pTitle: Component
 ) : MachineScreen<CellAnalyzerMenu>(pMenu, pPlayerInventory, pTitle) {
-    override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.CELL_ANALYZER
+	override val backgroundTexture: ResourceLocation = ScreenTextures.Backgrounds.CELL_ANALYZER
 
-    override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
+	override fun shouldRenderProgressArrow(): Boolean = menu.isCrafting
 }

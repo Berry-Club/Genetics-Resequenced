@@ -23,91 +23,91 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 
 @EventBusSubscriber(
-    modid = GeneticsResequenced.ID
+	modid = GeneticsResequenced.ID
 )
 object GeneEvents {
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    fun onGeneChanged(event: CustomEvents.GeneChangeEvent.Post) {
-        val (livingEntity: LivingEntity, geneHolder: Holder<Gene>, wasAdded: Boolean) = event
+	@SubscribeEvent(priority = EventPriority.LOWEST)
+	fun onGeneChanged(event: CustomEvents.GeneChangeEvent.Post) {
+		val (livingEntity: LivingEntity, geneHolder: Holder<Gene>, wasAdded: Boolean) = event
 
-        tellAllPlayersGeneChanged(livingEntity, geneHolder, wasAdded)
+		tellAllPlayersGeneChanged(livingEntity, geneHolder, wasAdded)
 
-        geneHolder.value().setAttributeModifiers(livingEntity, wasAdded)
+		geneHolder.value().setAttributeModifiers(livingEntity, wasAdded)
 
-        if (!wasAdded && geneHolder.value().getPotion() != null) {
-            TickGenes.handlePotionGeneRemoved(livingEntity, geneHolder)
-        }
+		if (!wasAdded && geneHolder.value().getPotion() != null) {
+			TickGenes.handlePotionGeneRemoved(livingEntity, geneHolder)
+		}
 
-        if (livingEntity is ServerPlayer) {
-            AdvancementTriggers.geneAdvancements(livingEntity, geneHolder, wasAdded)
-        }
+		if (livingEntity is ServerPlayer) {
+			AdvancementTriggers.geneAdvancements(livingEntity, geneHolder, wasAdded)
+		}
 
-        ModScheduler.scheduleTaskInTicks(1) {
-            checkForMissingRequirements(livingEntity)
-        }
-    }
+		ModScheduler.scheduleTaskInTicks(1) {
+			checkForMissingRequirements(livingEntity)
+		}
+	}
 
-    private fun checkForMissingRequirements(entity: LivingEntity) {
-        val entityGeneHolders = entity.geneHolders
+	private fun checkForMissingRequirements(entity: LivingEntity) {
+		val entityGeneHolders = entity.geneHolders
 
-        for (geneHolder in entityGeneHolders) {
-            val genesWithMissingRequirements = GeneRequirements.getGeneRequiredGeneHolders(
-                geneHolder,
-                entity.registryAccess()
-            ).filter { it !in entityGeneHolders }
+		for (geneHolder in entityGeneHolders) {
+			val genesWithMissingRequirements = GeneRequirements.getGeneRequiredGeneHolders(
+				geneHolder,
+				entity.registryAccess()
+			).filter { it !in entityGeneHolders }
 
-            if (genesWithMissingRequirements.isEmpty()) continue
+			if (genesWithMissingRequirements.isEmpty()) continue
 
-            entity.removeGene(geneHolder)
+			entity.removeGene(geneHolder)
 
-            val requiredGenesComponent =
-                ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS_LIST.toComponent()
+			val requiredGenesComponent =
+				ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS_LIST.toComponent()
 
-            val missingGenes = GeneRequirements.getGeneRequiredGeneHolders(
-                geneHolder,
-                entity.registryAccess()
-            ).filter { it !in entityGeneHolders }
+			val missingGenes = GeneRequirements.getGeneRequiredGeneHolders(
+				geneHolder,
+				entity.registryAccess()
+			).filter { it !in entityGeneHolders }
 
-            requiredGenesComponent.append(
-                OtherUtil.componentList(
-                    missingGenes.map { Gene.getNameComponent(it) }
-                )
-            )
+			requiredGenesComponent.append(
+				OtherUtil.componentList(
+					missingGenes.map { Gene.getNameComponent(it) }
+				)
+			)
 
-            if (!entity.level().isClientSide) {
-                entity.sendSystemMessage(
-                    ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS
-                        .toComponent(Gene.getNameComponent(geneHolder))
-                        .withStyle {
-                            it.withHoverEvent(
-                                HoverEvent(
-                                    HoverEvent.Action.SHOW_TEXT,
-                                    requiredGenesComponent
-                                )
-                            )
-                        }
-                )
-            }
-        }
-    }
+			if (!entity.level().isClientSide) {
+				entity.sendSystemMessage(
+					ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS
+						.toComponent(Gene.getNameComponent(geneHolder))
+						.withStyle {
+							it.withHoverEvent(
+								HoverEvent(
+									HoverEvent.Action.SHOW_TEXT,
+									requiredGenesComponent
+								)
+							)
+						}
+				)
+			}
+		}
+	}
 
-    private fun tellAllPlayersGeneChanged(entity: LivingEntity, changedGene: Holder<Gene>, wasAdded: Boolean) {
-        if (entity.level().isClientSide) return
+	private fun tellAllPlayersGeneChanged(entity: LivingEntity, changedGene: Holder<Gene>, wasAdded: Boolean) {
+		if (entity.level().isClientSide) return
 
-        val server = entity.server
-        if (server == null) {
-            GeneticsResequenced.LOGGER.error("Server is null when trying to tell all players about gene change")
-            return
-        }
+		val server = entity.server
+		if (server == null) {
+			GeneticsResequenced.LOGGER.error("Server is null when trying to tell all players about gene change")
+			return
+		}
 
-        ModPacketHandler.messageAllPlayers(
-            GeneChangedPacket(
-                entity.id,
-                changedGene,
-                wasAdded
-            )
-        )
-    }
+		ModPacketHandler.messageAllPlayers(
+			GeneChangedPacket(
+				entity.id,
+				changedGene,
+				wasAdded
+			)
+		)
+	}
 
 }

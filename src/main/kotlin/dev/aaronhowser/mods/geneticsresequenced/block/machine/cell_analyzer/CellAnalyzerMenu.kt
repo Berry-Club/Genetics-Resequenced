@@ -15,84 +15,84 @@ import net.neoforged.neoforge.items.SlotItemHandler
 
 
 class CellAnalyzerMenu(
-    id: Int,
-    inventory: Inventory,
-    blockEntity: CellAnalyzerBlockEntity,
-    private val containerData: ContainerData
+	id: Int,
+	inventory: Inventory,
+	blockEntity: CellAnalyzerBlockEntity,
+	private val containerData: ContainerData
 ) : MachineMenu(
-    ModMenuTypes.CELL_ANALYZER.get(),
-    blockEntity,
-    id,
-    inventory
+	ModMenuTypes.CELL_ANALYZER.get(),
+	blockEntity,
+	id,
+	inventory
 ) {
-    constructor(id: Int, inventory: Inventory, extraData: FriendlyByteBuf) :
-            this(
-                id,
-                inventory,
-                inventory.player.level().getBlockEntity(extraData.readBlockPos()) as CellAnalyzerBlockEntity,
-                SimpleContainerData(CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
-            )
+	constructor(id: Int, inventory: Inventory, extraData: FriendlyByteBuf) :
+			this(
+				id,
+				inventory,
+				inventory.player.level().getBlockEntity(extraData.readBlockPos()) as CellAnalyzerBlockEntity,
+				SimpleContainerData(CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
+			)
 
-    init {
-        checkContainerSize(inventory, CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
+	init {
+		checkContainerSize(inventory, CraftingMachineBlockEntity.SIMPLE_CONTAINER_SIZE)
 
-        addPlayerInventory(inventory)
-        addPlayerHotbar(inventory)
+		addPlayerInventory(inventory)
+		addPlayerHotbar(inventory)
 
-        val itemHandler = this.blockEntity.getItemHandler(null)
+		val itemHandler = this.blockEntity.getItemHandler(null)
 
-        this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42))
-        this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42))
-        this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54))
+		this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42))
+		this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42))
+		this.addSlot(SlotItemHandler(itemHandler, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54))
 
-        addDataSlots(containerData)
-    }
+		addDataSlots(containerData)
+	}
 
-    private var progress: Int
-        get() = containerData.get(DATA_PROGRESS_INDEX)
-        set(value) {
-            containerData.set(DATA_PROGRESS_INDEX, value)
-        }
+	private var progress: Int
+		get() = containerData.get(DATA_PROGRESS_INDEX)
+		set(value) {
+			containerData.set(DATA_PROGRESS_INDEX, value)
+		}
 
-    private var maxProgress: Int
-        get() = containerData.get(DATA_MAX_PROGRESS_INDEX)
-        set(value) {
-            containerData.set(DATA_MAX_PROGRESS_INDEX, value)
-        }
+	private var maxProgress: Int
+		get() = containerData.get(DATA_MAX_PROGRESS_INDEX)
+		set(value) {
+			containerData.set(DATA_MAX_PROGRESS_INDEX, value)
+		}
 
-    val isCrafting
-        get() = progress > 0
+	val isCrafting
+		get() = progress > 0
 
-    fun getScaledProgress(): Int {
-        val progressArrowSize = ScreenTextures.Elements.ArrowRight.Dimensions.WIDTH
+	fun getScaledProgress(): Int {
+		val progressArrowSize = ScreenTextures.Elements.ArrowRight.Dimensions.WIDTH
 
-        return if (maxProgress == 0 || progress == 0) {
-            0
-        } else {
-            progress * progressArrowSize / maxProgress
-        }
-    }
+		return if (maxProgress == 0 || progress == 0) {
+			0
+		} else {
+			progress * progressArrowSize / maxProgress
+		}
+	}
 
-    companion object {
+	companion object {
 
-        private const val DATA_PROGRESS_INDEX = 0
-        private const val DATA_MAX_PROGRESS_INDEX = 1
-    }
+		private const val DATA_PROGRESS_INDEX = 0
+		private const val DATA_MAX_PROGRESS_INDEX = 1
+	}
 
-    override fun getPercentDone(): Float {
-        return if (maxProgress != 0) {
-            progress.toFloat() / maxProgress.toFloat()
-        } else {
-            0f
-        }
-    }
+	override fun getPercentDone(): Float {
+		return if (maxProgress != 0) {
+			progress.toFloat() / maxProgress.toFloat()
+		} else {
+			0f
+		}
+	}
 
-    override fun stillValid(pPlayer: Player): Boolean {
-        return stillValid(
-            ContainerLevelAccess.create(level, blockEntity.blockPos),
-            pPlayer,
-            ModBlocks.CELL_ANALYZER.get()
-        )
-    }
+	override fun stillValid(pPlayer: Player): Boolean {
+		return stillValid(
+			ContainerLevelAccess.create(level, blockEntity.blockPos),
+			pPlayer,
+			ModBlocks.CELL_ANALYZER.get()
+		)
+	}
 
 }

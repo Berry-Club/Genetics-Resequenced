@@ -19,91 +19,91 @@ import net.minecraft.world.item.TooltipFlag
 
 class DnaHelixItem : EntityDnaItem() {
 
-    companion object {
+	companion object {
 
-        fun hasGene(itemStack: ItemStack): Boolean {
-            return itemStack.has(ModDataComponents.GENE_COMPONENT)
-        }
+		fun hasGene(itemStack: ItemStack): Boolean {
+			return itemStack.has(ModDataComponents.GENE_COMPONENT)
+		}
 
-        fun getGeneHolder(itemStack: ItemStack): Holder<Gene>? {
-            return itemStack.get(ModDataComponents.GENE_COMPONENT)
-        }
+		fun getGeneHolder(itemStack: ItemStack): Holder<Gene>? {
+			return itemStack.get(ModDataComponents.GENE_COMPONENT)
+		}
 
-        fun setGeneHolder(itemStack: ItemStack, geneHolder: Holder<Gene>): ItemStack {
-            itemStack.set(ModDataComponents.GENE_COMPONENT, geneHolder)
-            return itemStack
-        }
+		fun setGeneHolder(itemStack: ItemStack, geneHolder: Holder<Gene>): ItemStack {
+			itemStack.set(ModDataComponents.GENE_COMPONENT, geneHolder)
+			return itemStack
+		}
 
-        fun getHelixStack(geneRk: ResourceKey<Gene>, registries: HolderLookup.Provider): ItemStack {
-            return getHelixStack(geneRk.getHolderOrThrow(registries))
-        }
+		fun getHelixStack(geneRk: ResourceKey<Gene>, registries: HolderLookup.Provider): ItemStack {
+			return getHelixStack(geneRk.getHolderOrThrow(registries))
+		}
 
-        fun getHelixStack(geneHolder: Holder<Gene>): ItemStack {
-            val itemStack = ModItems.DNA_HELIX.toStack()
-            setGeneHolder(itemStack, geneHolder)
-            return itemStack
-        }
+		fun getHelixStack(geneHolder: Holder<Gene>): ItemStack {
+			val itemStack = ModItems.DNA_HELIX.toStack()
+			setGeneHolder(itemStack, geneHolder)
+			return itemStack
+		}
 
-        fun getAllHelices(registries: HolderLookup.Provider): List<ItemStack> {
-            return ModGenes.getRegistrySorted(registries, includeHelixOnly = true)
-                .map { geneHolder -> getHelixStack(geneHolder) }
-        }
-    }
+		fun getAllHelices(registries: HolderLookup.Provider): List<ItemStack> {
+			return ModGenes.getRegistrySorted(registries, includeHelixOnly = true)
+				.map { geneHolder -> getHelixStack(geneHolder) }
+		}
+	}
 
-    override fun appendHoverText(
-        pStack: ItemStack,
-        pContext: TooltipContext,
-        pTooltipComponents: MutableList<Component>,
-        pTooltipFlag: TooltipFlag
-    ) {
-        val geneHolder = getGeneHolder(pStack)
+	override fun appendHoverText(
+		pStack: ItemStack,
+		pContext: TooltipContext,
+		pTooltipComponents: MutableList<Component>,
+		pTooltipFlag: TooltipFlag
+	) {
+		val geneHolder = getGeneHolder(pStack)
 
-        if (geneHolder == null) {
-            showNoGeneTooltips(pStack, pTooltipComponents)
-        } else {
-            pTooltipComponents.add(
-                ModLanguageProvider.Tooltips.GENE
-                    .toComponent(Gene.getNameComponent(geneHolder))
-                    .withStyle(ChatFormatting.GRAY)
-            )
-        }
+		if (geneHolder == null) {
+			showNoGeneTooltips(pStack, pTooltipComponents)
+		} else {
+			pTooltipComponents.add(
+				ModLanguageProvider.Tooltips.GENE
+					.toComponent(Gene.getNameComponent(geneHolder))
+					.withStyle(ChatFormatting.GRAY)
+			)
+		}
 
-    }
+	}
 
-    private fun showNoGeneTooltips(
-        pStack: ItemStack,
-        pTooltipComponents: MutableList<Component>
-    ) {
+	private fun showNoGeneTooltips(
+		pStack: ItemStack,
+		pTooltipComponents: MutableList<Component>
+	) {
 
-        pTooltipComponents.add(
-            ModLanguageProvider.Tooltips.GENE
-                .toComponent(Gene.unknownGeneComponent)
-                .withStyle(ChatFormatting.GRAY)
-        )
+		pTooltipComponents.add(
+			ModLanguageProvider.Tooltips.GENE
+				.toComponent(Gene.unknownGeneComponent)
+				.withStyle(ChatFormatting.GRAY)
+		)
 
-        val entity = getEntityType(pStack)
-        if (entity != null) {
-            pTooltipComponents.add(
-                ModLanguageProvider.Tooltips.HELIX_ENTITY
-                    .toComponent(entity.description)
-                    .withStyle(ChatFormatting.GRAY)
-            )
-        }
+		val entity = getEntityType(pStack)
+		if (entity != null) {
+			pTooltipComponents.add(
+				ModLanguageProvider.Tooltips.HELIX_ENTITY
+					.toComponent(entity.description)
+					.withStyle(ChatFormatting.GRAY)
+			)
+		}
 
-        try {
-            val isCreative = ClientUtil.playerIsCreative()
+		try {
+			val isCreative = ClientUtil.playerIsCreative()
 
-            if (isCreative) {
-                val component =
-                    ModLanguageProvider.Tooltips.CELL_CREATIVE
-                        .toComponent()
-                        .withStyle(ChatFormatting.GRAY)
-                pTooltipComponents.add(component)
-            }
-        } catch (e: Exception) {
-            GeneticsResequenced.LOGGER.error("DnaHelixItem isCreative check failed", e)
-        }
+			if (isCreative) {
+				val component =
+					ModLanguageProvider.Tooltips.CELL_CREATIVE
+						.toComponent()
+						.withStyle(ChatFormatting.GRAY)
+				pTooltipComponents.add(component)
+			}
+		} catch (e: Exception) {
+			GeneticsResequenced.LOGGER.error("DnaHelixItem isCreative check failed", e)
+		}
 
-    }
+	}
 
 }

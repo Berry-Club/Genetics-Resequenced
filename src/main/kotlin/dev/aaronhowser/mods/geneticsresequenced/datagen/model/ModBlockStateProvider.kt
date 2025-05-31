@@ -16,178 +16,178 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper
 import net.neoforged.neoforge.registries.DeferredBlock
 
 class ModBlockStateProvider(
-    output: PackOutput,
-    private val existingFileHelper: ExistingFileHelper
+	output: PackOutput,
+	private val existingFileHelper: ExistingFileHelper
 ) : BlockStateProvider(output, GeneticsResequenced.ID, existingFileHelper) {
 
-    override fun registerStatesAndModels() {
-        antiFieldBlock()
-        bioluminescence()
+	override fun registerStatesAndModels() {
+		antiFieldBlock()
+		bioluminescence()
 
-        coalGenerator()
-        frontFacingBlock(ModBlocks.CELL_ANALYZER, "cell_analyzer", "block/cell_analyzer_front")
-        frontFacingBlock(ModBlocks.DNA_EXTRACTOR, "dna_extractor", "block/dna_extractor_front")
-        frontFacingBlock(ModBlocks.DNA_DECRYPTOR, "dna_decryptor", "block/dna_decryptor_front")
-        frontFacingBlock(ModBlocks.BLOOD_PURIFIER, "blood_purifier", "block/blood_purifier_front")
-        frontFacingBlock(ModBlocks.PLASMID_INFUSER, "plasmid_infuser", "block/plasmid_infuser_front")
-        frontFacingBlock(ModBlocks.PLASMID_INJECTOR, "plasmid_injector", "block/plasmid_injector_front")
-        frontFacingBlock(ModBlocks.INCUBATOR, "incubator", "block/incubator_front")
-        frontFacingBlock(ModBlocks.ADVANCED_INCUBATOR, "advanced_incubator", "block/incubator_front")
+		coalGenerator()
+		frontFacingBlock(ModBlocks.CELL_ANALYZER, "cell_analyzer", "block/cell_analyzer_front")
+		frontFacingBlock(ModBlocks.DNA_EXTRACTOR, "dna_extractor", "block/dna_extractor_front")
+		frontFacingBlock(ModBlocks.DNA_DECRYPTOR, "dna_decryptor", "block/dna_decryptor_front")
+		frontFacingBlock(ModBlocks.BLOOD_PURIFIER, "blood_purifier", "block/blood_purifier_front")
+		frontFacingBlock(ModBlocks.PLASMID_INFUSER, "plasmid_infuser", "block/plasmid_infuser_front")
+		frontFacingBlock(ModBlocks.PLASMID_INJECTOR, "plasmid_injector", "block/plasmid_injector_front")
+		frontFacingBlock(ModBlocks.INCUBATOR, "incubator", "block/incubator_front")
+		frontFacingBlock(ModBlocks.ADVANCED_INCUBATOR, "advanced_incubator", "block/incubator_front")
 
-    }
+	}
 
-    private fun antiFieldBlock() {
-        val deferredAntiFieldBlock = ModBlocks.ANTI_FIELD_BLOCK
+	private fun antiFieldBlock() {
+		val deferredAntiFieldBlock = ModBlocks.ANTI_FIELD_BLOCK
 
-        getVariantBuilder(deferredAntiFieldBlock.get())
-            .forAllStates { state ->
-                val disabled = state.getValue(AntiFieldBlock.DISABLED)
-                val modelVariantName = if (disabled) "anti_field_block_disabled" else "anti_field_block_enabled"
-                val textureVariantName = if (disabled) "block/machine_bottom" else "block/machine_top"
+		getVariantBuilder(deferredAntiFieldBlock.get())
+			.forAllStates { state ->
+				val disabled = state.getValue(AntiFieldBlock.DISABLED)
+				val modelVariantName = if (disabled) "anti_field_block_disabled" else "anti_field_block_enabled"
+				val textureVariantName = if (disabled) "block/machine_bottom" else "block/machine_top"
 
-                ConfiguredModel
-                    .builder()
-                    .modelFile(
-                        models().cubeAll(
-                            modelVariantName,
-                            modLoc(textureVariantName)
-                        )
-                    ).build()
-            }
+				ConfiguredModel
+					.builder()
+					.modelFile(
+						models().cubeAll(
+							modelVariantName,
+							modLoc(textureVariantName)
+						)
+					).build()
+			}
 
-        simpleBlockItem(
-            deferredAntiFieldBlock.get(),
-            ItemModelBuilder(
-                modLoc("block/anti_field_block_enabled"),
-                existingFileHelper
-            )
-        )
-    }
+		simpleBlockItem(
+			deferredAntiFieldBlock.get(),
+			ItemModelBuilder(
+				modLoc("block/anti_field_block_enabled"),
+				existingFileHelper
+			)
+		)
+	}
 
-    private fun bioluminescence() {
-        val deferredBioluminescence = ModBlocks.BIOLUMINESCENCE_BLOCK
+	private fun bioluminescence() {
+		val deferredBioluminescence = ModBlocks.BIOLUMINESCENCE_BLOCK
 
-        getVariantBuilder(deferredBioluminescence.get())
-            .forAllStates {
-                ConfiguredModel
-                    .builder()
-                    .modelFile(
-                        models().withExistingParent(
-                            deferredBioluminescence.id.path,
-                            mcLoc("block/air")
-                        )
-                    )
-                    .build()
-            }
+		getVariantBuilder(deferredBioluminescence.get())
+			.forAllStates {
+				ConfiguredModel
+					.builder()
+					.modelFile(
+						models().withExistingParent(
+							deferredBioluminescence.id.path,
+							mcLoc("block/air")
+						)
+					)
+					.build()
+			}
 
-        val lightLevel = BioluminescenceBlock.LIGHT_LEVEL
+		val lightLevel = BioluminescenceBlock.LIGHT_LEVEL
 
-        simpleBlockItem(
-            deferredBioluminescence.get(),
-            ItemModelBuilder(
-                mcLoc("item/light_${lightLevel}"),
-                existingFileHelper
-            )
-        )
-    }
+		simpleBlockItem(
+			deferredBioluminescence.get(),
+			ItemModelBuilder(
+				mcLoc("item/light_${lightLevel}"),
+				existingFileHelper
+			)
+		)
+	}
 
-    private fun frontFacingBlock(
-        deferredBlock: DeferredBlock<out Block>,
-        name: String,
-        frontTexture: String
-    ) {
+	private fun frontFacingBlock(
+		deferredBlock: DeferredBlock<out Block>,
+		name: String,
+		frontTexture: String
+	) {
 
-        val top = "block/machine_top"
-        val bottom = "block/machine_bottom"
-        val side = "block/machine_side"
+		val top = "block/machine_top"
+		val bottom = "block/machine_bottom"
+		val side = "block/machine_side"
 
-        getVariantBuilder(deferredBlock.get())
-            .forAllStates { state ->
-                val facing = state.getValue(HorizontalDirectionalBlock.FACING)
+		getVariantBuilder(deferredBlock.get())
+			.forAllStates { state ->
+				val facing = state.getValue(HorizontalDirectionalBlock.FACING)
 
-                val yRotation = when (facing) {
-                    Direction.NORTH -> 0
-                    Direction.EAST -> 90
-                    Direction.SOUTH -> 180
-                    Direction.WEST -> 270
-                    else -> throw IllegalStateException("Invalid facing direction")
-                }
+				val yRotation = when (facing) {
+					Direction.NORTH -> 0
+					Direction.EAST -> 90
+					Direction.SOUTH -> 180
+					Direction.WEST -> 270
+					else -> throw IllegalStateException("Invalid facing direction")
+				}
 
-                ConfiguredModel.builder().modelFile(
-                    models().cube(
-                        name,
-                        modLoc(bottom),
-                        modLoc(top),
-                        modLoc(frontTexture),
-                        modLoc(side),
-                        modLoc(side),
-                        modLoc(side),
-                    ).texture("particle", modLoc(top))
-                )
-                    .rotationY(yRotation)
-                    .build()
-            }
+				ConfiguredModel.builder().modelFile(
+					models().cube(
+						name,
+						modLoc(bottom),
+						modLoc(top),
+						modLoc(frontTexture),
+						modLoc(side),
+						modLoc(side),
+						modLoc(side),
+					).texture("particle", modLoc(top))
+				)
+					.rotationY(yRotation)
+					.build()
+			}
 
-        simpleBlockItem(
-            deferredBlock.get(),
-            ItemModelBuilder(
-                modLoc("block/${name}"),
-                existingFileHelper
-            )
-        )
-    }
+		simpleBlockItem(
+			deferredBlock.get(),
+			ItemModelBuilder(
+				modLoc("block/${name}"),
+				existingFileHelper
+			)
+		)
+	}
 
-    private fun coalGenerator() {
-        val deferredBlock = ModBlocks.COAL_GENERATOR
+	private fun coalGenerator() {
+		val deferredBlock = ModBlocks.COAL_GENERATOR
 
-        val top = "block/machine_top"
-        val bottom = "block/machine_bottom"
-        val side = "block/machine_side"
+		val top = "block/machine_top"
+		val bottom = "block/machine_bottom"
+		val side = "block/machine_side"
 
-        getVariantBuilder(deferredBlock.get())
-            .forAllStates { state ->
+		getVariantBuilder(deferredBlock.get())
+			.forAllStates { state ->
 
-                val burning = state.getValue(CoalGeneratorBlock.BURNING)
-                val facing = state.getValue(HorizontalDirectionalBlock.FACING)
+				val burning = state.getValue(CoalGeneratorBlock.BURNING)
+				val facing = state.getValue(HorizontalDirectionalBlock.FACING)
 
-                val burningString = if (burning) "on" else "off"
+				val burningString = if (burning) "on" else "off"
 
-                val yRotation = when (facing) {
-                    Direction.NORTH -> 0
-                    Direction.EAST -> 90
-                    Direction.SOUTH -> 180
-                    Direction.WEST -> 270
-                    else -> throw IllegalStateException("Invalid facing direction")
-                }
+				val yRotation = when (facing) {
+					Direction.NORTH -> 0
+					Direction.EAST -> 90
+					Direction.SOUTH -> 180
+					Direction.WEST -> 270
+					else -> throw IllegalStateException("Invalid facing direction")
+				}
 
-                val modelName = "coal_generator_$burningString"
+				val modelName = "coal_generator_$burningString"
 
-                val frontTexture = if (burning) "block/coal_generator_front_on" else "block/coal_generator_front_off"
+				val frontTexture = if (burning) "block/coal_generator_front_on" else "block/coal_generator_front_off"
 
-                ConfiguredModel
-                    .builder()
-                    .modelFile(
-                        models().cube(
-                            modelName,
-                            modLoc(bottom),
-                            modLoc(top),
-                            modLoc(frontTexture),
-                            modLoc(side),
-                            modLoc(side),
-                            modLoc(side),
-                        ).texture("particle", modLoc(top))
-                    )
-                    .rotationY(yRotation)
-                    .build()
-            }
+				ConfiguredModel
+					.builder()
+					.modelFile(
+						models().cube(
+							modelName,
+							modLoc(bottom),
+							modLoc(top),
+							modLoc(frontTexture),
+							modLoc(side),
+							modLoc(side),
+							modLoc(side),
+						).texture("particle", modLoc(top))
+					)
+					.rotationY(yRotation)
+					.build()
+			}
 
-        simpleBlockItem(
-            deferredBlock.get(),
-            ItemModelBuilder(
-                modLoc("block/coal_generator_off"),
-                existingFileHelper
-            )
-        )
-    }
+		simpleBlockItem(
+			deferredBlock.get(),
+			ItemModelBuilder(
+				modLoc("block/coal_generator_off"),
+				existingFileHelper
+			)
+		)
+	}
 
 }

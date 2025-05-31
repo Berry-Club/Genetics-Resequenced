@@ -11,17 +11,17 @@ import java.util.function.Supplier
 
 object ModRecipeTypes {
 
-    val RECIPE_TYPES_REGISTRY: DeferredRegister<RecipeType<*>> =
-        DeferredRegister.create(BuiltInRegistries.RECIPE_TYPE, GeneticsResequenced.ID)
+	val RECIPE_TYPES_REGISTRY: DeferredRegister<RecipeType<*>> =
+		DeferredRegister.create(BuiltInRegistries.RECIPE_TYPE, GeneticsResequenced.ID)
 
-    val INCUBATOR: DeferredHolder<RecipeType<*>, RecipeType<AbstractIncubatorRecipe>> =
-        registerRecipeType("incubator")
+	val INCUBATOR: DeferredHolder<RecipeType<*>, RecipeType<AbstractIncubatorRecipe>> =
+		registerRecipeType("incubator")
 
-    private fun <T : Recipe<*>> registerRecipeType(
-        name: String
-    ): DeferredHolder<RecipeType<*>, RecipeType<T>> {
-        return RECIPE_TYPES_REGISTRY.register(name, Supplier { object : RecipeType<T> {} })
-    }
+	private fun <T : Recipe<*>> registerRecipeType(
+		name: String
+	): DeferredHolder<RecipeType<*>, RecipeType<T>> {
+		return RECIPE_TYPES_REGISTRY.register(name, Supplier { object : RecipeType<T> {} })
+	}
 
 
 }

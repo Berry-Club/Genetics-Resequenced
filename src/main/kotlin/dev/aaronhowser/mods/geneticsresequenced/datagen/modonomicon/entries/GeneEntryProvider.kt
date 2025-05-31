@@ -14,63 +14,63 @@ import net.minecraft.world.level.ItemLike
 
 abstract class GeneEntryProvider : BaseEntryProvider {
 
-    constructor(
-        parent: CategoryProviderBase?,
-        geneRk: ResourceKey<Gene>,
-        name: String,
-        iconRl: ResourceLocation
-    ) : super(
-        parent = parent,
-        name = name,
-        icon = iconRl,
-        entryId = geneRk.location().toString().replace(":", "/")
-    ) {
-        this.geneHolder = geneRk.getHolderOrThrow(registries())
+	constructor(
+		parent: CategoryProviderBase?,
+		geneRk: ResourceKey<Gene>,
+		name: String,
+		iconRl: ResourceLocation
+	) : super(
+		parent = parent,
+		name = name,
+		icon = iconRl,
+		entryId = geneRk.location().toString().replace(":", "/")
+	) {
+		this.geneHolder = geneRk.getHolderOrThrow(registries())
 
-        this.plasmidStack = ModItems.PLASMID.toStack()
-        PlasmidItem.setGene(this.plasmidStack, this.geneHolder)
+		this.plasmidStack = ModItems.PLASMID.toStack()
+		PlasmidItem.setGene(this.plasmidStack, this.geneHolder)
 
-    }
+	}
 
-    constructor(
-        parent: CategoryProviderBase?,
-        geneRk: ResourceKey<Gene>,
-        name: String,
-        icon: ItemLike
-    ) : super(
-        parent = parent,
-        name = name,
-        icon = icon,
-        entryId = geneRk.location().toString().replace(":", "/")
-    ) {
-        this.geneHolder = geneRk.getHolderOrThrow(registries())
+	constructor(
+		parent: CategoryProviderBase?,
+		geneRk: ResourceKey<Gene>,
+		name: String,
+		icon: ItemLike
+	) : super(
+		parent = parent,
+		name = name,
+		icon = icon,
+		entryId = geneRk.location().toString().replace(":", "/")
+	) {
+		this.geneHolder = geneRk.getHolderOrThrow(registries())
 
-        this.plasmidStack = ModItems.PLASMID.toStack()
-        PlasmidItem.setGene(this.plasmidStack, this.geneHolder)
-    }
+		this.plasmidStack = ModItems.PLASMID.toStack()
+		PlasmidItem.setGene(this.plasmidStack, this.geneHolder)
+	}
 
-    val geneHolder: Holder<Gene>
-    val plasmidStack: ItemStack
+	val geneHolder: Holder<Gene>
+	val plasmidStack: ItemStack
 
-    abstract fun firstPages()
-    final override fun generatePages() {
-        firstPages()
+	abstract fun firstPages()
+	final override fun generatePages() {
+		firstPages()
 
-        val canMobsHaveText = if (geneHolder.value().allowedEntities.any { it.value() !== EntityType.PLAYER }) {
-            "This Gene ${minor("can be given to mobs")}."
-        } else {
-            "This Gene ${bad("cannot be given to mobs")}."
-        }
+		val canMobsHaveText = if (geneHolder.value().allowedEntities.any { it.value() !== EntityType.PLAYER }) {
+			"This Gene ${minor("can be given to mobs")}."
+		} else {
+			"This Gene ${bad("cannot be given to mobs")}."
+		}
 
-        val plasmid = ModItems.PLASMID.toStack()
-        PlasmidItem.setGene(plasmid, geneHolder)
-        PlasmidItem.setDnaPoints(plasmid, geneHolder.value().dnaPointsRequired)
+		val plasmid = ModItems.PLASMID.toStack()
+		PlasmidItem.setGene(plasmid, geneHolder)
+		PlasmidItem.setDnaPoints(plasmid, geneHolder.value().dnaPointsRequired)
 
-        spotlightPage(
-            plasmid,
-            canMobsHaveText,
-        )
+		spotlightPage(
+			plasmid,
+			canMobsHaveText,
+		)
 
-    }
+	}
 
 }

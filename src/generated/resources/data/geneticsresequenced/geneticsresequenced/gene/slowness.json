@@ -1,5 +1,5 @@
 {
-  "potion_details": {
-    "effect": "minecraft:slowness"
-  }
+	"potion_details": {
+		"effect": "minecraft:slowness"
+	}
 }

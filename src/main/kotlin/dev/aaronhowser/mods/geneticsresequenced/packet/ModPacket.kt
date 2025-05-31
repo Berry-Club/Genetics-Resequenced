@@ -5,12 +5,12 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 
 interface ModPacket : CustomPacketPayload {
 
-    fun receiveOnClient(context: IPayloadContext) {
-        throw UnsupportedOperationException("Packet $this cannot be received on the client!")
-    }
+	fun receiveOnClient(context: IPayloadContext) {
+		throw UnsupportedOperationException("Packet $this cannot be received on the client!")
+	}
 
-    fun receiveOnServer(context: IPayloadContext) {
-        throw UnsupportedOperationException("Packet $this cannot be received on the server!")
-    }
+	fun receiveOnServer(context: IPayloadContext) {
+		throw UnsupportedOperationException("Packet $this cannot be received on the server!")
+	}
 
 }

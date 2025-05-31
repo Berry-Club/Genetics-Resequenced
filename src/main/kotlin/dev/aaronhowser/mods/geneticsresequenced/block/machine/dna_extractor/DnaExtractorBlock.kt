@@ -11,26 +11,26 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
 class DnaExtractorBlock(
-    properties: Properties = defaultProperties
+	properties: Properties = defaultProperties
 ) : CraftingMachineBlock(
-    properties,
-    DnaExtractorBlockEntity::class.java
+	properties,
+	DnaExtractorBlockEntity::class.java
 ) {
 
-    override fun codec(): MapCodec<DnaExtractorBlock> {
-        return simpleCodec(::DnaExtractorBlock)
-    }
+	override fun codec(): MapCodec<DnaExtractorBlock> {
+		return simpleCodec(::DnaExtractorBlock)
+	}
 
-    override fun <T : BlockEntity> getTicker(
-        pLevel: Level,
-        pState: BlockState,
-        pBlockEntityType: BlockEntityType<T>
-    ): BlockEntityTicker<T>? {
-        return BaseEntityBlock.createTickerHelper(
-            pBlockEntityType,
-            ModBlockEntities.DNA_EXTRACTOR.get(),
-            DnaExtractorBlockEntity::tick
-        )
-    }
+	override fun <T : BlockEntity> getTicker(
+		pLevel: Level,
+		pState: BlockState,
+		pBlockEntityType: BlockEntityType<T>
+	): BlockEntityTicker<T>? {
+		return BaseEntityBlock.createTickerHelper(
+			pBlockEntityType,
+			ModBlockEntities.DNA_EXTRACTOR.get(),
+			DnaExtractorBlockEntity::tick
+		)
+	}
 
 }

@@ -21,105 +21,105 @@ import net.neoforged.neoforge.items.ItemStackHandler
 
 
 class CellAnalyzerBlockEntity(
-    pPos: BlockPos,
-    pBlockState: BlockState
+	pPos: BlockPos,
+	pBlockState: BlockState
 ) : CraftingMachineBlockEntity(
-    ModBlockEntities.CELL_ANALYZER.get(),
-    pPos,
-    pBlockState
+	ModBlockEntities.CELL_ANALYZER.get(),
+	pPos,
+	pBlockState
 ), MenuProvider {
 
-    override val machineName: String = "cell_analyzer"
+	override val machineName: String = "cell_analyzer"
 
-    override val energyMaximum: Int = 60_000
-    override val energyTransferMaximum: Int = 256
-    override val baseEnergyCostPerTick: Int = 32
+	override val energyMaximum: Int = 60_000
+	override val energyTransferMaximum: Int = 256
+	override val baseEnergyCostPerTick: Int = 32
 
-    override val amountOfItemSlots: Int = 3
-    override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {
-        override fun onContentsChanged(slot: Int) {
-            setChanged()
-        }
+	override val amountOfItemSlots: Int = 3
+	override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {
+		override fun onContentsChanged(slot: Int) {
+			setChanged()
+		}
 
-        override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
-            return when (slot) {
-                INPUT_SLOT_INDEX -> stack.`is`(ModItems.ORGANIC_MATTER.get())
-                OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER.get())
-                OUTPUT_SLOT_INDEX -> false
-                else -> false
-            }
-        }
-    }
+		override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
+			return when (slot) {
+				INPUT_SLOT_INDEX -> stack.`is`(ModItems.ORGANIC_MATTER.get())
+				OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER.get())
+				OUTPUT_SLOT_INDEX -> false
+				else -> false
+			}
+		}
+	}
 
-    override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
-        return CellAnalyzerMenu(pContainerId, pPlayerInventory, this, this.containerData)
-    }
+	override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
+		return CellAnalyzerMenu(pContainerId, pPlayerInventory, this, this.containerData)
+	}
 
-    override fun getDisplayName(): Component {
-        return ModBlocks.CELL_ANALYZER.get().name
-    }
+	override fun getDisplayName(): Component {
+		return ModBlocks.CELL_ANALYZER.get().name
+	}
 
-    override fun craftItem() {
-        if (!hasRecipe()) return
+	override fun craftItem() {
+		if (!hasRecipe()) return
 
-        val inputItem = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
-        val inputEntity = EntityDnaItem.getEntityType(inputItem) ?: return
+		val inputItem = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
+		val inputEntity = EntityDnaItem.getEntityType(inputItem) ?: return
 
-        val outputItem = ItemStack(ModItems.CELL.get())
-        val setWorked = setEntityType(outputItem, inputEntity)
-        if (!setWorked) {
-            GeneticsResequenced.LOGGER.error("A Cell Analyzer tried to set an invalid entity type at ${blockPos.x}, ${blockPos.y}, ${blockPos.z}: ${inputEntity.descriptionId}")
-            return
-        }
+		val outputItem = ItemStack(ModItems.CELL.get())
+		val setWorked = setEntityType(outputItem, inputEntity)
+		if (!setWorked) {
+			GeneticsResequenced.LOGGER.error("A Cell Analyzer tried to set an invalid entity type at ${blockPos.x}, ${blockPos.y}, ${blockPos.z}: ${inputEntity.descriptionId}")
+			return
+		}
 
-        val amountAlreadyInOutput = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX).count
-        outputItem.count = amountAlreadyInOutput + 1
+		val amountAlreadyInOutput = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX).count
+		outputItem.count = amountAlreadyInOutput + 1
 
-        itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
-        itemHandler.setStackInSlot(OUTPUT_SLOT_INDEX, outputItem)
-    }
+		itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
+		itemHandler.setStackInSlot(OUTPUT_SLOT_INDEX, outputItem)
+	}
 
-    override fun hasRecipe(): Boolean {
-        val inventory = SimpleContainer(itemHandler.slots)
-        for (i in 0 until itemHandler.slots) {
-            inventory.setItem(i, itemHandler.getStackInSlot(i))
-        }
+	override fun hasRecipe(): Boolean {
+		val inventory = SimpleContainer(itemHandler.slots)
+		for (i in 0 until itemHandler.slots) {
+			inventory.setItem(i, itemHandler.getStackInSlot(i))
+		}
 
-        val inputItemStack = inventory.getItem(INPUT_SLOT_INDEX)
+		val inputItemStack = inventory.getItem(INPUT_SLOT_INDEX)
 
-        if (!inputItemStack.`is`(ModItems.ORGANIC_MATTER.get())) return false
+		if (!inputItemStack.`is`(ModItems.ORGANIC_MATTER.get())) return false
 
-        val mobType = EntityDnaItem.getEntityType(inputItemStack) ?: return false
+		val mobType = EntityDnaItem.getEntityType(inputItemStack) ?: return false
 
-        val outputItem = ItemStack(ModItems.CELL.get())
-        val setWorked = setEntityType(outputItem, mobType)
-        if (!setWorked) return false
+		val outputItem = ItemStack(ModItems.CELL.get())
+		val setWorked = setEntityType(outputItem, mobType)
+		if (!setWorked) return false
 
-        return outputSlotHasRoom(inventory, outputItem)
-    }
+		return outputSlotHasRoom(inventory, outputItem)
+	}
 
-    private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {
-        val outputSlot = inventory.getItem(OUTPUT_SLOT_INDEX)
+	private fun outputSlotHasRoom(inventory: SimpleContainer, potentialOutput: ItemStack): Boolean {
+		val outputSlot = inventory.getItem(OUTPUT_SLOT_INDEX)
 
-        if (outputSlot.isEmpty) return true
+		if (outputSlot.isEmpty) return true
 
-        if (outputSlot.count + potentialOutput.count > outputSlot.maxStackSize) return false
+		if (outputSlot.count + potentialOutput.count > outputSlot.maxStackSize) return false
 
-        val mobAlreadyInSlot = EntityDnaItem.getEntityType(outputSlot) ?: return false
-        val mobToInsert = EntityDnaItem.getEntityType(potentialOutput) ?: return false
+		val mobAlreadyInSlot = EntityDnaItem.getEntityType(outputSlot) ?: return false
+		val mobToInsert = EntityDnaItem.getEntityType(potentialOutput) ?: return false
 
-        return mobAlreadyInSlot == mobToInsert
-    }
+		return mobAlreadyInSlot == mobToInsert
+	}
 
-    companion object {
-        fun tick(
-            level: Level,
-            blockPos: BlockPos,
-            blockState: BlockState,
-            blockEntity: CellAnalyzerBlockEntity
-        ) {
-            if (level.isClientSide) return
-            blockEntity.tick()
-        }
-    }
+	companion object {
+		fun tick(
+			level: Level,
+			blockPos: BlockPos,
+			blockState: BlockState,
+			blockEntity: CellAnalyzerBlockEntity
+		) {
+			if (level.isClientSide) return
+			blockEntity.tick()
+		}
+	}
 }

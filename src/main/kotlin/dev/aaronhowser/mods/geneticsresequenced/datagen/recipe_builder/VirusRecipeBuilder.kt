@@ -15,46 +15,46 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 
 class VirusRecipeBuilder(
-    val inputDnaGene: ResourceKey<Gene>,
-    val outputGene: ResourceKey<Gene>
+	val inputDnaGene: ResourceKey<Gene>,
+	val outputGene: ResourceKey<Gene>
 ) : RecipeBuilder {
 
-    private val criteria: MutableMap<String, Criterion<*>> = mutableMapOf()
+	private val criteria: MutableMap<String, Criterion<*>> = mutableMapOf()
 
-    override fun unlockedBy(name: String, criterion: Criterion<*>): RecipeBuilder {
-        criteria[name] = criterion
-        return this
-    }
+	override fun unlockedBy(name: String, criterion: Criterion<*>): RecipeBuilder {
+		criteria[name] = criterion
+		return this
+	}
 
-    override fun group(p0: String?): RecipeBuilder {
-        error("Unsupported")
-    }
+	override fun group(p0: String?): RecipeBuilder {
+		error("Unsupported")
+	}
 
-    override fun getResult(): Item {
-        return ModItems.DNA_HELIX.get()
-    }
+	override fun getResult(): Item {
+		return ModItems.DNA_HELIX.get()
+	}
 
-    override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
-        val idString = StringBuilder()
+	override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
+		val idString = StringBuilder()
 
-        idString
-            .append("incubator/")
-            .append("virus/")
-            .append(inputDnaGene.location().path)
-            .append("_to_")
-            .append(outputGene.location().path)
+		idString
+			.append("incubator/")
+			.append("virus/")
+			.append(inputDnaGene.location().path)
+			.append("_to_")
+			.append(outputGene.location().path)
 
-        val id = OtherUtil.modResource(idString.toString())
+		val id = OtherUtil.modResource(idString.toString())
 
-        val advancement = output.advancement()
-            .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
-            .rewards(AdvancementRewards.Builder.recipe(id))
-            .requirements(AdvancementRequirements.Strategy.OR)
+		val advancement = output.advancement()
+			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
+			.rewards(AdvancementRewards.Builder.recipe(id))
+			.requirements(AdvancementRequirements.Strategy.OR)
 
-        criteria.forEach { (name, criterion) -> advancement.addCriterion(name, criterion) }
+		criteria.forEach { (name, criterion) -> advancement.addCriterion(name, criterion) }
 
-        val recipe = VirusRecipe(inputDnaGene, outputGene)
+		val recipe = VirusRecipe(inputDnaGene, outputGene)
 
-        output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
-    }
+		output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
+	}
 }

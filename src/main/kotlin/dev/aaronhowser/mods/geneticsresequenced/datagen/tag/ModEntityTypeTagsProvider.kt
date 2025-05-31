@@ -12,67 +12,67 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
 
 class ModEntityTypeTagsProvider(
-    pOutput: PackOutput,
-    pProvider: CompletableFuture<HolderLookup.Provider>,
-    existingFileHelper: ExistingFileHelper?
+	pOutput: PackOutput,
+	pProvider: CompletableFuture<HolderLookup.Provider>,
+	existingFileHelper: ExistingFileHelper?
 ) : EntityTypeTagsProvider(pOutput, pProvider, GeneticsResequenced.ID, existingFileHelper) {
 
-    companion object {
-        private fun create(id: String): TagKey<EntityType<*>> {
-            return TagKey.create(Registries.ENTITY_TYPE, OtherUtil.modResource(id))
-        }
+	companion object {
+		private fun create(id: String): TagKey<EntityType<*>> {
+			return TagKey.create(Registries.ENTITY_TYPE, OtherUtil.modResource(id))
+		}
 
-        val SCRAPER_ENTITY_BLACKLIST = create("scraper_blacklist")
-        val AVOIDS_SCARE_CREEPER_GENE = create("avoids_scare_creeper_gene")
-        val AVOIDS_SCARE_ZOMBIE_GENE = create("avoids_scare_zombie_gene")
-        val AVOIDS_SCARE_SKELETON_GENE = create("avoids_scare_skeleton_gene")
-        val AVOIDS_SCARE_SPIDER_GENE = create("avoids_scare_spider_gene")
-        val ALLOWS_PREVENTING_INTERACTION = create("allows_preventing_interaction")
-    }
+		val SCRAPER_ENTITY_BLACKLIST = create("scraper_blacklist")
+		val AVOIDS_SCARE_CREEPER_GENE = create("avoids_scare_creeper_gene")
+		val AVOIDS_SCARE_ZOMBIE_GENE = create("avoids_scare_zombie_gene")
+		val AVOIDS_SCARE_SKELETON_GENE = create("avoids_scare_skeleton_gene")
+		val AVOIDS_SCARE_SPIDER_GENE = create("avoids_scare_spider_gene")
+		val ALLOWS_PREVENTING_INTERACTION = create("allows_preventing_interaction")
+	}
 
-    override fun addTags(pProvider: HolderLookup.Provider) {
-        this.tag(SCRAPER_ENTITY_BLACKLIST)
-            .add(EntityType.ARMOR_STAND, EntityType.PAINTING)
+	override fun addTags(pProvider: HolderLookup.Provider) {
+		this.tag(SCRAPER_ENTITY_BLACKLIST)
+			.add(EntityType.ARMOR_STAND, EntityType.PAINTING)
 
-        this.tag(AVOIDS_SCARE_CREEPER_GENE)
-            .add(EntityType.CREEPER)
+		this.tag(AVOIDS_SCARE_CREEPER_GENE)
+			.add(EntityType.CREEPER)
 
-        this.tag(AVOIDS_SCARE_ZOMBIE_GENE)
-            .add(
-                EntityType.ZOMBIE,
-                EntityType.DROWNED,
-                EntityType.HUSK,
-                EntityType.ZOMBIE_VILLAGER,
-                EntityType.ZOMBIFIED_PIGLIN,
-                EntityType.ZOMBIE_HORSE
-            )
+		this.tag(AVOIDS_SCARE_ZOMBIE_GENE)
+			.add(
+				EntityType.ZOMBIE,
+				EntityType.DROWNED,
+				EntityType.HUSK,
+				EntityType.ZOMBIE_VILLAGER,
+				EntityType.ZOMBIFIED_PIGLIN,
+				EntityType.ZOMBIE_HORSE
+			)
 
-        this.tag(AVOIDS_SCARE_SKELETON_GENE)
-            .add(
-                EntityType.SKELETON,
-                EntityType.STRAY,
-                EntityType.BOGGED,
-                EntityType.WITHER_SKELETON,
-                EntityType.SKELETON_HORSE
-            )
+		this.tag(AVOIDS_SCARE_SKELETON_GENE)
+			.add(
+				EntityType.SKELETON,
+				EntityType.STRAY,
+				EntityType.BOGGED,
+				EntityType.WITHER_SKELETON,
+				EntityType.SKELETON_HORSE
+			)
 
-        this.tag(AVOIDS_SCARE_SPIDER_GENE)
-            .add(
-                EntityType.SPIDER,
-                EntityType.CAVE_SPIDER
-            )
+		this.tag(AVOIDS_SCARE_SPIDER_GENE)
+			.add(
+				EntityType.SPIDER,
+				EntityType.CAVE_SPIDER
+			)
 
-        this.tag(ALLOWS_PREVENTING_INTERACTION)
-            .add(
-                EntityType.VILLAGER,
-                EntityType.WANDERING_TRADER,
-                EntityType.HORSE,
-                EntityType.DONKEY,
-                EntityType.MULE,
-                EntityType.LLAMA,
-                EntityType.TRADER_LLAMA
-            )
+		this.tag(ALLOWS_PREVENTING_INTERACTION)
+			.add(
+				EntityType.VILLAGER,
+				EntityType.WANDERING_TRADER,
+				EntityType.HORSE,
+				EntityType.DONKEY,
+				EntityType.MULE,
+				EntityType.LLAMA,
+				EntityType.TRADER_LLAMA
+			)
 
-    }
+	}
 
 }
