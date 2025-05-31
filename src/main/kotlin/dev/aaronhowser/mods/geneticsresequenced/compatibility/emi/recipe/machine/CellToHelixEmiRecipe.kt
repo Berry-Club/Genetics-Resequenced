@@ -32,7 +32,7 @@ class CellToHelixEmiRecipe(
 		fun getAllRecipes(recipeManager: RecipeManager): List<CellToHelixEmiRecipe> {
 			val recipes = mutableListOf<CellToHelixEmiRecipe>()
 
-			val validEntityTypes = EntityDnaItem.validEntityTypes
+			val validEntityTypes = EntityDnaItem.VALID_ENTITY_TYPES
 			for (entityType in validEntityTypes) {
 				val cellStack = ModItems.CELL.toStack()
 				EntityDnaItem.setEntityType(cellStack, entityType)

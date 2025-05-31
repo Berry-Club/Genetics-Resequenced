@@ -19,37 +19,6 @@ import net.minecraft.world.item.TooltipFlag
 
 class DnaHelixItem : EntityDnaItem() {
 
-	companion object {
-
-		fun hasGene(itemStack: ItemStack): Boolean {
-			return itemStack.has(ModDataComponents.GENE)
-		}
-
-		fun getGeneHolder(itemStack: ItemStack): Holder<Gene>? {
-			return itemStack.get(ModDataComponents.GENE)
-		}
-
-		fun setGeneHolder(itemStack: ItemStack, geneHolder: Holder<Gene>): ItemStack {
-			itemStack.set(ModDataComponents.GENE, geneHolder)
-			return itemStack
-		}
-
-		fun getHelixStack(geneRk: ResourceKey<Gene>, registries: HolderLookup.Provider): ItemStack {
-			return getHelixStack(geneRk.getHolderOrThrow(registries))
-		}
-
-		fun getHelixStack(geneHolder: Holder<Gene>): ItemStack {
-			val itemStack = ModItems.DNA_HELIX.toStack()
-			setGeneHolder(itemStack, geneHolder)
-			return itemStack
-		}
-
-		fun getAllHelices(registries: HolderLookup.Provider): List<ItemStack> {
-			return ModGenes.getRegistrySorted(registries, includeHelixOnly = true)
-				.map { geneHolder -> getHelixStack(geneHolder) }
-		}
-	}
-
 	override fun appendHoverText(
 		pStack: ItemStack,
 		pContext: TooltipContext,
@@ -77,7 +46,7 @@ class DnaHelixItem : EntityDnaItem() {
 
 		pTooltipComponents.add(
 			ModLanguageProvider.Tooltips.GENE
-				.toComponent(Gene.unknownGeneComponent)
+				.toComponent(Gene.UNKNOWN_GENE_COMPONENT)
 				.withStyle(ChatFormatting.GRAY)
 		)
 
@@ -104,6 +73,31 @@ class DnaHelixItem : EntityDnaItem() {
 			GeneticsResequenced.LOGGER.error("DnaHelixItem isCreative check failed", e)
 		}
 
+	}
+
+	companion object {
+		fun hasGene(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.GENE)
+		fun getGeneHolder(itemStack: ItemStack): Holder<Gene>? = itemStack.get(ModDataComponents.GENE)
+
+		fun setGeneHolder(itemStack: ItemStack, geneHolder: Holder<Gene>): ItemStack {
+			itemStack.set(ModDataComponents.GENE, geneHolder)
+			return itemStack
+		}
+
+		fun getHelixStack(geneRk: ResourceKey<Gene>, registries: HolderLookup.Provider): ItemStack {
+			return getHelixStack(geneRk.getHolderOrThrow(registries))
+		}
+
+		fun getHelixStack(geneHolder: Holder<Gene>): ItemStack {
+			val itemStack = ModItems.DNA_HELIX.toStack()
+			setGeneHolder(itemStack, geneHolder)
+			return itemStack
+		}
+
+		fun getAllHelices(registries: HolderLookup.Provider): List<ItemStack> {
+			return ModGenes.getRegistrySorted(registries, includeHelixOnly = true)
+				.map { geneHolder -> getHelixStack(geneHolder) }
+		}
 	}
 
 }

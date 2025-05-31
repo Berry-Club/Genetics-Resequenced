@@ -17,7 +17,6 @@ class AntiPlasmidItem : Item(Properties().stacksTo(1)) {
 		pTooltipComponents: MutableList<Component>,
 		pTooltipFlag: TooltipFlag
 	) {
-
 		val geneHolder = PlasmidItem.getGene(pStack)
 
 		if (geneHolder == null) {
@@ -33,7 +32,6 @@ class AntiPlasmidItem : Item(Properties().stacksTo(1)) {
 					.withStyle(ChatFormatting.GRAY)
 			)
 		}
-
 	}
 
 }

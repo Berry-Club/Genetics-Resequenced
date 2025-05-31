@@ -105,7 +105,7 @@ object ModInformationRecipes {
 
 		val recipes: MutableList<EmiInfoRecipe> = mutableListOf(noEntityRecipe)
 
-		for (entityType in EntityDnaItem.validEntityTypes) {
+		for (entityType in EntityDnaItem.VALID_ENTITY_TYPES) {
 
 			val component = ModLanguageProvider.Info.ORGANIC_MATTER.toComponent(entityType.description)
 
@@ -133,7 +133,7 @@ object ModInformationRecipes {
 	private fun mobGenes(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
 		val recipes = mutableListOf<EmiInfoRecipe>()
 
-		for (entityType in EntityDnaItem.validEntityTypes) {
+		for (entityType in EntityDnaItem.VALID_ENTITY_TYPES) {
 			val geneWeights = EntityGenes.getGeneHolderWeights(entityType, registries)
 
 			val informationTextComponent =

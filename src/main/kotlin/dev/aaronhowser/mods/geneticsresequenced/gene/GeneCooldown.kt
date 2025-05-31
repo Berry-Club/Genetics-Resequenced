@@ -13,7 +13,7 @@ import java.util.*
 
 class GeneCooldown(
 	private val gene: ResourceKey<Gene>,
-	private val cooldownTicks: Int,
+	private val cooldownTicks: Int, // TODO: Replace this with a getter, so you can configure it mid-game
 	notifyPlayer: Boolean = true
 ) : MutableSet<UUID> {
 
@@ -40,67 +40,59 @@ class GeneCooldown(
 	}
 
 	private fun onAddSucceed(entity: LivingEntity) {
-		if (actuallyNotify) tellCooldownStarted(entity, gene, cooldownTicks)
+		if (this.actuallyNotify) tellCooldownStarted(entity, this.gene, this.cooldownTicks)
 
-		ModScheduler.scheduleTaskInTicks(cooldownTicks) {
+		ModScheduler.scheduleTaskInTicks(this.cooldownTicks) {
 			remove(entity)
 		}
 	}
 
 	private fun onAddFail(entity: LivingEntity) {
-		if (actuallyNotify) tellOnCooldown(entity, gene)
+		if (this.actuallyNotify) tellOnCooldown(entity, this.gene)
 	}
 
 	fun remove(entity: LivingEntity): Boolean {
 		if (entity.uuid in this) {
-			if (actuallyNotify) tellCooldownEnded(entity, gene)
+			if (this.actuallyNotify) tellCooldownEnded(entity, this.gene)
 		}
 
 		return remove(entity.uuid)
 	}
 
 	override fun add(element: UUID): Boolean {
-		if (!addedViaEntity) throw UnsupportedOperationException(
+		if (!this.addedViaEntity) throw UnsupportedOperationException(
 			"Cannot add UUIDs directly to GeneCooldown"
 		)
 
-		if (element in uuidsOnCooldown) return false
+		if (element in this.uuidsOnCooldown) return false
 
-		return uuidsOnCooldown.add(element)
+		return this.uuidsOnCooldown.add(element)
 	}
 
 	override fun remove(element: UUID): Boolean {
-		if (cooldownEndedTasks.isNotEmpty()) {
-			for (task in cooldownEndedTasks) {
+		if (this.cooldownEndedTasks.isNotEmpty()) {
+			for (task in this.cooldownEndedTasks) {
 				task()
 			}
-			GeneticsResequenced.LOGGER.debug("$this ran ${cooldownEndedTasks.size} tasks as it ended")
+			GeneticsResequenced.LOGGER.debug("$this ran ${this.cooldownEndedTasks.size} tasks as it ended")
 		}
 
-		cooldownEndedTasks.clear()
+		this.cooldownEndedTasks.clear()
 
-		return uuidsOnCooldown.remove(element)
+		return this.uuidsOnCooldown.remove(element)
 	}
 
-	override val size: Int = uuidsOnCooldown.size
-
-	override fun clear() = uuidsOnCooldown.clear()
-
-	override fun isEmpty(): Boolean = uuidsOnCooldown.isEmpty()
-
-	override fun iterator(): MutableIterator<UUID> = uuidsOnCooldown.iterator()
-
-	override fun retainAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.retainAll(elements.toSet())
-
-	override fun removeAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.removeAll(elements.toSet())
-
-	override fun containsAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.containsAll(elements)
-
-	override fun contains(element: UUID): Boolean = uuidsOnCooldown.contains(element)
-
-	override fun addAll(elements: Collection<UUID>): Boolean = uuidsOnCooldown.addAll(elements)
-
-	override fun toString(): String = "GeneCooldown($gene)"
+	// TODO: WHy the hell is all this here? Why are we extending MutableSet?
+	override val size: Int = this.uuidsOnCooldown.size
+	override fun clear() = this.uuidsOnCooldown.clear()
+	override fun isEmpty(): Boolean = this.uuidsOnCooldown.isEmpty()
+	override fun iterator(): MutableIterator<UUID> = this.uuidsOnCooldown.iterator()
+	override fun retainAll(elements: Collection<UUID>): Boolean = this.uuidsOnCooldown.retainAll(elements.toSet())
+	override fun removeAll(elements: Collection<UUID>): Boolean = this.uuidsOnCooldown.removeAll(elements.toSet())
+	override fun containsAll(elements: Collection<UUID>): Boolean = this.uuidsOnCooldown.containsAll(elements)
+	override fun contains(element: UUID): Boolean = this.uuidsOnCooldown.contains(element)
+	override fun addAll(elements: Collection<UUID>): Boolean = this.uuidsOnCooldown.addAll(elements)
+	override fun toString(): String = "GeneCooldown(${this.gene})"
 
 	companion object {
 		fun tellCooldownStarted(player: LivingEntity, geneRk: ResourceKey<Gene>, cooldownTicks: Int) {

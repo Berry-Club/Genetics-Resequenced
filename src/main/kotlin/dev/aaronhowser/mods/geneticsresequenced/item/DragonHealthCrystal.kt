@@ -35,7 +35,6 @@ class DragonHealthCrystal : Item(
 	}
 
 	companion object {
-
 		const val MAX_DAMAGE = 1000f
 
 		fun handleIncomingDamage(event: LivingDamageEvent.Pre) {

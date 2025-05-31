@@ -19,7 +19,7 @@ class SetPotionEntityEmiRecipe(
 
 	companion object {
 		fun getAllRecipes(): List<SetPotionEntityEmiRecipe> {
-			val allEntityTypes = EntityDnaItem.validEntityTypes
+			val allEntityTypes = EntityDnaItem.VALID_ENTITY_TYPES
 
 			val pcgRecipes: MutableList<SetPotionEntityEmiRecipe> = mutableListOf()
 			val mutationRecipes: MutableList<SetPotionEntityEmiRecipe> = mutableListOf()

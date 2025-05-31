@@ -23,7 +23,7 @@ class OrganicMatterToCellEmiRecipe(
 		fun getAllRecipes(): List<OrganicMatterToCellEmiRecipe> {
 			val recipes = mutableListOf<OrganicMatterToCellEmiRecipe>()
 
-			val validEntityTypes = EntityDnaItem.validEntityTypes
+			val validEntityTypes = EntityDnaItem.VALID_ENTITY_TYPES
 			for (entityType in validEntityTypes) {
 				recipes.add(OrganicMatterToCellEmiRecipe(entityType))
 			}

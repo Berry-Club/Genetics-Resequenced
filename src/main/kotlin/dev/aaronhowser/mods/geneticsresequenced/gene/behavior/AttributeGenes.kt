@@ -23,6 +23,7 @@ object AttributeGenes {
 		event.newSpeed += (1 + efficiencyAttribute.value * efficiencyAttribute.value).toFloat()
 	}
 
+	//TODO: Move somewhere better, since this doesn't use attributes any more
 	fun handleWallClimbing(player: Player) {
 		val wallClimbing = ModGenes.WALL_CLIMBING.getHolderOrThrow(player.registryAccess())
 		if (wallClimbing.isDisabled) return

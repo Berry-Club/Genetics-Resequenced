@@ -17,16 +17,40 @@ import net.minecraft.world.level.Level
 class AntiFieldOrbItem : Item(
 	Properties()
 		.stacksTo(1)
-		.component(
-			ModDataComponents.IS_ACTIVE,
-			false
-		)
+		.component(ModDataComponents.IS_ACTIVE, false)
 ) {
 
-	companion object {
+	override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
+		toggleEnabled(pPlayer.getItemInHand(pUsedHand))
+		return super.use(pLevel, pPlayer, pUsedHand)
+	}
 
+	override fun isFoil(pStack: ItemStack): Boolean = isEnabled(pStack)
+
+	override fun appendHoverText(
+		pStack: ItemStack,
+		pContext: TooltipContext,
+		pTooltipComponents: MutableList<Component>,
+		pTooltipFlag: TooltipFlag
+	) {
+		val componentString = if (isEnabled(pStack)) {
+			ModLanguageProvider.Tooltips.ACTIVE
+		} else {
+			ModLanguageProvider.Tooltips.INACTIVE
+		}
+
+		pTooltipComponents.add(
+			componentString
+				.toComponent()
+				.withStyle(ChatFormatting.GRAY)
+		)
+
+		super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag)
+	}
+
+	companion object {
 		private fun isEnabled(itemStack: ItemStack): Boolean {
-			return itemStack.get(ModDataComponents.IS_ACTIVE) ?: false
+			return itemStack.getOrDefault(ModDataComponents.IS_ACTIVE, false)
 		}
 
 		private fun toggleEnabled(itemStack: ItemStack) {
@@ -37,36 +61,8 @@ class AntiFieldOrbItem : Item(
 		}
 
 		fun isActiveForPlayer(player: Player): Boolean {
-			return player.inventory.items.any { it.item == ModItems.ANTI_FIELD_ORB.get() && isEnabled(it) }
+			return player.inventory.items.any { it.`is`(ModItems.ANTI_FIELD_ORB) && isEnabled(it) }
 		}
-
-	}
-
-	override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
-		toggleEnabled(pPlayer.getItemInHand(pUsedHand))
-		return super.use(pLevel, pPlayer, pUsedHand)
-	}
-
-	override fun isFoil(pStack: ItemStack): Boolean {
-		return isEnabled(pStack)
-	}
-
-	override fun appendHoverText(
-		pStack: ItemStack,
-		pContext: TooltipContext,
-		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
-	) {
-		val componentString =
-			if (isEnabled(pStack)) ModLanguageProvider.Tooltips.ACTIVE else ModLanguageProvider.Tooltips.INACTIVE
-
-		pTooltipComponents.add(
-			componentString
-				.toComponent()
-				.withStyle(ChatFormatting.GRAY)
-		)
-
-		super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag)
 	}
 
 }

@@ -22,7 +22,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 
 		private fun makeGene(
 			dnaPointsRequired: Int = 1,
-			allowedEntities: HolderSet<EntityType<*>> = Gene.defaultAllowedEntities,
+			allowedEntities: HolderSet<EntityType<*>> = Gene.DEFAULT_ALLOWED_ENTITIES,
 			potionDetails: Optional<PotionDetails> = Optional.empty(),
 			attributeModifiers: List<AttributeEntry> = emptyList(),
 			scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>> = Optional.empty()

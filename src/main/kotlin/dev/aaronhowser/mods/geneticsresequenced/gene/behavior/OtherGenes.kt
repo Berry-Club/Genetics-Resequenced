@@ -19,7 +19,7 @@ import kotlin.random.Random
 
 object OtherGenes {
 
-	private val villagerSounds = listOf(
+	private val VILLAGER_SOUNDS = listOf(
 		SoundEvents.VILLAGER_TRADE,
 		SoundEvents.VILLAGER_AMBIENT,
 		SoundEvents.VILLAGER_CELEBRATE
@@ -37,7 +37,7 @@ object OtherGenes {
 			player.level().playSound(
 				null,
 				player.blockPosition(),
-				villagerSounds.random(),
+				VILLAGER_SOUNDS.random(),
 				player.soundSource,
 				1f,
 				1f
@@ -62,7 +62,7 @@ object OtherGenes {
 		)
 	}
 
-	private val randomPhrases = listOf(
+	private val RANDOM_CRINGE_PHRASES = listOf(
 		"UwU",
 		"owo",
 		"OwO",
@@ -111,9 +111,8 @@ object OtherGenes {
 
 		val tildes = "~".repeat(Random.nextInt(0, 4))
 
-		return input + "$tildes " + randomPhrases.random()
+		return input + "$tildes " + RANDOM_CRINGE_PHRASES.random()
 	}
-
 
 	fun handleCringeChat(event: ServerChatEvent) {
 		val cringe = ModGenes.CRINGE.getHolderOrThrow(event.player.registryAccess())

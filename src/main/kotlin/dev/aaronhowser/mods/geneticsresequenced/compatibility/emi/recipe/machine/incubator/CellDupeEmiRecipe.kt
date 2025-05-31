@@ -31,7 +31,7 @@ class CellDupeEmiRecipe(
 		fun getAllRecipes(recipeManager: RecipeManager): List<CellDupeEmiRecipe> {
 			val recipes = mutableListOf<CellDupeEmiRecipe>()
 
-			val allEntityTypes = EntityDnaItem.validEntityTypes
+			val allEntityTypes = EntityDnaItem.VALID_ENTITY_TYPES
 			for (entityType in allEntityTypes) {
 				val cellStack = ModItems.CELL.toStack()
 				EntityDnaItem.setEntityType(cellStack, entityType)

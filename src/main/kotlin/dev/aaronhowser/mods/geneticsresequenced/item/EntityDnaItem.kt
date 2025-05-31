@@ -27,7 +27,6 @@ open class EntityDnaItem : Item(Properties()) {
 		pInteractionTarget: LivingEntity,
 		pUsedHand: InteractionHand
 	): InteractionResult {
-
 		if (!pPlayer.isCreative) return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand)
 
 		val newStack = pStack.copy()
@@ -87,7 +86,7 @@ open class EntityDnaItem : Item(Properties()) {
 	companion object {
 
 		@JvmField
-		val includeTheseEntityTypes = mutableSetOf(
+		val ADDITIONALLY_INCLUDED_ENTITY_TYPES: MutableSet<EntityType<out LivingEntity>> = mutableSetOf(
 			EntityType.PLAYER,
 			EntityType.IRON_GOLEM,
 			EntityType.SNOW_GOLEM,
@@ -95,14 +94,14 @@ open class EntityDnaItem : Item(Properties()) {
 		)
 
 		@JvmField
-		val validEntityTypes: MutableSet<EntityType<*>> =
+		val VALID_ENTITY_TYPES: MutableSet<EntityType<*>> =
 			BuiltInRegistries.ENTITY_TYPE
-				.filter { it.category != MobCategory.MISC || it in includeTheseEntityTypes }
+				.filter { it.category != MobCategory.MISC || it in ADDITIONALLY_INCLUDED_ENTITY_TYPES }
 				.toMutableSet()
 
 
 		fun setEntityType(itemStack: ItemStack, entityType: EntityType<*>): Boolean {
-			if (entityType !in validEntityTypes) {
+			if (entityType !in VALID_ENTITY_TYPES) {
 				return false
 			}
 

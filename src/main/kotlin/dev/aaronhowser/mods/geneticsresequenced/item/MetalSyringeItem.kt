@@ -21,74 +21,6 @@ import net.neoforged.neoforge.common.util.FakePlayer
 
 class MetalSyringeItem : SyringeItem() {
 
-	companion object {
-
-		private fun useFullSyringe(
-			syringeStack: ItemStack,
-			pPlayer: Player,
-			pTarget: LivingEntity
-		) {
-			val uuid = syringeStack.getEntityUuid()
-
-			if (pTarget.uuid != uuid) return
-
-			if (isContaminated(syringeStack)) {
-				if (!pPlayer.level().isClientSide) {
-					pPlayer.sendSystemMessage(
-						ModLanguageProvider.Messages.METAL_SYRINGE_CONTAMINATED.toComponent()
-					)
-				}
-				return
-
-			}
-
-			tryInjectBlood(syringeStack, pPlayer, pTarget)
-		}
-
-		private fun tryInjectBlood(
-			syringeStack: ItemStack,
-			pPlayer: Player,
-			pInteractionTarget: LivingEntity
-		) {
-
-			val entityUuid = syringeStack.getEntityUuid() ?: return
-
-			fun sendMessage(message: Component) {
-				if (!pPlayer.level().isClientSide) {
-					pPlayer.sendSystemMessage(message)
-				}
-			}
-
-			if (entityUuid != pInteractionTarget.uuid) {
-				sendMessage(ModLanguageProvider.Messages.METAL_SYRINGE_MISMATCH.toComponent())
-				return
-			}
-
-			if (pInteractionTarget !is Player) {
-				val syringeGenes = getGenes(syringeStack)
-				val genesCantAdd = syringeGenes.filterNot { it.value().canEntityHave(pInteractionTarget) }
-				for (geneHolder in genesCantAdd) {
-					sendMessage(
-						ModLanguageProvider.Messages.METAL_SYRINGE_NO_MOBS.toComponent(
-							Gene.getNameComponent(geneHolder)
-						)
-					)
-				}
-			}
-
-			injectEntity(syringeStack, pInteractionTarget)
-			return
-		}
-
-		private fun extractBlood(
-			syringeStack: ItemStack,
-			pInteractionTarget: LivingEntity
-		) {
-			syringeStack.setEntity(pInteractionTarget)
-		}
-
-	}
-
 	override fun inventoryTick(pStack: ItemStack, pLevel: Level, pEntity: Entity, pSlotId: Int, pIsSelected: Boolean) {
 		if (!pIsSelected) return
 		if (pEntity !is Player) return
@@ -147,7 +79,6 @@ class MetalSyringeItem : SyringeItem() {
 				hurt(damageSourceUseSyringe(pLevel, pLivingEntity), 1f)
 				addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
 			}
-
 		}
 	}
 
@@ -157,6 +88,73 @@ class MetalSyringeItem : SyringeItem() {
 		} else {
 			ModLanguageProvider.Items.METAL_SYRINGE_EMPTY.toComponent()
 		}
+	}
+
+	companion object {
+		private fun useFullSyringe(
+			syringeStack: ItemStack,
+			pPlayer: Player,
+			pTarget: LivingEntity
+		) {
+			val uuid = syringeStack.getEntityUuid()
+
+			if (pTarget.uuid != uuid) return
+
+			if (isContaminated(syringeStack)) {
+				if (!pPlayer.level().isClientSide) {
+					pPlayer.sendSystemMessage(
+						ModLanguageProvider.Messages.METAL_SYRINGE_CONTAMINATED.toComponent()
+					)
+				}
+				return
+
+			}
+
+			tryInjectBlood(syringeStack, pPlayer, pTarget)
+		}
+
+		private fun tryInjectBlood(
+			syringeStack: ItemStack,
+			pPlayer: Player,
+			pInteractionTarget: LivingEntity
+		) {
+			val entityUuid = syringeStack.getEntityUuid() ?: return
+
+			fun sendMessage(message: Component) {
+				if (!pPlayer.level().isClientSide) {
+					pPlayer.sendSystemMessage(message)
+				}
+			}
+
+			if (entityUuid != pInteractionTarget.uuid) {
+				sendMessage(ModLanguageProvider.Messages.METAL_SYRINGE_MISMATCH.toComponent())
+				return
+			}
+
+			if (pInteractionTarget !is Player) {
+				val syringeGenes = getGenes(syringeStack)
+				val genesCantAdd = syringeGenes.filterNot { it.value().canEntityHave(pInteractionTarget) }
+				for (geneHolder in genesCantAdd) {
+					sendMessage(
+						ModLanguageProvider.Messages.METAL_SYRINGE_NO_MOBS.toComponent(
+							Gene.getNameComponent(geneHolder)
+						)
+					)
+				}
+			}
+
+			injectEntity(syringeStack, pInteractionTarget)
+
+			return
+		}
+
+		private fun extractBlood(
+			syringeStack: ItemStack,
+			pInteractionTarget: LivingEntity
+		) {
+			syringeStack.setEntity(pInteractionTarget)
+		}
+
 	}
 
 }

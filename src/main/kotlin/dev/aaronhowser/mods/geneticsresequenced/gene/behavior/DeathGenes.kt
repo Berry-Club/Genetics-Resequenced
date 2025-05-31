@@ -33,11 +33,11 @@ object DeathGenes {
 		val keepInventory = ModGenes.KEEP_INVENTORY.getHolderOrThrow(player.registryAccess())
 		if (keepInventory.isDisabled) return
 
-		player.level().apply {
-			if (isClientSide) return
-			if (gameRules.getBoolean(GameRules.RULE_KEEPINVENTORY)) return
-			if (levelData.isHardcore) return
-		}
+		val level = player.level()
+		if (level.isClientSide
+			|| level.gameRules.getBoolean(GameRules.RULE_KEEPINVENTORY)
+			|| level.levelData.isHardcore
+		) return
 
 		if (!player.hasGene(ModGenes.KEEP_INVENTORY)) return
 
@@ -68,7 +68,7 @@ object DeathGenes {
 		player.clearSavedInventory()
 	}
 
-	private val emeraldHeartCooldown = GeneCooldown(
+	private val EMERALD_HEART_COOLDOWN = GeneCooldown(
 		ModGenes.EMERALD_HEART,
 		ServerConfig.emeraldHeartCooldown.get()
 	)
@@ -86,14 +86,14 @@ object DeathGenes {
 			return
 		}
 
-		val wasNotOnCooldown = emeraldHeartCooldown.add(entity)
+		val wasNotOnCooldown = EMERALD_HEART_COOLDOWN.add(entity)
 
 		if (!wasNotOnCooldown) return
 
 		entity.inventory.add(ItemStack(Items.EMERALD, 1))
 	}
 
-	private val recentlyExplodedEntities: MutableSet<UUID> = mutableSetOf()
+	private val RECENTLY_EXPLODED_ENTITIES: MutableSet<UUID> = mutableSetOf()
 
 	private const val GUNPOWDER_REQUIRED = 5
 	private const val EXPLOSION_STRENGTH = 3f
@@ -113,7 +113,7 @@ object DeathGenes {
 
 		if (!shouldExplode) return
 
-		recentlyExplodedEntities.add(entity.uuid)
+		RECENTLY_EXPLODED_ENTITIES.add(entity.uuid)
 
 		entity.level().explode(
 			entity,
@@ -124,7 +124,7 @@ object DeathGenes {
 			Level.ExplosionInteraction.NONE // What the heck does this do
 		)
 
-		recentlyExplodedEntities.remove(entity.uuid)
+		RECENTLY_EXPLODED_ENTITIES.remove(entity.uuid)
 
 		if (entity is Player) {
 			var amountGunpowderRemoved = 0
@@ -147,13 +147,13 @@ object DeathGenes {
 		if (explosiveExit.isDisabled) return
 
 		val exploderUuid = event.explosion.directSourceEntity?.uuid
-		if (exploderUuid !in recentlyExplodedEntities) return
+		if (exploderUuid !in RECENTLY_EXPLODED_ENTITIES) return
 
 		event.affectedEntities.removeAll { it !is LivingEntity }
 		event.affectedBlocks.clear()
 	}
 
-	private val slimyDeathCooldown = GeneCooldown(
+	private val SLIMY_DEATH_COOLDOWN = GeneCooldown(
 		ModGenes.SLIMY_DEATH,
 		ServerConfig.slimyDeathCooldown.get()
 	)
@@ -166,7 +166,7 @@ object DeathGenes {
 		val entity: LivingEntity = event.entity
 		if (!entity.hasGene(ModGenes.SLIMY_DEATH)) return
 
-		val newlyUsed = slimyDeathCooldown.add(entity)
+		val newlyUsed = SLIMY_DEATH_COOLDOWN.add(entity)
 		if (!newlyUsed) return
 
 		val amount = Random.nextInt(3, 6)

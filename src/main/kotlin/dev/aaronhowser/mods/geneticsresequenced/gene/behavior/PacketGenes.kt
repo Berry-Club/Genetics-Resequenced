@@ -15,11 +15,10 @@ import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
 import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.toVec3
-import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.toVec3i
 
 object PacketGenes {
 
-	private val recentTeleports = GeneCooldown(
+	private val RECENT_TELEPORTS = GeneCooldown(
 		ModGenes.TELEPORT,
 		ServerConfig.teleportCooldown.get()
 	)
@@ -31,7 +30,7 @@ object PacketGenes {
 
 		if (!player.hasGene(ModGenes.TELEPORT)) return
 
-		val wasNotOnCooldown = recentTeleports.add(player)
+		val wasNotOnCooldown = RECENT_TELEPORTS.add(player)
 		if (!wasNotOnCooldown) return
 
 		val teleportDestination = player.lookAngle.normalize().scale(ServerConfig.teleportDistance.get())
@@ -64,12 +63,10 @@ object PacketGenes {
 
 		val blockAtNewFootLocation = player
 			.level()
-			.getBlockState(
-				BlockPos(destination.toVec3i().offset(0, -1, 0))
-			)
+			.getBlockState(BlockPos.containing(destination).below())
 		val footBlockIsSolid = blockAtNewFootLocation.entityCanStandOn(
 			player.level(),
-			BlockPos(destination.toVec3i()),
+			BlockPos.containing(destination),
 			player
 		)
 
@@ -78,7 +75,7 @@ object PacketGenes {
 		player.teleportTo(destination.x, destination.y, destination.z)
 	}
 
-	private val recentDragonsBreath = GeneCooldown(
+	private val RECENT_DRAGONS_BREATHS = GeneCooldown(
 		ModGenes.DRAGON_BREATH,
 		ServerConfig.dragonsBreathCooldown.get()
 	)
@@ -89,7 +86,7 @@ object PacketGenes {
 
 		if (!player.hasGene(ModGenes.DRAGON_BREATH)) return
 
-		val wasNotOnCooldown = recentDragonsBreath.add(player)
+		val wasNotOnCooldown = RECENT_DRAGONS_BREATHS.add(player)
 
 		if (!wasNotOnCooldown) return
 
@@ -97,9 +94,9 @@ object PacketGenes {
 			player.level(),
 			player,
 			player.lookAngle
-		).apply {
-			setPos(player.eyePosition)
-		}
+		)
+
+		entityDragonFireball.setPos(player.eyePosition)
 
 		player.level().addFreshEntity(entityDragonFireball)
 	}

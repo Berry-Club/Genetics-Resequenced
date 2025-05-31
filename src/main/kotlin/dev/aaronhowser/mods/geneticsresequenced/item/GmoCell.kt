@@ -13,19 +13,6 @@ import net.minecraft.world.item.TooltipFlag
 
 class GmoCell : Item(Properties()) {
 
-	companion object {
-
-		fun setDetails(
-			itemStack: ItemStack,
-			entityType: EntityType<*>,
-			geneHolder: Holder<Gene>,
-		) {
-			EntityDnaItem.setEntityType(itemStack, entityType)
-			DnaHelixItem.setGeneHolder(itemStack, geneHolder)
-		}
-
-	}
-
 	override fun appendHoverText(
 		pStack: ItemStack,
 		pContext: TooltipContext,
@@ -58,11 +45,21 @@ class GmoCell : Item(Properties()) {
 		} else {
 			val noGeneComponent =
 				ModLanguageProvider.Tooltips.GENE
-					.toComponent(Gene.unknownGeneComponent)
+					.toComponent(Gene.UNKNOWN_GENE_COMPONENT)
 					.withStyle(ChatFormatting.GRAY)
 			pTooltipComponents.add(noGeneComponent)
 		}
+	}
 
+	companion object {
+		fun setDetails(
+			itemStack: ItemStack,
+			entityType: EntityType<*>,
+			geneHolder: Holder<Gene>,
+		) {
+			EntityDnaItem.setEntityType(itemStack, entityType)
+			DnaHelixItem.setGeneHolder(itemStack, geneHolder)
+		}
 	}
 
 }

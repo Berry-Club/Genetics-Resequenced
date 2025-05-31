@@ -48,6 +48,49 @@ data class Gene(
 	val scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>>
 ) {
 
+	val allowsMobs = this.allowedEntities.any { it.value() != EntityType.PLAYER }
+
+	fun canEntityHave(entity: Entity): Boolean {
+		return canEntityTypeHave(entity.type)
+	}
+
+	fun canEntityTypeHave(entityType: EntityType<*>): Boolean {
+		return this.allowedEntities.map { it.value() }.contains(entityType)
+	}
+
+	fun getPotion(): MobEffectInstance? {
+		val potionDetails = this.potionDetails.getOrNull() ?: return null
+
+		return MobEffectInstance(
+			potionDetails.effect,
+			potionDetails.duration,
+			potionDetails.level - 1,
+			true,
+			false,
+			potionDetails.showIcon
+		)
+	}
+
+	fun setAttributeModifiers(livingEntity: LivingEntity, isAdding: Boolean) {
+		for ((attribute, modifier) in this.attributeModifiers) {
+			val attributeInstance = livingEntity.getAttribute(attribute)
+
+			if (attributeInstance == null) {
+				livingEntity.sendSystemMessage(
+					Component.literal("A Gene tried to modify an attribute ${attribute.key} that you don't have!")
+				)
+				GeneticsResequenced.LOGGER.error("A Gene tried to modify an attribute ${attribute.key} that entity ${livingEntity.name} does not have!")
+				continue
+			}
+
+			if (isAdding) {
+				if (!attributeInstance.hasModifier(modifier.id)) attributeInstance.addPermanentModifier(modifier)
+			} else {
+				if (attributeInstance.hasModifier(modifier.id)) attributeInstance.removeModifier(modifier)
+			}
+		}
+	}
+
 	data class AttributeEntry(
 		val attribute: Holder<Attribute>,
 		val modifier: AttributeModifier
@@ -105,49 +148,6 @@ data class Gene(
 					ByteBufCodecs.BOOL, PotionDetails::showIcon,
 					Gene::PotionDetails
 				)
-		}
-	}
-
-	val allowsMobs = allowedEntities.any { it.value() != EntityType.PLAYER }
-
-	fun canEntityHave(entity: Entity): Boolean {
-		return canEntityTypeHave(entity.type)
-	}
-
-	fun canEntityTypeHave(entityType: EntityType<*>): Boolean {
-		return allowedEntities.map { it.value() }.contains(entityType)
-	}
-
-	fun getPotion(): MobEffectInstance? {
-		val potionDetails = potionDetails.getOrNull() ?: return null
-
-		return MobEffectInstance(
-			potionDetails.effect,
-			potionDetails.duration,
-			potionDetails.level - 1,
-			true,
-			false,
-			potionDetails.showIcon
-		)
-	}
-
-	fun setAttributeModifiers(livingEntity: LivingEntity, isAdding: Boolean) {
-		for ((attribute, modifier) in attributeModifiers) {
-			val attributeInstance = livingEntity.getAttribute(attribute)
-
-			if (attributeInstance == null) {
-				livingEntity.sendSystemMessage(
-					Component.literal("A Gene tried to modify an attribute ${attribute.key} that you don't have!")
-				)
-				GeneticsResequenced.LOGGER.error("A Gene tried to modify an attribute ${attribute.key} that entity ${livingEntity.name} does not have!")
-				continue
-			}
-
-			if (isAdding) {
-				if (!attributeInstance.hasModifier(modifier.id)) attributeInstance.addPermanentModifier(modifier)
-			} else {
-				if (attributeInstance.hasModifier(modifier.id)) attributeInstance.removeModifier(modifier)
-			}
 		}
 	}
 
@@ -234,9 +234,9 @@ data class Gene(
 			return component
 		}
 
-		val unknownGeneComponent: MutableComponent = ModLanguageProvider.Genes.UNKNOWN.toComponent()
+		val UNKNOWN_GENE_COMPONENT: MutableComponent = ModLanguageProvider.Genes.UNKNOWN.toComponent()
 
-		val defaultAllowedEntities = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup())
+		val DEFAULT_ALLOWED_ENTITIES = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup())
 
 		val DIRECT_CODEC: Codec<Gene> =
 			RecordCodecBuilder.create { instance ->
@@ -247,7 +247,7 @@ data class Gene(
 					RegistryCodecs.homogeneousList(Registries.ENTITY_TYPE)
 						.optionalFieldOf(
 							"allowed_entities",
-							defaultAllowedEntities
+							DEFAULT_ALLOWED_ENTITIES
 						)
 						.forGetter(Gene::allowedEntities),
 					PotionDetails.DIRECT_CODEC
@@ -287,18 +287,18 @@ data class Gene(
 	override fun toString(): String {
 		return StringBuilder()
 			.append("Gene{")
-			.append("dnaPointsRequired=").append(dnaPointsRequired)
+			.append("dnaPointsRequired=").append(this.dnaPointsRequired)
 			.append(", allowedEntities=").append(
-				when (allowedEntities) {
-					defaultAllowedEntities -> "any"
+				when (this.allowedEntities) {
+					DEFAULT_ALLOWED_ENTITIES -> "any"
 					ModGeneProvider.noEntities -> "none"
 					ModGeneProvider.onlyPlayers -> "players"
-					else -> allowedEntities
+					else -> this.allowedEntities
 				}
 			)
-			.append(", potionDetails=").append(potionDetails)
-			.append(", attributeModifiers=").append(attributeModifiers)
-			.append(", scaresEntitiesWithTag=").append(scaresEntitiesWithTag)
+			.append(", potionDetails=").append(this.potionDetails)
+			.append(", attributeModifiers=").append(this.attributeModifiers)
+			.append(", scaresEntitiesWithTag=").append(this.scaresEntitiesWithTag)
 			.append("}")
 			.toString()
 	}

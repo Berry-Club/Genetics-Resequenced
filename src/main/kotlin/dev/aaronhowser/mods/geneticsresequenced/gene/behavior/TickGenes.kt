@@ -23,6 +23,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.tags.EntityTypeTags
 import net.minecraft.world.damagesource.DamageSource
+import net.minecraft.world.damagesource.DamageType
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.*
@@ -128,7 +129,7 @@ object TickGenes {
 				geneHolder.isGene(ModGenes.WATER_BREATHING) -> entity.airSupply = entity.maxAirSupply
 				geneHolder.isGene(ModGenes.FLAMBE) -> entity.remainingFireTicks = ServerConfig.passivesCheckCooldown.get() * 2 * 20
 				geneHolder.isGene(ModGenes.LAY_EGG) -> handleLayEgg(entity)
-				geneHolder.isGene(ModGenes.MEATY_TWO) -> handleMeaty2(entity)
+				geneHolder.isGene(ModGenes.MEATY_TWO) -> handleMeatyTwo(entity)
 
 				isDeathGene(geneHolder) -> handleDeathGenes(entity, geneHolder)
 			}
@@ -167,10 +168,11 @@ object TickGenes {
 		entity.hurt(virusDamageSource(entity.level()), maxOf(entity.health / 2, 2f))
 	}
 
-	private val virusDamageKey = ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource("virus"))
-	private fun virusDamageSource(level: Level): DamageSource = level.damageSources().source(virusDamageKey)
+	private fun virusDamageSource(level: Level): DamageSource = level.damageSources().source(VIRUS_DAMAGE_KEY)
+	private val VIRUS_DAMAGE_KEY: ResourceKey<DamageType> =
+		ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource("virus"))
 
-	private val mapOfGeneToInferiorGenes: Map<ResourceKey<Gene>, List<ResourceKey<Gene>>> = mapOf(
+	private val GENE_INFERIORITY_MAP: Map<ResourceKey<Gene>, List<ResourceKey<Gene>>> = mapOf(
 		ModGenes.SPEED_FOUR to listOf(ModGenes.SPEED, ModGenes.SPEED_TWO),
 		ModGenes.SPEED_TWO to listOf(ModGenes.SPEED),
 		ModGenes.REGENERATION_FOUR to listOf(ModGenes.REGENERATION),
@@ -188,7 +190,7 @@ object TickGenes {
 		val genesToSkip = mutableListOf<ResourceKey<Gene>>()
 
 		for (geneHolder in potionGenes.toList()) {
-			mapOfGeneToInferiorGenes[geneHolder.key]?.let { redundantGenes ->
+			GENE_INFERIORITY_MAP[geneHolder.key]?.let { redundantGenes ->
 				genesToSkip.addAll(redundantGenes)
 			}
 		}
@@ -207,14 +209,14 @@ object TickGenes {
 		entity.removeEffect(potion.effect)
 	}
 
-	private val recentlyMeated2 = GeneCooldown(
+	private val RECENTLY_MEATED_TWO = GeneCooldown(
 		ModGenes.MEATY_TWO,
 		ServerConfig.meaty2Cooldown.get(),
 		notifyPlayer = false
 	)
 
-	private fun handleMeaty2(entity: LivingEntity) {
-		val newlyMeated = recentlyMeated2.add(entity)
+	private fun handleMeatyTwo(entity: LivingEntity) {
+		val newlyMeated = RECENTLY_MEATED_TWO.add(entity)
 		if (!newlyMeated) return
 
 		val luck = entity.activeEffects.find { it.effect == MobEffects.LUCK }?.amplifier ?: 0
@@ -230,14 +232,14 @@ object TickGenes {
 		entity.level().addFreshEntity(meatEntity)
 	}
 
-	private val recentlyLaidEgg = GeneCooldown(
+	private val RECENTLY_LAID_EGGS = GeneCooldown(
 		ModGenes.LAY_EGG,
 		ServerConfig.eggCooldown.get(),
 		notifyPlayer = false
 	)
 
 	private fun handleLayEgg(entity: LivingEntity) {
-		val hasNotRecentlyLainEgg = recentlyLaidEgg.add(entity)
+		val hasNotRecentlyLainEgg = RECENTLY_LAID_EGGS.add(entity)
 		if (!hasNotRecentlyLainEgg) return
 
 		val luck = entity.activeEffects.find { it.effect == MobEffects.LUCK }?.amplifier ?: 0
