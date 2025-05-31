@@ -33,8 +33,8 @@ class DupeCellRecipe(
 		val topStack = input.getTopItem()
 		val potionStack = input.getBottomItem()
 
-		if (!topIngredient.test(topStack)) return false
-		if (!bottomIngredient.test(potionStack)) return false
+		if (!this.topIngredient.test(topStack)) return false
+		if (!this.bottomIngredient.test(potionStack)) return false
 
 		return EntityDnaItem.hasEntity(topStack)
 	}
@@ -46,7 +46,7 @@ class DupeCellRecipe(
 
 		val outputCell: ItemStack
 
-		if (isGmoCell) {
+		if (this.isGmoCell) {
 			val pIngredientGene = DnaHelixItem.getGeneHolder(topStack) ?: return ItemStack.EMPTY
 
 			outputCell = ModItems.GMO_CELL.toStack()
@@ -60,7 +60,7 @@ class DupeCellRecipe(
 	}
 
 	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
-		return if (isGmoCell) ModItems.GMO_CELL.toStack() else ModItems.CELL.toStack()
+		return if (this.isGmoCell) ModItems.GMO_CELL.toStack() else ModItems.CELL.toStack()
 	}
 
 	override fun getSerializer(): RecipeSerializer<*> {

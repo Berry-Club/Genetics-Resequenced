@@ -13,7 +13,7 @@ object ModScheduler {
 
 	@SubscribeEvent
 	fun onServerTick(event: ServerTickEvent.Post) {
-		currentTick++
+		this.currentTick++
 	}
 
 	var currentTick = 0
@@ -26,7 +26,7 @@ object ModScheduler {
 
 	fun scheduleTaskInTicks(ticksInFuture: Int, runnable: Runnable) {
 		if (ticksInFuture > 0) {
-			upcomingTasks.put(currentTick + ticksInFuture, runnable)
+			this.upcomingTasks.put(currentTick + ticksInFuture, runnable)
 		} else {
 			runnable.run()
 		}
@@ -34,9 +34,9 @@ object ModScheduler {
 
 	private fun handleScheduledTasks(tick: Int) {
 
-		if (!upcomingTasks.containsKey(tick)) return
+		if (!this.upcomingTasks.containsKey(tick)) return
 
-		val tasks = upcomingTasks[tick].iterator()
+		val tasks = this.upcomingTasks[tick].iterator()
 
 		while (tasks.hasNext()) {
 			try {

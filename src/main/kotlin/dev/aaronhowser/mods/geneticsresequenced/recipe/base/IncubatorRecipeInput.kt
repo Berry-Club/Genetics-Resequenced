@@ -11,23 +11,18 @@ class IncubatorRecipeInput(
 ) : RecipeInput {
 
 	fun isValidPotionRecipe(potionBrewing: PotionBrewing): Boolean {
-		return isHighTemp && potionBrewing.hasMix(bottomItem, topItem)
+		return this.isHighTemp && potionBrewing.hasMix(this.bottomItem, this.topItem)
 	}
 
 	val isLowTemp: Boolean = !this.isHighTemp
 
-	fun getTopItem(): ItemStack {
-		return topItem.copy()
-	}
-
-	fun getBottomItem(): ItemStack {
-		return bottomItem.copy()
-	}
+	fun getTopItem(): ItemStack = this.topItem.copy()
+	fun getBottomItem(): ItemStack = this.bottomItem.copy()
 
 	override fun getItem(index: Int): ItemStack {
 		return when (index) {
-			0 -> topItem.copy()
-			1 -> bottomItem.copy()
+			0 -> getTopItem()
+			1 -> getBottomItem()
 			else -> error("Invalid index $index")
 		}
 	}

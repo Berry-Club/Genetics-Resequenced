@@ -27,15 +27,15 @@ data class GeneChangedPacket(
 			// Return if the entity does not exist on the client. This happens when the entity is not being tracked on the client, aka if it's too far away or whatever.
 			val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
 
-			if (wasAdded) {
-				entity.addGene(geneHolder)
+			if (this.wasAdded) {
+				entity.addGene(this.geneHolder)
 			} else {
-				entity.removeGene(geneHolder)
+				entity.removeGene(this.geneHolder)
 			}
 
-			if (geneHolder.isGene(ModGenes.CRINGE)) ClientUtil.handleCringe(wasAdded)
+			if (this.geneHolder.isGene(ModGenes.CRINGE)) ClientUtil.handleCringe(this.wasAdded)
 
-			geneHolder.value().setAttributeModifiers(entity, wasAdded)
+			this.geneHolder.value().setAttributeModifiers(entity, this.wasAdded)
 		}
 	}
 

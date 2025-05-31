@@ -19,8 +19,8 @@ abstract class AbstractIncubatorRecipe(
 
 	override fun getIngredients(): NonNullList<Ingredient> {
 		val list = NonNullList.create<Ingredient>()
-		list.add(topIngredient)
-		list.add(bottomIngredient)
+		list.add(this.topIngredient)
+		list.add(this.bottomIngredient)
 
 		return list
 	}

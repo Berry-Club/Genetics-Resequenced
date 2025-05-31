@@ -28,9 +28,9 @@ class BasicIncubatorRecipe(
 		val topItem = input.getTopItem()
 		val bottomItem = input.getBottomItem()
 
-		return isLowTemp == input.isLowTemp
-				&& topIngredient.test(topItem)
-				&& bottomIngredient.test(bottomItem)
+		return this.isLowTemp == input.isLowTemp
+				&& this.topIngredient.test(topItem)
+				&& this.bottomIngredient.test(bottomItem)
 	}
 
 	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
@@ -38,7 +38,7 @@ class BasicIncubatorRecipe(
 	}
 
 	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
-		return outputStack.copy()
+		return this.outputStack.copy()
 	}
 
 	override fun getSerializer(): RecipeSerializer<*> {

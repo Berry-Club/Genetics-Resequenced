@@ -36,6 +36,127 @@ open class SyringeItem : Item(
 	Properties().stacksTo(1)
 ) {
 
+	override fun getUseDuration(pStack: ItemStack, pHolder: LivingEntity): Int = 40
+	override fun getUseAnimation(pStack: ItemStack): UseAnim = UseAnim.BOW
+
+	override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
+		val realStack = pPlayer.getItemInHand(pUsedHand)
+		pPlayer.startUsingItem(pUsedHand)
+		return InteractionResultHolder.consume(realStack)
+	}
+
+	override fun onUseTick(pLevel: Level, pLivingEntity: LivingEntity, pStack: ItemStack, pRemainingUseDuration: Int) {
+
+		if (pRemainingUseDuration <= 1) {
+			pLivingEntity.stopUsingItem()
+			releaseUsing(pStack, pLevel, pLivingEntity, pRemainingUseDuration)
+		}
+
+	}
+
+	override fun releaseUsing(pStack: ItemStack, pLevel: Level, pLivingEntity: LivingEntity, pTimeCharged: Int) {
+
+		if (pLivingEntity !is Player || pTimeCharged > 1) return
+		if (pLivingEntity is FakePlayer) return
+
+		if (isContaminated(pStack)) {
+			if (!pLevel.isClientSide) {
+				pLivingEntity.sendSystemMessage(
+					ModLanguageProvider.Messages.SYRINGE_CONTAMINATED.toComponent()
+				)
+			}
+			return
+		}
+
+		if (hasBlood(pStack)) {
+			injectEntity(pStack, pLivingEntity)
+		} else {
+			setEntity(pStack, pLivingEntity)
+		}
+
+		pLivingEntity.apply {
+			hurt(damageSourceUseSyringe(pLevel, pLivingEntity), 1f)
+			addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
+
+			cooldowns.addCooldown(ModItems.SYRINGE.get(), 10)
+		}
+	}
+
+	override fun getName(pStack: ItemStack): Component {
+		return if (hasBlood(pStack)) {
+			ModLanguageProvider.Items.SYRINGE_FULL.toComponent()
+		} else {
+			ModLanguageProvider.Items.SYRINGE_EMPTY.toComponent()
+		}
+	}
+
+	override fun appendHoverText(
+		pStack: ItemStack,
+		pContext: TooltipContext,
+		pTooltipComponents: MutableList<Component>,
+		pTooltipFlag: TooltipFlag
+	) {
+
+		val bloodOwner = getEntityName(pStack)
+		if (hasBlood(pStack) && bloodOwner != null) {
+			pTooltipComponents.add(
+				ModLanguageProvider.Tooltips.SYRINGE_OWNER
+					.toComponent(bloodOwner)
+					.withStyle(ChatFormatting.GRAY)
+			)
+		}
+
+		if (isContaminated(pStack)) {
+			pTooltipComponents.add(
+				ModLanguageProvider.Tooltips.SYRINGE_CONTAMINATED
+					.toComponent()
+					.withStyle(ChatFormatting.DARK_GREEN)
+			)
+		}
+
+		val addingGenes = getGenes(pStack)
+		if (addingGenes.isNotEmpty()) {
+			pTooltipComponents.add(
+				ModLanguageProvider.Tooltips.SYRINGE_ADDING_GENES
+					.toComponent()
+					.withStyle(ChatFormatting.GRAY)
+			)
+
+			for (geneHolder in addingGenes) {
+				val nameComponent = Gene.getNameComponent(geneHolder)
+
+				val component = Component
+					.literal("• ")
+					.withStyle {
+						it.withColor(nameComponent.style.color)
+					}.append(nameComponent)
+
+				pTooltipComponents.add(component)
+			}
+		}
+
+		val removingGenes = getAntigenes(pStack)
+		if (removingGenes.isNotEmpty()) {
+			pTooltipComponents.add(
+				ModLanguageProvider.Tooltips.SYRINGE_REMOVING_GENES
+					.toComponent()
+					.withStyle(ChatFormatting.GRAY)
+			)
+
+			for (geneHolder in removingGenes) {
+				val nameComponent = Gene.getNameComponent(geneHolder)
+
+				val component = Component
+					.literal("• ")
+					.withStyle {
+						it.withColor(nameComponent.style.color)
+					}.append(nameComponent)
+
+				pTooltipComponents.add(component)
+			}
+		}
+	}
+
 	companion object {
 
 		fun ItemStack.isSyringe(): Boolean = this.`is`(ModItemTagsProvider.SYRINGES)
@@ -219,128 +340,6 @@ open class SyringeItem : Item(
 
 		fun damageSourceUseSyringe(level: Level, thrower: LivingEntity?): DamageSource {
 			return level.damageSources().source(ModDamageTypeTagsProvider.USE_SYRINGE, thrower)
-		}
-
-	}
-
-	override fun getUseDuration(pStack: ItemStack, pHolder: LivingEntity): Int = 40
-	override fun getUseAnimation(pStack: ItemStack): UseAnim = UseAnim.BOW
-
-	override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
-		val realStack = pPlayer.getItemInHand(pUsedHand)
-		pPlayer.startUsingItem(pUsedHand)
-		return InteractionResultHolder.consume(realStack)
-	}
-
-	override fun onUseTick(pLevel: Level, pLivingEntity: LivingEntity, pStack: ItemStack, pRemainingUseDuration: Int) {
-
-		if (pRemainingUseDuration <= 1) {
-			pLivingEntity.stopUsingItem()
-			releaseUsing(pStack, pLevel, pLivingEntity, pRemainingUseDuration)
-		}
-
-	}
-
-	override fun releaseUsing(pStack: ItemStack, pLevel: Level, pLivingEntity: LivingEntity, pTimeCharged: Int) {
-
-		if (pLivingEntity !is Player || pTimeCharged > 1) return
-		if (pLivingEntity is FakePlayer) return
-
-		if (isContaminated(pStack)) {
-			if (!pLevel.isClientSide) {
-				pLivingEntity.sendSystemMessage(
-					ModLanguageProvider.Messages.SYRINGE_CONTAMINATED.toComponent()
-				)
-			}
-			return
-		}
-
-		if (hasBlood(pStack)) {
-			injectEntity(pStack, pLivingEntity)
-		} else {
-			setEntity(pStack, pLivingEntity)
-		}
-
-		pLivingEntity.apply {
-			hurt(damageSourceUseSyringe(pLevel, pLivingEntity), 1f)
-			addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
-
-			cooldowns.addCooldown(ModItems.SYRINGE.get(), 10)
-		}
-	}
-
-	override fun getName(pStack: ItemStack): Component {
-		return if (hasBlood(pStack)) {
-			ModLanguageProvider.Items.SYRINGE_FULL.toComponent()
-		} else {
-			ModLanguageProvider.Items.SYRINGE_EMPTY.toComponent()
-		}
-	}
-
-	override fun appendHoverText(
-		pStack: ItemStack,
-		pContext: TooltipContext,
-		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
-	) {
-
-		val bloodOwner = getEntityName(pStack)
-		if (hasBlood(pStack) && bloodOwner != null) {
-			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.SYRINGE_OWNER
-					.toComponent(bloodOwner)
-					.withStyle(ChatFormatting.GRAY)
-			)
-		}
-
-		if (isContaminated(pStack)) {
-			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.SYRINGE_CONTAMINATED
-					.toComponent()
-					.withStyle(ChatFormatting.DARK_GREEN)
-			)
-		}
-
-		val addingGenes = getGenes(pStack)
-		if (addingGenes.isNotEmpty()) {
-			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.SYRINGE_ADDING_GENES
-					.toComponent()
-					.withStyle(ChatFormatting.GRAY)
-			)
-
-			for (geneHolder in addingGenes) {
-				val nameComponent = Gene.getNameComponent(geneHolder)
-
-				val component = Component
-					.literal("• ")
-					.withStyle {
-						it.withColor(nameComponent.style.color)
-					}.append(nameComponent)
-
-				pTooltipComponents.add(component)
-			}
-		}
-
-		val removingGenes = getAntigenes(pStack)
-		if (removingGenes.isNotEmpty()) {
-			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.SYRINGE_REMOVING_GENES
-					.toComponent()
-					.withStyle(ChatFormatting.GRAY)
-			)
-
-			for (geneHolder in removingGenes) {
-				val nameComponent = Gene.getNameComponent(geneHolder)
-
-				val component = Component
-					.literal("• ")
-					.withStyle {
-						it.withColor(nameComponent.style.color)
-					}.append(nameComponent)
-
-				pTooltipComponents.add(component)
-			}
 		}
 	}
 

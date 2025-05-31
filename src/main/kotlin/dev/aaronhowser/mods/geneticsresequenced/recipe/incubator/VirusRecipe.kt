@@ -37,8 +37,8 @@ class VirusRecipe(
 		val helixStack = input.getTopItem()
 		val potionStack = input.getBottomItem()
 
-		if (!topIngredient.test(helixStack)) return false
-		if (!bottomIngredient.test(potionStack)) return false
+		if (!this.topIngredient.test(helixStack)) return false
+		if (!this.bottomIngredient.test(potionStack)) return false
 
 		return DnaHelixItem.getGeneHolder(helixStack).isGene(inputDnaGene)
 	}
@@ -50,7 +50,7 @@ class VirusRecipe(
 	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
 		val output = DnaHelixItem.setGeneHolder(
 			ModItems.DNA_HELIX.toStack(),
-			outputGene.getHolderOrThrow(lookup)
+			this.outputGene.getHolderOrThrow(lookup)
 		)
 
 		return output

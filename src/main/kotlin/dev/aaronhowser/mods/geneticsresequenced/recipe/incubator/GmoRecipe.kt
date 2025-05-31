@@ -47,8 +47,8 @@ class GmoRecipe(
 		val bottomSlotStack = input.getBottomItem()
 
 		if (input.isHighTemp) return false
-		if (!topIngredient.test(topSlotStack)) return false
-		if (!bottomIngredient.test(bottomSlotStack)) return false
+		if (!this.topIngredient.test(topSlotStack)) return false
+		if (!this.bottomIngredient.test(bottomSlotStack)) return false
 
 		return true //TODO: Make sure it actually detects the entity type too
 	}
@@ -62,8 +62,8 @@ class GmoRecipe(
 
 		GmoCell.setDetails(
 			output,
-			entityType,
-			idealGeneRk.getHolderOrThrow(lookup)
+			this.entityType,
+			this.idealGeneRk.getHolderOrThrow(lookup)
 		)
 
 		return output
@@ -74,7 +74,7 @@ class GmoRecipe(
 
 		GmoCell.setDetails(
 			output,
-			entityType,
+			this.entityType,
 			ModGenes.BASIC.getHolderOrThrow(lookup)
 		)
 

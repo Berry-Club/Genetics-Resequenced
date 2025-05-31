@@ -30,7 +30,7 @@ object BrewingRecipes {
 		val itemPotion = OtherUtil.getPotion(stack) ?: return
 
 		if (itemPotion == ModPotions.ZOMBIFY_VILLAGER || itemPotion == ModPotions.PANACEA) return
-		if (itemPotion.value() !in modPotions) return
+		if (itemPotion.value() !in this.modPotions) return
 
 		if (stack.item != Items.POTION) {
 			event.toolTip.add(
@@ -81,19 +81,19 @@ object BrewingRecipes {
 		val substrateRecipe = BrewingRecipe(
 			ingredient(Potions.MUNDANE),
 			ingredient(ModItems.ORGANIC_MATTER),
-			substratePotionStack
+			this.substratePotionStack
 		)
 
 		val mutationRecipe = BrewingRecipe(
 			ingredient(ModPotions.CELL_GROWTH),
 			ingredient(Items.FERMENTED_SPIDER_EYE),
-			mutationPotionStack
+			this.mutationPotionStack
 		)
 
 		val viralRecipe = BrewingRecipe(
 			ingredient(ModPotions.MUTATION),
 			ingredient(Items.CHORUS_FRUIT),
-			viralAgentsPotionStack
+			this.viralAgentsPotionStack
 		)
 
 		val allRecipes = listOf(

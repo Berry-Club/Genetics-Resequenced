@@ -34,8 +34,8 @@ class BlackDeathRecipe private constructor() : AbstractIncubatorRecipe(
 		val syringeStack = input.getTopItem()
 		val potionStack = input.getBottomItem()
 
-		if (!topIngredient.test(potionStack)) return false
-		if (!bottomIngredient.test(syringeStack)) return false
+		if (!this.topIngredient.test(potionStack)) return false
+		if (!this.bottomIngredient.test(syringeStack)) return false
 
 		if (!SyringeItem.hasBlood(syringeStack) || SyringeItem.isContaminated(syringeStack)) return false
 

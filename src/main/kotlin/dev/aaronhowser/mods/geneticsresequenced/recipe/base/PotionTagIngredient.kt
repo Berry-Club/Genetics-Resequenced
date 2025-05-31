@@ -22,7 +22,7 @@ class PotionTagIngredient(
 		if (stack.item != Items.POTION) return false
 
 		val potion = OtherUtil.getPotion(stack) ?: return false
-		return potion.`is`(potionTag)
+		return potion.`is`(this.potionTag)
 	}
 
 	override fun getItems(): Stream<ItemStack> {

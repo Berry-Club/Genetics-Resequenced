@@ -15,7 +15,7 @@ data class ShearedPacket(
 
 	override fun receiveOnClient(context: IPayloadContext) {
 		context.enqueueWork {
-			if (removingSkin) {
+			if (this.removingSkin) {
 				ClientUtil.shearPlayerSkin()
 			} else {
 				ClientUtil.addSkinLayersBack()

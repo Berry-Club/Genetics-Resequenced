@@ -25,8 +25,8 @@ class SetPotionEntityRecipe private constructor() : AbstractIncubatorRecipe(
 		val cellStack = input.getTopItem()
 		val potionStack = input.getBottomItem()
 
-		if (!topIngredient.test(cellStack)) return false
-		if (!bottomIngredient.test(potionStack)) return false
+		if (!this.topIngredient.test(cellStack)) return false
+		if (!this.bottomIngredient.test(potionStack)) return false
 
 		val topEntity = EntityDnaItem.getEntityType(cellStack) ?: return false
 		val bottomEntity = EntityDnaItem.getEntityType(potionStack) ?: return true

@@ -42,9 +42,9 @@ object OtherUtil {
 	val Entity.isClientSide: Boolean
 		get() = this.level().isClientSide
 
-	private val entityUuidMap: MutableMap<UUID, LivingEntity> = mutableMapOf()
+	private val ENTITY_UUID_MAP: MutableMap<UUID, LivingEntity> = mutableMapOf()
 	fun getNearbyEntityFromUuid(uuid: UUID, searchAroundEntity: LivingEntity): LivingEntity? {
-		val mappedValue = entityUuidMap[uuid]
+		val mappedValue = ENTITY_UUID_MAP[uuid]
 		if (mappedValue != null) return mappedValue
 
 		val nearbyEntities = searchAroundEntity.level().getNearbyEntities(
@@ -56,7 +56,7 @@ object OtherUtil {
 
 		for (entity in nearbyEntities) {
 			if (entity.uuid == uuid) {
-				entityUuidMap[uuid] = entity
+				ENTITY_UUID_MAP[uuid] = entity
 				return entity
 			}
 		}

@@ -18,7 +18,7 @@ data class NarratorPacket(
 		context.enqueueWork {
 			if (ClientConfig.disableParrotNarrator.get()) return@enqueueWork
 
-			Minecraft.getInstance().narrator.narrator.say(message, true)
+			Minecraft.getInstance().narrator.narrator.say(this.message, true)
 		}
 	}
 

@@ -27,11 +27,11 @@ data class SetGenesPacket(
 
 	override fun receiveOnClient(context: IPayloadContext) {
 		context.enqueueWork {
-			val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
+			val entity = context.player().level().getEntity(this.entityId) as? LivingEntity ?: return@enqueueWork
 
 			entity.removeAllGenes()
 
-			for (gene in geneSet) {
+			for (gene in this.geneSet) {
 				entity.addGene(gene)
 			}
 		}
