@@ -50,7 +50,7 @@ class ModGeneRequirementsProvider(
 		this.addRequirements(ModGenes.PHOTOSYNTHESIS, ModGenes.EAT_GRASS, ModGenes.THORNS)
 		this.addRequirements(ModGenes.REGENERATION_FOUR, ModGenes.REGENERATION)
 		this.addRequirements(ModGenes.RESISTANCE_TWO, ModGenes.RESISTANCE)
-		this.addRequirements(ModGenes.SPEED_FOUR, ModGenes.SPEED)
+		this.addRequirements(ModGenes.SPEED_FOUR, ModGenes.SPEED, ModGenes.SPEED_TWO) //TODO: See if this is needed
 		this.addRequirements(ModGenes.SPEED_TWO, ModGenes.SPEED)
 		this.addRequirements(ModGenes.STRENGTH_TWO, ModGenes.STRENGTH)
 	}
