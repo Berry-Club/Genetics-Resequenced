@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.AntiPlasmidEmiRecipes
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.ModInformationRecipes
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.ModEmiInformationRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine.*
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine.incubator.*
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
@@ -82,7 +82,7 @@ class ModEmiPlugin : EmiPlugin {
 		AntiPlasmidEmiRecipes.setAntiPlasmidRecipes(registry)
 		AntiPlasmidEmiRecipes.unsetAntiPlasmidRecipes(registry)
 
-		for (infoRecipe in ModInformationRecipes.getInformationRecipes(ClientUtil.localRegistryAccess!!)) {
+		for (infoRecipe in ModEmiInformationRecipes.getInformationRecipes(ClientUtil.localRegistryAccess!!)) {
 			registry.addRecipe(infoRecipe)
 		}
 

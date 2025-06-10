@@ -25,7 +25,7 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.SpawnEggItem
 import net.minecraft.world.item.crafting.Ingredient
 
-object ModInformationRecipes {
+object ModEmiInformationRecipes {
 
 	fun getInformationRecipes(registries: HolderLookup.Provider): List<EmiInfoRecipe> {
 		return organicMatter() + geneDescriptions(registries) + mobGenes(registries)

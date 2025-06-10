@@ -1,14 +1,16 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.ModJeiInformationRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
 import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter
 import mezz.jei.api.ingredients.subtypes.UidContext
-import mezz.jei.api.registration.*
+import mezz.jei.api.registration.IModInfoRegistration
+import mezz.jei.api.registration.IRecipeRegistration
+import mezz.jei.api.registration.ISubtypeRegistration
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ItemLike
@@ -60,7 +62,7 @@ class ModJeiPlugin : IModPlugin {
 
 	override fun registerRecipes(registration: IRecipeRegistration) {
 
-
+		ModJeiInformationRecipes.addInformationRecipes(registration)
 
 	}
 
