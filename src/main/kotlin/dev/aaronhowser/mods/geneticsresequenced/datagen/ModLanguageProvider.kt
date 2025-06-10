@@ -163,19 +163,6 @@ class ModLanguageProvider(
 	}
 
 	object EMI {
-		const val BLOOD_PURIFIER = "emi.category.geneticsresequenced.blood_purifier"
-		const val CELL_ANALYZER = "emi.category.geneticsresequenced.cell_analyzer"
-		const val DNA_EXTRACTOR = "emi.category.geneticsresequenced.dna_extractor"
-		const val DNA_DECRYPTOR = "emi.category.geneticsresequenced.dna_decryptor"
-		const val PLASMID_INFUSER = "emi.category.geneticsresequenced.plasmid_infuser"
-		const val PLASMID_INJECTOR = "emi.category.geneticsresequenced.plasmid_injector"
-		const val INCUBATOR = "emi.category.geneticsresequenced.incubator"
-
-		const val GMO = "emi.category.geneticsresequenced.gmo"
-		const val SUBSTRATE_DUPE = "emi.category.geneticsresequenced.cell_dupe"
-		const val SET_ENTITY = "emi.category.geneticsresequenced.set_entity"
-		const val VIRUS = "emi.category.geneticsresequenced.virus"
-
 		const val SYRINGES = "tag.item.geneticsresequenced.syringes"
 		const val DELICATE_TOUCH_TAG = "tag.item.geneticsresequenced.enchantable.delicate_touch"
 		const val FIREBALL_TAG = "tag.item.geneticsresequenced.activates_shoot_fireball_gene"
@@ -194,6 +181,19 @@ class ModLanguageProvider(
 		const val INJECTOR_ANTIGENES = "recipe.geneticsresequenced.plasmid_injector.anti_genes"
 		const val SUBSTRATE = "recipe.geneticsresequenced.substrate"
 		const val BLACK_DEATH = "recipe.geneticsresequenced.black_death"
+
+		const val BLOOD_PURIFIER = "recipe.category.geneticsresequenced.blood_purifier"
+		const val CELL_ANALYZER = "recipe.category.geneticsresequenced.cell_analyzer"
+		const val DNA_EXTRACTOR = "recipe.category.geneticsresequenced.dna_extractor"
+		const val DNA_DECRYPTOR = "recipe.category.geneticsresequenced.dna_decryptor"
+		const val PLASMID_INFUSER = "recipe.category.geneticsresequenced.plasmid_infuser"
+		const val PLASMID_INJECTOR = "recipe.category.geneticsresequenced.plasmid_injector"
+		const val INCUBATOR = "recipe.category.geneticsresequenced.incubator"
+
+		const val GMO = "recipe.category.geneticsresequenced.gmo"
+		const val SUBSTRATE_DUPE = "recipe.category.geneticsresequenced.cell_dupe"
+		const val SET_ENTITY = "recipe.category.geneticsresequenced.set_entity"
+		const val VIRUS = "recipe.category.geneticsresequenced.virus"
 	}
 
 	object Info {
@@ -539,17 +539,17 @@ class ModLanguageProvider(
 		add(Recipe.BLACK_DEATH, "Requires all negative Genes")
 		add(Recipe.SUBSTRATE, "Duplicates the Cell for each Organic Substrate used")
 
-		add(EMI.BLOOD_PURIFIER, "Blood Purifier")
-		add(EMI.CELL_ANALYZER, "Cell Analyzer")
-		add(EMI.DNA_EXTRACTOR, "DNA Extractor")
-		add(EMI.DNA_DECRYPTOR, "DNA Decryptor")
-		add(EMI.PLASMID_INFUSER, "Plasmid Infuser")
-		add(EMI.PLASMID_INJECTOR, "Plasmid Injector")
-		add(EMI.INCUBATOR, "Incubator")
-		add(EMI.GMO, "GMO Cell Incubating")
-		add(EMI.SET_ENTITY, "Set Potion Entity")
-		add(EMI.SUBSTRATE_DUPE, "Substrate Cell Duplication")
-		add(EMI.VIRUS, "Virus Cultivation")
+		add(Recipe.BLOOD_PURIFIER, "Blood Purifier")
+		add(Recipe.CELL_ANALYZER, "Cell Analyzer")
+		add(Recipe.DNA_EXTRACTOR, "DNA Extractor")
+		add(Recipe.DNA_DECRYPTOR, "DNA Decryptor")
+		add(Recipe.PLASMID_INFUSER, "Plasmid Infuser")
+		add(Recipe.PLASMID_INJECTOR, "Plasmid Injector")
+		add(Recipe.INCUBATOR, "Incubator")
+		add(Recipe.GMO, "GMO Cell Incubating")
+		add(Recipe.SET_ENTITY, "Set Potion Entity")
+		add(Recipe.SUBSTRATE_DUPE, "Substrate Cell Duplication")
+		add(Recipe.VIRUS, "Virus Cultivation")
 
 		add(EMI.SYRINGES, "Syringes")
 		add(EMI.DELICATE_TOUCH_TAG, "Delicate Touch Enchantable")
