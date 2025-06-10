@@ -37,6 +37,21 @@ class ModJeiPlugin : IModPlugin {
 		justUseComponentsJeez(ModItems.ANTI_PLASMID)
 	}
 
+	// TODO
+//	override fun registerIngredients(registration: IModIngredientRegistration) {
+//
+//		val subtypeManager = registration.subtypeManager
+//		val colorHelper = registration.colorHelper
+//
+//		val stackHelper =
+//
+//			registration.register(
+//				ModIngredientTypes.POTION_TAG.get(),
+//
+//				)
+//
+//	}
+
 	override fun getPluginUid(): ResourceLocation = PLUGIN_UID
 
 	companion object {

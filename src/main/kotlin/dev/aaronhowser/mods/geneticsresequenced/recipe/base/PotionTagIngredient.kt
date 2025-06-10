@@ -26,10 +26,9 @@ class PotionTagIngredient(
 	}
 
 	override fun getItems(): Stream<ItemStack> {
-		val allPotions = BuiltInRegistries.POTION.holders()
-		val validPotions = allPotions.filter { test(OtherUtil.getPotionStack(it)) }
-
-		return validPotions.map { OtherUtil.getPotionStack(it) }
+		return BuiltInRegistries.POTION.holders()
+			.filter { it.`is`(this.potionTag) }
+			.map { OtherUtil.getPotionStack(it) }
 	}
 
 	override fun isSimple(): Boolean {
