@@ -1,7 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.subtypes.CellSubtypeInterpreter
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.subtypes.DnaHelixSubtypeInterpreter
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.IModPlugin
@@ -10,7 +8,6 @@ import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter
 import mezz.jei.api.ingredients.subtypes.UidContext
 import mezz.jei.api.registration.ISubtypeRegistration
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ItemLike
 import net.neoforged.fml.ModList
@@ -26,6 +23,7 @@ class ModJeiPlugin : IModPlugin {
 				item.asItem(),
 				object : ISubtypeInterpreter<ItemStack> {
 					override fun getSubtypeData(ingredient: ItemStack, context: UidContext): Any? = ingredient.components
+
 					@Deprecated("Deprecated in Java", ReplaceWith("\"\""))
 					override fun getLegacyStringSubtypeInfo(ingredient: ItemStack, context: UidContext): String = ""
 				}
