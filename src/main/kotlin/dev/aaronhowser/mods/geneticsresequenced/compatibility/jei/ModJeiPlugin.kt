@@ -1,11 +1,16 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
 import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter
 import mezz.jei.api.ingredients.subtypes.UidContext
+import mezz.jei.api.registration.IModInfoRegistration
+import mezz.jei.api.registration.IRecipeCatalystRegistration
+import mezz.jei.api.registration.IRecipeCategoryRegistration
 import mezz.jei.api.registration.ISubtypeRegistration
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
@@ -51,6 +56,10 @@ class ModJeiPlugin : IModPlugin {
 //				)
 //
 //	}
+
+	override fun registerModInfo(modAliasRegistration: IModInfoRegistration) {
+		modAliasRegistration.addModAliases(GeneticsResequenced.ID, "gene", "genetics", "gr")
+	}
 
 	override fun getPluginUid(): ResourceLocation = PLUGIN_UID
 
