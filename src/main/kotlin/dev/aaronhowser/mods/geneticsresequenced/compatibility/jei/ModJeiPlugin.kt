@@ -22,18 +22,19 @@ class ModJeiPlugin : IModPlugin {
 			registration.registerSubtypeInterpreter(
 				item.asItem(),
 				object : ISubtypeInterpreter<ItemStack> {
-					override fun getSubtypeData(ingredient: ItemStack, context: UidContext): Any? = ingredient.components
-
 					@Deprecated("Deprecated in Java", ReplaceWith("\"\""))
 					override fun getLegacyStringSubtypeInfo(ingredient: ItemStack, context: UidContext): String = ""
+					override fun getSubtypeData(ingredient: ItemStack, context: UidContext): Any? = ingredient.components
 				}
 			)
 		}
 
-		justUseComponentsJeez(ModItems.ORGANIC_MATTER)
 		justUseComponentsJeez(ModItems.CELL)
 		justUseComponentsJeez(ModItems.GMO_CELL)
 		justUseComponentsJeez(ModItems.DNA_HELIX)
+		justUseComponentsJeez(ModItems.ORGANIC_MATTER)
+		justUseComponentsJeez(ModItems.PLASMID)
+		justUseComponentsJeez(ModItems.ANTI_PLASMID)
 	}
 
 	override fun getPluginUid(): ResourceLocation = PLUGIN_UID
