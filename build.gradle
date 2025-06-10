@@ -141,7 +141,11 @@ repositories {
 		}
 	}
 
-	// For Mekanism
+	maven {
+		name = "Jared's maven"
+		url = "https://maven.blamejared.com/"
+	}
+
 	maven {
 		url "https://modmaven.dev/"
 		content {
@@ -174,10 +178,11 @@ dependencies {
 
 	// EMI
 	compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
-	runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+//	runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 
 	// JEI
-	compileOnly "curse.maven:jei-238222:5532144"
+	compileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
+	runtimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
 
 }
 
