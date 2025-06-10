@@ -1,6 +1,6 @@
-package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.incubator
+package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine.incubator
 
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.recipe.EmiRecipe
 import dev.emi.emi.api.recipe.EmiRecipeCategory

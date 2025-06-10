@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe
+package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes

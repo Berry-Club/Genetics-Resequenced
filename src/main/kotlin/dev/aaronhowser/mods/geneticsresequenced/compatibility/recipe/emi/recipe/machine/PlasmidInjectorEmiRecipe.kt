@@ -1,6 +1,6 @@
-package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine
+package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine
 
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
