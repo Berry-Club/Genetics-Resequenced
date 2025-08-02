@@ -1,0 +1,13 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "dev.aaronhowser.mods.geneticsresequenced.mixin",
+	"mixins": [
+		"LivingEntityMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	},
+	"client": [
+	]
+}
