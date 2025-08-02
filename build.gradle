@@ -175,11 +175,11 @@ dependencies {
 
 	// EMI
 	compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
-//	runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
+	runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 
 	// JEI
 	compileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
-	runtimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
+//	runtimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
 
 }
 
