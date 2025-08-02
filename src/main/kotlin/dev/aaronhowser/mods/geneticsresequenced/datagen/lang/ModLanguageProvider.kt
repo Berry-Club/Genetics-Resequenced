@@ -16,60 +16,6 @@ class ModLanguageProvider(
 		fun String.toComponent(vararg args: Any?): MutableComponent = Component.translatable(this, *args)
 	}
 
-	object Commands {
-		const val LIST_ALL_GENES = "command.geneticsresequenced.list_all_genes"
-		const val NO_GENES = "command.geneticsresequenced.list.no_genes"
-		const val THEIR_GENES = "command.geneticsresequenced.list.genes"
-		const val REMOVED_LIGHTS = "command.geneticsresequenced.remove_nearby_lights.success"
-		const val REMOVED_LIGHTS_RANGE_TOO_HIGH = "command.geneticsresequenced.remove_nearby_lights.range_too_high"
-		const val ADD_SINGLE_SUCCESS = "command.geneticsresequenced.add_gene.single_target.success"
-		const val ADD_SINGLE_FAIL = "command.geneticsresequenced.add_gene.single_target.fail"
-		const val ADD_MULTIPLE_SUCCESS = "command.geneticsresequenced.add_gene.multiple_targets.success"
-		const val ADD_MULTIPLE_FAIL = "command.geneticsresequenced.add_gene.multiple_targets.fail"
-		const val ADD_ALL_SINGLE = "command.geneticsresequenced.add_all.single_target"
-		const val ADD_ALL_MULTIPLE = "command.geneticsresequenced.add_all.multiple_targets"
-		const val REMOVE_MULTIPLE_SUCCESS = "command.geneticsresequenced.remove_gene.multiple_targets.success"
-		const val REMOVE_MULTIPLE_FAIL = "command.geneticsresequenced.remove_gene.multiple_targets.fail"
-		const val REMOVE_SINGLE_SUCCESS = "command.geneticsresequenced.remove_gene.single_target.success"
-		const val REMOVE_SINGLE_FAIL = "command.geneticsresequenced.remove_gene.single_target.fail"
-		const val REMOVE_ALL_SINGLE = "command.geneticsresequenced.remove_all.single_target"
-		const val REMOVE_ALL_MULTIPLE = "command.geneticsresequenced.remove_all.multiple_targets"
-	}
-
-	object Cooldown {
-		const val STARTED = "cooldown.geneticsresequenced.started"
-		const val ENDED = "cooldown.geneticsresequenced.ended"
-		const val ON_COOLDOWN = "cooldown.geneticsresequenced.on_cooldown"
-	}
-
-	object EMI {
-		const val SYRINGES = "tag.item.geneticsresequenced.syringes"
-		const val DELICATE_TOUCH_TAG = "tag.item.geneticsresequenced.enchantable.delicate_touch"
-		const val FIREBALL_TAG = "tag.item.geneticsresequenced.activates_shoot_fireball_gene"
-		const val MAGNET_BLACKLIST_TAG = "tag.item.geneticsresequenced.item_magnet_gene_blacklist"
-		const val BLOCKS_MOB_INTERACTION_TAG = "tag.item.geneticsresequenced.prevents_some_mob_interaction"
-	}
-
-	object Other {
-		const val DEATH_SCRAPER = "death.attack.gr_scraper"
-		const val DEATH_SYRINGE = "death.attack.gr_syringe"
-		const val DEATH_SYRINGE_PICKUP = "death.attack.gr_syringe_pickup"
-		const val BLEED_DEATH = "death.attack.gr_bleed"
-		const val VIRUS_DEATH = "death.attack.gr_virus"
-
-		const val DELICATE_TOUCH = "enchantment.geneticsresequenced.delicate_touch"
-		const val SUPPORT_SLIME = "entity.geneticsresequenced.support_slime"
-
-		const val BOOK_LANDING_TEXT = "book.geneticsresequenced.landing_text"
-	}
-
-	object Keys {
-		const val CATEGORY = "key.geneticsresequenced.category"
-		const val DRAGONS_BREATH = "key.geneticsresequenced.dragons_breath"
-		const val TELEPORT = "key.geneticsresequenced.teleport"
-	}
-
-
 	override fun addTranslations() {
 
 		ModItemLang.add(this)
@@ -140,10 +86,60 @@ class ModLanguageProvider(
 		add(Other.DEATH_SYRINGE_PICKUP, "%s stepped on a loose Syringe")
 		add(Other.BLEED_DEATH, "%s bled out!")
 		add(Other.VIRUS_DEATH, "%s succumbed to a Virus!")
-		add(
-			Other.BOOK_LANDING_TEXT,
-			"Welcome to Genetics: Resequenced! This guide book will help you get started with the mod."
-		)
-
+		add(Other.BOOK_LANDING_TEXT, "Welcome to Genetics: Resequenced! This guide book will help you get started with the mod.")
 	}
+
+	object Commands {
+		const val LIST_ALL_GENES = "command.geneticsresequenced.list_all_genes"
+		const val NO_GENES = "command.geneticsresequenced.list.no_genes"
+		const val THEIR_GENES = "command.geneticsresequenced.list.genes"
+		const val REMOVED_LIGHTS = "command.geneticsresequenced.remove_nearby_lights.success"
+		const val REMOVED_LIGHTS_RANGE_TOO_HIGH = "command.geneticsresequenced.remove_nearby_lights.range_too_high"
+		const val ADD_SINGLE_SUCCESS = "command.geneticsresequenced.add_gene.single_target.success"
+		const val ADD_SINGLE_FAIL = "command.geneticsresequenced.add_gene.single_target.fail"
+		const val ADD_MULTIPLE_SUCCESS = "command.geneticsresequenced.add_gene.multiple_targets.success"
+		const val ADD_MULTIPLE_FAIL = "command.geneticsresequenced.add_gene.multiple_targets.fail"
+		const val ADD_ALL_SINGLE = "command.geneticsresequenced.add_all.single_target"
+		const val ADD_ALL_MULTIPLE = "command.geneticsresequenced.add_all.multiple_targets"
+		const val REMOVE_MULTIPLE_SUCCESS = "command.geneticsresequenced.remove_gene.multiple_targets.success"
+		const val REMOVE_MULTIPLE_FAIL = "command.geneticsresequenced.remove_gene.multiple_targets.fail"
+		const val REMOVE_SINGLE_SUCCESS = "command.geneticsresequenced.remove_gene.single_target.success"
+		const val REMOVE_SINGLE_FAIL = "command.geneticsresequenced.remove_gene.single_target.fail"
+		const val REMOVE_ALL_SINGLE = "command.geneticsresequenced.remove_all.single_target"
+		const val REMOVE_ALL_MULTIPLE = "command.geneticsresequenced.remove_all.multiple_targets"
+	}
+
+	object Cooldown {
+		const val STARTED = "cooldown.geneticsresequenced.started"
+		const val ENDED = "cooldown.geneticsresequenced.ended"
+		const val ON_COOLDOWN = "cooldown.geneticsresequenced.on_cooldown"
+	}
+
+	object EMI {
+		const val SYRINGES = "tag.item.geneticsresequenced.syringes"
+		const val DELICATE_TOUCH_TAG = "tag.item.geneticsresequenced.enchantable.delicate_touch"
+		const val FIREBALL_TAG = "tag.item.geneticsresequenced.activates_shoot_fireball_gene"
+		const val MAGNET_BLACKLIST_TAG = "tag.item.geneticsresequenced.item_magnet_gene_blacklist"
+		const val BLOCKS_MOB_INTERACTION_TAG = "tag.item.geneticsresequenced.prevents_some_mob_interaction"
+	}
+
+	object Other {
+		const val DEATH_SCRAPER = "death.attack.gr_scraper"
+		const val DEATH_SYRINGE = "death.attack.gr_syringe"
+		const val DEATH_SYRINGE_PICKUP = "death.attack.gr_syringe_pickup"
+		const val BLEED_DEATH = "death.attack.gr_bleed"
+		const val VIRUS_DEATH = "death.attack.gr_virus"
+
+		const val DELICATE_TOUCH = "enchantment.geneticsresequenced.delicate_touch"
+		const val SUPPORT_SLIME = "entity.geneticsresequenced.support_slime"
+
+		const val BOOK_LANDING_TEXT = "book.geneticsresequenced.landing_text"
+	}
+
+	object Keys {
+		const val CATEGORY = "key.geneticsresequenced.category"
+		const val DRAGONS_BREATH = "key.geneticsresequenced.dragons_breath"
+		const val TELEPORT = "key.geneticsresequenced.teleport"
+	}
+
 }
