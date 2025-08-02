@@ -321,11 +321,11 @@
 
 - Update NeoForge to 21.1.197
 - Update KFF to 5.9.0
+- Added a Lava Proof Gene, which makes you immune to direct Lava damage (#67)
 - Dragon Health Crystal no longer uses durability, but has its own separate data component (#58)
 - The Metal Syringe now increases your entity interaction range attribute by 3 blocks
 - Baby mobs inherit their parents' Genes, with a 100% if both parents have it, and a 50% if only one parent has it (#56)
-- Fixed Antigenes not being removed from Syringes when used (#53)
 - The Gene Checker now shows what Genes the target can provide, in addition to what it has (#66)
-- Fix Black Death recipe (#63)
-- Added a Lava Proof Gene, which makes you immune to direct Lava damage (#67)
 - Immunity Genes now use isInvulnerableTo rather than setting the damage amount to 0, so you no longer flinch from those damages
+- Fixed Antigenes not being removed from Syringes when used (#53)
+- Fix Black Death recipe (#63)
