@@ -52,7 +52,8 @@ class ModGeneTagsProvider(
 				ModGenes.RESISTANCE_TWO,
 				ModGenes.SPEED_FOUR,
 				ModGenes.SPEED_TWO,
-				ModGenes.STRENGTH_TWO
+				ModGenes.STRENGTH_TWO,
+				ModGenes.LAVA_PROOF
 			)
 
 		this.tag(NEGATIVE)
