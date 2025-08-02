@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
@@ -39,7 +40,7 @@ class GmoCell(properties: Properties) : Item(properties) {
 		if (geneHolder != null) {
 			val geneComponent =
 				ModLanguageProvider.Tooltips.GENE
-					.toComponent(Gene.getNameComponent(geneHolder))
+					.toComponent(geneHolder.getName())
 					.withStyle(ChatFormatting.GRAY)
 			pTooltipComponents.add(geneComponent)
 		} else {

@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
@@ -78,7 +79,7 @@ object GeneEvents {
 			if (!entity.level().isClientSide) {
 				entity.sendSystemMessage(
 					ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS
-						.toComponent(Gene.getNameComponent(geneHolder))
+						.toComponent(geneHolder.getName())
 						.withStyle {
 							it.withHoverEvent(
 								HoverEvent(

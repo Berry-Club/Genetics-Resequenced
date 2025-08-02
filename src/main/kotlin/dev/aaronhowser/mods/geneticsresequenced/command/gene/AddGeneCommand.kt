@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
@@ -137,7 +138,7 @@ object AddGeneCommand {
 		if (geneWasAdded) {
 			val component =
 				ModLanguageProvider.Commands.ADD_SINGLE_SUCCESS.toComponent(
-					Gene.getNameComponent(geneHolder),
+					geneHolder.getName(),
 					target.name
 				)
 
@@ -145,7 +146,7 @@ object AddGeneCommand {
 		} else {
 			val component =
 				ModLanguageProvider.Commands.ADD_SINGLE_FAIL.toComponent(
-					Gene.getNameComponent(geneHolder),
+					geneHolder.getName(),
 					target.name
 				)
 
@@ -169,7 +170,7 @@ object AddGeneCommand {
 		if (amountSuccess != 0) {
 			val component =
 				ModLanguageProvider.Commands.ADD_MULTIPLE_SUCCESS.toComponent(
-					Gene.getNameComponent(geneHolder),
+					geneHolder.getName(),
 					amountSuccess
 				)
 
@@ -179,7 +180,7 @@ object AddGeneCommand {
 		if (amountFail != 0) {
 			val component =
 				ModLanguageProvider.Commands.ADD_MULTIPLE_FAIL.toComponent(
-					Gene.getNameComponent(geneHolder),
+					geneHolder.getName(),
 					amountFail
 				)
 			context.source.sendFailure(component)

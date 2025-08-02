@@ -193,6 +193,8 @@ data class Gene(
 			return getNameComponent(geneRk.getHolderOrThrow(registries))
 		}
 
+		fun Holder<Gene>.getName(): MutableComponent = getNameComponent(this)
+
 		fun getNameComponent(geneHolder: Holder<Gene>): MutableComponent {
 			val color = if (geneHolder.isDisabled) {
 				ChatFormatting.DARK_RED

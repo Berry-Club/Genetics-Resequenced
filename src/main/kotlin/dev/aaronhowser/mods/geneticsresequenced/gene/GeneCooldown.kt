@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
@@ -109,7 +110,7 @@ class GeneCooldown(
 			val geneHolder = ModGenes.fromResourceLocation(player.registryAccess(), geneRk.location())!!
 
 			val message = Component.empty()
-				.append(Gene.getNameComponent(geneHolder))
+				.append(geneHolder.getName())
 				.append(ModLanguageProvider.Cooldown.STARTED.toComponent(cooldownString))
 
 			player.sendSystemMessage(message)
@@ -119,7 +120,7 @@ class GeneCooldown(
 			val geneHolder = ModGenes.fromResourceLocation(player.registryAccess(), geneRk.location())!!
 			val message =
 				ModLanguageProvider.Cooldown.ENDED
-					.toComponent(Gene.getNameComponent(geneHolder))
+					.toComponent(geneHolder.getName())
 
 			player.sendSystemMessage(message)
 		}
@@ -127,7 +128,7 @@ class GeneCooldown(
 		fun tellOnCooldown(player: LivingEntity, geneRk: ResourceKey<Gene>) {
 			val geneHolder = ModGenes.fromResourceLocation(player.registryAccess(), geneRk.location())!!
 			val message = ModLanguageProvider.Cooldown.ON_COOLDOWN
-				.toComponent(Gene.getNameComponent(geneHolder))
+				.toComponent(geneHolder.getName())
 
 			player.sendSystemMessage(message)
 		}

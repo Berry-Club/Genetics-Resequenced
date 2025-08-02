@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -36,7 +37,7 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 
 		pTooltipComponents.add(
 			ModLanguageProvider.Tooltips.PLASMID_GENE
-				.toComponent(Gene.getNameComponent(geneHolder))
+				.toComponent(geneHolder.getName())
 				.withStyle(ChatFormatting.GRAY)
 		)
 

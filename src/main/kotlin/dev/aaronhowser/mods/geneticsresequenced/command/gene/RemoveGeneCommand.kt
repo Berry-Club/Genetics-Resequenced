@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
@@ -137,7 +138,7 @@ object RemoveGeneCommand {
 		if (success) {
 			val component =
 				ModLanguageProvider.Commands.REMOVE_SINGLE_SUCCESS.toComponent(
-					Gene.getNameComponent(geneHolder),
+					geneHolder.getName(),
 					target.displayName
 				)
 
@@ -145,7 +146,7 @@ object RemoveGeneCommand {
 		} else {
 			val component =
 				ModLanguageProvider.Commands.REMOVE_SINGLE_FAIL.toComponent(
-					Gene.getNameComponent(geneHolder),
+					geneHolder.getName(),
 					target.displayName
 				)
 
@@ -169,7 +170,7 @@ object RemoveGeneCommand {
 		if (amountSuccess != 0) {
 			val component =
 				ModLanguageProvider.Commands.REMOVE_MULTIPLE_SUCCESS.toComponent(
-					Gene.getNameComponent(geneHolder),
+					geneHolder.getName(),
 					amountSuccess
 				)
 			context.source.sendSuccess({ component }, true)
@@ -177,7 +178,7 @@ object RemoveGeneCommand {
 		if (amountFail != 0) {
 			val component =
 				ModLanguageProvider.Commands.REMOVE_MULTIPLE_FAIL.toComponent(
-					Gene.getNameComponent(geneHolder),
+					geneHolder.getName(),
 					amountFail
 				)
 			context.source.sendFailure(component)

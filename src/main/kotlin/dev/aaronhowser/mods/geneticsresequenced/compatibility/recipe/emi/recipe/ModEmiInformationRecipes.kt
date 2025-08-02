@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isMutation
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
@@ -39,7 +40,7 @@ object ModEmiInformationRecipes {
 
 			val components: MutableList<MutableComponent> = mutableListOf()
 			components.add(
-				Gene.getNameComponent(geneHolder)
+				geneHolder.getName()
 					.withStyle { it.withColor(ChatFormatting.RESET).withUnderlined(true) }
 			)
 
@@ -145,9 +146,9 @@ object ModEmiInformationRecipes {
 				val chance = (weight.toDouble() / sumOfWeights.toDouble() * 100).toInt()
 
 				val geneComponent = if (geneHolder.isNegative || geneHolder.isMutation) {
-					Gene.getNameComponent(geneHolder)
+					geneHolder.getName()
 				} else {
-					Gene.getNameComponent(geneHolder).withStyle { it.withColor(ChatFormatting.RESET) }
+					geneHolder.getName().withStyle { it.withColor(ChatFormatting.RESET) }
 				}
 
 				val component =
