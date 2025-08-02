@@ -26,16 +26,16 @@ import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 object BlackDeathRecipe : AbstractIncubatorRecipe(
-	topIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
-	bottomIngredient = Ingredient.of(ModItemTagsProvider.SYRINGES)
+	topIngredient = Ingredient.of(ModItemTagsProvider.SYRINGES),
+	bottomIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))
 ) {
 
 	override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
 		val syringeStack = input.getTopItem()
 		val potionStack = input.getBottomItem()
 
-		if (!this.topIngredient.test(potionStack)) return false
-		if (!this.bottomIngredient.test(syringeStack)) return false
+		if (!this.topIngredient.test(syringeStack)) return false
+		if (!this.bottomIngredient.test(potionStack)) return false
 
 		if (!SyringeItem.hasBlood(syringeStack) || SyringeItem.isContaminated(syringeStack)) return false
 

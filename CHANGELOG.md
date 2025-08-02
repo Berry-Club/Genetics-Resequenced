@@ -326,3 +326,4 @@
 - Baby mobs inherit their parents' Genes, with a 100% if both parents have it, and a 50% if only one parent has it (#56)
 - Fixed Antigenes not being removed from Syringes when used (#53)
 - The Gene Checker now shows what Genes the target can provide, in addition to what it has (#66)
+- Fix Black Death recipe (#63)
