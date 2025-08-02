@@ -144,25 +144,9 @@ repositories {
 		url = "https://maven.terraformersmc.com/"
 	}
 
-	// For KubeJS
-	maven {
-		url "https://maven.latvian.dev/releases"
-		content {
-			includeGroup "dev.latvian.mods"
-			includeGroup "dev.latvian.apps"
-		}
-	}
-
 	maven {
 		name = "Jared's maven"
 		url = "https://maven.blamejared.com/"
-	}
-
-	maven {
-		url "https://modmaven.dev/"
-		content {
-			includeGroup "mekanism"
-		}
 	}
 
 	maven {
@@ -174,8 +158,7 @@ repositories {
 }
 
 dependencies {
-	// Must use the '-neoforge' version on NeoForge. If on regular forge, omit the '-neoforge'
-	implementation 'thedarkcolour:kotlinforforge-neoforge:5.4.0'
+	implementation "thedarkcolour:kotlinforforge-neoforge:${kff_version}"
 
 	// Curios
 	dependencies {

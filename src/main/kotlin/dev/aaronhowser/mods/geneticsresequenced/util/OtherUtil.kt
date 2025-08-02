@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import io.netty.buffer.ByteBuf
 import net.minecraft.core.Holder
 import net.minecraft.core.Registry
+import net.minecraft.core.Vec3i
 import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
@@ -28,6 +29,7 @@ import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.PotionContents
 import net.minecraft.world.item.enchantment.Enchantment
 import net.minecraft.world.level.ItemLike
+import net.minecraft.world.phys.Vec3
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
@@ -131,5 +133,7 @@ object OtherUtil {
 
 	val UUID_CODEC: Codec<UUID> = Codec.STRING.xmap(UUID::fromString, UUID::toString)
 	val UUID_STREAM_CODEC: StreamCodec<ByteBuf, UUID> = ByteBufCodecs.STRING_UTF8.map(UUID::fromString, UUID::toString)
+
+	fun Vec3i.toVec3() = Vec3(this.x.toDouble(), this.y.toDouble(), this.z.toDouble())
 
 }
