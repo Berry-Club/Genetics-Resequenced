@@ -43,6 +43,7 @@ object EntityEvents {
 		DamageGenes.handleNoFallDamage(event)
 		DamageGenes.handleWitherProof(event)
 		DamageGenes.handleFireProof(event)
+		DamageGenes.handleLavaProof(event)
 		DamageGenes.handlePoisonProof(event)
 	}
 

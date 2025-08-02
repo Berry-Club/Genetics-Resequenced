@@ -41,6 +41,7 @@ object ModInfoLang {
 		addGeneInfo(ModGenes.ENDER_DRAGON_HEALTH, "Blocks damage if you're holding a Dragon Health Crystal.\n\nDamage is instead dealt to the Crystal's durability.")
 		addGeneInfo(ModGenes.EXPLOSIVE_EXIT, "Makes you explode when you die, if you're holding at least 5 Gunpowder.\n\nEntities with the Gene do not need the Gunpowder.")
 		addGeneInfo(ModGenes.FIRE_PROOF, "Makes you immune to fire damage, and immediately extinguishes you.")
+		addGeneInfo(ModGenes.LAVA_PROOF, "Makes you immune to direct lava damage")
 		addGeneInfo(ModGenes.HASTE, "Gives you the Haste potion effect.")
 		addGeneInfo(ModGenes.INFINITY, "Allows you to use Bows without any Arrows in your inventory.")
 		addGeneInfo(ModGenes.INVISIBLE, "Gives you the Invisibility potion effect.")

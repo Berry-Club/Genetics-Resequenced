@@ -25,24 +25,23 @@ object DamageGenes {
 	// Canceling
 
 	fun handleNoFallDamage(event: LivingIncomingDamageEvent) {
-		val noFallDamage = ModGenes.NO_FALL_DAMAGE.getHolderOrThrow(event.entity.registryAccess())
+		val entity = event.entity
+		val noFallDamage = ModGenes.NO_FALL_DAMAGE.getHolderOrThrow(entity.registryAccess())
 		if (noFallDamage.isDisabled) return
 
 		if (!event.source.`is`(DamageTypes.FALL)) return
 
-		val entity = event.entity
 		if (entity.hasGene(ModGenes.NO_FALL_DAMAGE)) {
 			event.amount = 0f
 		}
 	}
 
 	fun handleWitherProof(event: LivingIncomingDamageEvent) {
-		val witherProof = ModGenes.WITHER_PROOF.getHolderOrThrow(event.entity.registryAccess())
+		val entity = event.entity
+		val witherProof = ModGenes.WITHER_PROOF.getHolderOrThrow(entity.registryAccess())
 		if (witherProof.isDisabled) return
 
 		if (!event.source.`is`(DamageTypes.WITHER)) return
-
-		val entity = event.entity
 
 		if (entity.hasGene(ModGenes.WITHER_PROOF)) {
 			entity.removeEffect(MobEffects.WITHER)
@@ -51,12 +50,11 @@ object DamageGenes {
 	}
 
 	fun handleFireProof(event: LivingIncomingDamageEvent) {
-		val fireProof = ModGenes.FIRE_PROOF.getHolderOrThrow(event.entity.registryAccess())
+		val entity = event.entity
+		val fireProof = ModGenes.FIRE_PROOF.getHolderOrThrow(entity.registryAccess())
 		if (fireProof.isDisabled) return
 
 		if (!event.source.`is`(DamageTypes.IN_FIRE) && !event.source.`is`(DamageTypes.ON_FIRE)) return
-
-		val entity = event.entity
 
 		if (entity.hasGene(ModGenes.FIRE_PROOF)) {
 			entity.clearFire()
@@ -64,13 +62,25 @@ object DamageGenes {
 		}
 	}
 
+	fun handleLavaProof(event: LivingIncomingDamageEvent) {
+		val entity = event.entity
+		val lavaProof = ModGenes.LAVA_PROOF.getHolderOrThrow(entity.registryAccess())
+		if (lavaProof.isDisabled) return
+
+		if (!event.source.`is`(DamageTypes.LAVA)) return
+
+		if (entity.hasGene(ModGenes.LAVA_PROOF)) {
+			event.amount = 0f
+		}
+	}
+
 	fun handlePoisonProof(event: LivingIncomingDamageEvent) {
-		val poisonImmunity = ModGenes.POISON_IMMUNITY.getHolderOrThrow(event.entity.registryAccess())
+		val entity = event.entity
+		val poisonImmunity = ModGenes.POISON_IMMUNITY.getHolderOrThrow(entity.registryAccess())
 		if (poisonImmunity.isDisabled) return
 
 		if (!event.source.`is`(NeoForgeMod.POISON_DAMAGE)) return
 
-		val entity = event.entity
 		if (entity.hasGene(ModGenes.POISON_IMMUNITY)) {
 			entity.removeEffect(MobEffects.POISON)
 			event.amount = 0f

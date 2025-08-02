@@ -137,6 +137,7 @@ object ModGenes {
 	val STRENGTH_TWO = resourceKey("strength_2")
 	val SCARE_ZOMBIES = resourceKey("scare_zombies")
 	val SCARE_SPIDERS = resourceKey("scare_spiders")
+	val LAVA_PROOF = resourceKey("lava_proof")
 
 	//Negative effects
 

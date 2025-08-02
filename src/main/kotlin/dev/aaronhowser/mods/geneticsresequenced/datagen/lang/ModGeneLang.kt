@@ -40,6 +40,7 @@ object ModGeneLang {
 		addGene(ModGenes.ENDER_DRAGON_HEALTH, "Ender Dragon Health")
 		addGene(ModGenes.EXPLOSIVE_EXIT, "Explosive Exit")
 		addGene(ModGenes.FIRE_PROOF, "Fire Proof")
+		addGene(ModGenes.LAVA_PROOF, "Lava Proof")
 		addGene(ModGenes.ITEM_MAGNET, "Item Magnet")
 		addGene(ModGenes.JOHNNY, "Johnny")
 		addGene(ModGenes.JUMP_BOOST, "Jump Boost")
