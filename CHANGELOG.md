@@ -328,3 +328,4 @@
 - The Gene Checker now shows what Genes the target can provide, in addition to what it has (#66)
 - Fix Black Death recipe (#63)
 - Added a Lava Proof Gene, which makes you immune to direct Lava damage (#67)
+- Immunity Genes now use isInvulnerableTo rather than setting the damage amount to 0, so you no longer flinch from those damages

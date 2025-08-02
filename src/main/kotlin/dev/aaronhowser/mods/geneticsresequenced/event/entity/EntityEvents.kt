@@ -13,11 +13,11 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PathfinderMob
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
+import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent
 import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
-import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import net.neoforged.neoforge.event.level.ExplosionEvent
 import net.neoforged.neoforge.event.tick.EntityTickEvent
 
@@ -39,7 +39,7 @@ object EntityEvents {
 	}
 
 	@SubscribeEvent
-	fun onLivingAboutToBeDamaged(event: LivingIncomingDamageEvent) {
+	fun onEntityInvulnerabilityCheck(event: EntityInvulnerabilityCheckEvent) {
 		DamageGenes.handleNoFallDamage(event)
 		DamageGenes.handleWitherProof(event)
 		DamageGenes.handleFireProof(event)

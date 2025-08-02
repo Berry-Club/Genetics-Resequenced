@@ -17,9 +17,12 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.core.HolderSet
 import net.minecraft.resources.ResourceKey
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
+import kotlin.contracts.ExperimentalContracts
+import kotlin.contracts.contract
 
 
 data class GenesData(
@@ -118,12 +121,18 @@ data class GenesData(
 			return true
 		}
 
-		fun LivingEntity.hasGene(gene: Holder<Gene>): Boolean {
-			return gene in this.geneHolders
+		@OptIn(ExperimentalContracts::class)
+		fun Entity.hasGene(gene: Holder<Gene>): Boolean {
+			contract { returns(true) implies (this@hasGene is LivingEntity) }
+
+			return this is LivingEntity && gene in this.geneHolders
 		}
 
-		fun LivingEntity.hasGene(geneKey: ResourceKey<Gene>): Boolean {
-			return this.geneHolders.any { it.isGene(geneKey) }
+		@OptIn(ExperimentalContracts::class)
+		fun Entity.hasGene(geneKey: ResourceKey<Gene>): Boolean {
+			contract { returns(true) implies (this@hasGene is LivingEntity) }
+
+			return this is LivingEntity && this.geneHolders.any { it.isGene(geneKey) }
 		}
 
 		fun LivingEntity.removeAllGenes() {

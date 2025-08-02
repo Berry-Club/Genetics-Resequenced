@@ -17,6 +17,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.AxeItem
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.NeoForgeMod
+import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 
@@ -24,7 +25,7 @@ object DamageGenes {
 
 	// Canceling
 
-	fun handleNoFallDamage(event: LivingIncomingDamageEvent) {
+	fun handleNoFallDamage(event: EntityInvulnerabilityCheckEvent) {
 		val entity = event.entity
 		val noFallDamage = ModGenes.NO_FALL_DAMAGE.getHolderOrThrow(entity.registryAccess())
 		if (noFallDamage.isDisabled) return
@@ -32,11 +33,11 @@ object DamageGenes {
 		if (!event.source.`is`(DamageTypes.FALL)) return
 
 		if (entity.hasGene(ModGenes.NO_FALL_DAMAGE)) {
-			event.amount = 0f
+			event.isInvulnerable = true
 		}
 	}
 
-	fun handleWitherProof(event: LivingIncomingDamageEvent) {
+	fun handleWitherProof(event: EntityInvulnerabilityCheckEvent) {
 		val entity = event.entity
 		val witherProof = ModGenes.WITHER_PROOF.getHolderOrThrow(entity.registryAccess())
 		if (witherProof.isDisabled) return
@@ -45,11 +46,11 @@ object DamageGenes {
 
 		if (entity.hasGene(ModGenes.WITHER_PROOF)) {
 			entity.removeEffect(MobEffects.WITHER)
-			event.amount = 0f
+			event.isInvulnerable = true
 		}
 	}
 
-	fun handleFireProof(event: LivingIncomingDamageEvent) {
+	fun handleFireProof(event: EntityInvulnerabilityCheckEvent) {
 		val entity = event.entity
 		val fireProof = ModGenes.FIRE_PROOF.getHolderOrThrow(entity.registryAccess())
 		if (fireProof.isDisabled) return
@@ -58,11 +59,11 @@ object DamageGenes {
 
 		if (entity.hasGene(ModGenes.FIRE_PROOF)) {
 			entity.clearFire()
-			event.amount = 0f
+			event.isInvulnerable = true
 		}
 	}
 
-	fun handleLavaProof(event: LivingIncomingDamageEvent) {
+	fun handleLavaProof(event: EntityInvulnerabilityCheckEvent) {
 		val entity = event.entity
 		val lavaProof = ModGenes.LAVA_PROOF.getHolderOrThrow(entity.registryAccess())
 		if (lavaProof.isDisabled) return
@@ -70,11 +71,11 @@ object DamageGenes {
 		if (!event.source.`is`(DamageTypes.LAVA)) return
 
 		if (entity.hasGene(ModGenes.LAVA_PROOF)) {
-			event.amount = 0f
+			event.isInvulnerable = true
 		}
 	}
 
-	fun handlePoisonProof(event: LivingIncomingDamageEvent) {
+	fun handlePoisonProof(event: EntityInvulnerabilityCheckEvent) {
 		val entity = event.entity
 		val poisonImmunity = ModGenes.POISON_IMMUNITY.getHolderOrThrow(entity.registryAccess())
 		if (poisonImmunity.isDisabled) return
@@ -83,7 +84,7 @@ object DamageGenes {
 
 		if (entity.hasGene(ModGenes.POISON_IMMUNITY)) {
 			entity.removeEffect(MobEffects.POISON)
-			event.amount = 0f
+			event.isInvulnerable = true
 		}
 	}
 
