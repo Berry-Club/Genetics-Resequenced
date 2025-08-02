@@ -291,8 +291,8 @@ data class Gene(
 			.append(", allowedEntities=").append(
 				when (this.allowedEntities) {
 					DEFAULT_ALLOWED_ENTITIES -> "any"
-					ModGeneProvider.noEntities -> "none"
-					ModGeneProvider.onlyPlayers -> "players"
+					ModGeneProvider.NO_ENTITIES -> "none"
+					ModGeneProvider.ONLY_PLAYERS -> "players"
 					else -> this.allowedEntities
 				}
 			)

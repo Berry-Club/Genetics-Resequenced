@@ -28,15 +28,16 @@ class ModGeneProvider : RegistrySetBuilder() {
 			scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>> = Optional.empty()
 		) = Gene(dnaPointsRequired, allowedEntities, potionDetails, attributeModifiers, scaresEntitiesWithTag)
 
-		val noEntities: HolderSet<EntityType<*>> = HolderSet.empty()
-		val onlyPlayers: HolderSet.Direct<EntityType<*>> = HolderSet.direct(EntityType.PLAYER.builtInRegistryHolder())
+		val NO_ENTITIES: HolderSet<EntityType<*>> = HolderSet.empty()
+
+		val ONLY_PLAYERS: HolderSet.Direct<EntityType<*>> = HolderSet.direct(EntityType.PLAYER.builtInRegistryHolder())
 
 		fun bootstrap(context: BootstrapContext<Gene>) {
 
 			context.register(
 				ModGenes.BASIC,
 				makeGene(
-					allowedEntities = noEntities
+					allowedEntities = NO_ENTITIES
 				)
 			)
 
@@ -59,7 +60,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 							ModAttributes.efficiencyFourAttributeModifier
 						)
 					),
-					allowedEntities = onlyPlayers
+					allowedEntities = ONLY_PLAYERS
 				)
 			)
 
@@ -73,7 +74,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 							ModAttributes.flightAttributeModifier
 						)
 					),
-					allowedEntities = onlyPlayers
+					allowedEntities = ONLY_PLAYERS
 				)
 			)
 
@@ -114,7 +115,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.PHOTOSYNTHESIS,
 				makeGene(
 					dnaPointsRequired = 40,
-					allowedEntities = onlyPlayers
+					allowedEntities = ONLY_PLAYERS
 				)
 			)
 
@@ -217,7 +218,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.DRAGON_BREATH,
 				makeGene(
 					dnaPointsRequired = 20,
-					allowedEntities = onlyPlayers
+					allowedEntities = ONLY_PLAYERS
 				)
 			)
 
@@ -285,7 +286,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.INFINITY,
 				makeGene(
 					dnaPointsRequired = 30,
-					allowedEntities = onlyPlayers
+					allowedEntities = ONLY_PLAYERS
 				)
 			)
 
@@ -305,7 +306,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.ITEM_MAGNET,
 				makeGene(
 					dnaPointsRequired = 30,
-					allowedEntities = onlyPlayers
+					allowedEntities = ONLY_PLAYERS
 				)
 			)
 
@@ -332,7 +333,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.KEEP_INVENTORY,
 				makeGene(
 					dnaPointsRequired = 40,
-					allowedEntities = onlyPlayers
+					allowedEntities = ONLY_PLAYERS
 				)
 			)
 
@@ -386,7 +387,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.MOB_SIGHT,
 				makeGene(
 					dnaPointsRequired = 16,
-					allowedEntities = onlyPlayers
+					allowedEntities = ONLY_PLAYERS
 				)
 			)
 
@@ -426,7 +427,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.NO_HUNGER,
 				makeGene(
 					dnaPointsRequired = 30,
-					allowedEntities = onlyPlayers
+					allowedEntities = ONLY_PLAYERS
 				)
 			)
 
@@ -441,7 +442,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.REACHING,
 				makeGene(
 					dnaPointsRequired = 50,
-					allowedEntities = onlyPlayers,
+					allowedEntities = ONLY_PLAYERS,
 					attributeModifiers = listOf(
 						AttributeEntry(
 							Attributes.ENTITY_INTERACTION_RANGE,
@@ -515,7 +516,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.SHOOT_FIREBALLS,
 				makeGene(
 					dnaPointsRequired = 24,
-					allowedEntities = onlyPlayers
+					allowedEntities = ONLY_PLAYERS
 				)
 			)
 
@@ -523,7 +524,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.SLIMY_DEATH,
 				makeGene(
 					dnaPointsRequired = 60,
-					allowedEntities = onlyPlayers
+					allowedEntities = ONLY_PLAYERS
 				)
 			)
 
@@ -568,7 +569,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.TELEPORT,
 				makeGene(
 					dnaPointsRequired = 24,
-					allowedEntities = onlyPlayers
+					allowedEntities = ONLY_PLAYERS
 				)
 			)
 
@@ -583,7 +584,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.WALL_CLIMBING,
 				makeGene(
 					dnaPointsRequired = 40,
-					allowedEntities = onlyPlayers
+					allowedEntities = ONLY_PLAYERS
 				)
 			)
 
@@ -619,7 +620,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.XP_MAGNET,
 				makeGene(
 					dnaPointsRequired = 30,
-					allowedEntities = onlyPlayers
+					allowedEntities = ONLY_PLAYERS
 				)
 			)
 
@@ -654,7 +655,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.CRINGE,
 				makeGene(
 					dnaPointsRequired = 20,
-					allowedEntities = onlyPlayers
+					allowedEntities = ONLY_PLAYERS
 				)
 			)
 

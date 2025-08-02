@@ -10,7 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.item.ItemProperties
-import net.minecraft.client.renderer.item.ItemPropertyFunction
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
@@ -45,27 +44,24 @@ object ClientModBusEvents {
 
 		ItemProperties.register(
 			ModItems.SYRINGE.get(),
-			OtherUtil.modResource("full"),
-			ItemPropertyFunction { stack, _, _, _ ->
-				if (SyringeItem.hasBlood(stack)) 1f else 0f
-			}
-		)
+			OtherUtil.modResource("full")
+		) { stack, _, _, _ ->
+			if (SyringeItem.hasBlood(stack)) 1f else 0f
+		}
 
 		ItemProperties.register(
 			ModItems.SYRINGE.get(),
-			OtherUtil.modResource("injecting"),
-			ItemPropertyFunction { stack, _, entity, _ ->
-				if (SyringeItem.isBeingUsed(stack, entity)) 1f else 0f
-			}
-		)
+			OtherUtil.modResource("injecting")
+		) { stack, _, entity, _ ->
+			if (SyringeItem.isBeingUsed(stack, entity)) 1f else 0f
+		}
 
 		ItemProperties.register(
 			ModItems.METAL_SYRINGE.get(),
-			OtherUtil.modResource("full"),
-			ItemPropertyFunction { stack, _, _, _ ->
-				if (SyringeItem.hasBlood(stack)) 1f else 0f
-			}
-		)
+			OtherUtil.modResource("full")
+		) { stack, _, _, _ ->
+			if (SyringeItem.hasBlood(stack)) 1f else 0f
+		}
 
 	}
 
