@@ -16,6 +16,7 @@ import net.minecraft.util.datafix.fixes.References
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
+import net.neoforged.neoforge.registries.DeferredBlock
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 import java.util.function.Supplier
@@ -26,37 +27,37 @@ object ModBlockEntities {
 		DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, GeneticsResequenced.ID)
 
 	val COAL_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<CoalGeneratorBlockEntity>> =
-		register("coal_generator", ::CoalGeneratorBlockEntity, ModBlocks.COAL_GENERATOR.get())
+		register("coal_generator", ::CoalGeneratorBlockEntity, ModBlocks.COAL_GENERATOR)
 
 	val CELL_ANALYZER: DeferredHolder<BlockEntityType<*>, BlockEntityType<CellAnalyzerBlockEntity>> =
-		register("cell_analyzer", ::CellAnalyzerBlockEntity, ModBlocks.CELL_ANALYZER.get())
+		register("cell_analyzer", ::CellAnalyzerBlockEntity, ModBlocks.CELL_ANALYZER)
 
 	val DNA_EXTRACTOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DnaExtractorBlockEntity>> =
-		register("dna_extractor", ::DnaExtractorBlockEntity, ModBlocks.DNA_EXTRACTOR.get())
+		register("dna_extractor", ::DnaExtractorBlockEntity, ModBlocks.DNA_EXTRACTOR)
 
 	val DNA_DECRYPTOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<DnaDecryptorBlockEntity>> =
-		register("dna_decryptor", ::DnaDecryptorBlockEntity, ModBlocks.DNA_DECRYPTOR.get())
+		register("dna_decryptor", ::DnaDecryptorBlockEntity, ModBlocks.DNA_DECRYPTOR)
 
 	val PLASMID_INFUSER: DeferredHolder<BlockEntityType<*>, BlockEntityType<PlasmidInfuserBlockEntity>> =
-		register("plasmid_infuser", ::PlasmidInfuserBlockEntity, ModBlocks.PLASMID_INFUSER.get())
+		register("plasmid_infuser", ::PlasmidInfuserBlockEntity, ModBlocks.PLASMID_INFUSER)
 
 	val PLASMID_INJECTOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<PlasmidInjectorBlockEntity>> =
-		register("plasmid_injector", ::PlasmidInjectorBlockEntity, ModBlocks.PLASMID_INJECTOR.get())
+		register("plasmid_injector", ::PlasmidInjectorBlockEntity, ModBlocks.PLASMID_INJECTOR)
 
 
 	val BLOOD_PURIFIER: DeferredHolder<BlockEntityType<*>, BlockEntityType<BloodPurifierBlockEntity>> =
-		register("blood_purifier", ::BloodPurifierBlockEntity, ModBlocks.BLOOD_PURIFIER.get())
+		register("blood_purifier", ::BloodPurifierBlockEntity, ModBlocks.BLOOD_PURIFIER)
 
 	val INCUBATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<IncubatorBlockEntity>> =
-		register("incubator", ::IncubatorBlockEntity, ModBlocks.INCUBATOR.get())
+		register("incubator", ::IncubatorBlockEntity, ModBlocks.INCUBATOR)
 
 	val ADVANCED_INCUBATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<AdvancedIncubatorBlockEntity>> =
-		register("advanced_incubator", ::AdvancedIncubatorBlockEntity, ModBlocks.ADVANCED_INCUBATOR.get())
+		register("advanced_incubator", ::AdvancedIncubatorBlockEntity, ModBlocks.ADVANCED_INCUBATOR)
 
-	fun <T : BlockEntity> register(
+	fun <T : BlockEntity, B : Block> register(
 		name: String,
 		constructor: BlockEntityType.BlockEntitySupplier<T>,
-		vararg validBlocks: Block
+		block: DeferredBlock<in B>
 	): DeferredHolder<BlockEntityType<*>, BlockEntityType<T>> {
 
 		// wtf is this
@@ -66,7 +67,7 @@ object ModBlockEntities {
 		return BLOCK_ENTITY_REGISTRY.register(name, Supplier {
 			BlockEntityType.Builder.of(
 				constructor,
-				*validBlocks
+				block.get()
 			).build(type)
 		})
 	}
