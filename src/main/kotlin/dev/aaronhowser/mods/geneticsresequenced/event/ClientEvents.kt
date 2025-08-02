@@ -25,11 +25,7 @@ import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
-import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent
-import net.neoforged.neoforge.client.event.InputEvent
-import net.neoforged.neoforge.client.event.ModelEvent
-import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent
-import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
+import net.neoforged.neoforge.client.event.*
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 
 @EventBusSubscriber(

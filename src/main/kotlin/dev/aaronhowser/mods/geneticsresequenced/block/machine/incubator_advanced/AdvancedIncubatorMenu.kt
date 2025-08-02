@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorBlockEntity.Companion.CHORUS_SLOT_INDEX
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
