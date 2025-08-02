@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.coal_generator
 
-import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlock
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import net.minecraft.core.BlockPos
@@ -29,8 +28,11 @@ class CoalGeneratorBlock : MachineBlock() {
 	}
 
 	init {
-		registerDefaultState(stateDefinition.any().setValue(H_FACING, Direction.NORTH))
-		registerDefaultState(stateDefinition.any().setValue(BURNING, false))
+		registerDefaultState(
+			stateDefinition.any()
+				.setValue(H_FACING, Direction.NORTH)
+				.setValue(BURNING, false)
+		)
 	}
 
 	override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
