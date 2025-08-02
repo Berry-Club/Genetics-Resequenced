@@ -18,7 +18,7 @@ object ModItems {
 	val SYRINGE: DeferredItem<SyringeItem> =
 		register("syringe", ::SyringeItem, SyringeItem.DEFAULT_PROPERTIES)
 	val METAL_SYRINGE: DeferredItem<MetalSyringeItem> =
-		register("metal_syringe", ::MetalSyringeItem, SyringeItem.DEFAULT_PROPERTIES)
+		register("metal_syringe", ::MetalSyringeItem, MetalSyringeItem.DEFAULT_PROPERTIES)
 	val GENE_CHECKER: DeferredItem<GeneCheckerItem> =
 		register("gene_checker", ::GeneCheckerItem, GeneCheckerItem.DEFAULT_PROPERTIES)
 	val ORGANIC_MATTER: DeferredItem<EntityDnaItem> =

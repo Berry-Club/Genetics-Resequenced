@@ -319,6 +319,7 @@
 
 # 1.6.0
 
-- Update NeoForge to 21.1.173
-- Update KFF to 5.8.0
+- Update NeoForge to 21.1.197
+- Update KFF to 5.9.0
 - Dragon Health Crystal no longer uses durability, but has its own separate data component (#58)
+- The Metal Syringe now increases your entity interaction range attribute by 3 blocks
