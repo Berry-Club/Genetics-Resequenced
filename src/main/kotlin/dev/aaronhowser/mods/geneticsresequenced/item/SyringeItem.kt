@@ -9,7 +9,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModDamageTypeTagsPro
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.setEntity
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.ChatFormatting
@@ -161,21 +160,19 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		fun ItemStack.isSyringe(): Boolean = this.`is`(ModItemTagsProvider.SYRINGES)
 
 		fun isBeingUsed(syringeStack: ItemStack, entity: LivingEntity?): Boolean {
-			if (entity == null) return false
-
-			return entity.useItem == syringeStack
+			return entity?.useItem == syringeStack
 		}
 
-		fun setEntity(pStack: ItemStack, entity: LivingEntity?, setContaminated: Boolean = true) {
+		fun setEntity(stack: ItemStack, entity: LivingEntity?, setContaminated: Boolean = true) {
 			if (entity == null) {
-				pStack.remove(ModDataComponents.SPECIFIC_ENTITY)
+				stack.remove(ModDataComponents.SPECIFIC_ENTITY)
 				return
 			}
 
-			pStack.setEntity(entity)
+			SpecificEntityItemComponent.setEntity(stack, entity)
 
 			if (setContaminated) {
-				setContaminated(pStack, true)
+				setContaminated(stack, true)
 			}
 		}
 

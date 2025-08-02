@@ -37,13 +37,13 @@ data class SpecificEntityItemComponent(
 			::SpecificEntityItemComponent
 		)
 
-		fun ItemStack.setEntity(entity: LivingEntity) {
+		fun setEntity(stack: ItemStack, entity: LivingEntity) {
 			val name = entity.name
 			val uuid = entity.uuid
 
 			val entityComponent = SpecificEntityItemComponent(uuid, name)
 
-			this.set(ModDataComponents.SPECIFIC_ENTITY, entityComponent)
+			stack.set(ModDataComponents.SPECIFIC_ENTITY, entityComponent)
 		}
 
 		fun hasEntity(stack: ItemStack): Boolean = stack.has(ModDataComponents.SPECIFIC_ENTITY)

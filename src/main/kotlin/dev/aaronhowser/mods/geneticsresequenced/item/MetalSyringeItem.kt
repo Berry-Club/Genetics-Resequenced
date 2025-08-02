@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent.Companion.setEntity
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
@@ -173,7 +172,7 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 			syringeStack: ItemStack,
 			pInteractionTarget: LivingEntity
 		) {
-			syringeStack.setEntity(pInteractionTarget)
+			SpecificEntityItemComponent.setEntity(syringeStack, pInteractionTarget)
 		}
 
 	}
