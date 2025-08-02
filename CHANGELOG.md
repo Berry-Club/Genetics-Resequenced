@@ -323,3 +323,4 @@
 - Update KFF to 5.9.0
 - Dragon Health Crystal no longer uses durability, but has its own separate data component (#58)
 - The Metal Syringe now increases your entity interaction range attribute by 3 blocks
+- Baby mobs inherit their parents' Genes, with a 100% if both parents have it, and a 50% if only one parent has it (#56)

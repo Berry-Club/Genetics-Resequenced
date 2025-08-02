@@ -132,7 +132,7 @@ data class GenesData(
 			}
 		}
 
-		fun LivingEntity.addAlLGenes(registries: HolderLookup.Provider, includeNegative: Boolean = false) {
+		fun LivingEntity.addAllGenes(registries: HolderLookup.Provider, includeNegative: Boolean = false) {
 			val genesToAdd =
 				ModGenes.getAllGeneHolders(registries).filter { includeNegative || !it.isNegative }
 

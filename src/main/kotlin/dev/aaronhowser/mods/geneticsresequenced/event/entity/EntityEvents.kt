@@ -1,15 +1,20 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DamageGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ScareGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
+import net.minecraft.core.Holder
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PathfinderMob
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent
+import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
 import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
@@ -71,6 +76,32 @@ object EntityEvents {
 		val entity = event.entity
 		if (entity is PathfinderMob) {
 			ScareGenes.attachScareTask(entity)
+		}
+	}
+
+	@SubscribeEvent
+	fun onBabySpawn(event: BabyEntitySpawnEvent) {
+		val parentA = event.parentA
+		val parentB = event.parentB
+
+		val child = event.child ?: return
+
+		val aGenes: Set<Holder<Gene>> = parentA.geneHolders
+		val bGenes: Set<Holder<Gene>> = parentB.geneHolders
+
+		if (aGenes.isEmpty() && bGenes.isEmpty()) return
+
+		val commonGenes = aGenes.intersect(bGenes)
+		val uniqueGenes = aGenes.union(bGenes) - commonGenes
+
+		for (gene in commonGenes) {
+			child.addGene(gene)
+		}
+
+		for (gene in uniqueGenes) {
+			if (parentA.random.nextBoolean()) {
+				child.addGene(gene)
+			}
 		}
 	}
 
