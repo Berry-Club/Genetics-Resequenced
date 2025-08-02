@@ -327,3 +327,4 @@
 - Fixed Antigenes not being removed from Syringes when used (#53)
 - The Gene Checker now shows what Genes the target can provide, in addition to what it has (#66)
 - Fix Black Death recipe (#63)
+- Added a Lava Proof Gene, which makes you immune to direct Lava damage (#67)
