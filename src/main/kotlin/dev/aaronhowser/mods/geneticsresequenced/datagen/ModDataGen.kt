@@ -36,16 +36,16 @@ object ModDataGen {
 
 		val lookupWithGenes: CompletableFuture<HolderLookup.Provider> = datapackRegistrySets.registryProvider
 
-		val itemModelProvider = generator.addProvider(
+		generator.addProvider(
 			event.includeClient(),
 			ModItemModelProvider(output, existingFileHelper)
 		)
-		val blockModelProvider = generator.addProvider(
+		generator.addProvider(
 			event.includeClient(),
 			ModBlockStateProvider(output, existingFileHelper)
 		)
 
-		val recipeProvider = generator.addProvider(
+		generator.addProvider(
 			event.includeServer(),
 			ModRecipeProvider(output, lookupWithGenes)
 		)
@@ -54,32 +54,32 @@ object ModDataGen {
 			event.includeServer(),
 			ModBlockTagsProvider(output, lookupProvider, existingFileHelper)
 		)
-		val itemTagProvider = generator.addProvider(
+		generator.addProvider(
 			event.includeServer(),
 			ModItemTagsProvider(output, lookupProvider, blockTagProvider.contentsGetter(), existingFileHelper)
 		)
-		val geneTagProvider = generator.addProvider(
+		generator.addProvider(
 			event.includeServer(),
 			ModGeneTagsProvider(output, lookupWithGenes, existingFileHelper)
 		)
-		val entityTypeTagProvider = generator.addProvider(
+		generator.addProvider(
 			event.includeServer(),
 			ModEntityTypeTagsProvider(output, lookupProvider, existingFileHelper)
 		)
-		val enchantmentTagProvider = generator.addProvider(
+		generator.addProvider(
 			event.includeServer(),
 			ModEnchantmentTagsProvider(output, lookupProvider, existingFileHelper)
 		)
-		val potionTagProvider = generator.addProvider(
+		generator.addProvider(
 			event.includeServer(),
 			ModPotionTagsProvider(output, lookupProvider, existingFileHelper)
 		)
-		val damageTypeTagProvider = generator.addProvider(
+		generator.addProvider(
 			event.includeServer(),
 			ModDamageTypeTagsProvider(output, lookupProvider, existingFileHelper)
 		)
 
-		val advancementProvider = generator.addProvider(
+		generator.addProvider(
 			event.includeServer(),
 			AdvancementProvider(
 				output,
@@ -89,14 +89,14 @@ object ModDataGen {
 			)
 		)
 
-		val lootTableProvider = generator.addProvider(
+		generator.addProvider(
 			event.includeServer(),
 			ModLootTableProvider.create(output, lookupProvider)
 		)
 
 		val languageProvider = ModLanguageProvider(output)
 
-		val modonomiconBookProvider = generator.addProvider(
+		generator.addProvider(
 			event.includeClient(),
 			NeoBookProvider.of(
 				event, lookupWithGenes, ModModonomiconProvider(languageProvider::add)
@@ -109,12 +109,12 @@ object ModDataGen {
 		//                The other is to use the AbstractModonomiconLanguageProvider for the mod texts together with a LanguageProviderCache
 		generator.addProvider(event.includeClient(), languageProvider)
 
-		val modGeneRequirementsProvider = generator.addProvider(
+		generator.addProvider(
 			event.includeServer(),
 			ModGeneRequirementsProvider(output, lookupProvider, existingFileHelper)
 		)
 
-		val modEntityGenesProvider = generator.addProvider(
+		generator.addProvider(
 			event.includeServer(),
 			ModEntityGenesProvider(output, lookupProvider, existingFileHelper)
 		)

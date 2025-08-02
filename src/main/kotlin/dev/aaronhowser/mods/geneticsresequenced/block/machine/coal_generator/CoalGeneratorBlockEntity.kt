@@ -210,9 +210,6 @@ class CoalGeneratorBlockEntity(
 		for (direction in Direction.entries) {
 			val neighborPos = blockPos.offset(direction.normal)
 
-			val block = level.getBlockState(neighborPos)
-			val blockEntity = level.getBlockEntity(neighborPos)
-
 			val neighborEnergy =
 				level.getCapability(Capabilities.EnergyStorage.BLOCK, neighborPos, direction.opposite) ?: continue
 

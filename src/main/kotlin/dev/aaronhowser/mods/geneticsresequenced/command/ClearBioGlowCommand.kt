@@ -62,11 +62,13 @@ object ClearBioGlowCommand {
 		for (blockPos in lightSpots) {
 			level.removeBlock(blockPos, false)
 
-			val blockDisplayEntity = BlockDisplay(EntityType.BLOCK_DISPLAY, level).apply {
-				setPos(blockPos.x.toDouble(), blockPos.y.toDouble(), blockPos.z.toDouble())
-				setGlowingTag(true)
-				setBlockState(Blocks.GLOWSTONE.defaultBlockState())
-			}
+			val blockDisplayEntity = BlockDisplay(EntityType.BLOCK_DISPLAY, level)
+
+			blockDisplayEntity.setPos(blockPos.x.toDouble(), blockPos.y.toDouble(), blockPos.z.toDouble())
+			blockDisplayEntity.setGlowingTag(true)
+			@Suppress("UsePropertyAccessSyntax")
+			blockDisplayEntity.setBlockState(Blocks.GLOWSTONE.defaultBlockState())
+
 			level.addFreshEntity(blockDisplayEntity)
 
 			ModScheduler.scheduleTaskInTicks(20 * 2) {

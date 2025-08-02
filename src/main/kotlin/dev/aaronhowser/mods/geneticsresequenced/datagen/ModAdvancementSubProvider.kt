@@ -151,32 +151,31 @@ class ModAdvancementSubProvider(
 				.build(guide("decrypt_dna"))
 				.add()
 
-		val blackDeath =
-			Advancement.Builder.advancement()
-				.parent(decryptDna)
-				.display(
-					Items.WITHER_ROSE,
-					ModLanguageProvider.Advancements.BLACK_DEATH_TITLE.toComponent(),
-					ModLanguageProvider.Advancements.BLACK_DEATH_DESC.toComponent(),
-					null,
-					AdvancementType.TASK,
-					true, true, false
+		Advancement.Builder.advancement()
+			.parent(decryptDna)
+			.display(
+				Items.WITHER_ROSE,
+				ModLanguageProvider.Advancements.BLACK_DEATH_TITLE.toComponent(),
+				ModLanguageProvider.Advancements.BLACK_DEATH_DESC.toComponent(),
+				null,
+				AdvancementType.TASK,
+				true, true, false
+			)
+			.addCriterion(
+				"black_death_helix",
+				InventoryChangeTrigger.TriggerInstance.hasItems(
+					ItemPredicate.Builder
+						.item()
+						.of(ModItems.DNA_HELIX)
+						.withSubPredicate(
+							ModItemSubPredicates.HELIX_GENE.get(),
+							HelixGenePredicate.blackDeath()
+						)
+						.build()
 				)
-				.addCriterion(
-					"black_death_helix",
-					InventoryChangeTrigger.TriggerInstance.hasItems(
-						ItemPredicate.Builder
-							.item()
-							.of(ModItems.DNA_HELIX)
-							.withSubPredicate(
-								ModItemSubPredicates.HELIX_GENE.get(),
-								HelixGenePredicate.blackDeath()
-							)
-							.build()
-					)
-				)
-				.build(guide("black_death"))
-				.add()
+			)
+			.build(guide("black_death"))
+			.add()
 
 		val plasmidInfuser =
 			Advancement.Builder.advancement()
@@ -240,95 +239,90 @@ class ModAdvancementSubProvider(
 				.build(guide("get_gene"))
 				.add()
 
-		val getFlight =
-			Advancement.Builder.advancement()
-				.parent(getGene)
-				.display(
-					Items.ELYTRA,
-					ModLanguageProvider.Advancements.FLIGHT_TITLE.toComponent(),
-					ModLanguageProvider.Advancements.FLIGHT_DESC.toComponent(),
-					null,
-					AdvancementType.TASK,
-					true, true, false
-				)
-				.addCriterion(
-					"impossible",
-					CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
-				)
-				.build(guide("get_flight"))
-				.add()
+		Advancement.Builder.advancement()
+			.parent(getGene)
+			.display(
+				Items.ELYTRA,
+				ModLanguageProvider.Advancements.FLIGHT_TITLE.toComponent(),
+				ModLanguageProvider.Advancements.FLIGHT_DESC.toComponent(),
+				null,
+				AdvancementType.TASK,
+				true, true, false
+			)
+			.addCriterion(
+				"impossible",
+				CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
+			)
+			.build(guide("get_flight"))
+			.add()
 
-		val getAllScares =
-			Advancement.Builder.advancement()
-				.parent(getGene)
-				.display(
-					Items.JACK_O_LANTERN,
-					ModLanguageProvider.Advancements.SCARE_TITLE.toComponent(),
-					ModLanguageProvider.Advancements.SCARE_DESC.toComponent(),
-					null,
-					AdvancementType.TASK,
-					true, true, false
-				)
-				.addCriterion(
-					"impossible",
-					CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
-				)
-				.build(guide("get_all_scare_genes"))
-				.add()
+		Advancement.Builder.advancement()
+			.parent(getGene)
+			.display(
+				Items.JACK_O_LANTERN,
+				ModLanguageProvider.Advancements.SCARE_TITLE.toComponent(),
+				ModLanguageProvider.Advancements.SCARE_DESC.toComponent(),
+				null,
+				AdvancementType.TASK,
+				true, true, false
+			)
+			.addCriterion(
+				"impossible",
+				CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
+			)
+			.build(guide("get_all_scare_genes"))
+			.add()
 
-		val getCringe =
-			Advancement.Builder.advancement()
-				.parent(getGene)
-				.display(
-					Items.SKELETON_SKULL,
-					ModLanguageProvider.Advancements.CRINGE_TITLE.toComponent(),
-					ModLanguageProvider.Advancements.CRINGE_DESC.toComponent(),
-					null,
-					AdvancementType.TASK,
-					true, true, false
-				)
-				.addCriterion(
-					"impossible",
-					CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
-				)
-				.build(guide("get_cringe"))
-				.add()
+		Advancement.Builder.advancement()
+			.parent(getGene)
+			.display(
+				Items.SKELETON_SKULL,
+				ModLanguageProvider.Advancements.CRINGE_TITLE.toComponent(),
+				ModLanguageProvider.Advancements.CRINGE_DESC.toComponent(),
+				null,
+				AdvancementType.TASK,
+				true, true, false
+			)
+			.addCriterion(
+				"impossible",
+				CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
+			)
+			.build(guide("get_cringe"))
+			.add()
 
-		val getMilked =
-			Advancement.Builder.advancement()
-				.parent(getGene)
-				.display(
-					Items.MILK_BUCKET,
-					ModLanguageProvider.Advancements.GET_MILKED_TITLE.toComponent(),
-					ModLanguageProvider.Advancements.GET_MILKED_DESC.toComponent(),
-					null,
-					AdvancementType.TASK,
-					true, true, false
-				)
-				.addCriterion(
-					"impossible",
-					CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
-				)
-				.build(guide("get_milked"))
-				.add()
+		Advancement.Builder.advancement()
+			.parent(getGene)
+			.display(
+				Items.MILK_BUCKET,
+				ModLanguageProvider.Advancements.GET_MILKED_TITLE.toComponent(),
+				ModLanguageProvider.Advancements.GET_MILKED_DESC.toComponent(),
+				null,
+				AdvancementType.TASK,
+				true, true, false
+			)
+			.addCriterion(
+				"impossible",
+				CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
+			)
+			.build(guide("get_milked"))
+			.add()
 
-		val triggerSlimyDeath =
-			Advancement.Builder.advancement()
-				.parent(getGene)
-				.display(
-					Items.SLIME_BALL,
-					ModLanguageProvider.Advancements.SLIMY_TITLE.toComponent(),
-					ModLanguageProvider.Advancements.SLIMY_DESC.toComponent(),
-					null,
-					AdvancementType.TASK,
-					true, true, false
-				)
-				.addCriterion(
-					"impossible",
-					CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
-				)
-				.build(guide("trigger_slimy_death"))
-				.add()
+		Advancement.Builder.advancement()
+			.parent(getGene)
+			.display(
+				Items.SLIME_BALL,
+				ModLanguageProvider.Advancements.SLIMY_TITLE.toComponent(),
+				ModLanguageProvider.Advancements.SLIMY_DESC.toComponent(),
+				null,
+				AdvancementType.TASK,
+				true, true, false
+			)
+			.addCriterion(
+				"impossible",
+				CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
+			)
+			.build(guide("trigger_slimy_death"))
+			.add()
 
 		val syringe =
 			Advancement.Builder.advancement()
@@ -353,23 +347,22 @@ class ModAdvancementSubProvider(
 				.build(guide("syringe"))
 				.add()
 
-		val bloodPurifier =
-			Advancement.Builder.advancement()
-				.parent(syringe)
-				.display(
-					ModBlocks.BLOOD_PURIFIER.get(),
-					ModLanguageProvider.Advancements.PURIFIER_TITLE.toComponent(),
-					ModLanguageProvider.Advancements.PURIFIER_DESC.toComponent(),
-					null,
-					AdvancementType.TASK,
-					true, true, false
-				)
-				.addCriterion(
-					"blood_purifier",
-					InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.BLOOD_PURIFIER.get())
-				)
-				.build(guide("blood_purifier"))
-				.add()
+		Advancement.Builder.advancement()
+			.parent(syringe)
+			.display(
+				ModBlocks.BLOOD_PURIFIER.get(),
+				ModLanguageProvider.Advancements.PURIFIER_TITLE.toComponent(),
+				ModLanguageProvider.Advancements.PURIFIER_DESC.toComponent(),
+				null,
+				AdvancementType.TASK,
+				true, true, false
+			)
+			.addCriterion(
+				"blood_purifier",
+				InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.BLOOD_PURIFIER.get())
+			)
+			.build(guide("blood_purifier"))
+			.add()
 
 	}
 

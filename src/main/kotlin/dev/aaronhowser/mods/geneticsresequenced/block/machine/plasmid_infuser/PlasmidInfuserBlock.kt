@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser
 
-import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlock
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import net.minecraft.world.level.Level

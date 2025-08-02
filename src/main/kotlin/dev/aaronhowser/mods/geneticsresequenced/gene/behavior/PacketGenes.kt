@@ -15,7 +15,6 @@ import net.minecraft.world.level.ClipContext
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.HitResult
 import net.minecraft.world.phys.Vec3
-//import thedarkcolour.kotlinforforge.neoforge.forge.vectorutil.v3d.toVec3
 
 object PacketGenes {
 

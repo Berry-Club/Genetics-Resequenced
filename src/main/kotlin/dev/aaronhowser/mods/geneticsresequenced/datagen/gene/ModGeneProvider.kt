@@ -57,7 +57,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 					attributeModifiers = listOf(
 						AttributeEntry(
 							ModAttributes.EFFICIENCY,
-							ModAttributes.efficiencyFourAttributeModifier
+							ModAttributes.AttributeModifiers.EFFICIENCY_FOUR
 						)
 					),
 					allowedEntities = ONLY_PLAYERS
@@ -71,7 +71,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 					attributeModifiers = listOf(
 						AttributeEntry(
 							NeoForgeMod.CREATIVE_FLIGHT,
-							ModAttributes.flightAttributeModifier
+							ModAttributes.AttributeModifiers.FLIGHT
 						)
 					),
 					allowedEntities = ONLY_PLAYERS
@@ -105,7 +105,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 					attributeModifiers = listOf(
 						AttributeEntry(
 							Attributes.MAX_HEALTH,
-							ModAttributes.moreHealthTwoAttributeModifier
+							ModAttributes.AttributeModifiers.MORE_HEALTH_TWO
 						)
 					)
 				)
@@ -236,7 +236,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 					attributeModifiers = listOf(
 						AttributeEntry(
 							ModAttributes.EFFICIENCY,
-							ModAttributes.efficiencyAttributeModifier
+							ModAttributes.AttributeModifiers.EFFICIENCY
 						)
 					)
 				)
@@ -344,7 +344,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 					attributeModifiers = listOf(
 						AttributeEntry(
 							Attributes.ATTACK_KNOCKBACK,
-							ModAttributes.knockbackAttributeModifier
+							ModAttributes.AttributeModifiers.KNOCKBACK
 						)
 					)
 				)
@@ -398,7 +398,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 					attributeModifiers = listOf(
 						AttributeEntry(
 							Attributes.MAX_HEALTH,
-							ModAttributes.moreHealthOneAttributeModifier
+							ModAttributes.AttributeModifiers.MORE_HEALTH_ONE
 						)
 					),
 				)
@@ -446,11 +446,11 @@ class ModGeneProvider : RegistrySetBuilder() {
 					attributeModifiers = listOf(
 						AttributeEntry(
 							Attributes.ENTITY_INTERACTION_RANGE,
-							ModAttributes.reachingAttributeModifier
+							ModAttributes.AttributeModifiers.REACHING
 						),
 						AttributeEntry(
 							Attributes.BLOCK_INTERACTION_RANGE,
-							ModAttributes.reachingAttributeModifier
+							ModAttributes.AttributeModifiers.REACHING
 						)
 					)
 				)
@@ -547,7 +547,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 					attributeModifiers = listOf(
 						AttributeEntry(
 							Attributes.STEP_HEIGHT,
-							ModAttributes.stepAssistAttributeModifier
+							ModAttributes.AttributeModifiers.STEP_ASSIST
 						)
 					)
 				)

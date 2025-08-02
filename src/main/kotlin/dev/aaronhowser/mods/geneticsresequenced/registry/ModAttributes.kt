@@ -21,53 +21,55 @@ object ModAttributes {
 			RangedAttribute(EFFICIENCY_ATTRIBUTE_NAME, 0.0, 0.0, 10000.0)
 		})
 
-	//TODO: Maybe make this not an attribute modifier?
-	val knockbackAttributeModifier = AttributeModifier(
-		OtherUtil.modResource("knockback"),
-		2.0,
-		AttributeModifier.Operation.ADD_VALUE
-	)
+	object AttributeModifiers {
+		//TODO: Maybe make this not an attribute modifier?
+		val KNOCKBACK = AttributeModifier(
+			OtherUtil.modResource("knockback"),
+			2.0,
+			AttributeModifier.Operation.ADD_VALUE
+		)
 
-	val flightAttributeModifier = AttributeModifier(
-		OtherUtil.modResource("flight"),
-		1.0,
-		AttributeModifier.Operation.ADD_VALUE
-	)
+		val FLIGHT = AttributeModifier(
+			OtherUtil.modResource("flight"),
+			1.0,
+			AttributeModifier.Operation.ADD_VALUE
+		)
 
-	val moreHealthOneAttributeModifier = AttributeModifier(
-		OtherUtil.modResource("more_health_one"),
-		20.0,
-		AttributeModifier.Operation.ADD_VALUE
-	)
+		val MORE_HEALTH_ONE = AttributeModifier(
+			OtherUtil.modResource("more_health_one"),
+			20.0,
+			AttributeModifier.Operation.ADD_VALUE
+		)
 
-	val moreHealthTwoAttributeModifier = AttributeModifier(
-		OtherUtil.modResource("more_health_two"),
-		20.0,
-		AttributeModifier.Operation.ADD_VALUE
-	)
+		val MORE_HEALTH_TWO = AttributeModifier(
+			OtherUtil.modResource("more_health_two"),
+			20.0,
+			AttributeModifier.Operation.ADD_VALUE
+		)
 
-	val stepAssistAttributeModifier = AttributeModifier(
-		OtherUtil.modResource("step_assist"),
-		1.0,
-		AttributeModifier.Operation.ADD_VALUE
-	)
+		val STEP_ASSIST = AttributeModifier(
+			OtherUtil.modResource("step_assist"),
+			1.0,
+			AttributeModifier.Operation.ADD_VALUE
+		)
 
-	val efficiencyAttributeModifier = AttributeModifier(
-		OtherUtil.modResource("efficiency"),
-		1.0,
-		AttributeModifier.Operation.ADD_VALUE
-	)
+		val EFFICIENCY = AttributeModifier(
+			OtherUtil.modResource("efficiency"),
+			1.0,
+			AttributeModifier.Operation.ADD_VALUE
+		)
 
-	val efficiencyFourAttributeModifier = AttributeModifier(
-		OtherUtil.modResource("efficiency_four"),
-		3.0, // Because you can't have this without the first level
-		AttributeModifier.Operation.ADD_VALUE
-	)
+		val EFFICIENCY_FOUR = AttributeModifier(
+			OtherUtil.modResource("efficiency_four"),
+			3.0, // Because you can't have this without the first level
+			AttributeModifier.Operation.ADD_VALUE
+		)
 
-	val reachingAttributeModifier = AttributeModifier(
-		OtherUtil.modResource("reaching"),
-		1.25,
-		AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
-	)
+		val REACHING = AttributeModifier(
+			OtherUtil.modResource("reaching"),
+			1.25,
+			AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+		)
+	}
 
 }

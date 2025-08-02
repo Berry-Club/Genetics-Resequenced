@@ -206,7 +206,7 @@ class SupportSlime(
 
 	companion object {
 		fun setAttributes(): AttributeSupplier {
-			return Monster.createMobAttributes()
+			return createMobAttributes()
 				.add(Attributes.MAX_HEALTH, 10.0)
 				.add(Attributes.MOVEMENT_SPEED, 0.25)
 				.add(Attributes.ATTACK_DAMAGE, 20.0)

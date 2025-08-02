@@ -79,7 +79,6 @@ class PlasmidInfuserBlockEntity(
 
 	override fun craftItem() {
 		if (!hasRecipe()) return
-		val level = level ?: return
 
 		val inputHelix = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
 		val outputPlasmid = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
