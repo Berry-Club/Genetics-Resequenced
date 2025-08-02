@@ -1,4 +1,4 @@
-// 1.21.1	2024-10-23T20:56:49.9553609	geneticsresequenced/entity_genes generator for geneticsresequenced
+// 1.21.1	2025-08-02T04:48:51.8351515	geneticsresequenced/entity_genes generator for geneticsresequenced
 1c9164a3e3c3a44624cad82f11a4269753912787 data/geneticsresequenced/geneticsresequenced/entity_genes/support_slime.json
 bdab25cb25d1ad7b467796284f309197969452d7 data/minecraft/geneticsresequenced/entity_genes/allay.json
 79b0f5680c909bd28e269c7a06edaaf17f6d87c7 data/minecraft/geneticsresequenced/entity_genes/axolotl.json
@@ -56,7 +56,7 @@ dbe6992d312308f340104d4d74a33f7edb3c60db data/minecraft/geneticsresequenced/enti
 fcf55f4d7ad84b32ce90a63dbdd4cf3959032104 data/minecraft/geneticsresequenced/entity_genes/spider.json
 5b909e62480c4d960cc5b88a3a599224917f3357 data/minecraft/geneticsresequenced/entity_genes/squid.json
 469e91c827204567475c1465d0e3e8061c9897ee data/minecraft/geneticsresequenced/entity_genes/stray.json
-a61290602b992d9221098cef8d5d7dc2c609b0a8 data/minecraft/geneticsresequenced/entity_genes/strider.json
+fa98a42993515052a1026f030b5fc57661202ea6 data/minecraft/geneticsresequenced/entity_genes/strider.json
 4e3d52a6213b9bf696991e4ef882d7f8b7e25da4 data/minecraft/geneticsresequenced/entity_genes/tadpole.json
 95f965df75ef1b9940416de89a2b771d08270332 data/minecraft/geneticsresequenced/entity_genes/tropical_fish.json
 ff4b1c5d9d33aabe7d363dc40735c82edf8321ef data/minecraft/geneticsresequenced/entity_genes/turtle.json
