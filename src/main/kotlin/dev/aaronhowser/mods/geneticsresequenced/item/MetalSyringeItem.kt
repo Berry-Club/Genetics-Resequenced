@@ -19,7 +19,7 @@ import net.minecraft.world.item.UseAnim
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.util.FakePlayer
 
-class MetalSyringeItem : SyringeItem() {
+class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 
 	override fun inventoryTick(pStack: ItemStack, pLevel: Level, pEntity: Entity, pSlotId: Int, pIsSelected: Boolean) {
 		if (!pIsSelected) return

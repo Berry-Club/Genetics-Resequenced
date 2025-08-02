@@ -13,7 +13,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 
-class GeneCheckerItem : Item(Properties().stacksTo(1)) {
+class GeneCheckerItem(properties: Properties) : Item(properties) {
 
 	override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
 		val usedStack = player.getItemInHand(usedHand)
@@ -43,6 +43,10 @@ class GeneCheckerItem : Item(Properties().stacksTo(1)) {
 		}
 
 		return InteractionResultHolder.success(usedStack)
+	}
+
+	companion object {
+		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
 	}
 
 }

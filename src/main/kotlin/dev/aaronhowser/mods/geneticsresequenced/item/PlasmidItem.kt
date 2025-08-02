@@ -15,7 +15,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 
-class PlasmidItem : Item(Properties().stacksTo(1)) {
+class PlasmidItem(properties: Properties) : Item(properties) {
 
 	override fun appendHoverText(
 		pStack: ItemStack,
@@ -59,6 +59,8 @@ class PlasmidItem : Item(Properties().stacksTo(1)) {
 	}
 
 	companion object {
+		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
+
 		fun hasGene(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.PLASMID_PROGRESS)
 
 		fun getGene(itemStack: ItemStack): Holder<Gene>? {

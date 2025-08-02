@@ -7,25 +7,38 @@ import net.minecraft.world.item.SpawnEggItem
 import net.neoforged.neoforge.common.DeferredSpawnEggItem
 import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
+import java.util.function.Supplier
 
 object ModItems {
 
 	val ITEM_REGISTRY: DeferredRegister.Items = DeferredRegister.createItems(GeneticsResequenced.ID)
 
-	val SCRAPER: DeferredItem<ScraperItem> = registerNoArg("scraper", ::ScraperItem)
-	val SYRINGE: DeferredItem<SyringeItem> = registerNoArg("syringe", ::SyringeItem)
-	val METAL_SYRINGE: DeferredItem<MetalSyringeItem> = registerNoArg("metal_syringe", ::MetalSyringeItem)
-	val GENE_CHECKER: DeferredItem<GeneCheckerItem> = registerNoArg("gene_checker", ::GeneCheckerItem)
-	val ORGANIC_MATTER: DeferredItem<EntityDnaItem> = registerNoArg("organic_matter", ::EntityDnaItem)
-	val CELL: DeferredItem<EntityDnaItem> = registerNoArg("cell", ::EntityDnaItem)
-	val GMO_CELL: DeferredItem<GmoCell> = registerNoArg("gmo_cell", ::GmoCell)
-	val DNA_HELIX: DeferredItem<DnaHelixItem> = registerNoArg("dna_helix", ::DnaHelixItem)
-	val PLASMID: DeferredItem<PlasmidItem> = registerNoArg("plasmid", ::PlasmidItem)
-	val ANTI_PLASMID: DeferredItem<AntiPlasmidItem> = registerNoArg("anti_plasmid", ::AntiPlasmidItem)
+	val SCRAPER: DeferredItem<ScraperItem> =
+		register("scraper", ::ScraperItem, ScraperItem.DEFAULT_PROPERTIES)
+	val SYRINGE: DeferredItem<SyringeItem> =
+		register("syringe", ::SyringeItem, SyringeItem.DEFAULT_PROPERTIES)
+	val METAL_SYRINGE: DeferredItem<MetalSyringeItem> =
+		register("metal_syringe", ::MetalSyringeItem, SyringeItem.DEFAULT_PROPERTIES)
+	val GENE_CHECKER: DeferredItem<GeneCheckerItem> =
+		register("gene_checker", ::GeneCheckerItem, GeneCheckerItem.DEFAULT_PROPERTIES)
+	val ORGANIC_MATTER: DeferredItem<EntityDnaItem> =
+		register("organic_matter", ::EntityDnaItem)
+	val CELL: DeferredItem<EntityDnaItem> =
+		register("cell", ::EntityDnaItem)
+	val GMO_CELL: DeferredItem<GmoCell> =
+		register("gmo_cell", ::GmoCell)
+	val DNA_HELIX: DeferredItem<DnaHelixItem> =
+		register("dna_helix", ::DnaHelixItem)
+	val PLASMID: DeferredItem<PlasmidItem> =
+		register("plasmid", ::PlasmidItem, PlasmidItem.DEFAULT_PROPERTIES)
+	val ANTI_PLASMID: DeferredItem<AntiPlasmidItem> =
+		register("anti_plasmid", ::AntiPlasmidItem, AntiPlasmidItem.DEFAULT_PROPERTIES)
 	val OVERCLOCKER: DeferredItem<Item> =
-		ITEM_REGISTRY.registerSimpleItem("overclocker", Item.Properties().stacksTo(8))
-	val ANTI_FIELD_ORB: DeferredItem<AntiFieldOrbItem> = registerNoArg("anti_field_orb", ::AntiFieldOrbItem)
-	val DRAGON_HEALTH_CRYSTAL: DeferredItem<DragonHealthCrystal> = registerNoArg("dragon_health_crystal", ::DragonHealthCrystal)
+		register("overclocker", ::Item, Item.Properties().stacksTo(8))
+	val ANTI_FIELD_ORB: DeferredItem<AntiFieldOrbItem> =
+		register("anti_field_orb", ::AntiFieldOrbItem, AntiFieldOrbItem.DEFAULT_PROPERTIES)
+	val DRAGON_HEALTH_CRYSTAL: DeferredItem<DragonHealthCrystal> =
+		register("dragon_health_crystal", ::DragonHealthCrystal, DragonHealthCrystal.DEFAULT_PROPERTIES)
 	val FRIENDLY_SLIME_SPAWN_EGG: DeferredItem<SpawnEggItem> =
 		ITEM_REGISTRY.registerItem("support_slime_spawn_egg") {
 			DeferredSpawnEggItem(
@@ -36,8 +49,20 @@ object ModItems {
 			)
 		}
 
-	private fun <T : Item> registerNoArg(name: String, item: () -> T): DeferredItem<T> {
-		return ITEM_REGISTRY.registerItem(name) { item() }
+	private fun <I : Item> register(
+		id: String,
+		builder: (Item.Properties) -> I,
+		properties: Item.Properties = Item.Properties()
+	): DeferredItem<I> {
+		return ITEM_REGISTRY.registerItem(id) { builder(properties) }
+	}
+
+	private fun <I : Item> register(
+		id: String,
+		builder: (Item.Properties) -> I,
+		properties: Supplier<Item.Properties>
+	): DeferredItem<I> {
+		return ITEM_REGISTRY.registerItem(id) { builder(properties.get()) }
 	}
 
 }

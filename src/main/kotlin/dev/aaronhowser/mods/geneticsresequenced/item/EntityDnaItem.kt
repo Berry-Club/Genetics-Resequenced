@@ -19,7 +19,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 
-open class EntityDnaItem : Item(Properties()) {
+open class EntityDnaItem(properties: Properties) : Item(properties) {
 
 	override fun interactLivingEntity(
 		pStack: ItemStack,

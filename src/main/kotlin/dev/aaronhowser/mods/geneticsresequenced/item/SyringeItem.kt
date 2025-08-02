@@ -32,9 +32,7 @@ import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.util.FakePlayer
 import java.util.*
 
-open class SyringeItem : Item(
-	Properties().stacksTo(1)
-) {
+open class SyringeItem(properties: Properties) : Item(properties) {
 
 	override fun getUseDuration(pStack: ItemStack, pHolder: LivingEntity): Int = 40
 	override fun getUseAnimation(pStack: ItemStack): UseAnim = UseAnim.BOW
@@ -158,6 +156,7 @@ open class SyringeItem : Item(
 	}
 
 	companion object {
+		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
 
 		fun ItemStack.isSyringe(): Boolean = this.`is`(ModItemTagsProvider.SYRINGES)
 

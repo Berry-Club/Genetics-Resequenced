@@ -9,7 +9,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 
-class AntiPlasmidItem : Item(Properties().stacksTo(1)) {
+class AntiPlasmidItem(properties: Properties) : Item(properties) {
 
 	override fun appendHoverText(
 		pStack: ItemStack,
@@ -32,6 +32,10 @@ class AntiPlasmidItem : Item(Properties().stacksTo(1)) {
 					.withStyle(ChatFormatting.GRAY)
 			)
 		}
+	}
+
+	companion object {
+		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
 	}
 
 }

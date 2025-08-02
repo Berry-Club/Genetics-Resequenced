@@ -14,11 +14,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
 
-class AntiFieldOrbItem : Item(
-	Properties()
-		.stacksTo(1)
-		.component(ModDataComponents.IS_ACTIVE, false)
-) {
+class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 
 	override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
 		toggleEnabled(pPlayer.getItemInHand(pUsedHand))
@@ -49,6 +45,12 @@ class AntiFieldOrbItem : Item(
 	}
 
 	companion object {
+		val DEFAULT_PROPERTIES: () -> Properties = {
+			Properties()
+				.stacksTo(1)
+				.component(ModDataComponents.IS_ACTIVE, false)
+		}
+
 		private fun isEnabled(itemStack: ItemStack): Boolean {
 			return itemStack.getOrDefault(ModDataComponents.IS_ACTIVE, false)
 		}

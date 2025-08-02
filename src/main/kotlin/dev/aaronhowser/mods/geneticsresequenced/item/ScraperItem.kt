@@ -21,9 +21,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.util.FakePlayer
 
-class ScraperItem : Item(
-	Properties().durability(200)
-) {
+class ScraperItem(properties: Properties) : Item(properties) {
 
 	override fun use(
 		pLevel: Level,
@@ -75,6 +73,7 @@ class ScraperItem : Item(
 	override fun getEnchantmentValue(stack: ItemStack): Int = 5
 
 	companion object {
+		val DEFAULT_PROPERTIES: Properties = Properties().durability(200)
 
 		private fun tryScrapeSelf(
 			pPlayer: Player,

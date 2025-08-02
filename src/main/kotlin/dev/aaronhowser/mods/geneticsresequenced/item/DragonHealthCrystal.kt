@@ -16,9 +16,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
 
-class DragonHealthCrystal : Item(
-	Properties().component(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 1000f)
-) {
+class DragonHealthCrystal(properties: Properties) : Item(properties) {
 
 	override fun getBreakingSound(): SoundEvent = SoundEvents.ENDER_DRAGON_HURT
 
@@ -35,6 +33,11 @@ class DragonHealthCrystal : Item(
 	}
 
 	companion object {
+		val DEFAULT_PROPERTIES: () -> Properties = {
+			Properties()
+				.component(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, MAX_DAMAGE)
+		}
+
 		const val MAX_DAMAGE = 1000f
 
 		fun handleIncomingDamage(event: LivingDamageEvent.Pre) {

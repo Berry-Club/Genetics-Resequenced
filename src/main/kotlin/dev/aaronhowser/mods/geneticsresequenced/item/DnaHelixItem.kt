@@ -17,7 +17,7 @@ import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 
-class DnaHelixItem : EntityDnaItem() {
+class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 
 	override fun appendHoverText(
 		pStack: ItemStack,
