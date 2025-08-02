@@ -2,9 +2,13 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.base.InventoryEnergyBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands
+import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
+import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
+import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
@@ -14,6 +18,9 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
+import net.neoforged.neoforge.event.AddReloadListenerEvent
+import net.neoforged.neoforge.event.RegisterCommandsEvent
+import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
@@ -22,7 +29,23 @@ import net.neoforged.neoforge.registries.DataPackRegistryEvent
 @EventBusSubscriber(
 	modid = GeneticsResequenced.ID
 )
-object ModBusEvents {
+object CommonEvents {
+
+	@SubscribeEvent
+	fun onRegisterCommandsEvent(event: RegisterCommandsEvent) {
+		ModCommands.register(event.dispatcher)
+	}
+
+	@SubscribeEvent
+	fun addReloadListeners(event: AddReloadListenerEvent) {
+		event.addListener(EntityGenes())
+		event.addListener(GeneRequirements())
+	}
+
+	@SubscribeEvent
+	fun onRegisterBrewingRecipes(event: RegisterBrewingRecipesEvent) {
+		BrewingRecipes.setRecipes(event)
+	}
 
 	@SubscribeEvent
 	fun onNewDataPackRegistry(event: DataPackRegistryEvent.NewRegistry) {
@@ -75,5 +98,6 @@ object ModBusEvents {
 			event.add(EntityType.PLAYER, ModAttributes.EFFICIENCY)
 		}
 	}
+
 
 }

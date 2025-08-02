@@ -6,18 +6,30 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.PlasmidInfuserMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector.PlasmidInjectorMenu
 import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
+import dev.aaronhowser.mods.geneticsresequenced.entity.client.SupportSlimeRenderer
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
+import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.TeleportPlayerPacket
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import net.minecraft.client.renderer.entity.EntityRenderers
+import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.client.event.ClientPlayerNetworkEvent
 import net.neoforged.neoforge.client.event.InputEvent
+import net.neoforged.neoforge.client.event.ModelEvent
+import net.neoforged.neoforge.client.event.RegisterKeyMappingsEvent
+import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 
 @EventBusSubscriber(
@@ -61,6 +73,52 @@ object ClientEvents {
 	fun onLeaveServer(event: ClientPlayerNetworkEvent.LoggingOut) {
 		ClientUtil.addSkinLayersBack()
 		ClientUtil.handleCringe(false, 0)
+	}
+
+	@SubscribeEvent
+	fun onKeyRegister(event: RegisterKeyMappingsEvent) {
+		event.register(ModKeyMappings.DRAGONS_BREATH)
+		event.register(ModKeyMappings.TELEPORT)
+	}
+
+	@SubscribeEvent
+	fun onClientSetup(event: FMLClientSetupEvent) {
+		registerEntityRenderers()
+	}
+
+	private fun registerEntityRenderers() {
+		EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::SupportSlimeRenderer)
+	}
+
+	@SubscribeEvent
+	fun onModelRegistry(event: ModelEvent.RegisterAdditional) {
+
+		ItemProperties.register(
+			ModItems.SYRINGE.get(),
+			OtherUtil.modResource("full")
+		) { stack, _, _, _ ->
+			if (SyringeItem.hasBlood(stack)) 1f else 0f
+		}
+
+		ItemProperties.register(
+			ModItems.SYRINGE.get(),
+			OtherUtil.modResource("injecting")
+		) { stack, _, entity, _ ->
+			if (SyringeItem.isBeingUsed(stack, entity)) 1f else 0f
+		}
+
+		ItemProperties.register(
+			ModItems.METAL_SYRINGE.get(),
+			OtherUtil.modResource("full")
+		) { stack, _, _, _ ->
+			if (SyringeItem.hasBlood(stack)) 1f else 0f
+		}
+
+	}
+
+	@SubscribeEvent
+	fun onRegisterMenuScreens(event: RegisterMenuScreensEvent) {
+		ModMenuTypes.registerScreens(event)
 	}
 
 }
