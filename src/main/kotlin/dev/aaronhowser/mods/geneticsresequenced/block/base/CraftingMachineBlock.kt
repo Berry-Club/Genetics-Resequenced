@@ -15,21 +15,23 @@ import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.phys.BlockHitResult
 
 abstract class CraftingMachineBlock(
-	properties: Properties = defaultProperties,
 	private val blockEntityType: Class<out CraftingMachineBlockEntity>
 ) : MachineBlock() {
 
 	init {
-		registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))
+		registerDefaultState(
+			stateDefinition.any()
+				.setValue(H_FACING, Direction.NORTH)
+		)
 	}
 
 	override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState {
-		return defaultBlockState().setValue(FACING, pContext.horizontalDirection.opposite)
+		return defaultBlockState().setValue(H_FACING, pContext.horizontalDirection.opposite)
 	}
 
 	override fun createBlockStateDefinition(pBuilder: StateDefinition.Builder<Block, BlockState>) {
 		super.createBlockStateDefinition(pBuilder)
-		pBuilder.add(FACING)
+		pBuilder.add(H_FACING)
 	}
 
 	@Suppress("OVERRIDE_DEPRECATION")

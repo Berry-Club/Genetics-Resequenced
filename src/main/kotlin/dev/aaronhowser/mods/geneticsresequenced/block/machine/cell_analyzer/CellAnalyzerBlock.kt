@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.cell_analyzer
 
-import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlock
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import net.minecraft.world.level.Level
@@ -10,16 +9,9 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
-class CellAnalyzerBlock(
-	properties: Properties = defaultProperties
-) : CraftingMachineBlock(
-	properties,
+class CellAnalyzerBlock : CraftingMachineBlock(
 	CellAnalyzerBlockEntity::class.java
 ) {
-
-	override fun codec(): MapCodec<CellAnalyzerBlock> {
-		return simpleCodec(::CellAnalyzerBlock)
-	}
 
 	override fun <T : BlockEntity> getTicker(
 		pLevel: Level,

@@ -22,32 +22,26 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.phys.BlockHitResult
 
-class CoalGeneratorBlock(
-	properties: Properties = defaultProperties
-) : MachineBlock() {
+class CoalGeneratorBlock : MachineBlock() {
 
 	companion object {
 		val BURNING: BooleanProperty = BlockStateProperties.LIT
 	}
 
 	init {
-		registerDefaultState(stateDefinition.any().setValue(FACING, Direction.NORTH))
+		registerDefaultState(stateDefinition.any().setValue(H_FACING, Direction.NORTH))
 		registerDefaultState(stateDefinition.any().setValue(BURNING, false))
-	}
-
-	override fun codec(): MapCodec<CoalGeneratorBlock> {
-		return simpleCodec(::CoalGeneratorBlock)
 	}
 
 	override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
 		return defaultBlockState()
-			.setValue(FACING, pContext.horizontalDirection.opposite)
+			.setValue(H_FACING, pContext.horizontalDirection.opposite)
 			.setValue(BURNING, false)
 	}
 
 	override fun createBlockStateDefinition(pBuilder: StateDefinition.Builder<Block, BlockState>) {
 		super.createBlockStateDefinition(pBuilder)
-		pBuilder.add(FACING)
+		pBuilder.add(H_FACING)
 		pBuilder.add(BURNING)
 	}
 

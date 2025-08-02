@@ -10,16 +10,9 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
-class PlasmidInfuserBlock(
-	properties: Properties = defaultProperties
-) : CraftingMachineBlock(
-	properties,
+class PlasmidInfuserBlock : CraftingMachineBlock(
 	PlasmidInfuserBlockEntity::class.java
 ) {
-
-	override fun codec(): MapCodec<PlasmidInfuserBlock> {
-		return simpleCodec(::PlasmidInfuserBlock)
-	}
 
 	override fun <T : BlockEntity> getTicker(
 		pLevel: Level,

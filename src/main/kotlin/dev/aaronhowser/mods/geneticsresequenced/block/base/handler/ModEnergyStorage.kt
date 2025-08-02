@@ -3,8 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.block.base.handler
 import net.neoforged.neoforge.energy.EnergyStorage
 
 abstract class ModEnergyStorage(
-	private val capacity: Int,
-	private val maxTransfer: Int
+	capacity: Int,
+	maxTransfer: Int
 ) : EnergyStorage(capacity, maxTransfer) {
 
 	override fun extractEnergy(maxExtract: Int, simulate: Boolean): Int {

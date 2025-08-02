@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.blood_purifier
 
-import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlock
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import net.minecraft.world.level.Level
@@ -10,16 +9,9 @@ import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 
-class BloodPurifierBlock(
-	properties: Properties = defaultProperties
-) : CraftingMachineBlock(
-	properties,
+class BloodPurifierBlock : CraftingMachineBlock(
 	BloodPurifierBlockEntity::class.java
 ) {
-
-	override fun codec(): MapCodec<BloodPurifierBlock> {
-		return simpleCodec(::BloodPurifierBlock)
-	}
 
 	override fun <T : BlockEntity?> getTicker(
 		pLevel: Level,
