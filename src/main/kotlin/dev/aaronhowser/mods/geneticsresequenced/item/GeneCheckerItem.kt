@@ -1,8 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.world.InteractionHand
@@ -25,17 +26,17 @@ class GeneCheckerItem(properties: Properties) : Item(properties) {
 
 			val component = if (targetGeneHolders.isEmpty()) {
 				if (targetEntity == player) {
-					ModLanguageProvider.Messages.GENE_CHECKER_SELF_NO_GENES.toComponent()
+					ModMessageLang.GENE_CHECKER_SELF_NO_GENES.toComponent()
 				} else {
-					ModLanguageProvider.Messages.GENE_CHECKER_TARGET_NO_GENES.toComponent(targetEntity.name)
+					ModMessageLang.GENE_CHECKER_TARGET_NO_GENES.toComponent(targetEntity.name)
 				}
 			} else {
 				val genesComponent = OtherUtil.componentList(targetGeneHolders.map { Gene.getNameComponent(it) })
 
 				if (targetEntity == player) {
-					ModLanguageProvider.Messages.GENE_CHECKER_SELF_LIST.toComponent(genesComponent)
+					ModMessageLang.GENE_CHECKER_SELF_LIST.toComponent(genesComponent)
 				} else {
-					ModLanguageProvider.Messages.GENE_CHECKER_TARGET_LIST.toComponent(targetEntity.name, genesComponent)
+					ModMessageLang.GENE_CHECKER_TARGET_LIST.toComponent(targetEntity.name, genesComponent)
 				}
 			}
 

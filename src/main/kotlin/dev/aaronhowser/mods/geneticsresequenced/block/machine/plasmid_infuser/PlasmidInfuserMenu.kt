@@ -2,8 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
@@ -102,11 +103,11 @@ class PlasmidInfuserMenu(
 			val outputGene = PlasmidItem.getGene(outputItem) ?: return
 
 			val component = when {
-				hoveredGeneHolder.isGene(ModGenes.BASIC) -> ModLanguageProvider.Tooltips.INFUSER_BASIC.toComponent()
+				hoveredGeneHolder.isGene(ModGenes.BASIC) -> ModTooltipLang.INFUSER_BASIC.toComponent()
 
-				hoveredGeneHolder.isGene(outputGene) -> ModLanguageProvider.Tooltips.INFUSER_MATCHING.toComponent()
+				hoveredGeneHolder.isGene(outputGene) -> ModTooltipLang.INFUSER_MATCHING.toComponent()
 
-				else -> ModLanguageProvider.Tooltips.INFUSER_MISMATCH.toComponent()
+				else -> ModTooltipLang.INFUSER_MISMATCH.toComponent()
 			}.withStyle(ChatFormatting.GRAY)
 
 			event.toolTip.add(2, component)

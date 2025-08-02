@@ -1,8 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
@@ -32,7 +33,7 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 			showNoGeneTooltips(pStack, pTooltipComponents)
 		} else {
 			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.GENE
+				ModTooltipLang.GENE
 					.toComponent(geneHolder.getName())
 					.withStyle(ChatFormatting.GRAY)
 			)
@@ -46,7 +47,7 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 	) {
 
 		pTooltipComponents.add(
-			ModLanguageProvider.Tooltips.GENE
+			ModTooltipLang.GENE
 				.toComponent(Gene.UNKNOWN_GENE_COMPONENT)
 				.withStyle(ChatFormatting.GRAY)
 		)
@@ -54,7 +55,7 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 		val entity = getEntityType(pStack)
 		if (entity != null) {
 			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.HELIX_ENTITY
+				ModTooltipLang.HELIX_ENTITY
 					.toComponent(entity.description)
 					.withStyle(ChatFormatting.GRAY)
 			)
@@ -65,7 +66,7 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 
 			if (isCreative) {
 				val component =
-					ModLanguageProvider.Tooltips.CELL_CREATIVE
+					ModTooltipLang.CELL_CREATIVE
 						.toComponent()
 						.withStyle(ChatFormatting.GRAY)
 				pTooltipComponents.add(component)

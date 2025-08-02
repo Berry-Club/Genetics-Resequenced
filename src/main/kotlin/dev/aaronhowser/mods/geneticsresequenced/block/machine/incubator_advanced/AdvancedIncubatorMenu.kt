@@ -4,8 +4,9 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorBlockEntity.Companion.CHORUS_SLOT_INDEX
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
@@ -167,7 +168,7 @@ class AdvancedIncubatorMenu(
 
 			event.toolTip.add(
 				index++,
-				ModLanguageProvider.Tooltips.GMO_BASE_CHANCE
+				ModTooltipLang.GMO_BASE_CHANCE
 					.toComponent(
 						Gene.getNameComponent(recipe.idealGeneRk),
 						(baseChance * 100).toInt()
@@ -178,7 +179,7 @@ class AdvancedIncubatorMenu(
 			if (amountOverclockers != 0) {
 				event.toolTip.add(
 					index++,
-					ModLanguageProvider.Tooltips.GMO_OVERCLOCKER_CHANCE
+					ModTooltipLang.GMO_OVERCLOCKER_CHANCE
 						.toComponent(
 							amountOverclockers,
 							(reducedChance * 100).toInt()
@@ -190,7 +191,7 @@ class AdvancedIncubatorMenu(
 			if (chorusUsed != 0) {
 				event.toolTip.add(
 					index,
-					ModLanguageProvider.Tooltips.GMO_CHORUS_CHANCE
+					ModTooltipLang.GMO_CHORUS_CHANCE
 						.toComponent(
 							chorusUsed,
 							(finalChance * 100).toInt()

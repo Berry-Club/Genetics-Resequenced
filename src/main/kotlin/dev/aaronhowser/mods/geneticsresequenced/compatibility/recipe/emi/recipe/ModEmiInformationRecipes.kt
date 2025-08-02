@@ -3,8 +3,9 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModInfoLang
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
@@ -58,7 +59,7 @@ object ModEmiInformationRecipes {
 			if (requiredGeneHolders.isNotEmpty()) {
 				components.add(Component.literal("\n"))
 				components.add(
-					ModLanguageProvider.Info.REQUIRED_GENES.toComponent()
+					ModInfoLang.REQUIRED_GENES.toComponent()
 				)
 
 				for (requiredGeneHolder in requiredGeneHolders) {
@@ -100,7 +101,7 @@ object ModEmiInformationRecipes {
 					Ingredient.of(ModItems.ORGANIC_MATTER.toStack())
 				)
 			),
-			listOf(ModLanguageProvider.Info.ORGANIC_MATTER_EMPTY.toComponent()),
+			listOf(ModInfoLang.ORGANIC_MATTER_EMPTY.toComponent()),
 			OtherUtil.modResource("/info/organic_matter/no_entity")
 		)
 
@@ -108,7 +109,7 @@ object ModEmiInformationRecipes {
 
 		for (entityType in EntityDnaItem.VALID_ENTITY_TYPES) {
 
-			val component = ModLanguageProvider.Info.ORGANIC_MATTER.toComponent(entityType.description)
+			val component = ModInfoLang.ORGANIC_MATTER.toComponent(entityType.description)
 
 			val organicMatterStack = ModItems.ORGANIC_MATTER.toStack()
 			EntityDnaItem.setEntityType(organicMatterStack, entityType)
@@ -138,7 +139,7 @@ object ModEmiInformationRecipes {
 			val geneWeights = EntityGenes.getGeneHolderWeights(entityType, registries)
 
 			val informationTextComponent =
-				ModLanguageProvider.Info.MOB_GENE_ONE.toComponent(entityType.description)
+				ModInfoLang.MOB_GENE_ONE.toComponent(entityType.description)
 
 			val sumOfWeights = geneWeights.values.sum()
 
@@ -152,7 +153,7 @@ object ModEmiInformationRecipes {
 				}
 
 				val component =
-					ModLanguageProvider.Info.MOB_GENE_TWO
+					ModInfoLang.MOB_GENE_TWO
 						.toComponent(chance, geneComponent)
 
 				informationTextComponent.append(component)

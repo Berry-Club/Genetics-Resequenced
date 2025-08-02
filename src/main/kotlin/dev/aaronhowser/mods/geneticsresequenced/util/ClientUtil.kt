@@ -2,8 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -121,14 +122,14 @@ object ClientUtil {
 		ModScheduler.scheduleTaskInTicks(1) {
 
 			val component = if (wasAdded) {
-				ModLanguageProvider.Messages.CRINGE_ADDED.toComponent(countdownSeconds)
+				ModMessageLang.CRINGE_ADDED.toComponent(countdownSeconds)
 			} else {
-				ModLanguageProvider.Messages.CRINGE_REMOVED.toComponent(countdownSeconds)
+				ModMessageLang.CRINGE_REMOVED.toComponent(countdownSeconds)
 			}.withStyle {
 				it.withHoverEvent(
 					HoverEvent(
 						HoverEvent.Action.SHOW_TEXT,
-						ModLanguageProvider.Messages.CRINGE_CONFIG.toComponent()
+						ModMessageLang.CRINGE_CONFIG.toComponent()
 					)
 				)
 			}
@@ -157,13 +158,13 @@ object ClientUtil {
 		this.amountTryingToChangeLanguage++
 		ModScheduler.scheduleTaskInTicks(20 * countdownSeconds) {
 			sendSystemMessage(
-				ModLanguageProvider.Messages.CRINGE_RELOADING
+				ModMessageLang.CRINGE_RELOADING
 					.toComponent()
 					.withStyle {
 						it.withHoverEvent(
 							HoverEvent(
 								HoverEvent.Action.SHOW_TEXT,
-								ModLanguageProvider.Messages.CRINGE_CONFIG.toComponent()
+								ModMessageLang.CRINGE_CONFIG.toComponent()
 							)
 						)
 					}

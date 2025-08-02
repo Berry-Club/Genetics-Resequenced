@@ -3,8 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.command.gene
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes

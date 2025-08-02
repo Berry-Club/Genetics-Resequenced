@@ -1,8 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base.menu.part
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.ScreenTextures
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
@@ -54,9 +55,9 @@ class TemperatureIndicator(
 			font,
 			listOf(
 				if (isHighTemperature())
-					ModLanguageProvider.Tooltips.INCUBATOR_SET_LOW.toComponent()
+					ModTooltipLang.INCUBATOR_SET_LOW.toComponent()
 				else
-					ModLanguageProvider.Tooltips.INCUBATOR_SET_HIGH.toComponent()
+					ModTooltipLang.INCUBATOR_SET_HIGH.toComponent()
 			),
 			pMouseX, pMouseY
 		)

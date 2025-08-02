@@ -4,6 +4,7 @@ import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModEntityGenesProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneRequirementsProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider

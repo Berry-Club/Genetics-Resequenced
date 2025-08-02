@@ -5,8 +5,9 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.h
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
@@ -316,7 +317,7 @@ object TickGenes {
 		val item = event.itemStack
 		if (!item.`is`(ModItemTagsProvider.MAGNET_ITEM_BLACKLIST)) return
 
-		val component = ModLanguageProvider.Tooltips.ITEM_MAGNET_BLACKLIST
+		val component = ModTooltipLang.ITEM_MAGNET_BLACKLIST
 			.toComponent()
 			.withStyle(ChatFormatting.DARK_GRAY)
 		event.toolTip.add(component)

@@ -3,8 +3,9 @@ package dev.aaronhowser.mods.geneticsresequenced.entity
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.SupportSlimeAttackGoal
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
@@ -227,7 +228,7 @@ class SupportSlime(
 
 			if (!player.hasGene(ModGenes.SLIMY_DEATH)) {
 				player.sendSystemMessage(
-					ModLanguageProvider.Messages.SUPPORT_SLIME_CREATIVE.toComponent(
+					ModMessageLang.SUPPORT_SLIME_CREATIVE.toComponent(
 						Gene.getNameComponent(
 							ModGenes.SLIMY_DEATH,
 							ClientUtil.localRegistryAccess!!
@@ -238,7 +239,7 @@ class SupportSlime(
 
 			if (player.level().difficulty == Difficulty.PEACEFUL) {
 				player.sendSystemMessage(
-					ModLanguageProvider.Messages.SUPPORT_SLIME_PEACEFUL.toComponent()
+					ModMessageLang.SUPPORT_SLIME_PEACEFUL.toComponent()
 				)
 			}
 

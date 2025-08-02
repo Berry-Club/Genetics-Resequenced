@@ -5,8 +5,9 @@ import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
@@ -63,7 +64,7 @@ object GeneEvents {
 			entity.removeGene(geneHolder)
 
 			val requiredGenesComponent =
-				ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS_LIST.toComponent()
+				ModMessageLang.MISSING_GENE_REQUIREMENTS_LIST.toComponent()
 
 			val missingGenes = GeneRequirements.getGeneRequiredGeneHolders(
 				geneHolder,
@@ -78,7 +79,7 @@ object GeneEvents {
 
 			if (!entity.level().isClientSide) {
 				entity.sendSystemMessage(
-					ModLanguageProvider.Messages.MISSING_GENE_REQUIREMENTS
+					ModMessageLang.MISSING_GENE_REQUIREMENTS
 						.toComponent(geneHolder.getName())
 						.withStyle {
 							it.withHoverEvent(

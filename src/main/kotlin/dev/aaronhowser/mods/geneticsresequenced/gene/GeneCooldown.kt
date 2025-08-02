@@ -2,8 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.gene
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler

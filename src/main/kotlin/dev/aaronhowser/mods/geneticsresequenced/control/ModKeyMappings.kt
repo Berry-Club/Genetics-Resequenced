@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.control
 
 import com.mojang.blaze3d.platform.InputConstants
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import net.minecraft.client.KeyMapping
 import net.neoforged.neoforge.client.settings.KeyConflictContext
 import org.lwjgl.glfw.GLFW

@@ -1,8 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
@@ -80,11 +81,11 @@ class GmoEmiRecipe(
 	}
 
 	private val tooltips: List<Component> = listOf(
-		ModLanguageProvider.Tooltips.GMO_TEMPERATURE_REQUIREMENT
+		ModTooltipLang.GMO_TEMPERATURE_REQUIREMENT
 			.toComponent()
 			.withStyle(ChatFormatting.GRAY),
 		CommonComponents.EMPTY,
-		ModLanguageProvider.Tooltips.GMO_CHORUS
+		ModTooltipLang.GMO_CHORUS
 			.toComponent()
 			.withStyle(ChatFormatting.GRAY)
 	)
@@ -116,7 +117,7 @@ class GmoEmiRecipe(
 		widgets.addSlot(goodOutput, x, 2)
 			.recipeContext(this)
 			.appendTooltip(
-				ModLanguageProvider.Tooltips.GMO_SUCCESS
+				ModTooltipLang.GMO_SUCCESS
 					.toComponent()
 					.withStyle(ChatFormatting.GREEN)
 			)
@@ -124,7 +125,7 @@ class GmoEmiRecipe(
 		widgets.addSlot(badOutput, x, 2 + 18 + 2)
 			.recipeContext(this)
 			.appendTooltip(
-				ModLanguageProvider.Tooltips.GMO_FAILURE
+				ModTooltipLang.GMO_FAILURE
 					.toComponent()
 					.withStyle(ChatFormatting.RED)
 			)

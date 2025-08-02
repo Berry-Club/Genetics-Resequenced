@@ -1,7 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModItemLang
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
@@ -86,9 +88,9 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 
 	override fun getName(pStack: ItemStack): Component {
 		return if (hasBlood(pStack)) {
-			ModLanguageProvider.Items.METAL_SYRINGE_FULL.toComponent()
+			ModItemLang.METAL_SYRINGE_FULL.toComponent()
 		} else {
-			ModLanguageProvider.Items.METAL_SYRINGE_EMPTY.toComponent()
+			ModItemLang.METAL_SYRINGE_EMPTY.toComponent()
 		}
 	}
 
@@ -122,7 +124,7 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 			if (isContaminated(syringeStack)) {
 				if (!pPlayer.level().isClientSide) {
 					pPlayer.sendSystemMessage(
-						ModLanguageProvider.Messages.METAL_SYRINGE_CONTAMINATED.toComponent()
+						ModMessageLang.METAL_SYRINGE_CONTAMINATED.toComponent()
 					)
 				}
 				return
@@ -142,7 +144,7 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 			val entityUuid = SpecificEntityItemComponent.getEntityUuid(syringeStack) ?: return
 
 			if (entityUuid != pInteractionTarget.uuid) {
-				player.sendSystemMessage(ModLanguageProvider.Messages.METAL_SYRINGE_MISMATCH.toComponent())
+				player.sendSystemMessage(ModMessageLang.METAL_SYRINGE_MISMATCH.toComponent())
 				return
 			}
 
@@ -151,7 +153,7 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 				val genesCantAdd = syringeGenes.filterNot { it.value().canEntityHave(pInteractionTarget) }
 				for (geneHolder in genesCantAdd) {
 					player.sendSystemMessage(
-						ModLanguageProvider.Messages.METAL_SYRINGE_NO_MOBS.toComponent(
+						ModMessageLang.METAL_SYRINGE_NO_MOBS.toComponent(
 							geneHolder.getName()
 						)
 					)

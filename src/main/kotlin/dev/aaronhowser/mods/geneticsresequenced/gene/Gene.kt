@@ -3,9 +3,11 @@ package dev.aaronhowser.mods.geneticsresequenced.gene
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModGeneLang
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModGeneTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
@@ -214,7 +216,7 @@ data class Gene(
 						.withHoverEvent(
 							HoverEvent(
 								HoverEvent.Action.SHOW_TEXT,
-								ModLanguageProvider.Tooltips.COPY_GENE.toComponent(
+								ModTooltipLang.COPY_GENE.toComponent(
 									geneHolder.key!!.location().toString()
 								)
 							)
@@ -229,14 +231,14 @@ data class Gene(
 
 			if (geneHolder.isDisabled) {
 				component.append(
-					ModLanguageProvider.Genes.DISABLED.toComponent()
+					ModGeneLang.DISABLED.toComponent()
 				)
 			}
 
 			return component
 		}
 
-		val UNKNOWN_GENE_COMPONENT: MutableComponent = ModLanguageProvider.Genes.UNKNOWN.toComponent()
+		val UNKNOWN_GENE_COMPONENT: MutableComponent = ModGeneLang.UNKNOWN.toComponent()
 
 		val DEFAULT_ALLOWED_ENTITIES = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup())
 

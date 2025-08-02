@@ -1,7 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.geneticsresequenced.advancement.HelixGenePredicate
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModAdvancementLang
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
@@ -46,7 +48,7 @@ class ModAdvancementSubProvider(
 				.display(
 					ModItems.SCRAPER.get(),
 					Component.literal("Genetics: Resequenced"),
-					ModLanguageProvider.Advancements.SCRAPER_DESC.toComponent(),
+					ModAdvancementLang.SCRAPER_DESC.toComponent(),
 					OtherUtil.modResource("textures/block/machine_bottom.png"),
 					AdvancementType.TASK,
 					true,
@@ -65,8 +67,8 @@ class ModAdvancementSubProvider(
 				.parent(root)
 				.display(
 					ModBlocks.CELL_ANALYZER.get(),
-					ModLanguageProvider.Advancements.ANALYZER_TITLE.toComponent(),
-					ModLanguageProvider.Advancements.ANALYZER_DESC.toComponent(),
+					ModAdvancementLang.ANALYZER_TITLE.toComponent(),
+					ModAdvancementLang.ANALYZER_DESC.toComponent(),
 					null,
 					AdvancementType.TASK,
 					true, true, false
@@ -88,8 +90,8 @@ class ModAdvancementSubProvider(
 				.parent(cellAnalyzer)
 				.display(
 					ModBlocks.DNA_EXTRACTOR.get(),
-					ModLanguageProvider.Advancements.EXTRACTOR_TITLE.toComponent(),
-					ModLanguageProvider.Advancements.EXTRACTOR_DESC.toComponent(),
+					ModAdvancementLang.EXTRACTOR_TITLE.toComponent(),
+					ModAdvancementLang.EXTRACTOR_DESC.toComponent(),
 					null,
 					AdvancementType.TASK,
 					true, true, false
@@ -111,8 +113,8 @@ class ModAdvancementSubProvider(
 				.parent(dnaExtractor)
 				.display(
 					ModBlocks.DNA_DECRYPTOR.get(),
-					ModLanguageProvider.Advancements.DECRYPTOR_TITLE.toComponent(),
-					ModLanguageProvider.Advancements.DECRYPTOR_DESC.toComponent(),
+					ModAdvancementLang.DECRYPTOR_TITLE.toComponent(),
+					ModAdvancementLang.DECRYPTOR_DESC.toComponent(),
 					null,
 					AdvancementType.TASK,
 					true, true, false
@@ -129,8 +131,8 @@ class ModAdvancementSubProvider(
 				.parent(dnaDecryptor)
 				.display(
 					ModItems.DNA_HELIX.get(),
-					ModLanguageProvider.Advancements.DECRYPT_TITLE.toComponent(),
-					ModLanguageProvider.Advancements.DECRYPT_DESC.toComponent(),
+					ModAdvancementLang.DECRYPT_TITLE.toComponent(),
+					ModAdvancementLang.DECRYPT_DESC.toComponent(),
 					null,
 					AdvancementType.TASK,
 					true, true, false
@@ -155,8 +157,8 @@ class ModAdvancementSubProvider(
 			.parent(decryptDna)
 			.display(
 				Items.WITHER_ROSE,
-				ModLanguageProvider.Advancements.BLACK_DEATH_TITLE.toComponent(),
-				ModLanguageProvider.Advancements.BLACK_DEATH_DESC.toComponent(),
+				ModAdvancementLang.BLACK_DEATH_TITLE.toComponent(),
+				ModAdvancementLang.BLACK_DEATH_DESC.toComponent(),
 				null,
 				AdvancementType.TASK,
 				true, true, false
@@ -182,8 +184,8 @@ class ModAdvancementSubProvider(
 				.parent(dnaExtractor)
 				.display(
 					ModBlocks.PLASMID_INFUSER.get(),
-					ModLanguageProvider.Advancements.INFUSER_TITLE.toComponent(),
-					ModLanguageProvider.Advancements.INFUSER_DESC.toComponent(),
+					ModAdvancementLang.INFUSER_TITLE.toComponent(),
+					ModAdvancementLang.INFUSER_DESC.toComponent(),
 					null,
 					AdvancementType.TASK,
 					true, true, false
@@ -200,8 +202,8 @@ class ModAdvancementSubProvider(
 				.parent(plasmidInfuser)
 				.display(
 					ModBlocks.PLASMID_INJECTOR.get(),
-					ModLanguageProvider.Advancements.INJECTOR_TITLE.toComponent(),
-					ModLanguageProvider.Advancements.INJECTOR_DESC.toComponent(),
+					ModAdvancementLang.INJECTOR_TITLE.toComponent(),
+					ModAdvancementLang.INJECTOR_DESC.toComponent(),
 					null,
 					AdvancementType.TASK,
 					true, true, false
@@ -226,8 +228,8 @@ class ModAdvancementSubProvider(
 							)
 						)
 					},
-					ModLanguageProvider.Advancements.GET_GENE_TITLE.toComponent(),
-					ModLanguageProvider.Advancements.GET_GENE_DESC.toComponent(),
+					ModAdvancementLang.GET_GENE_TITLE.toComponent(),
+					ModAdvancementLang.GET_GENE_DESC.toComponent(),
 					null,
 					AdvancementType.TASK,
 					true, true, false
@@ -243,8 +245,8 @@ class ModAdvancementSubProvider(
 			.parent(getGene)
 			.display(
 				Items.ELYTRA,
-				ModLanguageProvider.Advancements.FLIGHT_TITLE.toComponent(),
-				ModLanguageProvider.Advancements.FLIGHT_DESC.toComponent(),
+				ModAdvancementLang.FLIGHT_TITLE.toComponent(),
+				ModAdvancementLang.FLIGHT_DESC.toComponent(),
 				null,
 				AdvancementType.TASK,
 				true, true, false
@@ -260,8 +262,8 @@ class ModAdvancementSubProvider(
 			.parent(getGene)
 			.display(
 				Items.JACK_O_LANTERN,
-				ModLanguageProvider.Advancements.SCARE_TITLE.toComponent(),
-				ModLanguageProvider.Advancements.SCARE_DESC.toComponent(),
+				ModAdvancementLang.SCARE_TITLE.toComponent(),
+				ModAdvancementLang.SCARE_DESC.toComponent(),
 				null,
 				AdvancementType.TASK,
 				true, true, false
@@ -277,8 +279,8 @@ class ModAdvancementSubProvider(
 			.parent(getGene)
 			.display(
 				Items.SKELETON_SKULL,
-				ModLanguageProvider.Advancements.CRINGE_TITLE.toComponent(),
-				ModLanguageProvider.Advancements.CRINGE_DESC.toComponent(),
+				ModAdvancementLang.CRINGE_TITLE.toComponent(),
+				ModAdvancementLang.CRINGE_DESC.toComponent(),
 				null,
 				AdvancementType.TASK,
 				true, true, false
@@ -294,8 +296,8 @@ class ModAdvancementSubProvider(
 			.parent(getGene)
 			.display(
 				Items.MILK_BUCKET,
-				ModLanguageProvider.Advancements.GET_MILKED_TITLE.toComponent(),
-				ModLanguageProvider.Advancements.GET_MILKED_DESC.toComponent(),
+				ModAdvancementLang.GET_MILKED_TITLE.toComponent(),
+				ModAdvancementLang.GET_MILKED_DESC.toComponent(),
 				null,
 				AdvancementType.TASK,
 				true, true, false
@@ -311,8 +313,8 @@ class ModAdvancementSubProvider(
 			.parent(getGene)
 			.display(
 				Items.SLIME_BALL,
-				ModLanguageProvider.Advancements.SLIMY_TITLE.toComponent(),
-				ModLanguageProvider.Advancements.SLIMY_DESC.toComponent(),
+				ModAdvancementLang.SLIMY_TITLE.toComponent(),
+				ModAdvancementLang.SLIMY_DESC.toComponent(),
 				null,
 				AdvancementType.TASK,
 				true, true, false
@@ -329,8 +331,8 @@ class ModAdvancementSubProvider(
 				.parent(root)
 				.display(
 					ModItems.SYRINGE.get(),
-					ModLanguageProvider.Advancements.SYRINGE_TITLE.toComponent(),
-					ModLanguageProvider.Advancements.SYRINGE_DESC.toComponent(),
+					ModAdvancementLang.SYRINGE_TITLE.toComponent(),
+					ModAdvancementLang.SYRINGE_DESC.toComponent(),
 					null,
 					AdvancementType.TASK,
 					true, true, false
@@ -351,8 +353,8 @@ class ModAdvancementSubProvider(
 			.parent(syringe)
 			.display(
 				ModBlocks.BLOOD_PURIFIER.get(),
-				ModLanguageProvider.Advancements.PURIFIER_TITLE.toComponent(),
-				ModLanguageProvider.Advancements.PURIFIER_DESC.toComponent(),
+				ModAdvancementLang.PURIFIER_TITLE.toComponent(),
+				ModAdvancementLang.PURIFIER_DESC.toComponent(),
 				null,
 				AdvancementType.TASK,
 				true, true, false

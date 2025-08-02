@@ -1,8 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModRecipeLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
@@ -98,7 +99,7 @@ class PlasmidInfuserEmiRecipe(
 	}
 
 	private val tooltips: List<Component> = listOf(
-		ModLanguageProvider.Recipe.REQUIRES_POINTS
+		ModRecipeLang.REQUIRES_POINTS
 			.toComponent(
 				Gene
 					.getNameComponent(geneHolder)
@@ -108,10 +109,10 @@ class PlasmidInfuserEmiRecipe(
 					.dnaPointsRequired
 			)
 			.withStyle(ChatFormatting.GRAY),
-		ModLanguageProvider.Recipe.BASIC_WORTH
+		ModRecipeLang.BASIC_WORTH
 			.toComponent()
 			.withStyle(ChatFormatting.GRAY),
-		ModLanguageProvider.Recipe.MATCHING_WORTH
+		ModRecipeLang.MATCHING_WORTH
 			.toComponent()
 			.withStyle(ChatFormatting.GRAY)
 	)

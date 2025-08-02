@@ -1,7 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModDamageTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.enchantment.ModEnchantments
@@ -56,7 +57,7 @@ class ScraperItem(properties: Properties) : Item(properties) {
 
 		if (pInteractionTarget.type.`is`(ModEntityTypeTagsProvider.SCRAPER_ENTITY_BLACKLIST)) {
 			pPlayer.sendSystemMessage(
-				ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent()
+				ModMessageLang.SCRAPER_CANT_SCRAPE.toComponent()
 			)
 
 			return InteractionResult.CONSUME
@@ -105,7 +106,7 @@ class ScraperItem(properties: Properties) : Item(properties) {
 
 			if (!successfullySetEntity) {
 				player.displayClientMessage(
-					ModLanguageProvider.Messages.SCRAPER_CANT_SCRAPE.toComponent(target.type.description),
+					ModMessageLang.SCRAPER_CANT_SCRAPE.toComponent(target.type.description),
 					true
 				)
 				return false

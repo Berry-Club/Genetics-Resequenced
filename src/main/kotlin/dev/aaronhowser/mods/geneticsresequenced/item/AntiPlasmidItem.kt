@@ -1,7 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import net.minecraft.ChatFormatting
@@ -22,13 +23,13 @@ class AntiPlasmidItem(properties: Properties) : Item(properties) {
 
 		if (geneHolder == null) {
 			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.ANTI_PLASMID_EMPTY
+				ModTooltipLang.ANTI_PLASMID_EMPTY
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
 			)
 		} else {
 			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.PLASMID_GENE
+				ModTooltipLang.PLASMID_GENE
 					.toComponent(geneHolder.getName())
 					.withStyle(ChatFormatting.GRAY)
 			)

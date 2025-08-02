@@ -1,8 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.coal_generator
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import net.minecraft.ChatFormatting
@@ -92,7 +93,7 @@ class CoalGeneratorMenu(
 
 				event.toolTip.add(
 					2,
-					ModLanguageProvider.Tooltips.COAL_GEN_TOTAL_FE
+					ModTooltipLang.COAL_GEN_TOTAL_FE
 						.toComponent(feStringTotal)
 						.withStyle(ChatFormatting.GRAY)
 				)

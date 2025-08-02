@@ -5,8 +5,9 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.g
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeAllGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
@@ -63,7 +64,7 @@ object DeathEvents {
 		if (playerGenes.isEmpty()) return
 
 		val component =
-			ModLanguageProvider.Messages.DEATH_GENE_REMOVAL.toComponent()
+			ModMessageLang.DEATH_GENE_REMOVAL.toComponent()
 				.withStyle(ChatFormatting.GRAY)
 
 		player.sendSystemMessage(component)
@@ -80,7 +81,7 @@ object DeathEvents {
 		if (negativeGenes.isEmpty()) return
 
 		val component =
-			ModLanguageProvider.Messages.DEATH_NEGATIVE_GENE_REMOVAL.toComponent()
+			ModMessageLang.DEATH_NEGATIVE_GENE_REMOVAL.toComponent()
 				.withStyle(ChatFormatting.GRAY)
 
 		player.sendSystemMessage(component)

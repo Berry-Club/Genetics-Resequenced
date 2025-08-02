@@ -4,8 +4,9 @@ import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
@@ -67,7 +68,7 @@ object ClickGenes {
 		val newlySheared = RECENTLY_SHEARED_ENTITIES.add(target)
 
 		if (!newlySheared) {
-			clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_WOOLY.toComponent())
+			clicker.sendSystemMessage(ModMessageLang.RECENT_WOOLY.toComponent())
 			return
 		}
 
@@ -173,7 +174,7 @@ object ClickGenes {
 		val newlyMeated = RECENTLY_MEATED_PLAYERS.add(target)
 
 		if (!newlyMeated) {
-			clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_MEATY.toComponent())
+			clicker.sendSystemMessage(ModMessageLang.RECENT_MEATY.toComponent())
 			return
 		}
 
@@ -220,7 +221,7 @@ object ClickGenes {
 		val newlyMeated = RECENTLY_MEATED_PLAYERS.add(player)
 
 		if (!newlyMeated) {
-			player.sendSystemMessage(ModLanguageProvider.Messages.RECENT_MEATY.toComponent())
+			player.sendSystemMessage(ModMessageLang.RECENT_MEATY.toComponent())
 			return
 		}
 
@@ -275,11 +276,11 @@ object ClickGenes {
 
 		val clicker = event.entity
 		if (!newlyMilked) {
-			clicker.sendSystemMessage(ModLanguageProvider.Messages.RECENT_MILKY.toComponent())
+			clicker.sendSystemMessage(ModMessageLang.RECENT_MILKY.toComponent())
 			return
 		}
 
-		target.sendSystemMessage(ModLanguageProvider.Messages.MILK_MILKED.toComponent())
+		target.sendSystemMessage(ModMessageLang.MILK_MILKED.toComponent())
 
 		event.itemStack.shrink(1)
 		clicker.addItem(ItemStack(Items.MILK_BUCKET))
@@ -435,7 +436,7 @@ object ClickGenes {
 		val cringe = ModGenes.CRINGE.getHolderOrThrow(event.entity.registryAccess())
 		player.removeGene(cringe)
 		if (!player.level().isClientSide) {
-			player.sendSystemMessage(ModLanguageProvider.Messages.CRINGE_GRASS.toComponent())
+			player.sendSystemMessage(ModMessageLang.CRINGE_GRASS.toComponent())
 		}
 	}
 

@@ -3,8 +3,11 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModItemLang
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModDamageTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -60,7 +63,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		if (isContaminated(pStack)) {
 			if (!pLevel.isClientSide) {
 				pLivingEntity.sendSystemMessage(
-					ModLanguageProvider.Messages.SYRINGE_CONTAMINATED.toComponent()
+					ModMessageLang.SYRINGE_CONTAMINATED.toComponent()
 				)
 			}
 			return
@@ -82,9 +85,9 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 
 	override fun getName(pStack: ItemStack): Component {
 		return if (hasBlood(pStack)) {
-			ModLanguageProvider.Items.SYRINGE_FULL.toComponent()
+			ModItemLang.SYRINGE_FULL.toComponent()
 		} else {
-			ModLanguageProvider.Items.SYRINGE_EMPTY.toComponent()
+			ModItemLang.SYRINGE_EMPTY.toComponent()
 		}
 	}
 
@@ -98,7 +101,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		val bloodOwner = getEntityName(pStack)
 		if (hasBlood(pStack) && bloodOwner != null) {
 			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.SYRINGE_OWNER
+				ModTooltipLang.SYRINGE_OWNER
 					.toComponent(bloodOwner)
 					.withStyle(ChatFormatting.GRAY)
 			)
@@ -106,7 +109,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 
 		if (isContaminated(pStack)) {
 			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.SYRINGE_CONTAMINATED
+				ModTooltipLang.SYRINGE_CONTAMINATED
 					.toComponent()
 					.withStyle(ChatFormatting.DARK_GREEN)
 			)
@@ -115,7 +118,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		val addingGenes = getGenes(pStack)
 		if (addingGenes.isNotEmpty()) {
 			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.SYRINGE_ADDING_GENES
+				ModTooltipLang.SYRINGE_ADDING_GENES
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
 			)
@@ -136,7 +139,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		val removingGenes = getAntigenes(pStack)
 		if (removingGenes.isNotEmpty()) {
 			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.SYRINGE_REMOVING_GENES
+				ModTooltipLang.SYRINGE_REMOVING_GENES
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
 			)
@@ -214,7 +217,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			if (!entity.level().isClientSide) {
 				for (removedGeneHolder in genesRemoved) {
 					entity.sendSystemMessage(
-						ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_SUCCESS.toComponent(
+						ModMessageLang.SYRINGE_REMOVE_GENES_SUCCESS.toComponent(
 							removedGeneHolder.getName()
 						)
 					)
@@ -222,7 +225,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 
 				for (notRemovedGeneHolder in genesNotRemoved) {
 					entity.sendSystemMessage(
-						ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_FAIL.toComponent(
+						ModMessageLang.SYRINGE_REMOVE_GENES_FAIL.toComponent(
 							Gene.getNameComponent(notRemovedGeneHolder)
 						)
 					)
@@ -253,7 +256,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 
 				for (addedGeneHolder in genesAdded) {
 					entity.sendSystemMessage(
-						ModLanguageProvider.Messages.SYRINGE_INJECTED.toComponent(
+						ModMessageLang.SYRINGE_INJECTED.toComponent(
 							Gene.getNameComponent(addedGeneHolder)
 						)
 					)
@@ -261,7 +264,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 
 				for (notAddedGeneHolder in genesNotAdded) {
 					entity.sendSystemMessage(
-						ModLanguageProvider.Messages.SYRINGE_FAILED.toComponent(
+						ModMessageLang.SYRINGE_FAILED.toComponent(
 							Gene.getNameComponent(notAddedGeneHolder)
 						)
 					)

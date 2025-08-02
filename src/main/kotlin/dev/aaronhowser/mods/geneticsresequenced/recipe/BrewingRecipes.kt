@@ -1,7 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe
 
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
@@ -34,7 +35,7 @@ object BrewingRecipes {
 
 		if (stack.item != Items.POTION) {
 			event.toolTip.add(
-				ModLanguageProvider.Tooltips.IGNORE_POTION
+				ModTooltipLang.IGNORE_POTION
 					.toComponent()
 					.withStyle { it.withColor(ChatFormatting.RED) }
 			)
@@ -43,7 +44,7 @@ object BrewingRecipes {
 		val itemGeneHolder = DnaHelixItem.getGeneHolder(stack)
 		if (itemGeneHolder != null) {
 			event.toolTip.add(
-				ModLanguageProvider.Tooltips.GENE
+				ModTooltipLang.GENE
 					.toComponent(
 						Gene.getNameComponent(itemGeneHolder)
 							.withStyle { it.withColor(ChatFormatting.GRAY) }
@@ -53,7 +54,7 @@ object BrewingRecipes {
 		val itemEntity = EntityDnaItem.getEntityType(stack)
 		if (itemEntity != null) {
 			event.toolTip.add(
-				ModLanguageProvider.Tooltips.HELIX_ENTITY
+				ModTooltipLang.HELIX_ENTITY
 					.toComponent(itemEntity.description)
 					.withStyle { it.withColor(ChatFormatting.GRAY) }
 			)

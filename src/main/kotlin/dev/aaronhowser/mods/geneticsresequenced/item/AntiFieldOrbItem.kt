@@ -1,7 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.ChatFormatting
@@ -30,9 +31,9 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 		pTooltipFlag: TooltipFlag
 	) {
 		val componentString = if (isEnabled(pStack)) {
-			ModLanguageProvider.Tooltips.ACTIVE
+			ModTooltipLang.ACTIVE
 		} else {
-			ModLanguageProvider.Tooltips.INACTIVE
+			ModTooltipLang.INACTIVE
 		}
 
 		pTooltipComponents.add(

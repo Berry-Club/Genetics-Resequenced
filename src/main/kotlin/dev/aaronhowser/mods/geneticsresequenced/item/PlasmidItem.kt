@@ -1,7 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressItemComponent
@@ -28,7 +29,7 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 
 		if (geneHolder == null) {
 			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.PLASMID_EMPTY
+				ModTooltipLang.PLASMID_EMPTY
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
 			)
@@ -36,14 +37,14 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 		}
 
 		pTooltipComponents.add(
-			ModLanguageProvider.Tooltips.PLASMID_GENE
+			ModTooltipLang.PLASMID_GENE
 				.toComponent(geneHolder.getName())
 				.withStyle(ChatFormatting.GRAY)
 		)
 
 		if (isComplete(pStack)) {
 			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.PLASMID_COMPLETE
+				ModTooltipLang.PLASMID_COMPLETE
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
 			)
@@ -52,7 +53,7 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 			val amount = getDnaPoints(pStack)
 
 			pTooltipComponents.add(
-				ModLanguageProvider.Tooltips.PLASMID_PROGRESS
+				ModTooltipLang.PLASMID_PROGRESS
 					.toComponent(amount, amountNeeded)
 					.withStyle(ChatFormatting.GRAY)
 			)

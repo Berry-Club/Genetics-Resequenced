@@ -2,8 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -93,7 +94,7 @@ class PlasmidInjectorMenu(
 			if (SyringeItem.isContaminated(hoverStack)) {
 				event.toolTip.add(
 					2,
-					ModLanguageProvider.Tooltips.INFUSER_CONTAMINATED
+					ModTooltipLang.INFUSER_CONTAMINATED
 						.toComponent()
 						.withStyle(ChatFormatting.RED)
 				)

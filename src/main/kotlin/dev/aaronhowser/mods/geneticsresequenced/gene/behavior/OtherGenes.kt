@@ -2,8 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
@@ -144,7 +145,7 @@ object OtherGenes {
 			val message = Component
 				.literal("<")
 				.append(
-					ModLanguageProvider.Messages.SLIME_SPAM.toComponent(
+					ModMessageLang.SLIME_SPAM.toComponent(
 						player.displayName,
 						i + 1
 					)

@@ -1,8 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModRecipeLang
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
@@ -67,7 +68,7 @@ class CellDupeEmiRecipe(
 	}
 
 	override val tooltips: List<Component> = listOf(
-		ModLanguageProvider.Recipe.SUBSTRATE.toComponent().withStyle(ChatFormatting.GRAY)
+		ModRecipeLang.SUBSTRATE.toComponent().withStyle(ChatFormatting.GRAY)
 	)
 
 	override fun getId(): ResourceLocation {
