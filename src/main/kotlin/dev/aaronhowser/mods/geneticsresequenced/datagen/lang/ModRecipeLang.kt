@@ -31,6 +31,18 @@ object ModRecipeLang {
 		provider.add(EMI.FIREBALL_TAG, "Usable for \"Shoot Fireballs\" Gene")
 		provider.add(EMI.MAGNET_BLACKLIST_TAG, "Blacklisted from \"Item Magnet\" Gene")
 		provider.add(EMI.BLOCKS_MOB_INTERACTION_TAG, "Prevents item interaction with entities that have the #geneticsresequenced:allows_preventing_interaction tag\nUsed for Villagers etc that already have their own interactions")
+
+		provider.add(EMI.BLOOD_PURIFIER, "Blood Purifier")
+		provider.add(EMI.CELL_ANALYZER, "Cell Analyzer")
+		provider.add(EMI.DNA_EXTRACTOR, "DNA Extractor")
+		provider.add(EMI.DNA_DECRYPTOR, "DNA Decryptor")
+		provider.add(EMI.PLASMID_INFUSER, "Plasmid Infuser")
+		provider.add(EMI.PLASMID_INJECTOR, "Plasmid Injector")
+		provider.add(EMI.INCUBATOR, "Incubator")
+		provider.add(EMI.CELL_DUPE, "Cell Duplication")
+		provider.add(EMI.SET_ENTITY, "Set Potion Entity")
+		provider.add(EMI.VIRUS, "Virus Cultivation")
+		provider.add(EMI.GMO, "GMO Cell Incubating")
 	}
 
 	const val MOB = "recipe.geneticsresequenced.mob_gene.mob"
@@ -63,6 +75,20 @@ object ModRecipeLang {
 		const val FIREBALL_TAG = "tag.item.geneticsresequenced.activates_shoot_fireball_gene"
 		const val MAGNET_BLACKLIST_TAG = "tag.item.geneticsresequenced.item_magnet_gene_blacklist"
 		const val BLOCKS_MOB_INTERACTION_TAG = "tag.item.geneticsresequenced.prevents_some_mob_interaction"
+
+		private fun emiCategory(name: String) = "emi.category.geneticsresequenced.$name"
+		val BLOOD_PURIFIER = emiCategory("blood_purifier")
+		val CELL_ANALYZER = emiCategory("cell_analyzer")
+		val DNA_EXTRACTOR = emiCategory("dna_extractor")
+		val DNA_DECRYPTOR = emiCategory("dna_decryptor")
+		val PLASMID_INFUSER = emiCategory("plasmid_infuser")
+		val PLASMID_INJECTOR = emiCategory("plasmid_injector")
+		val INCUBATOR = emiCategory("incubator")
+		val CELL_DUPE = emiCategory("cell_dupe")
+		val SET_ENTITY = emiCategory("set_entity")
+		val VIRUS = emiCategory("virus")
+		val GMO = emiCategory("gmo")
+
 	}
 
 }
