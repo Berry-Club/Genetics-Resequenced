@@ -1,10 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
+import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.LivingEntity
@@ -21,6 +24,17 @@ class GeneCheckerItem(properties: Properties) : Item(properties) {
 		if (!level.isClientSide) {
 			val targetEntity = OtherUtil.getLookedAtEntity(player) as? LivingEntity ?: player
 
+			tellHeldGenes(player, targetEntity)
+			tellPossibleGenes(player, targetEntity)
+		}
+
+		return InteractionResultHolder.success(usedStack)
+	}
+
+	companion object {
+		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
+
+		private fun tellHeldGenes(player: Player, targetEntity: LivingEntity) {
 			val targetGeneHolders = targetEntity.geneHolders
 
 			val component = if (targetGeneHolders.isEmpty()) {
@@ -42,11 +56,36 @@ class GeneCheckerItem(properties: Properties) : Item(properties) {
 			player.sendSystemMessage(component)
 		}
 
-		return InteractionResultHolder.success(usedStack)
-	}
+		private fun tellPossibleGenes(player: Player, targetEntityGenes: LivingEntity) {
+			val possibleGenes = EntityGenes.getGeneHolderWeights(targetEntityGenes.type, player.registryAccess())
 
-	companion object {
-		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
+			if (possibleGenes.isEmpty()) {
+				player.sendSystemMessage(
+					ModMessageLang.GENE_CHECKER_NO_POSSIBLE_GENES.toComponent(targetEntityGenes.name)
+				)
+				return
+			}
+
+			val genesComponent = Component.empty()
+
+			val entries = possibleGenes.toList()
+			for ((i, entry) in entries.withIndex()) {
+				val (geneHolder, weight) = entry
+
+				genesComponent
+					.append("•  ")
+					.append(ModMessageLang.GENE_WEIGHT.toComponent(geneHolder.getName(), weight))
+
+				if (i != entries.lastIndex) {
+					genesComponent.append("\n")
+				}
+			}
+
+			player.sendSystemMessage(
+				ModMessageLang.GENE_CHECKER_POSSIBLE_GENES.toComponent(targetEntityGenes.name, genesComponent)
+			)
+		}
+
 	}
 
 }

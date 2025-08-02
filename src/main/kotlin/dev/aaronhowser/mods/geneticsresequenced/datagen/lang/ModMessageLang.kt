@@ -33,6 +33,9 @@ object ModMessageLang {
 		provider.add(GENE_CHECKER_SELF_LIST, "You have the following Genes:\n%s")
 		provider.add(GENE_CHECKER_TARGET_NO_GENES, "%s has no Genes!")
 		provider.add(GENE_CHECKER_TARGET_LIST, "%s has the following Genes:\n%s")
+		provider.add(GENE_CHECKER_POSSIBLE_GENES, "%s can provide the following Genes:\n%s")
+		provider.add(GENE_CHECKER_NO_POSSIBLE_GENES, "%s cannot provide any Genes")
+		provider.add(GENE_WEIGHT, "%s with weight %d")
 	}
 
 	const val SCRAPER_CANT_SCRAPE = "message.geneticsresequenced.scraper.cant_scrape"
@@ -65,5 +68,8 @@ object ModMessageLang {
 	const val GENE_CHECKER_SELF_LIST = "message.geneticsresequenced.gene_checker.list"
 	const val GENE_CHECKER_TARGET_NO_GENES = "message.geneticsresequenced.gene_checker.target.no_genes"
 	const val GENE_CHECKER_TARGET_LIST = "message.geneticsresequenced.gene_checker.target.list"
+	const val GENE_CHECKER_POSSIBLE_GENES = "message.geneticsresequenced.gene_checker.target.possible_genes"
+	const val GENE_CHECKER_NO_POSSIBLE_GENES = "message.geneticsresequenced.gene_checker.target.no_possible_genes"
+	const val GENE_WEIGHT = "message.geneticsresequenced.gene_weight"
 
 }
