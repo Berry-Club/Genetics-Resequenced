@@ -20,8 +20,7 @@ import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 import net.neoforged.neoforge.registries.DataPackRegistryEvent
 
 @EventBusSubscriber(
-	modid = GeneticsResequenced.ID,
-	bus = EventBusSubscriber.Bus.MOD
+	modid = GeneticsResequenced.ID
 )
 object ModBusEvents {
 

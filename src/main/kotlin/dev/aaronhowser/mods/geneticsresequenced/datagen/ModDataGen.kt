@@ -19,10 +19,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper
 import net.neoforged.neoforge.data.event.GatherDataEvent
 import java.util.concurrent.CompletableFuture
 
-@EventBusSubscriber(
-	modid = GeneticsResequenced.ID,
-	bus = EventBusSubscriber.Bus.MOD
-)
+@EventBusSubscriber(modid = GeneticsResequenced.ID)
 object ModDataGen {
 
 	@SubscribeEvent

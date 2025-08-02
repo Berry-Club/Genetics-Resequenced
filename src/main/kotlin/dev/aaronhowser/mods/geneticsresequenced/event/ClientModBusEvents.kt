@@ -21,7 +21,6 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
 
 @EventBusSubscriber(
 	modid = GeneticsResequenced.ID,
-	bus = EventBusSubscriber.Bus.MOD,
 	value = [Dist.CLIENT]
 )
 object ClientModBusEvents {
