@@ -2,15 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.item.DragonHealthCrystal
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
-import net.minecraft.resources.ResourceKey
-import net.minecraft.world.damagesource.DamageSource
-import net.minecraft.world.damagesource.DamageType
 import net.minecraft.world.damagesource.DamageTypes
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
@@ -22,47 +18,72 @@ import net.minecraft.world.item.AxeItem
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.NeoForgeMod
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 
 object DamageGenes {
 
 	// Canceling
 
-	@JvmStatic
-	fun checkDamageImmunities(
-		entity: LivingEntity,
-		damageSource: DamageSource
-	): Boolean {
+	fun handleNoFallDamage(event: LivingIncomingDamageEvent) {
+		val entity = event.entity
+		val noFallDamage = ModGenes.NO_FALL_DAMAGE.getHolderOrThrow(entity.registryAccess())
+		if (noFallDamage.isDisabled) return
 
-		fun check(
-			typeTag: ResourceKey<DamageType>,
-			geneRk: ResourceKey<Gene>,
-			ifTrue: Runnable = Runnable { },
-		): Boolean {
-			val geneHolder = geneRk.getHolderOrThrow(entity.registryAccess())
-			if (geneHolder.isDisabled) return false
+		if (!event.source.`is`(DamageTypes.FALL)) return
 
-			val isImmune = damageSource.`is`(typeTag) && entity.hasGene(geneRk)
-
-			if (isImmune) {
-				ifTrue.run()
-			}
-
-			return isImmune
+		if (entity.hasGene(ModGenes.NO_FALL_DAMAGE)) {
+			event.amount = 0f
 		}
+	}
 
-		return check(DamageTypes.FALL, ModGenes.NO_FALL_DAMAGE)
-				|| check(DamageTypes.WITHER, ModGenes.WITHER_PROOF) {
+	fun handleWitherProof(event: LivingIncomingDamageEvent) {
+		val entity = event.entity
+		val witherProof = ModGenes.WITHER_PROOF.getHolderOrThrow(entity.registryAccess())
+		if (witherProof.isDisabled) return
+
+		if (!event.source.`is`(DamageTypes.WITHER)) return
+
+		if (entity.hasGene(ModGenes.WITHER_PROOF)) {
 			entity.removeEffect(MobEffects.WITHER)
+			event.amount = 0f
 		}
-				|| check(DamageTypes.IN_FIRE, ModGenes.FIRE_PROOF) {
+	}
+
+	fun handleFireProof(event: LivingIncomingDamageEvent) {
+		val entity = event.entity
+		val fireProof = ModGenes.FIRE_PROOF.getHolderOrThrow(entity.registryAccess())
+		if (fireProof.isDisabled) return
+
+		if (!event.source.`is`(DamageTypes.IN_FIRE) && !event.source.`is`(DamageTypes.ON_FIRE)) return
+
+		if (entity.hasGene(ModGenes.FIRE_PROOF)) {
 			entity.clearFire()
+			event.amount = 0f
 		}
-				|| check(DamageTypes.ON_FIRE, ModGenes.FIRE_PROOF) {
-			entity.clearFire()
+	}
+
+	fun handleLavaProof(event: LivingIncomingDamageEvent) {
+		val entity = event.entity
+		val lavaProof = ModGenes.LAVA_PROOF.getHolderOrThrow(entity.registryAccess())
+		if (lavaProof.isDisabled) return
+
+		if (!event.source.`is`(DamageTypes.LAVA)) return
+
+		if (entity.hasGene(ModGenes.LAVA_PROOF)) {
+			event.amount = 0f
 		}
-				|| check(DamageTypes.LAVA, ModGenes.LAVA_PROOF)
-				|| check(NeoForgeMod.POISON_DAMAGE, ModGenes.POISON_IMMUNITY) {
+	}
+
+	fun handlePoisonProof(event: LivingIncomingDamageEvent) {
+		val entity = event.entity
+		val poisonImmunity = ModGenes.POISON_IMMUNITY.getHolderOrThrow(entity.registryAccess())
+		if (poisonImmunity.isDisabled) return
+
+		if (!event.source.`is`(NeoForgeMod.POISON_DAMAGE)) return
+
+		if (entity.hasGene(ModGenes.POISON_IMMUNITY)) {
 			entity.removeEffect(MobEffects.POISON)
+			event.amount = 0f
 		}
 	}
 

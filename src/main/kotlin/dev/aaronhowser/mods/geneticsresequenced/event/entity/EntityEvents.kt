@@ -17,6 +17,7 @@ import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent
 import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
+import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 import net.neoforged.neoforge.event.level.ExplosionEvent
 import net.neoforged.neoforge.event.tick.EntityTickEvent
 
@@ -35,6 +36,15 @@ object EntityEvents {
 	@SubscribeEvent
 	fun onDetonate(event: ExplosionEvent.Detonate) {
 		DeathGenes.explosiveExitDetonation(event)
+	}
+
+	@SubscribeEvent
+	fun onLivingAboutToBeDamaged(event: LivingIncomingDamageEvent) {
+		DamageGenes.handleNoFallDamage(event)
+		DamageGenes.handleWitherProof(event)
+		DamageGenes.handleFireProof(event)
+		DamageGenes.handleLavaProof(event)
+		DamageGenes.handlePoisonProof(event)
 	}
 
 	@SubscribeEvent
