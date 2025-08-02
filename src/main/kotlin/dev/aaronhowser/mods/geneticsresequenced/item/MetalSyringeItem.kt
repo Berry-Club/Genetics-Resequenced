@@ -78,10 +78,8 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 
 			setContaminated(pStack, true)
 
-			targetEntity.apply {
-				hurt(damageSourceUseSyringe(pLevel, pLivingEntity), 1f)
-				addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
-			}
+			targetEntity.hurt(damageSourceUseSyringe(pLevel, pLivingEntity), 1f)
+			targetEntity.addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
 		}
 	}
 
@@ -135,19 +133,15 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 
 		private fun tryInjectBlood(
 			syringeStack: ItemStack,
-			pPlayer: Player,
+			player: Player,
 			pInteractionTarget: LivingEntity
 		) {
+			if (player.level().isClientSide) return
+
 			val entityUuid = SpecificEntityItemComponent.getEntityUuid(syringeStack) ?: return
 
-			fun sendMessage(message: Component) {
-				if (!pPlayer.level().isClientSide) {
-					pPlayer.sendSystemMessage(message)
-				}
-			}
-
 			if (entityUuid != pInteractionTarget.uuid) {
-				sendMessage(ModLanguageProvider.Messages.METAL_SYRINGE_MISMATCH.toComponent())
+				player.sendSystemMessage(ModLanguageProvider.Messages.METAL_SYRINGE_MISMATCH.toComponent())
 				return
 			}
 
@@ -155,9 +149,9 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 				val syringeGenes = getGenes(syringeStack)
 				val genesCantAdd = syringeGenes.filterNot { it.value().canEntityHave(pInteractionTarget) }
 				for (geneHolder in genesCantAdd) {
-					sendMessage(
+					player.sendSystemMessage(
 						ModLanguageProvider.Messages.METAL_SYRINGE_NO_MOBS.toComponent(
-							Gene.getNameComponent(geneHolder)
+							geneHolder.getName()
 						)
 					)
 				}

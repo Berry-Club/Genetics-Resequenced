@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModLanguageProvider.Comp
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModDamageTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -120,7 +121,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			)
 
 			for (geneHolder in addingGenes) {
-				val nameComponent = Gene.getNameComponent(geneHolder)
+				val nameComponent = geneHolder.getName()
 
 				val component = Component
 					.literal("• ")
@@ -141,7 +142,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			)
 
 			for (geneHolder in removingGenes) {
-				val nameComponent = Gene.getNameComponent(geneHolder)
+				val nameComponent = geneHolder.getName()
 
 				val component = Component
 					.literal("• ")
@@ -195,11 +196,11 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			removeGenes(entity, genesToRemove)
 
 			clearGenes(syringeStack)
+			clearAntigenes(syringeStack)
 			setEntity(syringeStack, null)
 		}
 
 		private fun removeGenes(entity: LivingEntity, syringeAntigenes: Set<Holder<Gene>>) {
-
 			val entityGenesBefore = entity.geneHolders
 
 			for (antigene in syringeAntigenes) {
@@ -210,12 +211,11 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			val genesRemoved = entityGenesBefore - entityGenesAfter
 			val genesNotRemoved = syringeAntigenes - genesRemoved
 
-			if (entity.level().isClientSide) {
-
+			if (!entity.level().isClientSide) {
 				for (removedGeneHolder in genesRemoved) {
 					entity.sendSystemMessage(
 						ModLanguageProvider.Messages.SYRINGE_REMOVE_GENES_SUCCESS.toComponent(
-							Gene.getNameComponent(removedGeneHolder)
+							removedGeneHolder.getName()
 						)
 					)
 				}
@@ -298,6 +298,10 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 
 		private fun clearGenes(syringeStack: ItemStack) {
 			syringeStack.remove(ModDataComponents.GENE_SET)
+		}
+
+		private fun clearAntigenes(syringeStack: ItemStack) {
+			syringeStack.remove(ModDataComponents.ANTIGENE_SET)
 		}
 
 		fun isContaminated(syringeStack: ItemStack): Boolean {
