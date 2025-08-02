@@ -32,9 +32,10 @@ abstract class AbstractIncubatorRecipe(
 		}
 
 		fun isValidTopIngredient(level: Level, itemStack: ItemStack): Boolean {
-			val usedInIncubatorRecipe = getIncubatorRecipes(level.recipeManager).any { recipeHolder ->
-				recipeHolder.value.topIngredient.test(itemStack)
-			}
+			val usedInIncubatorRecipe = getIncubatorRecipes(level.recipeManager)
+				.any { recipeHolder ->
+					recipeHolder.value.topIngredient.test(itemStack)
+				}
 
 			val usedInBrewingRecipe = level.potionBrewing().isIngredient(itemStack)
 

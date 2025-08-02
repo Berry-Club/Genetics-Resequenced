@@ -25,7 +25,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
-class BlackDeathRecipe private constructor() : AbstractIncubatorRecipe(
+object BlackDeathRecipe : AbstractIncubatorRecipe(
 	topIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
 	bottomIngredient = Ingredient.of(ModItemTagsProvider.SYRINGES)
 ) {
@@ -57,6 +57,12 @@ class BlackDeathRecipe private constructor() : AbstractIncubatorRecipe(
 		return ModRecipeSerializers.BLACK_DEATH.get()
 	}
 
+	fun getRequiredGenes(lookup: HolderLookup.Provider): List<Holder<Gene>> {
+		return ModGenes.getRegistrySorted(lookup)
+			.filter { it.isNegative && !it.isHelixOnly && !it.isDisabled }
+			.minus(ModGenes.BLACK_DEATH.getHolderOrThrow(lookup))
+	}
+
 	class Serializer : RecipeSerializer<BlackDeathRecipe> {
 		override fun codec(): MapCodec<BlackDeathRecipe> {
 			return CODEC
@@ -67,22 +73,12 @@ class BlackDeathRecipe private constructor() : AbstractIncubatorRecipe(
 		}
 
 		companion object {
-			val CODEC: MapCodec<BlackDeathRecipe> = MapCodec.unit(INSTANCE)
+			val CODEC: MapCodec<BlackDeathRecipe> = MapCodec.unit(BlackDeathRecipe)
 
 			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, BlackDeathRecipe> =
-				StreamCodec.unit(INSTANCE)
+				StreamCodec.unit(BlackDeathRecipe)
 		}
 
-	}
-
-	companion object {
-		val INSTANCE = BlackDeathRecipe()
-
-		fun getRequiredGenes(lookup: HolderLookup.Provider): List<Holder<Gene>> {
-			return ModGenes.getRegistrySorted(lookup)
-				.filter { it.isNegative && !it.isHelixOnly && !it.isDisabled }
-				.minus(ModGenes.BLACK_DEATH.getHolderOrThrow(lookup))
-		}
 	}
 
 }
