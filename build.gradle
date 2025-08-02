@@ -4,10 +4,12 @@ plugins {
 	id 'java-library'
 	id 'idea'
 	id 'maven-publish'
-	id 'net.neoforged.moddev' version '1.0.11'
+	id 'net.neoforged.moddev' version '2.0.91'
 
-	id 'org.jetbrains.kotlin.jvm' version '2.0.0'
+	id 'org.jetbrains.kotlin.jvm' version '2.1.21'
 }
+
+var ENV = System.getenv()
 
 version = mod_version
 group = mod_group_id
