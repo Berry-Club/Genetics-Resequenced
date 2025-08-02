@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.a
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModItemLang
-import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
@@ -15,6 +14,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.isClientSide
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderSet
@@ -235,25 +235,17 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		}
 
 		private fun addGenes(entity: LivingEntity, syringeGenes: Set<Holder<Gene>>) {
-
 			val entityGenesBefore = entity.geneHolders
 
-			val genesToAdd = if (entity is Player) {
-				syringeGenes
-			} else {
-				syringeGenes
-			}
-
-			for (gene in genesToAdd) {
+			for (gene in syringeGenes) {
 				entity.addGene(gene)
 			}
 
 			val entityGenesAfter = entity.geneHolders
 			val genesAdded = entityGenesAfter - entityGenesBefore
-			val genesNotAdded = genesToAdd - genesAdded
+			val genesNotAdded = syringeGenes - genesAdded
 
-			if (entity.level().isClientSide) {
-
+			if (!entity.isClientSide) {
 				for (addedGeneHolder in genesAdded) {
 					entity.sendSystemMessage(
 						ModMessageLang.SYRINGE_INJECTED.toComponent(
