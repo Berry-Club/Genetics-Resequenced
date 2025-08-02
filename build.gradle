@@ -35,16 +35,26 @@ neoForge {
 			logLevel = org.slf4j.event.Level.DEBUG
 		}
 
-		client {
+		"Client-One" {
 			client()
 			systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-			programArguments.addAll '--username', '1aaron5', '--uuid', '13027fdbaac9491b9d93c7e2f791d846'
+
+			if (ENV.MC_CLIENT_ARGS) {
+				programArguments.addAll(ENV.MC_CLIENT_ARGS.split(' '))
+			}
+
+			gameDirectory = file 'runs/client'
 		}
 
-		clientTwo {
+		"Client-Two" {
 			client()
 			systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
-			programArguments.addAll '--username', 'PlayerTwo'
+
+			gameDirectory = file 'runs/client'
+
+			if (ENV.MC_CLIENT_2_ARGS) {
+				programArguments.addAll(ENV.MC_CLIENT_2_ARGS.split(' '))
+			}
 		}
 
 		server {
