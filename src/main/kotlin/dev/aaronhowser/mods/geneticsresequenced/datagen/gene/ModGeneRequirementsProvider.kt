@@ -41,17 +41,18 @@ class ModGeneRequirementsProvider(
 	}
 
 	override fun gather() {
-		this.addRequirements(ModGenes.CLAWS_TWO, ModGenes.CLAWS)
-		this.addRequirements(ModGenes.EFFICIENCY_FOUR, ModGenes.EFFICIENCY)
-		this.addRequirements(ModGenes.FLIGHT, ModGenes.TELEPORT, ModGenes.STEP_ASSIST, ModGenes.NO_FALL_DAMAGE)
-		this.addRequirements(ModGenes.HASTE_TWO, ModGenes.HASTE)
-		this.addRequirements(ModGenes.MEATY_TWO, ModGenes.MEATY)
-		this.addRequirements(ModGenes.MORE_HEARTS_TWO, ModGenes.MORE_HEARTS)
-		this.addRequirements(ModGenes.PHOTOSYNTHESIS, ModGenes.EAT_GRASS, ModGenes.THORNS)
-		this.addRequirements(ModGenes.REGENERATION_FOUR, ModGenes.REGENERATION)
-		this.addRequirements(ModGenes.RESISTANCE_TWO, ModGenes.RESISTANCE)
-		this.addRequirements(ModGenes.SPEED_FOUR, ModGenes.SPEED, ModGenes.SPEED_TWO) //TODO: See if this is needed
-		this.addRequirements(ModGenes.SPEED_TWO, ModGenes.SPEED)
-		this.addRequirements(ModGenes.STRENGTH_TWO, ModGenes.STRENGTH)
+		addRequirements(ModGenes.CLAWS_TWO, ModGenes.CLAWS)
+		addRequirements(ModGenes.EFFICIENCY_FOUR, ModGenes.EFFICIENCY)
+		addRequirements(ModGenes.FLIGHT, ModGenes.TELEPORT, ModGenes.STEP_ASSIST, ModGenes.NO_FALL_DAMAGE)
+		addRequirements(ModGenes.HASTE_TWO, ModGenes.HASTE)
+		addRequirements(ModGenes.MEATY_TWO, ModGenes.MEATY)
+		addRequirements(ModGenes.MORE_HEARTS_TWO, ModGenes.MORE_HEARTS)
+		addRequirements(ModGenes.PHOTOSYNTHESIS, ModGenes.EAT_GRASS, ModGenes.THORNS)
+		addRequirements(ModGenes.REGENERATION_FOUR, ModGenes.REGENERATION)
+		addRequirements(ModGenes.RESISTANCE_TWO, ModGenes.RESISTANCE)
+		addRequirements(ModGenes.SPEED_FOUR, ModGenes.SPEED, ModGenes.SPEED_TWO) //TODO: See if this is needed
+		addRequirements(ModGenes.SPEED_TWO, ModGenes.SPEED)
+		addRequirements(ModGenes.STRENGTH_TWO, ModGenes.STRENGTH)
+		addRequirements(ModGenes.LAVA_PROOF, ModGenes.FIRE_PROOF)
 	}
 }
