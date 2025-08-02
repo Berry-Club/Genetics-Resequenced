@@ -44,7 +44,6 @@ class NegativeGenesCategoryProvider(
 			index++
 		}
 
-		addEntry(badOmen())
 		addEntry(blindness())
 		addEntry(cringe())
 		addEntry(cursed())
@@ -67,24 +66,6 @@ class NegativeGenesCategoryProvider(
 		addEntry(unUndeath())
 		addEntry(whiteDeath())
 		addEntry(blackDeath())
-	}
-
-	private fun badOmen(): BookEntryModel {
-		val entry = object : GeneEntryProvider(
-			realThis,
-			ModGenes.BAD_OMEN,
-			"Bad Omen",
-			mcLoc("textures/mob_effect/bad_omen.png")
-		) {
-			override fun firstPages() {
-				textPage(
-					"Bad Omen",
-					"The ${major("Bad Omen")} gives entities the ${bad("Bad Omen")} effect."
-				)
-			}
-		}
-
-		return entry.generate()
 	}
 
 	private fun blindness(): BookEntryModel {

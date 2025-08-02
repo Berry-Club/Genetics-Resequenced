@@ -78,7 +78,6 @@ object ModGeneLang {
 		addGene(ModGenes.MOB_SIGHT, "Mob Sight")
 		addGene(ModGenes.REACHING, "Reaching")
 		addGene(ModGenes.REGENERATION, "Regeneration")
-		addGene(ModGenes.BAD_OMEN, "Bad Omen")
 		addGene(ModGenes.CRINGE, "Cringe")
 		addGene(ModGenes.POISON, "Poison")
 		addGene(ModGenes.POISON_FOUR, "Poison IV")

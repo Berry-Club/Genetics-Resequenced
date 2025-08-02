@@ -98,7 +98,6 @@ object ModInfoLang {
 		addGeneInfo(ModGenes.CHATTERBOX, "Your chat messages are automatically read by the narrator (within 64 blocks).\n\nCan be disabled in the client config.")
 		addGeneInfo(ModGenes.CRINGE, "Makes you a Discord moderator.\n\n(UwU-fies your outgoing chat messages, and sets your language to LOLCAT)")
 		addGeneInfo(ModGenes.KNOCKBACK, "Increases the knockback of your attacks.")
-		addGeneInfo(ModGenes.BAD_OMEN, "Inflicts the Bad Omen potion effect.")
 		addGeneInfo(ModGenes.JOHNNY, "Deal more damage using Axes")
 		addGeneInfo(ModGenes.CHILLING, "Has a chance of inflicting freezing damage on hit.")
 		addGeneInfo(ModGenes.REACHING, "Increases your reach by 1.25 times.")

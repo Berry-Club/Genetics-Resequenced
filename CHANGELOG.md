@@ -329,3 +329,7 @@
 - Immunity Genes now use isInvulnerableTo rather than setting the damage amount to 0, so you no longer flinch from those damages
 - Fixed Antigenes not being removed from Syringes when used (#53)
 - Fix Black Death recipe (#63)
+
+# 1.6.1
+
+- Removed the Bad Omen Gene, since it functions radically differently than other effects

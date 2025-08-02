@@ -58,7 +58,6 @@ class ModGeneTagsProvider(
 
 		this.tag(NEGATIVE)
 			.add(
-				ModGenes.BAD_OMEN,
 				ModGenes.BLINDNESS,
 				ModGenes.CRINGE,
 				ModGenes.CURSED,

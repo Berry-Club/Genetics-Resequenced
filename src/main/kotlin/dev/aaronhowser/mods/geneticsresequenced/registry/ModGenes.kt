@@ -141,8 +141,6 @@ object ModGenes {
 
 	//Negative effects
 
-	//FIXME: This effect apparently has a sound on add now, probably want to remove that
-	val BAD_OMEN = resourceKey("bad_omen")
 	val BLINDNESS = resourceKey("blindness")
 	val CRINGE = resourceKey("cringe")
 	val CURSED = resourceKey("cursed")

@@ -632,20 +632,6 @@ class ModGeneProvider : RegistrySetBuilder() {
 
 			//Negative effects
 
-			//FIXME: This effect apparently has a sound on add now, probably want to remove that
-
-			context.register(
-				ModGenes.BAD_OMEN,
-				makeGene(
-					dnaPointsRequired = 20,
-					potionDetails = Optional.of(
-						PotionDetails(
-							effect = MobEffects.BAD_OMEN
-						)
-					)
-				)
-			)
-
 			context.register(
 				ModGenes.BLINDNESS,
 				makeGene(
