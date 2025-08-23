@@ -36,7 +36,7 @@ class ModRecipeProvider(
 		setAntiPlasmid.save(pRecipeOutput, OtherUtil.modResource("set_anti_plasmid"))
 		unsetAntiPlasmid.save(pRecipeOutput, OtherUtil.modResource("unset_anti_plasmid"))
 
-		for (basicIncubatorRecipe in basicIncubatorRecipe) {
+		for (basicIncubatorRecipe in basicIncubatorRecipes) {
 			basicIncubatorRecipe.save(pRecipeOutput)
 		}
 
@@ -257,7 +257,7 @@ class ModRecipeProvider(
 
 	//TODO: Make Patchouli datagen eventually too
 
-	private val basicIncubatorRecipe = listOf(
+	private val basicIncubatorRecipes = listOf(
 		BasicIncubatorRecipeBuilder(
 			DataComponentIngredient.of(
 				false,
