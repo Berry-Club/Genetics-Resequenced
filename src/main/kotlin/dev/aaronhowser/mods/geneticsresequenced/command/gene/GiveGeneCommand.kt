@@ -1,13 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
-import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
-import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_STRINGS
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -22,64 +20,34 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
-object AddGeneCommand {
+object GiveGeneCommand {
 
-	private const val GENE_RL_ARGUMENT = "geneRl"
-	private const val GENE_STRING_ARGUMENT = "geneString"
+	private const val GENE_ID_ARGUMENT = "gene_id"
 	private const val TARGET_ARGUMENT = "targets"
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return Commands
-			.literal("add")
+			.literal("give")
 			.requires { it.hasPermission(2) }
 			.then(
 				Commands
-					.literal("fromString")
+					.argument(GENE_ID_ARGUMENT, ResourceLocationArgument.id())
+					.suggests(SUGGEST_GENE_RLS)
+					.executes { cmd ->
+						addGene(
+							cmd,
+							ResourceLocationArgument.getId(cmd, GENE_ID_ARGUMENT),
+							entities = null
+						)
+					}
 					.then(
 						Commands
-							.argument(GENE_STRING_ARGUMENT, StringArgumentType.string())
-							.suggests(SUGGEST_GENE_STRINGS)
-							.then(
-								Commands.argument(TARGET_ARGUMENT, EntityArgument.entities())
-									.executes { cmd ->
-										addGene(
-											cmd,
-											StringArgumentType.getString(cmd, GENE_STRING_ARGUMENT),
-											EntityArgument.getEntities(cmd, TARGET_ARGUMENT)
-										)
-									}
-							)
+							.argument(TARGET_ARGUMENT, EntityArgument.entities())
 							.executes { cmd ->
 								addGene(
 									cmd,
-									StringArgumentType.getString(cmd, GENE_STRING_ARGUMENT),
-									entities = null
-								)
-							}
-					)
-			)
-			.then(
-				Commands.literal("fromId")
-					.then(
-						Commands
-							.argument(GENE_RL_ARGUMENT, ResourceLocationArgument.id())
-							.suggests(SUGGEST_GENE_RLS)
-							.then(
-								Commands
-									.argument(TARGET_ARGUMENT, EntityArgument.entities())
-									.executes { cmd ->
-										addGene(
-											cmd,
-											ResourceLocationArgument.getId(cmd, GENE_RL_ARGUMENT),
-											EntityArgument.getEntities(cmd, TARGET_ARGUMENT)
-										)
-									}
-							)
-							.executes { cmd ->
-								addGene(
-									cmd,
-									ResourceLocationArgument.getId(cmd, GENE_RL_ARGUMENT),
-									entities = null
+									ResourceLocationArgument.getId(cmd, GENE_ID_ARGUMENT),
+									EntityArgument.getEntities(cmd, TARGET_ARGUMENT)
 								)
 							}
 					)

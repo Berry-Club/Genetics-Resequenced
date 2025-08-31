@@ -12,8 +12,8 @@ object GeneCommand {
 			.literal("gene")
 			.then(ListGenesCommand.register())
 			.then(ListAllGenesCommand.register())
-			.then(AddGeneCommand.register())
-			.then(AddAllGenesCommand.register())
+			.then(GiveGeneCommand.register())
+			.then(GiveAlGenesCommand.register())
 			.then(RemoveGeneCommand.register())
 			.then(RemoveAllGenesCommand.register())
 	}

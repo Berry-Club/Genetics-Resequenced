@@ -333,3 +333,5 @@
 # 1.6.1
 
 - Removed the Bad Omen Gene, since it functions radically differently than other effects
+- Reworked the give genes command, it now uses the syntax `/genetics gene give <gene_id> <targets>`
+  - Removes the old `/genetics gene add [fromString/fromRl] <gene> <targets>` thing, which was disgusting

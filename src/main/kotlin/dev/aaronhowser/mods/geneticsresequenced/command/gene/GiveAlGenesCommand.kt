@@ -14,29 +14,38 @@ import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
-object AddAllGenesCommand {
+object GiveAlGenesCommand {
 
 	private const val TARGET_ARGUMENT = "targets"
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return Commands
-			.literal("addAll")
+			.literal("give_all")
 			.requires { it.hasPermission(2) }
+			.executes { cmd ->
+				giveAllGenes(
+					cmd,
+					listOf(cmd.source.entityOrException)
+				)
+			}
 			.then(
 				Commands
 					.argument(TARGET_ARGUMENT, EntityArgument.entities())
-					.executes { cmd -> addAllGenes(cmd, EntityArgument.getEntities(cmd, TARGET_ARGUMENT)) }
+					.executes { cmd ->
+						giveAllGenes(
+							cmd,
+							EntityArgument.getEntities(cmd, TARGET_ARGUMENT).toList()
+						)
+					}
 			)
-			.executes { cmd -> addAllGenes(cmd) }
 	}
 
-	private fun addAllGenes(
+	private fun giveAllGenes(
 		context: CommandContext<CommandSourceStack>,
-		entities: MutableCollection<out Entity>? = null
+		entities: List<Entity>
 	): Int {
-
-		val targets: List<LivingEntity> =
-			entities?.mapNotNull { it as? LivingEntity } ?: listOfNotNull(context.source.entity as? LivingEntity)
+		val targets: List<LivingEntity> = entities.filterIsInstance<LivingEntity>()
+		if (targets.isEmpty()) return 0
 
 		if (targets.size == 1) {
 			handleSingleTarget(context, targets.first())
@@ -48,7 +57,6 @@ object AddAllGenesCommand {
 	}
 
 	private fun handleMultipleTargets(context: CommandContext<CommandSourceStack>, targets: List<LivingEntity>) {
-
 		for (target in targets) {
 			val genesToAdd =
 				ModGenes
@@ -60,10 +68,8 @@ object AddAllGenesCommand {
 			}
 		}
 
-		val component =
-			ModLanguageProvider.Commands.ADD_ALL_MULTIPLE.toComponent(
-				targets.size
-			)
+		val component = ModLanguageProvider.Commands.ADD_ALL_MULTIPLE
+				.toComponent(targets.size)
 
 		context.source.sendSuccess({ component }, false)
 	}
@@ -78,10 +84,8 @@ object AddAllGenesCommand {
 			target.addGene(gene)
 		}
 
-		val component =
-			ModLanguageProvider.Commands.ADD_ALL_SINGLE.toComponent(
-				target.name
-			)
+		val component = ModLanguageProvider.Commands.ADD_ALL_SINGLE
+				.toComponent(target.name)
 
 		context.source.sendSuccess({ component }, false)
 	}
