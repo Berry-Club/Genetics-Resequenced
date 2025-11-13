@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server
 
+import dev.aaronhowser.mods.aaron.packet.ModPacket
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.PacketGenes
-import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
 import net.minecraft.network.codec.StreamCodec
@@ -9,13 +9,11 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload
 import net.minecraft.server.level.ServerPlayer
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
-class FireballPacket private constructor() : ModPacket {
+class FireballPacket private constructor() : ModPacket() {
 
-	override fun receiveOnServer(context: IPayloadContext) {
-		context.enqueueWork {
-			val sender = context.player() as? ServerPlayer ?: return@enqueueWork
-			PacketGenes.dragonBreath(sender)
-		}
+	override fun handleOnServer(context: IPayloadContext) {
+		val sender = context.player() as? ServerPlayer ?: return
+		PacketGenes.dragonBreath(sender)
 	}
 
 	override fun type(): CustomPacketPayload.Type<FireballPacket> = TYPE

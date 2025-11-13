@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 
+import dev.aaronhowser.mods.aaron.packet.ModPacket
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeAllGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
@@ -18,22 +18,21 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 data class SetGenesPacket(
 	val entityId: Int,
 	val geneSet: HolderSet<Gene>
-) : ModPacket {
+) : ModPacket() {
 
 	constructor(
 		entityId: Int,
 		genes: Collection<Holder<Gene>>
 	) : this(entityId, HolderSet.direct(*genes.toTypedArray()))
 
-	override fun receiveOnClient(context: IPayloadContext) {
-		context.enqueueWork {
-			val entity = context.player().level().getEntity(this.entityId) as? LivingEntity ?: return@enqueueWork
+	override fun handleOnClient(context: IPayloadContext) {
+		val level = context.player().level()
+		val entity = level.getEntity(this.entityId) as? LivingEntity ?: return
 
-			entity.removeAllGenes()
+		entity.removeAllGenes()
 
-			for (gene in this.geneSet) {
-				entity.addGene(gene)
-			}
+		for (gene in this.geneSet) {
+			entity.addGene(gene)
 		}
 	}
 

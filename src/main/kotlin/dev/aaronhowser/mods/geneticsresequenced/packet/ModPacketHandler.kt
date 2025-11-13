@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet
 
+import dev.aaronhowser.mods.aaron.packet.ModPacketRegistrar
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.TeleportPlayerPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
@@ -16,7 +17,7 @@ import net.neoforged.neoforge.network.PacketDistributor
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 import net.neoforged.neoforge.network.registration.PayloadRegistrar
 
-object ModPacketHandler {
+object ModPacketHandler : ModPacketRegistrar {
 
 	fun registerPayloads(event: RegisterPayloadHandlersEvent) {
 		val registrar = event.registrar("1")
@@ -56,49 +57,6 @@ object ModPacketHandler {
 			TeleportPlayerPacket.TYPE,
 			TeleportPlayerPacket.STREAM_CODEC
 		)
-	}
-
-	fun messageNearbyPlayers(packet: ModPacket, serverLevel: ServerLevel, origin: Vec3, radius: Double) {
-		for (player in serverLevel.players()) {
-			val distance = player.distanceToSqr(origin.x(), origin.y(), origin.z())
-			if (distance < radius * radius) {
-				messagePlayer(player, packet)
-			}
-		}
-	}
-
-	fun messagePlayer(player: ServerPlayer, packet: ModPacket) {
-		PacketDistributor.sendToPlayer(player, packet)
-	}
-
-	fun messageAllPlayers(packet: ModPacket) {
-		PacketDistributor.sendToAllPlayers(packet)
-	}
-
-	fun messageServer(packet: ModPacket) {
-		PacketDistributor.sendToServer(packet)
-	}
-
-	private fun <T : ModPacket> toClient(
-		registrar: PayloadRegistrar,
-		packetType: CustomPacketPayload.Type<T>,
-		streamCodec: StreamCodec<in RegistryFriendlyByteBuf, T>,
-	) {
-		registrar.playToClient(
-			packetType,
-			streamCodec
-		) { packet, context -> packet.receiveOnClient(context) }
-	}
-
-	private fun <T : ModPacket> toServer(
-		registrar: PayloadRegistrar,
-		packetType: CustomPacketPayload.Type<T>,
-		streamCodec: StreamCodec<in RegistryFriendlyByteBuf, T>
-	) {
-		registrar.playToServer(
-			packetType,
-			streamCodec
-		) { packet, context -> packet.receiveOnServer(context) }
 	}
 
 }

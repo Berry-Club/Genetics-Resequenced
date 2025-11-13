@@ -1,10 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 
+import dev.aaronhowser.mods.aaron.packet.ModPacket
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
-import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -20,23 +20,21 @@ data class GeneChangedPacket(
 	val entityId: Int,
 	val geneHolder: Holder<Gene>,
 	val wasAdded: Boolean
-) : ModPacket {
+) : ModPacket() {
 
-	override fun receiveOnClient(context: IPayloadContext) {
-		context.enqueueWork {
-			// Return if the entity does not exist on the client. This happens when the entity is not being tracked on the client, aka if it's too far away or whatever.
-			val entity = context.player().level().getEntity(entityId) as? LivingEntity ?: return@enqueueWork
+	override fun handleOnClient(context: IPayloadContext) {
+		val level = context.player().level()
+		val entity = level.getEntity(entityId) as? LivingEntity ?: return
 
-			if (this.wasAdded) {
-				entity.addGene(this.geneHolder)
-			} else {
-				entity.removeGene(this.geneHolder)
-			}
-
-			if (this.geneHolder.isGene(ModGenes.CRINGE)) ClientUtil.handleCringe(this.wasAdded)
-
-			this.geneHolder.value().setAttributeModifiers(entity, this.wasAdded)
+		if (this.wasAdded) {
+			entity.addGene(this.geneHolder)
+		} else {
+			entity.removeGene(this.geneHolder)
 		}
+
+		if (this.geneHolder.isGene(ModGenes.CRINGE)) ClientUtil.handleCringe(this.wasAdded)
+
+		this.geneHolder.value().setAttributeModifiers(entity, this.wasAdded)
 	}
 
 	override fun type(): CustomPacketPayload.Type<GeneChangedPacket> = TYPE
