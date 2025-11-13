@@ -69,7 +69,7 @@ object GiveAlGenesCommand {
 		}
 
 		val component = ModLanguageProvider.Commands.ADD_ALL_MULTIPLE
-				.toComponent(targets.size)
+			.toComponent(targets.size)
 
 		context.source.sendSuccess({ component }, false)
 	}
@@ -85,7 +85,7 @@ object GiveAlGenesCommand {
 		}
 
 		val component = ModLanguageProvider.Commands.ADD_ALL_SINGLE
-				.toComponent(target.name)
+			.toComponent(target.name)
 
 		context.source.sendSuccess({ component }, false)
 	}

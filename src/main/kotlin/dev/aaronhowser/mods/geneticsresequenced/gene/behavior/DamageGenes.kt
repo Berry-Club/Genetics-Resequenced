@@ -19,7 +19,6 @@ import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.NeoForgeMod
 import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
-import net.neoforged.neoforge.event.entity.living.LivingIncomingDamageEvent
 
 object DamageGenes {
 

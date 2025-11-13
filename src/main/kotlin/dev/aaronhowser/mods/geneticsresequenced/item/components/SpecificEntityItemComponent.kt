@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.item.components
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.UUIDUtil
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.Component

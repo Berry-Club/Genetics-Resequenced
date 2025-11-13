@@ -1,22 +1,15 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
-import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import io.netty.buffer.ByteBuf
 import net.minecraft.core.Holder
 import net.minecraft.core.Registry
-import net.minecraft.core.Vec3i
 import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
-import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
-import net.minecraft.network.codec.ByteBufCodecs
-import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
-import net.minecraft.tags.TagKey
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
@@ -29,7 +22,6 @@ import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.PotionContents
 import net.minecraft.world.item.enchantment.Enchantment
 import net.minecraft.world.level.ItemLike
-import net.minecraft.world.phys.Vec3
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
