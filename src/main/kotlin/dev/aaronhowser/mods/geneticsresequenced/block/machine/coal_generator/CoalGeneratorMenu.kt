@@ -41,8 +41,7 @@ class CoalGeneratorMenu(
 	init {
 		checkContainerSize(inventory, CoalGeneratorBlockEntity.SIMPLE_CONTAINER_SIZE)
 
-		addPlayerInventory(inventory)
-		addPlayerHotbar(inventory)
+		addPlayerInventorySlots(inventoryY)
 
 		val itemHandler = this.blockEntity.getItemHandler(null)
 

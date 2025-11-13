@@ -20,9 +20,12 @@ import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.Pl
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector.PlasmidInjectorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector.PlasmidInjectorScreen
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.world.flag.FeatureFlags
+import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.MenuType
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
 import net.neoforged.neoforge.common.extensions.IMenuTypeExtension
+import net.neoforged.neoforge.network.IContainerFactory
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 import java.util.function.Supplier
@@ -32,12 +35,12 @@ object ModMenuTypes {
 	val MENU_TYPE_REGISTRY: DeferredRegister<MenuType<*>> =
 		DeferredRegister.create(BuiltInRegistries.MENU, GeneticsResequenced.ID)
 
+	fun <T : AbstractContainerMenu> register(name: String, constructor: MenuType.MenuSupplier<T>): DeferredHolder<MenuType<*>, MenuType<T>> {
+		return MENU_TYPE_REGISTRY.register(name, Supplier { MenuType(constructor, FeatureFlags.DEFAULT_FLAGS) })
+	}
+
 	val COAL_GENERATOR: DeferredHolder<MenuType<*>, MenuType<CoalGeneratorMenu>> =
-		MENU_TYPE_REGISTRY.register("coal_generator", Supplier {
-			IMenuTypeExtension.create { id, inv, buf ->
-				CoalGeneratorMenu(id, inv, buf)
-			}
-		})
+		register("coal_generator", ::CoalGeneratorMenu)
 
 	val CELL_ANALYZER: DeferredHolder<MenuType<*>, MenuType<CellAnalyzerMenu>> =
 		MENU_TYPE_REGISTRY.register("cell_analyzer", Supplier {
