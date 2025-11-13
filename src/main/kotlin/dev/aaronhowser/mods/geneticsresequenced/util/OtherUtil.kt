@@ -123,7 +123,4 @@ object OtherUtil {
 		)
 	}
 
-	val UUID_CODEC: Codec<UUID> = Codec.STRING.xmap(UUID::fromString, UUID::toString)
-	val UUID_STREAM_CODEC: StreamCodec<ByteBuf, UUID> = ByteBufCodecs.STRING_UTF8.map(UUID::fromString, UUID::toString)
-
 }

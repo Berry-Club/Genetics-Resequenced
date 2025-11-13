@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import net.minecraft.core.UUIDUtil
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.ComponentSerialization
@@ -23,7 +24,7 @@ data class SpecificEntityItemComponent(
 		val CODEC: Codec<SpecificEntityItemComponent> = RecordCodecBuilder.create { instance ->
 			instance.group(
 				NeoForgeExtraCodecs
-					.aliasedFieldOf(OtherUtil.UUID_CODEC, "uuid", "entityUuid", "entity_uuid")
+					.aliasedFieldOf(UUIDUtil.CODEC, "uuid", "entityUuid", "entity_uuid")
 					.forGetter(SpecificEntityItemComponent::uuid),
 				NeoForgeExtraCodecs
 					.aliasedFieldOf(ComponentSerialization.CODEC, "name", "entityName", "entity_name")
@@ -32,7 +33,7 @@ data class SpecificEntityItemComponent(
 		}
 
 		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SpecificEntityItemComponent> = StreamCodec.composite(
-			OtherUtil.UUID_STREAM_CODEC, SpecificEntityItemComponent::uuid,
+			UUIDUtil.STREAM_CODEC, SpecificEntityItemComponent::uuid,
 			ComponentSerialization.STREAM_CODEC, SpecificEntityItemComponent::name,
 			::SpecificEntityItemComponent
 		)
