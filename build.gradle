@@ -185,10 +185,6 @@ dependencies {
 
 }
 
-// This block of code expands all declared replace properties in the specified resource targets.
-// A missing property will result in an error. Properties are expanded using ${} Groovy notation.
-// When "copyIdeResources" is enabled, this will also run before the game launches in IDE environments.
-// See https://docs.gradle.org/current/dsl/org.gradle.language.jvm.tasks.ProcessResources.html
 tasks.withType(ProcessResources).configureEach {
 	var replaceProperties = [
 			minecraft_version      : minecraft_version,
@@ -202,6 +198,7 @@ tasks.withType(ProcessResources).configureEach {
 			mod_version            : mod_version,
 			mod_authors            : mod_authors,
 			mod_description        : mod_description,
+			aaron_lib_version      : aaron_lib_version
 	]
 	inputs.properties replaceProperties
 
@@ -210,16 +207,23 @@ tasks.withType(ProcessResources).configureEach {
 	}
 }
 
-// Example configuration to allow publishing using the maven-publish plugin
 publishing {
 	publications {
-		register('mavenJava', MavenPublication) {
+		mavenNeoForge(MavenPublication) {
+			artifactId = archiveName
 			from components.java
 		}
 	}
+
 	repositories {
-		maven {
-			url "file://${project.projectDir}/repo"
+		if (ENV.MAVEN_URL && ENV.MAVEN_USERNAME && ENV.MAVEN_TOKEN) {
+			maven {
+				url = ENV.MAVEN_URL
+				credentials {
+					username = ENV.MAVEN_USERNAME
+					password = ENV.MAVEN_TOKEN
+				}
+			}
 		}
 	}
 }
@@ -228,10 +232,61 @@ tasks.withType(JavaCompile).configureEach {
 	options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
 
-// IDEA no longer automatically downloads sources/javadoc jars for dependencies, so we need to explicitly enable the behavior.
 idea {
 	module {
 		downloadSources = true
 		downloadJavadoc = true
+	}
+}
+
+java {
+	withSourcesJar()
+	withJavadocJar()
+}
+
+unifiedPublishing {
+	project {
+		displayName = "Irregular Implements ${project.minecraft_version} ${project.version}"
+		releaseType = "beta"
+		gameVersions = [project.minecraft_version]
+		gameLoaders = ["neoforge"]
+
+		changelog = "https://github.com/Berry-Club/Irregular-Implements/blob/master/CHANGELOG.md#" + project.mod_version.toString().replace(".", "")
+
+		mainPublication jar
+
+		relations {
+
+			depends {
+				curseforge = modrinth = "kotlin-for-forge"
+			}
+
+			depends {
+				curseforge = modrinth = "curios"
+			}
+
+			optional {
+				curseforge = modrinth = "modonomicon"
+			}
+
+			optional {
+				curseforge = modrinth = "patchouli"
+			}
+		}
+
+		if (ENV.CURSEFORGE_KEY) {
+			curseforge {
+				token = ENV.CURSEFORGE_KEY
+				id = project.curseforge_id
+			}
+		}
+
+		if (ENV.MODRINTH_TOKEN) {
+			modrinth {
+				token = ENV.MODRINTH_TOKEN
+				id = project.modrinth_id
+			}
+		}
+
 	}
 }
