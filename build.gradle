@@ -260,6 +260,10 @@ unifiedPublishing {
 				curseforge = modrinth = "kotlin-for-forge"
 			}
 
+			depends {
+				curseforge = modrinth = "aaron"
+			}
+
 			optional {
 				curseforge = modrinth = "modonomicon"
 			}
@@ -268,7 +272,7 @@ unifiedPublishing {
 				curseforge = modrinth = "patchouli"
 			}
 		}
-//
+
 //		if (ENV.CURSEFORGE_KEY) {
 //			curseforge {
 //				token = ENV.CURSEFORGE_KEY
