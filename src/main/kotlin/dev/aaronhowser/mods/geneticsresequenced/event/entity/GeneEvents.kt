@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
+import dev.aaronhowser.mods.aaron.ServerScheduler
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
@@ -12,7 +13,6 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
-import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.HoverEvent
@@ -43,7 +43,7 @@ object GeneEvents {
 			AdvancementTriggers.geneAdvancements(livingEntity, geneHolder, wasAdded)
 		}
 
-		ModScheduler.scheduleTaskInTicks(1) {
+		ServerScheduler.scheduleTaskInTicks(1) {
 			checkForMissingRequirements(livingEntity)
 		}
 	}

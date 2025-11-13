@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.entity
 
+import dev.aaronhowser.mods.aaron.ServerScheduler
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -11,7 +12,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.getUuidOrNull
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.isClientSide
 import net.minecraft.nbt.CompoundTag
@@ -145,7 +145,7 @@ class SupportSlime(
 
 		setSize(this.size - 1, true)
 
-		ModScheduler.scheduleTaskInTicks(30) {
+		ServerScheduler.scheduleTaskInTicks(30) {
 			despawn()
 		}
 	}

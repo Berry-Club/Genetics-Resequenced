@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.aaron.AaronClientUtil
 import dev.aaronhowser.mods.aaron.AaronExtensions.status
+import dev.aaronhowser.mods.aaron.ServerScheduler
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -113,8 +114,7 @@ object ClientUtil {
 			AaronClientUtil.localPlayer?.sendSystemMessage(message)
 		}
 
-		ModScheduler.scheduleTaskInTicks(1) {
-
+		ServerScheduler.scheduleTaskInTicks(1) {
 			val component = if (wasAdded) {
 				ModMessageLang.CRINGE_ADDED.toComponent(countdownSeconds)
 			} else {
@@ -138,7 +138,7 @@ object ClientUtil {
 			if (scheduleIn != 0) {
 				val secondsLeftFinal = secondsLeft
 
-				ModScheduler.scheduleTaskInTicks(scheduleIn) {
+				ServerScheduler.scheduleTaskInTicks(scheduleIn) {
 					AaronClientUtil.localPlayer?.status(Component.literal("$secondsLeftFinal..."))
 				}
 			}
@@ -147,7 +147,7 @@ object ClientUtil {
 		}
 
 		this.amountTryingToChangeLanguage++
-		ModScheduler.scheduleTaskInTicks(20 * countdownSeconds) {
+		ServerScheduler.scheduleTaskInTicks(20 * countdownSeconds) {
 			sendSystemMessage(
 				ModMessageLang.CRINGE_RELOADING
 					.toComponent()

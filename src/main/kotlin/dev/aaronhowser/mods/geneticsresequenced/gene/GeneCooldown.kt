@@ -1,12 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene
 
+import dev.aaronhowser.mods.aaron.ServerScheduler
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.LivingEntity
@@ -43,7 +43,7 @@ class GeneCooldown(
 	private fun onAddSucceed(entity: LivingEntity) {
 		if (this.actuallyNotify) tellCooldownStarted(entity, this.gene, this.cooldownTicks)
 
-		ModScheduler.scheduleTaskInTicks(this.cooldownTicks) {
+		ServerScheduler.scheduleTaskInTicks(this.cooldownTicks) {
 			remove(entity)
 		}
 	}
