@@ -5,15 +5,18 @@ plugins {
 	id 'idea'
 	id 'maven-publish'
 	id 'net.neoforged.moddev' version '2.0.91'
-
 	id 'org.jetbrains.kotlin.jvm' version '2.1.21'
+	id "me.shedaniel.unified-publishing" version "0.1.+"
 }
 
-var ENV = System.getenv()
+def ENV = System.getenv()
+def isLocal = !ENV.containsKey("GITHUB_RUN_NUMBER")
 
-version = mod_version
-group = mod_group_id
-base.archivesName = "${mod_id}-${mc_version}"
+def archiveName = "${mod_id.replace("_", "-")}-${minecraft_version}"
+
+version = "${mod_version}-${isLocal ? "local.${Instant.now().epochSecond}" : "build.${ENV.GITHUB_RUN_NUMBER}"}"
+group = project.mod_group_id
+base.archivesName = archiveName
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 compileKotlin.compilerOptions.jvmTarget = JvmTarget.JVM_21
