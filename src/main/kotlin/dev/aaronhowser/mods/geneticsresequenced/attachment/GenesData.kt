@@ -8,7 +8,6 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
-import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.SetGenesPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -41,13 +40,9 @@ data class GenesData(
 		fun syncPlayer(player: Player) {
 			if (player !is ServerPlayer) return
 
-			ModPacketHandler.messagePlayer(
-				player,
-				SetGenesPacket(
-					player.id,
-					player.geneHolders
-				)
-			)
+			val packet = SetGenesPacket(player.id, player.geneHolders)
+
+			packet.messagePlayer(player)
 		}
 
 		var LivingEntity.geneHolders: Set<Holder<Gene>>

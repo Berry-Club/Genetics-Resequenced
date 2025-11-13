@@ -99,7 +99,8 @@ object ClickGenes {
 		)
 
 		if (target is ServerPlayer) {
-			ModPacketHandler.messagePlayer(target, ShearedPacket(removingSkin = true))
+			val packet = ShearedPacket(removingSkin = true)
+			packet.messagePlayer(target)
 		}
 	}
 
@@ -107,9 +108,7 @@ object ClickGenes {
 		val wooly = ModGenes.WOOLY.getHolderOrThrow(event.entity.registryAccess())
 		if (wooly.isDisabled) return
 
-		val player = event.entity
-
-		if (player.level().isClientSide) return
+		val player = event.entity as? ServerPlayer ?: return
 
 		if (!player.isCrouching) return
 		val clickedWithShears = event.itemStack.`is`(Tags.Items.TOOLS_SHEAR)
@@ -148,7 +147,8 @@ object ClickGenes {
 			1.0f
 		)
 
-		ModPacketHandler.messagePlayer(player as ServerPlayer, ShearedPacket(removingSkin = true))
+		val packet = ShearedPacket(removingSkin = true)
+		packet.messagePlayer(player)
 	}
 
 	private val RECENTLY_MEATED_PLAYERS = GeneCooldown(

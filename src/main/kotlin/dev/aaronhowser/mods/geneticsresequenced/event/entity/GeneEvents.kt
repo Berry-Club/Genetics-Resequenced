@@ -11,7 +11,6 @@ import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
-import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.ModScheduler
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -102,13 +101,9 @@ object GeneEvents {
 			return
 		}
 
-		ModPacketHandler.messageAllPlayers(
-			GeneChangedPacket(
-				entity.id,
-				changedGene,
-				wasAdded
-			)
-		)
+		val packet = GeneChangedPacket(entity.id, changedGene, wasAdded)
+
+		packet.messageAllPlayers()
 	}
 
 }

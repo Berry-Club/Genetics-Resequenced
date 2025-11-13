@@ -54,12 +54,8 @@ object OtherGenes {
 
 		val message = event.message
 
-		ModPacketHandler.messageNearbyPlayers(
-			NarratorPacket(message.string),
-			player.level() as ServerLevel,
-			player.position(),
-			64.0
-		)
+		val packet = NarratorPacket(message.string)
+		packet.messageNearbyPlayers(player.serverLevel(), player.position(), 64.0)
 	}
 
 	private val RANDOM_CRINGE_PHRASES = listOf(

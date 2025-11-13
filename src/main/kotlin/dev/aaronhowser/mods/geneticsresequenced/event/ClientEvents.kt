@@ -37,11 +37,11 @@ object ClientEvents {
 	@SubscribeEvent
 	fun onKeyInputEvent(event: InputEvent.Key) {
 		if (ModKeyMappings.TELEPORT.consumeClick()) {
-			ModPacketHandler.messageServer(TeleportPlayerPacket.INSTANCE)
+			TeleportPlayerPacket.INSTANCE.messageServer()
 		}
 
 		if (ModKeyMappings.DRAGONS_BREATH.consumeClick()) {
-			ModPacketHandler.messageServer(FireballPacket.INSTANCE)
+			FireballPacket.INSTANCE.messageServer()
 		}
 	}
 
