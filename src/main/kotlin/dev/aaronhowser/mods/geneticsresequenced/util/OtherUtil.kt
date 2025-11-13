@@ -63,11 +63,6 @@ object OtherUtil {
 		return null
 	}
 
-	fun CompoundTag.getUuidOrNull(key: String): UUID? {
-		if (!this.hasUUID(key)) return null
-		return this.getUUID(key)
-	}
-
 	fun getEntityType(resourceLocation: ResourceLocation): EntityType<*> {
 		val entityType = BuiltInRegistries.ENTITY_TYPE.get(resourceLocation)
 
