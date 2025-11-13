@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
@@ -14,7 +15,6 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.isClientSide
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderSet
