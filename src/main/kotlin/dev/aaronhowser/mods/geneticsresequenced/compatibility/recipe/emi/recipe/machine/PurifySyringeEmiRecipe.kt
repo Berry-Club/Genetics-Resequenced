@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine
 
+import dev.aaronhowser.mods.aaron.AaronClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -30,7 +31,7 @@ class PurifySyringeEmiRecipe(
 			ModItems.SYRINGE.toStack()
 		}
 
-		val localPlayer = ClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
+		val localPlayer = AaronClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
 
 		val entity = if (isMetal) {
 			Cow(EntityType.COW, localPlayer.level())

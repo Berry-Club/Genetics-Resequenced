@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine
 
+import dev.aaronhowser.mods.aaron.AaronClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModRecipeLang
@@ -59,7 +60,7 @@ class PlasmidInjectorEmiRecipe(
 
 		val syringeStack = if (isMetal) ModItems.METAL_SYRINGE.toStack() else ModItems.SYRINGE.toStack()
 
-		val localPlayer = ClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
+		val localPlayer = AaronClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
 
 		val entity = if (isMetal) {
 			Cow(EntityType.COW, localPlayer.level())

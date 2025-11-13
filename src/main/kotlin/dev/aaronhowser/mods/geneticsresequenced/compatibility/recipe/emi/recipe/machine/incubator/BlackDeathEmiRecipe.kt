@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine.incubator
 
+import dev.aaronhowser.mods.aaron.AaronClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModRecipeLang
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
@@ -41,7 +42,7 @@ class BlackDeathEmiRecipe(
 	init {
 		val syringeStack = if (isMetal) ModItems.METAL_SYRINGE.toStack() else ModItems.SYRINGE.toStack()
 
-		val localPlayer = ClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
+		val localPlayer = AaronClientUtil.localPlayer ?: throw IllegalStateException("Local player is null")
 
 		val entity = if (isMetal) {
 			Cow(EntityType.COW, localPlayer.level())

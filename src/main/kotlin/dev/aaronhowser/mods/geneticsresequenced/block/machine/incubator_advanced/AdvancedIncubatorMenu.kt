@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced
 
+import dev.aaronhowser.mods.aaron.AaronClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.block.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorBlockEntity.Companion.CHORUS_SLOT_INDEX
@@ -11,7 +12,6 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.ChatFormatting
 import net.minecraft.network.FriendlyByteBuf
@@ -135,7 +135,7 @@ class AdvancedIncubatorMenu(
 			val topStack = blockEntity.itemHandler.getStackInSlot(AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX)
 
 			val recipe = GmoRecipe.getGmoRecipe(
-				ClientUtil.localLevel!!,
+				AaronClientUtil.localLevel!!,
 				topStack,
 				potionStack,
 				blockEntity.isHighTemperature   // TODO: See if this works

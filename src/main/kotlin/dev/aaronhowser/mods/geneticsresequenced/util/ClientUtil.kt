@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
+import dev.aaronhowser.mods.aaron.AaronClientUtil
+import dev.aaronhowser.mods.aaron.AaronExtensions.status
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -8,10 +10,9 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
+import dev.aaronhowser.mods.patchoulidatagen.util.Util.isTrue
 import net.minecraft.client.Minecraft
 import net.minecraft.client.Options
-import net.minecraft.client.multiplayer.ClientLevel
-import net.minecraft.client.player.LocalPlayer
 import net.minecraft.core.RegistryAccess
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
@@ -19,16 +20,10 @@ import net.minecraft.world.entity.player.PlayerModelPart
 
 object ClientUtil {
 
-	val localPlayer: LocalPlayer?
-		get() = Minecraft.getInstance().player
-
 	val localRegistryAccess: RegistryAccess?
 		get() = Minecraft.getInstance().level?.registryAccess()
 
-	val localLevel: ClientLevel?
-		get() = Minecraft.getInstance().level
-
-	fun playerIsCreative(): Boolean = this.localPlayer?.isCreative ?: false
+	fun playerIsCreative(): Boolean = AaronClientUtil.localPlayer?.isCreative.isTrue()
 
 	private val options: Options
 		get() = Minecraft.getInstance().options
@@ -115,7 +110,7 @@ object ClientUtil {
 		}
 
 		fun sendSystemMessage(message: Component) {
-			localPlayer?.sendSystemMessage(message)
+			AaronClientUtil.localPlayer?.sendSystemMessage(message)
 		}
 
 		ModScheduler.scheduleTaskInTicks(1) {
@@ -144,10 +139,7 @@ object ClientUtil {
 				val secondsLeftFinal = secondsLeft
 
 				ModScheduler.scheduleTaskInTicks(scheduleIn) {
-					this.localPlayer?.displayClientMessage(
-						Component.literal("$secondsLeftFinal..."),
-						true
-					)
+					AaronClientUtil.localPlayer?.status(Component.literal("$secondsLeftFinal..."))
 				}
 			}
 
