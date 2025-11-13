@@ -8,6 +8,8 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import net.minecraft.ChatFormatting
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.Component
+import net.minecraft.world.Container
+import net.minecraft.world.SimpleContainer
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
@@ -21,32 +23,38 @@ import java.text.NumberFormat
 class CoalGeneratorMenu(
 	id: Int,
 	inventory: Inventory,
-	blockEntity: CoalGeneratorBlockEntity,
+	private val coalGeneratorContainer: Container,
 	private val containerData: ContainerData
 ) : MachineMenu(
 	ModMenuTypes.COAL_GENERATOR.get(),
-	blockEntity,
 	id,
 	inventory
 ) {
+
+	constructor(containerId: Int, playerInventory: Inventory) : this(
+		containerId,
+		playerInventory,
+		SimpleContainer(1),
+		SimpleContainerData(CoalGeneratorBlockEntity.CONTAINER_DATA_SIZE)
+	)
+
+	override val amountSlots: Int = 1
 
 	constructor(id: Int, inventory: Inventory, extraData: RegistryFriendlyByteBuf) :
 			this(
 				id,
 				inventory,
 				inventory.player.level().getBlockEntity(extraData.readBlockPos()) as CoalGeneratorBlockEntity,
-				SimpleContainerData(CoalGeneratorBlockEntity.SIMPLE_CONTAINER_SIZE)
+				SimpleContainerData(CoalGeneratorBlockEntity.CONTAINER_DATA_SIZE)
 			)
 
 	init {
-		checkContainerSize(inventory, CoalGeneratorBlockEntity.SIMPLE_CONTAINER_SIZE)
+		checkContainerSize(inventory, CoalGeneratorBlockEntity.CONTAINER_DATA_SIZE)
 
 		addPlayerInventorySlots(inventoryY)
 
 		val itemHandler = this.blockEntity.getItemHandler(null)
-
 		this.addSlot(SlotItemHandler(itemHandler, CoalGeneratorBlockEntity.INPUT_SLOT, 52, 40))
-
 		addDataSlots(containerData)
 	}
 

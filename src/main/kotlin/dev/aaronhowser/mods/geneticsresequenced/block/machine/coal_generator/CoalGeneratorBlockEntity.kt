@@ -112,7 +112,7 @@ class CoalGeneratorBlockEntity(
 		}
 
 		override fun getCount(): Int {
-			return SIMPLE_CONTAINER_SIZE
+			return CONTAINER_DATA_SIZE
 		}
 	}
 
@@ -254,7 +254,7 @@ class CoalGeneratorBlockEntity(
 
 		// How many values are stored in the container data
 		// Here it's two: remaining ticks and max burn time
-		const val SIMPLE_CONTAINER_SIZE = 2
+		const val CONTAINER_DATA_SIZE = 2
 
 		const val INPUT_SLOT = 0
 

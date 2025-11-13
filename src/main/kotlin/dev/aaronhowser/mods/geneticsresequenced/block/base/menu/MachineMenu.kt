@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.base.menu
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.base.InventoryEnergyBlockEntity
 import dev.aaronhowser.mods.irregular_implements.menu.MenuWithInventory
+import net.minecraft.world.Container
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.MenuType
@@ -11,7 +12,6 @@ import net.minecraft.world.level.Level
 
 abstract class MachineMenu(
 	menuType: MenuType<*>,
-	val blockEntity: InventoryEnergyBlockEntity,
 	id: Int,
 	playerInventory: Inventory
 ) : MenuWithInventory(menuType, id, playerInventory) {
@@ -20,6 +20,7 @@ abstract class MachineMenu(
 
 	protected open val inventoryX = 8
 	protected open val inventoryY = 90
+	protected abstract val amountSlots: Int
 
 	abstract fun getPercentDone(): Float
 
@@ -30,8 +31,6 @@ abstract class MachineMenu(
 	//  0 - 8 = hotbar slots (which will map to the InventoryPlayer slot numbers 0 - 8)
 	//  9 - 35 = player inventory slots (which map to the InventoryPlayer slot numbers 9 - 35)
 	//  36 - 44 = TileInventory slots, which map to our TileEntity slot numbers 0 - 8)
-
-	protected val amountSlots = blockEntity.amountOfItemSlots
 
 	override fun quickMoveStack(playerIn: Player, index: Int): ItemStack {
 		val sourceSlot = slots.getOrNull(index)
