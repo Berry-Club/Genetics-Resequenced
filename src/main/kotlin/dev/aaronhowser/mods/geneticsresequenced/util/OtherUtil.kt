@@ -116,11 +116,4 @@ object OtherUtil {
 		return mutableComponent
 	}
 
-	fun <T> tagKeyStreamCodec(registry: ResourceKey<out Registry<T>>): StreamCodec<ByteBuf, TagKey<T>> {
-		return ResourceLocation.STREAM_CODEC.map(
-			{ TagKey.create(registry, it) },
-			{ it.location() }
-		)
-	}
-
 }
