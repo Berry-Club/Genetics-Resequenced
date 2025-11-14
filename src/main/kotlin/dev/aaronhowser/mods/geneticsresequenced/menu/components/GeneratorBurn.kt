@@ -5,12 +5,14 @@ import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.network.chat.Component
+import java.util.function.BooleanSupplier
+import java.util.function.Supplier
 
 class GeneratorBurn(
 	x: Int,
 	y: Int,
-	val shouldRender: () -> Boolean,
-	val percentDone: () -> Float,
+	val shouldRender: BooleanSupplier,
+	val percentDone: Supplier<Float>,
 ) : AbstractWidget(
 	x, y,
 	ScreenTextures.Elements.Burn.Dimensions.WIDTH,
@@ -19,10 +21,10 @@ class GeneratorBurn(
 ) {
 	override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
 
-		if (!shouldRender()) return
+		if (!shouldRender.asBoolean) return
 
 		val totalHeight = ScreenTextures.Elements.Burn.Dimensions.HEIGHT
-		val amountToRender = totalHeight - (totalHeight * percentDone()).toInt()
+		val amountToRender = totalHeight - (totalHeight * percentDone.get()).toInt()
 
 		pGuiGraphics.blitSprite(
 			ScreenTextures.Elements.Burn.TEXTURE,
