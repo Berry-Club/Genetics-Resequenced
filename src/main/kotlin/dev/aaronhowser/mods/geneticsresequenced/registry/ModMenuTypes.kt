@@ -1,8 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.blood_purifier.BloodPurifierMenu
-import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.blood_purifier.BloodPurifierScreen
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.cell_analyzer.CellAnalyzerMenu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.cell_analyzer.CellAnalyzerScreen
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.dna_decryptor.DnaDecryptorMenu
@@ -17,6 +15,8 @@ import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_infuse
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_infuser.PlasmidInfuserScreen
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_injector.PlasmidInjectorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_injector.PlasmidInjectorScreen
+import dev.aaronhowser.mods.geneticsresequenced.menu.blood_purifier.BloodPurifierMenu
+import dev.aaronhowser.mods.geneticsresequenced.menu.blood_purifier.BloodPurifierScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGeneratorMenu
 import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGeneratorScreen
 import net.minecraft.core.registries.BuiltInRegistries
