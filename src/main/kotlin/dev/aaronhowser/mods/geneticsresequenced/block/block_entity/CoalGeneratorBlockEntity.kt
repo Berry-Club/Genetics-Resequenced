@@ -13,6 +13,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.crafting.RecipeType
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 
 class CoalGeneratorBlockEntity(
@@ -56,7 +57,13 @@ class CoalGeneratorBlockEntity(
 	}
 
 	private fun serverTick() {
-		tryStartBurning()
+		if (hasRoomForEnergy()) {
+			if (burnTimeRemaining > 0) {
+				generateEnergy()
+			} else {
+				tryStartBurning()
+			}
+		}
 	}
 
 	private fun tryStartBurning() {
@@ -80,7 +87,17 @@ class CoalGeneratorBlockEntity(
 		if (!fuelReplacedItem.isEmpty && invWrapper.getStackInSlot(INPUT_INDEX).isEmpty) {
 			invWrapper.insertItem(INPUT_INDEX, fuelReplacedItem, false)
 		}
+	}
 
+	private fun generateEnergy() {
+		val level = this.level ?: return
+		energyStorage.receiveEnergy(getEnergyPerTick(level), false)
+
+		burnTimeRemaining--
+	}
+
+	private fun hasRoomForEnergy(): Boolean {
+		return energyStorage.energyStored < energyStorage.maxEnergyStored
 	}
 
 	override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
@@ -112,5 +129,8 @@ class CoalGeneratorBlockEntity(
 		const val REMAINING_TICKS_INDEX = 0
 		const val MAX_BURN_TIME_INDEX = 1
 
+		fun getEnergyPerTick(level: Level): Int {
+			return ServerConfig.CONFIG.coalGeneratorEnergyPerTick.get()
+		}
 	}
 }
