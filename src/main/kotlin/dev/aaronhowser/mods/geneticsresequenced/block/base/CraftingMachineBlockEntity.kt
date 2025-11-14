@@ -6,6 +6,7 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.util.Mth
 import net.minecraft.world.inventory.ContainerData
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.items.IItemHandler
@@ -96,6 +97,16 @@ abstract class CraftingMachineBlockEntity(
 			currentProgress -= maxProgress
 			craftItem()
 		}
+	}
+
+	protected fun outputSlotHasRoom(potentialOutput: ItemStack): Boolean {
+		val currentOutput = invWrapper.getStackInSlot(OUTPUT_SLOT_INDEX)
+		if (currentOutput.isEmpty) return true
+
+		if (!ItemStack.isSameItemSameComponents(potentialOutput, currentOutput)) return false
+
+		val combinedCount = currentOutput.count + potentialOutput.count
+		return combinedCount <= currentOutput.maxStackSize
 	}
 
 	protected open val inputHandler = RangedWrapper(invWrapper, INPUT_SLOT_INDEX, INPUT_SLOT_INDEX + 1)

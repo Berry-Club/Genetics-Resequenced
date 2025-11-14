@@ -48,16 +48,6 @@ class CellAnalyzerBlockEntity(
 		return outputSlotHasRoom(potentialOutput)
 	}
 
-	private fun outputSlotHasRoom(potentialOutput: ItemStack): Boolean {
-		val currentOutput = invWrapper.getStackInSlot(OUTPUT_SLOT_INDEX)
-		if (currentOutput.isEmpty) return true
-
-		if (!ItemStack.isSameItemSameComponents(potentialOutput, currentOutput)) return false
-
-		val combinedCount = currentOutput.count + potentialOutput.count
-		return combinedCount <= currentOutput.maxStackSize
-	}
-
 	//TODO: Make sure it works if things are in the output
 	override fun craftItem() {
 		val inputStack = invWrapper.getStackInSlot(INPUT_SLOT_INDEX)
