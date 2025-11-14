@@ -25,6 +25,8 @@ import dev.aaronhowser.mods.geneticsresequenced.menu.dna_extractor.DnaExtractorM
 import dev.aaronhowser.mods.geneticsresequenced.menu.dna_extractor.DnaExtractorScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser.PlasmidInfuserMenu
 import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser.PlasmidInfuserScreen
+import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_injector.PlasmidInjectorMenu
+import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_injector.PlasmidInjectorScreen
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.flag.FeatureFlags
 import net.minecraft.world.inventory.AbstractContainerMenu

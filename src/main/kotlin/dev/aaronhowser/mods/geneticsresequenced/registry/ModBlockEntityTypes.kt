@@ -9,7 +9,6 @@ import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.DnaExtractorB
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.PlasmidInfuserBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator_advanced.AdvancedIncubatorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_injector.PlasmidInjectorBlockEntity
 import net.minecraft.Util
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.util.datafix.fixes.References

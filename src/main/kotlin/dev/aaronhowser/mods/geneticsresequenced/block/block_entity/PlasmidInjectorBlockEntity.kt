@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockE
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
+import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_injector.PlasmidInjectorMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
@@ -79,6 +80,6 @@ class PlasmidInjectorBlockEntity(
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
-		TODO("Not yet implemented")
+		return PlasmidInjectorMenu(containerId, playerInventory, this.container, this.energyContainerData, this.progressContainerData)
 	}
 }
