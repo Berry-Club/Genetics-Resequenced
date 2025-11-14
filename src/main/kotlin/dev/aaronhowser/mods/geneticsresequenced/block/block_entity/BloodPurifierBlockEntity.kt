@@ -34,12 +34,6 @@ class BloodPurifierBlockEntity(
 				else -> false
 			}
 		}
-
-
-	}
-
-	override fun getItemHandler(direction: Direction?): InvWrapper? {
-		return super.getItemHandler(direction)
 	}
 
 	override fun hasRecipe(): Boolean {

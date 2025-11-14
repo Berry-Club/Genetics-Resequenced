@@ -1,11 +1,15 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base
 
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.util.Mth
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
+import net.neoforged.neoforge.items.IItemHandler
+import net.neoforged.neoforge.items.wrapper.InvWrapper
+import net.neoforged.neoforge.items.wrapper.RangedWrapper
 import java.util.function.IntSupplier
 
 abstract class CraftingMachineBlockEntity(
@@ -66,6 +70,20 @@ abstract class CraftingMachineBlockEntity(
 		while (currentProgress >= maxProgress) {
 			currentProgress -= maxProgress
 			craftItem()
+		}
+	}
+
+	protected open val inputHandler = RangedWrapper(invWrapper, INPUT_SLOT_INDEX, INPUT_SLOT_INDEX + 1)
+	protected open val outputHandler = RangedWrapper(invWrapper, OUTPUT_SLOT_INDEX, OUTPUT_SLOT_INDEX + 1)
+	protected open val overclockHandler = RangedWrapper(invWrapper, OVERCLOCK_SLOT_INDEX, OVERCLOCK_SLOT_INDEX + 1)
+
+	override fun getItemHandler(direction: Direction?): IItemHandler? {
+		val blockFacing = this.blockState.getValue(MachineBlock.H_FACING)
+
+		return when (direction) {
+			blockFacing.opposite -> overclockHandler
+			Direction.DOWN -> outputHandler
+			else -> inputHandler
 		}
 	}
 

@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.energy.EnergyStorage
+import net.neoforged.neoforge.items.IItemHandler
 import net.neoforged.neoforge.items.wrapper.InvWrapper
 
 abstract class MachineBlockEntity(
@@ -62,7 +63,7 @@ abstract class MachineBlockEntity(
 	open val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, containerSize)
 	protected open val invWrapper = InvWrapper(container)
 
-	open fun getItemHandler(direction: Direction?): InvWrapper? {
+	open fun getItemHandler(direction: Direction?): IItemHandler? {
 		return invWrapper
 	}
 
