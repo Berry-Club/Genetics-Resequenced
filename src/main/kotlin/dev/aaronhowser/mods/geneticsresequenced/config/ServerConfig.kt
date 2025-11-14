@@ -7,64 +7,57 @@ class ServerConfig(
 	private val builder: ModConfigSpec.Builder
 ) {
 
-	companion object {
-		private val configPair: Pair<ServerConfig, ModConfigSpec> = ModConfigSpec.Builder().configure(::ServerConfig)
+	lateinit var keepGenesOnDeath: ModConfigSpec.BooleanValue
+	lateinit var minimumCooldownForNotification: ModConfigSpec.IntValue
+	lateinit var antifieldBlockRadius: ModConfigSpec.IntValue
 
-		val CONFIG: ServerConfig = configPair.left
-		val CONFIG_SPEC: ModConfigSpec = configPair.right
+	lateinit var coalGeneratorEnergyCapacity: ModConfigSpec.IntValue
+	lateinit var coalGeneratorEnergyTransferRate: ModConfigSpec.IntValue
+	lateinit var coalGeneratorEnergyPerTick: ModConfigSpec.IntValue
+	lateinit var incubatorTicksPerBrew: ModConfigSpec.IntValue
+	lateinit var incubatorLowTempTickFactor: ModConfigSpec.IntValue
+	lateinit var incubatorOverclockerChanceDecrease: ModConfigSpec.DoubleValue
+	lateinit var incubatorChorusFruitChanceIncrease: ModConfigSpec.DoubleValue
 
-		lateinit var keepGenesOnDeath: ModConfigSpec.BooleanValue
-		lateinit var minimumCooldownForNotification: ModConfigSpec.IntValue
-		lateinit var antifieldBlockRadius: ModConfigSpec.IntValue
+	lateinit var disableGivingPlayersNegativeGenes: ModConfigSpec.BooleanValue
 
-		lateinit var coalGeneratorEnergyCapacity: ModConfigSpec.IntValue
-		lateinit var coalGeneratorEnergyTransferRate: ModConfigSpec.IntValue
-		lateinit var coalGeneratorEnergyPerTick: ModConfigSpec.IntValue
-		lateinit var incubatorTicksPerBrew: ModConfigSpec.IntValue
-		lateinit var incubatorLowTempTickFactor: ModConfigSpec.IntValue
-		lateinit var incubatorOverclockerChanceDecrease: ModConfigSpec.DoubleValue
-		lateinit var incubatorChorusFruitChanceIncrease: ModConfigSpec.DoubleValue
-
-		lateinit var disableGivingPlayersNegativeGenes: ModConfigSpec.BooleanValue
-
-		lateinit var bioluminescenceCooldown: ModConfigSpec.IntValue
-		lateinit var bioluminescenceDuration: ModConfigSpec.IntValue
-		lateinit var clawsChance: ModConfigSpec.DoubleValue
-		lateinit var clawsDamage: ModConfigSpec.DoubleValue
-		lateinit var chillChance: ModConfigSpec.DoubleValue
-		lateinit var chillDuration: ModConfigSpec.IntValue
-		lateinit var eggCooldown: ModConfigSpec.IntValue
-		lateinit var emeraldHeartCooldown: ModConfigSpec.IntValue
-		lateinit var emeraldHeartChatChance: ModConfigSpec.DoubleValue
-		lateinit var dragonsBreathCooldown: ModConfigSpec.IntValue
-		lateinit var itemMagnetCooldown: ModConfigSpec.IntValue
-		lateinit var itemMagnetRadius: ModConfigSpec.DoubleValue
-		lateinit var johnnyAttackMultiplier: ModConfigSpec.DoubleValue
-		lateinit var meatyCooldown: ModConfigSpec.IntValue
-		lateinit var meaty2Cooldown: ModConfigSpec.IntValue
-		lateinit var milkyCooldown: ModConfigSpec.IntValue
-		lateinit var mobSightCooldown: ModConfigSpec.IntValue
-		lateinit var mobSightRadius: ModConfigSpec.DoubleValue
-		lateinit var noHungerCooldown: ModConfigSpec.IntValue
-		lateinit var noHungerMinimum: ModConfigSpec.IntValue
-		lateinit var passivesCheckCooldown: ModConfigSpec.IntValue
-		lateinit var photosynthesisCooldown: ModConfigSpec.IntValue
-		lateinit var photosynthesisHungerAmount: ModConfigSpec.IntValue
-		lateinit var photosynthesisSaturationAmount: ModConfigSpec.DoubleValue
-		lateinit var slimyDeathCooldown: ModConfigSpec.IntValue
-		lateinit var slimyDeathHealthMultiplier: ModConfigSpec.DoubleValue
-		lateinit var slimyDeathDespawnCheckTimer: ModConfigSpec.IntValue
-		lateinit var slimyDeathDespawnTime: ModConfigSpec.IntValue
-		lateinit var teleportCooldown: ModConfigSpec.IntValue
-		lateinit var teleportDistance: ModConfigSpec.DoubleValue
-		lateinit var thornsChance: ModConfigSpec.DoubleValue
-		lateinit var thornsDamage: ModConfigSpec.DoubleValue
-		lateinit var thornsHungerDrain: ModConfigSpec.DoubleValue
-		lateinit var wallClimbSpeed: ModConfigSpec.DoubleValue
-		lateinit var woolyCooldown: ModConfigSpec.IntValue
-		lateinit var xpMagnetCooldown: ModConfigSpec.IntValue
-		lateinit var xpMagnetRadius: ModConfigSpec.DoubleValue
-	}
+	lateinit var bioluminescenceCooldown: ModConfigSpec.IntValue
+	lateinit var bioluminescenceDuration: ModConfigSpec.IntValue
+	lateinit var clawsChance: ModConfigSpec.DoubleValue
+	lateinit var clawsDamage: ModConfigSpec.DoubleValue
+	lateinit var chillChance: ModConfigSpec.DoubleValue
+	lateinit var chillDuration: ModConfigSpec.IntValue
+	lateinit var eggCooldown: ModConfigSpec.IntValue
+	lateinit var emeraldHeartCooldown: ModConfigSpec.IntValue
+	lateinit var emeraldHeartChatChance: ModConfigSpec.DoubleValue
+	lateinit var dragonsBreathCooldown: ModConfigSpec.IntValue
+	lateinit var itemMagnetCooldown: ModConfigSpec.IntValue
+	lateinit var itemMagnetRadius: ModConfigSpec.DoubleValue
+	lateinit var johnnyAttackMultiplier: ModConfigSpec.DoubleValue
+	lateinit var meatyCooldown: ModConfigSpec.IntValue
+	lateinit var meaty2Cooldown: ModConfigSpec.IntValue
+	lateinit var milkyCooldown: ModConfigSpec.IntValue
+	lateinit var mobSightCooldown: ModConfigSpec.IntValue
+	lateinit var mobSightRadius: ModConfigSpec.DoubleValue
+	lateinit var noHungerCooldown: ModConfigSpec.IntValue
+	lateinit var noHungerMinimum: ModConfigSpec.IntValue
+	lateinit var passivesCheckCooldown: ModConfigSpec.IntValue
+	lateinit var photosynthesisCooldown: ModConfigSpec.IntValue
+	lateinit var photosynthesisHungerAmount: ModConfigSpec.IntValue
+	lateinit var photosynthesisSaturationAmount: ModConfigSpec.DoubleValue
+	lateinit var slimyDeathCooldown: ModConfigSpec.IntValue
+	lateinit var slimyDeathHealthMultiplier: ModConfigSpec.DoubleValue
+	lateinit var slimyDeathDespawnCheckTimer: ModConfigSpec.IntValue
+	lateinit var slimyDeathDespawnTime: ModConfigSpec.IntValue
+	lateinit var teleportCooldown: ModConfigSpec.IntValue
+	lateinit var teleportDistance: ModConfigSpec.DoubleValue
+	lateinit var thornsChance: ModConfigSpec.DoubleValue
+	lateinit var thornsDamage: ModConfigSpec.DoubleValue
+	lateinit var thornsHungerDrain: ModConfigSpec.DoubleValue
+	lateinit var wallClimbSpeed: ModConfigSpec.DoubleValue
+	lateinit var woolyCooldown: ModConfigSpec.IntValue
+	lateinit var xpMagnetCooldown: ModConfigSpec.IntValue
+	lateinit var xpMagnetRadius: ModConfigSpec.DoubleValue
 
 	init {
 		generalConfigs()
@@ -262,6 +255,13 @@ class ServerConfig(
 			.defineInRange("xpMagnetRadius", 8.0, 1.0, Double.MAX_VALUE)
 
 		builder.pop()
+	}
+
+	companion object {
+		private val configPair: Pair<ServerConfig, ModConfigSpec> = ModConfigSpec.Builder().configure(::ServerConfig)
+
+		val CONFIG: ServerConfig = configPair.left
+		val CONFIG_SPEC: ModConfigSpec = configPair.right
 	}
 
 }
