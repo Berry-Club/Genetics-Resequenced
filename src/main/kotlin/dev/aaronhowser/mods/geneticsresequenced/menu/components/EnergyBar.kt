@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
 import dev.aaronhowser.mods.geneticsresequenced.block_old.base.handler.ModEnergyStorage
-import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import net.minecraft.client.gui.Font

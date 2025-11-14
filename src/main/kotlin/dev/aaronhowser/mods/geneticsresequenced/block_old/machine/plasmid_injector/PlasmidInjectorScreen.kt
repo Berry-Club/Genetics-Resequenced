@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_injector
 
 import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.MachineScreen
-import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Inventory

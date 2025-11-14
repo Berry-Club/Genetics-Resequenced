@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator_advanced
 
 import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.MachineScreen
-import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.Bubbles
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.ProgressArrow
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.TemperatureIndicator

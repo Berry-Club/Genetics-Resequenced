@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_old.machine.cell_analyzer
 
 import dev.aaronhowser.mods.geneticsresequenced.block_old.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import net.minecraft.network.FriendlyByteBuf

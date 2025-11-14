@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu
+package dev.aaronhowser.mods.geneticsresequenced.menu
 
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenSprite

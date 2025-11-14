@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
-import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput

@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu
 
+import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.EnergyBar
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.ProgressArrow
 import net.minecraft.client.gui.GuiGraphics
