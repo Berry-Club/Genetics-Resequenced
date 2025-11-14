@@ -1,15 +1,15 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.blood_purifier.BloodPurifierBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.cell_analyzer.CellAnalyzerBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.coal_generator.CoalGeneratorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_decryptor.DnaDecryptorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.dna_extractor.DnaExtractorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator.IncubatorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.incubator_advanced.AdvancedIncubatorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_infuser.PlasmidInfuserBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.machine.plasmid_injector.PlasmidInjectorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.blood_purifier.BloodPurifierBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.cell_analyzer.CellAnalyzerBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.coal_generator.CoalGeneratorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.dna_decryptor.DnaDecryptorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.dna_extractor.DnaExtractorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator.IncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator_advanced.AdvancedIncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_infuser.PlasmidInfuserBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_injector.PlasmidInjectorBlockEntity
 import net.minecraft.Util
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.util.datafix.fixes.References

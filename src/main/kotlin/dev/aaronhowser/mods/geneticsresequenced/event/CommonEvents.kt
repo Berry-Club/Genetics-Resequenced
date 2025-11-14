@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.block.base.InventoryEnergyBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_old.base.InventoryEnergyBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
