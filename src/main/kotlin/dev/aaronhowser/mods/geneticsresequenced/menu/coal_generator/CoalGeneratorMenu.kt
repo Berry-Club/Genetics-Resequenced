@@ -1,8 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator
 
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.CoalGeneratorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
+import net.minecraft.ChatFormatting
+import net.minecraft.network.chat.Component
 import net.minecraft.world.Container
 import net.minecraft.world.SimpleContainer
 import net.minecraft.world.entity.player.Inventory
@@ -10,6 +14,9 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.SimpleContainerData
 import net.minecraft.world.inventory.Slot
+import net.minecraft.world.item.crafting.RecipeType
+import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
+import java.text.NumberFormat
 
 class CoalGeneratorMenu(
 	id: Int,
@@ -55,4 +62,33 @@ class CoalGeneratorMenu(
 	}
 
 	override fun stillValid(player: Player): Boolean = coalGeneratorContainer.stillValid(player)
+
+	companion object {
+		fun showFuelTooltip(event: ItemTooltipEvent) {
+			val itemStack = event.itemStack
+			val fuelPer = itemStack.getBurnTime(RecipeType.SMELTING)
+			if (fuelPer <= 0) return
+
+			val feProducedPer = CoalGeneratorBlockEntity.getEnergyPerTick() * fuelPer
+			val feStringPer = NumberFormat.getNumberInstance().format(feProducedPer)
+
+			event.toolTip.add(
+				1, Component.literal("$feStringPer FE").withStyle(ChatFormatting.GRAY)
+			)
+
+			val amount = itemStack.count
+			if (amount > 1) {
+				val feProducedTotal = feProducedPer * amount
+				val feStringTotal = NumberFormat.getNumberInstance().format(feProducedTotal)
+
+				event.toolTip.add(
+					2,
+					ModTooltipLang.COAL_GEN_TOTAL_FE
+						.toComponent(feStringTotal)
+						.withStyle(ChatFormatting.GRAY)
+				)
+			}
+
+		}
+	}
 }

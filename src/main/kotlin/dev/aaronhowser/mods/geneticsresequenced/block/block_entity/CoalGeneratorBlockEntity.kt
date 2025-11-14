@@ -2,8 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
 import dev.aaronhowser.mods.geneticsresequenced.block.CoalGeneratorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.coal_generator.CoalGeneratorMenu
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGeneratorMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -93,7 +93,7 @@ class CoalGeneratorBlockEntity(
 	}
 
 	private fun generateEnergy() {
-		energyStorage.receiveEnergy(ServerConfig.CONFIG.coalGeneratorEnergyPerTick.get(), false)
+		energyStorage.receiveEnergy(getEnergyPerTick(), false)
 		burnTimeRemaining--
 	}
 
@@ -154,5 +154,7 @@ class CoalGeneratorBlockEntity(
 		const val CONTAINER_DATA_SIZE = 2
 		const val REMAINING_TICKS_INDEX = 0
 		const val MAX_BURN_TIME_INDEX = 1
+
+		fun getEnergyPerTick(): Int = ServerConfig.CONFIG.coalGeneratorEnergyPerTick.get()
 	}
 }

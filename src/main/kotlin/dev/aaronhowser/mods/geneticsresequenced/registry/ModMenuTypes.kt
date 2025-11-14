@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.blood_purifier
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.blood_purifier.BloodPurifierScreen
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.cell_analyzer.CellAnalyzerMenu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.cell_analyzer.CellAnalyzerScreen
-import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.coal_generator.CoalGeneratorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.coal_generator.CoalGeneratorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.dna_decryptor.DnaDecryptorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.dna_decryptor.DnaDecryptorScreen
