@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.blood_purifier
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.blood_purifier.BloodPurifierScreen
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.cell_analyzer.CellAnalyzerMenu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.cell_analyzer.CellAnalyzerScreen
-import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.coal_generator.CoalGeneratorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.dna_decryptor.DnaDecryptorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.dna_decryptor.DnaDecryptorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.dna_extractor.DnaExtractorMenu
@@ -19,12 +18,12 @@ import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_infuse
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_injector.PlasmidInjectorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_injector.PlasmidInjectorScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGeneratorMenu
+import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGeneratorScreen
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.flag.FeatureFlags
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.MenuType
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
-import net.neoforged.neoforge.common.extensions.IMenuTypeExtension
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 import java.util.function.Supplier
@@ -34,68 +33,32 @@ object ModMenuTypes {
 	val MENU_TYPE_REGISTRY: DeferredRegister<MenuType<*>> =
 		DeferredRegister.create(BuiltInRegistries.MENU, GeneticsResequenced.ID)
 
-	fun <T : AbstractContainerMenu> register(name: String, constructor: MenuType.MenuSupplier<T>): DeferredHolder<MenuType<*>, MenuType<T>> {
-		return MENU_TYPE_REGISTRY.register(name, Supplier { MenuType(constructor, FeatureFlags.DEFAULT_FLAGS) })
-	}
-
 	val COAL_GENERATOR: DeferredHolder<MenuType<*>, MenuType<CoalGeneratorMenu>> =
 		register("coal_generator", ::CoalGeneratorMenu)
 
 	val CELL_ANALYZER: DeferredHolder<MenuType<*>, MenuType<CellAnalyzerMenu>> =
-		MENU_TYPE_REGISTRY.register("cell_analyzer", Supplier {
-			IMenuTypeExtension.create { id, inv, buf ->
-				CellAnalyzerMenu(id, inv, buf)
-			}
-		})
+		register("cell_analyzer", ::CellAnalyzerMenu)
 
 	val DNA_EXTRACTOR: DeferredHolder<MenuType<*>, MenuType<DnaExtractorMenu>> =
-		MENU_TYPE_REGISTRY.register("dna_extractor", Supplier {
-			IMenuTypeExtension.create { id, inv, buf ->
-				DnaExtractorMenu(id, inv, buf)
-			}
-		})
+		register("dna_extractor", ::DnaExtractorMenu)
 
 	val DNA_DECRYPTOR: DeferredHolder<MenuType<*>, MenuType<DnaDecryptorMenu>> =
-		MENU_TYPE_REGISTRY.register("dna_decryptor", Supplier {
-			IMenuTypeExtension.create { id, inv, buf ->
-				DnaDecryptorMenu(id, inv, buf)
-			}
-		})
+		register("dna_decryptor", ::DnaDecryptorMenu)
 
 	val PLASMID_INFUSER: DeferredHolder<MenuType<*>, MenuType<PlasmidInfuserMenu>> =
-		MENU_TYPE_REGISTRY.register("plasmid_infuser", Supplier {
-			IMenuTypeExtension.create { id, inv, buf ->
-				PlasmidInfuserMenu(id, inv, buf)
-			}
-		})
+		register("plasmid_infuser", ::PlasmidInfuserMenu)
 
 	val PLASMID_INJECTOR: DeferredHolder<MenuType<*>, MenuType<PlasmidInjectorMenu>> =
-		MENU_TYPE_REGISTRY.register("plasmid_injector", Supplier {
-			IMenuTypeExtension.create { id, inv, buf ->
-				PlasmidInjectorMenu(id, inv, buf)
-			}
-		})
+		register("plasmid_injector", ::PlasmidInjectorMenu)
 
 	val BLOOD_PURIFIER: DeferredHolder<MenuType<*>, MenuType<BloodPurifierMenu>> =
-		MENU_TYPE_REGISTRY.register("blood_purifier", Supplier {
-			IMenuTypeExtension.create { id, inv, buf ->
-				BloodPurifierMenu(id, inv, buf)
-			}
-		})
+		register("blood_purifier", ::BloodPurifierMenu)
 
 	val INCUBATOR: DeferredHolder<MenuType<*>, MenuType<IncubatorMenu>> =
-		MENU_TYPE_REGISTRY.register("incubator", Supplier {
-			IMenuTypeExtension.create { id, inv, buf ->
-				IncubatorMenu(id, inv, buf)
-			}
-		})
+		register("incubator", ::IncubatorMenu)
 
 	val ADVANCED_INCUBATOR: DeferredHolder<MenuType<*>, MenuType<AdvancedIncubatorMenu>> =
-		MENU_TYPE_REGISTRY.register("advanced_incubator", Supplier {
-			IMenuTypeExtension.create { id, inv, buf ->
-				AdvancedIncubatorMenu(id, inv, buf)
-			}
-		})
+		register("advanced_incubator", ::AdvancedIncubatorMenu)
 
 	fun registerScreens(event: RegisterMenuScreensEvent) {
 		event.register(COAL_GENERATOR.get(), ::CoalGeneratorScreen)
@@ -107,6 +70,10 @@ object ModMenuTypes {
 		event.register(BLOOD_PURIFIER.get(), ::BloodPurifierScreen)
 		event.register(INCUBATOR.get(), ::IncubatorScreen)
 		event.register(ADVANCED_INCUBATOR.get(), ::AdvancedIncubatorScreen)
+	}
+
+	fun <T : AbstractContainerMenu> register(name: String, constructor: MenuType.MenuSupplier<T>): DeferredHolder<MenuType<*>, MenuType<T>> {
+		return MENU_TYPE_REGISTRY.register(name, Supplier { MenuType(constructor, FeatureFlags.DEFAULT_FLAGS) })
 	}
 
 }
