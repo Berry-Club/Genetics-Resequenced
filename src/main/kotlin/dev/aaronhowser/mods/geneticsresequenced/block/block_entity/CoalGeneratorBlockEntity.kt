@@ -94,9 +94,7 @@ class CoalGeneratorBlockEntity(
 	}
 
 	private fun generateEnergy() {
-		val level = this.level ?: return
-		energyStorage.receiveEnergy(getEnergyPerTick(level), false)
-
+		energyStorage.receiveEnergy(ServerConfig.CONFIG.coalGeneratorEnergyPerTick.get(), false)
 		burnTimeRemaining--
 	}
 
@@ -157,9 +155,5 @@ class CoalGeneratorBlockEntity(
 		const val CONTAINER_DATA_SIZE = 2
 		const val REMAINING_TICKS_INDEX = 0
 		const val MAX_BURN_TIME_INDEX = 1
-
-		fun getEnergyPerTick(level: Level): Int {
-			return ServerConfig.CONFIG.coalGeneratorEnergyPerTick.get()
-		}
 	}
 }
