@@ -1,9 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
 import dev.aaronhowser.mods.irregular_implements.menu.MenuWithInventory
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.MenuType
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
@@ -11,7 +13,8 @@ import net.minecraft.world.level.Level
 abstract class MachineMenu(
 	menuType: MenuType<*>,
 	id: Int,
-	playerInventory: Inventory
+	playerInventory: Inventory,
+	protected val energyContainerData: ContainerData
 ) : MenuWithInventory(menuType, id, playerInventory) {
 
 	protected val level: Level = playerInventory.player.level()
@@ -20,8 +23,12 @@ abstract class MachineMenu(
 	protected open val inventoryY = 90
 	protected abstract val amountSlots: Int
 
-	abstract var currentEnergy: Int
-	abstract var maxEnergy: Int
+	var currentEnergy: Int
+		get() = energyContainerData.get(MachineBlockEntity.CURRENT_ENERGY_INDEX)
+		set(value) = energyContainerData.set(MachineBlockEntity.CURRENT_ENERGY_INDEX, value)
+	var maxEnergy: Int
+		get() = energyContainerData.get(MachineBlockEntity.MAX_ENERGY_INDEX)
+		set(value) = energyContainerData.set(MachineBlockEntity.MAX_ENERGY_INDEX, value)
 
 	abstract fun getPercentDone(): Float
 

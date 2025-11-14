@@ -18,6 +18,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_infuse
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_infuser.PlasmidInfuserScreen
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_injector.PlasmidInjectorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_injector.PlasmidInjectorScreen
+import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGeneratorMenu
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.flag.FeatureFlags
 import net.minecraft.world.inventory.AbstractContainerMenu

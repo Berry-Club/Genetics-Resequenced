@@ -12,6 +12,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.world.ContainerHelper
 import net.minecraft.world.MenuProvider
+import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
@@ -37,6 +38,24 @@ abstract class MachineBlockEntity(
 
 	open fun getEnergyCapability(direction: Direction?): EnergyStorage {
 		return energyStorage
+	}
+
+	protected val energyContainerData = object : ContainerData {
+		override fun get(index: Int): Int {
+			return when (index) {
+				CURRENT_ENERGY_INDEX -> energyStorage.energyStored
+				MAX_ENERGY_INDEX -> energyStorage.maxEnergyStored
+				else -> -1
+			}
+		}
+
+		override fun set(index: Int, value: Int) {
+			when (index) {
+				CURRENT_ENERGY_INDEX -> energyStorage.setEnergy(value)
+			}
+		}
+
+		override fun getCount(): Int = ENERGY_CONTAINER_DATA_SIZE
 	}
 
 	abstract val containerSize: Int
@@ -79,6 +98,10 @@ abstract class MachineBlockEntity(
 
 	companion object {
 		private const val ENERGY_NBT = "Energy"
+
+		const val ENERGY_CONTAINER_DATA_SIZE = 2
+		const val CURRENT_ENERGY_INDEX = 0
+		const val MAX_ENERGY_INDEX = 1
 
 		fun tick(
 			level: Level,

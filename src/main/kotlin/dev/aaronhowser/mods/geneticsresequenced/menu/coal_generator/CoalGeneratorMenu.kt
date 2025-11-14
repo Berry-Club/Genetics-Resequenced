@@ -22,7 +22,8 @@ class CoalGeneratorMenu(
 	id: Int,
 	playerInventory: Inventory,
 	private val coalGeneratorContainer: Container,
-	private val containerData: ContainerData
+	private val containerData: ContainerData,
+	val machineContainerData: ContainerData
 ) : MachineMenu(ModMenuTypes.COAL_GENERATOR.get(), id, playerInventory) {
 
 	constructor(containerId: Int, playerInventory: Inventory) : this(
@@ -41,6 +42,16 @@ class CoalGeneratorMenu(
 	var burnTimeRemaining: Int
 		get() = containerData.get(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX)
 		set(value) = containerData.set(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX, value)
+
+	fun isBurning(): Boolean = burnTimeRemaining > 0
+
+	override var currentEnergy: Int
+		get() = TODO("Not yet implemented")
+		set(value) {}
+
+	override var maxEnergy: Int
+		get() = TODO("Not yet implemented")
+		set(value) {}
 
 	init {
 		checkContainerSize(coalGeneratorContainer, CoalGeneratorBlockEntity.CONTAINER_SIZE)
