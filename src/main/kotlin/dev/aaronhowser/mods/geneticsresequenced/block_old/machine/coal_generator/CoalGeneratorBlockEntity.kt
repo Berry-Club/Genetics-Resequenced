@@ -152,7 +152,6 @@ class CoalGeneratorBlockEntity(
 		}
 
 	private fun tryToStartBurning() {
-
 		val inputItem = itemHandler.getStackInSlot(INPUT_SLOT)
 		val fuel = inputItem.getBurnTime(RecipeType.SMELTING)
 

@@ -39,7 +39,7 @@ abstract class InventoryEnergyBlockEntity(
 
 	abstract val containerSize: Int
 	open val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, containerSize)
-	private val invWrapper = InvWrapper(container)
+	protected val invWrapper = InvWrapper(container)
 
 	open fun getItemHandler(direction: Direction?): InvWrapper? {
 		return invWrapper
