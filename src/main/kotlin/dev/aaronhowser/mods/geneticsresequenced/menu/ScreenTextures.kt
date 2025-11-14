@@ -60,11 +60,6 @@ object ScreenTextures {
 			}
 
 			object Position {
-				object CoalGen {
-					const val X = 75
-					const val Y = 41
-				}
-
 				object Default {
 					const val X = 83
 					const val Y = 43

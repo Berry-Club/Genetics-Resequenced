@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.model
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.BioluminescenceBlock
-import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.coal_generator.CoalGeneratorBlock
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import net.minecraft.core.Direction
 import net.minecraft.data.PackOutput

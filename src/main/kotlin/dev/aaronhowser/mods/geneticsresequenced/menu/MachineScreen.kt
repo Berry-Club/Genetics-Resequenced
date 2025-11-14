@@ -18,8 +18,8 @@ abstract class MachineScreen<T : MachineMenu>(
 
 	protected lateinit var progressArrow: ProgressArrow
 	protected open val arrowDirection: ProgressArrow.ArrowDirection = ProgressArrow.ArrowDirection.RIGHT
-	protected open val arrowLeftPos: Int = 83
-	protected open val arrowTopPos: Int = 43
+	protected open val arrowPosLeft: Int = 83
+	protected open val arrowPosTop: Int = 43
 
 	protected open fun arrowPercentDone(): Float = menu.getPercentDone()
 	protected open fun shouldRenderProgressArrow(): Boolean = true
@@ -31,8 +31,8 @@ abstract class MachineScreen<T : MachineMenu>(
 		inventoryLabelY += 6
 
 		this.progressArrow = ProgressArrow(
-			x = leftPos + arrowLeftPos,
-			y = topPos + arrowTopPos,
+			x = leftPos + arrowPosLeft,
+			y = topPos + arrowPosTop,
 			arrowDirection = arrowDirection,
 			font = font,
 			percentDoneFunction = ::arrowPercentDone,

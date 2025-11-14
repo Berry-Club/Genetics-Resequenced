@@ -17,6 +17,14 @@ class CoalGeneratorScreen(
 
 	private lateinit var generatorBurn: GeneratorBurn
 
+	override val energyPosLeft: Int = 104
+	override val energyPosTop: Int = 18
+
+	override val arrowPosLeft: Int = 75
+	override val arrowPosTop: Int = 41
+
+	override fun shouldRenderProgressArrow(): Boolean = menu.isBurning()
+
 	override fun baseInit() {
 		super.baseInit()
 
