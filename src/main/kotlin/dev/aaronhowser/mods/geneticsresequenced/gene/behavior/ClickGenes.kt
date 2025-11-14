@@ -40,7 +40,7 @@ object ClickGenes {
 
 	val RECENTLY_SHEARED_ENTITIES = GeneCooldown(
 		ModGenes.WOOLY,
-		ServerConfig.woolyCooldown.get()
+		ServerConfig.CONFIG.woolyCooldown.get()
 	)
 
 	fun handleWoolyOther(event: PlayerInteractEvent.EntityInteract) {
@@ -152,7 +152,7 @@ object ClickGenes {
 
 	private val RECENTLY_MEATED_PLAYERS = GeneCooldown(
 		ModGenes.MEATY,
-		ServerConfig.meatyCooldown.get()
+		ServerConfig.CONFIG.meatyCooldown.get()
 	)
 
 	fun handleMeatyOther(event: PlayerInteractEvent.EntityInteract) {
@@ -251,7 +251,7 @@ object ClickGenes {
 
 	private val RECENTLY_MILKED_ENTITIES = GeneCooldown(
 		ModGenes.MILKY,
-		ServerConfig.milkyCooldown.get()
+		ServerConfig.CONFIG.milkyCooldown.get()
 	)
 
 	fun handleMilkyOther(event: PlayerInteractEvent.EntityInteract) {

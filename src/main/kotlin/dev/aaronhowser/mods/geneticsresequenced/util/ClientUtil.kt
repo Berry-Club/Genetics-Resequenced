@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
-import dev.aaronhowser.mods.aaron.AaronClientUtil
+import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.AaronExtensions.status
 import dev.aaronhowser.mods.aaron.ServerScheduler
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced

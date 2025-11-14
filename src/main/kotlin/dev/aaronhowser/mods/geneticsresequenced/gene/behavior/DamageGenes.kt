@@ -103,7 +103,7 @@ object DamageGenes {
 		val weaponIsAxe = attacker.mainHandItem.item is AxeItem //Is there a better way of doing this?
 		if (!weaponIsAxe) return
 
-		event.container.newDamage *= ServerConfig.johnnyAttackMultiplier.get().toFloat()
+		event.container.newDamage *= ServerConfig.CONFIG.johnnyAttackMultiplier.get().toFloat()
 	}
 
 	// Triggers
@@ -145,13 +145,13 @@ object DamageGenes {
 
 		if (!target.hasGene(ModGenes.THORNS)) return
 
-		if (target.level().random.nextDouble() > ServerConfig.thornsChance.get()) return
+		if (target.level().random.nextDouble() > ServerConfig.CONFIG.thornsChance.get()) return
 
 		val thornsDamageSource = target.level().damageSources().thorns(target)
-		attacker.hurt(thornsDamageSource, ServerConfig.thornsDamage.get().toFloat())
+		attacker.hurt(thornsDamageSource, ServerConfig.CONFIG.thornsDamage.get().toFloat())
 
 		if (target is Player) {
-			target.causeFoodExhaustion(ServerConfig.thornsHungerDrain.get().toFloat())
+			target.causeFoodExhaustion(ServerConfig.CONFIG.thornsHungerDrain.get().toFloat())
 		}
 	}
 
@@ -172,7 +172,7 @@ object DamageGenes {
 			return
 		}
 
-		val chanceOfHappening = ServerConfig.clawsChance.get() * clawsLevel
+		val chanceOfHappening = ServerConfig.CONFIG.clawsChance.get() * clawsLevel
 
 		if (attacker.level().random.nextDouble() > chanceOfHappening) return
 
@@ -198,10 +198,10 @@ object DamageGenes {
 		val attacker = event.source.entity as? LivingEntity ?: return
 		if (!attacker.hasGene(ModGenes.CHILLING)) return
 
-		if (attacker.level().random.nextDouble() > ServerConfig.chillChance.get()) return
+		if (attacker.level().random.nextDouble() > ServerConfig.CONFIG.chillChance.get()) return
 
 		val target = event.entity
-		target.ticksFrozen = ServerConfig.chillDuration.get()
+		target.ticksFrozen = ServerConfig.CONFIG.chillDuration.get()
 	}
 
 }

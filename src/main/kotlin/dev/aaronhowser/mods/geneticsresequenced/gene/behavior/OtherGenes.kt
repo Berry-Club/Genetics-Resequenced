@@ -27,7 +27,7 @@ object OtherGenes {
 		val emeraldHeart = ModGenes.EMERALD_HEART.getHolderOrThrow(event.player.registryAccess())
 		if (emeraldHeart.isDisabled) return
 
-		if (Random.nextDouble() > ServerConfig.emeraldHeartChatChance.get()) return
+		if (Random.nextDouble() > ServerConfig.CONFIG.emeraldHeartChatChance.get()) return
 
 		val player = event.player
 
