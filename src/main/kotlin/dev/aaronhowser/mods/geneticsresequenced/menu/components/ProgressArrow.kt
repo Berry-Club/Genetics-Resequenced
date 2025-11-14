@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.part
+package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
 import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.ScreenTextures
 import net.minecraft.client.gui.Font

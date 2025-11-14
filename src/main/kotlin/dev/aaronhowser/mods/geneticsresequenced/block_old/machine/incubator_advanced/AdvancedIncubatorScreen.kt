@@ -2,9 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator_adv
 
 import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.ScreenTextures
-import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.part.Bubbles
-import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.part.ProgressArrow
-import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.part.TemperatureIndicator
+import dev.aaronhowser.mods.geneticsresequenced.menu.components.Bubbles
+import dev.aaronhowser.mods.geneticsresequenced.menu.components.ProgressArrow
+import dev.aaronhowser.mods.geneticsresequenced.menu.components.TemperatureIndicator
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.player.Inventory
