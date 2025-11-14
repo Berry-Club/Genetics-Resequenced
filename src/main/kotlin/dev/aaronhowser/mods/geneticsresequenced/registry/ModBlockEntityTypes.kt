@@ -2,8 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.BloodPurifierBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.CellAnalyzerBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.CoalGeneratorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.blood_purifier.BloodPurifierBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.dna_decryptor.DnaDecryptorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.dna_extractor.DnaExtractorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator.IncubatorBlockEntity

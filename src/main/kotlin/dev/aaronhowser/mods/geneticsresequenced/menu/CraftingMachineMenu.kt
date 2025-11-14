@@ -1,7 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
+import net.minecraft.world.Container
 import net.minecraft.world.entity.player.Inventory
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.MenuType
 
@@ -9,6 +11,7 @@ abstract class CraftingMachineMenu(
 	menuType: MenuType<*>,
 	id: Int,
 	playerInventory: Inventory,
+	protected val machineContainer: Container,
 	energyContainerData: ContainerData,
 	protected val progressContainerData: ContainerData
 ) : MachineMenu(menuType, id, playerInventory, energyContainerData) {
@@ -28,6 +31,10 @@ abstract class CraftingMachineMenu(
 	override fun getPercentDone(): Float {
 		if (maxProgress <= 0) return 0f
 		return currentProgress.toFloat() / maxProgress.toFloat()
+	}
+
+	override fun stillValid(player: Player): Boolean {
+		return machineContainer.stillValid(player)
 	}
 
 }

@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
+import dev.aaronhowser.mods.geneticsresequenced.menu.cell_analyzer.CellAnalyzerMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
@@ -73,7 +74,7 @@ class CellAnalyzerBlockEntity(
 		invWrapper.insertItem(OUTPUT_SLOT_INDEX, outputStack, false)
 	}
 
-	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
-		TODO("Not yet implemented")
+	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
+		return CellAnalyzerMenu(containerId, playerInventory, container, energyContainerData, progressContainerData)
 	}
 }
