@@ -30,7 +30,7 @@ class BloodPurifierMenu(
 
 	init {
 		checkContainerSize(machineContainer, CraftingMachineBlockEntity.DEFAULT_INVENTORY_SIZE)
-		addPlayerInventorySlots(inventoryY)
+		addPlayerInventorySlots()
 		addSlots()
 	}
 

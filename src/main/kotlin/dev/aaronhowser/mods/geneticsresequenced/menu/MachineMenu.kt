@@ -23,12 +23,23 @@ abstract class MachineMenu(
 	protected open val inventoryY = 90
 	protected abstract val amountSlots: Int
 
+	init {
+		addPlayerInventorySlots()
+		addSlots()
+
+		addDataSlots(energyContainerData)
+	}
+
 	var currentEnergy: Int
 		get() = energyContainerData.get(MachineBlockEntity.CURRENT_ENERGY_INDEX)
 		set(value) = energyContainerData.set(MachineBlockEntity.CURRENT_ENERGY_INDEX, value)
 	var maxEnergy: Int
 		get() = energyContainerData.get(MachineBlockEntity.MAX_ENERGY_INDEX)
 		set(value) = energyContainerData.set(MachineBlockEntity.MAX_ENERGY_INDEX, value)
+
+	fun addPlayerInventorySlots() {
+		addPlayerInventorySlots(inventoryY)
+	}
 
 	abstract fun getPercentDone(): Float
 

@@ -27,4 +27,12 @@ class CellAnalyzerMenu(
 		SimpleContainerData(CraftingMachineBlockEntity.PROGRESS_CONTAINER_DATA_SIZE)
 	)
 
+	init {
+		checkContainerSize(machineContainer, CraftingMachineBlockEntity.DEFAULT_INVENTORY_SIZE)
+	}
+
+	override fun addSlots() {
+
+	}
+
 }

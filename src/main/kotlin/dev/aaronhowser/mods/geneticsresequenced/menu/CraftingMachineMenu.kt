@@ -18,6 +18,12 @@ abstract class CraftingMachineMenu(
 
 	override val amountSlots: Int = CraftingMachineBlockEntity.DEFAULT_INVENTORY_SIZE
 
+	init {
+		checkContainerSize(machineContainer, amountSlots)
+
+		addDataSlots(progressContainerData)
+	}
+
 	var currentProgress: Int
 		get() = progressContainerData.get(CraftingMachineBlockEntity.CURRENT_PROGRESS_INDEX)
 		set(value) = progressContainerData.set(CraftingMachineBlockEntity.CURRENT_PROGRESS_INDEX, value)
