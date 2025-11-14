@@ -45,14 +45,18 @@ abstract class CraftingMachineBlockEntity(
 
 	protected var currentProgress: Int = 0
 		set(value) {
-			field = value
-			setChanged()
+			if (field != value) {
+				field = value
+				setChanged()
+			}
 		}
 
 	protected var maxProgress: Int = 0
 		set(value) {
-			field = value
-			setChanged()
+			if (field != value) {
+				field = value
+				setChanged()
+			}
 		}
 
 	protected val progressContainerData = object : ContainerData {

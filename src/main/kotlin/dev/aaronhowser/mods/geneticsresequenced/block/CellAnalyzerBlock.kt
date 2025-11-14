@@ -6,7 +6,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 
-class BloodPurifierBlock : MachineBlock() {
+class CellAnalyzerBlock: MachineBlock() {
 
 	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity? {
 		return BloodPurifierBlockEntity(pos, state)

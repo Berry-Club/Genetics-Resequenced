@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.BioluminescenceBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.BloodPurifierBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.CoalGeneratorBlock
-import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.cell_analyzer.CellAnalyzerBlock
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.dna_decryptor.DnaDecryptorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.dna_extractor.DnaExtractorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator.IncubatorBlock
