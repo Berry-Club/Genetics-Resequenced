@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.CellAnalyzerB
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.CoalGeneratorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.DnaDecryptorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.DnaExtractorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.PlasmidInfuserBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator_advanced.AdvancedIncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_injector.PlasmidInjectorBlockEntity

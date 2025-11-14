@@ -8,9 +8,10 @@ import dev.aaronhowser.mods.geneticsresequenced.block.CellAnalyzerBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.CoalGeneratorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.DnaDecryptorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.DnaExtractorBlock
+import dev.aaronhowser.mods.geneticsresequenced.block.PlasmidInfuserBlock
+import dev.aaronhowser.mods.geneticsresequenced.block.PlasmidInjectorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator.IncubatorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator_advanced.AdvancedIncubatorBlock
-import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_injector.PlasmidInjectorBlock
 import net.minecraft.world.level.block.Block
 import net.neoforged.neoforge.registries.DeferredBlock
 import net.neoforged.neoforge.registries.DeferredRegister
