@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.menu.incubator.IncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.DupeCellRecipe
@@ -146,8 +147,8 @@ class IncubatorBlockEntity(
 		if (!onlyDupeCellRecipes) topStack.shrink(1)
 	}
 
-	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
-		TODO("Not yet implemented")
+	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
+		return IncubatorMenu(containerId, playerInventory, container, energyContainerData, progressContainerData)
 	}
 
 	companion object {

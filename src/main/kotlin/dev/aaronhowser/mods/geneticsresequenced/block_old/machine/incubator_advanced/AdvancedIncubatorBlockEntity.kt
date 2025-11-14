@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator_adv
 
 import dev.aaronhowser.mods.geneticsresequenced.block_old.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_old.base.handler.WrappedHandler
-import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput

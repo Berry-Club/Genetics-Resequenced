@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator.IncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator.IncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator_advanced.AdvancedIncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator_advanced.AdvancedIncubatorScreen
