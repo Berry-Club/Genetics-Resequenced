@@ -5,6 +5,8 @@ import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.coal_generator
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
+import net.minecraft.core.HolderLookup
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
@@ -56,7 +58,24 @@ class CoalGeneratorBlockEntity(
 		return CoalGeneratorMenu(pContainerId, pPlayerInventory, container, containerData)
 	}
 
+	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.saveAdditional(tag, registries)
+
+		tag.putInt(BURN_TIME_REMAINING_NBT, burnTimeRemaining)
+		tag.putInt(MAX_BURN_TIME_NBT, maxBurnTime)
+	}
+
+	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.loadAdditional(tag, registries)
+
+		burnTimeRemaining = tag.getInt(BURN_TIME_REMAINING_NBT)
+		maxBurnTime = tag.getInt(MAX_BURN_TIME_NBT)
+	}
+
 	companion object {
+		const val BURN_TIME_REMAINING_NBT = "BurnTimeRemaining"
+		const val MAX_BURN_TIME_NBT = "MaxBurnTime"
+
 		const val CONTAINER_SIZE = 1
 		const val INPUT_SLOT = 0
 
