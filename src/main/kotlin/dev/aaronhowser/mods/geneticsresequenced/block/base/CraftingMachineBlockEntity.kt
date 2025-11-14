@@ -31,6 +31,12 @@ abstract class CraftingMachineBlockEntity(
 		return energyStorage.energyStored >= getEnergyCostPerTick()
 	}
 
+	protected fun drainEnergy(): Boolean {
+		if (energyStorage.energyStored <= getEnergyCostPerTick()) return false
+		energyStorage.extractEnergy(getEnergyCostPerTick(), false)
+		return true
+	}
+
 	protected var currentProgress: Int = 0
 		set(value) {
 			field = value
@@ -42,6 +48,24 @@ abstract class CraftingMachineBlockEntity(
 			field = value
 			setChanged()
 		}
+
+	protected abstract fun hasRecipe(): Boolean
+	protected abstract fun craftItem()
+
+	override fun serverTick() {
+		if (!hasEnoughEnergy()) return
+		if (!hasRecipe()) {
+			currentProgress = 0
+			return
+		}
+
+		currentProgress += 1 + getAmountOfOverclocks()
+
+		if (currentProgress >= maxProgress) {
+			currentProgress = 0
+			craftItem()
+		}
+	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.saveAdditional(tag, registries)
