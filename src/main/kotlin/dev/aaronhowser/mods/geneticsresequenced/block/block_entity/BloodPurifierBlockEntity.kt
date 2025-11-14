@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.blood_purifier.BloodPurifierMenu
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
+import dev.aaronhowser.mods.geneticsresequenced.menu.blood_purifier.BloodPurifierMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
@@ -52,8 +52,8 @@ class BloodPurifierBlockEntity(
 		invWrapper.extractItem(INPUT_SLOT_INDEX, 1, false)
 	}
 
-	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
-		return BloodPurifierMenu(containerId, playerInventory, container, progressContainerData, energyContainerData)
+	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
+		return BloodPurifierMenu(containerId, playerInventory, container, energyContainerData, progressContainerData)
 	}
 
 }
