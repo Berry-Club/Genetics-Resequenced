@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.coal_generator
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.entity.player.Inventory
@@ -15,6 +16,7 @@ import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
+import net.neoforged.neoforge.capabilities.Capabilities
 
 class CoalGeneratorBlockEntity(
 	pos: BlockPos,
@@ -57,6 +59,8 @@ class CoalGeneratorBlockEntity(
 	}
 
 	override fun serverTick() {
+		exportEnergy()
+
 		if (hasRoomForEnergy()) {
 			if (burnTimeRemaining > 0) {
 				generateEnergy()
@@ -98,6 +102,31 @@ class CoalGeneratorBlockEntity(
 
 	private fun hasRoomForEnergy(): Boolean {
 		return energyStorage.energyStored < energyStorage.maxEnergyStored
+	}
+
+	private fun exportEnergy() {
+		val level = this.level ?: return
+
+		if (energyStorage.energyStored <= 0) return
+
+		for (direction in Direction.entries) {
+			val neighborPos = blockPos.relative(direction)
+			val neighborEnergy = level.getCapability(
+				Capabilities.EnergyStorage.BLOCK,
+				neighborPos,
+				direction.opposite
+			) ?: continue
+
+			if (!neighborEnergy.canReceive()) continue
+
+			val maxEnergyToSend = minOf(
+				energyTransferRate,
+				energyStorage.energyStored
+			)
+
+			val energyToTransfer = neighborEnergy.receiveEnergy(maxEnergyToSend, false)
+			energyStorage.extractEnergy(energyToTransfer, false)
+		}
 	}
 
 	override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
