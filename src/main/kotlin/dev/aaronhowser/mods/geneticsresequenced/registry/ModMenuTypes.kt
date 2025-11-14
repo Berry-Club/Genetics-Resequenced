@@ -20,6 +20,8 @@ import dev.aaronhowser.mods.geneticsresequenced.menu.cell_analyzer.CellAnalyzerM
 import dev.aaronhowser.mods.geneticsresequenced.menu.cell_analyzer.CellAnalyzerScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGeneratorMenu
 import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGeneratorScreen
+import dev.aaronhowser.mods.geneticsresequenced.menu.dna_decryptor.DnaDecryptorMenu
+import dev.aaronhowser.mods.geneticsresequenced.menu.dna_decryptor.DnaDecryptorScreen
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.flag.FeatureFlags
 import net.minecraft.world.inventory.AbstractContainerMenu
