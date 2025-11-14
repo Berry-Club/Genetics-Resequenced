@@ -6,6 +6,7 @@ import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.ContainerHelper
+import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
@@ -33,6 +34,12 @@ abstract class InventoryEnergyBlockEntity(
 
 	open fun getItemHandler(direction: Direction?): InvWrapper? {
 		return invWrapper
+	}
+
+	override fun setChanged() {
+		super.setChanged()
+
+		level?.sendBlockUpdated(blockPos, blockState, blockState, Block.UPDATE_ALL_IMMEDIATE)
 	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
