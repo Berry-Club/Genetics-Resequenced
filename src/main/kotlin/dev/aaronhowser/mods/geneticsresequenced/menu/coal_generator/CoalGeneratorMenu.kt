@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator
 
+import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.CoalGeneratorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
@@ -23,14 +24,15 @@ class CoalGeneratorMenu(
 	playerInventory: Inventory,
 	private val coalGeneratorContainer: Container,
 	private val containerData: ContainerData,
-	val machineContainerData: ContainerData
-) : MachineMenu(ModMenuTypes.COAL_GENERATOR.get(), id, playerInventory) {
+	energyContainerData: ContainerData
+) : MachineMenu(ModMenuTypes.COAL_GENERATOR.get(), id, playerInventory, energyContainerData) {
 
 	constructor(containerId: Int, playerInventory: Inventory) : this(
 		containerId,
 		playerInventory,
 		SimpleContainer(CoalGeneratorBlockEntity.CONTAINER_SIZE),
-		SimpleContainerData(CoalGeneratorBlockEntity.CONTAINER_DATA_SIZE)
+		SimpleContainerData(CoalGeneratorBlockEntity.CONTAINER_DATA_SIZE),
+		SimpleContainerData(MachineBlockEntity.ENERGY_CONTAINER_DATA_SIZE)
 	)
 
 	override val amountSlots: Int = CoalGeneratorBlockEntity.CONTAINER_SIZE
@@ -44,14 +46,6 @@ class CoalGeneratorMenu(
 		set(value) = containerData.set(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX, value)
 
 	fun isBurning(): Boolean = burnTimeRemaining > 0
-
-	override var currentEnergy: Int
-		get() = TODO("Not yet implemented")
-		set(value) {}
-
-	override var maxEnergy: Int
-		get() = TODO("Not yet implemented")
-		set(value) {}
 
 	init {
 		checkContainerSize(coalGeneratorContainer, CoalGeneratorBlockEntity.CONTAINER_SIZE)
