@@ -98,7 +98,16 @@ class DnaDecryptorBlockEntity(
 	}
 
 	override fun craftItem() {
-		TODO("Not yet implemented")
+		val level = this.level ?: return
+
+		val inputStack = container.getItem(INPUT_SLOT_INDEX)
+		val outputStack =  getOutputFromInput(inputStack, level.registryAccess()) ?: return
+
+		invWrapper.extractItem(INPUT_SLOT_INDEX, 1, false)
+		invWrapper.insertItem(OUTPUT_SLOT_INDEX, outputStack, false)
+
+		isNextGeneSet = false
+		nextGeneHolder = null
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
