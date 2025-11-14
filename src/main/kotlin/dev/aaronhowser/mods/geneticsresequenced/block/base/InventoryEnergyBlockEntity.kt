@@ -5,10 +5,12 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.chat.Component
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.world.ContainerHelper
+import net.minecraft.world.MenuProvider
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
@@ -24,7 +26,7 @@ abstract class InventoryEnergyBlockEntity(
 	blockEntityType,
 	pos,
 	blockState
-) {
+), MenuProvider {
 
 	abstract val maxEnergy: Int
 	abstract val energyTransferRate: Int
@@ -65,6 +67,10 @@ abstract class InventoryEnergyBlockEntity(
 
 	override fun getUpdateTag(pRegistries: HolderLookup.Provider): CompoundTag = saveWithoutMetadata(pRegistries)
 	override fun getUpdatePacket(): Packet<ClientGamePacketListener> = ClientboundBlockEntityDataPacket.create(this)
+
+	override fun getDisplayName(): Component {
+		return blockState.block.name
+	}
 
 	companion object {
 		private const val ENERGY_NBT = "Energy"
