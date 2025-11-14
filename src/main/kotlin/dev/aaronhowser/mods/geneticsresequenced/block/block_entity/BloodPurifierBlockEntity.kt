@@ -1,11 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.blood_purifier.BloodPurifierMenu
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
-import net.minecraft.core.Direction
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
@@ -23,8 +23,6 @@ class BloodPurifierBlockEntity(
 	override val energyTransferRate: Int = 256
 	override val baseEnergyCostPerTick: IntSupplier = IntSupplier { 32 }
 
-	override val containerSize: Int = 3
-
 	override val invWrapper = object : InvWrapper(container) {
 		override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
 			return when (slot) {
@@ -37,15 +35,25 @@ class BloodPurifierBlockEntity(
 	}
 
 	override fun hasRecipe(): Boolean {
-		TODO("Not yet implemented")
+		val outputStack = invWrapper.getStackInSlot(OUTPUT_SLOT_INDEX)
+		if (!outputStack.isEmpty) return false
+
+		val inputStack = invWrapper.getStackInSlot(INPUT_SLOT_INDEX)
+		return SyringeItem.isContaminated(inputStack)
 	}
 
 	override fun craftItem() {
-		TODO("Not yet implemented")
+		if (!hasRecipe()) return
+
+		val syringeStack = invWrapper.getStackInSlot(INPUT_SLOT_INDEX)
+		SyringeItem.setContaminated(syringeStack, value = false)
+
+		invWrapper.insertItem(OUTPUT_SLOT_INDEX, syringeStack.copy(), false)
+		invWrapper.extractItem(INPUT_SLOT_INDEX, 1, false)
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
-		TODO("Not yet implemented")
+		return BloodPurifierMenu(containerId, playerInventory, container, progressContainerData, energyContainerData)
 	}
 
 }
