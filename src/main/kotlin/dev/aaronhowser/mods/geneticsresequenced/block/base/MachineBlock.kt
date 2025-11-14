@@ -1,6 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base
 
+import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.world.InteractionResult
+import net.minecraft.world.MenuProvider
+import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.EntityBlock
@@ -12,6 +16,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.DirectionProperty
 import net.minecraft.world.level.material.MapColor
+import net.minecraft.world.phys.BlockHitResult
 
 abstract class MachineBlock(
 	properties: Properties = DEFAULT_PROPERTIES
@@ -22,6 +27,22 @@ abstract class MachineBlock(
 			stateDefinition.any()
 				.setValue(H_FACING, Direction.NORTH)
 		)
+	}
+
+	override fun useWithoutItem(
+		state: BlockState,
+		level: Level,
+		pos: BlockPos,
+		player: Player,
+		hitResult: BlockHitResult
+	): InteractionResult {
+		val blockEntity = level.getBlockEntity(pos)
+		if (blockEntity is MenuProvider) {
+			player.openMenu(blockEntity)
+			return InteractionResult.sidedSuccess(level.isClientSide)
+		}
+
+		return InteractionResult.PASS
 	}
 
 	override fun <T : BlockEntity?> getTicker(level: Level, state: BlockState, blockEntityType: BlockEntityType<T>): BlockEntityTicker<T> {
