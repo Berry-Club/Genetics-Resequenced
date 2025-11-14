@@ -10,7 +10,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.world.entity.EntityType
@@ -63,7 +63,7 @@ object CommonEvents {
 
 	@SubscribeEvent
 	fun onRegisterCapabilities(event: RegisterCapabilitiesEvent) {
-		for (deferredBlockEntityType in ModBlockEntities.BLOCK_ENTITY_REGISTRY.entries) {
+		for (deferredBlockEntityType in ModBlockEntityTypes.BLOCK_ENTITY_REGISTRY.entries) {
 			val blockEntityType = deferredBlockEntityType.get()
 
 			event.registerBlockEntity(

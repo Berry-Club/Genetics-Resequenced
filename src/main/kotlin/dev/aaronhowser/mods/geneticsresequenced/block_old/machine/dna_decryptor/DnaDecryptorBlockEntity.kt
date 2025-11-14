@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
@@ -30,7 +30,7 @@ class DnaDecryptorBlockEntity(
 	pPos: BlockPos,
 	pBlockState: BlockState
 ) : CraftingMachineBlockEntity(
-	ModBlockEntities.DNA_DECRYPTOR.get(),
+	ModBlockEntityTypes.DNA_DECRYPTOR.get(),
 	pPos,
 	pBlockState
 ), MenuProvider {

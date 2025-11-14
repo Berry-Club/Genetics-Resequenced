@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.DupeCellRecipe
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
@@ -29,7 +29,7 @@ class IncubatorBlockEntity(
 	pPos: BlockPos,
 	pBlockState: BlockState
 ) : CraftingMachineBlockEntity(
-	ModBlockEntities.INCUBATOR.get(),
+	ModBlockEntityTypes.INCUBATOR.get(),
 	pPos,
 	pBlockState
 ), MenuProvider {

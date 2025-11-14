@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_old.machine.dna_decryptor
 
 import dev.aaronhowser.mods.geneticsresequenced.block_old.base.CraftingMachineBlock
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.BaseEntityBlock
 import net.minecraft.world.level.block.entity.BlockEntity
@@ -20,7 +20,7 @@ class DnaDecryptorBlock : CraftingMachineBlock(
 	): BlockEntityTicker<T>? {
 		return BaseEntityBlock.createTickerHelper(
 			pBlockEntityType,
-			ModBlockEntities.DNA_DECRYPTOR.get(),
+			ModBlockEntityTypes.DNA_DECRYPTOR.get(),
 			DnaDecryptorBlockEntity::tick
 		)
 	}

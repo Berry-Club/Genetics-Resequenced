@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block_old.base.CraftingMachineBl
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setEntityType
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
@@ -25,7 +25,7 @@ class DnaExtractorBlockEntity(
 	pPos: BlockPos,
 	pBlockState: BlockState
 ) : CraftingMachineBlockEntity(
-	ModBlockEntities.DNA_EXTRACTOR.get(),
+	ModBlockEntityTypes.DNA_EXTRACTOR.get(),
 	pPos,
 	pBlockState
 ), MenuProvider {

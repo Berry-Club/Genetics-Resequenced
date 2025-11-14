@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block_old.base.CraftingMachineBl
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -25,7 +25,7 @@ class PlasmidInfuserBlockEntity(
 	pPos: BlockPos,
 	pBlockState: BlockState
 ) : CraftingMachineBlockEntity(
-	ModBlockEntities.PLASMID_INFUSER.get(),
+	ModBlockEntityTypes.PLASMID_INFUSER.get(),
 	pPos,
 	pBlockState
 ), MenuProvider {

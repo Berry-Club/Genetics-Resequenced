@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_old.machine.cell_analyzer
 
 import dev.aaronhowser.mods.geneticsresequenced.block_old.base.CraftingMachineBlock
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.BaseEntityBlock
 import net.minecraft.world.level.block.entity.BlockEntity
@@ -20,7 +20,7 @@ class CellAnalyzerBlock : CraftingMachineBlock(
 	): BlockEntityTicker<T>? {
 		return BaseEntityBlock.createTickerHelper(
 			pBlockEntityType,
-			ModBlockEntities.CELL_ANALYZER.get(),
+			ModBlockEntityTypes.CELL_ANALYZER.get(),
 			CellAnalyzerBlockEntity::tick
 		)
 	}

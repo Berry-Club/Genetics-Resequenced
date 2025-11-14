@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block_old.machine.blood_purifie
 
 import dev.aaronhowser.mods.geneticsresequenced.block_old.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
@@ -19,7 +19,7 @@ class BloodPurifierBlockEntity(
 	pPos: BlockPos,
 	pBlockState: BlockState
 ) : CraftingMachineBlockEntity(
-	ModBlockEntities.BLOOD_PURIFIER.get(),
+	ModBlockEntityTypes.BLOOD_PURIFIER.get(),
 	pPos,
 	pBlockState
 ) {

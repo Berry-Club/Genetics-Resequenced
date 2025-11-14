@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block_old.base.CraftingMachineBl
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
@@ -23,7 +23,7 @@ class PlasmidInjectorBlockEntity(
 	pPos: BlockPos,
 	pBlockState: BlockState
 ) : CraftingMachineBlockEntity(
-	ModBlockEntities.PLASMID_INJECTOR.get(),
+	ModBlockEntityTypes.PLASMID_INJECTOR.get(),
 	pPos,
 	pBlockState
 ), MenuProvider {

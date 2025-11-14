@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block_old.machine.coal_generato
 import dev.aaronhowser.mods.geneticsresequenced.block_old.base.InventoryEnergyBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_old.base.handler.WrappedHandler
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap
 import net.minecraft.core.BlockPos
@@ -30,7 +30,7 @@ class CoalGeneratorBlockEntity(
 	pPos: BlockPos,
 	pBlockState: BlockState
 ) : InventoryEnergyBlockEntity(
-	ModBlockEntities.COAL_GENERATOR.get(),
+	ModBlockEntityTypes.COAL_GENERATOR.get(),
 	pPos,
 	pBlockState
 ), MenuProvider {

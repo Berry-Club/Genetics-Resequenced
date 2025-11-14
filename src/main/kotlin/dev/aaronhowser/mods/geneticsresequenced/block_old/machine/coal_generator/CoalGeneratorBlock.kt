@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_old.machine.coal_generator
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlock
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerPlayer
@@ -103,7 +103,7 @@ class CoalGeneratorBlock : MachineBlock() {
 	): BlockEntityTicker<T>? {
 		return BaseEntityBlock.createTickerHelper(
 			pBlockEntityType,
-			ModBlockEntities.COAL_GENERATOR.get(),
+			ModBlockEntityTypes.COAL_GENERATOR.get(),
 			CoalGeneratorBlockEntity::tick
 		)
 	}
