@@ -1,21 +1,37 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu
 
+import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
+import dev.aaronhowser.mods.aaron.menu.textures.ScreenSprite
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 
 object ScreenTextures {
 
 	object Backgrounds {
-		val BASIC = OtherUtil.modResource("textures/gui/container/basic_machine_bg.png")
-		val CELL_ANALYZER = OtherUtil.modResource("textures/gui/container/cell_analyzer.png")
-		val COAL_GENERATOR = OtherUtil.modResource("textures/gui/container/coal_generator.png")
-		val DNA_DECRYPTOR = OtherUtil.modResource("textures/gui/container/dna_decryptor.png")
-		val DNA_EXTRACTOR = OtherUtil.modResource("textures/gui/container/dna_extractor.png")
-		val INCUBATOR = OtherUtil.modResource("textures/gui/container/incubator.png")
-		val INCUBATOR_ADVANCED = OtherUtil.modResource("textures/gui/container/incubator_advanced.png")
-		val PLASMID_INFUSER = OtherUtil.modResource("textures/gui/container/plasmid_infuser.png")
-		val PLASMID_INJECTOR = OtherUtil.modResource("textures/gui/container/plasmid_injector.png")
+		private fun background(path: String, width: Int, height: Int): ScreenBackground =
+			ScreenBackground(OtherUtil.modResource(path), width, height)
 
-		const val TEXTURE_SIZE = 256
+		val BASIC = background("textures/gui/container/basic_machine_bg.png", 176, 172)
+		val CELL_ANALYZER = background("textures/gui/container/cell_analyzer.png", 176, 172)
+		val COAL_GENERATOR = background("textures/gui/container/coal_generator.png", 176, 172)
+		val DNA_DECRYPTOR = background("textures/gui/container/dna_decryptor.png", 176, 172)
+		val DNA_EXTRACTOR = background("textures/gui/container/dna_extractor.png", 176, 172)
+		val INCUBATOR = background("textures/gui/container/incubator.png", 176, 172)
+		val INCUBATOR_ADVANCED = background("textures/gui/container/incubator_advanced.png", 176, 172)
+		val PLASMID_INFUSER = background("textures/gui/container/plasmid_infuser.png", 176, 172)
+		val PLASMID_INJECTOR = background("textures/gui/container/plasmid_injector.png", 176, 172)
+	}
+
+	object Sprites {
+		fun sprite(path: String, width: Int, height: Int): ScreenSprite =
+			ScreenSprite(OtherUtil.modResource(path), width, height)
+
+		val ARROW_DOWN = sprite("textures/gui/sprite/arrow_down.png", 9, 28)
+		val ARROW_RIGHT = sprite("textures/gui/sprite/arrow_right.png", 24, 17)
+		val BUBBLES = sprite("textures/gui/sprite/bubbles.png", 11, 29)
+		val BURN = sprite("textures/gui/sprite/burn.png", 14, 14)
+		val ENERGY = sprite("textures/gui/sprite/energy.png", 18, 57)
+		val HEAT_HIGH = sprite("textures/gui/sprite/heat_high.png", 18, 4)
+		val HEAT_LOW = sprite("textures/gui/sprite/heat_low.png", 18, 4)
 	}
 
 	object Elements {
