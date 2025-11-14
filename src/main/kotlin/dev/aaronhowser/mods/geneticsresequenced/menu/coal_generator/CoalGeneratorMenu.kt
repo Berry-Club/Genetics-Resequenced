@@ -45,8 +45,6 @@ class CoalGeneratorMenu(
 		get() = containerData.get(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX)
 		set(value) = containerData.set(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX, value)
 
-	fun isBurning(): Boolean = burnTimeRemaining > 0
-
 	init {
 		checkContainerSize(coalGeneratorContainer, CoalGeneratorBlockEntity.CONTAINER_SIZE)
 		addDataSlots(containerData)
@@ -54,6 +52,8 @@ class CoalGeneratorMenu(
 		addPlayerInventorySlots(inventoryY)
 		addSlots()
 	}
+
+	fun isBurning(): Boolean = burnTimeRemaining > 0
 
 	override fun addSlots() {
 		val slot = Slot(coalGeneratorContainer, CoalGeneratorBlockEntity.INPUT_SLOT_INDEX, 52, 40)

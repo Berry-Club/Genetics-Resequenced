@@ -13,7 +13,7 @@ abstract class CraftingMachineMenu(
 	protected val progressContainerData: ContainerData
 ) : MachineMenu(menuType, id, playerInventory, energyContainerData) {
 
-	override val amountSlots: Int = CraftingMachineBlockEntity.INVENTORY_SIZE
+	override val amountSlots: Int = CraftingMachineBlockEntity.DEFAULT_INVENTORY_SIZE
 
 	var currentProgress: Int
 		get() = progressContainerData.get(CraftingMachineBlockEntity.CURRENT_PROGRESS_INDEX)
@@ -22,6 +22,8 @@ abstract class CraftingMachineMenu(
 	var maxProgress: Int
 		get() = progressContainerData.get(CraftingMachineBlockEntity.MAX_PROGRESS_INDEX)
 		set(value) = progressContainerData.set(CraftingMachineBlockEntity.MAX_PROGRESS_INDEX, value)
+
+	fun isCrafting(): Boolean = currentProgress > 0
 
 	override fun getPercentDone(): Float {
 		if (maxProgress <= 0) return 0f

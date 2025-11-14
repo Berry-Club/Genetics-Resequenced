@@ -20,7 +20,7 @@ abstract class CraftingMachineBlockEntity(
 
 	abstract val baseEnergyCostPerTick: IntSupplier
 
-	override val containerSize: Int = INVENTORY_SIZE
+	override val containerSize: Int = DEFAULT_INVENTORY_SIZE
 
 	open fun getEnergyCostPerTick(): Int {
 		val extraPerOverclocker = Mth.ceil(baseEnergyCostPerTick.asInt * 0.25f)
@@ -130,7 +130,7 @@ abstract class CraftingMachineBlockEntity(
 		const val CURRENT_PROGRESS_INDEX = 0
 		const val MAX_PROGRESS_INDEX = 1
 
-		const val INVENTORY_SIZE = 3
+		const val DEFAULT_INVENTORY_SIZE = 3
 		const val INPUT_SLOT_INDEX = 0
 		const val OUTPUT_SLOT_INDEX = 1
 		const val OVERCLOCK_SLOT_INDEX = 2
