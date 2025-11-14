@@ -8,12 +8,15 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.DupeCellRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.state.BlockState
+import net.neoforged.neoforge.items.IItemHandler
 import net.neoforged.neoforge.items.wrapper.InvWrapper
+import net.neoforged.neoforge.items.wrapper.RangedWrapper
 import java.util.function.IntSupplier
 
 class IncubatorBlockEntity(
@@ -42,6 +45,17 @@ class IncubatorBlockEntity(
 
 				else -> false
 			}
+		}
+	}
+
+	override val inputHandler: RangedWrapper = RangedWrapper(invWrapper, TOP_SLOT_INDEX, TOP_SLOT_INDEX + 1)
+	private val bottleHandler: RangedWrapper = RangedWrapper(invWrapper, LEFT_BOTTLE_SLOT_INDEX, RIGHT_BOTTLE_SLOT_INDEX + 1)
+
+	override fun getItemHandler(direction: Direction?): IItemHandler? {
+		return when (direction) {
+			Direction.UP -> inputHandler
+			Direction.DOWN -> outputHandler
+			else -> bottleHandler
 		}
 	}
 
