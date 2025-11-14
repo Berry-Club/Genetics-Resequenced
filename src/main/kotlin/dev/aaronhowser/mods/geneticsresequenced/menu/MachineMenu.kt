@@ -20,6 +20,9 @@ abstract class MachineMenu(
 	protected open val inventoryY = 90
 	protected abstract val amountSlots: Int
 
+	abstract var currentEnergy: Int
+	abstract var maxEnergy: Int
+
 	abstract fun getPercentDone(): Float
 
 	// CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons

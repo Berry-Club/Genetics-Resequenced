@@ -10,11 +10,13 @@ import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.network.chat.Component
 import net.minecraft.util.Mth
+import java.util.function.IntSupplier
 
 class EnergyBar(
 	x: Int,
 	y: Int,
-	val energyStorage: ModEnergyStorage,
+	val maxGetter: IntSupplier,
+	val currentGetter: IntSupplier,
 	val font: Font
 ) : AbstractWidget(
 	x, y,
@@ -24,7 +26,7 @@ class EnergyBar(
 ) {
 
 	override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
-		val percentFull = energyStorage.energyStored.toFloat() / energyStorage.maxEnergyStored.toFloat()
+		val percentFull = currentGetter.asInt.toFloat() / maxGetter.asInt.toFloat()
 
 		val energyTotalHeight = this.height
 		val energyCurrentHeight = Mth.ceil(energyTotalHeight.toDouble() * percentFull)
@@ -45,8 +47,8 @@ class EnergyBar(
 	}
 
 	private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
-		val currentAmountString = String.format("%,d", energyStorage.energyStored)
-		val maxAmountString = String.format("%,d", energyStorage.maxEnergyStored)
+		val currentAmountString = String.format("%,d", currentGetter)
+		val maxAmountString = String.format("%,d", maxGetter)
 
 		val component = ModTooltipLang.FE.toComponent(currentAmountString, maxAmountString)
 

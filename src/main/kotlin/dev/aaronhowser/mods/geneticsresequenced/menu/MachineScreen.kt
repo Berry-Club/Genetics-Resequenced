@@ -23,9 +23,31 @@ abstract class MachineScreen<T : MachineMenu>(
 
 	protected open fun arrowPercentDone(): Float = menu.getPercentDone()
 	protected open fun shouldRenderProgressArrow(): Boolean = true
+	protected open fun clickedProgressArrow(mouseX: Double, mouseY: Double, button: Int) {}
 
 	override fun baseInit() {
 		super.baseInit()
+
+		this.progressArrow = ProgressArrow(
+			x = leftPos + arrowLeftPos,
+			y = topPos + arrowTopPos,
+			arrowDirection = arrowDirection,
+			font = font,
+			percentDoneFunction = ::arrowPercentDone,
+			shouldRenderProgress = ::shouldRenderProgressArrow,
+			onClickFunction = ::clickedProgressArrow
+		)
+
+		this.energyBar = EnergyBar(
+			x = leftPos + energyPosLeft,
+			y = topPos + energyPosTop,
+			maxGetter = { menu.maxEnergy },
+			currentGetter = { menu.currentEnergy },
+			font = font
+		)
+
+		addRenderableWidget(progressArrow)
+		addRenderableWidget(energyBar)
 	}
 
 }
