@@ -28,6 +28,8 @@ abstract class MachineScreen<T : MachineMenu>(
 	override fun baseInit() {
 		super.baseInit()
 
+		inventoryLabelY += 6
+
 		this.progressArrow = ProgressArrow(
 			x = leftPos + arrowLeftPos,
 			y = topPos + arrowTopPos,
