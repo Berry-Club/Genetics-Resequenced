@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.menu.cell_analyzer
+package dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser
 
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
@@ -9,15 +9,14 @@ import net.minecraft.world.SimpleContainer
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.SimpleContainerData
-import net.minecraft.world.inventory.Slot
 
-class CellAnalyzerMenu(
+class PlasmidInfuserMenu(
 	containerId: Int,
 	playerInventory: Inventory,
 	machineContainer: Container,
 	energyContainerData: ContainerData,
 	progressContainerData: ContainerData
-) : CraftingMachineMenu(ModMenuTypes.CELL_ANALYZER.get(), containerId, playerInventory, machineContainer, energyContainerData, progressContainerData) {
+) : CraftingMachineMenu(ModMenuTypes.DNA_EXTRACTOR.get(), containerId, playerInventory, machineContainer, energyContainerData, progressContainerData) {
 
 	constructor(containerId: Int, playerInventory: Inventory) : this(
 		containerId,

@@ -6,6 +6,7 @@ import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.MenuType
+import net.minecraft.world.inventory.Slot
 
 abstract class CraftingMachineMenu(
 	menuType: MenuType<*>,
@@ -22,6 +23,16 @@ abstract class CraftingMachineMenu(
 		checkContainerSize(machineContainer, amountSlots)
 
 		addDataSlots(progressContainerData)
+	}
+
+	override fun addSlots() {
+		val inputSlot = Slot(machineContainer, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42)
+		val outputSlot = Slot(machineContainer, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42)
+		val overclockSlot = Slot(machineContainer, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54)
+
+		this.addSlot(inputSlot)
+		this.addSlot(outputSlot)
+		this.addSlot(overclockSlot)
 	}
 
 	var currentProgress: Int

@@ -10,7 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator.Incu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator.IncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator_advanced.AdvancedIncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator_advanced.AdvancedIncubatorScreen
-import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_infuser.PlasmidInfuserMenu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_infuser.PlasmidInfuserScreen
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_injector.PlasmidInjectorMenu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.plasmid_injector.PlasmidInjectorScreen
@@ -24,6 +23,8 @@ import dev.aaronhowser.mods.geneticsresequenced.menu.dna_decryptor.DnaDecryptorM
 import dev.aaronhowser.mods.geneticsresequenced.menu.dna_decryptor.DnaDecryptorScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.dna_extractor.DnaExtractorMenu
 import dev.aaronhowser.mods.geneticsresequenced.menu.dna_extractor.DnaExtractorScreen
+import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser.PlasmidInfuserMenu
+import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser.PlasmidInfuserScreen
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.flag.FeatureFlags
 import net.minecraft.world.inventory.AbstractContainerMenu

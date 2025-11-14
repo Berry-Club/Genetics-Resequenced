@@ -34,13 +34,4 @@ class BloodPurifierMenu(
 		addSlots()
 	}
 
-	override fun addSlots() {
-		val inputSlot = Slot(machineContainer, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42)
-		val outputSlot = Slot(machineContainer, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42)
-		val overclockerSlot = Slot(machineContainer, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54)
-
-		addSlot(inputSlot)
-		addSlot(outputSlot)
-		addSlot(overclockerSlot)
-	}
 }
