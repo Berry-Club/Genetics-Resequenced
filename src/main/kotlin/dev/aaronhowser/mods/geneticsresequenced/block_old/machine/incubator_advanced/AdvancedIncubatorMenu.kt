@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator_advanced
 
 import dev.aaronhowser.mods.aaron.AaronClientUtil
-import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator_advanced.AdvancedIncubatorBlockEntity.Companion.CHORUS_SLOT_INDEX
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig

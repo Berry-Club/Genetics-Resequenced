@@ -14,7 +14,6 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.crafting.RecipeType
-import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.capabilities.Capabilities
 
@@ -73,7 +72,7 @@ class CoalGeneratorBlockEntity(
 	private fun tryStartBurning() {
 		val level = this.level ?: return
 
-		val inputItem = container.getItem(INPUT_INDEX)
+		val inputItem = container.getItem(INPUT_SLOT_INDEX)
 		val fuelTime = inputItem.getBurnTime(RecipeType.SMELTING)
 
 		if (fuelTime <= 0) return
@@ -86,10 +85,10 @@ class CoalGeneratorBlockEntity(
 		maxBurnTime = fuelTime
 		burnTimeRemaining = fuelTime
 
-		invWrapper.extractItem(INPUT_INDEX, 1, false)
+		invWrapper.extractItem(INPUT_SLOT_INDEX, 1, false)
 
-		if (!fuelReplacedItem.isEmpty && invWrapper.getStackInSlot(INPUT_INDEX).isEmpty) {
-			invWrapper.insertItem(INPUT_INDEX, fuelReplacedItem, false)
+		if (!fuelReplacedItem.isEmpty && invWrapper.getStackInSlot(INPUT_SLOT_INDEX).isEmpty) {
+			invWrapper.insertItem(INPUT_SLOT_INDEX, fuelReplacedItem, false)
 		}
 	}
 
@@ -150,7 +149,7 @@ class CoalGeneratorBlockEntity(
 		const val MAX_BURN_TIME_NBT = "MaxBurnTime"
 
 		const val CONTAINER_SIZE = 1
-		const val INPUT_INDEX = 0
+		const val INPUT_SLOT_INDEX = 0
 
 		const val CONTAINER_DATA_SIZE = 2
 		const val REMAINING_TICKS_INDEX = 0

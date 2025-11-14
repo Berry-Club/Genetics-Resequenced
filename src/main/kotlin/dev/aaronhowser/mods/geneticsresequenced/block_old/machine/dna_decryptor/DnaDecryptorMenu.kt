@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_old.machine.dna_decryptor
 
 import dev.aaronhowser.mods.geneticsresequenced.block_old.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import net.minecraft.network.FriendlyByteBuf

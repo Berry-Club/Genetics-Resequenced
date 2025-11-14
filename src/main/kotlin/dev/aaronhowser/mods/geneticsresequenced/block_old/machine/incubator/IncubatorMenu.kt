@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator
 
-import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import net.minecraft.network.FriendlyByteBuf

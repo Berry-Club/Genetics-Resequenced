@@ -4,9 +4,12 @@ import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.CoalGenerator
 import dev.aaronhowser.mods.geneticsresequenced.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import net.minecraft.world.Container
+import net.minecraft.world.SimpleContainer
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
+import net.minecraft.world.inventory.SimpleContainerData
+import net.minecraft.world.inventory.Slot
 
 class CoalGeneratorMenu(
 	id: Int,
@@ -14,6 +17,13 @@ class CoalGeneratorMenu(
 	private val coalGeneratorContainer: Container,
 	private val containerData: ContainerData
 ) : MachineMenu(ModMenuTypes.COAL_GENERATOR.get(), id, playerInventory) {
+
+	constructor(containerId: Int, playerInventory: Inventory) : this(
+		containerId,
+		playerInventory,
+		SimpleContainer(CoalGeneratorBlockEntity.CONTAINER_SIZE),
+		SimpleContainerData(CoalGeneratorBlockEntity.CONTAINER_DATA_SIZE)
+	)
 
 	override val amountSlots: Int = CoalGeneratorBlockEntity.CONTAINER_SIZE
 
@@ -25,8 +35,23 @@ class CoalGeneratorMenu(
 		get() = containerData.get(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX)
 		set(value) = containerData.set(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX, value)
 
+	init {
+		checkContainerSize(coalGeneratorContainer, CoalGeneratorBlockEntity.CONTAINER_SIZE)
+		addDataSlots(containerData)
+
+		addPlayerInventorySlots(inventoryY)
+		addSlots()
+	}
+
+	override fun addSlots() {
+		val slot = Slot(coalGeneratorContainer, CoalGeneratorBlockEntity.INPUT_SLOT_INDEX, 52, 40)
+		addSlot(slot)
+	}
+
 	override fun getPercentDone(): Float {
-		TODO("Not yet implemented")
+		if (maxBurnTime == 0) return 0f
+
+		return 1f - (burnTimeRemaining.toFloat() / maxBurnTime.toFloat())
 	}
 
 	override fun stillValid(player: Player): Boolean = coalGeneratorContainer.stillValid(player)

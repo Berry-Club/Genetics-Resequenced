@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_old.machine.coal_generator
 
-import dev.aaronhowser.mods.geneticsresequenced.block_old.base.menu.MachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
