@@ -60,7 +60,7 @@ abstract class MachineBlockEntity(
 
 	abstract val containerSize: Int
 	open val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, containerSize)
-	protected val invWrapper = InvWrapper(container)
+	protected open val invWrapper = InvWrapper(container)
 
 	open fun getItemHandler(direction: Direction?): InvWrapper? {
 		return invWrapper

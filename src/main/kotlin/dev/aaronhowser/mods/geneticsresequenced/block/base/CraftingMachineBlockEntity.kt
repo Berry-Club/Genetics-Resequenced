@@ -59,10 +59,12 @@ abstract class CraftingMachineBlockEntity(
 			return
 		}
 
+		drainEnergy()
+
 		currentProgress += 1 + getAmountOfOverclocks()
 
-		if (currentProgress >= maxProgress) {
-			currentProgress = 0
+		while (currentProgress >= maxProgress) {
+			currentProgress -= maxProgress
 			craftItem()
 		}
 	}
