@@ -41,15 +41,16 @@ class CoalGeneratorBlockEntity(
 	override val energyTransferMaximum: Int = ServerConfig.coalGeneratorEnergyTransferRate.get()
 
 	override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
-		return CoalGeneratorMenu(pContainerId, pPlayerInventory, this, this.data)
+		return CoalGeneratorMenu(pContainerId, pPlayerInventory, this.container, this.data)
 	}
 
 	override fun getDisplayName(): Component {
 		return ModBlocks.COAL_GENERATOR.get().name
 	}
 
-	override val amountOfItemSlots: Int = 1
-	override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {
+	override val containerSize: Int = 1
+
+	override val itemHandler: ItemStackHandler = object : ItemStackHandler(containerSize) {
 		override fun onContentsChanged(slot: Int) {
 			setChanged()
 		}
@@ -119,18 +120,18 @@ class CoalGeneratorBlockEntity(
 	private val burnTicksLeftNbtKey = "$machineName.burn_ticks_left"
 	private val maxBurnTicksNbtKey = "$machineName.max_burn_ticks"
 
-	override fun saveAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
-		pTag.putInt(burnTicksLeftNbtKey, burnTimeRemaining)
-		pTag.putInt(maxBurnTicksNbtKey, maxBurnTime)
+	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		tag.putInt(burnTicksLeftNbtKey, burnTimeRemaining)
+		tag.putInt(maxBurnTicksNbtKey, maxBurnTime)
 
-		super.saveAdditional(pTag, pRegistries)
+		super.saveAdditional(tag, registries)
 	}
 
-	override fun loadAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
-		maxBurnTime = pTag.getInt(maxBurnTicksNbtKey)
-		burnTimeRemaining = pTag.getInt(burnTicksLeftNbtKey)
+	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		maxBurnTime = tag.getInt(maxBurnTicksNbtKey)
+		burnTimeRemaining = tag.getInt(burnTicksLeftNbtKey)
 
-		super.loadAdditional(pTag, pRegistries)
+		super.loadAdditional(tag, registries)
 	}
 
 	private var maxBurnTime: Int
@@ -229,6 +230,11 @@ class CoalGeneratorBlockEntity(
 	}
 
 	companion object {
+		const val INPUT_SLOT = 0
+
+		const val CONTAINER_DATA_SIZE = 2
+		const val REMAINING_TICKS_INDEX = 0
+		const val MAX_BURN_TIME_INDEX = 1
 
 		fun tick(
 			level: Level,
@@ -251,18 +257,8 @@ class CoalGeneratorBlockEntity(
 			}
 		}
 
-
-		// How many values are stored in the container data
-		// Here it's two: remaining ticks and max burn time
-		const val CONTAINER_DATA_SIZE = 2
-
-		const val INPUT_SLOT = 0
-
 		val energyPerTick: Int
 			get() = ServerConfig.coalGeneratorEnergyPerTick.get()
-
-		const val REMAINING_TICKS_INDEX = 0
-		const val MAX_BURN_TIME_INDEX = 1
 	}
 
 }

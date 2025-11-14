@@ -51,18 +51,18 @@ abstract class CraftingMachineBlockEntity(
 	protected val maxProgressNbtKey
 		get() = "${machineName}.max_progress"
 
-	override fun saveAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
-		pTag.putInt(progressNbtKey, progress)
-		pTag.putInt(maxProgressNbtKey, maxProgress)
+	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		tag.putInt(progressNbtKey, progress)
+		tag.putInt(maxProgressNbtKey, maxProgress)
 
-		super.saveAdditional(pTag, pRegistries)
+		super.saveAdditional(tag, registries)
 	}
 
-	override fun loadAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
-		maxProgress = pTag.getInt(maxProgressNbtKey)
-		progress = pTag.getInt(progressNbtKey)
+	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		maxProgress = tag.getInt(maxProgressNbtKey)
+		progress = tag.getInt(progressNbtKey)
 
-		super.loadAdditional(pTag, pRegistries)
+		super.loadAdditional(tag, registries)
 	}
 
 	protected val containerData = object : ContainerData {

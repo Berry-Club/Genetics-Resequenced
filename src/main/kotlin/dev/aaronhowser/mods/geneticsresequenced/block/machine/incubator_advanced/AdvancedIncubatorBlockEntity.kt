@@ -52,8 +52,8 @@ class AdvancedIncubatorBlockEntity(
 		return ModBlocks.ADVANCED_INCUBATOR.get().name
 	}
 
-	override val amountOfItemSlots: Int = 6
-	override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {
+	override val containerSize: Int = 6
+	override val itemHandler: ItemStackHandler = object : ItemStackHandler(containerSize) {
 		override fun onContentsChanged(slot: Int) {
 			setChanged()
 
@@ -138,18 +138,18 @@ class AdvancedIncubatorBlockEntity(
 
 	override val baseEnergyCostPerTick = 10
 
-	override fun saveAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
-		pTag.putInt(ticksRemainingNbtKey, ticksRemaining)
-		pTag.putBoolean(isHighTemperatureNbtKey, isHighTemperature)
+	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		tag.putInt(ticksRemainingNbtKey, ticksRemaining)
+		tag.putBoolean(isHighTemperatureNbtKey, isHighTemperature)
 
-		super.saveAdditional(pTag, pRegistries)
+		super.saveAdditional(tag, registries)
 	}
 
-	override fun loadAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
-		ticksRemaining = pTag.getInt(ticksRemainingNbtKey)
-		isHighTemperature = pTag.getBoolean(isHighTemperatureNbtKey)
+	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		ticksRemaining = tag.getInt(ticksRemainingNbtKey)
+		isHighTemperature = tag.getBoolean(isHighTemperatureNbtKey)
 
-		super.loadAdditional(pTag, pRegistries)
+		super.loadAdditional(tag, registries)
 	}
 
 

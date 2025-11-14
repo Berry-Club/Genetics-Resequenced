@@ -40,14 +40,6 @@ class CoalGeneratorMenu(
 
 	override val amountSlots: Int = 1
 
-	constructor(id: Int, inventory: Inventory, extraData: RegistryFriendlyByteBuf) :
-			this(
-				id,
-				inventory,
-				inventory.player.level().getBlockEntity(extraData.readBlockPos()) as CoalGeneratorBlockEntity,
-				SimpleContainerData(CoalGeneratorBlockEntity.CONTAINER_DATA_SIZE)
-			)
-
 	init {
 		checkContainerSize(inventory, CoalGeneratorBlockEntity.CONTAINER_DATA_SIZE)
 

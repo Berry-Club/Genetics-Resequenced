@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base
 
+import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.ModEnergyStorage
 import dev.aaronhowser.mods.geneticsresequenced.block.base.handler.WrappedHandler
 import net.minecraft.core.BlockPos
@@ -9,6 +10,8 @@ import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
+import net.minecraft.world.Container
+import net.minecraft.world.ContainerHelper
 import net.minecraft.world.Containers
 import net.minecraft.world.SimpleContainer
 import net.minecraft.world.level.block.HorizontalDirectionalBlock
@@ -16,7 +19,7 @@ import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.items.IItemHandler
-import net.neoforged.neoforge.items.ItemStackHandler
+import net.neoforged.neoforge.items.wrapper.InvWrapper
 
 abstract class InventoryEnergyBlockEntity(
 	blockEntityType: BlockEntityType<*>,
@@ -38,8 +41,10 @@ abstract class InventoryEnergyBlockEntity(
 	abstract val energyMaximum: Int
 	abstract val energyTransferMaximum: Int
 
-	abstract val amountOfItemSlots: Int
-	abstract val itemHandler: ItemStackHandler
+	abstract val containerSize: Int
+	protected open val container: SimpleContainer = ImprovedSimpleContainer(this, containerSize)
+
+	open val itemHandler: IItemHandler = InvWrapper(container)
 
 	protected abstract val upItemHandler: WrappedHandler
 	protected abstract val downItemHandler: WrappedHandler
@@ -137,16 +142,16 @@ abstract class InventoryEnergyBlockEntity(
 		Containers.dropContents(this.level!!, this.blockPos, inventory)
 	}
 
-	override fun saveAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
-		pTag.put(inventoryNbtKey, itemHandler.serializeNBT(pRegistries))
-		pTag.putInt(energyNbtKey, energyStorage.energyStored)
-		super.saveAdditional(pTag, pRegistries)
+	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		ContainerHelper.saveAllItems(tag, container.items, registries)
+		tag.putInt(energyNbtKey, energyStorage.energyStored)
+		super.saveAdditional(tag, registries)
 	}
 
-	override fun loadAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
-		itemHandler.deserializeNBT(pRegistries, pTag.getCompound(inventoryNbtKey))
-		energyStorage.setEnergy(pTag.getInt(energyNbtKey))
-		super.loadAdditional(pTag, pRegistries)
+	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		ContainerHelper.loadAllItems(tag, container.items, registries)
+		energyStorage.setEnergy(tag.getInt(energyNbtKey))
+		super.loadAdditional(tag, registries)
 
 	}
 

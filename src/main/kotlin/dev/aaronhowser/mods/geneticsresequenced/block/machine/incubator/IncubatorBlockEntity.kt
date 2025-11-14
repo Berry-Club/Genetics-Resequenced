@@ -47,8 +47,8 @@ class IncubatorBlockEntity(
 		return ModBlocks.INCUBATOR.get().name
 	}
 
-	override val amountOfItemSlots: Int = 5
-	override val itemHandler: ItemStackHandler = object : ItemStackHandler(amountOfItemSlots) {
+	override val containerSize: Int = 5
+	override val itemHandler: ItemStackHandler = object : ItemStackHandler(containerSize) {
 		override fun onContentsChanged(slot: Int) {
 			setChanged()
 		}
@@ -109,16 +109,16 @@ class IncubatorBlockEntity(
 
 	override val baseEnergyCostPerTick = 10
 
-	override fun saveAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
-		pTag.putInt(ticksRemainingNbtKey, ticksRemaining)
+	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		tag.putInt(ticksRemainingNbtKey, ticksRemaining)
 
-		super.saveAdditional(pTag, pRegistries)
+		super.saveAdditional(tag, registries)
 	}
 
-	override fun loadAdditional(pTag: CompoundTag, pRegistries: HolderLookup.Provider) {
-		ticksRemaining = pTag.getInt(ticksRemainingNbtKey)
+	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		ticksRemaining = tag.getInt(ticksRemainingNbtKey)
 
-		super.loadAdditional(pTag, pRegistries)
+		super.loadAdditional(tag, registries)
 	}
 
 	override val amountOfOverclockers: Int
