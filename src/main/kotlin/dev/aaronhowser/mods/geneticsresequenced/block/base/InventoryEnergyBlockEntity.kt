@@ -5,6 +5,9 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.network.protocol.Packet
+import net.minecraft.network.protocol.game.ClientGamePacketListener
+import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.world.ContainerHelper
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
@@ -26,7 +29,11 @@ abstract class InventoryEnergyBlockEntity(
 	abstract val maxEnergy: Int
 	abstract val energyTransferRate: Int
 
-	val energyStorage = BetterEnergyStorage(this, maxEnergy, energyTransferRate)
+	protected val energyStorage = BetterEnergyStorage(this, maxEnergy, energyTransferRate)
+
+	open fun getEnergyCapability(direction: Direction?): EnergyStorage {
+		return energyStorage
+	}
 
 	abstract val containerSize: Int
 	open val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, containerSize)
@@ -55,6 +62,9 @@ abstract class InventoryEnergyBlockEntity(
 		ContainerHelper.loadAllItems(tag, this.container.items, registries)
 		energyStorage.setEnergy(tag.getInt(ENERGY_NBT))
 	}
+
+	override fun getUpdateTag(pRegistries: HolderLookup.Provider): CompoundTag = saveWithoutMetadata(pRegistries)
+	override fun getUpdatePacket(): Packet<ClientGamePacketListener> = ClientboundBlockEntityDataPacket.create(this)
 
 	companion object {
 		private const val ENERGY_NBT = "Energy"
