@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.block_old.base
+package dev.aaronhowser.mods.geneticsresequenced.block.base
 
 import net.minecraft.core.Direction
 import net.minecraft.world.level.block.Block

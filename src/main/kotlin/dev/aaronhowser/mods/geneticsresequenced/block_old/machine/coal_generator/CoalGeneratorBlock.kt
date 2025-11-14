@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_old.machine.coal_generator
 
-import dev.aaronhowser.mods.geneticsresequenced.block_old.base.MachineBlock
+import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlock
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntities
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
