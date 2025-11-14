@@ -22,7 +22,7 @@ class PlasmidInfuserBlockEntity(
 	blockState: BlockState
 ) : CraftingMachineBlockEntity(ModBlockEntityTypes.PLASMID_INFUSER.get(), pos, blockState) {
 
-	override val baseEnergyCostPerTick: IntSupplier = IntSupplier { 32}
+	override val baseEnergyCostPerTick: IntSupplier = IntSupplier { 32 }
 	override val maxEnergy: Int = 60_000
 	override val energyTransferRate: Int = 256
 

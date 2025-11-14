@@ -8,7 +8,7 @@ import net.minecraft.world.level.block.state.BlockState
 
 class BloodPurifierBlock : MachineBlock() {
 
-	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity? {
+	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity {
 		return BloodPurifierBlockEntity(pos, state)
 	}
 

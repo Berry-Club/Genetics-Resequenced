@@ -79,7 +79,7 @@ class PlasmidInjectorBlockEntity(
 		invWrapper.extractItem(INPUT_SLOT_INDEX, 1, false)
 	}
 
-	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
+	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
 		return PlasmidInjectorMenu(containerId, playerInventory, this.container, this.energyContainerData, this.progressContainerData)
 	}
 }

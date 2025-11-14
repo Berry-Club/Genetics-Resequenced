@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.menu.dna_extractor
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.geneticsresequenced.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
-import dev.aaronhowser.mods.geneticsresequenced.menu.dna_decryptor.DnaDecryptorMenu
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 

@@ -16,7 +16,7 @@ class PlasmidInfuserMenu(
 	machineContainer: Container,
 	energyContainerData: ContainerData,
 	progressContainerData: ContainerData
-) : CraftingMachineMenu(ModMenuTypes.DNA_EXTRACTOR.get(), containerId, playerInventory, machineContainer, energyContainerData, progressContainerData) {
+) : CraftingMachineMenu(ModMenuTypes.PLASMID_INFUSER.get(), containerId, playerInventory, machineContainer, energyContainerData, progressContainerData) {
 
 	constructor(containerId: Int, playerInventory: Inventory) : this(
 		containerId,
