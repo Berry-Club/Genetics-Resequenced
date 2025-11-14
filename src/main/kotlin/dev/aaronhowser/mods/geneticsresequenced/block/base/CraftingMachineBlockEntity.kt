@@ -1,6 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base
 
 import net.minecraft.core.BlockPos
+import net.minecraft.core.HolderLookup
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.util.Mth
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import java.util.function.IntSupplier
@@ -13,15 +16,51 @@ abstract class CraftingMachineBlockEntity(
 
 	abstract val baseEnergyCostPerTick: IntSupplier
 
-	open fun getEnergyCostPerTick() {
+	open fun getEnergyCostPerTick(): Int {
+		val extraPerOverclocker = Mth.ceil(baseEnergyCostPerTick.asInt * 0.25f)
+		val totalExtraCost = (extraPerOverclocker * getAmountOfOverclocks())
 
+		return baseEnergyCostPerTick.asInt + totalExtraCost
 	}
 
 	open fun getAmountOfOverclocks(): Int {
 		return container.getItem(OVERCLOCK_SLOT_INDEX).count
 	}
 
+	protected fun hasEnoughEnergy(): Boolean {
+		return energyStorage.energyStored >= getEnergyCostPerTick()
+	}
+
+	protected var currentProgress: Int = 0
+		set(value) {
+			field = value
+			setChanged()
+		}
+
+	protected var maxProgress: Int = 0
+		set(value) {
+			field = value
+			setChanged()
+		}
+
+	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.saveAdditional(tag, registries)
+
+		tag.putInt(CURRENT_PROGRESS_NBT, currentProgress)
+		tag.putInt(MAX_PROGRESS_NBT, maxProgress)
+	}
+
+	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.loadAdditional(tag, registries)
+
+		currentProgress = tag.getInt(CURRENT_PROGRESS_NBT)
+		maxProgress = tag.getInt(MAX_PROGRESS_NBT)
+	}
+
 	companion object {
+		const val CURRENT_PROGRESS_NBT = "CurrentProgress"
+		const val MAX_PROGRESS_NBT = "MaxProgress"
+
 		const val SIMPLE_CONTAINER_SIZE = 2
 		const val ITEMSTACK_HANDLER_SIZE = 3
 
