@@ -22,12 +22,12 @@ import net.neoforged.neoforge.items.wrapper.InvWrapper
 
 abstract class InventoryEnergyBlockEntity(
 	blockEntityType: BlockEntityType<*>,
-	pPos: BlockPos,
-	pBlockState: BlockState
+	pos: BlockPos,
+	blockState: BlockState
 ) : BlockEntity(
 	blockEntityType,
-	pPos,
-	pBlockState
+	pos,
+	blockState
 ) {
 
 	abstract val machineName: String
