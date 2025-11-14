@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.block_old
+package dev.aaronhowser.mods.geneticsresequenced.block
 
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks

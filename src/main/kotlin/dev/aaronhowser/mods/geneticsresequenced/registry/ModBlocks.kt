@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.block_old.AntiFieldBlock
-import dev.aaronhowser.mods.geneticsresequenced.block_old.BioluminescenceBlock
+import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
+import dev.aaronhowser.mods.geneticsresequenced.block.BioluminescenceBlock
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.blood_purifier.BloodPurifierBlock
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.cell_analyzer.CellAnalyzerBlock
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.coal_generator.CoalGeneratorBlock
