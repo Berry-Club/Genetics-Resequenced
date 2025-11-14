@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
 import dev.aaronhowser.mods.geneticsresequenced.block.CoalGeneratorBlock
-import dev.aaronhowser.mods.geneticsresequenced.block.base.InventoryEnergyBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.coal_generator.CoalGeneratorMenu
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState
 class CoalGeneratorBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState
-) : InventoryEnergyBlockEntity(ModBlockEntityTypes.COAL_GENERATOR.get(), pos, blockState) {
+) : MachineBlockEntity(ModBlockEntityTypes.COAL_GENERATOR.get(), pos, blockState) {
 
 	override val maxEnergy: Int = ServerConfig.CONFIG.coalGeneratorEnergyCapacity.get()
 	override val energyTransferRate: Int = ServerConfig.CONFIG.coalGeneratorEnergyTransferRate.get()
@@ -56,7 +56,7 @@ class CoalGeneratorBlockEntity(
 		override fun getCount(): Int = CONTAINER_DATA_SIZE
 	}
 
-	private fun serverTick() {
+	override fun serverTick() {
 		if (hasRoomForEnergy()) {
 			if (burnTimeRemaining > 0) {
 				generateEnergy()

@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -11,6 +12,7 @@ import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.world.ContainerHelper
 import net.minecraft.world.MenuProvider
+import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
@@ -18,7 +20,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.energy.EnergyStorage
 import net.neoforged.neoforge.items.wrapper.InvWrapper
 
-abstract class InventoryEnergyBlockEntity(
+abstract class MachineBlockEntity(
 	blockEntityType: BlockEntityType<*>,
 	pos: BlockPos,
 	blockState: BlockState
@@ -44,6 +46,9 @@ abstract class InventoryEnergyBlockEntity(
 	open fun getItemHandler(direction: Direction?): InvWrapper? {
 		return invWrapper
 	}
+
+	protected open fun serverTick() {}
+	protected open fun clientTick() {}
 
 	override fun setChanged() {
 		super.setChanged()
@@ -74,6 +79,19 @@ abstract class InventoryEnergyBlockEntity(
 
 	companion object {
 		private const val ENERGY_NBT = "Energy"
+
+		fun tick(
+			level: Level,
+			blockPos: BlockPos,
+			blockState: BlockState,
+			blockEntity: MachineBlockEntity
+		) {
+			if (level.isServerSide) {
+				blockEntity.serverTick()
+			} else {
+				blockEntity.clientTick()
+			}
+		}
 	}
 
 }
