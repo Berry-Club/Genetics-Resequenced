@@ -14,6 +14,8 @@ import dev.aaronhowser.mods.geneticsresequenced.menu.dna_decryptor.DnaDecryptorM
 import dev.aaronhowser.mods.geneticsresequenced.menu.dna_decryptor.DnaDecryptorScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.dna_extractor.DnaExtractorMenu
 import dev.aaronhowser.mods.geneticsresequenced.menu.dna_extractor.DnaExtractorScreen
+import dev.aaronhowser.mods.geneticsresequenced.menu.incubator.IncubatorMenu
+import dev.aaronhowser.mods.geneticsresequenced.menu.incubator.IncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser.PlasmidInfuserMenu
 import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser.PlasmidInfuserScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_injector.PlasmidInjectorMenu
