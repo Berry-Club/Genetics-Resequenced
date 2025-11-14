@@ -22,6 +22,8 @@ import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGenerato
 import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGeneratorScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.dna_decryptor.DnaDecryptorMenu
 import dev.aaronhowser.mods.geneticsresequenced.menu.dna_decryptor.DnaDecryptorScreen
+import dev.aaronhowser.mods.geneticsresequenced.menu.dna_extractor.DnaExtractorMenu
+import dev.aaronhowser.mods.geneticsresequenced.menu.dna_extractor.DnaExtractorScreen
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.flag.FeatureFlags
 import net.minecraft.world.inventory.AbstractContainerMenu
