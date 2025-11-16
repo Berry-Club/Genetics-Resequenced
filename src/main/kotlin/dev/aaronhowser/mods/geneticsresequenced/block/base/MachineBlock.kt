@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base
 
-import dev.aaronhowser.mods.geneticsresequenced.block.CoalGeneratorBlock.Companion.BURNING
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.InteractionResult
@@ -39,7 +38,6 @@ abstract class MachineBlock(
 	override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
 		return defaultBlockState()
 			.setValue(H_FACING, pContext.horizontalDirection.opposite)
-			.setValue(BURNING, false)
 	}
 
 	override fun useWithoutItem(
