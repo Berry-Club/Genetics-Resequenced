@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
@@ -69,7 +70,7 @@ object CommonEvents {
 				Capabilities.ItemHandler.BLOCK,
 				blockEntityType
 			) { blockEntity, direction ->
-				if (blockEntity is InventoryEnergyBlockEntity) {
+				if (blockEntity is MachineBlockEntity) {
 					blockEntity.getItemHandler(direction)
 				} else null
 			}
@@ -78,11 +79,10 @@ object CommonEvents {
 				Capabilities.EnergyStorage.BLOCK,
 				blockEntityType
 			) { blockEntity, direction ->
-				if (blockEntity is InventoryEnergyBlockEntity) {
+				if (blockEntity is MachineBlockEntity) {
 					blockEntity.getEnergyCapability(direction)
 				} else null
 			}
-
 		}
 	}
 
