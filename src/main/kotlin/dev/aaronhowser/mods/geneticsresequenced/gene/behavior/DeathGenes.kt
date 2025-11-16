@@ -155,7 +155,7 @@ object DeathGenes {
 
 	private val SLIMY_DEATH_COOLDOWN = GeneCooldown(
 		ModGenes.SLIMY_DEATH,
-		ServerConfig.slimyDeathCooldown.get()
+		ServerConfig.CONFIG.slimyDeathCooldown.get()
 	)
 
 	fun handleSlimyDeath(event: LivingDeathEvent) {
@@ -185,7 +185,7 @@ object DeathGenes {
 		}
 
 		event.isCanceled = true
-		entity.health = entity.maxHealth * ServerConfig.slimyDeathHealthMultiplier.get().toFloat()
+		entity.health = entity.maxHealth * ServerConfig.CONFIG.slimyDeathHealthMultiplier.get().toFloat()
 
 		if (entity is ServerPlayer) {
 			AdvancementTriggers.slimyDeathAdvancement(entity)

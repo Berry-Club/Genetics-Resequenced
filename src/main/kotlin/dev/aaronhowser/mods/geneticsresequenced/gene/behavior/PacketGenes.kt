@@ -33,7 +33,7 @@ object PacketGenes {
 		val wasNotOnCooldown = RECENT_TELEPORTS.add(player)
 		if (!wasNotOnCooldown) return
 
-		val teleportDestination = player.lookAngle.normalize().scale(ServerConfig.teleportDistance.get())
+		val teleportDestination = player.lookAngle.normalize().scale(ServerConfig.CONFIG.teleportDistance.get())
 
 		val lookingAtBlock: BlockHitResult = player.level().clip(
 			ClipContext(
@@ -77,7 +77,7 @@ object PacketGenes {
 
 	private val RECENT_DRAGONS_BREATHS = GeneCooldown(
 		ModGenes.DRAGON_BREATH,
-		ServerConfig.dragonsBreathCooldown.get()
+		ServerConfig.CONFIG.dragonsBreathCooldown.get()
 	)
 
 	fun dragonBreath(player: ServerPlayer) {
