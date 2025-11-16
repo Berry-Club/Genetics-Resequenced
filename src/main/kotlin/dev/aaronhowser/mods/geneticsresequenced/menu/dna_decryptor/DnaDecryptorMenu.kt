@@ -26,4 +26,8 @@ class DnaDecryptorMenu(
 		SimpleContainerData(CraftingMachineBlockEntity.PROGRESS_CONTAINER_DATA_SIZE)
 	)
 
+	init {
+		addSlots()
+	}
+
 }

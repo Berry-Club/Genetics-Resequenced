@@ -28,6 +28,10 @@ class BloodPurifierMenu(
 		SimpleContainerData(CraftingMachineBlockEntity.PROGRESS_CONTAINER_DATA_SIZE)
 	)
 
+	init {
+		addSlots()
+	}
+
 	override fun inputFilter(inputStack: ItemStack): Boolean = SyringeItem.isContaminated(inputStack)
 
 }

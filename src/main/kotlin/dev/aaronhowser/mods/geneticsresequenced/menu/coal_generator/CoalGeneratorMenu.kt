@@ -47,6 +47,7 @@ class CoalGeneratorMenu(
 
 	init {
 		checkContainerSize(coalGeneratorContainer, CoalGeneratorBlockEntity.CONTAINER_SIZE)
+		addSlots()
 	}
 
 	fun isBurning(): Boolean = burnTimeRemaining > 0

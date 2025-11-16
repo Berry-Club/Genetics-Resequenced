@@ -25,8 +25,6 @@ abstract class MachineMenu(
 
 	init {
 		addPlayerInventorySlots()
-//		addSlots()
-
 		addDataSlots(energyContainerData)
 	}
 

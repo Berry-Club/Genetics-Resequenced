@@ -28,6 +28,10 @@ class IncubatorMenu(
 		SimpleContainerData(CraftingMachineBlockEntity.PROGRESS_CONTAINER_DATA_SIZE)
 	)
 
+	init {
+		addSlots()
+	}
+
 	override fun addSlots() {
 		val topSlot = Slot(machineContainer, IncubatorBlockEntity.TOP_SLOT_INDEX, 83, 21)
 		val leftBottleSlot = Slot(machineContainer, IncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 55)
