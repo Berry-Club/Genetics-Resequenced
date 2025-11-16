@@ -57,7 +57,7 @@ class AntiFieldBlock : Block(
 		val DISABLED: BooleanProperty = BlockStateProperties.POWERED
 
 		fun getNearestActiveAntifield(level: Level, location: BlockPos): Optional<BlockPos> {
-			val radius = ServerConfig.antifieldBlockRadius.get()
+			val radius = ServerConfig.CONFIG.antifieldBlockRadius.get()
 
 			return BlockPos.findClosestMatch(location, radius, radius) { pos ->
 				val blockState = level.getBlockState(pos)
