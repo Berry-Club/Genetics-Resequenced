@@ -117,12 +117,12 @@ class AdvancedIncubatorBlockEntity(
 	}
 
 	override fun craftItem() {
-		val topStack = itemHandler.getStackInSlot(AdvancedIncubatorBlockEntity.Companion.TOP_SLOT_INDEX)
+		val topStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
 
 		val bottleSlots = listOf(
-			AdvancedIncubatorBlockEntity.Companion.LEFT_BOTTLE_SLOT_INDEX,
-			AdvancedIncubatorBlockEntity.Companion.MIDDLE_BOTTLE_SLOT_INDEX,
-			AdvancedIncubatorBlockEntity.Companion.RIGHT_BOTTLE_SLOT_INDEX
+			LEFT_BOTTLE_SLOT_INDEX,
+			MIDDLE_BOTTLE_SLOT_INDEX,
+			RIGHT_BOTTLE_SLOT_INDEX
 		)
 
 		var onlyDupeCellRecipes = true
@@ -217,7 +217,7 @@ class AdvancedIncubatorBlockEntity(
 		return output
 	}
 
-	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {
+	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
 		TODO("Not yet implemented")
 	}
 

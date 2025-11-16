@@ -2,10 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.*
-import net.minecraft.Util
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.util.datafix.fixes.References
-import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.neoforged.neoforge.registries.DeferredBlock

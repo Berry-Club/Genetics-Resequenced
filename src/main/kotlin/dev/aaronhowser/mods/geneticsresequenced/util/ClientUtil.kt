@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isTrue
-import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.AaronExtensions.status
 import dev.aaronhowser.mods.aaron.ServerScheduler
+import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
