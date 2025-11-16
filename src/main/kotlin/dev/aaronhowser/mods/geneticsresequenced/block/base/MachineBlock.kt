@@ -50,6 +50,7 @@ abstract class MachineBlock(
 		hitResult: BlockHitResult
 	): InteractionResult {
 		val blockEntity = level.getBlockEntity(pos)
+
 		if (blockEntity is MenuProvider) {
 			player.openMenu(blockEntity)
 			return InteractionResult.sidedSuccess(level.isClientSide)

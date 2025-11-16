@@ -60,7 +60,7 @@ abstract class MachineBlockEntity(
 	}
 
 	open val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, 0)
-	protected open val itemHandler = InvWrapper(container)
+	protected open val itemHandler by lazy { InvWrapper(container) }
 
 	open fun getItemHandler(direction: Direction?): IItemHandler? {
 		return itemHandler
