@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
@@ -67,6 +68,33 @@ class AdvancedIncubatorBlockEntity(
 		}
 	}
 
+	private var subTicks = 0
+	override fun serverTick() {
+		if (!hasRecipe()) {
+			subTicks = 0
+			currentProgress = 0
+			return
+		}
+
+		if (isHighTemperature) {
+			energyStorage.extractEnergy(getEnergyCostPerTick(), false)
+			currentProgress += 1 + getAmountOfOverclocks()
+		} else {
+			subTicks += 1 + getAmountOfOverclocks()
+
+			val ticksOverMax = subTicks - getIncubatorLowTemperatureTickFactor()
+			if (ticksOverMax >= 0) {
+				subTicks = ticksOverMax
+				energyStorage.extractEnergy(getEnergyCostPerTick(), false)
+				currentProgress += 1
+			}
+		}
+
+		if (currentProgress >= maxProgress) {
+			craftItem()
+		}
+	}
+
 	override fun hasRecipe(): Boolean {
 		if (!hasEnoughEnergy()) return false
 
@@ -115,6 +143,8 @@ class AdvancedIncubatorBlockEntity(
 		const val RIGHT_BOTTLE_SLOT_INDEX = 3
 		const val CHORUS_SLOT_INDEX = 4
 		const val OVERCLOCKER_SLOT_INDEX = 5
+
+		fun getIncubatorLowTemperatureTickFactor(): Int = ServerConfig.CONFIG.incubatorLowTempTickFactor.get()
 	}
 
 }
