@@ -1,12 +1,15 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu
 
+import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.world.Container
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.MenuType
 import net.minecraft.world.inventory.Slot
+import net.minecraft.world.item.ItemStack
 
 abstract class CraftingMachineMenu(
 	menuType: MenuType<*>,
@@ -25,10 +28,12 @@ abstract class CraftingMachineMenu(
 		addDataSlots(progressContainerData)
 	}
 
+	protected open fun inputFilter(inputStack: ItemStack): Boolean = true
+
 	override fun addSlots() {
-		val inputSlot = Slot(machineContainer, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42)
+		val inputSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42, ::inputFilter)
 		val outputSlot = Slot(machineContainer, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42)
-		val overclockSlot = Slot(machineContainer, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54)
+		val overclockSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54) { it.`is`(ModItems.OVERCLOCKER) }
 
 		this.addSlot(inputSlot)
 		this.addSlot(outputSlot)
