@@ -15,7 +15,7 @@ class AdvancedIncubatorScreen(
 	title: Component
 ) : MachineScreen<AdvancedIncubatorMenu>(menu, playerInventory, title) {
 
-	override val background: ScreenBackground = ScreenTextures.Backgrounds.INCUBATOR
+	override val background: ScreenBackground = ScreenTextures.Backgrounds.INCUBATOR_ADVANCED
 
 	private lateinit var temperatureIndicator: TemperatureIndicator
 	private lateinit var bubbles: Bubbles
