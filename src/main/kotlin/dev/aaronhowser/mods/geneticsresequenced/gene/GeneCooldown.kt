@@ -19,7 +19,7 @@ class GeneCooldown(
 ) : MutableSet<UUID> {
 
 	private val uuidsOnCooldown: MutableSet<UUID> = mutableSetOf()
-	private val actuallyNotify = notifyPlayer && cooldownTicks >= ServerConfig.minimumCooldownForNotification.get()
+	private val actuallyNotify = notifyPlayer && cooldownTicks >= ServerConfig.CONFIG.minimumCooldownForNotification.get()
 
 	private var addedViaEntity = false
 

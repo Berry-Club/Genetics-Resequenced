@@ -70,7 +70,7 @@ object DeathGenes {
 
 	private val EMERALD_HEART_COOLDOWN = GeneCooldown(
 		ModGenes.EMERALD_HEART,
-		ServerConfig.emeraldHeartCooldown.get()
+		ServerConfig.CONFIG.emeraldHeartCooldown.get()
 	)
 
 	fun handleEmeraldHeart(event: LivingDeathEvent) {

@@ -46,7 +46,7 @@ object TickGenes {
 
 		if (bioluminescence.isDisabled) return
 
-		if (entity.tickCount % ServerConfig.bioluminescenceCooldown.get() != 0) return
+		if (entity.tickCount % ServerConfig.CONFIG.bioluminescenceCooldown.get() != 0) return
 
 		val level = entity.level()
 
@@ -69,7 +69,7 @@ object TickGenes {
 		if (photosynthesis.isDisabled) return
 
 		if (entity !is Player) return
-		if (entity.tickCount % ServerConfig.photosynthesisCooldown.get() != 0) return
+		if (entity.tickCount % ServerConfig.CONFIG.photosynthesisCooldown.get() != 0) return
 
 		if (!entity.hasGene(ModGenes.PHOTOSYNTHESIS)) return
 
@@ -82,8 +82,8 @@ object TickGenes {
 		if (!inDirectSunlight || !isDay) return
 
 		foodData.eat(
-			ServerConfig.photosynthesisHungerAmount.get(),
-			ServerConfig.photosynthesisSaturationAmount.get().toFloat()
+			ServerConfig.CONFIG.photosynthesisHungerAmount.get(),
+			ServerConfig.CONFIG.photosynthesisSaturationAmount.get().toFloat()
 		)
 	}
 
@@ -91,13 +91,13 @@ object TickGenes {
 		val noHunger = ModGenes.NO_HUNGER.getHolderOrThrow(entity.registryAccess())
 		if (noHunger.isDisabled) return
 
-		if (entity.tickCount % ServerConfig.noHungerCooldown.get() != 0) return
+		if (entity.tickCount % ServerConfig.CONFIG.noHungerCooldown.get() != 0) return
 
 		if (!entity.hasGene(ModGenes.NO_HUNGER)) return
 
 		val foodData = entity.foodData
 
-		foodData.foodLevel = max(foodData.foodLevel, ServerConfig.noHungerMinimum.get())
+		foodData.foodLevel = max(foodData.foodLevel, ServerConfig.CONFIG.noHungerMinimum.get())
 	}
 
 
@@ -113,7 +113,7 @@ object TickGenes {
 	}
 
 	fun handleTickingGenes(entity: LivingEntity) {
-		if (entity.tickCount % ServerConfig.passivesCheckCooldown.get() != 0) return
+		if (entity.tickCount % ServerConfig.CONFIG.passivesCheckCooldown.get() != 0) return
 		if (entity !is Mob && entity !is Player) return
 
 		val geneHolders = entity.geneHolders
@@ -127,7 +127,7 @@ object TickGenes {
 
 			when {
 				geneHolder.isGene(ModGenes.WATER_BREATHING) -> entity.airSupply = entity.maxAirSupply
-				geneHolder.isGene(ModGenes.FLAMBE) -> entity.remainingFireTicks = ServerConfig.passivesCheckCooldown.get() * 2 * 20
+				geneHolder.isGene(ModGenes.FLAMBE) -> entity.remainingFireTicks = ServerConfig.CONFIG.passivesCheckCooldown.get() * 2 * 20
 				geneHolder.isGene(ModGenes.LAY_EGG) -> handleLayEgg(entity)
 				geneHolder.isGene(ModGenes.MEATY_TWO) -> handleMeatyTwo(entity)
 
@@ -211,7 +211,7 @@ object TickGenes {
 
 	private val RECENTLY_MEATED_TWO = GeneCooldown(
 		ModGenes.MEATY_TWO,
-		ServerConfig.meaty2Cooldown.get(),
+		ServerConfig.CONFIG.meaty2Cooldown.get(),
 		notifyPlayer = false
 	)
 
@@ -234,7 +234,7 @@ object TickGenes {
 
 	private val RECENTLY_LAID_EGGS = GeneCooldown(
 		ModGenes.LAY_EGG,
-		ServerConfig.eggCooldown.get(),
+		ServerConfig.CONFIG.eggCooldown.get(),
 		notifyPlayer = false
 	)
 
@@ -259,16 +259,16 @@ object TickGenes {
 		val mobSight = ModGenes.MOB_SIGHT.getHolderOrThrow(entity.registryAccess())
 
 		if (mobSight.isDisabled) return
-		if (entity.tickCount % ServerConfig.mobSightCooldown.get() != 0) return
+		if (entity.tickCount % ServerConfig.CONFIG.mobSightCooldown.get() != 0) return
 
 		if (!entity.hasGene(ModGenes.MOB_SIGHT)) return
 
-		val searchArea = entity.boundingBox.inflate(ServerConfig.mobSightRadius.get())
+		val searchArea = entity.boundingBox.inflate(ServerConfig.CONFIG.mobSightRadius.get())
 		val nearbyLivingEntities = entity.level().getEntities(entity, searchArea).filterIsInstance<Mob>()
 
 		val glowingEffect = MobEffectInstance(
 			MobEffects.GLOWING,
-			maxOf(ServerConfig.mobSightCooldown.get() * 4, 20 * 30),
+			maxOf(ServerConfig.CONFIG.mobSightCooldown.get() * 4, 20 * 30),
 			0,
 			false,
 			false
@@ -285,7 +285,7 @@ object TickGenes {
 
 		if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 
-		if (player.tickCount % ServerConfig.itemMagnetCooldown.get() != 0) return
+		if (player.tickCount % ServerConfig.CONFIG.itemMagnetCooldown.get() != 0) return
 
 		if (!player.hasGene(ModGenes.ITEM_MAGNET)) return
 
@@ -293,7 +293,7 @@ object TickGenes {
 
 		val nearbyItems = player.level().getEntitiesOfClass(
 			ItemEntity::class.java,
-			player.boundingBox.inflate(ServerConfig.itemMagnetRadius.get())
+			player.boundingBox.inflate(ServerConfig.CONFIG.itemMagnetRadius.get())
 		)
 
 		for (itemEntity in nearbyItems) {
@@ -328,7 +328,7 @@ object TickGenes {
 
 		if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 
-		if (player.tickCount % ServerConfig.xpMagnetCooldown.get() != 0) return
+		if (player.tickCount % ServerConfig.CONFIG.xpMagnetCooldown.get() != 0) return
 
 		if (!player.hasGene(ModGenes.XP_MAGNET)) return
 
@@ -336,7 +336,7 @@ object TickGenes {
 
 		val nearbyXpOrbs = player.level().getEntitiesOfClass(
 			ExperienceOrb::class.java,
-			player.boundingBox.inflate(ServerConfig.xpMagnetRadius.get())
+			player.boundingBox.inflate(ServerConfig.CONFIG.xpMagnetRadius.get())
 		)
 
 		for (xpOrb in nearbyXpOrbs) {

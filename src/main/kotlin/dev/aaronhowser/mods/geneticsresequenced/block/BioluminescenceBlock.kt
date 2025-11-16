@@ -31,7 +31,7 @@ class BioluminescenceBlock :
 		pOldState: BlockState,
 		pMovedByPiston: Boolean
 	) {
-		pLevel.scheduleTick(pPos, this, ServerConfig.bioluminescenceDuration.get())
+		pLevel.scheduleTick(pPos, this, ServerConfig.CONFIG.bioluminescenceDuration.get())
 		super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston)
 	}
 

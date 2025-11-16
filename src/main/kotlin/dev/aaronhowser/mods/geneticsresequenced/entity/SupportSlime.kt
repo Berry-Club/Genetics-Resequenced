@@ -99,7 +99,7 @@ class SupportSlime(
 		if (this.isNoAi) return
 		if (this.despawnAnimationPlaying) return
 
-		if (this.tickCount % ServerConfig.slimyDeathDespawnCheckTimer.get() != 0) return
+		if (this.tickCount % ServerConfig.CONFIG.slimyDeathDespawnCheckTimer.get() != 0) return
 
 		val nearbyEntities = level().getEntities(
 			this,
@@ -128,8 +128,8 @@ class SupportSlime(
 		if (nearEnemies) {
 			this.ticksWithoutTarget = 0
 		} else {
-			this.ticksWithoutTarget += ServerConfig.slimyDeathDespawnCheckTimer.get()
-			if (this.ticksWithoutTarget > ServerConfig.slimyDeathDespawnTime.get()) {
+			this.ticksWithoutTarget += ServerConfig.CONFIG.slimyDeathDespawnCheckTimer.get()
+			if (this.ticksWithoutTarget > ServerConfig.CONFIG.slimyDeathDespawnTime.get()) {
 				despawn()
 			}
 		}

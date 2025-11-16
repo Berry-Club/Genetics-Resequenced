@@ -55,7 +55,7 @@ object DeathEvents {
 	}
 
 	private fun handleKeepGenesOnDeath(event: PlayerEvent.PlayerRespawnEvent) {
-		if (ServerConfig.keepGenesOnDeath.get()) return
+		if (ServerConfig.CONFIG.keepGenesOnDeath.get()) return
 
 		val player = event.entity
 		val playerGenes = player.geneHolders

@@ -65,7 +65,7 @@ data class GenesData(
 			if (
 				this is Player
 				&& newGeneHolder.isNegative
-				&& ServerConfig.disableGivingPlayersNegativeGenes.get()
+				&& ServerConfig.CONFIG.disableGivingPlayersNegativeGenes.get()
 				&& !newGeneHolder.`is`(ModGenes.CRINGE)
 			) {
 				GeneticsResequenced.LOGGER.debug(

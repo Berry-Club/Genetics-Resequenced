@@ -20,7 +20,7 @@ object PacketGenes {
 
 	private val RECENT_TELEPORTS = GeneCooldown(
 		ModGenes.TELEPORT,
-		ServerConfig.teleportCooldown.get()
+		ServerConfig.CONFIG.teleportCooldown.get()
 	)
 
 	@Suppress("MoveVariableDeclarationIntoWhen")

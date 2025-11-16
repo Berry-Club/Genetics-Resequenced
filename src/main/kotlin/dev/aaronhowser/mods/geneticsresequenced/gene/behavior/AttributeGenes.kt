@@ -33,7 +33,7 @@ object AttributeGenes {
 		if (player.horizontalCollision || player.minorHorizontalCollision) {
 			player.setDeltaMovement(
 				player.deltaMovement.x,
-				if (player.isCrouching) 0.0 else ServerConfig.wallClimbSpeed.get(),
+				if (player.isCrouching) 0.0 else ServerConfig.CONFIG.wallClimbSpeed.get(),
 				player.deltaMovement.z
 			)
 
