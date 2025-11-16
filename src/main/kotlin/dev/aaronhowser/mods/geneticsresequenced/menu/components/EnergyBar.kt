@@ -46,8 +46,8 @@ class EnergyBar(
 	}
 
 	private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
-		val currentAmountString = String.format("%,d", currentGetter)
-		val maxAmountString = String.format("%,d", maxGetter)
+		val currentAmountString = String.format("%,d", currentGetter.asInt)
+		val maxAmountString = String.format("%,d", maxGetter.asInt)
 
 		val component = ModTooltipLang.FE.toComponent(currentAmountString, maxAmountString)
 

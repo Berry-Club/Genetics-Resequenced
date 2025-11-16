@@ -24,8 +24,8 @@ abstract class MachineMenu(
 	protected abstract val amountSlots: Int
 
 	init {
-//		addPlayerInventorySlots()
-		addSlots()
+		addPlayerInventorySlots()
+//		addSlots()
 
 		addDataSlots(energyContainerData)
 	}
