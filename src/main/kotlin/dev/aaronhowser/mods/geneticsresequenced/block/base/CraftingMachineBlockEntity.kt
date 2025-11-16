@@ -100,7 +100,7 @@ abstract class CraftingMachineBlockEntity(
 	}
 
 	protected fun outputSlotHasRoom(potentialOutput: ItemStack): Boolean {
-		val currentOutput = invWrapper.getStackInSlot(OUTPUT_SLOT_INDEX)
+		val currentOutput = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 		if (currentOutput.isEmpty) return true
 
 		if (!ItemStack.isSameItemSameComponents(potentialOutput, currentOutput)) return false
@@ -109,9 +109,9 @@ abstract class CraftingMachineBlockEntity(
 		return combinedCount <= currentOutput.maxStackSize
 	}
 
-	protected open val inputHandler = RangedWrapper(invWrapper, INPUT_SLOT_INDEX, INPUT_SLOT_INDEX + 1)
-	protected open val outputHandler = RangedWrapper(invWrapper, OUTPUT_SLOT_INDEX, OUTPUT_SLOT_INDEX + 1)
-	protected open val overclockHandler = RangedWrapper(invWrapper, OVERCLOCK_SLOT_INDEX, OVERCLOCK_SLOT_INDEX + 1)
+	protected open val inputHandler = RangedWrapper(itemHandler, INPUT_SLOT_INDEX, INPUT_SLOT_INDEX + 1)
+	protected open val outputHandler = RangedWrapper(itemHandler, OUTPUT_SLOT_INDEX, OUTPUT_SLOT_INDEX + 1)
+	protected open val overclockHandler = RangedWrapper(itemHandler, OVERCLOCK_SLOT_INDEX, OVERCLOCK_SLOT_INDEX + 1)
 
 	override fun getItemHandler(direction: Direction?): IItemHandler? {
 		val blockFacing = this.blockState.getValue(MachineBlock.H_FACING)

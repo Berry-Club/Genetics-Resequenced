@@ -31,7 +31,7 @@ class IncubatorBlockEntity(
 
 	override val containerSize: Int = INVENTORY_SIZE
 
-	override val invWrapper: InvWrapper = object : InvWrapper(container) {
+	override val itemHandler: InvWrapper = object : InvWrapper(container) {
 		override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
 			val level = level ?: return false
 
@@ -49,8 +49,8 @@ class IncubatorBlockEntity(
 		}
 	}
 
-	override val inputHandler: RangedWrapper = RangedWrapper(invWrapper, TOP_SLOT_INDEX, TOP_SLOT_INDEX + 1)
-	private val bottleHandler: RangedWrapper = RangedWrapper(invWrapper, LEFT_BOTTLE_SLOT_INDEX, RIGHT_BOTTLE_SLOT_INDEX + 1)
+	override val inputHandler: RangedWrapper = RangedWrapper(itemHandler, TOP_SLOT_INDEX, TOP_SLOT_INDEX + 1)
+	private val bottleHandler: RangedWrapper = RangedWrapper(itemHandler, LEFT_BOTTLE_SLOT_INDEX, RIGHT_BOTTLE_SLOT_INDEX + 1)
 
 	override fun getItemHandler(direction: Direction?): IItemHandler? {
 		return when (direction) {
@@ -86,13 +86,13 @@ class IncubatorBlockEntity(
 	override fun hasRecipe(): Boolean {
 		val level = level ?: return false
 
-		val topStack = invWrapper.getStackInSlot(TOP_SLOT_INDEX)
+		val topStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
 		if (topStack.isEmpty) return false
 
 		val bottomStacks = listOf(
-			invWrapper.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX),
-			invWrapper.getStackInSlot(MIDDLE_BOTTLE_SLOT_INDEX),
-			invWrapper.getStackInSlot(RIGHT_BOTTLE_SLOT_INDEX)
+			itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX),
+			itemHandler.getStackInSlot(MIDDLE_BOTTLE_SLOT_INDEX),
+			itemHandler.getStackInSlot(RIGHT_BOTTLE_SLOT_INDEX)
 		)
 
 		return bottomStacks.any { bottomStack ->
@@ -104,7 +104,7 @@ class IncubatorBlockEntity(
 	}
 
 	override fun craftItem() {
-		val topStack = invWrapper.getStackInSlot(TOP_SLOT_INDEX)
+		val topStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
 
 		val bottleSlots = listOf(
 			LEFT_BOTTLE_SLOT_INDEX,
@@ -115,7 +115,7 @@ class IncubatorBlockEntity(
 		var onlyDupeCellRecipes = true
 
 		for (slotIndex in bottleSlots) {
-			val bottomStack = invWrapper.getStackInSlot(slotIndex)
+			val bottomStack = itemHandler.getStackInSlot(slotIndex)
 
 			val recipeInput = IncubatorRecipeInput(topStack, bottomStack, isHighTemp = true)
 			val incubatorRecipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, recipeInput)
@@ -126,7 +126,7 @@ class IncubatorBlockEntity(
 				val output = incubatorRecipe.assemble(recipeInput, level!!.registryAccess())
 
 				if (!output.isEmpty) {
-					invWrapper.setStackInSlot(slotIndex, output)
+					itemHandler.setStackInSlot(slotIndex, output)
 				}
 			} else {
 				val potionBrewing = level!!.potionBrewing()
@@ -138,7 +138,7 @@ class IncubatorBlockEntity(
 					val output = potionBrewing.mix(topStack, bottomStack)
 
 					if (!output.isEmpty) {
-						invWrapper.setStackInSlot(slotIndex, output)
+						itemHandler.setStackInSlot(slotIndex, output)
 					}
 				}
 			}

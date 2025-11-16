@@ -85,10 +85,10 @@ class CoalGeneratorBlockEntity(
 		maxBurnTime = fuelTime
 		burnTimeRemaining = fuelTime
 
-		invWrapper.extractItem(INPUT_SLOT_INDEX, 1, false)
+		itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
 
-		if (!fuelReplacedItem.isEmpty && invWrapper.getStackInSlot(INPUT_SLOT_INDEX).isEmpty) {
-			invWrapper.insertItem(INPUT_SLOT_INDEX, fuelReplacedItem, false)
+		if (!fuelReplacedItem.isEmpty && itemHandler.getStackInSlot(INPUT_SLOT_INDEX).isEmpty) {
+			itemHandler.insertItem(INPUT_SLOT_INDEX, fuelReplacedItem, false)
 		}
 	}
 

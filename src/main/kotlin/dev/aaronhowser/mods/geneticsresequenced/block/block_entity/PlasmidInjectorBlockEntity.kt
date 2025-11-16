@@ -25,7 +25,7 @@ class PlasmidInjectorBlockEntity(
 	override val maxEnergy: Int = 60_000
 	override val energyTransferRate: Int = 256
 
-	override val invWrapper: InvWrapper = object : InvWrapper(container) {
+	override val itemHandler: InvWrapper = object : InvWrapper(container) {
 		override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
 			return when (slot) {
 				INPUT_SLOT_INDEX -> {
@@ -45,8 +45,8 @@ class PlasmidInjectorBlockEntity(
 	}
 
 	override fun hasRecipe(): Boolean {
-		val plasmidStack = invWrapper.getStackInSlot(INPUT_SLOT_INDEX)
-		val syringeStack = invWrapper.getStackInSlot(OUTPUT_SLOT_INDEX)
+		val plasmidStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
+		val syringeStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
 		if (!syringeStack.isSyringe()) return false
 
@@ -65,8 +65,8 @@ class PlasmidInjectorBlockEntity(
 	}
 
 	override fun craftItem() {
-		val plasmidStack = invWrapper.getStackInSlot(INPUT_SLOT_INDEX)
-		val syringeStack = invWrapper.getStackInSlot(OUTPUT_SLOT_INDEX)
+		val plasmidStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
+		val syringeStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
 		val plasmidGene = PlasmidItem.getGene(plasmidStack) ?: return
 
@@ -76,7 +76,7 @@ class PlasmidInjectorBlockEntity(
 			SyringeItem.addAntigene(syringeStack, plasmidGene)
 		}
 
-		invWrapper.extractItem(INPUT_SLOT_INDEX, 1, false)
+		itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {

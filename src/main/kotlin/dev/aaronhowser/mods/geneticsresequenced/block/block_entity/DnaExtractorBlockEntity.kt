@@ -26,7 +26,7 @@ class DnaExtractorBlockEntity(
 	override val maxEnergy: Int = 60_000
 	override val energyTransferRate: Int = 256
 
-	override val invWrapper: InvWrapper = object : InvWrapper(container) {
+	override val itemHandler: InvWrapper = object : InvWrapper(container) {
 		override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
 			return when (slot) {
 				INPUT_SLOT_INDEX -> stack.`is`(ModItems.CELL) || stack.`is`(ModItems.GMO_CELL)
@@ -38,7 +38,7 @@ class DnaExtractorBlockEntity(
 	}
 
 	override fun hasRecipe(): Boolean {
-		val inputStack = invWrapper.getStackInSlot(INPUT_SLOT_INDEX)
+		val inputStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
 		if (!inputStack.`is`(ModItems.CELL) && !inputStack.`is`(ModItems.GMO_CELL)) {
 			return false
 		}
@@ -70,11 +70,11 @@ class DnaExtractorBlockEntity(
 	}
 
 	override fun craftItem() {
-		val inputStack = invWrapper.getStackInSlot(INPUT_SLOT_INDEX)
+		val inputStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
 		val outputStack = getOutputFromInput(inputStack) ?: return
 
-		invWrapper.extractItem(INPUT_SLOT_INDEX, 1, false)
-		invWrapper.insertItem(OUTPUT_SLOT_INDEX, outputStack, false)
+		itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
+		itemHandler.insertItem(OUTPUT_SLOT_INDEX, outputStack, false)
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {

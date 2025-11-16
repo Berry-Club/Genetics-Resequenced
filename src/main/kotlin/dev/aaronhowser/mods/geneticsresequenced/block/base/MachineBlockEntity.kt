@@ -61,10 +61,10 @@ abstract class MachineBlockEntity(
 
 	abstract val containerSize: Int
 	open val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, containerSize)
-	protected open val invWrapper = InvWrapper(container)
+	protected open val itemHandler = InvWrapper(container)
 
 	open fun getItemHandler(direction: Direction?): IItemHandler? {
-		return invWrapper
+		return itemHandler
 	}
 
 	protected open fun serverTick() {}

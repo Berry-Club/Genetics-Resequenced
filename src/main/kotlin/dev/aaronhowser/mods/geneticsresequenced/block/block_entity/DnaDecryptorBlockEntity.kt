@@ -30,7 +30,7 @@ class DnaDecryptorBlockEntity(
 	override val maxEnergy: Int = 60_000
 	override val energyTransferRate: Int = 256
 
-	override val invWrapper: InvWrapper = object : InvWrapper(container) {
+	override val itemHandler: InvWrapper = object : InvWrapper(container) {
 		override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
 			return when (slot) {
 				INPUT_SLOT_INDEX -> stack.`is`(ModItems.DNA_HELIX)
@@ -103,8 +103,8 @@ class DnaDecryptorBlockEntity(
 		val inputStack = container.getItem(INPUT_SLOT_INDEX)
 		val outputStack = getOutputFromInput(inputStack, level.registryAccess()) ?: return
 
-		invWrapper.extractItem(INPUT_SLOT_INDEX, 1, false)
-		invWrapper.insertItem(OUTPUT_SLOT_INDEX, outputStack, false)
+		itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
+		itemHandler.insertItem(OUTPUT_SLOT_INDEX, outputStack, false)
 
 		isNextGeneSet = false
 		nextGeneHolder = null

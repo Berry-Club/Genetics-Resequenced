@@ -23,7 +23,7 @@ class BloodPurifierBlockEntity(
 	override val energyTransferRate: Int = 256
 	override val baseEnergyCostPerTick: IntSupplier = IntSupplier { 32 }
 
-	override val invWrapper = object : InvWrapper(container) {
+	override val itemHandler = object : InvWrapper(container) {
 		override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
 			return when (slot) {
 				INPUT_SLOT_INDEX -> SyringeItem.hasBlood(stack)
@@ -35,21 +35,21 @@ class BloodPurifierBlockEntity(
 	}
 
 	override fun hasRecipe(): Boolean {
-		val outputStack = invWrapper.getStackInSlot(OUTPUT_SLOT_INDEX)
+		val outputStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 		if (!outputStack.isEmpty) return false
 
-		val inputStack = invWrapper.getStackInSlot(INPUT_SLOT_INDEX)
+		val inputStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
 		return SyringeItem.isContaminated(inputStack)
 	}
 
 	override fun craftItem() {
 		if (!hasRecipe()) return
 
-		val syringeStack = invWrapper.getStackInSlot(INPUT_SLOT_INDEX)
+		val syringeStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
 		SyringeItem.setContaminated(syringeStack, value = false)
 
-		invWrapper.insertItem(OUTPUT_SLOT_INDEX, syringeStack.copy(), false)
-		invWrapper.extractItem(INPUT_SLOT_INDEX, 1, false)
+		itemHandler.insertItem(OUTPUT_SLOT_INDEX, syringeStack.copy(), false)
+		itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {

@@ -26,7 +26,7 @@ class PlasmidInfuserBlockEntity(
 	override val maxEnergy: Int = 60_000
 	override val energyTransferRate: Int = 256
 
-	override val invWrapper: InvWrapper = object : InvWrapper(container) {
+	override val itemHandler: InvWrapper = object : InvWrapper(container) {
 		override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
 			return when (slot) {
 				INPUT_SLOT_INDEX -> stack.`is`(ModItems.DNA_HELIX)
@@ -38,8 +38,8 @@ class PlasmidInfuserBlockEntity(
 	}
 
 	override fun hasRecipe(): Boolean {
-		val inputHelix = invWrapper.getStackInSlot(INPUT_SLOT_INDEX)
-		val outputPlasmid = invWrapper.getStackInSlot(OUTPUT_SLOT_INDEX)
+		val inputHelix = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
+		val outputPlasmid = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
 		if (!inputHelix.`is`(ModItems.DNA_HELIX) || !outputPlasmid.`is`(ModItems.PLASMID)) return false
 
@@ -63,8 +63,8 @@ class PlasmidInfuserBlockEntity(
 	}
 
 	override fun craftItem() {
-		val inputHelix = invWrapper.getStackInSlot(INPUT_SLOT_INDEX)
-		val outputPlasmid = invWrapper.getStackInSlot(OUTPUT_SLOT_INDEX)
+		val inputHelix = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
+		val outputPlasmid = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
 		val plasmidGeneHolder = PlasmidItem.getGene(outputPlasmid)
 		val inputGeneHolder = DnaHelixItem.getGeneHolder(inputHelix) ?: return
@@ -73,7 +73,7 @@ class PlasmidInfuserBlockEntity(
 		if (plasmidGeneHolder == null) {
 			PlasmidItem.setGene(outputPlasmid, inputGeneHolder, 0)
 
-			invWrapper.extractItem(INPUT_SLOT_INDEX, 1, false)
+			itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
 			return
 		}
 
@@ -85,7 +85,7 @@ class PlasmidInfuserBlockEntity(
 
 		PlasmidItem.increaseDnaPoints(outputPlasmid, increaseAmount)
 
-		invWrapper.extractItem(INPUT_SLOT_INDEX, 1, false)
+		itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {

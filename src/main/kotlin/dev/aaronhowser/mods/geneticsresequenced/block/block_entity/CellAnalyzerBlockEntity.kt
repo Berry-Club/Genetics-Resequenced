@@ -24,7 +24,7 @@ class CellAnalyzerBlockEntity(
 	override val maxEnergy: Int = 60_000
 	override val energyTransferRate: Int = 256
 
-	override val invWrapper: InvWrapper = object : InvWrapper(container) {
+	override val itemHandler: InvWrapper = object : InvWrapper(container) {
 		override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
 			return when (slot) {
 				INPUT_SLOT_INDEX -> stack.`is`(ModItems.ORGANIC_MATTER.get())
@@ -36,7 +36,7 @@ class CellAnalyzerBlockEntity(
 	}
 
 	override fun hasRecipe(): Boolean {
-		val inputStack = invWrapper.getStackInSlot(INPUT_SLOT_INDEX)
+		val inputStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
 		if (!inputStack.`is`(ModItems.ORGANIC_MATTER)) return false
 
 		val mobType = EntityDnaItem.getEntityType(inputStack) ?: return false
@@ -50,7 +50,7 @@ class CellAnalyzerBlockEntity(
 
 	//TODO: Make sure it works if things are in the output
 	override fun craftItem() {
-		val inputStack = invWrapper.getStackInSlot(INPUT_SLOT_INDEX)
+		val inputStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
 		val mobType = EntityDnaItem.getEntityType(inputStack) ?: return
 
 		val outputStack = ModItems.CELL.get().defaultInstance
@@ -60,8 +60,8 @@ class CellAnalyzerBlockEntity(
 			return
 		}
 
-		invWrapper.extractItem(INPUT_SLOT_INDEX, 1, false)
-		invWrapper.insertItem(OUTPUT_SLOT_INDEX, outputStack, false)
+		itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
+		itemHandler.insertItem(OUTPUT_SLOT_INDEX, outputStack, false)
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
