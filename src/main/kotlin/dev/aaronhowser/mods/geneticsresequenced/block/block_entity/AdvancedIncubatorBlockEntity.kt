@@ -3,9 +3,12 @@ package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
+import net.minecraft.core.HolderLookup
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
@@ -25,6 +28,15 @@ class AdvancedIncubatorBlockEntity(
 	override val energyTransferRate: Int = 500
 
 	override val containerSize: Int = INVENTORY_SIZE
+
+	private var isHighTemperature: Boolean = false
+		set(value) {
+			if (field != value) {
+				field = value
+				currentProgress = 0
+				setChanged()
+			}
+		}
 
 	override val container: ImprovedSimpleContainer = object : ImprovedSimpleContainer(this, containerSize) {
 		override fun setChanged() {
@@ -59,7 +71,19 @@ class AdvancedIncubatorBlockEntity(
 		if (!hasEnoughEnergy()) return false
 
 		val topStack = itemHandler.getStackInSlot(TOP_SLOT_INDEX)
+		if (topStack.isEmpty) return false
 
+		val bottomStacks = listOf(
+			itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX),
+			itemHandler.getStackInSlot(MIDDLE_BOTTLE_SLOT_INDEX),
+			itemHandler.getStackInSlot(RIGHT_BOTTLE_SLOT_INDEX)
+		)
+
+		return bottomStacks.any { bottomStack ->
+			if (bottomStack.isEmpty) return@any false
+			val input = IncubatorRecipeInput(topStack, bottomStack, isHighTemp = isHighTemperature)
+			AbstractIncubatorRecipe.hasIncubatorRecipe(level!!, input)
+		}
 	}
 
 	override fun craftItem() {
@@ -70,7 +94,19 @@ class AdvancedIncubatorBlockEntity(
 		TODO("Not yet implemented")
 	}
 
+	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.saveAdditional(tag, registries)
+		tag.putBoolean(IS_HIGH_TEMPERATURE_TAG, isHighTemperature)
+	}
+
+	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.loadAdditional(tag, registries)
+		isHighTemperature = tag.getBoolean(IS_HIGH_TEMPERATURE_TAG)
+	}
+
 	companion object {
+		const val IS_HIGH_TEMPERATURE_TAG = "IsHighTemperature"
+
 		const val INVENTORY_SIZE = 6
 
 		const val TOP_SLOT_INDEX = 0
