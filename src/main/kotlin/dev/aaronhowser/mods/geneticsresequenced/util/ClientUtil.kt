@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isTrue
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.AaronExtensions.status
 import dev.aaronhowser.mods.aaron.ServerScheduler
@@ -11,7 +12,6 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
-import dev.aaronhowser.mods.patchoulidatagen.util.Util.isTrue
 import net.minecraft.client.Minecraft
 import net.minecraft.client.Options
 import net.minecraft.core.RegistryAccess
