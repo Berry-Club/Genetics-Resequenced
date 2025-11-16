@@ -1,10 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base
 
+import dev.aaronhowser.mods.geneticsresequenced.block.CoalGeneratorBlock.Companion.BURNING
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.EntityBlock
@@ -13,6 +15,7 @@ import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.DirectionProperty
 import net.minecraft.world.level.material.MapColor
@@ -27,6 +30,16 @@ abstract class MachineBlock(
 			stateDefinition.any()
 				.setValue(H_FACING, Direction.NORTH)
 		)
+	}
+
+	override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
+		builder.add(H_FACING)
+	}
+
+	override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
+		return defaultBlockState()
+			.setValue(H_FACING, pContext.horizontalDirection.opposite)
+			.setValue(BURNING, false)
 	}
 
 	override fun useWithoutItem(

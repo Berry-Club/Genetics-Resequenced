@@ -22,16 +22,15 @@ class CoalGeneratorBlock : MachineBlock() {
 		)
 	}
 
+	override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
+		super.createBlockStateDefinition(builder)
+		builder.add(BURNING)
+	}
+
 	override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
 		return defaultBlockState()
 			.setValue(H_FACING, pContext.horizontalDirection.opposite)
 			.setValue(BURNING, false)
-	}
-
-	override fun createBlockStateDefinition(pBuilder: StateDefinition.Builder<Block, BlockState>) {
-		super.createBlockStateDefinition(pBuilder)
-		pBuilder.add(H_FACING)
-		pBuilder.add(BURNING)
 	}
 
 	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity {
