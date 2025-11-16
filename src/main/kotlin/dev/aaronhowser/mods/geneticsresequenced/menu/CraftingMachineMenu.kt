@@ -25,16 +25,6 @@ abstract class CraftingMachineMenu(
 		addDataSlots(progressContainerData)
 	}
 
-	override fun addSlots() {
-		val inputSlot = Slot(machineContainer, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42)
-		val outputSlot = Slot(machineContainer, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42)
-		val overclockSlot = Slot(machineContainer, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54)
-
-		this.addSlot(inputSlot)
-		this.addSlot(outputSlot)
-		this.addSlot(overclockSlot)
-	}
-
 	var currentProgress: Int
 		get() = progressContainerData.get(CraftingMachineBlockEntity.CURRENT_PROGRESS_INDEX)
 		set(value) = progressContainerData.set(CraftingMachineBlockEntity.CURRENT_PROGRESS_INDEX, value)
