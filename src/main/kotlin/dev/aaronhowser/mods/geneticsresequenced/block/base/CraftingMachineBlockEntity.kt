@@ -53,7 +53,7 @@ abstract class CraftingMachineBlockEntity(
 			}
 		}
 
-	protected var maxProgress: Int = 0
+	protected var maxProgress: Int = 20 * 4
 		set(value) {
 			if (field != value) {
 				field = value
@@ -95,7 +95,7 @@ abstract class CraftingMachineBlockEntity(
 		currentProgress += 1 + getAmountOfOverclocks()
 
 		while (currentProgress >= maxProgress) {
-			currentProgress -= maxProgress
+			currentProgress -= maxOf(1, maxProgress)
 			craftItem()
 		}
 	}
