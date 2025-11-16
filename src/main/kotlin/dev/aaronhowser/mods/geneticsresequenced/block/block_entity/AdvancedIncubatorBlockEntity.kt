@@ -5,11 +5,14 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockE
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.DupeCellRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
@@ -18,6 +21,7 @@ import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.items.wrapper.InvWrapper
 import java.util.function.IntSupplier
+import kotlin.math.min
 
 class AdvancedIncubatorBlockEntity(
 	pos: BlockPos,
@@ -115,7 +119,104 @@ class AdvancedIncubatorBlockEntity(
 	}
 
 	override fun craftItem() {
-		TODO("Not yet implemented")
+		val topStack = itemHandler.getStackInSlot(AdvancedIncubatorBlockEntity.Companion.TOP_SLOT_INDEX)
+
+		val bottleSlots = listOf(
+			AdvancedIncubatorBlockEntity.Companion.LEFT_BOTTLE_SLOT_INDEX,
+			AdvancedIncubatorBlockEntity.Companion.MIDDLE_BOTTLE_SLOT_INDEX,
+			AdvancedIncubatorBlockEntity.Companion.RIGHT_BOTTLE_SLOT_INDEX
+		)
+
+		var onlyDupeCellRecipes = true
+
+		for (slotIndex in bottleSlots) {
+			val bottomStack = itemHandler.getStackInSlot(slotIndex)
+
+			val incubatorInput = IncubatorRecipeInput(
+				topStack,
+				bottomStack,
+				isHighTemp = isHighTemperature
+			)
+
+			val incubatorRecipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, incubatorInput)
+
+			if (incubatorRecipe != null) {
+				if (incubatorRecipe !is DupeCellRecipe) onlyDupeCellRecipes = false
+
+				val output = if (incubatorRecipe is GmoRecipe) {
+					gmoRecipeOutput(incubatorRecipe, incubatorInput)
+				} else {
+					nonGmoRecipeOutput(incubatorRecipe)
+				}
+
+				if (!output.isEmpty) {
+					itemHandler.setStackInSlot(slotIndex, output)
+				}
+			} else {
+				val potionBrewing = level!!.potionBrewing()
+				val hasMix = potionBrewing.hasMix(bottomStack, topStack)
+
+				if (hasMix) {
+					onlyDupeCellRecipes = false
+
+					val output = potionBrewing.mix(topStack, bottomStack)
+
+					if (!output.isEmpty) {
+						itemHandler.setStackInSlot(slotIndex, output)
+					}
+				}
+			}
+		}
+
+		if (!onlyDupeCellRecipes) topStack.shrink(1)
+	}
+
+
+	private fun gmoRecipeOutput(gmoRecipe: GmoRecipe, input: IncubatorRecipeInput): ItemStack {
+		val level = level ?: return ItemStack.EMPTY
+
+		val chanceDecreasePerOverclocker = ServerConfig.CONFIG.incubatorOverclockerChanceDecrease.get().toFloat()
+		val chanceIncreasePerChorus = ServerConfig.CONFIG.incubatorChorusFruitChanceIncrease.get().toFloat()
+
+		// The base chance
+		val geneChance = gmoRecipe.geneChance
+
+		// Reduce the chance based on the amount of Overclockers (1.0 means no change)
+		val overclockerChanceFactor = 1f - getAmountOfOverclocks() * chanceDecreasePerOverclocker
+		val reducedChance = (geneChance * overclockerChanceFactor).coerceIn(0f, 1f)
+
+		// Increase the chance based on the amount of Chorus Fruit
+		val chorusRequiredForMaxChance = Mth.ceil((1f - reducedChance) / chanceIncreasePerChorus)
+		val chorusAvailable = itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).count
+		val chorusUsed = min(chorusRequiredForMaxChance, chorusAvailable)
+
+		itemHandler.getStackInSlot(CHORUS_SLOT_INDEX).shrink(chorusUsed)
+
+		val chorusBoost = chorusUsed * chanceIncreasePerChorus
+		val finalChance = reducedChance + chorusBoost
+
+		val nextFloat = level.random.nextFloat()
+
+		return if (nextFloat <= finalChance) {
+			gmoRecipe.assemble(input, level.registryAccess())
+		} else {
+			gmoRecipe.getFailure(level.registryAccess())
+		}
+	}
+
+	private fun nonGmoRecipeOutput(incubatorRecipe: AbstractIncubatorRecipe): ItemStack {
+		val level = level ?: return ItemStack.EMPTY
+
+		val output = incubatorRecipe.assemble(
+			IncubatorRecipeInput(
+				itemHandler.getStackInSlot(TOP_SLOT_INDEX),
+				itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX),
+				isHighTemp = this.isHighTemperature
+			),
+			level.registryAccess()
+		)
+
+		return output
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu? {

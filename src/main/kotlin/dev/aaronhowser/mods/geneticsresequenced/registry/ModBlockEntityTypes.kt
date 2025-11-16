@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.*
-import dev.aaronhowser.mods.geneticsresequenced.block_old.machine.incubator_advanced.AdvancedIncubatorBlockEntity
 import net.minecraft.Util
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.util.datafix.fixes.References
