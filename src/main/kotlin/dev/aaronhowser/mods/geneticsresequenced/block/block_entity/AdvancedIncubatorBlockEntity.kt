@@ -32,8 +32,6 @@ class AdvancedIncubatorBlockEntity(
 	override val maxEnergy: Int = 50_000
 	override val energyTransferRate: Int = 500
 
-	override val containerSize: Int = INVENTORY_SIZE
-
 	private var isHighTemperature: Boolean = false
 		set(value) {
 			if (field != value) {
@@ -43,7 +41,7 @@ class AdvancedIncubatorBlockEntity(
 			}
 		}
 
-	override val container: ImprovedSimpleContainer = object : ImprovedSimpleContainer(this, containerSize) {
+	override val container: ImprovedSimpleContainer = object : ImprovedSimpleContainer(this, INVENTORY_SIZE) {
 		override fun setChanged() {
 			super.setChanged()
 			currentProgress = 0

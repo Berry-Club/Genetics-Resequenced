@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base
 
+import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -21,7 +22,7 @@ abstract class CraftingMachineBlockEntity(
 
 	abstract val baseEnergyCostPerTick: IntSupplier
 
-	override val containerSize: Int = DEFAULT_INVENTORY_SIZE
+	override val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, DEFAULT_INVENTORY_SIZE)
 
 	open fun getEnergyCostPerTick(): Int {
 		val extraPerOverclocker = Mth.ceil(baseEnergyCostPerTick.asInt * 0.25f)

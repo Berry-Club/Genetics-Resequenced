@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
+import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.CoalGeneratorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -24,7 +25,8 @@ class CoalGeneratorBlockEntity(
 
 	override val maxEnergy: Int = ServerConfig.CONFIG.coalGeneratorEnergyCapacity.get()
 	override val energyTransferRate: Int = ServerConfig.CONFIG.coalGeneratorEnergyTransferRate.get()
-	override val containerSize: Int = CONTAINER_SIZE
+
+	override val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, CONTAINER_SIZE)
 
 	private var burnTimeRemaining: Int = 0
 		set(value) {

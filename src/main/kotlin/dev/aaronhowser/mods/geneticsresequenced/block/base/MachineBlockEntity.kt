@@ -59,8 +59,7 @@ abstract class MachineBlockEntity(
 		override fun getCount(): Int = ENERGY_CONTAINER_DATA_SIZE
 	}
 
-	abstract val containerSize: Int
-	open val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, containerSize)
+	open val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, 0)
 	protected open val itemHandler = InvWrapper(container)
 
 	open fun getItemHandler(direction: Direction?): IItemHandler? {

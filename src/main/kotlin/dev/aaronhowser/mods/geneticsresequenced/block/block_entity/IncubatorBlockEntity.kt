@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
+import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.menu.incubator.IncubatorMenu
@@ -29,7 +30,12 @@ class IncubatorBlockEntity(
 	override val maxEnergy: Int = 50_000
 	override val energyTransferRate: Int = 500
 
-	override val containerSize: Int = INVENTORY_SIZE
+	override val container: ImprovedSimpleContainer = object : ImprovedSimpleContainer(this, INVENTORY_SIZE) {
+		override fun setChanged() {
+			super.setChanged()
+			currentProgress = 0
+		}
+	}
 
 	override val itemHandler: InvWrapper = object : InvWrapper(container) {
 		override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
