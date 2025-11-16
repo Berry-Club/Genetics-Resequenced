@@ -45,21 +45,16 @@ object ModBlockEntityTypes {
 	val ADVANCED_INCUBATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<AdvancedIncubatorBlockEntity>> =
 		register("advanced_incubator", ::AdvancedIncubatorBlockEntity, ModBlocks.ADVANCED_INCUBATOR)
 
-	fun <T : BlockEntity, B : Block> register(
+	private fun <T : BlockEntity> register(
 		name: String,
-		constructor: BlockEntityType.BlockEntitySupplier<T>,
-		block: DeferredBlock<in B>
+		builder: BlockEntityType.BlockEntitySupplier<out T>,
+		vararg validBlocks: DeferredBlock<*>
 	): DeferredHolder<BlockEntityType<*>, BlockEntityType<T>> {
-
-		// wtf is this
-		val type = Util.fetchChoiceType(References.BLOCK_ENTITY, name)
-
-		@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
 		return BLOCK_ENTITY_REGISTRY.register(name, Supplier {
 			BlockEntityType.Builder.of(
-				constructor,
-				block.get()
-			).build(type)
+				builder,
+				*validBlocks.map(DeferredBlock<*>::get).toTypedArray()
+			).build(null)
 		})
 	}
 
