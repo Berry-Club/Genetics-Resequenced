@@ -13,8 +13,8 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThr
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.AABB
 import net.neoforged.neoforge.event.ServerChatEvent
 import kotlin.random.Random
@@ -174,34 +174,36 @@ object OtherGenes {
 			player.fallDistance = 0.0f
 		}
 
-		if (player.isShiftKeyDown) {
-			val playerAabb = player.boundingBox
-			val aboveAabb = AABB(
-				playerAabb.minX,
-				playerAabb.maxY - 0.1,
-				playerAabb.minZ,
-				playerAabb.maxX,
-				playerAabb.maxY + 0.5,
-				playerAabb.maxZ
+		if (shouldClingToCeiling(player)) {
+			player.setDeltaMovement(
+				player.deltaMovement.x,
+				ServerConfig.CONFIG.wallClimbSpeed.get(),
+				player.deltaMovement.z
 			)
 
-			val level = player.level()
+			player.fallDistance = 0.0f
+		}
+	}
 
-			val positions = BlockPos.betweenClosedStream(aboveAabb)
+	fun shouldClingToCeiling(entity: LivingEntity): Boolean {
+		if (!entity.isShiftKeyDown) return false
 
-			val isBlockAbove = positions.anyMatch {
-				!level.getBlockState(it).getCollisionShape(level, it).isEmpty
-			}
+		val playerAabb = entity.boundingBox
+		val aboveAabb = AABB(
+			playerAabb.minX,
+			playerAabb.maxY - 0.1,
+			playerAabb.minZ,
+			playerAabb.maxX,
+			playerAabb.maxY + 0.5,
+			playerAabb.maxZ
+		)
 
-			if (isBlockAbove) {
-				player.setDeltaMovement(
-					player.deltaMovement.x,
-					ServerConfig.CONFIG.wallClimbSpeed.get(),
-					player.deltaMovement.z
-				)
+		val level = entity.level()
 
-				player.fallDistance = 0.0f
-			}
+		val positions = BlockPos.betweenClosedStream(aboveAabb)
+
+		return positions.anyMatch {
+			!level.getBlockState(it).getCollisionShape(level, it).isEmpty
 		}
 	}
 
