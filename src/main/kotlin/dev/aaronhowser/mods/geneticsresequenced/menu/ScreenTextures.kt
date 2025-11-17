@@ -51,25 +51,6 @@ object ScreenTextures {
 			}
 		}
 
-		object Heat {
-			object Texture {
-				val HIGH = OtherUtil.modResource("heat_high")
-				val LOW = OtherUtil.modResource("heat_low")
-			}
-
-			const val TEXTURE_SIZE = 32
-
-			object Dimensions {
-				const val WIDTH = 18
-				const val HEIGHT = 4
-			}
-
-			object Position {
-				const val X = 64
-				const val Y = 48
-			}
-		}
-
 	}
 
 }

@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.menu.components
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
@@ -19,8 +20,8 @@ class TemperatureIndicator(
 	val onClickFunction: (Double, Double, Int) -> Unit
 ) : AbstractWidget(
 	x, y,
-	ScreenTextures.Elements.Heat.Dimensions.WIDTH,
-	ScreenTextures.Elements.Heat.Dimensions.HEIGHT,
+	WIDTH,
+	HEIGHT,
 	Component.empty()
 ) {
 
@@ -28,20 +29,20 @@ class TemperatureIndicator(
 		if (!shouldRender()) return
 
 		val texture = if (isHighTemperature()) {
-			ScreenTextures.Elements.Heat.Texture.HIGH
+			HIGH
 		} else {
-			ScreenTextures.Elements.Heat.Texture.LOW
+			LOW
 		}
 
 		pGuiGraphics.blitSprite(
 			texture,
-			ScreenTextures.Elements.Heat.TEXTURE_SIZE,
-			ScreenTextures.Elements.Heat.TEXTURE_SIZE,
+			TEXTURE_SIZE,
+			TEXTURE_SIZE,
 			0, 0,
 			x,
 			y,
-			ScreenTextures.Elements.Heat.Dimensions.WIDTH,
-			ScreenTextures.Elements.Heat.Dimensions.HEIGHT
+			WIDTH,
+			HEIGHT
 		)
 
 		if (isHovered) renderTooltip(pGuiGraphics, pMouseX, pMouseY)
@@ -70,5 +71,18 @@ class TemperatureIndicator(
 
 	override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {
 		return this.defaultButtonNarrationText(pNarrationElementOutput)
+	}
+
+	companion object {
+		val HIGH = OtherUtil.modResource("heat_high")
+		val LOW = OtherUtil.modResource("heat_low")
+
+		const val TEXTURE_SIZE = 32
+
+		const val WIDTH = 18
+		const val HEIGHT = 4
+
+		const val X = 64
+		const val Y = 48
 	}
 }

@@ -31,8 +31,8 @@ class IncubatorScreen(
 		super.baseInit()
 
 		temperatureIndicator = TemperatureIndicator(
-			x = leftPos + ScreenTextures.Elements.Heat.Position.X,
-			y = topPos + ScreenTextures.Elements.Heat.Position.Y,
+			x = leftPos + TemperatureIndicator.X,
+			y = topPos + TemperatureIndicator.Y,
 			font = font,
 			shouldRender = { menu.getCurrentEnergy() != 0 },
 			shouldRenderTooltip = false,
