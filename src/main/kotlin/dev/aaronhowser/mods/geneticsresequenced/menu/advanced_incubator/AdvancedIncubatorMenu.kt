@@ -87,10 +87,7 @@ class AdvancedIncubatorMenu(
 			val potionStack = event.itemStack
 
 			val potion = OtherUtil.getPotion(potionStack) ?: return
-			if (
-				potion != ModPotions.CELL_GROWTH
-				&& potion != ModPotions.MUTATION
-			) return
+			if (potion != ModPotions.CELL_GROWTH && potion != ModPotions.MUTATION) return
 
 			val player = event.entity ?: return
 			val menu = player.containerMenu as? AdvancedIncubatorMenu ?: return
