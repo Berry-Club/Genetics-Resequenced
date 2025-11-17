@@ -31,7 +31,7 @@ class AdvancedIncubatorMenu(
 		checkContainerDataCount(craftingContainerData, AdvancedIncubatorBlockEntity.CONTAINER_DATA_SIZE)
 	}
 
-	fun getIsHighTemperature(): Boolean {
+	fun isHighTemperature(): Boolean {
 		return machineContainerData.get(AdvancedIncubatorBlockEntity.IS_HIGH_TEMPERATURE_INDEX) == 1
 	}
 
@@ -58,7 +58,7 @@ class AdvancedIncubatorMenu(
 	override fun handleButtonPressed(buttonId: Int) {
 		when (buttonId) {
 			CYCLE_TEMPERATURE_BUTTON_ID -> {
-				val newTemperature = !getIsHighTemperature()
+				val newTemperature = !isHighTemperature()
 				setIsHighTemperature(newTemperature)
 			}
 		}

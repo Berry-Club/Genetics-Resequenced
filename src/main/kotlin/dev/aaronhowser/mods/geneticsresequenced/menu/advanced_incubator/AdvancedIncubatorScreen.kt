@@ -37,7 +37,7 @@ class AdvancedIncubatorScreen(
 			font = font,
 			shouldRender = { menu.getCurrentEnergy() != 0 },
 			shouldRenderTooltip = false,
-			isHighTemperature = { true },
+			isHighTemperature = { menu.isHighTemperature() },
 			onClickFunction = { _, _, _ ->
 				val packet = ClientClickedMenuButton(AdvancedIncubatorMenu.CYCLE_TEMPERATURE_BUTTON_ID)
 				packet.messageServer()
