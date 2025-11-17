@@ -111,9 +111,15 @@ abstract class CraftingMachineBlockEntity(
 		return combinedCount <= currentOutput.maxStackSize
 	}
 
-	protected open val inputHandler = RangedWrapper(itemHandler, INPUT_SLOT_INDEX, INPUT_SLOT_INDEX + 1)
-	protected open val outputHandler = RangedWrapper(itemHandler, OUTPUT_SLOT_INDEX, OUTPUT_SLOT_INDEX + 1)
-	protected open val overclockHandler = RangedWrapper(itemHandler, OVERCLOCK_SLOT_INDEX, OVERCLOCK_SLOT_INDEX + 1)
+	protected open val inputHandler by lazy {
+		RangedWrapper(itemHandler, INPUT_SLOT_INDEX, INPUT_SLOT_INDEX + 1)
+	}
+	protected open val outputHandler by lazy {
+		RangedWrapper(itemHandler, OUTPUT_SLOT_INDEX, OUTPUT_SLOT_INDEX + 1)
+	}
+	protected open val overclockHandler by lazy {
+		RangedWrapper(itemHandler, OVERCLOCK_SLOT_INDEX, OVERCLOCK_SLOT_INDEX + 1)
+	}
 
 	override fun getItemHandler(direction: Direction?): IItemHandler? {
 		val blockFacing = this.blockState.getValue(MachineBlock.H_FACING)
