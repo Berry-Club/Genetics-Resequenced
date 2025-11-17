@@ -34,23 +34,4 @@ object ScreenTextures {
 		val HEAT_LOW = sprite("textures/gui/sprite/heat_low.png", 18, 4)
 	}
 
-	object Elements {
-
-		object Bubbles {
-			val TEXTURE = OtherUtil.modResource("bubbles")
-			const val TEXTURE_SIZE = 32
-
-			object Position {
-				const val X = 67
-				const val Y = 18
-			}
-
-			object Dimensions {
-				const val WIDTH = 11
-				const val HEIGHT = 29
-			}
-		}
-
-	}
-
 }

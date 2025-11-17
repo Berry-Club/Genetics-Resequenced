@@ -48,8 +48,8 @@ class AdvancedIncubatorScreen(
 		)
 
 		bubbles = Bubbles(
-			x = leftPos + ScreenTextures.Elements.Bubbles.Position.X,
-			y = topPos + ScreenTextures.Elements.Bubbles.Position.Y,
+			x = leftPos + Bubbles.X,
+			y = topPos + Bubbles.Y,
 			shouldRender = { menu.isCrafting() },
 			highTemperature = { true }
 		)

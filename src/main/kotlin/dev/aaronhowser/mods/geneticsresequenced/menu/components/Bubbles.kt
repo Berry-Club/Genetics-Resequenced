@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
-import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
@@ -13,8 +13,8 @@ class Bubbles(
 	val highTemperature: () -> Boolean
 ) : AbstractWidget(
 	x, y,
-	ScreenTextures.Elements.Bubbles.Dimensions.WIDTH,
-	ScreenTextures.Elements.Bubbles.Dimensions.HEIGHT,
+	WIDTH,
+	HEIGHT,
 	Component.empty()
 ) {
 
@@ -23,7 +23,7 @@ class Bubbles(
 		set(value) {
 			field = value
 
-			val amountOverMax = bubblePos - ScreenTextures.Elements.Bubbles.Dimensions.HEIGHT
+			val amountOverMax = bubblePos - HEIGHT
 			if (amountOverMax > 0) {
 				field = amountOverMax
 			}
@@ -46,17 +46,17 @@ class Bubbles(
 			bubblePosProgress = 0
 		}
 
-		val amountBubbleToRender = ScreenTextures.Elements.Bubbles.Dimensions.HEIGHT - bubblePos
+		val amountBubbleToRender = HEIGHT - bubblePos
 
 		pGuiGraphics.blitSprite(
-			ScreenTextures.Elements.Bubbles.TEXTURE,
-			ScreenTextures.Elements.Bubbles.TEXTURE_SIZE,
-			ScreenTextures.Elements.Bubbles.TEXTURE_SIZE,
+			TEXTURE,
+			TEXTURE_SIZE,
+			TEXTURE_SIZE,
 			0,
 			0,
 			x,
 			y,
-			ScreenTextures.Elements.Bubbles.Dimensions.WIDTH,
+			WIDTH,
 			amountBubbleToRender
 		)
 	}
@@ -64,4 +64,16 @@ class Bubbles(
 	override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {
 		return this.defaultButtonNarrationText(pNarrationElementOutput)
 	}
+
+	companion object {
+		val TEXTURE = OtherUtil.modResource("bubbles")
+		const val TEXTURE_SIZE = 32
+
+		const val WIDTH = 11
+		const val HEIGHT = 29
+
+		const val X = 67
+		const val Y = 18
+	}
+
 }
