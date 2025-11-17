@@ -17,7 +17,7 @@ abstract class CraftingMachineMenu(
 	id: Int,
 	playerInventory: Inventory,
 	protected val machineContainer: Container,
-	protected val craftingContainerData: ContainerData
+	craftingContainerData: ContainerData
 ) : MachineMenu(menuType, id, playerInventory, craftingContainerData) {
 
 	override val amountSlots: Int = CraftingMachineBlockEntity.DEFAULT_INVENTORY_SIZE
@@ -38,8 +38,8 @@ abstract class CraftingMachineMenu(
 		this.addSlot(overclockSlot)
 	}
 
-	fun getCurrentProgress(): Int = craftingContainerData.get(CraftingContainerData.CURRENT_PROGRESS_INDEX)
-	fun getMaxProgress(): Int = craftingContainerData.get(CraftingContainerData.MAX_PROGRESS_INDEX)
+	fun getCurrentProgress(): Int = machineContainerData.get(CraftingContainerData.CURRENT_PROGRESS_INDEX)
+	fun getMaxProgress(): Int = machineContainerData.get(CraftingContainerData.MAX_PROGRESS_INDEX)
 
 	fun isCrafting(): Boolean = getCurrentProgress() > 0
 

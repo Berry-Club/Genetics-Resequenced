@@ -32,11 +32,11 @@ class AdvancedIncubatorMenu(
 	}
 
 	fun getIsHighTemperature(): Boolean {
-		return craftingContainerData.get(AdvancedIncubatorBlockEntity.IS_HIGH_TEMPERATURE_INDEX) == 1
+		return machineContainerData.get(AdvancedIncubatorBlockEntity.IS_HIGH_TEMPERATURE_INDEX) == 1
 	}
 
 	fun setIsHighTemperature(value: Boolean) {
-		craftingContainerData.set(AdvancedIncubatorBlockEntity.IS_HIGH_TEMPERATURE_INDEX, if (value) 1 else 0)
+		machineContainerData.set(AdvancedIncubatorBlockEntity.IS_HIGH_TEMPERATURE_INDEX, if (value) 1 else 0)
 	}
 
 	override fun addSlots() {
