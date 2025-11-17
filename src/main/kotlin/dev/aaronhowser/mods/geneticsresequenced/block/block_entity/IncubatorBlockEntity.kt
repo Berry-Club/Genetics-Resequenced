@@ -67,6 +67,10 @@ class IncubatorBlockEntity(
 		}
 	}
 
+	override fun getAmountOfOverclocks(): Int {
+		return container.getItem(OVERCLOCKER_SLOT_INDEX).count
+	}
+
 	override fun serverTick() {
 		if (!hasEnoughEnergy()) return
 		if (!hasRecipe()) {
