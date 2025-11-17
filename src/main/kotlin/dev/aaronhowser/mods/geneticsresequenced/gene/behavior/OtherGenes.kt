@@ -14,6 +14,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.Pose
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.phys.AABB
 import net.neoforged.neoforge.event.ServerChatEvent
@@ -178,6 +179,21 @@ object OtherGenes {
 				ServerConfig.CONFIG.wallClimbSpeed.get(),
 				player.deltaMovement.z
 			)
+
+			player.pose = Pose.SWIMMING
+			player.refreshDimensions()
+
+			val startPos = player.position()
+
+			var moveTries = 0
+			while (!shouldClingToCeiling(player) && moveTries < 100) {
+				player.setPos(player.x, player.y + 0.01, player.z)
+				moveTries++
+			}
+
+			if (moveTries >= 100) {
+				player.setPos(startPos.x, startPos.y, startPos.z)
+			}
 
 			player.fallDistance = 0.0f
 		}
