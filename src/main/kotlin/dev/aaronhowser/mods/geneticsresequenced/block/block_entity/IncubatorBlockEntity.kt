@@ -67,28 +67,23 @@ class IncubatorBlockEntity(
 		}
 	}
 
-//	override fun serverTick() {
-//		if (!hasEnoughEnergy()) return
-//		if (!hasRecipe()) {
-//			currentProgress = 0
-//			return
-//		}
-//
-//		val isBrewing = currentProgress > 0
-//
-//		if (!isBrewing) {
-//			currentProgress = 0
-//			maxProgress = getTicksPerBrew()
-//		}
-//
-//		energyStorage.extractEnergy(getEnergyCostPerTick(), false)
-//		currentProgress += 1 + getAmountOfOverclocks()
-//
-//		while (currentProgress >= maxProgress) {
-//			craftItem()
-//			currentProgress -= maxProgress
-//		}
-//	}
+	override fun serverTick() {
+		if (!hasEnoughEnergy()) return
+		if (!hasRecipe()) {
+			currentProgress = 0
+			return
+		}
+
+		maxProgress = getTicksPerBrew()
+
+		energyStorage.extractEnergy(getEnergyCostPerTick(), false)
+		currentProgress += 1 + getAmountOfOverclocks()
+
+		while (currentProgress >= maxProgress) {
+			craftItem()
+			currentProgress -= maxProgress
+		}
+	}
 
 	override fun hasRecipe(): Boolean {
 		val level = level ?: return false
