@@ -23,24 +23,6 @@ object AttributeGenes {
 		event.newSpeed += (1 + efficiencyAttribute.value * efficiencyAttribute.value).toFloat()
 	}
 
-	//TODO: Move somewhere better, since this doesn't use attributes any more
-	fun handleWallClimbing(player: Player) {
-		val wallClimbing = ModGenes.WALL_CLIMBING.getHolderOrThrow(player.registryAccess())
-		if (wallClimbing.isDisabled) return
-
-		if (!player.hasGene(ModGenes.WALL_CLIMBING)) return
-
-		if (player.horizontalCollision || player.minorHorizontalCollision) {
-			player.setDeltaMovement(
-				player.deltaMovement.x,
-				if (player.isCrouching) 0.0 else ServerConfig.CONFIG.wallClimbSpeed.get(),
-				player.deltaMovement.z
-			)
-
-			player.fallDistance = 0.0f
-		}
-	}
-
 	fun returnModifiersOnDeath(event: PlayerRespawnEvent) {
 		val player = event.entity
 

@@ -12,6 +12,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
+import net.minecraft.world.entity.player.Player
 import net.neoforged.neoforge.event.ServerChatEvent
 import kotlin.random.Random
 
@@ -154,5 +155,21 @@ object OtherGenes {
 		}
 	}
 
+	fun handleWallClimbing(player: Player) {
+		val wallClimbing = ModGenes.WALL_CLIMBING.getHolderOrThrow(player.registryAccess())
+		if (wallClimbing.isDisabled) return
+
+		if (!player.hasGene(ModGenes.WALL_CLIMBING)) return
+
+		if (player.horizontalCollision || player.minorHorizontalCollision) {
+			player.setDeltaMovement(
+				player.deltaMovement.x,
+				if (player.isCrouching) 0.0 else ServerConfig.CONFIG.wallClimbSpeed.get(),
+				player.deltaMovement.z
+			)
+
+			player.fallDistance = 0.0f
+		}
+	}
 
 }
