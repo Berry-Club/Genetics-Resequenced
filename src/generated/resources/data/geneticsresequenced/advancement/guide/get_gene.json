@@ -1,32 +1,37 @@
 {
-	"parent": "geneticsresequenced:guide/plasmid_injector",
-	"criteria": {
-		"impossible": {
-			"trigger": "minecraft:impossible"
-		}
-	},
-	"display": {
-		"description": {
-			"translate": "advancement.geneticsresequenced.get_gene.desc"
-		},
-		"icon": {
-			"components": {
-				"geneticsresequenced:specific_entity": {
-					"name": "A Fake Mob",
-					"uuid": "b0aa4edd-29e0-421f-b65c-be90055071b0"
-				}
-			},
-			"count": 1,
-			"id": "geneticsresequenced:syringe"
-		},
-		"title": {
-			"translate": "advancement.geneticsresequenced.get_gene.title"
-		}
-	},
-	"requirements": [
-		[
-			"impossible"
-		]
-	],
-	"sends_telemetry_event": true
+  "parent": "geneticsresequenced:guide/plasmid_injector",
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.geneticsresequenced.get_gene.desc"
+    },
+    "icon": {
+      "components": {
+        "geneticsresequenced:specific_entity": {
+          "name": "A Fake Mob",
+          "uuid": [
+            -1331015971,
+            702562847,
+            -1235435888,
+            89158064
+          ]
+        }
+      },
+      "count": 1,
+      "id": "geneticsresequenced:syringe"
+    },
+    "title": {
+      "translate": "advancement.geneticsresequenced.get_gene.title"
+    }
+  },
+  "requirements": [
+    [
+      "impossible"
+    ]
+  ],
+  "sends_telemetry_event": true
 }

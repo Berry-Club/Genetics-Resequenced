@@ -3,39 +3,43 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.lang
 object ModMessageLang {
 
 	fun add(provider: ModLanguageProvider) {
-		provider.add(SCRAPER_CANT_SCRAPE, "%s cannot be scraped.")
-		provider.add(CANT_SET_ENTITY, "Cannot set to this entity.")
-		provider.add(DEATH_GENE_REMOVAL, "Death has reset your Genes!")
-		provider.add(DEATH_NEGATIVE_GENE_REMOVAL, "Death has remove your negative Genes!")
-		provider.add(RECENT_WOOLY, "This entity has already been sheared recently!")
-		provider.add(RECENT_MEATY, "This entity has already been meated recently!")
-		provider.add(RECENT_MILKY, "This entity has already been milked recently!")
-		provider.add(MILK_MILKED, "You have been milked!")
-		provider.add(SYRINGE_INJECTED, "You have gained the %1\$s Gene!")
-		provider.add(SYRINGE_FAILED, "You have failed to gain the %1\$s Gene!")
-		provider.add(SYRINGE_CONTAMINATED, "You can't inject yourself with contaminated blood!")
-		provider.add(METAL_SYRINGE_MISMATCH, "This Syringe is for a different entity!")
-		provider.add(METAL_SYRINGE_CONTAMINATED, "You can't inject entities with contaminated blood!")
-		provider.add(METAL_SYRINGE_NO_MOBS, "Mobs cannot have the %1\$s Gene!")
-		provider.add(SUPPORT_SLIME_CREATIVE, "Support Slimes despawn with no owner! Give yourself the %1\$s Gene to stop them from despawning!")
-		provider.add(SUPPORT_SLIME_PEACEFUL, "Support slimes are technically Slimes, which means they can't exist in Peaceful mode!")
-		provider.add(SYRINGE_REMOVE_GENES_SUCCESS, "You have removed the %s Gene!")
-		provider.add(SYRINGE_REMOVE_GENES_FAIL, "The %s Gene was not removed as you did not have it!")
-		provider.add(MISSING_GENE_REQUIREMENTS, "You feel the %s Gene fade away...\nIt seems you §cdo not meet the requirements§r for it.")
-		provider.add(MISSING_GENE_REQUIREMENTS_LIST, "Required Genes:\n")
-		provider.add(CRINGE_GRASS, "With the touch of Grass, you feel the cringe leave your body.")
-		provider.add(CRINGE_ADDED, "You feel the cringe entering your body, taking over. Your perception of the world changes in %d...")
-		provider.add(CRINGE_REMOVED, "You feel yourself become more based, the cringe leaving the world in %d...")
-		provider.add(CRINGE_CONFIG, "You can disable this in the client config!\n\nYour language is reset to normal when you leave the game.")
-		provider.add(CRINGE_RELOADING, "Reloading resources now!")
-		provider.add(SLIME_SPAM, "%s's Slime %d")
-		provider.add(GENE_CHECKER_SELF_NO_GENES, "You have no Genes!")
-		provider.add(GENE_CHECKER_SELF_LIST, "You have the following Genes:\n%s")
-		provider.add(GENE_CHECKER_TARGET_NO_GENES, "%s has no Genes!")
-		provider.add(GENE_CHECKER_TARGET_LIST, "%s has the following Genes:\n%s")
-		provider.add(GENE_CHECKER_POSSIBLE_GENES, "%s can provide the following Genes:\n%s")
-		provider.add(GENE_CHECKER_NO_POSSIBLE_GENES, "%s cannot provide any Genes")
-		provider.add(GENE_WEIGHT, "%s with weight %d")
+		provider.apply {
+			add(SCRAPER_CANT_SCRAPE, "%s cannot be scraped.")
+			add(CANT_SET_ENTITY, "Cannot set to this entity.")
+			add(DEATH_GENE_REMOVAL, "Death has reset your Genes!")
+			add(DEATH_NEGATIVE_GENE_REMOVAL, "Death has remove your negative Genes!")
+			add(RECENT_WOOLY, "This entity has already been sheared recently!")
+			add(RECENT_MEATY, "This entity has already been meated recently!")
+			add(RECENT_MILKY, "This entity has already been milked recently!")
+			add(MILK_MILKED, "You have been milked!")
+			add(SYRINGE_INJECTED, "You have gained the %1\$s Gene!")
+			add(SYRINGE_FAILED, "You have failed to gain the %1\$s Gene!")
+			add(SYRINGE_CONTAMINATED, "You can't inject yourself with contaminated blood!")
+			add(METAL_SYRINGE_MISMATCH, "This Syringe is for a different entity!")
+			add(METAL_SYRINGE_CONTAMINATED, "You can't inject entities with contaminated blood!")
+			add(METAL_SYRINGE_NO_MOBS, "Mobs cannot have the %1\$s Gene!")
+			add(SUPPORT_SLIME_CREATIVE, "Support Slimes despawn with no owner! Give yourself the %1\$s Gene to stop them from despawning!")
+			add(SUPPORT_SLIME_PEACEFUL, "Support slimes are technically Slimes, which means they can't exist in Peaceful mode!")
+			add(SYRINGE_REMOVE_GENES_SUCCESS, "You have removed the %s Gene!")
+			add(SYRINGE_REMOVE_GENES_FAIL, "The %s Gene was not removed as you did not have it!")
+			add(MISSING_GENE_REQUIREMENTS, "You feel the %s Gene fade away...\nIt seems you §cdo not meet the requirements§r for it.")
+			add(MISSING_GENE_REQUIREMENTS_LIST, "Required Genes:\n")
+			add(CRINGE_GRASS, "With the touch of Grass, you feel the cringe leave your body.")
+			add(CRINGE_ADDED, "You feel the cringe entering your body, taking over. Your perception of the world changes in %d...")
+			add(CRINGE_REMOVED, "You feel yourself become more based, the cringe leaving the world in %d...")
+			add(CRINGE_CONFIG, "You can disable this in the client config!\n\nYour language is reset to normal when you leave the game.")
+			add(CRINGE_RELOADING, "Reloading resources now!")
+			add(SLIME_SPAM, "%s's Slime %d")
+			add(GENE_CHECKER_SELF_NO_GENES, "You have no Genes!")
+			add(GENE_CHECKER_SELF_LIST, "You have the following Genes:\n%s")
+			add(GENE_CHECKER_TARGET_NO_GENES, "%s has no Genes!")
+			add(GENE_CHECKER_TARGET_LIST, "%s has the following Genes:\n%s")
+			add(GENE_CHECKER_POSSIBLE_GENES, "%s can provide the following Genes:\n%s")
+			add(GENE_CHECKER_NO_POSSIBLE_GENES, "%s cannot provide any Genes")
+			add(GENE_WEIGHT, "%s with weight %d")
+			add(ADVANCED_INCUBATOR_HIGH_TEMP, "Temp: HIGH")
+			add(ADVANCED_INCUBATOR_LOW_TEMP, "Temp: LOW")
+		}
 	}
 
 	const val SCRAPER_CANT_SCRAPE = "message.geneticsresequenced.scraper.cant_scrape"
@@ -71,5 +75,7 @@ object ModMessageLang {
 	const val GENE_CHECKER_POSSIBLE_GENES = "message.geneticsresequenced.gene_checker.target.possible_genes"
 	const val GENE_CHECKER_NO_POSSIBLE_GENES = "message.geneticsresequenced.gene_checker.target.no_possible_genes"
 	const val GENE_WEIGHT = "message.geneticsresequenced.gene_weight"
+	const val ADVANCED_INCUBATOR_HIGH_TEMP = "message.geneticsresequenced.advanced_incubator.high_temperature"
+	const val ADVANCED_INCUBATOR_LOW_TEMP = "message.geneticsresequenced.advanced_incubator.low_temperature"
 
 }

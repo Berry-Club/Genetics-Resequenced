@@ -11,7 +11,6 @@ import dev.aaronhowser.mods.geneticsresequenced.menu.CraftingMachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.CommonComponents

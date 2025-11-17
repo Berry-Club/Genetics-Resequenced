@@ -3,6 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator
 import dev.aaronhowser.mods.aaron.menu.components.ChangingTextButton
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.aaron.packet.c2s.ClientClickedMenuButton
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.Bubbles
@@ -55,11 +57,17 @@ class AdvancedIncubatorScreen(
 		)
 
 		changeTemperatureButton = ChangingTextButton(
-			x = leftPos + 1,
-			y = topPos + 1,
-			width = 18,
+			x = rightPos - 50 - 5,
+			y = topPos + 5,
+			width = 50,
 			height = 18,
-			messageGetter = { Component.literal("Temp: HI/LO") },
+			messageGetter = {
+				if (menu.isHighTemperature()) {
+					ModMessageLang.ADVANCED_INCUBATOR_HIGH_TEMP.toComponent()
+				} else {
+					ModMessageLang.ADVANCED_INCUBATOR_LOW_TEMP.toComponent()
+				}
+			},
 			onPress = {
 				val packet = ClientClickedMenuButton(AdvancedIncubatorMenu.CYCLE_TEMPERATURE_BUTTON_ID)
 				packet.messageServer()
