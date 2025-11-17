@@ -273,19 +273,19 @@ unifiedPublishing {
 			}
 		}
 
-//		if (ENV.CURSEFORGE_KEY) {
-//			curseforge {
-//				token = ENV.CURSEFORGE_KEY
-//				id = project.curseforge_id
-//			}
-//		}
-//
-//		if (ENV.MODRINTH_TOKEN) {
-//			modrinth {
-//				token = ENV.MODRINTH_TOKEN
-//				id = project.modrinth_id
-//			}
-//		}
+		if (ENV.CURSEFORGE_KEY) {
+			curseforge {
+				token = ENV.CURSEFORGE_KEY
+				id = project.curseforge_id
+			}
+		}
+
+		if (ENV.MODRINTH_TOKEN) {
+			modrinth {
+				token = ENV.MODRINTH_TOKEN
+				id = project.modrinth_id
+			}
+		}
 
 	}
 }
