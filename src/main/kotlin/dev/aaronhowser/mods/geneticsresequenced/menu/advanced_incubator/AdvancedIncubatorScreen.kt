@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator
 
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
+import dev.aaronhowser.mods.aaron.packet.c2s.ClientClickedMenuButton
 import dev.aaronhowser.mods.geneticsresequenced.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.Bubbles
@@ -38,7 +39,8 @@ class AdvancedIncubatorScreen(
 			shouldRenderTooltip = false,
 			isHighTemperature = { true },
 			onClickFunction = { _, _, _ ->
-
+				val packet = ClientClickedMenuButton(AdvancedIncubatorMenu.CYCLE_TEMPERATURE_BUTTON_ID)
+				packet.messageServer()
 			}
 		)
 
