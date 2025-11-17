@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.entity.client.SupportSlimeRenderer
+import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator.AdvancedIncubatorMenu
@@ -17,8 +18,10 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import net.minecraft.client.model.HumanoidModel
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.item.ItemProperties
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
@@ -113,6 +116,30 @@ object ClientEvents {
 	@SubscribeEvent
 	fun onRegisterMenuScreens(event: RegisterMenuScreensEvent) {
 		ModMenuTypes.registerScreens(event)
+	}
+
+	private var flippedRenderer = false
+
+	@SubscribeEvent
+	fun beforeRenderEntity(event: RenderLivingEvent.Pre<LivingEntity, HumanoidModel<LivingEntity>>) {
+		val entity = event.entity
+
+		if (OtherGenes.shouldClingToCeiling(entity)) {
+			val poseStack = event.poseStack
+			poseStack.pushPose()
+			poseStack.translate(0.0, entity.bbHeight.toDouble(), 0.0)
+			poseStack.scale(1.0f, -1.0f, 1.0f)
+			flippedRenderer = true
+		}
+	}
+
+	@SubscribeEvent
+	fun afterRenderLiving(event: RenderLivingEvent.Post<LivingEntity, HumanoidModel<LivingEntity>>) {
+		if (flippedRenderer) {
+			val poseStack = event.poseStack
+			poseStack.popPose()
+			flippedRenderer = false
+		}
 	}
 
 }
