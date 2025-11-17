@@ -14,4 +14,8 @@ class CellAnalyzerScreen(
 
 	override val background: ScreenBackground = ScreenTextures.Backgrounds.CELL_ANALYZER
 
+	init {
+		topPos -= 8
+	}
+
 }
