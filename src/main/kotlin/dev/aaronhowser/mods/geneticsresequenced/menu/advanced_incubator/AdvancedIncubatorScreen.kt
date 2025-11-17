@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator
 
+import dev.aaronhowser.mods.aaron.menu.components.ChangingTextButton
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.aaron.packet.c2s.ClientClickedMenuButton
 import dev.aaronhowser.mods.geneticsresequenced.menu.MachineScreen
@@ -7,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.Bubbles
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.ProgressArrow
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.TemperatureIndicator
+import net.minecraft.client.gui.components.Button
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
@@ -20,6 +22,7 @@ class AdvancedIncubatorScreen(
 
 	private lateinit var temperatureIndicator: TemperatureIndicator
 	private lateinit var bubbles: Bubbles
+	private lateinit var changeTemperatureButton: Button
 
 	override val energyPosLeft: Int = 20
 	override val energyPosTop: Int = 18
@@ -51,8 +54,21 @@ class AdvancedIncubatorScreen(
 			highTemperature = { true }
 		)
 
+		changeTemperatureButton = ChangingTextButton(
+			x = leftPos + 1,
+			y = topPos + 1,
+			width = 18,
+			height = 18,
+			messageGetter = { Component.literal("Temp: HI/LO") },
+			onPress = {
+				val packet = ClientClickedMenuButton(AdvancedIncubatorMenu.CYCLE_TEMPERATURE_BUTTON_ID)
+				packet.messageServer()
+			}
+		)
+
 		addRenderableWidget(temperatureIndicator)
 		addRenderableWidget(bubbles)
+		addRenderableWidget(changeTemperatureButton)
 	}
 
 }
