@@ -37,7 +37,7 @@ abstract class MachineBlockEntity(
 	abstract val energyTransferRate: Int
 
 	protected val energyStorage by lazy {
-		BetterEnergyStorage(this, maxEnergy, energyTransferRate)
+		EnergyStorage(maxEnergy, energyTransferRate)
 	}
 
 	open fun getEnergyCapability(direction: Direction?): EnergyStorage {
