@@ -1,3 +1,24 @@
+# 1.7.0
+
+### Changed
+
+- The mod now requires the library [Aaron](https://legacy.curseforge.com/minecraft/mc-mods/aaron)
+  - I spent days tearing this mod apart and cleaning it back up. I am honestly shocked that it ever worked to begin with. I have no idea if this will improve performance, but the code is now infinitely more maintainable.
+- The Advanced Incubator now has a more easily visible button to toggle the temperature
+
+# 1.6.0
+
+- Update NeoForge to 21.1.197
+- Update KFF to 5.9.0
+- Added a Lava Proof Gene, which makes you immune to direct Lava damage (#67)
+- Dragon Health Crystal no longer uses durability, but has its own separate data component (#58)
+- The Metal Syringe now increases your entity interaction range attribute by 3 blocks
+- Baby mobs inherit their parents' Genes, with a 100% if both parents have it, and a 50% if only one parent has it (#56)
+- The Gene Checker now shows what Genes the target can provide, in addition to what it has (#66)
+- Immunity Genes now use isInvulnerableTo rather than setting the damage amount to 0, so you no longer flinch from those damages
+- Fixed Antigenes not being removed from Syringes when used (#53)
+- Fix Black Death recipe (#63)
+
 # 1.1.0
 
 - Updated to 1.21
