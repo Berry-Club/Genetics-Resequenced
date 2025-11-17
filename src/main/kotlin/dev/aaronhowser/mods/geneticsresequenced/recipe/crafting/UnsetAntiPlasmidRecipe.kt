@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.crafting
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
@@ -22,7 +23,7 @@ class UnsetAntiPlasmidRecipe(
 			if (stack.item == ModItems.ANTI_PLASMID.get() && PlasmidItem.hasGene(stack)) {
 				if (antiPlasmid != null) return false
 				antiPlasmid = stack
-			} else if (!stack.isEmpty) {
+			} else if (stack.isNotEmpty()) {
 				return false
 			}
 		}

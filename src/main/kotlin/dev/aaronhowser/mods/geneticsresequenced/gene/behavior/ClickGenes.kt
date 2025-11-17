@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
@@ -381,7 +382,7 @@ object ClickGenes {
 		val eatGrass = ModGenes.EAT_GRASS.getHolderOrThrow(event.entity.registryAccess())
 		if (eatGrass.isDisabled) return
 
-		if (!event.itemStack.isEmpty) return
+		if (event.itemStack.isNotEmpty()) return
 
 		val player = event.entity
 		if (!player.hasGene(ModGenes.EAT_GRASS)) return
@@ -445,7 +446,7 @@ object ClickGenes {
 		if (infinity.isDisabled) return
 		if (!player.hasGene(ModGenes.INFINITY)) return
 
-		if (!event.projectileItemStack.isEmpty) return
+		if (event.projectileItemStack.isNotEmpty()) return
 
 		val weapon = event.projectileWeaponItemStack.item as? ProjectileWeaponItem ?: return
 		val defaultAmmo = weapon.getDefaultCreativeAmmo(player, event.projectileItemStack)

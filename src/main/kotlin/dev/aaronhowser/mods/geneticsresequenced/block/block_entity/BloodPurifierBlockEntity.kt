@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.menu.blood_purifier.BloodPurifierMenu
@@ -36,10 +37,10 @@ class BloodPurifierBlockEntity(
 
 	override fun hasRecipe(): Boolean {
 		val outputStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
-		if (!outputStack.isEmpty) return false
+		if (outputStack.isNotEmpty()) return false
 
 		val inputStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
-		return SyringeItem.isContaminated(inputStack)
+		return inputStack.isNotEmpty() && SyringeItem.isContaminated(inputStack)
 	}
 
 	override fun craftItem() {

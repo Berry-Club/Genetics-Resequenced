@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.curios
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.clearSavedInventory
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.getSavedInventory
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.saveInventory
@@ -16,7 +17,7 @@ object KeepCurioInventory {
 		val curioStacks = buildList {
 			for (i in 0 until equippedCurios.slots) {
 				val stack = equippedCurios.getStackInSlot(i)
-				if (!stack.isEmpty) {
+				if (stack.isNotEmpty()) {
 					add(stack.copy())
 					equippedCurios.extractItem(i, stack.count, false)
 				}

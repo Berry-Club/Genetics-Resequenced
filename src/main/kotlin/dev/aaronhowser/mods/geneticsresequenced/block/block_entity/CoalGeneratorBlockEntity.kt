@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.CoalGeneratorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
@@ -89,7 +90,7 @@ class CoalGeneratorBlockEntity(
 
 		itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
 
-		if (!fuelReplacedItem.isEmpty && itemHandler.getStackInSlot(INPUT_SLOT_INDEX).isEmpty) {
+		if (fuelReplacedItem.isNotEmpty() && itemHandler.getStackInSlot(INPUT_SLOT_INDEX).isEmpty) {
 			itemHandler.insertItem(INPUT_SLOT_INDEX, fuelReplacedItem, false)
 		}
 	}

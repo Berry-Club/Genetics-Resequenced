@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -147,7 +148,7 @@ class AdvancedIncubatorBlockEntity(
 					nonGmoRecipeOutput(incubatorRecipe)
 				}
 
-				if (!output.isEmpty) {
+				if (output.isNotEmpty()) {
 					itemHandler.setStackInSlot(slotIndex, output)
 				}
 			} else {
@@ -159,7 +160,7 @@ class AdvancedIncubatorBlockEntity(
 
 					val output = potionBrewing.mix(topStack, bottomStack)
 
-					if (!output.isEmpty) {
+					if (output.isNotEmpty()) {
 						itemHandler.setStackInSlot(slotIndex, output)
 					}
 				}

@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
@@ -161,7 +162,7 @@ object DamageGenes {
 
 		val attacker = event.source.entity as? LivingEntity ?: return
 
-		if (!attacker.mainHandItem.isEmpty) return
+		if (attacker.mainHandItem.isNotEmpty()) return
 
 		val clawsTwo = ModGenes.CLAWS_TWO.getHolderOrThrow(event.entity.registryAccess())
 		val clawsLevel: Int = if (!clawsTwo.isDisabled && attacker.hasGene(ModGenes.CLAWS_TWO)) {
