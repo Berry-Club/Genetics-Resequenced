@@ -80,6 +80,8 @@ class AdvancedIncubatorBlockEntity(
 			return
 		}
 
+		maxProgress = IncubatorBlockEntity.getTicksPerBrew()
+
 		if (isHighTemperature) {
 			energyStorage.extractEnergy(getEnergyCostPerTick(), false)
 			currentProgress += 1 + getAmountOfOverclocks()
@@ -244,6 +246,8 @@ class AdvancedIncubatorBlockEntity(
 		const val RIGHT_BOTTLE_SLOT_INDEX = 3
 		const val CHORUS_SLOT_INDEX = 4
 		const val OVERCLOCKER_SLOT_INDEX = 5
+
+		const val TEMPERATURE_CONTAINER_DATA_SIZE = 1
 
 		fun getIncubatorLowTemperatureTickFactor(): Int = ServerConfig.CONFIG.incubatorLowTempTickFactor.get()
 	}

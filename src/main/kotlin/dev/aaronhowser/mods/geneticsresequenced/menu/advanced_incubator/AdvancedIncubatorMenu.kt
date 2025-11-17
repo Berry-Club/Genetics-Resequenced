@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator
 
+import dev.aaronhowser.mods.aaron.menu.MenuWithButtons
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.AdvancedIncubatorBlockEntity
@@ -17,8 +18,9 @@ class AdvancedIncubatorMenu(
 	playerInventory: Inventory,
 	machineContainer: Container,
 	energyContainerData: ContainerData,
-	progressContainerData: ContainerData
-) : CraftingMachineMenu(ModMenuTypes.ADVANCED_INCUBATOR.get(), containerId, playerInventory, machineContainer, energyContainerData, progressContainerData) {
+	progressContainerData: ContainerData,
+	private val temperatureContainerData: ContainerData
+) : CraftingMachineMenu(ModMenuTypes.ADVANCED_INCUBATOR.get(), containerId, playerInventory, machineContainer, energyContainerData, progressContainerData), MenuWithButtons {
 
 	constructor(containerId: Int, playerInventory: Inventory) : this(
 		containerId,
@@ -46,6 +48,18 @@ class AdvancedIncubatorMenu(
 		this.addSlot(rightBottleSlot)
 		this.addSlot(overclockerSlot)
 		this.addSlot(chorusSlot)
+	}
+
+	override fun handleButtonPressed(buttonId: Int) {
+		when (buttonId) {
+			CYCLE_TEMPERATURE_BUTTON_ID -> {
+
+			}
+		}
+	}
+
+	companion object {
+		const val CYCLE_TEMPERATURE_BUTTON_ID = 0
 	}
 
 }

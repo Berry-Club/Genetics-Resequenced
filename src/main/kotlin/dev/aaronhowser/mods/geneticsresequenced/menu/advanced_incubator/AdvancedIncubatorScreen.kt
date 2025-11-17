@@ -1,11 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator
 
+import dev.aaronhowser.mods.aaron.menu.MenuWithButtons
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.geneticsresequenced.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.Bubbles
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.ProgressArrow
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.TemperatureIndicator
+import dev.aaronhowser.mods.irregular_implements.menu.MenuWithButtons
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
@@ -37,7 +39,9 @@ class AdvancedIncubatorScreen(
 			shouldRender = { menu.currentEnergy != 0 },
 			shouldRenderTooltip = false,
 			isHighTemperature = { true },
-			onClickFunction = { _, _, _ -> }
+			onClickFunction = { _, _, _ ->
+
+			}
 		)
 
 		bubbles = Bubbles(
