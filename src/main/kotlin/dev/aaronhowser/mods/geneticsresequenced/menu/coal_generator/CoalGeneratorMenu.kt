@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator
 
+import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.CoalGeneratorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -14,7 +15,6 @@ import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.SimpleContainerData
-import net.minecraft.world.inventory.Slot
 import net.minecraft.world.item.crafting.RecipeType
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 import java.text.NumberFormat
@@ -53,7 +53,7 @@ class CoalGeneratorMenu(
 	fun isBurning(): Boolean = burnTimeRemaining > 0
 
 	override fun addSlots() {
-		val slot = Slot(coalGeneratorContainer, CoalGeneratorBlockEntity.INPUT_SLOT_INDEX, 52, 40)
+		val slot = FilteredSlot(coalGeneratorContainer, CoalGeneratorBlockEntity.INPUT_SLOT_INDEX, 52, 40) { it.getBurnTime(RecipeType.SMELTING) > 0 }
 		addSlot(slot)
 	}
 

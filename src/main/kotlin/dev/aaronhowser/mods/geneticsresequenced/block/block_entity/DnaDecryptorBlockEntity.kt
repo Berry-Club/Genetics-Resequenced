@@ -6,7 +6,9 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
+import dev.aaronhowser.mods.geneticsresequenced.menu.dna_decryptor.DnaDecryptorMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -50,8 +52,7 @@ class DnaDecryptorBlockEntity(
 		val inputStack = container.getItem(INPUT_SLOT_INDEX)
 		if (!inputStack.`is`(ModItems.DNA_HELIX)) return false
 
-		val stackCurrentGeneHolder = DnaHelixItem.getGeneHolder(inputStack)
-		if (stackCurrentGeneHolder != null) return false
+		if (inputStack.has(ModDataComponents.GENE)) return false
 
 		val outputItem = getOutputFromInput(inputStack, level.registryAccess()) ?: return false
 		return outputSlotHasRoom(outputItem)
@@ -111,6 +112,6 @@ class DnaDecryptorBlockEntity(
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
-		TODO("Not yet implemented")
+		return DnaDecryptorMenu(containerId, playerInventory, container, energyContainerData, progressContainerData)
 	}
 }

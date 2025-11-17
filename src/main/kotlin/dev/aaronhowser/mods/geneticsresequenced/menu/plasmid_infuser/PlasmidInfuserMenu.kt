@@ -3,12 +3,15 @@ package dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.menu.CraftingMachineMenu
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import net.minecraft.world.Container
 import net.minecraft.world.SimpleContainer
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.SimpleContainerData
+import net.minecraft.world.item.ItemStack
 
 class PlasmidInfuserMenu(
 	containerId: Int,
@@ -28,6 +31,10 @@ class PlasmidInfuserMenu(
 
 	init {
 		addSlots()
+	}
+
+	override fun inputFilter(inputStack: ItemStack): Boolean {
+		return inputStack.`is`(ModItems.DNA_HELIX) && inputStack.has(ModDataComponents.GENE)
 	}
 
 }
