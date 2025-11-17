@@ -36,8 +36,8 @@ class AdvancedIncubatorBlockEntity(
 	override val maxEnergy: Int = 50_000
 	override val energyTransferRate: Int = 500
 
-	private var isHighTemperature: Boolean = false
-		set(value) {
+	var isHighTemperature: Boolean = false
+		private set(value) {
 			if (field != value) {
 				field = value
 				currentProgress = 0
