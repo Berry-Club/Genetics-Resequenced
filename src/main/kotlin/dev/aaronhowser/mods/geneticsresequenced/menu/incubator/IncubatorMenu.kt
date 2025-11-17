@@ -1,7 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.incubator
 
-import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.IncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.menu.CraftingMachineMenu

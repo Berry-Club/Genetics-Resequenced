@@ -1,6 +1,6 @@
 # 1.7.0
 
-### Changed 
+### Changed
 
 - The mod now requires the library [Aaron](https://www.curseforge.com/minecraft/mc-mods/aaron)
   - I spent days tearing this mod apart and cleaning it back up. I am honestly shocked that it ever worked to begin with. I have no idea if this will improve performance, but the code is now infinitely more maintainable.

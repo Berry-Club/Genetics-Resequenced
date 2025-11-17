@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
-import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics

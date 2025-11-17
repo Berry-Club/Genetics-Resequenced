@@ -1,8 +1,8 @@
 {
-  "entity": "minecraft:strider",
-  "gene_weights": {
-    "geneticsresequenced:basic": 5,
-    "geneticsresequenced:fire_proof": 4,
-    "geneticsresequenced:lava_proof": 2
-  }
+	"entity": "minecraft:strider",
+	"gene_weights": {
+		"geneticsresequenced:basic": 5,
+		"geneticsresequenced:fire_proof": 4,
+		"geneticsresequenced:lava_proof": 2
+	}
 }
