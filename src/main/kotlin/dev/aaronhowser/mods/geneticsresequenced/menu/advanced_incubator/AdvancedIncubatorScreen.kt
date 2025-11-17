@@ -57,9 +57,9 @@ class AdvancedIncubatorScreen(
 		)
 
 		changeTemperatureButton = ChangingTextButton(
-			x = rightPos - 50 - 5,
+			x = rightPos - 60 - 5,
 			y = topPos + 5,
-			width = 50,
+			width = 60,
 			height = 18,
 			messageGetter = {
 				if (menu.isHighTemperature()) {
