@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.base.container_data
 import net.neoforged.neoforge.energy.EnergyStorage
 import java.util.function.IntSupplier
 
-class CraftingContainerData(
+open class CraftingContainerData(
 	energyStorage: EnergyStorage,
 	private val currentProgressGetter: IntSupplier,
 	private val maxProgressGetter: IntSupplier,

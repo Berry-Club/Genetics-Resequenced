@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator.AdvancedIncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
@@ -18,6 +19,7 @@ import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
+import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.state.BlockState
@@ -48,6 +50,29 @@ class AdvancedIncubatorBlockEntity(
 			super.setChanged()
 			currentProgress = 0
 		}
+	}
+
+	override val containerData: ContainerData = object : CraftingContainerData(
+		energyStorage,
+		{ currentProgress },
+		{ maxProgress }
+	) {
+
+		override fun get(index: Int): Int {
+			return when (index) {
+				IS_HIGH_TEMPERATURE_INDEX -> if (isHighTemperature) 1 else 0
+				else -> super.get(index)
+			}
+		}
+
+		override fun set(index: Int, value: Int) {
+			when (index) {
+				IS_HIGH_TEMPERATURE_INDEX -> isHighTemperature = value != 0
+				else -> super.set(index, value)
+			}
+		}
+
+		override fun getCount(): Int = CONTAINER_DATA_SIZE
 	}
 
 	//TODO: Reset brew time when overclock changed
@@ -247,7 +272,8 @@ class AdvancedIncubatorBlockEntity(
 		const val CHORUS_SLOT_INDEX = 4
 		const val OVERCLOCKER_SLOT_INDEX = 5
 
-		const val TEMPERATURE_CONTAINER_DATA_SIZE = 1
+		const val CONTAINER_DATA_SIZE = 5
+		const val IS_HIGH_TEMPERATURE_INDEX = 4
 
 		fun getIncubatorLowTemperatureTickFactor(): Int = ServerConfig.CONFIG.incubatorLowTempTickFactor.get()
 	}

@@ -1,9 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator
 
 import dev.aaronhowser.mods.aaron.menu.MenuWithButtons
-import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.AdvancedIncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.menu.CraftingMachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
@@ -25,11 +22,21 @@ class AdvancedIncubatorMenu(
 		containerId,
 		playerInventory,
 		SimpleContainer(AdvancedIncubatorBlockEntity.INVENTORY_SIZE),
-		SimpleContainerData(CraftingContainerData.CRAFTING_CONTAINER_DATA_SIZE)
+		SimpleContainerData(AdvancedIncubatorBlockEntity.CONTAINER_DATA_SIZE)
 	)
 
 	init {
 		addSlots()
+
+		checkContainerDataCount(craftingContainerData, AdvancedIncubatorBlockEntity.CONTAINER_DATA_SIZE)
+	}
+
+	fun getIsHighTemperature(): Boolean {
+		return craftingContainerData.get(AdvancedIncubatorBlockEntity.IS_HIGH_TEMPERATURE_INDEX) == 1
+	}
+
+	fun setIsHighTemperature(value: Boolean) {
+		craftingContainerData.set(AdvancedIncubatorBlockEntity.IS_HIGH_TEMPERATURE_INDEX, if (value) 1 else 0)
 	}
 
 	override fun addSlots() {
@@ -51,7 +58,8 @@ class AdvancedIncubatorMenu(
 	override fun handleButtonPressed(buttonId: Int) {
 		when (buttonId) {
 			CYCLE_TEMPERATURE_BUTTON_ID -> {
-
+				val newTemperature = !getIsHighTemperature()
+				setIsHighTemperature(newTemperature)
 			}
 		}
 	}
