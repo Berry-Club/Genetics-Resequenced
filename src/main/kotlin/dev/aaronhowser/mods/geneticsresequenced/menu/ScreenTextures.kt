@@ -83,49 +83,6 @@ object ScreenTextures {
 			}
 		}
 
-		object Burn {
-			val TEXTURE = OtherUtil.modResource("burn")
-			const val TEXTURE_SIZE = 16
-
-			object Position {
-				const val X = 52
-				const val Y = 59
-			}
-
-			object Dimensions {
-				const val WIDTH = 14
-				const val HEIGHT = 14
-			}
-		}
-
-		object Energy {
-			val TEXTURE = OtherUtil.modResource("energy")
-			const val TEXTURE_SIZE = 64
-
-			// How much of the texture is actually used
-			object Dimensions {
-				const val WIDTH = 18
-				const val HEIGHT = 57
-			}
-
-			object Location {
-				object Default {
-					const val X = 7
-					const val Y = 14
-				}
-
-				object CoalGen {
-					const val X = 104
-					const val Y = 18
-				}
-
-				object Incubator {
-					const val X = 20
-					const val Y = 18
-				}
-			}
-		}
-
 		object Heat {
 			object Texture {
 				val HIGH = OtherUtil.modResource("heat_high")

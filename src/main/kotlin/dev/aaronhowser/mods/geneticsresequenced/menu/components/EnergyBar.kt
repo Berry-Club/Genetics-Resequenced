@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.menu.components
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
@@ -19,8 +20,8 @@ class EnergyBar(
 	val font: Font
 ) : AbstractWidget(
 	x, y,
-	ScreenTextures.Elements.Energy.Dimensions.WIDTH,
-	ScreenTextures.Elements.Energy.Dimensions.HEIGHT,
+	WIDTH,
+	HEIGHT,
 	Component.empty()
 ) {
 
@@ -31,14 +32,14 @@ class EnergyBar(
 		val energyCurrentHeight = Mth.ceil(energyTotalHeight.toDouble() * percentFull)
 
 		pGuiGraphics.blitSprite(
-			ScreenTextures.Elements.Energy.TEXTURE,
-			ScreenTextures.Elements.Energy.TEXTURE_SIZE,
-			ScreenTextures.Elements.Energy.TEXTURE_SIZE,
+			TEXTURE,
+			TEXTURE_SIZE,
+			TEXTURE_SIZE,
 			0,
 			energyTotalHeight - energyCurrentHeight,
 			x,
 			y + energyTotalHeight - energyCurrentHeight,
-			ScreenTextures.Elements.Energy.TEXTURE_SIZE,
+			TEXTURE_SIZE,
 			energyCurrentHeight
 		)
 
@@ -61,6 +62,13 @@ class EnergyBar(
 
 	override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {
 		return this.defaultButtonNarrationText(pNarrationElementOutput)
+	}
+
+	companion object {
+		const val WIDTH = 18
+		const val HEIGHT = 57
+		const val TEXTURE_SIZE = 64
+		val TEXTURE = OtherUtil.modResource("energy")
 	}
 
 }

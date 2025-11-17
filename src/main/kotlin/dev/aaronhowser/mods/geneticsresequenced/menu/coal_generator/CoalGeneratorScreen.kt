@@ -29,8 +29,8 @@ class CoalGeneratorScreen(
 		super.baseInit()
 
 		generatorBurn = GeneratorBurn(
-			x = guiLeft + ScreenTextures.Elements.Burn.Position.X,
-			y = guiTop + ScreenTextures.Elements.Burn.Position.Y,
+			x = guiLeft + GeneratorBurn.X,
+			y = guiTop + GeneratorBurn.Y,
 			shouldRender = { menu.isBurning() },
 			percentDone = { menu.getPercentDone() }
 		)
