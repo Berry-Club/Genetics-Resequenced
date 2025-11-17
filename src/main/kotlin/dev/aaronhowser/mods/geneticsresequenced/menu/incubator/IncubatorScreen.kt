@@ -51,4 +51,8 @@ class IncubatorScreen(
 		addRenderableWidget(bubbles)
 	}
 
+	companion object {
+		const val FAST_BUBBLE_SPEED = 12
+	}
+
 }

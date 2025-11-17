@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
+import dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator.AdvancedIncubatorScreen
+import dev.aaronhowser.mods.geneticsresequenced.menu.incubator.IncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
@@ -32,14 +34,11 @@ class Bubbles(
 	override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
 		if (!shouldRender()) return
 
-		// FIXME
-//		val bubbleSpeed = if (highTemperature()) {
-//			IncubatorScreen.FAST_BUBBLE_SPEED
-//		} else {
-//			AdvancedIncubatorScreen.SLOW_BUBBLE_SPEED
-//		}
-
-		val bubbleSpeed = 20
+		val bubbleSpeed = if (highTemperature()) {
+			IncubatorScreen.FAST_BUBBLE_SPEED
+		} else {
+			AdvancedIncubatorScreen.SLOW_BUBBLE_SPEED
+		}
 
 		if (++bubblePosProgress % bubbleSpeed == 0) {
 			bubblePos++

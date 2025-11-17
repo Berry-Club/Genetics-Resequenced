@@ -71,4 +71,8 @@ class AdvancedIncubatorScreen(
 		addRenderableWidget(changeTemperatureButton)
 	}
 
+	companion object {
+		const val SLOW_BUBBLE_SPEED = 12 * 3
+	}
+
 }
