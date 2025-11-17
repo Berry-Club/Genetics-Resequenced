@@ -130,7 +130,7 @@ class CoalGeneratorBlockEntity(
 	}
 
 	override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
-		return CoalGeneratorMenu(pContainerId, pPlayerInventory, container, containerData, energyContainerData)
+		return CoalGeneratorMenu(pContainerId, pPlayerInventory, container, containerData, containerData)
 	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {

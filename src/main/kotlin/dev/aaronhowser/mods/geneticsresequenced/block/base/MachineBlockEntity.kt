@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.base
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
+import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.EnergyContainerData
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -44,21 +45,7 @@ abstract class MachineBlockEntity(
 		return energyStorage
 	}
 
-	protected val energyContainerData = object : ContainerData {
-		override fun get(index: Int): Int {
-			return when (index) {
-				CURRENT_ENERGY_INDEX -> energyStorage.energyStored
-				MAX_ENERGY_INDEX -> energyStorage.maxEnergyStored
-				else -> -1
-			}
-		}
-
-		override fun set(index: Int, value: Int) {
-			// Cannot set from this
-		}
-
-		override fun getCount(): Int = ENERGY_CONTAINER_DATA_SIZE
-	}
+	protected open val containerData: ContainerData by lazy { EnergyContainerData(energyStorage) }
 
 	open val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, 0)
 	protected open val itemHandler by lazy { InvWrapper(container) }
@@ -102,10 +89,6 @@ abstract class MachineBlockEntity(
 
 	companion object {
 		private const val ENERGY_NBT = "Energy"
-
-		const val ENERGY_CONTAINER_DATA_SIZE = 2
-		const val CURRENT_ENERGY_INDEX = 0
-		const val MAX_ENERGY_INDEX = 1
 
 		fun tick(
 			level: Level,

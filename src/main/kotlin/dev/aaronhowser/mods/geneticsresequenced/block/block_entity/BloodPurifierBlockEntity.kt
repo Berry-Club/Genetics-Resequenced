@@ -54,7 +54,7 @@ class BloodPurifierBlockEntity(
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
-		return BloodPurifierMenu(containerId, playerInventory, container, energyContainerData, progressContainerData)
+		return BloodPurifierMenu(containerId, playerInventory, container, containerData, progressContainerData)
 	}
 
 }

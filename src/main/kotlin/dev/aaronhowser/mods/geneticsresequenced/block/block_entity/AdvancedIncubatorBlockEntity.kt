@@ -222,7 +222,7 @@ class AdvancedIncubatorBlockEntity(
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
-		return AdvancedIncubatorMenu(containerId, playerInventory, this.container, this.energyContainerData, this.progressContainerData)
+		return AdvancedIncubatorMenu(containerId, playerInventory, this.container, this.containerData, this.progressContainerData)
 	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {

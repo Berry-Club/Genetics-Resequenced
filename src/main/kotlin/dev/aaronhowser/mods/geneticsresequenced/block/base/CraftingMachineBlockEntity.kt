@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base
 
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
+import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
+import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.EnergyContainerData
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -62,23 +64,8 @@ abstract class CraftingMachineBlockEntity(
 			}
 		}
 
-	protected val progressContainerData = object : ContainerData {
-		override fun get(index: Int): Int {
-			return when (index) {
-				CURRENT_PROGRESS_INDEX -> currentProgress
-				MAX_PROGRESS_INDEX -> maxProgress
-				else -> -1
-			}
-		}
-
-		override fun set(index: Int, value: Int) {
-			when (index) {
-				CURRENT_PROGRESS_INDEX -> currentProgress = value
-				MAX_PROGRESS_INDEX -> maxProgress = value
-			}
-		}
-
-		override fun getCount(): Int = PROGRESS_CONTAINER_DATA_SIZE
+	override val containerData: ContainerData by lazy {
+		CraftingContainerData(energyStorage, { currentProgress }, { maxProgress })
 	}
 
 	protected abstract fun hasRecipe(): Boolean
@@ -148,10 +135,6 @@ abstract class CraftingMachineBlockEntity(
 	companion object {
 		const val CURRENT_PROGRESS_NBT = "CurrentProgress"
 		const val MAX_PROGRESS_NBT = "MaxProgress"
-
-		const val PROGRESS_CONTAINER_DATA_SIZE = 2
-		const val CURRENT_PROGRESS_INDEX = 0
-		const val MAX_PROGRESS_INDEX = 1
 
 		const val DEFAULT_INVENTORY_SIZE = 3
 		const val INPUT_SLOT_INDEX = 0

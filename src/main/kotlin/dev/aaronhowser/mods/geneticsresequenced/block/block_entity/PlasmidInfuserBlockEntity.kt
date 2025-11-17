@@ -89,6 +89,6 @@ class PlasmidInfuserBlockEntity(
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
-		return PlasmidInfuserMenu(containerId, playerInventory, container, energyContainerData, progressContainerData)
+		return PlasmidInfuserMenu(containerId, playerInventory, container, containerData, progressContainerData)
 	}
 }

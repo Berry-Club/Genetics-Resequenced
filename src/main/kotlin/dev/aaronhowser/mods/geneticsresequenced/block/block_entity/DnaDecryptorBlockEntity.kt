@@ -112,6 +112,6 @@ class DnaDecryptorBlockEntity(
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
-		return DnaDecryptorMenu(containerId, playerInventory, container, energyContainerData, progressContainerData)
+		return DnaDecryptorMenu(containerId, playerInventory, container, containerData, progressContainerData)
 	}
 }

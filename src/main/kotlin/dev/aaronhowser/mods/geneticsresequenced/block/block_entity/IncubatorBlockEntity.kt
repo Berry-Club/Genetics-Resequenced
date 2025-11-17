@@ -150,7 +150,7 @@ class IncubatorBlockEntity(
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
-		return IncubatorMenu(containerId, playerInventory, container, energyContainerData, progressContainerData)
+		return IncubatorMenu(containerId, playerInventory, container, containerData, progressContainerData)
 	}
 
 	companion object {
