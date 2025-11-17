@@ -40,8 +40,11 @@ abstract class CraftingMachineBlockEntity(
 	}
 
 	protected fun drainEnergy(): Boolean {
-		if (energyStorage.energyStored <= getEnergyCostPerTick()) return false
-		energyStorage.extractEnergy(getEnergyCostPerTick(), false)
+		val cost = getEnergyCostPerTick()
+		println("${level?.gameTime} - ${energyStorage.energyStored} - Draining $cost energy")
+
+		if (energyStorage.energyStored < cost) return false
+		energyStorage.extractEnergy(cost, false)
 		return true
 	}
 
