@@ -2,7 +2,7 @@
 
 ### Changed
 
-- The mod now requires the library [Aaron](https://legacy.curseforge.com/minecraft/mc-mods/aaron)
+- The mod now requires the library [Aaron](https://www.curseforge.com/minecraft/mc-mods/aaron)
   - I spent days tearing this mod apart and cleaning it back up. I am honestly shocked that it ever worked to begin with. I have no idea if this will improve performance, but the code is now infinitely more maintainable.
 - The Advanced Incubator now has a more easily visible button to toggle the temperature
 - The Wall Climb Gene now allows you to cling to ceilings by sneaking (#70)
