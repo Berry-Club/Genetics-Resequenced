@@ -11,7 +11,7 @@ class BetterEnergyStorage(
 
 	override fun extractEnergy(toExtract: Int, simulate: Boolean): Int {
 		val extractedEnergy = super.extractEnergy(maxExtract, simulate)
-		if (extractedEnergy != 0) {
+		if (!simulate && extractedEnergy != 0) {
 			blockEntity.setChanged()
 		}
 
@@ -20,16 +20,11 @@ class BetterEnergyStorage(
 
 	override fun receiveEnergy(toReceive: Int, simulate: Boolean): Int {
 		val receivedEnergy = super.receiveEnergy(toReceive, simulate)
-		if (receivedEnergy != 0) {
+		if (!simulate && receivedEnergy != 0) {
 			blockEntity.setChanged()
 		}
 
 		return receivedEnergy
-	}
-
-	fun setEnergy(energy: Int) {
-		this.energy = energy
-		blockEntity.setChanged()
 	}
 
 }

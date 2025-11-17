@@ -6,6 +6,7 @@ import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.IntTag
 import net.minecraft.network.chat.Component
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientGamePacketListener
@@ -53,9 +54,7 @@ abstract class MachineBlockEntity(
 		}
 
 		override fun set(index: Int, value: Int) {
-			when (index) {
-				CURRENT_ENERGY_INDEX -> energyStorage.setEnergy(value)
-			}
+			// Cannot set from this
 		}
 
 		override fun getCount(): Int = ENERGY_CONTAINER_DATA_SIZE
@@ -81,14 +80,17 @@ abstract class MachineBlockEntity(
 		super.saveAdditional(tag, registries)
 
 		ContainerHelper.saveAllItems(tag, this.container.items, registries)
-		tag.putInt(ENERGY_NBT, energyStorage.energyStored)
+		tag.put(ENERGY_NBT, energyStorage.serializeNBT(registries))
 	}
 
 	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.loadAdditional(tag, registries)
 
 		ContainerHelper.loadAllItems(tag, this.container.items, registries)
-		energyStorage.setEnergy(tag.getInt(ENERGY_NBT))
+		val energy = tag.get(ENERGY_NBT)
+		if (energy is IntTag) {
+			energyStorage.deserializeNBT(registries, energy)
+		}
 	}
 
 	override fun getUpdateTag(pRegistries: HolderLookup.Provider): CompoundTag = saveWithoutMetadata(pRegistries)
