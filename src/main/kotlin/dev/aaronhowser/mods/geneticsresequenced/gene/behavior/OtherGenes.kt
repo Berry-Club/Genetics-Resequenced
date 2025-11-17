@@ -10,9 +10,12 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.NarratorPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
+import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.phys.AABB
 import net.neoforged.neoforge.event.ServerChatEvent
 import kotlin.random.Random
 
@@ -169,6 +172,36 @@ object OtherGenes {
 			)
 
 			player.fallDistance = 0.0f
+		}
+
+		if (player.isShiftKeyDown) {
+			val playerAabb = player.boundingBox
+			val aboveAabb = AABB(
+				playerAabb.minX,
+				playerAabb.maxY - 0.1,
+				playerAabb.minZ,
+				playerAabb.maxX,
+				playerAabb.maxY + 0.5,
+				playerAabb.maxZ
+			)
+
+			val level = player.level()
+
+			val positions = BlockPos.betweenClosedStream(aboveAabb)
+
+			val isBlockAbove = positions.anyMatch {
+				!level.getBlockState(it).getCollisionShape(level, it).isEmpty
+			}
+
+			if (isBlockAbove) {
+				player.setDeltaMovement(
+					player.deltaMovement.x,
+					ServerConfig.CONFIG.wallClimbSpeed.get(),
+					player.deltaMovement.z
+				)
+
+				player.fallDistance = 0.0f
+			}
 		}
 	}
 
