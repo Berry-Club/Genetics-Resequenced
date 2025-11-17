@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser
 
+import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
+import dev.aaronhowser.mods.aaron.menu.components.OutputSlot
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.menu.CraftingMachineMenu
@@ -35,6 +37,16 @@ class PlasmidInfuserMenu(
 
 	override fun inputFilter(inputStack: ItemStack): Boolean {
 		return inputStack.`is`(ModItems.DNA_HELIX) && inputStack.has(ModDataComponents.GENE)
+	}
+
+	override fun addSlots() {
+		val helixSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42, ::inputFilter)
+		val plasmidSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42) { it.`is`(ModItems.PLASMID) }
+		val overclockSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54) { it.`is`(ModItems.OVERCLOCKER) }
+
+		this.addSlot(helixSlot)
+		this.addSlot(plasmidSlot)
+		this.addSlot(overclockSlot)
 	}
 
 }
