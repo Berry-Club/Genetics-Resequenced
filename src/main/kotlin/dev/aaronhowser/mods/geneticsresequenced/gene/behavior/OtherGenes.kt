@@ -160,9 +160,7 @@ object OtherGenes {
 
 	fun handleWallClimbing(player: Player) {
 		val wallClimbing = ModGenes.WALL_CLIMBING.getHolderOrThrow(player.registryAccess())
-		if (wallClimbing.isDisabled) return
-
-		if (!player.hasGene(ModGenes.WALL_CLIMBING)) return
+		if (wallClimbing.isDisabled || !player.hasGene(ModGenes.WALL_CLIMBING)) return
 
 		if (player.horizontalCollision || player.minorHorizontalCollision) {
 			player.setDeltaMovement(
@@ -188,14 +186,17 @@ object OtherGenes {
 	fun shouldClingToCeiling(entity: LivingEntity): Boolean {
 		if (!entity.isShiftKeyDown) return false
 
-		val playerAabb = entity.boundingBox
+		val wallClimbing = ModGenes.WALL_CLIMBING.getHolderOrThrow(entity.registryAccess())
+		if (wallClimbing.isDisabled || !entity.hasGene(ModGenes.WALL_CLIMBING)) return false
+
+		val entityAabb = entity.boundingBox
 		val aboveAabb = AABB(
-			playerAabb.minX,
-			playerAabb.maxY - 0.1,
-			playerAabb.minZ,
-			playerAabb.maxX,
-			playerAabb.maxY + 0.5,
-			playerAabb.maxZ
+			entityAabb.minX,
+			entityAabb.maxY - 0.1,
+			entityAabb.minZ,
+			entityAabb.maxX,
+			entityAabb.maxY + 0.5,
+			entityAabb.maxZ
 		)
 
 		val level = entity.level()
