@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator.AdvancedIncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.DupeCellRecipe
@@ -219,7 +220,7 @@ class AdvancedIncubatorBlockEntity(
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
-		TODO("Not yet implemented")
+		return AdvancedIncubatorMenu(containerId, playerInventory, this.container, this.energyContainerData, this.progressContainerData)
 	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
