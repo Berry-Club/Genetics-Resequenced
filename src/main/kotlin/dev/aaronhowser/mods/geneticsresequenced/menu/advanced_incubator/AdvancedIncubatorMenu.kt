@@ -63,7 +63,7 @@ class AdvancedIncubatorMenu(
 		val leftBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 55) { AbstractIncubatorRecipe.isValidBottomIngredient(level, it) }
 		val middleBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX, 83, 62) { AbstractIncubatorRecipe.isValidBottomIngredient(level, it) }
 		val rightBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX, 106, 55) { AbstractIncubatorRecipe.isValidBottomIngredient(level, it) }
-		val chorusSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.CHORUS_SLOT_INDEX, 141, 30) { it.`is`(Items.CHORUS_FRUIT) }
+		val chorusSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.CHORUS_SLOT_INDEX, 141, 38) { it.`is`(Items.CHORUS_FRUIT) }
 
 		val overclockerSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.OVERCLOCKER_SLOT_INDEX, 141, 60) { it.`is`(ModItems.OVERCLOCKER) }
 
