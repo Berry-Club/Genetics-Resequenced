@@ -118,8 +118,6 @@ object ClientEvents {
 		ModMenuTypes.registerScreens(event)
 	}
 
-	private var flippedRenderer = false
-
 	@SubscribeEvent
 	fun beforeRenderEntity(event: RenderLivingEvent.Pre<LivingEntity, HumanoidModel<LivingEntity>>) {
 		val entity = event.entity
@@ -129,16 +127,13 @@ object ClientEvents {
 			poseStack.pushPose()
 			poseStack.translate(0.0, entity.bbHeight.toDouble(), 0.0)
 			poseStack.scale(1.0f, -1.0f, 1.0f)
-			flippedRenderer = true
 		}
 	}
 
 	@SubscribeEvent
 	fun afterRenderLiving(event: RenderLivingEvent.Post<LivingEntity, HumanoidModel<LivingEntity>>) {
-		if (flippedRenderer) {
-			val poseStack = event.poseStack
-			poseStack.popPose()
-			flippedRenderer = false
+		if (OtherGenes.shouldClingToCeiling(event.entity)) {
+			event.poseStack.popPose()
 		}
 	}
 
