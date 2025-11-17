@@ -46,8 +46,8 @@ abstract class MachineScreen<T : MachineMenu>(
 		this.energyBar = EnergyBar(
 			x = leftPos + energyPosLeft,
 			y = topPos + energyPosTop,
-			maxGetter = { menu.maxEnergy },
-			currentGetter = { menu.currentEnergy },
+			maxGetter = { menu.getMaxEnergy() },
+			currentGetter = { menu.getCurrentEnergy() },
 			font = font
 		)
 

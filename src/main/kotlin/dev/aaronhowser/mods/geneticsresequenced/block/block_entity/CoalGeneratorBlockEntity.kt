@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.CoalGeneratorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGeneratorMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
@@ -41,24 +42,11 @@ class CoalGeneratorBlockEntity(
 			setChanged()
 		}
 
-	private val containerData = object : ContainerData {
-		override fun set(index: Int, value: Int) {
-			when (index) {
-				REMAINING_TICKS_INDEX -> burnTimeRemaining = value
-				MAX_BURN_TIME_INDEX -> maxBurnTime = value
-			}
-		}
-
-		override fun get(index: Int): Int {
-			return when (index) {
-				REMAINING_TICKS_INDEX -> burnTimeRemaining
-				MAX_BURN_TIME_INDEX -> maxBurnTime
-				else -> -1
-			}
-		}
-
-		override fun getCount(): Int = CONTAINER_DATA_SIZE
-	}
+	override val containerData: ContainerData = CraftingContainerData(
+		energyStorage,
+		{ burnTimeRemaining },
+		{ maxBurnTime }
+	)
 
 	override fun serverTick() {
 		exportEnergy()
@@ -130,7 +118,7 @@ class CoalGeneratorBlockEntity(
 	}
 
 	override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {
-		return CoalGeneratorMenu(pContainerId, pPlayerInventory, container, containerData, containerData)
+		return CoalGeneratorMenu(pContainerId, pPlayerInventory, container, containerData)
 	}
 
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {

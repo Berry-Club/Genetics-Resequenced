@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.menu
 import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.aaron.menu.components.OutputSlot
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.world.Container
 import net.minecraft.world.entity.player.Inventory
@@ -16,16 +17,13 @@ abstract class CraftingMachineMenu(
 	id: Int,
 	playerInventory: Inventory,
 	protected val machineContainer: Container,
-	energyContainerData: ContainerData,
-	protected val progressContainerData: ContainerData
-) : MachineMenu(menuType, id, playerInventory, energyContainerData) {
+	protected val craftingContainerData: ContainerData
+) : MachineMenu(menuType, id, playerInventory, craftingContainerData) {
 
 	override val amountSlots: Int = CraftingMachineBlockEntity.DEFAULT_INVENTORY_SIZE
 
 	init {
 		checkContainerSize(machineContainer, amountSlots)
-
-		addDataSlots(progressContainerData)
 	}
 
 	protected open fun inputFilter(inputStack: ItemStack): Boolean = true
@@ -40,19 +38,16 @@ abstract class CraftingMachineMenu(
 		this.addSlot(overclockSlot)
 	}
 
-	var currentProgress: Int
-		get() = progressContainerData.get(CraftingMachineBlockEntity.CURRENT_PROGRESS_INDEX)
-		set(value) = progressContainerData.set(CraftingMachineBlockEntity.CURRENT_PROGRESS_INDEX, value)
+	fun getCurrentProgress(): Int = craftingContainerData.get(CraftingContainerData.CURRENT_PROGRESS_INDEX)
+	fun getMaxProgress(): Int = craftingContainerData.get(CraftingContainerData.MAX_PROGRESS_INDEX)
 
-	var maxProgress: Int
-		get() = progressContainerData.get(CraftingMachineBlockEntity.MAX_PROGRESS_INDEX)
-		set(value) = progressContainerData.set(CraftingMachineBlockEntity.MAX_PROGRESS_INDEX, value)
-
-	fun isCrafting(): Boolean = currentProgress > 0
+	fun isCrafting(): Boolean = getCurrentProgress() > 0
 
 	override fun getPercentDone(): Float {
-		if (maxProgress <= 0) return 0f
-		return currentProgress.toFloat() / maxProgress.toFloat()
+		val max = getMaxProgress()
+		if (max <= 0) return 0f
+
+		return getCurrentProgress().toFloat() / max.toFloat()
 	}
 
 	override fun stillValid(player: Player): Boolean {

@@ -80,6 +80,6 @@ class PlasmidInjectorBlockEntity(
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
-		return PlasmidInjectorMenu(containerId, playerInventory, this.container, this.containerData, this.progressContainerData)
+		return PlasmidInjectorMenu(containerId, playerInventory, this.container, this.containerData)
 	}
 }

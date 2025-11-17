@@ -65,6 +65,6 @@ class CellAnalyzerBlockEntity(
 	}
 
 	override fun createMenu(containerId: Int, playerInventory: Inventory, player: Player): AbstractContainerMenu {
-		return CellAnalyzerMenu(containerId, playerInventory, container, containerData, progressContainerData)
+		return CellAnalyzerMenu(containerId, playerInventory, container, containerData)
 	}
 }

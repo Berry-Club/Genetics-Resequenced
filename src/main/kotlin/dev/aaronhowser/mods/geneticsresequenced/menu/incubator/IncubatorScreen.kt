@@ -34,7 +34,7 @@ class IncubatorScreen(
 			x = leftPos + ScreenTextures.Elements.Heat.Position.X,
 			y = topPos + ScreenTextures.Elements.Heat.Position.Y,
 			font = font,
-			shouldRender = { menu.currentEnergy != 0 },
+			shouldRender = { menu.getCurrentEnergy() != 0 },
 			shouldRenderTooltip = false,
 			isHighTemperature = { true },
 			onClickFunction = { _, _, _ -> }

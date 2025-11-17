@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.menu
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.EnergyContainerData
 import dev.aaronhowser.mods.irregular_implements.menu.MenuWithInventory
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
@@ -28,12 +29,8 @@ abstract class MachineMenu(
 		addDataSlots(energyContainerData)
 	}
 
-	var currentEnergy: Int
-		get() = energyContainerData.get(MachineBlockEntity.CURRENT_ENERGY_INDEX)
-		set(value) = energyContainerData.set(MachineBlockEntity.CURRENT_ENERGY_INDEX, value)
-	var maxEnergy: Int
-		get() = energyContainerData.get(MachineBlockEntity.MAX_ENERGY_INDEX)
-		set(value) = energyContainerData.set(MachineBlockEntity.MAX_ENERGY_INDEX, value)
+	fun getCurrentEnergy(): Int = energyContainerData.get(EnergyContainerData.CURRENT_ENERGY_INDEX)
+	fun getMaxEnergy(): Int = energyContainerData.get(EnergyContainerData.MAX_ENERGY_INDEX)
 
 	fun addPlayerInventorySlots() {
 		addPlayerInventorySlots(inventoryY)
