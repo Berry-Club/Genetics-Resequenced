@@ -2,13 +2,16 @@ package dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator
 
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.menu.MenuWithButtons
+import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.AdvancedIncubatorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.menu.CraftingMachineMenu
+import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -21,6 +24,7 @@ import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.SimpleContainerData
 import net.minecraft.world.inventory.Slot
+import net.minecraft.world.item.Items
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 import kotlin.math.min
 
@@ -53,12 +57,15 @@ class AdvancedIncubatorMenu(
 	}
 
 	override fun addSlots() {
-		val topSlot = Slot(machineContainer, AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX, 83, 21)
-		val leftBottleSlot = Slot(machineContainer, AdvancedIncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 55)
-		val middleBottleSlot = Slot(machineContainer, AdvancedIncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX, 83, 62)
-		val rightBottleSlot = Slot(machineContainer, AdvancedIncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX, 106, 55)
-		val overclockerSlot = Slot(machineContainer, AdvancedIncubatorBlockEntity.OVERCLOCKER_SLOT_INDEX, 141, 38)
-		val chorusSlot = Slot(machineContainer, AdvancedIncubatorBlockEntity.CHORUS_SLOT_INDEX, 141, 60)
+		val level = AaronClientUtil.localLevel ?: return
+
+		val topSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX, 83, 21) { AbstractIncubatorRecipe.isValidTopIngredient(level, it) }
+		val leftBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 55) { AbstractIncubatorRecipe.isValidBottomIngredient(level, it) }
+		val middleBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX, 83, 62) { AbstractIncubatorRecipe.isValidBottomIngredient(level, it) }
+		val rightBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX, 106, 55) { AbstractIncubatorRecipe.isValidBottomIngredient(level, it) }
+		val chorusSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.CHORUS_SLOT_INDEX, 141, 30) { it.`is`(Items.CHORUS_FRUIT) }
+
+		val overclockerSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.OVERCLOCKER_SLOT_INDEX, 141, 60) { it.`is`(ModItems.OVERCLOCKER) }
 
 		this.addSlot(topSlot)
 		this.addSlot(leftBottleSlot)
