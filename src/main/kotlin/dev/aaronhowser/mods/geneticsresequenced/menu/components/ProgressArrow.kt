@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
 import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
@@ -24,6 +25,18 @@ class ProgressArrow(
 	Component.empty()
 ) {
 
+	companion object {
+		const val TEXTURE_SIZE = 32
+
+		val RIGHT_TEXTURE = OtherUtil.modResource("arrow_right")
+		const val RIGHT_WIDTH = 24
+		const val RIGHT_HEIGHT = 17
+
+		val DOWN_TEXTURE = OtherUtil.modResource("arrow_down")
+		const val DOWN_WIDTH = 9
+		const val DOWN_HEIGHT = 28
+	}
+
 	enum class ArrowDirection(
 		val width: Int,
 		val height: Int,
@@ -31,16 +44,16 @@ class ProgressArrow(
 		val textureSize: Int
 	) {
 		DOWN(
-			ScreenTextures.Elements.ArrowDown.Dimensions.WIDTH,
-			ScreenTextures.Elements.ArrowDown.Dimensions.HEIGHT,
-			ScreenTextures.Elements.ArrowDown.TEXTURE,
-			ScreenTextures.Elements.ArrowDown.TEXTURE_SIZE
+			DOWN_WIDTH,
+			DOWN_HEIGHT,
+			DOWN_TEXTURE,
+			TEXTURE_SIZE
 		),
 		RIGHT(
-			ScreenTextures.Elements.ArrowRight.Dimensions.WIDTH,
-			ScreenTextures.Elements.ArrowRight.Dimensions.HEIGHT,
-			ScreenTextures.Elements.ArrowRight.TEXTURE,
-			ScreenTextures.Elements.ArrowRight.TEXTURE_SIZE
+			RIGHT_WIDTH,
+			RIGHT_HEIGHT,
+			RIGHT_TEXTURE,
+			TEXTURE_SIZE
 		)
 	}
 

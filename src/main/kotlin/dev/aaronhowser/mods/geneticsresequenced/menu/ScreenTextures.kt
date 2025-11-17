@@ -35,38 +35,6 @@ object ScreenTextures {
 	}
 
 	object Elements {
-		object ArrowDown {
-			val TEXTURE = OtherUtil.modResource("arrow_down")
-			const val TEXTURE_SIZE = 32
-
-			object Dimensions {
-				const val WIDTH = 9
-				const val HEIGHT = 28
-			}
-
-			object Position {
-				const val X = 101
-				const val Y = 20
-			}
-		}
-
-		object ArrowRight {
-			val TEXTURE = OtherUtil.modResource("arrow_right")
-			const val TEXTURE_SIZE = 32
-
-			object Dimensions {
-				const val WIDTH = 24
-				const val HEIGHT = 17
-			}
-
-			object Position {
-				object Default {
-					const val X = 83
-					const val Y = 43
-				}
-			}
-
-		}
 
 		object Bubbles {
 			val TEXTURE = OtherUtil.modResource("bubbles")
