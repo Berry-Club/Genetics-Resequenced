@@ -4,6 +4,7 @@
 
 - Marked the version range required for Kotlin for Forge and Aaron
 - Fixed MachineMenu looking for a class in Irregular Implements instead of Aaron (#73)
+- Fixed an issue when loading 1.6.0 worlds where machines would default to having maxProgress of 0, so crafts would complete on the first tick
 
 # 1.7.0
 

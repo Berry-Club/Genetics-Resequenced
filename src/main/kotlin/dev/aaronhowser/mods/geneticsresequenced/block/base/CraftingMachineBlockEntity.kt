@@ -55,7 +55,7 @@ abstract class CraftingMachineBlockEntity(
 			}
 		}
 
-	protected var maxProgress: Int = 20 * 4
+	protected var maxProgress: Int = DEFAULT_MAX_PROGRESS
 		set(value) {
 			if (field != value) {
 				field = value
@@ -127,13 +127,20 @@ abstract class CraftingMachineBlockEntity(
 	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.loadAdditional(tag, registries)
 
-		currentProgress = tag.getInt(CURRENT_PROGRESS_NBT)
-		maxProgress = tag.getInt(MAX_PROGRESS_NBT)
+		if (tag.contains(CURRENT_PROGRESS_NBT)) {
+			currentProgress = tag.getInt(CURRENT_PROGRESS_NBT)
+		}
+
+		if (tag.contains(MAX_PROGRESS_NBT)) {
+			maxProgress = tag.getInt(MAX_PROGRESS_NBT)
+		}
 	}
 
 	companion object {
 		const val CURRENT_PROGRESS_NBT = "CurrentProgress"
 		const val MAX_PROGRESS_NBT = "MaxProgress"
+
+		const val DEFAULT_MAX_PROGRESS = 20 * 4
 
 		const val DEFAULT_INVENTORY_SIZE = 3
 		const val INPUT_SLOT_INDEX = 0
