@@ -2,7 +2,7 @@
 
 ### Fixed
 
-- Marked the version range required for Kotlin for Forge
+- Marked the version range required for Kotlin for Forge and Aaron
 
 # 1.7.0
 
