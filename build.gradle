@@ -248,7 +248,6 @@ java {
 unifiedPublishing {
 	project {
 		displayName = "Genetics: Resequenced ${project.minecraft_version} ${project.version}"
-		releaseType = "beta"
 		gameVersions = [project.minecraft_version]
 		gameLoaders = ["neoforge"]
 
