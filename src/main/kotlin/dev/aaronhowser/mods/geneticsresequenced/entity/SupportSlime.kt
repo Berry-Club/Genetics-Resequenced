@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.entity
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.getUuidOrNull
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
-import dev.aaronhowser.mods.aaron.ServerScheduler
+import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -145,7 +145,7 @@ class SupportSlime(
 
 		setSize(this.size - 1, true)
 
-		ServerScheduler.scheduleTaskInTicks(30) {
+		level().scheduleTaskInTicks(30) {
 			despawn()
 		}
 	}

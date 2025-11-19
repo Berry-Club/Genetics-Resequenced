@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import dev.aaronhowser.mods.aaron.ServerScheduler
+import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
@@ -71,7 +71,7 @@ object ClearBioGlowCommand {
 
 			level.addFreshEntity(blockDisplayEntity)
 
-			ServerScheduler.scheduleTaskInTicks(20 * 2) {
+			level.scheduleTaskInTicks(20 * 2) {
 				blockDisplayEntity.remove(Entity.RemovalReason.DISCARDED)
 			}
 		}

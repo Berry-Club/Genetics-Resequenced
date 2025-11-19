@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene
 
-import dev.aaronhowser.mods.aaron.ServerScheduler
+import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
@@ -43,7 +43,7 @@ class GeneCooldown(
 	private fun onAddSucceed(entity: LivingEntity) {
 		if (this.actuallyNotify) tellCooldownStarted(entity, this.gene, this.cooldownTicks)
 
-		ServerScheduler.scheduleTaskInTicks(this.cooldownTicks) {
+		entity.level().scheduleTaskInTicks(this.cooldownTicks) {
 			remove(entity)
 		}
 	}

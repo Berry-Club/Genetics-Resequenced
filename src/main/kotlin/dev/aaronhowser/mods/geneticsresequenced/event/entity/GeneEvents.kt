@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
-import dev.aaronhowser.mods.aaron.ServerScheduler
+import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
@@ -43,7 +43,7 @@ object GeneEvents {
 			AdvancementTriggers.geneAdvancements(livingEntity, geneHolder, wasAdded)
 		}
 
-		ServerScheduler.scheduleTaskInTicks(1) {
+		livingEntity.level().scheduleTaskInTicks(1) {
 			checkForMissingRequirements(livingEntity)
 		}
 	}

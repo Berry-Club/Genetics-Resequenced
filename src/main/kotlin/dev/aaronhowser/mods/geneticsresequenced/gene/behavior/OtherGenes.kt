@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
-import dev.aaronhowser.mods.aaron.ServerScheduler
+import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -125,10 +125,11 @@ object OtherGenes {
 	}
 
 	fun handleSlimyChat(event: ServerChatEvent) {
-		val slimyDeath = ModGenes.SLIMY_DEATH.getHolderOrThrow(event.player.registryAccess())
+		val player = event.player
+
+		val slimyDeath = ModGenes.SLIMY_DEATH.getHolderOrThrow(player.registryAccess())
 		if (slimyDeath.isDisabled) return
 
-		val player = event.player
 		if (!player.hasGene(ModGenes.SLIMY_DEATH)) return
 
 		val nearbySupportSlimes = player.level().getEntities(
@@ -151,7 +152,7 @@ object OtherGenes {
 				.append(Component.literal("> "))
 				.append(event.message)
 
-			ServerScheduler.scheduleTaskInTicks(i + 1) {
+			player.level().scheduleTaskInTicks(i + 1) {
 				allPlayers.forEach {
 					it.sendSystemMessage(message)
 				}

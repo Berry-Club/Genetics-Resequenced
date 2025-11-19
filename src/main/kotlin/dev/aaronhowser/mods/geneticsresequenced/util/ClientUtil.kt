@@ -2,8 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isTrue
 import dev.aaronhowser.mods.aaron.AaronExtensions.status
-import dev.aaronhowser.mods.aaron.ServerScheduler
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
+import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -110,11 +110,13 @@ object ClientUtil {
 			GeneticsResequenced.LOGGER.info("Changed language back to non-cringe!")
 		}
 
+		val localPlayer = AaronClientUtil.localPlayer ?: return
+
 		fun sendSystemMessage(message: Component) {
-			AaronClientUtil.localPlayer?.sendSystemMessage(message)
+			localPlayer.sendSystemMessage(message)
 		}
 
-		ServerScheduler.scheduleTaskInTicks(1) {
+		localPlayer.level().scheduleTaskInTicks(1) {
 			val component = if (wasAdded) {
 				ModMessageLang.CRINGE_ADDED.toComponent(countdownSeconds)
 			} else {
@@ -138,7 +140,7 @@ object ClientUtil {
 			if (scheduleIn != 0) {
 				val secondsLeftFinal = secondsLeft
 
-				ServerScheduler.scheduleTaskInTicks(scheduleIn) {
+				localPlayer.level().scheduleTaskInTicks(scheduleIn) {
 					AaronClientUtil.localPlayer?.status(Component.literal("$secondsLeftFinal..."))
 				}
 			}
@@ -147,7 +149,7 @@ object ClientUtil {
 		}
 
 		this.amountTryingToChangeLanguage++
-		ServerScheduler.scheduleTaskInTicks(20 * countdownSeconds) {
+		localPlayer.level().scheduleTaskInTicks(20 * countdownSeconds) {
 			sendSystemMessage(
 				ModMessageLang.CRINGE_RELOADING
 					.toComponent()
