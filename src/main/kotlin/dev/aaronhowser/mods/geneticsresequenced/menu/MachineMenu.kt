@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu
 
+import dev.aaronhowser.mods.aaron.menu.MenuWithInventory
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.EnergyContainerData
-import dev.aaronhowser.mods.irregular_implements.menu.MenuWithInventory
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
