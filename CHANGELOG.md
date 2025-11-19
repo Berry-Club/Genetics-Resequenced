@@ -1,3 +1,9 @@
+# 1.7.1
+
+### Fixed
+
+- Marked the version range required for Kotlin for Forge
+
 # 1.7.0
 
 ### Changed
