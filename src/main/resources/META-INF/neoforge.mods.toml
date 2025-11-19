@@ -11,16 +11,25 @@ displayName = "${mod_name}"
 credits = "The teams for both Genetics Reborn as well as the original Advanced Genetics"
 authors = "${mod_authors}"
 description = '''${mod_description}'''
+
 [[dependencies.${ mod_id }]]
 modId = "neoforge"
 type = "required"
 versionRange = "${neo_version_range}"
 ordering = "NONE"
 side = "BOTH"
+
 [[dependencies.${ mod_id }]]
 modId = "minecraft"
 type = "required"
 versionRange = "${minecraft_version_range}"
+ordering = "NONE"
+side = "BOTH"
+
+[[dependencies.${ mod_id }]]
+modId = "kotlinforforge"
+type = "required"
+versionRange = "${kff_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
