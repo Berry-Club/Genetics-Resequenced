@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.base
 
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
+import net.minecraft.world.Containers
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.entity.player.Player
@@ -63,6 +64,17 @@ abstract class MachineBlock(
 				MachineBlockEntity.tick(l, p, s, be)
 			}
 		}
+	}
+
+	override fun onRemove(state: BlockState, level: Level, pos: BlockPos, newState: BlockState, movedByPiston: Boolean) {
+		if (!state.`is`(newState.block)) {
+			val blockEntity = level.getBlockEntity(pos)
+			if (blockEntity is MachineBlockEntity) {
+				Containers.dropContents(level, pos, blockEntity.container)
+			}
+		}
+
+		super.onRemove(state, level, pos, newState, movedByPiston)
 	}
 
 	companion object {

@@ -1,3 +1,9 @@
+# 1.7.2
+
+### Fixed
+
+- Fixed machines voiding their contents when mined, now they drop their contents when broken
+
 # 1.7.1
 
 ### Fixed
