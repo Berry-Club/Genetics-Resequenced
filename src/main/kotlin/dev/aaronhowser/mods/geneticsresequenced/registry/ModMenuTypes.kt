@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
+import dev.aaronhowser.mods.aaron.registry.AaronMenuTypesRegistry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator.AdvancedIncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator.AdvancedIncubatorScreen
@@ -20,18 +21,17 @@ import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser.PlasmidInfu
 import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_injector.PlasmidInjectorMenu
 import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_injector.PlasmidInjectorScreen
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.world.flag.FeatureFlags
-import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.MenuType
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
-import java.util.function.Supplier
 
-object ModMenuTypes {
+object ModMenuTypes : AaronMenuTypesRegistry() {
 
 	val MENU_TYPE_REGISTRY: DeferredRegister<MenuType<*>> =
 		DeferredRegister.create(BuiltInRegistries.MENU, GeneticsResequenced.ID)
+
+	override fun getMenuTypeRegistry(): DeferredRegister<MenuType<*>> = MENU_TYPE_REGISTRY
 
 	val COAL_GENERATOR: DeferredHolder<MenuType<*>, MenuType<CoalGeneratorMenu>> =
 		register("coal_generator", ::CoalGeneratorMenu)
@@ -70,10 +70,6 @@ object ModMenuTypes {
 		event.register(BLOOD_PURIFIER.get(), ::BloodPurifierScreen)
 		event.register(INCUBATOR.get(), ::IncubatorScreen)
 		event.register(ADVANCED_INCUBATOR.get(), ::AdvancedIncubatorScreen)
-	}
-
-	fun <T : AbstractContainerMenu> register(name: String, constructor: MenuType.MenuSupplier<T>): DeferredHolder<MenuType<*>, MenuType<T>> {
-		return MENU_TYPE_REGISTRY.register(name, Supplier { MenuType(constructor, FeatureFlags.DEFAULT_FLAGS) })
 	}
 
 }
