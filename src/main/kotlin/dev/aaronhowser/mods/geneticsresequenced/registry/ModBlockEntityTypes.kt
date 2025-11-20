@@ -1,19 +1,19 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
+import dev.aaronhowser.mods.aaron.registry.AaronBlockEntityTypeRegistry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.*
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
-import net.neoforged.neoforge.registries.DeferredBlock
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
-import java.util.function.Supplier
 
-object ModBlockEntityTypes {
+object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 
 	val BLOCK_ENTITY_REGISTRY: DeferredRegister<BlockEntityType<*>> =
 		DeferredRegister.create(BuiltInRegistries.BLOCK_ENTITY_TYPE, GeneticsResequenced.ID)
+
+	override fun getBlockEntityRegistry(): DeferredRegister<BlockEntityType<*>> = BLOCK_ENTITY_REGISTRY
 
 	val COAL_GENERATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<CoalGeneratorBlockEntity>> =
 		register("coal_generator", ::CoalGeneratorBlockEntity, ModBlocks.COAL_GENERATOR)
@@ -41,18 +41,5 @@ object ModBlockEntityTypes {
 
 	val ADVANCED_INCUBATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<AdvancedIncubatorBlockEntity>> =
 		register("advanced_incubator", ::AdvancedIncubatorBlockEntity, ModBlocks.ADVANCED_INCUBATOR)
-
-	private fun <T : BlockEntity> register(
-		name: String,
-		builder: BlockEntityType.BlockEntitySupplier<out T>,
-		vararg validBlocks: DeferredBlock<*>
-	): DeferredHolder<BlockEntityType<*>, BlockEntityType<T>> {
-		return BLOCK_ENTITY_REGISTRY.register(name, Supplier {
-			BlockEntityType.Builder.of(
-				builder,
-				*validBlocks.map(DeferredBlock<*>::get).toTypedArray()
-			).build(null)
-		})
-	}
 
 }

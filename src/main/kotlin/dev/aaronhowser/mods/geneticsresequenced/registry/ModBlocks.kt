@@ -1,14 +1,17 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
+import dev.aaronhowser.mods.aaron.registry.AaronBlockRegistry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.*
 import net.minecraft.world.level.block.Block
 import net.neoforged.neoforge.registries.DeferredBlock
 import net.neoforged.neoforge.registries.DeferredRegister
 
-object ModBlocks {
+object ModBlocks : AaronBlockRegistry() {
 
 	val BLOCK_REGISTRY: DeferredRegister.Blocks = DeferredRegister.createBlocks(GeneticsResequenced.ID)
+	override fun getBlockRegistry(): DeferredRegister.Blocks = BLOCK_REGISTRY
+	override fun getItemRegistry(): DeferredRegister.Items = ModItems.ITEM_REGISTRY
 
 	val BIOLUMINESCENCE_BLOCK: DeferredBlock<BioluminescenceBlock> =
 		registerBlock("bioluminescence", ::BioluminescenceBlock)
@@ -33,16 +36,5 @@ object ModBlocks {
 		registerBlock("incubator", ::IncubatorBlock)
 	val ADVANCED_INCUBATOR: DeferredBlock<Block> =
 		registerBlock("advanced_incubator", ::AdvancedIncubatorBlock)
-
-	private fun <T : Block> registerBlock(
-		name: String,
-		supplier: () -> T
-	): DeferredBlock<T> {
-		val block = BLOCK_REGISTRY.register(name, supplier)
-
-		ModItems.ITEM_REGISTRY.registerSimpleBlockItem(name, block)
-
-		return block
-	}
 
 }

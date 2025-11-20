@@ -1,17 +1,17 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
+import dev.aaronhowser.mods.aaron.registry.AaronItemRegistry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.item.*
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.SpawnEggItem
-import net.neoforged.neoforge.common.DeferredSpawnEggItem
 import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
-import java.util.function.Supplier
 
-object ModItems {
+object ModItems : AaronItemRegistry() {
 
 	val ITEM_REGISTRY: DeferredRegister.Items = DeferredRegister.createItems(GeneticsResequenced.ID)
+	override fun getItemRegistry(): DeferredRegister.Items = ITEM_REGISTRY
 
 	val SCRAPER: DeferredItem<ScraperItem> =
 		register("scraper", ::ScraperItem, ScraperItem.DEFAULT_PROPERTIES)
@@ -40,29 +40,11 @@ object ModItems {
 	val DRAGON_HEALTH_CRYSTAL: DeferredItem<DragonHealthCrystal> =
 		register("dragon_health_crystal", ::DragonHealthCrystal, DragonHealthCrystal.DEFAULT_PROPERTIES)
 	val FRIENDLY_SLIME_SPAWN_EGG: DeferredItem<SpawnEggItem> =
-		ITEM_REGISTRY.registerItem("support_slime_spawn_egg") {
-			DeferredSpawnEggItem(
-				ModEntityTypes.SUPPORT_SLIME,
-				0x00FF00,
-				0x0000FF,
-				Item.Properties()
-			)
-		}
-
-	private fun <I : Item> register(
-		id: String,
-		builder: (Item.Properties) -> I,
-		properties: Item.Properties = Item.Properties()
-	): DeferredItem<I> {
-		return ITEM_REGISTRY.registerItem(id) { builder(properties) }
-	}
-
-	private fun <I : Item> register(
-		id: String,
-		builder: (Item.Properties) -> I,
-		properties: Supplier<Item.Properties>
-	): DeferredItem<I> {
-		return ITEM_REGISTRY.registerItem(id) { builder(properties.get()) }
-	}
+		registerSpawnEgg(
+			"support_slime_spawn_egg",
+			ModEntityTypes.SUPPORT_SLIME::get,
+			0x00FF00,
+			0x0000FF
+		)
 
 }
