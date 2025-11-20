@@ -60,7 +60,7 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 	val ADVANCED_INCUBATOR: DeferredHolder<MenuType<*>, MenuType<AdvancedIncubatorMenu>> =
 		register("advanced_incubator", ::AdvancedIncubatorMenu)
 
-	fun registerScreens(event: RegisterMenuScreensEvent) {
+	override fun registerScreens(event: RegisterMenuScreensEvent) {
 		event.register(COAL_GENERATOR.get(), ::CoalGeneratorScreen)
 		event.register(CELL_ANALYZER.get(), ::CellAnalyzerScreen)
 		event.register(DNA_EXTRACTOR.get(), ::DnaExtractorScreen)
