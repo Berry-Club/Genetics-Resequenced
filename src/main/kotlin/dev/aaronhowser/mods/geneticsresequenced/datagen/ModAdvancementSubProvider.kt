@@ -26,10 +26,6 @@ class ModAdvancementSubProvider(
 	val lookupProvider: CompletableFuture<HolderLookup.Provider>
 ) : AdvancementProvider.AdvancementGenerator {
 
-	private lateinit var registries: HolderLookup.Provider
-	private lateinit var saver: Consumer<AdvancementHolder>
-	private lateinit var existingFileHelper: ExistingFileHelper
-
 	private fun guide(string: String) = OtherUtil.modResource("guide/$string")
 
 	override fun generate(
@@ -38,9 +34,10 @@ class ModAdvancementSubProvider(
 		existingFileHelper: ExistingFileHelper
 	) {
 
-		this.registries = registries
-		this.saver = saver
-		this.existingFileHelper = existingFileHelper
+		fun AdvancementHolder.add(): AdvancementHolder {
+			saver.accept(this)
+			return this
+		}
 
 		val root =
 			Advancement.Builder.advancement()
@@ -365,11 +362,6 @@ class ModAdvancementSubProvider(
 			.build(guide("blood_purifier"))
 			.add()
 
-	}
-
-	private fun AdvancementHolder.add(): AdvancementHolder {
-		this@ModAdvancementSubProvider.saver.accept(this)
-		return this
 	}
 
 }
