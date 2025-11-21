@@ -34,11 +34,6 @@ class ModAdvancementSubProvider(
 		existingFileHelper: ExistingFileHelper
 	) {
 
-		fun AdvancementHolder.add(): AdvancementHolder {
-			saver.accept(this)
-			return this
-		}
-
 		val root =
 			Advancement.Builder.advancement()
 				.display(
@@ -55,8 +50,7 @@ class ModAdvancementSubProvider(
 					"scraper",
 					InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SCRAPER.get())
 				)
-				.build(guide("root"))
-				.add()
+				.save(saver, guide("root"), existingFileHelper)
 
 		val cellAnalyzer =
 			Advancement.Builder.advancement()
@@ -78,8 +72,7 @@ class ModAdvancementSubProvider(
 					InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.CELL.get())
 				)
 				.requirements(AdvancementRequirements.Strategy.OR)
-				.build(guide("cell_analyzer"))
-				.add()
+				.save(saver, guide("cell_analyzer"), existingFileHelper)
 
 		val dnaExtractor =
 			Advancement.Builder.advancement()
@@ -101,8 +94,7 @@ class ModAdvancementSubProvider(
 					InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DNA_HELIX.get())
 				)
 				.requirements(AdvancementRequirements.Strategy.OR)
-				.build(guide("dna_extractor"))
-				.add()
+				.save(saver, guide("dna_extractor"), existingFileHelper)
 
 		val dnaDecryptor =
 			Advancement.Builder.advancement()
@@ -119,8 +111,7 @@ class ModAdvancementSubProvider(
 					"dna_decryptor",
 					InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.DNA_DECRYPTOR.get())
 				)
-				.build(guide("dna_decryptor"))
-				.add()
+				.save(saver, guide("dna_decryptor"), existingFileHelper)
 
 		val decryptDna =
 			Advancement.Builder.advancement()
@@ -146,8 +137,7 @@ class ModAdvancementSubProvider(
 							.build()
 					)
 				)
-				.build(guide("decrypt_dna"))
-				.add()
+				.save(saver, guide("decrypt_dna"), existingFileHelper)
 
 		Advancement.Builder.advancement()
 			.parent(decryptDna)
@@ -172,8 +162,7 @@ class ModAdvancementSubProvider(
 						.build()
 				)
 			)
-			.build(guide("black_death"))
-			.add()
+			.save(saver, guide("black_death"), existingFileHelper)
 
 		val plasmidInfuser =
 			Advancement.Builder.advancement()
@@ -190,8 +179,7 @@ class ModAdvancementSubProvider(
 					"plasmid_infuser",
 					InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.PLASMID_INFUSER.get())
 				)
-				.build(guide("plasmid_infuser"))
-				.add()
+				.save(saver, guide("plasmid_infuser"), existingFileHelper)
 
 		val plasmidInjector =
 			Advancement.Builder.advancement()
@@ -208,8 +196,7 @@ class ModAdvancementSubProvider(
 					"plasmid_injector",
 					InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.PLASMID_INJECTOR.get())
 				)
-				.build(guide("plasmid_injector"))
-				.add()
+				.save(saver, guide("plasmid_injector"), existingFileHelper)
 
 		val getGene =
 			Advancement.Builder.advancement()
@@ -234,8 +221,7 @@ class ModAdvancementSubProvider(
 					"impossible",
 					CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
 				)
-				.build(guide("get_gene"))
-				.add()
+				.save(saver, guide("get_gene"), existingFileHelper)
 
 		Advancement.Builder.advancement()
 			.parent(getGene)
@@ -251,8 +237,7 @@ class ModAdvancementSubProvider(
 				"impossible",
 				CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
 			)
-			.build(guide("get_flight"))
-			.add()
+			.save(saver, guide("get_flight"), existingFileHelper)
 
 		Advancement.Builder.advancement()
 			.parent(getGene)
@@ -268,8 +253,7 @@ class ModAdvancementSubProvider(
 				"impossible",
 				CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
 			)
-			.build(guide("get_all_scare_genes"))
-			.add()
+			.save(saver, guide("get_all_scare_genes"), existingFileHelper)
 
 		Advancement.Builder.advancement()
 			.parent(getGene)
@@ -285,8 +269,7 @@ class ModAdvancementSubProvider(
 				"impossible",
 				CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
 			)
-			.build(guide("get_cringe"))
-			.add()
+			.save(saver, guide("get_cringe"), existingFileHelper)
 
 		Advancement.Builder.advancement()
 			.parent(getGene)
@@ -302,8 +285,7 @@ class ModAdvancementSubProvider(
 				"impossible",
 				CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
 			)
-			.build(guide("get_milked"))
-			.add()
+			.save(saver, guide("get_milked"), existingFileHelper)
 
 		Advancement.Builder.advancement()
 			.parent(getGene)
@@ -319,8 +301,7 @@ class ModAdvancementSubProvider(
 				"impossible",
 				CriteriaTriggers.IMPOSSIBLE.createCriterion(ImpossibleTrigger.TriggerInstance())
 			)
-			.build(guide("trigger_slimy_death"))
-			.add()
+			.save(saver, guide("trigger_slimy_death"), existingFileHelper)
 
 		val syringe =
 			Advancement.Builder.advancement()
@@ -342,8 +323,7 @@ class ModAdvancementSubProvider(
 					InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.METAL_SYRINGE.get())
 				)
 				.requirements(AdvancementRequirements.Strategy.OR)
-				.build(guide("syringe"))
-				.add()
+				.save(saver, guide("syringe"), existingFileHelper)
 
 		Advancement.Builder.advancement()
 			.parent(syringe)
@@ -359,8 +339,7 @@ class ModAdvancementSubProvider(
 				"blood_purifier",
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.BLOOD_PURIFIER.get())
 			)
-			.build(guide("blood_purifier"))
-			.add()
+			.save(saver, guide("blood_purifier"), existingFileHelper)
 
 	}
 
