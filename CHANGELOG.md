@@ -1,3 +1,9 @@
+# 1.7.3
+
+### Changed
+
+- Changed some advancement types to be challenge or goal
+
 # 1.7.2
 
 ### Fixed

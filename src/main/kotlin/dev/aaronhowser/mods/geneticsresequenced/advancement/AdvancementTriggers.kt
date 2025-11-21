@@ -1,12 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.advancement
 
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModAdvancementSubProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.core.Holder
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 
 object AdvancementTriggers {
@@ -46,36 +48,36 @@ object AdvancementTriggers {
 
 		if (scareGeneKeys.any { !player.hasGene(it) }) return
 
-		val advancement = getAdvancement(player, "guide/get_all_scare_genes") ?: return
+		val advancement = getAdvancement(player, ModAdvancementSubProvider.GET_ALL_SCARE_GENES) ?: return
 		completeAdvancement(player, advancement)
 	}
 
 	private fun getFlightGeneAdvancement(player: ServerPlayer) {
-		val advancement = getAdvancement(player, "guide/get_flight") ?: return
+		val advancement = getAdvancement(player, ModAdvancementSubProvider.GET_FLIGHT) ?: return
 		completeAdvancement(player, advancement)
 	}
 
 	fun slimyDeathAdvancement(player: ServerPlayer) {
-		val advancement = getAdvancement(player, "guide/trigger_slimy_death") ?: return
+		val advancement = getAdvancement(player, ModAdvancementSubProvider.TRIGGER_SLIMY_DEATH) ?: return
 		completeAdvancement(player, advancement)
 	}
 
 	private fun getCringeGeneAdvancement(player: ServerPlayer) {
-		val advancement = getAdvancement(player, "guide/get_cringe") ?: return
+		val advancement = getAdvancement(player, ModAdvancementSubProvider.GET_CRINGE) ?: return
 		completeAdvancement(player, advancement)
 	}
 
 	private fun getAnyGeneAdvancement(player: ServerPlayer) {
-		val advancement = getAdvancement(player, "guide/get_gene") ?: return
+		val advancement = getAdvancement(player, ModAdvancementSubProvider.GET_GENE) ?: return
 		completeAdvancement(player, advancement)
 	}
 
 	fun getMilkedAdvancement(player: ServerPlayer) {
-		val advancement = getAdvancement(player, "guide/get_milked") ?: return
+		val advancement = getAdvancement(player, ModAdvancementSubProvider.GET_MILKED) ?: return
 		completeAdvancement(player, advancement)
 	}
 
-	fun getAdvancement(player: ServerPlayer, advancementName: String): AdvancementHolder? =
-		player.server.advancements.get(OtherUtil.modResource(advancementName))
+	fun getAdvancement(player: ServerPlayer, advancementId: ResourceLocation): AdvancementHolder? =
+		player.server.advancements.get(advancementId)
 
 }
