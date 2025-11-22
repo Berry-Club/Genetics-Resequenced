@@ -116,6 +116,7 @@ data class GenesData(
 			return true
 		}
 
+		@JvmStatic
 		@OptIn(ExperimentalContracts::class)
 		fun Entity.hasGene(gene: Holder<Gene>): Boolean {
 			contract { returns(true) implies (this@hasGene is LivingEntity) }
@@ -123,6 +124,7 @@ data class GenesData(
 			return this is LivingEntity && gene in this.geneHolders
 		}
 
+		@JvmStatic
 		@OptIn(ExperimentalContracts::class)
 		fun Entity.hasGene(geneKey: ResourceKey<Gene>): Boolean {
 			contract { returns(true) implies (this@hasGene is LivingEntity) }
@@ -130,12 +132,14 @@ data class GenesData(
 			return this is LivingEntity && this.geneHolders.any { it.isGene(geneKey) }
 		}
 
+		@JvmStatic
 		fun LivingEntity.removeAllGenes() {
 			for (gene in this.geneHolders) {
 				this.removeGene(gene)
 			}
 		}
 
+		@JvmStatic
 		fun LivingEntity.addAllGenes(registries: HolderLookup.Provider, includeNegative: Boolean = false) {
 			val genesToAdd =
 				ModGenes.getAllGeneHolders(registries).filter { includeNegative || !it.isNegative }
