@@ -1,10 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.item.DragonHealthCrystal
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
@@ -108,6 +110,24 @@ object DamageGenes {
 	}
 
 	// Triggers
+
+	fun handleWebDefense(event: LivingDamageEvent.Post) {
+		val webDefense = ModGenes.WEB_DEFENSE.getHolderOrThrow(event.entity.registryAccess())
+		if (webDefense.isDisabled) return
+
+		val victim = event.entity
+		if (!victim.hasGene(ModGenes.WEB_DEFENSE)) return
+
+		val attacker = event.source.entity as? LivingEntity ?: return
+		val level = attacker.level()
+
+		if (!level.random.chance(ServerConfig.CONFIG.webDefenseChance.get())) return
+
+		val webPos = attacker.blockPosition()
+		if (level.getBlockState(webPos).canBeReplaced()) {
+			level.setBlockAndUpdate(webPos, ModBlocks.WEB_DEFENSE_BLOCK.get().defaultBlockState())
+		}
+	}
 
 	fun handleWitherHit(event: LivingDamageEvent.Post) {
 		val witherHit = ModGenes.WITHER_HIT.getHolderOrThrow(event.entity.registryAccess())
