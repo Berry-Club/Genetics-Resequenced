@@ -1,3 +1,4 @@
 {
-  "parent": "minecraft:block/cobweb"
+  "parent": "minecraft:block/cobweb",
+  "render_type": "minecraft:cutout"
 }

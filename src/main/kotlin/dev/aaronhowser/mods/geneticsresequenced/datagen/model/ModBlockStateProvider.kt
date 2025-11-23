@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.BioluminescenceBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.CoalGeneratorBlock
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import net.minecraft.client.renderer.RenderType
 import net.minecraft.core.Direction
 import net.minecraft.data.PackOutput
 import net.minecraft.world.level.block.Block
@@ -71,6 +72,7 @@ class ModBlockStateProvider(
 			"web_defense_block",
 			mcLoc("block/cobweb")
 		)
+			.renderType(RenderType.cutout().name)
 
 		simpleBlock(block.get(), model)
 	}
