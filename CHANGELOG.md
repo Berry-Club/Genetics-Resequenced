@@ -1,4 +1,14 @@
-# 1.7.3
+# 1.8.0
+
+### Added
+
+- Web Immunity Gene
+  - Makes you immune to being slowed by Cobwebs
+  - Requires Weaving Gene
+- Web Defense
+  - If you get hit, spawns a temporary Cobweb on your attacker
+  - You are immune to your own temporary Cobwebs
+  - Requires Weaving Gene
 
 ### Changed
 

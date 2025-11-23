@@ -1,4 +1,4 @@
-// 1.21.1	2025-08-02T05:22:51.9134007	Registries
+// 1.21.1	2025-11-23T04:35:06.3041913	Registries
 dcee6810945113d3a8d01fa333e0497b6d77ab70 data/geneticsresequenced/geneticsresequenced/gene/basic.json
 d8fc640c6cb7cca84c03fbc0afbd1d9246c59a8a data/geneticsresequenced/geneticsresequenced/gene/bioluminescence.json
 bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f data/geneticsresequenced/geneticsresequenced/gene/black_death.json
@@ -79,6 +79,8 @@ bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f data/geneticsresequenced/geneticsresequ
 d8fc640c6cb7cca84c03fbc0afbd1d9246c59a8a data/geneticsresequenced/geneticsresequenced/gene/water_breathing.json
 900dc8b57dbec083d6caa59dd8bd26f9e5b52457 data/geneticsresequenced/geneticsresequenced/gene/weakness.json
 3279305ae24204735277e6ba1dd5d7f3ace80c12 data/geneticsresequenced/geneticsresequenced/gene/weaving.json
+78d96ff7ed563fae75ed404ec5e0501ba5f185f1 data/geneticsresequenced/geneticsresequenced/gene/web_defense.json
+4a3c0015877d79a714da5424354b13f2ff556352 data/geneticsresequenced/geneticsresequenced/gene/web_immunity.json
 bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f data/geneticsresequenced/geneticsresequenced/gene/white_death.json
 006ab115bf81bd7f79338ace2169a70bbb600e7c data/geneticsresequenced/geneticsresequenced/gene/wind_charged.json
 d7af655354fe214ccb08bfda273c872cfe3cf932 data/geneticsresequenced/geneticsresequenced/gene/wither.json

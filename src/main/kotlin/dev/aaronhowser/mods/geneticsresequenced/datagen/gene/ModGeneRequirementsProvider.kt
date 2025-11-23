@@ -54,5 +54,7 @@ class ModGeneRequirementsProvider(
 		addRequirements(ModGenes.SPEED_TWO, ModGenes.SPEED)
 		addRequirements(ModGenes.STRENGTH_TWO, ModGenes.STRENGTH)
 		addRequirements(ModGenes.LAVA_PROOF, ModGenes.FIRE_PROOF)
+		addRequirements(ModGenes.WEB_IMMUNITY, ModGenes.WEAVING)
+		addRequirements(ModGenes.WEB_DEFENSE, ModGenes.WEAVING)
 	}
 }

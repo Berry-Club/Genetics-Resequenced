@@ -1,0 +1,6 @@
+{
+  "gene": "geneticsresequenced:web_immunity",
+  "requirements": [
+    "geneticsresequenced:weaving"
+  ]
+}
