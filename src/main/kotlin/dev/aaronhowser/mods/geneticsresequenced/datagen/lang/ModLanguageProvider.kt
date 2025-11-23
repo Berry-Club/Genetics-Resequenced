@@ -35,7 +35,9 @@ class ModLanguageProvider(
 		addEffect(ModEffects.PANACEA, "Panacea")
 		addEffect(ModEffects.ZOMBIFY_VILLAGER, "Zombify Villager")
 
+		addBlock(ModBlocks.ANTI_FIELD_BLOCK, "Anti-Field Block")
 		addBlock(ModBlocks.BIOLUMINESCENCE_BLOCK, "Bioluminescence Glow")
+		addBlock(ModBlocks.WEB_DEFENSE_BLOCK, "Web Defense Cobweb")
 		addBlock(ModBlocks.CELL_ANALYZER, "Cell Analyzer")
 		addBlock(ModBlocks.COAL_GENERATOR, "Coal Generator")
 		addBlock(ModBlocks.DNA_DECRYPTOR, "DNA Decryptor")
@@ -45,7 +47,6 @@ class ModLanguageProvider(
 		addBlock(ModBlocks.ADVANCED_INCUBATOR, "Advanced Incubator")
 		addBlock(ModBlocks.PLASMID_INFUSER, "Plasmid Infuser")
 		addBlock(ModBlocks.PLASMID_INJECTOR, "Plasmid Injector")
-		addBlock(ModBlocks.ANTI_FIELD_BLOCK, "Anti-Field Block")
 
 		add(Commands.LIST_ALL_GENES, "Gene List:\n")
 		add(Commands.NO_GENES, "No Genes found!")
