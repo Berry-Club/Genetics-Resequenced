@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.event
 
+import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.entity.client.SupportSlimeRenderer
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
@@ -21,6 +23,8 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.model.HumanoidModel
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.item.ItemProperties
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.neoforged.api.distmarker.Dist
@@ -28,6 +32,8 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.client.event.*
+import net.neoforged.neoforge.client.extensions.common.IClientMobEffectExtensions
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 
 @EventBusSubscriber(
@@ -135,6 +141,26 @@ object ClientEvents {
 		if (OtherGenes.shouldClingToCeiling(event.entity)) {
 			event.poseStack.popPose()
 		}
+	}
+
+	@SubscribeEvent
+	fun onRegisterClientExtensions(event: RegisterClientExtensionsEvent) {
+
+		for (effect in BuiltInRegistries.MOB_EFFECT) {
+			val extension = object : IClientMobEffectExtensions {
+				override fun isVisibleInInventory(instance: MobEffectInstance): Boolean {
+					val player = AaronClientUtil.localPlayer ?: return true
+					val playerGenes = player.geneHolders
+
+					return playerGenes.any { geneHolder ->
+						geneHolder.value().getPotion()
+					}
+				}
+			}
+
+			event.registerMobEffect(extension, effect)
+		}
+
 	}
 
 }
