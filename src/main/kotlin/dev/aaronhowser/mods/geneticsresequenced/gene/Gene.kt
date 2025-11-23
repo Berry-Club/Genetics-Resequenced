@@ -39,15 +39,26 @@ import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.neoforged.neoforge.registries.holdersets.AnyHolderSet
 import java.util.*
-import kotlin.jvm.optionals.getOrNull
 
 data class Gene(
 	val dnaPointsRequired: Int,
 	val allowedEntities: HolderSet<EntityType<*>>,
-	val potionDetails: Optional<PotionDetails>,
+	val potionDetails: List<PotionDetails>,
 	val attributeModifiers: List<AttributeEntry>,
 	val scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>>
 ) {
+
+	val potions: List<MobEffectInstance> =
+		potionDetails.map { potionDetails ->
+			MobEffectInstance(
+				potionDetails.effect,
+				potionDetails.duration,
+				potionDetails.level - 1,
+				true,
+				false,
+				potionDetails.showIcon
+			)
+		}
 
 	val allowsMobs = this.allowedEntities.any { it.value() != EntityType.PLAYER }
 
@@ -57,19 +68,6 @@ data class Gene(
 
 	fun canEntityTypeHave(entityType: EntityType<*>): Boolean {
 		return this.allowedEntities.map(Holder<EntityType<*>>::value).contains(entityType)
-	}
-
-	fun getPotion(): MobEffectInstance? {
-		val potionDetails = this.potionDetails.getOrNull() ?: return null
-
-		return MobEffectInstance(
-			potionDetails.effect,
-			potionDetails.duration,
-			potionDetails.level - 1,
-			true,
-			false,
-			potionDetails.showIcon
-		)
 	}
 
 	fun setAttributeModifiers(livingEntity: LivingEntity, isAdding: Boolean) {
@@ -253,8 +251,8 @@ data class Gene(
 							DEFAULT_ALLOWED_ENTITIES
 						)
 						.forGetter(Gene::allowedEntities),
-					PotionDetails.DIRECT_CODEC
-						.optionalFieldOf("potion_details")
+					PotionDetails.DIRECT_CODEC.listOf()
+						.optionalFieldOf("potion_details", emptyList())
 						.forGetter(Gene::potionDetails),
 					AttributeEntry.DIRECT_CODEC.listOf()
 						.optionalFieldOf("attribute_modifiers", emptyList())
@@ -268,7 +266,7 @@ data class Gene(
 		val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Gene> = StreamCodec.composite(
 			ByteBufCodecs.INT, Gene::dnaPointsRequired,
 			ByteBufCodecs.holderSet(Registries.ENTITY_TYPE), Gene::allowedEntities,
-			ByteBufCodecs.optional(PotionDetails.DIRECT_STREAM_CODEC), Gene::potionDetails,
+			PotionDetails.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::potionDetails,
 			AttributeEntry.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::attributeModifiers,
 			ByteBufCodecs.optional(AaronExtraCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE)), Gene::scaresEntitiesWithTag,
 			::Gene

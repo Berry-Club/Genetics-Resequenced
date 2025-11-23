@@ -1,5 +1,7 @@
 {
-	"potion_details": {
-		"effect": "minecraft:nausea"
-	}
+  "potion_details": [
+    {
+      "effect": "minecraft:nausea"
+    }
+  ]
 }

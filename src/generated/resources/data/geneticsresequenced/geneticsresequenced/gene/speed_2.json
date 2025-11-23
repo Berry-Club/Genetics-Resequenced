@@ -1,7 +1,9 @@
 {
-	"dna_points_required": 50,
-	"potion_details": {
-		"effect": "minecraft:speed",
-		"level": 2
-	}
+  "dna_points_required": 50,
+  "potion_details": [
+    {
+      "effect": "minecraft:speed",
+      "level": 2
+    }
+  ]
 }

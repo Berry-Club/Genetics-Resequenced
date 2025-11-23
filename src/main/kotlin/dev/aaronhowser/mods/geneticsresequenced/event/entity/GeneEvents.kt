@@ -35,7 +35,7 @@ object GeneEvents {
 
 		geneHolder.value().setAttributeModifiers(livingEntity, wasAdded)
 
-		if (!wasAdded && geneHolder.value().getPotion() != null) {
+		if (!wasAdded && geneHolder.value().potions.isNotEmpty()) {
 			TickGenes.handlePotionGeneRemoved(livingEntity, geneHolder)
 		}
 

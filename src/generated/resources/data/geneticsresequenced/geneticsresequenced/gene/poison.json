@@ -1,5 +1,7 @@
 {
-	"potion_details": {
-		"effect": "minecraft:poison"
-	}
+  "potion_details": [
+    {
+      "effect": "minecraft:poison"
+    }
+  ]
 }

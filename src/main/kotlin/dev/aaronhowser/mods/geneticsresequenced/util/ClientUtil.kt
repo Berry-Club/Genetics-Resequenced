@@ -20,7 +20,6 @@ import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.player.PlayerModelPart
-import kotlin.jvm.optionals.getOrNull
 
 object ClientUtil {
 
@@ -181,12 +180,14 @@ object ClientUtil {
 		val playerGeneHolders = localPlayer.geneHolders
 
 		for (geneHolder in playerGeneHolders) {
-			val genePotion = geneHolder.value().potionDetails.getOrNull() ?: continue
+			val genePotions = geneHolder.value().potionDetails
 
-			if (genePotion.effect == mobEffectInstance.effect
-				&& (genePotion.level - 1) >= mobEffectInstance.amplifier
-			) {
-				return true
+			for (potionDetail in genePotions) {
+				if (potionDetail.effect == mobEffectInstance.effect
+					&& (potionDetail.level - 1) >= mobEffectInstance.amplifier
+				) {
+					return true
+				}
 			}
 		}
 

@@ -1,5 +1,7 @@
 {
-	"potion_details": {
-		"effect": "minecraft:wither"
-	}
+  "potion_details": [
+    {
+      "effect": "minecraft:wither"
+    }
+  ]
 }

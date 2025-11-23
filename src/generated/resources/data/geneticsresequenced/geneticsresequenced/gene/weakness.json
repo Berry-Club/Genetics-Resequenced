@@ -1,5 +1,7 @@
 {
-	"potion_details": {
-		"effect": "minecraft:weakness"
-	}
+  "potion_details": [
+    {
+      "effect": "minecraft:weakness"
+    }
+  ]
 }

@@ -1,5 +1,7 @@
 {
-	"potion_details": {
-		"effect": "minecraft:unluck"
-	}
+  "potion_details": [
+    {
+      "effect": "minecraft:unluck"
+    }
+  ]
 }

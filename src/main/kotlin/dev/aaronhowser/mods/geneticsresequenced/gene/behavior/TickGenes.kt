@@ -24,7 +24,6 @@ import net.minecraft.resources.ResourceKey
 import net.minecraft.tags.EntityTypeTags
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.damagesource.DamageType
-import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.*
 import net.minecraft.world.entity.item.ItemEntity
@@ -123,7 +122,7 @@ object TickGenes {
 		for (geneHolder in geneHolders) {
 			if (geneHolder.isDisabled) continue
 
-			if (geneHolder.value().getPotion() != null) potionGenes.add(geneHolder)
+			if (geneHolder.value().potions.isNotEmpty()) potionGenes.add(geneHolder)
 
 			when {
 				geneHolder.isGene(ModGenes.WATER_BREATHING) -> entity.airSupply = entity.maxAirSupply
@@ -184,29 +183,38 @@ object TickGenes {
 		ModGenes.SLOWNESS_SIX to listOf(ModGenes.SLOWNESS, ModGenes.SLOWNESS_FOUR)
 	)
 
-	private fun handlePotionGenes(entity: LivingEntity, potionGenes: MutableList<Holder<Gene>>) {
-		if (potionGenes.isEmpty()) return
+	private fun handlePotionGenes(entity: LivingEntity, genesWithPotions: MutableList<Holder<Gene>>) {
+		if (genesWithPotions.isEmpty()) return
 
 		val genesToSkip = mutableListOf<ResourceKey<Gene>>()
 
-		for (geneHolder in potionGenes.toList()) {
+		for (geneHolder in genesWithPotions.toList()) {
 			GENE_INFERIORITY_MAP[geneHolder.key]?.let { redundantGenes ->
 				genesToSkip.addAll(redundantGenes)
 			}
 		}
 
-		potionGenes.removeAll(genesToSkip.map { it.getHolderOrThrow(entity.registryAccess()) })
+		genesWithPotions.removeAll(genesToSkip.map { it.getHolderOrThrow(entity.registryAccess()) })
 
-		for (geneHolder in potionGenes) {
-			val potion = geneHolder.value().getPotion() ?: continue
-			entity.removeEffect(potion.effect)
-			entity.addEffect(potion)
+		for (geneHolder in genesWithPotions) {
+			for (genePotion in geneHolder.value().potions) {
+				val existingEffect = entity.getEffect(genePotion.effect)
+				if (existingEffect != null && existingEffect.amplifier >= genePotion.amplifier) continue
+
+				entity.removeEffect(genePotion.effect)
+				entity.addEffect(genePotion)
+			}
 		}
 	}
 
 	fun handlePotionGeneRemoved(entity: LivingEntity, removedGene: Holder<Gene>) {
-		val potion = removedGene.value().getPotion() ?: return
-		entity.removeEffect(potion.effect)
+		val genePotions = removedGene.value().potions
+		for (genePotion in genePotions) {
+			val existingEffect = entity.getEffect(genePotion.effect) ?: continue
+			if (existingEffect.amplifier != genePotion.amplifier) continue
+
+			entity.removeEffect(genePotion.effect)
+		}
 	}
 
 	private val RECENTLY_MEATED_TWO = GeneCooldown(
