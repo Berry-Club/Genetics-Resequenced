@@ -17,6 +17,8 @@ object ModBlocks : AaronBlockRegistry() {
 		registerBlock("bioluminescence", ::BioluminescenceBlock)
 	val ANTI_FIELD_BLOCK: DeferredBlock<AntiFieldBlock> =
 		registerBlock("anti_field_block", ::AntiFieldBlock)
+	val WEB_DEFENSE_BLOCK: DeferredBlock<WebDefenseBlock> =
+		registerBlock("web_defense_block", ::WebDefenseBlock)
 
 	val COAL_GENERATOR: DeferredBlock<CoalGeneratorBlock> =
 		registerBlock("coal_generator", ::CoalGeneratorBlock)

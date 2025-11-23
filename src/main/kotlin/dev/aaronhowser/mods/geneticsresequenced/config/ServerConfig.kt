@@ -23,6 +23,7 @@ class ServerConfig(
 
 	lateinit var bioluminescenceCooldown: ModConfigSpec.IntValue
 	lateinit var bioluminescenceDuration: ModConfigSpec.IntValue
+	lateinit var webDefenseDuration: ModConfigSpec.IntValue
 	lateinit var clawsChance: ModConfigSpec.DoubleValue
 	lateinit var clawsDamage: ModConfigSpec.DoubleValue
 	lateinit var chillChance: ModConfigSpec.DoubleValue
@@ -128,6 +129,10 @@ class ServerConfig(
 		bioluminescenceCooldown = builder
 			.comment("How often entities with the Bioluminescence gene should emit light (in ticks)")
 			.defineInRange("bioluminescenceCooldown", 10, 1, Int.MAX_VALUE)
+
+		webDefenseDuration = builder
+			.comment("How long should webs placed by the Web Defense gene last (in ticks)")
+			.defineInRange("webDefenseDuration", 20 * 4, 1, Int.MAX_VALUE)
 
 		eggCooldown = builder
 			.comment("How many ticks to wait before someone with the Lay Egg gene lays an egg again")
