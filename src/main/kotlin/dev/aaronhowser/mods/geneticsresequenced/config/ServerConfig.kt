@@ -37,7 +37,6 @@ class ServerConfig(
 	lateinit var meatyCooldown: ModConfigSpec.IntValue
 	lateinit var meaty2Cooldown: ModConfigSpec.IntValue
 	lateinit var milkyCooldown: ModConfigSpec.IntValue
-	lateinit var mobSightCooldown: ModConfigSpec.IntValue
 	lateinit var mobSightRadius: ModConfigSpec.DoubleValue
 	lateinit var noHungerCooldown: ModConfigSpec.IntValue
 	lateinit var noHungerMinimum: ModConfigSpec.IntValue
@@ -184,10 +183,6 @@ class ServerConfig(
 		mobSightRadius = builder
 			.comment("How far from the player should Mob Sight detect entities (in blocks)")
 			.defineInRange("mobSightRadius", 32.0, 1.0, Double.MAX_VALUE)
-		mobSightCooldown = builder
-			.comment("How often should the Mob Sight gene check for entities (in ticks)")
-			.defineInRange("mobSightCooldown", 20 * 1, 1, Int.MAX_VALUE)
-
 		noHungerCooldown = builder
 			.comment("How often should the No Hunger gene check to reset hunger (in ticks)")
 			.defineInRange("noHungerCooldown", 20 * 4, 1, Int.MAX_VALUE)

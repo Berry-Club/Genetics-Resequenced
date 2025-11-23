@@ -29,7 +29,6 @@ object OtherPlayerEvents {
 	@SubscribeEvent
 	fun onPlayerTick(event: PlayerTickEvent.Pre) {
 		TickGenes.handleNoHunger(event.entity)
-		TickGenes.handleMobSight(event.entity)
 		OtherGenes.handleWallClimbing(event.entity)     // Requires clientside handling
 		TickGenes.handleItemMagnet(event.entity)
 		TickGenes.handleXpMagnet(event.entity)

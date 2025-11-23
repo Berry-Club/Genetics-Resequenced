@@ -255,30 +255,6 @@ object TickGenes {
 		entity.level().addFreshEntity(eggEntity)
 	}
 
-	fun handleMobSight(entity: Player) {
-		val mobSight = ModGenes.MOB_SIGHT.getHolderOrThrow(entity.registryAccess())
-
-		if (mobSight.isDisabled) return
-		if (entity.tickCount % ServerConfig.CONFIG.mobSightCooldown.get() != 0) return
-
-		if (!entity.hasGene(ModGenes.MOB_SIGHT)) return
-
-		val searchArea = entity.boundingBox.inflate(ServerConfig.CONFIG.mobSightRadius.get())
-		val nearbyLivingEntities = entity.level().getEntities(entity, searchArea).filterIsInstance<Mob>()
-
-		val glowingEffect = MobEffectInstance(
-			MobEffects.GLOWING,
-			maxOf(ServerConfig.CONFIG.mobSightCooldown.get() * 4, 20 * 30),
-			0,
-			false,
-			false
-		)
-
-		nearbyLivingEntities.forEach {
-			it.addEffect(glowingEffect)
-		}
-	}
-
 	fun handleItemMagnet(player: Player) {
 		val itemMagnet = ModGenes.ITEM_MAGNET.getHolderOrThrow(player.registryAccess())
 		if (itemMagnet.isDisabled) return

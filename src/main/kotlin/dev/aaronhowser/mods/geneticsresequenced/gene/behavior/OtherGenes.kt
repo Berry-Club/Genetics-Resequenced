@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -223,6 +225,21 @@ object OtherGenes {
 		return positions.anyMatch {
 			!level.getBlockState(it).getCollisionShape(level, it).isEmpty
 		}
+	}
+
+
+	@JvmStatic
+	fun shouldMobGlowFromMobSight(entityToGlow: LivingEntity): Boolean {
+		val level = entityToGlow.level()
+		if (level.isServerSide) return false
+
+		val mobSight = ModGenes.MOB_SIGHT.getHolderOrThrow(entityToGlow.registryAccess())
+		if (mobSight.isDisabled) return false
+
+		val localPlayer = AaronClientUtil.localPlayer ?: return false
+		if (!localPlayer.hasGene(ModGenes.MOB_SIGHT)) return false
+
+		return entityToGlow.position().closerThan(localPlayer.position(), ServerConfig.CONFIG.mobSightRadius.get())
 	}
 
 }
