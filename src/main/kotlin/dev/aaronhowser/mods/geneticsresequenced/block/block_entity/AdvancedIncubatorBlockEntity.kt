@@ -227,7 +227,7 @@ class AdvancedIncubatorBlockEntity(
 		val chorusBoost = chorusUsed * chanceIncreasePerChorus
 		val finalChance = reducedChance + chorusBoost
 
-		return if (level.random.chance(finalChance.toDouble())) {
+		return if (level.random.chance(finalChance)) {
 			gmoRecipe.assemble(input, level.registryAccess())
 		} else {
 			gmoRecipe.getFailure(level.registryAccess())
