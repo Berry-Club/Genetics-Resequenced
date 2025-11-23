@@ -1,4 +1,4 @@
-// 1.21.1	2025-11-23T06:14:13.583705	Loot Tables
+// 1.21.1	2025-11-23T06:23:16.2794893	Loot Tables
 f0baf8cb8b0772ed4a50bd547d04b34adbad6196 data/geneticsresequenced/loot_table/blocks/advanced_incubator.json
 a46035cf1c7bcd53943be9b7964603d1b7e6e907 data/geneticsresequenced/loot_table/blocks/anti_field_block.json
 de661eb698b439e53cdfa91eecc2181b237b4c72 data/geneticsresequenced/loot_table/blocks/blood_purifier.json
@@ -9,4 +9,4 @@ f3a6898458c8eb31dee9673ab29f4283a223af14 data/geneticsresequenced/loot_table/blo
 edee0e93cf2ac59a883cd7a1c5e8739299d343b0 data/geneticsresequenced/loot_table/blocks/incubator.json
 f86c82cebf911caebe4505011ea7f88f8cec25b5 data/geneticsresequenced/loot_table/blocks/plasmid_infuser.json
 cc4954220a4b13ec9a6dcd3baa5041f0983b5302 data/geneticsresequenced/loot_table/blocks/plasmid_injector.json
-77ee6eb0800ff76faed313d738501064c6f1498e data/geneticsresequenced/loot_table/blocks/web_defense_block.json
+2ff67b868d9ce5fe4ebe4fb5a12520343af0b35c data/geneticsresequenced/loot_table/blocks/web_defense_block.json
