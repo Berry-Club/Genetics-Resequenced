@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.SetGenesPacket
@@ -120,6 +120,7 @@ data class GenesData(
 		@OptIn(ExperimentalContracts::class)
 		fun Entity.hasGene(gene: Holder<Gene>): Boolean {
 			contract { returns(true) implies (this@hasGene is LivingEntity) }
+			if (gene.isDisabled) return false
 
 			return this is LivingEntity && gene in this.geneHolders
 		}
@@ -129,7 +130,8 @@ data class GenesData(
 		fun Entity.hasGene(geneKey: ResourceKey<Gene>): Boolean {
 			contract { returns(true) implies (this@hasGene is LivingEntity) }
 
-			return this is LivingEntity && this.geneHolders.any { it.isGene(geneKey) }
+			val holder = ModGenes.fromResourceKey(registryAccess(), geneKey) ?: return false
+			return this.hasGene(holder)
 		}
 
 		@JvmStatic
