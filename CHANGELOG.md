@@ -12,6 +12,9 @@
 
 ### Changed
 
+- Mob Effects given by Genes will now not be shown in the player's inventory screen
+  - That was annoying because Genes are permanent, so the effects would always be there
+  - I noticed that this doesn't work with EMI currently, it might not work with some other things that change how potion effects render in the inventory either
 - Changed some advancement types to be challenge or goal
 - Weaving, Wind Charged, and Oozing are no longer considered negative genes
 - Genes can now have multiple potions instead of just 0 or 1 (#75)
