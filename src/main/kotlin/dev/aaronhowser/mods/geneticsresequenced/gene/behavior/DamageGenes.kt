@@ -166,7 +166,7 @@ object DamageGenes {
 
 		if (!target.hasGene(ModGenes.THORNS)) return
 
-		if (target.level().random.nextDouble() > ServerConfig.CONFIG.thornsChance.get()) return
+		if (!target.random.chance(ServerConfig.CONFIG.thornsChance.get())) return
 
 		val thornsDamageSource = target.level().damageSources().thorns(target)
 		attacker.hurt(thornsDamageSource, ServerConfig.CONFIG.thornsDamage.get().toFloat())
@@ -194,8 +194,7 @@ object DamageGenes {
 		}
 
 		val chanceOfHappening = ServerConfig.CONFIG.clawsChance.get() * clawsLevel
-
-		if (attacker.level().random.nextDouble() > chanceOfHappening) return
+		if (!attacker.random.chance(chanceOfHappening)) return
 
 		event.entity.addEffect(
 			MobEffectInstance(
@@ -219,7 +218,7 @@ object DamageGenes {
 		val attacker = event.source.entity as? LivingEntity ?: return
 		if (!attacker.hasGene(ModGenes.CHILLING)) return
 
-		if (attacker.level().random.nextDouble() > ServerConfig.CONFIG.chillChance.get()) return
+		if (!attacker.random.chance(ServerConfig.CONFIG.chillChance.get())) return
 
 		val target = event.entity
 		target.ticksFrozen = ServerConfig.CONFIG.chillDuration.get()
