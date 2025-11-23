@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
@@ -226,9 +227,7 @@ class AdvancedIncubatorBlockEntity(
 		val chorusBoost = chorusUsed * chanceIncreasePerChorus
 		val finalChance = reducedChance + chorusBoost
 
-		val nextFloat = level.random.nextFloat()
-
-		return if (nextFloat <= finalChance) {
+		return if (level.random.chance(finalChance.toDouble())) {
 			gmoRecipe.assemble(input, level.registryAccess())
 		} else {
 			gmoRecipe.getFailure(level.registryAccess())
