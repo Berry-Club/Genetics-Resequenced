@@ -14,6 +14,9 @@
 
 - Changed some advancement types to be challenge or goal
 - Weaving, Wind Charged, and Oozing are no longer considered negative genes
+- Genes can now have multiple potions instead of just 0 or 1 (#75)
+  - It now uses a List<PotionDetails> rather than an Optional<PotionDetails>
+  - Pack devs that have custom Genes will have to update to match this change, if they use potions
 
 ### Fixed
 
