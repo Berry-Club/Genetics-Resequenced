@@ -13,6 +13,7 @@
 ### Changed
 
 - Changed some advancement types to be challenge or goal
+- Weaving, Wind Charged, and Oozing are no longer considered negative genes
 
 ### Fixed
 
