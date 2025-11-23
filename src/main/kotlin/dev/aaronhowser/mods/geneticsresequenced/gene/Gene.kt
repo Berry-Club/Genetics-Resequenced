@@ -56,7 +56,7 @@ data class Gene(
 	}
 
 	fun canEntityTypeHave(entityType: EntityType<*>): Boolean {
-		return this.allowedEntities.map { it.value() }.contains(entityType)
+		return this.allowedEntities.map(Holder<EntityType<*>>::value).contains(entityType)
 	}
 
 	fun getPotion(): MobEffectInstance? {
