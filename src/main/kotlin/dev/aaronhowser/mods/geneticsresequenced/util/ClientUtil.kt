@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.status
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
@@ -17,7 +18,9 @@ import net.minecraft.client.Options
 import net.minecraft.core.RegistryAccess
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
+import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.player.PlayerModelPart
+import kotlin.jvm.optionals.getOrNull
 
 object ClientUtil {
 
@@ -170,7 +173,24 @@ object ClientUtil {
 				GeneticsResequenced.LOGGER.warn("Tried to reload resources, but it would have caused a concurrency error!")
 			}
 		}
+	}
 
+	@JvmStatic
+	fun shouldHidePotionInInventory(mobEffectInstance: MobEffectInstance): Boolean {
+		val localPlayer = AaronClientUtil.localPlayer ?: return false
+		val playerGeneHolders = localPlayer.geneHolders
+
+		for (geneHolder in playerGeneHolders) {
+			val genePotion = geneHolder.value().potionDetails.getOrNull() ?: continue
+
+			if (genePotion.effect == mobEffectInstance.effect
+				&& (genePotion.level - 1) >= mobEffectInstance.amplifier
+			) {
+				return true
+			}
+		}
+
+		return false
 	}
 
 }
