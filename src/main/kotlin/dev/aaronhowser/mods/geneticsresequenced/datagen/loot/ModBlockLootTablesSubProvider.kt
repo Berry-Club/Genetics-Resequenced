@@ -30,7 +30,7 @@ class ModBlockLootTablesSubProvider(
 		}
 
 		val noDrop = listOf(
-			ModBlocks.WEB_DEFENSE_BLOCK.get()
+			ModBlocks.WEB_DEFENSE_BLOCK.get(),
 		)
 
 		for (block in noDrop) {
@@ -39,7 +39,9 @@ class ModBlockLootTablesSubProvider(
 	}
 
 	override fun getKnownBlocks(): List<Block> {
-		return ModBlocks.BLOCK_REGISTRY.entries.map(DeferredHolder<Block, out Block>::get)
+		return ModBlocks.BLOCK_REGISTRY
+			.entries
+			.map(DeferredHolder<Block, out Block>::get)
 	}
 
 }
