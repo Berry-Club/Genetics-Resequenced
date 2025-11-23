@@ -13,12 +13,12 @@ object ModBlocks : AaronBlockRegistry() {
 	override fun getBlockRegistry(): DeferredRegister.Blocks = BLOCK_REGISTRY
 	override fun getItemRegistry(): DeferredRegister.Items = ModItems.ITEM_REGISTRY
 
-	val BIOLUMINESCENCE_BLOCK: DeferredBlock<BioluminescenceBlock> =
-		registerBlock("bioluminescence", ::BioluminescenceBlock)
 	val ANTI_FIELD_BLOCK: DeferredBlock<AntiFieldBlock> =
 		registerBlock("anti_field_block", ::AntiFieldBlock)
+	val BIOLUMINESCENCE_BLOCK: DeferredBlock<BioluminescenceBlock> =
+		registerBlockWithoutItem("bioluminescence", ::BioluminescenceBlock)
 	val WEB_DEFENSE_BLOCK: DeferredBlock<WebDefenseBlock> =
-		registerBlock("web_defense_block", ::WebDefenseBlock)
+		registerBlockWithoutItem("web_defense_block", ::WebDefenseBlock)
 
 	val COAL_GENERATOR: DeferredBlock<CoalGeneratorBlock> =
 		registerBlock("coal_generator", ::CoalGeneratorBlock)

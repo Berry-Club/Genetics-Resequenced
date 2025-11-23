@@ -14,7 +14,15 @@ class ModBlockLootTablesSubProvider(
 		for (block in knownBlocks) {
 			dropSelf(block)
 		}
+
+//		for (block in noDropBlocks) {
+//			add(block, noDrop())
+//		}
 	}
+
+	private val noDropBlocks = setOf(
+		ModBlocks.BIOLUMINESCENCE_BLOCK.get()
+	)
 
 	override fun getKnownBlocks(): List<Block> {
 		return ModBlocks.BLOCK_REGISTRY.entries.map { it.get() } - ModBlocks.BIOLUMINESCENCE_BLOCK.get()

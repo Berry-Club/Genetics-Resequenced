@@ -23,6 +23,7 @@ class ModBlockStateProvider(
 	override fun registerStatesAndModels() {
 		antiFieldBlock()
 		bioluminescence()
+		webDefense()
 
 		coalGenerator()
 		frontFacingBlock(ModBlocks.CELL_ANALYZER, "cell_analyzer", "block/cell_analyzer_front")
@@ -33,7 +34,6 @@ class ModBlockStateProvider(
 		frontFacingBlock(ModBlocks.PLASMID_INJECTOR, "plasmid_injector", "block/plasmid_injector_front")
 		frontFacingBlock(ModBlocks.INCUBATOR, "incubator", "block/incubator_front")
 		frontFacingBlock(ModBlocks.ADVANCED_INCUBATOR, "advanced_incubator", "block/incubator_front")
-
 	}
 
 	private fun antiFieldBlock() {
@@ -62,6 +62,17 @@ class ModBlockStateProvider(
 				existingFileHelper
 			)
 		)
+	}
+
+	private fun webDefense() {
+		val block = ModBlocks.WEB_DEFENSE_BLOCK
+
+		val model = models().withExistingParent(
+			"web_defense_block",
+			mcLoc("block/cobweb")
+		)
+
+		simpleBlock(block.get(), model)
 	}
 
 	private fun bioluminescence() {
