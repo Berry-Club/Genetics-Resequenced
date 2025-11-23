@@ -4,6 +4,11 @@
 
 - Changed some advancement types to be challenge or goal
 
+### Fixed
+
+- Mob Sight no longer works by giving nearby mobs the Glowing effect
+  - Now the mod uses a mixin on LivingEntity#isCurrentlyGlowing, on the client, checking if the client player has the Gene and the mob isn't too far away
+
 # 1.7.2
 
 ### Fixed
