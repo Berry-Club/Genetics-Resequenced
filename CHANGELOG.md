@@ -1,3 +1,10 @@
+# 1.8.1
+
+### Fixed
+
+- The change in 1.8.0 no longer applies to potions that are marked as `show_icon: true` in the Gene
+  - No default genes have that set, but just in case 🤷
+
 # 1.8.0
 
 ### Added

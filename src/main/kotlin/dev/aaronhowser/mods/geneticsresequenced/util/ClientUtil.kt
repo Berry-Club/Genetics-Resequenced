@@ -183,6 +183,8 @@ object ClientUtil {
 			val genePotions = geneHolder.value().potionDetails
 
 			for (potionDetail in genePotions) {
+				if (potionDetail.showIcon) continue
+
 				if (potionDetail.effect == mobEffectInstance.effect
 					&& (potionDetail.level - 1) >= mobEffectInstance.amplifier
 				) {
