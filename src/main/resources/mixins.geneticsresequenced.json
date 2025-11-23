@@ -3,12 +3,12 @@
 	"minVersion": "0.8",
 	"package": "dev.aaronhowser.mods.geneticsresequenced.mixin",
 	"mixins": [
-		"LivingEntityMixin"
+		"LivingEntityMixin",
+		"ClientHooksMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1
 	},
 	"client": [
-		"ClientHooksMixin"
 	]
 }

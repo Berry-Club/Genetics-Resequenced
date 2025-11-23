@@ -15,7 +15,11 @@ public abstract class ClientHooksMixin {
 			at = @At("RETURN")
 	)
 	private static boolean geneticsresequenced$hideGenePotions(boolean original, MobEffectInstance effectInstance) {
-		return original || ClientUtil.shouldHidePotionInInventory(effectInstance);
+		if (original) {
+			return !ClientUtil.shouldHidePotionInInventory(effectInstance);
+		} else {
+			return false;
+		}
 	}
 
 }
