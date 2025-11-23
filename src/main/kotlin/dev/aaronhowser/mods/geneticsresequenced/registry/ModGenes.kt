@@ -167,7 +167,7 @@ object ModGenes {
 	@JvmField val WEAVING = resourceKey("weaving")
 	@JvmField val WEAKNESS = resourceKey("weakness")
 	@JvmField val WEB_DEFENSE = resourceKey("web_defense")
-	@JvmField val WEB_IMMUNITY = resourceKey("web_immunity")
+	@JvmField val WEB_WALKER = resourceKey("web_walker")
 	@JvmField val WIND_CHARGED = resourceKey("wind_charged")
 	@JvmField val WITHER = resourceKey("wither")
 

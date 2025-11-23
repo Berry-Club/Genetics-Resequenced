@@ -2,7 +2,7 @@
 
 ### Added
 
-- Web Immunity Gene
+- Web Walker
   - Makes you immune to being slowed by Cobwebs
   - Requires Weaving Gene
 - Web Defense

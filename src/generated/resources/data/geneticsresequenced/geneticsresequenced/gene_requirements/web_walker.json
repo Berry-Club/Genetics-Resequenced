@@ -1,5 +1,5 @@
 {
-  "gene": "geneticsresequenced:web_immunity",
+  "gene": "geneticsresequenced:web_walker",
   "requirements": [
     "geneticsresequenced:weaving"
   ]

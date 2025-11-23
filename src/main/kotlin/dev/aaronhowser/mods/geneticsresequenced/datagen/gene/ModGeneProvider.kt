@@ -819,7 +819,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 			)
 
 			context.register(
-				ModGenes.WEB_IMMUNITY,
+				ModGenes.WEB_WALKER,
 				makeGene(
 					dnaPointsRequired = 15
 				)

@@ -18,6 +18,8 @@ import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Pose
 import net.minecraft.world.entity.player.Player
+import net.minecraft.world.level.block.Blocks
+import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.AABB
 import net.neoforged.neoforge.event.ServerChatEvent
 import kotlin.random.Random
@@ -240,6 +242,20 @@ object OtherGenes {
 		if (!localPlayer.hasGene(ModGenes.MOB_SIGHT)) return false
 
 		return entityToGlow.position().closerThan(localPlayer.position(), ServerConfig.CONFIG.mobSightRadius.get())
+	}
+
+	@JvmStatic
+	fun shouldNegateSlownessFromBlock(livingEntity: LivingEntity, state: BlockState): Boolean {
+		if (state.`is`(Blocks.COBWEB)) {
+			val webWalker = ModGenes.WEB_WALKER.getHolderOrThrow(livingEntity.registryAccess())
+			if (webWalker.isDisabled) return false
+
+			if (livingEntity.hasGene(ModGenes.WEB_WALKER)) {
+				return true
+			}
+		}
+
+		return false
 	}
 
 }
