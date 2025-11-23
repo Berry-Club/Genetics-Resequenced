@@ -102,7 +102,6 @@ object GeneEvents {
 		}
 
 		val packet = GeneChangedPacket(entity.id, changedGene, wasAdded)
-
 		packet.messageAllPlayers()
 	}
 

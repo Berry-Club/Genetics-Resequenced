@@ -41,7 +41,6 @@ data class GenesData(
 			if (player !is ServerPlayer) return
 
 			val packet = SetGenesPacket(player.id, player.geneHolders)
-
 			packet.messagePlayer(player)
 		}
 

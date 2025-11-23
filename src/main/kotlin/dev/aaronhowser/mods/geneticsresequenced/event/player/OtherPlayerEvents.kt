@@ -79,7 +79,6 @@ object OtherPlayerEvents {
 		val entity = event.target as? LivingEntity ?: return
 
 		val packet = SetGenesPacket(entity.id, entity.geneHolders)
-
 		packet.messagePlayer(player)
 	}
 

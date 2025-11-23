@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 
-import dev.aaronhowser.mods.aaron.packet.ModPacket
+import dev.aaronhowser.mods.aaron.packet.AaronPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
@@ -11,7 +11,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 
 data class ShearedPacket(
 	val removingSkin: Boolean
-) : ModPacket() {
+) : AaronPacket() {
 
 	override fun handleOnClient(context: IPayloadContext) {
 		if (this.removingSkin) {

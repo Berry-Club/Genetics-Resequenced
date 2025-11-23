@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 
-import dev.aaronhowser.mods.aaron.packet.ModPacket
+import dev.aaronhowser.mods.aaron.packet.AaronPacket
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeAllGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -18,7 +18,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 data class SetGenesPacket(
 	val entityId: Int,
 	val geneSet: HolderSet<Gene>
-) : ModPacket() {
+) : AaronPacket() {
 
 	constructor(
 		entityId: Int,

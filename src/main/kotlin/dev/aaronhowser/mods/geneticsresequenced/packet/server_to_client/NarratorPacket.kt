@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 
-import dev.aaronhowser.mods.aaron.packet.ModPacket
+import dev.aaronhowser.mods.aaron.packet.AaronPacket
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
@@ -12,7 +12,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext
 
 data class NarratorPacket(
 	val message: String
-) : ModPacket() {
+) : AaronPacket() {
 
 	override fun handleOnClient(context: IPayloadContext) {
 		if (ClientConfig.disableParrotNarrator.get()) return

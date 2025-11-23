@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 
-import dev.aaronhowser.mods.aaron.packet.ModPacket
+import dev.aaronhowser.mods.aaron.packet.AaronPacket
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -20,7 +20,7 @@ data class GeneChangedPacket(
 	val entityId: Int,
 	val geneHolder: Holder<Gene>,
 	val wasAdded: Boolean
-) : ModPacket() {
+) : AaronPacket() {
 
 	override fun handleOnClient(context: IPayloadContext) {
 		val level = context.player().level()

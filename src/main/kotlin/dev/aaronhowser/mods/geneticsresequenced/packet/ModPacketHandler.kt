@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet
 
-import dev.aaronhowser.mods.aaron.packet.ModPacketRegistrar
+import dev.aaronhowser.mods.aaron.packet.AaronPacketRegistrar
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.TeleportPlayerPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
@@ -9,7 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.SetGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
 import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
 
-object ModPacketHandler : ModPacketRegistrar {
+object ModPacketHandler : AaronPacketRegistrar {
 
 	fun registerPayloads(event: RegisterPayloadHandlersEvent) {
 		val registrar = event.registrar("1")

@@ -61,6 +61,7 @@ object EntityEvents {
 		DamageGenes.handleClaws(event)
 		DamageGenes.handleWitherHit(event)
 		DamageGenes.handleChilling(event)
+		DamageGenes.handleWebDefense(event)
 	}
 
 	@SubscribeEvent
