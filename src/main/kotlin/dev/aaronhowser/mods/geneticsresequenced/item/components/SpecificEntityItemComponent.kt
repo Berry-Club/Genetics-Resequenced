@@ -2,12 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.item.components
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.AaronCodecs
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.UUIDUtil
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.ComponentSerialization
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
 import java.util.*
@@ -17,23 +16,22 @@ data class SpecificEntityItemComponent(
 	val name: Component
 ) : PseudoDataComponent<SpecificEntityItemComponent, SpecificEntityItemComponent.Type>() {
 
-	class Type : PseudoDataComponent.Type<SpecificEntityItemComponent>(OtherUtil.modResource("specific_entity")) {
-		override fun getCodec(): Codec<SpecificEntityItemComponent> = CODEC
-
-		companion object {
-			val CODEC: Codec<SpecificEntityItemComponent> = RecordCodecBuilder.create { instance ->
-				instance.group(
-					UUIDUtil.CODEC
-						.fieldOf("uuid")
-						.forGetter(SpecificEntityItemComponent::uuid),
-					ComponentSerialization.CODEC
-						.fieldOf("name")
-						.forGetter(SpecificEntityItemComponent::name)
-				).apply(instance, ::SpecificEntityItemComponent)
-			}
+	object Type : PseudoDataComponent.Type<SpecificEntityItemComponent>(OtherUtil.modResource("specific_entity")) {
+		val CODEC: Codec<SpecificEntityItemComponent> = RecordCodecBuilder.create { instance ->
+			instance.group(
+				UUIDUtil.CODEC
+					.fieldOf("uuid")
+					.forGetter(SpecificEntityItemComponent::uuid),
+				AaronCodecs.COMPONENT_CODEC
+					.fieldOf("name")
+					.forGetter(SpecificEntityItemComponent::name)
+			).apply(instance, ::SpecificEntityItemComponent)
 		}
 
+		override fun getCodec(): Codec<SpecificEntityItemComponent> = CODEC
 	}
+
+	override val type: Type = Type
 
 	companion object {
 		fun setEntity(stack: ItemStack, entity: LivingEntity) {
@@ -41,13 +39,12 @@ data class SpecificEntityItemComponent(
 			val uuid = entity.uuid
 
 			val entityComponent = SpecificEntityItemComponent(uuid, name)
-
-			stack.set(ModDataComponents.SPECIFIC_ENTITY, entityComponent)
+			stack.setComponent(entityComponent)
 		}
 
-		fun hasEntity(stack: ItemStack): Boolean = stack.has(ModDataComponents.SPECIFIC_ENTITY)
-		fun getEntityUuid(stack: ItemStack): UUID? = stack.get(ModDataComponents.SPECIFIC_ENTITY)?.uuid
-		fun getEntityName(stack: ItemStack): Component? = stack.get(ModDataComponents.SPECIFIC_ENTITY)?.name
+		fun hasEntity(stack: ItemStack): Boolean = stack.hasComponent(Type)
+		fun getEntityUuid(stack: ItemStack): UUID? = stack.getComponent(Type)?.uuid
+		fun getEntityName(stack: ItemStack): Component? = stack.getComponent(Type)?.name
 
 	}
 
