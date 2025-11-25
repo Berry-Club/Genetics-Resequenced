@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.capability
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.Holder
+import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.ListTag
 import net.minecraft.nbt.StringTag
@@ -30,13 +31,13 @@ class GenesContainer : IGenesContainer {
 		return tag
 	}
 
-	fun fromTag(tag: CompoundTag) {
+	fun fromTag(tag: CompoundTag, registries: HolderLookup.Provider) {
 		genes.clear()
 		val list = tag.getList(GENE_LIST_NBT, ListTag.TAG_STRING.toInt())
 
 		for (i in 0 until list.size) {
 			val geneString = list.getString(i)
-			val geneHolder = ModGenes.fromString()
+			val geneHolder = ModGenes.fromString(registries, geneString)
 
 			if (geneHolder != null) {
 				genes.add(geneHolder)
