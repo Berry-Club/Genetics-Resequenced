@@ -2,37 +2,34 @@ package dev.aaronhowser.mods.geneticsresequenced.item.components
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
-import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.network.codec.ByteBufCodecs
-import net.minecraft.network.codec.StreamCodec
-import net.neoforged.neoforge.common.util.NeoForgeExtraCodecs
 
 data class PlasmidProgressItemComponent(
 	val geneHolder: Holder<Gene>,
 	val dnaPoints: Int
-) {
+) : PseudoDataComponent<PlasmidProgressItemComponent, PlasmidProgressItemComponent.Type>() {
 
-	companion object {
+	class Type : PseudoDataComponent.Type<PlasmidProgressItemComponent>(OtherUtil.modResource("plasmid_progress")) {
+		override fun getCodec(): Codec<PlasmidProgressItemComponent> = CODEC
 
-		val CODEC: Codec<PlasmidProgressItemComponent> = RecordCodecBuilder.create { instance ->
-			instance.group(
-				Gene.CODEC
-					.fieldOf("gene")
-					.forGetter(PlasmidProgressItemComponent::geneHolder),
-				// Should make it start writing as dna_points, but won't break existing saves
-				NeoForgeExtraCodecs
-					.aliasedFieldOf(Codec.INT, "dna_points", "dnaPoints")
-					.forGetter(PlasmidProgressItemComponent::dnaPoints)
-			).apply(instance, ::PlasmidProgressItemComponent)
+		companion object {
+			val CODEC: Codec<PlasmidProgressItemComponent> = RecordCodecBuilder.create { instance ->
+				instance.group(
+					Gene.CODEC
+						.fieldOf("gene")
+						.forGetter(PlasmidProgressItemComponent::geneHolder),
+					// Should make it start writing as dna_points, but won't break existing saves
+					Codec.INT
+						.optionalFieldOf("dna_points", 0)
+						.forGetter(PlasmidProgressItemComponent::dnaPoints)
+				).apply(instance, ::PlasmidProgressItemComponent)
+			}
 		}
-
-		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, PlasmidProgressItemComponent> = StreamCodec.composite(
-			Gene.STREAM_CODEC, PlasmidProgressItemComponent::geneHolder,
-			ByteBufCodecs.INT, PlasmidProgressItemComponent::dnaPoints,
-			::PlasmidProgressItemComponent
-		)
 	}
+
+	override val type: Type = Type()
 
 }
