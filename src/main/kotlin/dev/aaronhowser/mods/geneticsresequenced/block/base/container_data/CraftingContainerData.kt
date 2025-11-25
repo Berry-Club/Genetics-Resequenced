@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base.container_data
 
-import net.neoforged.neoforge.energy.EnergyStorage
+import net.minecraftforge.energy.EnergyStorage
 import java.util.function.IntSupplier
 
 open class CraftingContainerData(

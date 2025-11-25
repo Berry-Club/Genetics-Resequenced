@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base.container_data
 
 import net.minecraft.world.inventory.ContainerData
-import net.neoforged.neoforge.energy.EnergyStorage
+import net.minecraftforge.energy.EnergyStorage
 
 open class EnergyContainerData(
 	val energyStorage: EnergyStorage

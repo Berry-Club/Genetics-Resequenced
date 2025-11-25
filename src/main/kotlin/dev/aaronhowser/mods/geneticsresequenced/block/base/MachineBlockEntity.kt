@@ -80,7 +80,7 @@ abstract class MachineBlockEntity(
 		}
 	}
 
-	override fun getUpdateTag(pRegistries: HolderLookup.Provider): CompoundTag = saveWithoutMetadata(pRegistries)
+	override fun getUpdateTag(): CompoundTag = saveWithoutMetadata()
 	override fun getUpdatePacket(): Packet<ClientGamePacketListener> = ClientboundBlockEntityDataPacket.create(this)
 
 	override fun getDisplayName(): Component {

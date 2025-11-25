@@ -4,15 +4,14 @@ import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.util.Mth
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
-import net.neoforged.neoforge.items.IItemHandler
-import net.neoforged.neoforge.items.wrapper.RangedWrapper
+import net.minecraftforge.items.IItemHandler
+import net.minecraftforge.items.wrapper.RangedWrapper
 import java.util.function.IntSupplier
 
 abstract class CraftingMachineBlockEntity(
@@ -91,7 +90,7 @@ abstract class CraftingMachineBlockEntity(
 		val currentOutput = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 		if (currentOutput.isEmpty) return true
 
-		if (!ItemStack.isSameItemSameComponents(potentialOutput, currentOutput)) return false
+		if (!ItemStack.isSameItemSameTags(potentialOutput, currentOutput)) return false
 
 		val combinedCount = currentOutput.count + potentialOutput.count
 		return combinedCount <= currentOutput.maxStackSize
@@ -117,22 +116,22 @@ abstract class CraftingMachineBlockEntity(
 		}
 	}
 
-	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.saveAdditional(tag, registries)
+	override fun saveAdditional(tag: CompoundTag) {
+		super.saveAdditional(tag)
 
 		tag.putInt(CURRENT_PROGRESS_NBT, currentProgress)
 		tag.putInt(MAX_PROGRESS_NBT, maxProgress)
 	}
 
-	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.loadAdditional(tag, registries)
+	override fun load(pTag: CompoundTag) {
+		super.load(pTag)
 
-		if (tag.contains(CURRENT_PROGRESS_NBT)) {
-			currentProgress = tag.getInt(CURRENT_PROGRESS_NBT)
+		if (pTag.contains(CURRENT_PROGRESS_NBT)) {
+			currentProgress = pTag.getInt(CURRENT_PROGRESS_NBT)
 		}
 
-		if (tag.contains(MAX_PROGRESS_NBT)) {
-			maxProgress = tag.getInt(MAX_PROGRESS_NBT)
+		if (pTag.contains(MAX_PROGRESS_NBT)) {
+			maxProgress = pTag.getInt(MAX_PROGRESS_NBT)
 		}
 	}
 
