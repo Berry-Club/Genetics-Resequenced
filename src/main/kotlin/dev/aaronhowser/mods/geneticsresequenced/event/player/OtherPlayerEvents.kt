@@ -13,25 +13,30 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
+import net.minecraftforge.event.ServerChatEvent
+import net.minecraftforge.event.TickEvent
+import net.minecraftforge.event.entity.player.PlayerEvent
+import net.minecraftforge.eventbus.api.EventPriority
+import net.minecraftforge.eventbus.api.SubscribeEvent
+import net.minecraftforge.fml.common.Mod
 import net.neoforged.bus.api.EventPriority
-import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.ServerChatEvent
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
-import net.neoforged.neoforge.event.tick.PlayerTickEvent
 
-@EventBusSubscriber(
+@Mod.EventBusSubscriber(
 	modid = GeneticsResequenced.MOD_ID
 )
 object OtherPlayerEvents {
 
 	@SubscribeEvent
-	fun onPlayerTick(event: PlayerTickEvent.Pre) {
-		TickGenes.handleNoHunger(event.entity)
-		OtherGenes.handleWallClimbing(event.entity)     // Requires clientside handling
-		TickGenes.handleItemMagnet(event.entity)
-		TickGenes.handleXpMagnet(event.entity)
+	fun onPlayerTick(event: TickEvent.PlayerTickEvent) {
+		if (event.phase != TickEvent.Phase.START) return
+
+		TickGenes.handleNoHunger(event.player)
+		OtherGenes.handleWallClimbing(event.player)     // Requires clientside handling
+		TickGenes.handleItemMagnet(event.player)
+		TickGenes.handleXpMagnet(event.player)
 	}
 
 	@SubscribeEvent
