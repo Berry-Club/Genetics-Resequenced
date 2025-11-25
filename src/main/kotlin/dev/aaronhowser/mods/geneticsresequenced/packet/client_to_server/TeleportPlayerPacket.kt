@@ -2,29 +2,22 @@ package dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server
 
 import dev.aaronhowser.mods.aaron.packet.AaronPacket
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.PacketGenes
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import io.netty.buffer.ByteBuf
-import net.minecraft.network.codec.StreamCodec
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload
-import net.minecraft.server.level.ServerPlayer
-import net.neoforged.neoforge.network.handling.IPayloadContext
+import net.minecraft.network.FriendlyByteBuf
+import net.minecraftforge.network.NetworkEvent
 
 class TeleportPlayerPacket private constructor() : AaronPacket() {
 
-	override fun handleOnServer(context: IPayloadContext) {
-		val sender = context.player() as? ServerPlayer ?: return
-		PacketGenes.teleport(sender)
+	override fun encode(buffer: FriendlyByteBuf) {
+		// No data to encode
 	}
 
-	override fun type(): CustomPacketPayload.Type<TeleportPlayerPacket> = TYPE
+	override fun handleOnServer(context: NetworkEvent.Context) {
+		val player = context.sender ?: return
+		PacketGenes.teleport(player)
+	}
 
 	companion object {
-		val TYPE: CustomPacketPayload.Type<TeleportPlayerPacket> =
-			CustomPacketPayload.Type<TeleportPlayerPacket>(OtherUtil.modResource("teleport"))
-
 		val INSTANCE = TeleportPlayerPacket()
-
-		val STREAM_CODEC: StreamCodec<ByteBuf, TeleportPlayerPacket> = StreamCodec.unit(INSTANCE)
 	}
 
 }

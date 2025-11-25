@@ -1,54 +1,22 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet
 
+import dev.aaronhowser.mods.aaron.AaronLib
 import dev.aaronhowser.mods.aaron.packet.AaronPacketRegistrar
-import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.FireballPacket
-import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.TeleportPlayerPacket
-import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
-import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.NarratorPacket
-import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.SetGenesPacket
-import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
+import net.minecraftforge.network.NetworkRegistry
+import net.minecraftforge.network.simple.SimpleChannel
 
-object ModPacketHandler : AaronPacketRegistrar {
+object ModPacketHandler : AaronPacketRegistrar() {
 
-	fun registerPayloads(event: RegisterPayloadHandlersEvent) {
-		val registrar = event.registrar("1")
+	private const val PROTOCOL_VERSION = "1"
 
-		toClient(
-			registrar,
-			GeneChangedPacket.TYPE,
-			GeneChangedPacket.STREAM_CODEC
+	val CHANNEL: SimpleChannel =
+		NetworkRegistry.newSimpleChannel(
+			AaronLib.modResource("main"),
+			{ PROTOCOL_VERSION },
+			PROTOCOL_VERSION::equals,
+			PROTOCOL_VERSION::equals
 		)
 
-		toClient(
-			registrar,
-			SetGenesPacket.TYPE,
-			SetGenesPacket.STREAM_CODEC
-		)
-
-		toClient(
-			registrar,
-			NarratorPacket.TYPE,
-			NarratorPacket.STREAM_CODEC
-		)
-
-		toClient(
-			registrar,
-			ShearedPacket.TYPE,
-			ShearedPacket.STREAM_CODEC
-		)
-
-		toServer(
-			registrar,
-			FireballPacket.TYPE,
-			FireballPacket.STREAM_CODEC
-		)
-
-		toServer(
-			registrar,
-			TeleportPlayerPacket.TYPE,
-			TeleportPlayerPacket.STREAM_CODEC
-		)
-	}
+	override fun getChannel(): SimpleChannel = CHANNEL
 
 }

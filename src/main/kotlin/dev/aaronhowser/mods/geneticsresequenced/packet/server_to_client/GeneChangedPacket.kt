@@ -1,20 +1,16 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 
+import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.packet.AaronPacket
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
-import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.network.codec.ByteBufCodecs
-import net.minecraft.network.codec.StreamCodec
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload
+import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.entity.LivingEntity
-import net.neoforged.neoforge.network.handling.IPayloadContext
+import net.minecraftforge.network.NetworkEvent
 
 data class GeneChangedPacket(
 	val entityId: Int,
@@ -22,34 +18,27 @@ data class GeneChangedPacket(
 	val wasAdded: Boolean
 ) : AaronPacket() {
 
-	override fun handleOnClient(context: IPayloadContext) {
-		val level = context.player().level()
-		val entity = level.getEntity(entityId) as? LivingEntity ?: return
-
-		if (this.wasAdded) {
-			entity.addGene(this.geneHolder)
-		} else {
-			entity.removeGene(this.geneHolder)
-		}
-
-		if (this.geneHolder.isGene(ModGenes.CRINGE)) ClientUtil.handleCringe(this.wasAdded)
-
-		this.geneHolder.value().setAttributeModifiers(entity, this.wasAdded)
+	override fun encode(buffer: FriendlyByteBuf) {
+		buffer.writeInt(entityId)
 	}
 
-	override fun type(): CustomPacketPayload.Type<GeneChangedPacket> = TYPE
+	override fun handleOnClient(context: NetworkEvent.Context) {
+		val localPlayer = AaronClientUtil.localPlayer ?: return
+		val level = localPlayer.level() ?: return
 
-	companion object {
-		val TYPE: CustomPacketPayload.Type<GeneChangedPacket> =
-			CustomPacketPayload.Type(OtherUtil.modResource("gene_changed"))
+		val entity = level.getEntity(entityId) as? LivingEntity ?: return
 
-		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, GeneChangedPacket> =
-			StreamCodec.composite(
-				ByteBufCodecs.INT, GeneChangedPacket::entityId,
-				Gene.STREAM_CODEC, GeneChangedPacket::geneHolder,
-				ByteBufCodecs.BOOL, GeneChangedPacket::wasAdded,
-				::GeneChangedPacket
-			)
+		if (wasAdded) {
+			entity.addGene(geneHolder)
+		} else {
+			entity.removeGene(geneHolder)
+		}
+
+		if (localPlayer == entity && geneHolder.`is`(ModGenes.CRINGE)) {
+			ClientUtil.handleCringe(wasAdded = wasAdded)
+		}
+
+		geneHolder.value().setAttributeModifiers(entity, wasAdded)
 	}
 
 }
