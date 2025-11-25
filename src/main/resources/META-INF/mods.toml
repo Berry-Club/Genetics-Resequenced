@@ -1,7 +1,5 @@
-# Make sure this is set to "kotlinforforge"
 modLoader = "kotlinforforge"
-# Make sure this is set to the appropriate version range
-loaderVersion = "${loader_version_range}"
+loaderVersion = "${kff_version_range}"
 license = '${mod_license}'
 
 [[mods]]
@@ -11,11 +9,12 @@ displayName = "${mod_name}"
 credits = "The teams for both Genetics Reborn as well as the original Advanced Genetics"
 authors = "${mod_authors}"
 description = '''${mod_description}'''
+accessTransformers = "META-INF/accesstransformer.cfg"
 
 [[dependencies.${ mod_id }]]
-modId = "neoforge"
-type = "required"
-versionRange = "${neo_version_range}"
+modId = "forge"
+mandatory = true
+versionRange = "${forge_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
@@ -41,7 +40,7 @@ ordering = "NONE"
 side = "BOTH"
 
 [[mixins]]
-config = "mixins.geneticsresequenced.json"
+config = "geneticsresequenced.mixins.json"
 
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares
 # that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't
