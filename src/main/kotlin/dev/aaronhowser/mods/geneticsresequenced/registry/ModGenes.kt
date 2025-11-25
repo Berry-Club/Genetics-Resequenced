@@ -41,12 +41,12 @@ object ModGenes {
 
 	@JvmStatic
 	fun fromString(registries: HolderLookup.Provider, id: String): Holder<Gene>? {
-		return fromResourceLocation(registries, ResourceLocation.parse(id))
+		return fromResourceLocation(registries, ResourceLocation(id))
 	}
 
 	@JvmStatic
 	fun fromIdPath(registries: HolderLookup.Provider, path: String): Holder.Reference<Gene>? {
-		return getAllGeneHolders(registries).filter { it.key!!.location().path == path }.findFirst().orElse(null)
+		return getAllGeneHolders(registries).filter { it.key().location().path == path }.findFirst().orElse(null)
 	}
 
 	fun getRegistrySorted(
@@ -54,9 +54,9 @@ object ModGenes {
 		includeHelixOnly: Boolean = false,
 		includeDisabled: Boolean = false
 	): List<Holder<Gene>> {
-		val mutations = mutableListOf<Holder<Gene>>()
-		val negatives = mutableListOf<Holder<Gene>>()
-		val other = mutableListOf<Holder<Gene>>()
+		val mutations = mutableListOf<Holder.Reference<Gene>>()
+		val negatives = mutableListOf<Holder.Reference<Gene>>()
+		val other = mutableListOf<Holder.Reference<Gene>>()
 
 		for (geneHolder in getAllGeneHolders(registries)) {
 			if (geneHolder.isDisabled && !includeDisabled) continue
@@ -69,7 +69,7 @@ object ModGenes {
 			}
 		}
 
-		return other.sortedBy { it.key } + mutations.sortedBy { it.key } + negatives.sortedBy { it.key }
+		return other.sortedBy { it.key() } + mutations.sortedBy { it.key() } + negatives.sortedBy { it.key() }
 	}
 
 	private fun resourceKey(geneName: String): ResourceKey<Gene> {
