@@ -1,64 +1,64 @@
 package dev.aaronhowser.mods.geneticsresequenced.config
 
-import net.neoforged.neoforge.common.ModConfigSpec
+import net.minecraftforge.common.ForgeConfigSpec
 import org.apache.commons.lang3.tuple.Pair
 
 class ServerConfig(
-	private val builder: ModConfigSpec.Builder
+	private val builder: ForgeConfigSpec.Builder
 ) {
 
-	lateinit var keepGenesOnDeath: ModConfigSpec.BooleanValue
-	lateinit var minimumCooldownForNotification: ModConfigSpec.IntValue
-	lateinit var antifieldBlockRadius: ModConfigSpec.IntValue
+	lateinit var keepGenesOnDeath: ForgeConfigSpec.BooleanValue
+	lateinit var minimumCooldownForNotification: ForgeConfigSpec.IntValue
+	lateinit var antifieldBlockRadius: ForgeConfigSpec.IntValue
 
-	lateinit var coalGeneratorEnergyCapacity: ModConfigSpec.IntValue
-	lateinit var coalGeneratorEnergyTransferRate: ModConfigSpec.IntValue
-	lateinit var coalGeneratorEnergyPerTick: ModConfigSpec.IntValue
-	lateinit var incubatorTicksPerBrew: ModConfigSpec.IntValue
-	lateinit var incubatorLowTempTickFactor: ModConfigSpec.IntValue
-	lateinit var incubatorOverclockerChanceDecrease: ModConfigSpec.DoubleValue
-	lateinit var incubatorChorusFruitChanceIncrease: ModConfigSpec.DoubleValue
+	lateinit var coalGeneratorEnergyCapacity: ForgeConfigSpec.IntValue
+	lateinit var coalGeneratorEnergyTransferRate: ForgeConfigSpec.IntValue
+	lateinit var coalGeneratorEnergyPerTick: ForgeConfigSpec.IntValue
+	lateinit var incubatorTicksPerBrew: ForgeConfigSpec.IntValue
+	lateinit var incubatorLowTempTickFactor: ForgeConfigSpec.IntValue
+	lateinit var incubatorOverclockerChanceDecrease: ForgeConfigSpec.DoubleValue
+	lateinit var incubatorChorusFruitChanceIncrease: ForgeConfigSpec.DoubleValue
 
-	lateinit var disableGivingPlayersNegativeGenes: ModConfigSpec.BooleanValue
+	lateinit var disableGivingPlayersNegativeGenes: ForgeConfigSpec.BooleanValue
 
-	lateinit var bioluminescenceCooldown: ModConfigSpec.IntValue
-	lateinit var bioluminescenceDuration: ModConfigSpec.IntValue
-	lateinit var clawsChance: ModConfigSpec.DoubleValue
-	lateinit var clawsDamage: ModConfigSpec.DoubleValue
-	lateinit var chillChance: ModConfigSpec.DoubleValue
-	lateinit var chillDuration: ModConfigSpec.IntValue
-	lateinit var eggCooldown: ModConfigSpec.IntValue
-	lateinit var emeraldHeartCooldown: ModConfigSpec.IntValue
-	lateinit var emeraldHeartChatChance: ModConfigSpec.DoubleValue
-	lateinit var dragonsBreathCooldown: ModConfigSpec.IntValue
-	lateinit var itemMagnetCooldown: ModConfigSpec.IntValue
-	lateinit var itemMagnetRadius: ModConfigSpec.DoubleValue
-	lateinit var johnnyAttackMultiplier: ModConfigSpec.DoubleValue
-	lateinit var meatyCooldown: ModConfigSpec.IntValue
-	lateinit var meaty2Cooldown: ModConfigSpec.IntValue
-	lateinit var milkyCooldown: ModConfigSpec.IntValue
-	lateinit var mobSightRadius: ModConfigSpec.DoubleValue
-	lateinit var noHungerCooldown: ModConfigSpec.IntValue
-	lateinit var noHungerMinimum: ModConfigSpec.IntValue
-	lateinit var passivesCheckCooldown: ModConfigSpec.IntValue
-	lateinit var photosynthesisCooldown: ModConfigSpec.IntValue
-	lateinit var photosynthesisHungerAmount: ModConfigSpec.IntValue
-	lateinit var photosynthesisSaturationAmount: ModConfigSpec.DoubleValue
-	lateinit var slimyDeathCooldown: ModConfigSpec.IntValue
-	lateinit var slimyDeathHealthMultiplier: ModConfigSpec.DoubleValue
-	lateinit var slimyDeathDespawnCheckTimer: ModConfigSpec.IntValue
-	lateinit var slimyDeathDespawnTime: ModConfigSpec.IntValue
-	lateinit var teleportCooldown: ModConfigSpec.IntValue
-	lateinit var teleportDistance: ModConfigSpec.DoubleValue
-	lateinit var thornsChance: ModConfigSpec.DoubleValue
-	lateinit var thornsDamage: ModConfigSpec.DoubleValue
-	lateinit var thornsHungerDrain: ModConfigSpec.DoubleValue
-	lateinit var wallClimbSpeed: ModConfigSpec.DoubleValue
-	lateinit var webDefenseChance: ModConfigSpec.DoubleValue
-	lateinit var webDefenseDuration: ModConfigSpec.IntValue
-	lateinit var woolyCooldown: ModConfigSpec.IntValue
-	lateinit var xpMagnetCooldown: ModConfigSpec.IntValue
-	lateinit var xpMagnetRadius: ModConfigSpec.DoubleValue
+	lateinit var bioluminescenceCooldown: ForgeConfigSpec.IntValue
+	lateinit var bioluminescenceDuration: ForgeConfigSpec.IntValue
+	lateinit var clawsChance: ForgeConfigSpec.DoubleValue
+	lateinit var clawsDamage: ForgeConfigSpec.DoubleValue
+	lateinit var chillChance: ForgeConfigSpec.DoubleValue
+	lateinit var chillDuration: ForgeConfigSpec.IntValue
+	lateinit var eggCooldown: ForgeConfigSpec.IntValue
+	lateinit var emeraldHeartCooldown: ForgeConfigSpec.IntValue
+	lateinit var emeraldHeartChatChance: ForgeConfigSpec.DoubleValue
+	lateinit var dragonsBreathCooldown: ForgeConfigSpec.IntValue
+	lateinit var itemMagnetCooldown: ForgeConfigSpec.IntValue
+	lateinit var itemMagnetRadius: ForgeConfigSpec.DoubleValue
+	lateinit var johnnyAttackMultiplier: ForgeConfigSpec.DoubleValue
+	lateinit var meatyCooldown: ForgeConfigSpec.IntValue
+	lateinit var meaty2Cooldown: ForgeConfigSpec.IntValue
+	lateinit var milkyCooldown: ForgeConfigSpec.IntValue
+	lateinit var mobSightRadius: ForgeConfigSpec.DoubleValue
+	lateinit var noHungerCooldown: ForgeConfigSpec.IntValue
+	lateinit var noHungerMinimum: ForgeConfigSpec.IntValue
+	lateinit var passivesCheckCooldown: ForgeConfigSpec.IntValue
+	lateinit var photosynthesisCooldown: ForgeConfigSpec.IntValue
+	lateinit var photosynthesisHungerAmount: ForgeConfigSpec.IntValue
+	lateinit var photosynthesisSaturationAmount: ForgeConfigSpec.DoubleValue
+	lateinit var slimyDeathCooldown: ForgeConfigSpec.IntValue
+	lateinit var slimyDeathHealthMultiplier: ForgeConfigSpec.DoubleValue
+	lateinit var slimyDeathDespawnCheckTimer: ForgeConfigSpec.IntValue
+	lateinit var slimyDeathDespawnTime: ForgeConfigSpec.IntValue
+	lateinit var teleportCooldown: ForgeConfigSpec.IntValue
+	lateinit var teleportDistance: ForgeConfigSpec.DoubleValue
+	lateinit var thornsChance: ForgeConfigSpec.DoubleValue
+	lateinit var thornsDamage: ForgeConfigSpec.DoubleValue
+	lateinit var thornsHungerDrain: ForgeConfigSpec.DoubleValue
+	lateinit var wallClimbSpeed: ForgeConfigSpec.DoubleValue
+	lateinit var webDefenseChance: ForgeConfigSpec.DoubleValue
+	lateinit var webDefenseDuration: ForgeConfigSpec.IntValue
+	lateinit var woolyCooldown: ForgeConfigSpec.IntValue
+	lateinit var xpMagnetCooldown: ForgeConfigSpec.IntValue
+	lateinit var xpMagnetRadius: ForgeConfigSpec.DoubleValue
 
 	init {
 		generalConfigs()
@@ -262,10 +262,10 @@ class ServerConfig(
 	}
 
 	companion object {
-		private val configPair: Pair<ServerConfig, ModConfigSpec> = ModConfigSpec.Builder().configure(::ServerConfig)
+		private val configPair: Pair<ServerConfig, ForgeConfigSpec> = ForgeConfigSpec.Builder().configure(::ServerConfig)
 
 		val CONFIG: ServerConfig = configPair.left
-		val CONFIG_SPEC: ModConfigSpec = configPair.right
+		val CONFIG_SPEC: ForgeConfigSpec = configPair.right
 	}
 
 }
