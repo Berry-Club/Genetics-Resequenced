@@ -6,8 +6,8 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.g
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
-import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isContaminated
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
+import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.SetGenesPacket
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.effect.MobEffectInstance
@@ -19,10 +19,6 @@ import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.eventbus.api.EventPriority
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
-import net.neoforged.bus.api.EventPriority
-import net.neoforged.neoforge.event.ServerChatEvent
-import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent
-import net.neoforged.neoforge.event.entity.player.PlayerEvent
 
 @Mod.EventBusSubscriber(
 	modid = GeneticsResequenced.MOD_ID
@@ -40,16 +36,20 @@ object OtherPlayerEvents {
 	}
 
 	@SubscribeEvent
-	fun onPickUpItem(event: ItemEntityPickupEvent.Post) {
-		val originalStack = event.originalStack
-		val player = event.player
+	fun onPickUpItem(event: PlayerEvent.ItemPickupEvent) {
+		val originalItemEntity = event.originalEntity
+		val originalStack = originalItemEntity.item
+		val player = event.entity
 
 		if (originalStack.isSyringe()) {
-			val thrower = event.itemEntity.owner as? LivingEntity
+			val thrower = originalItemEntity.owner as? LivingEntity
 
-			player.hurt(SyringeItem.damageSourceStepOnSyringe(event.player.level(), thrower), 1.0f)
+			player.hurt(
+				SyringeItem.damageSourceStepOnSyringe(player.level(), thrower),
+				1.0f
+			)
 
-			if (isContaminated(originalStack)) {
+			if (SyringeItem.isContaminated(originalStack)) {
 				player.addEffect(MobEffectInstance(MobEffects.POISON, 20 * 3))
 			}
 		}
@@ -84,7 +84,7 @@ object OtherPlayerEvents {
 		val entity = event.target as? LivingEntity ?: return
 
 		val packet = SetGenesPacket(entity.id, entity.geneHolders)
-		packet.messagePlayer(player)
+		ModPacketHandler.messagePlayer(packet, player)
 	}
 
 }
