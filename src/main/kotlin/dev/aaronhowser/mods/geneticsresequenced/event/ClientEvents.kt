@@ -37,17 +37,6 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 object ClientEvents {
 
 	@SubscribeEvent
-	fun onKeyInputEvent(event: InputEvent.Key) {
-		if (ModKeyMappings.TELEPORT.consumeClick()) {
-			TeleportPlayerPacket.INSTANCE.messageServer()
-		}
-
-		if (ModKeyMappings.DRAGONS_BREATH.consumeClick()) {
-			FireballPacket.INSTANCE.messageServer()
-		}
-	}
-
-	@SubscribeEvent
 	fun tooltip(event: ItemTooltipEvent) {
 		BrewingRecipes.tooltip(event)
 		TickGenes.itemMagnetBlacklistTooltip(event)
