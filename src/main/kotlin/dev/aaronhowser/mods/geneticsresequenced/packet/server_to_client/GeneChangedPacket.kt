@@ -41,4 +41,14 @@ data class GeneChangedPacket(
 		geneHolder.value().setAttributeModifiers(entity, wasAdded)
 	}
 
+	companion object {
+		fun decode(buffer: FriendlyByteBuf): GeneChangedPacket {
+			val entityId = buffer.readInt()
+			val geneId = buffer.readResourceLocation()
+			val geneHolder = AaronClientUtil.registryHolderLookup<Gene>(geneId)
+			val wasAdded = buffer.readBoolean()
+			return GeneChangedPacket(entityId, geneHolder, wasAdded)
+		}
+	}
+
 }

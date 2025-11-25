@@ -21,4 +21,11 @@ data class ShearedPacket(
 		}
 	}
 
+	companion object {
+		fun decode(buffer: FriendlyByteBuf): ShearedPacket {
+			val removingSkin = buffer.readBoolean()
+			return ShearedPacket(removingSkin)
+		}
+	}
+
 }

@@ -18,6 +18,8 @@ class FireballPacket private constructor() : AaronPacket() {
 
 	companion object {
 		val INSTANCE = FireballPacket()
+
+		fun decode(buffer: FriendlyByteBuf): FireballPacket = INSTANCE
 	}
 
 }

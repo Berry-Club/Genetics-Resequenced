@@ -18,6 +18,7 @@ class TeleportPlayerPacket private constructor() : AaronPacket() {
 
 	companion object {
 		val INSTANCE = TeleportPlayerPacket()
+		fun decode(buffer: FriendlyByteBuf): TeleportPlayerPacket = INSTANCE
 	}
 
 }

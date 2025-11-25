@@ -19,4 +19,11 @@ data class NarratorPacket(
 		Minecraft.getInstance().narrator.narrator.say(this.message, true)
 	}
 
+	companion object {
+		fun decode(buffer: FriendlyByteBuf): NarratorPacket {
+			val message = buffer.readUtf()
+			return NarratorPacket(message)
+		}
+	}
+
 }
