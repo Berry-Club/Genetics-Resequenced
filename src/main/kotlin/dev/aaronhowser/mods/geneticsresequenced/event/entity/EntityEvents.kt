@@ -11,17 +11,15 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import net.minecraft.core.Holder
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PathfinderMob
-import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.common.EventBusSubscriber
-import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent
-import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
-import net.neoforged.neoforge.event.level.ExplosionEvent
-import net.neoforged.neoforge.event.tick.EntityTickEvent
+import net.minecraftforge.event.entity.EntityJoinLevelEvent
+import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent
+import net.minecraftforge.event.entity.living.LivingDamageEvent
+import net.minecraftforge.event.entity.living.LivingDeathEvent
+import net.minecraftforge.event.level.ExplosionEvent
+import net.minecraftforge.eventbus.api.SubscribeEvent
+import net.minecraftforge.fml.common.Mod
 
-@EventBusSubscriber(
+@Mod.EventBusSubscriber(
 	modid = GeneticsResequenced.MOD_ID
 )
 object EntityEvents {
