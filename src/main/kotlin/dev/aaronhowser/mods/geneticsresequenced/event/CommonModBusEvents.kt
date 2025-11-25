@@ -7,45 +7,26 @@ import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.world.entity.EntityType
-import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.common.EventBusSubscriber
-import net.neoforged.neoforge.capabilities.Capabilities
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
-import net.neoforged.neoforge.event.AddReloadListenerEvent
-import net.neoforged.neoforge.event.RegisterCommandsEvent
-import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent
-import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
-import net.neoforged.neoforge.event.entity.EntityAttributeModificationEvent
-import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent
-import net.neoforged.neoforge.registries.DataPackRegistryEvent
+import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent
+import net.minecraftforge.event.AddReloadListenerEvent
+import net.minecraftforge.event.RegisterCommandsEvent
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent
+import net.minecraftforge.event.entity.EntityAttributeModificationEvent
+import net.minecraftforge.eventbus.api.SubscribeEvent
+import net.minecraftforge.fml.common.Mod
+import net.minecraftforge.registries.DataPackRegistryEvent
 
-@EventBusSubscriber(
-	modid = GeneticsResequenced.MOD_ID
+@Mod.EventBusSubscriber(
+	modid = GeneticsResequenced.MOD_ID,
+	bus = Mod.EventBusSubscriber.Bus.MOD
 )
-object CommonEvents {
-
-	@SubscribeEvent
-	fun onRegisterCommandsEvent(event: RegisterCommandsEvent) {
-		ModCommands.register(event.dispatcher)
-	}
-
-	@SubscribeEvent
-	fun addReloadListeners(event: AddReloadListenerEvent) {
-		event.addListener(EntityGenes())
-		event.addListener(GeneRequirements())
-	}
-
-	@SubscribeEvent
-	fun onRegisterBrewingRecipes(event: RegisterBrewingRecipesEvent) {
-		BrewingRecipes.setRecipes(event)
-	}
+object CommonModBusEvents {
 
 	@SubscribeEvent
 	fun onNewDataPackRegistry(event: DataPackRegistryEvent.NewRegistry) {
@@ -87,16 +68,10 @@ object CommonEvents {
 	}
 
 	@SubscribeEvent
-	fun registerPayloads(event: RegisterPayloadHandlersEvent) {
-		ModPacketHandler.registerPayloads(event)
-	}
-
-	@SubscribeEvent
 	fun onEntityAttributeModification(event: EntityAttributeModificationEvent) {
 		if (!event.has(EntityType.PLAYER, ModAttributes.EFFICIENCY)) {
 			event.add(EntityType.PLAYER, ModAttributes.EFFICIENCY)
 		}
 	}
-
 
 }
