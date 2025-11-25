@@ -2,41 +2,40 @@ package dev.aaronhowser.mods.geneticsresequenced.item.components
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.UUIDUtil
-import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.ComponentSerialization
-import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.item.ItemStack
-import net.neoforged.neoforge.common.util.NeoForgeExtraCodecs
 import java.util.*
 
 data class SpecificEntityItemComponent(
 	val uuid: UUID,
 	val name: Component
-) {
+) : PseudoDataComponent<SpecificEntityItemComponent, SpecificEntityItemComponent.Type>() {
 
-	companion object {
+	class Type : PseudoDataComponent.Type<SpecificEntityItemComponent>(OtherUtil.modResource("specific_entity")) {
+		override fun getCodec(): Codec<SpecificEntityItemComponent> = CODEC
 
-		val CODEC: Codec<SpecificEntityItemComponent> = RecordCodecBuilder.create { instance ->
-			instance.group(
-				NeoForgeExtraCodecs
-					.aliasedFieldOf(UUIDUtil.CODEC, "uuid", "entityUuid", "entity_uuid")
-					.forGetter(SpecificEntityItemComponent::uuid),
-				NeoForgeExtraCodecs
-					.aliasedFieldOf(ComponentSerialization.CODEC, "name", "entityName", "entity_name")
-					.forGetter(SpecificEntityItemComponent::name)
-			).apply(instance, ::SpecificEntityItemComponent)
+		companion object {
+			val CODEC: Codec<SpecificEntityItemComponent> = RecordCodecBuilder.create { instance ->
+				instance.group(
+					UUIDUtil.CODEC
+						.fieldOf("uuid")
+						.forGetter(SpecificEntityItemComponent::uuid),
+					ComponentSerialization.CODEC
+						.fieldOf("name")
+						.forGetter(SpecificEntityItemComponent::name)
+				).apply(instance, ::SpecificEntityItemComponent)
+			}
 		}
 
-		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SpecificEntityItemComponent> = StreamCodec.composite(
-			UUIDUtil.STREAM_CODEC, SpecificEntityItemComponent::uuid,
-			ComponentSerialization.STREAM_CODEC, SpecificEntityItemComponent::name,
-			::SpecificEntityItemComponent
-		)
+	}
 
+	companion object {
 		fun setEntity(stack: ItemStack, entity: LivingEntity) {
 			val name = entity.name
 			val uuid = entity.uuid
