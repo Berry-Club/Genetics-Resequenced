@@ -3,15 +3,21 @@ package dev.aaronhowser.mods.geneticsresequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRegistries
-import net.minecraftforge.fml.ModLoadingContext
-import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.fml.config.ModConfig
+import net.neoforged.api.distmarker.Dist
+import net.neoforged.fml.ModContainer
+import net.neoforged.fml.common.Mod
+import net.neoforged.fml.config.ModConfig
+import net.neoforged.neoforge.client.gui.ConfigurationScreen
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory
 import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
-import thedarkcolour.kotlinforforge.forge.MOD_BUS
+import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
+import thedarkcolour.kotlinforforge.neoforge.forge.runWhenOn
 
 @Mod(GeneticsResequenced.ID)
-class GeneticsResequenced {
+class GeneticsResequenced(
+	modContainer: ModContainer
+) {
 
 	companion object {
 		const val ID = "geneticsresequenced"
@@ -21,14 +27,12 @@ class GeneticsResequenced {
 	init {
 		ModRegistries.register(MOD_BUS)
 
-//		runWhenOn(Dist.CLIENT) {
-//			val screenFactory = IConfigScreenFactory { container, screen -> ConfigurationScreen(container, screen) }
-//			modContainer.registerExtensionPoint(IConfigScreenFactory::class.java, screenFactory)
-//		}
+		runWhenOn(Dist.CLIENT) {
+			val screenFactory = IConfigScreenFactory { container, screen -> ConfigurationScreen(container, screen) }
+			modContainer.registerExtensionPoint(IConfigScreenFactory::class.java, screenFactory)
+		}
 
-		val ctx = ModLoadingContext.get()
-
-		ctx.registerConfig(ModConfig.Type.CLIENT, ClientConfig.CONFIG_SPEC)
-		ctx.registerConfig(ModConfig.Type.SERVER, ServerConfig.CONFIG_SPEC)
+		modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.CONFIG_SPEC)
+		modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.CONFIG_SPEC)
 	}
 }

@@ -25,9 +25,9 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 
 	override fun appendHoverText(
 		pStack: ItemStack,
-		pLevel: Level?,
+		pContext: TooltipContext,
 		pTooltipComponents: MutableList<Component>,
-		pIsAdvanced: TooltipFlag
+		pTooltipFlag: TooltipFlag
 	) {
 		val componentString = if (isEnabled(pStack)) {
 			ModTooltipLang.ACTIVE
@@ -40,6 +40,8 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 				.toComponent()
 				.withStyle(ChatFormatting.GRAY)
 		)
+
+		super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag)
 	}
 
 	companion object {
