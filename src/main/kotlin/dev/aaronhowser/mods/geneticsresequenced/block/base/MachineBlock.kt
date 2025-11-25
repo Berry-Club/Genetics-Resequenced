@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.base
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.Containers
+import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.entity.player.Player
@@ -36,29 +37,36 @@ abstract class MachineBlock(
 		builder.add(H_FACING)
 	}
 
-	override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
+	override fun getStateForPlacement(ctx: BlockPlaceContext): BlockState? {
 		return defaultBlockState()
-			.setValue(H_FACING, pContext.horizontalDirection.opposite)
+			.setValue(H_FACING, ctx.horizontalDirection.opposite)
 	}
 
-	override fun useWithoutItem(
+	override fun use(
 		state: BlockState,
 		level: Level,
 		pos: BlockPos,
 		player: Player,
+		hand: InteractionHand,
 		hitResult: BlockHitResult
 	): InteractionResult {
-		val blockEntity = level.getBlockEntity(pos)
+		val be = level.getBlockEntity(pos)
 
-		if (blockEntity is MenuProvider) {
-			player.openMenu(blockEntity)
+		if (be is MenuProvider) {
+			if (!level.isClientSide) {
+				player.openMenu(be)
+			}
 			return InteractionResult.sidedSuccess(level.isClientSide)
 		}
 
 		return InteractionResult.PASS
 	}
 
-	override fun <T : BlockEntity?> getTicker(level: Level, state: BlockState, blockEntityType: BlockEntityType<T>): BlockEntityTicker<T> {
+	override fun <T : BlockEntity?> getTicker(
+		level: Level,
+		state: BlockState,
+		type: BlockEntityType<T>
+	): BlockEntityTicker<T>? {
 		return BlockEntityTicker { l, p, s, be ->
 			if (be is MachineBlockEntity) {
 				MachineBlockEntity.tick(l, p, s, be)
@@ -66,15 +74,15 @@ abstract class MachineBlock(
 		}
 	}
 
-	override fun onRemove(state: BlockState, level: Level, pos: BlockPos, newState: BlockState, movedByPiston: Boolean) {
+	override fun onRemove(state: BlockState, level: Level, pos: BlockPos, newState: BlockState, isMoving: Boolean) {
 		if (!state.`is`(newState.block)) {
-			val blockEntity = level.getBlockEntity(pos)
-			if (blockEntity is MachineBlockEntity) {
-				Containers.dropContents(level, pos, blockEntity.container)
+			val be = level.getBlockEntity(pos)
+			if (be is MachineBlockEntity) {
+				Containers.dropContents(level, pos, be.container)
 			}
 		}
 
-		super.onRemove(state, level, pos, newState, movedByPiston)
+		super.onRemove(state, level, pos, newState, isMoving)
 	}
 
 	companion object {
@@ -86,5 +94,4 @@ abstract class MachineBlock(
 			.strength(5f, 6f)
 			.sound(SoundType.METAL)
 	}
-
 }

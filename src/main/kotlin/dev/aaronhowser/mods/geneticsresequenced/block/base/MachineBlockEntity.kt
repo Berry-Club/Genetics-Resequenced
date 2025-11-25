@@ -20,9 +20,9 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
-import net.neoforged.neoforge.energy.EnergyStorage
-import net.neoforged.neoforge.items.IItemHandler
-import net.neoforged.neoforge.items.wrapper.InvWrapper
+import net.minecraftforge.energy.EnergyStorage
+import net.minecraftforge.items.IItemHandler
+import net.minecraftforge.items.wrapper.InvWrapper
 
 abstract class MachineBlockEntity(
 	blockEntityType: BlockEntityType<*>,
@@ -63,20 +63,20 @@ abstract class MachineBlockEntity(
 		level?.sendBlockUpdated(blockPos, blockState, blockState, Block.UPDATE_ALL_IMMEDIATE)
 	}
 
-	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.saveAdditional(tag, registries)
+	override fun saveAdditional(pTag: CompoundTag) {
+		super.saveAdditional(pTag)
 
-		ContainerHelper.saveAllItems(tag, this.container.items, registries)
-		tag.put(ENERGY_NBT, energyStorage.serializeNBT(registries))
+		ContainerHelper.saveAllItems(pTag, this.container.items, false)
+		pTag.put(ENERGY_NBT, energyStorage.serializeNBT())
 	}
 
-	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.loadAdditional(tag, registries)
+	override fun load(pTag: CompoundTag) {
+		super.load(pTag)
 
-		ContainerHelper.loadAllItems(tag, this.container.items, registries)
-		val energy = tag.get(ENERGY_NBT)
+		ContainerHelper.loadAllItems(pTag, this.container.items)
+		val energy = pTag.get(ENERGY_NBT)
 		if (energy is IntTag) {
-			energyStorage.deserializeNBT(registries, energy)
+			energyStorage.deserializeNBT(energy)
 		}
 	}
 
