@@ -26,7 +26,7 @@ import net.minecraftforge.fml.common.Mod
 	modid = GeneticsResequenced.MOD_ID,
 	bus = Mod.EventBusSubscriber.Bus.FORGE
 )
-class ClientForgeBusEvents {
+object ClientForgeBusEvents {
 
 	@SubscribeEvent
 	fun onKeyInputEvent(event: InputEvent.Key) {

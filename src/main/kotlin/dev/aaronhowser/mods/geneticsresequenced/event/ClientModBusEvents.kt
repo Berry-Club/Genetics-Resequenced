@@ -19,7 +19,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 	modid = GeneticsResequenced.MOD_ID,
 	bus = Mod.EventBusSubscriber.Bus.MOD
 )
-class ClientModBusEvents {
+object  ClientModBusEvents {
 
 	@SubscribeEvent
 	fun onKeyRegister(event: RegisterKeyMappingsEvent) {
