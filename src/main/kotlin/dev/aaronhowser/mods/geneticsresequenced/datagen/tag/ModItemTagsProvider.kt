@@ -19,7 +19,7 @@ class ModItemTagsProvider(
 	pLookupProvider: CompletableFuture<HolderLookup.Provider>,
 	pBlockTags: CompletableFuture<TagLookup<Block>>,
 	existingFileHelper: ExistingFileHelper?
-) : ItemTagsProvider(pOutput, pLookupProvider, pBlockTags, GeneticsResequenced.ID, existingFileHelper) {
+) : ItemTagsProvider(pOutput, pLookupProvider, pBlockTags, GeneticsResequenced.MOD_ID, existingFileHelper) {
 
 	companion object {
 		private fun create(id: String): TagKey<Item> {

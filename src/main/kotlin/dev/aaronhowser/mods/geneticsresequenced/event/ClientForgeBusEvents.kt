@@ -9,7 +9,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 
 @Mod.EventBusSubscriber(
-	modid = GeneticsResequenced.ID,
+	modid = GeneticsResequenced.MOD_ID,
 	bus = Mod.EventBusSubscriber.Bus.FORGE
 )
 class ClientForgeBusEvents {

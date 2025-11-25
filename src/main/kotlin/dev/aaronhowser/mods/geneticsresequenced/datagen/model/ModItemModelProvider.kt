@@ -12,7 +12,7 @@ import net.neoforged.neoforge.common.data.ExistingFileHelper
 class ModItemModelProvider(
 	output: PackOutput,
 	existingFileHelper: ExistingFileHelper
-) : ItemModelProvider(output, GeneticsResequenced.ID, existingFileHelper) {
+) : ItemModelProvider(output, GeneticsResequenced.MOD_ID, existingFileHelper) {
 
 	override fun registerModels() {
 

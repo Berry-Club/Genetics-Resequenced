@@ -96,7 +96,7 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 	}
 
 	companion object {
-		const val DIRECTORY = GeneticsResequenced.ID + "/entity_genes"
+		const val DIRECTORY = GeneticsResequenced.MOD_ID + "/entity_genes"
 
 		//TODO: There's probably a better way to do this that doesn't rely on a static map
 		private val ENTITY_GENE_MAP: MutableMap<EntityType<*>, Map<ResourceKey<Gene>, Int>> = mutableMapOf()

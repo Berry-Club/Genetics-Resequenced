@@ -11,7 +11,7 @@ import net.minecraftforge.registries.RegistryObject
 object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 
 	val BLOCK_ENTITY_REGISTRY: DeferredRegister<BlockEntityType<*>> =
-		DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, GeneticsResequenced.ID)
+		DeferredRegister.create(ForgeRegistries.BLOCK_ENTITY_TYPES, GeneticsResequenced.MOD_ID)
 
 	override fun getBlockEntityRegistry(): DeferredRegister<BlockEntityType<*>> = BLOCK_ENTITY_REGISTRY
 

@@ -30,7 +30,7 @@ import net.minecraftforge.registries.RegistryObject
 object ModMenuTypes : AaronMenuTypesRegistry() {
 
 	val MENU_TYPE_REGISTRY: DeferredRegister<MenuType<*>> =
-		DeferredRegister.create(ForgeRegistries.MENU_TYPES, GeneticsResequenced.ID)
+		DeferredRegister.create(ForgeRegistries.MENU_TYPES, GeneticsResequenced.MOD_ID)
 
 	override fun getMenuTypeRegistry(): DeferredRegister<MenuType<*>> = MENU_TYPE_REGISTRY
 

@@ -15,7 +15,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 
 @EventBusSubscriber(
-	modid = GeneticsResequenced.ID
+	modid = GeneticsResequenced.MOD_ID
 )
 object ClickEvents {
 

@@ -10,7 +10,7 @@ import net.neoforged.neoforge.common.data.LanguageProvider
 
 class ModLanguageProvider(
 	output: PackOutput
-) : LanguageProvider(output, GeneticsResequenced.ID, "en_us") {
+) : LanguageProvider(output, GeneticsResequenced.MOD_ID, "en_us") {
 
 	companion object {
 		fun String.toComponent(vararg args: Any?): MutableComponent = Component.translatable(this, *args)

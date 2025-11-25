@@ -16,7 +16,7 @@ class ModDatapackBuiltinEntriesProvider(
 	output,
 	registries,
 	BUILDER,
-	setOf(GeneticsResequenced.ID)
+	setOf(GeneticsResequenced.MOD_ID)
 ) {
 
 	companion object {

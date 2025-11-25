@@ -10,8 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator.Advanced
 import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGeneratorMenu
 import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser.PlasmidInfuserMenu
 import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_injector.PlasmidInjectorMenu
-import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.FireballPacket
-import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.TeleportPlayerPacket
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -31,7 +29,7 @@ import net.neoforged.neoforge.client.event.*
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 
 @EventBusSubscriber(
-	modid = GeneticsResequenced.ID,
+	modid = GeneticsResequenced.MOD_ID,
 	value = [Dist.CLIENT]
 )
 object ClientEvents {

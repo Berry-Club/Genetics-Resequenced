@@ -92,7 +92,7 @@ abstract class BaseEntryProvider : EntryProvider {
 	}
 
 	fun gene(text: String, entryId: String): String {
-		return "[${text}](entry://genes/${GeneticsResequenced.ID}/${entryId})"
+		return "[${text}](entry://genes/${GeneticsResequenced.MOD_ID}/${entryId})"
 	}
 
 	fun block(text: String, entryId: String): String {

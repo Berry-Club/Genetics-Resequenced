@@ -26,7 +26,7 @@ class ModEntityGenesProvider(
 	PackType.SERVER_DATA,
 	EntityGenes.EntityGenesData.CODEC,
 	lookupProvider,
-	GeneticsResequenced.ID,
+	GeneticsResequenced.MOD_ID,
 	existingFileHelper
 ) {
 

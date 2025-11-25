@@ -13,7 +13,7 @@ import net.minecraft.commands.SharedSuggestionProvider
 object ModCommands {
 
 	private val commandBaseStrings = listOf(
-		GeneticsResequenced.ID,
+		GeneticsResequenced.MOD_ID,
 		"genetics",
 		"gr"
 	)

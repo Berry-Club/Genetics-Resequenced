@@ -11,7 +11,7 @@ import net.minecraftforge.registries.RegistryObject
 
 object ModItems : AaronItemRegistry() {
 
-	val ITEM_REGISTRY: DeferredRegister<Item> = DeferredRegister.create(ForgeRegistries.ITEMS, GeneticsResequenced.ID)
+	val ITEM_REGISTRY: DeferredRegister<Item> = DeferredRegister.create(ForgeRegistries.ITEMS, GeneticsResequenced.MOD_ID)
 	override fun getItemRegistry(): DeferredRegister<Item> = ITEM_REGISTRY
 
 	val SCRAPER: RegistryObject<ScraperItem> =

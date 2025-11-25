@@ -11,7 +11,7 @@ import net.minecraftforge.registries.RegistryObject
 
 object ModBlocks : AaronBlockRegistry() {
 
-	val BLOCK_REGISTRY: DeferredRegister<Block> = DeferredRegister.create(ForgeRegistries.BLOCKS, GeneticsResequenced.ID)
+	val BLOCK_REGISTRY: DeferredRegister<Block> = DeferredRegister.create(ForgeRegistries.BLOCKS, GeneticsResequenced.MOD_ID)
 	override fun getBlockRegistry(): DeferredRegister<Block> = BLOCK_REGISTRY
 	override fun getItemRegistry(): DeferredRegister<Item> = ModItems.ITEM_REGISTRY
 

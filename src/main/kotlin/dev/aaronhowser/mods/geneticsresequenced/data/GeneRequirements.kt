@@ -70,7 +70,7 @@ class GeneRequirements : SimpleJsonResourceReloadListener(
 	}
 
 	companion object {
-		const val DIRECTORY = GeneticsResequenced.ID + "/gene_requirements"
+		const val DIRECTORY = GeneticsResequenced.MOD_ID + "/gene_requirements"
 
 		//TODO: There's probably a better way to do this that doesn't rely on a static map
 		private val GENE_REQUIREMENTS_MAP: MutableMap<ResourceKey<Gene>, Set<ResourceKey<Gene>>> = mutableMapOf()

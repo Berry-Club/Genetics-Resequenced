@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryObject
 object ModAttributes {
 
 	val ATTRIBUTE_REGISTRY: DeferredRegister<Attribute> =
-		DeferredRegister.create(ForgeRegistries.ATTRIBUTES, GeneticsResequenced.ID)
+		DeferredRegister.create(ForgeRegistries.ATTRIBUTES, GeneticsResequenced.MOD_ID)
 
 	private const val EFFICIENCY_ATTRIBUTE_NAME = "geneticsresequenced.efficiency"
 	val EFFICIENCY: RegistryObject<RangedAttribute> =

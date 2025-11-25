@@ -23,7 +23,7 @@ class ModGeneRequirementsProvider(
 	PackType.SERVER_DATA,
 	GeneRequirements.GeneRequirementsData.CODEC,
 	lookupProvider,
-	GeneticsResequenced.ID,
+	GeneticsResequenced.MOD_ID,
 	existingFileHelper
 ) {
 

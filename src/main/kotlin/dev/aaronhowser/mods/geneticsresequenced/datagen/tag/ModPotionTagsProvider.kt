@@ -20,7 +20,7 @@ class ModPotionTagsProvider(
 	output,
 	Registries.POTION,
 	lookupProvider,
-	GeneticsResequenced.ID,
+	GeneticsResequenced.MOD_ID,
 	existingFileHelper
 ) {
 

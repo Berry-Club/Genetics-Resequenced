@@ -14,7 +14,7 @@ import java.util.function.Supplier
 object ModEffects {
 
 	val EFFECT_REGISTRY: DeferredRegister<MobEffect> =
-		DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, GeneticsResequenced.ID)
+		DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, GeneticsResequenced.MOD_ID)
 
 	val BLEED: RegistryObject<BleedEffect> =
 		EFFECT_REGISTRY.register("bleed", Supplier { BleedEffect() })

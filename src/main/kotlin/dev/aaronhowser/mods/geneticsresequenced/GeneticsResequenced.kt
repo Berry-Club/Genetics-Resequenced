@@ -10,12 +10,12 @@ import org.apache.logging.log4j.LogManager
 import org.apache.logging.log4j.Logger
 import thedarkcolour.kotlinforforge.forge.MOD_BUS
 
-@Mod(GeneticsResequenced.ID)
+@Mod(GeneticsResequenced.MOD_ID)
 class GeneticsResequenced {
 
 	companion object {
-		const val ID = "geneticsresequenced"
-		val LOGGER: Logger = LogManager.getLogger(ID)
+		const val MOD_ID = "geneticsresequenced"
+		val LOGGER: Logger = LogManager.getLogger(MOD_ID)
 	}
 
 	init {

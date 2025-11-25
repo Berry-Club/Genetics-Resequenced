@@ -12,7 +12,7 @@ import java.util.function.Supplier
 object ModRecipeTypes {
 
 	val RECIPE_TYPES_REGISTRY: DeferredRegister<RecipeType<*>> =
-		DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, GeneticsResequenced.ID)
+		DeferredRegister.create(ForgeRegistries.RECIPE_TYPES, GeneticsResequenced.MOD_ID)
 
 	val INCUBATOR: RegistryObject<RecipeType<AbstractIncubatorRecipe>> =
 		registerRecipeType("incubator")

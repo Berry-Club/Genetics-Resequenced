@@ -13,7 +13,7 @@ import net.neoforged.neoforge.registries.DeferredRegister
 object ModRecipeSerializers {
 
 	val RECIPE_SERIALIZERS_REGISTRY: DeferredRegister<RecipeSerializer<*>> =
-		DeferredRegister.create(BuiltInRegistries.RECIPE_SERIALIZER, GeneticsResequenced.ID)
+		DeferredRegister.create(BuiltInRegistries.RECIPE_SERIALIZER, GeneticsResequenced.MOD_ID)
 
 	val SET_ANTI_PLASMID: DeferredHolder<RecipeSerializer<*>, RecipeSerializer<*>> =
 		registerRecipeSerializer("anti_plasmid/set") { SimpleCraftingRecipeSerializer(::SetAntiPlasmidRecipe) }

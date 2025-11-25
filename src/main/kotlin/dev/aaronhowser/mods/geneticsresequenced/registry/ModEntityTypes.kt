@@ -12,7 +12,7 @@ import java.util.function.Supplier
 object ModEntityTypes {
 
 	val ENTITY_TYPE_REGISTRY: DeferredRegister<EntityType<*>> =
-		DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, GeneticsResequenced.ID)
+		DeferredRegister.create(ForgeRegistries.ENTITY_TYPES, GeneticsResequenced.MOD_ID)
 
 	val SUPPORT_SLIME: RegistryObject<EntityType<SupportSlime>> = ENTITY_TYPE_REGISTRY.register("support_slime", Supplier {
 		EntityType.Builder.of(

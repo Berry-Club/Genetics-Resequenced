@@ -15,7 +15,7 @@ class ModEntityTypeTagsProvider(
 	pOutput: PackOutput,
 	pProvider: CompletableFuture<HolderLookup.Provider>,
 	existingFileHelper: ExistingFileHelper?
-) : EntityTypeTagsProvider(pOutput, pProvider, GeneticsResequenced.ID, existingFileHelper) {
+) : EntityTypeTagsProvider(pOutput, pProvider, GeneticsResequenced.MOD_ID, existingFileHelper) {
 
 	companion object {
 		private fun create(id: String): TagKey<EntityType<*>> {
