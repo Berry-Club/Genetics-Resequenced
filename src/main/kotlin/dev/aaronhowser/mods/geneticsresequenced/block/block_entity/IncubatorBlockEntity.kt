@@ -18,7 +18,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.items.IItemHandler
-import net.neoforged.neoforge.items.wrapper.InvWrapper
 import net.neoforged.neoforge.items.wrapper.RangedWrapper
 import java.util.function.IntSupplier
 
@@ -36,10 +35,8 @@ class IncubatorBlockEntity(
 			super.setChanged()
 			currentProgress = 0
 		}
-	}
 
-	override val itemHandler: InvWrapper = object : InvWrapper(container) {
-		override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
+		override fun canPlaceItem(slot: Int, stack: ItemStack): Boolean {
 			val level = level ?: return false
 
 			return when (slot) {

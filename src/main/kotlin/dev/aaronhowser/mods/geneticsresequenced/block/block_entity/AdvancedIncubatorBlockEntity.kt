@@ -14,6 +14,7 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.util.Mth
@@ -24,7 +25,9 @@ import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.state.BlockState
+import net.neoforged.neoforge.items.IItemHandler
 import net.neoforged.neoforge.items.wrapper.InvWrapper
+import net.neoforged.neoforge.items.wrapper.RangedWrapper
 import java.util.function.IntSupplier
 import kotlin.math.min
 
@@ -50,6 +53,24 @@ class AdvancedIncubatorBlockEntity(
 		override fun setChanged() {
 			super.setChanged()
 			currentProgress = 0
+		}
+
+		override fun canPlaceItem(slot: Int, stack: ItemStack): Boolean {
+			val level = level ?: return false
+
+			return when (slot) {
+				TOP_SLOT_INDEX -> AbstractIncubatorRecipe.isValidTopIngredient(level, stack)
+
+				LEFT_BOTTLE_SLOT_INDEX,
+				MIDDLE_BOTTLE_SLOT_INDEX,
+				RIGHT_BOTTLE_SLOT_INDEX -> AbstractIncubatorRecipe.isValidBottomIngredient(level, stack)
+
+				OVERCLOCKER_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
+
+				CHORUS_SLOT_INDEX -> stack.`is`(Items.CHORUS_FRUIT)
+
+				else -> false
+			}
 		}
 	}
 
@@ -78,23 +99,17 @@ class AdvancedIncubatorBlockEntity(
 
 	//TODO: Reset brew time when overclock changed
 
-	override val itemHandler: InvWrapper = object : InvWrapper(container) {
-		override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
-			val level = level ?: return false
+	override val itemHandler: InvWrapper = InvWrapper(container)
 
-			return when (slot) {
-				TOP_SLOT_INDEX -> AbstractIncubatorRecipe.isValidTopIngredient(level, stack)
+	override val inputHandler: RangedWrapper = RangedWrapper(itemHandler, TOP_SLOT_INDEX, TOP_SLOT_INDEX + 1)
+	private val bottleHandler: RangedWrapper = RangedWrapper(itemHandler, LEFT_BOTTLE_SLOT_INDEX, RIGHT_BOTTLE_SLOT_INDEX + 1)
+	override val overclockHandler: RangedWrapper = RangedWrapper(itemHandler, OVERCLOCKER_SLOT_INDEX, OVERCLOCKER_SLOT_INDEX + 1)
+	override val outputHandler: RangedWrapper = bottleHandler
 
-				LEFT_BOTTLE_SLOT_INDEX,
-				MIDDLE_BOTTLE_SLOT_INDEX,
-				RIGHT_BOTTLE_SLOT_INDEX -> AbstractIncubatorRecipe.isValidBottomIngredient(level, stack)
-
-				OVERCLOCKER_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
-
-				CHORUS_SLOT_INDEX -> stack.`is`(Items.CHORUS_FRUIT)
-
-				else -> false
-			}
+	override fun getItemHandler(direction: Direction?): IItemHandler? {
+		return when (direction) {
+			Direction.UP -> inputHandler
+			else -> bottleHandler
 		}
 	}
 
