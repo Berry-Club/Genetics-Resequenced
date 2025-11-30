@@ -41,6 +41,8 @@ class AdvancedIncubatorMenu(
 		SimpleContainerData(AdvancedIncubatorBlockEntity.CONTAINER_DATA_SIZE)
 	)
 
+	override val amountSlots: Int = AdvancedIncubatorBlockEntity.INVENTORY_SIZE
+
 	init {
 		addSlots()
 
