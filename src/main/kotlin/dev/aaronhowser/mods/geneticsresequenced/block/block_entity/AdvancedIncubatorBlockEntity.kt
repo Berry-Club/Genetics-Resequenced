@@ -97,10 +97,6 @@ class AdvancedIncubatorBlockEntity(
 		override fun getCount(): Int = CONTAINER_DATA_SIZE
 	}
 
-	//TODO: Reset brew time when overclock changed
-
-	override val itemHandler: InvWrapper = InvWrapper(container)
-
 	override val inputHandler: RangedWrapper = RangedWrapper(itemHandler, TOP_SLOT_INDEX, TOP_SLOT_INDEX + 1)
 	private val bottleHandler: RangedWrapper = RangedWrapper(itemHandler, LEFT_BOTTLE_SLOT_INDEX, RIGHT_BOTTLE_SLOT_INDEX + 1)
 	override val overclockHandler: RangedWrapper = RangedWrapper(itemHandler, OVERCLOCKER_SLOT_INDEX, OVERCLOCKER_SLOT_INDEX + 1)
