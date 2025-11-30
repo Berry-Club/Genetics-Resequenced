@@ -25,6 +25,8 @@ class IncubatorMenu(
 		SimpleContainerData(CraftingContainerData.CRAFTING_CONTAINER_DATA_SIZE)
 	)
 
+	override val amountSlots: Int = IncubatorBlockEntity.INVENTORY_SIZE
+
 	init {
 		addSlots()
 	}
