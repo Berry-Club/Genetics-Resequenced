@@ -31,7 +31,7 @@ class AdvancedIncubatorMenu(
 	containerId: Int,
 	playerInventory: Inventory,
 	machineContainer: Container,
-	craftingContainerData: ContainerData
+	craftingContainerData: ContainerData,
 ) : CraftingMachineMenu(ModMenuTypes.ADVANCED_INCUBATOR.get(), containerId, playerInventory, machineContainer, craftingContainerData), MenuWithButtons {
 
 	constructor(containerId: Int, playerInventory: Inventory) : this(
@@ -58,8 +58,6 @@ class AdvancedIncubatorMenu(
 	}
 
 	override fun addSlots() {
-		val level = AaronClientUtil.localLevel ?: return
-
 		val topSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX, 83, 21) { AbstractIncubatorRecipe.isValidTopIngredient(level, it) }
 		val leftBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 55) { AbstractIncubatorRecipe.isValidBottomIngredient(level, it) }
 		val middleBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX, 83, 62) { AbstractIncubatorRecipe.isValidBottomIngredient(level, it) }
