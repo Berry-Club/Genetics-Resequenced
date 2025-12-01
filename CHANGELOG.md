@@ -5,6 +5,7 @@
 - The potion icon change in 1.8.0 no longer applies to potions that are marked as `show_icon: true` in the Gene
   - No default genes have that set, but just in case 🤷
 - Fixed items being able to be put into machine slots when they shouldn't be
+- Fixed an issue where the Advanced Incubator's slots didn't exist on the server (#77)
 
 # 1.8.0
 
