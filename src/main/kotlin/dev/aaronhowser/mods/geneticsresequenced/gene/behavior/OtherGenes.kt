@@ -211,13 +211,14 @@ object OtherGenes {
 		if (wallClimbing.isDisabled || !entity.hasGene(ModGenes.WALL_CLIMBING)) return false
 
 		val entityAabb = entity.boundingBox
+		val shrunkenAabb = entityAabb.deflate(entityAabb.xsize * 0.2, 0.0, entityAabb.zsize * 0.2)
 		val aboveAabb = AABB(
-			entityAabb.minX,
-			entityAabb.maxY - 0.1,
-			entityAabb.minZ,
-			entityAabb.maxX,
-			entityAabb.maxY + 0.5,
-			entityAabb.maxZ
+			shrunkenAabb.minX,
+			shrunkenAabb.maxY - 0.1,
+			shrunkenAabb.minZ,
+			shrunkenAabb.maxX,
+			shrunkenAabb.maxY + 0.5,
+			shrunkenAabb.maxZ
 		)
 
 		val level = entity.level()
