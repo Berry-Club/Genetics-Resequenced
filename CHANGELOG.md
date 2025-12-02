@@ -1,3 +1,9 @@
+# 1.8.2
+
+### Fixed
+
+- Fixed an issue with Wall Climbing that pulled you upwards while sneaking instead of making you stop moving
+
 # 1.8.1
 
 ### Fixed
