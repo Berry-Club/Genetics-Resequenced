@@ -29,7 +29,7 @@ class BloodPurifierBlockEntity(
 			return when (slot) {
 				INPUT_SLOT_INDEX -> SyringeItem.hasBlood(stack)
 				OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
-				OUTPUT_SLOT_INDEX -> false
+				OUTPUT_SLOT_INDEX -> true
 				else -> false
 			}
 		}

@@ -3,6 +3,8 @@
 ### Fixed
 
 - Fixed an issue with Wall Climbing that pulled you upwards while sneaking instead of making you stop moving
+- Fixed some machines voiding their output
+  - I moved the logic for what items can go in what slots from the ItemHandler to the Container, but because I didn't want the player to be able to insert items into the output slot, it also didn't allow the *machine* to put items in the output slot either
 
 # 1.8.1
 

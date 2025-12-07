@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block.base
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
+import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity.Companion.OUTPUT_SLOT_INDEX
 import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.EnergyContainerData
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -15,14 +16,16 @@ import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
 import net.minecraft.world.ContainerHelper
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.inventory.ContainerData
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
-import net.minecraftforge.energy.EnergyStorage
-import net.minecraftforge.items.IItemHandler
-import net.minecraftforge.items.wrapper.InvWrapper
+import net.neoforged.neoforge.energy.EnergyStorage
+import net.neoforged.neoforge.items.IItemHandler
+import net.neoforged.neoforge.items.IItemHandlerModifiable
+import net.neoforged.neoforge.items.wrapper.InvWrapper
 
 abstract class MachineBlockEntity(
 	blockEntityType: BlockEntityType<*>,
@@ -48,7 +51,17 @@ abstract class MachineBlockEntity(
 	protected open val containerData: ContainerData by lazy { EnergyContainerData(energyStorage) }
 
 	open val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, 0)
-	protected open val itemHandler by lazy { InvWrapper(container) }
+	protected open val itemHandler: IItemHandlerModifiable by lazy {
+		object : InvWrapper(container) {
+			override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
+				return if (slot == OUTPUT_SLOT_INDEX) {
+					false
+				} else {
+					super.isItemValid(slot, stack)
+				}
+			}
+		}
+	}
 
 	open fun getItemHandler(direction: Direction?): IItemHandler? {
 		return itemHandler
@@ -63,24 +76,24 @@ abstract class MachineBlockEntity(
 		level?.sendBlockUpdated(blockPos, blockState, blockState, Block.UPDATE_ALL_IMMEDIATE)
 	}
 
-	override fun saveAdditional(pTag: CompoundTag) {
-		super.saveAdditional(pTag)
+	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.saveAdditional(tag, registries)
 
-		ContainerHelper.saveAllItems(pTag, this.container.items, false)
-		pTag.put(ENERGY_NBT, energyStorage.serializeNBT())
+		ContainerHelper.saveAllItems(tag, this.container.items, registries)
+		tag.put(ENERGY_NBT, energyStorage.serializeNBT(registries))
 	}
 
-	override fun load(pTag: CompoundTag) {
-		super.load(pTag)
+	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
+		super.loadAdditional(tag, registries)
 
-		ContainerHelper.loadAllItems(pTag, this.container.items)
-		val energy = pTag.get(ENERGY_NBT)
+		ContainerHelper.loadAllItems(tag, this.container.items, registries)
+		val energy = tag.get(ENERGY_NBT)
 		if (energy is IntTag) {
-			energyStorage.deserializeNBT(energy)
+			energyStorage.deserializeNBT(registries, energy)
 		}
 	}
 
-	override fun getUpdateTag(): CompoundTag = saveWithoutMetadata()
+	override fun getUpdateTag(pRegistries: HolderLookup.Provider): CompoundTag = saveWithoutMetadata(pRegistries)
 	override fun getUpdatePacket(): Packet<ClientGamePacketListener> = ClientboundBlockEntityDataPacket.create(this)
 
 	override fun getDisplayName(): Component {

@@ -29,7 +29,7 @@ class CellAnalyzerBlockEntity(
 			return when (slot) {
 				INPUT_SLOT_INDEX -> stack.`is`(ModItems.ORGANIC_MATTER.get())
 				OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER.get())
-				OUTPUT_SLOT_INDEX -> false
+				OUTPUT_SLOT_INDEX -> true
 				else -> false
 			}
 		}
