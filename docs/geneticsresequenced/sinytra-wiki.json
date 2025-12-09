@@ -1,0 +1,17 @@
+{
+	"id": "geneticsresequenced",
+	"modid": "geneticsresequenced",
+	"owners": ["aaronhowser1"],
+	"platforms": {
+		"curseforge": "genetics-resequenced",
+		"modrinth": "genetics-resequenced"
+	},
+	"licenses": {
+		"project": {
+			"id": "MIT"
+		}
+	},
+	"versions": {
+		"1.21.1": "NeoForge-1.21"
+	}
+}
