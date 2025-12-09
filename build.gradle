@@ -83,6 +83,14 @@ neoForge {
 
 			programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
 		}
+
+		"Wiki-Export-Client" {
+			client()
+			gameDirectory = file 'runs/wiki_exporter'
+			systemProperty 'wiki_exporter.enabled', 'true'
+			systemProperty 'wiki_exporter.config.path', 'runs/wiki_exporter/config.json'
+			systemProperty 'wiki_exporter.output.path', 'runs/wiki_exporter/output'
+		}
 	}
 
 	mods {
@@ -165,6 +173,10 @@ repositories {
 		}
 	}
 
+	maven {
+		url "https://maven.sinytra.org"
+	}
+
 }
 
 dependencies {
@@ -186,6 +198,7 @@ dependencies {
 	compileOnly "dev.aaronhowser.mods:patchoulidatagen-${pdg_version}"
 	implementation "dev.aaronhowser.mods:aaron-1.21.1:${aaron_lib_version}"
 
+	runtimeOnly "org.sinytra:item-asset-export-neoforge:1.0.2+1.21"
 }
 
 tasks.withType(ProcessResources).configureEach {
