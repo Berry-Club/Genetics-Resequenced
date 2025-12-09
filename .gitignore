@@ -20,5 +20,4 @@ build
 
 # other
 eclipse
-runs/client
-runs/server
+runs
