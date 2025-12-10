@@ -1,0 +1,25 @@
+---
+title: Dna Decryptor
+id: geneticsresequenced:dna_decryptor
+type: block
+---
+
+<PrefabObtaining/>
+
+The **Dna Decryptor** is used to analyze [DNA Helices](@geneticsresequenced:dna_helix) to reveal the Genes they contain.
+
+## Usage
+
+Insert a DNA Helix with an unknown Gene into the Decryptor.
+
+The Decryptor will check all possible Genes for that entity type, and pick one at random using their weights.
+
+For example, a Sheep's default Gene weights are:
+
+- Basic: 5
+- Eat Grass: 3
+- Wooly: 4
+
+So there's a 5/12 chance of getting Basic, 3/12 chance of getting Eat Grass, and 4/12 chance of getting Wooly.
+
+The Helix will be moved to the output slot, with the Gene set. If there's already a Helix in the output slot that can't be stacked with the new Helix, the Decryptor will stall until there's room.
