@@ -3,6 +3,7 @@
 ### Fixed
 
 - Fixed the Metal Syringe giving the blood owner Glowing instead of using the mixin
+- Fixed an issue with the Dragon Health Crystal continuing to iterate over all crystals even after fully negating incoming damage
 
 # 1.8.2
 
