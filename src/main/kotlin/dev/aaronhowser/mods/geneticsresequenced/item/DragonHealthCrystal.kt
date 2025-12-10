@@ -62,12 +62,14 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 
 				event.container.newDamage -= amountToRemove
 
-				val newDamage = damageLeft - amountToRemove
-				crystal.set(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, newDamage)
-				if (newDamage <= 0f) {
+				val newStackDamage = damageLeft - amountToRemove
+				crystal.set(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, newStackDamage)
+				if (newStackDamage <= 0f) {
 					crystal.shrink(1)
 					entity.onEquippedItemBroken(crystal.item, entity.getEquipmentSlotForItem(crystal))
 				}
+
+				if (event.container.newDamage <= 0f) break
 			}
 
 			if (event.container.newDamage < 0f) event.container.newDamage = 0f
