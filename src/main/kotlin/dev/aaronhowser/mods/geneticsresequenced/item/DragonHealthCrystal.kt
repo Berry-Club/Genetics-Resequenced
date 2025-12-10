@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundEvents
@@ -39,7 +40,7 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 		val maxDamage = MAX_DAMAGE
 		val damageLeft = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0f)
 		tooltipComponents.add(
-			Component.literal("${damageLeft.toInt()}/${maxDamage.toInt()}")
+			Component.literal("${damageLeft.toInt()}/${maxDamage.toInt()}").withStyle(ChatFormatting.GRAY)
 		)
 	}
 
