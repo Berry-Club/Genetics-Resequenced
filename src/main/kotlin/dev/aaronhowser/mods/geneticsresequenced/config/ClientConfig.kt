@@ -7,18 +7,11 @@ class ClientConfig(
 	private val builder: ModConfigSpec.Builder
 ) {
 
-	companion object {
-		private val configPair: Pair<ClientConfig, ModConfigSpec> = ModConfigSpec.Builder().configure(::ClientConfig)
-
-		val CONFIG: ClientConfig = configPair.left
-		val CONFIG_SPEC: ModConfigSpec = configPair.right
-
-		lateinit var woolyRemovesCape: ModConfigSpec.BooleanValue
-		lateinit var disableParrotNarrator: ModConfigSpec.BooleanValue
-		lateinit var disableCringeLangChange: ModConfigSpec.BooleanValue
-		lateinit var supportSlimeRenderDebug: ModConfigSpec.BooleanValue
-		lateinit var itemMagnetBlacklistTooltip: ModConfigSpec.BooleanValue
-	}
+	lateinit var woolyRemovesCape: ModConfigSpec.BooleanValue
+	lateinit var disableParrotNarrator: ModConfigSpec.BooleanValue
+	lateinit var disableCringeLangChange: ModConfigSpec.BooleanValue
+	lateinit var supportSlimeRenderDebug: ModConfigSpec.BooleanValue
+	lateinit var itemMagnetBlacklistTooltip: ModConfigSpec.BooleanValue
 
 	init {
 		generalConfigs()
@@ -46,6 +39,13 @@ class ClientConfig(
 		itemMagnetBlacklistTooltip = builder
 			.comment("Show that an item is in the Item Magnet's blacklist in its tooltip.")
 			.define("itemMagnetBlacklistTooltip", true)
+	}
+
+	companion object {
+		private val configPair: Pair<ClientConfig, ModConfigSpec> = ModConfigSpec.Builder().configure(::ClientConfig)
+
+		val CONFIG: ClientConfig = configPair.left
+		val CONFIG_SPEC: ModConfigSpec = configPair.right
 	}
 
 }

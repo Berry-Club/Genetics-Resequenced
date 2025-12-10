@@ -15,7 +15,7 @@ data class NarratorPacket(
 ) : AaronPacket() {
 
 	override fun handleOnClient(context: IPayloadContext) {
-		if (ClientConfig.disableParrotNarrator.get()) return
+		if (ClientConfig.CONFIG.disableParrotNarrator.get()) return
 		Minecraft.getInstance().narrator.narrator.say(this.message, true)
 	}
 

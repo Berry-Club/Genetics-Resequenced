@@ -75,7 +75,7 @@ class SupportSlimeRenderer(
 		pPackedLight: Int
 	) {
 
-		if (ClientConfig.supportSlimeRenderDebug.get()) {
+		if (ClientConfig.CONFIG.supportSlimeRenderDebug.get()) {
 			super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight)
 		}
 
