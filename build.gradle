@@ -313,3 +313,13 @@ wiki {
 		}
 	}
 }
+
+tasks.named('processResources') {
+	from("$rootDir/docs") {
+		into "assets/oracle_index/books/geneticsresequenced"
+		exclude "assets/items/**"
+	}
+	doLast {
+		println "processResources executed: wiki folder copied into assets/oracle_index"
+	}
+}
