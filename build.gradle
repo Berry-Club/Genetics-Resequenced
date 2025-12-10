@@ -305,6 +305,8 @@ unifiedPublishing {
 }
 
 wiki {
+	wikiAccessToken = ENV.MODDED_MC_WIKI_TOKEN
+
 	docs {
 		geneticsresequenced {
 			root = file('docs/geneticsresequenced')
