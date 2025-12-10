@@ -1,0 +1,20 @@
+---
+title: DNA Helix
+id: geneticsresequenced:dna_helix
+type: item
+---
+
+**DNA Helices** each contain a specific Gene. By default this Gene is unknown, and must be identified using a [Gene Decryptor](@geneticsresequenced:gene_decryptor).
+
+Each entity type has a specific set of possible Genes that they can provide. These Genes are also weighted, so some Genes are more likely to be obtained than others.
+
+You can check what Genes a mob can provide using the [Gene Checker](@geneticsresequenced:gene_checker), or using [EMI](https://www.curseforge.com/minecraft/mc-mods/emi).
+
+For example, a Cow has the following Gene weights:
+- Basic: 5
+- Eat Grass: 3
+- Milky: 4
+
+These weights add up to 12. That means decrypting a Cow DNA Helix has a 5/12 chance of having the Basic Gene, a 3/12 chance of having the Eat Grass Gene, and a 4/12 chance of having the Milky Gene.
+
+Once a DNA Helix has been decrypted, it must be inserted into a [Plasmid](@geneticsresequenced:plasmid) in the [Plasmid Infuser](@geneticsresequenced:plasmid_infuser).
