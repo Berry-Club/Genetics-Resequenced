@@ -1,0 +1,29 @@
+---
+title: Plasmid Infuser
+id: geneticsresequenced:plasmid_infuser
+type: block
+---
+
+<PrefabObtaining/>
+
+The **Plasmid Infuser** is used to fill [Plasmids](@geneticsresequenced:plasmid) with Genes from [DNA Helices](@geneticsresequenced:dna_helix).
+
+Insert a Plasmid in the right slot, and DNA Helices in the left slot.
+
+Each Gene has a specific amount of DNA Points required for the Plasmid to be infused with that Gene.
+
+The first DNA Helix infused into the Plasmid will determine the Gene that the Plasmid will have. Each Helix after that will contribute DNA Points.
+
+Helices with the Basic Gene will contribute 1 point, and Helices matching the Plasmid's Gene will contribute 2 points.
+
+## Example
+
+The [Eat Grass](@geneticsresequenced:genes/eat_grass) Gene requires 16 DNA Points.
+
+First, put an empty Plasmid into the right slot.
+
+Then, insert an Eat Grass DNA Helix into the left slot. This will set the Plasmid's Gene to Eat Grass, but not contribute any points.
+
+Each Eat Grass Helix inserted after that will contribute 2 points. Basic Helices will contribute 1 point.
+
+After you've inserted 16 points worth of Helices, the Plasmid will be completed and can be removed and used in the [Plasmid Injector](@geneticsresequenced:plasmid_injector).
