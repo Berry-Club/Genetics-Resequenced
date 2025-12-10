@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvent
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.util.Mth
@@ -14,6 +15,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
+import net.minecraft.world.item.TooltipFlag
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
 
 class DragonHealthCrystal(properties: Properties) : Item(properties) {
@@ -21,7 +23,8 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 	override fun getBreakingSound(): SoundEvent = SoundEvents.ENDER_DRAGON_HURT
 
 	override fun isDamageable(stack: ItemStack): Boolean = true
-	override fun isBarVisible(stack: ItemStack): Boolean = getDamage(stack) < getMaxDamage(stack)
+	override fun isBarVisible(stack: ItemStack): Boolean = getDamage(stack) > 0
+
 	override fun getMaxDamage(stack: ItemStack): Int = Mth.ceil(MAX_DAMAGE)
 	override fun getDamage(stack: ItemStack): Int {
 		val damageRemaining = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0f)
@@ -32,9 +35,18 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 		return pRepairCandidate.item === Items.END_CRYSTAL
 	}
 
+	override fun appendHoverText(stack: ItemStack, context: TooltipContext, tooltipComponents: MutableList<Component>, tooltipFlag: TooltipFlag) {
+		val maxDamage = MAX_DAMAGE
+		val damageLeft = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0f)
+		tooltipComponents.add(
+			Component.literal("${damageLeft.toInt()}/${maxDamage.toInt()}")
+		)
+	}
+
 	companion object {
 		val DEFAULT_PROPERTIES: () -> Properties = {
 			Properties()
+				.stacksTo(1)
 				.component(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, MAX_DAMAGE)
 		}
 

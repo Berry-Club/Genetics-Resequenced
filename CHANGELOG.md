@@ -1,9 +1,15 @@
 # 1.8.3
 
+### Changelog
+
+- The Dragon Health Crystal doesn't show its durability bar when it's full
+- The Dragon Health Crystal now shows its remaining damage in the tooltip
+
 ### Fixed
 
 - Fixed the Metal Syringe giving the blood owner Glowing instead of using the mixin
 - Fixed an issue with the Dragon Health Crystal continuing to iterate over all crystals even after fully negating incoming damage
+- The Dragon Health Crystal now stacks to 1 again
 
 # 1.8.2
 
