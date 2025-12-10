@@ -292,7 +292,7 @@ object TickGenes {
 	}
 
 	fun itemMagnetBlacklistTooltip(event: ItemTooltipEvent) {
-		if (!ClientConfig.itemMagnetBlacklistTooltip.get()) return
+		if (!ClientConfig.CONFIG.itemMagnetBlacklistTooltip.get()) return
 
 		val player = event.entity ?: return
 		if (!player.hasGene(ModGenes.ITEM_MAGNET)) return

@@ -40,7 +40,7 @@ object ClientUtil {
 	private var removedSkinLayers: Set<PlayerModelPart> = emptySet()
 	fun shearPlayerSkin() {
 		val enabledModelParts = this.options.modelParts.toMutableSet()
-		if (!ClientConfig.woolyRemovesCape.get()) {
+		if (!ClientConfig.CONFIG.woolyRemovesCape.get()) {
 			enabledModelParts.remove(PlayerModelPart.CAPE)
 		}
 
@@ -84,7 +84,7 @@ object ClientUtil {
 			if (cringe.isDisabled) return
 		}
 
-		if (ClientConfig.disableCringeLangChange.get()) {
+		if (ClientConfig.CONFIG.disableCringeLangChange.get()) {
 			GeneticsResequenced.LOGGER.info("Cringe language-changing is disabled in the config!")
 			return
 		}

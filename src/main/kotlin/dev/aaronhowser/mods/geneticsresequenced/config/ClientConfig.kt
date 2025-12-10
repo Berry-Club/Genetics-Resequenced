@@ -1,17 +1,17 @@
 package dev.aaronhowser.mods.geneticsresequenced.config
 
-import net.minecraftforge.common.ForgeConfigSpec
+import net.neoforged.neoforge.common.ModConfigSpec
 import org.apache.commons.lang3.tuple.Pair
 
 class ClientConfig(
-	private val builder: ForgeConfigSpec.Builder
+	private val builder: ModConfigSpec.Builder
 ) {
 
-	lateinit var woolyRemovesCape: ForgeConfigSpec.BooleanValue
-	lateinit var disableParrotNarrator: ForgeConfigSpec.BooleanValue
-	lateinit var disableCringeLangChange: ForgeConfigSpec.BooleanValue
-	lateinit var supportSlimeRenderDebug: ForgeConfigSpec.BooleanValue
-	lateinit var itemMagnetBlacklistTooltip: ForgeConfigSpec.BooleanValue
+	lateinit var woolyRemovesCape: ModConfigSpec.BooleanValue
+	lateinit var disableParrotNarrator: ModConfigSpec.BooleanValue
+	lateinit var disableCringeLangChange: ModConfigSpec.BooleanValue
+	lateinit var supportSlimeRenderDebug: ModConfigSpec.BooleanValue
+	lateinit var itemMagnetBlacklistTooltip: ModConfigSpec.BooleanValue
 
 	init {
 		generalConfigs()
@@ -42,10 +42,10 @@ class ClientConfig(
 	}
 
 	companion object {
-		private val configPair: Pair<ClientConfig, ForgeConfigSpec> = ForgeConfigSpec.Builder().configure(::ClientConfig)
+		private val configPair: Pair<ClientConfig, ModConfigSpec> = ModConfigSpec.Builder().configure(::ClientConfig)
 
 		val CONFIG: ClientConfig = configPair.left
-		val CONFIG_SPEC: ForgeConfigSpec = configPair.right
+		val CONFIG_SPEC: ModConfigSpec = configPair.right
 	}
 
 }
