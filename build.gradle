@@ -87,9 +87,7 @@ neoForge {
 		"Wiki-Export-Client" {
 			client()
 			gameDirectory = file 'runs/wiki_exporter'
-			systemProperty 'wiki_exporter.enabled', 'true'
-			systemProperty 'wiki_exporter.config.path', 'runs/wiki_exporter/config.json'
-			systemProperty 'wiki_exporter.output.path', 'runs/wiki_exporter/output'
+			systemProperty 'item_asset_export.render.namespaces', 'geneticsresequenced'
 		}
 	}
 
