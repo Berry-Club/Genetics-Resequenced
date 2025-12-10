@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.aaron.AaronExtensions.isTrue
 import dev.aaronhowser.mods.aaron.AaronExtensions.status
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
@@ -11,14 +12,19 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
+import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.client.Minecraft
 import net.minecraft.client.Options
 import net.minecraft.core.RegistryAccess
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.HoverEvent
+import net.minecraft.world.InteractionHand
 import net.minecraft.world.effect.MobEffectInstance
+import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.PlayerModelPart
 
 object ClientUtil {
@@ -190,6 +196,36 @@ object ClientUtil {
 				) {
 					return true
 				}
+			}
+		}
+
+		return false
+	}
+
+	@JvmStatic
+	fun shouldMobGlow(entityToGlow: LivingEntity): Boolean {
+		val level = entityToGlow.level()
+		if (level.isServerSide) return false
+
+		if (OtherGenes.shouldMobGlowFromMobSight(entityToGlow)) {
+			return true
+		}
+
+		val localPlayer = AaronClientUtil.localPlayer ?: return false
+		val mainHandStack = localPlayer.getItemInHand(InteractionHand.MAIN_HAND)
+		val offHandStack = localPlayer.getItemInHand(InteractionHand.OFF_HAND)
+
+		if (mainHandStack.`is`(ModItems.METAL_SYRINGE)) {
+			val syringeUuid = SpecificEntityItemComponent.getEntityUuid(mainHandStack)
+			if (syringeUuid != null && syringeUuid == entityToGlow.uuid) {
+				return true
+			}
+		}
+
+		if (offHandStack.`is`(ModItems.METAL_SYRINGE)) {
+			val syringeUuid = SpecificEntityItemComponent.getEntityUuid(offHandStack)
+			if (syringeUuid != null && syringeUuid == entityToGlow.uuid) {
+				return true
 			}
 		}
 

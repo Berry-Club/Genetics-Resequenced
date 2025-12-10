@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes;
+import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.LivingEntity;
@@ -28,9 +29,12 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 
 		var self = (LivingEntity) (Object) this;
-		return OtherGenes.shouldMobGlowFromMobSight(self);
+		if (self.level().isClientSide) {
+			return ClientUtil.shouldMobGlow(self);
+		} else {
+			return original;
+		}
 	}
-
 
 	@Override
 	public void makeStuckInBlock(BlockState state, Vec3 motionMultiplier) {

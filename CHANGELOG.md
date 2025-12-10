@@ -1,3 +1,9 @@
+# 1.8.3
+
+### Fixed
+
+- Fixed the Metal Syringe giving the blood owner Glowing instead of using the mixin
+
 # 1.8.2
 
 ### Fixed

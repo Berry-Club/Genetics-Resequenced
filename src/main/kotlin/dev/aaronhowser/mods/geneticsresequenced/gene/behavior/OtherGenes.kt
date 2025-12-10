@@ -230,12 +230,7 @@ object OtherGenes {
 		}
 	}
 
-
-	@JvmStatic
 	fun shouldMobGlowFromMobSight(entityToGlow: LivingEntity): Boolean {
-		val level = entityToGlow.level()
-		if (level.isServerSide) return false
-
 		val mobSight = ModGenes.MOB_SIGHT.getHolderOrThrow(entityToGlow.registryAccess())
 		if (mobSight.isDisabled) return false
 

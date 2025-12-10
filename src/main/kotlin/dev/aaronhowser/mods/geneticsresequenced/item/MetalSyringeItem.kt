@@ -11,7 +11,6 @@ import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
-import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EquipmentSlotGroup
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
@@ -24,29 +23,6 @@ import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.util.FakePlayer
 
 class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
-
-	override fun inventoryTick(pStack: ItemStack, pLevel: Level, pEntity: Entity, pSlotId: Int, pIsSelected: Boolean) {
-		if (!pIsSelected) return
-		if (pEntity !is Player) return
-
-		if (pEntity.tickCount % 40 != 0) return
-
-		if (!hasBlood(pStack)) return
-
-		val entityUuid = SpecificEntityItemComponent.getEntityUuid(pStack) ?: return
-		val target = OtherUtil.getNearbyEntityFromUuid(entityUuid, pEntity) ?: return
-
-		target.addEffect(
-			MobEffectInstance(
-				MobEffects.GLOWING,
-				40 * 3,
-				0,
-				false,
-				false,
-				false
-			)
-		)
-	}
 
 	override fun getUseDuration(pStack: ItemStack, pHolder: LivingEntity): Int = 40
 	override fun getUseAnimation(pStack: ItemStack): UseAnim = UseAnim.BOW
