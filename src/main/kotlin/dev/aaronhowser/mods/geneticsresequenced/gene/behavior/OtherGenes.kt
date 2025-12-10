@@ -62,7 +62,7 @@ object OtherGenes {
 		val message = event.message
 
 		val packet = NarratorPacket(message.string)
-		packet.messageNearbyPlayers(player.serverLevel(), player.position(), 64.0)
+		packet.messageAllPlayersTrackingEntityAndSelf(player)
 	}
 
 	private val RANDOM_CRINGE_PHRASES = listOf(
