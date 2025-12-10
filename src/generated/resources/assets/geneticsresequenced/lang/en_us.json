@@ -1006,6 +1006,7 @@
   "message.geneticsresequenced.syringe.failed": "You have failed to gain the %1$s Gene!",
   "message.geneticsresequenced.syringe.injected": "You have gained the %1$s Gene!",
   "message.geneticsresequenced.wooly.recent": "This entity has already been sheared recently!",
+  "oracle_index.title.geneticsresequenced": "Genetics: Resequenced",
   "recipe.category.geneticsresequenced.blood_purifier": "Blood Purifier",
   "recipe.category.geneticsresequenced.cell_analyzer": "Cell Analyzer",
   "recipe.category.geneticsresequenced.cell_dupe": "Substrate Cell Duplication",

@@ -82,6 +82,7 @@ class ModLanguageProvider(
 		add(Other.BLEED_DEATH, "%s bled out!")
 		add(Other.VIRUS_DEATH, "%s succumbed to a Virus!")
 		add(Other.BOOK_LANDING_TEXT, "Welcome to Genetics: Resequenced! This guide book will help you get started with the mod.")
+		add(Other.ORACLE_INDEX_TITLE, "Genetics: Resequenced")
 	}
 
 	object Commands {
@@ -121,6 +122,7 @@ class ModLanguageProvider(
 		const val SUPPORT_SLIME = "entity.geneticsresequenced.support_slime"
 
 		const val BOOK_LANDING_TEXT = "book.geneticsresequenced.landing_text"
+		const val ORACLE_INDEX_TITLE = "oracle_index.title.geneticsresequenced"
 	}
 
 	object Keys {
