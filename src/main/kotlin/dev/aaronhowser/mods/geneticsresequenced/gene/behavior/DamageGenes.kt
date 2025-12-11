@@ -17,8 +17,8 @@ import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.item.AxeItem
 import net.minecraft.world.item.Items
+import net.neoforged.neoforge.common.ItemAbilities
 import net.neoforged.neoforge.common.NeoForgeMod
 import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
@@ -103,7 +103,7 @@ object DamageGenes {
 		val attacker = event.container.source.entity as? LivingEntity ?: return
 		if (!attacker.hasGene(ModGenes.JOHNNY)) return
 
-		val weaponIsAxe = attacker.mainHandItem.item is AxeItem //Is there a better way of doing this?
+		val weaponIsAxe = attacker.mainHandItem.item.canPerformAction(attacker.mainHandItem, ItemAbilities.AXE_DIG)
 		if (!weaponIsAxe) return
 
 		event.container.newDamage *= ServerConfig.CONFIG.johnnyAttackMultiplier.get().toFloat()
