@@ -146,6 +146,8 @@ object ModGenes {
 	@JvmField val SCARE_ZOMBIES = resourceKey("scare_zombies")
 	@JvmField val SCARE_SPIDERS = resourceKey("scare_spiders")
 	@JvmField val LAVA_PROOF = resourceKey("lava_proof")
+	@JvmField val WEB_DEFENSE = resourceKey("web_defense")
+	@JvmField val WEB_WALKER = resourceKey("web_walker")
 
 	//Negative effects
 
@@ -166,8 +168,6 @@ object ModGenes {
 	@JvmField val SLOWNESS_SIX = resourceKey("slowness_6")
 	@JvmField val WEAVING = resourceKey("weaving")
 	@JvmField val WEAKNESS = resourceKey("weakness")
-	@JvmField val WEB_DEFENSE = resourceKey("web_defense")
-	@JvmField val WEB_WALKER = resourceKey("web_walker")
 	@JvmField val WIND_CHARGED = resourceKey("wind_charged")
 	@JvmField val WITHER = resourceKey("wither")
 
