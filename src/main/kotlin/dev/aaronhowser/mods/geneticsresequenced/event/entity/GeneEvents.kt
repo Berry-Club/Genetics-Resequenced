@@ -8,7 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.r
 import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
-import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
@@ -28,7 +28,7 @@ import net.neoforged.fml.common.EventBusSubscriber
 object GeneEvents {
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
-	fun onGeneChanged(event: CustomEvents.GeneChangeEvent.Post) {
+	fun onGeneChanged(event: GeneChangeEvent.Post) {
 		val (livingEntity: LivingEntity, geneHolder: Holder<Gene>, wasAdded: Boolean) = event
 
 		tellAllPlayersGeneChanged(livingEntity, geneHolder, wasAdded)
