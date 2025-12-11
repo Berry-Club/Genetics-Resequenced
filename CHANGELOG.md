@@ -4,7 +4,7 @@
 
 - Made a wiki at moddedmc.wiki
 	- https://moddedmc.wiki/en/project/geneticsresequenced/latest
-    - Also added in-game support via [Oracle Index](https://modrinth.com/mod/oracle-index)
+    - Also added in-game support via [Oracle Index](https://modrinth.com/mod/oracle-index), which has been added as an optional dependency
 
 ### Changes
 
