@@ -120,10 +120,6 @@ object ClientUtil {
 
 		val localPlayer = AaronClientUtil.localPlayer ?: return
 
-		fun sendSystemMessage(message: Component) {
-			localPlayer.sendSystemMessage(message)
-		}
-
 		localPlayer.level().scheduleTaskInTicks(1) {
 			val component = if (wasAdded) {
 				ModMessageLang.CRINGE_ADDED.toComponent(countdownSeconds)
@@ -138,7 +134,7 @@ object ClientUtil {
 				)
 			}
 
-			sendSystemMessage(component)
+			localPlayer.sendSystemMessage(component)
 		}
 
 		var secondsLeft = countdownSeconds
@@ -158,7 +154,7 @@ object ClientUtil {
 
 		this.amountTryingToChangeLanguage++
 		localPlayer.level().scheduleTaskInTicks(20 * countdownSeconds) {
-			sendSystemMessage(
+			localPlayer.sendSystemMessage(
 				ModMessageLang.CRINGE_RELOADING
 					.toComponent()
 					.withStyle {
