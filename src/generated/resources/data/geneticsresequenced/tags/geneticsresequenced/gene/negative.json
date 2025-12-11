@@ -20,6 +20,8 @@
     "geneticsresequenced:green_death",
     "geneticsresequenced:white_death",
     "geneticsresequenced:gray_death",
-    "geneticsresequenced:un_undeath"
+    "geneticsresequenced:un_undeath",
+    "geneticsresequenced:explosive_exit",
+    "geneticsresequenced:flambe"
   ]
 }
