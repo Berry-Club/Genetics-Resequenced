@@ -29,23 +29,26 @@ class PanaceaEffect : MobEffect(
 		pLivingEntity.removeEffect(ModEffects.PANACEA)
 	}
 
-	private fun removeAllNegativeGenes(pLivingEntity: LivingEntity) {
-		val genes = pLivingEntity.geneHolders.filter { it.isNegative }.iterator()
+	companion object {
 
-		while (genes.hasNext()) {
-			val gene = genes.next()
-			pLivingEntity.removeGene(gene)
+		private fun removeAllNegativeGenes(pLivingEntity: LivingEntity) {
+			val genes = pLivingEntity.geneHolders.filter { it.isNegative }.iterator()
+
+			while (genes.hasNext()) {
+				val gene = genes.next()
+				pLivingEntity.removeGene(gene)
+			}
 		}
-	}
 
-	private fun removeAllNegativeEffects(pLivingEntity: LivingEntity) {
-		val harmfulEffects = pLivingEntity.activeEffects
-			.filter { it.effect.value().category == MobEffectCategory.HARMFUL }
-			.iterator()
+		private fun removeAllNegativeEffects(pLivingEntity: LivingEntity) {
+			val harmfulEffects = pLivingEntity.activeEffects
+				.filter { it.effect.value().category == MobEffectCategory.HARMFUL }
+				.iterator()
 
-		while (harmfulEffects.hasNext()) {
-			val effect = harmfulEffects.next()
-			pLivingEntity.removeEffect(effect.effect)
+			while (harmfulEffects.hasNext()) {
+				val effect = harmfulEffects.next()
+				pLivingEntity.removeEffect(effect.effect)
+			}
 		}
 	}
 
