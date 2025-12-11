@@ -92,7 +92,7 @@ object ModGeneLang {
 		addGene(ModGenes.FLAMBE, "Flambé")
 		addGene(ModGenes.CURSED, "Cursed")
 		addGene(ModGenes.LEVITATION, "Levitation")
-		addGene(ModGenes.MINING_FATIGUE, "Mining Weakness")
+		addGene(ModGenes.MINING_FATIGUE, "Mining Fatigue")
 		addGene(ModGenes.GREEN_DEATH, "Green Death")
 		addGene(ModGenes.UN_UNDEATH, "Un-Undeath")
 		addGene(ModGenes.GRAY_DEATH, "Gray Death")
