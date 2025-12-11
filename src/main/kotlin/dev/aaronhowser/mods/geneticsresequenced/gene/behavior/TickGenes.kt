@@ -98,16 +98,12 @@ object TickGenes {
 		foodData.foodLevel = max(foodData.foodLevel, ServerConfig.CONFIG.noHungerMinimum.get())
 	}
 
-
 	private fun isDeathGene(geneHolder: Holder<Gene>): Boolean {
-		return when {
-			geneHolder.isGene(ModGenes.BLACK_DEATH) -> true
-			geneHolder.isGene(ModGenes.GREEN_DEATH) -> true
-			geneHolder.isGene(ModGenes.GRAY_DEATH) -> true
-			geneHolder.isGene(ModGenes.UN_UNDEATH) -> true
-			geneHolder.isGene(ModGenes.WHITE_DEATH) -> true
-			else -> false
-		}
+		return geneHolder.isGene(ModGenes.BLACK_DEATH)
+				|| geneHolder.isGene(ModGenes.GREEN_DEATH)
+				|| geneHolder.isGene(ModGenes.GRAY_DEATH)
+				|| geneHolder.isGene(ModGenes.UN_UNDEATH)
+				|| geneHolder.isGene(ModGenes.WHITE_DEATH)
 	}
 
 	fun handleTickingGenes(entity: LivingEntity) {
