@@ -10,6 +10,8 @@
 
 - The Dragon Health Crystal doesn't show its durability bar when it's full
 - The Dragon Health Crystal now shows its remaining damage in the tooltip
+- Flambe and Explosive Exit are now negative Genes
+- Renamed the Mining Weakness Gene to Mining Fatigue
 
 ### Fixed
 
