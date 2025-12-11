@@ -1,4 +1,10 @@
-# 1.8.3
+# 1.9.0
+
+### Added
+
+- Made a wiki at moddedmc.wiki
+	- https://moddedmc.wiki/en/project/geneticsresequenced/latest
+    - Also added in-game support via [Oracle Index](https://modrinth.com/mod/oracle-index)
 
 ### Changes
 
@@ -11,7 +17,7 @@
 - Fixed an issue with the Dragon Health Crystal continuing to iterate over all crystals even after fully negating incoming damage
 - The Dragon Health Crystal now stacks to 1 again
 - Fixed the Claws Gene not actually inflicting extra damage, only the Bleeding effect
-  - Now it inflicts +8 damage with Claws, and +16 with Claws II (if you have an empty hand)
+	- Now it inflicts +8 damage with Claws, and +16 with Claws II (if you have an empty hand)
 
 # 1.8.2
 
@@ -19,14 +25,14 @@
 
 - Fixed an issue with Wall Climbing that pulled you upwards while sneaking instead of making you stop moving
 - Fixed some machines voiding their output (#78)
-  - I moved the logic for what items can go in what slots from the ItemHandler to the Container, but because I didn't want the player to be able to insert items into the output slot, it also didn't allow the *machine* to put items in the output slot either
+	- I moved the logic for what items can go in what slots from the ItemHandler to the Container, but because I didn't want the player to be able to insert items into the output slot, it also didn't allow the *machine* to put items in the output slot either
 
 # 1.8.1
 
 ### Fixed
 
 - The potion icon change in 1.8.0 no longer applies to potions that are marked as `show_icon: true` in the Gene
-  - No default genes have that set, but just in case 🤷
+	- No default genes have that set, but just in case 🤷
 - Fixed items being able to be put into machine slots when they shouldn't be
 - Fixed an issue where the Advanced Incubator's slots didn't exist on the server (#77)
 
@@ -35,28 +41,28 @@
 ### Added
 
 - Web Walker
-  - Makes you immune to being slowed by Cobwebs
-  - Requires Weaving Gene
+	- Makes you immune to being slowed by Cobwebs
+	- Requires Weaving Gene
 - Web Defense
-  - If you get hit, spawns a temporary Cobweb on your attacker
-  - You are immune to your own temporary Cobwebs
-  - Requires Weaving Gene
+	- If you get hit, spawns a temporary Cobweb on your attacker
+	- You are immune to your own temporary Cobwebs
+	- Requires Weaving Gene
 
 ### Changed
 
 - Mob Effects given by Genes will now not be shown in the player's inventory screen
-  - That was annoying because Genes are permanent, so the effects would always be there
-  - I noticed that this doesn't work with EMI currently, it might not work with some other things that change how potion effects render in the inventory either
+	- That was annoying because Genes are permanent, so the effects would always be there
+	- I noticed that this doesn't work with EMI currently, it might not work with some other things that change how potion effects render in the inventory either
 - Changed some advancement types to be challenge or goal
 - Weaving, Wind Charged, and Oozing are no longer considered negative genes
 - Genes can now have multiple potions instead of just 0 or 1 (#75)
-  - It now uses a List<PotionDetails> rather than an Optional<PotionDetails>
-  - Pack devs that have custom Genes will have to update to match this change, if they use potions
+	- It now uses a List<PotionDetails> rather than an Optional<PotionDetails>
+	- Pack devs that have custom Genes will have to update to match this change, if they use potions
 
 ### Fixed
 
 - Mob Sight no longer works by giving nearby mobs the Glowing effect (#74)
-  - Now the mod uses a mixin on LivingEntity#isCurrentlyGlowing, on the client, checking if the client player has the Gene and the mob isn't too far away
+	- Now the mod uses a mixin on LivingEntity#isCurrentlyGlowing, on the client, checking if the client player has the Gene and the mob isn't too far away
 
 # 1.7.2
 
@@ -77,9 +83,9 @@
 ### Changed
 
 - The mod now requires the library [Aaron](https://www.curseforge.com/minecraft/mc-mods/aaron)
-  - There have been massive reworks to this mod, a lot of stuff was moved to Aaron
-  - Every machine works completely differently, internally. This was my first mod that had machines and guis, and I was doing them in a really bad way. I do them much better now.
-  - I spent days tearing this mod apart and cleaning it back up. I am honestly shocked that it ever worked to begin with. I have no idea if this will improve performance, but the code is now infinitely more maintainable.
+	- There have been massive reworks to this mod, a lot of stuff was moved to Aaron
+	- Every machine works completely differently, internally. This was my first mod that had machines and guis, and I was doing them in a really bad way. I do them much better now.
+	- I spent days tearing this mod apart and cleaning it back up. I am honestly shocked that it ever worked to begin with. I have no idea if this will improve performance, but the code is now infinitely more maintainable.
 - The Advanced Incubator now has a more easily visible button to toggle the temperature
 - The Wall Climb Gene now allows you to cling to ceilings by sneaking (#70)
 
@@ -432,4 +438,4 @@
 
 - Removed the Bad Omen Gene, since it functions radically differently than other effects
 - Reworked the give genes command, it now uses the syntax `/genetics gene give <gene_id> <targets>`
-  - Removes the old `/genetics gene add [fromString/fromRl] <gene> <targets>` thing, which was disgusting
+	- Removes the old `/genetics gene add [fromString/fromRl] <gene> <targets>` thing, which was disgusting

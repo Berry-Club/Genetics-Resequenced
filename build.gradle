@@ -285,6 +285,10 @@ unifiedPublishing {
 			optional {
 				curseforge = modrinth = "patchouli"
 			}
+
+			optional {
+				curseforge = modrinth = "oracle-index"
+			}
 		}
 
 		if (ENV.CURSEFORGE_KEY) {
