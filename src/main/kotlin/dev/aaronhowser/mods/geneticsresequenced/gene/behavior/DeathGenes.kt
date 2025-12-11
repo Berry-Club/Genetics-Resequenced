@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.nextRange
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.clearSavedInventory
@@ -24,7 +25,6 @@ import net.neoforged.fml.ModList
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
 import net.neoforged.neoforge.event.level.ExplosionEvent
 import java.util.*
-import kotlin.random.Random
 
 object DeathGenes {
 
@@ -163,21 +163,21 @@ object DeathGenes {
 		if (slimyDeath.isDisabled) return
 		if (event.isCanceled) return
 
-		val entity: LivingEntity = event.entity
+		val entity = event.entity
 		if (!entity.hasGene(ModGenes.SLIMY_DEATH)) return
 
 		val newlyUsed = SLIMY_DEATH_COOLDOWN.add(entity)
 		if (!newlyUsed) return
 
-		val amount = Random.nextInt(3, 6)
+		val amount = entity.random.nextRange(3, 6)
 
 		repeat(amount) {
 			val supportSlime = SupportSlime(entity.level(), entity.uuid)
 
 			val randomNearbyPosition = entity.position().add(
-				Random.nextDouble(-1.0, 1.0),
+				entity.random.nextRange(-1.0, 1.0),
 				0.0,
-				Random.nextDouble(-1.0, 1.0)
+				entity.random.nextRange(-1.0, 1.0)
 			)
 
 			supportSlime.moveTo(randomNearbyPosition.x, randomNearbyPosition.y, randomNearbyPosition.z)

@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.aaron.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
@@ -36,9 +36,8 @@ object OtherGenes {
 		val emeraldHeart = ModGenes.EMERALD_HEART.getHolderOrThrow(event.player.registryAccess())
 		if (emeraldHeart.isDisabled) return
 
-		if (Random.nextDouble() > ServerConfig.CONFIG.emeraldHeartChatChance.get()) return
-
 		val player = event.player
+		if (!player.random.chance(ServerConfig.CONFIG.emeraldHeartChatChance.get())) return
 
 		if (player.hasGene(ModGenes.EMERALD_HEART)) {
 			player.level().playSound(
