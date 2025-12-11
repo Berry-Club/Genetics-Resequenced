@@ -109,6 +109,27 @@ object DamageGenes {
 		event.container.newDamage *= ServerConfig.CONFIG.johnnyAttackMultiplier.get().toFloat()
 	}
 
+	fun handleClaws(event: LivingDamageEvent.Pre) {
+		val claws = ModGenes.CLAWS.getHolderOrThrow(event.entity.registryAccess())
+		val clawsTwo = ModGenes.CLAWS_TWO.getHolderOrThrow(event.entity.registryAccess())
+
+		if (claws.isDisabled) return
+
+		val attacker = event.container.source.entity as? LivingEntity ?: return
+		if (attacker.mainHandItem.isNotEmpty()) return
+
+		val clawsLevel: Int = if (!clawsTwo.isDisabled && attacker.hasGene(ModGenes.CLAWS_TWO)) {
+			2
+		} else if (attacker.hasGene(ModGenes.CLAWS)) {
+			1
+		} else {
+			return
+		}
+
+		val additionalDamage = ServerConfig.CONFIG.clawsDamage.get() * clawsLevel
+		event.container.newDamage += additionalDamage.toFloat()
+	}
+
 	// Triggers
 
 	fun handleWebDefense(event: LivingDamageEvent.Post) {
@@ -178,13 +199,13 @@ object DamageGenes {
 
 	fun handleClaws(event: LivingDamageEvent.Post) {
 		val claws = ModGenes.CLAWS.getHolderOrThrow(event.entity.registryAccess())
+		val clawsTwo = ModGenes.CLAWS_TWO.getHolderOrThrow(event.entity.registryAccess())
+
 		if (claws.isDisabled) return
 
 		val attacker = event.source.entity as? LivingEntity ?: return
-
 		if (attacker.mainHandItem.isNotEmpty()) return
 
-		val clawsTwo = ModGenes.CLAWS_TWO.getHolderOrThrow(event.entity.registryAccess())
 		val clawsLevel: Int = if (!clawsTwo.isDisabled && attacker.hasGene(ModGenes.CLAWS_TWO)) {
 			2
 		} else if (attacker.hasGene(ModGenes.CLAWS)) {

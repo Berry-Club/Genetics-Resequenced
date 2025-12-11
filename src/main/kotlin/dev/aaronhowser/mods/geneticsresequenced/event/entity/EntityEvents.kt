@@ -51,6 +51,7 @@ object EntityEvents {
 	fun onLivingDamagePre(event: LivingDamageEvent.Pre) {
 		DamageGenes.handleDragonHealth(event)
 		DamageGenes.handleJohnny(event)
+		DamageGenes.handleClaws(event)
 	}
 
 	@SubscribeEvent
