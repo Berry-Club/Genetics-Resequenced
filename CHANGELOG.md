@@ -12,6 +12,8 @@
 - The Dragon Health Crystal now shows its remaining damage in the tooltip
 - Flambe and Explosive Exit are now negative Genes
 - Renamed the Mining Weakness Gene to Mining Fatigue
+- Moved the GeneChangeEvents out of the CustomEvents object
+	- `CustomEvents.GeneChangeEvent.Pre` is now `GeneChangeEvent.Pre`
 
 ### Fixed
 

@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.attachment
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.event.CustomEvents
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
@@ -81,7 +81,7 @@ data class GenesData(
 				return false
 			}
 
-			val eventPre = CustomEvents.GeneChangeEvent.Pre(this@addGene, newGeneHolder, true)
+			val eventPre = GeneChangeEvent.Pre(this@addGene, newGeneHolder, true)
 			if (FORGE_BUS.post(eventPre).isCanceled) {
 				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
 				return false
@@ -89,7 +89,7 @@ data class GenesData(
 
 			this.geneHolders += newGeneHolder
 
-			val eventPost = CustomEvents.GeneChangeEvent.Post(this@addGene, newGeneHolder, true)
+			val eventPost = GeneChangeEvent.Post(this@addGene, newGeneHolder, true)
 			FORGE_BUS.post(eventPost)
 
 			return true
@@ -100,7 +100,7 @@ data class GenesData(
 		fun LivingEntity.removeGene(removedGeneHolder: Holder<Gene>): Boolean {
 			if (!this.hasGene(removedGeneHolder)) return false
 
-			val eventPre = CustomEvents.GeneChangeEvent.Pre(this, removedGeneHolder, false)
+			val eventPre = GeneChangeEvent.Pre(this, removedGeneHolder, false)
 			val wasCanceled = FORGE_BUS.post(eventPre).isCanceled
 			if (wasCanceled) {
 				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
@@ -109,7 +109,7 @@ data class GenesData(
 
 			this.geneHolders -= removedGeneHolder
 
-			val eventPost = CustomEvents.GeneChangeEvent.Post(this, removedGeneHolder, false)
+			val eventPost =GeneChangeEvent.Post(this, removedGeneHolder, false)
 			FORGE_BUS.post(eventPost)
 
 			return true
