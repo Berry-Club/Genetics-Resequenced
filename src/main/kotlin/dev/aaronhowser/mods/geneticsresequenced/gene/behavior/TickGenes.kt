@@ -73,7 +73,6 @@ object TickGenes {
 		if (!entity.hasGene(ModGenes.PHOTOSYNTHESIS)) return
 
 		val foodData = entity.foodData
-
 		if (!foodData.needsFood()) return
 
 		val inDirectSunlight = entity.level().canSeeSky(entity.blockPosition())
