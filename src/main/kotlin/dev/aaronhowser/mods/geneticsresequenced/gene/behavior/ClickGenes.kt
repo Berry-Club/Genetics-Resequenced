@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
+import dev.aaronhowser.mods.aaron.AaronExtensions.nextRange
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
@@ -74,17 +76,19 @@ object ClickGenes {
 		val woolItemStack = ItemStack(Blocks.WHITE_WOOL)
 
 		val woolEntity = ItemEntity(
-			event.level,
+			level,
 			target.eyePosition.x,
 			target.eyePosition.y,
 			target.eyePosition.z,
 			woolItemStack
 		)
-		event.level.addFreshEntity(woolEntity)
+
+		level.addFreshEntity(woolEntity)
+
 		woolEntity.setDeltaMovement(
-			Random.nextDouble(-0.05, 0.05),
-			Random.nextDouble(0.05, 0.1),
-			Random.nextDouble(-0.05, 0.05)
+			level.random.nextRange(-0.05, 0.05),
+			level.random.nextRange(0.05, 0.1),
+			level.random.nextRange(-0.05, 0.05)
 		)
 
 		event.itemStack.hurtAndBreak(1, clicker, clicker.getEquipmentSlotForItem(event.itemStack))
@@ -109,31 +113,33 @@ object ClickGenes {
 		if (wooly.isDisabled) return
 
 		val player = event.entity as? ServerPlayer ?: return
-
 		if (!player.isCrouching) return
+		if (!player.hasGene(ModGenes.WOOLY)) return
+
 		val clickedWithShears = event.itemStack.`is`(Tags.Items.TOOLS_SHEAR)
 		if (!clickedWithShears) return
 
-		if (!player.hasGene(ModGenes.WOOLY)) return
-
 		val newlySheared = RECENTLY_SHEARED_ENTITIES.add(player)
-
 		if (!newlySheared) return
+
+		val level = event.level
 
 		val woolItemStack = ItemStack(Blocks.WHITE_WOOL)
 
 		val woolEntity = ItemEntity(
-			event.level,
+			level,
 			player.eyePosition.x,
 			player.eyePosition.y,
 			player.eyePosition.z,
 			woolItemStack
 		)
-		event.level.addFreshEntity(woolEntity)
+
+		level.addFreshEntity(woolEntity)
+
 		woolEntity.setDeltaMovement(
-			Random.nextDouble(-0.05, 0.05),
-			Random.nextDouble(0.05, 0.1),
-			Random.nextDouble(-0.05, 0.05)
+			level.random.nextRange(-0.05, 0.05),
+			level.random.nextRange(0.05, 0.1),
+			level.random.nextRange(-0.05, 0.05)
 		)
 
 		event.itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(event.itemStack))
@@ -161,16 +167,17 @@ object ClickGenes {
 		if (meaty.isDisabled) return
 
 		val target = event.target as? LivingEntity ?: return
-		val clicker = event.entity
-
-		if (target.level().isClientSide) return
-
 		if (!target.hasGene(ModGenes.MEATY)) return
+
+		val level = target.level()
+		if (level.isClientSide) return
 
 		val clickedWithShears = event.itemStack.`is`(Tags.Items.TOOLS_SHEAR)
 		if (!clickedWithShears) return
 
 		val newlyMeated = RECENTLY_MEATED_PLAYERS.add(target)
+
+		val clicker = event.entity
 
 		if (!newlyMeated) {
 			clicker.sendSystemMessage(ModMessageLang.RECENT_MEATY.toComponent())
@@ -178,22 +185,24 @@ object ClickGenes {
 		}
 
 		val porkEntity = ItemEntity(
-			event.level,
+			level,
 			target.eyePosition.x,
 			target.eyePosition.y,
 			target.eyePosition.z,
 			ItemStack(Items.PORKCHOP)
 		)
-		event.level.addFreshEntity(porkEntity)
+
+		level.addFreshEntity(porkEntity)
+
 		porkEntity.setDeltaMovement(
-			Random.nextDouble(-0.05, 0.05),
-			Random.nextDouble(0.05, 0.1),
-			Random.nextDouble(-0.05, 0.05)
+			level.random.nextRange(-0.05, 0.05),
+			level.random.nextRange(0.05, 0.1),
+			level.random.nextRange(-0.05, 0.05)
 		)
 
 		event.itemStack.hurtAndBreak(1, clicker, clicker.getEquipmentSlotForItem(event.itemStack))
 
-		event.level.playSound(
+		level.playSound(
 			null,
 			target,
 			SoundEvents.SHEEP_SHEAR,
@@ -208,14 +217,15 @@ object ClickGenes {
 		if (meaty.isDisabled) return
 
 		val player = event.entity
+		val level = player.level()
 
-		if (player.level().isClientSide) return
+		if (!player.isCrouching
+			|| !player.hasGene(ModGenes.MEATY)
+			|| level.isClientSide
+		) return
 
-		if (!player.isCrouching) return
 		val clickedWithShears = event.itemStack.`is`(Tags.Items.TOOLS_SHEAR)
 		if (!clickedWithShears) return
-
-		if (!player.hasGene(ModGenes.MEATY)) return
 
 		val newlyMeated = RECENTLY_MEATED_PLAYERS.add(player)
 
@@ -225,22 +235,23 @@ object ClickGenes {
 		}
 
 		val porkEntity = ItemEntity(
-			event.level,
+			level,
 			player.eyePosition.x,
 			player.eyePosition.y,
 			player.eyePosition.z,
 			ItemStack(Items.PORKCHOP)
 		)
-		event.level.addFreshEntity(porkEntity)
+
+		level.addFreshEntity(porkEntity)
 		porkEntity.setDeltaMovement(
-			Random.nextDouble(-0.05, 0.05),
-			Random.nextDouble(0.05, 0.1),
-			Random.nextDouble(-0.05, 0.05)
+			level.random.nextRange(-0.05, 0.05),
+			level.random.nextRange(0.05, 0.1),
+			level.random.nextRange(-0.05, 0.05)
 		)
 
 		event.itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(event.itemStack))
 
-		event.level.playSound(
+		level.playSound(
 			null,
 			player,
 			SoundEvents.SHEEP_SHEAR,
@@ -284,10 +295,10 @@ object ClickGenes {
 		event.itemStack.shrink(1)
 		clicker.addItem(ItemStack(Items.MILK_BUCKET))
 
-		val sound = if (target is Player && Random.nextFloat() < 0.05f) {
+		val sound = if (target is Player && target.random.chance(0.05)) {
 			SoundEvents.GOAT_SCREAMING_MILK
 		} else {
-			if (Random.nextBoolean()) SoundEvents.COW_MILK else SoundEvents.GOAT_MILK
+			if (target.random.nextBoolean()) SoundEvents.COW_MILK else SoundEvents.GOAT_MILK
 		}
 
 		event.level.playSound(
@@ -324,10 +335,10 @@ object ClickGenes {
 		event.itemStack.shrink(1)
 		player.addItem(ItemStack(Items.MILK_BUCKET))
 
-		val sound = if (Random.nextFloat() < 0.05f) {
+		val sound = if (player.random.chance(0.05f)) {
 			SoundEvents.GOAT_SCREAMING_MILK
 		} else {
-			if (Random.nextBoolean()) SoundEvents.COW_MILK else SoundEvents.GOAT_MILK
+			if (player.random.nextBoolean()) SoundEvents.COW_MILK else SoundEvents.GOAT_MILK
 		}
 
 		event.level.playSound(
