@@ -1,6 +1,6 @@
 # 1.8.3
 
-### Changelog
+### Changes
 
 - The Dragon Health Crystal doesn't show its durability bar when it's full
 - The Dragon Health Crystal now shows its remaining damage in the tooltip
@@ -10,6 +10,8 @@
 - Fixed the Metal Syringe giving the blood owner Glowing instead of using the mixin
 - Fixed an issue with the Dragon Health Crystal continuing to iterate over all crystals even after fully negating incoming damage
 - The Dragon Health Crystal now stacks to 1 again
+- Fixed the Claws Gene not actually inflicting extra damage, only the Bleeding effect
+  - Now it inflicts +8 damage with Claws, and +16 with Claws II (if you have an empty hand)
 
 # 1.8.2
 

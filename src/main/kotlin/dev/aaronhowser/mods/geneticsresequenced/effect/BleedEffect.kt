@@ -20,7 +20,6 @@ class BleedEffect : MobEffect(
 		return pDuration % 20 == 0
 	}
 
-
 	override fun applyEffectTick(pLivingEntity: LivingEntity, pAmplifier: Int): Boolean {
 		if (pLivingEntity.level().isClientSide) return false
 
