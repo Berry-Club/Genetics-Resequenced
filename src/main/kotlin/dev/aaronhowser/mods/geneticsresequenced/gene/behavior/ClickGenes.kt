@@ -37,7 +37,6 @@ import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent
 import net.neoforged.neoforge.event.entity.living.LivingGetProjectileEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
-import kotlin.random.Random
 
 object ClickGenes {
 

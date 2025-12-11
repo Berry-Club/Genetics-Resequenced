@@ -109,7 +109,7 @@ data class GenesData(
 
 			this.geneHolders -= removedGeneHolder
 
-			val eventPost =GeneChangeEvent.Post(this, removedGeneHolder, false)
+			val eventPost = GeneChangeEvent.Post(this, removedGeneHolder, false)
 			FORGE_BUS.post(eventPost)
 
 			return true
