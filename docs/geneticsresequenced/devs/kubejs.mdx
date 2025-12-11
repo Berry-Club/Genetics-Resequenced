@@ -1,0 +1,22 @@
+# KubeJS Support
+
+## Events
+
+While the mod doesn't explicitly have KubeJS support, it's relatively simple to implement it yourself!
+
+
+
+## Reflection
+
+```js
+const $GenesData = Java.loadClass('dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData')
+const $GeneRegistry = Java.loadClass('dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes')
+```
+
+```js
+$GenesData.addGene(livingEntity, $GeneRegistry.CHATTERBOX)
+$GenesData.removeGene(livingEntity, $GeneRegistry.LAY_EGG)
+let hasSlimyDeath = $GenesData.hasGene(livingEntity, $GeneRegistry.SLIMY_DEATH)
+```
+
+This uses reflection to load the [GenesData](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/attachment/GenesData.kt) and [ModGenes](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/registry/ModGenes.kt) classes, allowing you to use their functions.
