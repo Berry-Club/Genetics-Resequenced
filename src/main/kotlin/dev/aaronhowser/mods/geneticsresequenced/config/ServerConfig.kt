@@ -192,6 +192,7 @@ class ServerConfig(
 		mobSightRadius = builder
 			.comment("How far from the player should Mob Sight detect entities (in blocks)")
 			.defineInRange("mobSightRadius", 32.0, 1.0, Double.MAX_VALUE)
+
 		noHungerCooldown = builder
 			.comment("How often should the No Hunger gene check to reset hunger (in ticks)")
 			.defineInRange("noHungerCooldown", 20 * 4, 1, Int.MAX_VALUE)
