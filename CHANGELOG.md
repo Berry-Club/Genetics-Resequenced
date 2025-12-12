@@ -1,3 +1,10 @@
+# 1.9.1
+
+### Fixed
+
+- Fixed the Oracle Index files being copied to the wrong location
+- Fixed the Oracle Index _meta.json to include the documentation folders
+
 # 1.9.0
 
 ### Added
