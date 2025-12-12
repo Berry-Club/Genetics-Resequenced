@@ -89,8 +89,8 @@ object EntityEvents {
 
 		val child = event.child ?: return
 
-		val aGenes: Set<Holder<Gene>> = parentA.geneHolders
-		val bGenes: Set<Holder<Gene>> = parentB.geneHolders
+		val aGenes = parentA.geneHolders
+		val bGenes = parentB.geneHolders
 
 		if (aGenes.isEmpty() && bGenes.isEmpty()) return
 
