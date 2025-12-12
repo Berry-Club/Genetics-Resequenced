@@ -27,7 +27,7 @@ public abstract class EnchantedCountIncreaseFunctionMixin {
 		double bountifulLevel = 0;
 
 		if (target instanceof LivingEntity le) {
-			bountifulLevel = le.getAttributeValue(ModAttributes.BOUNTIFUL);
+			bountifulLevel = le.getAttributeValue(ModAttributes.BASE_LOOTING);
 		}
 
 		return originalLevel + Mth.ceil(bountifulLevel);

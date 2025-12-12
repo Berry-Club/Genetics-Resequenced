@@ -19,8 +19,8 @@ object ModAttributes {
 		register("efficiency", 0.0, 0.0, 10000.0)
 
 	@JvmField
-	val BOUNTIFUL: DeferredHolder<Attribute, RangedAttribute> =
-		register("bountiful", 0.0, 0.0, 10000.0)
+	val BASE_LOOTING: DeferredHolder<Attribute, RangedAttribute> =
+		register("base_looting", 0.0, 0.0, 10000.0)
 
 	private fun register(name: String, default: Double, min: Double, max: Double): DeferredHolder<Attribute, RangedAttribute> {
 		return ATTRIBUTE_REGISTRY.register(name, Supplier {
