@@ -13,7 +13,7 @@ object GeneCommand {
 			.then(ListGenesCommand.register())
 			.then(ListAllGenesCommand.register())
 			.then(GiveGeneCommand.register())
-			.then(GiveAlGenesCommand.register())
+			.then(GiveAllGenesCommand.register())
 			.then(RemoveGeneCommand.register())
 			.then(RemoveAllGenesCommand.register())
 	}

@@ -14,7 +14,7 @@ import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
-object GiveAlGenesCommand {
+object GiveAllGenesCommand {
 
 	private const val TARGET_ARGUMENT = "targets"
 
