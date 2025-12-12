@@ -1,5 +1,11 @@
 # 1.9.1
 
+### Changed
+
+- Explosive Exit is no longer negative
+  - I forgot that it doesn't effect blocks, which is why I marked it as negative
+  - I also forgot that players cant get negative genes by default
+
 ### Fixed
 
 - Fixed the Oracle Index files being copied to the wrong location
