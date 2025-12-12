@@ -882,6 +882,22 @@ class ModGeneProvider : RegistrySetBuilder() {
 				makeGene()
 			)
 
+			// Mobs only
+
+			context.register(
+				ModGenes.BOUNTIFUL,
+				makeGene(
+					dnaPointsRequired = 30,
+					attributeModifiers = listOf(
+						AttributeEntry(
+							ModAttributes.BOUNTIFUL,
+							ModAttributes.AttributeModifiers.BOUNTIFUL
+						)
+					),
+					allowedEntities = ONLY_PLAYERS
+				)
+			)
+
 		}
 	}
 

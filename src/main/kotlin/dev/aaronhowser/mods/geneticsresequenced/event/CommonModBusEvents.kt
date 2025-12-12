@@ -72,6 +72,12 @@ object CommonModBusEvents {
 		if (!event.has(EntityType.PLAYER, ModAttributes.EFFICIENCY)) {
 			event.add(EntityType.PLAYER, ModAttributes.EFFICIENCY)
 		}
+
+		for (type in event.types) {
+			if (!event.has(type, ModAttributes.BOUNTIFUL)) {
+				event.add(type, ModAttributes.BOUNTIFUL)
+			}
+		}
 	}
 
 }

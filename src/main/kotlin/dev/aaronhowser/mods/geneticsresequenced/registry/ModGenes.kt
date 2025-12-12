@@ -132,6 +132,9 @@ object ModGenes {
 	@JvmField val WOOLY = resourceKey("wooly")
 	@JvmField val XP_MAGNET = resourceKey("xp_magnet")
 
+	// For Mobs
+	@JvmField val BOUNTIFUL = resourceKey("bountiful")
+
 	// Mutations
 	@JvmField val CLAWS_TWO = resourceKey("claws_2")
 	@JvmField val EFFICIENCY_FOUR = resourceKey("efficiency_4")
