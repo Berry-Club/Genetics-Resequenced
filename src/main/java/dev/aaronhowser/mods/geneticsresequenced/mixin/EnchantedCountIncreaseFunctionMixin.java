@@ -1,7 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.mixin;
 
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.animal.Chicken;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.functions.EnchantedCountIncreaseFunction;
@@ -22,8 +24,13 @@ public abstract class EnchantedCountIncreaseFunctionMixin {
 	)
 	private int modifyEnchantmentLevel(int originalLevel, ItemStack stack, LootContext context) {
 		Entity target = context.getParamOrNull(LootContextParams.THIS_ENTITY);
-		int amountToAdd = (target instanceof Chicken) ? 100 : 0;
-		return originalLevel + amountToAdd;
+		double bountifulLevel = 0;
+
+		if (target instanceof LivingEntity le) {
+			bountifulLevel = le.getAttributeValue(ModAttributes.BOUNTIFUL);
+		}
+
+		return originalLevel + Mth.ceil(bountifulLevel);
 	}
 
 }
