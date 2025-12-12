@@ -1,3 +1,10 @@
+# 1.10.0
+
+### Added
+
+- Bountiful Gene
+	- Given to mobs. Upon their death, they're treated as if they were killed by something with 1 level more of Looting than they had
+
 # 1.9.1
 
 ### Changed
