@@ -320,7 +320,7 @@ wiki {
 
 tasks.named('processResources') {
 	from("$rootDir/docs") {
-		into "assets/oracle_index/books/geneticsresequenced"
+		into "assets/oracle_index/books"
 		exclude "assets/items/**"
 	}
 	doLast {
