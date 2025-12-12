@@ -890,7 +890,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 					dnaPointsRequired = 30,
 					attributeModifiers = listOf(
 						AttributeEntry(
-							ModAttributes.BOUNTIFUL,
+							ModAttributes.BASE_LOOTING,
 							ModAttributes.AttributeModifiers.BOUNTIFUL
 						)
 					)

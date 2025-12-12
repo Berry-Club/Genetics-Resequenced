@@ -98,8 +98,8 @@ object CommonEvents {
 		}
 
 		for (type in event.types) {
-			if (!event.has(type, ModAttributes.BOUNTIFUL)) {
-				event.add(type, ModAttributes.BOUNTIFUL)
+			if (!event.has(type, ModAttributes.BASE_LOOTING)) {
+				event.add(type, ModAttributes.BASE_LOOTING)
 			}
 		}
 	}
