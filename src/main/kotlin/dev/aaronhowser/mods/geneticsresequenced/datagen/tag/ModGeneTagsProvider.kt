@@ -79,8 +79,6 @@ class ModGeneTagsProvider(
 				ModGenes.WHITE_DEATH,
 				ModGenes.GRAY_DEATH,
 				ModGenes.UN_UNDEATH,
-				ModGenes.EXPLOSIVE_EXIT,
-				ModGenes.FLAMBE
 			)
 
 		this.tag(DISABLED)
