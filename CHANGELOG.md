@@ -3,13 +3,14 @@
 ### Changed
 
 - Explosive Exit is no longer negative
-  - I forgot that it doesn't effect blocks, which is why I marked it as negative
-  - I also forgot that players cant get negative genes by default
+	- I forgot that it doesn't effect blocks, which is why I marked it as negative
+	- I also forgot that players cant get negative genes by default
 
 ### Fixed
 
 - Fixed the Oracle Index files being copied to the wrong location
 - Fixed some wiki files not existing, so things weren't visible in Oracle Index
+- Various other wiki changes
 - Fixed Web Walker and Web Defense not having any entities that give it
 
 # 1.9.0
@@ -18,7 +19,7 @@
 
 - Made a wiki at moddedmc.wiki
 	- https://moddedmc.wiki/en/project/geneticsresequenced/latest
-    - Also added in-game support via [Oracle Index](https://modrinth.com/mod/oracle-index), which has been added as an optional dependency
+	- Also added in-game support via [Oracle Index](https://modrinth.com/mod/oracle-index), which has been added as an optional dependency
 
 ### Changes
 
