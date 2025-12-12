@@ -15,11 +15,17 @@ object ModAttributes {
 	val ATTRIBUTE_REGISTRY: DeferredRegister<Attribute> =
 		DeferredRegister.create(BuiltInRegistries.ATTRIBUTE, GeneticsResequenced.ID)
 
-	private const val EFFICIENCY_ATTRIBUTE_NAME = "geneticsresequenced.efficiency"
 	val EFFICIENCY: DeferredHolder<Attribute, RangedAttribute> =
-		ATTRIBUTE_REGISTRY.register("efficiency", Supplier {
-			RangedAttribute(EFFICIENCY_ATTRIBUTE_NAME, 0.0, 0.0, 10000.0)
+		register("efficiency", 0.0, 0.0, 10000.0)
+
+	val BOUNTIFUL: DeferredHolder<Attribute, RangedAttribute> =
+		register("bountiful", 0.0, 0.0, 10000.0)
+
+	private fun register(name: String, default: Double, min: Double, max: Double): DeferredHolder<Attribute, RangedAttribute> {
+		return ATTRIBUTE_REGISTRY.register(name, Supplier {
+			RangedAttribute("geneticsresequenced.$name", default, min, max)
 		})
+	}
 
 	object AttributeModifiers {
 		//TODO: Maybe make this not an attribute modifier?
@@ -69,6 +75,12 @@ object ModAttributes {
 			OtherUtil.modResource("reaching"),
 			1.25,
 			AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+		)
+
+		val BOUNTIFUL = AttributeModifier(
+			OtherUtil.modResource("bountiful"),
+			1.0,
+			AttributeModifier.Operation.ADD_VALUE
 		)
 	}
 

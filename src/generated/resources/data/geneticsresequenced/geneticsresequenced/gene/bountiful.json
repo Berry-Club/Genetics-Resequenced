@@ -1,0 +1,14 @@
+{
+  "allowed_entities": "minecraft:player",
+  "attribute_modifiers": [
+    {
+      "attribute": "geneticsresequenced:bountiful",
+      "modifier": {
+        "amount": 1.0,
+        "id": "geneticsresequenced:bountiful",
+        "operation": "add_value"
+      }
+    }
+  ],
+  "dna_points_required": 30
+}
