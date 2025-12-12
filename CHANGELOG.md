@@ -3,7 +3,7 @@
 ### Fixed
 
 - Fixed the Oracle Index files being copied to the wrong location
-- Fixed the Oracle Index _meta.json to include the documentation folders
+- Fixed some wiki files not existing, so things weren't visible in Oracle Index
 
 # 1.9.0
 

@@ -1,12 +1,15 @@
 {
 	"anti_field_orb.mdx": "Anti-Field Orb",
-	"anti_plasmid.mdx": "Anti-Plasmid",
+	"anti_plasmid.mdx":"Anti-Plasmid",
 	"cell.mdx": "Cell",
-	"gmo_cell.mdx": "GMO Cell",
-	"dna_helix.mdx": "DNA Helix",
+	"dna_helix.mdx":"DNA Helix",
 	"dragon_health_crystal.mdx": "Dragon Health Crystal",
-	"gene_checker.mdx": "Gene Checker",
-	"metal_syringe.mdx": "Metal Syringe",
-	"syringe.mdx": "Syringe",
-	"organic_matter.mdx": "Organic Matter"
+	"gene_checker.mdx":"Gene Checker",
+	"gmo_cell.mdx": "GMO Cell",
+	"metal_syringe.mdx":"Metal Syringe",
+	"organic_matter.mdx": "Organic Matter",
+	"overclocker.mdx":"Overclocker",
+	"plasmid.mdx": "Plasmid",
+	"scraper.mdx":"Scraper",
+	"syringe.mdx": "Syringe"
 }
