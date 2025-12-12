@@ -4,6 +4,7 @@
 
 - Fixed the Oracle Index files being copied to the wrong location
 - Fixed some wiki files not existing, so things weren't visible in Oracle Index
+- Fixed Web Walker and Web Defense not having any entities that give it
 
 # 1.9.0
 
