@@ -893,8 +893,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 							ModAttributes.BOUNTIFUL,
 							ModAttributes.AttributeModifiers.BOUNTIFUL
 						)
-					),
-					allowedEntities = ONLY_PLAYERS
+					)
 				)
 			)
 
