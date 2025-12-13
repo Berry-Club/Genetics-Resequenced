@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.a
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DamageGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.MobGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ScareGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import net.minecraft.world.entity.LivingEntity
@@ -88,7 +88,7 @@ object EntityEvents {
 		if (event.isCanceled) return
 
 		inheritGenes(event)
-		OtherGenes.handleFertile(event)
+		MobGenes.handleFertile(event)
 	}
 
 	private fun inheritGenes(event: BabyEntitySpawnEvent) {
