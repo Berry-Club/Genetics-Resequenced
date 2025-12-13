@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.entity.ai.goal.target.TargetGoal
 import net.minecraft.world.entity.animal.Animal
 import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent
 
@@ -32,6 +33,16 @@ object MobGenes {
 			parentA.spawnChildFromBreeding(level, parentB)
 		}
 		isFertileCloning = false
+	}
+
+	@JvmStatic
+	fun shouldPlacidCancelGoal(goal: TargetGoal): Boolean {
+		val entity = goal.mob
+
+		val placid = ModGenes.PLACID.getHolderOrThrow(entity.registryAccess())
+		if (placid.isDisabled) return false
+
+		return entity.hasGene(ModGenes.PLACID)
 	}
 
 }
