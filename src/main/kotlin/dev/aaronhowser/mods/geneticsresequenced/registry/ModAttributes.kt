@@ -25,7 +25,12 @@ object ModAttributes {
 	val XP_DROP_MULTIPLIER: DeferredHolder<Attribute, RangedAttribute> =
 		register("xp_drop_multiplier", 1.0, 0.0, 1000.0)
 
-	private fun register(name: String, default: Double, min: Double, max: Double): DeferredHolder<Attribute, RangedAttribute> {
+	private fun register(
+		name: String,
+		default: Double,
+		min: Double,
+		max: Double
+	): DeferredHolder<Attribute, RangedAttribute> {
 		return ATTRIBUTE_REGISTRY.register(name, Supplier {
 			RangedAttribute("geneticsresequenced.$name", default, min, max)
 		})
