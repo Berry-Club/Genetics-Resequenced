@@ -15,12 +15,11 @@
 	- Placid
 		- Prevents mobs from attacking things (in theory)
 			- Uses a mixin in TargetGoal#canContinueToUse
-			- Doesn't work on anything that doesn't call that superclass, such as the Creeper's SwellGoal
+			- Doesn't work on anything that doesn't call that method, such as the Creeper's SwellGoal
 	- Frenzied
 		- Makes mobs attack everything nearby
 		- Can be given to mobs that can't normally attack, such as Cows
 			- In that case, they do 3 damage
-	- Placid
 	- Both Bountiful and Experienced use new Attributes, rather than hardcoded values, so theoretically other things could also modify them
 
 # 1.9.1
