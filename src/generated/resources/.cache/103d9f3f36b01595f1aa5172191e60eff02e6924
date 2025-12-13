@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-13T04:31:12.0549132	Registries
+// 1.21.1	2025-12-13T04:46:09.5835871	Registries
 dcee6810945113d3a8d01fa333e0497b6d77ab70 data/geneticsresequenced/geneticsresequenced/gene/basic.json
 d8fc640c6cb7cca84c03fbc0afbd1d9246c59a8a data/geneticsresequenced/geneticsresequenced/gene/bioluminescence.json
 bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f data/geneticsresequenced/geneticsresequenced/gene/black_death.json
@@ -19,6 +19,7 @@ ff7635377d11f58a16e4b8c982932f1c46a25d9c data/geneticsresequenced/geneticsresequ
 c88f7146cc9f5c07c46232ab2c1aac7f1fdc8207 data/geneticsresequenced/geneticsresequenced/gene/ender_dragon_health.json
 dfae4a44ea16ad1a7ed403904ac4c719d7a2b9b6 data/geneticsresequenced/geneticsresequenced/gene/experienced.json
 1f30ad68908ac08f8e1814d35e84ede887ad21c7 data/geneticsresequenced/geneticsresequenced/gene/explosive_exit.json
+ff7635377d11f58a16e4b8c982932f1c46a25d9c data/geneticsresequenced/geneticsresequenced/gene/fertile.json
 0b4f5eb89d9d6442b97ff6a6ecc0e1ad959f954a data/geneticsresequenced/geneticsresequenced/gene/fire_proof.json
 bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f data/geneticsresequenced/geneticsresequenced/gene/flambe.json
 b638f017ffe28a46bf5791ba88f0b56186be292c data/geneticsresequenced/geneticsresequenced/gene/flight.json
