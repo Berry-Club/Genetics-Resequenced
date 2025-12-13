@@ -9,6 +9,13 @@
 		- Remember, Genes are passed down when breeding!
 	- Experienced
 		- Increases the amount of XP dropped upon death
+		- Placid
+			- Prevents mobs from attacking things (in theory)
+				- Uses a mixin in TargetGoal#canContinueToUse
+				- Doesn't work on anything that doesn't call that superclass, such as the Creeper's SwellGoal
+		- Fertile
+			- Increases the amount of babies from breeding
+			- +1 baby for each parent that has it
 	- Both Bountiful and Experienced use new Attributes, rather than hardcoded values, so theoretically other things could also modify them
 
 # 1.9.1
