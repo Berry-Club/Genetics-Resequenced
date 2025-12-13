@@ -228,7 +228,7 @@ data class Gene(
 
 			if (geneHolder.isDisabled) {
 				component.append(
-					ModGeneLang.DISABLED.toComponent()
+					ModGeneLang.DISABLED_SUFFIX.toComponent()
 				)
 			}
 
