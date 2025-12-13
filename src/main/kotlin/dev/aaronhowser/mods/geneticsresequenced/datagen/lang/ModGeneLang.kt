@@ -110,6 +110,8 @@ object ModGeneLang {
 			addGene(ModGenes.EXPERIENCED, "Experienced")
 			addGene(ModGenes.FRENZIED, "Frenzied")
 			addGene(ModGenes.PLACID, "Placid")
+			addGene(ModGenes.WEB_WALKER, "Web Walker")
+			addGene(ModGenes.WEB_DEFENSE, "Web Defense")
 		}
 	}
 
