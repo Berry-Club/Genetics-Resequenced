@@ -1,3 +1,15 @@
 {
+  "allowed_entities": {
+    "type": "neoforge:and",
+    "values": [
+      {
+        "type": "neoforge:any"
+      },
+      {
+        "type": "neoforge:not",
+        "value": "minecraft:player"
+      }
+    ]
+  },
   "dna_points_required": 30
 }
