@@ -930,6 +930,13 @@ class ModGeneProvider : RegistrySetBuilder() {
 				)
 			)
 
+			context.register(
+				ModGenes.PLACID,
+				makeGene(
+					dnaPointsRequired = 30
+				)
+			)
+
 		}
 	}
 
