@@ -2,10 +2,12 @@
 
 ### Added
 
-- Bountiful Gene
-	- Given to mobs. Upon their death, they're treated as if they were killed by something with 1 level more of Looting than they had
-    - Comes in 2 tiers
-    - Remember, Genes are passed down when breeding!
+- New Genes, designed to be given to mobs instead of players:
+	- Bountiful
+		- Given to mobs. Upon their death, they're treated as if they were killed by something with 1 level more of Looting than they had
+		- Comes in 2 tiers
+		- Remember, Genes are passed down when breeding!
+	- Experienced
 
 # 1.9.1
 
