@@ -103,6 +103,8 @@ object ModGeneLang {
 		addGene(ModGenes.OOZING, "Oozing")
 		addGene(ModGenes.INFESTED, "Infested")
 		addGene(ModGenes.BOUNTIFUL, "Bountiful")
+		addGene(ModGenes.BOUNTIFUL_TWO, "Bountiful II")
+		addGene(ModGenes.FERTILE, "Fertile")
 	}
 
 	const val UNKNOWN = "gene.geneticsresequenced.unknown"

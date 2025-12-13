@@ -1,9 +1,10 @@
-// 1.21.1	2025-12-12T12:51:06.1403099	Registries
+// 1.21.1	2025-12-13T04:25:40.768684	Registries
 dcee6810945113d3a8d01fa333e0497b6d77ab70 data/geneticsresequenced/geneticsresequenced/gene/basic.json
 d8fc640c6cb7cca84c03fbc0afbd1d9246c59a8a data/geneticsresequenced/geneticsresequenced/gene/bioluminescence.json
 bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f data/geneticsresequenced/geneticsresequenced/gene/black_death.json
 1d3cdca2a75c03abb6cd25972ed8a8068abee640 data/geneticsresequenced/geneticsresequenced/gene/blindness.json
-4f0a22a4571bf195c42d1c1672f51ae6caa5cb3c data/geneticsresequenced/geneticsresequenced/gene/bountiful.json
+49a2f2b19e3ab29da4133ea99debb369cbfed5a0 data/geneticsresequenced/geneticsresequenced/gene/bountiful.json
+fa73598e79632e95e6ce87f55157b1062b16cdf1 data/geneticsresequenced/geneticsresequenced/gene/bountiful_2.json
 1f30ad68908ac08f8e1814d35e84ede887ad21c7 data/geneticsresequenced/geneticsresequenced/gene/chatterbox.json
 1f30ad68908ac08f8e1814d35e84ede887ad21c7 data/geneticsresequenced/geneticsresequenced/gene/chilling.json
 1f30ad68908ac08f8e1814d35e84ede887ad21c7 data/geneticsresequenced/geneticsresequenced/gene/claws.json
