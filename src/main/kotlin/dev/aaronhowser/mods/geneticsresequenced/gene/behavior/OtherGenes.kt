@@ -258,10 +258,7 @@ object OtherGenes {
 
 	private var isFertileCloning = false
 	fun handleFertile(event: BabyEntitySpawnEvent) {
-		if (isFertileCloning) {
-			isFertileCloning = false
-			return
-		}
+		if (isFertileCloning) return
 
 		val parentA = event.parentA as? Animal ?: return
 		val parentB = event.parentB as? Animal ?: return
@@ -276,12 +273,11 @@ object OtherGenes {
 		if (parentB.hasGene(ModGenes.FERTILE)) extraBabies++
 		if (extraBabies == 0) return
 
+		isFertileCloning = true
 		for (i in 0 until extraBabies) {
-			isFertileCloning = true
 			parentA.spawnChildFromBreeding(level, parentB)
-			// This will trigger the event again, but it will stop running immediately due to the isFertileCloning check
-			// That means it only triggers from the base baby spawn, not from the extra babies
 		}
+		isFertileCloning = false
 	}
 
 }
