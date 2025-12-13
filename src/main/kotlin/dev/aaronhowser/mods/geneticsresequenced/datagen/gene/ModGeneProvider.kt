@@ -28,12 +28,13 @@ class ModGeneProvider : RegistrySetBuilder() {
 
 		private fun makeGene(
 			dnaPointsRequired: Int = 1,
-			allowedEntities: HolderSet<EntityType<*>> = Gene.DEFAULT_ALLOWED_ENTITIES,
+			allowedEntities: HolderSet<EntityType<*>> = DEFAULT_ALLOWED_ENTITIES,
 			potionDetails: List<PotionDetails> = emptyList(),
 			attributeModifiers: List<AttributeEntry> = emptyList(),
 			scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>> = Optional.empty()
 		) = Gene(dnaPointsRequired, allowedEntities, potionDetails, attributeModifiers, scaresEntitiesWithTag)
 
+		val DEFAULT_ALLOWED_ENTITIES = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup())
 		val NO_ENTITIES: HolderSet<EntityType<*>> = HolderSet.empty()
 		val ONLY_PLAYERS: HolderSet.Direct<EntityType<*>> = HolderSet.direct(EntityType.PLAYER.builtInRegistryHolder())
 		private fun nonPlayers(registryLookup: HolderLookup.RegistryLookup<EntityType<*>>): AndHolderSet<EntityType<*>> {

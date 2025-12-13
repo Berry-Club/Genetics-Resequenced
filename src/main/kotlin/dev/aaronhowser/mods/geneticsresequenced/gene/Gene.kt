@@ -237,8 +237,6 @@ data class Gene(
 
 		val UNKNOWN_GENE_COMPONENT: MutableComponent = ModGeneLang.UNKNOWN.toComponent()
 
-		val DEFAULT_ALLOWED_ENTITIES = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup())
-
 		val DIRECT_CODEC: Codec<Gene> =
 			RecordCodecBuilder.create { instance ->
 				instance.group(
@@ -248,7 +246,7 @@ data class Gene(
 					RegistryCodecs.homogeneousList(Registries.ENTITY_TYPE)
 						.optionalFieldOf(
 							"allowed_entities",
-							DEFAULT_ALLOWED_ENTITIES
+							ModGeneProvider.DEFAULT_ALLOWED_ENTITIES
 						)
 						.forGetter(Gene::allowedEntities),
 					PotionDetails.DIRECT_CODEC.listOf()
@@ -291,7 +289,7 @@ data class Gene(
 			.append("dnaPointsRequired=").append(this.dnaPointsRequired)
 			.append(", allowedEntities=").append(
 				when (this.allowedEntities) {
-					DEFAULT_ALLOWED_ENTITIES -> "any"
+					ModGeneProvider.DEFAULT_ALLOWED_ENTITIES -> "any"
 					ModGeneProvider.NO_ENTITIES -> "none"
 					ModGeneProvider.ONLY_PLAYERS -> "players"
 					else -> this.allowedEntities
