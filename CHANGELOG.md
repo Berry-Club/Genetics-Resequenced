@@ -22,6 +22,10 @@
 			- In that case, they do 3 damage
 	- Both Bountiful and Experienced use new Attributes, rather than hardcoded values, so theoretically other things could also modify them
 
+### Fixed
+
+- Fixed Web Walker and Web Defense having no name
+
 # 1.9.1
 
 ### Changed
