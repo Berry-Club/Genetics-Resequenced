@@ -4,10 +4,12 @@
 
 - New Genes, designed to be given to mobs instead of players:
 	- Bountiful
-		- Given to mobs. Upon their death, they're treated as if they were killed by something with 1 level more of Looting than they had
+		- Their loot drops are treated as if they were killed with Looting one/two tiers higher than they were
 		- Comes in 2 tiers
 		- Remember, Genes are passed down when breeding!
 	- Experienced
+		- Increases the amount of XP dropped upon death
+	- Both Bountiful and Experienced use new Attributes, rather than hardcoded values, so theoretically other things could also modify them
 
 # 1.9.1
 
