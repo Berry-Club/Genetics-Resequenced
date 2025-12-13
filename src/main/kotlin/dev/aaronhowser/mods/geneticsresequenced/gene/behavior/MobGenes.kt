@@ -66,7 +66,7 @@ object MobGenes {
 		val alreadyCanAttack = mob.goalSelector.availableGoals.any { it.goal is MeleeAttackGoal }
 		if (!alreadyCanAttack) {
 			mob.goalSelector.addGoal(
-				2,
+				4,
 				FrenzyMeleeAttackGoal(mob, 1.0, false)
 			)
 		}
