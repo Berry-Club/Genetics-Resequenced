@@ -937,6 +937,12 @@ class ModGeneProvider : RegistrySetBuilder() {
 				)
 			)
 
+			context.register(
+				ModGenes.FRENZIED,
+				makeGene(
+					dnaPointsRequired = 40
+				)
+			)
 		}
 	}
 
