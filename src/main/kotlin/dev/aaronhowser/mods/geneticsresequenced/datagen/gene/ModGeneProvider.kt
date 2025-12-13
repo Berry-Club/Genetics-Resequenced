@@ -6,14 +6,20 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.AttributeEntry
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.PotionDetails
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import net.minecraft.core.HolderLookup
 import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistrySetBuilder
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
 import net.minecraft.data.worldgen.BootstrapContext
 import net.minecraft.tags.TagKey
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.neoforged.neoforge.common.NeoForgeMod
+import net.neoforged.neoforge.registries.holdersets.AndHolderSet
+import net.neoforged.neoforge.registries.holdersets.AnyHolderSet
+import net.neoforged.neoforge.registries.holdersets.NotHolderSet
 import java.util.*
 
 class ModGeneProvider : RegistrySetBuilder() {
@@ -30,8 +36,16 @@ class ModGeneProvider : RegistrySetBuilder() {
 
 		val NO_ENTITIES: HolderSet<EntityType<*>> = HolderSet.empty()
 		val ONLY_PLAYERS: HolderSet.Direct<EntityType<*>> = HolderSet.direct(EntityType.PLAYER.builtInRegistryHolder())
+		private fun nonPlayers(registryLookup: HolderLookup.RegistryLookup<EntityType<*>>): AndHolderSet<EntityType<*>> {
+			return AndHolderSet(
+				AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup()),
+				NotHolderSet(registryLookup, ONLY_PLAYERS)
+			)
+		}
 
 		fun bootstrap(context: BootstrapContext<Gene>) {
+
+			val nonPlayers = nonPlayers(context.registryLookup(Registries.ENTITY_TYPE).get())
 
 			context.register(
 				ModGenes.BASIC,
@@ -888,6 +902,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.BOUNTIFUL,
 				makeGene(
 					dnaPointsRequired = 30,
+					allowedEntities = nonPlayers,
 					attributeModifiers = listOf(
 						AttributeEntry(
 							ModAttributes.BASE_LOOTING,
@@ -901,6 +916,7 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.BOUNTIFUL_TWO,
 				makeGene(
 					dnaPointsRequired = 40,
+					allowedEntities = nonPlayers,
 					attributeModifiers = listOf(
 						AttributeEntry(
 							ModAttributes.BASE_LOOTING,
@@ -926,21 +942,24 @@ class ModGeneProvider : RegistrySetBuilder() {
 			context.register(
 				ModGenes.FERTILE,
 				makeGene(
-					dnaPointsRequired = 30
+					dnaPointsRequired = 30,
+					allowedEntities = nonPlayers,
 				)
 			)
 
 			context.register(
 				ModGenes.PLACID,
 				makeGene(
-					dnaPointsRequired = 30
+					dnaPointsRequired = 30,
+					allowedEntities = nonPlayers
 				)
 			)
 
 			context.register(
 				ModGenes.FRENZIED,
 				makeGene(
-					dnaPointsRequired = 40
+					dnaPointsRequired = 40,
+					allowedEntities = nonPlayers
 				)
 			)
 		}
