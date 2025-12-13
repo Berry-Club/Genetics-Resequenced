@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.mixin;
 
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
 import org.spongepowered.asm.mixin.Mixin;
@@ -19,10 +18,8 @@ public class EntityMixin {
 			cancellable = true
 	)
 	private void geneticsresequenced$makeStuckInBlock(BlockState state, Vec3 motionMultiplier, CallbackInfo ci) {
-		if ((Object) this instanceof LivingEntity le) {
-			if (OtherGenes.shouldNegateSlownessFromBlock(le, state)) {
-				ci.cancel();
-			}
+		if (OtherGenes.shouldNegateSlownessFromBlock((Entity) (Object) this, state)) {
+			ci.cancel();
 		}
 	}
 
