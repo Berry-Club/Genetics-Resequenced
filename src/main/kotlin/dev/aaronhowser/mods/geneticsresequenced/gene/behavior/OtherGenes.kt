@@ -15,6 +15,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThr
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Pose
 import net.minecraft.world.entity.player.Player
@@ -240,12 +241,14 @@ object OtherGenes {
 	}
 
 	@JvmStatic
-	fun shouldNegateSlownessFromBlock(livingEntity: LivingEntity, state: BlockState): Boolean {
+	fun shouldNegateSlownessFromBlock(entity: Entity, state: BlockState): Boolean {
+		if (entity !is LivingEntity) return false
+
 		if (state.`is`(Blocks.COBWEB)) {
-			val webWalker = ModGenes.WEB_WALKER.getHolderOrThrow(livingEntity.registryAccess())
+			val webWalker = ModGenes.WEB_WALKER.getHolderOrThrow(entity.registryAccess())
 			if (webWalker.isDisabled) return false
 
-			if (livingEntity.hasGene(ModGenes.WEB_WALKER)) {
+			if (entity.hasGene(ModGenes.WEB_WALKER)) {
 				return true
 			}
 		}
