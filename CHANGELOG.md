@@ -7,15 +7,20 @@
 		- Their loot drops are treated as if they were killed with Looting one/two tiers higher than they were
 		- Comes in 2 tiers
 		- Remember, Genes are passed down when breeding!
+	- Fertile
+		- Increases the amount of babies from breeding
+		- +1 baby for each parent that has it
 	- Experienced
 		- Increases the amount of XP dropped upon death
-		- Placid
-			- Prevents mobs from attacking things (in theory)
-				- Uses a mixin in TargetGoal#canContinueToUse
-				- Doesn't work on anything that doesn't call that superclass, such as the Creeper's SwellGoal
-		- Fertile
-			- Increases the amount of babies from breeding
-			- +1 baby for each parent that has it
+	- Placid
+		- Prevents mobs from attacking things (in theory)
+			- Uses a mixin in TargetGoal#canContinueToUse
+			- Doesn't work on anything that doesn't call that superclass, such as the Creeper's SwellGoal
+	- Frenzied
+		- Makes mobs attack everything nearby
+		- Can be given to mobs that can't normally attack, such as Cows
+			- In that case, they do 3 damage
+	- Placid
 	- Both Bountiful and Experienced use new Attributes, rather than hardcoded values, so theoretically other things could also modify them
 
 # 1.9.1
