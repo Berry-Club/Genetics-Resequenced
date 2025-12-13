@@ -1,15 +1,17 @@
 {
-	"required": true,
-	"minVersion": "0.8",
-	"package": "dev.aaronhowser.mods.geneticsresequenced.mixin",
-	"mixins": [
-		"ClientHooksMixin",
-		"EnchantedCountIncreaseFunctionMixin",
-		"LivingEntityMixin", "TargetGoalMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
-	},
-	"client": [
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.aaronhowser.mods.geneticsresequenced.mixin",
+  "mixins": [
+    "ClientHooksMixin",
+    "EnchantedCountIncreaseFunctionMixin",
+    "EntityMixin",
+    "LivingEntityMixin",
+    "TargetGoalMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
 	]
 }
