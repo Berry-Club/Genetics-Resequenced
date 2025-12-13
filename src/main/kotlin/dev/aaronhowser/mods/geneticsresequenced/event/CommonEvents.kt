@@ -101,6 +101,10 @@ object CommonEvents {
 			if (!event.has(type, ModAttributes.BASE_LOOTING)) {
 				event.add(type, ModAttributes.BASE_LOOTING)
 			}
+
+			if (!event.has(type, ModAttributes.XP_DROP_MULTIPLIER)) {
+				event.add(type, ModAttributes.XP_DROP_MULTIPLIER)
+			}
 		}
 	}
 
