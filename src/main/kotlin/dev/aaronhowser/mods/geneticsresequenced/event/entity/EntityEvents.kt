@@ -5,10 +5,12 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.a
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DamageGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
+import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ScareGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PathfinderMob
+import net.neoforged.bus.api.EventPriority
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent
@@ -81,9 +83,12 @@ object EntityEvents {
 		}
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.LOWEST)
 	fun onBabySpawn(event: BabyEntitySpawnEvent) {
+		if (event.isCanceled) return
+
 		inheritGenes(event)
+		OtherGenes.handleFertile(event)
 	}
 
 	private fun inheritGenes(event: BabyEntitySpawnEvent) {
