@@ -14,14 +14,17 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Pose
+import net.minecraft.world.entity.animal.Animal
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.AABB
 import net.neoforged.neoforge.event.ServerChatEvent
+import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent
 import kotlin.random.Random
 
 object OtherGenes {
@@ -251,6 +254,34 @@ object OtherGenes {
 		}
 
 		return false
+	}
+
+	private var isFertileCloning = false
+	fun handleFertile(event: BabyEntitySpawnEvent) {
+		if (isFertileCloning) {
+			isFertileCloning = false
+			return
+		}
+
+		val parentA = event.parentA as? Animal ?: return
+		val parentB = event.parentB as? Animal ?: return
+
+		val level = parentA.level() as? ServerLevel ?: return
+
+		val fertile = ModGenes.FERTILE.getHolderOrThrow(parentA.registryAccess())
+		if (fertile.isDisabled) return
+
+		var extraBabies = 0
+		if (parentA.hasGene(ModGenes.FERTILE)) extraBabies++
+		if (parentB.hasGene(ModGenes.FERTILE)) extraBabies++
+		if (extraBabies == 0) return
+
+		for (i in 0 until extraBabies) {
+			isFertileCloning = true
+			parentA.spawnChildFromBreeding(level, parentB)
+			// This will trigger the event again, but it will stop running immediately due to the isFertileCloning check
+			// That means it only triggers from the base baby spawn, not from the extra babies
+		}
 	}
 
 }
