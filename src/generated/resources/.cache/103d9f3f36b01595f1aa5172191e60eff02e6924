@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-13T05:06:30.3875875	Registries
+// 1.21.1	2025-12-13T05:37:47.3194838	Registries
 dcee6810945113d3a8d01fa333e0497b6d77ab70 data/geneticsresequenced/geneticsresequenced/gene/basic.json
 d8fc640c6cb7cca84c03fbc0afbd1d9246c59a8a data/geneticsresequenced/geneticsresequenced/gene/bioluminescence.json
 bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f data/geneticsresequenced/geneticsresequenced/gene/black_death.json
@@ -23,6 +23,7 @@ ff7635377d11f58a16e4b8c982932f1c46a25d9c data/geneticsresequenced/geneticsresequ
 0b4f5eb89d9d6442b97ff6a6ecc0e1ad959f954a data/geneticsresequenced/geneticsresequenced/gene/fire_proof.json
 bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f data/geneticsresequenced/geneticsresequenced/gene/flambe.json
 b638f017ffe28a46bf5791ba88f0b56186be292c data/geneticsresequenced/geneticsresequenced/gene/flight.json
+bfb8c884cdf5ab22327d7e00c679f340b5d3dcb0 data/geneticsresequenced/geneticsresequenced/gene/frenzied.json
 bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f data/geneticsresequenced/geneticsresequenced/gene/gray_death.json
 bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f data/geneticsresequenced/geneticsresequenced/gene/green_death.json
 5961db7406fb1523903127c6ef433cc4f4335022 data/geneticsresequenced/geneticsresequenced/gene/haste.json
