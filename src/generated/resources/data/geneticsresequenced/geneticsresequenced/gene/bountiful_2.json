@@ -4,10 +4,10 @@
       "attribute": "geneticsresequenced:base_looting",
       "modifier": {
         "amount": 1.0,
-        "id": "geneticsresequenced:bountiful",
+        "id": "geneticsresequenced:bountiful_two",
         "operation": "add_value"
       }
     }
   ],
-  "dna_points_required": 30
+  "dna_points_required": 40
 }

@@ -4,6 +4,8 @@
 
 - Bountiful Gene
 	- Given to mobs. Upon their death, they're treated as if they were killed by something with 1 level more of Looting than they had
+    - Comes in 2 tiers
+    - Remember, Genes are passed down when breeding!
 
 # 1.9.1
 

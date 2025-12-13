@@ -83,6 +83,12 @@ object ModAttributes {
 			1.0,
 			AttributeModifier.Operation.ADD_VALUE
 		)
+
+		val BOUNTIFUL_TWO = AttributeModifier(
+			OtherUtil.modResource("bountiful_two"),
+			1.0,
+			AttributeModifier.Operation.ADD_VALUE
+		)
 	}
 
 }

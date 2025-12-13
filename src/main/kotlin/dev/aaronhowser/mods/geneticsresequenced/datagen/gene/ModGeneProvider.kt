@@ -897,6 +897,19 @@ class ModGeneProvider : RegistrySetBuilder() {
 				)
 			)
 
+			context.register(
+				ModGenes.BOUNTIFUL_TWO,
+				makeGene(
+					dnaPointsRequired = 40,
+					attributeModifiers = listOf(
+						AttributeEntry(
+							ModAttributes.BASE_LOOTING,
+							ModAttributes.AttributeModifiers.BOUNTIFUL_TWO
+						)
+					)
+				)
+			)
+
 		}
 	}
 
