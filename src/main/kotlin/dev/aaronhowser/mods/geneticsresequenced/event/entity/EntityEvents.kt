@@ -80,6 +80,7 @@ object EntityEvents {
 		val entity = event.entity
 		if (entity is PathfinderMob) {
 			ScareGenes.attachScareTask(entity)
+			MobGenes.giveFrenzyGoals(entity)
 		}
 	}
 
