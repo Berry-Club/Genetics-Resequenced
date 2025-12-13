@@ -1,7 +1,8 @@
 {
-	"entity": "minecraft:zoglin",
-	"gene_weights": {
-		"geneticsresequenced:basic": 5,
-		"geneticsresequenced:meaty": 4
-	}
+  "entity": "minecraft:zoglin",
+  "gene_weights": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:frenzied": 3,
+    "geneticsresequenced:meaty": 4
+  }
 }
