@@ -53,7 +53,7 @@ class FrenzyMeleeAttackGoal(
 
 	companion object {
 		private fun attackWithoutAttribute(attacker: PathfinderMob, target: LivingEntity) {
-			var damage = 1f
+			var damage = 3f
 
 			val level = attacker.level()
 			val damageSource = level.damageSources().mobAttack(attacker)
