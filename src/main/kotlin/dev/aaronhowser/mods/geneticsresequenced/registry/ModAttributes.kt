@@ -22,6 +22,9 @@ object ModAttributes {
 	val BASE_LOOTING: DeferredHolder<Attribute, RangedAttribute> =
 		register("base_looting", 0.0, 0.0, 10000.0)
 
+	val XP_DROP_MULTIPLIER: DeferredHolder<Attribute, RangedAttribute> =
+		register("xp_drop_multiplier", 1.0, 0.0, 1000.0)
+
 	private fun register(name: String, default: Double, min: Double, max: Double): DeferredHolder<Attribute, RangedAttribute> {
 		return ATTRIBUTE_REGISTRY.register(name, Supplier {
 			RangedAttribute("geneticsresequenced.$name", default, min, max)
@@ -86,6 +89,12 @@ object ModAttributes {
 
 		val BOUNTIFUL_TWO = AttributeModifier(
 			OtherUtil.modResource("bountiful_two"),
+			1.0,
+			AttributeModifier.Operation.ADD_VALUE
+		)
+
+		val EXPERIENCED = AttributeModifier(
+			OtherUtil.modResource("experienced"),
 			1.0,
 			AttributeModifier.Operation.ADD_VALUE
 		)

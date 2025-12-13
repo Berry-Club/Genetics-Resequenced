@@ -135,7 +135,10 @@ object ModGenes {
 	// For Mobs
 	@JvmField val BOUNTIFUL = resourceKey("bountiful")
 	@JvmField val BOUNTIFUL_TWO = resourceKey("bountiful_2")
+	@JvmField val EXPERIENCED = resourceKey("experienced")
 	@JvmField val FERTILE = resourceKey("fertile")
+	@JvmField val FRENZIED = resourceKey("frenzied")
+	@JvmField val PLACID = resourceKey("placid")
 
 	// Mutations
 	@JvmField val CLAWS_TWO = resourceKey("claws_2")
