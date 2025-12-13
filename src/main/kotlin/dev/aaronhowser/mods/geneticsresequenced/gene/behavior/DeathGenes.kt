@@ -11,9 +11,11 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.server.level.ServerPlayer
+import net.minecraft.util.Mth
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
@@ -23,6 +25,7 @@ import net.minecraft.world.level.GameRules
 import net.minecraft.world.level.Level
 import net.neoforged.fml.ModList
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
+import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent
 import net.neoforged.neoforge.event.level.ExplosionEvent
 import java.util.*
 
@@ -190,7 +193,15 @@ object DeathGenes {
 		if (entity is ServerPlayer) {
 			AdvancementTriggers.slimyDeathAdvancement(entity)
 		}
+	}
 
+	fun handleExperienced(event: LivingExperienceDropEvent) {
+		val experienced = ModGenes.EXPERIENCED.getHolderOrThrow(event.entity.registryAccess())
+		if (experienced.isDisabled) return
+
+		val entity = event.entity
+		val multiplier = entity.getAttributeValue(ModAttributes.XP_DROP_MULTIPLIER)
+		event.droppedExperience = Mth.ceil(event.droppedExperience * multiplier)
 	}
 
 }

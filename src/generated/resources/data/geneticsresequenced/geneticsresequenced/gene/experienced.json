@@ -1,0 +1,13 @@
+{
+  "attribute_modifiers": [
+    {
+      "attribute": "geneticsresequenced:xp_drop_multiplier",
+      "modifier": {
+        "amount": 1.0,
+        "id": "geneticsresequenced:experienced",
+        "operation": "add_value"
+      }
+    }
+  ],
+  "dna_points_required": 50
+}

@@ -910,6 +910,19 @@ class ModGeneProvider : RegistrySetBuilder() {
 				)
 			)
 
+			context.register(
+				ModGenes.EXPERIENCED,
+				makeGene(
+					dnaPointsRequired = 50,
+					attributeModifiers = listOf(
+						AttributeEntry(
+							ModAttributes.XP_DROP_MULTIPLIER,
+							ModAttributes.AttributeModifiers.EXPERIENCED
+						)
+					)
+				)
+			)
+
 		}
 	}
 

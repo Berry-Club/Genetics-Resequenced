@@ -3,24 +3,25 @@ package dev.aaronhowser.mods.geneticsresequenced.event.entity
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DamageGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ScareGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
-import net.minecraft.core.Holder
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PathfinderMob
-import net.minecraftforge.event.entity.EntityJoinLevelEvent
-import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent
-import net.minecraftforge.event.entity.living.LivingDamageEvent
-import net.minecraftforge.event.entity.living.LivingDeathEvent
-import net.minecraftforge.event.level.ExplosionEvent
-import net.minecraftforge.eventbus.api.SubscribeEvent
-import net.minecraftforge.fml.common.Mod
+import net.neoforged.bus.api.SubscribeEvent
+import net.neoforged.fml.common.EventBusSubscriber
+import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent
+import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent
+import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
+import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
+import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent
+import net.neoforged.neoforge.event.level.ExplosionEvent
+import net.neoforged.neoforge.event.tick.EntityTickEvent
 
-@Mod.EventBusSubscriber(
-	modid = GeneticsResequenced.MOD_ID
+@EventBusSubscriber(
+	modid = GeneticsResequenced.ID
 )
 object EntityEvents {
 
@@ -82,6 +83,10 @@ object EntityEvents {
 
 	@SubscribeEvent
 	fun onBabySpawn(event: BabyEntitySpawnEvent) {
+		inheritGenes(event)
+	}
+
+	private fun inheritGenes(event: BabyEntitySpawnEvent) {
 		val parentA = event.parentA
 		val parentB = event.parentB
 
@@ -104,6 +109,11 @@ object EntityEvents {
 				child.addGene(gene)
 			}
 		}
+	}
+
+	@SubscribeEvent
+	fun onLivingDropExperience(event: LivingExperienceDropEvent) {
+		DeathGenes.handleExperienced(event)
 	}
 
 }
