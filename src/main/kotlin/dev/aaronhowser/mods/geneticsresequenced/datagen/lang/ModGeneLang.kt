@@ -107,6 +107,9 @@ object ModGeneLang {
 			addGene(ModGenes.BOUNTIFUL, "Bountiful")
 			addGene(ModGenes.BOUNTIFUL_TWO, "Bountiful II")
 			addGene(ModGenes.FERTILE, "Fertile")
+			addGene(ModGenes.EXPERIENCED, "Experienced")
+			addGene(ModGenes.FRENZIED, "Frenzied")
+			addGene(ModGenes.PLACID, "Placid")
 		}
 	}
 
