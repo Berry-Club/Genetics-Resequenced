@@ -51,6 +51,7 @@ object MobGenes {
 		return entity.hasGene(ModGenes.PLACID)
 	}
 
+	// https://github.com/Elenterius/Biomancy/blob/mc1.20.1/prod/src/main/java/com/github/elenterius/biomancy/serum/FrenzySerum.java#L99
 	fun giveFrenzyGoals(mob: Mob) {
 		if (mob !is PathfinderMob) return
 
