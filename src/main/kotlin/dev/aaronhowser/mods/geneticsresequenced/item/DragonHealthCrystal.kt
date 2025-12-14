@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.h
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
@@ -54,11 +53,10 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 		const val MAX_DAMAGE = 1000f
 
 		fun handleIncomingDamage(event: LivingDamageEvent.Pre) {
-			val enderDragonHealth = ModGenes.ENDER_DRAGON_HEALTH.getHolderOrThrow(event.entity.registryAccess())
-			if (enderDragonHealth.isDisabled) return
-
-			if (event.container.newDamage == 0f) return
 			val entity = event.entity
+
+			if (ModGenes.ENDER_DRAGON_HEALTH.isDisabled(entity.registryAccess())) return
+			if (event.container.newDamage <= 0f) return
 
 			if (entity.isClientSide) return
 			if (!entity.hasGene(ModGenes.ENDER_DRAGON_HEALTH)) return

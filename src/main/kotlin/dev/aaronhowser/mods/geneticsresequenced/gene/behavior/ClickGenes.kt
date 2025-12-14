@@ -46,8 +46,7 @@ object ClickGenes {
 	)
 
 	fun handleWoolyOther(event: PlayerInteractEvent.EntityInteract) {
-		val wooly = ModGenes.WOOLY.getHolderOrThrow(event.entity.registryAccess())
-		if (wooly.isDisabled) return
+		if (ModGenes.WOOLY.isDisabled(event.level.registryAccess())) return
 
 		val target = event.target as? LivingEntity ?: return
 		val clicker = event.entity
@@ -108,8 +107,7 @@ object ClickGenes {
 	}
 
 	fun handleWoolySelf(event: PlayerInteractEvent.RightClickItem) {
-		val wooly = ModGenes.WOOLY.getHolderOrThrow(event.entity.registryAccess())
-		if (wooly.isDisabled) return
+		if (ModGenes.WOOLY.isDisabled(event.entity.registryAccess())) return
 
 		val player = event.entity as? ServerPlayer ?: return
 		if (!player.isCrouching) return
@@ -162,8 +160,7 @@ object ClickGenes {
 	)
 
 	fun handleMeatyOther(event: PlayerInteractEvent.EntityInteract) {
-		val meaty = ModGenes.MEATY.getHolderOrThrow(event.level.registryAccess())
-		if (meaty.isDisabled) return
+		if (ModGenes.MEATY.isDisabled(event.level.registryAccess())) return
 
 		val target = event.target as? LivingEntity ?: return
 		if (!target.hasGene(ModGenes.MEATY)) return
@@ -212,8 +209,7 @@ object ClickGenes {
 	}
 
 	fun handleMeatySelf(event: PlayerInteractEvent.RightClickItem) {
-		val meaty = ModGenes.MEATY.getHolderOrThrow(event.entity.registryAccess())
-		if (meaty.isDisabled) return
+		if (ModGenes.MEATY.isDisabled(event.entity.registryAccess())) return
 
 		val player = event.entity
 		val level = player.level()
@@ -266,8 +262,7 @@ object ClickGenes {
 	)
 
 	fun handleMilkyOther(event: PlayerInteractEvent.EntityInteract) {
-		val milky = ModGenes.MILKY.getHolderOrThrow(event.level.registryAccess())
-		if (milky.isDisabled) return
+		if (ModGenes.MILKY.isDisabled(event.level.registryAccess())) return
 
 		val target = event.target as? LivingEntity ?: return
 		if (target.level().isClientSide) return
@@ -315,8 +310,7 @@ object ClickGenes {
 	}
 
 	fun handleMilkySelf(event: PlayerInteractEvent.RightClickItem) {
-		val milky = ModGenes.MILKY.getHolderOrThrow(event.entity.registryAccess())
-		if (milky.isDisabled) return
+		if (ModGenes.MILKY.isDisabled(event.entity.registryAccess())) return
 
 		val player = event.entity
 		if (player.level().isClientSide) return
@@ -355,8 +349,7 @@ object ClickGenes {
 	}
 
 	fun shootFireball(event: PlayerInteractEvent.RightClickItem) {
-		val shootFireballs = ModGenes.SHOOT_FIREBALLS.getHolderOrThrow(event.entity.registryAccess())
-		if (shootFireballs.isDisabled) return
+		if (ModGenes.SHOOT_FIREBALLS.isDisabled(event.entity.registryAccess())) return
 
 		val player = event.entity
 		if (!player.hasGene(ModGenes.SHOOT_FIREBALLS)) return
@@ -389,8 +382,7 @@ object ClickGenes {
 	}
 
 	fun eatGrass(event: PlayerInteractEvent.RightClickBlock) {
-		val eatGrass = ModGenes.EAT_GRASS.getHolderOrThrow(event.entity.registryAccess())
-		if (eatGrass.isDisabled) return
+		if (ModGenes.EAT_GRASS.isDisabled(event.entity.registryAccess())) return
 
 		if (event.itemStack.isNotEmpty()) return
 
@@ -452,8 +444,7 @@ object ClickGenes {
 	fun handleInfinityGetProjectile(event: LivingGetProjectileEvent) {
 		val player = event.entity as? Player ?: return
 
-		val infinity = ModGenes.INFINITY.getHolderOrThrow(player.registryAccess())
-		if (infinity.isDisabled) return
+		if (ModGenes.INFINITY.isDisabled(player.registryAccess())) return
 		if (!player.hasGene(ModGenes.INFINITY)) return
 
 		if (event.projectileItemStack.isNotEmpty()) return
