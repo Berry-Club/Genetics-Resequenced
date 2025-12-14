@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.entity.goals
 
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
