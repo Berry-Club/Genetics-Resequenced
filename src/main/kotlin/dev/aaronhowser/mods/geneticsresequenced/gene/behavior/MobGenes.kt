@@ -74,7 +74,7 @@ object MobGenes {
 	}
 
 	@JvmStatic
-	fun modifyBeePollinationTime(bee: Bee): Int {
+	fun beeRequiredPollinationTime(bee: Bee): Int {
 		val bountiful = ModGenes.BOUNTIFUL.getHolderOrThrow(bee.registryAccess())
 		if (bountiful.isDisabled) return 400
 
