@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.entity.goals
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.entity.LivingEntity
@@ -22,8 +21,7 @@ class FrenzyMeleeAttackGoal(
 ) : MeleeAttackGoal(mob, speedModifier, followingTargetEvenIfNotSeen) {
 
 	override fun canUse(): Boolean {
-		val frenzyGene = ModGenes.FRENZIED.getHolderOrThrow(mob.registryAccess())
-		if (frenzyGene.isDisabled) return false
+		if (ModGenes.FRENZIED.isDisabled(mob.registryAccess())) return false
 
 		return super.canUse() && mob.hasGene(ModGenes.FRENZIED)
 	}

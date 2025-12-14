@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.entity.goals
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal
@@ -18,8 +17,7 @@ class FrenzyTargetGoal<T : LivingEntity> : NearestAttackableTargetGoal<T> {
 	)
 
 	override fun canUse(): Boolean {
-		val frenzyGene = ModGenes.FRENZIED.getHolderOrThrow(mob.registryAccess())
-		if (frenzyGene.isDisabled) return false
+		if (ModGenes.FRENZIED.isDisabled(mob.registryAccess())) return false
 
 		return super.canUse() && mob.hasGene(ModGenes.FRENZIED)
 	}

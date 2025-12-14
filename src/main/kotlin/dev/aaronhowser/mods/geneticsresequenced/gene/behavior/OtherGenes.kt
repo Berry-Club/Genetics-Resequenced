@@ -11,7 +11,6 @@ import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.NarratorPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.core.BlockPos
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
@@ -34,8 +33,7 @@ object OtherGenes {
 	)
 
 	fun handleEmeraldHeart(event: ServerChatEvent) {
-		val emeraldHeart = ModGenes.EMERALD_HEART.getHolderOrThrow(event.player.registryAccess())
-		if (emeraldHeart.isDisabled) return
+		if (ModGenes.EMERALD_HEART.isDisabled(event.player.registryAccess())) return
 
 		val player = event.player
 		if (!player.random.chance(ServerConfig.CONFIG.emeraldHeartChatChance.get())) return
@@ -53,8 +51,7 @@ object OtherGenes {
 	}
 
 	fun handleChatterbox(event: ServerChatEvent) {
-		val chatterBox = ModGenes.CHATTERBOX.getHolderOrThrow(event.player.registryAccess())
-		if (chatterBox.isDisabled) return
+		if (ModGenes.CHATTERBOX.isDisabled(event.player.registryAccess())) return
 
 		val player = event.player
 		if (!player.hasGene(ModGenes.CHATTERBOX)) return
@@ -118,8 +115,7 @@ object OtherGenes {
 	}
 
 	fun handleCringeChat(event: ServerChatEvent) {
-		val cringe = ModGenes.CRINGE.getHolderOrThrow(event.player.registryAccess())
-		if (cringe.isDisabled) return
+		if (ModGenes.CRINGE.isDisabled(event.player.registryAccess())) return
 
 		val player = event.player
 		if (!player.hasGene(ModGenes.CRINGE)) return
@@ -131,8 +127,7 @@ object OtherGenes {
 	fun handleSlimyChat(event: ServerChatEvent) {
 		val player = event.player
 
-		val slimyDeath = ModGenes.SLIMY_DEATH.getHolderOrThrow(player.registryAccess())
-		if (slimyDeath.isDisabled) return
+		if (ModGenes.SLIMY_DEATH.isDisabled(player.registryAccess())) return
 
 		if (!player.hasGene(ModGenes.SLIMY_DEATH)) return
 
@@ -165,8 +160,8 @@ object OtherGenes {
 	}
 
 	fun handleWallClimbing(player: Player) {
-		val wallClimbing = ModGenes.WALL_CLIMBING.getHolderOrThrow(player.registryAccess())
-		if (wallClimbing.isDisabled || !player.hasGene(ModGenes.WALL_CLIMBING)) return
+		if (ModGenes.WALL_CLIMBING.isDisabled(player.registryAccess())) return
+		if (!player.hasGene(ModGenes.WALL_CLIMBING)) return
 
 		if (player.horizontalCollision || player.minorHorizontalCollision) {
 			player.setDeltaMovement(
@@ -207,8 +202,8 @@ object OtherGenes {
 	fun shouldClingToCeiling(entity: LivingEntity): Boolean {
 		if (!entity.isShiftKeyDown) return false
 
-		val wallClimbing = ModGenes.WALL_CLIMBING.getHolderOrThrow(entity.registryAccess())
-		if (wallClimbing.isDisabled || !entity.hasGene(ModGenes.WALL_CLIMBING)) return false
+		if (ModGenes.WALL_CLIMBING.isDisabled(entity.registryAccess())) return false
+		if (!entity.hasGene(ModGenes.WALL_CLIMBING)) return false
 
 		val entityAabb = entity.boundingBox
 		val shrunkenAabb = entityAabb.deflate(entityAabb.xsize * 0.2, 0.0, entityAabb.zsize * 0.2)
@@ -231,8 +226,7 @@ object OtherGenes {
 	}
 
 	fun shouldMobGlowFromMobSight(entityToGlow: LivingEntity): Boolean {
-		val mobSight = ModGenes.MOB_SIGHT.getHolderOrThrow(entityToGlow.registryAccess())
-		if (mobSight.isDisabled) return false
+		if (ModGenes.MOB_SIGHT.isDisabled(entityToGlow.registryAccess())) return false
 
 		val localPlayer = AaronClientUtil.localPlayer ?: return false
 		if (!localPlayer.hasGene(ModGenes.MOB_SIGHT)) return false
@@ -245,9 +239,7 @@ object OtherGenes {
 		if (entity !is LivingEntity) return false
 
 		if (state.`is`(Blocks.COBWEB)) {
-			val webWalker = ModGenes.WEB_WALKER.getHolderOrThrow(entity.registryAccess())
-			if (webWalker.isDisabled) return false
-
+			if (ModGenes.WEB_WALKER.isDisabled(entity.registryAccess())) return false
 			if (entity.hasGene(ModGenes.WEB_WALKER)) {
 				return true
 			}

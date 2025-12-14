@@ -33,8 +33,7 @@ object DeathGenes {
 
 	//TODO: Test with grave mods
 	fun saveInventory(player: Player) {
-		val keepInventory = ModGenes.KEEP_INVENTORY.getHolderOrThrow(player.registryAccess())
-		if (keepInventory.isDisabled) return
+		if (ModGenes.KEEP_INVENTORY.isDisabled(player.registryAccess())) return
 
 		val level = player.level()
 		if (level.isClientSide
@@ -77,8 +76,7 @@ object DeathGenes {
 	)
 
 	fun handleEmeraldHeart(event: LivingDeathEvent) {
-		val emeraldHeart = ModGenes.EMERALD_HEART.getHolderOrThrow(event.entity.registryAccess())
-		if (emeraldHeart.isDisabled) return
+		if (ModGenes.EMERALD_HEART.isDisabled(event.entity.registryAccess())) return
 
 		val entity = event.entity
 		if (!entity.hasGene(ModGenes.EMERALD_HEART)) return
@@ -90,7 +88,6 @@ object DeathGenes {
 		}
 
 		val wasNotOnCooldown = EMERALD_HEART_COOLDOWN.add(entity)
-
 		if (!wasNotOnCooldown) return
 
 		entity.inventory.add(ItemStack(Items.EMERALD, 1))
@@ -100,9 +97,9 @@ object DeathGenes {
 
 	private const val GUNPOWDER_REQUIRED = 5
 	private const val EXPLOSION_STRENGTH = 3f
+
 	fun handleExplosiveExit(event: LivingDeathEvent) {
-		val explosiveExit = ModGenes.EXPLOSIVE_EXIT.getHolderOrThrow(event.entity.registryAccess())
-		if (explosiveExit.isDisabled) return
+		if (ModGenes.EXPLOSIVE_EXIT.isDisabled(event.entity.registryAccess())) return
 
 		val entity = event.entity
 		if (!entity.hasGene(ModGenes.EXPLOSIVE_EXIT)) return
@@ -146,8 +143,7 @@ object DeathGenes {
 	}
 
 	fun explosiveExitDetonation(event: ExplosionEvent.Detonate) {
-		val explosiveExit = ModGenes.EXPLOSIVE_EXIT.getHolderOrThrow(event.level.registryAccess())
-		if (explosiveExit.isDisabled) return
+		if (ModGenes.EXPLOSIVE_EXIT.isDisabled(event.level.registryAccess())) return
 
 		val exploderUuid = event.explosion.directSourceEntity?.uuid
 		if (exploderUuid !in RECENTLY_EXPLODED_ENTITIES) return
@@ -162,9 +158,8 @@ object DeathGenes {
 	)
 
 	fun handleSlimyDeath(event: LivingDeathEvent) {
-		val slimyDeath = ModGenes.SLIMY_DEATH.getHolderOrThrow(event.entity.registryAccess())
-		if (slimyDeath.isDisabled) return
 		if (event.isCanceled) return
+		if (ModGenes.SLIMY_DEATH.isDisabled(event.entity.registryAccess())) return
 
 		val entity = event.entity
 		if (!entity.hasGene(ModGenes.SLIMY_DEATH)) return
@@ -196,8 +191,7 @@ object DeathGenes {
 	}
 
 	fun handleExperienced(event: LivingExperienceDropEvent) {
-		val experienced = ModGenes.EXPERIENCED.getHolderOrThrow(event.entity.registryAccess())
-		if (experienced.isDisabled) return
+		if (ModGenes.EXPERIENCED.isDisabled(event.entity.registryAccess())) return
 
 		val entity = event.entity
 		val multiplier = entity.getAttributeValue(ModAttributes.XP_DROP_MULTIPLIER)

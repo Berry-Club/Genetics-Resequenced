@@ -41,17 +41,13 @@ import kotlin.math.max
 object TickGenes {
 
 	fun handleBioluminescence(entity: LivingEntity) {
-		val bioluminescence = ModGenes.BIOLUMINESCENCE.getHolderOrThrow(entity.registryAccess())
-
-		if (bioluminescence.isDisabled) return
+		if (ModGenes.BIOLUMINESCENCE.isDisabled(entity.registryAccess())) return
+		if (!entity.hasGene(ModGenes.BIOLUMINESCENCE)) return
 
 		if (entity.tickCount % ServerConfig.CONFIG.bioluminescenceCooldown.get() != 0) return
 
 		val level = entity.level()
-
 		if (level.getBrightness(LightLayer.BLOCK, entity.blockPosition()) > 8) return
-
-		if (!entity.hasGene(ModGenes.BIOLUMINESCENCE)) return
 
 		val headBlock = level.getBlockState(entity.blockPosition().above())
 		if (!headBlock.isAir) return
@@ -63,9 +59,7 @@ object TickGenes {
 	}
 
 	fun handlePhotosynthesis(entity: LivingEntity) {
-		val photosynthesis = ModGenes.PHOTOSYNTHESIS.getHolderOrThrow(entity.registryAccess())
-
-		if (photosynthesis.isDisabled) return
+		if (ModGenes.PHOTOSYNTHESIS.isDisabled(entity.registryAccess())) return
 
 		if (entity !is Player) return
 		if (entity.tickCount % ServerConfig.CONFIG.photosynthesisCooldown.get() != 0) return
@@ -86,8 +80,7 @@ object TickGenes {
 	}
 
 	fun handleNoHunger(entity: Player) {
-		val noHunger = ModGenes.NO_HUNGER.getHolderOrThrow(entity.registryAccess())
-		if (noHunger.isDisabled) return
+		if (ModGenes.NO_HUNGER.isDisabled(entity.registryAccess())) return
 
 		if (entity.tickCount % ServerConfig.CONFIG.noHungerCooldown.get() != 0) return
 
@@ -259,15 +252,11 @@ object TickGenes {
 	}
 
 	fun handleItemMagnet(player: Player) {
-		val itemMagnet = ModGenes.ITEM_MAGNET.getHolderOrThrow(player.registryAccess())
-		if (itemMagnet.isDisabled) return
+		if (ModGenes.ITEM_MAGNET.isDisabled(player.registryAccess())) return
 
 		if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
-
 		if (player.tickCount % ServerConfig.CONFIG.itemMagnetCooldown.get() != 0) return
-
 		if (!player.hasGene(ModGenes.ITEM_MAGNET)) return
-
 		if (AntiFieldOrbItem.isActiveForPlayer(player)) return
 
 		val nearbyItems = player.level().getEntitiesOfClass(
@@ -302,15 +291,11 @@ object TickGenes {
 	}
 
 	fun handleXpMagnet(player: Player) {
-		val xpMagnet = ModGenes.XP_MAGNET.getHolderOrThrow(player.registryAccess())
-		if (xpMagnet.isDisabled) return
+		if (ModGenes.XP_MAGNET.isDisabled(player.registryAccess())) return
 
 		if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
-
 		if (player.tickCount % ServerConfig.CONFIG.xpMagnetCooldown.get() != 0) return
-
 		if (!player.hasGene(ModGenes.XP_MAGNET)) return
-
 		if (AntiFieldOrbItem.isActiveForPlayer(player)) return
 
 		val nearbyXpOrbs = player.level().getEntitiesOfClass(

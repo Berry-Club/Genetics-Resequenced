@@ -52,7 +52,7 @@ object EntityEvents {
 	fun onLivingDamagePre(event: LivingDamageEvent.Pre) {
 		DamageGenes.handleDragonHealth(event)
 		DamageGenes.handleJohnny(event)
-		DamageGenes.handleClaws(event)
+		DamageGenes.handleClawsDamageBonus(event)
 	}
 
 	@SubscribeEvent
@@ -60,7 +60,7 @@ object EntityEvents {
 		if (event.newDamage <= 0f) return
 
 		DamageGenes.handleThorns(event)
-		DamageGenes.handleClaws(event)
+		DamageGenes.handleClawsBleeding(event)
 		DamageGenes.handleWitherHit(event)
 		DamageGenes.handleChilling(event)
 		DamageGenes.handleWebDefense(event)

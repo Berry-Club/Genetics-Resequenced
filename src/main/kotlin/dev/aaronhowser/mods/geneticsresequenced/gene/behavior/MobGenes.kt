@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.geneticsresequenced.entity.goals.FrenzyMeleeAttackGo
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.FrenzyTargetGoal
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
@@ -27,8 +26,7 @@ object MobGenes {
 
 		val level = parentA.level() as? ServerLevel ?: return
 
-		val fertile = ModGenes.FERTILE.getHolderOrThrow(parentA.registryAccess())
-		if (fertile.isDisabled) return
+		if (ModGenes.FERTILE.isDisabled(parentA.registryAccess())) return
 
 		var extraBabies = 0
 		if (parentA.hasGene(ModGenes.FERTILE)) extraBabies++
@@ -46,8 +44,7 @@ object MobGenes {
 	fun shouldPlacidCancelGoal(goal: TargetGoal): Boolean {
 		val entity = goal.mob
 
-		val placid = ModGenes.PLACID.getHolderOrThrow(entity.registryAccess())
-		if (placid.isDisabled) return false
+		if (ModGenes.PLACID.isDisabled(entity.registryAccess())) return false
 
 		return entity.hasGene(ModGenes.PLACID)
 	}
@@ -75,11 +72,9 @@ object MobGenes {
 
 	@JvmStatic
 	fun beeRequiredPollinationTime(bee: Bee): Int {
-		val bountiful = ModGenes.BOUNTIFUL.getHolderOrThrow(bee.registryAccess())
-		if (bountiful.isDisabled) return 400
+		if (ModGenes.BOUNTIFUL.isDisabled(bee.registryAccess())) return 400
 
-		val bountifulTwo = ModGenes.BOUNTIFUL_TWO.getHolderOrThrow(bee.registryAccess())
-		if (!bountifulTwo.isDisabled) {
+		if (!ModGenes.BOUNTIFUL_TWO.isDisabled(bee.registryAccess())) {
 			if (bee.hasGene(ModGenes.BOUNTIFUL_TWO)) {
 				return 100
 			}

@@ -17,7 +17,6 @@ import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistryCodecs
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.ClickEvent
@@ -37,7 +36,6 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
-import net.neoforged.neoforge.registries.holdersets.AnyHolderSet
 import java.util.*
 
 data class Gene(
@@ -184,6 +182,10 @@ data class Gene(
 
 		val Holder<Gene>.isDisabled: Boolean
 			get() = this.`is`(ModGeneTagsProvider.DISABLED)
+
+		fun ResourceKey<Gene>.isDisabled(registries: HolderLookup.Provider): Boolean {
+			return this.getHolderOrThrow(registries).isDisabled
+		}
 
 		fun getNameComponent(
 			geneRk: ResourceKey<Gene>,
