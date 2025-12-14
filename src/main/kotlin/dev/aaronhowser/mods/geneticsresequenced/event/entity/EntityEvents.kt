@@ -6,7 +6,6 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.g
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DamageGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.MobGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ScareGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PathfinderMob
@@ -79,7 +78,7 @@ object EntityEvents {
 	fun onEntitySpawn(event: EntityJoinLevelEvent) {
 		val entity = event.entity
 		if (entity is PathfinderMob) {
-			ScareGenes.attachScareTask(entity)
+			MobGenes.attachScareGoals(entity)
 			MobGenes.giveFrenzyGoals(entity)
 		}
 	}

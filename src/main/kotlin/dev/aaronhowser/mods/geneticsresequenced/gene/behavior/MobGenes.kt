@@ -6,14 +6,17 @@ import dev.aaronhowser.mods.geneticsresequenced.entity.goals.FrenzyTargetGoal
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.entity.EntitySelector
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.PathfinderMob
+import net.minecraft.world.entity.ai.goal.AvoidEntityGoal
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal
 import net.minecraft.world.entity.ai.goal.target.TargetGoal
 import net.minecraft.world.entity.animal.Animal
 import net.minecraft.world.entity.animal.Bee
 import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent
+import kotlin.jvm.optionals.getOrNull
 
 object MobGenes {
 
@@ -85,6 +88,30 @@ object MobGenes {
 		}
 
 		return 400
+	}
+
+	fun attachScareGoals(entity: PathfinderMob) {
+		val allGenes = ModGenes.getAllGeneHolders(entity.registryAccess())
+
+		for (gene in allGenes) {
+			if (gene.isDisabled) continue
+			val cowardTag = gene.value().scaresEntitiesWithTag.getOrNull() ?: continue
+
+			if (!entity.type.`is`(cowardTag)) continue
+
+			entity.goalSelector.addGoal(
+				1,
+				AvoidEntityGoal(
+					entity,
+					LivingEntity::class.java,
+					{ otherEntity: LivingEntity -> otherEntity.hasGene(gene) },
+					12.0f,
+					1.2,
+					1.6,
+					EntitySelector.NO_SPECTATORS::test
+				)
+			)
+		}
 	}
 
 }
