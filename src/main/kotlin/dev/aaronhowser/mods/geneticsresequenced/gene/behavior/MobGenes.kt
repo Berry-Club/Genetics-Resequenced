@@ -29,8 +29,6 @@ object MobGenes {
 
 		val level = parentA.level() as? ServerLevel ?: return
 
-		if (ModGenes.FERTILE.isDisabled(parentA.registryAccess())) return
-
 		var extraBabies = 0
 		if (parentA.hasGene(ModGenes.FERTILE)) extraBabies++
 		if (parentB.hasGene(ModGenes.FERTILE)) extraBabies++
@@ -44,12 +42,8 @@ object MobGenes {
 	}
 
 	@JvmStatic
-	fun shouldPlacidCancelGoal(goal: TargetGoal): Boolean {
-		val entity = goal.mob
-
-		if (ModGenes.PLACID.isDisabled(entity.registryAccess())) return false
-
-		return entity.hasGene(ModGenes.PLACID)
+	fun shouldPlacidCancelTargetGoal(goal: TargetGoal): Boolean {
+		return goal.mob.hasGene(ModGenes.PLACID)
 	}
 
 	// https://github.com/Elenterius/Biomancy/blob/mc1.20.1/prod/src/main/java/com/github/elenterius/biomancy/serum/FrenzySerum.java#L99
@@ -75,12 +69,8 @@ object MobGenes {
 
 	@JvmStatic
 	fun beeRequiredPollinationTime(bee: Bee): Int {
-		if (ModGenes.BOUNTIFUL.isDisabled(bee.registryAccess())) return 400
-
-		if (!ModGenes.BOUNTIFUL_TWO.isDisabled(bee.registryAccess())) {
-			if (bee.hasGene(ModGenes.BOUNTIFUL_TWO)) {
-				return 100
-			}
+		if (bee.hasGene(ModGenes.BOUNTIFUL_TWO)) {
+			return 100
 		}
 
 		if (bee.hasGene(ModGenes.BOUNTIFUL)) {

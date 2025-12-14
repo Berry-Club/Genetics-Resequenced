@@ -17,8 +17,6 @@ class FrenzyTargetGoal<T : LivingEntity> : NearestAttackableTargetGoal<T> {
 	)
 
 	override fun canUse(): Boolean {
-		if (ModGenes.FRENZIED.isDisabled(mob.registryAccess())) return false
-
 		return super.canUse() && mob.hasGene(ModGenes.FRENZIED)
 	}
 

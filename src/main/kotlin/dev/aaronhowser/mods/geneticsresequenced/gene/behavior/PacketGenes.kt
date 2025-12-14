@@ -25,7 +25,6 @@ object PacketGenes {
 
 	@Suppress("MoveVariableDeclarationIntoWhen")
 	fun teleport(player: ServerPlayer) {
-		if (ModGenes.TELEPORT.isDisabled(player.registryAccess())) return
 		if (!player.hasGene(ModGenes.TELEPORT)) return
 
 		val wasNotOnCooldown = RECENT_TELEPORTS.add(player)
@@ -79,7 +78,6 @@ object PacketGenes {
 	)
 
 	fun dragonBreath(player: ServerPlayer) {
-		if (ModGenes.DRAGON_BREATH.isDisabled(player.registryAccess())) return
 		if (!player.hasGene(ModGenes.DRAGON_BREATH)) return
 
 		val wasNotOnCooldown = RECENT_DRAGONS_BREATHS.add(player)
