@@ -13,6 +13,7 @@ import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal
 import net.minecraft.world.entity.ai.goal.target.TargetGoal
 import net.minecraft.world.entity.animal.Animal
+import net.minecraft.world.entity.animal.Bee
 import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent
 
 object MobGenes {
@@ -70,6 +71,25 @@ object MobGenes {
 				FrenzyMeleeAttackGoal(mob, 1.0, false)
 			)
 		}
+	}
+
+	@JvmStatic
+	fun modifyBeePollinationTime(bee: Bee): Int {
+		val bountiful = ModGenes.BOUNTIFUL.getHolderOrThrow(bee.registryAccess())
+		if (bountiful.isDisabled) return 400
+
+		val bountifulTwo = ModGenes.BOUNTIFUL_TWO.getHolderOrThrow(bee.registryAccess())
+		if (!bountifulTwo.isDisabled) {
+			if (bee.hasGene(ModGenes.BOUNTIFUL_TWO)) {
+				return 100
+			}
+		}
+
+		if (bee.hasGene(ModGenes.BOUNTIFUL)) {
+			return 200
+		}
+
+		return 400
 	}
 
 }
