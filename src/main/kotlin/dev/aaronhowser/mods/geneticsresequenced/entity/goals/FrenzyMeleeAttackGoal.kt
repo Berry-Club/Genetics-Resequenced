@@ -21,8 +21,6 @@ class FrenzyMeleeAttackGoal(
 ) : MeleeAttackGoal(mob, speedModifier, followingTargetEvenIfNotSeen) {
 
 	override fun canUse(): Boolean {
-		if (ModGenes.FRENZIED.isDisabled(mob.registryAccess())) return false
-
 		return super.canUse() && mob.hasGene(ModGenes.FRENZIED)
 	}
 

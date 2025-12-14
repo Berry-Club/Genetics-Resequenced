@@ -16,7 +16,7 @@ public class TargetGoalMixin {
 			cancellable = true
 	)
 	private void geneticsresequenced$placidPreventsTargeting(CallbackInfoReturnable<Boolean> cir) {
-		if (MobGenes.shouldPlacidCancelGoal((TargetGoal) (Object) this)) {
+		if (MobGenes.shouldPlacidCancelTargetGoal((TargetGoal) (Object) this)) {
 			cir.setReturnValue(false);
 		}
 	}

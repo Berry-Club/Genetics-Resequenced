@@ -33,8 +33,6 @@ object DeathGenes {
 
 	//TODO: Test with grave mods
 	fun saveInventory(player: Player) {
-		if (ModGenes.KEEP_INVENTORY.isDisabled(player.registryAccess())) return
-
 		val level = player.level()
 		if (level.isClientSide
 			|| level.gameRules.getBoolean(GameRules.RULE_KEEPINVENTORY)
@@ -76,8 +74,6 @@ object DeathGenes {
 	)
 
 	fun handleEmeraldHeart(event: LivingDeathEvent) {
-		if (ModGenes.EMERALD_HEART.isDisabled(event.entity.registryAccess())) return
-
 		val entity = event.entity
 		if (!entity.hasGene(ModGenes.EMERALD_HEART)) return
 
@@ -99,8 +95,6 @@ object DeathGenes {
 	private const val EXPLOSION_STRENGTH = 3f
 
 	fun handleExplosiveExit(event: LivingDeathEvent) {
-		if (ModGenes.EXPLOSIVE_EXIT.isDisabled(event.entity.registryAccess())) return
-
 		val entity = event.entity
 		if (!entity.hasGene(ModGenes.EXPLOSIVE_EXIT)) return
 
@@ -143,8 +137,6 @@ object DeathGenes {
 	}
 
 	fun explosiveExitDetonation(event: ExplosionEvent.Detonate) {
-		if (ModGenes.EXPLOSIVE_EXIT.isDisabled(event.level.registryAccess())) return
-
 		val exploderUuid = event.explosion.directSourceEntity?.uuid
 		if (exploderUuid !in RECENTLY_EXPLODED_ENTITIES) return
 
@@ -159,7 +151,6 @@ object DeathGenes {
 
 	fun handleSlimyDeath(event: LivingDeathEvent) {
 		if (event.isCanceled) return
-		if (ModGenes.SLIMY_DEATH.isDisabled(event.entity.registryAccess())) return
 
 		val entity = event.entity
 		if (!entity.hasGene(ModGenes.SLIMY_DEATH)) return

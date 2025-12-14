@@ -55,9 +55,7 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 		fun handleIncomingDamage(event: LivingDamageEvent.Pre) {
 			val entity = event.entity
 
-			if (ModGenes.ENDER_DRAGON_HEALTH.isDisabled(entity.registryAccess())) return
 			if (event.container.newDamage <= 0f) return
-
 			if (entity.isClientSide) return
 			if (!entity.hasGene(ModGenes.ENDER_DRAGON_HEALTH)) return
 

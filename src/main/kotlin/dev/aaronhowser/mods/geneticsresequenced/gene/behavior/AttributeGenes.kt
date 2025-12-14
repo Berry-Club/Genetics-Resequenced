@@ -11,8 +11,6 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent.PlayerRespawnEvent
 object AttributeGenes {
 
 	fun handleEfficiency(event: PlayerEvent.BreakSpeed) {
-		if (ModGenes.EFFICIENCY.isDisabled(event.entity.registryAccess())) return
-
 		val efficiencyAttribute = event.entity.attributes.getInstance(ModAttributes.EFFICIENCY) ?: return
 		if (efficiencyAttribute.value <= 0.0) return
 

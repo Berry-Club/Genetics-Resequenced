@@ -41,7 +41,6 @@ import kotlin.math.max
 object TickGenes {
 
 	fun handleBioluminescence(entity: LivingEntity) {
-		if (ModGenes.BIOLUMINESCENCE.isDisabled(entity.registryAccess())) return
 		if (!entity.hasGene(ModGenes.BIOLUMINESCENCE)) return
 
 		if (entity.tickCount % ServerConfig.CONFIG.bioluminescenceCooldown.get() != 0) return
@@ -59,8 +58,6 @@ object TickGenes {
 	}
 
 	fun handlePhotosynthesis(entity: LivingEntity) {
-		if (ModGenes.PHOTOSYNTHESIS.isDisabled(entity.registryAccess())) return
-
 		if (entity !is Player) return
 		if (entity.tickCount % ServerConfig.CONFIG.photosynthesisCooldown.get() != 0) return
 
@@ -80,14 +77,10 @@ object TickGenes {
 	}
 
 	fun handleNoHunger(entity: Player) {
-		if (ModGenes.NO_HUNGER.isDisabled(entity.registryAccess())) return
-
 		if (entity.tickCount % ServerConfig.CONFIG.noHungerCooldown.get() != 0) return
-
 		if (!entity.hasGene(ModGenes.NO_HUNGER)) return
 
 		val foodData = entity.foodData
-
 		foodData.foodLevel = max(foodData.foodLevel, ServerConfig.CONFIG.noHungerMinimum.get())
 	}
 
@@ -252,8 +245,6 @@ object TickGenes {
 	}
 
 	fun handleItemMagnet(player: Player) {
-		if (ModGenes.ITEM_MAGNET.isDisabled(player.registryAccess())) return
-
 		if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 		if (player.tickCount % ServerConfig.CONFIG.itemMagnetCooldown.get() != 0) return
 		if (!player.hasGene(ModGenes.ITEM_MAGNET)) return
@@ -291,8 +282,6 @@ object TickGenes {
 	}
 
 	fun handleXpMagnet(player: Player) {
-		if (ModGenes.XP_MAGNET.isDisabled(player.registryAccess())) return
-
 		if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 		if (player.tickCount % ServerConfig.CONFIG.xpMagnetCooldown.get() != 0) return
 		if (!player.hasGene(ModGenes.XP_MAGNET)) return
