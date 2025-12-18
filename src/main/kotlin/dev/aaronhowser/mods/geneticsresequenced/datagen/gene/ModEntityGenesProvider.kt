@@ -119,5 +119,6 @@ class ModEntityGenesProvider(
 		addEntityGenes(EntityType.ZOMBIE_VILLAGER, ModGenes.BASIC to 5, ModGenes.EMERALD_HEART to 4)
 		addEntityGenes(EntityType.ZOMBIE, ModGenes.BASIC to 7, ModGenes.RESISTANCE to 1)
 		addEntityGenes(EntityType.ZOMBIFIED_PIGLIN, ModGenes.BASIC to 5, ModGenes.FIRE_PROOF to 3, ModGenes.MEATY to 3)
+		addEntityGenes(EntityType.SNIFFER, ModGenes.EXPERIENCED to 4, ModGenes.BOUNTIFUL_TWO to 3)
 	}
 }

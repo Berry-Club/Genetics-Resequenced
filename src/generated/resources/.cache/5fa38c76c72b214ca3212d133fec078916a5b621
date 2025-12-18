@@ -1,4 +1,4 @@
-// 1.21.1	2025-12-13T09:39:54.0507956	geneticsresequenced/entity_genes generator for geneticsresequenced
+// 1.21.1	2025-12-18T13:13:14.8451744	geneticsresequenced/entity_genes generator for geneticsresequenced
 1c9164a3e3c3a44624cad82f11a4269753912787 data/geneticsresequenced/geneticsresequenced/entity_genes/support_slime.json
 bdab25cb25d1ad7b467796284f309197969452d7 data/minecraft/geneticsresequenced/entity_genes/allay.json
 79b0f5680c909bd28e269c7a06edaaf17f6d87c7 data/minecraft/geneticsresequenced/entity_genes/axolotl.json
@@ -52,6 +52,7 @@ b6166680b8d19c786268f628c1d0c6361c8b97d9 data/minecraft/geneticsresequenced/enti
 dbe6992d312308f340104d4d74a33f7edb3c60db data/minecraft/geneticsresequenced/entity_genes/skeleton.json
 9b59bd4af8f0571c642109428974a959fb71c25d data/minecraft/geneticsresequenced/entity_genes/skeleton_horse.json
 86bdd9337c6f2d91ec5e5a6f21ad685485bca070 data/minecraft/geneticsresequenced/entity_genes/slime.json
+62bdda51d79945b34a4db9c4443fd6b4376fb489 data/minecraft/geneticsresequenced/entity_genes/sniffer.json
 77433b770d4e95818007a09b13a4ad6fdeecd1c9 data/minecraft/geneticsresequenced/entity_genes/snow_golem.json
 2afeb10fba62ad394a1fba1084069d0bd7929adc data/minecraft/geneticsresequenced/entity_genes/spider.json
 5b909e62480c4d960cc5b88a3a599224917f3357 data/minecraft/geneticsresequenced/entity_genes/squid.json
