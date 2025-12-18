@@ -8,11 +8,11 @@
 - The Sniffer now has the following Gene weights:
 	- Experienced: 4
 	- Bountiful II: 3
+- Bountiful II now requires Bountiful
 
 ### Fixed
 
 - Fixed some Genes not having info pages or wiki entries
-- Bountiful II now requires Bountiful
 
 # 1.10.0
 
