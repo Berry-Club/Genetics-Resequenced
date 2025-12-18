@@ -5,6 +5,7 @@
 - The Bountiful Gene now also makes Bees pollinate faster
 	- Default is 400 ticks, tier 1 is 200 ticks, tier 2 is 100 ticks
 - Entities with the Cringe Gene will now vibrate, Temmie style
+	- The speed and intensity (and if it happens at all) is configurable in the client config
 - The Sniffer now has the following Gene weights:
 	- Experienced: 4
 	- Bountiful II: 3
