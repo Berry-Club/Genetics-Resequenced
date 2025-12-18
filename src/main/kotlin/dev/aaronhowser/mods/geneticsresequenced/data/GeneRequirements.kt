@@ -65,7 +65,7 @@ class GeneRequirements : SimpleJsonResourceReloadListener(
 				geneRequirements.requirements
 			)
 
-			GeneticsResequenced.LOGGER.info("Loaded gene requirements for ${geneRequirements.gene}")
+			GeneticsResequenced.LOGGER.info("Loaded gene requirements for ${geneRequirements.gene.location()}")
 		}
 	}
 
