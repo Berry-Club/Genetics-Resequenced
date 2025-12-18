@@ -4,6 +4,7 @@
 
 - The Bountiful Gene now also makes Bees pollinate faster
 	- Default is 400 ticks, tier 1 is 200 ticks, tier 2 is 100 ticks
+- Entities with the Cringe Gene will now vibrate, Temmie style
 
 # 1.10.0
 
