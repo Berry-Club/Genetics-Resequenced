@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
-import dev.aaronhowser.mods.geneticsresequenced.entity.client.SupportSlimeRenderer
+import dev.aaronhowser.mods.geneticsresequenced.client.renderer.entity.SupportSlimeRenderer
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem

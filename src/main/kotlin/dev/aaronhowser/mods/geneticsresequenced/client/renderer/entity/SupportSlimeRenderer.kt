@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.entity.client
+package dev.aaronhowser.mods.geneticsresequenced.client.renderer.entity
 
 import com.mojang.blaze3d.vertex.PoseStack
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
@@ -26,7 +26,6 @@ import org.joml.Quaternionf
 import org.joml.Vector3f
 import kotlin.math.cos
 import kotlin.math.sin
-
 
 @OnlyIn(Dist.CLIENT)
 class SupportSlimeRenderer(
@@ -75,7 +74,7 @@ class SupportSlimeRenderer(
 		pPackedLight: Int
 	) {
 
-		if (ClientConfig.CONFIG.supportSlimeRenderDebug.get()) {
+		if (ClientConfig.Companion.CONFIG.supportSlimeRenderDebug.get()) {
 			super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight)
 		}
 
