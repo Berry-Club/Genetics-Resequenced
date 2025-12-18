@@ -6,6 +6,10 @@
 	- Default is 400 ticks, tier 1 is 200 ticks, tier 2 is 100 ticks
 - Entities with the Cringe Gene will now vibrate, Temmie style
 
+### Fixed
+
+- Fixed some Genes not having info pages or wiki entries
+
 # 1.10.0
 
 ### Added
