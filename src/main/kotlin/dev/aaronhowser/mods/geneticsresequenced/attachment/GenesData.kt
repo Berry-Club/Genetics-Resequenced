@@ -68,7 +68,7 @@ data class GenesData(
 				&& !newGeneHolder.`is`(ModGenes.CRINGE)
 			) {
 				GeneticsResequenced.LOGGER.debug(
-					"Tried to give negative gene $newGeneHolder to player ${this@addGene.name.string}, but \"disableGivingPlayersNegativeGenes\" is true in the server config."
+					"Tried to give negative gene ${newGeneHolder.key?.location() ?: newGeneHolder} to player ${this@addGene.name.string}, but \"disableGivingPlayersNegativeGenes\" is true in the server config."
 				)
 				return false
 			}
@@ -76,7 +76,7 @@ data class GenesData(
 			val allowedTypes = newGeneHolder.value().allowedEntities.map { it.value() }
 			if (this.type !in allowedTypes) {
 				GeneticsResequenced.LOGGER.debug(
-					"Tried to give gene $newGeneHolder to mob ${this@addGene.name.string}, but mobs cannot have that gene!"
+					"Tried to give gene ${newGeneHolder.key?.location() ?: newGeneHolder} to mob ${this@addGene.name.string}, but mobs cannot have that gene!"
 				)
 				return false
 			}
