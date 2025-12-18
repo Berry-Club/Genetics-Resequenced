@@ -50,11 +50,12 @@ class ModGeneRequirementsProvider(
 		addRequirements(ModGenes.PHOTOSYNTHESIS, ModGenes.EAT_GRASS, ModGenes.THORNS)
 		addRequirements(ModGenes.REGENERATION_FOUR, ModGenes.REGENERATION)
 		addRequirements(ModGenes.RESISTANCE_TWO, ModGenes.RESISTANCE)
-		addRequirements(ModGenes.SPEED_FOUR, ModGenes.SPEED, ModGenes.SPEED_TWO) //TODO: See if this is needed
+		addRequirements(ModGenes.SPEED_FOUR, ModGenes.SPEED, ModGenes.SPEED_TWO)
 		addRequirements(ModGenes.SPEED_TWO, ModGenes.SPEED)
 		addRequirements(ModGenes.STRENGTH_TWO, ModGenes.STRENGTH)
 		addRequirements(ModGenes.LAVA_PROOF, ModGenes.FIRE_PROOF)
 		addRequirements(ModGenes.WEB_WALKER, ModGenes.WEAVING)
 		addRequirements(ModGenes.WEB_DEFENSE, ModGenes.WEAVING)
+		addRequirements(ModGenes.BOUNTIFUL_TWO, ModGenes.BOUNTIFUL)
 	}
 }
