@@ -9,12 +9,17 @@ class ClientConfig(
 
 	lateinit var woolyRemovesCape: ModConfigSpec.BooleanValue
 	lateinit var disableParrotNarrator: ModConfigSpec.BooleanValue
-	lateinit var disableCringeLangChange: ModConfigSpec.BooleanValue
 	lateinit var supportSlimeRenderDebug: ModConfigSpec.BooleanValue
 	lateinit var itemMagnetBlacklistTooltip: ModConfigSpec.BooleanValue
 
+	lateinit var disableCringeLangChange: ModConfigSpec.BooleanValue
+	lateinit var doesCringeShake: ModConfigSpec.BooleanValue
+	lateinit var cringeShakeAmplitude: ModConfigSpec.DoubleValue
+	lateinit var cringeShakeSpeed: ModConfigSpec.DoubleValue
+
 	init {
 		generalConfigs()
+		cringeConfigs()
 
 		builder.build()
 	}
@@ -28,10 +33,6 @@ class ClientConfig(
 			.comment("Disables the narrator when a player with the Parrot gene speaks.")
 			.define("disableParrotNarrator", false)
 
-		disableCringeLangChange = builder
-			.comment("Disables the change to LOLCAT language when you get the Cringe gene. This comes with a resource-reload, which may cause lag.")
-			.define("disableCringeLangChange", false)
-
 		supportSlimeRenderDebug = builder
 			.comment("Enable to render the base Slime model for Support Slime entities.")
 			.define("supportSlimeRenderDebug", false)
@@ -39,6 +40,24 @@ class ClientConfig(
 		itemMagnetBlacklistTooltip = builder
 			.comment("Show that an item is in the Item Magnet's blacklist in its tooltip.")
 			.define("itemMagnetBlacklistTooltip", true)
+	}
+
+	private fun cringeConfigs() {
+		disableCringeLangChange = builder
+			.comment("Disables the change to LOLCAT language when you get the Cringe gene. This comes with a resource-reload, which may cause lag.")
+			.define("disableCringeLangChange", false)
+
+		doesCringeShake = builder
+			.comment("Enable or disable the shaking effect caused by the Cringe gene.")
+			.define("doesCringeShake", true)
+
+		cringeShakeAmplitude = builder
+			.comment("Sets the amplitude of the shaking effect caused by the Cringe gene.")
+			.defineInRange("cringeShakeAmplitude", 0.03, 0.0, Double.MAX_VALUE)
+
+		cringeShakeSpeed = builder
+			.comment("Sets the speed of the shaking effect caused by the Cringe gene.")
+			.defineInRange("cringeShakeSpeed", 5.0, 0.0, Double.MAX_VALUE)
 	}
 
 	companion object {
