@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.h
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import net.minecraft.world.entity.player.Player
 import net.neoforged.neoforge.client.event.RenderLivingEvent
 import org.joml.SimplexNoise
 
@@ -13,8 +12,6 @@ object GeneRenderChanges {
 	fun shakeFromCringe(event: RenderLivingEvent.Pre<*, *>) {
 		val entity = event.entity
 		if (!entity.hasGene(ModGenes.CRINGE)) return
-
-		if (entity is Player) return
 
 		val shakeAmplitude = ClientConfig.CONFIG.cringeShakeAmplitude.get()
 		val shakeSpeed = ClientConfig.CONFIG.cringeShakeSpeed.get().toFloat()
