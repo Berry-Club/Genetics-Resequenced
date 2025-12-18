@@ -14,5 +14,6 @@
 		"defaultRequire": 1
 	},
 	"client": [
+		"HumanoidModelMixin", "LivingEntityRendererMixin"
 	]
 }
