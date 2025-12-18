@@ -12,8 +12,8 @@ object GeneRenderChanges {
 		val entity = event.entity
 		if (!entity.hasGene(ModGenes.CRINGE)) return
 
-		val shakeAmplitude = 0.09
-		val shakeSpeed = 20f
+		val shakeAmplitude = 0.03
+		val shakeSpeed = 5f
 
 		val time = entity.tickCount + event.partialTick
 		val shake = time * shakeSpeed
