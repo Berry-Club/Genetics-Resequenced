@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
+import dev.aaronhowser.mods.geneticsresequenced.client.renderer.GeneRenderChanges
 import dev.aaronhowser.mods.geneticsresequenced.client.renderer.entity.SupportSlimeRenderer
-import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
+import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator.AdvancedIncubatorMenu
@@ -120,21 +120,14 @@ object ClientEvents {
 
 	@SubscribeEvent
 	fun beforeRenderEntity(event: RenderLivingEvent.Pre<LivingEntity, HumanoidModel<LivingEntity>>) {
-		val entity = event.entity
-
-		if (OtherGenes.shouldClingToCeiling(entity)) {
-			val poseStack = event.poseStack
-			poseStack.pushPose()
-			poseStack.translate(0.0, entity.bbHeight.toDouble(), 0.0)
-			poseStack.scale(1.0f, -1.0f, 1.0f)
-		}
+		GeneRenderChanges.spiderClimbFlip(event)
+		GeneRenderChanges.shakeFromCringe(event)
 	}
 
 	@SubscribeEvent
 	fun afterRenderLiving(event: RenderLivingEvent.Post<LivingEntity, HumanoidModel<LivingEntity>>) {
-		if (OtherGenes.shouldClingToCeiling(event.entity)) {
-			event.poseStack.popPose()
-		}
+		GeneRenderChanges.spiderClimbFlipPost(event)
+		GeneRenderChanges.shakeFromCringePost(event)
 	}
 
 }
