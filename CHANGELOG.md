@@ -5,6 +5,9 @@
 - The Bountiful Gene now also makes Bees pollinate faster
 	- Default is 400 ticks, tier 1 is 200 ticks, tier 2 is 100 ticks
 - Entities with the Cringe Gene will now vibrate, Temmie style
+- The Sniffer now has the following Gene weights:
+	- Experienced: 4
+	- Bountiful II: 3
 
 ### Fixed
 
@@ -33,7 +36,7 @@
 		- Can be given to mobs that can't normally attack, such as Cows
 			- In that case, they do 3 damage
 	- Both Bountiful and Experienced use new Attributes, rather than hardcoded values, so theoretically other things could also modify them
-    - Remember, Genes are passed down when breeding!
+	- Remember, Genes are passed down when breeding!
 
 ### Fixed
 
