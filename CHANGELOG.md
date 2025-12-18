@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fixed some Genes not having info pages or wiki entries
+- Bountiful II now requires Bountiful
 
 # 1.10.0
 
