@@ -43,6 +43,8 @@ class ClientConfig(
 	}
 
 	private fun cringeConfigs() {
+		builder.push("cringe")
+
 		disableCringeLangChange = builder
 			.comment("Disables the change to LOLCAT language when you get the Cringe gene. This comes with a resource-reload, which may cause lag.")
 			.define("disableCringeLangChange", false)
@@ -58,6 +60,8 @@ class ClientConfig(
 		cringeShakeSpeed = builder
 			.comment("Sets the speed of the shaking effect caused by the Cringe gene.")
 			.defineInRange("cringeShakeSpeed", 5.0, 0.0, Double.MAX_VALUE)
+
+		builder.pop()
 	}
 
 	companion object {
