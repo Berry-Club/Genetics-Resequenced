@@ -101,6 +101,18 @@ object ModInfoLang {
 		addGeneInfo(ModGenes.JOHNNY, "Deal more damage using Axes")
 		addGeneInfo(ModGenes.CHILLING, "Has a chance of inflicting freezing damage on hit.")
 		addGeneInfo(ModGenes.REACHING, "Increases your reach by 1.25 times.")
+		addGeneInfo(ModGenes.BOUNTIFUL, "Mobs with this Gene will drop loot as if they were killed with Looting one level higher than it was.")
+		addGeneInfo(ModGenes.BOUNTIFUL_TWO, "Mobs with this Gene will drop loot as if they were killed with Looting two levels higher than it was.")
+		addGeneInfo(ModGenes.EXPERIENCED, "Mobs with this Gene will drop more XP when killed.")
+		addGeneInfo(ModGenes.FERTILE, "Mobs with this Gene will produce more offspring when bred.\n\nEach parent with this Gene adds +1 child.")
+		addGeneInfo(ModGenes.FRENZIED, "Mobs with this Gene will attack everything nearby.")
+		addGeneInfo(ModGenes.OOZING, "Inflicts the Oozing potion effect")
+		addGeneInfo(ModGenes.PLACID, "Mobs with this Gene will not be able to target anything.")
+		addGeneInfo(ModGenes.WEAVING, "Inflicts the Weaving potion effect")
+		addGeneInfo(ModGenes.WEB_DEFENSE, "When hurt, has a chance to spawn a temporary web on the attacker.")
+		addGeneInfo(ModGenes.WEB_WALKER, "Allows walking through webs without being slowed.")
+		addGeneInfo(ModGenes.WIND_CHARGED, "Inflicts the Wind Charged potion effect")
+		addGeneInfo(ModGenes.INFESTED, "Inflicts the Infested potion effect")
 	}
 
 	const val ORGANIC_MATTER = "info.geneticsresequenced.organic_matter"
