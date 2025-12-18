@@ -19,6 +19,7 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.recipe.EmiInfoRecipe
 import dev.emi.emi.api.stack.EmiIngredient
 import net.minecraft.ChatFormatting
+import net.minecraft.client.resources.language.I18n
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
@@ -45,12 +46,12 @@ object ModEmiInformationRecipes {
 			)
 
 			val translationKey = "info." + geneHolder.translationKey
-			val geneDesc = Component.translatable(translationKey)
 
-			if (geneDesc.toString() == translationKey) {
+			if (!I18n.exists(translationKey)) {
 				GeneticsResequenced.LOGGER.error("Gene is missing information translation key: $translationKey")
 			}
 
+			val geneDesc = Component.translatable(translationKey)
 			components.add(geneDesc)
 
 			val requiredGeneHolders = GeneRequirements.getGeneRequiredGeneHolders(geneHolder, registries)
