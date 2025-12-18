@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.client.renderer
 
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.neoforged.neoforge.client.event.RenderLivingEvent
@@ -12,8 +13,8 @@ object GeneRenderChanges {
 		val entity = event.entity
 		if (!entity.hasGene(ModGenes.CRINGE)) return
 
-		val shakeAmplitude = 0.03
-		val shakeSpeed = 5f
+		val shakeAmplitude = ClientConfig.CONFIG.cringeShakeAmplitude.get()
+		val shakeSpeed = ClientConfig.CONFIG.cringeShakeSpeed.get().toFloat()
 
 		val time = entity.tickCount + event.partialTick
 		val shake = time * shakeSpeed
