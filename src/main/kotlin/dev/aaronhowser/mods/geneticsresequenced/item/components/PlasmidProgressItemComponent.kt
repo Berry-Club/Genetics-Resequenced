@@ -16,23 +16,24 @@ data class PlasmidProgressItemComponent(
 
 	companion object {
 
-		val CODEC: Codec<PlasmidProgressItemComponent> = RecordCodecBuilder.create { instance ->
-			instance.group(
-				Gene.CODEC
-					.fieldOf("gene")
-					.forGetter(PlasmidProgressItemComponent::geneHolder),
-				// Should make it start writing as dna_points, but won't break existing saves
-				NeoForgeExtraCodecs
-					.aliasedFieldOf(Codec.INT, "dna_points", "dnaPoints")
-					.forGetter(PlasmidProgressItemComponent::dnaPoints)
-			).apply(instance, ::PlasmidProgressItemComponent)
-		}
+		val CODEC: Codec<PlasmidProgressItemComponent> =
+			RecordCodecBuilder.create { instance ->
+				instance.group(
+					Gene.CODEC
+						.fieldOf("gene")
+						.forGetter(PlasmidProgressItemComponent::geneHolder),
+					NeoForgeExtraCodecs
+						.aliasedFieldOf(Codec.INT, "dna_points", "dnaPoints")
+						.forGetter(PlasmidProgressItemComponent::dnaPoints)
+				).apply(instance, ::PlasmidProgressItemComponent)
+			}
 
-		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, PlasmidProgressItemComponent> = StreamCodec.composite(
-			Gene.STREAM_CODEC, PlasmidProgressItemComponent::geneHolder,
-			ByteBufCodecs.INT, PlasmidProgressItemComponent::dnaPoints,
-			::PlasmidProgressItemComponent
-		)
+		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, PlasmidProgressItemComponent> =
+			StreamCodec.composite(
+				Gene.STREAM_CODEC, PlasmidProgressItemComponent::geneHolder,
+				ByteBufCodecs.INT, PlasmidProgressItemComponent::dnaPoints,
+				::PlasmidProgressItemComponent
+			)
 	}
 
 }

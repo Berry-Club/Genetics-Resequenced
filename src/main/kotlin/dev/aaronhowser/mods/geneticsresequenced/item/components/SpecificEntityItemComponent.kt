@@ -20,22 +20,24 @@ data class SpecificEntityItemComponent(
 
 	companion object {
 
-		val CODEC: Codec<SpecificEntityItemComponent> = RecordCodecBuilder.create { instance ->
-			instance.group(
-				NeoForgeExtraCodecs
-					.aliasedFieldOf(UUIDUtil.CODEC, "uuid", "entityUuid", "entity_uuid")
-					.forGetter(SpecificEntityItemComponent::uuid),
-				NeoForgeExtraCodecs
-					.aliasedFieldOf(ComponentSerialization.CODEC, "name", "entityName", "entity_name")
-					.forGetter(SpecificEntityItemComponent::name)
-			).apply(instance, ::SpecificEntityItemComponent)
-		}
+		val CODEC: Codec<SpecificEntityItemComponent> =
+			RecordCodecBuilder.create { instance ->
+				instance.group(
+					NeoForgeExtraCodecs
+						.aliasedFieldOf(UUIDUtil.CODEC, "uuid", "entityUuid", "entity_uuid")
+						.forGetter(SpecificEntityItemComponent::uuid),
+					NeoForgeExtraCodecs
+						.aliasedFieldOf(ComponentSerialization.CODEC, "name", "entityName", "entity_name")
+						.forGetter(SpecificEntityItemComponent::name)
+				).apply(instance, ::SpecificEntityItemComponent)
+			}
 
-		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SpecificEntityItemComponent> = StreamCodec.composite(
-			UUIDUtil.STREAM_CODEC, SpecificEntityItemComponent::uuid,
-			ComponentSerialization.STREAM_CODEC, SpecificEntityItemComponent::name,
-			::SpecificEntityItemComponent
-		)
+		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SpecificEntityItemComponent> =
+			StreamCodec.composite(
+				UUIDUtil.STREAM_CODEC, SpecificEntityItemComponent::uuid,
+				ComponentSerialization.STREAM_CODEC, SpecificEntityItemComponent::name,
+				::SpecificEntityItemComponent
+			)
 
 		fun setEntity(stack: ItemStack, entity: LivingEntity) {
 			val name = entity.name
