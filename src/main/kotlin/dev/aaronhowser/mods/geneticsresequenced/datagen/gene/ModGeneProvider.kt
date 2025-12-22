@@ -6,9 +6,11 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.AttributeEntry
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.PotionDetails
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistrySetBuilder
 import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
 import net.minecraft.data.worldgen.BootstrapContext
 import net.minecraft.tags.TagKey
 import net.minecraft.world.effect.MobEffects
@@ -29,8 +31,18 @@ class ModGeneProvider : RegistrySetBuilder() {
 			allowedEntities: HolderSet<EntityType<*>> = DEFAULT_ALLOWED_ENTITIES,
 			potionDetails: List<PotionDetails> = emptyList(),
 			attributeModifiers: List<AttributeEntry> = emptyList(),
-			scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>> = Optional.empty()
-		) = Gene(dnaPointsRequired, allowedEntities, potionDetails, attributeModifiers, scaresEntitiesWithTag)
+			scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>> = Optional.empty(),
+			incompatibleGenes: HolderSet<Gene> = HolderSet.empty()
+		): Gene {
+			return Gene(
+				dnaPointsRequired,
+				allowedEntities,
+				potionDetails,
+				attributeModifiers,
+				scaresEntitiesWithTag,
+				incompatibleGenes
+			)
+		}
 
 		val DEFAULT_ALLOWED_ENTITIES = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup())
 		val NO_ENTITIES: HolderSet<EntityType<*>> = HolderSet.empty()
@@ -942,11 +954,14 @@ class ModGeneProvider : RegistrySetBuilder() {
 				)
 			)
 
+			val a = context.lookup(ModGenes.GENE_REGISTRY_KEY)
+
 			context.register(
 				ModGenes.PLACID,
 				makeGene(
 					dnaPointsRequired = 30,
-					allowedEntities = NON_PLAYERS
+					allowedEntities = NON_PLAYERS,
+					incompatibleGenes = HolderSet.direct(ModGenes.FRENZIED.getHolderOrThrow(a))
 				)
 			)
 
