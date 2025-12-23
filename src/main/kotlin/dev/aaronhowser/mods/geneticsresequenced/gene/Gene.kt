@@ -199,14 +199,11 @@ data class Gene(
 		fun Holder<Gene>.getName(): MutableComponent = getNameComponent(this)
 
 		fun getNameComponent(geneHolder: Holder<Gene>): MutableComponent {
-			val color = if (geneHolder.isDisabled) {
-				ChatFormatting.DARK_RED
-			} else if (geneHolder.isNegative) {
-				ChatFormatting.RED
-			} else if (geneHolder.isMutation) {
-				ChatFormatting.DARK_PURPLE
-			} else {
-				ChatFormatting.GRAY
+			val color = when {
+				geneHolder.isDisabled -> ChatFormatting.DARK_RED
+				geneHolder.isNegative -> ChatFormatting.RED
+				geneHolder.isMutation -> ChatFormatting.DARK_PURPLE
+				else -> ChatFormatting.GRAY
 			}
 
 			val component = geneHolder.translationKey
