@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.gene
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.AaronExtensions.withClickToCopyToClipboard
+import dev.aaronhowser.mods.aaron.AaronExtensions.withHoverText
 import dev.aaronhowser.mods.aaron.AaronExtraCodecs
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneProvider
@@ -19,10 +21,9 @@ import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistryCodecs
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.network.chat.ClickEvent
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.HoverEvent
 import net.minecraft.network.chat.MutableComponent
+import net.minecraft.network.chat.Style
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.HolderSetCodec
@@ -210,24 +211,12 @@ data class Gene(
 
 			val component = geneHolder.translationKey
 				.toComponent()
-				.withStyle {
-					it
+				.withStyle(
+					Style.EMPTY
 						.withColor(color)
-						.withHoverEvent(
-							HoverEvent(
-								HoverEvent.Action.SHOW_TEXT,
-								ModTooltipLang.COPY_GENE.toComponent(
-									geneHolder.key!!.location().toString()
-								)
-							)
-						)
-						.withClickEvent(
-							ClickEvent(
-								ClickEvent.Action.COPY_TO_CLIPBOARD,
-								geneHolder.key!!.location().toString()
-							)
-						)
-				}
+						.withHoverText(ModTooltipLang.COPY_GENE.toComponent(geneHolder.key!!.location().toString()))
+						.withClickToCopyToClipboard(geneHolder.key!!.location().toString())
+				)
 
 			if (geneHolder.isDisabled) {
 				component.append(

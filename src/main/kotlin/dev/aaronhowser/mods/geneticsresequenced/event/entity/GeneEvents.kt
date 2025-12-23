@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.withHoverText
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
@@ -15,7 +16,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
-import net.minecraft.network.chat.HoverEvent
+import net.minecraft.network.chat.Style
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
 import net.neoforged.bus.api.EventPriority
@@ -79,14 +80,9 @@ object GeneEvents {
 				entity.sendSystemMessage(
 					ModMessageLang.MISSING_GENE_REQUIREMENTS
 						.toComponent(geneHolder.getName())
-						.withStyle {
-							it.withHoverEvent(
-								HoverEvent(
-									HoverEvent.Action.SHOW_TEXT,
-									requiredGenesComponent
-								)
-							)
-						}
+						.withStyle(
+							Style.EMPTY.withHoverText(requiredGenesComponent)
+						)
 				)
 			}
 		}
