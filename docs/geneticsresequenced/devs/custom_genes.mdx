@@ -54,3 +54,6 @@ The possible fields are:
 - `scares_entities_with_tag`
 	- An entity type tag, defaults to nothing
 	- Entities with that tag run away from entities that have the Gene
+- `incompatible_genes`
+	- A list of Gene ids, defaults to `[]`
+	- The Gene will not be added to entities that already have any of the Genes in the list
