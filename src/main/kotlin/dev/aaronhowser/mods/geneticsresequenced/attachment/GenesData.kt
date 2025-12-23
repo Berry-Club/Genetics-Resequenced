@@ -68,7 +68,11 @@ data class GenesData(
 				&& !newGeneHolder.`is`(ModGenes.CRINGE)
 			) {
 				GeneticsResequenced.LOGGER.debug(
-					"Tried to give negative gene ${newGeneHolder.key?.location() ?: newGeneHolder} to player ${this@addGene.name.string}, but \"disableGivingPlayersNegativeGenes\" is true in the server config."
+					StringBuilder()
+						.append("Tried to give negative gene ").append(newGeneHolder.key?.location() ?: newGeneHolder)
+						.append(" to player ").append(name.string)
+						.append(", but \"disableGivingPlayersNegativeGenes\" is true in the server config.")
+						.toString()
 				)
 				return false
 			}
@@ -76,7 +80,25 @@ data class GenesData(
 			val allowedTypes = newGeneHolder.value().allowedEntities.map { it.value() }
 			if (this.type !in allowedTypes) {
 				GeneticsResequenced.LOGGER.debug(
-					"Tried to give gene ${newGeneHolder.key?.location() ?: newGeneHolder} to mob ${this@addGene.name.string}, but mobs cannot have that gene!"
+					StringBuilder()
+						.append("Tried to give gene ").append(newGeneHolder.key?.location() ?: newGeneHolder)
+						.append(" to entity ").append(name.string)
+						.append(", but that entity type cannot have that gene!")
+						.toString()
+				)
+				return false
+			}
+
+			val incompatibleGenes = newGeneHolder.value().incompatibleGenes
+			val foundIncompatibleGenes = this.geneHolders.filter { it.key in incompatibleGenes }
+			if (foundIncompatibleGenes.isNotEmpty()) {
+				GeneticsResequenced.LOGGER.debug(
+					StringBuilder()
+						.append("Tried to give gene ").append(newGeneHolder.key?.location() ?: newGeneHolder)
+						.append(" to entity ").append(name.string)
+						.append(", but it is incompatible with the following genes the entity already has: ")
+						.append(foundIncompatibleGenes.joinToString { it.key?.location().toString() })
+						.toString()
 				)
 				return false
 			}

@@ -11,5 +11,8 @@
       }
     ]
   },
-  "dna_points_required": 30
+  "dna_points_required": 30,
+  "incompatible_genes": [
+    "geneticsresequenced:frenzied"
+  ]
 }
