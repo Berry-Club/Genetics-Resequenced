@@ -345,7 +345,6 @@ class ModAdvancementSubProvider(
 		private fun guide(string: String) = OtherUtil.modResource("guide/$string")
 
 		val ROOT = guide("root")
-		val SCRAPER = guide("scraper")
 		val CELL_ANALYZER = guide("cell_analyzer")
 		val DNA_EXTRACTOR = guide("dna_extractor")
 		val DNA_DECRYPTOR = guide("dna_decryptor")

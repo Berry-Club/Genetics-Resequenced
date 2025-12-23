@@ -26,7 +26,7 @@ class ModJeiPlugin : IModPlugin {
 			registration.registerSubtypeInterpreter(
 				item.asItem(),
 				object : ISubtypeInterpreter<ItemStack> {
-					@Deprecated("Deprecated in Java", ReplaceWith("\"\""))
+					@Suppress("OVERRIDE_DEPRECATION")
 					override fun getLegacyStringSubtypeInfo(ingredient: ItemStack, context: UidContext): String = ""
 					override fun getSubtypeData(ingredient: ItemStack, context: UidContext): Any? = ingredient.components
 				}

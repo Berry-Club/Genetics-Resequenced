@@ -33,28 +33,6 @@ object OtherUtil {
 	val ItemLike.itemStack: ItemStack
 		get() = this.asItem().defaultInstance
 
-	private val ENTITY_UUID_MAP: MutableMap<UUID, LivingEntity> = mutableMapOf()
-	fun getNearbyEntityFromUuid(uuid: UUID, searchAroundEntity: LivingEntity): LivingEntity? {
-		val mappedValue = ENTITY_UUID_MAP[uuid]
-		if (mappedValue != null) return mappedValue
-
-		val nearbyEntities = searchAroundEntity.level().getNearbyEntities(
-			LivingEntity::class.java,
-			TargetingConditions.DEFAULT,
-			searchAroundEntity,
-			searchAroundEntity.boundingBox.inflate(50.0)
-		)
-
-		for (entity in nearbyEntities) {
-			if (entity.uuid == uuid) {
-				ENTITY_UUID_MAP[uuid] = entity
-				return entity
-			}
-		}
-
-		return null
-	}
-
 	fun getEntityType(resourceLocation: ResourceLocation): EntityType<*> {
 		val entityType = BuiltInRegistries.ENTITY_TYPE.get(resourceLocation)
 
