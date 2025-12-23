@@ -17,6 +17,7 @@ import net.minecraft.core.HolderSet
 import net.minecraft.resources.ResourceKey
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
@@ -77,7 +78,7 @@ data class GenesData(
 				return false
 			}
 
-			val allowedTypes = newGeneHolder.value().allowedEntities.map { it.value() }
+			val allowedTypes = newGeneHolder.value().allowedEntities.map(Holder<EntityType<*>>::value)
 			if (this.type !in allowedTypes) {
 				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()

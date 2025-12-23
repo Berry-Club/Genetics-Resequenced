@@ -1,9 +1,15 @@
-# 1.10.2
+# 1.11.0
+
+### Added
+
+- The concept of incompatible Genes
+	- Some Genes will refuse to be added to en entity if they have an incompatible Gene
+    - For example, you can't have both Placid and Frenzied at the same time
 
 ### Changed
 
 - Renamed most commands
-  - `/gr gene add` is now `/gr add-gene` etc
+	- `/gr gene add` is now `/gr add-gene` etc
 
 # 1.10.1
 
