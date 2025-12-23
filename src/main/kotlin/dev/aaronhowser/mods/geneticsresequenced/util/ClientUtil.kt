@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.util
 import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.aaron.AaronExtensions.isTrue
 import dev.aaronhowser.mods.aaron.AaronExtensions.status
+import dev.aaronhowser.mods.aaron.AaronExtensions.withHoverText
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
@@ -21,7 +22,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.client.Options
 import net.minecraft.core.RegistryAccess
 import net.minecraft.network.chat.Component
-import net.minecraft.network.chat.HoverEvent
+import net.minecraft.network.chat.Style
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.entity.LivingEntity
@@ -125,14 +126,7 @@ object ClientUtil {
 				ModMessageLang.CRINGE_ADDED.toComponent(countdownSeconds)
 			} else {
 				ModMessageLang.CRINGE_REMOVED.toComponent(countdownSeconds)
-			}.withStyle {
-				it.withHoverEvent(
-					HoverEvent(
-						HoverEvent.Action.SHOW_TEXT,
-						ModMessageLang.CRINGE_CONFIG.toComponent()
-					)
-				)
-			}
+			}.withStyle(Style.EMPTY.withHoverText(ModMessageLang.CRINGE_CONFIG.toComponent()))
 
 			localPlayer.sendSystemMessage(component)
 		}
@@ -157,14 +151,7 @@ object ClientUtil {
 			localPlayer.sendSystemMessage(
 				ModMessageLang.CRINGE_RELOADING
 					.toComponent()
-					.withStyle {
-						it.withHoverEvent(
-							HoverEvent(
-								HoverEvent.Action.SHOW_TEXT,
-								ModMessageLang.CRINGE_CONFIG.toComponent()
-							)
-						)
-					}
+					.withStyle(Style.EMPTY.withHoverText(ModMessageLang.CRINGE_CONFIG.toComponent()))
 			)
 
 			if (this.amountTryingToChangeLanguage == 1) {
