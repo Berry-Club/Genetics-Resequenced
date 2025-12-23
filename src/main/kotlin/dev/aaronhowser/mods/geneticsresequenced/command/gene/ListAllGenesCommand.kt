@@ -24,7 +24,7 @@ object ListAllGenesCommand {
 		messageComponent.append(
 			OtherUtil.componentList(
 				ModGenes.getRegistrySorted(context.source.registryAccess())
-					.map { Gene.getNameComponent(it) }
+					.map(Gene::getNameComponent)
 			)
 		)
 

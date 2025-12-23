@@ -54,7 +54,7 @@ object ListGenesCommand {
 
 		messageComponent.append(
 			OtherUtil.componentList(
-				targetGenesList.map { Gene.getNameComponent(it) }
+				targetGenesList.map(Gene::getNameComponent)
 			)
 		)
 

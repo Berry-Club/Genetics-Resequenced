@@ -44,7 +44,7 @@ class GeneCheckerItem(properties: Properties) : Item(properties) {
 					ModMessageLang.GENE_CHECKER_TARGET_NO_GENES.toComponent(targetEntity.name)
 				}
 			} else {
-				val genesComponent = OtherUtil.componentList(targetGeneHolders.map { Gene.getNameComponent(it) })
+				val genesComponent = OtherUtil.componentList(targetGeneHolders.map(Gene::getNameComponent))
 
 				if (targetEntity == player) {
 					ModMessageLang.GENE_CHECKER_SELF_LIST.toComponent(genesComponent)

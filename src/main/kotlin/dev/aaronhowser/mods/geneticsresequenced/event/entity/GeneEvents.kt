@@ -72,7 +72,7 @@ object GeneEvents {
 
 			requiredGenesComponent.append(
 				OtherUtil.componentList(
-					missingGenes.map { Gene.getNameComponent(it) }
+					missingGenes.map(Gene::getNameComponent)
 				)
 			)
 
