@@ -1,3 +1,9 @@
+# 1.11.1
+
+### Changed
+
+- Made Bioluminescence Blocks removing themselves be safer
+
 # 1.11.0
 
 ### Added
