@@ -10,6 +10,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
+import net.minecraft.network.chat.Style
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.Potions
@@ -36,7 +37,7 @@ object BrewingRecipes {
 			event.toolTip.add(
 				ModTooltipLang.IGNORE_POTION
 					.toComponent()
-					.withStyle { it.withColor(ChatFormatting.RED) }
+					.withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY))
 			)
 		}
 
@@ -46,8 +47,9 @@ object BrewingRecipes {
 				ModTooltipLang.GENE
 					.toComponent(
 						Gene.getNameComponent(itemGeneHolder)
-							.withStyle { it.withColor(ChatFormatting.GRAY) }
-					))
+							.withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY))
+					)
+			)
 		}
 
 		val itemEntity = EntityDnaItem.getEntityType(stack)
@@ -55,7 +57,7 @@ object BrewingRecipes {
 			event.toolTip.add(
 				ModTooltipLang.HELIX_ENTITY
 					.toComponent(itemEntity.description)
-					.withStyle { it.withColor(ChatFormatting.GRAY) }
+					.withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY))
 			)
 		}
 
