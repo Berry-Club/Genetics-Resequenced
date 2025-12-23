@@ -27,7 +27,7 @@ object GiveGeneCommand {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return Commands
-			.literal("give")
+			.literal("give-gene")
 			.requires { it.hasPermission(2) }
 			.then(
 				Commands

@@ -19,7 +19,7 @@ object ListGenesCommand {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return Commands
-			.literal("list")
+			.literal("list-genes")
 			.requires { it.hasPermission(2) }
 			.then(
 				Commands

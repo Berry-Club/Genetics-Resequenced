@@ -14,12 +14,11 @@ object ListAllGenesCommand {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return Commands
-			.literal("listAll")
+			.literal("list-all-genes")
 			.executes { listAllGenes(it) }
 	}
 
 	private fun listAllGenes(context: CommandContext<CommandSourceStack>): Int {
-
 		val messageComponent = ModLanguageProvider.Commands.LIST_ALL_GENES.toComponent()
 
 		messageComponent.append(
