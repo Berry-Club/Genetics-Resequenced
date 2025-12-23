@@ -1,3 +1,10 @@
+# 1.10.2
+
+### Changed
+
+- Renamed most commands
+  - `/gr gene add` is now `/gr add-gene` etc
+
 # 1.10.1
 
 ### Changed
