@@ -10,6 +10,7 @@ import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistrySetBuilder
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.data.worldgen.BootstrapContext
+import net.minecraft.resources.ResourceKey
 import net.minecraft.tags.TagKey
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.EntityType
@@ -29,8 +30,9 @@ class ModGeneProvider : RegistrySetBuilder() {
 			allowedEntities: HolderSet<EntityType<*>> = DEFAULT_ALLOWED_ENTITIES,
 			potionDetails: List<PotionDetails> = emptyList(),
 			attributeModifiers: List<AttributeEntry> = emptyList(),
-			scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>> = Optional.empty()
-		) = Gene(dnaPointsRequired, allowedEntities, potionDetails, attributeModifiers, scaresEntitiesWithTag)
+			scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>> = Optional.empty(),
+			incompatibleGenes: List<ResourceKey<Gene>> = emptyList()
+		) = Gene(dnaPointsRequired, allowedEntities, potionDetails, attributeModifiers, scaresEntitiesWithTag, incompatibleGenes)
 
 		val DEFAULT_ALLOWED_ENTITIES = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup())
 		val NO_ENTITIES: HolderSet<EntityType<*>> = HolderSet.empty()
@@ -946,7 +948,8 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.PLACID,
 				makeGene(
 					dnaPointsRequired = 30,
-					allowedEntities = NON_PLAYERS
+					allowedEntities = NON_PLAYERS,
+					incompatibleGenes = listOf(ModGenes.FRENZIED)
 				)
 			)
 
@@ -954,7 +957,8 @@ class ModGeneProvider : RegistrySetBuilder() {
 				ModGenes.FRENZIED,
 				makeGene(
 					dnaPointsRequired = 40,
-					allowedEntities = NON_PLAYERS
+					allowedEntities = NON_PLAYERS,
+					incompatibleGenes = listOf(ModGenes.PLACID)
 				)
 			)
 		}

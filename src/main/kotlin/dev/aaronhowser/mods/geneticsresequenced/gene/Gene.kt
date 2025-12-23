@@ -43,7 +43,8 @@ data class Gene(
 	val allowedEntities: HolderSet<EntityType<*>>,
 	val potionDetails: List<PotionDetails>,
 	val attributeModifiers: List<AttributeEntry>,
-	val scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>>
+	val scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>>,
+	val incompatibleGenes: List<ResourceKey<Gene>>
 ) {
 
 	val potions: List<MobEffectInstance> =
@@ -259,7 +260,11 @@ data class Gene(
 						.forGetter(Gene::attributeModifiers),
 					TagKey.codec(Registries.ENTITY_TYPE)
 						.optionalFieldOf("scares_entities_with_tag")
-						.forGetter(Gene::scaresEntitiesWithTag)
+						.forGetter(Gene::scaresEntitiesWithTag),
+					ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
+						.listOf()
+						.optionalFieldOf("incompatible_genes", emptyList())
+						.forGetter(Gene::incompatibleGenes)
 				).apply(instance, ::Gene)
 			}
 
@@ -269,6 +274,7 @@ data class Gene(
 			PotionDetails.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::potionDetails,
 			AttributeEntry.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::attributeModifiers,
 			ByteBufCodecs.optional(AaronExtraCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE)), Gene::scaresEntitiesWithTag,
+			ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY).apply(ByteBufCodecs.list()), Gene::incompatibleGenes,
 			::Gene
 		)
 
