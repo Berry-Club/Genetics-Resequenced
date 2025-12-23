@@ -36,7 +36,9 @@ class BioluminescenceBlock :
 	}
 
 	override fun tick(pState: BlockState, pLevel: ServerLevel, pPos: BlockPos, pRandom: RandomSource) {
-		pLevel.removeBlock(pPos, false)
+		if (pLevel.getBlockState(pPos).`is`(this)) {
+			pLevel.removeBlock(pPos, false)
+		}
 		super.tick(pState, pLevel, pPos, pRandom)
 	}
 
