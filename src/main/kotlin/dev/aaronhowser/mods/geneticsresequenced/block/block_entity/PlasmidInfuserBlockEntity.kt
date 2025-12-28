@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
@@ -29,9 +30,9 @@ class PlasmidInfuserBlockEntity(
 	override val container: ImprovedSimpleContainer = object : ImprovedSimpleContainer(this, DEFAULT_INVENTORY_SIZE) {
 		override fun canPlaceItem(slot: Int, stack: ItemStack): Boolean {
 			return when (slot) {
-				INPUT_SLOT_INDEX -> stack.`is`(ModItems.DNA_HELIX)
-				OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
-				OUTPUT_SLOT_INDEX -> stack.`is`(ModItems.PLASMID)
+				INPUT_SLOT_INDEX -> stack.isItem(ModItems.DNA_HELIX)
+				OVERCLOCK_SLOT_INDEX -> stack.isItem(ModItems.OVERCLOCKER)
+				OUTPUT_SLOT_INDEX -> stack.isItem(ModItems.PLASMID)
 				else -> false
 			}
 		}
@@ -41,7 +42,7 @@ class PlasmidInfuserBlockEntity(
 		val inputHelix = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
 		val outputPlasmid = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
-		if (!inputHelix.`is`(ModItems.DNA_HELIX) || !outputPlasmid.`is`(ModItems.PLASMID)) return false
+		if (!inputHelix.isItem(ModItems.DNA_HELIX) || !outputPlasmid.isItem(ModItems.PLASMID)) return false
 
 		if (PlasmidItem.isComplete(outputPlasmid)) return false
 

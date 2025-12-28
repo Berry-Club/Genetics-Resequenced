@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
@@ -27,8 +28,8 @@ class CellAnalyzerBlockEntity(
 	override val container: ImprovedSimpleContainer = object : ImprovedSimpleContainer(this, DEFAULT_INVENTORY_SIZE) {
 		override fun canPlaceItem(slot: Int, stack: ItemStack): Boolean {
 			return when (slot) {
-				INPUT_SLOT_INDEX -> stack.`is`(ModItems.ORGANIC_MATTER.get())
-				OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER.get())
+				INPUT_SLOT_INDEX -> stack.isItem(ModItems.ORGANIC_MATTER.get())
+				OVERCLOCK_SLOT_INDEX -> stack.isItem(ModItems.OVERCLOCKER.get())
 				OUTPUT_SLOT_INDEX -> true
 				else -> false
 			}
@@ -37,7 +38,7 @@ class CellAnalyzerBlockEntity(
 
 	override fun hasRecipe(): Boolean {
 		val inputStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
-		if (!inputStack.`is`(ModItems.ORGANIC_MATTER)) return false
+		if (!inputStack.isItem(ModItems.ORGANIC_MATTER)) return false
 
 		val mobType = EntityDnaItem.getEntityType(inputStack) ?: return false
 		val potentialOutput = ModItems.CELL.get().defaultInstance

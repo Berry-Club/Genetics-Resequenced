@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.attachment
 
 import com.mojang.serialization.Codec
+import dev.aaronhowser.mods.aaron.AaronExtensions.isHolder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent
@@ -66,11 +67,12 @@ data class GenesData(
 				this is Player
 				&& newGeneHolder.isNegative
 				&& ServerConfig.CONFIG.disableGivingPlayersNegativeGenes.get()
-				&& !newGeneHolder.`is`(ModGenes.CRINGE)
+				&& !newGeneHolder.isHolder(ModGenes.CRINGE)
 			) {
 				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
-						.append("Tried to give negative gene ").append(newGeneHolder.key?.location() ?: newGeneHolder)
+						.append("Tried to give negative gene ")
+						.append(newGeneHolder.key?.location() ?: newGeneHolder)
 						.append(" to player ").append(name.string)
 						.append(", but \"disableGivingPlayersNegativeGenes\" is true in the server config.")
 						.toString()
@@ -82,7 +84,8 @@ data class GenesData(
 			if (this.type !in allowedTypes) {
 				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
-						.append("Tried to give gene ").append(newGeneHolder.key?.location() ?: newGeneHolder)
+						.append("Tried to give gene ")
+						.append(newGeneHolder.key?.location() ?: newGeneHolder)
 						.append(" to entity ").append(name.string)
 						.append(", but that entity type cannot have that gene!")
 						.toString()
@@ -95,7 +98,8 @@ data class GenesData(
 			if (foundIncompatibleGenes.isNotEmpty()) {
 				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
-						.append("Tried to give gene ").append(newGeneHolder.key?.location() ?: newGeneHolder)
+						.append("Tried to give gene ")
+						.append(newGeneHolder.key?.location() ?: newGeneHolder)
 						.append(" to entity ").append(name.string)
 						.append(", but it is incompatible with the following genes the entity already has: ")
 						.append(foundIncompatibleGenes.joinToString { it.key?.location().toString() })

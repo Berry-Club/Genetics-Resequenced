@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
@@ -35,8 +36,8 @@ class DnaDecryptorBlockEntity(
 	override val container: ImprovedSimpleContainer = object : ImprovedSimpleContainer(this, DEFAULT_INVENTORY_SIZE) {
 		override fun canPlaceItem(slot: Int, stack: ItemStack): Boolean {
 			return when (slot) {
-				INPUT_SLOT_INDEX -> stack.`is`(ModItems.DNA_HELIX)
-				OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
+				INPUT_SLOT_INDEX -> stack.isItem(ModItems.DNA_HELIX)
+				OVERCLOCK_SLOT_INDEX -> stack.isItem(ModItems.OVERCLOCKER)
 				OUTPUT_SLOT_INDEX -> true
 				else -> false
 			}
@@ -50,7 +51,7 @@ class DnaDecryptorBlockEntity(
 		val level = this.level ?: return false
 
 		val inputStack = container.getItem(INPUT_SLOT_INDEX)
-		if (!inputStack.`is`(ModItems.DNA_HELIX)) return false
+		if (!inputStack.isItem(ModItems.DNA_HELIX)) return false
 
 		if (inputStack.has(ModDataComponents.GENE)) return false
 

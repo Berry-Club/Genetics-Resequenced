@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -61,7 +62,7 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 			val heldStacks = entity.handSlots.toMutableSet()
 			if (entity is Player) heldStacks += entity.inventory.items
 
-			val healthCrystals = heldStacks.filter { it.`is`(ModItems.DRAGON_HEALTH_CRYSTAL) }
+			val healthCrystals = heldStacks.filter { it.isItem(ModItems.DRAGON_HEALTH_CRYSTAL) }
 			if (healthCrystals.isEmpty()) return
 
 			for (crystal in healthCrystals) {

@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
@@ -46,7 +47,7 @@ class IncubatorBlockEntity(
 				MIDDLE_BOTTLE_SLOT_INDEX,
 				RIGHT_BOTTLE_SLOT_INDEX -> AbstractIncubatorRecipe.isValidBottomIngredient(level, stack)
 
-				OVERCLOCKER_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
+				OVERCLOCKER_SLOT_INDEX -> stack.isItem(ModItems.OVERCLOCKER)
 
 				else -> false
 			}

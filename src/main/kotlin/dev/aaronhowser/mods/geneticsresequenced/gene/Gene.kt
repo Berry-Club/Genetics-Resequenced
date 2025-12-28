@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.AaronExtensions.isHolder
 import dev.aaronhowser.mods.aaron.AaronExtensions.withClickToCopyToClipboard
 import dev.aaronhowser.mods.aaron.AaronExtensions.withHoverText
 import dev.aaronhowser.mods.aaron.AaronExtraCodecs
@@ -174,16 +175,16 @@ data class Gene(
 		}
 
 		val Holder<Gene>.isNegative: Boolean
-			get() = this.`is`(ModGeneTagsProvider.NEGATIVE)
+			get() = this.isHolder(ModGeneTagsProvider.NEGATIVE)
 
 		val Holder<Gene>.isMutation: Boolean
-			get() = this.`is`(ModGeneTagsProvider.MUTATION)
+			get() = this.isHolder(ModGeneTagsProvider.MUTATION)
 
 		val Holder<Gene>.isHelixOnly: Boolean
-			get() = this.`is`(ModGeneTagsProvider.HELIX_ONLY)
+			get() = this.isHolder(ModGeneTagsProvider.HELIX_ONLY)
 
 		val Holder<Gene>.isDisabled: Boolean
-			get() = this.`is`(ModGeneTagsProvider.DISABLED)
+			get() = this.isHolder(ModGeneTagsProvider.DISABLED)
 
 		fun ResourceKey<Gene>.isDisabled(registries: HolderLookup.Provider): Boolean {
 			return this.getHolderOrThrow(registries).isDisabled

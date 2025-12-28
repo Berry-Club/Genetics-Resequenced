@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
@@ -28,7 +29,7 @@ class BloodPurifierBlockEntity(
 		override fun canPlaceItem(slot: Int, stack: ItemStack): Boolean {
 			return when (slot) {
 				INPUT_SLOT_INDEX -> SyringeItem.hasBlood(stack)
-				OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
+				OVERCLOCK_SLOT_INDEX -> stack.isItem(ModItems.OVERCLOCKER)
 				OUTPUT_SLOT_INDEX -> true
 				else -> false
 			}

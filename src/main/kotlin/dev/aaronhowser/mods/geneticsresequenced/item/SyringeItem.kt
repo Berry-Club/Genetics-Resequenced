@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
@@ -161,7 +162,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 	companion object {
 		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
 
-		fun ItemStack.isSyringe(): Boolean = this.`is`(ModItemTagsProvider.SYRINGES)
+		fun ItemStack.isSyringe(): Boolean = this.isItem(ModItemTagsProvider.SYRINGES)
 
 		fun isBeingUsed(syringeStack: ItemStack, entity: LivingEntity?): Boolean {
 			return entity?.useItem == syringeStack

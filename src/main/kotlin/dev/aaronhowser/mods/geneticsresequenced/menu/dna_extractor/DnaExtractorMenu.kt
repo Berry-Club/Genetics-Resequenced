@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.dna_extractor
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.geneticsresequenced.menu.CraftingMachineMenu
@@ -30,6 +31,6 @@ class DnaExtractorMenu(
 		addSlots()
 	}
 
-	override fun inputFilter(inputStack: ItemStack): Boolean = inputStack.`is`(ModItems.CELL) || inputStack.`is`(ModItems.GMO_CELL)
+	override fun inputFilter(inputStack: ItemStack): Boolean = inputStack.isItem(ModItems.CELL) || inputStack.isItem(ModItems.GMO_CELL)
 
 }

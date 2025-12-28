@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
@@ -29,8 +30,8 @@ class DnaExtractorBlockEntity(
 	override val container: ImprovedSimpleContainer = object : ImprovedSimpleContainer(this, DEFAULT_INVENTORY_SIZE) {
 		override fun canPlaceItem(slot: Int, stack: ItemStack): Boolean {
 			return when (slot) {
-				INPUT_SLOT_INDEX -> stack.`is`(ModItems.CELL) || stack.`is`(ModItems.GMO_CELL)
-				OVERCLOCK_SLOT_INDEX -> stack.`is`(ModItems.OVERCLOCKER)
+				INPUT_SLOT_INDEX -> stack.isItem(ModItems.CELL) || stack.isItem(ModItems.GMO_CELL)
+				OVERCLOCK_SLOT_INDEX -> stack.isItem(ModItems.OVERCLOCKER)
 				OUTPUT_SLOT_INDEX -> true
 				else -> false
 			}
@@ -39,7 +40,7 @@ class DnaExtractorBlockEntity(
 
 	override fun hasRecipe(): Boolean {
 		val inputStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
-		if (!inputStack.`is`(ModItems.CELL) && !inputStack.`is`(ModItems.GMO_CELL)) {
+		if (!inputStack.isItem(ModItems.CELL) && !inputStack.isItem(ModItems.GMO_CELL)) {
 			return false
 		}
 
@@ -48,12 +49,12 @@ class DnaExtractorBlockEntity(
 	}
 
 	private fun getOutputFromInput(input: ItemStack): ItemStack? {
-		if (input.`is`(ModItems.GMO_CELL)) {
+		if (input.isItem(ModItems.GMO_CELL)) {
 			val geneHolder = DnaHelixItem.getGeneHolder(input) ?: return null
 			return DnaHelixItem.getHelixStack(geneHolder)
 		}
 
-		if (input.`is`(ModItems.CELL)) {
+		if (input.isItem(ModItems.CELL)) {
 			val mobType = EntityDnaItem.getEntityType(input) ?: return null
 			val dnaStack = ModItems.DNA_HELIX.toStack()
 

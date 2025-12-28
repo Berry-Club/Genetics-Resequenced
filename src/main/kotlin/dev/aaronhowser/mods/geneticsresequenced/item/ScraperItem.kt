@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isEntity
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModDamageTypeTagsProvider
@@ -54,7 +55,7 @@ class ScraperItem(properties: Properties) : Item(properties) {
 
 		if (pPlayer !is ServerPlayer) return InteractionResult.PASS
 
-		if (pInteractionTarget.type.`is`(ModEntityTypeTagsProvider.SCRAPER_ENTITY_BLACKLIST)) {
+		if (pInteractionTarget.isEntity(ModEntityTypeTagsProvider.SCRAPER_ENTITY_BLACKLIST)) {
 			pPlayer.sendSystemMessage(
 				ModMessageLang.SCRAPER_CANT_SCRAPE.toComponent()
 			)
