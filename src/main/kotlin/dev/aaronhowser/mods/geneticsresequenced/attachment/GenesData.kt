@@ -46,7 +46,6 @@ data class GenesData(
 			packet.messagePlayer(player)
 		}
 
-		@JvmStatic
 		var LivingEntity.geneHolders: Set<Holder<Gene>>
 			get() = this.getData(ModAttachmentTypes.GENE_CONTAINER).genes.toSet()
 			private set(value) {
