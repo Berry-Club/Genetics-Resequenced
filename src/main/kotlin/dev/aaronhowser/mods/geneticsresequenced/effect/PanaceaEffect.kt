@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.effect
 
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects
 import net.minecraft.world.effect.MobEffect
@@ -36,6 +37,13 @@ class PanaceaEffect : MobEffect(
 
 			while (genes.hasNext()) {
 				val gene = genes.next()
+				livingEntity.removeGene(gene)
+			}
+
+			val tempGenes = livingEntity.temporaryGeneHolders.filter { it.isNegative }.iterator()
+
+			while (tempGenes.hasNext()) {
+				val gene = tempGenes.next()
 				livingEntity.removeGene(gene)
 			}
 		}
