@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -30,14 +30,13 @@ object ListGenesCommand {
 	}
 
 	private fun run(context: CommandContext<CommandSourceStack>, entity: Entity? = null): Int {
-
 		val target = if (entity == null) {
 			context.source.entity as? LivingEntity
 		} else {
 			entity as? LivingEntity
 		} ?: return 0
 
-		val targetGenesList = target.geneHolders
+		val targetGenesList = target.permanentGeneHolders
 
 		if (targetGenesList.isEmpty()) {
 			context.source.sendSuccess(

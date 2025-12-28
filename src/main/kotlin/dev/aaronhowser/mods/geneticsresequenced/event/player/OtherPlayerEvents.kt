@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
@@ -78,7 +78,7 @@ object OtherPlayerEvents {
 		val player = event.entity as? ServerPlayer ?: return
 		val entity = event.target as? LivingEntity ?: return
 
-		val packet = SetGenesPacket(entity.id, entity.geneHolders)
+		val packet = SetGenesPacket(entity.id, entity.permanentGeneHolders)
 		packet.messagePlayer(player)
 	}
 

@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModItemLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -205,13 +205,13 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		}
 
 		private fun removeGenes(entity: LivingEntity, syringeAntigenes: Set<Holder<Gene>>) {
-			val entityGenesBefore = entity.geneHolders
+			val entityGenesBefore = entity.permanentGeneHolders
 
 			for (antigene in syringeAntigenes) {
 				entity.removeGene(antigene)
 			}
 
-			val entityGenesAfter = entity.geneHolders
+			val entityGenesAfter = entity.permanentGeneHolders
 			val genesRemoved = entityGenesBefore - entityGenesAfter
 			val genesNotRemoved = syringeAntigenes - genesRemoved
 
@@ -236,13 +236,13 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		}
 
 		private fun addGenes(entity: LivingEntity, syringeGenes: Set<Holder<Gene>>) {
-			val entityGenesBefore = entity.geneHolders
+			val entityGenesBefore = entity.permanentGeneHolders
 
 			for (gene in syringeGenes) {
 				entity.addGene(gene)
 			}
 
-			val entityGenesAfter = entity.geneHolders
+			val entityGenesAfter = entity.permanentGeneHolders
 			val genesAdded = entityGenesAfter - entityGenesBefore
 			val genesNotAdded = syringeGenes - genesAdded
 

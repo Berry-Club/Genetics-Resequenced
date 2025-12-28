@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.effect
 
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects
@@ -31,23 +31,23 @@ class PanaceaEffect : MobEffect(
 
 	companion object {
 
-		private fun removeAllNegativeGenes(pLivingEntity: LivingEntity) {
-			val genes = pLivingEntity.geneHolders.filter { it.isNegative }.iterator()
+		private fun removeAllNegativeGenes(livingEntity: LivingEntity) {
+			val genes = livingEntity.permanentGeneHolders.filter { it.isNegative }.iterator()
 
 			while (genes.hasNext()) {
 				val gene = genes.next()
-				pLivingEntity.removeGene(gene)
+				livingEntity.removeGene(gene)
 			}
 		}
 
-		private fun removeAllNegativeEffects(pLivingEntity: LivingEntity) {
-			val harmfulEffects = pLivingEntity.activeEffects
+		private fun removeAllNegativeEffects(livingEntity: LivingEntity) {
+			val harmfulEffects = livingEntity.activeEffects
 				.filter { it.effect.value().category == MobEffectCategory.HARMFUL }
 				.iterator()
 
 			while (harmfulEffects.hasNext()) {
 				val effect = harmfulEffects.next()
-				pLivingEntity.removeEffect(effect.effect)
+				livingEntity.removeEffect(effect.effect)
 			}
 		}
 	}
