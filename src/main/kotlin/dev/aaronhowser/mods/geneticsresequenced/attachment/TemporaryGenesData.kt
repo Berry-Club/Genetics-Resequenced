@@ -15,7 +15,10 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import net.minecraft.core.Holder
+import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.Component
+import net.minecraft.network.codec.ByteBufCodecs
+import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
@@ -36,6 +39,13 @@ data class TemporaryGenesData(
 						.forGetter(TemporaryGenesData::temporaryGenes)
 				).apply(instance, ::TemporaryGenesData)
 			}
+
+		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, TemporaryGenesData> =
+			StreamCodec.composite(
+				TemporaryGene.STREAM_CODEC.apply(ByteBufCodecs.list()),
+				TemporaryGenesData::temporaryGenes,
+				::TemporaryGenesData
+			)
 
 		@JvmStatic
 		var LivingEntity.temporaryGenes: List<TemporaryGene>
@@ -166,6 +176,13 @@ data class TemporaryGenesData(
 							.forGetter(TemporaryGene::ticksRemaining)
 					).apply(instance, ::TemporaryGene)
 				}
+
+			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, TemporaryGene> =
+				StreamCodec.composite(
+					Gene.STREAM_CODEC, TemporaryGene::geneHolder,
+					ByteBufCodecs.VAR_INT, TemporaryGene::ticksRemaining,
+					::TemporaryGene
+				)
 		}
 	}
 
