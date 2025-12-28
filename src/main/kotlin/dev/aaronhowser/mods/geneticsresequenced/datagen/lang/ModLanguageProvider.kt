@@ -53,12 +53,19 @@ class ModLanguageProvider(
 		add(Commands.THEIR_GENES, "%1\$s's Genes:\n")
 		add(Commands.REMOVED_LIGHTS, "Removed %d nearby Bioluminescence Gene light sources.")
 		add(Commands.REMOVED_LIGHTS_RANGE_TOO_HIGH, "Range too high! Must be between 1 and 100.")
+
 		add(Commands.ADD_SINGLE_SUCCESS, "Added %1\$s to %2\$s!")
 		add(Commands.ADD_SINGLE_FAIL, "Failed to add %1\$s to %2\$s!")
 		add(Commands.ADD_MULTIPLE_SUCCESS, "Added %1\$s to %2\$d entities!")
 		add(Commands.ADD_MULTIPLE_FAIL, "Failed to add %1\$s to %2\$d entities!")
 		add(Commands.ADD_ALL_SINGLE, "Added all positive Genes to %s!")
 		add(Commands.ADD_ALL_MULTIPLE, "Added all positive Genes to %d entities!")
+
+		add(Commands.TEMPORARY_ADD_SINGLE_SUCCESS, "Temporarily added %1\$s to %2\$s for %3\$s!")
+		add(Commands.TEMPORARY_ADD_SINGLE_FAIL, "Failed to temporarily add %1\$s to %2\$s!")
+		add(Commands.TEMPORARY_ADD_MULTIPLE_SUCCESS, "Temporarily added %1\$s to %2\$d entities for %3\$s!")
+		add(Commands.TEMPORARY_ADD_MULTIPLE_FAIL, "Failed to temporarily add %1\$s to %2\$d entities!")
+
 		add(Commands.REMOVE_MULTIPLE_SUCCESS, "Removed %1\$s from %2\$d entities!")
 		add(Commands.REMOVE_MULTIPLE_FAIL, "Failed to remove %1\$s from %2\$d entities!")
 		add(Commands.REMOVE_SINGLE_SUCCESS, "Removed %1\$s from %2\$s!")
@@ -95,6 +102,10 @@ class ModLanguageProvider(
 		const val ADD_SINGLE_FAIL = "command.geneticsresequenced.add_gene.single_target.fail"
 		const val ADD_MULTIPLE_SUCCESS = "command.geneticsresequenced.add_gene.multiple_targets.success"
 		const val ADD_MULTIPLE_FAIL = "command.geneticsresequenced.add_gene.multiple_targets.fail"
+		const val TEMPORARY_ADD_SINGLE_SUCCESS = "command.geneticsresequenced.temporary_add_gene.single_target.success"
+		const val TEMPORARY_ADD_SINGLE_FAIL = "command.geneticsresequenced.temporary_add_gene.single_target.fail"
+		const val TEMPORARY_ADD_MULTIPLE_SUCCESS = "command.geneticsresequenced.temporary_add_gene.multiple_targets.success"
+		const val TEMPORARY_ADD_MULTIPLE_FAIL = "command.geneticsresequenced.temporary_add_gene.multiple_targets.fail"
 		const val ADD_ALL_SINGLE = "command.geneticsresequenced.add_all.single_target"
 		const val ADD_ALL_MULTIPLE = "command.geneticsresequenced.add_all.multiple_targets"
 		const val REMOVE_MULTIPLE_SUCCESS = "command.geneticsresequenced.remove_gene.multiple_targets.success"

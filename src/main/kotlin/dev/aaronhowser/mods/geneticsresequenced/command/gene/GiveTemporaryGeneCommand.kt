@@ -100,7 +100,7 @@ object GiveTemporaryGeneCommand {
 		if (success) {
 			source.sendSuccess(
 				{
-					ModLanguageProvider.Commands.ADD_SINGLE_SUCCESS.toComponent(
+					ModLanguageProvider.Commands.TEMPORARY_ADD_SINGLE_SUCCESS.toComponent(
 						geneHolder.getName(),
 						target.name
 					)
@@ -109,7 +109,7 @@ object GiveTemporaryGeneCommand {
 			)
 		} else {
 			source.sendFailure(
-				ModLanguageProvider.Commands.ADD_SINGLE_FAIL.toComponent(
+				ModLanguageProvider.Commands.TEMPORARY_ADD_SINGLE_FAIL.toComponent(
 					geneHolder.getName(),
 					target.name
 				)
@@ -134,7 +134,7 @@ object GiveTemporaryGeneCommand {
 		if (amountSuccess != 0) {
 			source.sendSuccess(
 				{
-					ModLanguageProvider.Commands.ADD_MULTIPLE_SUCCESS.toComponent(
+					ModLanguageProvider.Commands.TEMPORARY_ADD_MULTIPLE_SUCCESS.toComponent(
 						geneHolder.getName(),
 						amountSuccess
 					)
@@ -145,7 +145,7 @@ object GiveTemporaryGeneCommand {
 
 		if (amountFail != 0) {
 			source.sendFailure(
-				ModLanguageProvider.Commands.ADD_MULTIPLE_FAIL.toComponent(
+				ModLanguageProvider.Commands.TEMPORARY_ADD_MULTIPLE_FAIL.toComponent(
 					geneHolder.getName(),
 					amountFail
 				)
