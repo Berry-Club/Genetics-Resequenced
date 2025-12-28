@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
-import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -21,43 +20,54 @@ object ListGenesCommand {
 		return Commands
 			.literal("list-genes")
 			.requires { it.hasPermission(2) }
+			.executes {
+				val target = it.source.entityOrException
+				listGenes(it.source, target)
+			}
 			.then(
 				Commands
 					.argument(TARGET_ARGUMENT, EntityArgument.entity())
-					.executes { cmd -> run(cmd, EntityArgument.getEntity(cmd, TARGET_ARGUMENT)) }
+					.executes {
+						val target = EntityArgument.getEntity(it, TARGET_ARGUMENT)
+						listGenes(it.source, target)
+					}
 			)
-			.executes { cmd -> run(cmd) }
 	}
 
-	private fun run(context: CommandContext<CommandSourceStack>, entity: Entity? = null): Int {
-		val target = if (entity == null) {
-			context.source.entity as? LivingEntity
-		} else {
-			entity as? LivingEntity
-		} ?: return 0
+	private fun listGenes(
+		source: CommandSourceStack,
+		target: Entity
+	): Int {
+		if (target !is LivingEntity) {
+			return 0
+		}
 
 		val targetGenesList = target.permanentGeneHolders
 
 		if (targetGenesList.isEmpty()) {
-			context.source.sendSuccess(
+			source.sendSuccess(
 				{ ModLanguageProvider.Commands.NO_GENES.toComponent() },
 				false
 			)
 			return 1
 		}
 
-		val messageComponent =
-			ModLanguageProvider.Commands.THEIR_GENES.toComponent(
-				target.displayName
-			)
+		source.sendSuccess(
+			{
+				val messageComponent =
+					ModLanguageProvider.Commands.THEIR_GENES.toComponent(
+						target.displayName
+					)
 
-		messageComponent.append(
-			OtherUtil.componentList(
-				targetGenesList.map(Gene::getNameComponent)
-			)
+				messageComponent.append(
+					OtherUtil.componentList(
+						targetGenesList.map(Gene::getNameComponent)
+					)
+				)
+			},
+			false
 		)
 
-		context.source.sendSuccess({ messageComponent }, false)
 		return 1
 	}
 
