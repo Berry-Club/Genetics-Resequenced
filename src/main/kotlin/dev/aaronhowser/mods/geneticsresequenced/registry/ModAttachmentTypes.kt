@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory
+import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
 import net.neoforged.neoforge.attachment.AttachmentType
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -20,6 +21,14 @@ object ModAttachmentTypes {
 				.builder(::GenesData)
 				.serialize(GenesData.CODEC)
 				.copyOnDeath()
+				.build()
+		})
+
+	val TEMPORARY_GENES: DeferredHolder<AttachmentType<*>, AttachmentType<TemporaryGenesData>> =
+		ATTACHMENT_TYPES_REGISTRY.register("temporary_genes", Supplier {
+			AttachmentType
+				.builder(::TemporaryGenesData)
+				.serialize(TemporaryGenesData.CODEC)
 				.build()
 		})
 
