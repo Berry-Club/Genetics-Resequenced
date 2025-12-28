@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneAddedE
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
+import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import net.minecraft.core.Holder
 import net.minecraft.world.entity.EntityType
@@ -43,20 +44,26 @@ data class TemporaryGenesData(
 			get() = this.temporaryGenes.map(TemporaryGene::geneHolder)
 
 		fun tickTemporaryGenes(entity: LivingEntity) {
-			val iterator = entity.temporaryGenes.toMutableList().iterator()
-			var changed = false
-
-			while (iterator.hasNext()) {
-				val tempGene = iterator.next()
+			val copy = entity.temporaryGenes.toList()
+			for (tempGene in copy) {
 				if (tempGene.tick()) {
-					iterator.remove()
-					changed = true
+					entity.removeTemporaryGene(tempGene.geneHolder)
 				}
 			}
+		}
 
-			if (changed) {
-				entity.temporaryGenes = entity.temporaryGenes
+		fun LivingEntity.removeTemporaryGene(
+			geneHolderToRemove: Holder<Gene>
+		) {
+			val existingList = this.temporaryGenes.toMutableList()
+			val wasRemoved = existingList.removeIf { it.geneHolder.isGene(geneHolderToRemove) }
+			if (!wasRemoved) return
+
+			if (geneHolderToRemove.value().potions.isNotEmpty()) {
+				TickGenes.handlePotionGeneRemoved(this, geneHolderToRemove)
 			}
+
+			this.temporaryGenes = existingList
 		}
 
 		@JvmStatic
