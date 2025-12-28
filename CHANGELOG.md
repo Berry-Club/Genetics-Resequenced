@@ -4,6 +4,8 @@
 
 - Made Bioluminescence Blocks removing themselves be safer
 - When hovering over an Anti-Plasmid in the Plasmid Infuser, it now says the correct way to set Anti-Plasmids
+- Mobs that have Genes now should not despawn
+	- Only applies to mobs that respect MobDespawnEvent
 
 # 1.11.0
 
@@ -11,7 +13,7 @@
 
 - The concept of incompatible Genes
 	- Some Genes will refuse to be added to en entity if they have an incompatible Gene
-    - For example, you can't have both Placid and Frenzied at the same time
+	- For example, you can't have both Placid and Frenzied at the same time
 
 ### Changed
 
