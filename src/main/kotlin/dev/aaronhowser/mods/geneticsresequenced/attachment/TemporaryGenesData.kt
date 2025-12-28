@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.g
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneAddedEvent
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneRemovedEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
@@ -66,6 +67,9 @@ data class TemporaryGenesData(
 			if (geneHolderToRemove.value().potions.isNotEmpty()) {
 				TickGenes.handlePotionGeneRemoved(this, geneHolderToRemove)
 			}
+
+			val event = TemporaryGeneRemovedEvent(this, geneHolderToRemove)
+			FORGE_BUS.post(event)
 
 			this.temporaryGenes = existingList
 		}
