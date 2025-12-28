@@ -29,6 +29,7 @@ object ModAttachmentTypes {
 			AttachmentType
 				.builder(::TemporaryGenesData)
 				.serialize(TemporaryGenesData.CODEC)
+				.sync(TemporaryGenesData.STREAM_CODEC)
 				.build()
 		})
 
