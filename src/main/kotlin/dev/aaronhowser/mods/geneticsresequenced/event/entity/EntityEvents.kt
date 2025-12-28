@@ -14,10 +14,7 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent
-import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
-import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent
+import net.neoforged.neoforge.event.entity.living.*
 import net.neoforged.neoforge.event.level.ExplosionEvent
 import net.neoforged.neoforge.event.tick.EntityTickEvent
 
@@ -113,6 +110,14 @@ object EntityEvents {
 			if (parentA.random.nextBoolean()) {
 				child.addGene(gene)
 			}
+		}
+	}
+
+	@SubscribeEvent
+	fun onMobDespawn(event: MobDespawnEvent) {
+		val mob = event.entity
+		if (mob.geneHolders.isNotEmpty()) {
+			event.result = MobDespawnEvent.Result.DENY
 		}
 	}
 
