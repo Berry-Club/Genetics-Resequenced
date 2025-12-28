@@ -4,13 +4,17 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneAddedEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import net.minecraft.core.Holder
+import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
@@ -137,6 +141,13 @@ data class TemporaryGenesData(
 		fun tick(): Boolean {
 			ticksRemaining--
 			return ticksRemaining <= 0
+		}
+
+		fun getComponent(): Component {
+			return ModLanguageProvider.Commands.TEMPORARY_GENE_WITH_DURATION.toComponent(
+				geneHolder.getName(),
+				ticksRemaining
+			)
 		}
 
 		companion object {

@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
+import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGenes
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
@@ -35,6 +37,11 @@ class GeneCheckerItem(properties: Properties) : Item(properties) {
 		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
 
 		private fun tellHeldGenes(player: Player, targetEntity: LivingEntity) {
+			tellPermanentGenes(player, targetEntity)
+			tellTemporaryGenes(player, targetEntity)
+		}
+
+		private fun tellPermanentGenes(player: Player, targetEntity: LivingEntity) {
 			val targetGeneHolders = targetEntity.permanentGeneHolders
 
 			val component = if (targetGeneHolders.isEmpty()) {
@@ -51,6 +58,25 @@ class GeneCheckerItem(properties: Properties) : Item(properties) {
 				} else {
 					ModMessageLang.GENE_CHECKER_TARGET_LIST.toComponent(targetEntity.name, genesComponent)
 				}
+			}
+
+			player.sendSystemMessage(component)
+		}
+
+		private fun tellTemporaryGenes(player: Player, targetEntity: LivingEntity) {
+			val tempGenes = targetEntity.temporaryGenes
+
+			if (tempGenes.isEmpty()) {
+				return
+			}
+
+			val componentList = tempGenes.map(TemporaryGenesData.TemporaryGene::getComponent)
+			val listComponent = OtherUtil.componentList(componentList)
+
+			val component = if (targetEntity == player) {
+				ModMessageLang.GENE_CHECKER_SELF_TEMPORARY_LIST.toComponent(listComponent)
+			} else {
+				ModMessageLang.GENE_CHECKER_TARGET_TEMPORARY_LIST.toComponent(targetEntity.name, listComponent)
 			}
 
 			player.sendSystemMessage(component)
