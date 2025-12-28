@@ -42,6 +42,23 @@ data class TemporaryGenesData(
 		val LivingEntity.temporaryGeneHolders: List<Holder<Gene>>
 			get() = this.temporaryGenes.map(TemporaryGene::geneHolder)
 
+		fun tickTemporaryGenes(entity: LivingEntity) {
+			val iterator = entity.temporaryGenes.toMutableList().iterator()
+			var changed = false
+
+			while (iterator.hasNext()) {
+				val tempGene = iterator.next()
+				if (tempGene.tick()) {
+					iterator.remove()
+					changed = true
+				}
+			}
+
+			if (changed) {
+				entity.temporaryGenes = entity.temporaryGenes
+			}
+		}
+
 		@JvmStatic
 		fun LivingEntity.addTemporaryGene(
 			newGeneHolder: Holder<Gene>,
