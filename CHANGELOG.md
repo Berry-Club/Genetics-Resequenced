@@ -5,6 +5,9 @@
 - The concept of incompatible Genes
 	- Some Genes will refuse to be added to en entity if they have an incompatible Gene
 	- For example, you can't have both Placid and Frenzied at the same time
+- The concept of Temporary Genes
+	- A set of Genes entirely separate from the permanent Genes (which is what the old set is referred to now)
+	- Temporary Genes have a duration that goes down every tick, and then are removed when the duration reaches zero
 
 ### Changed
 
