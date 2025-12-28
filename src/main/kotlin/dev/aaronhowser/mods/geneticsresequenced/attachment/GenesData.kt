@@ -152,6 +152,15 @@ data class GenesData(
 
 		@JvmStatic
 		@OptIn(ExperimentalContracts::class)
+		fun Entity.hasPermanentGene(gene: Holder<Gene>): Boolean {
+			contract { returns(true) implies (this@hasPermanentGene is LivingEntity) }
+			if (gene.isDisabled || this !is LivingEntity) return false
+
+			return gene in this.permanentGeneHolders
+		}
+
+		@JvmStatic
+		@OptIn(ExperimentalContracts::class)
 		fun Entity.hasGene(gene: Holder<Gene>): Boolean {
 			contract { returns(true) implies (this@hasGene is LivingEntity) }
 			if (gene.isDisabled || this !is LivingEntity) return false

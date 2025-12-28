@@ -1,9 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
+import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasPermanentGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.addTemporaryGene
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -20,36 +21,45 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
-object GiveGeneCommand {
+object GiveTemporaryGeneCommand {
 
-	private const val GENE_ARGUMENT = "gene"
-	private const val TARGET_ARGUMENT = "targets"
+	private const val GENE = "gene"
+	private const val TARGETS = "targets"
+	private const val DURATION = "duration"
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return Commands
-			.literal("give-gene")
+			.literal("give-temporary-gene")
 			.requires { it.hasPermission(2) }
 			.then(
 				Commands
-					.argument(GENE_ARGUMENT, ResourceLocationArgument.id())
+					.argument(GENE, ResourceLocationArgument.id())
 					.suggests(SUGGEST_GENE_RLS)
 					.executes { cmd ->
-						addGene(
-							cmd.source,
-							ResourceLocationArgument.getId(cmd, GENE_ARGUMENT),
-							entities = listOf(cmd.source.playerOrException)
-						)
+						val gene = ResourceLocationArgument.getId(cmd, GENE)
+						val duration = 20 * 60 * 5
+						val targets = listOf(cmd.source.playerOrException)
+						addGene(cmd.source, gene, targets, duration)
 					}
 					.then(
 						Commands
-							.argument(TARGET_ARGUMENT, EntityArgument.entities())
-							.executes { cmd ->
-								addGene(
-									cmd.source,
-									ResourceLocationArgument.getId(cmd, GENE_ARGUMENT),
-									EntityArgument.getEntities(cmd, TARGET_ARGUMENT)
-								)
+							.argument(DURATION, IntegerArgumentType.integer(1))
+							.executes {
+								val gene = ResourceLocationArgument.getId(it, GENE)
+								val duration = IntegerArgumentType.getInteger(it, DURATION)
+								val targets = listOf(it.source.playerOrException)
+								addGene(it.source, gene, targets, duration)
 							}
+							.then(
+								Commands
+									.argument(TARGETS, EntityArgument.entities())
+									.executes {
+										val gene = ResourceLocationArgument.getId(it, GENE)
+										val duration = IntegerArgumentType.getInteger(it, DURATION)
+										val targets = EntityArgument.getEntities(it, TARGETS)
+										addGene(it.source, gene, targets, duration)
+									}
+							)
 					)
 			)
 	}
@@ -57,19 +67,12 @@ object GiveGeneCommand {
 	private fun addGene(
 		source: CommandSourceStack,
 		geneRl: ResourceLocation,
-		entities: Collection<Entity>
+		entities: Collection<Entity>,
+		duration: Int
 	): Int {
-		val gene = ModGenes.fromResourceLocation(source.registryAccess(), geneRl)
+		val geneHolder = ModGenes.fromResourceLocation(source.registryAccess(), geneRl)
 			?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
 
-		return addGene(source, gene, entities)
-	}
-
-	private fun addGene(
-		source: CommandSourceStack,
-		geneToAdd: Holder<Gene>,
-		entities: Collection<Entity>
-	): Int {
 		val targets = entities.mapNotNull { it as? LivingEntity }
 
 		if (targets.isEmpty()) {
@@ -78,9 +81,9 @@ object GiveGeneCommand {
 		}
 
 		if (targets.size == 1) {
-			handleSingleTarget(source, targets.first(), geneToAdd)
+			handleSingleTarget(source, targets.first(), geneHolder, duration)
 		} else {
-			handleMultipleTargets(source, targets, geneToAdd)
+			handleMultipleTargets(source, targets, geneHolder, duration)
 		}
 
 		return 1
@@ -90,8 +93,9 @@ object GiveGeneCommand {
 		source: CommandSourceStack,
 		target: LivingEntity,
 		geneHolder: Holder<Gene>,
+		duration: Int
 	) {
-		val success = addGeneToTarget(target, geneHolder)
+		val success = addGeneToTarget(target, geneHolder, duration)
 
 		if (success) {
 			source.sendSuccess(
@@ -116,13 +120,14 @@ object GiveGeneCommand {
 	private fun handleMultipleTargets(
 		source: CommandSourceStack,
 		targets: List<LivingEntity>,
-		geneHolder: Holder<Gene>
+		geneHolder: Holder<Gene>,
+		duration: Int
 	) {
 		var amountSuccess = 0
 		var amountFail = 0
 
 		for (target in targets) {
-			val success = addGeneToTarget(target, geneHolder)
+			val success = addGeneToTarget(target, geneHolder, duration)
 			if (success) amountSuccess++ else amountFail++
 		}
 
@@ -151,19 +156,21 @@ object GiveGeneCommand {
 	private fun addGeneToTarget(
 		target: LivingEntity,
 		geneHolder: Holder<Gene>,
+		duration: Int,
 	): Boolean {
-		val alreadyHasGene = target.hasGene(geneHolder)
+		val alreadyHasGene = target.hasPermanentGene(geneHolder)
+
 		if (alreadyHasGene) {
-			GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.location()} to ${target.name.string}, but they already have it!")
+			GeneticsResequenced.LOGGER.info("Tried to add temporary gene ${geneHolder.key!!.location()} to ${target.name.string}, but they already have it as a permanent Gene!")
 			return false
 		}
 
 		if (!geneHolder.value().canEntityHave(target)) {
-			GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.location()} to ${target.name.string}, but they can't have it!")
+			GeneticsResequenced.LOGGER.info("Tried to add temporary gene ${geneHolder.key!!.location()} to ${target.name.string}, but that entity type cannot have that gene!")
 			return false
 		}
 
-		val success = target.addGene(geneHolder)
+		val success = target.addTemporaryGene(geneHolder, duration)
 
 		return success
 	}
