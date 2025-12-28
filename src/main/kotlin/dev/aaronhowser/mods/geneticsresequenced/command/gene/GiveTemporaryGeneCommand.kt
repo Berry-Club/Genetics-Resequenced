@@ -102,7 +102,8 @@ object GiveTemporaryGeneCommand {
 				{
 					ModLanguageProvider.Commands.TEMPORARY_ADD_SINGLE_SUCCESS.toComponent(
 						geneHolder.getName(),
-						target.name
+						target.name,
+						duration
 					)
 				},
 				false
@@ -111,7 +112,8 @@ object GiveTemporaryGeneCommand {
 			source.sendFailure(
 				ModLanguageProvider.Commands.TEMPORARY_ADD_SINGLE_FAIL.toComponent(
 					geneHolder.getName(),
-					target.name
+					target.name,
+					duration
 				)
 			)
 		}
@@ -136,7 +138,8 @@ object GiveTemporaryGeneCommand {
 				{
 					ModLanguageProvider.Commands.TEMPORARY_ADD_MULTIPLE_SUCCESS.toComponent(
 						geneHolder.getName(),
-						amountSuccess
+						amountSuccess,
+						duration
 					)
 				},
 				false
@@ -147,7 +150,8 @@ object GiveTemporaryGeneCommand {
 			source.sendFailure(
 				ModLanguageProvider.Commands.TEMPORARY_ADD_MULTIPLE_FAIL.toComponent(
 					geneHolder.getName(),
-					amountFail
+					amountFail,
+					duration
 				)
 			)
 		}
