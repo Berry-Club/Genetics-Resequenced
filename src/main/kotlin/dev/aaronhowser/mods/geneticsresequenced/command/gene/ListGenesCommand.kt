@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -42,6 +43,16 @@ object ListGenesCommand {
 			return 0
 		}
 
+		listPermanentGenes(source, target)
+		listTemporaryGenes(source, target)
+
+		return 1
+	}
+
+	private fun listPermanentGenes(
+		source: CommandSourceStack,
+		target: LivingEntity
+	) {
 		val targetGenesList = target.permanentGeneHolders
 
 		if (targetGenesList.isEmpty()) {
@@ -49,13 +60,13 @@ object ListGenesCommand {
 				{ ModLanguageProvider.Commands.NO_GENES.toComponent() },
 				false
 			)
-			return 1
+			return
 		}
 
 		source.sendSuccess(
 			{
 				val messageComponent =
-					ModLanguageProvider.Commands.THEIR_GENES.toComponent(
+					ModLanguageProvider.Commands.TARGET_GENE_LIST.toComponent(
 						target.displayName
 					)
 
@@ -67,8 +78,33 @@ object ListGenesCommand {
 			},
 			false
 		)
+	}
 
-		return 1
+	private fun listTemporaryGenes(
+		source: CommandSourceStack,
+		target: LivingEntity
+	) {
+		val tempGenes = target.temporaryGeneHolders
+		if (tempGenes.isEmpty()) {
+			return
+		}
+
+		source.sendSuccess(
+			{
+				val messageComponent =
+					ModLanguageProvider.Commands.TEMPORARY_GENE_LIST.toComponent(
+						target.displayName
+					)
+
+				messageComponent.append(
+					OtherUtil.componentList(
+						tempGenes.map(Gene::getNameComponent)
+					)
+				)
+			},
+			false
+		)
+
 	}
 
 }
