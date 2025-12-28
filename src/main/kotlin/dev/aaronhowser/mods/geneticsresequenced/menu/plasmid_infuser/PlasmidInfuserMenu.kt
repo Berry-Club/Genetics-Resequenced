@@ -57,8 +57,15 @@ class PlasmidInfuserMenu(
 	companion object {
 		fun showTooltip(event: ItemTooltipEvent) {
 			val hoverStack = event.itemStack
-			if (hoverStack.item != ModItems.DNA_HELIX.get()) return
 
+			when {
+				hoverStack.isEmpty -> return
+				hoverStack.`is`(ModItems.DNA_HELIX) -> addHelixTooltip(event)
+			}
+		}
+
+		private fun addHelixTooltip(event: ItemTooltipEvent) {
+			val hoverStack = event.itemStack
 			val hoveredGeneHolder = DnaHelixItem.getGeneHolder(hoverStack) ?: return
 
 			val slots = event.entity?.containerMenu?.slots ?: return
@@ -76,6 +83,7 @@ class PlasmidInfuserMenu(
 			}.withStyle(ChatFormatting.GRAY)
 
 			event.toolTip.add(2, component)
+
 		}
 
 	}
