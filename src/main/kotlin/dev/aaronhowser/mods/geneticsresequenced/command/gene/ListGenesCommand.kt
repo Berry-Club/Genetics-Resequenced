@@ -2,10 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
-import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGeneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
@@ -84,7 +85,7 @@ object ListGenesCommand {
 		source: CommandSourceStack,
 		target: LivingEntity
 	) {
-		val tempGenes = target.temporaryGeneHolders
+		val tempGenes = target.temporaryGenes
 		if (tempGenes.isEmpty()) {
 			return
 		}
@@ -98,7 +99,12 @@ object ListGenesCommand {
 
 				messageComponent.append(
 					OtherUtil.componentList(
-						tempGenes.map(Gene::getNameComponent)
+						tempGenes.map {
+							ModLanguageProvider.Commands.TEMPORARY_GENE_WITH_DURATION.toComponent(
+								it.geneHolder.getName(),
+								it.ticksRemaining
+							)
+						}
 					)
 				)
 			},
