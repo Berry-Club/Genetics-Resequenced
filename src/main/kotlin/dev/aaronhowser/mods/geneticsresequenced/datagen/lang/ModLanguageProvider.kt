@@ -50,7 +50,9 @@ class ModLanguageProvider(
 
 		add(Commands.LIST_ALL_GENES, "Gene List:\n")
 		add(Commands.NO_GENES, "No Genes found!")
-		add(Commands.THEIR_GENES, "%1\$s's Genes:\n")
+		add(Commands.TARGET_GENE_LIST, "%1\$s's Genes:\n")
+		add(Commands.TEMPORARY_GENE_LIST, "%1\$s's Temporary Genes:\n")
+
 		add(Commands.REMOVED_LIGHTS, "Removed %d nearby Bioluminescence Gene light sources.")
 		add(Commands.REMOVED_LIGHTS_RANGE_TOO_HIGH, "Range too high! Must be between 1 and 100.")
 
@@ -95,7 +97,8 @@ class ModLanguageProvider(
 	object Commands {
 		const val LIST_ALL_GENES = "command.geneticsresequenced.list_all_genes"
 		const val NO_GENES = "command.geneticsresequenced.list.no_genes"
-		const val THEIR_GENES = "command.geneticsresequenced.list.genes"
+		const val TARGET_GENE_LIST = "command.geneticsresequenced.list.genes"
+		const val TEMPORARY_GENE_LIST = "command.geneticsresequenced.list.temporary_genes"
 		const val REMOVED_LIGHTS = "command.geneticsresequenced.remove_nearby_lights.success"
 		const val REMOVED_LIGHTS_RANGE_TOO_HIGH = "command.geneticsresequenced.remove_nearby_lights.range_too_high"
 		const val ADD_SINGLE_SUCCESS = "command.geneticsresequenced.add_gene.single_target.success"
