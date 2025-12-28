@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.attachment
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneAddedEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
@@ -10,6 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import net.minecraft.core.Holder
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
+import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
 
 data class TemporaryGenesData(
 	private val temporaryGenes: MutableList<TemporaryGene>
@@ -64,16 +66,25 @@ data class TemporaryGenesData(
 				return false
 			}
 
-			val list = this.temporaryGenes.toMutableList()
-
-			val existing = list.find { it.geneHolder.isGene(newGeneHolder) }
-			if (existing != null) {
-				existing.ticksRemaining = durationTicks
-			} else {
-				list.add(TemporaryGene(newGeneHolder, durationTicks))
+			val eventPre = TemporaryGeneAddedEvent.Pre(this, newGeneHolder, durationTicks)
+			if (FORGE_BUS.post(eventPre).isCanceled) {
+				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
+				return false
 			}
 
-			this.temporaryGenes = list
+			val existingList = this.temporaryGenes.toMutableList()
+
+			val existingTempGene = existingList.find { it.geneHolder.isGene(newGeneHolder) }
+			if (existingTempGene != null) {
+				existingTempGene.ticksRemaining = durationTicks
+			} else {
+				existingList.add(TemporaryGene(newGeneHolder, durationTicks))
+			}
+
+			this.temporaryGenes = existingList
+
+			val eventPost = TemporaryGeneAddedEvent.Post(this, newGeneHolder, durationTicks)
+			FORGE_BUS.post(eventPost)
 
 			return true
 		}
