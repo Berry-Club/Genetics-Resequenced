@@ -16,30 +16,37 @@ object ModAttachmentTypes {
 		DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, GeneticsResequenced.ID)
 
 	val GENE_CONTAINER: DeferredHolder<AttachmentType<*>, AttachmentType<GenesData>> =
-		ATTACHMENT_TYPES_REGISTRY.register("genes", Supplier {
+		register(
+			"genes",
 			AttachmentType
 				.builder(::GenesData)
 				.serialize(GenesData.CODEC)
 				.copyOnDeath()
 				.build()
-		})
+		)
 
 	val TEMPORARY_GENES: DeferredHolder<AttachmentType<*>, AttachmentType<TemporaryGenesData>> =
-		ATTACHMENT_TYPES_REGISTRY.register("temporary_genes", Supplier {
+		register(
+			"temporary_genes",
 			AttachmentType
 				.builder(::TemporaryGenesData)
 				.serialize(TemporaryGenesData.CODEC)
 				.sync(TemporaryGenesData.STREAM_CODEC)
 				.build()
-		})
+		)
 
 	val KEPT_INVENTORY: DeferredHolder<AttachmentType<*>, AttachmentType<KeptInventory>> =
-		ATTACHMENT_TYPES_REGISTRY.register("kept_inventory", Supplier {
+		register(
+			"kept_inventory",
 			AttachmentType
 				.builder(::KeptInventory)
 				.serialize(KeptInventory.CODEC)
 				.copyOnDeath()
 				.build()
-		})
+		)
+
+	private fun <T> register(name: String, type: AttachmentType<T>): DeferredHolder<AttachmentType<*>, AttachmentType<T>> {
+		return ATTACHMENT_TYPES_REGISTRY.register(name, Supplier { type })
+	}
 
 }
