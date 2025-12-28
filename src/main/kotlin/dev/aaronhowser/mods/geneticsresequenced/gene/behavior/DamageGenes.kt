@@ -1,6 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.chance
+import dev.aaronhowser.mods.aaron.AaronExtensions.isDamageSource
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -35,7 +37,7 @@ object DamageGenes {
 	}
 
 	fun handleWitherProof(event: EntityInvulnerabilityCheckEvent) {
-		if (!event.source.`is`(DamageTypes.WITHER)) return
+		if (!event.source.isDamageSource(DamageTypes.WITHER)) return
 
 		val entity = event.entity
 		if (entity.hasGene(ModGenes.WITHER_PROOF)) {
@@ -45,7 +47,7 @@ object DamageGenes {
 	}
 
 	fun handleFireProof(event: EntityInvulnerabilityCheckEvent) {
-		if (!event.source.`is`(DamageTypes.IN_FIRE) && !event.source.`is`(DamageTypes.ON_FIRE)) return
+		if (!event.source.isDamageSource(DamageTypes.IN_FIRE) && !event.source.isDamageSource(DamageTypes.ON_FIRE)) return
 
 		val entity = event.entity
 		if (entity.hasGene(ModGenes.FIRE_PROOF)) {
@@ -55,7 +57,7 @@ object DamageGenes {
 	}
 
 	fun handleLavaProof(event: EntityInvulnerabilityCheckEvent) {
-		if (!event.source.`is`(DamageTypes.LAVA)) return
+		if (!event.source.isDamageSource(DamageTypes.LAVA)) return
 
 		val entity = event.entity
 		if (entity.hasGene(ModGenes.LAVA_PROOF)) {
@@ -64,7 +66,7 @@ object DamageGenes {
 	}
 
 	fun handlePoisonProof(event: EntityInvulnerabilityCheckEvent) {
-		if (!event.source.`is`(NeoForgeMod.POISON_DAMAGE)) return
+		if (!event.source.isDamageSource(NeoForgeMod.POISON_DAMAGE)) return
 
 		val entity = event.entity
 		if (entity.hasGene(ModGenes.POISON_IMMUNITY)) {
@@ -146,7 +148,7 @@ object DamageGenes {
 		if (target == attacker) return
 
 		val chestPlate = target.getItemBySlot(EquipmentSlot.CHEST)
-		val targetChestplateMissingOrLeather = chestPlate.isEmpty || chestPlate.`is`(Items.LEATHER_CHESTPLATE)
+		val targetChestplateMissingOrLeather = chestPlate.isEmpty || chestPlate.isItem(Items.LEATHER_CHESTPLATE)
 		if (!targetChestplateMissingOrLeather) return
 
 		if (!target.hasGene(ModGenes.THORNS)) return

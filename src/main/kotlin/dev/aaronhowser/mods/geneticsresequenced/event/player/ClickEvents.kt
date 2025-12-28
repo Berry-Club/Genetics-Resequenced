@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isEntity
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
@@ -30,14 +32,14 @@ object ClickEvents {
 
 	private fun checkShouldCancel(event: PlayerInteractEvent.EntityInteract) {
 		val entity = event.target
-		if (!entity.type.`is`(ModEntityTypeTagsProvider.ALLOWS_PREVENTING_INTERACTION)) return
+		if (!entity.isEntity(ModEntityTypeTagsProvider.ALLOWS_PREVENTING_INTERACTION)) return
 
 		val mainHandStack = event.entity.getItemInHand(InteractionHand.MAIN_HAND)
 		val offHandStack = event.entity.getItemInHand(InteractionHand.OFF_HAND)
 
 		if (
-			mainHandStack.`is`(ModItemTagsProvider.PREVENTS_SOME_MOB_INTERACTION)
-			|| offHandStack.`is`(ModItemTagsProvider.PREVENTS_SOME_MOB_INTERACTION)
+			mainHandStack.isItem(ModItemTagsProvider.PREVENTS_SOME_MOB_INTERACTION)
+			|| offHandStack.isItem(ModItemTagsProvider.PREVENTS_SOME_MOB_INTERACTION)
 		) {
 			event.isCanceled = true
 		}

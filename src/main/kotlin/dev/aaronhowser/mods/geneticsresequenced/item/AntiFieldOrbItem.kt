@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
@@ -63,7 +64,7 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 		}
 
 		fun isActiveForPlayer(player: Player): Boolean {
-			return player.inventory.items.any { it.`is`(ModItems.ANTI_FIELD_ORB) && isEnabled(it) }
+			return player.inventory.items.any { it.isItem(ModItems.ANTI_FIELD_ORB) && isEnabled(it) }
 		}
 	}
 

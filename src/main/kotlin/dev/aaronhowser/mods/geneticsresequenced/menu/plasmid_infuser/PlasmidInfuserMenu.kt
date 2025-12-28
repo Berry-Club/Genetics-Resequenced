@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
@@ -42,13 +43,13 @@ class PlasmidInfuserMenu(
 	}
 
 	override fun inputFilter(inputStack: ItemStack): Boolean {
-		return inputStack.`is`(ModItems.DNA_HELIX) && inputStack.has(ModDataComponents.GENE)
+		return inputStack.isItem(ModItems.DNA_HELIX) && inputStack.has(ModDataComponents.GENE)
 	}
 
 	override fun addSlots() {
 		val helixSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42, ::inputFilter)
-		val plasmidSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42) { it.`is`(ModItems.PLASMID) }
-		val overclockSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54) { it.`is`(ModItems.OVERCLOCKER) }
+		val plasmidSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42) { it.isItem(ModItems.PLASMID) }
+		val overclockSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54) { it.isItem(ModItems.OVERCLOCKER) }
 
 		this.addSlot(helixSlot)
 		this.addSlot(plasmidSlot)
@@ -61,8 +62,8 @@ class PlasmidInfuserMenu(
 
 			when {
 				hoverStack.isEmpty -> return
-				hoverStack.`is`(ModItems.DNA_HELIX) -> addHelixTooltip(event)
-				hoverStack.`is`(ModItems.ANTI_PLASMID) -> addAntiPlasmidTooltip(event)
+				hoverStack.isItem(ModItems.DNA_HELIX) -> addHelixTooltip(event)
+				hoverStack.isItem(ModItems.ANTI_PLASMID) -> addAntiPlasmidTooltip(event)
 			}
 		}
 

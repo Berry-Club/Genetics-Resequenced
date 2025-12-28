@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_injector
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
@@ -41,13 +42,13 @@ class PlasmidInjectorMenu(
 	override fun inputFilter(inputStack: ItemStack): Boolean = PlasmidItem.isComplete(inputStack)
 
 	private fun syringeFilter(syringeStack: ItemStack): Boolean {
-		return syringeStack.`is`(ModItemTagsProvider.SYRINGES) && !SyringeItem.isContaminated(syringeStack)
+		return syringeStack.isItem(ModItemTagsProvider.SYRINGES) && !SyringeItem.isContaminated(syringeStack)
 	}
 
 	override fun addSlots() {
 		val plasmidSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42, ::inputFilter)
 		val syringeSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42, ::syringeFilter)
-		val overclockSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54) { it.`is`(ModItems.OVERCLOCKER) }
+		val overclockSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54) { it.isItem(ModItems.OVERCLOCKER) }
 
 		this.addSlot(plasmidSlot)
 		this.addSlot(syringeSlot)

@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isEntity
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
@@ -138,7 +140,7 @@ object TickGenes {
 
 		val entityPredicate: (LivingEntity) -> Boolean = when {
 			geneHolder.isGene(ModGenes.GREEN_DEATH) -> { it -> it is Creeper }
-			geneHolder.isGene(ModGenes.UN_UNDEATH) -> { it -> it.type.`is`(EntityTypeTags.UNDEAD) }
+			geneHolder.isGene(ModGenes.UN_UNDEATH) -> { it -> it.isEntity(EntityTypeTags.UNDEAD) }
 			geneHolder.isGene(ModGenes.GRAY_DEATH) -> { it -> it is AgeableMob || it is Zombie || it is Piglin }
 			geneHolder.isGene(ModGenes.WHITE_DEATH) -> { it -> it.type.category == MobCategory.MONSTER }
 			else -> return
@@ -258,7 +260,7 @@ object TickGenes {
 		for (itemEntity in nearbyItems) {
 			if (itemEntity.item.count <= 0) continue
 			if (itemEntity.owner == player && itemEntity.age < 20 * 3) continue
-			if (itemEntity.item.`is`(ModItemTagsProvider.MAGNET_ITEM_BLACKLIST)) continue
+			if (itemEntity.item.isItem(ModItemTagsProvider.MAGNET_ITEM_BLACKLIST)) continue
 
 			if (AntiFieldBlock.isNearActiveAntifield(player.level(), itemEntity.blockPosition())) continue
 
@@ -273,7 +275,7 @@ object TickGenes {
 		if (!player.hasGene(ModGenes.ITEM_MAGNET)) return
 
 		val item = event.itemStack
-		if (!item.`is`(ModItemTagsProvider.MAGNET_ITEM_BLACKLIST)) return
+		if (!item.isItem(ModItemTagsProvider.MAGNET_ITEM_BLACKLIST)) return
 
 		val component = ModTooltipLang.ITEM_MAGNET_BLACKLIST
 			.toComponent()

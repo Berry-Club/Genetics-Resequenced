@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
@@ -29,8 +30,8 @@ class PlasmidInjectorBlockEntity(
 		override fun canPlaceItem(slot: Int, stack: ItemStack): Boolean {
 			return when (slot) {
 				INPUT_SLOT_INDEX -> {
-					val isIncompletePlasmid = stack.`is`(ModItems.PLASMID) && PlasmidItem.isComplete(stack)
-					isIncompletePlasmid || (stack.`is`(ModItems.ANTI_PLASMID))
+					val isIncompletePlasmid = stack.isItem(ModItems.PLASMID) && PlasmidItem.isComplete(stack)
+					isIncompletePlasmid || (stack.isItem(ModItems.ANTI_PLASMID))
 				}
 
 				OUTPUT_SLOT_INDEX ->
@@ -50,13 +51,13 @@ class PlasmidInjectorBlockEntity(
 
 		if (!syringeStack.isSyringe()) return false
 
-		if (plasmidStack.`is`(ModItems.PLASMID)) {
+		if (plasmidStack.isItem(ModItems.PLASMID)) {
 			val plasmidGene = PlasmidItem.getGene(plasmidStack) ?: return false
 			if (!PlasmidItem.isComplete(plasmidStack)) return false
 			return SyringeItem.canAddGene(syringeStack, plasmidGene)
 		}
 
-		if (plasmidStack.`is`(ModItems.ANTI_PLASMID)) {
+		if (plasmidStack.isItem(ModItems.ANTI_PLASMID)) {
 			val antiPlasmidAntigene = PlasmidItem.getGene(plasmidStack) ?: return false
 			return SyringeItem.canAddAntigene(syringeStack, antiPlasmidAntigene)
 		}
@@ -70,9 +71,9 @@ class PlasmidInjectorBlockEntity(
 
 		val plasmidGene = PlasmidItem.getGene(plasmidStack) ?: return
 
-		if (plasmidStack.`is`(ModItems.PLASMID)) {
+		if (plasmidStack.isItem(ModItems.PLASMID)) {
 			SyringeItem.addGene(syringeStack, plasmidGene)
-		} else if (plasmidStack.`is`(ModItems.ANTI_PLASMID)) {
+		} else if (plasmidStack.isItem(ModItems.ANTI_PLASMID)) {
 			SyringeItem.addAntigene(syringeStack, plasmidGene)
 		}
 

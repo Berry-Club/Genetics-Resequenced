@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.entity
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.getUuidOrNull
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
@@ -222,7 +223,7 @@ class SupportSlime(
 			val player = event.entity
 			val item = event.itemStack
 
-			if (!item.`is`(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())) return
+			if (!item.isItem(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())) return
 
 			if (!player.hasGene(ModGenes.SLIMY_DEATH)) {
 				player.sendSystemMessage(

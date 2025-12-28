@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.base
 
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.AaronExtensions.isHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModIngredientTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.registries.BuiltInRegistries
@@ -22,12 +23,12 @@ class PotionTagIngredient(
 		if (stack.item != Items.POTION) return false
 
 		val potion = OtherUtil.getPotion(stack) ?: return false
-		return potion.`is`(this.potionTag)
+		return potion.isHolder(this.potionTag)
 	}
 
 	override fun getItems(): Stream<ItemStack> {
 		return BuiltInRegistries.POTION.holders()
-			.filter { it.`is`(this.potionTag) }
+			.filter { it.isHolder(this.potionTag) }
 			.map { OtherUtil.getPotionStack(it) }
 	}
 

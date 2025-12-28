@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isEntity
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.FrenzyMeleeAttackGoal
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.FrenzyTargetGoal
@@ -87,7 +88,7 @@ object MobGenes {
 			if (gene.isDisabled) continue
 			val cowardTag = gene.value().scaresEntitiesWithTag.getOrNull() ?: continue
 
-			if (!entity.type.`is`(cowardTag)) continue
+			if (!entity.isEntity(cowardTag)) continue
 
 			entity.goalSelector.addGoal(
 				1,

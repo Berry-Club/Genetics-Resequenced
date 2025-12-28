@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.aaron.AaronExtensions.isTrue
 import dev.aaronhowser.mods.aaron.AaronExtensions.status
@@ -198,14 +199,14 @@ object ClientUtil {
 		val mainHandStack = localPlayer.getItemInHand(InteractionHand.MAIN_HAND)
 		val offHandStack = localPlayer.getItemInHand(InteractionHand.OFF_HAND)
 
-		if (mainHandStack.`is`(ModItems.METAL_SYRINGE)) {
+		if (mainHandStack.isItem(ModItems.METAL_SYRINGE)) {
 			val syringeUuid = SpecificEntityItemComponent.getEntityUuid(mainHandStack)
 			if (syringeUuid != null && syringeUuid == entityToGlow.uuid) {
 				return true
 			}
 		}
 
-		if (offHandStack.`is`(ModItems.METAL_SYRINGE)) {
+		if (offHandStack.isItem(ModItems.METAL_SYRINGE)) {
 			val syringeUuid = SpecificEntityItemComponent.getEntityUuid(offHandStack)
 			if (syringeUuid != null && syringeUuid == entityToGlow.uuid) {
 				return true

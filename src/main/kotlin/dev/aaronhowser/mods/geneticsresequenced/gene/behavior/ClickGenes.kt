@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.chance
+import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.AaronExtensions.nextRange
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
@@ -58,7 +59,7 @@ object ClickGenes {
 
 		if (!target.hasGene(ModGenes.WOOLY)) return
 
-		val clickedWithShears = event.itemStack.`is`(Tags.Items.TOOLS_SHEAR)
+		val clickedWithShears = event.itemStack.isItem(Tags.Items.TOOLS_SHEAR)
 		if (!clickedWithShears) return
 
 		val newlySheared = RECENTLY_SHEARED_ENTITIES.add(target)
@@ -108,7 +109,7 @@ object ClickGenes {
 		if (!player.isCrouching) return
 		if (!player.hasGene(ModGenes.WOOLY)) return
 
-		val clickedWithShears = event.itemStack.`is`(Tags.Items.TOOLS_SHEAR)
+		val clickedWithShears = event.itemStack.isItem(Tags.Items.TOOLS_SHEAR)
 		if (!clickedWithShears) return
 
 		val newlySheared = RECENTLY_SHEARED_ENTITIES.add(player)
@@ -161,7 +162,7 @@ object ClickGenes {
 		val level = target.level()
 		if (level.isClientSide) return
 
-		val clickedWithShears = event.itemStack.`is`(Tags.Items.TOOLS_SHEAR)
+		val clickedWithShears = event.itemStack.isItem(Tags.Items.TOOLS_SHEAR)
 		if (!clickedWithShears) return
 
 		val newlyMeated = RECENTLY_MEATED_PLAYERS.add(target)
@@ -210,7 +211,7 @@ object ClickGenes {
 			|| level.isClientSide
 		) return
 
-		val clickedWithShears = event.itemStack.`is`(Tags.Items.TOOLS_SHEAR)
+		val clickedWithShears = event.itemStack.isItem(Tags.Items.TOOLS_SHEAR)
 		if (!clickedWithShears) return
 
 		val newlyMeated = RECENTLY_MEATED_PLAYERS.add(player)
@@ -262,7 +263,7 @@ object ClickGenes {
 
 		if (!target.hasGene(ModGenes.MILKY)) return
 
-		val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
+		val clickedWithBucket = event.itemStack.isItem(Items.BUCKET)
 		if (!clickedWithBucket) return
 
 		val newlyMilked = RECENTLY_MILKED_ENTITIES.add(target)
@@ -303,7 +304,7 @@ object ClickGenes {
 		if (player.level().isClientSide) return
 
 		if (!player.isCrouching) return
-		val clickedWithBucket = event.itemStack.`is`(Items.BUCKET)
+		val clickedWithBucket = event.itemStack.isItem(Items.BUCKET)
 		if (!clickedWithBucket) return
 
 		if (!player.hasGene(ModGenes.MILKY)) return
@@ -340,7 +341,7 @@ object ClickGenes {
 		if (!player.hasGene(ModGenes.SHOOT_FIREBALLS)) return
 
 		if (!player.isCrouching) return
-		if (!event.itemStack.`is`(ModItemTagsProvider.ACTIVATES_SHOOT_FIREBALL_GENE)) return
+		if (!event.itemStack.isItem(ModItemTagsProvider.ACTIVATES_SHOOT_FIREBALL_GENE)) return
 
 		val lookVec = player.lookAngle
 

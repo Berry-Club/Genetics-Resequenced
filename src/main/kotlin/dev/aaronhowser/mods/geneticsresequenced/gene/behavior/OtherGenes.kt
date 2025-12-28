@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.chance
+import dev.aaronhowser.mods.aaron.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
@@ -225,7 +226,7 @@ object OtherGenes {
 	fun shouldNegateSlownessFromBlock(entity: Entity, state: BlockState): Boolean {
 		if (entity !is LivingEntity) return false
 
-		if (state.`is`(Blocks.COBWEB)) {
+		if (state.isBlock(Blocks.COBWEB)) {
 			if (entity.hasGene(ModGenes.WEB_WALKER)) {
 				return true
 			}
