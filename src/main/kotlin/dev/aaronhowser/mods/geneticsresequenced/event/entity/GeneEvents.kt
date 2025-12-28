@@ -29,7 +29,7 @@ import net.neoforged.fml.common.EventBusSubscriber
 object GeneEvents {
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
-	fun onGeneChanged(event: GeneChangeEvent.Post) {
+	fun afterGeneChanged(event: GeneChangeEvent.Post) {
 		val (livingEntity: LivingEntity, geneHolder: Holder<Gene>, wasAdded: Boolean) = event
 
 		tellAllPlayersGeneChanged(livingEntity, geneHolder, wasAdded)
