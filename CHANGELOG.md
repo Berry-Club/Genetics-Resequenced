@@ -15,6 +15,12 @@
 - Mobs that have Genes now should not despawn
 	- Only applies to mobs that respect MobDespawnEvent
 
+### Fixed
+
+- Set Anti-Plasmids can now go into the Plasmid Injector again
+	- There was a bug in SetAntiPlasmidRecipe that was resetting the dna_points part of the plasmid progress component
+	- This was causing it to be marked as a not-finished Plasmid, so it didn't fit into the Plasmid Injector
+
 # 1.10.1
 
 ### Changed
