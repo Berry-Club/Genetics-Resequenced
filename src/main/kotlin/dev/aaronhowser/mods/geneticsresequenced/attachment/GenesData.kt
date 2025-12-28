@@ -29,6 +29,7 @@ import kotlin.contracts.contract
 data class GenesData(
 	val genes: HolderSet<Gene>
 ) {
+
 	constructor() : this(HolderSet.empty())
 	constructor(set: Set<Holder<Gene>>) : this(HolderSet.direct(set.toList()))
 

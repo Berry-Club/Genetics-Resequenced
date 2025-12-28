@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.aaron.AaronExtensions.isHolder
+import dev.aaronhowser.mods.aaron.AaronExtensions.tell
 import dev.aaronhowser.mods.aaron.AaronExtensions.withClickToCopyToClipboard
 import dev.aaronhowser.mods.aaron.AaronExtensions.withHoverText
 import dev.aaronhowser.mods.aaron.AaronExtraCodecs
@@ -76,7 +77,7 @@ data class Gene(
 			val attributeInstance = livingEntity.getAttribute(attribute)
 
 			if (attributeInstance == null) {
-				livingEntity.sendSystemMessage(
+				livingEntity.tell(
 					Component.literal("A Gene tried to modify an attribute ${attribute.key} that you don't have!")
 				)
 				GeneticsResequenced.LOGGER.error("A Gene tried to modify an attribute ${attribute.key} that entity ${livingEntity.name} does not have!")
