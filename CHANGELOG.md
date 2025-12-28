@@ -1,12 +1,3 @@
-# 1.11.1
-
-### Changed
-
-- Made Bioluminescence Blocks removing themselves be safer
-- When hovering over an Anti-Plasmid in the Plasmid Infuser, it now says the correct way to set Anti-Plasmids
-- Mobs that have Genes now should not despawn
-	- Only applies to mobs that respect MobDespawnEvent
-
 # 1.11.0
 
 ### Added
@@ -19,6 +10,10 @@
 
 - Renamed most commands
 	- `/gr gene add` is now `/gr add-gene` etc
+- Made Bioluminescence Blocks removing themselves be safer
+- When hovering over an Anti-Plasmid in the Plasmid Infuser, it now says the correct way to set Anti-Plasmids
+- Mobs that have Genes now should not despawn
+	- Only applies to mobs that respect MobDespawnEvent
 
 # 1.10.1
 
