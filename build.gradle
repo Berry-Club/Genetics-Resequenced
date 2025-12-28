@@ -30,7 +30,7 @@ neoForge {
 		disableRecompilation = ENV.CI == "true"
 
 		accessTransformers {
-			publish(project.file('src/main/resources/META-INF/accesstransformer.cfg'))
+			publish(project.file('src/main/resources/META-INF/accesstransformer.cfg'))a
 		}
 	}
 
