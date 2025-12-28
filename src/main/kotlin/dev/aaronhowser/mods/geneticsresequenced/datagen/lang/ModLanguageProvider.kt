@@ -52,7 +52,7 @@ class ModLanguageProvider(
 		add(Commands.NO_GENES, "No Genes found!")
 		add(Commands.TARGET_GENE_LIST, "%1\$s's Genes:\n")
 		add(Commands.TEMPORARY_GENE_LIST, "%1\$s's Temporary Genes:\n")
-		add(Commands.TEMPORARY_GENE_WITH_DURATION, "- %1\$s (%2\$d ticks)")
+		add(Commands.TEMPORARY_GENE_WITH_DURATION, "%1\$s (%2\$d ticks)")
 
 		add(Commands.REMOVED_LIGHTS, "Removed %d nearby Bioluminescence Gene light sources.")
 		add(Commands.REMOVED_LIGHTS_RANGE_TOO_HIGH, "Range too high! Must be between 1 and 100.")
