@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
+import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
@@ -97,15 +98,19 @@ object ListGenesCommand {
 						target.displayName
 					)
 
-				messageComponent.append(
-					OtherUtil.componentList(
-						tempGenes.map {
-							ModLanguageProvider.Commands.TEMPORARY_GENE_WITH_DURATION.toComponent(
-								it.geneHolder.getName(),
-								it.ticksRemaining
-							)
-						}
+				val componentList = mutableListOf<Component>()
+
+				for (tempGene in tempGenes) {
+					val tempComponent = ModLanguageProvider.Commands.TEMPORARY_GENE_WITH_DURATION.toComponent(
+						tempGene.geneHolder.getName(),
+						tempGene.ticksRemaining
 					)
+
+					componentList.add(tempComponent)
+				}
+
+				messageComponent.append(
+					OtherUtil.componentList(componentList)
 				)
 			},
 			false
