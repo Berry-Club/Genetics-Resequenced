@@ -3,6 +3,7 @@
 ### Changed
 
 - Made Bioluminescence Blocks removing themselves be safer
+- When hovering over an Anti-Plasmid in the Plasmid Infuser, it now says the correct way to set Anti-Plasmids
 
 # 1.11.0
 

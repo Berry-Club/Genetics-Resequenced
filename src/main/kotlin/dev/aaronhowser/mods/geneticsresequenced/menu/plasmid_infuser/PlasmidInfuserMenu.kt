@@ -68,8 +68,10 @@ class PlasmidInfuserMenu(
 		}
 
 		private fun addAntiPlasmidTooltip(event: ItemTooltipEvent) {
-			event.toolTip.add(Component.literal("Anti-Plasmids are not set in the Plasmid Infuser!").withStyle(ChatFormatting.RED))
-			event.toolTip.add(Component.literal("Craft it together with a completed Plasmid to set it.").withStyle(ChatFormatting.GRAY))
+			if (PlasmidItem.getGene(event.itemStack) != null) return
+
+			event.toolTip.add(ModTooltipLang.INFUSER_ANTI_PLASMID_1.toComponent().withStyle(ChatFormatting.RED))
+			event.toolTip.add(ModTooltipLang.INFUSER_ANTI_PLASMID_2.toComponent().withStyle(ChatFormatting.RED))
 		}
 
 		private fun addHelixTooltip(event: ItemTooltipEvent) {
