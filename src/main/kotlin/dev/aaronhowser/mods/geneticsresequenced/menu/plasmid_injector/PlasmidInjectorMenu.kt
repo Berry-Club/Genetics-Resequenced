@@ -63,7 +63,7 @@ class PlasmidInjectorMenu(
 			if (SyringeItem.isContaminated(hoverStack)) {
 				event.toolTip.add(
 					2,
-					ModTooltipLang.INFUSER_CONTAMINATED
+					ModTooltipLang.INJECTOR_CONTAMINATED
 						.toComponent()
 						.withStyle(ChatFormatting.RED)
 				)

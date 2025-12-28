@@ -1080,6 +1080,8 @@
   "tooltip.geneticsresequenced.plasmid.complete": "Plasmid is complete!",
   "tooltip.geneticsresequenced.plasmid.empty": "Empty Plasmid",
   "tooltip.geneticsresequenced.plasmid.gene": "Contains Gene: %s",
+  "tooltip.geneticsresequenced.plasmid_infuser.anti_plasmid_1": "Anti-Plasmids are not set in the Plasmid Infuser!",
+  "tooltip.geneticsresequenced.plasmid_infuser.anti_plasmid_2": "Craft it together with a completed Plasmid to set it.",
   "tooltip.geneticsresequenced.plasmid_infuser.basic_gene": "+1 DNA Point",
   "tooltip.geneticsresequenced.plasmid_infuser.different_gene": "Not applicable",
   "tooltip.geneticsresequenced.plasmid_infuser.matching_gene": "+2 DNA Points",

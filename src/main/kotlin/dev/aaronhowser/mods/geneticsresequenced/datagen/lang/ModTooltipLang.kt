@@ -21,7 +21,9 @@ object ModTooltipLang {
 		provider.add(INFUSER_BASIC, "+1 DNA Point")
 		provider.add(INFUSER_MATCHING, "+2 DNA Points")
 		provider.add(INFUSER_MISMATCH, "Not applicable")
-		provider.add(INFUSER_CONTAMINATED, "You can't inject Genes into Contaminated Blood!")
+		provider.add(INJECTOR_CONTAMINATED, "You can't inject Genes into Contaminated Blood!")
+		provider.add(INFUSER_ANTI_PLASMID_1, "Anti-Plasmids are not set in the Plasmid Infuser!")
+		provider.add(INFUSER_ANTI_PLASMID_2, "Craft it together with a completed Plasmid to set it.")
 		provider.add(COAL_GEN_TOTAL_FE, "Stack total: %d FE")
 		provider.add(IGNORE_POTION, "Don't craft this! It does nothing!")
 		provider.add(GMO_CHANCE, "Chance: %d%%")
@@ -60,7 +62,9 @@ object ModTooltipLang {
 	const val INFUSER_BASIC = "tooltip.geneticsresequenced.plasmid_infuser.basic_gene"
 	const val INFUSER_MATCHING = "tooltip.geneticsresequenced.plasmid_infuser.matching_gene"
 	const val INFUSER_MISMATCH = "tooltip.geneticsresequenced.plasmid_infuser.different_gene"
-	const val INFUSER_CONTAMINATED = "tooltip.geneticsresequenced.plasmid_injector.contaminated"
+	const val INFUSER_ANTI_PLASMID_1 = "tooltip.geneticsresequenced.plasmid_infuser.anti_plasmid_1"
+	const val INFUSER_ANTI_PLASMID_2 = "tooltip.geneticsresequenced.plasmid_infuser.anti_plasmid_2"
+	const val INJECTOR_CONTAMINATED = "tooltip.geneticsresequenced.plasmid_injector.contaminated"
 	const val COAL_GEN_TOTAL_FE = "tooltip.geneticsresequenced.coal_generator.total_fe"
 	const val IGNORE_POTION = "tooltip.geneticsresequenced.potion.ignore"
 	const val GMO_CHANCE = "tooltip.geneticsresequenced.gmo_cell.chance"
