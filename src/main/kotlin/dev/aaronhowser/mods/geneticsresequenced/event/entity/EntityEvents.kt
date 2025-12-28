@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DamageGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.MobGenes
@@ -94,8 +94,8 @@ object EntityEvents {
 
 		val child = event.child ?: return
 
-		val aGenes = parentA.geneHolders
-		val bGenes = parentB.geneHolders
+		val aGenes = parentA.permanentGeneHolders
+		val bGenes = parentB.permanentGeneHolders
 
 		if (aGenes.isEmpty() && bGenes.isEmpty()) return
 
@@ -116,7 +116,7 @@ object EntityEvents {
 	@SubscribeEvent
 	fun onMobDespawn(event: MobDespawnEvent) {
 		val mob = event.entity
-		if (mob.geneHolders.isNotEmpty()) {
+		if (mob.permanentGeneHolders.isNotEmpty()) {
 			event.result = MobDespawnEvent.Result.DENY
 		}
 	}

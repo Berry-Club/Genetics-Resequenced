@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.attachment
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.aaron.AaronExtensions.isHolder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -43,16 +44,21 @@ data class GenesData(
 		fun syncPlayer(player: Player) {
 			if (player !is ServerPlayer) return
 
-			val packet = SetGenesPacket(player.id, player.geneHolders)
+			val packet = SetGenesPacket(player.id, player.permanentGeneHolders)
 			packet.messagePlayer(player)
 		}
 
 		@JvmStatic
-		var LivingEntity.geneHolders: Set<Holder<Gene>>
+		var LivingEntity.permanentGeneHolders: Set<Holder<Gene>>
 			get() = this.getData(ModAttachmentTypes.GENE_CONTAINER).genes.toSet()
 			private set(value) {
 				this.setData(ModAttachmentTypes.GENE_CONTAINER, GenesData(value))
 			}
+
+		@JvmStatic
+		fun LivingEntity.getGenes(): Set<Holder<Gene>> {
+			return this.permanentGeneHolders + this.temporaryGeneHolders
+		}
 
 		@JvmStatic
 		fun LivingEntity.addGene(newGeneHolder: Holder<Gene>): Boolean {
@@ -96,7 +102,7 @@ data class GenesData(
 			}
 
 			val incompatibleGenes = newGeneHolder.value().incompatibleGenes
-			val foundIncompatibleGenes = this.geneHolders.filter { it.key in incompatibleGenes }
+			val foundIncompatibleGenes = this.permanentGeneHolders.filter { it.key in incompatibleGenes }
 			if (foundIncompatibleGenes.isNotEmpty()) {
 				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
@@ -116,7 +122,7 @@ data class GenesData(
 				return false
 			}
 
-			this.geneHolders += newGeneHolder
+			this.permanentGeneHolders += newGeneHolder
 
 			val eventPost = GeneChangeEvent.Post(this@addGene, newGeneHolder, true)
 			FORGE_BUS.post(eventPost)
@@ -136,7 +142,7 @@ data class GenesData(
 				return false
 			}
 
-			this.geneHolders -= removedGeneHolder
+			this.permanentGeneHolders -= removedGeneHolder
 
 			val eventPost = GeneChangeEvent.Post(this, removedGeneHolder, false)
 			FORGE_BUS.post(eventPost)
@@ -148,9 +154,9 @@ data class GenesData(
 		@OptIn(ExperimentalContracts::class)
 		fun Entity.hasGene(gene: Holder<Gene>): Boolean {
 			contract { returns(true) implies (this@hasGene is LivingEntity) }
-			if (gene.isDisabled) return false
+			if (gene.isDisabled || this !is LivingEntity) return false
 
-			return this is LivingEntity && gene in this.geneHolders
+			return gene in this.permanentGeneHolders || gene in this.temporaryGeneHolders
 		}
 
 		@JvmStatic
@@ -164,7 +170,7 @@ data class GenesData(
 
 		@JvmStatic
 		fun LivingEntity.removeAllGenes() {
-			for (gene in this.geneHolders) {
+			for (gene in this.permanentGeneHolders) {
 				this.removeGene(gene)
 			}
 		}

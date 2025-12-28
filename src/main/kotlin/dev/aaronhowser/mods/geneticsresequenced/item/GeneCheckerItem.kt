@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.geneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
@@ -35,7 +35,7 @@ class GeneCheckerItem(properties: Properties) : Item(properties) {
 		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
 
 		private fun tellHeldGenes(player: Player, targetEntity: LivingEntity) {
-			val targetGeneHolders = targetEntity.geneHolders
+			val targetGeneHolders = targetEntity.permanentGeneHolders
 
 			val component = if (targetGeneHolders.isEmpty()) {
 				if (targetEntity == player) {
