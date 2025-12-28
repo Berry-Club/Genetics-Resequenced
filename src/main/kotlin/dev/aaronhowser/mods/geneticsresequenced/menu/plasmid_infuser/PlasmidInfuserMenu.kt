@@ -14,6 +14,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import net.minecraft.ChatFormatting
+import net.minecraft.network.chat.Component
 import net.minecraft.world.Container
 import net.minecraft.world.SimpleContainer
 import net.minecraft.world.entity.player.Inventory
@@ -61,7 +62,13 @@ class PlasmidInfuserMenu(
 			when {
 				hoverStack.isEmpty -> return
 				hoverStack.`is`(ModItems.DNA_HELIX) -> addHelixTooltip(event)
+				hoverStack.`is`(ModItems.ANTI_PLASMID) -> addAntiPlasmidTooltip(event)
 			}
+		}
+
+		private fun addAntiPlasmidTooltip(event: ItemTooltipEvent) {
+			event.toolTip.add(Component.literal("Anti-Plasmids are not set in the Plasmid Infuser!").withStyle(ChatFormatting.RED))
+			event.toolTip.add(Component.literal("Craft it together with a completed Plasmid to set it.").withStyle(ChatFormatting.GRAY))
 		}
 
 		private fun addHelixTooltip(event: ItemTooltipEvent) {
