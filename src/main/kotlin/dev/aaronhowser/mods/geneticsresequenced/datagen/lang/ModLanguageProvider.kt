@@ -61,10 +61,10 @@ class ModLanguageProvider(
 		add(Commands.ADD_ALL_SINGLE, "Added all positive Genes to %s!")
 		add(Commands.ADD_ALL_MULTIPLE, "Added all positive Genes to %d entities!")
 
-		add(Commands.TEMPORARY_ADD_SINGLE_SUCCESS, "Temporarily added %1\$s to %2\$s for %3\$s!")
-		add(Commands.TEMPORARY_ADD_SINGLE_FAIL, "Failed to temporarily add %1\$s to %2\$s!")
-		add(Commands.TEMPORARY_ADD_MULTIPLE_SUCCESS, "Temporarily added %1\$s to %2\$d entities for %3\$s!")
-		add(Commands.TEMPORARY_ADD_MULTIPLE_FAIL, "Failed to temporarily add %1\$s to %2\$d entities!")
+		add(Commands.TEMPORARY_ADD_SINGLE_SUCCESS, "Temporarily added %1\$s to %2\$s for %3\$s ticks!")
+		add(Commands.TEMPORARY_ADD_SINGLE_FAIL, "Failed to temporarily add %1\$s to %2\$s ticks.")
+		add(Commands.TEMPORARY_ADD_MULTIPLE_SUCCESS, "Temporarily added %1\$s to %2\$d entities for %3\$s ticks!")
+		add(Commands.TEMPORARY_ADD_MULTIPLE_FAIL, "Failed to temporarily add %1\$s to %2\$d entities for %3\$s ticks.")
 
 		add(Commands.REMOVE_MULTIPLE_SUCCESS, "Removed %1\$s from %2\$d entities!")
 		add(Commands.REMOVE_MULTIPLE_FAIL, "Failed to remove %1\$s from %2\$d entities!")
