@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.attachment
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneAddedEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
@@ -61,6 +62,20 @@ data class TemporaryGenesData(
 						.append(newGeneHolder.key?.location() ?: newGeneHolder)
 						.append(" to entity ").append(name.string)
 						.append(", but that entity type cannot have that gene!")
+						.toString()
+				)
+				return false
+			}
+
+			val foundIncompatibleGenes = this.getGenes().filter { it.key in newGeneHolder.value().incompatibleGenes }
+			if (foundIncompatibleGenes.isNotEmpty()) {
+				GeneticsResequenced.LOGGER.debug(
+					StringBuilder()
+						.append("Tried to give temporary gene ")
+						.append(newGeneHolder.key?.location() ?: newGeneHolder)
+						.append(" to entity ").append(name.string)
+						.append(", but it is incompatible with the following genes the entity already has: ")
+						.append(foundIncompatibleGenes.joinToString { it.key?.location().toString() })
 						.toString()
 				)
 				return false
