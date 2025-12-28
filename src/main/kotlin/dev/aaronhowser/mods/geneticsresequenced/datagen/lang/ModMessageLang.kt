@@ -36,6 +36,8 @@ object ModMessageLang {
 			add(GENE_CHECKER_TARGET_LIST, "%s has the following Genes:\n%s")
 			add(GENE_CHECKER_POSSIBLE_GENES, "%s can provide the following Genes:\n%s")
 			add(GENE_CHECKER_NO_POSSIBLE_GENES, "%s cannot provide any Genes")
+			add(GENE_CHECKER_SELF_TEMPORARY_LIST, "You have the following temporary Genes:\n%s")
+			add(GENE_CHECKER_TARGET_TEMPORARY_LIST, "%s has the following temporary Genes:\n%s")
 			add(GENE_WEIGHT, "%s with weight %d")
 			add(ADVANCED_INCUBATOR_HIGH_TEMP, "Temp: HIGH")
 			add(ADVANCED_INCUBATOR_LOW_TEMP, "Temp: LOW")
@@ -72,6 +74,10 @@ object ModMessageLang {
 	const val GENE_CHECKER_SELF_LIST = "message.geneticsresequenced.gene_checker.list"
 	const val GENE_CHECKER_TARGET_NO_GENES = "message.geneticsresequenced.gene_checker.target.no_genes"
 	const val GENE_CHECKER_TARGET_LIST = "message.geneticsresequenced.gene_checker.target.list"
+	const val GENE_CHECKER_SELF_NO_TEMPORARY_GENES = "message.geneticsresequenced.gene_checker.no_temporary_genes"
+	const val GENE_CHECKER_SELF_TEMPORARY_LIST = "message.geneticsresequenced.gene_checker.temporary_list"
+	const val GENE_CHECKER_TARGET_NO_TEMPORARY_GENES = "message.geneticsresequenced.gene_checker.target.no_temporary_genes"
+	const val GENE_CHECKER_TARGET_TEMPORARY_LIST = "message.geneticsresequenced.gene_checker.target.temporary_list"
 	const val GENE_CHECKER_POSSIBLE_GENES = "message.geneticsresequenced.gene_checker.target.possible_genes"
 	const val GENE_CHECKER_NO_POSSIBLE_GENES = "message.geneticsresequenced.gene_checker.target.no_possible_genes"
 	const val GENE_WEIGHT = "message.geneticsresequenced.gene_weight"

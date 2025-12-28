@@ -2,16 +2,15 @@ package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
-import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
@@ -98,20 +97,8 @@ object ListGenesCommand {
 						target.displayName
 					)
 
-				val componentList = mutableListOf<Component>()
-
-				for (tempGene in tempGenes) {
-					val tempComponent = ModLanguageProvider.Commands.TEMPORARY_GENE_WITH_DURATION.toComponent(
-						tempGene.geneHolder.getName(),
-						tempGene.ticksRemaining
-					)
-
-					componentList.add(tempComponent)
-				}
-
-				messageComponent.append(
-					OtherUtil.componentList(componentList)
-				)
+				val componentList = tempGenes.map(TemporaryGenesData.TemporaryGene::getComponent)
+				messageComponent.append(OtherUtil.componentList(componentList))
 			},
 			false
 		)
