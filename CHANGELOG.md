@@ -7,7 +7,12 @@
 	- For example, you can't have both Placid and Frenzied at the same time
 - The concept of Temporary Genes
 	- A set of Genes entirely separate from the permanent Genes (which is what the old set is referred to now)
-	- Temporary Genes have a duration that goes down every tick, and then are removed when the duration reaches zero
+		- Temporary Genes have a duration that goes down every tick, and then are removed when the duration reaches zero
+		- Not kept on death
+	- Currently only implemented via commands, but I plan on making ways to give them in-game
+		- The current way of giving Genes is very bulky and absolutely not sneaky at all, but also giving Genes "non-consensually" is a pretty major thing.
+        - The idea is that you can temporarily give targets a Gene to hinder them in some way, without having to extract and purify the target's blood first
+		- I might remove the config to prevent players from being given negative genes, and instead have them be given via temporary genes instead
 
 ### Changed
 
