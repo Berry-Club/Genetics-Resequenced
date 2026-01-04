@@ -78,7 +78,7 @@ class CellToHelixEmiRecipe(
 				recipes.add(CellToHelixEmiRecipe(badGmoStack, badHelix))
 			}
 
-			return recipes.distinctBy { it.id }
+			return recipes.distinctBy(CellToHelixEmiRecipe::getId)
 		}
 	}
 

@@ -39,7 +39,7 @@ class PlasmidInfuserEmiRecipe(
 				recipes.add(PlasmidInfuserEmiRecipe(geneHolder, basic = false))
 			}
 
-			return recipes.distinctBy { it.id }
+			return recipes.distinctBy(PlasmidInfuserEmiRecipe::getId)
 		}
 	}
 

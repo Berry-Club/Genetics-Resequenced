@@ -28,7 +28,7 @@ class OrganicMatterToCellEmiRecipe(
 				recipes.add(OrganicMatterToCellEmiRecipe(entityType))
 			}
 
-			return recipes.distinctBy { it.id }
+			return recipes.distinctBy(OrganicMatterToCellEmiRecipe::getId)
 		}
 	}
 
