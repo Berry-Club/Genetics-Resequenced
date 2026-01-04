@@ -48,7 +48,7 @@ class SupportSlimeRenderer(
 		if (headStack != null) return headStack!!
 
 		val ownerUuid = pEntity.getOwnerUuid()
-		val owner = ownerUuid?.let { pEntity.level().getPlayerByUUID(it) }
+		val owner = if (ownerUuid == null) null else pEntity.level().getPlayerByUUID(ownerUuid)
 
 		if (owner == null) return ItemStack.EMPTY
 
