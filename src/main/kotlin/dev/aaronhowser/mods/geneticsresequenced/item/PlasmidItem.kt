@@ -98,14 +98,13 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 		}
 
 		fun getCompletedPlasmid(geneHolder: Holder<Gene>): ItemStack {
-			return ModItems.PLASMID.toStack().apply {
-				setGene(this, geneHolder, geneHolder.value().dnaPointsRequired)
-			}
+			val stack = ModItems.PLASMID.toStack()
+			setGene(stack, geneHolder, geneHolder.value().dnaPointsRequired)
+			return stack
 		}
 
 		fun getAllPlasmids(registries: HolderLookup.Provider): List<ItemStack> {
-			return ModGenes.getRegistrySorted(registries, includeHelixOnly = false)
-				.map { getCompletedPlasmid(it) }
+			return ModGenes.getRegistrySorted(registries, includeHelixOnly = false).map(::getCompletedPlasmid)
 		}
 
 	}
