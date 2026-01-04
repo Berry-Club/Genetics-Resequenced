@@ -41,7 +41,7 @@ class DecryptHelixEmiRecipe(
 				}
 			}
 
-			return recipes.distinctBy { it.id }
+			return recipes.distinctBy(DecryptHelixEmiRecipe::getId)
 		}
 	}
 
