@@ -172,8 +172,9 @@ object TickGenes {
 		val genesToSkip = mutableListOf<ResourceKey<Gene>>()
 
 		for (geneHolder in genesWithPotions.toList()) {
-			GENE_INFERIORITY_MAP[geneHolder.key]?.let { redundantGenes ->
-				genesToSkip.addAll(redundantGenes)
+			val inferiorGenes = GENE_INFERIORITY_MAP[geneHolder.key] ?: emptyList()
+			for (inferiorGene in inferiorGenes) {
+				genesToSkip.add(inferiorGene)
 			}
 		}
 
