@@ -13,7 +13,6 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.SetGenesPacket
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
@@ -95,9 +94,21 @@ class GenesCapability() {
 
 		@JvmStatic
 		var LivingEntity.permanentGeneHolders: Set<Holder<Gene>>
-			get() = this.getData(ModAttachmentTypes.GENE_CONTAINER).genes.toSet()
+			get() {
+				val cap = this.getCapability(GenesCapabilityProvider.CAPABILITY)
+					.resolve()
+					.getOrNull()
+					?: return emptySet()
+
+				return cap.genes
+			}
 			private set(value) {
-				this.setData(ModAttachmentTypes.GENE_CONTAINER, GenesCapability(value))
+				val cap = this.getCapability(GenesCapabilityProvider.CAPABILITY)
+					.resolve()
+					.getOrNull()
+					?: return
+
+				cap.genes = value
 			}
 
 		@JvmStatic
