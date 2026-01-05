@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
+import dev.aaronhowser.mods.geneticsresequenced.capability.TemporaryGenesCapability
+import dev.aaronhowser.mods.geneticsresequenced.capability.TemporaryGenesCapability.Companion.temporaryGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -95,7 +97,7 @@ object ListGenesCommand {
 						target.displayName
 					)
 
-				val componentList = tempGenes.map(TemporaryGenesData.TemporaryGene::getComponent)
+				val componentList = tempGenes.map(TemporaryGenesCapability.TemporaryGene::getComponent)
 				messageComponent.append(OtherUtil.componentList(componentList))
 			},
 			false

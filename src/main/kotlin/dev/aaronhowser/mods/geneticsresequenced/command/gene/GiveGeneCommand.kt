@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
+import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
@@ -154,12 +155,12 @@ object GiveGeneCommand {
 	): Boolean {
 		val alreadyHasGene = target.hasGene(geneHolder)
 		if (alreadyHasGene) {
-			GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.location()} to ${target.name.string}, but they already have it!")
+			GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.getLocationOrNull()} to ${target.name.string}, but they already have it!")
 			return false
 		}
 
 		if (!geneHolder.value().canEntityHave(target)) {
-			GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.location()} to ${target.name.string}, but they can't have it!")
+			GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.getLocationOrNull()} to ${target.name.string}, but they can't have it!")
 			return false
 		}
 

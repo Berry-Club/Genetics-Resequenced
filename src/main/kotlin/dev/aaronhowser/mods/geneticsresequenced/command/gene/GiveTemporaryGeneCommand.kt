@@ -2,8 +2,10 @@ package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
+import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasPermanentGene
+import dev.aaronhowser.mods.geneticsresequenced.capability.TemporaryGenesCapability.Companion.addTemporaryGene
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -164,12 +166,12 @@ object GiveTemporaryGeneCommand {
 		val alreadyHasGene = target.hasPermanentGene(geneHolder)
 
 		if (alreadyHasGene) {
-			GeneticsResequenced.LOGGER.info("Tried to add temporary gene ${geneHolder.key!!.location()} to ${target.name.string}, but they already have it as a permanent Gene!")
+			GeneticsResequenced.LOGGER.info("Tried to add temporary gene ${geneHolder.getLocationOrNull()} to ${target.name.string}, but they already have it as a permanent Gene!")
 			return false
 		}
 
 		if (!geneHolder.value().canEntityHave(target)) {
-			GeneticsResequenced.LOGGER.info("Tried to add temporary gene ${geneHolder.key!!.location()} to ${target.name.string}, but that entity type cannot have that gene!")
+			GeneticsResequenced.LOGGER.info("Tried to add temporary gene ${geneHolder.getLocationOrNull()} to ${target.name.string}, but that entity type cannot have that gene!")
 			return false
 		}
 
