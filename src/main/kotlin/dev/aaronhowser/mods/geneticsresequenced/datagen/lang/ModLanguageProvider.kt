@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects
 import net.minecraft.data.PackOutput
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
-import net.neoforged.neoforge.common.data.LanguageProvider
+import net.minecraftforge.common.data.LanguageProvider
 
 class ModLanguageProvider(
 	output: PackOutput
