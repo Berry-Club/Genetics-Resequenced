@@ -6,7 +6,6 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockE
 import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.EnergyContainerData
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.nbt.IntTag
 import net.minecraft.network.chat.Component
@@ -22,10 +21,10 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
-import net.neoforged.neoforge.energy.EnergyStorage
-import net.neoforged.neoforge.items.IItemHandler
-import net.neoforged.neoforge.items.IItemHandlerModifiable
-import net.neoforged.neoforge.items.wrapper.InvWrapper
+import net.minecraftforge.energy.EnergyStorage
+import net.minecraftforge.items.IItemHandler
+import net.minecraftforge.items.IItemHandlerModifiable
+import net.minecraftforge.items.wrapper.InvWrapper
 
 abstract class MachineBlockEntity(
 	blockEntityType: BlockEntityType<*>,
@@ -76,24 +75,24 @@ abstract class MachineBlockEntity(
 		level?.sendBlockUpdated(blockPos, blockState, blockState, Block.UPDATE_ALL_IMMEDIATE)
 	}
 
-	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.saveAdditional(tag, registries)
+	override fun saveAdditional(pTag: CompoundTag) {
+		super.saveAdditional(pTag)
 
-		ContainerHelper.saveAllItems(tag, this.container.items, registries)
-		tag.put(ENERGY_NBT, energyStorage.serializeNBT(registries))
+		ContainerHelper.saveAllItems(pTag, this.container.items)
+		pTag.put(ENERGY_NBT, energyStorage.serializeNBT())
 	}
 
-	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.loadAdditional(tag, registries)
+	override fun load(pTag: CompoundTag) {
+		super.load(pTag)
 
-		ContainerHelper.loadAllItems(tag, this.container.items, registries)
-		val energy = tag.get(ENERGY_NBT)
+		ContainerHelper.loadAllItems(pTag, this.container.items)
+		val energy = pTag.get(ENERGY_NBT)
 		if (energy is IntTag) {
-			energyStorage.deserializeNBT(registries, energy)
+			energyStorage.deserializeNBT(energy)
 		}
 	}
 
-	override fun getUpdateTag(pRegistries: HolderLookup.Provider): CompoundTag = saveWithoutMetadata(pRegistries)
+	override fun getUpdateTag(): CompoundTag = saveWithoutMetadata()
 	override fun getUpdatePacket(): Packet<ClientGamePacketListener> = ClientboundBlockEntityDataPacket.create(this)
 
 	override fun getDisplayName(): Component {
