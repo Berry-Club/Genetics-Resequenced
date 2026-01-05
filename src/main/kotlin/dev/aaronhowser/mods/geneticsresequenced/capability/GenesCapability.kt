@@ -98,7 +98,11 @@ class GenesCapability() {
 				val cap = this.getCapability(GenesCapabilityProvider.CAPABILITY)
 					.resolve()
 					.getOrNull()
-					?: return emptySet()
+
+				if (cap == null) {
+					GeneticsResequenced.LOGGER.warn("Tried to get genes capability for entity ${this.name.string} but it was null!")
+					return emptySet()
+				}
 
 				return cap.genes
 			}
@@ -106,7 +110,11 @@ class GenesCapability() {
 				val cap = this.getCapability(GenesCapabilityProvider.CAPABILITY)
 					.resolve()
 					.getOrNull()
-					?: return
+
+				if (cap == null) {
+					GeneticsResequenced.LOGGER.warn("Tried to set genes capability for entity ${this.name.string} but it was null!")
+					return
+				}
 
 				cap.genes = value
 			}
