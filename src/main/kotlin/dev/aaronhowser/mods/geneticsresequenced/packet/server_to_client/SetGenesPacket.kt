@@ -5,15 +5,11 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.a
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeAllGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderSet
-import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.network.codec.ByteBufCodecs
-import net.minecraft.network.codec.StreamCodec
-import net.minecraft.network.protocol.common.custom.CustomPacketPayload
+import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.world.entity.LivingEntity
-import net.neoforged.neoforge.network.handling.IPayloadContext
+import net.minecraftforge.network.NetworkEvent
 
 data class SetGenesPacket(
 	val entityId: Int,
@@ -25,8 +21,9 @@ data class SetGenesPacket(
 		genes: Collection<Holder<Gene>>
 	) : this(entityId, HolderSet.direct(*genes.toTypedArray()))
 
-	override fun handleOnClient(context: IPayloadContext) {
-		val level = context.player().level()
+	override fun handleOnClient(context: NetworkEvent.Context) {
+		val sender = context.sender ?: return
+		val level = sender.level()
 		val entity = level.getEntity(this.entityId) as? LivingEntity ?: return
 
 		entity.removeAllGenes()
@@ -36,20 +33,12 @@ data class SetGenesPacket(
 		}
 	}
 
-	override fun type(): CustomPacketPayload.Type<SetGenesPacket> {
-		return TYPE
-	}
+	override fun encode(buffer: FriendlyByteBuf) {
+		buffer.writeInt(this.entityId)
 
-	companion object {
-		val TYPE: CustomPacketPayload.Type<SetGenesPacket> =
-			CustomPacketPayload.Type(OtherUtil.modResource("set_genes"))
-
-		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SetGenesPacket> =
-			StreamCodec.composite(
-				ByteBufCodecs.INT, SetGenesPacket::entityId,
-				ByteBufCodecs.holderSet(ModGenes.GENE_REGISTRY_KEY), SetGenesPacket::geneSet,
-				::SetGenesPacket
-			)
+		for (gene in geneSet) {
+			buffer.writeRegistryId(ModGenes.GENE_REGISTRY_KEY, gene)
+		}
 	}
 
 }
