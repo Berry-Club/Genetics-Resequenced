@@ -18,81 +18,80 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Items
-import net.neoforged.neoforge.common.ItemAbilities
-import net.neoforged.neoforge.common.NeoForgeMod
-import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
+import net.minecraftforge.common.ToolActions
+import net.minecraftforge.event.entity.living.LivingAttackEvent
+import net.minecraftforge.event.entity.living.LivingDamageEvent
 
 object DamageGenes {
 
 	// Canceling
 
-	fun handleNoFallDamage(event: EntityInvulnerabilityCheckEvent) {
+	fun handleNoFallDamage(event: LivingAttackEvent) {
 		if (!event.source.`is`(DamageTypes.FALL)) return
 
 		val entity = event.entity
 		if (entity.hasGene(ModGenes.NO_FALL_DAMAGE)) {
-			event.isInvulnerable = true
+			event.isCanceled = true
 		}
 	}
 
-	fun handleWitherProof(event: EntityInvulnerabilityCheckEvent) {
+	fun handleWitherProof(event: LivingAttackEvent) {
 		if (!event.source.isDamageSource(DamageTypes.WITHER)) return
 
 		val entity = event.entity
 		if (entity.hasGene(ModGenes.WITHER_PROOF)) {
 			entity.removeEffect(MobEffects.WITHER)
-			event.isInvulnerable = true
+			event.isCanceled = true
 		}
 	}
 
-	fun handleFireProof(event: EntityInvulnerabilityCheckEvent) {
+	fun handleFireProof(event: LivingAttackEvent) {
 		if (!event.source.isDamageSource(DamageTypes.IN_FIRE) && !event.source.isDamageSource(DamageTypes.ON_FIRE)) return
 
 		val entity = event.entity
 		if (entity.hasGene(ModGenes.FIRE_PROOF)) {
 			entity.clearFire()
-			event.isInvulnerable = true
+			event.isCanceled = true
 		}
 	}
 
-	fun handleLavaProof(event: EntityInvulnerabilityCheckEvent) {
+	fun handleLavaProof(event: LivingAttackEvent) {
 		if (!event.source.isDamageSource(DamageTypes.LAVA)) return
 
 		val entity = event.entity
 		if (entity.hasGene(ModGenes.LAVA_PROOF)) {
-			event.isInvulnerable = true
+			event.isCanceled = true
 		}
 	}
 
-	fun handlePoisonProof(event: EntityInvulnerabilityCheckEvent) {
-		if (!event.source.isDamageSource(NeoForgeMod.POISON_DAMAGE)) return
+	fun handlePoisonProof(event: LivingAttackEvent) {
+		if (!event.source.isDamageSource(DamageTypes.MAGIC)) return
 
 		val entity = event.entity
 		if (entity.hasGene(ModGenes.POISON_IMMUNITY)) {
 			entity.removeEffect(MobEffects.POISON)
-			event.isInvulnerable = true
+			event.isCanceled = true
 		}
 	}
 
 	// Changing amount (not just canceling)
 
-	fun handleDragonHealth(event: LivingDamageEvent.Pre) {
+	fun handleDragonHealth(event: LivingDamageEvent) {
 		DragonHealthCrystal.handleIncomingDamage(event)
 	}
 
-	fun handleJohnny(event: LivingDamageEvent.Pre) {
-		val attacker = event.container.source.entity as? LivingEntity ?: return
+	fun handleJohnny(event: LivingDamageEvent) {
+		val attacker = event.source.entity as? LivingEntity ?: return
 		if (!attacker.hasGene(ModGenes.JOHNNY)) return
 
-		val weaponIsAxe = attacker.mainHandItem.item.canPerformAction(attacker.mainHandItem, ItemAbilities.AXE_DIG)
+		val weaponIsAxe = attacker.mainHandItem.item.canPerformAction(attacker.mainHandItem, ToolActions.AXE_DIG)
 		if (!weaponIsAxe) return
 
-		event.container.newDamage *= ServerConfig.CONFIG.johnnyAttackMultiplier.get().toFloat()
+		event.amount *= ServerConfig.CONFIG.johnnyAttackMultiplier.get().toFloat()
 	}
 
-	fun handleClawsDamageBonus(event: LivingDamageEvent.Pre) {
-		val attacker = event.container.source.entity as? LivingEntity ?: return
+	fun handleClawsDamageBonus(event: LivingDamageEvent) {
+		val attacker = event.source.entity as? LivingEntity ?: return
 		if (attacker.mainHandItem.isNotEmpty()) return
 
 		val clawsLevel = when {
@@ -102,12 +101,12 @@ object DamageGenes {
 		}
 
 		val additionalDamage = ServerConfig.CONFIG.clawsDamage.get() * clawsLevel
-		event.container.newDamage += additionalDamage.toFloat()
+		event.amount += additionalDamage.toFloat()
 	}
 
 	// Triggers
 
-	fun handleWebDefense(event: LivingDamageEvent.Post) {
+	fun handleWebDefense(event: LivingDamageEvent) {
 		val victim = event.entity
 		if (!victim.hasGene(ModGenes.WEB_DEFENSE)) return
 
@@ -122,9 +121,9 @@ object DamageGenes {
 		}
 	}
 
-	fun handleWitherHit(event: LivingDamageEvent.Post) {
+	fun handleWitherHit(event: LivingDamageEvent) {
 		// Makes it not proc if it's an arrow or whatever
-		if (!event.source.isDirect) return
+		if (event.source.isIndirect) return
 
 		val victim = event.entity
 		val attacker = event.source.entity as? LivingEntity ?: return
@@ -141,7 +140,7 @@ object DamageGenes {
 		victim.addEffect(witherEffect)
 	}
 
-	fun handleThorns(event: LivingDamageEvent.Post) {
+	fun handleThorns(event: LivingDamageEvent) {
 		val attacker = event.source.entity as? LivingEntity ?: return
 
 		val target = event.entity as? Mob ?: event.entity as? Player ?: return
@@ -163,7 +162,7 @@ object DamageGenes {
 		}
 	}
 
-	fun handleClawsBleeding(event: LivingDamageEvent.Post) {
+	fun handleClawsBleeding(event: LivingDamageEvent) {
 		val attacker = event.source.entity as? LivingEntity ?: return
 		if (attacker.mainHandItem.isNotEmpty()) return
 
@@ -178,7 +177,7 @@ object DamageGenes {
 
 		event.entity.addEffect(
 			MobEffectInstance(
-				ModEffects.BLEED,
+				ModEffects.BLEED.get(),
 				20 * 5,
 				0,
 				false,
@@ -189,8 +188,8 @@ object DamageGenes {
 		)
 	}
 
-	fun handleChilling(event: LivingDamageEvent.Post) {
-		if (!event.source.isDirect) return
+	fun handleChilling(event: LivingDamageEvent) {
+		if (event.source.isIndirect) return
 
 		val attacker = event.source.entity as? LivingEntity ?: return
 		if (!attacker.hasGene(ModGenes.CHILLING)) return
