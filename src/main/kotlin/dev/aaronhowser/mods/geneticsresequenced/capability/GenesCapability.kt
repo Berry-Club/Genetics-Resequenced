@@ -51,13 +51,13 @@ class GenesCapability() {
 			listTag.add(stringTag)
 		}
 
-		tag.put("genes", listTag)
+		tag.put(GENES_TAG, listTag)
 		return tag
 	}
 
 	fun fromTag(registries: HolderLookup.Provider, tag: CompoundTag) {
 		val registry = registries.lookupOrThrow(ModGenes.GENE_REGISTRY_KEY)
-		val listTag = tag.getList("genes", Tag.TAG_STRING.toInt())
+		val listTag = tag.getList(GENES_TAG, Tag.TAG_STRING.toInt())
 
 		val newGenes = mutableSetOf<Holder<Gene>>()
 
@@ -73,6 +73,7 @@ class GenesCapability() {
 	}
 
 	companion object {
+		private const val GENES_TAG = "genes"
 
 		val CODEC: Codec<GenesCapability> = Gene.CODEC.listOf().xmap(
 			{ GenesCapability(it.toSet()) },
