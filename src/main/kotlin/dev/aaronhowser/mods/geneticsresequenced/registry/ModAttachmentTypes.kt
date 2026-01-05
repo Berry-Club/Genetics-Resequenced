@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory
-import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
 import net.neoforged.neoforge.attachment.AttachmentType
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister

@@ -4,10 +4,16 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneAddedEvent
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneRemovedEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
+import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
@@ -17,7 +23,9 @@ import net.minecraft.nbt.Tag
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
+import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 import kotlin.jvm.optionals.getOrNull
 
 class TemporaryGenesCapability() {
@@ -98,6 +106,101 @@ class TemporaryGenesCapability() {
 
 				cap.temporaryGenes = value
 			}
+
+		@JvmStatic
+		val LivingEntity.temporaryGeneHolders: List<Holder<Gene>>
+			get() = this.temporaryGenes.map(TemporaryGene::geneHolder)
+
+		fun tickTemporaryGenes(entity: LivingEntity) {
+			val copy = entity.temporaryGenes.toList()
+			for (tempGene in copy) {
+				if (tempGene.tick()) {
+					entity.removeTemporaryGene(tempGene.geneHolder)
+				}
+			}
+		}
+
+		fun LivingEntity.removeTemporaryGene(
+			geneHolderToRemove: Holder<Gene>
+		) {
+			val existingList = this.temporaryGenes.toMutableList()
+			val wasRemoved = existingList.removeIf { it.geneHolder.isGene(geneHolderToRemove) }
+			if (!wasRemoved) return
+
+			if (geneHolderToRemove.value().potions.isNotEmpty()) {
+				TickGenes.handlePotionGeneRemoved(this, geneHolderToRemove)
+			}
+
+			val event = TemporaryGeneRemovedEvent(this, geneHolderToRemove)
+			FORGE_BUS.post(event)
+
+			this.temporaryGenes = existingList
+		}
+
+		@JvmStatic
+		fun LivingEntity.addTemporaryGene(
+			newGeneHolder: Holder<Gene>,
+			durationTicks: Int
+		): Boolean {
+			if (newGeneHolder.isHelixOnly) {
+				GeneticsResequenced.LOGGER.debug(
+					"Cannot add gene $newGeneHolder to entities, as it has tag `#geneticsresequenced:helix_only`."
+				)
+				return false
+			}
+
+			val allowedTypes = newGeneHolder.value().allowedEntities.map(Holder<EntityType<*>>::value)
+			if (this.type !in allowedTypes) {
+				GeneticsResequenced.LOGGER.debug(
+					StringBuilder()
+						.append("Tried to give temporary gene ")
+						.append(newGeneHolder.getLocationOrNull() ?: newGeneHolder)
+						.append(" to entity ").append(name.string)
+						.append(", but that entity type cannot have that gene!")
+						.toString()
+				)
+				return false
+			}
+
+			val incompatibleGenes = newGeneHolder.value().incompatibleGenes
+
+			val foundIncompatibleGenes = this.getGenes().filter { it.unwrapKey().getOrNull() in incompatibleGenes }
+			if (foundIncompatibleGenes.isNotEmpty()) {
+				GeneticsResequenced.LOGGER.debug(
+					StringBuilder()
+						.append("Tried to give temporary gene ")
+						.append(newGeneHolder.getLocationOrNull() ?: newGeneHolder)
+						.append(" to entity ").append(name.string)
+						.append(", but it is incompatible with the following genes the entity already has: ")
+						.append(foundIncompatibleGenes.joinToString { it.getLocationOrNull().toString() })
+						.toString()
+				)
+				return false
+			}
+
+			val eventPre = TemporaryGeneAddedEvent.Pre(this, newGeneHolder, durationTicks)
+			FORGE_BUS.post(eventPre)
+			if (eventPre.isCanceled) {
+				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
+				return false
+			}
+
+			val existingList = this.temporaryGenes.toMutableList()
+
+			val existingTempGene = existingList.find { it.geneHolder.isGene(newGeneHolder) }
+			if (existingTempGene != null) {
+				existingTempGene.ticksRemaining = durationTicks
+			} else {
+				existingList.add(TemporaryGene(newGeneHolder, durationTicks))
+			}
+
+			this.temporaryGenes = existingList
+
+			val eventPost = TemporaryGeneAddedEvent.Post(this, newGeneHolder, durationTicks)
+			FORGE_BUS.post(eventPost)
+
+			return true
+		}
 	}
 
 	class TemporaryGene(
