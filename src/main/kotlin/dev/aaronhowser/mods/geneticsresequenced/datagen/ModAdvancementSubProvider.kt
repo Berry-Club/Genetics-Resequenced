@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.withComponent
 import dev.aaronhowser.mods.aaron.datagen.AaronAdvancementSubProvider
 import dev.aaronhowser.mods.geneticsresequenced.advancement.HelixGenePredicate
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModAdvancementLang
@@ -12,15 +11,14 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItemSubPredicates
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.advancements.Advancement
-import net.minecraft.advancements.AdvancementHolder
-import net.minecraft.advancements.AdvancementRequirements
-import net.minecraft.advancements.AdvancementType
+import net.minecraft.advancements.FrameType
+import net.minecraft.advancements.RequirementsStrategy
 import net.minecraft.advancements.critereon.InventoryChangeTrigger
 import net.minecraft.advancements.critereon.ItemPredicate
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.Items
-import net.neoforged.neoforge.common.data.ExistingFileHelper
+import net.minecraftforge.common.data.ExistingFileHelper
 import java.util.*
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -31,7 +29,7 @@ class ModAdvancementSubProvider(
 
 	override fun generate(
 		registries: HolderLookup.Provider,
-		saver: Consumer<AdvancementHolder>,
+		saver: Consumer<Advancement>,
 		existingFileHelper: ExistingFileHelper
 	) {
 
@@ -41,7 +39,7 @@ class ModAdvancementSubProvider(
 				Component.literal("Genetics: Resequenced"),
 				ModAdvancementLang.SCRAPER_DESC.toComponent(),
 				OtherUtil.modResource("textures/block/machine_bottom.png"),
-				AdvancementType.TASK,
+				FrameType.TASK,
 				true,
 				true,
 				false
@@ -67,7 +65,7 @@ class ModAdvancementSubProvider(
 				"cell",
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.CELL.get())
 			)
-			.requirements(AdvancementRequirements.Strategy.OR)
+			.requirements(RequirementsStrategy.OR)
 			.save(saver, CELL_ANALYZER, existingFileHelper)
 
 		val dnaExtractor = advancement()
@@ -85,7 +83,7 @@ class ModAdvancementSubProvider(
 				"dna_helix",
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DNA_HELIX.get())
 			)
-			.requirements(AdvancementRequirements.Strategy.OR)
+			.requirements(RequirementsStrategy.OR)
 			.save(saver, DNA_EXTRACTOR, existingFileHelper)
 
 		val dnaDecryptor = advancement()
@@ -129,9 +127,7 @@ class ModAdvancementSubProvider(
 				Items.WITHER_ROSE,
 				ModAdvancementLang.BLACK_DEATH_TITLE.toComponent(),
 				ModAdvancementLang.BLACK_DEATH_DESC.toComponent(),
-				null,
-				AdvancementType.CHALLENGE,
-				true, true, false
+				FrameType.CHALLENGE
 			)
 			.addCriterion(
 				"black_death_helix",
@@ -187,7 +183,7 @@ class ModAdvancementSubProvider(
 				ModAdvancementLang.GET_GENE_TITLE.toComponent(),
 				ModAdvancementLang.GET_GENE_DESC.toComponent(),
 				null,
-				AdvancementType.GOAL,
+				FrameType.GOAL,
 				true, true, false
 			)
 			.addImpossibleCriterion()
@@ -199,7 +195,7 @@ class ModAdvancementSubProvider(
 				Items.ELYTRA,
 				ModAdvancementLang.FLIGHT_TITLE.toComponent(),
 				ModAdvancementLang.FLIGHT_DESC.toComponent(),
-				AdvancementType.CHALLENGE,
+				FrameType.CHALLENGE,
 			)
 			.addImpossibleCriterion()
 			.save(saver, GET_FLIGHT, existingFileHelper)
@@ -210,7 +206,7 @@ class ModAdvancementSubProvider(
 				Items.JACK_O_LANTERN,
 				ModAdvancementLang.SCARE_TITLE.toComponent(),
 				ModAdvancementLang.SCARE_DESC.toComponent(),
-				AdvancementType.CHALLENGE,
+				FrameType.CHALLENGE,
 			)
 			.addImpossibleCriterion()
 			.save(saver, GET_ALL_SCARE_GENES, existingFileHelper)
@@ -221,7 +217,7 @@ class ModAdvancementSubProvider(
 				Items.SKELETON_SKULL,
 				ModAdvancementLang.CRINGE_TITLE.toComponent(),
 				ModAdvancementLang.CRINGE_DESC.toComponent(),
-				AdvancementType.GOAL,
+				FrameType.GOAL,
 			)
 			.addImpossibleCriterion()
 			.save(saver, GET_CRINGE, existingFileHelper)
@@ -232,7 +228,7 @@ class ModAdvancementSubProvider(
 				Items.MILK_BUCKET,
 				ModAdvancementLang.GET_MILKED_TITLE.toComponent(),
 				ModAdvancementLang.GET_MILKED_DESC.toComponent(),
-				AdvancementType.CHALLENGE,
+				FrameType.CHALLENGE,
 			)
 			.addImpossibleCriterion()
 			.save(saver, GET_MILKED, existingFileHelper)
@@ -243,7 +239,7 @@ class ModAdvancementSubProvider(
 				Items.SLIME_BALL,
 				ModAdvancementLang.SLIMY_TITLE.toComponent(),
 				ModAdvancementLang.SLIMY_DESC.toComponent(),
-				AdvancementType.CHALLENGE,
+				FrameType.CHALLENGE,
 			)
 			.addImpossibleCriterion()
 			.save(saver, TRIGGER_SLIMY_DEATH, existingFileHelper)
@@ -263,7 +259,7 @@ class ModAdvancementSubProvider(
 				"metal_syringe",
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.METAL_SYRINGE.get())
 			)
-			.requirements(AdvancementRequirements.Strategy.OR)
+			.requirements(RequirementsStrategy.OR)
 			.save(saver, SYRINGE, existingFileHelper)
 
 		advancement()
