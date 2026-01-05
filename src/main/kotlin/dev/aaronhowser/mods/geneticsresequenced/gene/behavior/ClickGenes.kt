@@ -5,8 +5,8 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.AaronExtensions.nextRange
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang

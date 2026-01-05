@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
 import net.neoforged.neoforge.attachment.AttachmentType
@@ -15,12 +15,12 @@ object ModAttachmentTypes {
 	val ATTACHMENT_TYPES_REGISTRY: DeferredRegister<AttachmentType<*>> =
 		DeferredRegister.create(NeoForgeRegistries.ATTACHMENT_TYPES, GeneticsResequenced.MOD_ID)
 
-	val GENE_CONTAINER: DeferredHolder<AttachmentType<*>, AttachmentType<GenesData>> =
+	val GENE_CONTAINER: DeferredHolder<AttachmentType<*>, AttachmentType<GenesCapability>> =
 		register(
 			"genes",
 			AttachmentType
-				.builder(::GenesData)
-				.serialize(GenesData.CODEC)
+				.builder(::GenesCapability)
+				.serialize(GenesCapability.CODEC)
 				.copyOnDeath()
 				.build()
 		)

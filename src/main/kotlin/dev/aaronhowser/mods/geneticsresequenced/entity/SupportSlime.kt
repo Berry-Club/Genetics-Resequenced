@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang

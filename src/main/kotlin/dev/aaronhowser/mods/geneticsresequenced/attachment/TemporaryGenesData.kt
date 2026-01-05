@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.attachment
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneAddedEvent

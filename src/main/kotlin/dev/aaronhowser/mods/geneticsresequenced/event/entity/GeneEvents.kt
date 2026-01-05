@@ -4,8 +4,8 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.withHoverText
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang

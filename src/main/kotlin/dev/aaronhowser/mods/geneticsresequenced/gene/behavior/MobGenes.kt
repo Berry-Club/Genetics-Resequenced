@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isEntity
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.FrenzyMeleeAttackGoal
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.FrenzyTargetGoal
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled

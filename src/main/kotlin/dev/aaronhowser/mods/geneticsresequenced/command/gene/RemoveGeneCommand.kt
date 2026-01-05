@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command.gene
 import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_STRINGS
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider

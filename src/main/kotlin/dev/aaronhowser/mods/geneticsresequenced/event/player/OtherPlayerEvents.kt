@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
@@ -52,17 +52,17 @@ object OtherPlayerEvents {
 
 	@SubscribeEvent
 	fun onLogIn(event: PlayerEvent.PlayerLoggedInEvent) {
-		GenesData.syncPlayer(event.entity)
+		GenesCapability.syncPlayer(event.entity)
 	}
 
 	@SubscribeEvent
 	fun onChangeDimension(event: PlayerEvent.PlayerChangedDimensionEvent) {
-		GenesData.syncPlayer(event.entity)
+		GenesCapability.syncPlayer(event.entity)
 	}
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
 	fun onPlayerRespawn(event: PlayerEvent.PlayerRespawnEvent) {
-		GenesData.syncPlayer(event.entity)
+		GenesCapability.syncPlayer(event.entity)
 	}
 
 	@SubscribeEvent

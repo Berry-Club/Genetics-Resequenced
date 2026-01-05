@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider

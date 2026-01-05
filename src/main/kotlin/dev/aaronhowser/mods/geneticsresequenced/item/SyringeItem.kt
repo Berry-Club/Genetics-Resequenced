@@ -2,9 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.addGene
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModItemLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang

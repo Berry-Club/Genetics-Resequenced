@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeAllGenes
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeAllGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import net.minecraft.commands.CommandSourceStack

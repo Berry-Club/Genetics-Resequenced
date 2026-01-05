@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 
 import dev.aaronhowser.mods.aaron.packet.AaronPacket
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeAllGenes
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.addGene
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeAllGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceKey

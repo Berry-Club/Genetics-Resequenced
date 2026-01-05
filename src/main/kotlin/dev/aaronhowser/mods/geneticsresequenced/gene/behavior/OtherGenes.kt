@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang

@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.advancement
 
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModAdvancementSubProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene

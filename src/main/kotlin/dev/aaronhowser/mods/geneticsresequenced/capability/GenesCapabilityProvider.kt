@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.capability
 
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData
 import net.minecraft.core.Direction
+import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.CapabilityManager
@@ -9,14 +9,16 @@ import net.minecraftforge.common.capabilities.CapabilityToken
 import net.minecraftforge.common.capabilities.ICapabilitySerializable
 import net.minecraftforge.common.util.LazyOptional
 
-class GenesCapabilityProvider : ICapabilitySerializable<CompoundTag> {
+class GenesCapabilityProvider(
+	private val registries: HolderLookup.Provider
+) : ICapabilitySerializable<CompoundTag> {
 
-	private var genes: GenesData? = null
-	private val optional: LazyOptional<GenesData> = LazyOptional.of(::lazilyGetGenes)
+	private var genes: GenesCapability? = null
+	private val optional: LazyOptional<GenesCapability> = LazyOptional.of(::lazilyGetGenes)
 
-	private fun lazilyGetGenes(): GenesData {
+	private fun lazilyGetGenes(): GenesCapability {
 		if (genes == null) {
-			genes = GenesData()
+			genes = GenesCapability()
 		}
 		return genes!!
 	}
@@ -28,16 +30,11 @@ class GenesCapabilityProvider : ICapabilitySerializable<CompoundTag> {
 		}
 	}
 
-	override fun serializeNBT(): CompoundTag? {
-		TODO("Not yet implemented")
-	}
-
-	override fun deserializeNBT(nbt: CompoundTag?) {
-		TODO("Not yet implemented")
-	}
+	override fun serializeNBT(): CompoundTag = lazilyGetGenes().toTag(registries)
+	override fun deserializeNBT(nbt: CompoundTag) = lazilyGetGenes().fromTag(registries, nbt)
 
 	companion object {
-		val CAPABILITY: Capability<GenesData> = CapabilityManager.get(object : CapabilityToken<GenesData>() {})
+		val CAPABILITY: Capability<GenesCapability> = CapabilityManager.get(object : CapabilityToken<GenesCapability>() {})
 	}
 
 }

@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.AaronExtensions.isDamageSource
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.item.DragonHealthCrystal
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks

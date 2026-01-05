@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.attachment
+package dev.aaronhowser.mods.geneticsresequenced.capability
 
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
@@ -33,12 +33,9 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 import kotlin.jvm.optionals.getOrNull
 
+class GenesCapability {
 
-class GenesData(
-	var genes: Set<Holder<Gene>>
-) {
-
-	constructor() : this(emptySet())
+	private var genes: MutableSet<Holder<Gene>> = mutableSetOf()
 
 	fun toTag(registries: HolderLookup.Provider): CompoundTag {
 		val tag = CompoundTag()
@@ -73,8 +70,8 @@ class GenesData(
 
 	companion object {
 
-		val CODEC: Codec<GenesData> = Gene.CODEC.listOf().xmap(
-			{ GenesData(it.toSet()) },
+		val CODEC: Codec<GenesCapability> = Gene.Companion.CODEC.listOf().xmap(
+			{ GenesCapability(it.toSet()) },
 			{ it.genes.toList() }
 		)
 
@@ -89,7 +86,7 @@ class GenesData(
 		var LivingEntity.permanentGeneHolders: Set<Holder<Gene>>
 			get() = this.getData(ModAttachmentTypes.GENE_CONTAINER).genes.toSet()
 			private set(value) {
-				this.setData(ModAttachmentTypes.GENE_CONTAINER, GenesData(value))
+				this.setData(ModAttachmentTypes.GENE_CONTAINER, GenesCapability(value))
 			}
 
 		@JvmStatic
@@ -102,7 +99,7 @@ class GenesData(
 			if (this.hasGene(newGeneHolder)) return false
 
 			if (newGeneHolder.isHelixOnly) {
-				GeneticsResequenced.LOGGER.debug(
+				GeneticsResequenced.Companion.LOGGER.debug(
 					"Cannot add gene $newGeneHolder to entities, as it has tag `#geneticsresequenced:helix_only`."
 				)
 				return false
@@ -111,10 +108,10 @@ class GenesData(
 			if (
 				this is Player
 				&& newGeneHolder.isNegative
-				&& ServerConfig.CONFIG.disableGivingPlayersNegativeGenes.get()
+				&& ServerConfig.Companion.CONFIG.disableGivingPlayersNegativeGenes.get()
 				&& !newGeneHolder.isHolder(ModGenes.CRINGE)
 			) {
-				GeneticsResequenced.LOGGER.debug(
+				GeneticsResequenced.Companion.LOGGER.debug(
 					StringBuilder()
 						.append("Tried to give negative gene ")
 						.append(newGeneHolder.getLocationOrNull() ?: newGeneHolder)
@@ -127,7 +124,7 @@ class GenesData(
 
 			val allowedTypes = newGeneHolder.value().allowedEntities.map(Holder<EntityType<*>>::value)
 			if (this.type !in allowedTypes) {
-				GeneticsResequenced.LOGGER.debug(
+				GeneticsResequenced.Companion.LOGGER.debug(
 					StringBuilder()
 						.append("Tried to give gene ")
 						.append(newGeneHolder.getLocationOrNull() ?: newGeneHolder)
@@ -141,7 +138,7 @@ class GenesData(
 			val incompatibleGenes = newGeneHolder.value().incompatibleGenes
 			val foundIncompatibleGenes = this.permanentGeneHolders.filter { it.unwrapKey().getOrNull() in incompatibleGenes }
 			if (foundIncompatibleGenes.isNotEmpty()) {
-				GeneticsResequenced.LOGGER.debug(
+				GeneticsResequenced.Companion.LOGGER.debug(
 					StringBuilder()
 						.append("Tried to give gene ")
 						.append(newGeneHolder.getLocationOrNull() ?: newGeneHolder)
@@ -156,7 +153,7 @@ class GenesData(
 			val eventPre = GeneChangeEvent.Pre(this@addGene, newGeneHolder, true)
 			FORGE_BUS.post(eventPre)
 			if (eventPre.isCanceled) {
-				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
+				GeneticsResequenced.Companion.LOGGER.debug("Event was canceled: $eventPre")
 				return false
 			}
 
@@ -176,7 +173,7 @@ class GenesData(
 			val eventPre = GeneChangeEvent.Pre(this, removedGeneHolder, false)
 			FORGE_BUS.post(eventPre)
 			if (eventPre.isCanceled) {
-				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
+				GeneticsResequenced.Companion.LOGGER.debug("Event was canceled: $eventPre")
 				return false
 			}
 
