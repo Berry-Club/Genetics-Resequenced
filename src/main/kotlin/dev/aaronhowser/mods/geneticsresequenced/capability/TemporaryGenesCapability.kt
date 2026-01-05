@@ -17,6 +17,7 @@ import net.minecraft.nbt.Tag
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.LivingEntity
 import kotlin.jvm.optionals.getOrNull
 
 class TemporaryGenesCapability() {
@@ -69,6 +70,33 @@ class TemporaryGenesCapability() {
 						.fieldOf("temporary_genes")
 						.forGetter(TemporaryGenesCapability::temporaryGenes)
 				).apply(instance, ::TemporaryGenesCapability)
+			}
+
+		@JvmStatic
+		var LivingEntity.temporaryGenes: List<TemporaryGene>
+			get() {
+				val cap = this.getCapability(TemporaryGeneCapabilityProvider.CAPABILITY)
+					.resolve()
+					.getOrNull()
+
+				if (cap == null) {
+					GeneticsResequenced.LOGGER.warn("Tried to get TemporaryGenesCapability from LivingEntity $this, but it was not present!")
+					return listOf()
+				}
+
+				return cap.temporaryGenes
+			}
+			private set(value) {
+				val cap = this.getCapability(TemporaryGeneCapabilityProvider.CAPABILITY)
+					.resolve()
+					.getOrNull()
+
+				if (cap == null) {
+					GeneticsResequenced.LOGGER.warn("Tried to set TemporaryGenesCapability on LivingEntity $this, but it was not present!")
+					return
+				}
+
+				cap.temporaryGenes = value
 			}
 	}
 
