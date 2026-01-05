@@ -65,7 +65,13 @@ class GenesCapability() {
 			val string = listTag.getString(i)
 			val rl = ResourceLocation.tryParse(string) ?: continue
 			val rk = ResourceKey.create(ModGenes.GENE_REGISTRY_KEY, rl)
-			val geneHolder = registry.get(rk).getOrNull() ?: continue
+
+			val geneHolder = registry.get(rk).getOrNull()
+			if (geneHolder == null) {
+				GeneticsResequenced.LOGGER.warn("Could not find gene with ResourceKey $rk when loading GenesCapability!")
+				continue
+			}
+
 			newGenes += geneHolder
 		}
 
