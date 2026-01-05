@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
-import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModEntityGenesProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneRequirementsProvider
@@ -13,14 +12,14 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.*
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.DataGenerator
 import net.minecraft.data.PackOutput
-import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.common.EventBusSubscriber
-import net.neoforged.neoforge.common.data.AdvancementProvider
-import net.neoforged.neoforge.common.data.ExistingFileHelper
-import net.neoforged.neoforge.data.event.GatherDataEvent
+import net.minecraft.data.advancements.AdvancementProvider
+import net.minecraftforge.common.data.ExistingFileHelper
+import net.minecraftforge.data.event.GatherDataEvent
+import net.minecraftforge.eventbus.api.SubscribeEvent
+import net.minecraftforge.fml.common.Mod
 import java.util.concurrent.CompletableFuture
 
-@EventBusSubscriber(modid = GeneticsResequenced.MOD_ID)
+@Mod.EventBusSubscriber(modid = GeneticsResequenced.MOD_ID)
 object ModDataGen {
 
 	@SubscribeEvent
@@ -41,6 +40,7 @@ object ModDataGen {
 			event.includeClient(),
 			ModItemModelProvider(output, existingFileHelper)
 		)
+
 		generator.addProvider(
 			event.includeClient(),
 			ModBlockStateProvider(output, existingFileHelper)
@@ -96,18 +96,6 @@ object ModDataGen {
 		)
 
 		val languageProvider = ModLanguageProvider(output)
-
-		generator.addProvider(
-			event.includeClient(),
-			NeoBookProvider.of(
-				event, lookupWithGenes, ModModonomiconProvider(languageProvider::add)
-			)
-		)
-		//Note by Klikli: There are two ways to integrate modonomicon with language providers.
-		//                One is to register the language provider AFTER the book provider (as done here) which hopefully ensures that
-		//                  the language provider is called after the book provider finishes, and allows the lang provider
-		//                  to write both mod text and book text.
-		//                The other is to use the AbstractModonomiconLanguageProvider for the mod texts together with a LanguageProviderCache
 		generator.addProvider(event.includeClient(), languageProvider)
 
 		generator.addProvider(

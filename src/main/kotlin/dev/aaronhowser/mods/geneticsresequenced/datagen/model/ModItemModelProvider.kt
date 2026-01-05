@@ -5,9 +5,10 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.data.PackOutput
-import net.neoforged.neoforge.client.model.generators.ItemModelProvider
+import net.minecraftforge.client.model.generators.ItemModelProvider
+import net.minecraftforge.client.model.generators.ModelFile
+import net.minecraftforge.common.data.ExistingFileHelper
 import net.neoforged.neoforge.client.model.generators.ModelFile
-import net.neoforged.neoforge.common.data.ExistingFileHelper
 
 class ModItemModelProvider(
 	output: PackOutput,

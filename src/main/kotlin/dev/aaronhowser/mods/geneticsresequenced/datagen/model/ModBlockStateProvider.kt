@@ -10,11 +10,10 @@ import net.minecraft.core.Direction
 import net.minecraft.data.PackOutput
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.HorizontalDirectionalBlock
-import net.neoforged.neoforge.client.model.generators.BlockStateProvider
-import net.neoforged.neoforge.client.model.generators.ConfiguredModel
-import net.neoforged.neoforge.client.model.generators.ItemModelBuilder
-import net.neoforged.neoforge.common.data.ExistingFileHelper
-import net.neoforged.neoforge.registries.DeferredBlock
+import net.minecraftforge.client.model.generators.BlockStateProvider
+import net.minecraftforge.client.model.generators.ConfiguredModel
+import net.minecraftforge.client.model.generators.ItemModelBuilder
+import net.minecraftforge.common.data.ExistingFileHelper
 
 class ModBlockStateProvider(
 	output: PackOutput,
