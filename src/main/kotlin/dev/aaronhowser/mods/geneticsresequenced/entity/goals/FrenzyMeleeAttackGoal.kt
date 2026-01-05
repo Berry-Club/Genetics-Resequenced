@@ -32,17 +32,20 @@ class FrenzyMeleeAttackGoal(
 		return super.canContinueToUse()
 	}
 
-	override fun checkAndPerformAttack(target: LivingEntity) {
+	override fun checkAndPerformAttack(pEnemy: LivingEntity, pDistToEnemySqr: Double) {
 		val hasAttackDamageAttribute = mob.getAttribute(Attributes.ATTACK_DAMAGE) != null
 		if (hasAttackDamageAttribute) {
-			super.checkAndPerformAttack(target)
+			super.checkAndPerformAttack(pEnemy, pDistToEnemySqr)
 			return
 		}
 
-		if (canPerformAttack(target)) {
+		val distSqr = mob.distanceToSqr(pEnemy)
+		val reachSqr = getAttackReachSqr(pEnemy)
+
+		if (distSqr <= reachSqr && ticksUntilNextAttack <= 0) {
 			resetAttackCooldown()
 			mob.swing(InteractionHand.MAIN_HAND)
-			attackWithoutAttribute(mob, target)
+			attackWithoutAttribute(mob, pEnemy)
 		}
 	}
 

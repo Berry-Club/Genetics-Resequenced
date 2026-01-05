@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.entity
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.getUuidOrNull
-import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
@@ -30,7 +30,7 @@ import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal
 import net.minecraft.world.entity.monster.Slime
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
+import net.minecraftforge.event.entity.player.PlayerInteractEvent
 import java.util.*
 
 class SupportSlime(
@@ -45,20 +45,19 @@ class SupportSlime(
 		setOwner(ownerUuid)
 	}
 
-	override fun defineSynchedData(pBuilder: SynchedEntityData.Builder) {
-		pBuilder.define(OWNER, Optional.empty())
-		super.defineSynchedData(pBuilder)
+	override fun defineSynchedData() {
+		super.defineSynchedData()
+		entityData.define(OWNER, Optional.empty())
 	}
 
-	override fun onAddedToLevel() {
+	override fun onAddedToWorld() {
+		super.onAddedToWorld()
 
-		if (!this.isClientSide) {
+		if (isServerSide) {
 			if (getOwnerUuid() == null) {
 				setOwnerIfNotSet()
 			}
 		}
-
-		super.onAddedToLevel()
 	}
 
 	private fun setOwnerIfNotSet() {
