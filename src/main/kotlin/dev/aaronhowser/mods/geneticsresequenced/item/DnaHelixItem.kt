@@ -1,5 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.hasComponent
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
@@ -77,8 +80,8 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 	}
 
 	companion object {
-		fun hasGene(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.GENE)
-		fun getGeneHolder(itemStack: ItemStack): Holder<Gene>? = itemStack.get(ModDataComponents.GENE)
+		fun hasGene(itemStack: ItemStack): Boolean = itemStack.hasComponent(ModDataComponents.GENE)
+		fun getGeneHolder(itemStack: ItemStack): Holder<Gene>? = itemStack.getComponent(ModDataComponents.GENE)
 
 		fun setGeneHolder(itemStack: ItemStack, geneHolder: Holder<Gene>): ItemStack {
 			itemStack.set(ModDataComponents.GENE, geneHolder)
@@ -90,7 +93,7 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 		}
 
 		fun getHelixStack(geneHolder: Holder<Gene>): ItemStack {
-			val itemStack = ModItems.DNA_HELIX.toStack()
+			val itemStack = ModItems.DNA_HELIX.getDefaultInstance()
 			setGeneHolder(itemStack, geneHolder)
 			return itemStack
 		}

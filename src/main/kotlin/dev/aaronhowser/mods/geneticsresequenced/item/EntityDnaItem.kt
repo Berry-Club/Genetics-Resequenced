@@ -1,9 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.hasComponent
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.setComponent
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
+import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
@@ -106,29 +111,27 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 				return false
 			}
 
-			itemStack.set(
-				ModDataComponents.ENTITY_TYPE,
-				entityType
-			)
+			itemStack.setComponent(EntityTypeDataComponent(entityType))
+
 			return true
 		}
 
 		fun getOrganicStack(entityType: EntityType<*>): ItemStack {
-			val itemStack = ModItems.ORGANIC_MATTER.toStack()
+			val itemStack = ModItems.ORGANIC_MATTER.getDefaultInstance()
 			setEntityType(itemStack, entityType)
 			return itemStack
 		}
 
 		fun getCell(entityType: EntityType<*>): ItemStack {
-			val itemStack = ModItems.CELL.toStack()
+			val itemStack = ModItems.CELL.getDefaultInstance()
 			setEntityType(itemStack, entityType)
 			return itemStack
 		}
 
-		fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.ENTITY_TYPE)
+		fun hasEntity(itemStack: ItemStack): Boolean = itemStack.hasComponent(EntityTypeDataComponent.Type)
 
 		fun getEntityType(itemStack: ItemStack): EntityType<*>? {
-			return itemStack.get(ModDataComponents.ENTITY_TYPE)
+			return itemStack.getComponent(EntityTypeDataComponent.Type)?.entityType
 		}
 	}
 }

@@ -8,10 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityIt
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderSet
 import net.minecraft.core.component.DataComponentType
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
-import net.minecraft.network.codec.ByteBufCodecs
-import net.minecraft.world.entity.EntityType
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
 
@@ -21,13 +18,6 @@ object ModDataComponents : AaronDataComponentRegistry() {
 		DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, GeneticsResequenced.MOD_ID)
 
 	override fun getDataComponentRegistry(): DeferredRegister.DataComponents = DATA_COMPONENT_REGISTRY
-
-	val ENTITY_TYPE: DeferredHolder<DataComponentType<*>, DataComponentType<EntityType<*>>> =
-		register(
-			"entity_type",
-			BuiltInRegistries.ENTITY_TYPE.byNameCodec(),
-			ByteBufCodecs.registry(Registries.ENTITY_TYPE)
-		)
 
 	val SPECIFIC_ENTITY: DeferredHolder<DataComponentType<*>, DataComponentType<SpecificEntityItemComponent>> =
 		register(
