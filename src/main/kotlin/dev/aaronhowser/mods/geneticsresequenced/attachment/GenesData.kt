@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.attachment
 
 import com.mojang.serialization.Codec
+import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
 import dev.aaronhowser.mods.aaron.AaronExtensions.isHolder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGeneHolders
@@ -10,6 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
+import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.SetGenesPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -25,6 +27,7 @@ import net.minecraft.world.entity.player.Player
 import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
+import kotlin.jvm.optionals.getOrNull
 
 
 data class GenesData(
@@ -44,8 +47,8 @@ data class GenesData(
 		fun syncPlayer(player: Player) {
 			if (player !is ServerPlayer) return
 
-			val packet = SetGenesPacket(player.id, player.permanentGeneHolders)
-			packet.messagePlayer(player)
+			val packet = SetGenesPacket(player.id, player.permanentGeneHolders.mapNotNull { it.getLocationOrNull() })
+			ModPacketHandler.messagePlayer(packet, player)
 		}
 
 		@JvmStatic
@@ -80,7 +83,7 @@ data class GenesData(
 				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
 						.append("Tried to give negative gene ")
-						.append(newGeneHolder.key?.location() ?: newGeneHolder)
+						.append(newGeneHolder.getLocationOrNull() ?: newGeneHolder)
 						.append(" to player ").append(name.string)
 						.append(", but \"disableGivingPlayersNegativeGenes\" is true in the server config.")
 						.toString()
@@ -93,7 +96,7 @@ data class GenesData(
 				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
 						.append("Tried to give gene ")
-						.append(newGeneHolder.key?.location() ?: newGeneHolder)
+						.append(newGeneHolder.getLocationOrNull() ?: newGeneHolder)
 						.append(" to entity ").append(name.string)
 						.append(", but that entity type cannot have that gene!")
 						.toString()
@@ -107,10 +110,10 @@ data class GenesData(
 				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
 						.append("Tried to give gene ")
-						.append(newGeneHolder.key?.location() ?: newGeneHolder)
+						.append(newGeneHolder.getLocationOrNull() ?: newGeneHolder)
 						.append(" to entity ").append(name.string)
 						.append(", but it is incompatible with the following genes the entity already has: ")
-						.append(foundIncompatibleGenes.joinToString { it.key?.location().toString() })
+						.append(foundIncompatibleGenes.joinToString { it.getLocationOrNull().toString() })
 						.toString()
 				)
 				return false
@@ -173,7 +176,7 @@ data class GenesData(
 		fun Entity.hasGene(geneKey: ResourceKey<Gene>): Boolean {
 			contract { returns(true) implies (this@hasGene is LivingEntity) }
 
-			val holder = ModGenes.fromResourceKey(registryAccess(), geneKey) ?: return false
+			val holder = ModGenes.fromResourceKey(level().registryAccess(), geneKey) ?: return false
 			return this.hasGene(holder)
 		}
 
