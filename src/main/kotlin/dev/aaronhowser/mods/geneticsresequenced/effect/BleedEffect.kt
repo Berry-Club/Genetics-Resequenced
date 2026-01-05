@@ -16,19 +16,17 @@ class BleedEffect : MobEffect(
 	0x5c0d30
 ) {
 
-	override fun shouldApplyEffectTickThisTick(pDuration: Int, pAmplifier: Int): Boolean {
+	override fun isDurationEffectTick(pDuration: Int, pAmplifier: Int): Boolean {
 		return pDuration % 20 == 0
 	}
 
-	override fun applyEffectTick(pLivingEntity: LivingEntity, pAmplifier: Int): Boolean {
-		if (pLivingEntity.level().isClientSide) return false
+	override fun applyEffectTick(pLivingEntity: LivingEntity, pAmplifier: Int) {
+		if (pLivingEntity.level().isClientSide) return
 
 		pLivingEntity.hurt(
 			DamageSource(getHolder(pLivingEntity.level())),
 			1f
 		)
-
-		return true
 	}
 
 	companion object {

@@ -24,7 +24,7 @@ class DoNothingEffect(
 		pAmplifier: Int,
 		pHealth: Double
 	) {
-		if (this.removeImmediately) pLivingEntity.removeEffect(Holder.direct(this))
+		if (this.removeImmediately) pLivingEntity.removeEffect(this)
 	}
 
 }

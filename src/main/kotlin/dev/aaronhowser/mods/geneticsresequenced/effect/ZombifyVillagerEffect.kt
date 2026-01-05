@@ -10,7 +10,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.MobSpawnType
 import net.minecraft.world.entity.monster.Zombie.ZombieGroupData
 import net.minecraft.world.entity.npc.Villager
-import net.neoforged.neoforge.event.EventHooks
+import net.minecraftforge.event.ForgeEventFactory
 
 class ZombifyVillagerEffect : MobEffect(
 	MobEffectCategory.HARMFUL,
@@ -38,14 +38,15 @@ class ZombifyVillagerEffect : MobEffect(
 			serverLevel.getCurrentDifficultyAt(zombieVillager.blockPosition()),
 			MobSpawnType.CONVERSION,
 			ZombieGroupData(false, true),
+			null
 		)
 
 		zombieVillager.villagerData = villager.villagerData
 		zombieVillager.setGossips(villager.gossips.store(NbtOps.INSTANCE))
-		zombieVillager.setTradeOffers(villager.offers.copy())
+		zombieVillager.setTradeOffers(villager.offers.createTag())
 		zombieVillager.villagerXp = villager.villagerXp
 
-		EventHooks.onLivingConvert(villager, zombieVillager)
+		ForgeEventFactory.onLivingConvert(villager, zombieVillager)
 
 		if (!villager.isSilent) {
 			serverLevel.levelEvent(null, 1026, villager.blockPosition(), 0)

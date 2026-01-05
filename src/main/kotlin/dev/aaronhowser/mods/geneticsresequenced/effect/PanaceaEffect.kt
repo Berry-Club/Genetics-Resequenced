@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.effect
 
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.capability.TemporaryGenesCapability.Companion.temporaryGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects
 import net.minecraft.world.effect.MobEffect
@@ -26,7 +27,7 @@ class PanaceaEffect : MobEffect(
 		removeAllNegativeGenes(pLivingEntity)
 		removeAllNegativeEffects(pLivingEntity)
 
-		pLivingEntity.removeEffect(ModEffects.PANACEA)
+		pLivingEntity.removeEffect(ModEffects.PANACEA.get())
 	}
 
 	companion object {
@@ -49,7 +50,7 @@ class PanaceaEffect : MobEffect(
 
 		private fun removeAllNegativeEffects(livingEntity: LivingEntity) {
 			val harmfulEffects = livingEntity.activeEffects
-				.filter { it.effect.value().category == MobEffectCategory.HARMFUL }
+				.filter { it.effect.category == MobEffectCategory.HARMFUL }
 				.iterator()
 
 			while (harmfulEffects.hasNext()) {
