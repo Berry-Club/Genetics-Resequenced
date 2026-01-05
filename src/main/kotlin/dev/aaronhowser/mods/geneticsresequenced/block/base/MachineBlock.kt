@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.isBlock
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.Containers
+import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.entity.player.Player
@@ -42,21 +43,18 @@ abstract class MachineBlock(
 			.setValue(H_FACING, pContext.horizontalDirection.opposite)
 	}
 
-	override fun useWithoutItem(
-		state: BlockState,
-		level: Level,
-		pos: BlockPos,
-		player: Player,
-		hitResult: BlockHitResult
-	): InteractionResult {
-		val blockEntity = level.getBlockEntity(pos)
-
-		if (blockEntity is MenuProvider) {
-			player.openMenu(blockEntity)
-			return InteractionResult.sidedSuccess(level.isClientSide)
+	override fun use(pState: BlockState, pLevel: Level, pPos: BlockPos, pPlayer: Player, pHand: InteractionHand, pHit: BlockHitResult): InteractionResult {
+		if (pLevel.isClientSide) {
+			return InteractionResult.SUCCESS
 		}
 
-		return InteractionResult.PASS
+		pPlayer.openMenu(pState.getMenuProvider(pLevel, pPos))
+		return InteractionResult.CONSUME
+	}
+
+	override fun getMenuProvider(pState: BlockState, pLevel: Level, pPos: BlockPos): MenuProvider? {
+		val blockEntity = pLevel.getBlockEntity(pPos)
+		return blockEntity as? MenuProvider
 	}
 
 	override fun <T : BlockEntity?> getTicker(level: Level, state: BlockState, blockEntityType: BlockEntityType<T>): BlockEntityTicker<T> {
