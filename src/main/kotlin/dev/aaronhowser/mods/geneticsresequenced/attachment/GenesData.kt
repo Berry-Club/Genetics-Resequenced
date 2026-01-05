@@ -27,6 +27,7 @@ import net.minecraft.world.entity.player.Player
 import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
+import kotlin.jvm.optionals.getOrNull
 
 
 data class GenesData(
@@ -104,7 +105,7 @@ data class GenesData(
 			}
 
 			val incompatibleGenes = newGeneHolder.value().incompatibleGenes
-			val foundIncompatibleGenes = this.permanentGeneHolders.filter { it.key in incompatibleGenes }
+			val foundIncompatibleGenes = this.permanentGeneHolders.filter { it.unwrapKey().getOrNull() in incompatibleGenes }
 			if (foundIncompatibleGenes.isNotEmpty()) {
 				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
