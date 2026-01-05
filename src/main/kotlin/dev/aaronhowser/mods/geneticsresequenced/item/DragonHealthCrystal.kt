@@ -2,7 +2,10 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.setComponent
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.item.components.DragonHealthCrystalDamageDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -27,7 +30,7 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 
 	override fun getMaxDamage(stack: ItemStack): Int = Mth.ceil(MAX_DAMAGE)
 	override fun getDamage(stack: ItemStack): Int {
-		val damageRemaining = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0f)
+		val damageRemaining = stack.getComponent(DragonHealthCrystalDamageDataComponent.Type)?.damageRemaining ?: 0f
 		return Mth.ceil(MAX_DAMAGE - damageRemaining)
 	}
 
@@ -37,9 +40,9 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 
 	override fun appendHoverText(stack: ItemStack, context: TooltipContext, tooltipComponents: MutableList<Component>, tooltipFlag: TooltipFlag) {
 		val maxDamage = MAX_DAMAGE
-		val damageLeft = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0f)
+		val damageRemaining = stack.getComponent(DragonHealthCrystalDamageDataComponent.Type)?.damageRemaining ?: 0f
 		tooltipComponents.add(
-			Component.literal("${damageLeft.toInt()}/${maxDamage.toInt()}").withStyle(ChatFormatting.GRAY)
+			Component.literal("${damageRemaining.toInt()}/${maxDamage.toInt()}").withStyle(ChatFormatting.GRAY)
 		)
 	}
 
@@ -47,7 +50,6 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 		val DEFAULT_PROPERTIES: () -> Properties = {
 			Properties()
 				.stacksTo(1)
-				.component(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, MAX_DAMAGE)
 		}
 
 		const val MAX_DAMAGE = 1000f
@@ -66,13 +68,14 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 			if (healthCrystals.isEmpty()) return
 
 			for (crystal in healthCrystals) {
-				val damageLeft = crystal.get(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE) ?: continue
+				val damageLeft = crystal.getComponent(DragonHealthCrystalDamageDataComponent.Type)?.damageRemaining ?: 0f
 				val amountToRemove = minOf(event.container.newDamage, damageLeft)
 
 				event.container.newDamage -= amountToRemove
 
 				val newStackDamage = damageLeft - amountToRemove
-				crystal.set(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, newStackDamage)
+				crystal.setComponent(DragonHealthCrystalDamageDataComponent(newStackDamage))
+
 				if (newStackDamage <= 0f) {
 					crystal.shrink(1)
 					entity.onEquippedItemBroken(crystal.item, entity.getEquipmentSlotForItem(crystal))
