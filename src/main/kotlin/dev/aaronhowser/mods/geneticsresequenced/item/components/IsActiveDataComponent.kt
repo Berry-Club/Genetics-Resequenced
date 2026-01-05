@@ -16,5 +16,4 @@ data class IsActiveDataComponent(
 	}
 
 	override val type: Type = Type
-
 }

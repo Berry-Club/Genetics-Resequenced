@@ -2,7 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.removeComponent
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.setComponent
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeGene
@@ -14,6 +16,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModDamageTypeTagsPro
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
+import dev.aaronhowser.mods.geneticsresequenced.item.components.IsContaminatedDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -302,11 +305,11 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		}
 
 		fun isContaminated(syringeStack: ItemStack): Boolean {
-			return syringeStack.get(ModDataComponents.IS_CONTAMINATED) ?: false
+			return syringeStack.getComponent(IsContaminatedDataComponent.Type)?.isContaminated ?: false
 		}
 
 		fun setContaminated(syringeStack: ItemStack, value: Boolean) {
-			syringeStack.set(ModDataComponents.IS_CONTAMINATED, value)
+			syringeStack.setComponent(IsContaminatedDataComponent(value))
 		}
 
 		fun getAntigenes(syringeStack: ItemStack): Set<Holder<Gene>> {
