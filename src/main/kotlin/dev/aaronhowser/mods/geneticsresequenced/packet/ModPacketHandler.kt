@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.AaronLib
 import dev.aaronhowser.mods.aaron.packet.AaronPacketRegistrar
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.TeleportPlayerPacket
+import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.NarratorPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
 import net.minecraft.network.FriendlyByteBuf
@@ -63,6 +64,13 @@ object ModPacketHandler : AaronPacketRegistrar() {
 		)
 
 		// S2C
+
+		registerMessage(
+			GeneChangedPacket::class.java,
+			{ packet, buffer -> packet.encode(buffer) },
+			{ buffer -> GeneChangedPacket.decode(buffer) },
+			{ packet, context -> packet.receiveOnClient(context) }
+		)
 
 		registerMessage(
 			NarratorPacket::class.java,
