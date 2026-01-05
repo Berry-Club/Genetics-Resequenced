@@ -147,43 +147,6 @@ data class TemporaryGenesData(
 		}
 	}
 
-	class TemporaryGene(
-		val geneHolder: Holder<Gene>,
-		var ticksRemaining: Int
-	) {
 
-		fun tick(): Boolean {
-			ticksRemaining--
-			return ticksRemaining <= 0
-		}
-
-		fun getComponent(): Component {
-			return ModLanguageProvider.Commands.TEMPORARY_GENE_WITH_DURATION.toComponent(
-				geneHolder.getName(),
-				ticksRemaining
-			)
-		}
-
-		companion object {
-			val CODEC: Codec<TemporaryGene> =
-				RecordCodecBuilder.create { instance ->
-					instance.group(
-						Gene.CODEC
-							.fieldOf("gene")
-							.forGetter(TemporaryGene::geneHolder),
-						Codec.INT
-							.fieldOf("ticks_remaining")
-							.forGetter(TemporaryGene::ticksRemaining)
-					).apply(instance, ::TemporaryGene)
-				}
-
-			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, TemporaryGene> =
-				StreamCodec.composite(
-					Gene.STREAM_CODEC, TemporaryGene::geneHolder,
-					ByteBufCodecs.VAR_INT, TemporaryGene::ticksRemaining,
-					::TemporaryGene
-				)
-		}
-	}
 
 }
