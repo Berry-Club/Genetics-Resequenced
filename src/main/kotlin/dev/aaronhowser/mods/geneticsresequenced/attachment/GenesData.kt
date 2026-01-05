@@ -27,7 +27,6 @@ import net.minecraft.world.entity.player.Player
 import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
-import kotlin.jvm.optionals.getOrNull
 
 
 data class GenesData(
@@ -120,7 +119,8 @@ data class GenesData(
 			}
 
 			val eventPre = GeneChangeEvent.Pre(this@addGene, newGeneHolder, true)
-			if (FORGE_BUS.post(eventPre).isCanceled) {
+			FORGE_BUS.post(eventPre)
+			if (eventPre.isCanceled) {
 				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
 				return false
 			}
@@ -139,8 +139,8 @@ data class GenesData(
 			if (!this.hasGene(removedGeneHolder)) return false
 
 			val eventPre = GeneChangeEvent.Pre(this, removedGeneHolder, false)
-			val wasCanceled = FORGE_BUS.post(eventPre).isCanceled
-			if (wasCanceled) {
+			FORGE_BUS.post(eventPre)
+			if (eventPre.isCanceled) {
 				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
 				return false
 			}
