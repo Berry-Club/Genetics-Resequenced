@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Compa
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import net.neoforged.neoforge.client.event.RenderLivingEvent
+import net.minecraftforge.client.event.RenderLivingEvent
 import org.joml.SimplexNoise
 
 object GeneRenderChanges {

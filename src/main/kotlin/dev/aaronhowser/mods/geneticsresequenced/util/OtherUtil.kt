@@ -12,20 +12,14 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.projectile.ProjectileUtil
-import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.enchantment.Enchantment
-import net.minecraft.world.level.ItemLike
 import net.minecraftforge.common.ForgeMod
 
 object OtherUtil {
 
 	fun modResource(path: String): ResourceLocation =
 		ResourceLocation(GeneticsResequenced.MOD_ID, path)
-
-	val ItemLike.itemStack: ItemStack
-		get() = this.asItem().defaultInstance
 
 	fun getEntityType(resourceLocation: ResourceLocation): EntityType<*> {
 		val entityType = BuiltInRegistries.ENTITY_TYPE.get(resourceLocation)

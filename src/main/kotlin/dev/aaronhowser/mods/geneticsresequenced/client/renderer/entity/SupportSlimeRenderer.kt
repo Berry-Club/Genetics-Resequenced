@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.client.renderer.entity
 import com.mojang.blaze3d.vertex.PoseStack
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.client.model.SlimeModel
 import net.minecraft.client.model.geom.ModelLayers
 import net.minecraft.client.renderer.MultiBufferSource
@@ -13,21 +12,16 @@ import net.minecraft.client.renderer.entity.MobRenderer
 import net.minecraft.client.renderer.entity.SlimeRenderer
 import net.minecraft.client.renderer.entity.layers.SlimeOuterLayer
 import net.minecraft.client.renderer.texture.OverlayTexture
-import net.minecraft.core.component.DataComponents
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 import net.minecraft.world.item.ItemDisplayContext
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
-import net.minecraft.world.item.component.ResolvableProfile
-import net.neoforged.api.distmarker.Dist
-import net.neoforged.api.distmarker.OnlyIn
 import org.joml.Quaternionf
 import org.joml.Vector3f
 import kotlin.math.cos
 import kotlin.math.sin
 
-@OnlyIn(Dist.CLIENT)
 class SupportSlimeRenderer(
 	context: EntityRendererProvider.Context
 ) : MobRenderer<SupportSlime, SlimeModel<SupportSlime>>(
@@ -52,14 +46,10 @@ class SupportSlimeRenderer(
 
 		if (owner == null) return ItemStack.EMPTY
 
-		val ownerProfile = owner.gameProfile
-		val ownerProfileComponent = ResolvableProfile(ownerProfile)
+		val newHeadStack = Items.PLAYER_HEAD.defaultInstance
 
-		val newHeadStack = Items.PLAYER_HEAD.itemStack
-		newHeadStack.set(
-			DataComponents.PROFILE,
-			ownerProfileComponent
-		)
+		val headTag = newHeadStack.orCreateTag
+		headTag.putUUID("SkullOwner", owner.uuid)
 
 		headStack = newHeadStack
 		return newHeadStack
