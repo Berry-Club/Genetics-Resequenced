@@ -8,7 +8,7 @@ data class IsContaminatedDataComponent(
 	val isContaminated: Boolean
 ) : PseudoDataComponent<IsContaminatedDataComponent, IsContaminatedDataComponent.Type>() {
 
-	object Type : PseudoDataComponent.Type<IsContaminatedDataComponent>(OtherUtil.modResource("isContaminated")) {
+	object Type : PseudoDataComponent.Type<IsContaminatedDataComponent>(OtherUtil.modResource("is_contaminated")) {
 		val CODEC: Codec<IsContaminatedDataComponent> = Codec.BOOL
 			.xmap(::IsContaminatedDataComponent, IsContaminatedDataComponent::isContaminated)
 

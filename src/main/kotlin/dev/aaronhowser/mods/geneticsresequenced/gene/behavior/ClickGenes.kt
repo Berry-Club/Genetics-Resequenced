@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.AaronExtensions.nextRange
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeGene
@@ -12,8 +13,8 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
+import dev.aaronhowser.mods.geneticsresequenced.item.components.IsInfinityArrowDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.server.level.ServerPlayer
@@ -33,9 +34,9 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.ProjectileWeaponItem
 import net.minecraft.world.level.block.Blocks
+import net.minecraftforge.event.entity.EntityJoinLevelEvent
+import net.minecraftforge.event.entity.living.LivingGetProjectileEvent
 import net.neoforged.neoforge.common.Tags
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent
-import net.neoforged.neoforge.event.entity.living.LivingGetProjectileEvent
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 
 object ClickGenes {
@@ -435,7 +436,7 @@ object ClickGenes {
 		val weapon = event.projectileWeaponItemStack.item as? ProjectileWeaponItem ?: return
 		val defaultAmmo = weapon.getDefaultCreativeAmmo(player, event.projectileItemStack)
 
-		defaultAmmo.set(ModDataComponents.IS_INFINITY_ARROW, true)
+		defaultAmmo.setComponent(IsInfinityArrowDataComponent(true))
 
 		event.projectileItemStack = defaultAmmo
 	}
@@ -444,9 +445,9 @@ object ClickGenes {
 		val arrow = event.entity as? Arrow ?: return
 		if (arrow.level().isClientSide) return
 
-		val arrowStack = arrow.pickupItemStackOrigin
+		val arrowStack = arrow.pickupItem
 
-		val isInfinity = arrowStack.get(ModDataComponents.IS_INFINITY_ARROW) ?: false
+		val isInfinity = arrowStack.getComponent(IsInfinityArrowDataComponent.Type)?.isInfinityArrow ?: false
 		if (!isInfinity) return
 
 		arrow.pickup = AbstractArrow.Pickup.DISALLOWED
