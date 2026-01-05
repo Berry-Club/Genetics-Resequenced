@@ -33,9 +33,13 @@ import kotlin.contracts.ExperimentalContracts
 import kotlin.contracts.contract
 import kotlin.jvm.optionals.getOrNull
 
-class GenesCapability {
+class GenesCapability() {
 
-	private var genes: MutableSet<Holder<Gene>> = mutableSetOf()
+	constructor(genes: Set<Holder<Gene>>) : this() {
+		this.genes = genes
+	}
+
+	private var genes: Set<Holder<Gene>> = setOf()
 
 	fun toTag(registries: HolderLookup.Provider): CompoundTag {
 		val tag = CompoundTag()
@@ -70,7 +74,7 @@ class GenesCapability {
 
 	companion object {
 
-		val CODEC: Codec<GenesCapability> = Gene.Companion.CODEC.listOf().xmap(
+		val CODEC: Codec<GenesCapability> = Gene.CODEC.listOf().xmap(
 			{ GenesCapability(it.toSet()) },
 			{ it.genes.toList() }
 		)
