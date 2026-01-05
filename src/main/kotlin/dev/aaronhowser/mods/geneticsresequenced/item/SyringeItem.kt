@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.removeComponent
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeGene
@@ -170,7 +171,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 
 		fun setEntity(stack: ItemStack, entity: LivingEntity?, setContaminated: Boolean = true) {
 			if (entity == null) {
-				stack.remove(ModDataComponents.SPECIFIC_ENTITY)
+				stack.removeComponent(SpecificEntityItemComponent.Type)
 				return
 			}
 

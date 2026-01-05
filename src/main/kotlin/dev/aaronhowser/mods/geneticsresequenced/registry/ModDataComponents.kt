@@ -1,30 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.aaron.registry.AaronDataComponentRegistry
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressItemComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderSet
 import net.minecraft.core.component.DataComponentType
-import net.minecraft.core.registries.Registries
 import net.neoforged.neoforge.registries.DeferredHolder
-import net.neoforged.neoforge.registries.DeferredRegister
 
 object ModDataComponents : AaronDataComponentRegistry() {
-
-	val DATA_COMPONENT_REGISTRY: DeferredRegister.DataComponents =
-		DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, GeneticsResequenced.MOD_ID)
-
-	override fun getDataComponentRegistry(): DeferredRegister.DataComponents = DATA_COMPONENT_REGISTRY
-
-	val SPECIFIC_ENTITY: DeferredHolder<DataComponentType<*>, DataComponentType<SpecificEntityItemComponent>> =
-		register(
-			"specific_entity",
-			SpecificEntityItemComponent.CODEC,
-			SpecificEntityItemComponent.STREAM_CODEC
-		)
 
 	val IS_ACTIVE: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
 		boolean("is_active")
