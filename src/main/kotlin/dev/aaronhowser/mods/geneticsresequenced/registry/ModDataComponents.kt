@@ -10,9 +10,6 @@ import net.neoforged.neoforge.registries.DeferredHolder
 
 object ModDataComponents : AaronDataComponentRegistry() {
 
-	val IS_ACTIVE: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
-		boolean("is_active")
-
 	val IS_CONTAMINATED: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
 		boolean("is_contaminated")
 
