@@ -1,11 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.hasComponent
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.setComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressItemComponent
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.ChatFormatting
@@ -62,10 +65,10 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 	companion object {
 		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
 
-		fun hasGene(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.PLASMID_PROGRESS)
+		fun hasGene(itemStack: ItemStack): Boolean = itemStack.hasComponent(PlasmidProgressItemComponent.Type)
 
 		fun getGene(itemStack: ItemStack): Holder<Gene>? {
-			return itemStack.get(ModDataComponents.PLASMID_PROGRESS)?.geneHolder
+			return itemStack.getComponent(PlasmidProgressItemComponent.Type)?.geneHolder
 		}
 
 		fun setGene(itemStack: ItemStack, geneHolder: Holder<Gene>, amount: Int = 0) {
@@ -73,11 +76,12 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 				geneHolder,
 				amount
 			)
-			itemStack.set(ModDataComponents.PLASMID_PROGRESS, component)
+
+			itemStack.setComponent(component)
 		}
 
 		fun getDnaPoints(itemStack: ItemStack): Int {
-			return itemStack.get(ModDataComponents.PLASMID_PROGRESS)?.dnaPoints ?: 0
+			return itemStack.getComponent(PlasmidProgressItemComponent.Type)?.dnaPoints ?: 0
 		}
 
 		fun setDnaPoints(itemStack: ItemStack, amount: Int) {
@@ -85,7 +89,8 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 				getGene(itemStack) ?: return,
 				amount
 			)
-			itemStack.set(ModDataComponents.PLASMID_PROGRESS, component)
+
+			itemStack.setComponent(component)
 		}
 
 		fun increaseDnaPoints(itemStack: ItemStack, amount: Int = 1) {
@@ -98,7 +103,7 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 		}
 
 		fun getCompletedPlasmid(geneHolder: Holder<Gene>): ItemStack {
-			val stack = ModItems.PLASMID.toStack()
+			val stack = ModItems.PLASMID.getDefaultInstance()
 			setGene(stack, geneHolder, geneHolder.value().dnaPointsRequired)
 			return stack
 		}

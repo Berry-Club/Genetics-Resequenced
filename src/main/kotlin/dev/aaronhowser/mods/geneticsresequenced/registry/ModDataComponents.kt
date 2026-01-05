@@ -31,11 +31,4 @@ object ModDataComponents : AaronDataComponentRegistry() {
 	val ANTIGENE_SET: DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =
 		register("antigenes", Gene.HOLDER_SET_CODEC, Gene.HOLDER_SET_STREAM_CODEC)
 
-	val PLASMID_PROGRESS: DeferredHolder<DataComponentType<*>, DataComponentType<PlasmidProgressItemComponent>> =
-		register(
-			"plasmid_progress",
-			PlasmidProgressItemComponent.CODEC,
-			PlasmidProgressItemComponent.STREAM_CODEC
-		)
-
 }
