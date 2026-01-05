@@ -4,25 +4,32 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesProvider
+import dev.aaronhowser.mods.geneticsresequenced.capability.ModCapabilities
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DamageGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.MobGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PathfinderMob
-import net.neoforged.bus.api.EventPriority
-import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.common.EventBusSubscriber
-import net.neoforged.neoforge.event.entity.EntityInvulnerabilityCheckEvent
-import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent
-import net.neoforged.neoforge.event.entity.living.*
-import net.neoforged.neoforge.event.level.ExplosionEvent
-import net.neoforged.neoforge.event.tick.EntityTickEvent
+import net.minecraftforge.event.AttachCapabilitiesEvent
+import net.minecraftforge.event.entity.living.LivingDeathEvent
+import net.minecraftforge.eventbus.api.SubscribeEvent
+import net.minecraftforge.fml.common.Mod
 
-@EventBusSubscriber(
-	modid = GeneticsResequenced.ID
+@Mod.EventBusSubscriber(
+	modid = GeneticsResequenced.MOD_ID
 )
 object EntityEvents {
+
+	@SubscribeEvent
+	fun <T> onAttachCapabilities(event: AttachCapabilitiesEvent<T>) {
+		val obj = event.`object`
+		if (obj is LivingEntity) {
+			val geneProvider = GenesProvider(obj.level().registryAccess())
+			event.addCapability(ModCapabilities.GENES_NAME, geneProvider)
+		}
+	}
 
 	@SubscribeEvent
 	fun onLivingDeath(event: LivingDeathEvent) {
