@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
@@ -56,7 +57,7 @@ class DnaExtractorBlockEntity(
 
 		if (input.isItem(ModItems.CELL)) {
 			val mobType = EntityDnaItem.getEntityType(input) ?: return null
-			val dnaStack = ModItems.DNA_HELIX.toStack()
+			val dnaStack = ModItems.DNA_HELIX.getDefaultInstance()
 
 			val setWorked = setEntityType(dnaStack, mobType)
 			if (!setWorked) {

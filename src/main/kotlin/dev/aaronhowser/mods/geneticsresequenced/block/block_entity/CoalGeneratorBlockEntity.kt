@@ -10,7 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGenerato
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
@@ -18,7 +17,8 @@ import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.block.state.BlockState
-import net.neoforged.neoforge.capabilities.Capabilities
+import net.minecraftforge.common.capabilities.ForgeCapabilities
+import kotlin.jvm.optionals.getOrNull
 
 class CoalGeneratorBlockEntity(
 	pos: BlockPos,
@@ -99,11 +99,12 @@ class CoalGeneratorBlockEntity(
 
 		for (direction in Direction.entries) {
 			val neighborPos = blockPos.relative(direction)
-			val neighborEnergy = level.getCapability(
-				Capabilities.EnergyStorage.BLOCK,
-				neighborPos,
-				direction.opposite
-			) ?: continue
+			val neighborBlockEntity = level.getBlockEntity(neighborPos) ?: continue
+			val neighborEnergy = neighborBlockEntity
+				.getCapability(ForgeCapabilities.ENERGY, direction.opposite)
+				.resolve()
+				.getOrNull()
+				?: continue
 
 			if (!neighborEnergy.canReceive()) continue
 
@@ -121,18 +122,18 @@ class CoalGeneratorBlockEntity(
 		return CoalGeneratorMenu(pContainerId, pPlayerInventory, container, containerData)
 	}
 
-	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.saveAdditional(tag, registries)
+	override fun saveAdditional(pTag: CompoundTag) {
+		super.saveAdditional(pTag)
 
-		tag.putInt(BURN_TIME_REMAINING_NBT, burnTimeRemaining)
-		tag.putInt(MAX_BURN_TIME_NBT, maxBurnTime)
+		pTag.putInt(BURN_TIME_REMAINING_NBT, burnTimeRemaining)
+		pTag.putInt(MAX_BURN_TIME_NBT, maxBurnTime)
 	}
 
-	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.loadAdditional(tag, registries)
+	override fun load(pTag: CompoundTag) {
+		super.load(pTag)
 
-		burnTimeRemaining = tag.getInt(BURN_TIME_REMAINING_NBT)
-		maxBurnTime = tag.getInt(MAX_BURN_TIME_NBT)
+		burnTimeRemaining = pTag.getInt(BURN_TIME_REMAINING_NBT)
+		maxBurnTime = pTag.getInt(MAX_BURN_TIME_NBT)
 	}
 
 	companion object {

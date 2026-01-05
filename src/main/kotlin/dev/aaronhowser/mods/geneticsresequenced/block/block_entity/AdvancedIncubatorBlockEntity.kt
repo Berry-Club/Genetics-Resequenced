@@ -16,7 +16,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Inventory
@@ -26,8 +25,8 @@ import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.state.BlockState
-import net.neoforged.neoforge.items.IItemHandler
-import net.neoforged.neoforge.items.wrapper.RangedWrapper
+import net.minecraftforge.items.IItemHandler
+import net.minecraftforge.items.wrapper.RangedWrapper
 import java.util.function.IntSupplier
 import kotlin.math.min
 
@@ -264,14 +263,14 @@ class AdvancedIncubatorBlockEntity(
 		return AdvancedIncubatorMenu(containerId, playerInventory, this.container, this.containerData)
 	}
 
-	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.saveAdditional(tag, registries)
+	override fun saveAdditional(tag: CompoundTag) {
+		super.saveAdditional(tag)
 		tag.putBoolean(IS_HIGH_TEMPERATURE_TAG, isHighTemperature)
 	}
 
-	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.loadAdditional(tag, registries)
-		isHighTemperature = tag.getBoolean(IS_HIGH_TEMPERATURE_TAG)
+	override fun load(pTag: CompoundTag) {
+		super.load(pTag)
+		isHighTemperature = pTag.getBoolean(IS_HIGH_TEMPERATURE_TAG)
 	}
 
 	companion object {
