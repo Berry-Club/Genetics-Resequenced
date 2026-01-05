@@ -1,8 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.capability
 
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
+import net.minecraft.resources.ResourceLocation
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.CapabilityManager
 import net.minecraftforge.common.capabilities.CapabilityToken
@@ -34,6 +36,7 @@ class GenesCapabilityProvider(
 	override fun deserializeNBT(nbt: CompoundTag) = lazilyGetGenes().fromTag(registries, nbt)
 
 	companion object {
+		val CAPABILITY_RL: ResourceLocation = OtherUtil.modResource("genes")
 		val CAPABILITY: Capability<GenesCapability> = CapabilityManager.get(object : CapabilityToken<GenesCapability>() {})
 	}
 

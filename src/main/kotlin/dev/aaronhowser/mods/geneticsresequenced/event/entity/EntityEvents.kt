@@ -1,9 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
-import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapabilityProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DamageGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.MobGenes
@@ -22,10 +23,11 @@ object EntityEvents {
 
 	@SubscribeEvent
 	fun <T> onAttachCapabilities(event: AttachCapabilitiesEvent<T>) {
-		val obj = event.`object`
+		val obj = event.getObject()
+
 		if (obj is LivingEntity) {
-			val geneProvider = GenesProvider(obj.level().registryAccess())
-			event.addCapability(ModCapabilities.GENES_NAME, geneProvider)
+			val geneProvider = GenesCapabilityProvider(obj.level().registryAccess())
+			event.addCapability(GenesCapabilityProvider.CAPABILITY_RL, geneProvider)
 		}
 	}
 
