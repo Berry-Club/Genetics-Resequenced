@@ -9,9 +9,6 @@ import net.neoforged.neoforge.registries.DeferredHolder
 
 object ModDataComponents : AaronDataComponentRegistry() {
 
-	val GENE: DeferredHolder<DataComponentType<*>, DataComponentType<Holder<Gene>>> =
-		register("gene", Gene.CODEC, Gene.STREAM_CODEC)
-
 	val GENE_SET: DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =
 		register("genes", Gene.HOLDER_SET_CODEC, Gene.HOLDER_SET_STREAM_CODEC)
 

@@ -3,11 +3,13 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.hasComponent
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.setComponent
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
+import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
@@ -80,11 +82,11 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 	}
 
 	companion object {
-		fun hasGene(itemStack: ItemStack): Boolean = itemStack.hasComponent(ModDataComponents.GENE)
-		fun getGeneHolder(itemStack: ItemStack): Holder<Gene>? = itemStack.getComponent(ModDataComponents.GENE)
+		fun hasGene(itemStack: ItemStack): Boolean = itemStack.hasComponent(GeneDataComponent.Type)
+		fun getGeneHolder(itemStack: ItemStack): Holder<Gene>? = itemStack.getComponent(GeneDataComponent.Type)?.geneHolder
 
 		fun setGeneHolder(itemStack: ItemStack, geneHolder: Holder<Gene>): ItemStack {
-			itemStack.set(ModDataComponents.GENE, geneHolder)
+			itemStack.setComponent(GeneDataComponent(geneHolder))
 			return itemStack
 		}
 

@@ -22,5 +22,4 @@ class EntityTypeDataComponent(
 	}
 
 	override val type: Type = Type
-
 }

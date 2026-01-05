@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.hasComponent
 import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
@@ -9,6 +10,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
+import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.menu.CraftingMachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -42,7 +44,7 @@ class PlasmidInfuserMenu(
 	}
 
 	override fun inputFilter(inputStack: ItemStack): Boolean {
-		return inputStack.isItem(ModItems.DNA_HELIX) && inputStack.has(ModDataComponents.GENE)
+		return inputStack.isItem(ModItems.DNA_HELIX) && inputStack.hasComponent(GeneDataComponent.Type)
 	}
 
 	override fun addSlots() {

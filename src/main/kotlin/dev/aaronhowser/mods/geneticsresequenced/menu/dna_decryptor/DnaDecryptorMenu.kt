@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.h
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeDataComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.menu.CraftingMachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
@@ -33,7 +34,7 @@ class DnaDecryptorMenu(
 	}
 
 	override fun inputFilter(inputStack: ItemStack): Boolean {
-		return inputStack.hasComponent(EntityTypeDataComponent.Type) && !inputStack.has(ModDataComponents.GENE)
+		return inputStack.hasComponent(EntityTypeDataComponent.Type) && !inputStack.hasComponent(GeneDataComponent.Type)
 	}
 
 }

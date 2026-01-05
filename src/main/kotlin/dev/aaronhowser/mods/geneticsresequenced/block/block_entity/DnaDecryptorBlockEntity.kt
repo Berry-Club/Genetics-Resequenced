@@ -2,15 +2,16 @@ package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.hasComponent
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
+import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.menu.dna_decryptor.DnaDecryptorMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -53,7 +54,7 @@ class DnaDecryptorBlockEntity(
 		val inputStack = container.getItem(INPUT_SLOT_INDEX)
 		if (!inputStack.isItem(ModItems.DNA_HELIX)) return false
 
-		if (inputStack.has(ModDataComponents.GENE)) return false
+		if (inputStack.hasComponent(GeneDataComponent.Type)) return false
 
 		val outputItem = getOutputFromInput(inputStack, level.registryAccess()) ?: return false
 		return outputSlotHasRoom(outputItem)
