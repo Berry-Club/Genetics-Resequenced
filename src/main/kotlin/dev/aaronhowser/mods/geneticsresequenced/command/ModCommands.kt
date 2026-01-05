@@ -4,6 +4,7 @@ import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.context.CommandContext
 import com.mojang.brigadier.suggestion.SuggestionProvider
 import com.mojang.brigadier.suggestion.SuggestionsBuilder
+import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.command.gene.*
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -39,7 +40,7 @@ object ModCommands {
 		SuggestionProvider { context: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
 			val allGeneResourceLocations = ModGenes
 				.getRegistrySorted(context.source.registryAccess())
-				.map { it.key!!.location() }
+				.mapNotNull { it.getLocationOrNull() }
 
 			SharedSuggestionProvider.suggestResource(allGeneResourceLocations, suggestionsBuilder)
 		}
@@ -48,7 +49,7 @@ object ModCommands {
 		SuggestionProvider { context: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
 			val allGeneStrings = ModGenes
 				.getRegistrySorted(context.source.registryAccess())
-				.map { it.key!!.location().path.toString() }
+				.mapNotNull { it.getLocationOrNull()?.path }
 
 			SharedSuggestionProvider.suggest(allGeneStrings, suggestionsBuilder)
 		}
