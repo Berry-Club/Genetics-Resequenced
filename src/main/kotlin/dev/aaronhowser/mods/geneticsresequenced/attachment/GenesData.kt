@@ -17,7 +17,10 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
-import net.minecraft.core.HolderSet
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.ListTag
+import net.minecraft.nbt.StringTag
+import net.minecraft.nbt.Tag
 import net.minecraft.resources.ResourceKey
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Entity
@@ -30,12 +33,30 @@ import kotlin.contracts.contract
 import kotlin.jvm.optionals.getOrNull
 
 
-data class GenesData(
-	val genes: HolderSet<Gene>
+class GenesData(
+	var genes: Set<Holder<Gene>>
 ) {
 
-	constructor() : this(HolderSet.empty())
-	constructor(set: Set<Holder<Gene>>) : this(HolderSet.direct(set.toList()))
+	constructor() : this(emptySet())
+
+	fun toTag(): CompoundTag {
+		val tag = CompoundTag()
+
+		val listTag = ListTag()
+		for (gene in genes) {
+			val geneLocation = gene.getLocationOrNull() ?: continue
+			val stringTag = StringTag.valueOf(geneLocation.toString())
+			listTag.add(stringTag)
+		}
+
+		tag.put("genes", listTag)
+
+		return tag
+	}
+
+	fun fromTag(tag: CompoundTag) {
+		val listTag = tag.getList("genes", Tag.TAG_STRING.toInt())
+	}
 
 	companion object {
 
