@@ -8,7 +8,7 @@ import net.minecraft.data.PackOutput
 import net.minecraft.data.tags.EntityTypeTagsProvider
 import net.minecraft.tags.TagKey
 import net.minecraft.world.entity.EntityType
-import net.neoforged.neoforge.common.data.ExistingFileHelper
+import net.minecraftforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
 
 class ModEntityTypeTagsProvider(
@@ -16,19 +16,6 @@ class ModEntityTypeTagsProvider(
 	pProvider: CompletableFuture<HolderLookup.Provider>,
 	existingFileHelper: ExistingFileHelper?
 ) : EntityTypeTagsProvider(pOutput, pProvider, GeneticsResequenced.MOD_ID, existingFileHelper) {
-
-	companion object {
-		private fun create(id: String): TagKey<EntityType<*>> {
-			return TagKey.create(Registries.ENTITY_TYPE, OtherUtil.modResource(id))
-		}
-
-		val SCRAPER_ENTITY_BLACKLIST = create("scraper_blacklist")
-		val AVOIDS_SCARE_CREEPER_GENE = create("avoids_scare_creeper_gene")
-		val AVOIDS_SCARE_ZOMBIE_GENE = create("avoids_scare_zombie_gene")
-		val AVOIDS_SCARE_SKELETON_GENE = create("avoids_scare_skeleton_gene")
-		val AVOIDS_SCARE_SPIDER_GENE = create("avoids_scare_spider_gene")
-		val ALLOWS_PREVENTING_INTERACTION = create("allows_preventing_interaction")
-	}
 
 	override fun addTags(pProvider: HolderLookup.Provider) {
 		this.tag(SCRAPER_ENTITY_BLACKLIST)
@@ -51,7 +38,6 @@ class ModEntityTypeTagsProvider(
 			.add(
 				EntityType.SKELETON,
 				EntityType.STRAY,
-				EntityType.BOGGED,
 				EntityType.WITHER_SKELETON,
 				EntityType.SKELETON_HORSE
 			)
@@ -73,6 +59,19 @@ class ModEntityTypeTagsProvider(
 				EntityType.TRADER_LLAMA
 			)
 
+	}
+
+	companion object {
+		private fun create(id: String): TagKey<EntityType<*>> {
+			return TagKey.create(Registries.ENTITY_TYPE, OtherUtil.modResource(id))
+		}
+
+		val SCRAPER_ENTITY_BLACKLIST = create("scraper_blacklist")
+		val AVOIDS_SCARE_CREEPER_GENE = create("avoids_scare_creeper_gene")
+		val AVOIDS_SCARE_ZOMBIE_GENE = create("avoids_scare_zombie_gene")
+		val AVOIDS_SCARE_SKELETON_GENE = create("avoids_scare_skeleton_gene")
+		val AVOIDS_SCARE_SPIDER_GENE = create("avoids_scare_spider_gene")
+		val ALLOWS_PREVENTING_INTERACTION = create("allows_preventing_interaction")
 	}
 
 }

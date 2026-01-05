@@ -8,7 +8,7 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
 import net.minecraft.data.tags.TagsProvider
 import net.minecraft.tags.TagKey
-import net.neoforged.neoforge.common.data.ExistingFileHelper
+import net.minecraftforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
 
 class ModGeneTagsProvider(
@@ -22,17 +22,6 @@ class ModGeneTagsProvider(
 	GeneticsResequenced.MOD_ID,
 	existingFileHelper
 ) {
-
-	companion object {
-		private fun create(name: String): TagKey<Gene> {
-			return TagKey.create(ModGenes.GENE_REGISTRY_KEY, OtherUtil.modResource(name))
-		}
-
-		val HELIX_ONLY = create("helix_only")
-		val NEGATIVE = create("negative")
-		val MUTATION = create("mutation")
-		val DISABLED = create("disabled")
-	}
 
 	override fun addTags(pProvider: HolderLookup.Provider) {
 
@@ -83,5 +72,16 @@ class ModGeneTagsProvider(
 
 		this.tag(DISABLED)
 
+	}
+
+	companion object {
+		private fun create(name: String): TagKey<Gene> {
+			return TagKey.create(ModGenes.GENE_REGISTRY_KEY, OtherUtil.modResource(name))
+		}
+
+		val HELIX_ONLY = create("helix_only")
+		val NEGATIVE = create("negative")
+		val MUTATION = create("mutation")
+		val DISABLED = create("disabled")
 	}
 }

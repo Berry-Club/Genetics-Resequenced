@@ -9,19 +9,25 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistrySetBuilder
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.data.worldgen.BootstrapContext
+import net.minecraft.data.CachedOutput
+import net.minecraft.data.DataProvider
 import net.minecraft.resources.ResourceKey
 import net.minecraft.tags.TagKey
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.ai.attributes.Attributes
-import net.neoforged.neoforge.common.NeoForgeMod
-import net.neoforged.neoforge.registries.holdersets.AndHolderSet
-import net.neoforged.neoforge.registries.holdersets.AnyHolderSet
-import net.neoforged.neoforge.registries.holdersets.NotHolderSet
 import java.util.*
+import java.util.concurrent.CompletableFuture
 
-class ModGeneProvider : RegistrySetBuilder() {
+class ModGeneProvider : DataProvider {
+
+	override fun run(pOutput: CachedOutput): CompletableFuture<*> {
+		TODO("Not yet implemented")
+	}
+
+	override fun getName(): String {
+		TODO("Not yet implemented")
+	}
 
 	companion object {
 

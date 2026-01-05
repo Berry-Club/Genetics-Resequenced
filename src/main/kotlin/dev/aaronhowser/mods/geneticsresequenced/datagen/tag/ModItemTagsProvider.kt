@@ -11,7 +11,7 @@ import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.Block
-import net.neoforged.neoforge.common.data.ExistingFileHelper
+import net.minecraftforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
 
 class ModItemTagsProvider(
@@ -20,18 +20,6 @@ class ModItemTagsProvider(
 	pBlockTags: CompletableFuture<TagLookup<Block>>,
 	existingFileHelper: ExistingFileHelper?
 ) : ItemTagsProvider(pOutput, pLookupProvider, pBlockTags, GeneticsResequenced.MOD_ID, existingFileHelper) {
-
-	companion object {
-		private fun create(id: String): TagKey<Item> {
-			return ItemTags.create(OtherUtil.modResource(id))
-		}
-
-		val SYRINGES: TagKey<Item> = create("syringes")
-		val ACTIVATES_SHOOT_FIREBALL_GENE: TagKey<Item> = create("activates_shoot_fireball_gene")
-		val MAGNET_ITEM_BLACKLIST: TagKey<Item> = create("item_magnet_gene_blacklist")
-		val ENCHANTABLE_DELICATE_TOUCH: TagKey<Item> = create("enchantable/delicate_touch")
-		val PREVENTS_SOME_MOB_INTERACTION: TagKey<Item> = create("prevents_some_mob_interaction")
-	}
 
 	override fun addTags(pProvider: HolderLookup.Provider) {
 
@@ -56,6 +44,18 @@ class ModItemTagsProvider(
 				ModItems.SCRAPER.get(),
 				ModItems.GENE_CHECKER.get()
 			)
+	}
+
+	companion object {
+		private fun create(id: String): TagKey<Item> {
+			return ItemTags.create(OtherUtil.modResource(id))
+		}
+
+		val SYRINGES: TagKey<Item> = create("syringes")
+		val ACTIVATES_SHOOT_FIREBALL_GENE: TagKey<Item> = create("activates_shoot_fireball_gene")
+		val MAGNET_ITEM_BLACKLIST: TagKey<Item> = create("item_magnet_gene_blacklist")
+		val ENCHANTABLE_DELICATE_TOUCH: TagKey<Item> = create("enchantable/delicate_touch")
+		val PREVENTS_SOME_MOB_INTERACTION: TagKey<Item> = create("prevents_some_mob_interaction")
 	}
 
 }
