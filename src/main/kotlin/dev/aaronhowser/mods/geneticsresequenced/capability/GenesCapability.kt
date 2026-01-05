@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
 import dev.aaronhowser.mods.aaron.AaronExtensions.isHolder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.capability.TemporaryGenesCapability.Companion.temporaryGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
