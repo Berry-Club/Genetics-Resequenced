@@ -22,6 +22,7 @@ import net.minecraft.nbt.ListTag
 import net.minecraft.nbt.StringTag
 import net.minecraft.nbt.Tag
 import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
@@ -39,7 +40,7 @@ class GenesData(
 
 	constructor() : this(emptySet())
 
-	fun toTag(): CompoundTag {
+	fun toTag(registries: HolderLookup.Provider): CompoundTag {
 		val tag = CompoundTag()
 
 		val listTag = ListTag()
@@ -50,12 +51,24 @@ class GenesData(
 		}
 
 		tag.put("genes", listTag)
-
 		return tag
 	}
 
-	fun fromTag(tag: CompoundTag) {
+	fun fromTag(registries: HolderLookup.Provider, tag: CompoundTag) {
+		val registry = registries.lookupOrThrow(ModGenes.GENE_REGISTRY_KEY)
 		val listTag = tag.getList("genes", Tag.TAG_STRING.toInt())
+
+		val newGenes = mutableSetOf<Holder<Gene>>()
+
+		for (i in listTag.indices) {
+			val string = listTag.getString(i)
+			val rl = ResourceLocation.tryParse(string) ?: continue
+			val rk = ResourceKey.create(ModGenes.GENE_REGISTRY_KEY, rl)
+			val geneHolder = registry.get(rk).getOrNull() ?: continue
+			newGenes += geneHolder
+		}
+
+		this.genes = newGenes
 	}
 
 	companion object {
