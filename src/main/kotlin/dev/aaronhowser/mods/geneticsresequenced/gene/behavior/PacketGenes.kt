@@ -85,7 +85,7 @@ object PacketGenes {
 		val entityDragonFireball = DragonFireball(
 			player.level(),
 			player,
-			player.lookAngle
+			0.0, 0.0, 0.0
 		)
 
 		entityDragonFireball.setPos(player.eyePosition)

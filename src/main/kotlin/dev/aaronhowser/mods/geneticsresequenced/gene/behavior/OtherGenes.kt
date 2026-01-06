@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
+import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.NarratorPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.BlockPos
@@ -21,7 +22,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.AABB
-import net.neoforged.neoforge.event.ServerChatEvent
+import net.minecraftforge.event.ServerChatEvent
 import kotlin.random.Random
 
 object OtherGenes {
@@ -56,7 +57,7 @@ object OtherGenes {
 		val message = event.message
 
 		val packet = NarratorPacket(message.string)
-		packet.messageAllPlayersTrackingEntityAndSelf(player)
+		ModPacketHandler.messageAllPlayersTrackingEntityAndSelf(packet, player)
 	}
 
 	private val RANDOM_CRINGE_PHRASES = listOf(

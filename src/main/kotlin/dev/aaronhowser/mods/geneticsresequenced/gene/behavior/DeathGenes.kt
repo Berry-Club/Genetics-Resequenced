@@ -2,10 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.nextRange
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
-import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.clearSavedInventory
-import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.getSavedInventory
-import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.saveInventory
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.capability.KeptInventoryCapability
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.curios.KeepCurioInventory
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
@@ -22,10 +20,10 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.GameRules
 import net.minecraft.world.level.Level
-import net.neoforged.fml.ModList
-import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
-import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent
-import net.neoforged.neoforge.event.level.ExplosionEvent
+import net.minecraftforge.event.entity.living.LivingDeathEvent
+import net.minecraftforge.event.entity.living.LivingExperienceDropEvent
+import net.minecraftforge.event.level.ExplosionEvent
+import net.minecraftforge.fml.ModList
 import java.util.*
 
 object DeathGenes {
@@ -43,7 +41,7 @@ object DeathGenes {
 		val playerItems =
 			(player.inventory.items + player.inventory.armor + player.inventory.offhand).filter { !it.isEmpty }
 
-		player.saveInventory(playerItems)
+		KeptInventoryCapability.setSavedInventory(player, playerItems)
 
 		val curiosIsLoaded = ModList.get().isLoaded("curios")
 		if (curiosIsLoaded) {
@@ -54,7 +52,7 @@ object DeathGenes {
 	}
 
 	fun returnInventory(player: Player) {
-		val items = player.getSavedInventory()
+		val items = KeptInventoryCapability.getSavedInventory(player)
 		if (items.isEmpty()) return
 
 		items.forEach { itemStack: ItemStack ->
@@ -64,7 +62,7 @@ object DeathGenes {
 			}
 		}
 
-		player.clearSavedInventory()
+		KeptInventoryCapability.clearSavedInventory(player)
 	}
 
 	private val EMERALD_HEART_COOLDOWN = GeneCooldown(
@@ -77,7 +75,12 @@ object DeathGenes {
 		if (!entity.hasGene(ModGenes.EMERALD_HEART)) return
 
 		if (entity !is Player) {
-			val itemEntity = ItemEntity(entity.level(), entity.x, entity.y, entity.z, ItemStack(Items.EMERALD, 1))
+			val itemEntity = ItemEntity(
+				entity.level(),
+				entity.x, entity.y, entity.z,
+				ItemStack(Items.EMERALD, 1)
+			)
+
 			entity.level().addFreshEntity(itemEntity)
 			return
 		}
@@ -181,7 +184,7 @@ object DeathGenes {
 	}
 
 	fun handleExperienced(event: LivingExperienceDropEvent) {
-		if (ModGenes.EXPERIENCED.isDisabled(event.entity.registryAccess())) return
+		if (ModGenes.EXPERIENCED.isDisabled(event.entity.level().registryAccess())) return
 
 		val entity = event.entity
 		val multiplier = entity.getAttributeValue(ModAttributes.XP_DROP_MULTIPLIER)

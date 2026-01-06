@@ -16,7 +16,7 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal
 import net.minecraft.world.entity.ai.goal.target.TargetGoal
 import net.minecraft.world.entity.animal.Animal
 import net.minecraft.world.entity.animal.Bee
-import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent
+import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent
 import kotlin.jvm.optionals.getOrNull
 
 object MobGenes {
@@ -82,7 +82,7 @@ object MobGenes {
 	}
 
 	fun attachScareGoals(entity: PathfinderMob) {
-		val allGenes = ModGenes.getAllGeneHolders(entity.registryAccess())
+		val allGenes = ModGenes.getAllGeneHolders(entity.level().registryAccess())
 
 		for (gene in allGenes) {
 			if (gene.isDisabled) continue
