@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.KeptInventoryCapability
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.curios.KeepCurioInventory
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
@@ -43,11 +42,6 @@ object DeathGenes {
 			(player.inventory.items + player.inventory.armor + player.inventory.offhand).filter { !it.isEmpty }
 
 		KeptInventoryCapability.setSavedInventory(player, playerItems)
-
-		val curiosIsLoaded = ModList.get().isLoaded("curios")
-		if (curiosIsLoaded) {
-			KeepCurioInventory.saveCurios(player)
-		}
 
 		player.inventory.clearContent()
 	}
