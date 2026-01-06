@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressI
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import net.minecraft.core.HolderLookup
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.CraftingBookCategory
 import net.minecraft.world.item.crafting.CraftingInput
@@ -15,8 +16,9 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 class SetAntiPlasmidRecipe(
+	id: ResourceLocation,
 	craftingCategory: CraftingBookCategory = CraftingBookCategory.MISC
-) : CustomRecipe(craftingCategory) {
+) : CustomRecipe(id, craftingCategory) {
 
 	override fun matches(input: CraftingInput, level: Level): Boolean {
 		var plasmid: ItemStack? = null
