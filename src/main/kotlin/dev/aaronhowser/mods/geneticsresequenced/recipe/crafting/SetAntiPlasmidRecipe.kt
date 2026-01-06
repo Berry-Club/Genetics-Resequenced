@@ -6,25 +6,26 @@ import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
-import net.minecraft.core.HolderLookup
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
+import net.minecraft.core.RegistryAccess
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.inventory.CraftingContainer
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.CraftingBookCategory
-import net.minecraft.world.item.crafting.CraftingInput
 import net.minecraft.world.item.crafting.CustomRecipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 class SetAntiPlasmidRecipe(
-	id: ResourceLocation,
+	id: ResourceLocation = OtherUtil.modResource("set_anti_plasmid"),
 	craftingCategory: CraftingBookCategory = CraftingBookCategory.MISC
 ) : CustomRecipe(id, craftingCategory) {
 
-	override fun matches(input: CraftingInput, level: Level): Boolean {
+	override fun matches(input: CraftingContainer, level: Level): Boolean {
 		var plasmid: ItemStack? = null
 		var antiPlasmid: ItemStack? = null
 
-		for (stack in input.items()) {
+		for (stack in input.items) {
 			if (stack.item == ModItems.PLASMID.get()) {
 				if (plasmid != null) return false
 				plasmid = stack
@@ -41,9 +42,9 @@ class SetAntiPlasmidRecipe(
 		return !PlasmidItem.hasGene(antiPlasmid) && PlasmidItem.isComplete(plasmid)
 	}
 
-	override fun assemble(input: CraftingInput, provider: HolderLookup.Provider): ItemStack {
+	override fun assemble(input: CraftingContainer, pRegistryAccess: RegistryAccess): ItemStack {
 		var plasmidStack: ItemStack? = null
-		for (stack in input.items()) {
+		for (stack in input.items) {
 			if (stack.item == ModItems.PLASMID.get()) {
 				if (plasmidStack != null) return ItemStack.EMPTY
 				plasmidStack = stack
