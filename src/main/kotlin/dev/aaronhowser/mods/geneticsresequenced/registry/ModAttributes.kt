@@ -44,12 +44,6 @@ object ModAttributes {
 			AttributeModifier.Operation.ADDITION
 		)
 
-		val FLIGHT = AttributeModifier(
-			OtherUtil.modResource("flight").toString(),
-			1.0,
-			AttributeModifier.Operation.ADDITION
-		)
-
 		val MORE_HEALTH_ONE = AttributeModifier(
 			OtherUtil.modResource("more_health_one").toString(),
 			20.0,

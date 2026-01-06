@@ -77,12 +77,6 @@ object ModGeneProvider {
 			ModGenes.FLIGHT,
 			makeGene(
 				dnaPointsRequired = 50,
-				attributeModifiers = listOf(
-					AttributeEntry(
-						ForgeMod.CREATIVE_FLIGHT,
-						ModAttributes.AttributeModifiers.FLIGHT
-					)
-				),
 				allowedEntities = ONLY_PLAYERS
 			)
 		)
