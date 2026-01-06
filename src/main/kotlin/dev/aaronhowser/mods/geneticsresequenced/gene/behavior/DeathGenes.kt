@@ -187,7 +187,7 @@ object DeathGenes {
 		if (ModGenes.EXPERIENCED.isDisabled(event.entity.level().registryAccess())) return
 
 		val entity = event.entity
-		val multiplier = entity.getAttributeValue(ModAttributes.XP_DROP_MULTIPLIER)
+		val multiplier = entity.getAttributeValue(ModAttributes.XP_DROP_MULTIPLIER.get())
 		event.droppedExperience = Mth.ceil(event.droppedExperience * multiplier)
 	}
 
