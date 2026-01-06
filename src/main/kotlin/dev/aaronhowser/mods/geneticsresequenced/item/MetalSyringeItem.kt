@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import com.google.common.collect.ImmutableMultimap
+import com.google.common.collect.Multimap
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModItemLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
@@ -11,16 +13,16 @@ import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
-import net.minecraft.world.entity.EquipmentSlotGroup
+import net.minecraft.world.entity.EquipmentSlot
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
-import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.UseAnim
-import net.minecraft.world.item.component.ItemAttributeModifiers
 import net.minecraft.world.level.Level
-import net.neoforged.neoforge.common.util.FakePlayer
+import net.minecraftforge.common.ForgeMod
+import net.minecraftforge.common.util.FakePlayer
 
 class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 
@@ -41,10 +43,8 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 	}
 
 	override fun releaseUsing(pStack: ItemStack, pLevel: Level, pLivingEntity: LivingEntity, pTimeCharged: Int) {
-		if (pLivingEntity !is Player) return
+		if (pLivingEntity !is Player || pLivingEntity is FakePlayer) return
 		if (pTimeCharged > 1) return
-
-		if (pLivingEntity is FakePlayer) return
 
 		val targetEntity = OtherUtil.getLookedAtEntity(pLivingEntity) as? LivingEntity ?: return
 
@@ -68,24 +68,19 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 		}
 	}
 
+	override fun getAttributeModifiers(slot: EquipmentSlot, stack: ItemStack): Multimap<Attribute, AttributeModifier> {
+		return ImmutableMultimap.of(
+			ForgeMod.ENTITY_REACH.get(),
+			AttributeModifier(
+				SYRINGE_REACH_MODIFIER_RL.toString(),
+				3.0,
+				AttributeModifier.Operation.ADDITION
+			)
+		)
+	}
+
 	companion object {
 		val SYRINGE_REACH_MODIFIER_RL = OtherUtil.modResource("syringe_reach_modifier")
-
-		val DEFAULT_PROPERTIES: Properties = Properties()
-			.stacksTo(1)
-			.attributes(
-				ItemAttributeModifiers.builder()
-					.add(
-						Attributes.ENTITY_INTERACTION_RANGE,
-						AttributeModifier(
-							SYRINGE_REACH_MODIFIER_RL,
-							3.0,
-							AttributeModifier.Operation.ADD_VALUE
-						),
-						EquipmentSlotGroup.HAND
-					)
-					.build()
-			)
 
 		private fun useFullSyringe(
 			syringeStack: ItemStack,
