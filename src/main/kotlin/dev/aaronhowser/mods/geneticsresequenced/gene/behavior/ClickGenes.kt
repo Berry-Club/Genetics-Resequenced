@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.AaronExtensions.nextRange
 import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
+import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.setComponent
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeGene
@@ -436,7 +437,7 @@ object ClickGenes {
 		if (event.projectileItemStack.isNotEmpty()) return
 
 		val weapon = event.projectileWeaponItemStack.item as? ProjectileWeaponItem ?: return
-		val defaultAmmo = weapon.getDefaultCreativeAmmo(player, event.projectileItemStack)
+		val defaultAmmo = Items.ARROW.defaultInstance
 
 		defaultAmmo.setComponent(IsInfinityArrowDataComponent(true))
 
