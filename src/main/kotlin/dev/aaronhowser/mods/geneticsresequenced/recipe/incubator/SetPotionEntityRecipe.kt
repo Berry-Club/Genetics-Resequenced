@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
+import com.google.gson.JsonObject
 import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModPotionTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
@@ -7,9 +8,9 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRec
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
-import net.minecraft.core.HolderLookup
-import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.network.codec.StreamCodec
+import net.minecraft.core.RegistryAccess
+import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
@@ -33,7 +34,7 @@ object SetPotionEntityRecipe : AbstractIncubatorRecipe(
 		return topEntity != bottomEntity
 	}
 
-	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
+	override fun assemble(input: IncubatorRecipeInput, pRegistryAccess: RegistryAccess): ItemStack {
 		val topItem = input.getTopItem()
 		val bottomItem = input.getBottomItem()
 
@@ -44,7 +45,7 @@ object SetPotionEntityRecipe : AbstractIncubatorRecipe(
 		return output
 	}
 
-	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
+	override fun getResultItem(pRegistryAccess: RegistryAccess): ItemStack {
 		return ItemStack.EMPTY
 	}
 
@@ -54,19 +55,20 @@ object SetPotionEntityRecipe : AbstractIncubatorRecipe(
 
 	class Serializer : RecipeSerializer<SetPotionEntityRecipe> {
 
-		override fun codec(): MapCodec<SetPotionEntityRecipe> {
-			return CODEC
+		override fun fromJson(pRecipeId: ResourceLocation, pSerializedRecipe: JsonObject): SetPotionEntityRecipe {
+			TODO("Not yet implemented")
 		}
 
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> {
-			return STREAM_CODEC
+		override fun fromNetwork(pRecipeId: ResourceLocation, pBuffer: FriendlyByteBuf): SetPotionEntityRecipe? {
+			TODO("Not yet implemented")
+		}
+
+		override fun toNetwork(pBuffer: FriendlyByteBuf, pRecipe: SetPotionEntityRecipe) {
+			TODO("Not yet implemented")
 		}
 
 		companion object {
 			val CODEC: MapCodec<SetPotionEntityRecipe> = MapCodec.unit(SetPotionEntityRecipe)
-
-			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> =
-				StreamCodec.unit(SetPotionEntityRecipe)
 		}
 
 	}
