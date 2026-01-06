@@ -14,6 +14,7 @@ import net.minecraftforge.client.model.generators.BlockStateProvider
 import net.minecraftforge.client.model.generators.ConfiguredModel
 import net.minecraftforge.client.model.generators.ItemModelBuilder
 import net.minecraftforge.common.data.ExistingFileHelper
+import net.minecraftforge.registries.RegistryObject
 
 class ModBlockStateProvider(
 	output: PackOutput,
@@ -104,7 +105,7 @@ class ModBlockStateProvider(
 	}
 
 	private fun frontFacingBlock(
-		deferredBlock: DeferredBlock<out Block>,
+		deferredBlock: RegistryObject<out Block>,
 		name: String,
 		frontTexture: String
 	) {
