@@ -18,15 +18,13 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.item.AntiFieldOrbItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModDamageTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
-import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.damagesource.DamageSource
-import net.minecraft.world.damagesource.DamageType
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.*
 import net.minecraft.world.entity.item.ItemEntity
@@ -36,7 +34,6 @@ import net.minecraft.world.entity.monster.piglin.Piglin
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
-import net.minecraft.world.level.Level
 import net.minecraft.world.level.LightLayer
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import kotlin.math.max
@@ -148,12 +145,10 @@ object TickGenes {
 		}
 
 		if (!entityPredicate(entity)) return
-		entity.hurt(virusDamageSource(entity.level()), maxOf(entity.health / 2, 2f))
-	}
 
-	private fun virusDamageSource(level: Level): DamageSource = level.damageSources().source(VIRUS_DAMAGE_KEY)
-	private val VIRUS_DAMAGE_KEY: ResourceKey<DamageType> =
-		ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource("virus"))
+		val virusDamageSource = DamageSource(ModDamageTypes.VIRUS)
+		entity.hurt(virusDamageSource, maxOf(entity.health / 2, 2f))
+	}
 
 	private val GENE_INFERIORITY_MAP: Map<ResourceKey<Gene>, List<ResourceKey<Gene>>> = mapOf(
 		ModGenes.SPEED_FOUR to listOf(ModGenes.SPEED, ModGenes.SPEED_TWO),
