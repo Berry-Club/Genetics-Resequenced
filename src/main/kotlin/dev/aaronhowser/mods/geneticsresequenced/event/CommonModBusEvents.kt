@@ -9,7 +9,8 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.world.entity.EntityType
-import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent
+import net.minecraft.world.level.block.entity.BlockEntity
+import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -37,9 +38,11 @@ object CommonModBusEvents {
 	}
 
 	@SubscribeEvent
-	fun onRegisterCapabilities(event: RegisterCapabilitiesEvent) {
-		for (deferredBlockEntityType in ModBlockEntityTypes.BLOCK_ENTITY_REGISTRY.entries) {
-			val blockEntityType = deferredBlockEntityType.get()
+	fun onAttachBlockEntityCapabilities(event: AttachCapabilitiesEvent<in BlockEntity>) {
+		val modBlockEntityTypes = ModBlockEntityTypes.BLOCK_ENTITY_REGISTRY.entries
+
+		for (deferredBeType in modBlockEntityTypes) {
+			val blockEntityType = deferredBeType.get()
 
 			event.registerBlockEntity(
 				Capabilities.ItemHandler.BLOCK,
