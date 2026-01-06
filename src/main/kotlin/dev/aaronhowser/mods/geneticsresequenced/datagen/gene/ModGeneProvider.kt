@@ -10,6 +10,7 @@ import net.minecraft.core.HolderSet
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.data.CachedOutput
 import net.minecraft.data.DataProvider
+import net.minecraft.data.worldgen.BootstapContext
 import net.minecraft.resources.ResourceKey
 import net.minecraft.tags.TagKey
 import net.minecraft.world.effect.MobEffects
@@ -47,7 +48,7 @@ class ModGeneProvider : DataProvider {
 			NotHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup(), ONLY_PLAYERS)
 		)
 
-		fun bootstrap(context: BootstrapContext<Gene>) {
+		fun bootstrap(context: BootstapContext<Gene>) {
 
 			context.register(
 				ModGenes.BASIC,
