@@ -14,11 +14,9 @@ import net.minecraft.server.packs.PackType
 import net.minecraft.world.entity.EntityType
 import net.minecraftforge.common.data.ExistingFileHelper
 import net.minecraftforge.common.data.JsonCodecProvider
-import java.util.concurrent.CompletableFuture
 
 class ModEntityGenesProvider(
 	output: PackOutput,
-	lookupProvider: CompletableFuture<HolderLookup.Provider>,
 	existingFileHelper: ExistingFileHelper
 ) : JsonCodecProvider<EntityGenes.EntityGenesData>(
 	output,
@@ -26,12 +24,9 @@ class ModEntityGenesProvider(
 	GeneticsResequenced.MOD_ID,
 	JsonOps.INSTANCE,
 	PackType.SERVER_DATA,
-	EntityGenes.DIRECTORY,
-	PackOutput.Target.DATA_PACK,
+	"gene/entity",
 	EntityGenes.EntityGenesData.CODEC,
-	lookupProvider,
-	GeneticsResequenced.MOD_ID,
-	existingFileHelper
+	mapOf()
 ) {
 
 	private fun addEntityGenes(
@@ -55,7 +50,6 @@ class ModEntityGenesProvider(
 		addEntityGenes(EntityType.BAT, ModGenes.BASIC to 4, ModGenes.NIGHT_VISION to 1, ModGenes.MOB_SIGHT to 3)
 		addEntityGenes(EntityType.BEE, ModGenes.BASIC to 5, ModGenes.THORNS to 3)
 		addEntityGenes(EntityType.BLAZE, ModGenes.BASIC to 5, ModGenes.SHOOT_FIREBALLS to 3, ModGenes.FIRE_PROOF to 1, ModGenes.BIOLUMINESCENCE to 3)
-		addEntityGenes(EntityType.BREEZE, ModGenes.BASIC to 2, ModGenes.JUMP_BOOST to 5, ModGenes.WIND_CHARGED to 4)
 		addEntityGenes(EntityType.CAT, ModGenes.BASIC to 5, ModGenes.SCARE_CREEPERS to 2)
 		addEntityGenes(EntityType.CAVE_SPIDER, ModGenes.BASIC to 7, ModGenes.NIGHT_VISION to 5, ModGenes.WALL_CLIMBING to 2, ModGenes.POISON_IMMUNITY to 1, ModGenes.WEB_DEFENSE to 1, ModGenes.WEB_WALKER to 1)
 		addEntityGenes(EntityType.CHICKEN, ModGenes.BASIC to 5, ModGenes.NO_FALL_DAMAGE to 1, ModGenes.LAY_EGG to 4)
@@ -98,12 +92,12 @@ class ModEntityGenesProvider(
 		addEntityGenes(EntityType.SALMON, ModGenes.BASIC to 5, ModGenes.WATER_BREATHING to 3)
 		addEntityGenes(EntityType.SHEEP, ModGenes.BASIC to 5, ModGenes.EAT_GRASS to 3, ModGenes.WOOLY to 4)
 		addEntityGenes(EntityType.SHULKER, ModGenes.BASIC to 3, ModGenes.RESISTANCE to 4, ModGenes.LEVITATION to 4)
-		addEntityGenes(EntityType.SILVERFISH, ModGenes.BASIC to 3, ModGenes.HASTE to 3, ModGenes.EFFICIENCY to 1, ModGenes.INFESTED to 4)
+		addEntityGenes(EntityType.SILVERFISH, ModGenes.BASIC to 3, ModGenes.HASTE to 3, ModGenes.EFFICIENCY to 1)
 		addEntityGenes(EntityType.SKELETON_HORSE, ModGenes.JUMP_BOOST to 4, ModGenes.STEP_ASSIST to 4, ModGenes.SPEED to 4)
 		addEntityGenes(EntityType.SKELETON, ModGenes.BASIC to 5, ModGenes.INFINITY to 1)
-		addEntityGenes(EntityType.SLIME, ModGenes.BASIC to 5, ModGenes.NO_FALL_DAMAGE to 4, ModGenes.SLIMY_DEATH to 2, ModGenes.OOZING to 5)
+		addEntityGenes(EntityType.SLIME, ModGenes.BASIC to 5, ModGenes.NO_FALL_DAMAGE to 4, ModGenes.SLIMY_DEATH to 2)
 		addEntityGenes(EntityType.SNOW_GOLEM, ModGenes.BASIC to 5, ModGenes.CHILLING to 2)
-		addEntityGenes(EntityType.SPIDER, ModGenes.BASIC to 4, ModGenes.NIGHT_VISION to 3, ModGenes.WALL_CLIMBING to 2, ModGenes.WEAVING to 4, ModGenes.WEB_DEFENSE to 1, ModGenes.WEB_WALKER to 1)
+		addEntityGenes(EntityType.SPIDER, ModGenes.BASIC to 4, ModGenes.NIGHT_VISION to 3, ModGenes.WALL_CLIMBING to 2, ModGenes.WEB_DEFENSE to 1, ModGenes.WEB_WALKER to 1)
 		addEntityGenes(EntityType.SQUID, ModGenes.BASIC to 5, ModGenes.WATER_BREATHING to 2)
 		addEntityGenes(EntityType.STRAY, ModGenes.BASIC to 5, ModGenes.INFINITY to 3)
 		addEntityGenes(EntityType.STRIDER, ModGenes.BASIC to 5, ModGenes.FIRE_PROOF to 4, ModGenes.LAVA_PROOF to 2)
