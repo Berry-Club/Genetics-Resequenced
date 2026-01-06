@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.PotionTagIngredient
 import net.minecraftforge.registries.DeferredRegister
 import java.util.function.Supplier
 

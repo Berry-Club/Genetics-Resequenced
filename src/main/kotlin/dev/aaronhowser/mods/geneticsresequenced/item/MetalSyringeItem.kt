@@ -26,7 +26,7 @@ import net.minecraftforge.common.util.FakePlayer
 
 class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 
-	override fun getUseDuration(pStack: ItemStack, pHolder: LivingEntity): Int = 40
+	override fun getUseDuration(pStack: ItemStack): Int = 40
 	override fun getUseAnimation(pStack: ItemStack): UseAnim = UseAnim.BOW
 
 	override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {

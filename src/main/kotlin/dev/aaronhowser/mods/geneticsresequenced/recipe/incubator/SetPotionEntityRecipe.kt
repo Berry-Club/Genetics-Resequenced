@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModPotionTagsProvide
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.PotionTagIngredient
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import net.minecraft.core.HolderLookup
