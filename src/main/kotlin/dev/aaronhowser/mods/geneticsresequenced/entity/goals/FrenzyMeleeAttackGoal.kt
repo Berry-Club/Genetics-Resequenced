@@ -9,8 +9,6 @@ import net.minecraft.world.entity.PathfinderMob
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal
 import net.minecraft.world.item.enchantment.EnchantmentHelper
-import kotlin.math.cos
-import kotlin.math.sin
 
 // https://github.com/Elenterius/Biomancy/blob/mc1.20.1/prod/src/main/java/com/github/elenterius/biomancy/entity/mob/ai/goal/FrenzyMeleeAttackGoal.java
 class FrenzyMeleeAttackGoal(
@@ -54,34 +52,32 @@ class FrenzyMeleeAttackGoal(
 			var damage = 3f
 
 			val level = attacker.level()
-			val damageSource = level.damageSources().mobAttack(attacker)
+			val damageSource = attacker.damageSources().mobAttack(attacker)
 
 			if (level is ServerLevel) {
-				damage = EnchantmentHelper.modifyDamage(level, attacker.weaponItem, target, damageSource, damage)
+				damage = EnchantmentHelper.getDamageBonus(attacker.mainHandItem, attacker.mobType)
 			}
 
-			val flag = target.hurt(damageSource, damage)
+			val hit = target.hurt(damageSource, damage)
 
-			if (flag) {
-				val knockback = attacker.getKnockback(target, damageSource)
-				if (knockback > 0.0f) {
-					target.knockback(
-						(knockback * 0.5f).toDouble(),
-						sin(attacker.yRot * (Math.PI / 180.0).toFloat()).toDouble(),
-						(-cos(attacker.yRot * (Math.PI / 180.0).toFloat())).toDouble()
-					)
-
-					attacker.deltaMovement = attacker.deltaMovement.multiply(0.6, 1.0, 0.6)
-				}
+			if (hit) {
+				//FIXME
+//				val knockback = attacker.getKnockback(target, damageSource)
+//				if (knockback > 0.0f) {
+//					val xKnock = sin(attacker.yRot * (Math.PI / 180.0)).toFloat()
+//					val zKnock = -cos(attacker.yRot * (Math.PI / 180.0)).toFloat()
+//					target.knockback((knockback * 0.5f).toDouble(), xKnock.toDouble(), zKnock.toDouble())
+//					attacker.deltaMovement = attacker.deltaMovement.multiply(0.6, 1.0, 0.6)
+//				}
 
 				if (level is ServerLevel) {
-					EnchantmentHelper.doPostAttackEffects(level, target, damageSource)
+					EnchantmentHelper.doPostHurtEffects(attacker, target)
 				}
 
 				attacker.setLastHurtMob(target)
-				attacker.playAttackSound()
 			}
 		}
+
 	}
 
 }
