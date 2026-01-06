@@ -1,13 +1,15 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.crafting
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.RegistryAccess
+import net.minecraft.world.inventory.CraftingContainer
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.CraftingBookCategory
-import net.minecraft.world.item.crafting.CraftingInput
 import net.minecraft.world.item.crafting.CustomRecipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
@@ -16,10 +18,10 @@ class UnsetAntiPlasmidRecipe(
 	craftingCategory: CraftingBookCategory = CraftingBookCategory.MISC
 ) : CustomRecipe(craftingCategory) {
 
-	override fun matches(input: CraftingInput, level: Level): Boolean {
+	override fun matches(input: CraftingContainer, level: Level): Boolean {
 		var antiPlasmid: ItemStack? = null
 
-		for (stack in input.items()) {
+		for (stack in input.items) {
 			if (stack.item == ModItems.ANTI_PLASMID.get() && PlasmidItem.hasGene(stack)) {
 				if (antiPlasmid != null) return false
 				antiPlasmid = stack
@@ -31,8 +33,8 @@ class UnsetAntiPlasmidRecipe(
 		return antiPlasmid != null
 	}
 
-	override fun assemble(input: CraftingInput, provider: HolderLookup.Provider): ItemStack {
-		return ModItems.ANTI_PLASMID.toStack()
+	override fun assemble(pContainer: CraftingContainer, pRegistryAccess: RegistryAccess): ItemStack {
+		return ModItems.ANTI_PLASMID.getDefaultInstance()
 	}
 
 	override fun canCraftInDimensions(pWidth: Int, pHeight: Int): Boolean {
