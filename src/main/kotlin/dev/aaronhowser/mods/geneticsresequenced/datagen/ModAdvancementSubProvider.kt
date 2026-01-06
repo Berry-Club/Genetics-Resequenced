@@ -14,7 +14,6 @@ import net.minecraft.advancements.Advancement
 import net.minecraft.advancements.FrameType
 import net.minecraft.advancements.RequirementsStrategy
 import net.minecraft.advancements.critereon.InventoryChangeTrigger
-import net.minecraft.advancements.critereon.ItemPredicate
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.Items
@@ -106,16 +105,7 @@ class ModAdvancementSubProvider(
 			)
 			.addCriterion(
 				"decrypted_dna",
-				InventoryChangeTrigger.TriggerInstance.hasItems(
-					ItemPredicate.Builder
-						.item()
-						.of(ModItems.DNA_HELIX.get())
-						.withSubPredicate(
-							ModItemSubPredicates.HELIX_GENE.get(),
-							HelixGenePredicate.any()
-						)
-						.build()
-				)
+				InventoryChangeTrigger.TriggerInstance.hasItems(HelixGenePredicate.any())
 			)
 			.save(pWriter, DECRYPT_DNA)
 
@@ -129,16 +119,7 @@ class ModAdvancementSubProvider(
 			)
 			.addCriterion(
 				"black_death_helix",
-				InventoryChangeTrigger.TriggerInstance.hasItems(
-					ItemPredicate.Builder
-						.item()
-						.of(ModItems.DNA_HELIX)
-						.withSubPredicate(
-							ModItemSubPredicates.HELIX_GENE.get(),
-							HelixGenePredicate.blackDeath()
-						)
-						.build()
-				)
+				InventoryChangeTrigger.TriggerInstance.hasItems(HelixGenePredicate.blackDeath())
 			)
 			.save(pWriter, BLACK_DEATH)
 
