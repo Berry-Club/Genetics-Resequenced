@@ -66,17 +66,17 @@ object CommonModBusEvents {
 
 	@SubscribeEvent
 	fun onEntityAttributeModification(event: EntityAttributeModificationEvent) {
-		if (!event.has(EntityType.PLAYER, ModAttributes.EFFICIENCY)) {
-			event.add(EntityType.PLAYER, ModAttributes.EFFICIENCY)
+		if (!event.has(EntityType.PLAYER, ModAttributes.EFFICIENCY.get())) {
+			event.add(EntityType.PLAYER, ModAttributes.EFFICIENCY.get())
 		}
 
 		for (type in event.types) {
-			if (!event.has(type, ModAttributes.BASE_LOOTING)) {
-				event.add(type, ModAttributes.BASE_LOOTING)
+			if (!event.has(type, ModAttributes.BASE_LOOTING.get())) {
+				event.add(type, ModAttributes.BASE_LOOTING.get())
 			}
 
-			if (!event.has(type, ModAttributes.XP_DROP_MULTIPLIER)) {
-				event.add(type, ModAttributes.XP_DROP_MULTIPLIER)
+			if (!event.has(type, ModAttributes.XP_DROP_MULTIPLIER.get())) {
+				event.add(type, ModAttributes.XP_DROP_MULTIPLIER.get())
 			}
 		}
 	}
