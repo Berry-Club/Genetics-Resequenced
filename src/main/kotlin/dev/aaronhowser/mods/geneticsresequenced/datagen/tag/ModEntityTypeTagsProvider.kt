@@ -59,6 +59,22 @@ class ModEntityTypeTagsProvider(
 				EntityType.TRADER_LLAMA
 			)
 
+		this.tag(UNDEAD)
+			.add(
+				EntityType.ZOMBIE,
+				EntityType.ZOMBIE_HORSE,
+				EntityType.ZOMBIE_VILLAGER,
+				EntityType.ZOMBIFIED_PIGLIN,
+				EntityType.DROWNED,
+				EntityType.HUSK,
+				EntityType.SKELETON,
+				EntityType.STRAY,
+				EntityType.WITHER_SKELETON,
+				EntityType.SKELETON_HORSE,
+				EntityType.ZOGLIN,
+				EntityType.WITHER
+			)
+
 	}
 
 	companion object {
@@ -66,6 +82,7 @@ class ModEntityTypeTagsProvider(
 			return TagKey.create(Registries.ENTITY_TYPE, OtherUtil.modResource(id))
 		}
 
+		val UNDEAD = create("undead")
 		val SCRAPER_ENTITY_BLACKLIST = create("scraper_blacklist")
 		val AVOIDS_SCARE_CREEPER_GENE = create("avoids_scare_creeper_gene")
 		val AVOIDS_SCARE_ZOMBIE_GENE = create("avoids_scare_zombie_gene")

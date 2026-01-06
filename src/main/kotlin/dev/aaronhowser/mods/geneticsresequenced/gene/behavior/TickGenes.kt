@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
+import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
@@ -23,7 +24,6 @@ import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
-import net.minecraft.tags.EntityTypeTags
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.damagesource.DamageType
 import net.minecraft.world.effect.MobEffects
@@ -37,7 +37,7 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.LightLayer
-import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
+import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import kotlin.math.max
 
 object TickGenes {
@@ -140,7 +140,7 @@ object TickGenes {
 
 		val entityPredicate: (LivingEntity) -> Boolean = when {
 			geneHolder.isGene(ModGenes.GREEN_DEATH) -> { it -> it is Creeper }
-			geneHolder.isGene(ModGenes.UN_UNDEATH) -> { it -> it.isEntity(EntityTypeTags.UNDEAD) }
+			geneHolder.isGene(ModGenes.UN_UNDEATH) -> { it -> it.isEntity(ModEntityTypeTagsProvider.UNDEAD) }
 			geneHolder.isGene(ModGenes.GRAY_DEATH) -> { it -> it is AgeableMob || it is Zombie || it is Piglin }
 			geneHolder.isGene(ModGenes.WHITE_DEATH) -> { it -> it.type.category == MobCategory.MONSTER }
 			else -> return
@@ -172,13 +172,13 @@ object TickGenes {
 		val genesToSkip = mutableListOf<ResourceKey<Gene>>()
 
 		for (geneHolder in genesWithPotions.toList()) {
-			val inferiorGenes = GENE_INFERIORITY_MAP[geneHolder.key] ?: emptyList()
+			val inferiorGenes = GENE_INFERIORITY_MAP[geneHolder.unwrapKey().get()] ?: emptyList()
 			for (inferiorGene in inferiorGenes) {
 				genesToSkip.add(inferiorGene)
 			}
 		}
 
-		genesWithPotions.removeAll(genesToSkip.map { it.getHolderOrThrow(entity.registryAccess()) })
+		genesWithPotions.removeAll(genesToSkip.map { it.getHolderOrThrow(entity.level().registryAccess()) })
 
 		for (geneHolder in genesWithPotions) {
 			for (genePotion in geneHolder.value().potions) {
@@ -281,6 +281,7 @@ object TickGenes {
 		val component = ModTooltipLang.ITEM_MAGNET_BLACKLIST
 			.toComponent()
 			.withStyle(ChatFormatting.DARK_GRAY)
+
 		event.toolTip.add(component)
 	}
 
