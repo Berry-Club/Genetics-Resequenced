@@ -25,11 +25,7 @@ import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraftforge.api.distmarker.Dist
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent
-import net.minecraftforge.client.event.InputEvent
-import net.minecraftforge.client.event.ModelEvent
-import net.minecraftforge.client.event.RegisterKeyMappingsEvent
-import net.minecraftforge.client.event.RenderLivingEvent
+import net.minecraftforge.client.event.*
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
@@ -86,6 +82,7 @@ object ClientForgeBusEvents {
 	@SubscribeEvent
 	fun onClientSetup(event: FMLClientSetupEvent) {
 		registerEntityRenderers()
+		ModMenuTypes.registerScreens(event)
 	}
 
 	private fun registerEntityRenderers() {
@@ -116,11 +113,6 @@ object ClientForgeBusEvents {
 			if (SyringeItem.hasBlood(stack)) 1f else 0f
 		}
 
-	}
-
-	@SubscribeEvent
-	fun onRegisterMenuScreens(event: RegisterMenuScreensEvent) {
-		ModMenuTypes.registerScreens(event)
 	}
 
 	@SubscribeEvent
