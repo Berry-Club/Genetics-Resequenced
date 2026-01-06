@@ -100,11 +100,10 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 
 	override fun appendHoverText(
 		pStack: ItemStack,
-		pContext: TooltipContext,
+		pLevel: Level?,
 		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
+		pIsAdvanced: TooltipFlag
 	) {
-
 		val bloodOwner = getEntityName(pStack)
 		if (hasBlood(pStack) && bloodOwner != null) {
 			pTooltipComponents.add(

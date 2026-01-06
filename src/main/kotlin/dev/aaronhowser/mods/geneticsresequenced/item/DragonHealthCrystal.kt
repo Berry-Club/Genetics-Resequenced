@@ -18,6 +18,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.level.Level
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
 
 class DragonHealthCrystal(properties: Properties) : Item(properties) {
@@ -37,10 +38,15 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 		return pRepairCandidate.item === Items.END_CRYSTAL
 	}
 
-	override fun appendHoverText(stack: ItemStack, context: TooltipContext, tooltipComponents: MutableList<Component>, tooltipFlag: TooltipFlag) {
+	override fun appendHoverText(
+		pStack: ItemStack,
+		pLevel: Level?,
+		pTooltipComponents: MutableList<Component>,
+		pIsAdvanced: TooltipFlag
+	) {
 		val maxDamage = MAX_DAMAGE
-		val damageRemaining = stack.getComponent(DragonHealthCrystalDamageDataComponent.Type)?.damageRemaining ?: 0f
-		tooltipComponents.add(
+		val damageRemaining = pStack.getComponent(DragonHealthCrystalDamageDataComponent.Type)?.damageRemaining ?: 0f
+		pTooltipComponents.add(
 			Component.literal("${damageRemaining.toInt()}/${maxDamage.toInt()}").withStyle(ChatFormatting.GRAY)
 		)
 	}

@@ -18,14 +18,15 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.level.Level
 
 class PlasmidItem(properties: Properties) : Item(properties) {
 
 	override fun appendHoverText(
 		pStack: ItemStack,
-		pContext: TooltipContext,
+		pLevel: Level?,
 		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
+		pIsAdvanced: TooltipFlag
 	) {
 		val geneHolder = getGene(pStack)
 

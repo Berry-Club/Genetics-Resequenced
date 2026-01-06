@@ -23,6 +23,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.level.Level
 
 open class EntityDnaItem(properties: Properties) : Item(properties) {
 
@@ -53,9 +54,9 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 
 	override fun appendHoverText(
 		pStack: ItemStack,
-		pContext: TooltipContext,
+		pLevel: Level?,
 		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
+		pIsAdvanced: TooltipFlag
 	) {
 		val entityType = getEntityType(pStack)
 		if (entityType != null) {
@@ -84,8 +85,6 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 		} catch (e: Exception) {
 			GeneticsResequenced.LOGGER.error("EntityDnaItem isCreative check failed", e)
 		}
-
-		super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag)
 	}
 
 	companion object {
