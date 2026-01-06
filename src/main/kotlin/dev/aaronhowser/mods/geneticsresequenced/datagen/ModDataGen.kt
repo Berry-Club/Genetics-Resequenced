@@ -80,7 +80,6 @@ object ModDataGen {
 			AdvancementProvider(
 				output,
 				lookupProvider,
-				existingFileHelper,
 				listOf(ModAdvancementSubProvider(lookupWithGenes))
 			)
 		)
