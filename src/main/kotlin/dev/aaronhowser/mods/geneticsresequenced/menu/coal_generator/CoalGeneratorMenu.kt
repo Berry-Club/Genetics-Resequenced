@@ -16,7 +16,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.SimpleContainerData
 import net.minecraft.world.item.crafting.RecipeType
-import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
+import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import java.text.NumberFormat
 
 class CoalGeneratorMenu(
