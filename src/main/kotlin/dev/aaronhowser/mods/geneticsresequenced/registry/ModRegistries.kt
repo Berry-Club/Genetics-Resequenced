@@ -6,7 +6,6 @@ import net.minecraftforge.registries.DeferredRegister
 object ModRegistries {
 
 	private val REGISTRIES: List<DeferredRegister<*>> = listOf(
-		ModDataComponents.DATA_COMPONENT_REGISTRY,
 		ModItems.ITEM_REGISTRY,
 		ModBlocks.BLOCK_REGISTRY,
 		ModBlockEntityTypes.BLOCK_ENTITY_REGISTRY,

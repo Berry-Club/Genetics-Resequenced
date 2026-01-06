@@ -90,7 +90,7 @@ object ClickGenes {
 			level.random.nextRange(-0.05, 0.05)
 		)
 
-		event.itemStack.hurtAndBreak(1, clicker, clicker.getEquipmentSlotForItem(event.itemStack))
+		event.itemStack.hurtAndBreak(1, clicker) {}
 
 		level.playSound(
 			null,
@@ -138,7 +138,7 @@ object ClickGenes {
 			level.random.nextRange(-0.05, 0.05)
 		)
 
-		event.itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(event.itemStack))
+		event.itemStack.hurtAndBreak(1, player) {}
 
 		event.level.playSound(
 			null,
@@ -193,7 +193,7 @@ object ClickGenes {
 			level.random.nextRange(-0.05, 0.05)
 		)
 
-		event.itemStack.hurtAndBreak(1, clicker, clicker.getEquipmentSlotForItem(event.itemStack))
+		event.itemStack.hurtAndBreak(1, clicker) {}
 
 		level.playSound(
 			null,
@@ -239,7 +239,7 @@ object ClickGenes {
 			level.random.nextRange(-0.05, 0.05)
 		)
 
-		event.itemStack.hurtAndBreak(1, player, player.getEquipmentSlotForItem(event.itemStack))
+		event.itemStack.hurtAndBreak(1, player) {}
 
 		level.playSound(
 			null,

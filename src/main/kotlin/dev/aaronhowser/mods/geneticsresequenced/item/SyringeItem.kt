@@ -38,13 +38,13 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.item.UseAnim
 import net.minecraft.world.level.Level
-import net.neoforged.neoforge.common.util.FakePlayer
+import net.minecraftforge.common.util.FakePlayer
 import java.util.*
 import kotlin.jvm.optionals.getOrNull
 
 open class SyringeItem(properties: Properties) : Item(properties) {
 
-	override fun getUseDuration(pStack: ItemStack, pHolder: LivingEntity): Int = 40
+	override fun getUseDuration(pStack: ItemStack): Int = 40
 	override fun getUseAnimation(pStack: ItemStack): UseAnim = UseAnim.BOW
 
 	override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {

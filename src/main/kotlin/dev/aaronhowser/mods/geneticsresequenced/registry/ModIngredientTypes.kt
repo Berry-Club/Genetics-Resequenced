@@ -2,10 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.PotionTagIngredient
-import net.neoforged.neoforge.common.crafting.IngredientType
-import net.neoforged.neoforge.registries.DeferredHolder
-import net.neoforged.neoforge.registries.DeferredRegister
-import net.neoforged.neoforge.registries.NeoForgeRegistries
+import net.minecraftforge.registries.DeferredRegister
 import java.util.function.Supplier
 
 object ModIngredientTypes {
