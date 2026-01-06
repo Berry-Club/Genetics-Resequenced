@@ -1,7 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
+import com.google.gson.JsonObject
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
+import dev.aaronhowser.mods.aaron.AaronExtensions.partialNbtIngredient
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
@@ -13,24 +16,22 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.core.HolderLookup
-import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.network.codec.StreamCodec
+import net.minecraft.core.RegistryAccess
+import net.minecraft.network.FriendlyByteBuf
 import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
-import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.item.crafting.RecipeManager
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
-import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class VirusRecipe(
 	val inputDnaGene: ResourceKey<Gene>,
 	val outputGene: ResourceKey<Gene>
 ) : AbstractIncubatorRecipe(
 	topIngredient = Ingredient.of(ModItems.DNA_HELIX.get()),
-	bottomIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))
+	bottomIngredient = OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS.get()).partialNbtIngredient()
 ) {
 
 	override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
@@ -43,14 +44,14 @@ class VirusRecipe(
 		return DnaHelixItem.getGeneHolder(helixStack).isGene(inputDnaGene)
 	}
 
-	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
-		return getResultItem(lookup)
+	override fun assemble(pContainer: IncubatorRecipeInput, pRegistryAccess: RegistryAccess): ItemStack {
+		return getResultItem(pRegistryAccess)
 	}
 
-	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
+	override fun getResultItem(pRegistryAccess: RegistryAccess): ItemStack {
 		val output = DnaHelixItem.setGeneHolder(
-			ModItems.DNA_HELIX.toStack(),
-			this.outputGene.getHolderOrThrow(lookup)
+			ModItems.DNA_HELIX.getDefaultInstance(),
+			this.outputGene.getHolderOrThrow(pRegistryAccess)
 		)
 
 		return output
@@ -68,6 +69,18 @@ class VirusRecipe(
 
 		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, VirusRecipe> {
 			return STREAM_CODEC
+		}
+
+		override fun fromJson(pRecipeId: ResourceLocation, pSerializedRecipe: JsonObject): VirusRecipe {
+			TODO("Not yet implemented")
+		}
+
+		override fun fromNetwork(pRecipeId: ResourceLocation, pBuffer: FriendlyByteBuf): VirusRecipe? {
+			TODO("Not yet implemented")
+		}
+
+		override fun toNetwork(pBuffer: FriendlyByteBuf, pRecipe: VirusRecipe) {
+			TODO("Not yet implemented")
 		}
 
 		companion object {
