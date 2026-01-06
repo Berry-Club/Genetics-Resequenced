@@ -89,7 +89,7 @@ object ModDataGen {
 
 		generator.addProvider(
 			event.includeServer(),
-			ModGeneRequirementsProvider(output, lookupProvider, existingFileHelper)
+			ModGeneRequirementsProvider(output, existingFileHelper)
 		)
 
 		generator.addProvider(
