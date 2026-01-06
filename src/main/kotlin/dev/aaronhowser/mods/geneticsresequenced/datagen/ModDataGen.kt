@@ -68,10 +68,6 @@ object ModDataGen {
 		)
 		generator.addProvider(
 			event.includeServer(),
-			ModEnchantmentTagsProvider(output, lookupProvider, existingFileHelper)
-		)
-		generator.addProvider(
-			event.includeServer(),
 			ModPotionTagsProvider(output, lookupProvider, existingFileHelper)
 		)
 		generator.addProvider(
