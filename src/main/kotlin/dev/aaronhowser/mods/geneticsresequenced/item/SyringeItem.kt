@@ -20,7 +20,6 @@ import dev.aaronhowser.mods.geneticsresequenced.item.components.AntigeneSetDataC
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneSetDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.IsContaminatedDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder

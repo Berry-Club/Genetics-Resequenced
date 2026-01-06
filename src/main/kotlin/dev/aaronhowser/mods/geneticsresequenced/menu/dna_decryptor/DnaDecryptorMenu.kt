@@ -6,7 +6,6 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.Crafti
 import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.menu.CraftingMachineMenu
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import net.minecraft.world.Container
 import net.minecraft.world.SimpleContainer
