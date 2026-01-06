@@ -86,7 +86,7 @@ object ModDataGen {
 
 		generator.addProvider(
 			event.includeServer(),
-			ModLootTableProvider.create(output, lookupProvider)
+			ModLootTableProvider.create(output)
 		)
 
 		val languageProvider = ModLanguageProvider(output)
