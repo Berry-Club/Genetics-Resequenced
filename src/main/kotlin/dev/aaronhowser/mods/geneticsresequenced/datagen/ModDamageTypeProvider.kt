@@ -28,9 +28,12 @@ class ModDamageTypeProvider(
 		val BUILDER: RegistrySetBuilder = RegistrySetBuilder()
 			.add(Registries.DAMAGE_TYPE, ::bootstrap)
 
-		val VIRUS: ResourceKey<DamageType> = rk("virus")
+		val VIRUS: ResourceKey<DamageType> = createType("virus")
+		val STEP_ON_SYRINGE: ResourceKey<DamageType> = createType("step_on_syringe")
+		val USE_SYRINGE: ResourceKey<DamageType> = createType("use_syringe")
+		val USE_SCRAPER: ResourceKey<DamageType> = createType("use_scraper")
 
-		private fun rk(name: String): ResourceKey<DamageType> = ResourceKey.create(
+		private fun createType(name: String): ResourceKey<DamageType> = ResourceKey.create(
 			Registries.DAMAGE_TYPE,
 			OtherUtil.modResource(name)
 		)
@@ -40,6 +43,36 @@ class ModDamageTypeProvider(
 				VIRUS,
 				DamageType(
 					"virus",
+					DamageScaling.NEVER,
+					0f,
+					DamageEffects.HURT,
+				)
+			)
+
+			context.register(
+				STEP_ON_SYRINGE,
+				DamageType(
+					"step_on_syringe",
+					DamageScaling.NEVER,
+					0f,
+					DamageEffects.HURT,
+				)
+			)
+
+			context.register(
+				USE_SYRINGE,
+				DamageType(
+					"use_syringe",
+					DamageScaling.NEVER,
+					0f,
+					DamageEffects.HURT,
+				)
+			)
+
+			context.register(
+				USE_SCRAPER,
+				DamageType(
+					"use_scraper",
 					DamageScaling.NEVER,
 					0f,
 					DamageEffects.HURT,

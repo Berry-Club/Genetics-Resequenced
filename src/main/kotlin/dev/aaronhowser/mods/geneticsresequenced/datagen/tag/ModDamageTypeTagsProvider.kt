@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.tag
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModDamageTypeProvider
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.Registries
@@ -22,16 +23,18 @@ class ModDamageTypeTagsProvider(
 
 		this.tag(DamageTypeTags.NO_IMPACT)
 			.add(
-				STEP_ON_SYRINGE,
-				USE_SYRINGE,
-				USE_SCRAPER
+				ModDamageTypeProvider.STEP_ON_SYRINGE,
+				ModDamageTypeProvider.USE_SYRINGE,
+				ModDamageTypeProvider.USE_SCRAPER,
+				ModDamageTypeProvider.VIRUS
 			)
 
 		this.tag(DamageTypeTags.NO_ANGER)
 			.add(
-				STEP_ON_SYRINGE,
-				USE_SYRINGE,
-				USE_SCRAPER
+				ModDamageTypeProvider.STEP_ON_SYRINGE,
+				ModDamageTypeProvider.USE_SYRINGE,
+				ModDamageTypeProvider.USE_SCRAPER,
+				ModDamageTypeProvider.VIRUS
 			)
 
 		//TODO
@@ -42,14 +45,6 @@ class ModDamageTypeTagsProvider(
 //				USE_SCRAPER
 //			)
 
-	}
-
-	companion object {
-		private fun createType(name: String): ResourceKey<DamageType> = ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource(name))
-
-		val STEP_ON_SYRINGE: ResourceKey<DamageType> = createType("step_on_syringe")
-		val USE_SYRINGE: ResourceKey<DamageType> = createType("use_syringe")
-		val USE_SCRAPER: ResourceKey<DamageType> = createType("use_scraper")
 	}
 
 }
