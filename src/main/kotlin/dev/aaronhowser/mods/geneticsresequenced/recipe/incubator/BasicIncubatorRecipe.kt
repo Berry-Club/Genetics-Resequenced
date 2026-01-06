@@ -7,12 +7,8 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRec
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import net.minecraft.core.HolderLookup
-import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.network.codec.ByteBufCodecs
-import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
-import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.item.crafting.RecipeManager
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
@@ -50,10 +46,6 @@ class BasicIncubatorRecipe(
 			return CODEC
 		}
 
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, BasicIncubatorRecipe> {
-			return STREAM_CODEC
-		}
-
 		companion object {
 			val CODEC: MapCodec<BasicIncubatorRecipe> =
 				RecordCodecBuilder.mapCodec { instance ->
@@ -72,24 +64,12 @@ class BasicIncubatorRecipe(
 							.forGetter(BasicIncubatorRecipe::isLowTemp)
 					).apply(instance, ::BasicIncubatorRecipe)
 				}
-
-			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, BasicIncubatorRecipe> =
-				StreamCodec.composite(
-					Ingredient.CONTENTS_STREAM_CODEC, BasicIncubatorRecipe::topIngredient,
-					Ingredient.CONTENTS_STREAM_CODEC, BasicIncubatorRecipe::bottomIngredient,
-					ItemStack.STREAM_CODEC, BasicIncubatorRecipe::outputStack,
-					ByteBufCodecs.BOOL, BasicIncubatorRecipe::isLowTemp,
-					::BasicIncubatorRecipe
-				)
 		}
 	}
 
 	companion object {
-		@Suppress("UNCHECKED_CAST")
-		fun getBasicRecipes(recipeManager: RecipeManager): List<RecipeHolder<BasicIncubatorRecipe>> {
-			val incubatorRecipes = getIncubatorRecipes(recipeManager)
-
-			return incubatorRecipes.mapNotNull { if (it.value is BasicIncubatorRecipe) it as? RecipeHolder<BasicIncubatorRecipe> else null }
+		fun getBasicRecipes(recipeManager: RecipeManager): List<BasicIncubatorRecipe> {
+			return getIncubatorRecipes(recipeManager).filterIsInstance<BasicIncubatorRecipe>()
 		}
 	}
 
