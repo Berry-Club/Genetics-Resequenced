@@ -45,11 +45,6 @@ object ModDataGen {
 			ModBlockStateProvider(output, existingFileHelper)
 		)
 
-		generator.addProvider(
-			event.includeServer(),
-			ModRecipeProvider(output, lookupWithGenes)
-		)
-
 		val blockTagProvider = generator.addProvider(
 			event.includeServer(),
 			ModBlockTagsProvider(output, lookupProvider, existingFileHelper)
