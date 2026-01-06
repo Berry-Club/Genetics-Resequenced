@@ -14,6 +14,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.item.components.IsInfinityArrowDataComponent
+import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
@@ -34,10 +35,10 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.ProjectileWeaponItem
 import net.minecraft.world.level.block.Blocks
+import net.minecraftforge.common.Tags
 import net.minecraftforge.event.entity.EntityJoinLevelEvent
 import net.minecraftforge.event.entity.living.LivingGetProjectileEvent
-import net.neoforged.neoforge.common.Tags
-import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
+import net.minecraftforge.event.entity.player.PlayerInteractEvent
 
 object ClickGenes {
 
@@ -60,7 +61,7 @@ object ClickGenes {
 
 		if (!target.hasGene(ModGenes.WOOLY)) return
 
-		val clickedWithShears = event.itemStack.isItem(Tags.Items.TOOLS_SHEAR)
+		val clickedWithShears = event.itemStack.isItem(Tags.Items.SHEARS)
 		if (!clickedWithShears) return
 
 		val newlySheared = RECENTLY_SHEARED_ENTITIES.add(target)
@@ -101,7 +102,7 @@ object ClickGenes {
 
 		if (target is ServerPlayer) {
 			val packet = ShearedPacket(removingSkin = true)
-			packet.messagePlayer(target)
+			ModPacketHandler.messagePlayer(packet, target)
 		}
 	}
 
@@ -110,7 +111,7 @@ object ClickGenes {
 		if (!player.isCrouching) return
 		if (!player.hasGene(ModGenes.WOOLY)) return
 
-		val clickedWithShears = event.itemStack.isItem(Tags.Items.TOOLS_SHEAR)
+		val clickedWithShears = event.itemStack.isItem(Tags.Items.SHEARS)
 		if (!clickedWithShears) return
 
 		val newlySheared = RECENTLY_SHEARED_ENTITIES.add(player)
@@ -148,7 +149,7 @@ object ClickGenes {
 		)
 
 		val packet = ShearedPacket(removingSkin = true)
-		packet.messagePlayer(player)
+		ModPacketHandler.messagePlayer(packet, player)
 	}
 
 	private val RECENTLY_MEATED_PLAYERS = GeneCooldown(
@@ -163,7 +164,7 @@ object ClickGenes {
 		val level = target.level()
 		if (level.isClientSide) return
 
-		val clickedWithShears = event.itemStack.isItem(Tags.Items.TOOLS_SHEAR)
+		val clickedWithShears = event.itemStack.isItem(Tags.Items.SHEARS)
 		if (!clickedWithShears) return
 
 		val newlyMeated = RECENTLY_MEATED_PLAYERS.add(target)
@@ -212,7 +213,7 @@ object ClickGenes {
 			|| level.isClientSide
 		) return
 
-		val clickedWithShears = event.itemStack.isItem(Tags.Items.TOOLS_SHEAR)
+		val clickedWithShears = event.itemStack.isItem(Tags.Items.SHEARS)
 		if (!clickedWithShears) return
 
 		val newlyMeated = RECENTLY_MEATED_PLAYERS.add(player)
@@ -349,7 +350,7 @@ object ClickGenes {
 		val fireball = SmallFireball(
 			event.level,
 			player,
-			lookVec
+			0.0, 0.0, 0.0
 		)
 
 		fireball.setPos(fireball.x, player.eyeY, fireball.z)
@@ -419,7 +420,7 @@ object ClickGenes {
 
 		if (!player.hasGene(ModGenes.CRINGE)) return
 
-		val cringe = ModGenes.CRINGE.getHolderOrThrow(event.entity.registryAccess())
+		val cringe = ModGenes.CRINGE.getHolderOrThrow(event.entity.level().registryAccess())
 		player.removeGene(cringe)
 		if (!player.level().isClientSide) {
 			player.sendSystemMessage(ModMessageLang.CRINGE_GRASS.toComponent())
