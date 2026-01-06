@@ -72,8 +72,8 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 				val entityGenesData: EntityGenesData = EntityGenesData.CODEC.decode(
 					JsonOps.INSTANCE,
 					value
-				).getOrThrow {
-					IllegalArgumentException("Failed to decode entity genes for $key")
+				).getOrThrow(false) {
+					GeneticsResequenced.LOGGER.error("Error decoding gene-mob data for $key: $it")
 				}.first
 
 				val entityName = entityGenesData.entity.location().path
