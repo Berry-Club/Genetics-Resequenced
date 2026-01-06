@@ -129,7 +129,7 @@ class GenesCapability() {
 			if (this.hasGene(newGeneHolder)) return false
 
 			if (newGeneHolder.isHelixOnly) {
-				GeneticsResequenced.Companion.LOGGER.debug(
+				GeneticsResequenced.LOGGER.debug(
 					"Cannot add gene $newGeneHolder to entities, as it has tag `#geneticsresequenced:helix_only`."
 				)
 				return false
@@ -138,10 +138,10 @@ class GenesCapability() {
 			if (
 				this is Player
 				&& newGeneHolder.isNegative
-				&& ServerConfig.Companion.CONFIG.disableGivingPlayersNegativeGenes.get()
+				&& ServerConfig.CONFIG.disableGivingPlayersNegativeGenes.get()
 				&& !newGeneHolder.isHolder(ModGenes.CRINGE)
 			) {
-				GeneticsResequenced.Companion.LOGGER.debug(
+				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
 						.append("Tried to give negative gene ")
 						.append(newGeneHolder.getLocationOrNull() ?: newGeneHolder)
@@ -154,7 +154,7 @@ class GenesCapability() {
 
 			val allowedTypes = newGeneHolder.value().allowedEntities.map(Holder<EntityType<*>>::value)
 			if (this.type !in allowedTypes) {
-				GeneticsResequenced.Companion.LOGGER.debug(
+				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
 						.append("Tried to give gene ")
 						.append(newGeneHolder.getLocationOrNull() ?: newGeneHolder)
@@ -168,7 +168,7 @@ class GenesCapability() {
 			val incompatibleGenes = newGeneHolder.value().incompatibleGenes
 			val foundIncompatibleGenes = this.permanentGeneHolders.filter { it.unwrapKey().getOrNull() in incompatibleGenes }
 			if (foundIncompatibleGenes.isNotEmpty()) {
-				GeneticsResequenced.Companion.LOGGER.debug(
+				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
 						.append("Tried to give gene ")
 						.append(newGeneHolder.getLocationOrNull() ?: newGeneHolder)
@@ -183,7 +183,7 @@ class GenesCapability() {
 			val eventPre = GeneChangeEvent.Pre(this@addGene, newGeneHolder, true)
 			FORGE_BUS.post(eventPre)
 			if (eventPre.isCanceled) {
-				GeneticsResequenced.Companion.LOGGER.debug("Event was canceled: $eventPre")
+				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
 				return false
 			}
 
@@ -203,7 +203,7 @@ class GenesCapability() {
 			val eventPre = GeneChangeEvent.Pre(this, removedGeneHolder, false)
 			FORGE_BUS.post(eventPre)
 			if (eventPre.isCanceled) {
-				GeneticsResequenced.Companion.LOGGER.debug("Event was canceled: $eventPre")
+				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
 				return false
 			}
 

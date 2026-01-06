@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.lang
 
 object ModConfigLang {
 	fun add(provider: ModLanguageProvider) {
-		
+
 		provider.apply {
 			add(Client.WOOLY_REMOVES_CAPE, "Wooly removes cape")
 			add(Client.DISABLE_PARROT_NARRATOR, "Disable chatterbox narration")
@@ -62,7 +62,7 @@ object ModConfigLang {
 			add(Server.Gene.MEATY2_COOLDOWN, "Meaty II cooldown")
 			add(Server.Gene.WOOLY_COOLDOWN, "Wooly cooldown")
 			add(Server.Gene.EMERALD_HEART_CHAT_CHANCE, "Emerald Heart chat chance")
-			add(Server.Gene.DRAGONS_BREATH_COOLDOWN, "Dragon's Breath cooldown")	
+			add(Server.Gene.DRAGONS_BREATH_COOLDOWN, "Dragon's Breath cooldown")
 		}
 
 	}

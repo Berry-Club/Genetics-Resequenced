@@ -19,7 +19,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 	modid = GeneticsResequenced.MOD_ID,
 	bus = Mod.EventBusSubscriber.Bus.MOD
 )
-object  ClientModBusEvents {
+object ClientModBusEvents {
 
 	@SubscribeEvent
 	fun onKeyRegister(event: RegisterKeyMappingsEvent) {
@@ -60,7 +60,6 @@ object  ClientModBusEvents {
 			if (SyringeItem.hasBlood(stack)) 1f else 0f
 		}
 	}
-
 
 
 }

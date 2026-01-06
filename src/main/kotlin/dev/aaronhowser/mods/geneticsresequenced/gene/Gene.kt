@@ -13,6 +13,8 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModGeneLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModGeneTagsProvider
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.translationKey
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil

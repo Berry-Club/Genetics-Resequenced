@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.lang
 object ModRecipeLang {
 
 	fun add(provider: ModLanguageProvider) {
-		
+
 		provider.apply {
 			add(MOB, "Mob: %1\$s")
 			add(GENE, "Gene: %1\$s")
