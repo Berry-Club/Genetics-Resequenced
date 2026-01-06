@@ -13,6 +13,10 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.projectile.ProjectileUtil
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
+import net.minecraft.world.item.alchemy.Potion
+import net.minecraft.world.item.alchemy.PotionUtils
 import net.minecraft.world.item.enchantment.Enchantment
 import net.minecraftforge.common.ForgeMod
 
@@ -66,5 +70,7 @@ object OtherUtil {
 
 		return mutableComponent
 	}
+
+	fun getPotionStack(potion: Potion): ItemStack = PotionUtils.setPotion(Items.POTION.defaultInstance, potion)
 
 }

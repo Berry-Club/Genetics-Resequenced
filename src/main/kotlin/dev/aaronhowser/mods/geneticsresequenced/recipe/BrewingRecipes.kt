@@ -1,38 +1,37 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.asIngredient
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes.ingredient
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.ChatFormatting
-import net.minecraft.core.Holder
 import net.minecraft.network.chat.Style
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
+import net.minecraft.world.item.alchemy.PotionUtils
 import net.minecraft.world.item.alchemy.Potions
 import net.minecraft.world.item.crafting.Ingredient
-import net.minecraft.world.level.ItemLike
-import net.neoforged.neoforge.common.brewing.BrewingRecipe
-import net.neoforged.neoforge.common.crafting.DataComponentIngredient
-import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent
-import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry
+import net.minecraftforge.event.entity.player.ItemTooltipEvent
+import net.minecraftforge.registries.RegistryObject
 
 object BrewingRecipes {
 
 	private val modPotions: List<Potion>
-		get() = ModPotions.POTION_REGISTRY.entries.map { it.get() }
+		get() = ModPotions.POTION_REGISTRY.entries.map(RegistryObject<Potion>::get)
 
 	fun tooltip(event: ItemTooltipEvent) {
 		val stack = event.itemStack
-		val itemPotion = OtherUtil.getPotion(stack) ?: return
+		val potion = PotionUtils.getPotion(stack)
 
-		if (itemPotion == ModPotions.ZOMBIFY_VILLAGER || itemPotion == ModPotions.PANACEA) return
-		if (itemPotion.value() !in this.modPotions) return
+		if (potion == ModPotions.ZOMBIFY_VILLAGER.get()) return
+		if (potion == ModPotions.PANACEA.get()) return
+		if (potion !in modPotions) return
 
 		if (stack.item != Items.POTION) {
 			event.toolTip.add(
@@ -64,51 +63,39 @@ object BrewingRecipes {
 
 	}
 
-	private fun ingredient(potion: Holder<Potion>): Ingredient =
-		DataComponentIngredient.of(false, OtherUtil.getPotionStack(potion))
-
-	private fun ingredient(itemLike: ItemLike): Ingredient = Ingredient.of(itemLike)
+	private fun Potion.asIngredient(): Ingredient = OtherUtil.getPotionStack(this).asIngredient()
 
 	val substratePotionStack
-		get() = OtherUtil.getPotionStack(ModPotions.SUBSTRATE)
+		get() = OtherUtil.getPotionStack(ModPotions.SUBSTRATE.get())
 	val cellGrowthPotionStack
-		get() = OtherUtil.getPotionStack(ModPotions.CELL_GROWTH)
+		get() = OtherUtil.getPotionStack(ModPotions.CELL_GROWTH.get())
 	val mutationPotionStack
-		get() = OtherUtil.getPotionStack(ModPotions.MUTATION)
+		get() = OtherUtil.getPotionStack(ModPotions.MUTATION.get())
 	val viralAgentsPotionStack
-		get() = OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)
+		get() = OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS.get())
 	val panaceaPotionStack
-		get() = OtherUtil.getPotionStack(ModPotions.PANACEA)
+		get() = OtherUtil.getPotionStack(ModPotions.PANACEA.get())
 
-	fun setRecipes(event: RegisterBrewingRecipesEvent) {
-
-		val substrateRecipe = BrewingRecipe(
-			ingredient(Potions.MUNDANE),
-			ingredient(ModItems.ORGANIC_MATTER),
-			this.substratePotionStack
+	fun setRecipes() {
+		BrewingRecipeRegistry.addRecipe(
+			Potions.MUNDANE.asIngredient(),
+			ModItems.ORGANIC_MATTER.asIngredient(),
+			substratePotionStack
 		)
 
-		val mutationRecipe = BrewingRecipe(
-			ingredient(ModPotions.CELL_GROWTH),
-			ingredient(Items.FERMENTED_SPIDER_EYE),
-			this.mutationPotionStack
+		BrewingRecipeRegistry.addRecipe(
+			ModPotions.CELL_GROWTH.get().asIngredient(),
+			Items.FERMENTED_SPIDER_EYE.asIngredient(),
+			mutationPotionStack
 		)
 
-		val viralRecipe = BrewingRecipe(
-			ingredient(ModPotions.MUTATION),
-			ingredient(Items.CHORUS_FRUIT),
-			this.viralAgentsPotionStack
+
+		BrewingRecipeRegistry.addRecipe(
+			ModPotions.MUTATION.get().asIngredient(),
+			Items.CHORUS_FRUIT.asIngredient(),
+			viralAgentsPotionStack
 		)
 
-		val allRecipes = listOf(
-			substrateRecipe,
-			mutationRecipe,
-			viralRecipe,
-		)
-
-		for (recipe in allRecipes) {
-			event.builder.addRecipe(recipe)
-		}
 	}
 
 }
