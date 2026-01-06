@@ -18,6 +18,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.wrapper.RangedWrapper
 import java.util.function.IntSupplier
@@ -133,14 +134,14 @@ class IncubatorBlockEntity(
 					itemHandler.setStackInSlot(slotIndex, output)
 				}
 			} else {
-				val potionBrewing = level!!.potionBrewing()
-				val hasMix = potionBrewing.hasMix(bottomStack, topStack)
+				val matchingRecipe = BrewingRecipeRegistry.getRecipes().firstOrNull { recipe ->
+					recipe.isInput(bottomStack) && recipe.isIngredient(topStack)
+				}
 
-				if (hasMix) {
+				if (matchingRecipe != null) {
 					onlyDupeCellRecipes = false
 
-					val output = potionBrewing.mix(topStack, bottomStack)
-
+					val output = matchingRecipe.getOutput(bottomStack, topStack)
 					if (output.isNotEmpty()) {
 						itemHandler.setStackInSlot(slotIndex, output)
 					}
