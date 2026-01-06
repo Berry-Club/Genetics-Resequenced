@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.gene
 
+import com.mojang.serialization.JsonOps
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -21,9 +22,12 @@ class ModEntityGenesProvider(
 	existingFileHelper: ExistingFileHelper
 ) : JsonCodecProvider<EntityGenes.EntityGenesData>(
 	output,
-	PackOutput.Target.DATA_PACK,
-	EntityGenes.DIRECTORY,
+	existingFileHelper,
+	GeneticsResequenced.MOD_ID,
+	JsonOps.INSTANCE,
 	PackType.SERVER_DATA,
+	EntityGenes.DIRECTORY,
+	PackOutput.Target.DATA_PACK,
 	EntityGenes.EntityGenesData.CODEC,
 	lookupProvider,
 	GeneticsResequenced.MOD_ID,

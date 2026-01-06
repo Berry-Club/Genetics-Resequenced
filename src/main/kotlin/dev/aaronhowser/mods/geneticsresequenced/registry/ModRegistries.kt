@@ -16,9 +16,7 @@ object ModRegistries {
 		ModEffects.EFFECT_REGISTRY,
 		ModPotions.POTION_REGISTRY,
 		ModRecipeTypes.RECIPE_TYPES_REGISTRY,
-		ModRecipeSerializers.RECIPE_SERIALIZERS_REGISTRY,
-		ModIngredientTypes.INGREDIENT_TYPE_REGISTRY,
-		ModItemSubPredicates.ITEM_SUB_PREDICATES
+		ModRecipeSerializers.RECIPE_SERIALIZERS_REGISTRY
 	)
 
 	fun register(modBus: IEventBus) {
