@@ -75,7 +75,7 @@ class VirusRecipe(
 			TODO("Not yet implemented")
 		}
 
-		override fun fromNetwork(pRecipeId: ResourceLocation, pBuffer: FriendlyByteBuf): VirusRecipe? {
+		override fun fromNetwork(pRecipeId: ResourceLocation, pBuffer: FriendlyByteBuf): VirusRecipe {
 			TODO("Not yet implemented")
 		}
 

@@ -346,7 +346,7 @@ object ClickGenes {
 		if (!player.isCrouching) return
 		if (!event.itemStack.isItem(ModItemTagsProvider.ACTIVATES_SHOOT_FIREBALL_GENE)) return
 
-		val lookVec = player.lookAngle
+		player.lookAngle
 
 		val fireball = SmallFireball(
 			event.level,

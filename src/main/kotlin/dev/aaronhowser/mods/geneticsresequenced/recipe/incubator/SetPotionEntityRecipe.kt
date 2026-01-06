@@ -59,7 +59,7 @@ object SetPotionEntityRecipe : AbstractIncubatorRecipe(
 			TODO("Not yet implemented")
 		}
 
-		override fun fromNetwork(pRecipeId: ResourceLocation, pBuffer: FriendlyByteBuf): SetPotionEntityRecipe? {
+		override fun fromNetwork(pRecipeId: ResourceLocation, pBuffer: FriendlyByteBuf): SetPotionEntityRecipe {
 			TODO("Not yet implemented")
 		}
 

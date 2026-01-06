@@ -20,7 +20,6 @@ import net.minecraft.world.item.alchemy.Potion
 import net.minecraft.world.item.alchemy.PotionUtils
 import net.minecraft.world.item.enchantment.Enchantment
 import net.minecraftforge.common.ForgeMod
-import net.minecraftforge.common.crafting.PartialNBTIngredient
 
 object OtherUtil {
 
