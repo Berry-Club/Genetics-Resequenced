@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
@@ -29,7 +30,7 @@ object EntityEvents {
 		val obj = event.getObject()
 
 		if (obj is LivingEntity) {
-			val geneProvider = GenesCapabilityProvider(obj.level().registryAccess())
+			val geneProvider = GenesCapabilityProvider(obj.registryAccess())
 			event.addCapability(GenesCapabilityProvider.CAPABILITY_RL, geneProvider)
 		}
 	}

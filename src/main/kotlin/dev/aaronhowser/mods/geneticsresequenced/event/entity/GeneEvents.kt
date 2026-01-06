@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
+import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.aaron.AaronExtensions.withHoverText
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
@@ -13,17 +15,18 @@ import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
+import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.Style
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.LivingEntity
-import net.neoforged.bus.api.EventPriority
-import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.common.EventBusSubscriber
+import net.minecraftforge.eventbus.api.EventPriority
+import net.minecraftforge.eventbus.api.SubscribeEvent
+import net.minecraftforge.fml.common.Mod
 
-@EventBusSubscriber(
+@Mod.EventBusSubscriber(
 	modid = GeneticsResequenced.MOD_ID
 )
 object GeneEvents {
@@ -97,8 +100,10 @@ object GeneEvents {
 			return
 		}
 
-		val packet = GeneChangedPacket(entity.id, changedGene, wasAdded)
-		packet.messageAllPlayers()
+		val rl = changedGene.getLocationOrNull() ?: return
+
+		val packet = GeneChangedPacket(entity.id, rl, wasAdded)
+		ModPacketHandler.messageAllPlayersTrackingEntityAndSelf(packet, entity)
 	}
 
 }

@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.nextRange
+import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.KeptInventoryCapability
@@ -184,7 +185,7 @@ object DeathGenes {
 	}
 
 	fun handleExperienced(event: LivingExperienceDropEvent) {
-		if (ModGenes.EXPERIENCED.isDisabled(event.entity.level().registryAccess())) return
+		if (ModGenes.EXPERIENCED.isDisabled(event.entity.registryAccess())) return
 
 		val entity = event.entity
 		val multiplier = entity.getAttributeValue(ModAttributes.XP_DROP_MULTIPLIER.get())

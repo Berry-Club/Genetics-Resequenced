@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.core.Holder
 import net.minecraft.core.Registry
@@ -51,7 +52,7 @@ object OtherUtil {
 	}
 
 	fun getEnchantmentRegistry(entity: Entity): Registry<Enchantment> {
-		return entity.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT)
+		return entity.registryAccess().registryOrThrow(Registries.ENCHANTMENT)
 	}
 
 	fun getEnchantHolder(entity: Entity, enchantment: ResourceKey<Enchantment>): Holder.Reference<Enchantment> {

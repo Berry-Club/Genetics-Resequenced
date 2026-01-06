@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
@@ -8,41 +9,41 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isContaminated
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
+import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.SetGenesPacket
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.LivingEntity
-import net.neoforged.bus.api.EventPriority
-import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.common.EventBusSubscriber
-import net.neoforged.neoforge.event.ServerChatEvent
-import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent
-import net.neoforged.neoforge.event.entity.player.PlayerEvent
-import net.neoforged.neoforge.event.tick.PlayerTickEvent
+import net.minecraftforge.event.ServerChatEvent
+import net.minecraftforge.event.TickEvent
+import net.minecraftforge.event.entity.player.PlayerEvent
+import net.minecraftforge.eventbus.api.EventPriority
+import net.minecraftforge.eventbus.api.SubscribeEvent
+import net.minecraftforge.fml.common.Mod
 
-@EventBusSubscriber(
-	modid = GeneticsResequenced.ID
+@Mod.EventBusSubscriber(
+	modid = GeneticsResequenced.MOD_ID
 )
 object OtherPlayerEvents {
 
 	@SubscribeEvent
-	fun onPlayerTick(event: PlayerTickEvent.Pre) {
-		TickGenes.handleNoHunger(event.entity)
-		OtherGenes.handleWallClimbing(event.entity)     // Requires clientside handling
-		TickGenes.handleItemMagnet(event.entity)
-		TickGenes.handleXpMagnet(event.entity)
+	fun onPlayerTick(event: TickEvent.PlayerTickEvent) {
+		TickGenes.handleNoHunger(event.player)
+		OtherGenes.handleWallClimbing(event.player)     // Requires clientside handling
+		TickGenes.handleItemMagnet(event.player)
+		TickGenes.handleXpMagnet(event.player)
 	}
 
 	@SubscribeEvent
-	fun onPickUpItem(event: ItemEntityPickupEvent.Post) {
-		val originalStack = event.originalStack
-		val player = event.player
+	fun onPickUpItem(event: PlayerEvent.ItemPickupEvent) {
+		val originalStack = event.stack
+		val player = event.entity
 
 		if (originalStack.isSyringe()) {
-			val thrower = event.itemEntity.owner as? LivingEntity
+			val thrower = event.originalEntity.owner as? LivingEntity
 
-			player.hurt(SyringeItem.damageSourceStepOnSyringe(event.player.level(), thrower), 1.0f)
+			player.hurt(SyringeItem.damageSourceStepOnSyringe(player.level(), thrower), 1.0f)
 
 			if (isContaminated(originalStack)) {
 				player.addEffect(MobEffectInstance(MobEffects.POISON, 20 * 3))
@@ -78,8 +79,8 @@ object OtherPlayerEvents {
 		val player = event.entity as? ServerPlayer ?: return
 		val entity = event.target as? LivingEntity ?: return
 
-		val packet = SetGenesPacket(entity.id, entity.permanentGeneHolders)
-		packet.messagePlayer(player)
+		val packet = SetGenesPacket(entity.id, entity.permanentGeneHolders.mapNotNull { it.getLocationOrNull() })
+		ModPacketHandler.messagePlayer(packet, player)
 	}
 
 }

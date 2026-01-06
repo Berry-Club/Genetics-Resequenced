@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isEntity
+import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.FrenzyMeleeAttackGoal
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.FrenzyTargetGoal
@@ -82,7 +83,7 @@ object MobGenes {
 	}
 
 	fun attachScareGoals(entity: PathfinderMob) {
-		val allGenes = ModGenes.getAllGeneHolders(entity.level().registryAccess())
+		val allGenes = ModGenes.getAllGeneHolders(entity.registryAccess())
 
 		for (gene in allGenes) {
 			if (gene.isDisabled) continue

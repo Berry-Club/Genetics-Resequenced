@@ -6,7 +6,6 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.JsonOps
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements.Companion.getGeneRequiredGeneRks
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
@@ -57,8 +56,8 @@ class GeneRequirements : SimpleJsonResourceReloadListener(
 			val geneRequirements: GeneRequirementsData = GeneRequirementsData.CODEC.parse(
 				JsonOps.INSTANCE,
 				value
-			).getOrThrow {
-				IllegalArgumentException("Failed to decode entity genes for $key")
+			).getOrThrow(false) {
+				GeneticsResequenced.LOGGER.error("Error decoding gene requirements for $key: $it")
 			}
 
 			addGeneRequirements(
@@ -82,7 +81,7 @@ class GeneRequirements : SimpleJsonResourceReloadListener(
 		}
 
 		fun getGeneRequiredGeneRks(gene: Holder<Gene>): Set<ResourceKey<Gene>> {
-			return getGeneRequiredGeneRks(gene.key!!)
+			return getGeneRequiredGeneRks(gene.unwrapKey().get())
 		}
 
 		fun getGeneRequiredGeneHolders(gene: Holder<Gene>, registries: HolderLookup.Provider): Set<Holder<Gene>> {

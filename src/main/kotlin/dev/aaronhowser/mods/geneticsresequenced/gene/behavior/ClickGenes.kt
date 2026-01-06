@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.AaronExtensions.nextRange
+import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
@@ -420,7 +421,7 @@ object ClickGenes {
 
 		if (!player.hasGene(ModGenes.CRINGE)) return
 
-		val cringe = ModGenes.CRINGE.getHolderOrThrow(event.entity.level().registryAccess())
+		val cringe = ModGenes.CRINGE.getHolderOrThrow(event.entity.registryAccess())
 		player.removeGene(cringe)
 		if (!player.level().isClientSide) {
 			player.sendSystemMessage(ModMessageLang.CRINGE_GRASS.toComponent())

@@ -10,8 +10,6 @@ import net.minecraft.resources.ResourceKey
 import net.minecraft.server.packs.PackType
 import net.minecraftforge.common.data.ExistingFileHelper
 import net.minecraftforge.common.data.JsonCodecProvider
-import net.neoforged.neoforge.common.data.ExistingFileHelper
-import net.neoforged.neoforge.common.data.JsonCodecProvider
 import java.util.concurrent.CompletableFuture
 
 class ModGeneRequirementsProvider(

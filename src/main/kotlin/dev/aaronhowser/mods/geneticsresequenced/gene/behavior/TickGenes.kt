@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isEntity
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.getGenes
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
@@ -178,7 +179,7 @@ object TickGenes {
 			}
 		}
 
-		genesWithPotions.removeAll(genesToSkip.map { it.getHolderOrThrow(entity.level().registryAccess()) })
+		genesWithPotions.removeAll(genesToSkip.map { it.getHolderOrThrow(entity.registryAccess()) })
 
 		for (geneHolder in genesWithPotions) {
 			for (genePotion in geneHolder.value().potions) {

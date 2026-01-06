@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.capability.TemporaryGenesCapability
 import dev.aaronhowser.mods.geneticsresequenced.capability.TemporaryGenesCapability.Companion.temporaryGenes
@@ -83,7 +84,7 @@ class GeneCheckerItem(properties: Properties) : Item(properties) {
 		}
 
 		private fun tellPossibleGenes(player: Player, targetEntityGenes: LivingEntity) {
-			val possibleGenes = EntityGenes.getGeneHolderWeights(targetEntityGenes.type, player.level().registryAccess())
+			val possibleGenes = EntityGenes.getGeneHolderWeights(targetEntityGenes.type, player.registryAccess())
 
 			if (possibleGenes.isEmpty()) {
 				player.sendSystemMessage(

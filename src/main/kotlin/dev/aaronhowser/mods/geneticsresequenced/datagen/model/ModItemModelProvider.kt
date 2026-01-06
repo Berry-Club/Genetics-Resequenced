@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.data.PackOutput
+import net.minecraft.world.item.Item
 import net.minecraftforge.client.model.generators.ItemModelProvider
 import net.minecraftforge.client.model.generators.ModelFile
 import net.minecraftforge.common.data.ExistingFileHelper
@@ -32,7 +33,12 @@ class ModItemModelProvider(
 
 		syringe()
 		metalSyringe()
+	}
 
+	private fun spawnEggItem(item: Item) {
+		val itemName = BuiltInRegistries.ITEM.getKey(item).toString()
+		getBuilder(itemName)
+			.parent(ModelFile.UncheckedModelFile("item/template_spawn_egg"))
 	}
 
 	private fun syringe() {
