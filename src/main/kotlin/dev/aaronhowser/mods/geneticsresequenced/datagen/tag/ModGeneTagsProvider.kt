@@ -52,7 +52,6 @@ class ModGeneTagsProvider(
 				ModGenes.CURSED,
 				ModGenes.FLAMBE,
 				ModGenes.HUNGER,
-				ModGenes.INFESTED,
 				ModGenes.LEVITATION,
 				ModGenes.MINING_FATIGUE,
 				ModGenes.NAUSEA,
