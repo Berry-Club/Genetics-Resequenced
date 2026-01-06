@@ -436,7 +436,7 @@ object ClickGenes {
 
 		if (event.projectileItemStack.isNotEmpty()) return
 
-		val weapon = event.projectileWeaponItemStack.item as? ProjectileWeaponItem ?: return
+		event.projectileWeaponItemStack.item as? ProjectileWeaponItem ?: return
 		val defaultAmmo = Items.ARROW.defaultInstance
 
 		defaultAmmo.setComponent(IsInfinityArrowDataComponent(true))

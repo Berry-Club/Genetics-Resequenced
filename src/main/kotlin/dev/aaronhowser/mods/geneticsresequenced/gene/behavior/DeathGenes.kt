@@ -23,7 +23,6 @@ import net.minecraft.world.level.Level
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent
 import net.minecraftforge.event.level.ExplosionEvent
-import net.minecraftforge.fml.ModList
 import java.util.*
 
 object DeathGenes {

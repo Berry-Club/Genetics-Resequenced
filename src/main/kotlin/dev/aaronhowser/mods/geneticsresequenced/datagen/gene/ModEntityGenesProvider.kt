@@ -6,14 +6,15 @@ import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.PackOutput
 import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.packs.PackType
 import net.minecraft.world.entity.EntityType
 import net.minecraftforge.common.data.ExistingFileHelper
 import net.minecraftforge.common.data.JsonCodecProvider
+import java.util.function.BiConsumer
 
 class ModEntityGenesProvider(
 	output: PackOutput,
@@ -28,23 +29,22 @@ class ModEntityGenesProvider(
 	EntityGenes.EntityGenesData.CODEC,
 	mapOf()
 ) {
+	override fun gather(consumer: BiConsumer<ResourceLocation, EntityGenes.EntityGenesData>) {
+		fun addEntityGenes(
+			entityType: EntityType<*>,
+			vararg geneWeights: Pair<ResourceKey<Gene>, Int>
+		) {
+			val entityRk = ResourceKey.create(Registries.ENTITY_TYPE, EntityType.getKey(entityType))
 
-	private fun addEntityGenes(
-		entityType: EntityType<*>,
-		vararg geneWeights: Pair<ResourceKey<Gene>, Int>
-	) {
-		val entityRk = ResourceKey.create(Registries.ENTITY_TYPE, EntityType.getKey(entityType))
-
-		this.unconditional(
-			entityRk.location(),
-			EntityGenes.EntityGenesData(
-				entityRk,
-				geneWeights.toMap()
+			consumer.accept(
+				entityRk.location(),
+				EntityGenes.EntityGenesData(
+					entityRk,
+					geneWeights.toMap()
+				)
 			)
-		)
-	}
+		}
 
-	override fun gather() {
 		addEntityGenes(EntityType.ALLAY, ModGenes.BASIC to 3, ModGenes.ITEM_MAGNET to 5)
 		addEntityGenes(EntityType.AXOLOTL, ModGenes.BASIC to 2, ModGenes.WATER_BREATHING to 5)
 		addEntityGenes(EntityType.BAT, ModGenes.BASIC to 4, ModGenes.NIGHT_VISION to 1, ModGenes.MOB_SIGHT to 3)

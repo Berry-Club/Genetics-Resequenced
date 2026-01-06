@@ -50,7 +50,7 @@ class ModAdvancementSubProvider(
 				"scraper",
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SCRAPER.get())
 			)
-			.build( ROOT)
+			.build(ROOT)
 			.save()
 
 		val cellAnalyzer = advancement()
@@ -69,7 +69,7 @@ class ModAdvancementSubProvider(
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.CELL.get())
 			)
 			.requirements(RequirementsStrategy.OR)
-			.build( CELL_ANALYZER)
+			.build(CELL_ANALYZER)
 			.save()
 
 		val dnaExtractor = advancement()
@@ -88,7 +88,7 @@ class ModAdvancementSubProvider(
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DNA_HELIX.get())
 			)
 			.requirements(RequirementsStrategy.OR)
-			.build( DNA_EXTRACTOR)
+			.build(DNA_EXTRACTOR)
 			.save()
 
 		val dnaDecryptor = advancement()
@@ -102,7 +102,7 @@ class ModAdvancementSubProvider(
 				"dna_decryptor",
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.DNA_DECRYPTOR.get())
 			)
-			.build( DNA_DECRYPTOR)
+			.build(DNA_DECRYPTOR)
 			.save()
 
 		val decryptDna = advancement()
@@ -116,7 +116,7 @@ class ModAdvancementSubProvider(
 				"decrypted_dna",
 				InventoryChangeTrigger.TriggerInstance.hasItems(HelixGenePredicate.any())
 			)
-			.build( DECRYPT_DNA)
+			.build(DECRYPT_DNA)
 			.save()
 
 		Advancement.Builder.advancement()
@@ -131,7 +131,7 @@ class ModAdvancementSubProvider(
 				"black_death_helix",
 				InventoryChangeTrigger.TriggerInstance.hasItems(HelixGenePredicate.blackDeath())
 			)
-			.build( BLACK_DEATH)
+			.build(BLACK_DEATH)
 			.save()
 
 		val plasmidInfuser = advancement()
@@ -145,7 +145,7 @@ class ModAdvancementSubProvider(
 				"plasmid_infuser",
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.PLASMID_INFUSER.get())
 			)
-			.build( PLASMID_INFUSER)
+			.build(PLASMID_INFUSER)
 			.save()
 
 		val plasmidInjector = advancement()
@@ -159,7 +159,7 @@ class ModAdvancementSubProvider(
 				"plasmid_injector",
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.PLASMID_INJECTOR.get())
 			)
-			.build( PLASMID_INJECTOR)
+			.build(PLASMID_INJECTOR)
 			.save()
 
 		val getGene = advancement()
@@ -180,7 +180,7 @@ class ModAdvancementSubProvider(
 				true, true, false
 			)
 			.addImpossibleCriterion()
-			.build( GET_GENE)
+			.build(GET_GENE)
 			.save()
 
 		advancement()
@@ -192,7 +192,7 @@ class ModAdvancementSubProvider(
 				FrameType.CHALLENGE,
 			)
 			.addImpossibleCriterion()
-			.build( GET_FLIGHT)
+			.build(GET_FLIGHT)
 			.save()
 
 		advancement()
@@ -204,7 +204,7 @@ class ModAdvancementSubProvider(
 				FrameType.CHALLENGE,
 			)
 			.addImpossibleCriterion()
-			.build( GET_ALL_SCARE_GENES)
+			.build(GET_ALL_SCARE_GENES)
 			.save()
 
 		advancement()
@@ -216,7 +216,7 @@ class ModAdvancementSubProvider(
 				FrameType.GOAL,
 			)
 			.addImpossibleCriterion()
-			.build( GET_CRINGE)
+			.build(GET_CRINGE)
 			.save()
 
 		advancement()
@@ -228,7 +228,7 @@ class ModAdvancementSubProvider(
 				FrameType.CHALLENGE,
 			)
 			.addImpossibleCriterion()
-			.build( GET_MILKED)
+			.build(GET_MILKED)
 			.save()
 
 		advancement()
@@ -240,7 +240,7 @@ class ModAdvancementSubProvider(
 				FrameType.CHALLENGE,
 			)
 			.addImpossibleCriterion()
-			.build( TRIGGER_SLIMY_DEATH)
+			.build(TRIGGER_SLIMY_DEATH)
 			.save()
 
 		val syringe = advancement()
@@ -259,7 +259,7 @@ class ModAdvancementSubProvider(
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.METAL_SYRINGE.get())
 			)
 			.requirements(RequirementsStrategy.OR)
-			.build( SYRINGE)
+			.build(SYRINGE)
 			.save()
 
 		advancement()
@@ -273,7 +273,7 @@ class ModAdvancementSubProvider(
 				"blood_purifier",
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.BLOOD_PURIFIER.get())
 			)
-			.build( BLOOD_PURIFIER)
+			.build(BLOOD_PURIFIER)
 			.save()
 
 	}
