@@ -8,7 +8,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModAdvancementLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModItemSubPredicates
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.advancements.Advancement
