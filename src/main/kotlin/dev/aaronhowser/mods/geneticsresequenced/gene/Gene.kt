@@ -2,6 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.gene
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
+import dev.aaronhowser.mods.aaron.AaronExtensions.hasModifier
 import dev.aaronhowser.mods.aaron.AaronExtensions.isHolder
 import dev.aaronhowser.mods.aaron.AaronExtensions.tell
 import dev.aaronhowser.mods.aaron.AaronExtensions.withClickToCopyToClipboard
@@ -13,8 +15,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModGeneLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModGeneTagsProvider
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.translationKey
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
@@ -24,12 +24,9 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistryCodecs
 import net.minecraft.core.registries.Registries
-import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.network.chat.Style
-import net.minecraft.network.codec.ByteBufCodecs
-import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.HolderSetCodec
 import net.minecraft.resources.RegistryFileCodec
 import net.minecraft.resources.ResourceKey
@@ -41,6 +38,7 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
+import net.minecraftforge.registries.ForgeRegistries
 import java.util.*
 
 data class Gene(
@@ -80,9 +78,9 @@ data class Gene(
 
 			if (attributeInstance == null) {
 				livingEntity.tell(
-					Component.literal("A Gene tried to modify an attribute ${attribute.key} that you don't have!")
+					Component.literal("A Gene tried to modify an attribute ${attribute.descriptionId} that you don't have!")
 				)
-				GeneticsResequenced.LOGGER.error("A Gene tried to modify an attribute ${attribute.key} that entity ${livingEntity.name} does not have!")
+				GeneticsResequenced.LOGGER.error("A Gene tried to modify an attribute ${attribute.descriptionId} that entity ${livingEntity.name} does not have!")
 				continue
 			}
 
@@ -95,32 +93,25 @@ data class Gene(
 	}
 
 	data class AttributeEntry(
-		val attribute: Holder<Attribute>,
+		val attribute: Attribute,
 		val modifier: AttributeModifier
 	) {
 		companion object {
 			val DIRECT_CODEC: Codec<AttributeEntry> = RecordCodecBuilder.create { instance ->
 				instance.group(
-					Attribute.CODEC
+					ForgeRegistries.ATTRIBUTES.codec
 						.fieldOf("attribute")
 						.forGetter(AttributeEntry::attribute),
-					AttributeModifier.CODEC
+					AaronExtraCodecs.ATTRIBUTE_MODIFIER_CODEC
 						.fieldOf("modifier")
 						.forGetter(AttributeEntry::modifier)
 				).apply(instance, Gene::AttributeEntry)
 			}
-
-			val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, AttributeEntry> =
-				StreamCodec.composite(
-					Attribute.STREAM_CODEC, AttributeEntry::attribute,
-					AttributeModifier.STREAM_CODEC, AttributeEntry::modifier,
-					Gene::AttributeEntry
-				)
 		}
 	}
 
 	data class PotionDetails(
-		val effect: Holder<MobEffect>,
+		val effect: MobEffect,
 		val level: Int = 1,
 		val duration: Int = -1,
 		val showIcon: Boolean = false
@@ -128,7 +119,7 @@ data class Gene(
 		companion object {
 			val DIRECT_CODEC: Codec<PotionDetails> = RecordCodecBuilder.create { instance ->
 				instance.group(
-					MobEffect.CODEC
+					ForgeRegistries.MOB_EFFECTS.codec
 						.fieldOf("effect")
 						.forGetter(PotionDetails::effect),
 					Codec.INT
@@ -142,15 +133,6 @@ data class Gene(
 						.forGetter(PotionDetails::showIcon)
 				).apply(instance, Gene::PotionDetails)
 			}
-
-			val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, PotionDetails> =
-				StreamCodec.composite(
-					MobEffect.STREAM_CODEC, PotionDetails::effect,
-					ByteBufCodecs.VAR_INT, PotionDetails::level,
-					ByteBufCodecs.VAR_INT, PotionDetails::duration,
-					ByteBufCodecs.BOOL, PotionDetails::showIcon,
-					Gene::PotionDetails
-				)
 		}
 	}
 
@@ -165,16 +147,14 @@ data class Gene(
 			}
 
 		val Holder<Gene>.translationKey: String
-			get() {
-				return this.key!!.translationKey
-			}
+			get() = this.unwrapKey().get().translationKey
 
 		fun Holder<Gene>?.isGene(geneRk: ResourceKey<Gene>?): Boolean {
-			return this != null && geneRk != null && this.key === geneRk
+			return this != null && geneRk != null && this.unwrapKey().get() === geneRk
 		}
 
 		fun Holder<Gene>?.isGene(geneHolder: Holder<Gene>): Boolean {
-			return this === geneHolder || this.isGene(geneHolder.key)
+			return this === geneHolder || this.isGene(geneHolder.unwrapKey().get())
 		}
 
 		val Holder<Gene>.isNegative: Boolean
@@ -215,8 +195,8 @@ data class Gene(
 				.withStyle(
 					Style.EMPTY
 						.withColor(color)
-						.withHoverText(ModTooltipLang.COPY_GENE.toComponent(geneHolder.key!!.location().toString()))
-						.withClickToCopyToClipboard(geneHolder.key!!.location().toString())
+						.withHoverText(ModTooltipLang.COPY_GENE.toComponent(geneHolder.getLocationOrNull().toString()))
+						.withClickToCopyToClipboard(geneHolder.getLocationOrNull().toString())
 				)
 
 			if (geneHolder.isDisabled) {
@@ -258,26 +238,10 @@ data class Gene(
 				).apply(instance, ::Gene)
 			}
 
-		val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Gene> = StreamCodec.composite(
-			ByteBufCodecs.INT, Gene::dnaPointsRequired,
-			ByteBufCodecs.holderSet(Registries.ENTITY_TYPE), Gene::allowedEntities,
-			PotionDetails.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::potionDetails,
-			AttributeEntry.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::attributeModifiers,
-			ByteBufCodecs.optional(AaronExtraCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE)), Gene::scaresEntitiesWithTag,
-			ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY).apply(ByteBufCodecs.list()), Gene::incompatibleGenes,
-			::Gene
-		)
-
 		val CODEC: Codec<Holder<Gene>> = RegistryFileCodec.create(ModGenes.GENE_REGISTRY_KEY, DIRECT_CODEC, false)
-
-		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Holder<Gene>> =
-			ByteBufCodecs.holder(ModGenes.GENE_REGISTRY_KEY, DIRECT_STREAM_CODEC)
 
 		val HOLDER_SET_CODEC: Codec<HolderSet<Gene>> =
 			HolderSetCodec.create(ModGenes.GENE_REGISTRY_KEY, CODEC, false)
-
-		val HOLDER_SET_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, HolderSet<Gene>> =
-			ByteBufCodecs.holderSet(ModGenes.GENE_REGISTRY_KEY)
 
 	}
 
