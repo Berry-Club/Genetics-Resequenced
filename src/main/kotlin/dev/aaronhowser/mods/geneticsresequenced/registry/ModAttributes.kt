@@ -2,27 +2,27 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
 import net.minecraft.world.entity.ai.attributes.RangedAttribute
-import net.neoforged.neoforge.registries.DeferredHolder
-import net.neoforged.neoforge.registries.DeferredRegister
+import net.minecraftforge.registries.DeferredRegister
+import net.minecraftforge.registries.ForgeRegistries
+import net.minecraftforge.registries.RegistryObject
 import java.util.function.Supplier
 
 object ModAttributes {
 
 	val ATTRIBUTE_REGISTRY: DeferredRegister<Attribute> =
-		DeferredRegister.create(BuiltInRegistries.ATTRIBUTE, GeneticsResequenced.ID)
+		DeferredRegister.create(ForgeRegistries.ATTRIBUTES, GeneticsResequenced.MOD_ID)
 
-	val EFFICIENCY: DeferredHolder<Attribute, RangedAttribute> =
+	val EFFICIENCY: RegistryObject<RangedAttribute> =
 		register("efficiency", 0.0, 0.0, 10000.0)
 
 	@JvmField
-	val BASE_LOOTING: DeferredHolder<Attribute, RangedAttribute> =
+	val BASE_LOOTING: RegistryObject<RangedAttribute> =
 		register("base_looting", 0.0, 0.0, 10000.0)
 
-	val XP_DROP_MULTIPLIER: DeferredHolder<Attribute, RangedAttribute> =
+	val XP_DROP_MULTIPLIER: RegistryObject<RangedAttribute> =
 		register("xp_drop_multiplier", 1.0, 0.0, 1000.0)
 
 	private fun register(
@@ -30,7 +30,7 @@ object ModAttributes {
 		default: Double,
 		min: Double,
 		max: Double
-	): DeferredHolder<Attribute, RangedAttribute> {
+	): RegistryObject<RangedAttribute> {
 		return ATTRIBUTE_REGISTRY.register(name, Supplier {
 			RangedAttribute("geneticsresequenced.$name", default, min, max)
 		})
@@ -39,69 +39,69 @@ object ModAttributes {
 	object AttributeModifiers {
 		//TODO: Maybe make this not an attribute modifier?
 		val KNOCKBACK = AttributeModifier(
-			OtherUtil.modResource("knockback"),
+			OtherUtil.modResource("knockback").toString(),
 			2.0,
-			AttributeModifier.Operation.ADD_VALUE
+			AttributeModifier.Operation.ADDITION
 		)
 
 		val FLIGHT = AttributeModifier(
-			OtherUtil.modResource("flight"),
+			OtherUtil.modResource("flight").toString(),
 			1.0,
-			AttributeModifier.Operation.ADD_VALUE
+			AttributeModifier.Operation.ADDITION
 		)
 
 		val MORE_HEALTH_ONE = AttributeModifier(
-			OtherUtil.modResource("more_health_one"),
+			OtherUtil.modResource("more_health_one").toString(),
 			20.0,
-			AttributeModifier.Operation.ADD_VALUE
+			AttributeModifier.Operation.ADDITION
 		)
 
 		val MORE_HEALTH_TWO = AttributeModifier(
-			OtherUtil.modResource("more_health_two"),
+			OtherUtil.modResource("more_health_two").toString(),
 			20.0,
-			AttributeModifier.Operation.ADD_VALUE
+			AttributeModifier.Operation.ADDITION
 		)
 
 		val STEP_ASSIST = AttributeModifier(
-			OtherUtil.modResource("step_assist"),
+			OtherUtil.modResource("step_assist").toString(),
 			1.0,
-			AttributeModifier.Operation.ADD_VALUE
+			AttributeModifier.Operation.ADDITION
 		)
 
 		val EFFICIENCY = AttributeModifier(
-			OtherUtil.modResource("efficiency"),
+			OtherUtil.modResource("efficiency").toString(),
 			1.0,
-			AttributeModifier.Operation.ADD_VALUE
+			AttributeModifier.Operation.ADDITION
 		)
 
 		val EFFICIENCY_FOUR = AttributeModifier(
-			OtherUtil.modResource("efficiency_four"),
+			OtherUtil.modResource("efficiency_four").toString(),
 			3.0, // Because you can't have this without the first level
-			AttributeModifier.Operation.ADD_VALUE
+			AttributeModifier.Operation.ADDITION
 		)
 
 		val REACHING = AttributeModifier(
-			OtherUtil.modResource("reaching"),
+			OtherUtil.modResource("reaching").toString(),
 			1.25,
-			AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
+			AttributeModifier.Operation.MULTIPLY_TOTAL
 		)
 
 		val BOUNTIFUL = AttributeModifier(
-			OtherUtil.modResource("bountiful"),
+			OtherUtil.modResource("bountiful").toString(),
 			1.0,
-			AttributeModifier.Operation.ADD_VALUE
+			AttributeModifier.Operation.ADDITION
 		)
 
 		val BOUNTIFUL_TWO = AttributeModifier(
-			OtherUtil.modResource("bountiful_two"),
+			OtherUtil.modResource("bountiful_two").toString(),
 			1.0,
-			AttributeModifier.Operation.ADD_VALUE
+			AttributeModifier.Operation.ADDITION
 		)
 
 		val EXPERIENCED = AttributeModifier(
-			OtherUtil.modResource("experienced"),
+			OtherUtil.modResource("experienced").toString(),
 			1.0,
-			AttributeModifier.Operation.ADD_VALUE
+			AttributeModifier.Operation.ADDITION
 		)
 	}
 
