@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapabilityProvider
+import dev.aaronhowser.mods.geneticsresequenced.capability.TemporaryGenesCapability
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DamageGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.MobGenes
@@ -11,7 +12,15 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraftforge.event.AttachCapabilitiesEvent
+import net.minecraftforge.event.entity.EntityJoinLevelEvent
+import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent
+import net.minecraftforge.event.entity.living.LivingAttackEvent
+import net.minecraftforge.event.entity.living.LivingDamageEvent
 import net.minecraftforge.event.entity.living.LivingDeathEvent
+import net.minecraftforge.event.entity.living.LivingEvent
+import net.minecraftforge.event.entity.living.LivingExperienceDropEvent
+import net.minecraftforge.event.level.ExplosionEvent
+import net.minecraftforge.eventbus.api.EventPriority
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 
@@ -43,7 +52,7 @@ object EntityEvents {
 	}
 
 	@SubscribeEvent
-	fun onEntityInvulnerabilityCheck(event: EntityInvulnerabilityCheckEvent) {
+	fun onLivingAttack(event: LivingAttackEvent) {
 		DamageGenes.handleNoFallDamage(event)
 		DamageGenes.handleWitherProof(event)
 		DamageGenes.handleFireProof(event)
@@ -52,15 +61,15 @@ object EntityEvents {
 	}
 
 	@SubscribeEvent
-	fun onLivingDamagePre(event: LivingDamageEvent.Pre) {
+	fun onLivingDamage(event: LivingDamageEvent) {
 		DamageGenes.handleDragonHealth(event)
 		DamageGenes.handleJohnny(event)
 		DamageGenes.handleClawsDamageBonus(event)
 	}
 
-	@SubscribeEvent
-	fun onLivingHurtPost(event: LivingDamageEvent.Post) {
-		if (event.newDamage <= 0f) return
+	@SubscribeEvent(priority = EventPriority.LOW)
+	fun onLivingHurtPost(event: LivingDamageEvent) {
+		if (event.amount <= 0f || event.isCanceled) return
 
 		DamageGenes.handleThorns(event)
 		DamageGenes.handleClawsBleeding(event)
@@ -70,19 +79,14 @@ object EntityEvents {
 	}
 
 	@SubscribeEvent
-	fun onEntityTick(event: EntityTickEvent.Pre) {
-		val entity = event.entity as? LivingEntity ?: return
+	fun onEntityTick(event: LivingEvent.LivingTickEvent) {
+		val entity = event.entity
 
 		TickGenes.handleBioluminescence(entity)
 		TickGenes.handlePhotosynthesis(entity)
 		TickGenes.handleTickingGenes(entity)
-	}
 
-	@SubscribeEvent
-	fun afterEntityTick(event: EntityTickEvent.Post) {
-		val entity = event.entity as? LivingEntity ?: return
-
-		TemporaryGenesData.tickTemporaryGenes(entity)
+		TemporaryGenesCapability.tickTemporaryGenes(entity)
 	}
 
 	@SubscribeEvent
