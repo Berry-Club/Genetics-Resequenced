@@ -14,6 +14,10 @@ import net.minecraft.tags.TagKey
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.ai.attributes.Attributes
+import net.minecraftforge.common.ForgeMod
+import net.minecraftforge.registries.holdersets.AndHolderSet
+import net.minecraftforge.registries.holdersets.AnyHolderSet
+import net.minecraftforge.registries.holdersets.NotHolderSet
 import java.util.*
 
 object ModGeneProvider {
@@ -28,11 +32,13 @@ object ModGeneProvider {
 	) = Gene(dnaPointsRequired, allowedEntities, potionDetails, attributeModifiers, scaresEntitiesWithTag, incompatibleGenes)
 
 	val DEFAULT_ALLOWED_ENTITIES = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup())
-	val NO_ENTITIES: HolderSet<EntityType<*>> = HolderSet.empty()
+	val NO_ENTITIES: HolderSet<EntityType<*>> = HolderSet.direct()
 	val ONLY_PLAYERS: HolderSet.Direct<EntityType<*>> = HolderSet.direct(EntityType.PLAYER.builtInRegistryHolder())
 	val NON_PLAYERS: AndHolderSet<EntityType<*>> = AndHolderSet(
-		AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup()),
-		NotHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup(), ONLY_PLAYERS)
+		listOf(
+			AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup()),
+			NotHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup(), ONLY_PLAYERS)
+		)
 	)
 
 	fun bootstrap(context: BootstapContext<Gene>) {
@@ -59,7 +65,7 @@ object ModGeneProvider {
 				dnaPointsRequired = 50,
 				attributeModifiers = listOf(
 					AttributeEntry(
-						ModAttributes.EFFICIENCY,
+						ModAttributes.EFFICIENCY.get(),
 						ModAttributes.AttributeModifiers.EFFICIENCY_FOUR
 					)
 				),
@@ -73,7 +79,7 @@ object ModGeneProvider {
 				dnaPointsRequired = 50,
 				attributeModifiers = listOf(
 					AttributeEntry(
-						NeoForgeMod.CREATIVE_FLIGHT,
+						ForgeMod.CREATIVE_FLIGHT,
 						ModAttributes.AttributeModifiers.FLIGHT
 					)
 				),
@@ -245,7 +251,7 @@ object ModGeneProvider {
 				dnaPointsRequired = 30,
 				attributeModifiers = listOf(
 					AttributeEntry(
-						ModAttributes.EFFICIENCY,
+						ModAttributes.EFFICIENCY.get(),
 						ModAttributes.AttributeModifiers.EFFICIENCY
 					)
 				)
@@ -455,11 +461,11 @@ object ModGeneProvider {
 				allowedEntities = ONLY_PLAYERS,
 				attributeModifiers = listOf(
 					AttributeEntry(
-						Attributes.ENTITY_INTERACTION_RANGE,
+						ForgeMod.ENTITY_REACH.get(),
 						ModAttributes.AttributeModifiers.REACHING
 					),
 					AttributeEntry(
-						Attributes.BLOCK_INTERACTION_RANGE,
+						ForgeMod.BLOCK_REACH.get(),
 						ModAttributes.AttributeModifiers.REACHING
 					)
 				)
@@ -556,7 +562,7 @@ object ModGeneProvider {
 				dnaPointsRequired = 10,
 				attributeModifiers = listOf(
 					AttributeEntry(
-						Attributes.STEP_HEIGHT,
+						ForgeMod.STEP_HEIGHT_ADDITION.get(),
 						ModAttributes.AttributeModifiers.STEP_ASSIST
 					)
 				)
@@ -685,18 +691,6 @@ object ModGeneProvider {
 		)
 
 		context.register(
-			ModGenes.INFESTED,
-			makeGene(
-				dnaPointsRequired = 10,
-				potionDetails = listOf(
-					PotionDetails(
-						effect = MobEffects.INFESTED
-					)
-				)
-			)
-		)
-
-		context.register(
 			ModGenes.LEVITATION,
 			makeGene(
 				potionDetails = listOf(
@@ -724,18 +718,6 @@ object ModGeneProvider {
 				potionDetails = listOf(
 					PotionDetails(
 						effect = MobEffects.CONFUSION
-					)
-				)
-			)
-		)
-
-		context.register(
-			ModGenes.OOZING,
-			makeGene(
-				dnaPointsRequired = 10,
-				potionDetails = listOf(
-					PotionDetails(
-						effect = MobEffects.OOZING
 					)
 				)
 			)
@@ -800,18 +782,6 @@ object ModGeneProvider {
 		)
 
 		context.register(
-			ModGenes.WEAVING,
-			makeGene(
-				dnaPointsRequired = 10,
-				potionDetails = listOf(
-					PotionDetails(
-						effect = MobEffects.WEAVING
-					)
-				)
-			)
-		)
-
-		context.register(
 			ModGenes.WEAKNESS,
 			makeGene(
 				potionDetails = listOf(
@@ -833,18 +803,6 @@ object ModGeneProvider {
 			ModGenes.WEB_DEFENSE,
 			makeGene(
 				dnaPointsRequired = 25
-			)
-		)
-
-		context.register(
-			ModGenes.WIND_CHARGED,
-			makeGene(
-				dnaPointsRequired = 10,
-				potionDetails = listOf(
-					PotionDetails(
-						effect = MobEffects.WIND_CHARGED
-					)
-				)
 			)
 		)
 
@@ -895,7 +853,7 @@ object ModGeneProvider {
 				allowedEntities = NON_PLAYERS,
 				attributeModifiers = listOf(
 					AttributeEntry(
-						ModAttributes.BASE_LOOTING,
+						ModAttributes.BASE_LOOTING.get(),
 						ModAttributes.AttributeModifiers.BOUNTIFUL
 					)
 				)
@@ -909,7 +867,7 @@ object ModGeneProvider {
 				allowedEntities = NON_PLAYERS,
 				attributeModifiers = listOf(
 					AttributeEntry(
-						ModAttributes.BASE_LOOTING,
+						ModAttributes.BASE_LOOTING.get(),
 						ModAttributes.AttributeModifiers.BOUNTIFUL_TWO
 					)
 				)
@@ -922,7 +880,7 @@ object ModGeneProvider {
 				dnaPointsRequired = 50,
 				attributeModifiers = listOf(
 					AttributeEntry(
-						ModAttributes.XP_DROP_MULTIPLIER,
+						ModAttributes.XP_DROP_MULTIPLIER.get(),
 						ModAttributes.AttributeModifiers.EXPERIENCED
 					)
 				)
