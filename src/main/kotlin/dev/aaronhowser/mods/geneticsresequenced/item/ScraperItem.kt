@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
 import dev.aaronhowser.mods.aaron.AaronExtensions.isEntity
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
@@ -20,7 +21,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
-import net.neoforged.neoforge.common.util.FakePlayer
+import net.minecraftforge.common.util.FakePlayer
 
 class ScraperItem(properties: Properties) : Item(properties) {
 
@@ -80,8 +81,7 @@ class ScraperItem(properties: Properties) : Item(properties) {
 			pPlayer: Player,
 			realStack: ItemStack
 		): InteractionResultHolder<ItemStack> {
-			if (pPlayer is FakePlayer) return InteractionResultHolder.pass(realStack)
-			if (pPlayer !is ServerPlayer) return InteractionResultHolder.pass(realStack)
+			if (pPlayer is FakePlayer || pPlayer !is ServerPlayer) return InteractionResultHolder.pass(realStack)
 
 			val scrapeWorked = scrapeEntity(pPlayer, realStack, pPlayer)
 
@@ -101,7 +101,7 @@ class ScraperItem(properties: Properties) : Item(properties) {
 			if (player.cooldowns.isOnCooldown(ModItems.SCRAPER.get())) return false
 			if (target is LivingEntity && target.hurtTime > 0) return false
 
-			val organicStack = ModItems.ORGANIC_MATTER.toStack()
+			val organicStack = ModItems.ORGANIC_MATTER.getDefaultInstance()
 			val successfullySetEntity = setEntityType(organicStack, target.type)
 
 			if (!successfullySetEntity) {
@@ -118,7 +118,7 @@ class ScraperItem(properties: Properties) : Item(properties) {
 
 
 			val hasDelicateTouch =
-				stack.getEnchantmentLevel(ModEnchantments.getDelicateTouchHolder(player)) != 0
+				stack.getEnchantmentLevel(ModEnchantments.getDelicateTouchHolder(player).get()) != 0
 
 			// Only put on cooldown if the entity was not damaged
 			if (hasDelicateTouch) {
@@ -127,9 +127,7 @@ class ScraperItem(properties: Properties) : Item(properties) {
 				target.hurt(getDamageSource(player.level(), player), 1f)
 			}
 
-			val equipmentSlot = player.getEquipmentSlotForItem(stack)
-
-			stack.hurtAndBreak(1, player, equipmentSlot)
+			stack.hurtAndBreak(1, player) {}
 
 			return true
 		}

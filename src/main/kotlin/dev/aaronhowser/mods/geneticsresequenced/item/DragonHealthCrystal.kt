@@ -10,8 +10,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
-import net.minecraft.sounds.SoundEvent
-import net.minecraft.sounds.SoundEvents
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -19,11 +17,9 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.level.Level
-import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
+import net.minecraftforge.event.entity.living.LivingDamageEvent
 
 class DragonHealthCrystal(properties: Properties) : Item(properties) {
-
-	override fun getBreakingSound(): SoundEvent = SoundEvents.ENDER_DRAGON_HURT
 
 	override fun isDamageable(stack: ItemStack): Boolean = true
 	override fun isBarVisible(stack: ItemStack): Boolean = getDamage(stack) > 0
@@ -59,10 +55,10 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 
 		const val MAX_DAMAGE = 1000f
 
-		fun handleIncomingDamage(event: LivingDamageEvent.Pre) {
+		fun handleIncomingDamage(event: LivingDamageEvent) {
 			val entity = event.entity
 
-			if (event.container.newDamage <= 0f) return
+			if (event.amount <= 0f) return
 			if (entity.isClientSide) return
 			if (!entity.hasGene(ModGenes.ENDER_DRAGON_HEALTH)) return
 
@@ -74,22 +70,22 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 
 			for (crystal in healthCrystals) {
 				val damageLeft = crystal.getComponent(DragonHealthCrystalDamageDataComponent.Type)?.damageRemaining ?: 0f
-				val amountToRemove = minOf(event.container.newDamage, damageLeft)
+				val amountToRemove = minOf(event.amount, damageLeft)
 
-				event.container.newDamage -= amountToRemove
+				event.amount -= amountToRemove
 
 				val newStackDamage = damageLeft - amountToRemove
 				crystal.setComponent(DragonHealthCrystalDamageDataComponent(newStackDamage))
 
 				if (newStackDamage <= 0f) {
 					crystal.shrink(1)
-					entity.onEquippedItemBroken(crystal.item, entity.getEquipmentSlotForItem(crystal))
+					entity.broadcastBreakEvent(entity.usedItemHand)
 				}
 
-				if (event.container.newDamage <= 0f) break
+				if (event.amount <= 0f) break
 			}
 
-			if (event.container.newDamage < 0f) event.container.newDamage = 0f
+			if (event.amount < 0f) event.amount = 0f
 		}
 	}
 
