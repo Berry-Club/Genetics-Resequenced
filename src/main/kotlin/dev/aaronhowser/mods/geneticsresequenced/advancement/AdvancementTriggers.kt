@@ -5,14 +5,14 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.ModAdvancementSubProvide
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import net.minecraft.advancements.AdvancementHolder
+import net.minecraft.advancements.Advancement
 import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.level.ServerPlayer
 
 object AdvancementTriggers {
 
-	private fun completeAdvancement(player: ServerPlayer, advancement: AdvancementHolder) {
+	private fun completeAdvancement(player: ServerPlayer, advancement: Advancement) {
 		val progress = player.advancements.getOrStartProgress(advancement)
 		if (progress.isDone) return
 
@@ -76,7 +76,7 @@ object AdvancementTriggers {
 		completeAdvancement(player, advancement)
 	}
 
-	fun getAdvancement(player: ServerPlayer, advancementId: ResourceLocation): AdvancementHolder? =
-		player.server.advancements.get(advancementId)
+	fun getAdvancement(player: ServerPlayer, advancementId: ResourceLocation): Advancement? =
+		player.server.advancements.getAdvancement(advancementId)
 
 }
