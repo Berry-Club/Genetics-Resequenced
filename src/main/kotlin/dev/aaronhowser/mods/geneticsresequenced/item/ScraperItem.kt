@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
 import dev.aaronhowser.mods.aaron.AaronExtensions.isEntity
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModDamageTypeProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModDamageTypeTagsProvider
@@ -133,7 +134,7 @@ class ScraperItem(properties: Properties) : Item(properties) {
 		}
 
 		private fun getDamageSource(level: Level, source: LivingEntity? = null): DamageSource {
-			return level.damageSources().source(ModDamageTypeTagsProvider.USE_SCRAPER, source)
+			return level.damageSources().source(ModDamageTypeProvider.USE_SCRAPER, source)
 		}
 	}
 
