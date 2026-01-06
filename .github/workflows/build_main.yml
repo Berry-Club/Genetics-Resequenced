@@ -3,10 +3,10 @@ name: Java CI (Main)
 on:
     push:
         branches:
-            - 'NeoForge-1.21'
+            - 'Forge-1.20.1'
     workflow_dispatch:
         branches:
-            - 'NeoForge-1.21'
+            - 'Forge-1.20.1'
         inputs:
             release_type:
                 description: 'Release Type'
