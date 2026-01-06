@@ -13,12 +13,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraftforge.event.AttachCapabilitiesEvent
 import net.minecraftforge.event.entity.EntityJoinLevelEvent
-import net.minecraftforge.event.entity.living.BabyEntitySpawnEvent
-import net.minecraftforge.event.entity.living.LivingAttackEvent
-import net.minecraftforge.event.entity.living.LivingDamageEvent
-import net.minecraftforge.event.entity.living.LivingDeathEvent
-import net.minecraftforge.event.entity.living.LivingEvent
-import net.minecraftforge.event.entity.living.LivingExperienceDropEvent
+import net.minecraftforge.event.entity.living.*
 import net.minecraftforge.event.level.ExplosionEvent
 import net.minecraftforge.eventbus.api.EventPriority
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -128,14 +123,6 @@ object EntityEvents {
 			if (parentA.random.nextBoolean()) {
 				child.addGene(gene)
 			}
-		}
-	}
-
-	@SubscribeEvent
-	fun onMobDespawn(event: MobDespawnEvent) {
-		val mob = event.entity
-		if (mob.permanentGeneHolders.isNotEmpty()) {
-			event.result = MobDespawnEvent.Result.DENY
 		}
 	}
 

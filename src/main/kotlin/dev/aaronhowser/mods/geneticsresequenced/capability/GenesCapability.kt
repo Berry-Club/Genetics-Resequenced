@@ -26,6 +26,7 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.player.Player
 import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 import kotlin.contracts.ExperimentalContracts
@@ -117,6 +118,10 @@ class GenesCapability() {
 				}
 
 				cap.genes = value
+
+				if (value.isNotEmpty() && this is Mob) {
+					this.setPersistenceRequired()
+				}
 			}
 
 		@JvmStatic
