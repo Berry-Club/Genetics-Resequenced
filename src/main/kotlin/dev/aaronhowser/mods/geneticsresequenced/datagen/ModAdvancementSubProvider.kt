@@ -30,6 +30,11 @@ class ModAdvancementSubProvider(
 		pWriter: Consumer<Advancement>
 	) {
 
+		fun Advancement.save(): Advancement {
+			pWriter.accept(this)
+			return this
+		}
+
 		val root = advancement()
 			.display(
 				ModItems.SCRAPER.get(),
@@ -45,7 +50,8 @@ class ModAdvancementSubProvider(
 				"scraper",
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.SCRAPER.get())
 			)
-			.save(pWriter, ROOT)
+			.build( ROOT)
+			.save()
 
 		val cellAnalyzer = advancement()
 			.parent(root)
@@ -63,7 +69,8 @@ class ModAdvancementSubProvider(
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.CELL.get())
 			)
 			.requirements(RequirementsStrategy.OR)
-			.save(pWriter, CELL_ANALYZER)
+			.build( CELL_ANALYZER)
+			.save()
 
 		val dnaExtractor = advancement()
 			.parent(cellAnalyzer)
@@ -81,7 +88,8 @@ class ModAdvancementSubProvider(
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DNA_HELIX.get())
 			)
 			.requirements(RequirementsStrategy.OR)
-			.save(pWriter, DNA_EXTRACTOR)
+			.build( DNA_EXTRACTOR)
+			.save()
 
 		val dnaDecryptor = advancement()
 			.parent(dnaExtractor)
@@ -94,7 +102,8 @@ class ModAdvancementSubProvider(
 				"dna_decryptor",
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.DNA_DECRYPTOR.get())
 			)
-			.save(pWriter, DNA_DECRYPTOR)
+			.build( DNA_DECRYPTOR)
+			.save()
 
 		val decryptDna = advancement()
 			.parent(dnaDecryptor)
@@ -107,7 +116,8 @@ class ModAdvancementSubProvider(
 				"decrypted_dna",
 				InventoryChangeTrigger.TriggerInstance.hasItems(HelixGenePredicate.any())
 			)
-			.save(pWriter, DECRYPT_DNA)
+			.build( DECRYPT_DNA)
+			.save()
 
 		Advancement.Builder.advancement()
 			.parent(decryptDna)
@@ -121,7 +131,8 @@ class ModAdvancementSubProvider(
 				"black_death_helix",
 				InventoryChangeTrigger.TriggerInstance.hasItems(HelixGenePredicate.blackDeath())
 			)
-			.save(pWriter, BLACK_DEATH)
+			.build( BLACK_DEATH)
+			.save()
 
 		val plasmidInfuser = advancement()
 			.parent(dnaExtractor)
@@ -134,7 +145,8 @@ class ModAdvancementSubProvider(
 				"plasmid_infuser",
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.PLASMID_INFUSER.get())
 			)
-			.save(pWriter, PLASMID_INFUSER)
+			.build( PLASMID_INFUSER)
+			.save()
 
 		val plasmidInjector = advancement()
 			.parent(plasmidInfuser)
@@ -147,7 +159,8 @@ class ModAdvancementSubProvider(
 				"plasmid_injector",
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.PLASMID_INJECTOR.get())
 			)
-			.save(pWriter, PLASMID_INJECTOR)
+			.build( PLASMID_INJECTOR)
+			.save()
 
 		val getGene = advancement()
 			.parent(plasmidInjector)
@@ -167,7 +180,8 @@ class ModAdvancementSubProvider(
 				true, true, false
 			)
 			.addImpossibleCriterion()
-			.save(pWriter, GET_GENE)
+			.build( GET_GENE)
+			.save()
 
 		advancement()
 			.parent(getGene)
@@ -178,7 +192,8 @@ class ModAdvancementSubProvider(
 				FrameType.CHALLENGE,
 			)
 			.addImpossibleCriterion()
-			.save(pWriter, GET_FLIGHT)
+			.build( GET_FLIGHT)
+			.save()
 
 		advancement()
 			.parent(getGene)
@@ -189,7 +204,8 @@ class ModAdvancementSubProvider(
 				FrameType.CHALLENGE,
 			)
 			.addImpossibleCriterion()
-			.save(pWriter, GET_ALL_SCARE_GENES)
+			.build( GET_ALL_SCARE_GENES)
+			.save()
 
 		advancement()
 			.parent(getGene)
@@ -200,7 +216,8 @@ class ModAdvancementSubProvider(
 				FrameType.GOAL,
 			)
 			.addImpossibleCriterion()
-			.save(pWriter, GET_CRINGE)
+			.build( GET_CRINGE)
+			.save()
 
 		advancement()
 			.parent(getGene)
@@ -211,7 +228,8 @@ class ModAdvancementSubProvider(
 				FrameType.CHALLENGE,
 			)
 			.addImpossibleCriterion()
-			.save(pWriter, GET_MILKED)
+			.build( GET_MILKED)
+			.save()
 
 		advancement()
 			.parent(getGene)
@@ -222,7 +240,8 @@ class ModAdvancementSubProvider(
 				FrameType.CHALLENGE,
 			)
 			.addImpossibleCriterion()
-			.save(pWriter, TRIGGER_SLIMY_DEATH)
+			.build( TRIGGER_SLIMY_DEATH)
+			.save()
 
 		val syringe = advancement()
 			.parent(root)
@@ -240,7 +259,8 @@ class ModAdvancementSubProvider(
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.METAL_SYRINGE.get())
 			)
 			.requirements(RequirementsStrategy.OR)
-			.save(pWriter, SYRINGE)
+			.build( SYRINGE)
+			.save()
 
 		advancement()
 			.parent(syringe)
@@ -253,29 +273,30 @@ class ModAdvancementSubProvider(
 				"blood_purifier",
 				InventoryChangeTrigger.TriggerInstance.hasItems(ModBlocks.BLOOD_PURIFIER.get())
 			)
-			.save(pWriter, BLOOD_PURIFIER)
+			.build( BLOOD_PURIFIER)
+			.save()
 
 	}
 
 	companion object {
 		private fun guide(string: String) = OtherUtil.modResource("guide/$string")
 
-		val ROOT = guide("root").toString()
-		val CELL_ANALYZER = guide("cell_analyzer").toString()
-		val DNA_EXTRACTOR = guide("dna_extractor").toString()
-		val DNA_DECRYPTOR = guide("dna_decryptor").toString()
-		val DECRYPT_DNA = guide("decrypt_dna").toString()
-		val BLACK_DEATH = guide("black_death").toString()
-		val PLASMID_INFUSER = guide("plasmid_infuser").toString()
-		val PLASMID_INJECTOR = guide("plasmid_injector").toString()
-		val GET_GENE = guide("get_gene").toString()
-		val GET_FLIGHT = guide("get_flight").toString()
-		val GET_ALL_SCARE_GENES = guide("get_all_scare_genes").toString()
-		val GET_CRINGE = guide("get_cringe").toString()
-		val GET_MILKED = guide("get_milked").toString()
-		val TRIGGER_SLIMY_DEATH = guide("trigger_slimy_death").toString()
-		val SYRINGE = guide("syringe").toString()
-		val BLOOD_PURIFIER = guide("blood_purifier").toString()
+		val ROOT = guide("root")
+		val CELL_ANALYZER = guide("cell_analyzer")
+		val DNA_EXTRACTOR = guide("dna_extractor")
+		val DNA_DECRYPTOR = guide("dna_decryptor")
+		val DECRYPT_DNA = guide("decrypt_dna")
+		val BLACK_DEATH = guide("black_death")
+		val PLASMID_INFUSER = guide("plasmid_infuser")
+		val PLASMID_INJECTOR = guide("plasmid_injector")
+		val GET_GENE = guide("get_gene")
+		val GET_FLIGHT = guide("get_flight")
+		val GET_ALL_SCARE_GENES = guide("get_all_scare_genes")
+		val GET_CRINGE = guide("get_cringe")
+		val GET_MILKED = guide("get_milked")
+		val TRIGGER_SLIMY_DEATH = guide("trigger_slimy_death")
+		val SYRINGE = guide("syringe")
+		val BLOOD_PURIFIER = guide("blood_purifier")
 	}
 
 }
