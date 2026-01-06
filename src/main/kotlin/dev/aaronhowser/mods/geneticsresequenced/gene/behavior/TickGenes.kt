@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Compa
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModDamageTypeProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
@@ -20,13 +21,9 @@ import dev.aaronhowser.mods.geneticsresequenced.item.AntiFieldOrbItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
-import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
-import net.minecraft.world.damagesource.DamageSource
-import net.minecraft.world.damagesource.DamageType
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.*
 import net.minecraft.world.entity.item.ItemEntity
@@ -36,7 +33,6 @@ import net.minecraft.world.entity.monster.piglin.Piglin
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
-import net.minecraft.world.level.Level
 import net.minecraft.world.level.LightLayer
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import kotlin.math.max
@@ -122,8 +118,10 @@ object TickGenes {
 	}
 
 	private fun handleDeathGenes(entity: LivingEntity, geneHolder: Holder<Gene>) {
+		val virusDamageSource = entity.damageSources().source(ModDamageTypeProvider.VIRUS, entity)
+
 		if (geneHolder.isGene(ModGenes.BLACK_DEATH)) {
-			entity.hurt(virusDamageSource(entity.level()), entity.maxHealth * 1000)
+			entity.hurt(virusDamageSource, entity.maxHealth * 1000)
 			entity.kill()
 
 			// I have no idea if this is even necessary
@@ -148,12 +146,9 @@ object TickGenes {
 		}
 
 		if (!entityPredicate(entity)) return
-		entity.hurt(virusDamageSource(entity.level()), maxOf(entity.health / 2, 2f))
-	}
 
-	private fun virusDamageSource(level: Level): DamageSource = level.damageSources().source(VIRUS_DAMAGE_KEY)
-	private val VIRUS_DAMAGE_KEY: ResourceKey<DamageType> =
-		ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource("virus"))
+		entity.hurt(virusDamageSource, maxOf(entity.health / 2, 2f))
+	}
 
 	private val GENE_INFERIORITY_MAP: Map<ResourceKey<Gene>, List<ResourceKey<Gene>>> = mapOf(
 		ModGenes.SPEED_FOUR to listOf(ModGenes.SPEED, ModGenes.SPEED_TWO),
