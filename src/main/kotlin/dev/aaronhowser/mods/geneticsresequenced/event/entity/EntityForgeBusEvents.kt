@@ -21,9 +21,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 
 @Mod.EventBusSubscriber(
-	modid = GeneticsResequenced.MOD_ID
+	modid = GeneticsResequenced.MOD_ID,
+	bus = Mod.EventBusSubscriber.Bus.FORGE
 )
-object EntityEvents {
+object EntityForgeBusEvents {
 
 	@SubscribeEvent
 	fun <T> onAttachCapabilities(event: AttachCapabilitiesEvent<T>) {

@@ -19,9 +19,10 @@ import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
 
 @Mod.EventBusSubscriber(
-	modid = GeneticsResequenced.MOD_ID
+	modid = GeneticsResequenced.MOD_ID,
+	bus = Mod.EventBusSubscriber.Bus.FORGE
 )
-object DeathEvents {
+object DeathForgeBusEvents {
 
 	@SubscribeEvent(
 		priority = EventPriority.HIGHEST    //So that graves etc don't dupe contents if you have the save inventory gene
