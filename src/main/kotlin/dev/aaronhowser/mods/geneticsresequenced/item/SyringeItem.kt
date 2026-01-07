@@ -104,6 +104,8 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		pTooltipComponents: MutableList<Component>,
 		pIsAdvanced: TooltipFlag
 	) {
+		val registryAccess = pLevel?.registryAccess() ?: return
+
 		val bloodOwner = getEntityName(pStack)
 		if (hasBlood(pStack) && bloodOwner != null) {
 			pTooltipComponents.add(
@@ -129,7 +131,8 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 					.withStyle(ChatFormatting.GRAY)
 			)
 
-			for (geneHolder in addingGenes) {
+			for (geneRk in addingGenes) {
+				val geneHolder = geneRk.getHolderOrThrow(registryAccess)
 				val nameComponent = geneHolder.getName()
 
 				val component = Component
@@ -150,7 +153,8 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 					.withStyle(ChatFormatting.GRAY)
 			)
 
-			for (geneHolder in removingGenes) {
+			for (geneRk in removingGenes) {
+				val geneHolder = geneRk.getHolderOrThrow(registryAccess)
 				val nameComponent = geneHolder.getName()
 
 				val component = Component
