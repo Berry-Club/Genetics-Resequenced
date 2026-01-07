@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.partialNbtIngredient
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
+import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -47,7 +48,7 @@ class DupeCellRecipe(
 		val outputCell: ItemStack
 
 		if (this.isGmoCell) {
-			val pIngredientGene = DnaHelixItem.getGeneHolder(topStack) ?: return ItemStack.EMPTY
+			val pIngredientGene = GeneDataComponent.getGeneRk(topStack) ?: return ItemStack.EMPTY
 
 			outputCell = ModItems.GMO_CELL.getDefaultInstance()
 			GmoCell.setDetails(outputCell, ingredientEntity, pIngredientGene)

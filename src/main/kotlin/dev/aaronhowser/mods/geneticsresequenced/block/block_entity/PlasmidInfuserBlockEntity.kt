@@ -1,11 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.AaronExtensions.isTrue
 import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
-import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
+import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser.PlasmidInfuserMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -47,9 +48,9 @@ class PlasmidInfuserBlockEntity(
 		if (PlasmidItem.isComplete(outputPlasmid)) return false
 
 		val plasmidGeneHolder = PlasmidItem.getGene(outputPlasmid)
-		val inputGeneHolder = DnaHelixItem.getGeneHolder(inputHelix)
+		val inputGeneHolder = GeneDataComponent.getGeneRk(inputHelix)
 
-		val helixIsBasic = inputGeneHolder.isGene(ModGenes.BASIC)
+		val helixIsBasic = inputGeneHolder?.isGene(ModGenes.BASIC).isTrue()
 
 		// If the Plasmid is unset, it can only accept a Helix that's neither basic nor null
 		if (plasmidGeneHolder == null) {
@@ -68,19 +69,19 @@ class PlasmidInfuserBlockEntity(
 		val outputPlasmid = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
 		val plasmidGeneHolder = PlasmidItem.getGene(outputPlasmid)
-		val inputGeneHolder = DnaHelixItem.getGeneHolder(inputHelix) ?: return
+		val inputGeneRk = GeneDataComponent.getGeneRk(inputHelix) ?: return
 
 		// If Plasmid is unset, set it to the Helix's gene and initialize the amount
 		if (plasmidGeneHolder == null) {
-			PlasmidItem.setGene(outputPlasmid, inputGeneHolder, 0)
+			PlasmidItem.setGene(outputPlasmid, inputGeneRk, 0)
 
 			itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
 			return
 		}
 
 		val increaseAmount = when {
-			inputGeneHolder.isGene(ModGenes.BASIC) -> 1
-			inputGeneHolder.isGene(plasmidGeneHolder) -> 2
+			inputGeneRk.isGene(ModGenes.BASIC) -> 1
+			inputGeneRk.isGene(plasmidGeneHolder) -> 2
 			else -> return
 		}
 

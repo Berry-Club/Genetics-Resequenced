@@ -31,7 +31,9 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 		pTooltipComponents: MutableList<Component>,
 		pIsAdvanced: TooltipFlag
 	) {
-		val geneHolder = getGeneHolder(pStack)
+		val registries = pLevel?.registryAccess() ?: return
+
+		val geneHolder = getGeneHolder(registries, pStack)
 
 		if (geneHolder == null) {
 			showNoGeneTooltips(pStack, pTooltipComponents)
@@ -82,13 +84,6 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 	}
 
 	companion object {
-		fun hasGene(itemStack: ItemStack): Boolean = itemStack.hasComponent(GeneDataComponent.Type)
-		fun getGeneHolder(itemStack: ItemStack): Holder<Gene>? = itemStack.getComponent(GeneDataComponent.Type)?.geneHolder
-
-		fun setGeneHolder(itemStack: ItemStack, geneHolder: Holder<Gene>): ItemStack {
-			itemStack.setComponent(GeneDataComponent(geneHolder))
-			return itemStack
-		}
 
 		fun getHelixStack(geneRk: ResourceKey<Gene>, registries: HolderLookup.Provider): ItemStack {
 			return getHelixStack(geneRk.getHolderOrThrow(registries))

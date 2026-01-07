@@ -8,7 +8,6 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.Crafti
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
-import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.menu.CraftingMachineMenu
@@ -76,7 +75,7 @@ class PlasmidInfuserMenu(
 
 		private fun addHelixTooltip(event: ItemTooltipEvent) {
 			val hoverStack = event.itemStack
-			val hoveredGeneHolder = DnaHelixItem.getGeneHolder(hoverStack) ?: return
+			val hoveredGeneRk = GeneDataComponent.getGeneRk(hoverStack) ?: return
 
 			val slots = event.entity?.containerMenu?.slots ?: return
 			val plasmidSlotId = 37  //Evil magic number that i got by printing whatever slot I was hovering
@@ -85,9 +84,9 @@ class PlasmidInfuserMenu(
 			val outputGene = PlasmidItem.getGene(outputItem) ?: return
 
 			val component = when {
-				hoveredGeneHolder.isGene(ModGenes.BASIC) -> ModTooltipLang.INFUSER_BASIC.toComponent()
+				hoveredGeneRk.isGene(ModGenes.BASIC) -> ModTooltipLang.INFUSER_BASIC.toComponent()
 
-				hoveredGeneHolder.isGene(outputGene) -> ModTooltipLang.INFUSER_MATCHING.toComponent()
+				hoveredGeneRk.isGene(outputGene) -> ModTooltipLang.INFUSER_MATCHING.toComponent()
 
 				else -> ModTooltipLang.INFUSER_MISMATCH.toComponent()
 			}.withStyle(ChatFormatting.GRAY)

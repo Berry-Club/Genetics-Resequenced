@@ -4,8 +4,8 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.asIngredient
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
+import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -41,12 +41,12 @@ object BrewingRecipes {
 			)
 		}
 
-		val itemGeneHolder = DnaHelixItem.getGeneHolder(stack)
-		if (itemGeneHolder != null) {
+		val itemGeneRk = GeneDataComponent.getGeneRk(stack)
+		if (itemGeneRk != null) {
 			event.toolTip.add(
 				ModTooltipLang.GENE
 					.toComponent(
-						Gene.getNameComponent(itemGeneHolder)
+						Gene.getNameComponent(itemGeneRk)
 							.withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY))
 					)
 			)

@@ -3,14 +3,14 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 import com.google.gson.JsonObject
 import com.mojang.serialization.JsonOps
 import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
+import dev.aaronhowser.mods.aaron.AaronExtensions.isTrue
 import dev.aaronhowser.mods.aaron.AaronExtensions.partialNbtIngredient
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
-import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
+import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
@@ -41,7 +41,7 @@ class VirusRecipe(
 		if (!this.topIngredient.test(helixStack)) return false
 		if (!this.bottomIngredient.test(potionStack)) return false
 
-		return DnaHelixItem.getGeneHolder(helixStack).isGene(inputDnaGene)
+		return GeneDataComponent.getGeneRk(helixStack)?.isGene(inputDnaGene).isTrue()
 	}
 
 	override fun assemble(pContainer: IncubatorRecipeInput, pRegistryAccess: RegistryAccess): ItemStack {
@@ -49,9 +49,9 @@ class VirusRecipe(
 	}
 
 	override fun getResultItem(pRegistryAccess: RegistryAccess): ItemStack {
-		val output = DnaHelixItem.setGeneHolder(
+		val output = GeneDataComponent.setGene(
 			ModItems.DNA_HELIX.getDefaultInstance(),
-			this.outputGene.getHolderOrThrow(pRegistryAccess)
+			this.outputGene
 		)
 
 		return output

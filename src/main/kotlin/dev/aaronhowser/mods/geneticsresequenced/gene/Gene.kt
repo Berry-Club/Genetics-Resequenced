@@ -149,6 +149,10 @@ data class Gene(
 		val Holder<Gene>.translationKey: String
 			get() = this.unwrapKey().get().translationKey
 
+		fun ResourceKey<Gene>.isGene(geneRk: ResourceKey<Gene>?): Boolean {
+			return geneRk != null && this === geneRk
+		}
+
 		fun Holder<Gene>?.isGene(geneRk: ResourceKey<Gene>?): Boolean {
 			return this != null && geneRk != null && this.unwrapKey().get() === geneRk
 		}
