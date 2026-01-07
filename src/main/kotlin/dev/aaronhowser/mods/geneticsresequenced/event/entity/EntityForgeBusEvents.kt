@@ -5,11 +5,15 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapabilityProvider
+import dev.aaronhowser.mods.geneticsresequenced.capability.KeptInventoryCapability
+import dev.aaronhowser.mods.geneticsresequenced.capability.KeptInventoryCapabilityProvider
 import dev.aaronhowser.mods.geneticsresequenced.capability.TemporaryGenesCapability
+import dev.aaronhowser.mods.geneticsresequenced.capability.TemporaryGenesCapabilityProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DamageGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DeathGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.MobGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.PathfinderMob
 import net.minecraftforge.event.AttachCapabilitiesEvent
@@ -27,12 +31,18 @@ import net.minecraftforge.fml.common.Mod
 object EntityForgeBusEvents {
 
 	@SubscribeEvent
-	fun <T> onAttachCapabilities(event: AttachCapabilitiesEvent<T>) {
+	fun onAttachCapabilities(event: AttachCapabilitiesEvent<Entity>) {
 		val obj = event.getObject()
 
 		if (obj is LivingEntity) {
 			val geneProvider = GenesCapabilityProvider(obj.registryAccess())
 			event.addCapability(GenesCapabilityProvider.CAPABILITY_RL, geneProvider)
+
+			val tempGeneProvider = TemporaryGenesCapabilityProvider(obj.registryAccess())
+			event.addCapability(TemporaryGenesCapabilityProvider.CAPABILITY_RL, tempGeneProvider)
+
+			val keptInventoryProvider = KeptInventoryCapabilityProvider()
+			event.addCapability(KeptInventoryCapabilityProvider.CAPABILITY_RL, keptInventoryProvider)
 		}
 	}
 
