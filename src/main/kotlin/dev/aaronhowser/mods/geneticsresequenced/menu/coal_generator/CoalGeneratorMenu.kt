@@ -16,6 +16,7 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.inventory.SimpleContainerData
 import net.minecraft.world.item.crafting.RecipeType
+import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import java.text.NumberFormat
 
@@ -47,8 +48,7 @@ class CoalGeneratorMenu(
 
 	override fun addSlots() {
 		val slot = FilteredSlot(coalGeneratorContainer, CoalGeneratorBlockEntity.INPUT_SLOT_INDEX, 52, 40) {
-			val burnTime = it.getBurnTime(RecipeType.SMELTING)
-			burnTime == -1 || burnTime > 0
+			ForgeHooks.getBurnTime(it, RecipeType.SMELTING) > 0
 		}
 		addSlot(slot)
 	}

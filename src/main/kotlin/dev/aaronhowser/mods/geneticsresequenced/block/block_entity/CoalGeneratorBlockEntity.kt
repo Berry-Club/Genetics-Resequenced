@@ -17,6 +17,7 @@ import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraftforge.common.ForgeHooks
 import net.minecraftforge.common.capabilities.ForgeCapabilities
 import kotlin.jvm.optionals.getOrNull
 
@@ -64,7 +65,7 @@ class CoalGeneratorBlockEntity(
 		val level = this.level ?: return
 
 		val inputItem = container.getItem(INPUT_SLOT_INDEX)
-		val fuelTime = inputItem.getBurnTime(RecipeType.SMELTING)
+		val fuelTime = ForgeHooks.getBurnTime(inputItem, RecipeType.SMELTING)
 
 		if (fuelTime <= 0) return
 
