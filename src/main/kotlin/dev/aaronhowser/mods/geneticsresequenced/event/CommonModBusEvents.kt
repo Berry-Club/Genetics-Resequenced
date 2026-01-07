@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.world.entity.EntityType
@@ -38,30 +37,16 @@ object CommonModBusEvents {
 	}
 
 	@SubscribeEvent
-	fun onAttachBlockEntityCapabilities(event: AttachCapabilitiesEvent<in BlockEntity>) {
-		val modBlockEntityTypes = ModBlockEntityTypes.BLOCK_ENTITY_REGISTRY.entries
+	fun onAttachBlockEntityCapabilities(event: AttachCapabilitiesEvent<BlockEntity>) {
+		val blockEntity = event.`object`
 
-		for (deferredBeType in modBlockEntityTypes) {
-			val blockEntityType = deferredBeType.get()
-
-			event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
-				blockEntityType
-			) { blockEntity, direction ->
-				if (blockEntity is MachineBlockEntity) {
-					blockEntity.getItemHandler(direction)
-				} else null
-			}
-
-			event.registerBlockEntity(
-				Capabilities.EnergyStorage.BLOCK,
-				blockEntityType
-			) { blockEntity, direction ->
-				if (blockEntity is MachineBlockEntity) {
-					blockEntity.getEnergyCapability(direction)
-				} else null
-			}
+		if (blockEntity !is MachineBlockEntity) {
+			return
 		}
+
+		// TODO
+
+
 	}
 
 	@SubscribeEvent
