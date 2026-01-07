@@ -15,6 +15,7 @@ import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
@@ -28,7 +29,7 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 		pTooltipComponents: MutableList<Component>,
 		pIsAdvanced: TooltipFlag
 	) {
-		val geneHolder = getGene(pStack)
+		val geneHolder = getGeneRk(pStack)
 
 		if (geneHolder == null) {
 			pTooltipComponents.add(
@@ -68,16 +69,12 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 
 		fun hasGene(itemStack: ItemStack): Boolean = itemStack.hasComponent(PlasmidProgressItemComponent.Type)
 
-		fun getGene(itemStack: ItemStack): Holder<Gene>? {
-			return itemStack.getComponent(PlasmidProgressItemComponent.Type)?.geneHolder
+		fun getGeneRk(itemStack: ItemStack): ResourceKey<Gene>? {
+			return itemStack.getComponent(PlasmidProgressItemComponent.Type)?.geneRK
 		}
 
-		fun setGene(itemStack: ItemStack, geneHolder: Holder<Gene>, amount: Int = 0) {
-			val component = PlasmidProgressItemComponent(
-				geneHolder,
-				amount
-			)
-
+		fun setGene(itemStack: ItemStack, geneRk: ResourceKey<Gene>, amount: Int = 0) {
+			val component = PlasmidProgressItemComponent(geneRk, amount)
 			itemStack.setComponent(component)
 		}
 
@@ -87,7 +84,7 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 
 		fun setDnaPoints(itemStack: ItemStack, amount: Int) {
 			val component = PlasmidProgressItemComponent(
-				getGene(itemStack) ?: return,
+				getGeneRk(itemStack) ?: return,
 				amount
 			)
 
@@ -99,7 +96,7 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 		}
 
 		fun isComplete(itemStack: ItemStack): Boolean {
-			val geneHolder = getGene(itemStack) ?: return false
+			val geneHolder = getGeneRk(itemStack) ?: return false
 			return getDnaPoints(itemStack) >= geneHolder.value().dnaPointsRequired
 		}
 

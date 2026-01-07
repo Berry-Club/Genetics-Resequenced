@@ -52,13 +52,13 @@ class PlasmidInjectorBlockEntity(
 		if (!syringeStack.isSyringe()) return false
 
 		if (plasmidStack.isItem(ModItems.PLASMID)) {
-			val plasmidGene = PlasmidItem.getGene(plasmidStack) ?: return false
+			val plasmidGene = PlasmidItem.getGeneRk(plasmidStack) ?: return false
 			if (!PlasmidItem.isComplete(plasmidStack)) return false
 			return SyringeItem.canAddGene(syringeStack, plasmidGene)
 		}
 
 		if (plasmidStack.isItem(ModItems.ANTI_PLASMID)) {
-			val antiPlasmidAntigene = PlasmidItem.getGene(plasmidStack) ?: return false
+			val antiPlasmidAntigene = PlasmidItem.getGeneRk(plasmidStack) ?: return false
 			return SyringeItem.canAddAntigene(syringeStack, antiPlasmidAntigene)
 		}
 
@@ -69,7 +69,7 @@ class PlasmidInjectorBlockEntity(
 		val plasmidStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
 		val syringeStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
-		val plasmidGene = PlasmidItem.getGene(plasmidStack) ?: return
+		val plasmidGene = PlasmidItem.getGeneRk(plasmidStack) ?: return
 
 		if (plasmidStack.isItem(ModItems.PLASMID)) {
 			SyringeItem.addGene(syringeStack, plasmidGene)

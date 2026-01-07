@@ -4,11 +4,12 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.core.Holder
+import net.minecraft.resources.ResourceKey
 
 data class PlasmidProgressItemComponent(
-	val geneHolder: Holder<Gene>,
+	val geneRK: ResourceKey<Gene>,
 	val dnaPoints: Int
 ) : PseudoDataComponent<PlasmidProgressItemComponent, PlasmidProgressItemComponent.Type>() {
 
@@ -16,9 +17,9 @@ data class PlasmidProgressItemComponent(
 		val CODEC: Codec<PlasmidProgressItemComponent> =
 			RecordCodecBuilder.create { instance ->
 				instance.group(
-					Gene.CODEC
+					ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
 						.fieldOf("gene")
-						.forGetter(PlasmidProgressItemComponent::geneHolder),
+						.forGetter(PlasmidProgressItemComponent::geneRK),
 					Codec.INT
 						.fieldOf("dna_points")
 						.forGetter(PlasmidProgressItemComponent::dnaPoints)

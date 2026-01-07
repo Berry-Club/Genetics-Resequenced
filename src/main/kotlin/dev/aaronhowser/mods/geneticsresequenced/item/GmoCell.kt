@@ -41,7 +41,7 @@ class GmoCell(properties: Properties) : Item(properties) {
 		if (geneRk != null) {
 			val geneComponent =
 				ModTooltipLang.GENE
-					.toComponent(geneRk.getName())
+					.toComponent(geneRk.location())
 					.withStyle(ChatFormatting.GRAY)
 			pTooltipComponents.add(geneComponent)
 		} else {
@@ -60,7 +60,7 @@ class GmoCell(properties: Properties) : Item(properties) {
 			geneHolder: Holder<Gene>,
 		) {
 			EntityDnaItem.setEntityType(itemStack, entityType)
-			DnaHelixItem.setGeneHolder(itemStack, geneHolder)
+			GeneDataComponent.setGene(itemStack, geneHolder)
 		}
 	}
 

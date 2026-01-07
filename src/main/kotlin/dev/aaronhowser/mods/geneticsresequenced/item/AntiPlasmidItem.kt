@@ -18,7 +18,7 @@ class AntiPlasmidItem(properties: Properties) : Item(properties) {
 		pTooltipComponents: MutableList<Component>,
 		pIsAdvanced: TooltipFlag
 	) {
-		val geneHolder = PlasmidItem.getGene(pStack)
+		val geneHolder = PlasmidItem.getGeneRk(pStack)
 
 		if (geneHolder == null) {
 			pTooltipComponents.add(

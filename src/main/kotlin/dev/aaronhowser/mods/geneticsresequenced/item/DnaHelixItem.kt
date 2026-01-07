@@ -1,14 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.hasComponent
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.setComponent
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
@@ -31,16 +27,14 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 		pTooltipComponents: MutableList<Component>,
 		pIsAdvanced: TooltipFlag
 	) {
-		val registries = pLevel?.registryAccess() ?: return
+		val geneRk = GeneDataComponent.getGeneRk(pStack)
 
-		val geneHolder = getGeneHolder(registries, pStack)
-
-		if (geneHolder == null) {
+		if (geneRk == null) {
 			showNoGeneTooltips(pStack, pTooltipComponents)
 		} else {
 			pTooltipComponents.add(
 				ModTooltipLang.GENE
-					.toComponent(geneHolder.getName())
+					.toComponent(geneRk.location())
 					.withStyle(ChatFormatting.GRAY)
 			)
 		}
@@ -91,7 +85,13 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 
 		fun getHelixStack(geneHolder: Holder<Gene>): ItemStack {
 			val itemStack = ModItems.DNA_HELIX.getDefaultInstance()
-			setGeneHolder(itemStack, geneHolder)
+			GeneDataComponent.setGene(itemStack, geneHolder)
+			return itemStack
+		}
+
+		fun getHelixStack(geneRk: ResourceKey<Gene>): ItemStack {
+			val itemStack = ModItems.DNA_HELIX.getDefaultInstance()
+			GeneDataComponent.setGene(itemStack, geneRk)
 			return itemStack
 		}
 

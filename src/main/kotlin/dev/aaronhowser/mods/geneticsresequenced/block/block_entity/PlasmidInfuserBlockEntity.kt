@@ -47,7 +47,7 @@ class PlasmidInfuserBlockEntity(
 
 		if (PlasmidItem.isComplete(outputPlasmid)) return false
 
-		val plasmidGeneHolder = PlasmidItem.getGene(outputPlasmid)
+		val plasmidGeneHolder = PlasmidItem.getGeneRk(outputPlasmid)
 		val inputGeneHolder = GeneDataComponent.getGeneRk(inputHelix)
 
 		val helixIsBasic = inputGeneHolder?.isGene(ModGenes.BASIC).isTrue()
@@ -68,7 +68,7 @@ class PlasmidInfuserBlockEntity(
 		val inputHelix = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
 		val outputPlasmid = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
-		val plasmidGeneHolder = PlasmidItem.getGene(outputPlasmid)
+		val plasmidGeneHolder = PlasmidItem.getGeneRk(outputPlasmid)
 		val inputGeneRk = GeneDataComponent.getGeneRk(inputHelix) ?: return
 
 		// If Plasmid is unset, set it to the Helix's gene and initialize the amount

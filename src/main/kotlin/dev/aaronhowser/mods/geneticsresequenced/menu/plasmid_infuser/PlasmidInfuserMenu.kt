@@ -67,7 +67,7 @@ class PlasmidInfuserMenu(
 		}
 
 		private fun addAntiPlasmidTooltip(event: ItemTooltipEvent) {
-			if (PlasmidItem.getGene(event.itemStack) != null) return
+			if (PlasmidItem.getGeneRk(event.itemStack) != null) return
 
 			event.toolTip.add(ModTooltipLang.INFUSER_ANTI_PLASMID_1.toComponent().withStyle(ChatFormatting.RED))
 			event.toolTip.add(ModTooltipLang.INFUSER_ANTI_PLASMID_2.toComponent().withStyle(ChatFormatting.RED))
@@ -81,7 +81,7 @@ class PlasmidInfuserMenu(
 			val plasmidSlotId = 37  //Evil magic number that i got by printing whatever slot I was hovering
 
 			val outputItem = slots.getOrNull(plasmidSlotId)?.item ?: return
-			val outputGene = PlasmidItem.getGene(outputItem) ?: return
+			val outputGene = PlasmidItem.getGeneRk(outputItem) ?: return
 
 			val component = when {
 				hoveredGeneRk.isGene(ModGenes.BASIC) -> ModTooltipLang.INFUSER_BASIC.toComponent()
