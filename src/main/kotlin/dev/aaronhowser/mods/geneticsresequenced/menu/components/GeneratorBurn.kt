@@ -27,16 +27,16 @@ class GeneratorBurn(
 		val totalHeight = HEIGHT
 		val amountToRender = totalHeight - (totalHeight * percentDone.get()).toInt()
 
-		pGuiGraphics.blitSprite(
+		pGuiGraphics.blit(
 			TEXTURE,
-			TEXTURE_SIZE,
-			TEXTURE_SIZE,
-			0,
-			HEIGHT - amountToRender,
 			x,
 			y + HEIGHT - amountToRender,
+			0f,
+			(HEIGHT - amountToRender).toFloat(),
 			TEXTURE_SIZE,
-			amountToRender
+			amountToRender,
+			TEXTURE_SIZE,
+			TEXTURE_SIZE
 		)
 	}
 

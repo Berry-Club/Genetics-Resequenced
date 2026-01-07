@@ -16,7 +16,7 @@ class ProgressArrow(
 	val font: Font,
 	val percentDoneFunction: () -> Float,
 	val shouldRenderProgress: () -> Boolean,
-	val onClickFunction: (Double, Double, Int) -> Unit
+	val onClickFunction: (Double, Double) -> Unit
 ) : AbstractWidget(
 	x, y,
 	arrowDirection.width,
@@ -70,28 +70,32 @@ class ProgressArrow(
 	private fun renderDownArrow(pGuiGraphics: GuiGraphics) {
 		if (!shouldRenderProgress()) return
 
-		pGuiGraphics.blitSprite(
+		pGuiGraphics.blit(
 			arrowDirection.texture,
-			arrowDirection.textureSize, arrowDirection.textureSize,
-			0, 0,
 			this.x,
 			this.y,
+			0f,
+			0f,
 			this.width,
 			Mth.floor(this.height * percentDoneFunction()),
+			arrowDirection.textureSize,
+			arrowDirection.textureSize
 		)
 	}
 
 	private fun renderRightArrow(pGuiGraphics: GuiGraphics) {
 		if (!shouldRenderProgress()) return
 
-		pGuiGraphics.blitSprite(
+		pGuiGraphics.blit(
 			arrowDirection.texture,
-			arrowDirection.textureSize, arrowDirection.textureSize,
-			0, 0,
 			this.x,
 			this.y,
+			0f,
+			0f,
 			Mth.floor(this.width * percentDoneFunction()),
-			this.height
+			this.height,
+			arrowDirection.textureSize,
+			arrowDirection.textureSize
 		)
 	}
 
@@ -108,10 +112,10 @@ class ProgressArrow(
 		)
 	}
 
-	override fun onClick(mouseX: Double, mouseY: Double, button: Int) {
-		super.onClick(mouseX, mouseY, button)
+	override fun onClick(mouseX: Double, mouseY: Double) {
+		super.onClick(mouseX, mouseY)
 
-		onClickFunction(mouseX, mouseY, button)
+		onClickFunction(mouseX, mouseY)
 	}
 
 	override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {

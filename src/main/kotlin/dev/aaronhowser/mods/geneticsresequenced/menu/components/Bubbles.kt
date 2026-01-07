@@ -47,16 +47,16 @@ class Bubbles(
 
 		val amountBubbleToRender = HEIGHT - bubblePos
 
-		pGuiGraphics.blitSprite(
+		pGuiGraphics.blit(
 			TEXTURE,
-			TEXTURE_SIZE,
-			TEXTURE_SIZE,
-			0,
-			0,
 			x,
 			y,
+			0f,
+			0f,
 			WIDTH,
-			amountBubbleToRender
+			amountBubbleToRender,
+			TEXTURE_SIZE,
+			TEXTURE_SIZE
 		)
 	}
 

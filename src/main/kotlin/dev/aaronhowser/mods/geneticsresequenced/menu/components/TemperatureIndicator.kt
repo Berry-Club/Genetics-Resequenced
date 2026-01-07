@@ -16,7 +16,7 @@ class TemperatureIndicator(
 	val shouldRender: () -> Boolean,
 	val shouldRenderTooltip: Boolean,
 	val isHighTemperature: () -> Boolean,
-	val onClickFunction: (Double, Double, Int) -> Unit
+	val onClickFunction: (Double, Double) -> Unit
 ) : AbstractWidget(
 	x, y,
 	WIDTH,
@@ -33,15 +33,16 @@ class TemperatureIndicator(
 			LOW
 		}
 
-		pGuiGraphics.blitSprite(
+		pGuiGraphics.blit(
 			texture,
-			TEXTURE_SIZE,
-			TEXTURE_SIZE,
-			0, 0,
 			x,
 			y,
+			0f,
+			0f,
 			WIDTH,
-			HEIGHT
+			HEIGHT,
+			TEXTURE_SIZE,
+			TEXTURE_SIZE
 		)
 
 		if (isHovered) renderTooltip(pGuiGraphics, pMouseX, pMouseY)
@@ -62,10 +63,10 @@ class TemperatureIndicator(
 		)
 	}
 
-	override fun onClick(mouseX: Double, mouseY: Double, button: Int) {
-		super.onClick(mouseX, mouseY, button)
+	override fun onClick(mouseX: Double, mouseY: Double) {
+		super.onClick(mouseX, mouseY)
 
-		onClickFunction(mouseX, mouseY, button)
+		onClickFunction(mouseX, mouseY)
 	}
 
 	override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {

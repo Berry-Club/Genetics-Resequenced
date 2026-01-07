@@ -30,16 +30,16 @@ class EnergyBar(
 		val energyTotalHeight = this.height
 		val energyCurrentHeight = Mth.ceil(energyTotalHeight.toDouble() * percentFull)
 
-		pGuiGraphics.blitSprite(
+		pGuiGraphics.blit(
 			TEXTURE,
-			TEXTURE_SIZE,
-			TEXTURE_SIZE,
-			0,
-			energyTotalHeight - energyCurrentHeight,
 			x,
 			y + energyTotalHeight - energyCurrentHeight,
+			0f,
+			(energyTotalHeight - energyCurrentHeight).toFloat(),
 			TEXTURE_SIZE,
-			energyCurrentHeight
+			energyCurrentHeight,
+			TEXTURE_SIZE,
+			TEXTURE_SIZE
 		)
 
 		if (isHovered) renderTooltip(pGuiGraphics, pMouseX, pMouseY)
