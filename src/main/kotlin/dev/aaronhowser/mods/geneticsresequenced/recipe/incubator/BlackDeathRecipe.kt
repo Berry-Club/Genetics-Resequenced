@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
-import com.mojang.serialization.MapCodec
+import com.google.gson.JsonObject
+import dev.aaronhowser.mods.aaron.AaronExtensions.partialNbtIngredient
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
@@ -17,17 +18,17 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
-import net.minecraft.network.RegistryFriendlyByteBuf
-import net.minecraft.network.codec.StreamCodec
+import net.minecraft.core.RegistryAccess
+import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
-import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 object BlackDeathRecipe : AbstractIncubatorRecipe(
 	topIngredient = Ingredient.of(ModItemTagsProvider.SYRINGES),
-	bottomIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))
+	bottomIngredient = OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS.get()).partialNbtIngredient()
 ) {
 
 	override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
@@ -45,13 +46,15 @@ object BlackDeathRecipe : AbstractIncubatorRecipe(
 		return syringeGenes.containsAll(requiredGenes)
 	}
 
-	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
-		return getResultItem(lookup)
+	override fun assemble(input: IncubatorRecipeInput, pRegistryAccess: RegistryAccess): ItemStack {
+		return getResultItem(pRegistryAccess)
 	}
 
-	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
-		return DnaHelixItem.getHelixStack(ModGenes.BLACK_DEATH.getHolderOrThrow(lookup))
+	override fun getResultItem(pRegistryAccess: RegistryAccess): ItemStack {
+		return DnaHelixItem.getHelixStack(ModGenes.BLACK_DEATH.getHolderOrThrow(pRegistryAccess))
 	}
+
+	override fun getId(): ResourceLocation = OtherUtil.modResource("black_death")
 
 	override fun getSerializer(): RecipeSerializer<*> {
 		return ModRecipeSerializers.BLACK_DEATH.get()
@@ -64,21 +67,17 @@ object BlackDeathRecipe : AbstractIncubatorRecipe(
 	}
 
 	class Serializer : RecipeSerializer<BlackDeathRecipe> {
-		override fun codec(): MapCodec<BlackDeathRecipe> {
-			return CODEC
+		override fun fromJson(id: ResourceLocation, json: JsonObject): BlackDeathRecipe {
+			return BlackDeathRecipe
 		}
 
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, BlackDeathRecipe> {
-			return STREAM_CODEC
+		override fun fromNetwork(id: ResourceLocation, buf: FriendlyByteBuf): BlackDeathRecipe {
+			return BlackDeathRecipe
 		}
 
-		companion object {
-			val CODEC: MapCodec<BlackDeathRecipe> = MapCodec.unit(BlackDeathRecipe)
-
-			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, BlackDeathRecipe> =
-				StreamCodec.unit(BlackDeathRecipe)
+		override fun toNetwork(buf: FriendlyByteBuf, recipe: BlackDeathRecipe) {
+			// No data to write
 		}
-
 	}
 
 }

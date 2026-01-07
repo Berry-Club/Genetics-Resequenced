@@ -1,8 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
+import com.google.gson.JsonObject
 import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
+import dev.aaronhowser.mods.aaron.AaronExtensions.partialNbtIngredient
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
@@ -12,17 +15,21 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.core.HolderLookup
+import net.minecraft.core.RegistryAccess
+import net.minecraft.network.FriendlyByteBuf
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.util.GsonHelper
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 class DupeCellRecipe(
+	val id: ResourceLocation,
 	val isGmoCell: Boolean = false
 ) : AbstractIncubatorRecipe(
 	topIngredient = Ingredient.of(if (isGmoCell) ModItems.GMO_CELL.get() else ModItems.CELL.get()),
-	bottomIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.SUBSTRATE)),
+	bottomIngredient = OtherUtil.getPotionStack(ModPotions.SUBSTRATE.get()).partialNbtIngredient(),
 ) {
 
 	override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
@@ -35,7 +42,7 @@ class DupeCellRecipe(
 		return EntityDnaItem.hasEntity(topStack)
 	}
 
-	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
+	override fun assemble(input: IncubatorRecipeInput, pRegistryAccess: RegistryAccess): ItemStack {
 		val topStack = input.getTopItem()
 
 		val ingredientEntity = EntityDnaItem.getEntityType(topStack) ?: return ItemStack.EMPTY
@@ -45,49 +52,42 @@ class DupeCellRecipe(
 		if (this.isGmoCell) {
 			val pIngredientGene = DnaHelixItem.getGeneHolder(topStack) ?: return ItemStack.EMPTY
 
-			outputCell = ModItems.GMO_CELL.toStack()
+			outputCell = ModItems.GMO_CELL.getDefaultInstance()
 			GmoCell.setDetails(outputCell, ingredientEntity, pIngredientGene)
 		} else {
-			outputCell = ModItems.CELL.toStack()
+			outputCell = ModItems.CELL.getDefaultInstance()
 			EntityDnaItem.setEntityType(outputCell, ingredientEntity)
 		}
 
 		return outputCell
 	}
 
-	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
-		return if (this.isGmoCell) ModItems.GMO_CELL.toStack() else ModItems.CELL.toStack()
+	override fun getResultItem(pRegistryAccess: RegistryAccess): ItemStack {
+		return if (this.isGmoCell) ModItems.GMO_CELL.getDefaultInstance() else ModItems.CELL.getDefaultInstance()
 	}
+
+	override fun getId(): ResourceLocation = this.id
 
 	override fun getSerializer(): RecipeSerializer<*> {
 		return ModRecipeSerializers.DUPE_CELL.get()
 	}
 
 	class Serializer : RecipeSerializer<DupeCellRecipe> {
-		override fun codec(): MapCodec<DupeCellRecipe> {
-			return CODEC
+
+		override fun fromJson(pRecipeId: ResourceLocation, pSerializedRecipe: JsonObject): DupeCellRecipe {
+			val isGmoCell = GsonHelper.getAsBoolean(pSerializedRecipe, "is_gmo_cell", false)
+			return DupeCellRecipe(pRecipeId, isGmoCell)
 		}
 
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, DupeCellRecipe> {
-			return STREAM_CODEC
+		override fun fromNetwork(pRecipeId: ResourceLocation, pBuffer: FriendlyByteBuf): DupeCellRecipe {
+			val isGmoCell = pBuffer.readBoolean()
+			return DupeCellRecipe(pRecipeId, isGmoCell)
 		}
 
-		companion object {
-			val CODEC: MapCodec<DupeCellRecipe> =
-				RecordCodecBuilder.mapCodec { instance ->
-					instance.group(
-						Codec.BOOL
-							.optionalFieldOf("is_gmo_cell", false)
-							.forGetter(DupeCellRecipe::isGmoCell)
-					).apply(instance, ::DupeCellRecipe)
-				}
-
-			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, DupeCellRecipe> =
-				StreamCodec.composite(
-					ByteBufCodecs.BOOL, DupeCellRecipe::isGmoCell,
-					::DupeCellRecipe
-				)
+		override fun toNetwork(pBuffer: FriendlyByteBuf, pRecipe: DupeCellRecipe) {
+			pBuffer.writeBoolean(pRecipe.isGmoCell)
 		}
+
 	}
 
 }
