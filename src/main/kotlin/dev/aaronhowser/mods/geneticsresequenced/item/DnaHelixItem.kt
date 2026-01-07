@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
@@ -32,9 +33,12 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 		if (geneRk == null) {
 			showNoGeneTooltips(pStack, pTooltipComponents)
 		} else {
+			val registryAccess = pLevel?.registryAccess() ?: return
+			val geneHolder = geneRk.getHolderOrThrow(registryAccess)
+
 			pTooltipComponents.add(
 				ModTooltipLang.GENE
-					.toComponent(geneRk.location())
+					.toComponent(geneHolder.getName())
 					.withStyle(ChatFormatting.GRAY)
 			)
 		}
