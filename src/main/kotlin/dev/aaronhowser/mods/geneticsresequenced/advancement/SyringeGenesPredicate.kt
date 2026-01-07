@@ -20,7 +20,7 @@ data class SyringeGenesPredicate(
 		val stackGenes = if (isAntigene) {
 			SyringeItem.getAntigenes(stack)
 		} else {
-			SyringeItem.getGenes(stack)
+			SyringeItem.getGeneRks(stack)
 		}
 
 		return genes.all(stackGenes::contains)

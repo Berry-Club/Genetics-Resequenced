@@ -40,7 +40,7 @@ object BlackDeathRecipe : AbstractIncubatorRecipe(
 
 		if (!SyringeItem.hasBlood(syringeStack) || SyringeItem.isContaminated(syringeStack)) return false
 
-		val syringeGenes = SyringeItem.getGenes(syringeStack)
+		val syringeGenes = SyringeItem.getGeneRks(syringeStack)
 		val requiredGenes = getRequiredGenes(level.registryAccess())
 
 		return syringeGenes.containsAll(requiredGenes)

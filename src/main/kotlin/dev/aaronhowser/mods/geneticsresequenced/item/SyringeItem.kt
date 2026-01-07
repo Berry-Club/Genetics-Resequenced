@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.removeComponent
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.setComponent
@@ -20,10 +21,10 @@ import dev.aaronhowser.mods.geneticsresequenced.item.components.AntigeneSetDataC
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneSetDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.IsContaminatedDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
-import net.minecraft.core.HolderSet
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.InteractionHand
@@ -40,7 +41,6 @@ import net.minecraft.world.item.UseAnim
 import net.minecraft.world.level.Level
 import net.minecraftforge.common.util.FakePlayer
 import java.util.*
-import kotlin.jvm.optionals.getOrNull
 
 open class SyringeItem(properties: Properties) : Item(properties) {
 
@@ -121,7 +121,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			)
 		}
 
-		val addingGenes = getGenes(pStack)
+		val addingGenes = getGeneRks(pStack)
 		if (addingGenes.isNotEmpty()) {
 			pTooltipComponents.add(
 				ModTooltipLang.SYRINGE_ADDING_GENES
@@ -193,13 +193,13 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			val syringeEntityUuid = getEntityUuid(syringeStack) ?: return
 			if (entity.uuid != syringeEntityUuid) return
 
-			val genesToAdd = if (entity is Player) {
-				getGenes(syringeStack)
-			} else {
-				getGenes(syringeStack).filter { it.value().allowsMobs }.toSet()
-			}
+			val registryAccess = entity.registryAccess()
 
-			val genesToRemove = getAntigenes(syringeStack)
+			val genesToAdd = getGeneRks(syringeStack)
+				.map { it.getHolderOrThrow(registryAccess) }
+				.filter { holder -> entity is Player || holder.get().allowsMobs }
+
+			val genesToRemove = getAntigenes(syringeStack).map { it.getHolderOrThrow(registryAccess) }
 
 			addGenes(entity, genesToAdd)
 			removeGenes(entity, genesToRemove)
@@ -209,7 +209,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			setEntity(syringeStack, null)
 		}
 
-		private fun removeGenes(entity: LivingEntity, syringeAntigenes: Set<Holder<Gene>>) {
+		private fun removeGenes(entity: LivingEntity, syringeAntigenes: List<Holder<Gene>>) {
 			val entityGenesBefore = entity.permanentGeneHolders
 
 			for (antigene in syringeAntigenes) {
@@ -240,7 +240,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 
 		}
 
-		private fun addGenes(entity: LivingEntity, syringeGenes: Set<Holder<Gene>>) {
+		private fun addGenes(entity: LivingEntity, syringeGenes: List<Holder<Gene>>) {
 			val entityGenesBefore = entity.permanentGeneHolders
 
 			for (gene in syringeGenes) {
@@ -273,26 +273,21 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 
 		fun hasBlood(syringeStack: ItemStack): Boolean = SpecificEntityItemComponent.hasEntity(syringeStack)
 
-		fun getGenes(syringeStack: ItemStack): Set<Holder<Gene>> {
-			return syringeStack.getComponent(GeneSetDataComponent.Type)?.genes?.toSet() ?: emptySet()
+		fun getGeneRks(syringeStack: ItemStack): List<ResourceKey<Gene>> {
+			return syringeStack.getComponent(GeneSetDataComponent.Type)?.genes ?: emptyList()
 		}
 
-		fun getGeneRks(syringeStack: ItemStack): Set<ResourceKey<Gene>> {
-			return getGenes(syringeStack).mapNotNull { it.unwrapKey().getOrNull() }.toSet()
+		fun canAddGene(syringeStack: ItemStack, gene: ResourceKey<Gene>): Boolean {
+			return hasBlood(syringeStack) && gene !in getGeneRks(syringeStack)
 		}
 
-		fun canAddGene(syringeStack: ItemStack, gene: Holder<Gene>): Boolean {
-			return hasBlood(syringeStack) && gene !in getGenes(syringeStack)
-		}
-
-		fun addGene(syringeStack: ItemStack, gene: Holder<Gene>): Boolean {
+		fun addGene(syringeStack: ItemStack, gene: ResourceKey<Gene>): Boolean {
 			if (!canAddGene(syringeStack, gene)) return false
 
-			val currentGenes = getGenes(syringeStack)
+			val currentGenes = getGeneRks(syringeStack)
 			val newGenes = currentGenes + gene
-			val newHolderSet = HolderSet.direct(newGenes.toList())
 
-			syringeStack.setComponent(GeneSetDataComponent(newHolderSet))
+			syringeStack.setComponent(GeneSetDataComponent(newGenes.toList()))
 
 			return true
 		}
@@ -313,24 +308,23 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			syringeStack.setComponent(IsContaminatedDataComponent(value))
 		}
 
-		fun getAntigenes(syringeStack: ItemStack): Set<Holder<Gene>> {
-			return syringeStack.getComponent(AntigeneSetDataComponent.Type)?.antigenes?.toSet() ?: emptySet()
+		fun getAntigenes(syringeStack: ItemStack): List<ResourceKey<Gene>> {
+			return syringeStack.getComponent(AntigeneSetDataComponent.Type)?.antigenes ?: emptyList()
 		}
 
-		fun canAddAntigene(syringeStack: ItemStack, gene: Holder<Gene>): Boolean {
+		fun canAddAntigene(syringeStack: ItemStack, gene: ResourceKey<Gene>): Boolean {
 			return hasBlood(syringeStack)
 					&& gene !in getAntigenes(syringeStack)
-					&& gene !in getGenes(syringeStack)
+					&& gene !in getGeneRks(syringeStack)
 		}
 
-		fun addAntigene(syringeStack: ItemStack, gene: Holder<Gene>): Boolean {
+		fun addAntigene(syringeStack: ItemStack, gene: ResourceKey<Gene>): Boolean {
 			if (!canAddAntigene(syringeStack, gene)) return false
 
 			val currentAntigenes = getAntigenes(syringeStack)
 			val newGenes = currentAntigenes + gene
-			val holderSet = HolderSet.direct(newGenes.toList())
 
-			syringeStack.setComponent(AntigeneSetDataComponent(holderSet))
+			syringeStack.setComponent(AntigeneSetDataComponent(newGenes.toList()))
 
 			return true
 		}

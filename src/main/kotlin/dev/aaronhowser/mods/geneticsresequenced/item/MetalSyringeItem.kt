@@ -120,7 +120,7 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 			}
 
 			if (pInteractionTarget !is Player) {
-				val syringeGenes = getGenes(syringeStack)
+				val syringeGenes = getGeneRks(syringeStack)
 				val genesCantAdd = syringeGenes.filterNot { it.value().canEntityHave(pInteractionTarget) }
 				for (geneHolder in genesCantAdd) {
 					player.sendSystemMessage(
