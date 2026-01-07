@@ -10,9 +10,11 @@ import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedP
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
+import net.minecraftforge.network.NetworkDirection
 import net.minecraftforge.network.NetworkEvent
 import net.minecraftforge.network.NetworkRegistry
 import net.minecraftforge.network.simple.SimpleChannel
+import java.util.Optional
 import java.util.function.Supplier
 
 object ModPacketHandler : AaronPacketRegistrar() {
@@ -38,14 +40,16 @@ object ModPacketHandler : AaronPacketRegistrar() {
 			messageType: Class<MSG>,
 			encoder: (MSG, FriendlyByteBuf) -> Unit,
 			decoder: (FriendlyByteBuf) -> MSG,
-			messageConsumer: (MSG, Supplier<NetworkEvent.Context>) -> Unit
+			messageConsumer: (MSG, Supplier<NetworkEvent.Context>) -> Unit,
+			direction: NetworkDirection
 		) {
 			CHANNEL.registerMessage(
 				++i,
 				messageType,
 				encoder,
 				decoder,
-				messageConsumer
+				messageConsumer,
+				Optional.of(direction)
 			)
 		}
 
@@ -55,14 +59,16 @@ object ModPacketHandler : AaronPacketRegistrar() {
 			FireballPacket::class.java,
 			{ packet, buffer -> packet.encode(buffer) },
 			{ buffer -> FireballPacket.decode(buffer) },
-			{ packet, context -> packet.receiveOnServer(context) }
+			{ packet, context -> packet.receiveOnServer(context) },
+			NetworkDirection.PLAY_TO_SERVER
 		)
 
 		registerMessage(
 			TeleportPlayerPacket::class.java,
 			{ packet, buffer -> packet.encode(buffer) },
 			{ buffer -> TeleportPlayerPacket.decode(buffer) },
-			{ packet, context -> packet.receiveOnServer(context) }
+			{ packet, context -> packet.receiveOnServer(context) },
+			NetworkDirection.PLAY_TO_SERVER
 		)
 
 		// S2C
@@ -71,28 +77,32 @@ object ModPacketHandler : AaronPacketRegistrar() {
 			GeneChangedPacket::class.java,
 			{ packet, buffer -> packet.encode(buffer) },
 			{ buffer -> GeneChangedPacket.decode(buffer) },
-			{ packet, context -> packet.receiveOnClient(context) }
+			{ packet, context -> packet.receiveOnClient(context) },
+			NetworkDirection.PLAY_TO_CLIENT
 		)
 
 		registerMessage(
 			NarratorPacket::class.java,
 			{ packet, buffer -> packet.encode(buffer) },
 			{ buffer -> NarratorPacket.decode(buffer) },
-			{ packet, context -> packet.receiveOnClient(context) }
+			{ packet, context -> packet.receiveOnClient(context) },
+			NetworkDirection.PLAY_TO_CLIENT
 		)
 
 		registerMessage(
 			SetGenesPacket::class.java,
 			{ packet, buffer -> packet.encode(buffer) },
 			{ buffer -> SetGenesPacket.decode(buffer) },
-			{ packet, context -> packet.receiveOnClient(context) }
+			{ packet, context -> packet.receiveOnClient(context) },
+			NetworkDirection.PLAY_TO_CLIENT
 		)
 
 		registerMessage(
 			ShearedPacket::class.java,
 			{ packet, buffer -> packet.encode(buffer) },
 			{ buffer -> ShearedPacket.decode(buffer) },
-			{ packet, context -> packet.receiveOnClient(context) }
+			{ packet, context -> packet.receiveOnClient(context) },
+			NetworkDirection.PLAY_TO_CLIENT
 		)
 
 	}
