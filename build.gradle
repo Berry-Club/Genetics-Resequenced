@@ -164,7 +164,8 @@ def replaceProperties = [
 		mod_version            : mod_version,
 		mod_authors            : mod_authors,
 		mod_description        : mod_description,
-		kff_version_range      : kff_version_range
+		kff_version_range      : kff_version_range,
+		aaron_lib_version_range : aaron_lib_version_range
 ]
 
 processResources {
