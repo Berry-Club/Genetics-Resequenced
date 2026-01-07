@@ -1,12 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.mixin;
 
-import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.MobGenes;
 import net.minecraft.world.entity.animal.Bee;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(Bee.BeePollinateGoal.class)
 public abstract class BeePollinateGoalMixin {
@@ -18,14 +19,17 @@ public abstract class BeePollinateGoalMixin {
 	@Shadow
 	private int successfulPollinatingTicks;
 
-	@ModifyReturnValue(
+	@Inject(
 			method = "hasPollinatedLongEnough",
-			at = @At("RETURN")
+			at = @At("RETURN"),
+			cancellable = true
 	)
-	private boolean modifyPollinationTime(boolean original) {
-		if (original) return true;
-		var bee = this.this$0;
-		return successfulPollinatingTicks >= MobGenes.beeRequiredPollinationTime(bee);
+	private void geneticsresequenced$modifyPollinationTime(CallbackInfoReturnable<Boolean> cir) {
+		if (!cir.getReturnValue()) {
+			var bee = this.this$0;
+			var success = successfulPollinatingTicks >= MobGenes.beeRequiredPollinationTime(bee);
+			cir.setReturnValue(success);
+		}
 	}
 
 }
