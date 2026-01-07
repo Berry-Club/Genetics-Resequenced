@@ -61,11 +61,7 @@ class GmoRecipe(
 	override fun getResultItem(registries: RegistryAccess): ItemStack {
 		val output = ModItems.GMO_CELL.getDefaultInstance()
 
-		GmoCell.setDetails(
-			output,
-			this.entityType,
-			this.idealGeneRk
-		)
+		GmoCell.setDetails(output, this.entityType, this.idealGeneRk)
 
 		return output
 	}
@@ -75,11 +71,7 @@ class GmoRecipe(
 	fun getFailure(lookup: HolderLookup.Provider): ItemStack {
 		val output = ModItems.GMO_CELL.getDefaultInstance()
 
-		GmoCell.setDetails(
-			output,
-			this.entityType,
-			ModGenes.BASIC
-		)
+		GmoCell.setDetails(output, this.entityType, ModGenes.BASIC)
 
 		return output
 	}

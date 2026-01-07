@@ -34,11 +34,6 @@ data class GeneSetDataComponent(
 			return itemStack
 		}
 
-		fun setGenes(itemStack: ItemStack, geneHolders: List<Holder<Gene>>): ItemStack {
-			val geneRks = geneHolders.mapNotNull { it.unwrapKey().getOrNull() }
-			return setGenes(itemStack, geneRks)
-		}
-
 	}
 
 }
