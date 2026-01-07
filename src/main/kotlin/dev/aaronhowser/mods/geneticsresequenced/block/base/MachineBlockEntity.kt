@@ -21,6 +21,9 @@ import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraftforge.common.capabilities.Capability
+import net.minecraftforge.common.capabilities.ForgeCapabilities
+import net.minecraftforge.common.util.LazyOptional
 import net.minecraftforge.energy.EnergyStorage
 import net.minecraftforge.items.IItemHandler
 import net.minecraftforge.items.IItemHandlerModifiable
@@ -43,9 +46,7 @@ abstract class MachineBlockEntity(
 		EnergyStorage(maxEnergy, energyTransferRate)
 	}
 
-	open fun getEnergyCapability(direction: Direction?): EnergyStorage {
-		return energyStorage
-	}
+	protected var lazyEnergyStorage: LazyOptional<EnergyStorage> = LazyOptional.empty()
 
 	protected open val containerData: ContainerData by lazy { EnergyContainerData(energyStorage) }
 
@@ -62,8 +63,33 @@ abstract class MachineBlockEntity(
 		}
 	}
 
+	protected var lazyItemHandler: LazyOptional<IItemHandler> = LazyOptional.empty()
+
 	open fun getItemHandler(direction: Direction?): IItemHandler? {
 		return itemHandler
+	}
+
+	override fun <T : Any?> getCapability(cap: Capability<T>, side: Direction?): LazyOptional<T> {
+		return when (cap) {
+			ForgeCapabilities.ENERGY -> lazyEnergyStorage.cast()
+			ForgeCapabilities.ITEM_HANDLER -> lazyItemHandler.cast()
+
+			else -> super.getCapability(cap, side)
+		}
+	}
+
+	override fun onLoad() {
+		super.onLoad()
+
+		lazyEnergyStorage = LazyOptional.of { energyStorage }
+		lazyItemHandler = LazyOptional.of { itemHandler }
+	}
+
+	override fun invalidateCaps() {
+		super.invalidateCaps()
+
+		lazyEnergyStorage.invalidate()
+		lazyItemHandler.invalidate()
 	}
 
 	protected open fun serverTick() {}
