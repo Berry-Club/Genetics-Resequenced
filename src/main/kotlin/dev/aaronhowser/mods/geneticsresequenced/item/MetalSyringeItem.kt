@@ -71,6 +71,10 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 	}
 
 	override fun getAttributeModifiers(slot: EquipmentSlot, stack: ItemStack): Multimap<Attribute, AttributeModifier> {
+		if (slot != EquipmentSlot.MAINHAND && slot != EquipmentSlot.OFFHAND) {
+			return super.getAttributeModifiers(slot, stack)
+		}
+
 		return ImmutableMultimap.of(
 			ForgeMod.ENTITY_REACH.get(),
 			AttributeModifier(
