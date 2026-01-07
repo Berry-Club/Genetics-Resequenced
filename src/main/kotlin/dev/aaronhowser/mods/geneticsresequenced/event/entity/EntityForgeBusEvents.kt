@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapabilityProvider
-import dev.aaronhowser.mods.geneticsresequenced.capability.KeptInventoryCapability
 import dev.aaronhowser.mods.geneticsresequenced.capability.KeptInventoryCapabilityProvider
 import dev.aaronhowser.mods.geneticsresequenced.capability.TemporaryGenesCapability
 import dev.aaronhowser.mods.geneticsresequenced.capability.TemporaryGenesCapabilityProvider

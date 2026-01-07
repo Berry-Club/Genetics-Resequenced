@@ -112,7 +112,7 @@ class GmoRecipe(
 			)
 		}
 
-		override fun fromNetwork(pRecipeId: ResourceLocation, pBuffer: FriendlyByteBuf): GmoRecipe? {
+		override fun fromNetwork(pRecipeId: ResourceLocation, pBuffer: FriendlyByteBuf): GmoRecipe {
 			val entityTypeRk = pBuffer.readResourceKey(Registries.ENTITY_TYPE)
 			val entityType = ForgeRegistries.ENTITY_TYPES.getHolder(entityTypeRk).get().get()
 

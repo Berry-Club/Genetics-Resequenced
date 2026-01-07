@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet
 
-import dev.aaronhowser.mods.aaron.AaronLib
 import dev.aaronhowser.mods.aaron.packet.AaronPacketRegistrar
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.TeleportPlayerPacket
