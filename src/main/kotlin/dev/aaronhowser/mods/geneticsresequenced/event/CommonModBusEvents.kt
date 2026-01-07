@@ -1,15 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.world.entity.EntityType
-import net.minecraftforge.event.entity.EntityAttributeCreationEvent
 import net.minecraftforge.event.entity.EntityAttributeModificationEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
@@ -36,24 +33,6 @@ object CommonModBusEvents {
 			Gene.DIRECT_CODEC
 		)
 	}
-
-	@SubscribeEvent
-	fun onEntityAttributeCreation(event: EntityAttributeCreationEvent) {
-		event.put(ModEntityTypes.SUPPORT_SLIME.get(), SupportSlime.setAttributes())
-	}
-
-//	@SubscribeEvent
-//	fun onAttachBlockEntityCapabilities(event: AttachCapabilitiesEvent<BlockEntity>) {
-//		val blockEntity = event.`object`
-//
-//		if (blockEntity !is MachineBlockEntity) {
-//			return
-//		}
-//
-//		// TODO
-//
-//
-//	}
 
 	@SubscribeEvent
 	fun onEntityAttributeModification(event: EntityAttributeModificationEvent) {
