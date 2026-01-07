@@ -22,6 +22,7 @@ import net.minecraft.world.level.GameRules
 import net.minecraft.world.level.Level
 import net.minecraftforge.event.entity.living.LivingDeathEvent
 import net.minecraftforge.event.entity.living.LivingExperienceDropEvent
+import net.minecraftforge.event.entity.living.LootingLevelEvent
 import net.minecraftforge.event.level.ExplosionEvent
 import java.util.*
 
@@ -183,6 +184,12 @@ object DeathGenes {
 		val entity = event.entity
 		val multiplier = entity.getAttributeValue(ModAttributes.XP_DROP_MULTIPLIER.get())
 		event.droppedExperience = Mth.ceil(event.droppedExperience * multiplier)
+	}
+
+	fun handleLootingGenes(event: LootingLevelEvent) {
+		val entity = event.entity
+		val bonus = entity.getAttributeValue(ModAttributes.BASE_LOOTING.get()).toInt()
+		event.lootingLevel += bonus
 	}
 
 }

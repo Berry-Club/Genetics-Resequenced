@@ -132,4 +132,9 @@ object EntityEvents {
 		DeathGenes.handleExperienced(event)
 	}
 
+	@SubscribeEvent
+	fun onLootingLevelEvent(event: LootingLevelEvent) {
+		DeathGenes.handleLootingGenes(event)
+	}
+
 }

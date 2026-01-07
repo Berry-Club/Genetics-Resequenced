@@ -5,7 +5,6 @@
 	"mixins": [
 		"BeePollinateGoalMixin",
 		"ClientHooksMixin",
-		"EnchantedCountIncreaseFunctionMixin",
 		"EntityMixin",
 		"LivingEntityMixin",
 		"TargetGoalMixin"
