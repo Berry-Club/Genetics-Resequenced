@@ -26,7 +26,6 @@ import net.minecraft.core.RegistryCodecs
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
-import net.minecraft.network.chat.Style
 import net.minecraft.resources.HolderSetCodec
 import net.minecraft.resources.RegistryFileCodec
 import net.minecraft.resources.ResourceKey
@@ -178,38 +177,42 @@ data class Gene(
 		}
 
 		fun getNameComponent(
-			geneRk: ResourceKey<Gene>,
+			geneResourceKey: ResourceKey<Gene>,
 			registries: HolderLookup.Provider = ClientUtil.localRegistryAccess!!
-		): MutableComponent {
-			return getNameComponent(geneRk.getHolderOrThrow(registries))
-		}
+		): MutableComponent =
+			getNameComponent(geneResourceKey.getHolderOrThrow(registries))
 
-		fun Holder<Gene>.getName(): MutableComponent = getNameComponent(this)
+
+		fun Holder<Gene>.getName(): MutableComponent =
+			getNameComponent(this)
+
 
 		fun getNameComponent(geneHolder: Holder<Gene>): MutableComponent {
-			val color = when {
+			val geneLocationString = geneHolder.getLocationOrNull().toString()
+
+			val geneColor = when {
 				geneHolder.isDisabled -> ChatFormatting.DARK_RED
 				geneHolder.isNegative -> ChatFormatting.RED
 				geneHolder.isMutation -> ChatFormatting.DARK_PURPLE
 				else -> ChatFormatting.GRAY
 			}
 
-			val component = geneHolder.translationKey
-				.toComponent()
-				.withStyle(
-					Style.EMPTY
-						.withColor(color)
-						.withHoverText(ModTooltipLang.COPY_GENE.toComponent(geneHolder.getLocationOrNull().toString()))
-						.withClickToCopyToClipboard(geneHolder.getLocationOrNull().toString())
-				)
+			val baseComponent =
+				geneHolder.translationKey
+					.toComponent()
+					.withStyle {
+						it.withColor(geneColor)
+							.withHoverText(ModTooltipLang.COPY_GENE.toComponent(geneLocationString))
+							.withClickToCopyToClipboard(geneLocationString)
+					}
 
-			if (geneHolder.isDisabled) {
-				component.append(
-					ModGeneLang.DISABLED_SUFFIX.toComponent()
-				)
+			if (!geneHolder.isDisabled) {
+				return baseComponent
 			}
 
-			return component
+			return baseComponent.append(
+				ModGeneLang.DISABLED_SUFFIX.toComponent()
+			)
 		}
 
 		val UNKNOWN_GENE_COMPONENT: MutableComponent = ModGeneLang.UNKNOWN.toComponent()
