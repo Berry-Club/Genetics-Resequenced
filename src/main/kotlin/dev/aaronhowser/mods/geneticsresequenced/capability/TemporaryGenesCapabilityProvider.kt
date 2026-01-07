@@ -5,13 +5,15 @@ import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
 import net.minecraft.resources.ResourceLocation
+import net.minecraftforge.common.capabilities.AutoRegisterCapability
 import net.minecraftforge.common.capabilities.Capability
 import net.minecraftforge.common.capabilities.CapabilityManager
 import net.minecraftforge.common.capabilities.CapabilityToken
 import net.minecraftforge.common.capabilities.ICapabilitySerializable
 import net.minecraftforge.common.util.LazyOptional
 
-class TemporaryGeneCapabilityProvider(
+@AutoRegisterCapability
+class TemporaryGenesCapabilityProvider(
 	private val registries: HolderLookup.Provider
 ) : ICapabilitySerializable<CompoundTag> {
 

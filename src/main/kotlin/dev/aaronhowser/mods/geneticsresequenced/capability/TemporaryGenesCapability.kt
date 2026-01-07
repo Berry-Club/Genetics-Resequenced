@@ -83,7 +83,7 @@ class TemporaryGenesCapability() {
 		@JvmStatic
 		var LivingEntity.temporaryGenes: List<TemporaryGene>
 			get() {
-				val cap = this.getCapability(TemporaryGeneCapabilityProvider.CAPABILITY)
+				val cap = this.getCapability(TemporaryGenesCapabilityProvider.CAPABILITY)
 					.resolve()
 					.getOrNull()
 
@@ -95,7 +95,7 @@ class TemporaryGenesCapability() {
 				return cap.temporaryGenes
 			}
 			private set(value) {
-				val cap = this.getCapability(TemporaryGeneCapabilityProvider.CAPABILITY)
+				val cap = this.getCapability(TemporaryGenesCapabilityProvider.CAPABILITY)
 					.resolve()
 					.getOrNull()
 
