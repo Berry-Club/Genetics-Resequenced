@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.client.renderer.GeneRenderChanges
-import dev.aaronhowser.mods.geneticsresequenced.client.renderer.entity.SupportSlimeRenderer
 import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
@@ -14,13 +13,10 @@ import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.TeleportPlayerPacket
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.model.HumanoidModel
-import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.inventory.AbstractContainerMenu
@@ -29,7 +25,6 @@ import net.minecraftforge.client.event.*
 import net.minecraftforge.event.entity.player.ItemTooltipEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 
 @Mod.EventBusSubscriber(
 	modid = GeneticsResequenced.MOD_ID,
@@ -77,16 +72,6 @@ object ClientForgeBusEvents {
 	fun onKeyRegister(event: RegisterKeyMappingsEvent) {
 		event.register(ModKeyMappings.DRAGONS_BREATH)
 		event.register(ModKeyMappings.TELEPORT)
-	}
-
-	@SubscribeEvent
-	fun onClientSetup(event: FMLClientSetupEvent) {
-		registerEntityRenderers()
-		ModMenuTypes.registerScreens(event)
-	}
-
-	private fun registerEntityRenderers() {
-		EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::SupportSlimeRenderer)
 	}
 
 	@SubscribeEvent

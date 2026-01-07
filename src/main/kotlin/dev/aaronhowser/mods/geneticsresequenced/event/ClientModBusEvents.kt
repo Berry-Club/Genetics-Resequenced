@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.item.ItemProperties
@@ -22,18 +23,19 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 object ClientModBusEvents {
 
 	@SubscribeEvent
-	fun onKeyRegister(event: RegisterKeyMappingsEvent) {
-		event.register(ModKeyMappings.DRAGONS_BREATH)
-		event.register(ModKeyMappings.TELEPORT)
-	}
-
-	@SubscribeEvent
 	fun onClientSetup(event: FMLClientSetupEvent) {
 		registerEntityRenderers()
+		ModMenuTypes.registerScreens(event)
 	}
 
 	private fun registerEntityRenderers() {
 		EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::SupportSlimeRenderer)
+	}
+
+	@SubscribeEvent
+	fun onKeyRegister(event: RegisterKeyMappingsEvent) {
+		event.register(ModKeyMappings.DRAGONS_BREATH)
+		event.register(ModKeyMappings.TELEPORT)
 	}
 
 	@SubscribeEvent
