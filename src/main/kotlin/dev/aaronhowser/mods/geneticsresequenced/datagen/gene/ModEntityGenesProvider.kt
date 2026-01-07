@@ -25,7 +25,7 @@ class ModEntityGenesProvider(
 	GeneticsResequenced.MOD_ID,
 	JsonOps.INSTANCE,
 	PackType.SERVER_DATA,
-	"gene/entity",
+	"geneticsresequenced/entity_genes",
 	EntityGenes.EntityGenesData.CODEC,
 	mapOf()
 ) {
