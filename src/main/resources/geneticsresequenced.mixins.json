@@ -4,7 +4,7 @@
 	"package": "dev.aaronhowser.mods.geneticsresequenced.mixin",
 	"mixins": [
 		"BeePollinateGoalMixin",
-		"ClientHooksMixin",
+		"ForgeHooksClientMixin",
 		"EntityMixin",
 		"LivingEntityMixin",
 		"TargetGoalMixin"
