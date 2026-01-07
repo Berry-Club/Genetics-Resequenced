@@ -1,5 +1,0 @@
-{
-	"type": "geneticsresequenced:incubator/virus",
-	"input_gene": "geneticsresequenced:luck",
-	"output_gene": "geneticsresequenced:cursed"
-}

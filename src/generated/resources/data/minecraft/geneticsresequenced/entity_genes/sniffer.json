@@ -1,7 +1,0 @@
-{
-  "entity": "minecraft:sniffer",
-  "gene_weights": {
-    "geneticsresequenced:bountiful_2": 3,
-    "geneticsresequenced:experienced": 4
-  }
-}
