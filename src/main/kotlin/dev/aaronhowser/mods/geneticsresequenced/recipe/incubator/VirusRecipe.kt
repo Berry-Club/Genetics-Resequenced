@@ -1,8 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
 import com.google.gson.JsonObject
-import com.mojang.serialization.MapCodec
-import com.mojang.serialization.codecs.RecordCodecBuilder
+import com.mojang.serialization.JsonOps
 import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
 import dev.aaronhowser.mods.aaron.AaronExtensions.partialNbtIngredient
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -27,6 +26,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 class VirusRecipe(
+	val id: ResourceLocation,
 	val inputDnaGene: ResourceKey<Gene>,
 	val outputGene: ResourceKey<Gene>
 ) : AbstractIncubatorRecipe(
@@ -57,62 +57,51 @@ class VirusRecipe(
 		return output
 	}
 
+	override fun getId(): ResourceLocation = this.id
+
 	override fun getSerializer(): RecipeSerializer<*> {
 		return ModRecipeSerializers.VIRUS.get()
 	}
 
 	class Serializer : RecipeSerializer<VirusRecipe> {
 
-		override fun codec(): MapCodec<VirusRecipe> {
-			return CODEC
-		}
-
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, VirusRecipe> {
-			return STREAM_CODEC
-		}
-
 		override fun fromJson(pRecipeId: ResourceLocation, pSerializedRecipe: JsonObject): VirusRecipe {
-			TODO("Not yet implemented")
+			val inputGeneId = ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
+				.parse(JsonOps.INSTANCE, pSerializedRecipe.get("input_dna_gene"))
+				.getOrThrow(false, ::IllegalArgumentException)
+			val outputGeneId = ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
+				.parse(JsonOps.INSTANCE, pSerializedRecipe.get("output_gene"))
+				.getOrThrow(false, ::IllegalArgumentException)
+
+			return VirusRecipe(
+				id = pRecipeId,
+				inputDnaGene = inputGeneId,
+				outputGene = outputGeneId
+			)
 		}
 
 		override fun fromNetwork(pRecipeId: ResourceLocation, pBuffer: FriendlyByteBuf): VirusRecipe {
-			TODO("Not yet implemented")
+			val inputGeneId = pBuffer.readResourceKey(ModGenes.GENE_REGISTRY_KEY)
+			val outputGeneId = pBuffer.readResourceKey(ModGenes.GENE_REGISTRY_KEY)
+
+			return VirusRecipe(
+				id = pRecipeId,
+				inputDnaGene = inputGeneId,
+				outputGene = outputGeneId
+			)
 		}
 
 		override fun toNetwork(pBuffer: FriendlyByteBuf, pRecipe: VirusRecipe) {
-			TODO("Not yet implemented")
-		}
-
-		companion object {
-			val CODEC: MapCodec<VirusRecipe> =
-				RecordCodecBuilder.mapCodec { instance ->
-					instance.group(
-						ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
-							.fieldOf("input_gene")
-							.forGetter(VirusRecipe::inputDnaGene),
-						ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
-							.fieldOf("output_gene")
-							.forGetter(VirusRecipe::outputGene)
-					).apply(instance, ::VirusRecipe)
-				}
-
-			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, VirusRecipe> =
-				StreamCodec.composite(
-					ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), VirusRecipe::inputDnaGene,
-					ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), VirusRecipe::outputGene,
-					::VirusRecipe
-				)
-
+			pBuffer.writeResourceKey(pRecipe.inputDnaGene)
+			pBuffer.writeResourceKey(pRecipe.outputGene)
 		}
 
 	}
 
 	companion object {
 		@Suppress("UNCHECKED_CAST")
-		fun getVirusRecipes(recipeManager: RecipeManager): List<RecipeHolder<VirusRecipe>> {
-			val incubatorRecipes = getIncubatorRecipes(recipeManager)
-
-			return incubatorRecipes.mapNotNull { if (it.value is VirusRecipe) it as? RecipeHolder<VirusRecipe> else null }
+		fun getVirusRecipes(recipeManager: RecipeManager): List<VirusRecipe> {
+			return getIncubatorRecipes(recipeManager).filterIsInstance<VirusRecipe>()
 		}
 	}
 
