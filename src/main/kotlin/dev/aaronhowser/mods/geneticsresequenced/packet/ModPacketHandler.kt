@@ -19,18 +19,18 @@ object ModPacketHandler : AaronPacketRegistrar() {
 
 	private const val PROTOCOL_VERSION = "1"
 
-	lateinit var CHANNEL: SimpleChannel
+	var CHANNEL: SimpleChannel =
+		NetworkRegistry.newSimpleChannel(
+			AaronLib.modResource("main"),
+			{ PROTOCOL_VERSION },
+			PROTOCOL_VERSION::equals,
+			PROTOCOL_VERSION::equals
+		)
 
 	override fun getChannel(): SimpleChannel = CHANNEL
 
 	@Suppress("INFERRED_INVISIBLE_RETURN_TYPE_WARNING")
 	override fun registerPackets(event: FMLCommonSetupEvent) {
-		CHANNEL = NetworkRegistry.ChannelBuilder
-			.named(AaronLib.modResource("main"))
-			.networkProtocolVersion { PROTOCOL_VERSION }
-			.clientAcceptedVersions { it == PROTOCOL_VERSION }
-			.serverAcceptedVersions { it == PROTOCOL_VERSION }
-			.simpleChannel()
 
 		var i = 0
 
