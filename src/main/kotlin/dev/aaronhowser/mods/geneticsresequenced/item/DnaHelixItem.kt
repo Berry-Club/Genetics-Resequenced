@@ -101,8 +101,7 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 		}
 
 		fun getAllHelices(registries: HolderLookup.Provider): List<ItemStack> {
-			return ModGenes.getRegistrySorted(registries, includeHelixOnly = true)
-				.map { geneHolder -> getHelixStack(geneHolder) }
+			return ModGenes.getRegistrySorted(registries, includeHelixOnly = true).map(::getHelixStack)
 		}
 	}
 
