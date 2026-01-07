@@ -64,7 +64,6 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 	override fun registerScreens(event: FMLClientSetupEvent) {
 		event.enqueueWork {
 			MenuScreens.register(COAL_GENERATOR.get(), ::CoalGeneratorScreen)
-			MenuScreens.register(COAL_GENERATOR.get(), ::CoalGeneratorScreen)
 			MenuScreens.register(CELL_ANALYZER.get(), ::CellAnalyzerScreen)
 			MenuScreens.register(DNA_EXTRACTOR.get(), ::DnaExtractorScreen)
 			MenuScreens.register(DNA_DECRYPTOR.get(), ::DnaDecryptorScreen)
