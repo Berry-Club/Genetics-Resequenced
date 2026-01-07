@@ -46,7 +46,10 @@ class CoalGeneratorMenu(
 	}
 
 	override fun addSlots() {
-		val slot = FilteredSlot(coalGeneratorContainer, CoalGeneratorBlockEntity.INPUT_SLOT_INDEX, 52, 40) { it.getBurnTime(RecipeType.SMELTING) > 0 }
+		val slot = FilteredSlot(coalGeneratorContainer, CoalGeneratorBlockEntity.INPUT_SLOT_INDEX, 52, 40) {
+			val burnTime = it.getBurnTime(RecipeType.SMELTING)
+			burnTime == -1 || burnTime > 0
+		}
 		addSlot(slot)
 	}
 
