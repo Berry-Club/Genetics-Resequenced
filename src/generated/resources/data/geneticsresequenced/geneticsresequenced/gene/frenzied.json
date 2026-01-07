@@ -1,0 +1,18 @@
+{
+  "allowed_entities": {
+    "type": "forge:and",
+    "values": [
+      {
+        "type": "forge:any"
+      },
+      {
+        "type": "forge:not",
+        "value": "minecraft:player"
+      }
+    ]
+  },
+  "dna_points_required": 40,
+  "incompatible_genes": [
+    "geneticsresequenced:placid"
+  ]
+}

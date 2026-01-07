@@ -1,0 +1,34 @@
+{
+  "allowed_entities": "minecraft:player",
+  "attribute_modifiers": [
+    {
+      "attribute": "forge:entity_reach",
+      "modifier": {
+        "amount": 1.25,
+        "name": "geneticsresequenced:reaching",
+        "operation": 2,
+        "uuid": [
+          944657512,
+          2028159197,
+          -1894214797,
+          -216671032
+        ]
+      }
+    },
+    {
+      "attribute": "forge:block_reach",
+      "modifier": {
+        "amount": 1.25,
+        "name": "geneticsresequenced:reaching",
+        "operation": 2,
+        "uuid": [
+          944657512,
+          2028159197,
+          -1894214797,
+          -216671032
+        ]
+      }
+    }
+  ],
+  "dna_points_required": 50
+}

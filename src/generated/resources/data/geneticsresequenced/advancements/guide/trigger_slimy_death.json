@@ -1,0 +1,29 @@
+{
+  "parent": "geneticsresequenced:guide/get_gene",
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.geneticsresequenced.slimy_death.desc"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:slime_ball"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.geneticsresequenced.slimy_death.title"
+    }
+  },
+  "requirements": [
+    [
+      "impossible"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

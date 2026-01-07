@@ -1,0 +1,19 @@
+{
+  "attribute_modifiers": [
+    {
+      "attribute": "minecraft:generic.max_health",
+      "modifier": {
+        "amount": 20.0,
+        "name": "geneticsresequenced:more_health_one",
+        "operation": 0,
+        "uuid": [
+          133195011,
+          739920890,
+          -1316450244,
+          -554786776
+        ]
+      }
+    }
+  ],
+  "dna_points_required": 40
+}

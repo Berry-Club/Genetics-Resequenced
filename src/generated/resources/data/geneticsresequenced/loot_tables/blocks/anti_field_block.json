@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:block",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "conditions": [
+        {
+          "condition": "minecraft:survives_explosion"
+        }
+      ],
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "geneticsresequenced:anti_field_block"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "geneticsresequenced:blocks/anti_field_block"
+}

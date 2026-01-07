@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "geneticsresequenced:block/plasmid_infuser",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "geneticsresequenced:block/plasmid_infuser"
+    },
+    "facing=south": {
+      "model": "geneticsresequenced:block/plasmid_infuser",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "geneticsresequenced:block/plasmid_infuser",
+      "y": 270
+    }
+  }
+}

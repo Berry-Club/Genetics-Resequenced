@@ -1,0 +1,34 @@
+{
+  "parent": "geneticsresequenced:guide/dna_decryptor",
+  "criteria": {
+    "decrypted_dna": {
+      "conditions": {
+        "items": [
+          {}
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.geneticsresequenced.decrypt_dna.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "geneticsresequenced:dna_helix"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.geneticsresequenced.decrypt_dna.title"
+    }
+  },
+  "requirements": [
+    [
+      "decrypted_dna"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

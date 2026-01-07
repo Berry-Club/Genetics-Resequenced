@@ -1,0 +1,31 @@
+{
+  "allowed_entities": {
+    "type": "forge:and",
+    "values": [
+      {
+        "type": "forge:any"
+      },
+      {
+        "type": "forge:not",
+        "value": "minecraft:player"
+      }
+    ]
+  },
+  "attribute_modifiers": [
+    {
+      "attribute": "geneticsresequenced:base_looting",
+      "modifier": {
+        "amount": 1.0,
+        "name": "geneticsresequenced:bountiful_two",
+        "operation": 0,
+        "uuid": [
+          -470517422,
+          2145668331,
+          -1530760319,
+          1415365003
+        ]
+      }
+    }
+  ],
+  "dna_points_required": 40
+}

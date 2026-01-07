@@ -1,0 +1,9 @@
+{
+  "entity": "minecraft:pufferfish",
+  "gene_weights": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:poison": 3,
+    "geneticsresequenced:thorns": 4,
+    "geneticsresequenced:water_breathing": 4
+  }
+}

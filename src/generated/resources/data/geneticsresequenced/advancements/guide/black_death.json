@@ -1,0 +1,34 @@
+{
+  "parent": "geneticsresequenced:guide/decrypt_dna",
+  "criteria": {
+    "black_death_helix": {
+      "conditions": {
+        "items": [
+          {}
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.geneticsresequenced.black_death.desc"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:wither_rose"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.geneticsresequenced.black_death.title"
+    }
+  },
+  "requirements": [
+    [
+      "black_death_helix"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

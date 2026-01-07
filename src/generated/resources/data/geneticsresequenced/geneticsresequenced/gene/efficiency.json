@@ -1,0 +1,19 @@
+{
+  "attribute_modifiers": [
+    {
+      "attribute": "geneticsresequenced:efficiency",
+      "modifier": {
+        "amount": 1.0,
+        "name": "geneticsresequenced:efficiency",
+        "operation": 0,
+        "uuid": [
+          1060709686,
+          2057650336,
+          -1443787631,
+          -524424633
+        ]
+      }
+    }
+  ],
+  "dna_points_required": 30
+}

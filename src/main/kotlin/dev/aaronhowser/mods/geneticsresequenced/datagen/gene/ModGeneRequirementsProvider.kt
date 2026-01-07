@@ -22,7 +22,7 @@ class ModGeneRequirementsProvider(
 	GeneticsResequenced.MOD_ID,
 	JsonOps.INSTANCE,
 	PackType.SERVER_DATA,
-	"gene/entity",
+	"gene/requirements",
 	GeneRequirements.GeneRequirementsData.CODEC,
 	mapOf()
 ) {

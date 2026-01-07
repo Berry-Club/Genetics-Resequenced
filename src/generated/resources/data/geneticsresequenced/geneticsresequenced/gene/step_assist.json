@@ -1,0 +1,19 @@
+{
+  "attribute_modifiers": [
+    {
+      "attribute": "forge:step_height_addition",
+      "modifier": {
+        "amount": 1.0,
+        "name": "geneticsresequenced:step_assist",
+        "operation": 0,
+        "uuid": [
+          -293141898,
+          1079132314,
+          -1091195660,
+          -1325103390
+        ]
+      }
+    }
+  ],
+  "dna_points_required": 10
+}

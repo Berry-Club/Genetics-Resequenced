@@ -1,0 +1,9 @@
+{
+  "entity": "minecraft:donkey",
+  "gene_weights": {
+    "geneticsresequenced:basic": 9,
+    "geneticsresequenced:jump_boost": 3,
+    "geneticsresequenced:knockback": 3,
+    "geneticsresequenced:step_assist": 3
+  }
+}

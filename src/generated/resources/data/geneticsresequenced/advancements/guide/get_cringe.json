@@ -1,0 +1,29 @@
+{
+  "parent": "geneticsresequenced:guide/get_gene",
+  "criteria": {
+    "impossible": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.geneticsresequenced.pathowogen.desc"
+    },
+    "frame": "goal",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:skeleton_skull"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.geneticsresequenced.pathowogen.title"
+    }
+  },
+  "requirements": [
+    [
+      "impossible"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

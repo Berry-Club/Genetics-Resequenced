@@ -1,0 +1,19 @@
+{
+  "attribute_modifiers": [
+    {
+      "attribute": "geneticsresequenced:xp_drop_multiplier",
+      "modifier": {
+        "amount": 1.0,
+        "name": "geneticsresequenced:experienced",
+        "operation": 0,
+        "uuid": [
+          131081373,
+          -1177533717,
+          -1382650763,
+          -835485229
+        ]
+      }
+    }
+  ],
+  "dna_points_required": 50
+}
