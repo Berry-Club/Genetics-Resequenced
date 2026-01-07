@@ -2,11 +2,13 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import com.google.common.collect.ImmutableMultimap
 import com.google.common.collect.Multimap
+import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModItemLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
@@ -111,7 +113,6 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 			pInteractionTarget: LivingEntity
 		) {
 			if (player.level().isClientSide) return
-
 			val entityUuid = SpecificEntityItemComponent.getEntityUuid(syringeStack) ?: return
 
 			if (entityUuid != pInteractionTarget.uuid) {
@@ -119,9 +120,14 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 				return
 			}
 
+			val registryAccess = player.registryAccess()
+
 			if (pInteractionTarget !is Player) {
 				val syringeGenes = getGeneRks(syringeStack)
-				val genesCantAdd = syringeGenes.filterNot { it.value().canEntityHave(pInteractionTarget) }
+				val genesCantAdd = syringeGenes
+					.map { it.getHolderOrThrow(registryAccess) }
+					.filterNot { it.value().canEntityHave(pInteractionTarget) }
+
 				for (geneHolder in genesCantAdd) {
 					player.sendSystemMessage(
 						ModMessageLang.METAL_SYRINGE_NO_MOBS.toComponent(

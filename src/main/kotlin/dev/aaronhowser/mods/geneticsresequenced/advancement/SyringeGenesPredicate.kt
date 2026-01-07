@@ -5,14 +5,12 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.advancements.critereon.ItemPredicate
-import net.minecraft.core.HolderLookup
-import net.minecraft.core.HolderSet
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.ItemStack
 
 data class SyringeGenesPredicate(
-	val genes: HolderSet<Gene>,
+	val genes: List<ResourceKey<Gene>>,
 	val isAntigene: Boolean
 ) : ItemPredicate() {
 
@@ -28,11 +26,9 @@ data class SyringeGenesPredicate(
 
 	companion object {
 
-		fun blackDeath(lookup: HolderLookup.Provider): SyringeGenesPredicate {
-			val blackDeathGeneHolder = ModGenes.BLACK_DEATH.getHolderOrThrow(lookup)
-
+		fun blackDeath(): SyringeGenesPredicate {
 			return SyringeGenesPredicate(
-				HolderSet.direct(blackDeathGeneHolder),
+				listOf(ModGenes.BLACK_DEATH),
 				false
 			)
 		}
@@ -40,7 +36,8 @@ data class SyringeGenesPredicate(
 		val CODEC: Codec<SyringeGenesPredicate> =
 			RecordCodecBuilder.create { instance ->
 				instance.group(
-					Gene.HOLDER_SET_CODEC
+					ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
+						.listOf()
 						.fieldOf("genes")
 						.forGetter(SyringeGenesPredicate::genes),
 					Codec.BOOL

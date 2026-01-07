@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.Item
@@ -18,9 +19,11 @@ class AntiPlasmidItem(properties: Properties) : Item(properties) {
 		pTooltipComponents: MutableList<Component>,
 		pIsAdvanced: TooltipFlag
 	) {
-		val geneHolder = PlasmidItem.getGeneRk(pStack)
+		val registryAccess = pLevel?.registryAccess() ?: return
 
-		if (geneHolder == null) {
+		val geneRk = PlasmidItem.getGeneRk(pStack)
+
+		if (geneRk == null) {
 			pTooltipComponents.add(
 				ModTooltipLang.ANTI_PLASMID_EMPTY
 					.toComponent()
@@ -29,7 +32,7 @@ class AntiPlasmidItem(properties: Properties) : Item(properties) {
 		} else {
 			pTooltipComponents.add(
 				ModTooltipLang.PLASMID_GENE
-					.toComponent(geneHolder.getName())
+					.toComponent(geneRk.getHolderOrThrow(registryAccess).getName())
 					.withStyle(ChatFormatting.GRAY)
 			)
 		}
