@@ -36,18 +36,18 @@ object CommonModBusEvents {
 		event.put(ModEntityTypes.SUPPORT_SLIME.get(), SupportSlime.setAttributes())
 	}
 
-	@SubscribeEvent
-	fun onAttachBlockEntityCapabilities(event: AttachCapabilitiesEvent<BlockEntity>) {
-		val blockEntity = event.`object`
-
-		if (blockEntity !is MachineBlockEntity) {
-			return
-		}
-
-		// TODO
-
-
-	}
+//	@SubscribeEvent
+//	fun onAttachBlockEntityCapabilities(event: AttachCapabilitiesEvent<BlockEntity>) {
+//		val blockEntity = event.`object`
+//
+//		if (blockEntity !is MachineBlockEntity) {
+//			return
+//		}
+//
+//		// TODO
+//
+//
+//	}
 
 	@SubscribeEvent
 	fun onEntityAttributeModification(event: EntityAttributeModificationEvent) {
