@@ -20,21 +20,21 @@ side = "BOTH"
 
 [[dependencies.${ mod_id }]]
 modId = "minecraft"
-type = "required"
+mandatory = true
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${ mod_id }]]
 modId = "kotlinforforge"
-type = "required"
+mandatory = true
 versionRange = "${kff_version_range}"
 ordering = "NONE"
 side = "BOTH"
 
 [[dependencies.${ mod_id }]]
 modId = "aaron"
-type = "required"
+mandatory = true
 versionRange = "${aaron_lib_version_range}"
 ordering = "NONE"
 side = "BOTH"
