@@ -11,7 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Compa
 import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
-import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEventPost
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
@@ -32,7 +32,7 @@ import net.minecraftforge.fml.common.Mod
 object GeneEvents {
 
 	@SubscribeEvent(priority = EventPriority.LOWEST)
-	fun afterGeneChanged(event: GeneChangeEvent.Post) {
+	fun afterGeneChanged(event: GeneChangeEventPost) {
 		val (livingEntity: LivingEntity, geneHolder: Holder<Gene>, wasAdded: Boolean) = event
 
 		tellAllPlayersGeneChanged(livingEntity, geneHolder, wasAdded)

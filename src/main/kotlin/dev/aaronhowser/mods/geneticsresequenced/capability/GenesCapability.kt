@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.capability.TemporaryGenesCapability.Companion.temporaryGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEventPost
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
@@ -186,7 +187,7 @@ class GenesCapability() {
 				return false
 			}
 
-			val eventPre = GeneChangeEvent.Pre(this@addGene, newGeneHolder, true)
+			val eventPre = GeneChangeEvent(this@addGene, newGeneHolder, true)
 			FORGE_BUS.post(eventPre)
 			if (eventPre.isCanceled) {
 				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
@@ -195,7 +196,7 @@ class GenesCapability() {
 
 			this.permanentGeneHolders += newGeneHolder
 
-			val eventPost = GeneChangeEvent.Post(this@addGene, newGeneHolder, true)
+			val eventPost = GeneChangeEventPost(this@addGene, newGeneHolder, true)
 			FORGE_BUS.post(eventPost)
 
 			return true
@@ -206,7 +207,7 @@ class GenesCapability() {
 		fun LivingEntity.removeGene(removedGeneHolder: Holder<Gene>): Boolean {
 			if (!this.hasGene(removedGeneHolder)) return false
 
-			val eventPre = GeneChangeEvent.Pre(this, removedGeneHolder, false)
+			val eventPre = GeneChangeEvent(this, removedGeneHolder, false)
 			FORGE_BUS.post(eventPre)
 			if (eventPre.isCanceled) {
 				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
@@ -215,7 +216,7 @@ class GenesCapability() {
 
 			this.permanentGeneHolders -= removedGeneHolder
 
-			val eventPost = GeneChangeEvent.Post(this, removedGeneHolder, false)
+			val eventPost = GeneChangeEventPost(this, removedGeneHolder, false)
 			FORGE_BUS.post(eventPost)
 
 			return true
