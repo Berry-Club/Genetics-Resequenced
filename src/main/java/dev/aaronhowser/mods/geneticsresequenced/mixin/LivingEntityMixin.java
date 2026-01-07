@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.mixin;
 
-import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -8,6 +7,8 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
@@ -16,20 +17,18 @@ public abstract class LivingEntityMixin extends Entity {
 		super(entityType, level);
 	}
 
-	@ModifyReturnValue(
+	@Inject(
 			method = "isCurrentlyGlowing",
-			at = @At("RETURN")
+			at = @At("RETURN"),
+			cancellable = true
 	)
-	private boolean geneticsresequenced$glowFromMobSight(boolean original) {
-		if (original) {
-			return true;
-		}
+	private void geneticsresequenced$glowFromMobSight(CallbackInfoReturnable<Boolean> cir) {
 
-		var self = (LivingEntity) (Object) this;
-		if (self.level().isClientSide) {
-			return ClientUtil.shouldMobGlow(self);
-		} else {
-			return original;
+		if (!cir.getReturnValue()) {
+			var self = (LivingEntity) (Object) this;
+			if (self.level().isClientSide) {
+				cir.setReturnValue(ClientUtil.shouldMobGlow(self));
+			}
 		}
 	}
 
