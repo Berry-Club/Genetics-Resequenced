@@ -22,7 +22,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 class DupeCellRecipe(
-	val id: ResourceLocation,
+	private val id: ResourceLocation,
 	val isGmoCell: Boolean = false
 ) : AbstractIncubatorRecipe(
 	topIngredient = Ingredient.of(if (isGmoCell) ModItems.GMO_CELL.get() else ModItems.CELL.get()),

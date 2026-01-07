@@ -22,7 +22,7 @@ abstract class MachineScreen<T : MachineMenu>(
 	protected open val arrowPosTop: Int = 43
 
 	protected open fun arrowPercentDone(): Float = menu.getPercentDone()
-	protected open fun clickedProgressArrow(mouseX: Double, mouseY: Double, button: Int) {}
+	protected open fun clickedProgressArrow(mouseX: Double, mouseY: Double) {}
 	protected open fun shouldRenderProgressArrow(): Boolean {
 		val m = menu
 		return m is CraftingMachineMenu && m.isCrafting()

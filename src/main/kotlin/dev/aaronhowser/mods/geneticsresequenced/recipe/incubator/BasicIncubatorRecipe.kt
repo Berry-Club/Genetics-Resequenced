@@ -16,7 +16,7 @@ import net.minecraft.world.level.Level
 import net.minecraftforge.common.crafting.CraftingHelper
 
 class BasicIncubatorRecipe(
-	val id: ResourceLocation,
+	private val id: ResourceLocation,
 	topIngredient: Ingredient,
 	bottomIngredient: Ingredient,
 	val outputStack: ItemStack,

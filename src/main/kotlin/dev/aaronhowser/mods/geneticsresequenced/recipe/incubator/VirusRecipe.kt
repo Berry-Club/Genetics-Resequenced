@@ -26,7 +26,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 class VirusRecipe(
-	val id: ResourceLocation,
+	private val id: ResourceLocation,
 	val inputDnaGene: ResourceKey<Gene>,
 	val outputGene: ResourceKey<Gene>
 ) : AbstractIncubatorRecipe(

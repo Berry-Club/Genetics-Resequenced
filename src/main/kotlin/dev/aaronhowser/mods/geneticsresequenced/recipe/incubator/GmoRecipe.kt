@@ -32,7 +32,7 @@ import net.minecraft.world.level.Level
 import net.minecraftforge.registries.ForgeRegistries
 
 class GmoRecipe(
-	val id: ResourceLocation,
+	private val id: ResourceLocation,
 	val entityType: EntityType<*>,
 	topIngredient: Ingredient,
 	val idealGeneRk: ResourceKey<Gene>,

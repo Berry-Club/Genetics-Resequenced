@@ -37,7 +37,7 @@ class IncubatorScreen(
 			shouldRender = { menu.getCurrentEnergy() != 0 },
 			shouldRenderTooltip = false,
 			isHighTemperature = { true },
-			onClickFunction = { _, _, _ -> }
+			onClickFunction = { _, _ -> }
 		)
 
 		bubbles = Bubbles(

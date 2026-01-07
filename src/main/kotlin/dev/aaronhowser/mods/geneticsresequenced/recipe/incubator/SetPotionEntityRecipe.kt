@@ -15,7 +15,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 class SetPotionEntityRecipe(
-	val id: ResourceLocation,
+	private val id: ResourceLocation,
 	bottomIngredient: Ingredient
 ) : AbstractIncubatorRecipe(
 	topIngredient = Ingredient.of(ModItems.CELL.get()),
