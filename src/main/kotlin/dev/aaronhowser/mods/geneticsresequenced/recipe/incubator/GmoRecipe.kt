@@ -64,7 +64,7 @@ class GmoRecipe(
 		GmoCell.setDetails(
 			output,
 			this.entityType,
-			this.idealGeneRk.getHolderOrThrow(registries)
+			this.idealGeneRk
 		)
 
 		return output
@@ -78,7 +78,7 @@ class GmoRecipe(
 		GmoCell.setDetails(
 			output,
 			this.entityType,
-			ModGenes.BASIC.getHolderOrThrow(lookup)
+			ModGenes.BASIC
 		)
 
 		return output
