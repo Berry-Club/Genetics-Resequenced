@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChan
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.NarratorPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.SetGenesPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import net.minecraftforge.network.NetworkEvent
@@ -21,7 +22,7 @@ object ModPacketHandler : AaronPacketRegistrar() {
 
 	var CHANNEL: SimpleChannel =
 		NetworkRegistry.newSimpleChannel(
-			AaronLib.modResource("main"),
+			OtherUtil.modResource("main"),
 			{ PROTOCOL_VERSION },
 			PROTOCOL_VERSION::equals,
 			PROTOCOL_VERSION::equals
