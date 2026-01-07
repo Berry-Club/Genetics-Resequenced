@@ -30,7 +30,8 @@ class PlasmidInjectorBlockEntity(
 		override fun canPlaceItem(slot: Int, stack: ItemStack): Boolean {
 			return when (slot) {
 				INPUT_SLOT_INDEX -> {
-					val isIncompletePlasmid = stack.isItem(ModItems.PLASMID) && PlasmidItem.isComplete(stack)
+					val registryAccess = level?.registryAccess() ?: return false
+					val isIncompletePlasmid = stack.isItem(ModItems.PLASMID) && PlasmidItem.isComplete(stack, registryAccess)
 					isIncompletePlasmid || (stack.isItem(ModItems.ANTI_PLASMID))
 				}
 
@@ -46,6 +47,8 @@ class PlasmidInjectorBlockEntity(
 	}
 
 	override fun hasRecipe(): Boolean {
+		val registryAccess = level?.registryAccess() ?: return false
+
 		val plasmidStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
 		val syringeStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
@@ -53,7 +56,7 @@ class PlasmidInjectorBlockEntity(
 
 		if (plasmidStack.isItem(ModItems.PLASMID)) {
 			val plasmidGene = PlasmidItem.getGeneRk(plasmidStack) ?: return false
-			if (!PlasmidItem.isComplete(plasmidStack)) return false
+			if (!PlasmidItem.isComplete(plasmidStack, registryAccess)) return false
 			return SyringeItem.canAddGene(syringeStack, plasmidGene)
 		}
 

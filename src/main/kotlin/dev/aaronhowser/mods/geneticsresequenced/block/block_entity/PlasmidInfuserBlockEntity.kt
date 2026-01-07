@@ -40,12 +40,14 @@ class PlasmidInfuserBlockEntity(
 	}
 
 	override fun hasRecipe(): Boolean {
+		val registryAccess = level?.registryAccess() ?: return false
+
 		val inputHelix = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
 		val outputPlasmid = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
 		if (!inputHelix.isItem(ModItems.DNA_HELIX) || !outputPlasmid.isItem(ModItems.PLASMID)) return false
 
-		if (PlasmidItem.isComplete(outputPlasmid)) return false
+		if (PlasmidItem.isComplete(outputPlasmid, registryAccess)) return false
 
 		val plasmidGeneHolder = PlasmidItem.getGeneRk(outputPlasmid)
 		val inputGeneHolder = GeneDataComponent.getGeneRk(inputHelix)
