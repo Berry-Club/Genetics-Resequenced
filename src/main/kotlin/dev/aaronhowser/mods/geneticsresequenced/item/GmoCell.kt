@@ -3,11 +3,10 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
 import net.minecraft.ChatFormatting
-import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
@@ -57,10 +56,10 @@ class GmoCell(properties: Properties) : Item(properties) {
 		fun setDetails(
 			itemStack: ItemStack,
 			entityType: EntityType<*>,
-			geneHolder: Holder<Gene>,
+			geneRk: ResourceKey<Gene>,
 		) {
 			EntityDnaItem.setEntityType(itemStack, entityType)
-			GeneDataComponent.setGene(itemStack, geneHolder)
+			GeneDataComponent.setGene(itemStack, geneRk)
 		}
 	}
 

@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_injector
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
@@ -39,7 +40,10 @@ class PlasmidInjectorMenu(
 		addSlots()
 	}
 
-	override fun inputFilter(inputStack: ItemStack): Boolean = PlasmidItem.isComplete(inputStack)
+	override fun inputFilter(inputStack: ItemStack): Boolean {
+		val registryAccess = playerInventory.player.registryAccess()
+		return PlasmidItem.isComplete(inputStack, registryAccess)
+	}
 
 	private fun syringeFilter(syringeStack: ItemStack): Boolean {
 		return syringeStack.isItem(ModItemTagsProvider.SYRINGES) && !SyringeItem.isContaminated(syringeStack)

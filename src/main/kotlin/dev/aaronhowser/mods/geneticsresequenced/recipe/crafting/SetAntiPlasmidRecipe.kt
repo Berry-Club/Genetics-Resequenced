@@ -39,7 +39,7 @@ class SetAntiPlasmidRecipe(
 
 		if (plasmid == null || antiPlasmid == null) return false
 
-		return !PlasmidItem.hasGene(antiPlasmid) && PlasmidItem.isComplete(plasmid)
+		return !PlasmidItem.hasGene(antiPlasmid) && PlasmidItem.isComplete(plasmid, level.registryAccess())
 	}
 
 	override fun assemble(input: CraftingContainer, pRegistryAccess: RegistryAccess): ItemStack {
