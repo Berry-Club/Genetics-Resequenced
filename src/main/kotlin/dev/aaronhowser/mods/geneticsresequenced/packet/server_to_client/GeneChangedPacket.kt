@@ -20,6 +20,8 @@ data class GeneChangedPacket(
 
 	override fun encode(buffer: FriendlyByteBuf) {
 		buffer.writeInt(entityId)
+		buffer.writeResourceLocation(geneRl)
+		buffer.writeBoolean(wasAdded)
 	}
 
 	override fun handleOnClient(context: NetworkEvent.Context) {
