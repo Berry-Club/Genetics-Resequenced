@@ -30,16 +30,23 @@ class EnergyBar(
 		val energyTotalHeight = this.height
 		val energyCurrentHeight = Mth.ceil(energyTotalHeight.toDouble() * percentFull)
 
+		val sprite = ScreenTextures.Sprites.ENERGY
+		val cutOffset = sprite.height - energyCurrentHeight
+
 		pGuiGraphics.blit(
-			ScreenTextures.Sprites.ENERGY.texture,
+			sprite.texture,
+
 			x,
-			y + energyTotalHeight - energyCurrentHeight,
-			0f,
-			(energyTotalHeight - energyCurrentHeight).toFloat(),
-			TEXTURE_SIZE,
+			y + cutOffset,
+
+			sprite.uStart.toFloat(),
+			sprite.vStart.toFloat() + cutOffset,
+
+			sprite.width,
 			energyCurrentHeight,
-			TEXTURE_SIZE,
-			TEXTURE_SIZE
+
+			ScreenTextures.Sprites.SPRITE_SHEET_SIZE,
+			ScreenTextures.Sprites.SPRITE_SHEET_SIZE
 		)
 
 		if (isHovered) renderTooltip(pGuiGraphics, pMouseX, pMouseY)
@@ -61,10 +68,6 @@ class EnergyBar(
 
 	override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {
 		return this.defaultButtonNarrationText(pNarrationElementOutput)
-	}
-
-	companion object {
-		const val TEXTURE_SIZE = 64
 	}
 
 }
