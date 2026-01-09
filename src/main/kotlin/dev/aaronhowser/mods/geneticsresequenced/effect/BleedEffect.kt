@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.effect
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
 import net.minecraft.core.registries.Registries
@@ -31,7 +32,7 @@ class BleedEffect : MobEffect(
 
 	companion object {
 		val BLEED_DAMAGE: ResourceKey<DamageType> =
-			ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource("bleed"))
+			ResourceKey.create(Registries.DAMAGE_TYPE, GeneticsResequenced.modResource("bleed"))
 
 		fun getHolder(level: Level): Holder.Reference<DamageType> {
 			return level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(BLEED_DAMAGE)

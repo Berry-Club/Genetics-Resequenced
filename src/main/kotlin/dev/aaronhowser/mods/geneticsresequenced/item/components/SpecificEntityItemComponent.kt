@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.aaron.AaronExtraCodecs
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.UUIDUtil
 import net.minecraft.network.chat.Component
@@ -16,7 +17,7 @@ data class SpecificEntityItemComponent(
 	val name: Component
 ) : PseudoDataComponent<SpecificEntityItemComponent, SpecificEntityItemComponent.Type>() {
 
-	object Type : PseudoDataComponent.Type<SpecificEntityItemComponent>(OtherUtil.modResource("specific_entity")) {
+	object Type : PseudoDataComponent.Type<SpecificEntityItemComponent>(GeneticsResequenced.modResource("specific_entity")) {
 		val CODEC: Codec<SpecificEntityItemComponent> =
 			RecordCodecBuilder.create { instance ->
 				instance.group(

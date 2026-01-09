@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet
 
 import dev.aaronhowser.mods.aaron.packet.AaronPacketRegistrar
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.FireballPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.TeleportPlayerPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
@@ -23,7 +24,7 @@ object ModPacketHandler : AaronPacketRegistrar() {
 
 	var CHANNEL: SimpleChannel =
 		NetworkRegistry.newSimpleChannel(
-			OtherUtil.modResource("main"),
+			GeneticsResequenced.modResource("main"),
 			{ PROTOCOL_VERSION },
 			PROTOCOL_VERSION::equals,
 			PROTOCOL_VERSION::equals

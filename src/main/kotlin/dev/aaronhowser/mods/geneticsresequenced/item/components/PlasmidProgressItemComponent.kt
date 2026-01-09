@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item.components
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -13,7 +14,7 @@ data class PlasmidProgressItemComponent(
 	val dnaPoints: Int
 ) : PseudoDataComponent<PlasmidProgressItemComponent, PlasmidProgressItemComponent.Type>() {
 
-	object Type : PseudoDataComponent.Type<PlasmidProgressItemComponent>(OtherUtil.modResource("plasmid_progress")) {
+	object Type : PseudoDataComponent.Type<PlasmidProgressItemComponent>(GeneticsResequenced.modResource("plasmid_progress")) {
 		val CODEC: Codec<PlasmidProgressItemComponent> =
 			RecordCodecBuilder.create { instance ->
 				instance.group(

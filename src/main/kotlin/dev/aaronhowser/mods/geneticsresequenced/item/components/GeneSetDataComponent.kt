@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item.components
 
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -14,7 +15,7 @@ data class GeneSetDataComponent(
 	val genes: List<ResourceKey<Gene>>
 ) : PseudoDataComponent<GeneSetDataComponent, GeneSetDataComponent.Type>() {
 
-	object Type : PseudoDataComponent.Type<GeneSetDataComponent>(OtherUtil.modResource("genes")) {
+	object Type : PseudoDataComponent.Type<GeneSetDataComponent>(GeneticsResequenced.modResource("genes")) {
 		val CODEC: Codec<GeneSetDataComponent> =
 			ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
 				.listOf()

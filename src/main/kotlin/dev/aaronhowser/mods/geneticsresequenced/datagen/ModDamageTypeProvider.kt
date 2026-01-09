@@ -35,7 +35,7 @@ class ModDamageTypeProvider(
 
 		private fun createType(name: String): ResourceKey<DamageType> = ResourceKey.create(
 			Registries.DAMAGE_TYPE,
-			OtherUtil.modResource(name)
+			GeneticsResequenced.modResource(name)
 		)
 
 		fun bootstrap(context: BootstapContext<DamageType>) {

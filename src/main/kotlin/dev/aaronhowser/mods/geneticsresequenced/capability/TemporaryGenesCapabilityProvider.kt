@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.capability
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -34,7 +35,7 @@ class TemporaryGenesCapabilityProvider(
 	override fun deserializeNBT(nbt: CompoundTag) = lazilyGetGenes().fromTag(registries, nbt)
 
 	companion object {
-		val CAPABILITY_RL: ResourceLocation = OtherUtil.modResource("temporary_genes")
+		val CAPABILITY_RL: ResourceLocation = GeneticsResequenced.modResource("temporary_genes")
 		val CAPABILITY: Capability<TemporaryGenesCapability> = CapabilityManager.get(object : CapabilityToken<TemporaryGenesCapability>() {})
 	}
 

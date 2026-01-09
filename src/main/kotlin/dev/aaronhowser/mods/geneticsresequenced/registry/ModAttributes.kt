@@ -39,61 +39,61 @@ object ModAttributes {
 	object AttributeModifiers {
 		//TODO: Maybe make this not an attribute modifier?
 		val KNOCKBACK = AttributeModifier(
-			OtherUtil.modResource("knockback").toString(),
+			GeneticsResequenced.modResource("knockback").toString(),
 			2.0,
 			AttributeModifier.Operation.ADDITION
 		)
 
 		val MORE_HEALTH_ONE = AttributeModifier(
-			OtherUtil.modResource("more_health_one").toString(),
+			GeneticsResequenced.modResource("more_health_one").toString(),
 			20.0,
 			AttributeModifier.Operation.ADDITION
 		)
 
 		val MORE_HEALTH_TWO = AttributeModifier(
-			OtherUtil.modResource("more_health_two").toString(),
+			GeneticsResequenced.modResource("more_health_two").toString(),
 			20.0,
 			AttributeModifier.Operation.ADDITION
 		)
 
 		val STEP_ASSIST = AttributeModifier(
-			OtherUtil.modResource("step_assist").toString(),
+			GeneticsResequenced.modResource("step_assist").toString(),
 			1.0,
 			AttributeModifier.Operation.ADDITION
 		)
 
 		val EFFICIENCY = AttributeModifier(
-			OtherUtil.modResource("efficiency").toString(),
+			GeneticsResequenced.modResource("efficiency").toString(),
 			1.0,
 			AttributeModifier.Operation.ADDITION
 		)
 
 		val EFFICIENCY_FOUR = AttributeModifier(
-			OtherUtil.modResource("efficiency_four").toString(),
+			GeneticsResequenced.modResource("efficiency_four").toString(),
 			3.0, // Because you can't have this without the first level
 			AttributeModifier.Operation.ADDITION
 		)
 
 		val REACHING = AttributeModifier(
-			OtherUtil.modResource("reaching").toString(),
+			GeneticsResequenced.modResource("reaching").toString(),
 			1.25,
 			AttributeModifier.Operation.MULTIPLY_TOTAL
 		)
 
 		val BOUNTIFUL = AttributeModifier(
-			OtherUtil.modResource("bountiful").toString(),
+			GeneticsResequenced.modResource("bountiful").toString(),
 			1.0,
 			AttributeModifier.Operation.ADDITION
 		)
 
 		val BOUNTIFUL_TWO = AttributeModifier(
-			OtherUtil.modResource("bountiful_two").toString(),
+			GeneticsResequenced.modResource("bountiful_two").toString(),
 			1.0,
 			AttributeModifier.Operation.ADDITION
 		)
 
 		val EXPERIENCED = AttributeModifier(
-			OtherUtil.modResource("experienced").toString(),
+			GeneticsResequenced.modResource("experienced").toString(),
 			1.0,
 			AttributeModifier.Operation.ADDITION
 		)

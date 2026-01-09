@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.aaron.AaronExtensions.partialNbtIngredient
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
@@ -55,7 +56,7 @@ object BlackDeathRecipe : AbstractIncubatorRecipe(
 		return DnaHelixItem.getHelixStack(ModGenes.BLACK_DEATH.getHolderOrThrow(pRegistryAccess))
 	}
 
-	override fun getId(): ResourceLocation = OtherUtil.modResource("black_death")
+	override fun getId(): ResourceLocation = GeneticsResequenced.modResource("black_death")
 
 	override fun getSerializer(): RecipeSerializer<*> {
 		return ModRecipeSerializers.BLACK_DEATH.get()

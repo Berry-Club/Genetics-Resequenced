@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.crafting
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
 import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
@@ -16,7 +17,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 class UnsetAntiPlasmidRecipe(
-	id: ResourceLocation = OtherUtil.modResource("unset_anti_plasmid"),
+	id: ResourceLocation = GeneticsResequenced.modResource("unset_anti_plasmid"),
 	craftingCategory: CraftingBookCategory = CraftingBookCategory.MISC
 ) : CustomRecipe(id, craftingCategory) {
 

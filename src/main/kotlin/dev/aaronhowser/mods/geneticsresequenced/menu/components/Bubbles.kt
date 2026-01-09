@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator.AdvancedIncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.incubator.IncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -65,7 +66,7 @@ class Bubbles(
 	}
 
 	companion object {
-		val TEXTURE = OtherUtil.modResource("bubbles")
+		val TEXTURE = GeneticsResequenced.modResource("bubbles")
 		const val TEXTURE_SIZE = 32
 
 		const val WIDTH = 11

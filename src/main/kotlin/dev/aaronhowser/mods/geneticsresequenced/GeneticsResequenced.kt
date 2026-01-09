@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRegistries
+import net.minecraft.resources.ResourceLocation
 import net.minecraftforge.fml.ModLoadingContext
 import net.minecraftforge.fml.common.Mod
 import net.minecraftforge.fml.config.ModConfig
@@ -16,6 +17,8 @@ class GeneticsResequenced {
 	companion object {
 		const val MOD_ID = "geneticsresequenced"
 		val LOGGER: Logger = LogManager.getLogger(MOD_ID)
+
+		fun modResource(path: String): ResourceLocation = ResourceLocation(MOD_ID, path)
 	}
 
 	init {

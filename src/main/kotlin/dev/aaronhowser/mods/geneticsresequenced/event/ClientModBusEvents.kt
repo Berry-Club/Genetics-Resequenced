@@ -43,21 +43,21 @@ object ClientModBusEvents {
 
 		ItemProperties.register(
 			ModItems.SYRINGE.get(),
-			OtherUtil.modResource("full")
+			GeneticsResequenced.modResource("full")
 		) { stack, _, _, _ ->
 			if (SyringeItem.hasBlood(stack)) 1f else 0f
 		}
 
 		ItemProperties.register(
 			ModItems.SYRINGE.get(),
-			OtherUtil.modResource("injecting")
+			GeneticsResequenced.modResource("injecting")
 		) { stack, _, entity, _ ->
 			if (SyringeItem.isBeingUsed(stack, entity)) 1f else 0f
 		}
 
 		ItemProperties.register(
 			ModItems.METAL_SYRINGE.get(),
-			OtherUtil.modResource("full")
+			GeneticsResequenced.modResource("full")
 		) { stack, _, _, _ ->
 			if (SyringeItem.hasBlood(stack)) 1f else 0f
 		}

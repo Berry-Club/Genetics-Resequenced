@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.capability
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Direction
 import net.minecraft.nbt.CompoundTag
@@ -31,7 +32,7 @@ class KeptInventoryCapabilityProvider : ICapabilitySerializable<CompoundTag> {
 	override fun deserializeNBT(nbt: CompoundTag) = lazilyGetGenes().fromTag(nbt)
 
 	companion object {
-		val CAPABILITY_RL: ResourceLocation = OtherUtil.modResource("kept_inventory")
+		val CAPABILITY_RL: ResourceLocation = GeneticsResequenced.modResource("kept_inventory")
 		val CAPABILITY: Capability<KeptInventoryCapability> = CapabilityManager.get(object : CapabilityToken<KeptInventoryCapability>() {})
 	}
 

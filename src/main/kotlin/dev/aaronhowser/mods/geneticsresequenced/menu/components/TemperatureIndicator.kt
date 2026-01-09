@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -74,8 +75,8 @@ class TemperatureIndicator(
 	}
 
 	companion object {
-		val HIGH = OtherUtil.modResource("heat_high")
-		val LOW = OtherUtil.modResource("heat_low")
+		val HIGH = GeneticsResequenced.modResource("heat_high")
+		val LOW = GeneticsResequenced.modResource("heat_low")
 
 		const val TEXTURE_SIZE = 32
 

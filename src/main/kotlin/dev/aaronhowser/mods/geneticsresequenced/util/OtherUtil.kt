@@ -23,9 +23,6 @@ import net.minecraftforge.common.ForgeMod
 
 object OtherUtil {
 
-	fun modResource(path: String): ResourceLocation =
-		ResourceLocation(GeneticsResequenced.MOD_ID, path)
-
 	fun getEntityType(resourceLocation: ResourceLocation): EntityType<*> {
 		val entityType = BuiltInRegistries.ENTITY_TYPE.get(resourceLocation)
 

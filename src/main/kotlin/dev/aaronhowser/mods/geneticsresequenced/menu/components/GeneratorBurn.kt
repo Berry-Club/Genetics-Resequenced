@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
@@ -45,7 +46,7 @@ class GeneratorBurn(
 	}
 
 	companion object {
-		val TEXTURE = OtherUtil.modResource("burn")
+		val TEXTURE = GeneticsResequenced.modResource("burn")
 		const val TEXTURE_SIZE = 16
 
 		const val X = 52

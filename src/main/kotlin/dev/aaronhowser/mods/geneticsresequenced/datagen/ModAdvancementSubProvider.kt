@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen
 import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
 import dev.aaronhowser.mods.aaron.AaronExtensions.withComponent
 import dev.aaronhowser.mods.aaron.datagen.AaronAdvancementSubProvider
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.HelixGenePredicate
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModAdvancementLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -40,7 +41,7 @@ class ModAdvancementSubProvider(
 				ModItems.SCRAPER.get(),
 				Component.literal("Genetics: Resequenced"),
 				ModAdvancementLang.SCRAPER_DESC.toComponent(),
-				OtherUtil.modResource("textures/block/machine_bottom.png"),
+				GeneticsResequenced.modResource("textures/block/machine_bottom.png"),
 				FrameType.TASK,
 				true,
 				true,
@@ -279,7 +280,7 @@ class ModAdvancementSubProvider(
 	}
 
 	companion object {
-		private fun guide(string: String) = OtherUtil.modResource("guide/$string")
+		private fun guide(string: String) = GeneticsResequenced.modResource("guide/$string")
 
 		val ROOT = guide("root")
 		val CELL_ANALYZER = guide("cell_analyzer")
