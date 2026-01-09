@@ -1,12 +1,11 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
 
 class ProgressArrow(
@@ -19,41 +18,16 @@ class ProgressArrow(
 	val onClickFunction: (Double, Double) -> Unit
 ) : AbstractWidget(
 	x, y,
-	arrowDirection.width,
-	arrowDirection.height,
+	arrowDirection.sprite.width,
+	arrowDirection.sprite.height,
 	Component.empty()
 ) {
 
-	companion object {
-		const val TEXTURE_SIZE = 32
-
-		val RIGHT_TEXTURE = GeneticsResequenced.modResource("arrow_right")
-		const val RIGHT_WIDTH = 24
-		const val RIGHT_HEIGHT = 17
-
-		val DOWN_TEXTURE = GeneticsResequenced.modResource("arrow_down")
-		const val DOWN_WIDTH = 9
-		const val DOWN_HEIGHT = 28
-	}
-
 	enum class ArrowDirection(
-		val width: Int,
-		val height: Int,
-		val texture: ResourceLocation,
-		val textureSize: Int
+		val sprite: ScreenTextures.Sprites.SpriteSheetFragment
 	) {
-		DOWN(
-			DOWN_WIDTH,
-			DOWN_HEIGHT,
-			DOWN_TEXTURE,
-			TEXTURE_SIZE
-		),
-		RIGHT(
-			RIGHT_WIDTH,
-			RIGHT_HEIGHT,
-			RIGHT_TEXTURE,
-			TEXTURE_SIZE
-		)
+		DOWN(ScreenTextures.Sprites.ARROW_DOWN),
+		RIGHT(ScreenTextures.Sprites.ARROW_RIGHT)
 	}
 
 	override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
@@ -70,32 +44,44 @@ class ProgressArrow(
 	private fun renderDownArrow(pGuiGraphics: GuiGraphics) {
 		if (!shouldRenderProgress()) return
 
+		val height = Mth.floor(arrowDirection.sprite.height * percentDoneFunction())
+
 		pGuiGraphics.blit(
-			arrowDirection.texture,
-			this.x,
-			this.y,
-			0f,
-			0f,
-			this.width,
-			Mth.floor(this.height * percentDoneFunction()),
-			arrowDirection.textureSize,
-			arrowDirection.textureSize
+			arrowDirection.sprite.texture,
+
+			x,
+			y,
+
+			arrowDirection.sprite.uStart.toFloat(),
+			arrowDirection.sprite.vStart.toFloat(),
+
+			arrowDirection.sprite.width,
+			height,
+
+			ScreenTextures.Sprites.SPRITE_SHEET_SIZE,
+			ScreenTextures.Sprites.SPRITE_SHEET_SIZE
 		)
 	}
 
 	private fun renderRightArrow(pGuiGraphics: GuiGraphics) {
 		if (!shouldRenderProgress()) return
 
+		val width = Mth.floor(arrowDirection.sprite.width * percentDoneFunction())
+
 		pGuiGraphics.blit(
-			arrowDirection.texture,
-			this.x,
-			this.y,
-			0f,
-			0f,
-			Mth.floor(this.width * percentDoneFunction()),
-			this.height,
-			arrowDirection.textureSize,
-			arrowDirection.textureSize
+			arrowDirection.sprite.texture,
+
+			x,
+			y,
+
+			arrowDirection.sprite.uStart.toFloat(),
+			arrowDirection.sprite.vStart.toFloat(),
+
+			width,
+			arrowDirection.sprite.height,
+
+			ScreenTextures.Sprites.SPRITE_SHEET_SIZE,
+			ScreenTextures.Sprites.SPRITE_SHEET_SIZE
 		)
 	}
 
