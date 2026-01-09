@@ -11,7 +11,11 @@ import net.minecraft.world.item.enchantment.Enchantment
 
 object ModEnchantmentProvider : RegistrySetBuilder() {
 
-	private fun createRk(name: String): ResourceKey<Enchantment> = ResourceKey.create(Registries.ENCHANTMENT, OtherUtil.modResource(name))
+	private fun createRk(name: String): ResourceKey<Enchantment> =
+		ResourceKey.create(
+			Registries.ENCHANTMENT,
+			OtherUtil.modResource(name)
+		)
 
 	val DELICATE_TOUCH = createRk("delicate_touch")
 
