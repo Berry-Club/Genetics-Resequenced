@@ -1,5 +1,6 @@
 {
 	"getting_started.mdx": "Getting Started",
-	"advanced.mdx": "Advanced Concepts",
-	"default_entity_genes.mdx": "Default Entity Genes"
+	"default_entity_genes.mdx": "Default Entity Genes",
+	"default_gmo_recipes.mdx": "Default GMO Recipes",
+	"advanced.mdx": "Advanced Concepts"
 }
