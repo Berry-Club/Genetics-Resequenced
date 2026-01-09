@@ -7,6 +7,10 @@
 - When using Delicate Touch, the Scraper no longer has a cooldown (#81)
 	- That means you can spam it as fast as you want
 
+### Fixed
+
+- The config for disabling Cringe shake now actually works
+
 # 1.11.1
 
 ### Changed
