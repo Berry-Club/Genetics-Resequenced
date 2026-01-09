@@ -30,7 +30,7 @@ object ScreenTextures {
 			val texture = GeneticsResequenced.modResource("textures/gui/sprites.png")
 		}
 
-		const val SPRITE_SHEET_SIZE = 256
+		const val SPRITE_SHEET_SIZE = 64
 
 		val ARROW_DOWN = SpriteSheetFragment(1, 1, 9, 28)
 		val ARROW_RIGHT = SpriteSheetFragment(1, 31, 24, 17)

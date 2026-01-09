@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator.AdvancedIncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.incubator.IncubatorScreen
 import net.minecraft.client.gui.GuiGraphics
@@ -15,8 +15,8 @@ class Bubbles(
 	val highTemperature: () -> Boolean
 ) : AbstractWidget(
 	x, y,
-	WIDTH,
-	HEIGHT,
+	ScreenTextures.Sprites.BUBBLES.width,
+	ScreenTextures.Sprites.BUBBLES.height,
 	Component.empty()
 ) {
 
@@ -25,7 +25,7 @@ class Bubbles(
 		set(value) {
 			field = value
 
-			val amountOverMax = bubblePos - HEIGHT
+			val amountOverMax = bubblePos - ScreenTextures.Sprites.BUBBLES.height
 			if (amountOverMax > 0) {
 				field = amountOverMax
 			}
@@ -45,18 +45,24 @@ class Bubbles(
 			bubblePosProgress = 0
 		}
 
-		val amountBubbleToRender = HEIGHT - bubblePos
+		val sprite = ScreenTextures.Sprites.BUBBLES
+
+		val amountBubbleToRender = sprite.height - bubblePos
 
 		pGuiGraphics.blit(
-			TEXTURE,
+			sprite.texture,
+
 			x,
 			y,
-			0f,
-			0f,
-			WIDTH,
+
+			sprite.uStart.toFloat(),
+			sprite.vStart.toFloat(),
+
+			sprite.width,
 			amountBubbleToRender,
-			TEXTURE_SIZE,
-			TEXTURE_SIZE
+
+			ScreenTextures.Sprites.SPRITE_SHEET_SIZE,
+			ScreenTextures.Sprites.SPRITE_SHEET_SIZE
 		)
 	}
 
@@ -65,12 +71,6 @@ class Bubbles(
 	}
 
 	companion object {
-		val TEXTURE = GeneticsResequenced.modResource("bubbles")
-		const val TEXTURE_SIZE = 32
-
-		const val WIDTH = 11
-		const val HEIGHT = 29
-
 		const val X = 67
 		const val Y = 18
 	}
