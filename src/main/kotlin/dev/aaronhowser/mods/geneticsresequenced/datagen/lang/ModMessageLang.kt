@@ -22,7 +22,8 @@ object ModMessageLang {
 			add(SUPPORT_SLIME_PEACEFUL, "Support slimes are technically Slimes, which means they can't exist in Peaceful mode!")
 			add(SYRINGE_REMOVE_GENES_SUCCESS, "You have removed the %s Gene!")
 			add(SYRINGE_REMOVE_GENES_FAIL, "The %s Gene was not removed as you did not have it!")
-			add(MISSING_GENE_REQUIREMENTS, "You feel the %s Gene fade away...\nIt seems you §cdo not meet the requirements§r for it.")
+			add(MISSING_GENE_REQUIREMENTS_1, "You feel the %s Gene fade away...")
+			add(MISSING_GENE_REQUIREMENTS_2, "It seems you §c[do not meet the requirements]§r for it.")
 			add(MISSING_GENE_REQUIREMENTS_LIST, "Required Genes:\n")
 			add(CRINGE_GRASS, "With the touch of Grass, you feel the cringe leave your body.")
 			add(CRINGE_ADDED, "You feel the cringe entering your body, taking over. Your perception of the world changes in %d...")
@@ -62,7 +63,8 @@ object ModMessageLang {
 	const val SUPPORT_SLIME_PEACEFUL = "message.geneticsresequenced.support_slime_peaceful"
 	const val SYRINGE_REMOVE_GENES_SUCCESS = "message.geneticsresequenced.syringe.anti_gene.success"
 	const val SYRINGE_REMOVE_GENES_FAIL = "message.geneticsresequenced.syringe.anti_gene.fail"
-	const val MISSING_GENE_REQUIREMENTS = "message.geneticsresequenced.gene_missing_requirements"
+	const val MISSING_GENE_REQUIREMENTS_1 = "message.geneticsresequenced.gene_missing_requirements.1"
+	const val MISSING_GENE_REQUIREMENTS_2 = "message.geneticsresequenced.gene_missing_requirements.2"
 	const val MISSING_GENE_REQUIREMENTS_LIST = "message.geneticsresequenced.gene_missing_requirements.list"
 	const val CRINGE_GRASS = "message.geneticsresequenced.cringe.cured"
 	const val CRINGE_ADDED = "message.geneticsresequenced.cringe.resources.add"

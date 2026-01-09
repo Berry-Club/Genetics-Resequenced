@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.tell
 import dev.aaronhowser.mods.aaron.AaronExtensions.withHoverText
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
@@ -77,12 +78,10 @@ object GeneEvents {
 			)
 
 			if (!entity.level().isClientSide) {
-				entity.sendSystemMessage(
-					ModMessageLang.MISSING_GENE_REQUIREMENTS
-						.toComponent(geneHolder.getName())
-						.withStyle(
-							Style.EMPTY.withHoverText(requiredGenesComponent)
-						)
+				entity.tell(ModMessageLang.MISSING_GENE_REQUIREMENTS_1.toComponent())
+				entity.tell(
+					ModMessageLang.MISSING_GENE_REQUIREMENTS_2.toComponent(geneHolder.getName())
+						.withStyle(Style.EMPTY.withHoverText(requiredGenesComponent))
 				)
 			}
 		}
