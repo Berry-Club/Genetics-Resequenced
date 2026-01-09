@@ -74,7 +74,7 @@ object ModDataGen {
 
 		generator.addProvider(
 			event.includeServer(),
-			ModEnchantmentTagsProvider(output, lookupProvider, existingFileHelper)
+			ModEnchantmentTagsProvider(output, lookupWithDatapack, existingFileHelper)
 		)
 
 		generator.addProvider(

@@ -16,8 +16,6 @@ class ModEnchantmentTagsProvider(
 ) : EnchantmentTagsProvider(pOutput, pProvider, GeneticsResequenced.ID, existingFileHelper) {
 
 	override fun addTags(p0: HolderLookup.Provider) {
-		return
-
 		this.tag(EnchantmentTags.NON_TREASURE)
 			.add(ModEnchantmentProvider.DELICATE_TOUCH)
 	}
