@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
@@ -15,28 +15,35 @@ class GeneratorBurn(
 	val percentDone: Supplier<Float>,
 ) : AbstractWidget(
 	x, y,
-	WIDTH,
-	HEIGHT,
+	ScreenTextures.Sprites.BURN.width,
+	ScreenTextures.Sprites.BURN.height,
 	Component.empty()
 ) {
 
 	override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
-
 		if (!shouldRender.asBoolean) return
 
-		val totalHeight = HEIGHT
+		val sprite = ScreenTextures.Sprites.BURN
+
+		val totalHeight = sprite.height
 		val amountToRender = totalHeight - (totalHeight * percentDone.get()).toInt()
 
+		val cutoff = sprite.height - amountToRender
+
 		pGuiGraphics.blit(
-			TEXTURE,
+			sprite.texture,
+
 			x,
-			y + HEIGHT - amountToRender,
-			0f,
-			(HEIGHT - amountToRender).toFloat(),
-			TEXTURE_SIZE,
+			y + cutoff,
+
+			sprite.uStart.toFloat(),
+			sprite.vStart.toFloat() + cutoff,
+
+			sprite.width,
 			amountToRender,
-			TEXTURE_SIZE,
-			TEXTURE_SIZE
+
+			ScreenTextures.Sprites.SPRITE_SHEET_SIZE,
+			ScreenTextures.Sprites.SPRITE_SHEET_SIZE
 		)
 	}
 
@@ -45,14 +52,8 @@ class GeneratorBurn(
 	}
 
 	companion object {
-		val TEXTURE = GeneticsResequenced.modResource("burn")
-		const val TEXTURE_SIZE = 16
-
 		const val X = 52
 		const val Y = 59
-
-		const val WIDTH = 14
-		const val HEIGHT = 14
 	}
 
 }
