@@ -2,11 +2,11 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.hasEnchantment
 import dev.aaronhowser.mods.aaron.AaronExtensions.isEntity
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModEnchantmentProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModDamageTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
-import dev.aaronhowser.mods.geneticsresequenced.enchantment.ModEnchantments
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setEntityType
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -116,7 +116,7 @@ class ScraperItem(properties: Properties) : Item(properties) {
 			}
 
 
-			val hasDelicateTouch = stack.hasEnchantment(ModEnchantments.getDelicateTouchHolder(player))
+			val hasDelicateTouch = stack.hasEnchantment(OtherUtil.getEnchantHolder(player, ModEnchantmentProvider.DELICATE_TOUCH))
 
 			if (!hasDelicateTouch) {
 				target.hurt(getDamageSource(player.level(), player), 1f)
