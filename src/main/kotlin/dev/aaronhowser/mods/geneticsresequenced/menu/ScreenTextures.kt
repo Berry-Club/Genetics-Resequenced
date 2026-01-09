@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu
 
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
-import dev.aaronhowser.mods.aaron.menu.textures.ScreenSprite
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 
 object ScreenTextures {
@@ -22,16 +21,24 @@ object ScreenTextures {
 	}
 
 	object Sprites {
-		fun sprite(path: String, width: Int, height: Int): ScreenSprite =
-			ScreenSprite(GeneticsResequenced.modResource(path), width, height)
+		class SpriteSheetFragment(
+			val uStart: Int,
+			val vStart: Int,
+			val width: Int,
+			val height: Int
+		) {
+			val texture = GeneticsResequenced.modResource("textures/gui/sprites.png")
+		}
 
-		val ARROW_DOWN = sprite("textures/gui/sprite/arrow_down.png", 9, 28)
-		val ARROW_RIGHT = sprite("textures/gui/sprite/arrow_right.png", 24, 17)
-		val BUBBLES = sprite("textures/gui/sprite/bubbles.png", 11, 29)
-		val BURN = sprite("textures/gui/sprite/burn.png", 14, 14)
-		val ENERGY = sprite("textures/gui/sprite/energy.png", 18, 57)
-		val HEAT_HIGH = sprite("textures/gui/sprite/heat_high.png", 18, 4)
-		val HEAT_LOW = sprite("textures/gui/sprite/heat_low.png", 18, 4)
+		const val SPRITE_SHEET_SIZE = 256
+
+		val ARROW_DOWN = SpriteSheetFragment(1, 1, 9, 28)
+		val ARROW_RIGHT = SpriteSheetFragment(1, 31, 24, 17)
+		val BUBBLES = SpriteSheetFragment(11, 1, 12, 29)
+		val BURN = SpriteSheetFragment(25, 11, 14, 14)
+		val ENERGY = SpriteSheetFragment(45, 1, 18, 57)
+		val HEAT_HIGH = SpriteSheetFragment(24, 1, 18, 4)
+		val HEAT_LOW = SpriteSheetFragment(24, 6, 18, 4)
 	}
 
 }
