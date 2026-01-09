@@ -3,6 +3,9 @@
 ### Changed
 
 - Backported to 1.20.1!
+- Modified the `/gr remove-gene` command
+	- It's now `/gr remove-gene <entities> <gene>`
+	- It also now automatically suggests the Genes held by those entities!
 
 # 1.11.0
 
@@ -17,7 +20,7 @@
 		- Not kept on death
 	- Currently only implemented via commands, but I plan on making ways to give them in-game
 		- The current way of giving Genes is very bulky and absolutely not sneaky at all, but also giving Genes "non-consensually" is a pretty major thing.
-        - The idea is that you can temporarily give targets a Gene to hinder them in some way, without having to extract and purify the target's blood first
+		- The idea is that you can temporarily give targets a Gene to hinder them in some way, without having to extract and purify the target's blood first
 		- I might remove the config to prevent players from being given negative genes, and instead have them be given via temporary genes instead
 
 ### Changed

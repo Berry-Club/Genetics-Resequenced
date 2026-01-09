@@ -7,7 +7,6 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder
 import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeGene
-import dev.aaronhowser.mods.geneticsresequenced.command.gene.RemoveGeneCommand.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -18,6 +17,7 @@ import net.minecraft.commands.Commands
 import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.commands.arguments.ResourceLocationArgument
+import net.minecraft.commands.arguments.selector.EntitySelector
 import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Entity
@@ -30,7 +30,8 @@ object RemoveGeneCommand {
 
 	val SUGGEST_GENE_RLS: SuggestionProvider<CommandSourceStack> =
 		SuggestionProvider { context: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
-			val targets = context.getArgument(TARGETS_ARGUMENT, Collection::class.java)
+			val targets = context.getArgument(TARGETS_ARGUMENT, EntitySelector::class.java)
+				.findEntities(context.source)
 				.filterIsInstance<LivingEntity>()
 
 			val genesHeldByMobs = targets
