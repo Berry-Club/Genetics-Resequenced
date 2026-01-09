@@ -384,10 +384,10 @@ class ModRecipeProvider(
 				"incubator/black_death"
 			).unlockedBy("has_cell", has(ModItems.CELL.get()))
 
-		val dupeCell = DupeCellRecipeBuilder()
+		val dupeCell = DupeCellRecipeBuilder("dupe_cell", ModItems.CELL.get(), 8)
 			.unlockedBy("has_cell", has(ModItems.CELL.get()))
 
-		val dupeGmoCell = DupeCellRecipeBuilder(true)
+		val dupeGmoCell = DupeCellRecipeBuilder("dupe_gmo_cell", ModItems.GMO_CELL.get(), 4)
 			.unlockedBy("has_gmo_cell", has(ModItems.GMO_CELL.get()))
 
 		val virusRecipes = listOf(

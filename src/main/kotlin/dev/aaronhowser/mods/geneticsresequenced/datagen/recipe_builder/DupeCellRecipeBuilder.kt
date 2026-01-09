@@ -13,7 +13,9 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 
 class DupeCellRecipeBuilder(
-	val isGmoCell: Boolean = false
+	val name: String,
+	val itemToDupe: Item,
+	val amountToCreate: Int,
 ) : RecipeBuilder {
 
 	private val criteria: MutableMap<String, Criterion<*>> = mutableMapOf()
@@ -32,9 +34,7 @@ class DupeCellRecipeBuilder(
 	}
 
 	override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
-
-		val idString = if (isGmoCell) "incubator/dupe_substrate_cell_gmo" else "incubator/dupe_substrate_cell"
-		val id = OtherUtil.modResource(idString)
+		val id = OtherUtil.modResource("incubator/$name")
 
 		val advancement = output.advancement()
 			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
@@ -43,7 +43,7 @@ class DupeCellRecipeBuilder(
 
 		criteria.forEach { (name, criterion) -> advancement.addCriterion(name, criterion) }
 
-		val recipe = DupeCellRecipe(isGmoCell)
+		val recipe = DupeCellRecipe(itemToDupe, amountToCreate)
 
 		output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
 	}

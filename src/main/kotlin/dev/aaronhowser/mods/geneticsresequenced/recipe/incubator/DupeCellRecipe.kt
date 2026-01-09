@@ -3,19 +3,19 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
+import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
@@ -23,9 +23,10 @@ import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class DupeCellRecipe(
-	val isGmoCell: Boolean = false
+	val itemToDupe: Item,
+	val amountToCreate: Int
 ) : AbstractIncubatorRecipe(
-	topIngredient = Ingredient.of(if (isGmoCell) ModItems.GMO_CELL.get() else ModItems.CELL.get()),
+	topIngredient = Ingredient.of(itemToDupe),
 	bottomIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.SUBSTRATE)),
 ) {
 
@@ -40,27 +41,11 @@ class DupeCellRecipe(
 	}
 
 	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
-		val topStack = input.getTopItem()
-
-		val ingredientEntity = EntityDnaItem.getEntityType(topStack) ?: return ItemStack.EMPTY
-
-		val outputCell: ItemStack
-
-		if (this.isGmoCell) {
-			val pIngredientGene = DnaHelixItem.getGeneHolder(topStack) ?: return ItemStack.EMPTY
-
-			outputCell = ModItems.GMO_CELL.toStack()
-			GmoCell.setDetails(outputCell, ingredientEntity, pIngredientGene)
-		} else {
-			outputCell = ModItems.CELL.toStack()
-			EntityDnaItem.setEntityType(outputCell, ingredientEntity)
-		}
-
-		return outputCell
+		return input.getTopItem().copyWithCount(amountToCreate)
 	}
 
 	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
-		return if (this.isGmoCell) ModItems.GMO_CELL.toStack() else ModItems.CELL.toStack()
+		return itemToDupe.defaultInstance
 	}
 
 	override fun getSerializer(): RecipeSerializer<*> {
@@ -80,15 +65,20 @@ class DupeCellRecipe(
 			val CODEC: MapCodec<DupeCellRecipe> =
 				RecordCodecBuilder.mapCodec { instance ->
 					instance.group(
-						Codec.BOOL
-							.optionalFieldOf("is_gmo_cell", false)
-							.forGetter(DupeCellRecipe::isGmoCell)
+						BuiltInRegistries.ITEM
+							.byNameCodec()
+							.fieldOf("item_to_dupe")
+							.forGetter(DupeCellRecipe::itemToDupe),
+						Codec.INT
+							.fieldOf("amount_to_create")
+							.forGetter(DupeCellRecipe::amountToCreate)
 					).apply(instance, ::DupeCellRecipe)
 				}
 
 			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, DupeCellRecipe> =
 				StreamCodec.composite(
-					ByteBufCodecs.BOOL, DupeCellRecipe::isGmoCell,
+					ByteBufCodecs.registry(Registries.ITEM), DupeCellRecipe::itemToDupe,
+					ByteBufCodecs.INT, DupeCellRecipe::amountToCreate,
 					::DupeCellRecipe
 				)
 		}
