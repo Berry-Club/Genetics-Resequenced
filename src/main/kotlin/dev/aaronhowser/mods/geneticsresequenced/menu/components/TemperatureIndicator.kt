@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.menu.components
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
+import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import net.minecraft.client.gui.Font
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
@@ -19,30 +20,34 @@ class TemperatureIndicator(
 	val onClickFunction: (Double, Double) -> Unit
 ) : AbstractWidget(
 	x, y,
-	WIDTH,
-	HEIGHT,
+	ScreenTextures.Sprites.HEAT_HIGH.width,
+	ScreenTextures.Sprites.HEAT_HIGH.height,
 	Component.empty()
 ) {
 
 	override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
 		if (!shouldRender()) return
 
-		val texture = if (isHighTemperature()) {
-			HIGH
+		val sprite = if (isHighTemperature()) {
+			ScreenTextures.Sprites.HEAT_HIGH
 		} else {
-			LOW
+			ScreenTextures.Sprites.HEAT_LOW
 		}
 
 		pGuiGraphics.blit(
-			texture,
+			sprite.texture,
+
 			x,
 			y,
-			0f,
-			0f,
-			WIDTH,
-			HEIGHT,
-			TEXTURE_SIZE,
-			TEXTURE_SIZE
+
+			sprite.uStart.toFloat(),
+			sprite.vStart.toFloat(),
+
+			sprite.width,
+			sprite.height,
+
+			ScreenTextures.Sprites.SPRITE_SHEET_SIZE,
+			ScreenTextures.Sprites.SPRITE_SHEET_SIZE
 		)
 
 		if (isHovered) renderTooltip(pGuiGraphics, pMouseX, pMouseY)
@@ -74,14 +79,6 @@ class TemperatureIndicator(
 	}
 
 	companion object {
-		val HIGH = GeneticsResequenced.modResource("heat_high")
-		val LOW = GeneticsResequenced.modResource("heat_low")
-
-		const val TEXTURE_SIZE = 32
-
-		const val WIDTH = 18
-		const val HEIGHT = 4
-
 		const val X = 64
 		const val Y = 48
 	}
