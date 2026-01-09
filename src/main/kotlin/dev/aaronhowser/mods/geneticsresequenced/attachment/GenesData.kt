@@ -56,7 +56,7 @@ data class GenesData(
 			}
 
 		@JvmStatic
-		fun LivingEntity.getGenes(): Set<Holder<Gene>> {
+		fun LivingEntity.getActiveGenes(): Set<Holder<Gene>> {
 			return this.permanentGeneHolders + this.temporaryGeneHolders
 		}
 
