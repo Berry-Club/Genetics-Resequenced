@@ -1,4 +1,5 @@
 {
+	"getting_started.mdx": "Getting Started",
 	"advanced.mdx": "Advanced Concepts",
-	"getting_started.mdx": "Getting Started"
+	"default_entity_genes.mdx": "Default Entity Genes"
 }
