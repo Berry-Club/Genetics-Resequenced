@@ -23,20 +23,22 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeManager
 
-class CellDupeEmiRecipe(
-	val cellStack: ItemStack
+class DupeCellEmiRecipe(
+	val cellStack: ItemStack,
+	val amountToCreate: Int
 ) : AbstractEmiIncubatorRecipe() {
 
 	companion object {
-		fun getAllRecipes(recipeManager: RecipeManager): List<CellDupeEmiRecipe> {
-			val recipes = mutableListOf<CellDupeEmiRecipe>()
+		fun getAllRecipes(recipeManager: RecipeManager): List<DupeCellEmiRecipe> {
+			val recipes = mutableListOf<DupeCellEmiRecipe>()
 
 			val allEntityTypes = EntityDnaItem.VALID_ENTITY_TYPES
+
 			for (entityType in allEntityTypes) {
 				val cellStack = ModItems.CELL.toStack()
 				EntityDnaItem.setEntityType(cellStack, entityType)
 
-				recipes.add(CellDupeEmiRecipe(cellStack))
+				recipes.add(DupeCellEmiRecipe(cellStack, 8))
 			}
 
 			val allGmoRecipes = GmoRecipe.getGmoRecipes(recipeManager)
@@ -51,7 +53,7 @@ class CellDupeEmiRecipe(
 					goodGene.getHolderOrThrow(ClientUtil.localRegistryAccess!!)
 				)
 
-				recipes.add(CellDupeEmiRecipe(gmoCellStack))
+				recipes.add(DupeCellEmiRecipe(gmoCellStack, 4))
 			}
 
 			return recipes
@@ -60,7 +62,7 @@ class CellDupeEmiRecipe(
 
 	override val ingredient: EmiIngredient = EmiIngredient.of(Ingredient.of(cellStack))
 	override val input: EmiIngredient = EmiIngredient.of(Ingredient.of(BrewingRecipes.substratePotionStack))
-	override val output: EmiStack = EmiStack.of(cellStack.copy())
+	override val output: EmiStack = EmiStack.of(cellStack.copyWithCount(amountToCreate))
 
 	override fun getCategory(): EmiRecipeCategory {
 		return ModEmiPlugin.CELL_DUPE_CATEGORY

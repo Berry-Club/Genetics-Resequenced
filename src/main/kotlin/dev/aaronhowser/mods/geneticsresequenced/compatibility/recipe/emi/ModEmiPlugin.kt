@@ -184,7 +184,7 @@ class ModEmiPlugin : EmiPlugin {
 		registry.addWorkstation(CELL_DUPE_CATEGORY, INCUBATOR_STACK)
 		registry.addWorkstation(CELL_DUPE_CATEGORY, ADVANCED_INCUBATOR_STACK)
 
-		for (recipe in CellDupeEmiRecipe.getAllRecipes(registry.recipeManager)) {
+		for (recipe in DupeCellEmiRecipe.getAllRecipes(registry.recipeManager)) {
 			registry.addRecipe(recipe)
 		}
 	}
