@@ -1,0 +1,16 @@
+{
+  "anvil_cost": 1,
+  "description": "",
+  "max_cost": {
+    "base": 150,
+    "per_level_above_first": 0
+  },
+  "max_level": 1,
+  "min_cost": {
+    "base": 4,
+    "per_level_above_first": 0
+  },
+  "slots": [],
+  "supported_items": [],
+  "weight": 10
+}
