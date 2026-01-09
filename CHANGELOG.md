@@ -3,7 +3,9 @@
 ### Changed
 
 - Improved the message when you get a Gene you're missing the requirements for
-  - The red text is now in [brackets], so you know it can be hovered over to see which Genes are missing
+	- The red text is now in [brackets], so you know it can be hovered over to see which Genes are missing
+- When using Delicate Touch, the Scraper no longer has a cooldown (#81)
+	- That means you can spam it as fast as you want
 
 # 1.11.1
 

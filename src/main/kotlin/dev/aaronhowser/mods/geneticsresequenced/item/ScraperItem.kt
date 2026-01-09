@@ -97,8 +97,6 @@ class ScraperItem(properties: Properties) : Item(properties) {
 			stack: ItemStack,
 			target: Entity
 		): Boolean {
-
-			if (player.cooldowns.isOnCooldown(ModItems.SCRAPER.get())) return false
 			if (target is LivingEntity && target.hurtTime > 0) return false
 
 			val organicStack = ModItems.ORGANIC_MATTER.toStack()
@@ -120,10 +118,7 @@ class ScraperItem(properties: Properties) : Item(properties) {
 			val hasDelicateTouch =
 				stack.getEnchantmentLevel(ModEnchantments.getDelicateTouchHolder(player)) != 0
 
-			// Only put on cooldown if the entity was not damaged
-			if (hasDelicateTouch) {
-				player.cooldowns.addCooldown(ModItems.SCRAPER.get(), 10)
-			} else {
+			if (!hasDelicateTouch) {
 				target.hurt(getDamageSource(player.level(), player), 1f)
 			}
 
