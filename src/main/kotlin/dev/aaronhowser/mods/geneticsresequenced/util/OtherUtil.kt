@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
 import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.core.Holder
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
@@ -59,9 +58,9 @@ object OtherUtil {
 	fun componentList(components: List<Component>): MutableComponent {
 		val mutableComponent = Component.empty()
 
-		for (component in components) {
-			mutableComponent.append("• ").append(component)
-			if (component != components.last()) {
+		for ((index, component) in components.withIndex()) {
+			mutableComponent.append(component)
+			if (index != components.size - 1) {
 				mutableComponent.append("\n")
 			}
 		}
