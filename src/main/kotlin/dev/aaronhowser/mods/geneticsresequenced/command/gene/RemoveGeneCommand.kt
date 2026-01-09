@@ -64,9 +64,8 @@ object RemoveGeneCommand {
 	private fun removeGene(
 		context: CommandContext<CommandSourceStack>,
 		geneRl: ResourceLocation,
-		entities: MutableCollection<out Entity>? = null
+		entities: MutableCollection<out Entity>
 	): Int {
-
 		val gene = ModGenes.fromResourceLocation(context.source.registryAccess(), geneRl)
 			?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
 
@@ -75,24 +74,10 @@ object RemoveGeneCommand {
 
 	private fun removeGene(
 		context: CommandContext<CommandSourceStack>,
-		geneString: String,
-		entities: MutableCollection<out Entity>? = null
-	): Int {
-
-		val gene = ModGenes.fromIdPath(context.source.registryAccess(), geneString)
-			?: throw IllegalArgumentException("Gene with id $geneString does not exist!")
-
-		return removeGene(context, gene, entities)
-	}
-
-	private fun removeGene(
-		context: CommandContext<CommandSourceStack>,
 		geneToRemove: Holder<Gene>,
-		entities: MutableCollection<out Entity>? = null
+		entities: MutableCollection<out Entity>
 	): Int {
-
-		val targets: List<LivingEntity> =
-			entities?.mapNotNull { it as? LivingEntity } ?: listOfNotNull(context.source.entity as? LivingEntity)
+		val targets = entities.mapNotNull { it as? LivingEntity }
 
 		if (targets.size == 1) {
 			handleSingleTarget(context, targets.first(), geneToRemove)
@@ -108,25 +93,25 @@ object RemoveGeneCommand {
 		target: LivingEntity,
 		geneHolder: Holder<Gene>
 	) {
-
 		val success = removeGeneFromTarget(target, geneHolder)
 
 		if (success) {
-			val component =
-				ModLanguageProvider.Commands.REMOVE_SINGLE_SUCCESS.toComponent(
-					geneHolder.getName(),
-					target.displayName
-				)
-
-			context.source.sendSuccess({ component }, false)
+			context.source.sendSuccess(
+				{
+					ModLanguageProvider.Commands.REMOVE_SINGLE_SUCCESS.toComponent(
+						geneHolder.getName(),
+						target.displayName
+					)
+				},
+				false
+			)
 		} else {
-			val component =
+			context.source.sendFailure(
 				ModLanguageProvider.Commands.REMOVE_SINGLE_FAIL.toComponent(
 					geneHolder.getName(),
 					target.displayName
 				)
-
-			context.source.sendFailure(component)
+			)
 		}
 	}
 
@@ -137,6 +122,7 @@ object RemoveGeneCommand {
 	) {
 		var amountSuccess = 0
 		var amountFail = 0
+
 		for (target in targets) {
 			val success = removeGeneFromTarget(target, geneHolder)
 
@@ -144,20 +130,23 @@ object RemoveGeneCommand {
 		}
 
 		if (amountSuccess != 0) {
-			val component =
-				ModLanguageProvider.Commands.REMOVE_MULTIPLE_SUCCESS.toComponent(
-					geneHolder.getName(),
-					amountSuccess
-				)
-			context.source.sendSuccess({ component }, true)
+			context.source.sendSuccess(
+				{
+					ModLanguageProvider.Commands.REMOVE_MULTIPLE_SUCCESS.toComponent(
+						geneHolder.getName(),
+						amountSuccess
+					)
+				},
+				true
+			)
 		}
 		if (amountFail != 0) {
-			val component =
+			context.source.sendFailure(
 				ModLanguageProvider.Commands.REMOVE_MULTIPLE_FAIL.toComponent(
 					geneHolder.getName(),
 					amountFail
 				)
-			context.source.sendFailure(component)
+			)
 		}
 
 	}
