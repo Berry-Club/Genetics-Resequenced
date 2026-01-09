@@ -6,7 +6,7 @@
 	- The red text is now in [brackets], so you know it can be hovered over to see which Genes are missing
 - When using Delicate Touch, the Scraper no longer has a cooldown (#81)
 	- That means you can spam it as fast as you want
-- Cell Duplication recipes now make more than 1 Cell
+- Cell Duplication recipes now make more than 1 Cell (#82)
 	- A regular Cell will craft 8
 	- A GMO Cell will craft 4
 
