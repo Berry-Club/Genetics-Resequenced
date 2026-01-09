@@ -228,6 +228,10 @@ unifiedPublishing {
 			depends {
 				curseforge = modrinth = "kotlin-for-forge"
 			}
+
+			depends {
+				curseforge = modrinth = "aaron"
+			}
 		}
 
 		if (ENV.CURSEFORGE_KEY) {
