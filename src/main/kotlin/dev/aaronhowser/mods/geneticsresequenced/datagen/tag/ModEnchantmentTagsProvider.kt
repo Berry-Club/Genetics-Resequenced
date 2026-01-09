@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.tag
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModEnchantmentProvider
 import dev.aaronhowser.mods.geneticsresequenced.enchantment.ModEnchantments
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
@@ -17,7 +18,7 @@ class ModEnchantmentTagsProvider(
 
 	override fun addTags(p0: HolderLookup.Provider) {
 		this.tag(EnchantmentTags.NON_TREASURE)
-			.add(ModEnchantments.DELICATE_TOUCH)
+			.add(ModEnchantmentProvider.DELICATE_TOUCH)
 	}
 
 

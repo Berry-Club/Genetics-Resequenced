@@ -35,12 +35,13 @@ object ModDataGen {
 			ModDatapackBuiltinEntriesProvider(output, lookupProvider)
 		)
 
-		val lookupWithGenes: CompletableFuture<HolderLookup.Provider> = datapackRegistrySets.registryProvider
+		val lookupWithDatapack: CompletableFuture<HolderLookup.Provider> = datapackRegistrySets.registryProvider
 
 		generator.addProvider(
 			event.includeClient(),
 			ModItemModelProvider(output, existingFileHelper)
 		)
+
 		generator.addProvider(
 			event.includeClient(),
 			ModBlockStateProvider(output, existingFileHelper)
@@ -48,33 +49,39 @@ object ModDataGen {
 
 		generator.addProvider(
 			event.includeServer(),
-			ModRecipeProvider(output, lookupWithGenes)
+			ModRecipeProvider(output, lookupWithDatapack)
 		)
 
 		val blockTagProvider = generator.addProvider(
 			event.includeServer(),
 			ModBlockTagsProvider(output, lookupProvider, existingFileHelper)
 		)
+
 		generator.addProvider(
 			event.includeServer(),
 			ModItemTagsProvider(output, lookupProvider, blockTagProvider.contentsGetter(), existingFileHelper)
 		)
+
 		generator.addProvider(
 			event.includeServer(),
-			ModGeneTagsProvider(output, lookupWithGenes, existingFileHelper)
+			ModGeneTagsProvider(output, lookupWithDatapack, existingFileHelper)
 		)
+
 		generator.addProvider(
 			event.includeServer(),
 			ModEntityTypeTagsProvider(output, lookupProvider, existingFileHelper)
 		)
+
 		generator.addProvider(
 			event.includeServer(),
 			ModEnchantmentTagsProvider(output, lookupProvider, existingFileHelper)
 		)
+
 		generator.addProvider(
 			event.includeServer(),
 			ModPotionTagsProvider(output, lookupProvider, existingFileHelper)
 		)
+
 		generator.addProvider(
 			event.includeServer(),
 			ModDamageTypeTagsProvider(output, lookupProvider, existingFileHelper)
@@ -86,7 +93,7 @@ object ModDataGen {
 				output,
 				lookupProvider,
 				existingFileHelper,
-				listOf(ModAdvancementSubProvider(lookupWithGenes))
+				listOf(ModAdvancementSubProvider(lookupWithDatapack))
 			)
 		)
 
@@ -100,7 +107,7 @@ object ModDataGen {
 		generator.addProvider(
 			event.includeClient(),
 			NeoBookProvider.of(
-				event, lookupWithGenes, ModModonomiconProvider(languageProvider::add)
+				event, lookupWithDatapack, ModModonomiconProvider(languageProvider::add)
 			)
 		)
 		//Note by Klikli: There are two ways to integrate modonomicon with language providers.
