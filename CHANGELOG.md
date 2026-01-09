@@ -1,3 +1,10 @@
+# 1.12.0
+
+### Changed
+
+- Improved the message when you get a Gene you're missing the requirements for
+  - The red text is now in [brackets], so you know it can be hovered over to see which Genes are missing
+
 # 1.11.1
 
 ### Changed
