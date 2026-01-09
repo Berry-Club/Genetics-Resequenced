@@ -1,11 +1,13 @@
 package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
-import com.mojang.brigadier.arguments.StringArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
+import com.mojang.brigadier.suggestion.SuggestionProvider
+import com.mojang.brigadier.suggestion.SuggestionsBuilder
+import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeGene
-import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
-import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_STRINGS
+import dev.aaronhowser.mods.geneticsresequenced.command.gene.RemoveGeneCommand.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -13,6 +15,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
+import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.commands.arguments.ResourceLocationArgument
 import net.minecraft.core.Holder
@@ -22,67 +25,39 @@ import net.minecraft.world.entity.LivingEntity
 
 object RemoveGeneCommand {
 
-	private const val GENE_RL_ARGUMENT = "geneRl"
-	private const val GENE_STRING_ARGUMENT = "geneString"
-	private const val TARGET_ARGUMENT = "targets"
+	private const val GENE_ARGUMENT = "gene"
+	private const val TARGETS_ARGUMENT = "targets"
+
+	val SUGGEST_GENE_RLS: SuggestionProvider<CommandSourceStack> =
+		SuggestionProvider { context: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
+			val targets = context.getArgument(TARGETS_ARGUMENT, Collection::class.java)
+				.filterIsInstance<LivingEntity>()
+
+			val genesHeldByMobs = targets
+				.flatMap { it.getActiveGenes() }
+				.mapNotNull { it.getLocationOrNull() }
+
+			SharedSuggestionProvider.suggestResource(genesHeldByMobs, suggestionsBuilder)
+		}
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return Commands
 			.literal("remove-gene")
 			.requires { it.hasPermission(2) }
 			.then(
-				Commands
-					.literal("fromString")
+				Commands.argument(TARGETS_ARGUMENT, EntityArgument.entities())
 					.then(
-						Commands
-							.argument(GENE_STRING_ARGUMENT, StringArgumentType.string())
-							.suggests(SUGGEST_GENE_STRINGS)
-							.then(
-								Commands.argument(TARGET_ARGUMENT, EntityArgument.entities())
-									.executes { cmd ->
-										removeGene(
-											cmd,
-											StringArgumentType.getString(cmd, GENE_STRING_ARGUMENT),
-											EntityArgument.getEntities(cmd, TARGET_ARGUMENT)
-										)
-									}
-							)
-							.executes { cmd ->
-								removeGene(
-									cmd,
-									StringArgumentType.getString(cmd, GENE_STRING_ARGUMENT),
-									entities = null
-								)
-							}
-					)
-			)
-			.then(
-				Commands.literal("fromId")
-					.then(
-						Commands
-							.argument(GENE_RL_ARGUMENT, ResourceLocationArgument.id())
+						Commands.argument(GENE_ARGUMENT, ResourceLocationArgument.id())
 							.suggests(SUGGEST_GENE_RLS)
-							.then(
-								Commands
-									.argument(TARGET_ARGUMENT, EntityArgument.entities())
-									.executes { cmd ->
-										removeGene(
-											cmd,
-											ResourceLocationArgument.getId(cmd, GENE_RL_ARGUMENT),
-											EntityArgument.getEntities(cmd, TARGET_ARGUMENT)
-										)
-									}
-							)
 							.executes { cmd ->
 								removeGene(
 									cmd,
-									ResourceLocationArgument.getId(cmd, GENE_RL_ARGUMENT),
-									entities = null
+									ResourceLocationArgument.getId(cmd, GENE_ARGUMENT),
+									EntityArgument.getEntities(cmd, TARGETS_ARGUMENT)
 								)
 							}
 					)
 			)
-
 	}
 
 	private fun removeGene(

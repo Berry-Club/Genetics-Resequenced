@@ -24,7 +24,7 @@ import net.minecraft.world.entity.LivingEntity
 object GiveGeneCommand {
 
 	private const val GENE_ARGUMENT = "gene"
-	private const val TARGET_ARGUMENT = "targets"
+	private const val TARGETS_ARGUMENT = "targets"
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return Commands
@@ -43,12 +43,12 @@ object GiveGeneCommand {
 					}
 					.then(
 						Commands
-							.argument(TARGET_ARGUMENT, EntityArgument.entities())
+							.argument(TARGETS_ARGUMENT, EntityArgument.entities())
 							.executes { cmd ->
 								addGene(
 									cmd.source,
 									ResourceLocationArgument.getId(cmd, GENE_ARGUMENT),
-									EntityArgument.getEntities(cmd, TARGET_ARGUMENT)
+									EntityArgument.getEntities(cmd, TARGETS_ARGUMENT)
 								)
 							}
 					)

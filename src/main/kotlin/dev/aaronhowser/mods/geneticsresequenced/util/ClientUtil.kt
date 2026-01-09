@@ -8,7 +8,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.withHoverText
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
@@ -168,7 +168,7 @@ object ClientUtil {
 	fun shouldHidePotionInInventory(mobEffectInstance: MobEffectInstance): Boolean {
 		val localPlayer = AaronClientUtil.localPlayer ?: return false
 
-		val playerGeneHolders = localPlayer.getGenes()
+		val playerGeneHolders = localPlayer.getActiveGenes()
 
 		for (geneHolder in playerGeneHolders) {
 			val genePotions = geneHolder.value().potionDetails

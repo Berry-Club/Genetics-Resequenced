@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.isEntity
 import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
-import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -95,7 +95,7 @@ object TickGenes {
 		if (entity.tickCount % ServerConfig.CONFIG.passivesCheckCooldown.get() != 0) return
 		if (entity !is Mob && entity !is Player) return
 
-		val geneHolders = entity.getGenes()
+		val geneHolders = entity.getActiveGenes()
 
 		val potionGenes = mutableListOf<Holder<Gene>>()
 

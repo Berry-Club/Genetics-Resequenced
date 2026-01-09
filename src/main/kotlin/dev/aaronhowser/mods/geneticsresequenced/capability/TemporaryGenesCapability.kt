@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.getGenes
+import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneAddedEvent
@@ -164,7 +164,7 @@ class TemporaryGenesCapability() {
 
 			val incompatibleGenes = newGeneHolder.value().incompatibleGenes
 
-			val foundIncompatibleGenes = this.getGenes().filter { it.unwrapKey().getOrNull() in incompatibleGenes }
+			val foundIncompatibleGenes = this.getActiveGenes().filter { it.unwrapKey().getOrNull() in incompatibleGenes }
 			if (foundIncompatibleGenes.isNotEmpty()) {
 				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
