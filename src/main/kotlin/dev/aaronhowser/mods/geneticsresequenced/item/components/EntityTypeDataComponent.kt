@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.item.components
 import com.mojang.serialization.Codec
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.world.entity.EntityType
 import net.minecraftforge.registries.ForgeRegistries
 

@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.capability
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag

@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.aaron.AaronExtensions.isTrue
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
-import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.advancements.critereon.ItemPredicate

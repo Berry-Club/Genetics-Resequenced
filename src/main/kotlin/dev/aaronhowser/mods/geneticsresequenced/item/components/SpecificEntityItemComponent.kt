@@ -5,7 +5,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.aaron.AaronExtraCodecs
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.UUIDUtil
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.LivingEntity

@@ -7,7 +7,6 @@ import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraftforge.client.event.ModelEvent

@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.menu.components
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator.AdvancedIncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.incubator.IncubatorScreen
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.gui.GuiGraphics
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput

@@ -15,7 +15,6 @@ import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.Teleport
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.client.model.HumanoidModel
 import net.minecraft.client.renderer.item.ItemProperties
 import net.minecraft.world.entity.LivingEntity

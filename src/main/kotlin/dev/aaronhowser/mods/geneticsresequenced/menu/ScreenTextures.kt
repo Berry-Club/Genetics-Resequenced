@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.menu
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenSprite
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 
 object ScreenTextures {
 

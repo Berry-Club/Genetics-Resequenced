@@ -8,14 +8,13 @@ import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChan
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.NarratorPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.SetGenesPacket
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.FriendlyByteBuf
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent
 import net.minecraftforge.network.NetworkDirection
 import net.minecraftforge.network.NetworkEvent
 import net.minecraftforge.network.NetworkRegistry
 import net.minecraftforge.network.simple.SimpleChannel
-import java.util.Optional
+import java.util.*
 import java.util.function.Supplier
 
 object ModPacketHandler : AaronPacketRegistrar() {
