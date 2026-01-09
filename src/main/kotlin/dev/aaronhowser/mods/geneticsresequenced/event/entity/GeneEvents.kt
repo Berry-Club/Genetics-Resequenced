@@ -78,9 +78,9 @@ object GeneEvents {
 			)
 
 			if (!entity.level().isClientSide) {
-				entity.tell(ModMessageLang.MISSING_GENE_REQUIREMENTS_1.toComponent())
+				entity.tell(ModMessageLang.MISSING_GENE_REQUIREMENTS_1.toComponent(geneHolder.getName()))
 				entity.tell(
-					ModMessageLang.MISSING_GENE_REQUIREMENTS_2.toComponent(geneHolder.getName())
+					ModMessageLang.MISSING_GENE_REQUIREMENTS_2.toComponent()
 						.withStyle(Style.EMPTY.withHoverText(requiredGenesComponent))
 				)
 			}
