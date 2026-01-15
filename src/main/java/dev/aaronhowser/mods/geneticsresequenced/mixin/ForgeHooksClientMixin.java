@@ -13,6 +13,7 @@ public abstract class ForgeHooksClientMixin {
 
 	@Inject(
 			method = "shouldRenderEffect",
+			remap = false,
 			at = @At("RETURN"),
 			cancellable = true
 	)
