@@ -2,6 +2,7 @@
 	"required": true,
 	"minVersion": "0.8",
 	"package": "dev.aaronhowser.mods.geneticsresequenced.mixin",
+	"refmap": "geneticsresequenced.refmap.json",
 	"mixins": [
 		"BeePollinateGoalMixin",
 		"ForgeHooksClientMixin",
