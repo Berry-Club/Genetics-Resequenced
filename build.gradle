@@ -147,7 +147,7 @@ repositories {
 
 dependencies {
 	minecraft "net.minecraftforge:forge:$minecraft_version-$forge_version"
-
+	annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 	implementation "thedarkcolour:kotlinforforge:${kff_version}"
 	implementation "dev.aaronhowser.mods:aaron-1.20.1:${aaron_lib_version}"
 }

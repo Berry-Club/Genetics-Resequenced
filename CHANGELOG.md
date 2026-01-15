@@ -1,3 +1,9 @@
+# 1.11.2
+
+### Fixed
+
+- Fixed mixins not loading outside of dev
+
 # 1.11.1
 
 ### Changed
