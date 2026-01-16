@@ -3,6 +3,7 @@
 ### Fixed
 
 - ACTUALLY fixed mixins this time
+	- Required temporarily disabling Bees pollinating faster from the Bountiful Gene
 
 # 1.11.2
 
