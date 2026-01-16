@@ -1,3 +1,9 @@
+# 1.11.3
+
+### Fixed
+
+- ACTUALLY fixed mixins this time
+
 # 1.11.2
 
 ### Fixed
