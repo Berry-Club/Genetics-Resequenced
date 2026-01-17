@@ -46,16 +46,11 @@ class SingletonRecipeBuilder(
 		val advancement: Advancement.Builder,
 		val advancementId: ResourceLocation
 	) : FinishedRecipe {
-
-		override fun serializeRecipeData(pJson: JsonObject) {
-
-		}
-
+		override fun serializeRecipeData(pJson: JsonObject) {}
 		override fun getType(): RecipeSerializer<*> = recipe.serializer
 		override fun getId(): ResourceLocation = recipeId
 		override fun serializeAdvancement(): JsonObject = advancement.serializeToJson()
 		override fun getAdvancementId(): ResourceLocation = advancementId
 	}
-	)
 
 }
