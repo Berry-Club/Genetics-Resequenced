@@ -181,7 +181,17 @@ publishing {
 	publications {
 		mavenNeoForge(MavenPublication) {
 			artifactId = archiveName
-			from components.java
+
+			// Publish the remapped (obfuscated) runtime jar instead of the raw `components.java` jar
+			artifact(tasks.named('remapJar')) {
+				builtBy tasks.named('remapJar')
+			}
+
+			// Include the sources jar (optional)
+			artifact(tasks.named('sourcesJar')) {
+				classifier = 'sources'
+				builtBy tasks.named('sourcesJar')
+			}
 		}
 	}
 
