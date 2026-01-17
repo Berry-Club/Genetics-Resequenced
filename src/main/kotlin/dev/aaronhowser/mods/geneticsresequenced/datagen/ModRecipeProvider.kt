@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen
 import dev.aaronhowser.mods.aaron.AaronExtensions.partialNbtIngredient
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.BasicIncubatorRecipeBuilder
+import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.DupeCellRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.*
@@ -356,10 +357,10 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				"incubator/black_death"
 			).unlockedBy("has_cell", has(ModItems.CELL.get()))
 
-		val dupeCell = DupeCellRecipeBuilder("dupe_cell", ModItems.CELL.get(), 8)
+		val dupeCell = DupeCellRecipeBuilder(ModItems.CELL.get(), 8, "dupe_cell")
 			.unlockedBy("has_cell", has(ModItems.CELL.get()))
 
-		val dupeGmoCell = DupeCellRecipeBuilder("dupe_gmo_cell", ModItems.GMO_CELL.get(), 4)
+		val dupeGmoCell = DupeCellRecipeBuilder(ModItems.GMO_CELL.get(), 4, "dupe_gmo_cell")
 			.unlockedBy("has_gmo_cell", has(ModItems.GMO_CELL.get()))
 
 		val virusRecipes = listOf(

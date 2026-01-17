@@ -9,15 +9,12 @@ import net.minecraft.data.recipes.FinishedRecipe
 import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
-import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
 import java.util.function.Consumer
 
-class BasicIncubatorRecipeBuilder(
-	val topSlotIngredient: Ingredient,
-	val bottomSlotIngredient: Ingredient,
-	val outputStack: ItemStack,
+class DupeCellRecipeBuilder(
+	val itemToDupe: Item,
+	val amountToCreate: Int,
 	val name: String
 ) : RecipeBuilder {
 
@@ -32,51 +29,35 @@ class BasicIncubatorRecipeBuilder(
 		error("No group >:(")
 	}
 
-	override fun getResult(): Item = outputStack.item
+	override fun getResult(): Item = itemToDupe
 
 	override fun save(pFinishedRecipeConsumer: Consumer<FinishedRecipe>, pRecipeId: ResourceLocation) {
 		pFinishedRecipeConsumer.accept(
 			Result(
 				pRecipeId,
-				outputStack,
-				topSlotIngredient,
-				bottomSlotIngredient,
+				itemToDupe,
+				amountToCreate,
 				advancement,
-				pRecipeId.withPrefix("recipes/incubator/")
+				pRecipeId.withPrefix("recipes/dupe_cell/")
 			)
 		)
 	}
 
 	class Result(
 		val recipeId: ResourceLocation,
-		val result: ItemStack,
-		val topSlotIngredient: Ingredient,
-		val bottomSlotIngredient: Ingredient,
+		val itemToDupe: Item,
+		val amountToCreate: Int,
 		val advancementBuilder: Advancement.Builder,
 		val advancementId: ResourceLocation
 	) : FinishedRecipe {
 
 		override fun serializeRecipeData(pJson: JsonObject) {
-			pJson.add("top_slot", topSlotIngredient.toJson())
-			pJson.add("bottom_slot", bottomSlotIngredient.toJson())
-
-			val resultJson = JsonObject()
-			resultJson.addProperty("item", BuiltInRegistries.ITEM.getKey(result.item).toString())
-
-			if (result.count > 1) {
-				resultJson.addProperty("count", result.count)
-			}
-
-			val tag = result.tag
-			if (tag != null) {
-				resultJson.addProperty("nbt", tag.toString())
-			}
-
-			pJson.add("result", resultJson)
+			pJson.addProperty("item_to_dupe", BuiltInRegistries.ITEM.getKey(this.itemToDupe).toString())
+			pJson.addProperty("amount_to_create", amountToCreate)
 		}
 
-		override fun getId(): ResourceLocation = this.recipeId
-		override fun getType(): RecipeSerializer<*> = ModRecipeSerializers.BASIC_INCUBATOR.get()
+		override fun getType(): RecipeSerializer<*> = ModRecipeSerializers.DUPE_CELL.get()
+		override fun getId(): ResourceLocation = recipeId
 		override fun serializeAdvancement(): JsonObject = advancementBuilder.serializeToJson()
 		override fun getAdvancementId(): ResourceLocation = advancementId
 
