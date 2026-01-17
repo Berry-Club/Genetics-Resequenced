@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.BasicIncu
 import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.DupeCellRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.GmoRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.SingletonRecipeBuilder
+import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.VirusRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.BlackDeathRecipe
@@ -462,18 +463,17 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				.unlockedBy("has_cell", has(ModItems.CELL.get()))
 		)
 
-		val setPotionEntity =
-			SingletonRecipeBuilder(
-				SetPotionEntityRecipe,
-				Items.POTION,
-				"incubator/set_potion_entity"
-			).unlockedBy("has_cell", has(ModItems.CELL.get()))
+//		val setPotionEntity =
+//			SingletonRecipeBuilder(
+//				SetPotionEntityRecipe,
+//				Items.POTION,
+//				"incubator/set_potion_entity"
+//			).unlockedBy("has_cell", has(ModItems.CELL.get()))
 
 		val blackDeath =
 			SingletonRecipeBuilder(
 				BlackDeathRecipe,
 				ModItems.DNA_HELIX.get(),
-				"incubator/black_death"
 			).unlockedBy("has_cell", has(ModItems.CELL.get()))
 
 		val dupeCell = DupeCellRecipeBuilder(ModItems.CELL.get(), 8, "dupe_cell")
@@ -517,13 +517,13 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 			recipe.save(pWriter)
 		}
 
-		setPotionEntity.save(pRecipeOutput)
+//		setPotionEntity.save(pWriter)
 		blackDeath.save(pWriter, "incubator/black_death")
-		dupeCell.save(pRecipeOutput)
-		dupeGmoCell.save(pRecipeOutput)
+		dupeCell.save(pWriter)
+		dupeGmoCell.save(pWriter)
 
 		for (recipe in virusRecipes) {
-			recipe.save(pRecipeOutput)
+			recipe.save(pWriter)
 		}
 	}
 
