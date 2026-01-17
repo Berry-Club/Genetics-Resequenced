@@ -177,6 +177,7 @@ processResources {
 	}
 }
 
+jar.finalizedBy('reobfJar')
 publishing {
 	publications {
 		mavenNeoForge(MavenPublication) {
