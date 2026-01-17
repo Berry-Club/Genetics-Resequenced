@@ -342,7 +342,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				ModGenes.STRENGTH_TWO,
 				0.5f,
 				needsMutationPotion = true
-			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.SHULKER,
@@ -350,7 +350,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				ModGenes.RESISTANCE_TWO,
 				0.5f,
 				needsMutationPotion = true
-			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.POLAR_BEAR,
@@ -390,7 +390,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				ModGenes.EFFICIENCY_FOUR,
 				0.25f,
 				needsMutationPotion = true
-			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.ZOMBIE,
@@ -398,7 +398,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				ModGenes.SCARE_ZOMBIES,
 				0.5f,
 				needsMutationPotion = true
-			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.SPIDER,
@@ -406,7 +406,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				ModGenes.SCARE_SPIDERS,
 				0.5f,
 				needsMutationPotion = true
-			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.ENDER_DRAGON,
@@ -414,7 +414,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				ModGenes.REGENERATION_FOUR,
 				0.35f,
 				needsMutationPotion = true
-			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.PIG,
@@ -438,16 +438,16 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 //				SetPotionEntityRecipe,
 //				Items.POTION,
 //				"incubator/set_potion_entity"
-//			).unlockedBy("has_cell", has(ModItems.CELL.get()))
+//			)
 
 		val blackDeath =
 			SingletonRecipeBuilder(
 				BlackDeathRecipe,
 				ModItems.DNA_HELIX.get(),
-			).unlockedBy("has_cell", has(ModItems.CELL.get()))
+			)
 
 		val dupeCell = DupeCellRecipeBuilder(ModItems.CELL.get(), 8, "dupe_cell")
-			.unlockedBy("has_cell", has(ModItems.CELL.get()))
+			
 
 		val dupeGmoCell = DupeCellRecipeBuilder(ModItems.GMO_CELL.get(), 4, "dupe_gmo_cell")
 			.unlockedBy("has_gmo_cell", has(ModItems.GMO_CELL.get()))
@@ -484,7 +484,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 		}
 
 		for (recipe in mutationRecipes) {
-			recipe.save(pWriter)
+			recipe.save(pWriter, recipe.getName())
 		}
 
 //		setPotionEntity.save(pWriter)
