@@ -1,13 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import net.minecraft.data.PackOutput
-import net.minecraft.data.recipes.FinishedRecipe
-import net.minecraft.data.recipes.RecipeCategory
-import net.minecraft.data.recipes.RecipeProvider
-import net.minecraft.data.recipes.ShapedRecipeBuilder
+import net.minecraft.data.recipes.*
 import net.minecraft.world.item.Items
 import net.minecraftforge.common.Tags
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder
@@ -15,13 +14,22 @@ import java.util.function.Consumer
 
 class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditionBuilder {
 
-	override fun buildRecipes(pWriter: Consumer<FinishedRecipe?>) {
+	override fun buildRecipes(pWriter: Consumer<FinishedRecipe>) {
 
 		shapedRecipes(pWriter)
+		specialRecipes(pWriter)
 
 	}
 
-	private fun shapedRecipes(pWriter: Consumer<FinishedRecipe?>) {
+	private fun specialRecipes(pWriter: Consumer<FinishedRecipe>) {
+		val setAntiPlasmid = SpecialRecipeBuilder.special(ModRecipeSerializers.SET_ANTI_PLASMID.get())
+		val unsetAntiPlasmid = SpecialRecipeBuilder.special(ModRecipeSerializers.UNSET_ANTI_PLASMID.get())
+
+		setAntiPlasmid.save(pWriter, GeneticsResequenced.modResource("set_anti_plasmid").toString())
+		unsetAntiPlasmid.save(pWriter, GeneticsResequenced.modResource("unset_anti_plasmid").toString())
+	}
+
+	private fun shapedRecipes(pWriter: Consumer<FinishedRecipe>) {
 		val shapedRecipes = listOf(
 			ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ADVANCED_INCUBATOR.get())
 				.pattern("OOO")

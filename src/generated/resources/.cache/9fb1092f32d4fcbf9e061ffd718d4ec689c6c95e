@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-17T00:21:32.0673421	Recipes
+// 1.20.1	2026-01-17T00:25:55.4260038	Recipes
 c3ae95911dac248625cd070481517e36f28c9877 data/geneticsresequenced/advancements/recipes/misc/advanced_incubator.json
 4655be90ad58607b30d3940e241523aa296ccaf8 data/geneticsresequenced/advancements/recipes/misc/anti_field_block.json
 a4f6d8f4c0f94e03b599d4043733df16f0f6e627 data/geneticsresequenced/advancements/recipes/misc/anti_field_orb.json
@@ -36,4 +36,6 @@ a3061336d9a6e51f2d87a33e0b503e7b5672dc39 data/geneticsresequenced/recipes/metal_
 840c333f3df747942f51e80af4081dadbee1a307 data/geneticsresequenced/recipes/plasmid_infuser.json
 73991fa424183693db8385e830354a5c4f42e3fa data/geneticsresequenced/recipes/plasmid_injector.json
 c731852024bef885919de7c0aa4c9dafd1483448 data/geneticsresequenced/recipes/scraper.json
+49d5ff874c99c9e16383e1951e7523d2e8b28fdb data/geneticsresequenced/recipes/set_anti_plasmid.json
 46f6b5e30c279911ddb716fd73320dec73de6f1c data/geneticsresequenced/recipes/syringe.json
+77766e87c7c03c846b75eb324c0e108f2e5adc47 data/geneticsresequenced/recipes/unset_anti_plasmid.json
