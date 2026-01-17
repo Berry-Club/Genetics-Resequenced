@@ -488,9 +488,9 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 		}
 
 //		setPotionEntity.save(pWriter)
-		blackDeath.save(pWriter, "incubator/black_death")
-		dupeCell.save(pWriter)
-		dupeGmoCell.save(pWriter)
+		blackDeath.save(pWriter, GeneticsResequenced.modResource("incubator/black_death").toString())
+		dupeCell.save(pWriter, GeneticsResequenced.modResource("dupe_cell").toString())
+		dupeGmoCell.save(pWriter, GeneticsResequenced.modResource("dupe_gmo_cell").toString())
 
 		for (recipe in virusRecipes) {
 			recipe.save(pWriter, recipe.getName())
