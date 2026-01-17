@@ -87,8 +87,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				.pattern("IRI")
 				.define('I', Tags.Items.INGOTS_IRON)
 				.define('S', ModItems.SYRINGE.get())
-				.define('R', Tags.Items.DUSTS_REDSTONE)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+				.define('R', Tags.Items.DUSTS_REDSTONE),
 
 			ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.COAL_GENERATOR.get())
 				.pattern("III")
@@ -247,88 +246,77 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				Items.GLOWSTONE_DUST.asIngredient(),
 				ModGenes.BIOLUMINESCENCE,
 				0.85f
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.MAGMA_CUBE,
 				Items.GLOWSTONE_DUST.asIngredient(),
 				ModGenes.BIOLUMINESCENCE,
 				0.85f
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.VILLAGER,
 				Items.EMERALD.asIngredient(),
 				ModGenes.EMERALD_HEART,
 				0.85f
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.SHULKER,
 				Items.EMERALD_BLOCK.asIngredient(),
 				ModGenes.KEEP_INVENTORY,
 				0.45f
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.RABBIT,
 				Items.GOLDEN_BOOTS.asIngredient(),
 				ModGenes.SPEED,
 				0.65f
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.RABBIT,
 				Items.EMERALD.asIngredient(),
 				ModGenes.LUCK,
 				0.75f
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.IRON_GOLEM,
 				Items.GOLDEN_APPLE.asIngredient(),
 				ModGenes.REGENERATION,
 				0.3f
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.CHICKEN,
 				Items.EGG.asIngredient(),
 				ModGenes.LAY_EGG,
 				1f
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.PIG,
 				Items.PORKCHOP.asIngredient(),
 				ModGenes.MEATY,
 				1f
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.ENDERMAN,
 				Items.ENDER_PEARL.asIngredient(),
 				ModGenes.TELEPORT,
 				0.45f
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.ENDERMAN,
 				Items.GOLDEN_APPLE.asIngredient(),
 				ModGenes.MORE_HEARTS,
 				0.2f
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.MOOSHROOM,
@@ -336,7 +324,6 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				ModGenes.PHOTOSYNTHESIS,
 				0.7f
 			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get()))
 		)
 
 		val mutationRecipes = listOf(
@@ -346,8 +333,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				ModGenes.FLIGHT,
 				0.55f,
 				needsMutationPotion = true
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.POLAR_BEAR,
@@ -371,8 +357,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				ModGenes.CLAWS_TWO,
 				0.75f,
 				needsMutationPotion = true
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.RABBIT,
@@ -380,8 +365,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				ModGenes.SPEED_TWO,
 				0.5f,
 				needsMutationPotion = true
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.OCELOT,
@@ -389,8 +373,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				ModGenes.SPEED_FOUR,
 				0.5f,
 				needsMutationPotion = true
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.RABBIT,
@@ -398,8 +381,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				ModGenes.HASTE_TWO,
 				0.35f,
 				needsMutationPotion = true
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.SILVERFISH,
@@ -439,8 +421,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				ModGenes.MEATY_TWO,
 				0.75f,
 				needsMutationPotion = true
-			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			),
 
 			GmoRecipeBuilder(
 				EntityType.ENDERMAN,
@@ -449,7 +430,6 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				0.25f,
 				needsMutationPotion = true
 			)
-				.unlockedBy("has_cell", has(ModItems.CELL.get()))
 		)
 
 //		val setPotionEntity =
@@ -499,7 +479,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 		}
 
 		for (recipe in gmoRecipes) {
-			recipe.save(pWriter)
+			recipe.save(pWriter, recipe.getName())
 		}
 
 		for (recipe in mutationRecipes) {

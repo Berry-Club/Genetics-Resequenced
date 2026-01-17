@@ -25,6 +25,27 @@ class GmoRecipeBuilder(
 	private val needsMutationPotion: Boolean = false
 ) : RecipeBuilder {
 
+	fun getName(): String {
+		val entityString = EntityType.getKey(entityType).path
+		val geneString = idealGeneRk.location().path
+
+		val chanceString = if (geneChance == 1f) {
+			"100"
+		} else {
+			(geneChance * 100).toInt().toString()
+		}
+
+		val pathBuilder = StringBuilder()
+			.append(geneString)
+			.append("_from_")
+			.append(entityString)
+			.append("_with_")
+			.append(chanceString)
+			.append("_chance")
+
+		return pathBuilder.toString()
+	}
+
 	private val advancement: Advancement.Builder = Advancement.Builder.recipeAdvancement()
 
 	override fun unlockedBy(pCriterionName: String, pCriterionTrigger: CriterionTriggerInstance): RecipeBuilder {
