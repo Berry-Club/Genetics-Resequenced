@@ -3,15 +3,10 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen
 import dev.aaronhowser.mods.aaron.AaronExtensions.asIngredient
 import dev.aaronhowser.mods.aaron.AaronExtensions.partialNbtIngredient
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.BasicIncubatorRecipeBuilder
-import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.DupeCellRecipeBuilder
-import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.GmoRecipeBuilder
-import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.SingletonRecipeBuilder
-import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.VirusRecipeBuilder
+import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.*
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.BlackDeathRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.SetPotionEntityRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.*
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.data.PackOutput
@@ -232,22 +227,16 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 			),
 
 			BasicIncubatorRecipeBuilder(
-				DataComponentIngredient.of(
-					false,
-					DnaHelixItem.getHelixStack(ModGenes.REGENERATION, lookupProvider.get())
-				),
-				DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
-				OtherUtil.getPotionStack(ModPotions.PANACEA),
+				DnaHelixItem.getHelixStack(ModGenes.REGENERATION).partialNbtIngredient(),
+				OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS.get()).partialNbtIngredient(),
+				OtherUtil.getPotionStack(ModPotions.PANACEA.get()),
 				"panacea"
 			),
 
 			BasicIncubatorRecipeBuilder(
-				DataComponentIngredient.of(
-					false,
-					DnaHelixItem.getHelixStack(ModGenes.EMERALD_HEART, lookupProvider.get())
-				),
-				DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
-				OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER),
+				DnaHelixItem.getHelixStack(ModGenes.EMERALD_HEART).partialNbtIngredient(),
+				OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS.get()).partialNbtIngredient(),
+				OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER.get()),
 				"zombify_villager"
 			)
 		)
