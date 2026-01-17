@@ -1,0 +1,30 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "item": "minecraft:blaze_rod"
+    },
+    "G": {
+      "tag": "forge:glass/colorless"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "R": {
+      "tag": "forge:ingots/iron"
+    },
+    "S": {
+      "tag": "forge:stone"
+    }
+  },
+  "pattern": [
+    "IGI",
+    "IBI",
+    "SRS"
+  ],
+  "result": {
+    "item": "geneticsresequenced:incubator"
+  },
+  "show_notification": true
+}

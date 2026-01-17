@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "tag": "forge:gems/diamond"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "O": {
+      "tag": "forge:obsidian"
+    },
+    "S": {
+      "item": "geneticsresequenced:syringe"
+    }
+  },
+  "pattern": [
+    "IOI",
+    "ISI",
+    "IDI"
+  ],
+  "result": {
+    "item": "geneticsresequenced:metal_syringe"
+  },
+  "show_notification": true
+}

@@ -100,6 +100,11 @@ object ModDataGen {
 			ModEntityGenesProvider(output, existingFileHelper)
 		)
 
+		generator.addProvider(
+			event.includeServer(),
+			ModRecipeProvider(output)
+		)
+
 	}
 
 }

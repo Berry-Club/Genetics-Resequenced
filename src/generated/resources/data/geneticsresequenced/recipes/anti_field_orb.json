@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "tag": "forge:ender_pearls"
+    },
+    "F": {
+      "item": "minecraft:fermented_spider_eye"
+    },
+    "G": {
+      "tag": "forge:glass/colorless"
+    }
+  },
+  "pattern": [
+    "EGE",
+    "GFG",
+    "EGE"
+  ],
+  "result": {
+    "item": "geneticsresequenced:anti_field_orb"
+  },
+  "show_notification": true
+}

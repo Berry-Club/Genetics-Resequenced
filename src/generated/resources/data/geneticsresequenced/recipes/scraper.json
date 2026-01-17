@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "S": {
+      "item": "minecraft:stick"
+    }
+  },
+  "pattern": [
+    " IS",
+    " SI",
+    "S  "
+  ],
+  "result": {
+    "item": "geneticsresequenced:scraper"
+  },
+  "show_notification": true
+}

@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "A": {
+      "item": "minecraft:arrow"
+    },
+    "B": {
+      "item": "minecraft:glass_bottle"
+    },
+    "G": {
+      "tag": "forge:glass/colorless"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    }
+  },
+  "pattern": [
+    " P ",
+    "GBG",
+    "GAG"
+  ],
+  "result": {
+    "item": "geneticsresequenced:syringe"
+  },
+  "show_notification": true
+}

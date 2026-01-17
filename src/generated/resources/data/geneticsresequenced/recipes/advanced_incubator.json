@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "E": {
+      "tag": "forge:end_stones"
+    },
+    "I": {
+      "item": "geneticsresequenced:incubator"
+    },
+    "O": {
+      "tag": "forge:obsidian"
+    }
+  },
+  "pattern": [
+    "OOO",
+    "OIO",
+    "EEE"
+  ],
+  "result": {
+    "item": "geneticsresequenced:advanced_incubator"
+  },
+  "show_notification": true
+}

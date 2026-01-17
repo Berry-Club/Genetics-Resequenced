@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "tag": "forge:gems/diamond"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "L": {
+      "item": "geneticsresequenced:plasmid"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    }
+  },
+  "pattern": [
+    "III",
+    "LPL",
+    "IDI"
+  ],
+  "result": {
+    "item": "geneticsresequenced:plasmid_infuser"
+  },
+  "show_notification": true
+}
