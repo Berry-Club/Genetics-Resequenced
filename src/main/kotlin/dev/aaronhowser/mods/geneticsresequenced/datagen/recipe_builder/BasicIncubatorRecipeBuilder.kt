@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder
 
 import com.google.gson.JsonObject
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import net.minecraft.advancements.Advancement
 import net.minecraft.advancements.CriterionTriggerInstance
 import net.minecraft.data.recipes.FinishedRecipe
@@ -15,7 +16,8 @@ import java.util.function.Consumer
 class BasicIncubatorRecipeBuilder(
 	val topSlotIngredient: Ingredient,
 	val bottomSlotIngredient: Ingredient,
-	val outputStack: ItemStack
+	val outputStack: ItemStack,
+	val name: String
 ) : RecipeBuilder {
 
 	private val advancement: Advancement.Builder = Advancement.Builder.recipeAdvancement()
@@ -52,8 +54,8 @@ class BasicIncubatorRecipeBuilder(
 		val advancementBuilder: Advancement.Builder,
 		val advancementId: ResourceLocation
 	) : FinishedRecipe {
-		override fun serializeRecipeData(pJson: JsonObject) {
 
+		override fun serializeRecipeData(pJson: JsonObject) {
 			pJson.add("top_slot", topSlotIngredient.toJson())
 			pJson.add("bottom_slot", bottomSlotIngredient.toJson())
 
@@ -72,17 +74,10 @@ class BasicIncubatorRecipeBuilder(
 			pJson.add("result", resultJson)
 		}
 
-		override fun getId(): ResourceLocation = this.id
-
-		override fun getType(): RecipeSerializer<*> {
-			TODO("Not yet implemented")
-		}
-
+		override fun getId(): ResourceLocation = this.recipeId
+		override fun getType(): RecipeSerializer<*> = ModRecipeSerializers.BASIC_INCUBATOR.get()
 		override fun serializeAdvancement(): JsonObject = advancementBuilder.serializeToJson()
-
-		override fun getAdvancementId(): ResourceLocation? {
-			TODO("Not yet implemented")
-		}
+		override fun getAdvancementId(): ResourceLocation = advancementId
 
 	}
 

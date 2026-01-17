@@ -386,7 +386,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 		)
 
 		for (recipe in basicIncubatorRecipes) {
-			recipe.save(pRecipeOutput)
+			recipe.save(pWriter, recipe.name)
 		}
 
 		for (recipe in gmoRecipes) {
