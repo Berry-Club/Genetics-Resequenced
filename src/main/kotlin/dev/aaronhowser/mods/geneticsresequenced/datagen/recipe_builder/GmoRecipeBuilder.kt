@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder
 
 import com.google.gson.JsonObject
 import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
@@ -35,7 +36,13 @@ class GmoRecipeBuilder(
 			(geneChance * 100).toInt().toString()
 		}
 
-		val pathBuilder = StringBuilder()
+		val pathBuilder = StringBuilder("incubator/gmo/")
+
+		if (needsMutationPotion) {
+			pathBuilder.append("mutation/")
+		}
+
+		pathBuilder
 			.append(geneString)
 			.append("_from_")
 			.append(entityString)
@@ -43,7 +50,7 @@ class GmoRecipeBuilder(
 			.append(chanceString)
 			.append("_chance")
 
-		return pathBuilder.toString()
+		return GeneticsResequenced.modResource(pathBuilder.toString()).toString()
 	}
 
 	private val advancement: Advancement.Builder = Advancement.Builder.recipeAdvancement()

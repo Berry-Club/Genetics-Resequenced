@@ -87,7 +87,8 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 				.pattern("IRI")
 				.define('I', Tags.Items.INGOTS_IRON)
 				.define('S', ModItems.SYRINGE.get())
-				.define('R', Tags.Items.DUSTS_REDSTONE),
+				.define('R', Tags.Items.DUSTS_REDSTONE)
+				.unlockedBy("has_syringe", has(ModItems.SYRINGE.get())),
 
 			ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.COAL_GENERATOR.get())
 				.pattern("III")

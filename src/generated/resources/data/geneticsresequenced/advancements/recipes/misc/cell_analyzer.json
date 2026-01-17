@@ -1,12 +1,12 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_cell": {
+    "has_syringe": {
       "conditions": {
         "items": [
           {
             "items": [
-              "geneticsresequenced:cell"
+              "geneticsresequenced:syringe"
             ]
           }
         ]
@@ -22,7 +22,7 @@
   },
   "requirements": [
     [
-      "has_cell",
+      "has_syringe",
       "has_the_recipe"
     ]
   ],
