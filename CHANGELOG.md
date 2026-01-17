@@ -4,6 +4,8 @@
 
 - Ok so the problem was that the github buildscript was not obfuscating the code. That's fixed now. It worked on my machine so I didn't realize.
 - Also fixed ClientModBusEvents being called on the server
+- Fixed missing recipes
+- Made the uuids of the attribute modifiers consistent, so they don't get randomized every time i run datagen
 
 # 1.11.3
 
