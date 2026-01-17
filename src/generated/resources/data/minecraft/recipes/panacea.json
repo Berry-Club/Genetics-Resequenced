@@ -1,0 +1,17 @@
+{
+  "type": "geneticsresequenced:incubator/basic",
+  "bottom_slot": {
+    "type": "forge:partial_nbt",
+    "item": "minecraft:potion",
+    "nbt": "{Potion:\"geneticsresequenced:viral_agents\"}"
+  },
+  "result": {
+    "item": "minecraft:potion",
+    "nbt": "{Potion:\"geneticsresequenced:panacea\"}"
+  },
+  "top_slot": {
+    "type": "forge:partial_nbt",
+    "item": "geneticsresequenced:dna_helix",
+    "nbt": "{\"geneticsresequenced:gene\":\"geneticsresequenced:regeneration\"}"
+  }
+}

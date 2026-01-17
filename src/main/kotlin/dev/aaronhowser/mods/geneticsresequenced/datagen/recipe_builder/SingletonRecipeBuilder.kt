@@ -44,7 +44,7 @@ class SingletonRecipeBuilder(
 		val recipeId: ResourceLocation,
 		val recipe: Recipe<*>,
 		val advancement: Advancement.Builder,
-		val advancementId: ResourceLocation
+		private val advancementId: ResourceLocation
 	) : FinishedRecipe {
 		override fun serializeRecipeData(pJson: JsonObject) {}
 		override fun getType(): RecipeSerializer<*> = recipe.serializer

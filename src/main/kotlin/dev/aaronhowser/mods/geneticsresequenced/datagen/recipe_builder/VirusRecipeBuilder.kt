@@ -49,7 +49,7 @@ class VirusRecipeBuilder(
 		val inputDnaGene: ResourceKey<Gene>,
 		val outputGene: ResourceKey<Gene>,
 		val advancement: Advancement.Builder,
-		val advancementId: ResourceLocation
+		private val advancementId: ResourceLocation
 	) : FinishedRecipe {
 
 		override fun serializeRecipeData(pJson: JsonObject) {

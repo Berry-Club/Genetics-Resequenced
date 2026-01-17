@@ -53,7 +53,7 @@ class BasicIncubatorRecipeBuilder(
 		val topSlotIngredient: Ingredient,
 		val bottomSlotIngredient: Ingredient,
 		val advancementBuilder: Advancement.Builder,
-		val advancementId: ResourceLocation
+		private val advancementId: ResourceLocation
 	) : FinishedRecipe {
 
 		override fun serializeRecipeData(pJson: JsonObject) {

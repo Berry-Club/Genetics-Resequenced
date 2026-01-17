@@ -61,7 +61,7 @@ class GmoRecipeBuilder(
 		val geneChance: Float,
 		val needsMutationPotion: Boolean,
 		val advancementBuilder: Advancement.Builder,
-		val advancementId: ResourceLocation
+		private val advancementId: ResourceLocation
 	) : FinishedRecipe {
 
 		override fun serializeRecipeData(pJson: JsonObject) {
