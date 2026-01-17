@@ -6,8 +6,11 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.BasicIncubatorRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.DupeCellRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.GmoRecipeBuilder
+import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.SingletonRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.BlackDeathRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.SetPotionEntityRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.*
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.data.PackOutput
@@ -507,15 +510,15 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 		}
 
 		for (recipe in gmoRecipes) {
-			recipe.save(pRecipeOutput)
+			recipe.save(pWriter)
 		}
 
 		for (recipe in mutationRecipes) {
-			recipe.save(pRecipeOutput)
+			recipe.save(pWriter)
 		}
 
 		setPotionEntity.save(pRecipeOutput)
-		blackDeath.save(pRecipeOutput)
+		blackDeath.save(pWriter, "incubator/black_death")
 		dupeCell.save(pRecipeOutput)
 		dupeGmoCell.save(pRecipeOutput)
 
