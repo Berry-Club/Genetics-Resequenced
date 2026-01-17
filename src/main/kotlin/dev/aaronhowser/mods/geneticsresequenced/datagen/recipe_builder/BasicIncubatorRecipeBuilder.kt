@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder
 
 import com.google.gson.JsonObject
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import net.minecraft.advancements.Advancement
 import net.minecraft.advancements.CriterionTriggerInstance
@@ -18,8 +19,15 @@ class BasicIncubatorRecipeBuilder(
 	val topSlotIngredient: Ingredient,
 	val bottomSlotIngredient: Ingredient,
 	val outputStack: ItemStack,
-	val name: String
+	val baseName: String
 ) : RecipeBuilder {
+
+	fun getName(): String {
+		val pathBuilder = StringBuilder("incubator/")
+			.append(baseName)
+
+		return GeneticsResequenced.modResource(pathBuilder.toString()).toString()
+	}
 
 	private val advancement: Advancement.Builder = Advancement.Builder.recipeAdvancement()
 
