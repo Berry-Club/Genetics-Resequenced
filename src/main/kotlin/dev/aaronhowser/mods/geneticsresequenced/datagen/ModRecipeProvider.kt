@@ -1,15 +1,18 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
+import dev.aaronhowser.mods.aaron.AaronExtensions.asIngredient
 import dev.aaronhowser.mods.aaron.AaronExtensions.partialNbtIngredient
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.BasicIncubatorRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.DupeCellRecipeBuilder
+import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.GmoRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.*
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.data.PackOutput
 import net.minecraft.data.recipes.*
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Items
 import net.minecraftforge.common.Tags
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder
@@ -246,100 +249,213 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 		)
 
 		val gmoRecipes = listOf(
-			GmoRecipeBuilder(EntityType.BLAZE, Items.GLOWSTONE_DUST, ModGenes.BIOLUMINESCENCE, 0.85f)
+			GmoRecipeBuilder(
+				EntityType.BLAZE,
+				Items.GLOWSTONE_DUST.asIngredient(),
+				ModGenes.BIOLUMINESCENCE,
+				0.85f
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, ModGenes.BIOLUMINESCENCE, 0.85f)
+
+			GmoRecipeBuilder(
+				EntityType.MAGMA_CUBE,
+				Items.GLOWSTONE_DUST.asIngredient(),
+				ModGenes.BIOLUMINESCENCE,
+				0.85f
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.VILLAGER, Items.EMERALD, ModGenes.EMERALD_HEART, 0.85f)
+
+			GmoRecipeBuilder(
+				EntityType.VILLAGER,
+				Items.EMERALD.asIngredient(),
+				ModGenes.EMERALD_HEART,
+				0.85f
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.SHULKER, Items.EMERALD_BLOCK, ModGenes.KEEP_INVENTORY, 0.45f)
+
+			GmoRecipeBuilder(
+				EntityType.SHULKER,
+				Items.EMERALD_BLOCK.asIngredient(),
+				ModGenes.KEEP_INVENTORY,
+				0.45f
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.RABBIT, Items.GOLDEN_BOOTS, ModGenes.SPEED, 0.65f)
+
+			GmoRecipeBuilder(
+				EntityType.RABBIT,
+				Items.GOLDEN_BOOTS.asIngredient(),
+				ModGenes.SPEED,
+				0.65f
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.RABBIT, Items.EMERALD, ModGenes.LUCK, 0.75f)
+
+			GmoRecipeBuilder(
+				EntityType.RABBIT,
+				Items.EMERALD.asIngredient(),
+				ModGenes.LUCK,
+				0.75f
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.IRON_GOLEM, Items.GOLDEN_APPLE, ModGenes.REGENERATION, 0.3f)
+
+			GmoRecipeBuilder(
+				EntityType.IRON_GOLEM,
+				Items.GOLDEN_APPLE.asIngredient(),
+				ModGenes.REGENERATION,
+				0.3f
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.CHICKEN, Items.EGG, ModGenes.LAY_EGG, 1f)
+
+			GmoRecipeBuilder(
+				EntityType.CHICKEN,
+				Items.EGG.asIngredient(),
+				ModGenes.LAY_EGG,
+				1f
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.PIG, Items.PORKCHOP, ModGenes.MEATY, 1f)
+
+			GmoRecipeBuilder(
+				EntityType.PIG,
+				Items.PORKCHOP.asIngredient(),
+				ModGenes.MEATY,
+				1f
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.ENDERMAN, Items.ENDER_PEARL, ModGenes.TELEPORT, 0.45f)
+
+			GmoRecipeBuilder(
+				EntityType.ENDERMAN,
+				Items.ENDER_PEARL.asIngredient(),
+				ModGenes.TELEPORT,
+				0.45f
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.MORE_HEARTS, 0.2f)
+
+			GmoRecipeBuilder(
+				EntityType.ENDERMAN,
+				Items.GOLDEN_APPLE.asIngredient(),
+				ModGenes.MORE_HEARTS,
+				0.2f
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.MOOSHROOM, Items.MUSHROOM_STEM, ModGenes.PHOTOSYNTHESIS, 0.7f)
+
+			GmoRecipeBuilder(
+				EntityType.MOOSHROOM,
+				Items.MUSHROOM_STEM.asIngredient(),
+				ModGenes.PHOTOSYNTHESIS,
+				0.7f
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get()))
 		)
 
 		val mutationRecipes = listOf(
-			GmoRecipeBuilder(EntityType.ENDER_DRAGON, Items.ELYTRA, ModGenes.FLIGHT, 0.55f, isMutation = true)
+			GmoRecipeBuilder(
+				EntityType.ENDER_DRAGON,
+				Items.ELYTRA.asIngredient(),
+				ModGenes.FLIGHT,
+				0.55f,
+				needsMutationPotion = true
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
 
 			GmoRecipeBuilder(
 				EntityType.POLAR_BEAR,
-				Items.NETHERITE_SWORD,
+				Items.NETHERITE_SWORD.asIngredient(),
 				ModGenes.STRENGTH_TWO,
 				0.5f,
-				isMutation = true
+				needsMutationPotion = true
 			).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
 			GmoRecipeBuilder(
 				EntityType.SHULKER,
-				Items.NETHERITE_CHESTPLATE,
+				Items.NETHERITE_CHESTPLATE.asIngredient(),
 				ModGenes.RESISTANCE_TWO,
 				0.5f,
-				isMutation = true
+				needsMutationPotion = true
 			).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-			GmoRecipeBuilder(EntityType.POLAR_BEAR, Items.DIAMOND_SWORD, ModGenes.CLAWS_TWO, 0.75f, isMutation = true)
+			GmoRecipeBuilder(
+				EntityType.POLAR_BEAR,
+				Items.DIAMOND_SWORD.asIngredient(),
+				ModGenes.CLAWS_TWO,
+				0.75f,
+				needsMutationPotion = true
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-			GmoRecipeBuilder(EntityType.RABBIT, Items.DIAMOND_BOOTS, ModGenes.SPEED_TWO, 0.5f, isMutation = true)
+			GmoRecipeBuilder(
+				EntityType.RABBIT,
+				Items.DIAMOND_BOOTS.asIngredient(),
+				ModGenes.SPEED_TWO,
+				0.5f,
+				needsMutationPotion = true
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-			GmoRecipeBuilder(EntityType.OCELOT, Items.NETHERITE_BOOTS, ModGenes.SPEED_FOUR, 0.5f, isMutation = true)
+			GmoRecipeBuilder(
+				EntityType.OCELOT,
+				Items.NETHERITE_BOOTS.asIngredient(),
+				ModGenes.SPEED_FOUR,
+				0.5f,
+				needsMutationPotion = true
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-			GmoRecipeBuilder(EntityType.RABBIT, Items.NETHERITE_PICKAXE, ModGenes.HASTE_TWO, 0.35f, isMutation = true)
+			GmoRecipeBuilder(
+				EntityType.RABBIT,
+				Items.NETHERITE_PICKAXE.asIngredient(),
+				ModGenes.HASTE_TWO,
+				0.35f,
+				needsMutationPotion = true
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
 
 			GmoRecipeBuilder(
 				EntityType.SILVERFISH,
-				Items.NETHERITE_PICKAXE,
+				Items.NETHERITE_PICKAXE.asIngredient(),
 				ModGenes.EFFICIENCY_FOUR,
 				0.25f,
-				isMutation = true
+				needsMutationPotion = true
 			).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
 			GmoRecipeBuilder(
 				EntityType.ZOMBIE,
-				Items.FERMENTED_SPIDER_EYE,
+				Items.FERMENTED_SPIDER_EYE.asIngredient(),
 				ModGenes.SCARE_ZOMBIES,
 				0.5f,
-				isMutation = true
+				needsMutationPotion = true
 			).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
 			GmoRecipeBuilder(
 				EntityType.SPIDER,
-				Items.FERMENTED_SPIDER_EYE,
+				Items.FERMENTED_SPIDER_EYE.asIngredient(),
 				ModGenes.SCARE_SPIDERS,
 				0.5f,
-				isMutation = true
+				needsMutationPotion = true
 			).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
 			GmoRecipeBuilder(
 				EntityType.ENDER_DRAGON,
-				Items.ENCHANTED_GOLDEN_APPLE,
+				Items.ENCHANTED_GOLDEN_APPLE.asIngredient(),
 				ModGenes.REGENERATION_FOUR,
 				0.35f,
-				isMutation = true
+				needsMutationPotion = true
 			).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-			GmoRecipeBuilder(EntityType.PIG, Items.BLAZE_POWDER, ModGenes.MEATY_TWO, 0.75f, isMutation = true)
+			GmoRecipeBuilder(
+				EntityType.PIG,
+				Items.BLAZE_POWDER.asIngredient(),
+				ModGenes.MEATY_TWO,
+				0.75f,
+				needsMutationPotion = true
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-			GmoRecipeBuilder(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.MORE_HEARTS_TWO, 0.25f, true)
+			GmoRecipeBuilder(
+				EntityType.ENDERMAN,
+				Items.GOLDEN_APPLE.asIngredient(),
+				ModGenes.MORE_HEARTS_TWO,
+				0.25f,
+				needsMutationPotion = true
+			)
 				.unlockedBy("has_cell", has(ModItems.CELL.get()))
 		)
 
