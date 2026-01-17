@@ -1,0 +1,5 @@
+{
+  "type": "geneticsresequenced:incubator/virus",
+  "input_dna_gene": "geneticsresequenced:meaty",
+  "output_gene": "geneticsresequenced:nausea"
+}

@@ -493,7 +493,7 @@ class ModRecipeProvider(pOutput: PackOutput) : RecipeProvider(pOutput), IConditi
 		dupeGmoCell.save(pWriter)
 
 		for (recipe in virusRecipes) {
-			recipe.save(pWriter)
+			recipe.save(pWriter, recipe.getName())
 		}
 	}
 

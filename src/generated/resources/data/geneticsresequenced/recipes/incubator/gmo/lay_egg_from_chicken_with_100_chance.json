@@ -1,0 +1,10 @@
+{
+  "type": "geneticsresequenced:incubator/gmo",
+  "entity_type": "minecraft:chicken",
+  "gene_chance": 1.0,
+  "ideal_gene": "geneticsresequenced:lay_egg",
+  "ingredient": {
+    "item": "minecraft:egg"
+  },
+  "needs_mutation_potion": false
+}

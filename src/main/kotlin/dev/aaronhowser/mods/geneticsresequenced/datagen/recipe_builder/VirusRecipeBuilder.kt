@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder
 
 import com.google.gson.JsonObject
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
@@ -18,6 +19,15 @@ class VirusRecipeBuilder(
 	val inputDnaGene: ResourceKey<Gene>,
 	val outputGene: ResourceKey<Gene>
 ) : RecipeBuilder {
+
+	fun getName(): String {
+		val pathBuilder = StringBuilder("incubator/virus/")
+			.append(inputDnaGene.location().path)
+			.append("_to_")
+			.append(outputGene.location().path)
+
+		return GeneticsResequenced.modResource(pathBuilder.toString()).toString()
+	}
 
 	private val advancement: Advancement.Builder = Advancement.Builder.recipeAdvancement()
 
