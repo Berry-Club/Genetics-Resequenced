@@ -96,8 +96,10 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 mixin {
 	add sourceSets.main, "geneticsresequenced.refmap.json"
-
 	config "geneticsresequenced.mixins.json"
+
+	debug.verbose = true
+	debug.export = true
 }
 
 configurations {
