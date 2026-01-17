@@ -1,3 +1,10 @@
+# 1.11.4
+
+### Fixed
+
+- Ok so the problem was that the github buildscript was not obfuscating the code. That's fixed now. It worked on my machine so I didn't realize.
+- Also fixed ClientModBusEvents being called on the server
+
 # 1.11.3
 
 ### Fixed

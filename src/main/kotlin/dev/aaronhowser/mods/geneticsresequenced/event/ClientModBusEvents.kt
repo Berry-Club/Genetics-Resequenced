@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import net.minecraft.client.renderer.entity.EntityRenderers
 import net.minecraft.client.renderer.item.ItemProperties
+import net.minecraftforge.api.distmarker.Dist
 import net.minecraftforge.client.event.ModelEvent
 import net.minecraftforge.client.event.RegisterKeyMappingsEvent
 import net.minecraftforge.eventbus.api.SubscribeEvent
@@ -17,7 +18,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent
 
 @Mod.EventBusSubscriber(
 	modid = GeneticsResequenced.MOD_ID,
-	bus = Mod.EventBusSubscriber.Bus.MOD
+	bus = Mod.EventBusSubscriber.Bus.MOD,
+	value = [Dist.CLIENT]
 )
 object ClientModBusEvents {
 
