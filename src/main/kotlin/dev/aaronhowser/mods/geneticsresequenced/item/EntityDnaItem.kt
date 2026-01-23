@@ -111,5 +111,10 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 			return getEntitySnapshot(stack) != null
 		}
 
+		fun setEntityType(stack: ItemStack, entityType: EntityType<*>) {
+			val snapshot = EntitySnapshot(entityType, null, null, null, emptyMap())
+			setEntitySnapshot(stack, snapshot)
+		}
+
 	}
 }

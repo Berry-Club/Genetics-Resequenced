@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.aaron.entity.predicate.snapshot.EntitySnapshot
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGenes
@@ -82,12 +83,14 @@ class GeneCheckerItem(properties: Properties) : Item(properties) {
 			player.sendSystemMessage(component)
 		}
 
-		private fun tellPossibleGenes(player: Player, targetEntityGenes: LivingEntity) {
-			val possibleGenes = EntityGenes.getGeneHolderWeights(targetEntityGenes.type, player.registryAccess())
+		private fun tellPossibleGenes(player: Player, target: LivingEntity) {
+
+			val snapshot = EntitySnapshot.fromEntity(target, emptyList())
+			val possibleGenes = EntityGenes.getGeneHolderWeights(snapshot, player.registryAccess())
 
 			if (possibleGenes.isEmpty()) {
 				player.sendSystemMessage(
-					ModMessageLang.GENE_CHECKER_NO_POSSIBLE_GENES.toComponent(targetEntityGenes.name)
+					ModMessageLang.GENE_CHECKER_NO_POSSIBLE_GENES.toComponent(target.name)
 				)
 				return
 			}
@@ -108,7 +111,7 @@ class GeneCheckerItem(properties: Properties) : Item(properties) {
 			}
 
 			player.sendSystemMessage(
-				ModMessageLang.GENE_CHECKER_POSSIBLE_GENES.toComponent(targetEntityGenes.name, genesComponent)
+				ModMessageLang.GENE_CHECKER_POSSIBLE_GENES.toComponent(target.name, genesComponent)
 			)
 		}
 
