@@ -1,11 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.aaron.entity.predicate.snapshot.EntitySnapshot
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.ChatFormatting
 import net.minecraft.core.registries.BuiltInRegistries
@@ -30,19 +29,10 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 	): InteractionResult {
 		if (!pPlayer.isCreative) return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand)
 
-		val newStack = pStack.copy()
-		val setWorked = setEntityType(newStack, pInteractionTarget.type)
-
-		if (!setWorked) {
-			pPlayer.displayClientMessage(
-				ModMessageLang.CANT_SET_ENTITY.toComponent(),
-				true
-			)
-
-			return InteractionResult.PASS
-		}
-
-		pPlayer.setItemInHand(pUsedHand, newStack)
+		pStack.set(
+			ModDataComponents.ENTITY_SNAPSHOT.get(),
+			EntitySnapshot.fromEntity(pInteractionTarget, emptyList())
+		)
 
 		return InteractionResult.SUCCESS
 	}
@@ -53,7 +43,10 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 		pTooltipComponents: MutableList<Component>,
 		pTooltipFlag: TooltipFlag
 	) {
-		val entityType = getEntityType(pStack)
+
+		val entitySnapshot = pStack.get(ModDataComponents.ENTITY_SNAPSHOT.get())
+		val entityType = entitySnapshot?.entityType
+
 		if (entityType != null) {
 			val component =
 				ModTooltipLang.CELL_MOB
@@ -100,35 +93,5 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 				.filter { it.category != MobCategory.MISC || it in ADDITIONALLY_INCLUDED_ENTITY_TYPES }
 				.toMutableSet()
 
-
-		fun setEntityType(itemStack: ItemStack, entityType: EntityType<*>): Boolean {
-			if (entityType !in VALID_ENTITY_TYPES) {
-				return false
-			}
-
-			itemStack.set(
-				ModDataComponents.ENTITY_TYPE,
-				entityType
-			)
-			return true
-		}
-
-		fun getOrganicStack(entityType: EntityType<*>): ItemStack {
-			val itemStack = ModItems.ORGANIC_MATTER.toStack()
-			setEntityType(itemStack, entityType)
-			return itemStack
-		}
-
-		fun getCell(entityType: EntityType<*>): ItemStack {
-			val itemStack = ModItems.CELL.toStack()
-			setEntityType(itemStack, entityType)
-			return itemStack
-		}
-
-		fun hasEntity(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.ENTITY_TYPE)
-
-		fun getEntityType(itemStack: ItemStack): EntityType<*>? {
-			return itemStack.get(ModDataComponents.ENTITY_TYPE)
-		}
 	}
 }

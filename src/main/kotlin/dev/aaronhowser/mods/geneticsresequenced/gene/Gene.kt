@@ -64,7 +64,7 @@ data class Gene(
 		}
 
 	fun canEntityHave(entity: Entity): Boolean {
-		return this.allowedEntities.matches(entity)
+		return this.allowedEntities.test(entity)
 	}
 
 	fun setAttributeModifiers(livingEntity: LivingEntity, isAdding: Boolean) {

@@ -23,13 +23,6 @@ object ModDataComponents : AaronDataComponentRegistry() {
 
 	override fun getDataComponentRegistry(): DeferredRegister.DataComponents = DATA_COMPONENT_REGISTRY
 
-	val ENTITY_TYPE: DeferredHolder<DataComponentType<*>, DataComponentType<EntityType<*>>> =
-		register(
-			"entity_type",
-			BuiltInRegistries.ENTITY_TYPE.byNameCodec(),
-			ByteBufCodecs.registry(Registries.ENTITY_TYPE)
-		)
-
 	val SPECIFIC_ENTITY: DeferredHolder<DataComponentType<*>, DataComponentType<SpecificEntityItemComponent>> =
 		register(
 			"specific_entity",
