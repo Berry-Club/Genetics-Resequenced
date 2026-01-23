@@ -8,7 +8,6 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.PotionDetails
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.advancements.critereon.EntityTypePredicate
-import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistrySetBuilder
 import net.minecraft.data.worldgen.BootstrapContext
 import net.minecraft.resources.ResourceKey
@@ -33,7 +32,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 	val DEFAULT_ENTITY_PREDICATE = AlwaysEntityPredicate
 	val NO_ENTITIES = NotEntityPredicate(AlwaysEntityPredicate)
 	val ONLY_PLAYERS = DetailedEntityPredicate(
-		entityType = EntityTypePredicate(HolderSet.direct(EntityType.PLAYER.builtInRegistryHolder()))
+		entityType = EntityTypePredicate.of(EntityType.PLAYER)
 	)
 	val NON_PLAYERS = AndEntityPredicate(
 		AlwaysEntityPredicate,
