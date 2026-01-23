@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import net.minecraft.ChatFormatting
 import net.minecraft.core.registries.BuiltInRegistries
@@ -112,8 +113,20 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 		}
 
 		fun setEntityType(stack: ItemStack, entityType: EntityType<*>) {
-			val snapshot = EntitySnapshot(entityType, null, null, null, emptyMap())
+			val snapshot = EntitySnapshot(entityType)
 			setEntitySnapshot(stack, snapshot)
+		}
+
+		fun getCell(entityType: EntityType<*>): ItemStack {
+			val stack = ModItems.CELL.toStack()
+			setEntityType(stack, entityType)
+			return stack
+		}
+
+		fun getOrganicStack(entityType: EntityType<*>): ItemStack {
+			val stack = ModItems.ORGANIC_MATTER.toStack()
+			setEntityType(stack, entityType)
+			return stack
 		}
 
 	}

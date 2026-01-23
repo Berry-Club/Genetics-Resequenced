@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe
 
+import dev.aaronhowser.mods.aaron.entity.predicate.snapshot.EntitySnapshot
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
@@ -136,7 +137,8 @@ object ModEmiInformationRecipes {
 		val recipes = mutableListOf<EmiInfoRecipe>()
 
 		for (entityType in EntityDnaItem.VALID_ENTITY_TYPES) {
-			val geneWeights = EntityGenes.getGeneHolderWeights(entityType, registries)
+			val snapshot = EntitySnapshot(entityType)
+			val geneWeights = EntityGenes.getGeneHolderWeights(snapshot, registries)
 
 			val informationTextComponent =
 				ModInfoLang.MOB_GENE_ONE.toComponent(entityType.description)
