@@ -1,12 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withComponent
 import dev.aaronhowser.mods.aaron.misc.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.menu.cell_analyzer.CellAnalyzerMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.world.entity.player.Inventory
@@ -40,11 +42,9 @@ class CellAnalyzerBlockEntity(
 		val inputStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
 		if (!inputStack.isItem(ModItems.ORGANIC_MATTER)) return false
 
-		val mobType = EntityDnaItem.getEntityType(inputStack) ?: return false
-		val potentialOutput = ModItems.CELL.get().defaultInstance
-		val setWorked = EntityDnaItem.setEntityType(potentialOutput, mobType)
-
-		if (!setWorked) return false
+		val entitySnapshot = EntityDnaItem.getEntitySnapshot(inputStack) ?: return false
+		val potentialOutput = ModItems.CELL
+			.withComponent(ModDataComponents.ENTITY_SNAPSHOT.get(), entitySnapshot)
 
 		return outputSlotHasRoom(potentialOutput)
 	}

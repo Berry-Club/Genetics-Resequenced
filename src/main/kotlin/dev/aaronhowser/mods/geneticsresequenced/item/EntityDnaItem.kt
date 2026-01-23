@@ -11,6 +11,7 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.MobCategory
@@ -92,6 +93,19 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 			BuiltInRegistries.ENTITY_TYPE
 				.filter { it.category != MobCategory.MISC || it in ADDITIONALLY_INCLUDED_ENTITY_TYPES }
 				.toMutableSet()
+
+		fun setEntitySnapshot(stack: ItemStack, entity: Entity) {
+			val entitySnapshot = EntitySnapshot.fromEntity(entity, emptyList())
+			setEntitySnapshot(stack, entitySnapshot)
+		}
+
+		fun setEntitySnapshot(stack: ItemStack, entitySnapshot: EntitySnapshot) {
+			stack.set(ModDataComponents.ENTITY_SNAPSHOT.get(), entitySnapshot)
+		}
+
+		fun getEntitySnapshot(stack: ItemStack): EntitySnapshot? {
+			return stack.get(ModDataComponents.ENTITY_SNAPSHOT.get())
+		}
 
 	}
 }
