@@ -1,14 +1,15 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.gene
 
+import dev.aaronhowser.mods.aaron.entity.predicate.*
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.AttributeEntry
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.PotionDetails
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import net.minecraft.advancements.critereon.EntityTypePredicate
 import net.minecraft.core.HolderSet
 import net.minecraft.core.RegistrySetBuilder
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.data.worldgen.BootstrapContext
 import net.minecraft.resources.ResourceKey
 import net.minecraft.tags.TagKey
@@ -16,28 +17,27 @@ import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.neoforged.neoforge.common.NeoForgeMod
-import net.neoforged.neoforge.registries.holdersets.AndHolderSet
-import net.neoforged.neoforge.registries.holdersets.AnyHolderSet
-import net.neoforged.neoforge.registries.holdersets.NotHolderSet
 import java.util.*
 
 object ModGeneProvider : RegistrySetBuilder() {
 
 	private fun makeGene(
 		dnaPointsRequired: Int = 1,
-		allowedEntities: HolderSet<EntityType<*>> = DEFAULT_ALLOWED_ENTITIES,
+		allowedEntities: EntityPredicate = DEFAULT_ENTITY_PREDICATE,
 		potionDetails: List<PotionDetails> = emptyList(),
 		attributeModifiers: List<AttributeEntry> = emptyList(),
 		scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>> = Optional.empty(),
 		incompatibleGenes: List<ResourceKey<Gene>> = emptyList()
 	) = Gene(dnaPointsRequired, allowedEntities, potionDetails, attributeModifiers, scaresEntitiesWithTag, incompatibleGenes)
 
-	val DEFAULT_ALLOWED_ENTITIES = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup())
-	val NO_ENTITIES: HolderSet<EntityType<*>> = HolderSet.empty()
-	val ONLY_PLAYERS: HolderSet.Direct<EntityType<*>> = HolderSet.direct(EntityType.PLAYER.builtInRegistryHolder())
-	val NON_PLAYERS: AndHolderSet<EntityType<*>> = AndHolderSet(
-		AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup()),
-		NotHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup(), ONLY_PLAYERS)
+	val DEFAULT_ENTITY_PREDICATE = AlwaysEntityPredicate
+	val NO_ENTITIES = NotEntityPredicate(AlwaysEntityPredicate)
+	val ONLY_PLAYERS = DetailedEntityPredicate(
+		entityType = EntityTypePredicate(HolderSet.direct(EntityType.PLAYER.builtInRegistryHolder()))
+	)
+	val NON_PLAYERS = AndEntityPredicate(
+		AlwaysEntityPredicate,
+		NotEntityPredicate(ONLY_PLAYERS)
 	)
 
 	fun bootstrap(context: BootstrapContext<Gene>) {

@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.entity.ImprovedEntityPredicate
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withClickToCopyToClipboard
@@ -20,7 +21,6 @@ import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.HolderSet
-import net.minecraft.core.RegistryCodecs
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.Component
@@ -43,7 +43,7 @@ import java.util.*
 
 data class Gene(
 	val dnaPointsRequired: Int,
-	val allowedEntities: HolderSet<EntityType<*>>,
+	val allowedEntities: ImprovedEntityPredicate,
 	val potionDetails: List<PotionDetails>,
 	val attributeModifiers: List<AttributeEntry>,
 	val scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>>,
@@ -62,14 +62,8 @@ data class Gene(
 			)
 		}
 
-	val allowsMobs = this.allowedEntities.any { it.value() != EntityType.PLAYER }
-
 	fun canEntityHave(entity: Entity): Boolean {
-		return canEntityTypeHave(entity.type)
-	}
-
-	fun canEntityTypeHave(entityType: EntityType<*>): Boolean {
-		return this.allowedEntities.map(Holder<EntityType<*>>::value).contains(entityType)
+		return this.allowedEntities.matches(entity)
 	}
 
 	fun setAttributeModifiers(livingEntity: LivingEntity, isAdding: Boolean) {
@@ -234,11 +228,8 @@ data class Gene(
 					Codec.INT
 						.optionalFieldOf("dna_points_required", 1)
 						.forGetter(Gene::dnaPointsRequired),
-					RegistryCodecs.homogeneousList(Registries.ENTITY_TYPE)
-						.optionalFieldOf(
-							"allowed_entities",
-							ModGeneProvider.DEFAULT_ALLOWED_ENTITIES
-						)
+					ImprovedEntityPredicate.CODEC
+						.optionalFieldOf("allowed_entities", ImprovedEntityPredicate.All.INSTANCE)
 						.forGetter(Gene::allowedEntities),
 					PotionDetails.DIRECT_CODEC.listOf()
 						.optionalFieldOf("potion_details", emptyList())
@@ -258,7 +249,7 @@ data class Gene(
 
 		val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Gene> = StreamCodec.composite(
 			ByteBufCodecs.INT, Gene::dnaPointsRequired,
-			ByteBufCodecs.holderSet(Registries.ENTITY_TYPE), Gene::allowedEntities,
+			ImprovedEntityPredicate.STREAM_CODEC, Gene::allowedEntities,
 			PotionDetails.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::potionDetails,
 			AttributeEntry.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::attributeModifiers,
 			ByteBufCodecs.optional(AaronExtraCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE)), Gene::scaresEntitiesWithTag,
@@ -285,7 +276,7 @@ data class Gene(
 			.append("dnaPointsRequired=").append(this.dnaPointsRequired)
 			.append(", allowedEntities=").append(
 				when (this.allowedEntities) {
-					ModGeneProvider.DEFAULT_ALLOWED_ENTITIES -> "any"
+					ModGeneProvider.DEFAULT_ENTITY_PREDICATE -> "any"
 					ModGeneProvider.NO_ENTITIES -> "none"
 					ModGeneProvider.ONLY_PLAYERS -> "players"
 					else -> this.allowedEntities
