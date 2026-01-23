@@ -2,7 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.gene
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import dev.aaronhowser.mods.aaron.entity.ImprovedEntityPredicate
+import dev.aaronhowser.mods.aaron.entity.predicate.AlwaysEntityPredicate
+import dev.aaronhowser.mods.aaron.entity.predicate.EntityPredicate
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withClickToCopyToClipboard
@@ -43,7 +44,7 @@ import java.util.*
 
 data class Gene(
 	val dnaPointsRequired: Int,
-	val allowedEntities: ImprovedEntityPredicate,
+	val allowedEntities: EntityPredicate,
 	val potionDetails: List<PotionDetails>,
 	val attributeModifiers: List<AttributeEntry>,
 	val scaresEntitiesWithTag: Optional<TagKey<EntityType<*>>>,
@@ -228,8 +229,8 @@ data class Gene(
 					Codec.INT
 						.optionalFieldOf("dna_points_required", 1)
 						.forGetter(Gene::dnaPointsRequired),
-					ImprovedEntityPredicate.CODEC
-						.optionalFieldOf("allowed_entities", ImprovedEntityPredicate.All.INSTANCE)
+					EntityPredicate.CODEC
+						.optionalFieldOf("allowed_entities", AlwaysEntityPredicate)
 						.forGetter(Gene::allowedEntities),
 					PotionDetails.DIRECT_CODEC.listOf()
 						.optionalFieldOf("potion_details", emptyList())
@@ -249,7 +250,7 @@ data class Gene(
 
 		val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Gene> = StreamCodec.composite(
 			ByteBufCodecs.INT, Gene::dnaPointsRequired,
-			ImprovedEntityPredicate.STREAM_CODEC, Gene::allowedEntities,
+			EntityPredicate.STREAM_CODEC, Gene::allowedEntities,
 			PotionDetails.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::potionDetails,
 			AttributeEntry.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::attributeModifiers,
 			ByteBufCodecs.optional(AaronExtraCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE)), Gene::scaresEntitiesWithTag,
