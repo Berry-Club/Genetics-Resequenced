@@ -89,10 +89,9 @@ class DnaDecryptorBlockEntity(
 	}
 
 	private fun getPossibleGenes(input: ItemStack, registries: HolderLookup.Provider): List<Holder<Gene>> {
-		val basic = ModGenes.BASIC.getHolderOrThrow(registries)
-		val mobType = EntityDnaItem.getEntityType(input) ?: return listOf(basic)
+		val snapshot = EntityDnaItem.getEntitySnapshot(input) ?: return listOf(ModGenes.BASIC.getHolderOrThrow(registries))
 
-		val genesFromMob = EntityGenes.getGeneHolderWeights(mobType, registries)
+		val genesFromMob = EntityGenes.getGeneHolderWeights(snapshot, registries)
 
 		return genesFromMob
 			.map { it.key }

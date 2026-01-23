@@ -6,7 +6,6 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setEntityType
 import dev.aaronhowser.mods.geneticsresequenced.menu.dna_extractor.DnaExtractorMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -55,15 +54,9 @@ class DnaExtractorBlockEntity(
 		}
 
 		if (input.isItem(ModItems.CELL)) {
-			val mobType = EntityDnaItem.getEntityType(input) ?: return null
+			val entitySnapshot = EntityDnaItem.getEntitySnapshot(input) ?: return null
 			val dnaStack = ModItems.DNA_HELIX.toStack()
-
-			val setWorked = setEntityType(dnaStack, mobType)
-			if (!setWorked) {
-				GeneticsResequenced.LOGGER.error("A DNA Extractor tried to set an invalid entity type at ${blockPos.x}, ${blockPos.y}, ${blockPos.z}: ${mobType.descriptionId}")
-				return null
-			}
-
+			EntityDnaItem.setEntitySnapshot(dnaStack, entitySnapshot)
 			return dnaStack
 		}
 
