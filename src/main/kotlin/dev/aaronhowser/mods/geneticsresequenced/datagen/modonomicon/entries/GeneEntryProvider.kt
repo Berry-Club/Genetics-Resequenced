@@ -56,20 +56,22 @@ abstract class GeneEntryProvider : BaseEntryProvider {
 	final override fun generatePages() {
 		firstPages()
 
-		val canMobsHaveText = if (geneHolder.value().allowedEntities.any { it.value() !== EntityType.PLAYER }) {
-			"This Gene ${minor("can be given to mobs")}."
-		} else {
-			"This Gene ${bad("cannot be given to mobs")}."
-		}
+		// TODO
 
-		val plasmid = ModItems.PLASMID.toStack()
-		PlasmidItem.setGene(plasmid, geneHolder)
-		PlasmidItem.setDnaPoints(plasmid, geneHolder.value().dnaPointsRequired)
-
-		spotlightPage(
-			plasmid,
-			canMobsHaveText,
-		)
+//		val canMobsHaveText = if (geneHolder.value().allowedEntities.any { it.value() !== EntityType.PLAYER }) {
+//			"This Gene ${minor("can be given to mobs")}."
+//		} else {
+//			"This Gene ${bad("cannot be given to mobs")}."
+//		}
+//
+//		val plasmid = ModItems.PLASMID.toStack()
+//		PlasmidItem.setGene(plasmid, geneHolder)
+//		PlasmidItem.setDnaPoints(plasmid, geneHolder.value().dnaPointsRequired)
+//
+//		spotlightPage(
+//			plasmid,
+//			canMobsHaveText,
+//		)
 
 	}
 
