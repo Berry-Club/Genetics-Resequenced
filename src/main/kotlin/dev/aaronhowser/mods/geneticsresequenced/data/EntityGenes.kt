@@ -52,22 +52,19 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 	) {
 		ENTITY_GENES.clear()
 
-		for ((key: ResourceLocation, value: JsonElement) in pObject) {
+		for ((key, value) in pObject) {
+			println("Loading entity genes data for $key")
+
 			try {
-				val entityGenesData: EntityGenesData = EntityGenesData.CODEC.decode(
-					JsonOps.INSTANCE,
-					value
-				).getOrThrow {
-					IllegalArgumentException("Failed to decode entity genes for $key")
-				}.first
+				val entityGenesData: EntityGenesData = EntityGenesData.CODEC
+					.decode(JsonOps.INSTANCE, value)
+					.getOrThrow { error("Failed to decode entity genes for $key") }
+					.first
 
-				ENTITY_GENES[entityGenesData.entityPredicate] = entityGenesData.geneWeights
-
-				GeneticsResequenced.LOGGER.debug("Loaded gene-mob data for ${entityGenesData.entityPredicate.location()}, with ${entityGenesData.geneWeights.size} genes")
+				ENTITY_GENES.add(entityGenesData)
 			} catch (e: Exception) {
 				e.printStackTrace()
 			}
-
 		}
 	}
 
