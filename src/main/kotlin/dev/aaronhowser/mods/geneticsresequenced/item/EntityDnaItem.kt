@@ -107,5 +107,9 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 			return stack.get(ModDataComponents.ENTITY_SNAPSHOT.get())
 		}
 
+		fun hasEntitySnapshot(stack: ItemStack): Boolean {
+			return getEntitySnapshot(stack) != null
+		}
+
 	}
 }

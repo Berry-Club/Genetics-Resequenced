@@ -31,7 +31,7 @@ class DnaDecryptorMenu(
 	}
 
 	override fun inputFilter(inputStack: ItemStack): Boolean {
-		return inputStack.has(ModDataComponents.ENTITY_TYPE) && !inputStack.has(ModDataComponents.GENE)
+		return inputStack.has(ModDataComponents.ENTITY_SNAPSHOT) && !inputStack.has(ModDataComponents.GENE)
 	}
 
 }

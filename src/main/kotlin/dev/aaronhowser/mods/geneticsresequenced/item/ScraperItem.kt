@@ -7,7 +7,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModDamageTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
-import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem.Companion.setEntityType
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.server.level.ServerPlayer
@@ -101,15 +100,7 @@ class ScraperItem(properties: Properties) : Item(properties) {
 			if (target is LivingEntity && target.hurtTime > 0) return false
 
 			val organicStack = ModItems.ORGANIC_MATTER.toStack()
-			val successfullySetEntity = setEntityType(organicStack, target.type)
-
-			if (!successfullySetEntity) {
-				player.displayClientMessage(
-					ModMessageLang.SCRAPER_CANT_SCRAPE.toComponent(target.type.description),
-					true
-				)
-				return false
-			}
+			EntityDnaItem.setEntitySnapshot(organicStack, target)
 
 			if (!player.inventory.add(organicStack)) {
 				player.drop(organicStack, false)

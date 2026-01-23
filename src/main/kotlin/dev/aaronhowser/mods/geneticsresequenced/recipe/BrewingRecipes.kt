@@ -52,11 +52,11 @@ object BrewingRecipes {
 			)
 		}
 
-		val itemEntity = EntityDnaItem.getEntityType(stack)
-		if (itemEntity != null) {
+		val stackEntity = EntityDnaItem.getEntitySnapshot(stack)?.entityType
+		if (stackEntity != null) {
 			event.toolTip.add(
 				ModTooltipLang.HELIX_ENTITY
-					.toComponent(itemEntity.description)
+					.toComponent(stackEntity.description)
 					.withStyle(Style.EMPTY.withColor(ChatFormatting.GRAY))
 			)
 		}

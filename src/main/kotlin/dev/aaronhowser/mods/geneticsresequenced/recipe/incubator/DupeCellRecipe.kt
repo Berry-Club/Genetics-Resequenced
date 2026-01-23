@@ -37,7 +37,7 @@ class DupeCellRecipe(
 		if (!this.topIngredient.test(topStack)) return false
 		if (!this.bottomIngredient.test(potionStack)) return false
 
-		return EntityDnaItem.hasEntity(topStack)
+		return EntityDnaItem.hasEntitySnapshot(topStack)
 	}
 
 	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {

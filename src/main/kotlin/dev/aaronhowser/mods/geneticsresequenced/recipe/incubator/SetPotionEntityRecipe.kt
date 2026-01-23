@@ -28,20 +28,20 @@ object SetPotionEntityRecipe : AbstractIncubatorRecipe(
 		if (!this.topIngredient.test(cellStack)) return false
 		if (!this.bottomIngredient.test(potionStack)) return false
 
-		val topEntity = EntityDnaItem.getEntityType(cellStack) ?: return false
-		val bottomEntity = EntityDnaItem.getEntityType(potionStack) ?: return true
+		val topEntitySnapshot = EntityDnaItem.getEntitySnapshot(cellStack) ?: return false
+		val bottomEntitySnapshot = EntityDnaItem.getEntitySnapshot(potionStack) ?: return true
 
-		return topEntity != bottomEntity
+		return topEntitySnapshot != bottomEntitySnapshot
 	}
 
 	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
 		val topItem = input.getTopItem()
 		val bottomItem = input.getBottomItem()
 
-		val topEntity = EntityDnaItem.getEntityType(topItem) ?: return ItemStack.EMPTY
+		val topEntitySnapshot = EntityDnaItem.getEntitySnapshot(topItem) ?: return ItemStack.EMPTY
 
 		val output = bottomItem.copy()
-		EntityDnaItem.setEntityType(output, topEntity)
+		EntityDnaItem.setEntitySnapshot(output, topEntitySnapshot)
 		return output
 	}
 
