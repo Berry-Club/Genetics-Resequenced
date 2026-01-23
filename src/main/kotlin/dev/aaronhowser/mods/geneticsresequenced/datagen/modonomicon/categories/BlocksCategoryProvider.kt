@@ -4,6 +4,7 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
+import dev.aaronhowser.mods.aaron.entity.predicate.snapshot.EntitySnapshot
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.BaseEntryProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
@@ -161,7 +162,7 @@ class BlocksCategoryProvider(
 				val gmoStack = ModItems.GMO_CELL.toStack()
 				GmoCell.setDetails(
 					gmoStack,
-					EntityType.IRON_GOLEM,
+					EntitySnapshot(EntityType.IRON_GOLEM),
 					ModGenes.REGENERATION.getHolderOrThrow(registries())
 				)
 

@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.entity.predicate.snapshot.EntitySnapshot
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
@@ -62,8 +63,8 @@ class GmoRecipe(
 
 		GmoCell.setDetails(
 			output,
-			this.entityType,
-			this.idealGeneRk.getHolderOrThrow(lookup)
+			EntitySnapshot(entityType),
+			idealGeneRk.getHolderOrThrow(lookup)
 		)
 
 		return output
@@ -74,7 +75,7 @@ class GmoRecipe(
 
 		GmoCell.setDetails(
 			output,
-			this.entityType,
+			EntitySnapshot(entityType),
 			ModGenes.BASIC.getHolderOrThrow(lookup)
 		)
 

@@ -4,6 +4,7 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
+import dev.aaronhowser.mods.aaron.entity.predicate.snapshot.EntitySnapshot
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.BaseEntryProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
@@ -585,7 +586,7 @@ class ItemsCategoryProvider(
 					ModGenes.BIOLUMINESCENCE.getHolderOrThrow(registries())
 
 				val gmoStack = ModItems.GMO_CELL.toStack()
-				GmoCell.setDetails(gmoStack, EntityType.BLAZE, bioluminescence)
+				GmoCell.setDetails(gmoStack, EntitySnapshot(EntityType.BLAZE), bioluminescence)
 
 				spotlightPage(
 					gmoStack,
