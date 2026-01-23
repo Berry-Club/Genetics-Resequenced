@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
+import dev.aaronhowser.mods.aaron.entity.predicate.snapshot.EntitySnapshot
 import dev.aaronhowser.mods.aaron.registry.AaronDataComponentRegistry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -62,6 +63,13 @@ object ModDataComponents : AaronDataComponentRegistry() {
 			"plasmid_progress",
 			PlasmidProgressItemComponent.CODEC,
 			PlasmidProgressItemComponent.STREAM_CODEC
+		)
+
+	val ENTITY_SNAPSHOT: DeferredHolder<DataComponentType<*>, DataComponentType<EntitySnapshot>> =
+		register(
+			"entity_snapshot",
+			EntitySnapshot.CODEC,
+			EntitySnapshot.STREAM_CODEC
 		)
 
 }
