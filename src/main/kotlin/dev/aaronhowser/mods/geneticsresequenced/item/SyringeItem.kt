@@ -188,11 +188,8 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			val syringeEntityUuid = getEntityUuid(syringeStack) ?: return
 			if (entity.uuid != syringeEntityUuid) return
 
-			val genesToAdd = if (entity is Player) {
-				getGenes(syringeStack)
-			} else {
-				getGenes(syringeStack).filter { it.value().allowsMobs }.toSet()
-			}
+			val syringeGenes = getGenes(syringeStack)
+			val genesToAdd = syringeGenes.filter { it.value().canEntityHave(entity) }.toSet()
 
 			val genesToRemove = getAntigenes(syringeStack)
 
