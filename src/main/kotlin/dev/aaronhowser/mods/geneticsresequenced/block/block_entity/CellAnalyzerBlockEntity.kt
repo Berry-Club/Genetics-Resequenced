@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withComponent
 import dev.aaronhowser.mods.aaron.misc.ImprovedSimpleContainer
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.menu.cell_analyzer.CellAnalyzerMenu
@@ -52,14 +51,12 @@ class CellAnalyzerBlockEntity(
 	//TODO: Make sure it works if things are in the output
 	override fun craftItem() {
 		val inputStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
-		val mobType = EntityDnaItem.getEntityType(inputStack) ?: return
+		val entitySnapshot = EntityDnaItem.getEntitySnapshot(inputStack) ?: return
 
-		val outputStack = ModItems.CELL.get().defaultInstance
-		val setWorked = EntityDnaItem.setEntityType(outputStack, mobType)
-		if (!setWorked) {
-			GeneticsResequenced.LOGGER.error("A Cell Analyzer tried to set an invalid entity type at ${blockPos.x}, ${blockPos.y}, ${blockPos.z}: ${mobType.descriptionId}")
-			return
-		}
+		val outputStack = ModItems.CELL.withComponent(
+			ModDataComponents.ENTITY_SNAPSHOT.get(),
+			entitySnapshot
+		)
 
 		itemHandler.extractItem(INPUT_SLOT_INDEX, 1, false)
 		itemHandler.insertItem(OUTPUT_SLOT_INDEX, outputStack, false)

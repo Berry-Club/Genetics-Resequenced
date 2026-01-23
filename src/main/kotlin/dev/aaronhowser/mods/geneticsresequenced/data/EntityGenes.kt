@@ -6,6 +6,7 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.JsonOps
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.aaron.entity.predicate.EntityPredicate
+import dev.aaronhowser.mods.aaron.entity.predicate.snapshot.EntitySnapshot
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -107,8 +108,13 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 			}.toMap()
 		}
 
-		fun getGeneResourceKeyWeights(entityType: EntityType<*>): Map<ResourceKey<Gene>, Int> {
-			return ENTITY_GENE_MAP[entityType] ?: mapOf(ModGenes.BASIC to 1)
+		fun getGeneResourceKeyWeights(entitySnapshot: EntitySnapshot): Map<ResourceKey<Gene>, Int> {
+			return ENTITY_GENE_MAP
+				.asSequence()
+				.filter { (predicate, _) -> predicate.test(entitySnapshot) }
+				.flatMap { it.value.asSequence() }
+				.groupingBy { it.key }
+				.fold(0) { acc, (_, weight) -> acc + weight }
 		}
 
 		fun getGeneHolderWeights(entityType: EntityType<*>, registries: HolderLookup.Provider): Map<Holder<Gene>, Int> {
