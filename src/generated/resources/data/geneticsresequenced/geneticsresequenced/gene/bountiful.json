@@ -1,13 +1,16 @@
 {
   "allowed_entities": {
-    "type": "neoforge:and",
-    "values": [
+    "type": "and",
+    "and": [
       {
-        "type": "neoforge:any"
+        "type": "always"
       },
       {
-        "type": "neoforge:not",
-        "value": "minecraft:player"
+        "type": "not",
+        "not": {
+          "type": "detailed",
+          "entity_type": "minecraft:player"
+        }
       }
     ]
   },
