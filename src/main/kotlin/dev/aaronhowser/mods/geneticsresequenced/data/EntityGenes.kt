@@ -26,20 +26,6 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 	DIRECTORY
 ) {
 
-	private fun addGeneWeights(
-		entityRk: ResourceKey<EntityType<*>>,
-		newGeneWeights: Map<ResourceKey<Gene>, Int>
-	) {
-		val entityType = BuiltInRegistries.ENTITY_TYPE.get(entityRk)!!
-		val currentGenes = ENTITY_GENE_MAP[entityType]?.toMutableMap() ?: mutableMapOf()
-
-		for ((gene, weight) in newGeneWeights) {
-			currentGenes[gene] = currentGenes[gene]?.plus(weight) ?: weight
-		}
-
-		ENTITY_GENE_MAP[entityType] = currentGenes
-	}
-
 	data class EntityGenesData(
 		val entityPredicate: EntityPredicate,
 		val geneWeights: Map<ResourceKey<Gene>, Int>
@@ -59,6 +45,20 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 				).apply(instance, ::EntityGenesData)
 			}
 		}
+	}
+
+	private fun addGeneWeights(
+		entityRk: ResourceKey<EntityType<*>>,
+		newGeneWeights: Map<ResourceKey<Gene>, Int>
+	) {
+		val entityType = BuiltInRegistries.ENTITY_TYPE.get(entityRk)!!
+		val currentGenes = ENTITY_GENE_MAP[entityType]?.toMutableMap() ?: mutableMapOf()
+
+		for ((gene, weight) in newGeneWeights) {
+			currentGenes[gene] = currentGenes[gene]?.plus(weight) ?: weight
+		}
+
+		ENTITY_GENE_MAP[entityType] = currentGenes
 	}
 
 	override fun apply(
@@ -102,9 +102,10 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 
 		private val ENTITY_GENE_MAP: MutableMap<EntityPredicate, Map<ResourceKey<Gene>, Int>> = mutableMapOf()
 
-		fun getEntityGeneHolderMap(registries: HolderLookup.Provider): Map<EntityPredicate, Map<Holder<Gene>, Int>> {
-			return ENTITY_GENE_MAP.map { (entityPredicate, _) ->
-				entityPredicate to getGeneHolderWeights(entityPredicate, registries)
+		fun getEntityGeneHolderMap(registries: HolderLookup.Provider): Map<EntityPredicate, Map<Holder.Reference<Gene>, Int>> {
+			return ENTITY_GENE_MAP.map { (predicate, rkMap) ->
+				val holderMap = rkMap.map { (rk, weight) -> rk.getHolderOrThrow(registries) to weight }.toMap()
+				predicate to holderMap
 			}.toMap()
 		}
 
@@ -117,8 +118,8 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 				.fold(0) { acc, (_, weight) -> acc + weight }
 		}
 
-		fun getGeneHolderWeights(entityType: EntityType<*>, registries: HolderLookup.Provider): Map<Holder<Gene>, Int> {
-			val geneWeights = getGeneResourceKeyWeights(entityType)
+		fun getGeneHolderWeights(entitySnapshot: EntitySnapshot, registries: HolderLookup.Provider): Map<Holder<Gene>, Int> {
+			val geneWeights = getGeneResourceKeyWeights(entitySnapshot)
 
 			return geneWeights.map { (resourceKey, weight) ->
 				resourceKey.getHolderOrThrow(registries) to weight
