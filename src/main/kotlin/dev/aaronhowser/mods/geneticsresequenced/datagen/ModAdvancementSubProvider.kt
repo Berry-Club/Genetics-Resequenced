@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.withComponent
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withComponent
 import dev.aaronhowser.mods.aaron.datagen.AaronAdvancementSubProvider
 import dev.aaronhowser.mods.geneticsresequenced.advancement.HelixGenePredicate
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModAdvancementLang

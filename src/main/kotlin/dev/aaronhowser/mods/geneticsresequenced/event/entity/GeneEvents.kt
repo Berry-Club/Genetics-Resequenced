@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.tell
-import dev.aaronhowser.mods.aaron.AaronExtensions.withHoverText
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withHoverText
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers

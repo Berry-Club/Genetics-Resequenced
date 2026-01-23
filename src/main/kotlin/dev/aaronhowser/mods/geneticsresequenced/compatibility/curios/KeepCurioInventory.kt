@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.curios
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.clearSavedInventory
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.getSavedInventory
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.saveInventory

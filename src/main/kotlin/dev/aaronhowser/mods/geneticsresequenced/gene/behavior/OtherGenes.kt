@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.chance
-import dev.aaronhowser.mods.aaron.AaronExtensions.isBlock
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.chance
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene

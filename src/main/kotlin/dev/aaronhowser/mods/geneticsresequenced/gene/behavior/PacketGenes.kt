@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.toVec3
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toVec3
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown

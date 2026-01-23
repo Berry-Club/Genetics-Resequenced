@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.menu.MenuWithButtons
 import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot

@@ -1,10 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
-import dev.aaronhowser.mods.aaron.AaronExtensions.isServerSide
-import dev.aaronhowser.mods.aaron.AaronExtensions.isTrue
-import dev.aaronhowser.mods.aaron.AaronExtensions.status
-import dev.aaronhowser.mods.aaron.AaronExtensions.withHoverText
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isTrue
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.status
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withHoverText
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced

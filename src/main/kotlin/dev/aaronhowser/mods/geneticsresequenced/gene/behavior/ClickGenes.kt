@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.chance
-import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
-import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
-import dev.aaronhowser.mods.aaron.AaronExtensions.nextRange
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.chance
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene

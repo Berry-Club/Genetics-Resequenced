@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.aaron.menu.components.OutputSlot
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity

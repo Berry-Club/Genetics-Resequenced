@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.entity
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.getUuidOrNull
-import dev.aaronhowser.mods.aaron.AaronExtensions.isClientSide
-import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getUuidOrNull
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
