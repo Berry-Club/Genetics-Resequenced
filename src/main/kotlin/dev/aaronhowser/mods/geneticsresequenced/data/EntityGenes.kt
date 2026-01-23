@@ -13,13 +13,11 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
-import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.packs.resources.ResourceManager
 import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener
 import net.minecraft.util.profiling.ProfilerFiller
-import net.minecraft.world.entity.EntityType
 
 class EntityGenes : SimpleJsonResourceReloadListener(
 	GsonBuilder().setPrettyPrinting().create(),
@@ -47,26 +45,12 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 		}
 	}
 
-	private fun addGeneWeights(
-		entityRk: ResourceKey<EntityType<*>>,
-		newGeneWeights: Map<ResourceKey<Gene>, Int>
-	) {
-		val entityType = BuiltInRegistries.ENTITY_TYPE.get(entityRk)!!
-		val currentGenes = ENTITY_GENE_MAP[entityType]?.toMutableMap() ?: mutableMapOf()
-
-		for ((gene, weight) in newGeneWeights) {
-			currentGenes[gene] = currentGenes[gene]?.plus(weight) ?: weight
-		}
-
-		ENTITY_GENE_MAP[entityType] = currentGenes
-	}
-
 	override fun apply(
 		pObject: MutableMap<ResourceLocation, JsonElement>,
 		pResourceManager: ResourceManager,
 		pProfiler: ProfilerFiller
 	) {
-		ENTITY_GENE_MAP.clear()
+		ENTITY_GENES.clear()
 
 		for ((key: ResourceLocation, value: JsonElement) in pObject) {
 			try {
@@ -77,16 +61,7 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 					IllegalArgumentException("Failed to decode entity genes for $key")
 				}.first
 
-				val entityName = entityGenesData.entityPredicate.location().path
-				val fileName = key.toString().split(":")[1]
-				if (entityName != fileName) {
-					GeneticsResequenced.LOGGER.warn("Gene-mob data for $key has the entity $entityName instead of $fileName. This may be a mistake.")
-				}
-
-				addGeneWeights(
-					entityGenesData.entityPredicate,
-					entityGenesData.geneWeights
-				)
+				ENTITY_GENES[entityGenesData.entityPredicate] = entityGenesData.geneWeights
 
 				GeneticsResequenced.LOGGER.debug("Loaded gene-mob data for ${entityGenesData.entityPredicate.location()}, with ${entityGenesData.geneWeights.size} genes")
 			} catch (e: Exception) {
@@ -99,23 +74,16 @@ class EntityGenes : SimpleJsonResourceReloadListener(
 	companion object {
 		const val DIRECTORY = GeneticsResequenced.ID + "/entity_genes"
 
-
-		private val ENTITY_GENE_MAP: MutableMap<EntityPredicate, Map<ResourceKey<Gene>, Int>> = mutableMapOf()
-
-		fun getEntityGeneHolderMap(registries: HolderLookup.Provider): Map<EntityPredicate, Map<Holder.Reference<Gene>, Int>> {
-			return ENTITY_GENE_MAP.map { (predicate, rkMap) ->
-				val holderMap = rkMap.map { (rk, weight) -> rk.getHolderOrThrow(registries) to weight }.toMap()
-				predicate to holderMap
-			}.toMap()
-		}
+		private val ENTITY_GENES: MutableList<EntityGenesData> = mutableListOf()
+		fun getEntityGenesData(): List<EntityGenesData> = ENTITY_GENES.toList()
 
 		fun getGeneResourceKeyWeights(entitySnapshot: EntitySnapshot): Map<ResourceKey<Gene>, Int> {
-			return ENTITY_GENE_MAP
+			return ENTITY_GENES
 				.asSequence()
-				.filter { (predicate, _) -> predicate.test(entitySnapshot) }
-				.flatMap { it.value.asSequence() }
+				.filter { (predicate, _) -> predicate.test(entitySnapshot) } // Get just the data that matches the entity
+				.flatMap { (_, geneWeights) -> geneWeights.entries } // Just get their gene weights
 				.groupingBy { it.key }
-				.fold(0) { acc, (_, weight) -> acc + weight }
+				.fold(0) { acc, entry -> acc + entry.value } // Sum up weights for the same gene
 		}
 
 		fun getGeneHolderWeights(entitySnapshot: EntitySnapshot, registries: HolderLookup.Provider): Map<Holder<Gene>, Int> {
