@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine.incubator
 
+import dev.aaronhowser.mods.aaron.entity.predicate.snapshot.EntitySnapshot
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModRecipeLang
@@ -49,7 +50,7 @@ class DupeCellEmiRecipe(
 				val gmoCellStack = ModItems.GMO_CELL.toStack()
 				GmoCell.setDetails(
 					gmoCellStack,
-					entityType,
+					EntitySnapshot(entityType),
 					goodGene.getHolderOrThrow(ClientUtil.localRegistryAccess!!)
 				)
 
@@ -75,7 +76,7 @@ class DupeCellEmiRecipe(
 	override fun getId(): ResourceLocation {
 		var string = "/substrate_dupe/"
 
-		val entityType = EntityDnaItem.getEntityType(cellStack) ?: error("Cell stack has no entity type!")
+		val entityType = EntityDnaItem.getEntitySnapshot(cellStack)?.entityType ?: error("Cell stack has no entity type!")
 		val entityTypeString = EntityType.getKey(entityType).toString().replace(':', '/')
 
 		string += entityTypeString
