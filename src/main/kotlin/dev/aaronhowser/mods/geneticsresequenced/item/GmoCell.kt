@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.aaron.entity.predicate.snapshot.EntitySnapshot
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -7,7 +8,6 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
-import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
@@ -21,7 +21,7 @@ class GmoCell(properties: Properties) : Item(properties) {
 		pTooltipFlag: TooltipFlag
 	) {
 
-		val entityType = EntityDnaItem.getEntityType(pStack)
+		val entityType = EntityDnaItem.getEntitySnapshot(pStack)?.entityType
 		if (entityType != null) {
 			val entityComponent =
 				ModTooltipLang.CELL_MOB
@@ -55,10 +55,10 @@ class GmoCell(properties: Properties) : Item(properties) {
 	companion object {
 		fun setDetails(
 			itemStack: ItemStack,
-			entityType: EntityType<*>,
+			entitySnapshot: EntitySnapshot,
 			geneHolder: Holder<Gene>,
 		) {
-			EntityDnaItem.setEntityType(itemStack, entityType)
+			EntityDnaItem.setEntitySnapshot(itemStack, entitySnapshot)
 			DnaHelixItem.setGeneHolder(itemStack, geneHolder)
 		}
 	}

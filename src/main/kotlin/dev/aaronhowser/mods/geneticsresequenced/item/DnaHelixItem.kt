@@ -51,11 +51,11 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 				.withStyle(ChatFormatting.GRAY)
 		)
 
-		val entity = getEntityType(pStack)
-		if (entity != null) {
+		val entityType = getEntitySnapshot(pStack)?.entityType
+		if (entityType != null) {
 			pTooltipComponents.add(
 				ModTooltipLang.HELIX_ENTITY
-					.toComponent(entity.description)
+					.toComponent(entityType.description)
 					.withStyle(ChatFormatting.GRAY)
 			)
 		}
