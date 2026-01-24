@@ -1,10 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine
 
+import dev.aaronhowser.mods.aaron.entity.predicate.DetailedEntityPredicate
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -20,6 +22,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
+import kotlin.jvm.optionals.getOrNull
 
 class DecryptHelixEmiRecipe(
 	val entityType: EntityType<*>,
@@ -31,15 +34,34 @@ class DecryptHelixEmiRecipe(
 		fun getAllRecipes(): List<DecryptHelixEmiRecipe> {
 			val recipes = mutableListOf<DecryptHelixEmiRecipe>()
 
-			for ((entityType, map) in EntityGenes.getEntityGeneHolderMap(ClientUtil.localRegistryAccess!!)) {
-				val totalWeight = map.values.sum()
+			val registries = ClientUtil.localRegistryAccess ?: return emptyList()
 
-				for ((geneHolder, weight) in map) {
+			for ((predicate, weights) in EntityGenes.getEntityGenesData()) {
+				if (predicate !is DetailedEntityPredicate) continue
+				val entity = predicate.entityType.getOrNull() ?: continue
+
+				val totalWeight = weights.values.sum()
+
+				for ((geneRk, weight) in weights) {
+					val holder = geneRk.getHolderOrThrow(registries)
 					val chance = weight.toFloat() / totalWeight
 
-					recipes.add(DecryptHelixEmiRecipe(entityType, geneHolder, chance))
+//					recipes.add(DecryptHelixEmiRecipe())
 				}
+
 			}
+
+			//TODO
+
+//			for ((entityType, map) in EntityGenes.getEntityGeneHolderMap(ClientUtil.localRegistryAccess!!)) {
+//				val totalWeight = map.values.sum()
+//
+//				for ((geneHolder, weight) in map) {
+//					val chance = weight.toFloat() / totalWeight
+//
+//					recipes.add(DecryptHelixEmiRecipe(entityType, geneHolder, chance))
+//				}
+//			}
 
 			return recipes.distinctBy(DecryptHelixEmiRecipe::getId)
 		}
