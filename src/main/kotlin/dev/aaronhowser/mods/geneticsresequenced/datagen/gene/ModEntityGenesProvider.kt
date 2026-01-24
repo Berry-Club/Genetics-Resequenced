@@ -1,14 +1,17 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.gene
 
+import dev.aaronhowser.mods.aaron.entity.predicate.DetailedEntityPredicate
+import dev.aaronhowser.mods.aaron.entity.predicate.EntityPredicate
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import net.minecraft.advancements.critereon.EntityTypePredicate
 import net.minecraft.core.HolderLookup
-import net.minecraft.core.registries.Registries
 import net.minecraft.data.PackOutput
 import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.server.packs.PackType
 import net.minecraft.world.entity.EntityType
 import net.neoforged.neoforge.common.data.ExistingFileHelper
@@ -34,12 +37,23 @@ class ModEntityGenesProvider(
 		entityType: EntityType<*>,
 		vararg geneWeights: Pair<ResourceKey<Gene>, Int>
 	) {
-		val entityRk = ResourceKey.create(Registries.ENTITY_TYPE, EntityType.getKey(entityType))
+		val predicate = DetailedEntityPredicate(entityType = EntityTypePredicate.of(entityType))
+		addEntityGenes(
+			predicate,
+			entityType.builtInRegistryHolder().key!!.location(),
+			*geneWeights
+		)
+	}
 
+	private fun addEntityGenes(
+		entityPredicate: EntityPredicate,
+		id: ResourceLocation,
+		vararg geneWeights: Pair<ResourceKey<Gene>, Int>
+	) {
 		this.unconditional(
-			entityRk.location(),
+			id,
 			EntityGenes.EntityGenesData(
-				entityRk,
+				entityPredicate,
 				geneWeights.toMap()
 			)
 		)
