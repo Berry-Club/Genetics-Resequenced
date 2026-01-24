@@ -60,23 +60,27 @@ class CellToHelixEmiRecipe(
 
 				recipes.add(CellToHelixEmiRecipe(goodGmoStack, goodHelix))
 
-				val recipeAlreadyExists = recipes.any {
-					EntityDnaItem.getEntityType(it.cellStack) == entityType
-							&& DnaHelixItem.getGeneHolder(it.helixStack).isGene(ModGenes.BASIC)
-				}
+				// TODO
 
-				if (recipeAlreadyExists) continue
+				continue
 
-				val badGmoStack = ModItems.GMO_CELL.toStack()
-				GmoCell.setDetails(
-					badGmoStack,
-					entityType,
-					ModGenes.BASIC.getHolderOrThrow(ClientUtil.localRegistryAccess!!)
-				)
-
-				val badHelix = DnaHelixItem.getHelixStack(ModGenes.BASIC, ClientUtil.localRegistryAccess!!)
-
-				recipes.add(CellToHelixEmiRecipe(badGmoStack, badHelix))
+//				val recipeAlreadyExists = recipes.any {
+//					EntityDnaItem.getEntityType(it.cellStack) == entityType
+//							&& DnaHelixItem.getGeneHolder(it.helixStack).isGene(ModGenes.BASIC)
+//				}
+//
+//				if (recipeAlreadyExists) continue
+//
+//				val badGmoStack = ModItems.GMO_CELL.toStack()
+//				GmoCell.setDetails(
+//					badGmoStack,
+//					entityType,
+//					ModGenes.BASIC.getHolderOrThrow(ClientUtil.localRegistryAccess!!)
+//				)
+//
+//				val badHelix = DnaHelixItem.getHelixStack(ModGenes.BASIC, ClientUtil.localRegistryAccess!!)
+//
+//				recipes.add(CellToHelixEmiRecipe(badGmoStack, badHelix))
 			}
 
 			return recipes.distinctBy(CellToHelixEmiRecipe::getId)
@@ -95,23 +99,25 @@ class CellToHelixEmiRecipe(
 		val stringBuilder = StringBuilder()
 			.append("/cell_to_helix/")
 
-		val entityType = EntityDnaItem.getEntityType(cellStack) ?: error("Invalid entity type")
-		val entityTypeRl = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
-		val entityString = entityTypeRl.toString().replace(':', '/')
-
-		stringBuilder.append(entityString)
-
-		if (cellStack.item == ModItems.GMO_CELL.get()) {
-			stringBuilder.append("/gmo/")
-
-			val geneHolder =
-				DnaHelixItem.getGeneHolder(helixStack) ?: error("Invalid gene")
-			val geneString = geneHolder.key!!.location().toString().replace(':', '/')
-
-			stringBuilder.append(geneString)
-		}
-
 		return OtherUtil.modResource(stringBuilder.toString())
+
+//		val entityType = EntityDnaItem.getEntityType(cellStack) ?: error("Invalid entity type")
+//		val entityTypeRl = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
+//		val entityString = entityTypeRl.toString().replace(':', '/')
+//
+//		stringBuilder.append(entityString)
+//
+//		if (cellStack.item == ModItems.GMO_CELL.get()) {
+//			stringBuilder.append("/gmo/")
+//
+//			val geneHolder =
+//				DnaHelixItem.getGeneHolder(helixStack) ?: error("Invalid gene")
+//			val geneString = geneHolder.key!!.location().toString().replace(':', '/')
+//
+//			stringBuilder.append(geneString)
+//		}
+//
+//		return OtherUtil.modResource(stringBuilder.toString())
 	}
 
 	override fun getInputs(): List<EmiIngredient> {
