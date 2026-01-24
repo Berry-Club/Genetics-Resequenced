@@ -1,7 +1,7 @@
 {
   "allowed_entities": {
-    "type": "detailed",
-    "entity_type": "minecraft:player"
+    "entity_type": "minecraft:player",
+    "predicate_type": "detailed"
   },
   "dna_points_required": 20
 }

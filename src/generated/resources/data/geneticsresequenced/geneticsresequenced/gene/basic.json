@@ -1,8 +1,8 @@
 {
   "allowed_entities": {
-    "type": "not",
     "not": {
-      "type": "always"
-    }
+      "predicate_type": "always"
+    },
+    "predicate_type": "not"
   }
 }

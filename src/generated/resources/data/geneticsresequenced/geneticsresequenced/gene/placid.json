@@ -1,18 +1,18 @@
 {
   "allowed_entities": {
-    "type": "and",
     "and": [
       {
-        "type": "always"
+        "predicate_type": "always"
       },
       {
-        "type": "not",
         "not": {
-          "type": "detailed",
-          "entity_type": "minecraft:player"
-        }
+          "entity_type": "minecraft:player",
+          "predicate_type": "detailed"
+        },
+        "predicate_type": "not"
       }
-    ]
+    ],
+    "predicate_type": "and"
   },
   "dna_points_required": 30,
   "incompatible_genes": [
