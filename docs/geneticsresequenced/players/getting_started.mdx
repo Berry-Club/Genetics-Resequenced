@@ -4,27 +4,27 @@
 
 **Genes** can be taken from mobs to harness their abilities.
 
-For example, Sheep have the [Wooly](@geneticsresequenced:wooly) Gene. If you inject this Gene into yourself, you will be able to be sheared for Wool just like a sheep!
+For example, Sheep have the [Wooly](../.content/genes/wooly) Gene. If you inject this Gene into yourself, you will be able to be sheared for Wool just like a sheep!
 
 ## Getting Genes
 
 Getting Genes is a rather involved process, requiring quite a bit of infrastructure.
 
-First, you'll need a [Scraper](@geneticsresequenced:scraper). This tool can be used on entities to collect [Organic Matter](@geneticsresequenced:organic_matter) from them.
+First, you'll need a [Scraper](../.content/items/scraper). This tool can be used on entities to collect [Organic Matter](../.content/items/organic_matter) from them.
 
 The Organic Matter has the entity type attached to it. This is what decides what Genes you can get from it.
 
-Next, you'll need to process this through a [Cell Analyzer](@geneticsresequenced:cell_analyzer) to get [Cells](@geneticsresequenced:cell). These Cells also contain the entity type.
+Next, you'll need to process this through a [Cell Analyzer](../.content/blocks/machines/cell_analyzer) to get [Cells](../.content/items/cell). These Cells also contain the entity type.
 
 ### Discovering Genes
 
-Process Cells through a [DNA Extractor](@geneticsresequenced:dna_extractor) to get [DNA Helices](@geneticsresequenced:dna_helix).
+Process Cells through a [DNA Extractor](../.content/blocks/machines/dna_extractor) to get [DNA Helices](../.content/items/dna_helix).
 
-To begin with, a DNA Helix knows what entity it came from, but not what Gene it has inside it. To find out, you'll have to process it through a [DNA Decryptor](@geneticsresequenced:dna_decryptor).
+To begin with, a DNA Helix knows what entity it came from, but not what Gene it has inside it. To find out, you'll have to process it through a [DNA Decryptor](../.content/blocks/machines/dna_decryptor).
 
 Each entity type has a set of possible Genes it can provide. Each Gene also has a specific weight, so some Genes are more common than others.
 
-You can find out what Genes and their weights an entity type can provide by using a [Gene Checker](@geneticsresequenced:gene_checker) on it.
+You can find out what Genes and their weights an entity type can provide by using a [Gene Checker](../.content/items/gene_checker) on it.
 
 For example, using it on a Pig will show something along the lines of:
 
@@ -38,7 +38,7 @@ To see what mobs can provide a Gene, you can use [EMI](https://www.curseforge.co
 
 ### Collecting Genes
 
-Get a [Plasmid Infuser](@geneticsresequenced:plasmid_infuser), and place an empty [Plasmid](@geneticsresequenced:plasmid) in its right slot.
+Get a [Plasmid Infuser](../.content/blocks/machines/plasmid_infuser), and place an empty [Plasmid](../.content/items/plasmid) in its right slot.
 
 Plasmids require a certain amount of DNA Points to completely set a Gene. Each Gene requires a different amount of DNA Points.
 
@@ -50,18 +50,18 @@ When the Plasmid has enough DNA Points, it will be marked as complete and can be
 
 ### Injecting Genes
 
-First, get a [Syringe](@geneticsresequenced:syringe) (or, if you want to give the Genes to someone else like a mob, a [Metal Syringe](@geneticsresequenced:metal_syringe)).
+First, get a [Syringe](../.content/items/syringe) (or, if you want to give the Genes to someone else like a mob, a [Metal Syringe](../.content/items/metal_syringe)).
 
 Hold right-click to fill it with blood. Later, you'll put Genes into this blood and inject it back into the blood's owner, and thus give them the Genes.
 
-Before that though, the Syringe is contaminated. Before it can be used, it needs to be sterilized in the [Blood Purifier](@geneticsresequenced:blood_purifier).
+Before that though, the Syringe is contaminated. Before it can be used, it needs to be sterilized in the [Blood Purifier](../.content/blocks/machines/blood_purifier).
 
-Now, place the Syringe in the right slot of a [Plasmid Injector](@geneticsresequenced:plasmid_injector), and a completed Plasmid in the left slot. The Gene carried by the Plasmid will be injected into the blood in the Syringe. A Syringe can hold any amount of Plasmids.
+Now, place the Syringe in the right slot of a [Plasmid Injector](../.content/blocks/machines/plasmid_injector), and a completed Plasmid in the left slot. The Gene carried by the Plasmid will be injected into the blood in the Syringe. A Syringe can hold any amount of Plasmids.
 
 Finally, take the Syringe out and re-inject it back into the blood's owner to give them the Genes!
 
 ## Removing Genes
 
-Genes can be removed using [Anti-Plasmids](@geneticsresequenced:anti_plasmid). These function nearly identically to regular Plasmid, inserted into Syringes via the Plasmid Injector etc.
+Genes can be removed using [Anti-Plasmids](../.content/items/anti_plasmid). These function nearly identically to regular Plasmid, inserted into Syringes via the Plasmid Injector etc.
 
 To choose the Gene to remove, craft the Anti-Plasmid with a completed Plasmid of the Gene you wish to remove.
