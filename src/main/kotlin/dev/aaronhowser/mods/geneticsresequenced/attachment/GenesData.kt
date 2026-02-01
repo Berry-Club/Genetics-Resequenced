@@ -130,6 +130,11 @@ data class GenesData(
 			return true
 		}
 
+		@JvmStatic
+		fun LivingEntity.addGene(newGeneKey: ResourceKey<Gene>): Boolean {
+			val holder = ModGenes.fromResourceKey(registryAccess(), newGeneKey) ?: return false
+			return this.addGene(holder)
+		}
 
 		@JvmStatic
 		fun LivingEntity.removeGene(removedGeneHolder: Holder<Gene>): Boolean {
@@ -148,6 +153,12 @@ data class GenesData(
 			FORGE_BUS.post(eventPost)
 
 			return true
+		}
+
+		@JvmStatic
+		fun LivingEntity.removeGene(removedGeneKey: ResourceKey<Gene>): Boolean {
+			val holder = ModGenes.fromResourceKey(registryAccess(), removedGeneKey) ?: return false
+			return this.removeGene(holder)
 		}
 
 		@JvmStatic
