@@ -6,13 +6,16 @@ While the mod doesn't explicitly have KubeJS support, it's relatively simple to 
 
 https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/event/CustomEvents.kt
 
-### Gene Change Event
+### [Gene Change Events](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/event/custom/GeneChangeEvent.kt)
 
 ```js
-GeneChangeEvent.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent.Pre", event => {
-   let entity = event.entity
-   let gene = event.geneHolder
-   let isAddingGene = event.isAddingGene
+NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent$Pre", event => {
+	event.cancel()
+})
+```
+```js
+NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent$Post", event => {
+	event.entity.tell("Your genes have changed!")
 })
 ```
 
