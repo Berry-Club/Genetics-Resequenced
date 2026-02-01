@@ -1,4 +1,5 @@
 {
+  "gene": "geneticsresequenced:bountiful_2",
   "requirements": [
     "geneticsresequenced:bountiful"
   ]

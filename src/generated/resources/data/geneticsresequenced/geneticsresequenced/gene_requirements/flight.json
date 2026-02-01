@@ -1,4 +1,5 @@
 {
+  "gene": "geneticsresequenced:flight",
   "requirements": [
     "geneticsresequenced:teleport",
     "geneticsresequenced:step_assist",

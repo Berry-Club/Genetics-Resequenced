@@ -16,12 +16,12 @@ class ModGeneRequirementsProvider(
 	output: PackOutput,
 	lookupProvider: CompletableFuture<HolderLookup.Provider>,
 	existingFileHelper: ExistingFileHelper
-) : JsonCodecProvider<GeneRequirements.GeneRequirementsData>(
+) : JsonCodecProvider<GeneRequirements>(
 	output,
 	PackOutput.Target.DATA_PACK,
 	"geneticsresequenced/gene_requirements",
 	PackType.SERVER_DATA,
-	GeneRequirements.GeneRequirementsData.CODEC,
+	GeneRequirements.CODEC,
 	lookupProvider,
 	GeneticsResequenced.ID,
 	existingFileHelper
@@ -33,7 +33,8 @@ class ModGeneRequirementsProvider(
 	) {
 		unconditional(
 			geneRk.location(),
-			GeneRequirements.GeneRequirementsData(
+			GeneRequirements(
+				geneRk,
 				requirements.toList()
 			)
 		)

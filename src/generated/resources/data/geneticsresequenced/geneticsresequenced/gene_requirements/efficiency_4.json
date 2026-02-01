@@ -1,4 +1,5 @@
 {
+  "gene": "geneticsresequenced:efficiency_4",
   "requirements": [
     "geneticsresequenced:efficiency"
   ]

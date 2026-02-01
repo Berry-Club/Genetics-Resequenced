@@ -56,8 +56,8 @@ object CommonEvents {
 
 		event.dataPackRegistry(
 			GeneRequirements.REGISTRY_KEY,
-			GeneRequirements.GeneRequirementsData.CODEC,
-			GeneRequirements.GeneRequirementsData.CODEC
+			GeneRequirements.CODEC,
+			GeneRequirements.CODEC
 		)
 	}
 

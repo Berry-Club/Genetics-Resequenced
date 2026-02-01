@@ -1,4 +1,5 @@
 {
+  "gene": "geneticsresequenced:claws_2",
   "requirements": [
     "geneticsresequenced:claws"
   ]
