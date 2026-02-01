@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThr
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.Registry
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
@@ -77,6 +78,11 @@ data class EntityGenes(
 			}
 
 			return result
+		}
+
+		fun getAllWeights(registries: HolderLookup.Provider): Map<EntityType<*>, Map<Holder<Gene>, Int>> {
+			return BuiltInRegistries.ENTITY_TYPE.asSequence()
+				.associateWith { entityType -> getGeneHolderWeights(entityType, registries) }
 		}
 
 	}

@@ -31,7 +31,7 @@ class DecryptHelixEmiRecipe(
 		fun getAllRecipes(): List<DecryptHelixEmiRecipe> {
 			val recipes = mutableListOf<DecryptHelixEmiRecipe>()
 
-			for ((entityType, map) in EntityGenes.getEntityGeneHolderMap(ClientUtil.localRegistryAccess!!)) {
+			for ((entityType, map) in EntityGenes.getAllWeights(ClientUtil.localRegistryAccess!!)) {
 				val totalWeight = map.values.sum()
 
 				for ((geneHolder, weight) in map) {
