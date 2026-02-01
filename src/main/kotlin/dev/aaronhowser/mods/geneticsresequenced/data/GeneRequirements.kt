@@ -15,7 +15,7 @@ import net.minecraft.resources.ResourceLocation
 import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
 import kotlin.jvm.optionals.getOrNull
 
-class GeneRequirements(
+data class GeneRequirements(
 	val gene: ResourceKey<Gene>,
 	val requirements: List<ResourceKey<Gene>>
 ) {

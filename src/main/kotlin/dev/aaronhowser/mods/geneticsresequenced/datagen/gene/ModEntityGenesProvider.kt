@@ -19,12 +19,12 @@ class ModEntityGenesProvider(
 	output: PackOutput,
 	lookupProvider: CompletableFuture<HolderLookup.Provider>,
 	existingFileHelper: ExistingFileHelper
-) : JsonCodecProvider<EntityGenes.EntityGenesData>(
+) : JsonCodecProvider<EntityGenes>(
 	output,
 	PackOutput.Target.DATA_PACK,
-	EntityGenes.DIRECTORY,
+	"geneticsresequenced/entity_genes",
 	PackType.SERVER_DATA,
-	EntityGenes.EntityGenesData.CODEC,
+	EntityGenes.CODEC,
 	lookupProvider,
 	GeneticsResequenced.ID,
 	existingFileHelper
@@ -38,7 +38,7 @@ class ModEntityGenesProvider(
 
 		this.unconditional(
 			entityRk.location(),
-			EntityGenes.EntityGenesData(
+			EntityGenes(
 				entityRk,
 				geneWeights.toMap()
 			)
