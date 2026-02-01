@@ -9,6 +9,7 @@
 - Cell Duplication recipes now make more than 1 Cell (#82)
 	- A regular Cell will craft 8
 	- A GMO Cell will craft 4
+- Gene Requirements are now a datapack registry
 
 ### Fixed
 

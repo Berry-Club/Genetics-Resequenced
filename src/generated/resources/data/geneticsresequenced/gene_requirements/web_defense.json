@@ -1,5 +1,4 @@
 {
-  "gene": "geneticsresequenced:web_defense",
   "requirements": [
     "geneticsresequenced:weaving"
   ]

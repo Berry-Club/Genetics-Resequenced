@@ -54,7 +54,7 @@ object ModEmiInformationRecipes {
 			val geneDesc = Component.translatable(translationKey)
 			components.add(geneDesc)
 
-			val requiredGeneHolders = GeneRequirements.getGeneRequiredGeneHolders(geneHolder, registries)
+			val requiredGeneHolders = GeneRequirements.getRequiredGeneHolders(geneHolder, registries)
 
 			if (requiredGeneHolders.isNotEmpty()) {
 				components.add(Component.literal("\n"))

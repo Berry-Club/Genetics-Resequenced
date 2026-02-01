@@ -1,0 +1,6 @@
+{
+  "requirements": [
+    "geneticsresequenced:speed",
+    "geneticsresequenced:speed_2"
+  ]
+}

@@ -54,7 +54,7 @@ object GeneEvents {
 		val entityGeneHolders = entity.permanentGeneHolders
 
 		for (geneHolder in entityGeneHolders) {
-			val genesWithMissingRequirements = GeneRequirements.getGeneRequiredGeneHolders(
+			val genesWithMissingRequirements = GeneRequirements.getRequiredGeneHolders(
 				geneHolder,
 				entity.registryAccess()
 			).filter { it !in entityGeneHolders }
@@ -66,7 +66,7 @@ object GeneEvents {
 			val requiredGenesComponent =
 				ModMessageLang.MISSING_GENE_REQUIREMENTS_LIST.toComponent()
 
-			val missingGenes = GeneRequirements.getGeneRequiredGeneHolders(
+			val missingGenes = GeneRequirements.getRequiredGeneHolders(
 				geneHolder,
 				entity.registryAccess()
 			).filter { it !in entityGeneHolders }

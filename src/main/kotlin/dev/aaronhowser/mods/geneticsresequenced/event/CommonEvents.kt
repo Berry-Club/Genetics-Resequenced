@@ -39,7 +39,6 @@ object CommonEvents {
 	@SubscribeEvent
 	fun addReloadListeners(event: AddReloadListenerEvent) {
 		event.addListener(EntityGenes())
-		event.addListener(GeneRequirements())
 	}
 
 	@SubscribeEvent
@@ -53,6 +52,12 @@ object CommonEvents {
 			ModGenes.GENE_REGISTRY_KEY,
 			Gene.DIRECT_CODEC,
 			Gene.DIRECT_CODEC
+		)
+
+		event.dataPackRegistry(
+			GeneRequirements.REGISTRY_KEY,
+			GeneRequirements.GeneRequirementsData.CODEC,
+			GeneRequirements.GeneRequirementsData.CODEC
 		)
 	}
 

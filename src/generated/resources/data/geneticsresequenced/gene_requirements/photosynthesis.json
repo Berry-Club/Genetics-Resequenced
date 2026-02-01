@@ -1,0 +1,6 @@
+{
+  "requirements": [
+    "geneticsresequenced:eat_grass",
+    "geneticsresequenced:thorns"
+  ]
+}
