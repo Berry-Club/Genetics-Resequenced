@@ -19,7 +19,7 @@ class ModGeneRequirementsProvider(
 ) : JsonCodecProvider<GeneRequirements.GeneRequirementsData>(
 	output,
 	PackOutput.Target.DATA_PACK,
-	GeneRequirements.DIRECTORY,
+	"gene_requirements",
 	PackType.SERVER_DATA,
 	GeneRequirements.GeneRequirementsData.CODEC,
 	lookupProvider,
@@ -31,10 +31,9 @@ class ModGeneRequirementsProvider(
 		geneRk: ResourceKey<Gene>,
 		vararg requirements: ResourceKey<Gene>
 	) {
-		this.unconditional(
+		unconditional(
 			geneRk.location(),
 			GeneRequirements.GeneRequirementsData(
-				geneRk,
 				requirements.toList()
 			)
 		)
