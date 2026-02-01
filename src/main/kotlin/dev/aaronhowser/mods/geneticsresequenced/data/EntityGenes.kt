@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.Registry
@@ -68,6 +69,11 @@ data class EntityGenes(
 			for ((geneRk, weight) in resultRks) {
 				val geneHolder = geneRegistry.get(geneRk).getOrNull() ?: continue
 				result[geneHolder] = weight
+			}
+
+			if (result.isEmpty()) {
+				val basic = ModGenes.BASIC.getHolderOrThrow(registries)
+				result[basic] = 1
 			}
 
 			return result
