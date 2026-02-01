@@ -36,21 +36,33 @@ NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.Gene
 ```js
 NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyEntityGenesEvent", (event) => {
 	if (event.entityType.location().toString() == "minecraft:cow") {
-		let milky = toGeneRk("geneticsresequenced:milky");
+		let milky = toGeneRk("geneticsresequenced:milky")
 		event.geneWeights.remove(milky)
 	}
 });
 ```
 
+### [ModifyGeneRequirementsEvent](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/event/custom/ModifyGeneRequirementsEvent.kt)
 
-## Reflection
+```js
+NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyGeneRequirementsEvent", (event) => {
+	let cringe = toGeneRk("geneticsresequenced:cringe");
+	let cursed = toGeneRk("geneticsresequenced:cursed");
+
+	if (event.gene == cringe) {
+		event.requirements.add(cursed)
+	}
+})
+```
+
+## Adding, Removing, and Querying Genes
 
 ```js
 const $GenesData = Java.loadClass('dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData')
 
-$GenesData.addGene(livingEntity, "geneticsresequenced:chatterbox")
-$GenesData.removeGene(livingEntity, "geneticsresequenced:lay_egg")
-let hasSlimyDeath = $GenesData.hasGene(livingEntity, "geneticsresequenced:slimy_death")
+$GenesData.addGene(livingEntity, toGeneRk("geneticsresequenced:chatterbox"))
+$GenesData.removeGene(livingEntity, toGeneRk("geneticsresequenced:lay_egg"))
+let hasSlimyDeath = $GenesData.hasGene(livingEntity, toGeneRk("geneticsresequenced:slimy_death"))
 ```
 
 This uses reflection to load the [GenesData](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/attachment/GenesData.kt) and [ModGenes](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/registry/ModGenes.kt) classes, allowing you to use their functions.
