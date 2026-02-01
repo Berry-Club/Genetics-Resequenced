@@ -18,7 +18,6 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.capabilities.Capabilities
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent
-import net.neoforged.neoforge.event.AddReloadListenerEvent
 import net.neoforged.neoforge.event.RegisterCommandsEvent
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent
 import net.neoforged.neoforge.event.entity.EntityAttributeCreationEvent
@@ -34,11 +33,6 @@ object CommonEvents {
 	@SubscribeEvent
 	fun onRegisterCommandsEvent(event: RegisterCommandsEvent) {
 		ModCommands.register(event.dispatcher)
-	}
-
-	@SubscribeEvent
-	fun addReloadListeners(event: AddReloadListenerEvent) {
-		event.addListener(EntityGenes())
 	}
 
 	@SubscribeEvent
@@ -58,6 +52,12 @@ object CommonEvents {
 			GeneRequirements.REGISTRY_KEY,
 			GeneRequirements.CODEC,
 			GeneRequirements.CODEC
+		)
+
+		event.dataPackRegistry(
+			EntityGenes.REGISTRY_KEY,
+			EntityGenes.CODEC,
+			EntityGenes.CODEC
 		)
 	}
 
