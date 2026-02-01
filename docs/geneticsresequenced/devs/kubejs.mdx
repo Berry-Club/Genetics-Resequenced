@@ -4,9 +4,7 @@
 
 While the mod doesn't explicitly have KubeJS support, it's relatively simple to implement it yourself!
 
-https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/event/CustomEvents.kt
-
-### [Gene Change Events](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/event/custom/GeneChangeEvent.kt)
+### [GeneChangeEvent](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/event/custom/GeneChangeEvent.kt)
 
 ```js
 NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent$Pre", event => {
@@ -18,6 +16,17 @@ NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.Gene
 	event.entity.tell("Your genes have changed!")
 })
 ```
+
+### [ModifyEntityGenesEvent](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/event/custom/ModifyEntityGenesEvent.kt)
+
+```js
+NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyEntityGenesEvent", event => {
+	if (event.entity.name == "1aaron5") {
+		console.log("Aaron!")
+	}
+})
+```
+
 
 ## Reflection
 

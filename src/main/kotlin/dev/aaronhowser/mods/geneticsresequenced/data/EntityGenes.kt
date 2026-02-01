@@ -66,6 +66,9 @@ data class EntityGenes(
 				}
 			}
 
+			val event = ModifyEntityGenesEvent(entityRk, resultRks)
+			FORGE_BUS.post(event)
+
 			val geneRegistry = registries.lookupOrThrow(ModGenes.GENE_REGISTRY_KEY)
 			val result = mutableMapOf<Holder<Gene>, Int>()
 
@@ -73,9 +76,6 @@ data class EntityGenes(
 				val geneHolder = geneRegistry.get(geneRk).getOrNull() ?: continue
 				result[geneHolder] = weight
 			}
-
-			val event = ModifyEntityGenesEvent(entityRk, resultRks)
-			FORGE_BUS.post(event)
 
 			if (result.isEmpty()) {
 				val basic = ModGenes.BASIC.getHolderOrThrow(registries)
