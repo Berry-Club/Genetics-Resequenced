@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.data
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyEntityGenesEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
@@ -14,6 +15,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
+import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
 import kotlin.jvm.optionals.getOrNull
 
 data class EntityGenes(
@@ -71,6 +73,9 @@ data class EntityGenes(
 				val geneHolder = geneRegistry.get(geneRk).getOrNull() ?: continue
 				result[geneHolder] = weight
 			}
+
+			val event = ModifyEntityGenesEvent(entityRk, resultRks)
+			FORGE_BUS.post(event)
 
 			if (result.isEmpty()) {
 				val basic = ModGenes.BASIC.getHolderOrThrow(registries)

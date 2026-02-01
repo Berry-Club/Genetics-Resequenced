@@ -7,6 +7,12 @@
 	- `getGene()` gets the ResourceKey of the Gene whose requirements are being modified
 	- `getRequirements()` gets the set of ResourceKeys of Genes that are required
 		- Add or remove from this set to change the requirements
+- ModifyEntityGenesEvent
+	- Can be accessed via KubeJS
+	- `getEntityType()` gets the ResourceKey of the EntityType whose gene weights are being modified
+	- `getGeneWeights()` gets the map of ResourceKeys of Genes to their weights
+		- Modify this map to change the gene weights
+    - After this event fires, if the map is empty, it is set to have the Basic Gene with weight 1
 
 ### Changed
 
