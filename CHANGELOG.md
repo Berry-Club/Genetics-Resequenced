@@ -4,7 +4,9 @@
 
 - ModifyGeneRequirementsEvent
 	- Can be accessed via KubeJS
-    - Has the
+	- `getGene()` gets the ResourceKey of the Gene whose requirements are being modified
+	- `getRequirements()` gets the set of ResourceKeys of Genes that are required
+		- Add or remove from this set to change the requirements
 
 ### Changed
 
