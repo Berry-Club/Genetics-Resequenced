@@ -18,6 +18,7 @@
 	- A regular Cell will craft 8
 	- A GMO Cell will craft 4
 - Gene Requirements are now a datapack registry
+- Entity Genes are now a datapack registry
 
 ### Fixed
 
