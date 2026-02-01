@@ -34,11 +34,12 @@ NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.Gene
 ### [ModifyEntityGenesEvent](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/event/custom/ModifyEntityGenesEvent.kt)
 
 ```js
-NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyEntityGenesEvent", event => {
-	if (event.entity.name == "1aaron5") {
-		console.log("Aaron!")
+NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyEntityGenesEvent", (event) => {
+	if (event.entityType.location().toString() == "minecraft:cow") {
+		let milky = toGeneRk("geneticsresequenced:milky");
+		event.geneWeights.remove(milky)
 	}
-})
+});
 ```
 
 
