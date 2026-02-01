@@ -22,7 +22,7 @@ class ModEntityGenesProvider(
 ) : JsonCodecProvider<EntityGenes.EntityGenesData>(
 	output,
 	PackOutput.Target.DATA_PACK,
-	"geneticsresequenced/entity_genes",
+	EntityGenes.DIRECTORY,
 	PackType.SERVER_DATA,
 	EntityGenes.EntityGenesData.CODEC,
 	lookupProvider,
