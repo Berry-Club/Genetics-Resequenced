@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.data
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyGeneRequirementsEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -11,6 +12,7 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.ResourceLocation
+import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
 import kotlin.jvm.optionals.getOrNull
 
 class GeneRequirements(
@@ -54,6 +56,9 @@ class GeneRequirements(
 					resultRks.addAll(gr.requirements)
 				}
 			}
+
+			val event = ModifyGeneRequirementsEvent(gene.key!!, resultRks)
+			FORGE_BUS.post(event)
 
 			val geneRegistry = registries.lookupOrThrow(ModGenes.GENE_REGISTRY_KEY)
 			return resultRks.mapNotNull { geneRegistry.get(it).getOrNull() }.toSet()

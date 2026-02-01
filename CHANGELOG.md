@@ -1,5 +1,11 @@
 # 1.12.0
 
+### Added
+
+- ModifyGeneRequirementsEvent
+	- Can be accessed via KubeJS
+    - Has the
+
 ### Changed
 
 - Improved the message when you get a Gene you're missing the requirements for
@@ -10,19 +16,6 @@
 	- A regular Cell will craft 8
 	- A GMO Cell will craft 4
 - Gene Requirements are now a datapack registry
-	- The json is still in `/data/_____/geneticsresequenced/gene_requirements/`, but the file name has to be the gene id
-	- That is, `geneticsresequenced:flight` has to go in `/data/geneticsresequenced/geneticsresequenced/gene_requirements/flight.json`
-	- Inside the json is a list of required Gene IDs, like so:
-
-```json
-{
-	"requirements": [
-		"geneticsresequenced:teleport",
-		"geneticsresequenced:step_assist",
-		"geneticsresequenced:no_fall_damage"
-	]
-}
-```
 
 ### Fixed
 
