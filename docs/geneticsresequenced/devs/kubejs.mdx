@@ -4,6 +4,20 @@
 
 While the mod doesn't explicitly have KubeJS support, it's relatively simple to implement it yourself!
 
+### Some necessary reflections
+
+```js
+const $ResourceKey = Java.loadClass("net.minecraft.resources.ResourceKey");
+const $ResourceLocation = Java.loadClass("net.minecraft.resources.ResourceLocation");
+
+const GENE_REGISTRY_KEY = $ResourceKey.createRegistryKey($ResourceLocation.fromNamespaceAndPath("geneticsresequenced", "gene"));
+
+const toGeneRk = (geneString) => {
+	const [namespace, path] = geneString.split(":");
+	return $ResourceKey.create(GENE_REGISTRY_KEY, $ResourceLocation.fromNamespaceAndPath(namespace, path));
+};
+```
+
 ### [GeneChangeEvent](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/event/custom/GeneChangeEvent.kt)
 
 ```js
@@ -32,9 +46,7 @@ NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.Modi
 
 ```js
 const $GenesData = Java.loadClass('dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData')
-```
 
-```js
 $GenesData.addGene(livingEntity, "geneticsresequenced:chatterbox")
 $GenesData.removeGene(livingEntity, "geneticsresequenced:lay_egg")
 let hasSlimyDeath = $GenesData.hasGene(livingEntity, "geneticsresequenced:slimy_death")
