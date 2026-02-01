@@ -10,18 +10,18 @@ sealed class GeneChangeEvent : Event() {
 
 	abstract val entity: LivingEntity
 	abstract val geneHolder: Holder<Gene>
-	abstract val wasAdded: Boolean
+	abstract val isAddingGene: Boolean
 
 	data class Pre(
 		override val entity: LivingEntity,
 		override val geneHolder: Holder<Gene>,
-		override val wasAdded: Boolean
+		override val isAddingGene: Boolean
 	) : GeneChangeEvent(), ICancellableEvent
 
 	data class Post(
 		override val entity: LivingEntity,
 		override val geneHolder: Holder<Gene>,
-		override val wasAdded: Boolean
+		override val isAddingGene: Boolean
 	) : GeneChangeEvent()
 
 }
