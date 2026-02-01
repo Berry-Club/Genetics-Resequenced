@@ -19,7 +19,7 @@ class ModGeneRequirementsProvider(
 ) : JsonCodecProvider<GeneRequirements.GeneRequirementsData>(
 	output,
 	PackOutput.Target.DATA_PACK,
-	"gene_requirements",
+	"geneticsresequenced/gene_requirements",
 	PackType.SERVER_DATA,
 	GeneRequirements.GeneRequirementsData.CODEC,
 	lookupProvider,
