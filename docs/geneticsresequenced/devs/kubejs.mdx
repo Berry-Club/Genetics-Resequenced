@@ -35,6 +35,8 @@ NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.Gene
 
 ### [ModifyEntityGenesEvent](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/event/custom/ModifyEntityGenesEvent.kt)
 
+This event is fired every time something checks what Genes an entity can have, such as when a [Gene Checker](@geneticsresequenced:gene_checker) is used, or when the [DNA Decryptor](@geneticsresequenced:dna_decryptor) reveals a Helix's Gene.
+
 ModifyEntityGenesEvent has the following properties:
 - entityType: The EntityType being modified
 - geneWeights: A MutableMap<ResourceKey<Gene>, Double> representing the gene weights for the entity
