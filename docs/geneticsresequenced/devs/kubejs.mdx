@@ -61,13 +61,16 @@ NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.Modi
 
 ### [ModifyGeneRequirementsEvent](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/event/custom/ModifyGeneRequirementsEvent.kt)
 
+This event is fired when the mod checks if an entity can have a specific Gene. This usually only happens when the entity's Genes change.
+
+ModifyGeneRequirementsEvent has the following properties:
+- `gene` - The ResourceKey\<Gene> being checked
+- `requirements` - A MutableSet\<ResourceKey\<Gene>> representing the Genes required to have the checked Gene
+
 ```js
 NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyGeneRequirementsEvent", (event) => {
-	let cringe = toGeneRk("geneticsresequenced:cringe");
-	let cursed = toGeneRk("geneticsresequenced:cursed");
-
-	if (event.gene == cringe) {
-		event.requirements.add(cursed)
+	if (event.gene == "geneticsresequenced:cringe") {
+		event.requirements.add("geneticsresequenced:cursed")
 	}
 })
 ```
@@ -77,9 +80,11 @@ NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.Modi
 ```js
 const $GenesData = Java.loadClass('dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData')
 
-$GenesData.addGene(livingEntity, toGeneRk("geneticsresequenced:chatterbox"))
-$GenesData.removeGene(livingEntity, toGeneRk("geneticsresequenced:lay_egg"))
-let hasSlimyDeath = $GenesData.hasGene(livingEntity, toGeneRk("geneticsresequenced:slimy_death"))
+$GenesData.addGene(livingEntity, "geneticsresequenced:chatterbox")
+$GenesData.removeGene(livingEntity, "geneticsresequenced:lay_egg")
+let hasSlimyDeath = $GenesData.hasGene(livingEntity, "geneticsresequenced:slimy_death")
 ```
 
-This uses reflection to load the [GenesData](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/attachment/GenesData.kt) and [ModGenes](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/registry/ModGenes.kt) classes, allowing you to use their functions.
+This uses reflection to load the [GenesData](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/attachment/GenesData.kt) class, allowing you to use its functions.
+
+(In Kotlin, a function that looks like `fun Example.doSomething(int: Int)` is actually compiled to `doSomething(Example, Int)` in Java)
