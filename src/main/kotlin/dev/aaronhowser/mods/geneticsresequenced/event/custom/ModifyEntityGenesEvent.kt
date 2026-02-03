@@ -1,9 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.custom
 
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.neoforged.bus.api.Event
 

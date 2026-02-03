@@ -6,10 +6,25 @@ While the mod doesn't explicitly have KubeJS support, it's relatively simple to 
 
 ### [GeneChangeEvent](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/event/custom/GeneChangeEvent.kt)
 
+There are two GeneChangeEvents: Pre and Post.
+
+Pre is fired before an entity's Genes are changed, and can be cancelled. Post is fired after, and cannot be cancelled.
+
+Both of them have the following properties:
+- `entity` - The LivingEntity whose Genes are changing
+- `geneHolder` - The Holder\<Gene> of the Gene that's being added or removed
+- `geneId` - The ResourceKey\<Gene> of the Gene that's being added or removed
+- `isAddition()` - A Boolean representing whether the Gene is being added (true) or removed (false)
+
 ```js
-NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent$Pre", event => {
-	event.cancel()
-})
+NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent$Pre", (event) => {
+	let entity = event.entity;
+	if (entity.level.isClientSide()) return;
+
+	if (!event.isAddition() && entity.name.getString() == "1aaron5" && event.geneId == "geneticsresequenced:cringe") {
+		event.canceled = true;
+	}
+});
 ```
 ```js
 NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent$Post", event => {
