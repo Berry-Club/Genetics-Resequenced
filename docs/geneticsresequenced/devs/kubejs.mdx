@@ -39,7 +39,7 @@ This event is fired every time something checks what Genes an entity can have, s
 
 ModifyEntityGenesEvent has the following properties:
 - entityType: The EntityType being modified
-- geneWeights: A MutableMap<ResourceKey<Gene>, Double> representing the gene weights for the entity
+- geneWeights: A MutableMap\<ResourceKey\<Gene>, Double> representing the gene weights for the entity
 	- In KubeJS this is represented as a JS object, which means you can't modify it easily
 
 There are also some useful methods on the event:
@@ -49,7 +49,7 @@ There are also some useful methods on the event:
 - setWeight(gene, weight) - Sets the weight of a specific Gene
 - remove(gene) - Removes a Gene from the entity's possible Genes
 
-`getWeight`, `setWeight`, and `remove` can all accept either a ResourceKey<Gene>, or a String representing the Gene id.
+`getWeight`, `setWeight`, and `remove` can all accept either a ResourceKey\<Gene>, or a String representing the Gene id.
 
 ```js
 NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyEntityGenesEvent", (event) => {
