@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.chance
-import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
-import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
-import dev.aaronhowser.mods.aaron.ImprovedSimpleContainer
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.chance
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
+import dev.aaronhowser.mods.aaron.misc.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig

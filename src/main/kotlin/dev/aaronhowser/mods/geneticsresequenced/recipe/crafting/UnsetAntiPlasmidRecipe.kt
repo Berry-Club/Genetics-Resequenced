@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.crafting
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isNotEmpty
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers

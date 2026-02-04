@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.hasEnchantment
-import dev.aaronhowser.mods.aaron.AaronExtensions.isEntity
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.hasEnchantment
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isEntity
 import dev.aaronhowser.mods.geneticsresequenced.datagen.ModEnchantmentProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang

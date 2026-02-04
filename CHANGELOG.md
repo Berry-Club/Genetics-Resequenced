@@ -1,3 +1,9 @@
+# 1.12.1
+
+### Fixed
+
+- Fixed it requiring a dev version of Aaron instead of the release version
+
 # 1.12.0
 
 ### Added

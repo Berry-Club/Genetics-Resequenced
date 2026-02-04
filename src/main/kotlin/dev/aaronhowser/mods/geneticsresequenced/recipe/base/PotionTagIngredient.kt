@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.base
 
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import dev.aaronhowser.mods.aaron.AaronExtensions.isHolder
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModIngredientTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.registries.BuiltInRegistries
