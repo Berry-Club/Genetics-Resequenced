@@ -1,3 +1,9 @@
+# 1.12.2
+
+### Fixed
+
+- Fixed Cringe shake config causing a crash
+
 # 1.12.1
 
 ### Fixed

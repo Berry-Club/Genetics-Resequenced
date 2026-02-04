@@ -30,6 +30,8 @@ object GeneRenderChanges {
 	}
 
 	fun shakeFromCringePost(event: RenderLivingEvent.Post<*, *>) {
+		if (!ClientConfig.CONFIG.doesCringeShake.get()) return
+
 		val entity = event.entity
 		if (!entity.hasGene(ModGenes.CRINGE)) return
 
