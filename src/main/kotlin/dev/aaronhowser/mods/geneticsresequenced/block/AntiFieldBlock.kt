@@ -44,13 +44,12 @@ class AntiFieldBlock : Block(
 		pNeighborPos: BlockPos,
 		pMovedByPiston: Boolean
 	) {
-
 		val isPowered = pLevel.hasNeighborSignal(pPos)
+		val wasPowered = pState.getValue(DISABLED)
 
-		if (pState.getValue(DISABLED) != isPowered) {
-			pLevel.setBlock(pPos, pState.setValue(DISABLED, isPowered), 2)
+		if (isPowered != wasPowered) {
+			pLevel.setBlock(pPos, pState.setValue(DISABLED, isPowered), 3)
 		}
-
 	}
 
 	companion object {
