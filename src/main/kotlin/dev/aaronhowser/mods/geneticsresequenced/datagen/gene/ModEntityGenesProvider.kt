@@ -19,17 +19,18 @@ import java.util.function.BiConsumer
 class ModEntityGenesProvider(
 	output: PackOutput,
 	existingFileHelper: ExistingFileHelper
-) : JsonCodecProvider<EntityGenes.EntityGenesData>(
+) : JsonCodecProvider<EntityGenes>(
 	output,
 	existingFileHelper,
 	GeneticsResequenced.MOD_ID,
 	JsonOps.INSTANCE,
 	PackType.SERVER_DATA,
 	"geneticsresequenced/entity_genes",
-	EntityGenes.EntityGenesData.CODEC,
+	EntityGenes.CODEC,
 	mapOf()
 ) {
-	override fun gather(consumer: BiConsumer<ResourceLocation, EntityGenes.EntityGenesData>) {
+
+	override fun gather(consumer: BiConsumer<ResourceLocation, EntityGenes>) {
 		fun addEntityGenes(
 			entityType: EntityType<*>,
 			vararg geneWeights: Pair<ResourceKey<Gene>, Int>
@@ -38,7 +39,7 @@ class ModEntityGenesProvider(
 
 			consumer.accept(
 				entityRk.location(),
-				EntityGenes.EntityGenesData(
+				EntityGenes(
 					entityRk,
 					geneWeights.toMap()
 				)
