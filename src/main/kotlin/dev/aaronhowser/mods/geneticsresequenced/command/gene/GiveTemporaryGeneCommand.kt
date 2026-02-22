@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
-import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getLocationOrNull
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasPermanentGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.TemporaryGenesCapability.Companion.addTemporaryGene

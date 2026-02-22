@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.registryAccess
 import net.minecraft.core.Holder
 import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries

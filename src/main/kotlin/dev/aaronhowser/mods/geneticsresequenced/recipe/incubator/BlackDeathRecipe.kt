@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
 import com.google.gson.JsonObject
-import dev.aaronhowser.mods.aaron.AaronExtensions.partialNbtIngredient
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.partialNbtIngredient
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene

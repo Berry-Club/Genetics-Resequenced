@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModItemLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent

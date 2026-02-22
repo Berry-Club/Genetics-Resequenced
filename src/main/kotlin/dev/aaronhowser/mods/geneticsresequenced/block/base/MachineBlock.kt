@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isBlock
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.Containers

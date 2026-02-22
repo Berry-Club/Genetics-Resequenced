@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import com.google.common.collect.ImmutableMultimap
 import com.google.common.collect.Multimap
-import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModItemLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent

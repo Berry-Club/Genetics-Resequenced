@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
-import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
-import dev.aaronhowser.mods.aaron.AaronExtensions.withHoverText
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getLocationOrNull
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.registryAccess
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withHoverText
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers

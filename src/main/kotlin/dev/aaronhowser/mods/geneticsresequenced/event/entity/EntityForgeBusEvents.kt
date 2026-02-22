@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders

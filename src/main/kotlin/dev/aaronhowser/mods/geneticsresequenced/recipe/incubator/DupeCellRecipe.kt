@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
 import com.google.gson.JsonObject
-import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
-import dev.aaronhowser.mods.aaron.AaronExtensions.partialNbtIngredient
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.partialNbtIngredient
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent

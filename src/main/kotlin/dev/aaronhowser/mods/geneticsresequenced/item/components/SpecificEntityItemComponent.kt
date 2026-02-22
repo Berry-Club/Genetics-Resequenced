@@ -2,8 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.item.components
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import dev.aaronhowser.mods.aaron.AaronExtraCodecs
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent
+import dev.aaronhowser.mods.aaron.serialization.AaronExtraCodecs
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.core.UUIDUtil
 import net.minecraft.network.chat.Component

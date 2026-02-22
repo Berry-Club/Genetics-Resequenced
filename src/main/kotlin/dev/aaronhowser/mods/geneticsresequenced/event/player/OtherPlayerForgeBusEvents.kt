@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getLocationOrNull
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders

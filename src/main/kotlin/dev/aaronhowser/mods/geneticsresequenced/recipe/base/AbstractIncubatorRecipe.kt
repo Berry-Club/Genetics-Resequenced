@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.base
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeTypes
 import net.minecraft.core.NonNullList
 import net.minecraft.world.item.ItemStack

@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.crafting
 
-import dev.aaronhowser.mods.aaron.AaronExtensions.withComponent
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withComponent
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem

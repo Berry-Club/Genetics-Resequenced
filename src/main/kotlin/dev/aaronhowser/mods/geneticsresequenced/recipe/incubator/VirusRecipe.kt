@@ -2,9 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
 import com.google.gson.JsonObject
 import com.mojang.serialization.JsonOps
-import dev.aaronhowser.mods.aaron.AaronExtensions.getDefaultInstance
-import dev.aaronhowser.mods.aaron.AaronExtensions.isTrue
-import dev.aaronhowser.mods.aaron.AaronExtensions.partialNbtIngredient
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isTrue
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.partialNbtIngredient
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent

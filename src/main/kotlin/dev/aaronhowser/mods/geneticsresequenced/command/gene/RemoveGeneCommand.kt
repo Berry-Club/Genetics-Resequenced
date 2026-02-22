@@ -4,7 +4,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import com.mojang.brigadier.suggestion.SuggestionProvider
 import com.mojang.brigadier.suggestion.SuggestionsBuilder
-import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getLocationOrNull
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider

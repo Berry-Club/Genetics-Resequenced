@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder
 
 import com.google.gson.JsonObject
-import dev.aaronhowser.mods.aaron.AaronExtensions.getLocationOrNull
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getLocationOrNull
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
