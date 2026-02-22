@@ -37,9 +37,9 @@ data class GeneRequirements(
 			}
 
 		fun getRequiredGeneHolders(
-			gene: Holder.Reference<Gene>,
+			gene: Holder<Gene>,
 			registries: HolderLookup.Provider
-		): Set<Holder.Reference<Gene>> {
+		): Set<Holder<Gene>> {
 			val registry = registries.lookupOrThrow(REGISTRY_KEY)
 
 			val resultRks = mutableSetOf<ResourceKey<Gene>>()
@@ -51,7 +51,10 @@ data class GeneRequirements(
 				}
 			}
 
-			val event = ModifyGeneRequirementsEvent(gene.key(), resultRks)
+			val key = gene.unwrapKey().getOrNull()
+				?: error("Gene ${gene.value()} is not registered!")
+
+			val event = ModifyGeneRequirementsEvent(key, resultRks)
 			FORGE_BUS.post(event)
 
 			val geneRegistry = registries.lookupOrThrow(ModGenes.GENE_REGISTRY_KEY)
