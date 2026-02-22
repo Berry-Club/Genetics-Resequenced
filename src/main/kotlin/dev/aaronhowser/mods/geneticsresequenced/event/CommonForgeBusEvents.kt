@@ -28,7 +28,6 @@ object CommonForgeBusEvents {
 
 	@SubscribeEvent
 	fun addReloadListeners(event: AddReloadListenerEvent) {
-		event.addListener(EntityGenes())
 		event.addListener(GeneRequirements())
 	}
 
