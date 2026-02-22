@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
+import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
@@ -38,6 +39,12 @@ object CommonModBusEvents {
 			EntityGenes.REGISTRY_KEY,
 			EntityGenes.CODEC,
 			EntityGenes.CODEC
+		)
+
+		event.dataPackRegistry(
+			GeneRequirements.REGISTRY_KEY,
+			GeneRequirements.CODEC,
+			GeneRequirements.CODEC
 		)
 	}
 

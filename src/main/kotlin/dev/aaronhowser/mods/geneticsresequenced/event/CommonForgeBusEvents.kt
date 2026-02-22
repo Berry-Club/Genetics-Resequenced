@@ -27,11 +27,6 @@ object CommonForgeBusEvents {
 	}
 
 	@SubscribeEvent
-	fun addReloadListeners(event: AddReloadListenerEvent) {
-		event.addListener(GeneRequirements())
-	}
-
-	@SubscribeEvent
 	fun onEntityAttributeCreation(event: EntityAttributeCreationEvent) {
 		event.put(ModEntityTypes.SUPPORT_SLIME.get(), SupportSlime.setAttributes())
 	}
