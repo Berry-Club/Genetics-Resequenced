@@ -1,3 +1,15 @@
+# 1.12.0
+
+### Added
+
+- New events for when Gene requirements and entity Genes are being calculated
+	- https://moddedmc.wiki/en/project/geneticsresequenced/latest/docs/devs/kubejs
+
+### Changed
+
+- Gene Requirements are now a datapack registry
+- Entity Genes are now a datapack registry
+
 # 1.11.4
 
 ### Fixed
