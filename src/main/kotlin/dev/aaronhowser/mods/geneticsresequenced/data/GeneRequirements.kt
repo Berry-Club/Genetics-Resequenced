@@ -1,91 +1,61 @@
 package dev.aaronhowser.mods.geneticsresequenced.data
 
-import com.google.gson.GsonBuilder
-import com.google.gson.JsonElement
 import com.mojang.serialization.Codec
-import com.mojang.serialization.JsonOps
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyGeneRequirementsEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
-import net.minecraft.server.packs.resources.ResourceManager
-import net.minecraft.server.packs.resources.SimpleJsonResourceReloadListener
-import net.minecraft.util.profiling.ProfilerFiller
+import thedarkcolour.kotlinforforge.forge.FORGE_BUS
+import kotlin.jvm.optionals.getOrNull
 
-class GeneRequirements : SimpleJsonResourceReloadListener(
-	GsonBuilder().setPrettyPrinting().create(),
-	DIRECTORY
+data class GeneRequirements(
+	val gene: ResourceKey<Gene>,
+	val requirements: List<ResourceKey<Gene>>
 ) {
 
-	private fun addGeneRequirements(gene: ResourceKey<Gene>, requirements: List<ResourceKey<Gene>>) {
-		GENE_REQUIREMENTS_MAP[gene] = GENE_REQUIREMENTS_MAP[gene]?.plus(requirements) ?: requirements.toSet()
-	}
+	companion object {
+		val REGISTRY_KEY: ResourceKey<Registry<GeneRequirements>> =
+			ResourceKey.createRegistryKey(GeneticsResequenced.modResource("gene_requirements"))
 
-	data class GeneRequirementsData(
-		val gene: ResourceKey<Gene>,
-		val requirements: List<ResourceKey<Gene>>
-	) {
-		companion object {
-			val CODEC: Codec<GeneRequirementsData> = RecordCodecBuilder.create { instance ->
+		val CODEC: Codec<GeneRequirements> =
+			RecordCodecBuilder.create { instance ->
 				instance.group(
 					ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
 						.fieldOf("gene")
-						.forGetter(GeneRequirementsData::gene),
-					ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY).listOf()
+						.forGetter(GeneRequirements::gene),
+					ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
+						.listOf()
 						.fieldOf("requirements")
-						.forGetter(GeneRequirementsData::requirements)
-				).apply(instance, ::GeneRequirementsData)
-			}
-		}
-	}
-
-	override fun apply(
-		pObject: Map<ResourceLocation, JsonElement>,
-		pResourceManager: ResourceManager,
-		pProfiler: ProfilerFiller
-	) {
-		GENE_REQUIREMENTS_MAP.clear()
-
-		for ((key: ResourceLocation, value: JsonElement) in pObject) {
-
-			val geneRequirements: GeneRequirementsData = GeneRequirementsData.CODEC.parse(
-				JsonOps.INSTANCE,
-				value
-			).getOrThrow(false) {
-				GeneticsResequenced.LOGGER.error("Error decoding gene requirements for $key: $it")
+						.forGetter(GeneRequirements::requirements)
+				).apply(instance, ::GeneRequirements)
 			}
 
-			addGeneRequirements(
-				geneRequirements.gene,
-				geneRequirements.requirements
-			)
+		fun getRequiredGeneHolders(
+			gene: Holder.Reference<Gene>,
+			registries: HolderLookup.Provider
+		): Set<Holder.Reference<Gene>> {
+			val registry = registries.lookupOrThrow(REGISTRY_KEY)
 
-			GeneticsResequenced.LOGGER.info("Loaded gene requirements for ${geneRequirements.gene.location()}")
-		}
-	}
+			val resultRks = mutableSetOf<ResourceKey<Gene>>()
 
-	companion object {
-		const val DIRECTORY = GeneticsResequenced.MOD_ID + "/gene_requirements"
+			for (grHolder in registry.listElements()) {
+				val gr = grHolder.value()
+				if (gene.isGene(gr.gene)) {
+					resultRks.addAll(gr.requirements)
+				}
+			}
 
-		//TODO: There's probably a better way to do this that doesn't rely on a static map
-		private val GENE_REQUIREMENTS_MAP: MutableMap<ResourceKey<Gene>, Set<ResourceKey<Gene>>> = mutableMapOf()
-		fun getGeneRequirements(): Map<ResourceKey<Gene>, Set<ResourceKey<Gene>>> = GENE_REQUIREMENTS_MAP.toMap()
+			val event = ModifyGeneRequirementsEvent(gene.key(), resultRks)
+			FORGE_BUS.post(event)
 
-		fun getGeneRequiredGeneRks(gene: ResourceKey<Gene>): Set<ResourceKey<Gene>> {
-			return GENE_REQUIREMENTS_MAP[gene] ?: emptySet()
-		}
-
-		fun getGeneRequiredGeneRks(gene: Holder<Gene>): Set<ResourceKey<Gene>> {
-			return getGeneRequiredGeneRks(gene.unwrapKey().get())
-		}
-
-		fun getGeneRequiredGeneHolders(gene: Holder<Gene>, registries: HolderLookup.Provider): Set<Holder<Gene>> {
-			return getGeneRequiredGeneRks(gene).map { it.getHolderOrThrow(registries) }.toSet()
+			val geneRegistry = registries.lookupOrThrow(ModGenes.GENE_REGISTRY_KEY)
+			return resultRks.mapNotNull { geneRegistry.get(it).getOrNull() }.toSet()
 		}
 	}
 

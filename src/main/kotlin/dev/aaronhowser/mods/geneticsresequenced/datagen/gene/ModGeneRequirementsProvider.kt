@@ -16,18 +16,18 @@ import java.util.function.BiConsumer
 class ModGeneRequirementsProvider(
 	output: PackOutput,
 	existingFileHelper: ExistingFileHelper
-) : JsonCodecProvider<GeneRequirements.GeneRequirementsData>(
+) : JsonCodecProvider<GeneRequirements>(
 	output,
 	existingFileHelper,
 	GeneticsResequenced.MOD_ID,
 	JsonOps.INSTANCE,
 	PackType.SERVER_DATA,
 	"geneticsresequenced/gene_requirements",
-	GeneRequirements.GeneRequirementsData.CODEC,
+	GeneRequirements.CODEC,
 	mapOf()
 ) {
 
-	override fun gather(consumer: BiConsumer<ResourceLocation, GeneRequirements.GeneRequirementsData>) {
+	override fun gather(consumer: BiConsumer<ResourceLocation, GeneRequirements>) {
 
 		fun addRequirements(
 			geneRk: ResourceKey<Gene>,
@@ -35,7 +35,7 @@ class ModGeneRequirementsProvider(
 		) {
 			consumer.accept(
 				geneRk.location(),
-				GeneRequirements.GeneRequirementsData(
+				GeneRequirements(
 					geneRk,
 					requirements.toList()
 				)
