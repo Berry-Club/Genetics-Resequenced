@@ -29,7 +29,7 @@ data class EntityGenes(
 		val CODEC: Codec<EntityGenes> = RecordCodecBuilder.create { instance ->
 			instance.group(
 				ResourceKey.codec(Registries.ENTITY_TYPE)
-					.fieldOf("entity_type")
+					.fieldOf("entity")
 					.forGetter(EntityGenes::entityType),
 				Codec.unboundedMap(
 					ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY),
