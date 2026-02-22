@@ -50,11 +50,9 @@ object RemoveGeneCommand {
 						Commands.argument(GENE_ARGUMENT, ResourceLocationArgument.id())
 							.suggests(SUGGEST_GENE_RLS)
 							.executes { cmd ->
-								removeGene(
-									cmd,
-									ResourceLocationArgument.getId(cmd, GENE_ARGUMENT),
-									EntityArgument.getEntities(cmd, TARGETS_ARGUMENT)
-								)
+								val geneRl = ResourceLocationArgument.getId(cmd, GENE_ARGUMENT)
+								val entities = EntityArgument.getEntities(cmd, TARGETS_ARGUMENT)
+								removeGene(cmd, geneRl, entities)
 							}
 					)
 			)
