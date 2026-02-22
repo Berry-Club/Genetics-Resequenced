@@ -32,14 +32,12 @@ class BioluminescenceBlock :
 		pMovedByPiston: Boolean
 	) {
 		pLevel.scheduleTick(pPos, this, ServerConfig.CONFIG.bioluminescenceDuration.get())
-		super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston)
 	}
 
 	override fun tick(pState: BlockState, pLevel: ServerLevel, pPos: BlockPos, pRandom: RandomSource) {
 		if (pLevel.getBlockState(pPos).`is`(this)) {
 			pLevel.removeBlock(pPos, false)
 		}
-		super.tick(pState, pLevel, pPos, pRandom)
 	}
 
 }
