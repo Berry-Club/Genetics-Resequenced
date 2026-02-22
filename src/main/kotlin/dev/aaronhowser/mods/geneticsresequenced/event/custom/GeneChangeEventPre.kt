@@ -7,7 +7,7 @@ import net.minecraftforge.eventbus.api.Cancelable
 import net.minecraftforge.eventbus.api.Event
 
 @Cancelable
-data class GeneChangeEvent(
+data class GeneChangeEventPre(
 	val entity: LivingEntity,
 	val geneHolder: Holder<Gene>,
 	val isAddition: Boolean

@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.aaron.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.capability.TemporaryGenesCapability.Companion.temporaryGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEventPre
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEventPost
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
@@ -187,7 +187,7 @@ class GenesCapability() {
 				return false
 			}
 
-			val eventPre = GeneChangeEvent(this@addGene, newGeneHolder, true)
+			val eventPre = GeneChangeEventPre(this@addGene, newGeneHolder, true)
 			FORGE_BUS.post(eventPre)
 			if (eventPre.isCanceled) {
 				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
@@ -207,7 +207,7 @@ class GenesCapability() {
 		fun LivingEntity.removeGene(removedGeneHolder: Holder<Gene>): Boolean {
 			if (!this.hasGene(removedGeneHolder)) return false
 
-			val eventPre = GeneChangeEvent(this, removedGeneHolder, false)
+			val eventPre = GeneChangeEventPre(this, removedGeneHolder, false)
 			FORGE_BUS.post(eventPre)
 			if (eventPre.isCanceled) {
 				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
