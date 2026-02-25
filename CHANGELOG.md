@@ -7,6 +7,8 @@
 
 ### Changed
 
+- Improved the message when you get a Gene you're missing the requirements for
+  - The red text is now in [brackets], so you know it can be hovered over to see which Genes are missing
 - Gene Requirements are now a datapack registry
 - Entity Genes are now a datapack registry
 

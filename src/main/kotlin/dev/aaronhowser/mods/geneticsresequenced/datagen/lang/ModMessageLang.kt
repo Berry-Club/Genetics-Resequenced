@@ -22,7 +22,7 @@ object ModMessageLang {
 			add(SUPPORT_SLIME_PEACEFUL, "Support slimes are technically Slimes, which means they can't exist in Peaceful mode!")
 			add(SYRINGE_REMOVE_GENES_SUCCESS, "You have removed the %s Gene!")
 			add(SYRINGE_REMOVE_GENES_FAIL, "The %s Gene was not removed as you did not have it!")
-			add(MISSING_GENE_REQUIREMENTS, "You feel the %s Gene fade away...\nIt seems you §cdo not meet the requirements§r for it.")
+			add(MISSING_GENE_REQUIREMENTS, "You feel the %s Gene fade away...\nIt seems you §c[do not meet the requirements]§r for it.")
 			add(MISSING_GENE_REQUIREMENTS_LIST, "Required Genes:\n")
 			add(CRINGE_GRASS, "With the touch of Grass, you feel the cringe leave your body.")
 			add(CRINGE_ADDED, "You feel the cringe entering your body, taking over. Your perception of the world changes in %d...")
