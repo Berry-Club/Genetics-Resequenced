@@ -1,8 +1,10 @@
 plugins {
 	id 'idea'
 	id 'maven-publish'
-	id 'net.neoforged.moddev.legacyforge' version '2.0.91'
+	id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+	id 'org.parchmentmc.librarian.forgegradle' version '1.+'
 	id 'org.jetbrains.kotlin.jvm' version '2.0.0'
+	id 'org.spongepowered.mixin' version '0.7.+'
 	id "me.shedaniel.unified-publishing" version "0.1.+"
 }
 
@@ -23,79 +25,71 @@ compileKotlin {
 println("Building version: ${version}")
 println("Java: ${System.getProperty('java.version')}, JVM: ${System.getProperty('java.vm.version')} (${System.getProperty('java.vendor')}), Arch: ${System.getProperty('os.arch')}")
 
-legacyForge {
-
-	version = project.minecraft_version + '-' + project.forge_version
-
-	validateAccessTransformers = ENV.CI != "true"
-//	disableRecompilation = ENV.CI == "true"
-
-	accessTransformers {
-		publish(project.file('src/main/resources/META-INF/accesstransformer.cfg'))
-	}
-
-	parchment {
-		mappingsVersion = project.mapping_version
-		minecraftVersion = project.minecraft_version
-	}
+minecraft {
+	mappings channel: mapping_channel, version: mapping_version
+	accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
 	runs {
+		// REQUIRED for processResources to work in dev
+		copyIdeResources = true
 
-		configureEach {
-			systemProperty 'forge.logging.markers', 'REGISTRIES'
+		client {
+			workingDirectory project.file('runs/client')
 
-			logLevel = org.slf4j.event.Level.DEBUG
-		}
+			property 'forge.logging.markers', 'REGISTRIES'
+			property 'forge.logging.console.level', 'debug'
+			property 'forge.enabledGameTestNamespaces', mod_id
 
-		"Client-One" {
-			client()
-			ideName = "Client One"
-			systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
-
-			if (ENV.MC_CLIENT_ARGS) {
-				programArguments.addAll(ENV.MC_CLIENT_ARGS.split(' '))
-			}
-
-			gameDirectory = file 'runs/client'
-		}
-
-		"Client-Two" {
-			client()
-			ideName = "Client Two"
-			systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
-
-			gameDirectory = file 'runs/client'
-
-			if (ENV.MC_CLIENT_2_ARGS) {
-				programArguments.addAll(ENV.MC_CLIENT_2_ARGS.split(' '))
+			mods {
+				"$mod_id" {
+					source sourceSets.main
+				}
 			}
 		}
 
 		server {
-			server()
-			ideName = "Server"
-			programArgument '--nogui'
-			systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+			workingDirectory project.file('runs/server')
 
-			gameDirectory = file 'runs/server'
+			property 'forge.logging.markers', 'REGISTRIES'
+			property 'forge.logging.console.level', 'debug'
+			property 'forge.enabledGameTestNamespaces', mod_id
+
+			mods {
+				"$mod_id" {
+					source sourceSets.main
+				}
+			}
+		}
+
+		gameTestServer {
+			workingDirectory project.file('runs/server')
+
+			property 'forge.logging.markers', 'REGISTRIES'
+			property 'forge.logging.console.level', 'debug'
+			property 'forge.enabledGameTestNamespaces', mod_id
+
+			mods {
+				"$mod_id" {
+					source sourceSets.main
+				}
+			}
 		}
 
 		data {
-			data()
+			workingDirectory project.file('runs/client')
 
-			gameDirectory = file 'runs/client'
+			property 'forge.logging.markers', 'REGISTRIES'
+			property 'forge.logging.console.level', 'debug'
 
-			programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
+			args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources')
+
+			mods {
+				"$mod_id" {
+					source sourceSets.main
+				}
+			}
 		}
-
 	}
-
-	mods {
-		"${mod_id}" {
-			sourceSet(sourceSets.main)
-		}
-	}
-
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
@@ -103,6 +97,9 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 mixin {
 	add sourceSets.main, "geneticsresequenced.refmap.json"
 	config "geneticsresequenced.mixins.json"
+
+	debug.verbose = true
+	debug.export = true
 }
 
 configurations {
@@ -147,17 +144,12 @@ repositories {
 	}
 
 	maven { url 'https://maven.blamejared.com' }
-	mavenCentral()
 
-}
-
-obfuscation {
-	createRemappingConfiguration(configurations.localRuntime)
 }
 
 dependencies {
+	minecraft "net.minecraftforge:forge:$minecraft_version-$forge_version"
 	annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 	implementation "thedarkcolour:kotlinforforge:${kff_version}"
 	implementation "dev.aaronhowser.mods:aaron-1.20.1:${aaron_lib_version}"
 }
@@ -187,9 +179,11 @@ processResources {
 	}
 }
 
+jar.finalizedBy('reobfJar')
 publishing {
 	publications {
-		register('mavenJava', MavenPublication) {
+		mavenNeoForge(MavenPublication) {
+			artifactId = archiveName
 			from components.java
 		}
 	}
