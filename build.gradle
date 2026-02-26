@@ -2,7 +2,7 @@ plugins {
 	id 'idea'
 	id 'maven-publish'
 	id 'net.neoforged.moddev.legacyforge' version '2.0.91'
-	id 'org.jetbrains.kotlin.jvm' version '2.0.0'
+	id 'org.jetbrains.kotlin.jvm' version '2.2.0'
 	id "me.shedaniel.unified-publishing" version "0.1.+"
 }
 
@@ -155,11 +155,12 @@ obfuscation {
 	createRemappingConfiguration(configurations.localRuntime)
 }
 
+jar.finalizedBy('reobfJar')
+
 dependencies {
 	annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
 	implementation "thedarkcolour:kotlinforforge:${kff_version}"
-	implementation "dev.aaronhowser.mods:aaron-1.20.1:${aaron_lib_version}"
+	modImplementation "dev.aaronhowser.mods:aaron-1.20.1:${aaron_lib_version}"
 }
 
 def resourceTargets = ['META-INF/mods.toml', 'pack.mcmeta']
