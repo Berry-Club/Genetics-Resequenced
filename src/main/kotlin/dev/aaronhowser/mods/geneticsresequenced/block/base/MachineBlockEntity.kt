@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
-import dev.aaronhowser.mods.aaron.misc.ImprovedSimpleContainer
+import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity.Companion.OUTPUT_SLOT_INDEX
 import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.EnergyContainerData
 import net.minecraft.core.BlockPos

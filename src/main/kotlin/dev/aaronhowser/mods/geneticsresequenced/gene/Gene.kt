@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withClickToCopyToClipboard
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withHoverText
-import dev.aaronhowser.mods.aaron.serialization.AaronExtraCodecs
+import dev.aaronhowser.mods.aaron.serialization.AaronExtraStreamCodecs
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModGeneLang
@@ -261,7 +261,7 @@ data class Gene(
 			ByteBufCodecs.holderSet(Registries.ENTITY_TYPE), Gene::allowedEntities,
 			PotionDetails.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::potionDetails,
 			AttributeEntry.DIRECT_STREAM_CODEC.apply(ByteBufCodecs.list()), Gene::attributeModifiers,
-			ByteBufCodecs.optional(AaronExtraCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE)), Gene::scaresEntitiesWithTag,
+			ByteBufCodecs.optional(AaronExtraStreamCodecs.tagKeyStreamCodec(Registries.ENTITY_TYPE)), Gene::scaresEntitiesWithTag,
 			ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY).apply(ByteBufCodecs.list()), Gene::incompatibleGenes,
 			::Gene
 		)
