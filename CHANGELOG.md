@@ -1,5 +1,9 @@
 # 1.12.2
 
+### Changes
+
+- Updated Aaron, and made the max version explicit
+
 ### Fixed
 
 - Fixed Cringe shake config causing a crash
