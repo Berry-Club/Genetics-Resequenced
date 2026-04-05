@@ -188,10 +188,8 @@ repositories {
 dependencies {
 	implementation "thedarkcolour:kotlinforforge-neoforge:${kff_version}"
 
-	dependencies {
-		compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
-		runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
-	}
+	compileOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}:api"
+	runtimeOnly "top.theillusivec4.curios:curios-neoforge:${curios_version}"
 
 	implementation("com.klikli_dev:modonomicon-1.21.1-neoforge:${modonomicon_version}") { transitive = false }
 
