@@ -1,3 +1,9 @@
+# 1.12.3
+
+### Changes
+
+- Made the max version of Aaron not explicit
+
 # 1.12.2
 
 ### Changes
