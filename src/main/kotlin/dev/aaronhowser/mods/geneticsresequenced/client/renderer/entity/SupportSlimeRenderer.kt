@@ -14,7 +14,7 @@ import net.minecraft.client.renderer.entity.SlimeRenderer
 import net.minecraft.client.renderer.entity.layers.SlimeOuterLayer
 import net.minecraft.client.renderer.texture.OverlayTexture
 import net.minecraft.core.component.DataComponents
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.util.Mth
 import net.minecraft.world.item.ItemDisplayContext
 import net.minecraft.world.item.ItemStack
@@ -141,7 +141,7 @@ class SupportSlimeRenderer(
 	/**
 	 * Returns the location of an entity's texture.
 	 */
-	override fun getTextureLocation(pEntity: SupportSlime): ResourceLocation {
+	override fun getTextureLocation(pEntity: SupportSlime): Identifier {
 		return SlimeRenderer.SLIME_LOCATION
 	}
 }

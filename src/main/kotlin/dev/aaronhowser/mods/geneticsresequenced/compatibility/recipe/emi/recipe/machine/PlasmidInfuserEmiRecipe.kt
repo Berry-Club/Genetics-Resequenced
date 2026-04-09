@@ -20,7 +20,7 @@ import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.crafting.Ingredient
 
 class PlasmidInfuserEmiRecipe(
@@ -74,7 +74,7 @@ class PlasmidInfuserEmiRecipe(
 		return ModEmiPlugin.PLASMID_INFUSER_CATEGORY
 	}
 
-	override fun getId(): ResourceLocation {
+	override fun getId(): Identifier {
 		val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 		val basicString = if (basic) "/basic" else ""
 

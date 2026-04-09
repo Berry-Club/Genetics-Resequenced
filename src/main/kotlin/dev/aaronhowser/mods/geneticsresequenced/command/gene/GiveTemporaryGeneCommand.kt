@@ -14,10 +14,10 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
-import net.minecraft.commands.arguments.ResourceLocationArgument
+import net.minecraft.commands.arguments.IdentifierArgument
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
@@ -33,10 +33,10 @@ object GiveTemporaryGeneCommand {
 			.requires { it.hasPermission(2) }
 			.then(
 				Commands
-					.argument(GENE, ResourceLocationArgument.id())
+					.argument(GENE, IdentifierArgument.id())
 					.suggests(SUGGEST_GENE_RLS)
 					.executes { cmd ->
-						val gene = ResourceLocationArgument.getId(cmd, GENE)
+						val gene = IdentifierArgument.getId(cmd, GENE)
 						val duration = 20 * 60 * 5
 						val targets = listOf(cmd.source.playerOrException)
 						addGene(cmd.source, gene, targets, duration)
@@ -45,7 +45,7 @@ object GiveTemporaryGeneCommand {
 						Commands
 							.argument(DURATION, IntegerArgumentType.integer(1))
 							.executes {
-								val gene = ResourceLocationArgument.getId(it, GENE)
+								val gene = IdentifierArgument.getId(it, GENE)
 								val duration = IntegerArgumentType.getInteger(it, DURATION)
 								val targets = listOf(it.source.playerOrException)
 								addGene(it.source, gene, targets, duration)
@@ -54,7 +54,7 @@ object GiveTemporaryGeneCommand {
 								Commands
 									.argument(TARGETS, EntityArgument.entities())
 									.executes {
-										val gene = ResourceLocationArgument.getId(it, GENE)
+										val gene = IdentifierArgument.getId(it, GENE)
 										val duration = IntegerArgumentType.getInteger(it, DURATION)
 										val targets = EntityArgument.getEntities(it, TARGETS)
 										addGene(it.source, gene, targets, duration)
@@ -66,11 +66,11 @@ object GiveTemporaryGeneCommand {
 
 	private fun addGene(
 		source: CommandSourceStack,
-		geneRl: ResourceLocation,
+		geneRl: Identifier,
 		entities: Collection<Entity>,
 		duration: Int
 	): Int {
-		val geneHolder = ModGenes.fromResourceLocation(source.registryAccess(), geneRl)
+		val geneHolder = ModGenes.fromIdentifier(source.registryAccess(), geneRl)
 			?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
 
 		val targets = entities.mapNotNull { it as? LivingEntity }

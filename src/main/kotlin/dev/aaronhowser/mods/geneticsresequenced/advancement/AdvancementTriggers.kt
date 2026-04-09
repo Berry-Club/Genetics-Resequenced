@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.core.Holder
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.server.level.ServerPlayer
 
 object AdvancementTriggers {
@@ -76,7 +76,7 @@ object AdvancementTriggers {
 		completeAdvancement(player, advancement)
 	}
 
-	fun getAdvancement(player: ServerPlayer, advancementId: ResourceLocation): AdvancementHolder? =
+	fun getAdvancement(player: ServerPlayer, advancementId: Identifier): AdvancementHolder? =
 		player.server.advancements.get(advancementId)
 
 }

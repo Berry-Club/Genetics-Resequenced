@@ -15,10 +15,10 @@ import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.commands.arguments.EntityArgument
-import net.minecraft.commands.arguments.ResourceLocationArgument
+import net.minecraft.commands.arguments.IdentifierArgument
 import net.minecraft.commands.arguments.selector.EntitySelector
 import net.minecraft.core.Holder
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
@@ -47,10 +47,10 @@ object RemoveGeneCommand {
 			.then(
 				Commands.argument(TARGETS_ARGUMENT, EntityArgument.entities())
 					.then(
-						Commands.argument(GENE_ARGUMENT, ResourceLocationArgument.id())
+						Commands.argument(GENE_ARGUMENT, IdentifierArgument.id())
 							.suggests(SUGGEST_GENE_RLS)
 							.executes { cmd ->
-								val geneRl = ResourceLocationArgument.getId(cmd, GENE_ARGUMENT)
+								val geneRl = IdentifierArgument.getId(cmd, GENE_ARGUMENT)
 								val entities = EntityArgument.getEntities(cmd, TARGETS_ARGUMENT)
 								removeGene(cmd, geneRl, entities)
 							}
@@ -60,10 +60,10 @@ object RemoveGeneCommand {
 
 	private fun removeGene(
 		context: CommandContext<CommandSourceStack>,
-		geneRl: ResourceLocation,
+		geneRl: Identifier,
 		entities: MutableCollection<out Entity>
 	): Int {
-		val gene = ModGenes.fromResourceLocation(context.source.registryAccess(), geneRl)
+		val gene = ModGenes.fromIdentifier(context.source.registryAccess(), geneRl)
 			?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
 
 		return removeGene(context, gene, entities)

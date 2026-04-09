@@ -15,7 +15,7 @@ import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.animal.Cow
 import net.minecraft.world.item.crafting.Ingredient
@@ -67,7 +67,7 @@ class BlackDeathEmiRecipe(
 		ModRecipeLang.BLACK_DEATH.toComponent().withStyle(ChatFormatting.GRAY)
 	)
 
-	override fun getId(): ResourceLocation {
+	override fun getId(): Identifier {
 		val type = if (isMetal) "/metal" else ""
 		return OtherUtil.modResource("/brewing/black_death$type")
 	}

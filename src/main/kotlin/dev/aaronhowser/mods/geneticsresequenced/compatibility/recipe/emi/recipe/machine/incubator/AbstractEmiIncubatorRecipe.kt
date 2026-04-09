@@ -8,12 +8,12 @@ import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 
 abstract class AbstractEmiIncubatorRecipe : EmiRecipe {
 
 	companion object {
-		val BACKGROUND: ResourceLocation = OtherUtil.modResource("textures/gui/container/incubator_emi.png")
+		val BACKGROUND: Identifier = OtherUtil.modResource("textures/gui/container/incubator_emi.png")
 	}
 
 	abstract val ingredient: EmiIngredient

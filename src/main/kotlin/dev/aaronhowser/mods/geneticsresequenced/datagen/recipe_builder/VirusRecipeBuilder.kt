@@ -11,7 +11,7 @@ import net.minecraft.advancements.critereon.RecipeUnlockedTrigger
 import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.Item
 
 class VirusRecipeBuilder(
@@ -34,7 +34,7 @@ class VirusRecipeBuilder(
 		return ModItems.DNA_HELIX.get()
 	}
 
-	override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
+	override fun save(output: RecipeOutput, defaultId: Identifier) {
 		val idString = StringBuilder()
 
 		idString

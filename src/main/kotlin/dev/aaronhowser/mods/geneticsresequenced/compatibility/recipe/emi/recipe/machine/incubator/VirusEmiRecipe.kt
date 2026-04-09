@@ -11,7 +11,7 @@ import dev.emi.emi.api.recipe.EmiRecipeCategory
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeManager
 
@@ -49,7 +49,7 @@ class VirusEmiRecipe(
 		output = EmiStack.of(outputStack)
 	}
 
-	override fun getId(): ResourceLocation {
+	override fun getId(): Identifier {
 		val inputGeneString = inputDnaGeneRk.location().toString().replace(':', '/')
 		val outputGeneString = outputGeneRk.location().toString().replace(':', '/')
 

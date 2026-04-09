@@ -11,7 +11,7 @@ import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
 import kotlin.jvm.optionals.getOrNull
 
@@ -23,7 +23,7 @@ data class GeneRequirements(
 	companion object {
 		val REGISTRY_KEY: ResourceKey<Registry<GeneRequirements>> =
 			ResourceKey.createRegistryKey(
-				ResourceLocation.fromNamespaceAndPath(
+				Identifier.fromNamespaceAndPath(
 					GeneticsResequenced.ID,
 					"gene_requirements"
 				)

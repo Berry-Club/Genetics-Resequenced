@@ -13,7 +13,7 @@ import net.minecraft.core.Registry
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.entity.EntityType
 import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
 import kotlin.jvm.optionals.getOrNull
@@ -26,7 +26,7 @@ data class EntityGenes(
 	companion object {
 		val REGISTRY_KEY: ResourceKey<Registry<EntityGenes>> =
 			ResourceKey.createRegistryKey(
-				ResourceLocation.fromNamespaceAndPath(
+				Identifier.fromNamespaceAndPath(
 					GeneticsResequenced.ID,
 					"entity_genes"
 				)

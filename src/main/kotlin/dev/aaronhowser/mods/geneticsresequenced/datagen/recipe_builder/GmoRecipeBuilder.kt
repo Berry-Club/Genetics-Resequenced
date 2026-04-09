@@ -10,7 +10,7 @@ import net.minecraft.advancements.critereon.RecipeUnlockedTrigger
 import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.crafting.Ingredient
@@ -52,7 +52,7 @@ class GmoRecipeBuilder(
 		return ModItems.GMO_CELL.get()
 	}
 
-	override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
+	override fun save(output: RecipeOutput, defaultId: Identifier) {
 		val entityString = EntityType.getKey(entityType).path
 		val geneString = idealGeneRk.location().path
 
@@ -78,7 +78,7 @@ class GmoRecipeBuilder(
 			.append(chanceString)
 			.append("_chance")
 
-		val id = ResourceLocation.fromNamespaceAndPath(
+		val id = Identifier.fromNamespaceAndPath(
 			defaultId.namespace,
 			pathBuilder.toString()
 		)

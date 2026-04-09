@@ -18,7 +18,7 @@ import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeManager
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
@@ -89,7 +89,7 @@ class CellToHelixEmiRecipe(
 		return ModEmiPlugin.DNA_EXTRACTOR_CATEGORY
 	}
 
-	override fun getId(): ResourceLocation {
+	override fun getId(): Identifier {
 
 		val stringBuilder = StringBuilder()
 			.append("/cell_to_helix/")

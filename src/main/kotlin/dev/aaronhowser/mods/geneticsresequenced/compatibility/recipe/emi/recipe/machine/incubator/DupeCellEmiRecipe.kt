@@ -17,7 +17,7 @@ import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
@@ -72,7 +72,7 @@ class DupeCellEmiRecipe(
 		ModRecipeLang.SUBSTRATE.toComponent().withStyle(ChatFormatting.GRAY)
 	)
 
-	override fun getId(): ResourceLocation {
+	override fun getId(): Identifier {
 		var string = "/substrate_dupe/"
 
 		val entityType = EntityDnaItem.getEntityType(cellStack) ?: error("Cell stack has no entity type!")

@@ -13,10 +13,10 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
-import net.minecraft.commands.arguments.ResourceLocationArgument
+import net.minecraft.commands.arguments.IdentifierArgument
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
@@ -31,12 +31,12 @@ object GiveGeneCommand {
 			.requires { it.hasPermission(2) }
 			.then(
 				Commands
-					.argument(GENE_ARGUMENT, ResourceLocationArgument.id())
+					.argument(GENE_ARGUMENT, IdentifierArgument.id())
 					.suggests(SUGGEST_GENE_RLS)
 					.executes { cmd ->
 						addGene(
 							cmd.source,
-							ResourceLocationArgument.getId(cmd, GENE_ARGUMENT),
+							IdentifierArgument.getId(cmd, GENE_ARGUMENT),
 							entities = listOf(cmd.source.playerOrException)
 						)
 					}
@@ -46,7 +46,7 @@ object GiveGeneCommand {
 							.executes { cmd ->
 								addGene(
 									cmd.source,
-									ResourceLocationArgument.getId(cmd, GENE_ARGUMENT),
+									IdentifierArgument.getId(cmd, GENE_ARGUMENT),
 									EntityArgument.getEntities(cmd, TARGET_ARGUMENT)
 								)
 							}
@@ -56,10 +56,10 @@ object GiveGeneCommand {
 
 	private fun addGene(
 		source: CommandSourceStack,
-		geneRl: ResourceLocation,
+		geneRl: Identifier,
 		entities: Collection<Entity>
 	): Int {
-		val gene = ModGenes.fromResourceLocation(source.registryAccess(), geneRl)
+		val gene = ModGenes.fromIdentifier(source.registryAccess(), geneRl)
 			?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
 
 		return addGene(source, gene, entities)

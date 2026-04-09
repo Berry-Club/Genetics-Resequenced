@@ -9,7 +9,7 @@ import net.minecraft.advancements.Criterion
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger
 import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeOutput
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.Item
 
 class DupeCellRecipeBuilder(
@@ -33,7 +33,7 @@ class DupeCellRecipeBuilder(
 		return ModItems.CELL.get()
 	}
 
-	override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
+	override fun save(output: RecipeOutput, defaultId: Identifier) {
 		val id = OtherUtil.modResource("incubator/$name")
 
 		val advancement = output.advancement()

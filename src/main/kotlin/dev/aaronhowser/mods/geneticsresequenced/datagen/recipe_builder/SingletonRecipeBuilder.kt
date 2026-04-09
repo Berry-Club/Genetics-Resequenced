@@ -7,7 +7,7 @@ import net.minecraft.advancements.Criterion
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger
 import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeOutput
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.crafting.Recipe
 
@@ -31,7 +31,7 @@ class SingletonRecipeBuilder(
 		return resultItem
 	}
 
-	override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
+	override fun save(output: RecipeOutput, defaultId: Identifier) {
 		val id = OtherUtil.modResource(idString)
 
 		val advancement = output.advancement()

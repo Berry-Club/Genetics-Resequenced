@@ -9,7 +9,7 @@ import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
@@ -25,13 +25,13 @@ import kotlin.jvm.optionals.getOrNull
 
 object OtherUtil {
 
-	fun modResource(path: String): ResourceLocation =
-		ResourceLocation.fromNamespaceAndPath(GeneticsResequenced.ID, path)
+	fun modResource(path: String): Identifier =
+		Identifier.fromNamespaceAndPath(GeneticsResequenced.ID, path)
 
 	val ItemLike.itemStack: ItemStack
 		get() = this.asItem().defaultInstance
 
-	fun getEntityType(resourceLocation: ResourceLocation): EntityType<*> {
+	fun getEntityType(resourceLocation: Identifier): EntityType<*> {
 		val entityType = BuiltInRegistries.ENTITY_TYPE.get(resourceLocation)
 
 		if (entityType === EntityType.PIG && resourceLocation != BuiltInRegistries.ENTITY_TYPE.defaultKey) {

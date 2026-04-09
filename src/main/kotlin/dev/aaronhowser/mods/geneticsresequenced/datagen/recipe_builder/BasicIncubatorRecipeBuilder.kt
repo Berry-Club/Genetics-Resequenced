@@ -8,7 +8,7 @@ import net.minecraft.advancements.Criterion
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger
 import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeOutput
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
@@ -35,7 +35,7 @@ class BasicIncubatorRecipeBuilder(
 		return outputStack.item
 	}
 
-	override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
+	override fun save(output: RecipeOutput, defaultId: Identifier) {
 		val idString = StringBuilder()
 
 		idString
