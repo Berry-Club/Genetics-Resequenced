@@ -5,7 +5,7 @@
 			"conditions": {
 				"items": [
 					{
-						"items": "geneticsresequenced:plasmid"
+						"items": "genetics_resequenced:plasmid"
 					}
 				]
 			},
@@ -13,7 +13,7 @@
 		},
 		"has_the_recipe": {
 			"conditions": {
-				"recipe": "geneticsresequenced:anti_field_orb"
+				"recipe": "genetics_resequenced:anti_field_orb"
 			},
 			"trigger": "minecraft:recipe_unlocked"
 		}
@@ -26,7 +26,7 @@
 	],
 	"rewards": {
 		"recipes": [
-			"geneticsresequenced:anti_field_orb"
+			"genetics_resequenced:anti_field_orb"
 		]
 	}
 }

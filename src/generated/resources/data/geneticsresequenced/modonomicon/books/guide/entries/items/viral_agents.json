@@ -2,17 +2,17 @@
 	"background_u_index": 0,
 	"background_v_index": 0,
 	"category": "items",
-	"description": "book.geneticsresequenced.guide.items.viral_agents.description",
+	"description": "book.genetics_resequenced.guide.items.viral_agents.description",
 	"hide_while_locked": false,
 	"icon": {
 		"components": {
 			"minecraft:potion_contents": {
-				"potion": "geneticsresequenced:viral_agents"
+				"potion": "genetics_resequenced:viral_agents"
 			}
 		},
 		"item": "minecraft:potion"
 	},
-	"name": "book.geneticsresequenced.guide.items.viral_agents.name",
+	"name": "book.genetics_resequenced.guide.items.viral_agents.name",
 	"pages": [
 		{
 			"type": "modonomicon:text",
@@ -21,8 +21,8 @@
 				"type": "modonomicon:none"
 			},
 			"show_title_separator": true,
-			"text": "book.geneticsresequenced.guide.items.viral_agents.page_0.text",
-			"title": "book.geneticsresequenced.guide.items.viral_agents.page_0.title",
+			"text": "book.genetics_resequenced.guide.items.viral_agents.page_0.text",
+			"title": "book.genetics_resequenced.guide.items.viral_agents.page_0.title",
 			"use_markdown_in_title": false
 		},
 		{
@@ -34,14 +34,14 @@
 			"item": {
 				"components": {
 					"minecraft:potion_contents": {
-						"potion": "geneticsresequenced:viral_agents"
+						"potion": "genetics_resequenced:viral_agents"
 					}
 				},
 				"count": 1,
 				"item": "minecraft:potion"
 			},
-			"text": "book.geneticsresequenced.guide.items.viral_agents.page_1.text",
-			"title": "book.geneticsresequenced.guide.items.viral_agents.page_1.title"
+			"text": "book.genetics_resequenced.guide.items.viral_agents.page_1.text",
+			"title": "book.genetics_resequenced.guide.items.viral_agents.page_1.title"
 		}
 	],
 	"show_when_any_parent_unlocked": false,

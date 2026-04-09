@@ -1,7 +1,7 @@
 {
 	"required": true,
 	"minVersion": "0.8",
-	"package": "dev.aaronhowser.mods.geneticsresequenced.mixin",
+	"package": "dev.aaronhowser.mods.genetics_resequenced.mixin",
 	"mixins": [
 		"BeePollinateGoalMixin",
 		"ClientHooksMixin",

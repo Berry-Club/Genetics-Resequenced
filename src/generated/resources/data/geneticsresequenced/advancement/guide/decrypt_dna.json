@@ -1,13 +1,13 @@
 {
-	"parent": "geneticsresequenced:guide/dna_decryptor",
+	"parent": "genetics_resequenced:guide/dna_decryptor",
 	"criteria": {
 		"decrypted_dna": {
 			"conditions": {
 				"items": [
 					{
-						"items": "geneticsresequenced:dna_helix",
+						"items": "genetics_resequenced:dna_helix",
 						"predicates": {
-							"geneticsresequenced:helix_gene": {
+							"genetics_resequenced:helix_gene": {
 								"helix_type": "ANY"
 							}
 						}
@@ -19,14 +19,14 @@
 	},
 	"display": {
 		"description": {
-			"translate": "advancement.geneticsresequenced.decrypt_dna.desc"
+			"translate": "advancement.genetics_resequenced.decrypt_dna.desc"
 		},
 		"icon": {
 			"count": 1,
-			"id": "geneticsresequenced:dna_helix"
+			"id": "genetics_resequenced:dna_helix"
 		},
 		"title": {
-			"translate": "advancement.geneticsresequenced.decrypt_dna.title"
+			"translate": "advancement.genetics_resequenced.decrypt_dna.title"
 		}
 	},
 	"requirements": [

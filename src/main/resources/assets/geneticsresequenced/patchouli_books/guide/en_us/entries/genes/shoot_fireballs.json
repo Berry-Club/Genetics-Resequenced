@@ -1,6 +1,6 @@
 {
 	"name": "Shoot Fireballs",
-	"category": "geneticsresequenced:genes",
+	"category": "genetics_resequenced:genes",
 	"icon": "minecraft:blaze_rod",
 	"pages": [
 		{

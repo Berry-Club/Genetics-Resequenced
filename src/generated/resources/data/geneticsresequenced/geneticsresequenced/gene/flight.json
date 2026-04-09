@@ -5,7 +5,7 @@
 			"attribute": "neoforge:creative_flight",
 			"modifier": {
 				"amount": 1.0,
-				"id": "geneticsresequenced:flight",
+				"id": "genetics_resequenced:flight",
 				"operation": "add_value"
 			}
 		}

@@ -1,22 +1,22 @@
 {
 	"name": "Syringe",
-	"category": "geneticsresequenced:items",
-	"icon": "geneticsresequenced:syringe",
+	"category": "genetics_resequenced:items",
+	"icon": "genetics_resequenced:syringe",
 	"sortnum": 6,
 	"pages": [
 		{
 			"type": "patchouli:text",
-			"text": "The $(major)Syringe/$ is used to $(minor)extract and inject blood/$. Simply hold right-click, and the process will end automatically.$(br2)The reason you'd $(o)want/$ to extract blood is that that's what carries completed $(l:geneticsresequenced:items/plasmid)Plasmids/$ back into your body."
+			"text": "The $(major)Syringe/$ is used to $(minor)extract and inject blood/$. Simply hold right-click, and the process will end automatically.$(br2)The reason you'd $(o)want/$ to extract blood is that that's what carries completed $(l:genetics_resequenced:items/plasmid)Plasmids/$ back into your body."
 		},
 		{
 			"type": "patchouli:spotlight",
-			"item": "geneticsresequenced:syringe",
+			"item": "genetics_resequenced:syringe",
 			"link_recipe": true,
-			"text": "When you extract blood, it'll be $(bad)contaminated/$. You'll need to clean it up in the $(l:geneticsresequenced:blocks/blood_purifier)Blood Purifier/$ before it can be used.$(br2)Plasmids are added in the $(l:geneticsresequenced:blocks/plasmid_injector)Plasmid Injector/$."
+			"text": "When you extract blood, it'll be $(bad)contaminated/$. You'll need to clean it up in the $(l:genetics_resequenced:blocks/blood_purifier)Blood Purifier/$ before it can be used.$(br2)Plasmids are added in the $(l:genetics_resequenced:blocks/plasmid_injector)Plasmid Injector/$."
 		},
 		{
 			"type": "patchouli:spotlight",
-			"item": "geneticsresequenced:metal_syringe",
+			"item": "genetics_resequenced:metal_syringe",
 			"link_recipe": true,
 			"text": "You can also use the $(major)Metal Syringe/$, which targets others instead of yourself!$(br2)This is how you would give Genes to entities."
 		}

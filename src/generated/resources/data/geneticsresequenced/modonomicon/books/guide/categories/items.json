@@ -8,11 +8,11 @@
 	"display_mode": "node",
 	"entry_textures": "modonomicon:textures/gui/entry_textures.png",
 	"icon": {
-		"item": "geneticsresequenced:syringe"
+		"item": "genetics_resequenced:syringe"
 	},
 	"max_scroll_x": 512,
 	"max_scroll_y": 512,
-	"name": "book.geneticsresequenced.guide.items.name",
+	"name": "book.genetics_resequenced.guide.items.name",
 	"show_category_button": true,
 	"sort_number": 1
 }

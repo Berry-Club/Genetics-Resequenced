@@ -1,9 +1,9 @@
 {
   "entity": "minecraft:mooshroom",
   "gene_weights": {
-    "geneticsresequenced:bountiful": 2,
-    "geneticsresequenced:eat_grass": 4,
-    "geneticsresequenced:milky": 4,
-    "geneticsresequenced:photosynthesis": 3
+    "genetics_resequenced:bountiful": 2,
+    "genetics_resequenced:eat_grass": 4,
+    "genetics_resequenced:milky": 4,
+    "genetics_resequenced:photosynthesis": 3
   }
 }

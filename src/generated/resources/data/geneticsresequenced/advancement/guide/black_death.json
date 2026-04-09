@@ -1,13 +1,13 @@
 {
-  "parent": "geneticsresequenced:guide/decrypt_dna",
+  "parent": "genetics_resequenced:guide/decrypt_dna",
   "criteria": {
     "black_death_helix": {
       "conditions": {
         "items": [
           {
-            "items": "geneticsresequenced:dna_helix",
+            "items": "genetics_resequenced:dna_helix",
             "predicates": {
-              "geneticsresequenced:helix_gene": {
+              "genetics_resequenced:helix_gene": {
                 "helix_type": "BLACK_DEATH"
               }
             }
@@ -19,7 +19,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.black_death.desc"
+      "translate": "advancement.genetics_resequenced.black_death.desc"
     },
     "frame": "challenge",
     "icon": {
@@ -27,7 +27,7 @@
       "id": "minecraft:wither_rose"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.black_death.title"
+      "translate": "advancement.genetics_resequenced.black_death.title"
     }
   },
   "requirements": [

@@ -1,6 +1,6 @@
 {
 	"name": "Scare Zombies",
-	"category": "geneticsresequenced:genes",
+	"category": "genetics_resequenced:genes",
 	"icon": "minecraft:zombie_head",
 	"pages": [
 		{
@@ -9,7 +9,7 @@
 		},
 		{
 			"type": "patchouli:text",
-			"text": "By default, this Gene requires $(l:geneticsresequenced:genes/scare_creepers)Scare Creepers/$."
+			"text": "By default, this Gene requires $(l:genetics_resequenced:genes/scare_creepers)Scare Creepers/$."
 		}
 	]
 }

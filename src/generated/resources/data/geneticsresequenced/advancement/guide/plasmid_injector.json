@@ -1,11 +1,11 @@
 {
-	"parent": "geneticsresequenced:guide/plasmid_infuser",
+	"parent": "genetics_resequenced:guide/plasmid_infuser",
 	"criteria": {
 		"plasmid_injector": {
 			"conditions": {
 				"items": [
 					{
-						"items": "geneticsresequenced:plasmid_injector"
+						"items": "genetics_resequenced:plasmid_injector"
 					}
 				]
 			},
@@ -14,14 +14,14 @@
 	},
 	"display": {
 		"description": {
-			"translate": "advancement.geneticsresequenced.plasmid_injector.desc"
+			"translate": "advancement.genetics_resequenced.plasmid_injector.desc"
 		},
 		"icon": {
 			"count": 1,
-			"id": "geneticsresequenced:plasmid_injector"
+			"id": "genetics_resequenced:plasmid_injector"
 		},
 		"title": {
-			"translate": "advancement.geneticsresequenced.plasmid_injector.title"
+			"translate": "advancement.genetics_resequenced.plasmid_injector.title"
 		}
 	},
 	"requirements": [

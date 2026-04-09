@@ -1,6 +1,6 @@
 {
 	"name": "Flambé",
-	"category": "geneticsresequenced:genes/negative",
+	"category": "genetics_resequenced:genes/negative",
 	"icon": "minecraft:blaze_powder",
 	"pages": [
 		{

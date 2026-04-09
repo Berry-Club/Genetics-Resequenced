@@ -5,7 +5,7 @@
 			"conditions": {
 				"items": [
 					{
-						"items": "geneticsresequenced:scraper"
+						"items": "genetics_resequenced:scraper"
 					}
 				]
 			},

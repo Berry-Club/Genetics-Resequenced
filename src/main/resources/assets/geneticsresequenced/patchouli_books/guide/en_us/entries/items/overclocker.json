@@ -1,7 +1,7 @@
 {
 	"name": "Overclocker",
-	"category": "geneticsresequenced:items",
-	"icon": "geneticsresequenced:overclocker",
+	"category": "genetics_resequenced:items",
+	"icon": "genetics_resequenced:overclocker",
 	"sortnum": 8,
 	"pages": [
 		{
@@ -10,7 +10,7 @@
 		},
 		{
 			"type": "patchouli:spotlight",
-			"item": "geneticsresequenced:overclocker",
+			"item": "genetics_resequenced:overclocker",
 			"text": "You can have $(minor)up to 8 Overclockers/$ in a machine.",
 			"link_recipe": true
 		}

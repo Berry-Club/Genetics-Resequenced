@@ -1,11 +1,11 @@
 {
-	"parent": "geneticsresequenced:guide/dna_extractor",
+	"parent": "genetics_resequenced:guide/dna_extractor",
 	"criteria": {
 		"plasmid_infuser": {
 			"conditions": {
 				"items": [
 					{
-						"items": "geneticsresequenced:plasmid_infuser"
+						"items": "genetics_resequenced:plasmid_infuser"
 					}
 				]
 			},
@@ -14,14 +14,14 @@
 	},
 	"display": {
 		"description": {
-			"translate": "advancement.geneticsresequenced.plasmid_infuser.desc"
+			"translate": "advancement.genetics_resequenced.plasmid_infuser.desc"
 		},
 		"icon": {
 			"count": 1,
-			"id": "geneticsresequenced:plasmid_infuser"
+			"id": "genetics_resequenced:plasmid_infuser"
 		},
 		"title": {
-			"translate": "advancement.geneticsresequenced.plasmid_infuser.title"
+			"translate": "advancement.genetics_resequenced.plasmid_infuser.title"
 		}
 	},
 	"requirements": [

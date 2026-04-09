@@ -20,7 +20,7 @@
 	"category_button_x_offset": 0,
 	"category_button_y_offset": 0,
 	"crafting_texture": "modonomicon:textures/gui/crafting_textures.png",
-	"creative_tab": "geneticsresequenced:creative_tab",
+	"creative_tab": "genetics_resequenced:creative_tab",
 	"default_title_color": 0,
 	"description": "",
 	"display_mode": "index",
@@ -37,7 +37,7 @@
 		"texture_width": 256
 	},
 	"model": "modonomicon:modonomicon_purple",
-	"name": "book.geneticsresequenced.guide.name",
+	"name": "book.genetics_resequenced.guide.name",
 	"page_display_mode": "double_page",
 	"read_all_button_y_offset": 0,
 	"right_frame_overlay": {
@@ -52,7 +52,7 @@
 	"search_button_x_offset": 0,
 	"search_button_y_offset": 0,
 	"single_page_texture": "modonomicon:textures/gui/single_page_entry.png",
-	"tooltip": "book.geneticsresequenced.guide.tooltip",
+	"tooltip": "book.genetics_resequenced.guide.tooltip",
 	"top_frame_overlay": {
 		"frame_height": 7,
 		"frame_width": 72,

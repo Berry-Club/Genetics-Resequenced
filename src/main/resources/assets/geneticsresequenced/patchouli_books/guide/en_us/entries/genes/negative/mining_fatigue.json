@@ -1,6 +1,6 @@
 {
 	"name": "Mining Fatigue",
-	"category": "geneticsresequenced:genes/negative",
+	"category": "genetics_resequenced:genes/negative",
 	"icon": "minecraft:textures/mob_effect/mining_fatigue.png",
 	"pages": [
 		{

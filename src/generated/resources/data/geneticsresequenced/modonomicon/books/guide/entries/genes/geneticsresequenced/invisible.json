@@ -2,7 +2,7 @@
 	"background_u_index": 0,
 	"background_v_index": 0,
 	"category": "genes",
-	"description": "book.geneticsresequenced.guide.genes.geneticsresequenced/invisible.description",
+	"description": "book.genetics_resequenced.guide.genes.genetics_resequenced/invisible.description",
 	"hide_while_locked": false,
 	"icon": {
 		"components": {
@@ -12,7 +12,7 @@
 		},
 		"item": "minecraft:potion"
 	},
-	"name": "book.geneticsresequenced.guide.genes.geneticsresequenced/invisible.name",
+	"name": "book.genetics_resequenced.guide.genes.genetics_resequenced/invisible.name",
 	"pages": [
 		{
 			"type": "modonomicon:text",
@@ -21,8 +21,8 @@
 				"type": "modonomicon:none"
 			},
 			"show_title_separator": true,
-			"text": "book.geneticsresequenced.guide.genes.geneticsresequenced/invisible.page_0.text",
-			"title": "book.geneticsresequenced.guide.genes.geneticsresequenced/invisible.page_0.title",
+			"text": "book.genetics_resequenced.guide.genes.genetics_resequenced/invisible.page_0.text",
+			"title": "book.genetics_resequenced.guide.genes.genetics_resequenced/invisible.page_0.title",
 			"use_markdown_in_title": false
 		},
 		{
@@ -33,16 +33,16 @@
 			},
 			"item": {
 				"components": {
-					"geneticsresequenced:plasmid_progress": {
+					"genetics_resequenced:plasmid_progress": {
 						"dna_points": 50,
-						"gene": "geneticsresequenced:invisible"
+						"gene": "genetics_resequenced:invisible"
 					}
 				},
 				"count": 1,
-				"item": "geneticsresequenced:plasmid"
+				"item": "genetics_resequenced:plasmid"
 			},
-			"text": "book.geneticsresequenced.guide.genes.geneticsresequenced/invisible.page_1.text",
-			"title": "book.geneticsresequenced.guide.genes.geneticsresequenced/invisible.page_1.title"
+			"text": "book.genetics_resequenced.guide.genes.genetics_resequenced/invisible.page_1.text",
+			"title": "book.genetics_resequenced.guide.genes.genetics_resequenced/invisible.page_1.title"
 		}
 	],
 	"show_when_any_parent_unlocked": false,

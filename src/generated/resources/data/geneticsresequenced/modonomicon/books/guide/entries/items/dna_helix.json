@@ -2,12 +2,12 @@
 	"background_u_index": 0,
 	"background_v_index": 0,
 	"category": "items",
-	"description": "book.geneticsresequenced.guide.items.dna_helix.description",
+	"description": "book.genetics_resequenced.guide.items.dna_helix.description",
 	"hide_while_locked": false,
 	"icon": {
-		"item": "geneticsresequenced:dna_helix"
+		"item": "genetics_resequenced:dna_helix"
 	},
-	"name": "book.geneticsresequenced.guide.items.dna_helix.name",
+	"name": "book.genetics_resequenced.guide.items.dna_helix.name",
 	"pages": [
 		{
 			"type": "modonomicon:text",
@@ -16,8 +16,8 @@
 				"type": "modonomicon:none"
 			},
 			"show_title_separator": true,
-			"text": "book.geneticsresequenced.guide.items.dna_helix.page_0.text",
-			"title": "book.geneticsresequenced.guide.items.dna_helix.page_0.title",
+			"text": "book.genetics_resequenced.guide.items.dna_helix.page_0.text",
+			"title": "book.genetics_resequenced.guide.items.dna_helix.page_0.title",
 			"use_markdown_in_title": false
 		},
 		{
@@ -28,13 +28,13 @@
 			},
 			"item": {
 				"components": {
-					"geneticsresequenced:entity_type": "minecraft:cow"
+					"genetics_resequenced:entity_type": "minecraft:cow"
 				},
 				"count": 1,
-				"item": "geneticsresequenced:dna_helix"
+				"item": "genetics_resequenced:dna_helix"
 			},
-			"text": "book.geneticsresequenced.guide.items.dna_helix.page_1.text",
-			"title": "book.geneticsresequenced.guide.items.dna_helix.page_1.title"
+			"text": "book.genetics_resequenced.guide.items.dna_helix.page_1.text",
+			"title": "book.genetics_resequenced.guide.items.dna_helix.page_1.title"
 		},
 		{
 			"type": "modonomicon:spotlight",
@@ -44,13 +44,13 @@
 			},
 			"item": {
 				"components": {
-					"geneticsresequenced:gene": "geneticsresequenced:milky"
+					"genetics_resequenced:gene": "genetics_resequenced:milky"
 				},
 				"count": 1,
-				"item": "geneticsresequenced:dna_helix"
+				"item": "genetics_resequenced:dna_helix"
 			},
-			"text": "book.geneticsresequenced.guide.items.dna_helix.page_2.text",
-			"title": "book.geneticsresequenced.guide.items.dna_helix.page_2.title"
+			"text": "book.genetics_resequenced.guide.items.dna_helix.page_2.text",
+			"title": "book.genetics_resequenced.guide.items.dna_helix.page_2.title"
 		},
 		{
 			"type": "modonomicon:spotlight",
@@ -60,13 +60,13 @@
 			},
 			"item": {
 				"components": {
-					"geneticsresequenced:gene": "geneticsresequenced:basic"
+					"genetics_resequenced:gene": "genetics_resequenced:basic"
 				},
 				"count": 1,
-				"item": "geneticsresequenced:dna_helix"
+				"item": "genetics_resequenced:dna_helix"
 			},
-			"text": "book.geneticsresequenced.guide.items.dna_helix.page_3.text",
-			"title": "book.geneticsresequenced.guide.items.dna_helix.page_3.title"
+			"text": "book.genetics_resequenced.guide.items.dna_helix.page_3.text",
+			"title": "book.genetics_resequenced.guide.items.dna_helix.page_3.title"
 		}
 	],
 	"show_when_any_parent_unlocked": false,

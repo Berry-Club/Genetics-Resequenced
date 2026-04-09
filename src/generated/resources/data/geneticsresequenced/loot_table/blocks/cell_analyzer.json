@@ -11,11 +11,11 @@
 			"entries": [
 				{
 					"type": "minecraft:item",
-					"name": "geneticsresequenced:cell_analyzer"
+					"name": "genetics_resequenced:cell_analyzer"
 				}
 			],
 			"rolls": 1.0
 		}
 	],
-	"random_sequence": "geneticsresequenced:blocks/cell_analyzer"
+	"random_sequence": "genetics_resequenced:blocks/cell_analyzer"
 }

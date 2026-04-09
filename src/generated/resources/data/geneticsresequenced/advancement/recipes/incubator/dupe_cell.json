@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "geneticsresequenced:cell"
+            "items": "genetics_resequenced:cell"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:incubator/dupe_cell"
+        "recipe": "genetics_resequenced:incubator/dupe_cell"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:incubator/dupe_cell"
+      "genetics_resequenced:incubator/dupe_cell"
     ]
   }
 }

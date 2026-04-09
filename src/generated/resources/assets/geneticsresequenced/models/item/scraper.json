@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:item/generated",
 	"textures": {
-		"layer0": "geneticsresequenced:item/scraper"
+		"layer0": "genetics_resequenced:item/scraper"
 	}
 }

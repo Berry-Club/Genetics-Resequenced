@@ -1,7 +1,7 @@
 {
 	"name": "Incubator",
-	"category": "geneticsresequenced:blocks",
-	"icon": "geneticsresequenced:incubator",
+	"category": "genetics_resequenced:blocks",
+	"icon": "genetics_resequenced:incubator",
 	"sortnum": 8,
 	"pages": [
 		{
@@ -10,9 +10,9 @@
 		},
 		{
 			"type": "patchouli:spotlight",
-			"item": "geneticsresequenced:incubator",
+			"item": "genetics_resequenced:incubator",
 			"link_recipe": true,
-			"text": "It speed can be increased with $(l:geneticsresequenced:items/overclocker)Overclockers/$."
+			"text": "It speed can be increased with $(l:genetics_resequenced:items/overclocker)Overclockers/$."
 		}
 	]
 }

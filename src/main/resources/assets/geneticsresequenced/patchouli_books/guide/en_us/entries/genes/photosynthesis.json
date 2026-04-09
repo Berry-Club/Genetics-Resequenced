@@ -1,6 +1,6 @@
 {
 	"name": "Photosynthesis",
-	"category": "geneticsresequenced:genes",
+	"category": "genetics_resequenced:genes",
 	"icon": "minecraft:sunflower",
 	"pages": [
 		{
@@ -9,7 +9,7 @@
 		},
 		{
 			"type": "patchouli:text",
-			"text": "By default, this Gene requires $(l:geneticsresequenced:genes/thorns)Thorns/$."
+			"text": "By default, this Gene requires $(l:genetics_resequenced:genes/thorns)Thorns/$."
 		}
 	]
 }

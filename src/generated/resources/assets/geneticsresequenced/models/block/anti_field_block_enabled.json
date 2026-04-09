@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:block/cube_all",
 	"textures": {
-		"all": "geneticsresequenced:block/machine_top"
+		"all": "genetics_resequenced:block/machine_top"
 	}
 }

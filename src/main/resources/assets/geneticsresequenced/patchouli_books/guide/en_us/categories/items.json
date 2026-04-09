@@ -1,6 +1,6 @@
 {
 	"name": "Items",
-	"icon": "geneticsresequenced:syringe",
+	"icon": "genetics_resequenced:syringe",
 	"description": "All the items in the mod",
 	"sortnum": 2
 }

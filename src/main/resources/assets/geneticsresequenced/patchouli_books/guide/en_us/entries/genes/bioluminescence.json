@@ -1,6 +1,6 @@
 {
 	"name": "Bioluminescence",
-	"category": "geneticsresequenced:genes",
+	"category": "genetics_resequenced:genes",
 	"icon": "minecraft:glowstone",
 	"pages": [
 		{

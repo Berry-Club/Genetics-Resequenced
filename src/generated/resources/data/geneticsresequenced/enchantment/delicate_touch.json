@@ -1,7 +1,7 @@
 {
   "anvil_cost": 1,
   "description": {
-    "translate": "enchantment.geneticsresequenced.delicate_touch"
+    "translate": "enchantment.genetics_resequenced.delicate_touch"
   },
   "max_cost": {
     "base": 150,
@@ -15,6 +15,6 @@
   "slots": [
     "hand"
   ],
-  "supported_items": "#geneticsresequenced:enchantable/delicate_touch",
+  "supported_items": "#genetics_resequenced:enchantable/delicate_touch",
   "weight": 10
 }

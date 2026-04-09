@@ -1,7 +1,7 @@
 {
 	"name": "Gene Checker",
-	"category": "geneticsresequenced:items",
-	"icon": "geneticsresequenced:gene_checker",
+	"category": "genetics_resequenced:items",
+	"icon": "genetics_resequenced:gene_checker",
 	"sortnum": 7,
 	"pages": [
 		{
@@ -10,7 +10,7 @@
 		},
 		{
 			"type": "patchouli:spotlight",
-			"item": "geneticsresequenced:gene_checker",
+			"item": "genetics_resequenced:gene_checker",
 			"link_recipe": true,
 			"text": "If you're looking at an entity, its Genes will be listed. Otherwise, it'll list your own Genes instead."
 		}

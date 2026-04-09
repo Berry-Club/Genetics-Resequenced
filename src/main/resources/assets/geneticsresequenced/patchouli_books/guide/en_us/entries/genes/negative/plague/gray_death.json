@@ -1,6 +1,6 @@
 {
 	"name": "Gray Death",
-	"category": "geneticsresequenced:genes/plague",
+	"category": "genetics_resequenced:genes/plague",
 	"icon": "minecraft:poisonous_potato",
 	"pages": [
 		{

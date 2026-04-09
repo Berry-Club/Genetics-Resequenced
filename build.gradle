@@ -87,7 +87,7 @@ neoForge {
 //		"Wiki-Export-Client" {
 //			client()
 //			gameDirectory = file 'runs/wiki_exporter'
-//			systemProperty 'item_asset_export.render.namespaces', 'geneticsresequenced'
+//			systemProperty 'item_asset_export.render.namespaces', 'genetics_resequenced'
 //		}
 	}
 
@@ -309,8 +309,8 @@ java {
 //	wikiAccessToken = ENV.MODDED_MC_WIKI_TOKEN
 //
 //	docs {
-//		geneticsresequenced {
-//			root = file('docs/geneticsresequenced')
+//		genetics_resequenced {
+//			root = file('docs/genetics_resequenced')
 //		}
 //	}
 //}

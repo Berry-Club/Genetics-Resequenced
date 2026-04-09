@@ -6,7 +6,7 @@
 			"item": "minecraft:book"
 		},
 		"O": {
-			"item": "geneticsresequenced:organic_matter"
+			"item": "genetics_resequenced:organic_matter"
 		}
 	},
 	"pattern": [
@@ -14,7 +14,7 @@
 	],
 	"result": {
 		"components": {
-			"modonomicon:book_id": "geneticsresequenced:guide"
+			"modonomicon:book_id": "genetics_resequenced:guide"
 		},
 		"count": 1,
 		"id": "modonomicon:modonomicon"

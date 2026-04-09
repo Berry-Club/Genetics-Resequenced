@@ -2,28 +2,28 @@
 	"parent": "minecraft:item/generated",
 	"overrides": [
 		{
-			"model": "geneticsresequenced:item/syringe_flipped_empty",
+			"model": "genetics_resequenced:item/syringe_flipped_empty",
 			"predicate": {
-				"geneticsresequenced:full": 0.0,
-				"geneticsresequenced:injecting": 1.0
+				"genetics_resequenced:full": 0.0,
+				"genetics_resequenced:injecting": 1.0
 			}
 		},
 		{
-			"model": "geneticsresequenced:item/syringe_full",
+			"model": "genetics_resequenced:item/syringe_full",
 			"predicate": {
-				"geneticsresequenced:full": 1.0,
-				"geneticsresequenced:injecting": 0.0
+				"genetics_resequenced:full": 1.0,
+				"genetics_resequenced:injecting": 0.0
 			}
 		},
 		{
-			"model": "geneticsresequenced:item/syringe_full_flipped",
+			"model": "genetics_resequenced:item/syringe_full_flipped",
 			"predicate": {
-				"geneticsresequenced:full": 1.0,
-				"geneticsresequenced:injecting": 1.0
+				"genetics_resequenced:full": 1.0,
+				"genetics_resequenced:injecting": 1.0
 			}
 		}
 	],
 	"textures": {
-		"layer0": "geneticsresequenced:item/glass_syringe_empty"
+		"layer0": "genetics_resequenced:item/glass_syringe_empty"
 	}
 }

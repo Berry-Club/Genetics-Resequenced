@@ -1,8 +1,8 @@
 {
 	"entity": "minecraft:vindicator",
 	"gene_weights": {
-		"geneticsresequenced:basic": 5,
-		"geneticsresequenced:emerald_heart": 2,
-		"geneticsresequenced:johnny": 3
+		"genetics_resequenced:basic": 5,
+		"genetics_resequenced:emerald_heart": 2,
+		"genetics_resequenced:johnny": 3
 	}
 }

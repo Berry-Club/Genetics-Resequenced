@@ -1,6 +1,6 @@
 {
 	"name": "Lay Egg",
-	"category": "geneticsresequenced:genes",
+	"category": "genetics_resequenced:genes",
 	"icon": "minecraft:egg",
 	"pages": [
 		{

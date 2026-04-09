@@ -1,6 +1,6 @@
 {
-  "gene": "geneticsresequenced:web_walker",
+  "gene": "genetics_resequenced:web_walker",
   "requirements": [
-    "geneticsresequenced:weaving"
+    "genetics_resequenced:weaving"
   ]
 }

@@ -4,7 +4,7 @@
 			"attribute": "minecraft:generic.step_height",
 			"modifier": {
 				"amount": 1.0,
-				"id": "geneticsresequenced:step_assist",
+				"id": "genetics_resequenced:step_assist",
 				"operation": "add_value"
 			}
 		}

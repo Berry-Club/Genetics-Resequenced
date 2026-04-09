@@ -1,4 +1,4 @@
 {
   "type": "minecraft:block",
-  "random_sequence": "geneticsresequenced:blocks/web_defense_block"
+  "random_sequence": "genetics_resequenced:blocks/web_defense_block"
 }

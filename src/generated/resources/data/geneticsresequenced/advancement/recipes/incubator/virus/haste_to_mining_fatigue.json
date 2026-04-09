@@ -3,7 +3,7 @@
 	"criteria": {
 		"has_the_recipe": {
 			"conditions": {
-				"recipe": "geneticsresequenced:incubator/virus/haste_to_mining_fatigue"
+				"recipe": "genetics_resequenced:incubator/virus/haste_to_mining_fatigue"
 			},
 			"trigger": "minecraft:recipe_unlocked"
 		}
@@ -15,7 +15,7 @@
 	],
 	"rewards": {
 		"recipes": [
-			"geneticsresequenced:incubator/virus/haste_to_mining_fatigue"
+			"genetics_resequenced:incubator/virus/haste_to_mining_fatigue"
 		]
 	}
 }

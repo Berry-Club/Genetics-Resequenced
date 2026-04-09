@@ -1,6 +1,6 @@
 {
 	"name": "Haste",
-	"category": "geneticsresequenced:genes",
+	"category": "genetics_resequenced:genes",
 	"icon": "minecraft:textures/mob_effect/haste.png",
 	"pages": [
 		{

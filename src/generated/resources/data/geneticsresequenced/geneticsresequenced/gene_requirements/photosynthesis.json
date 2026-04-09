@@ -1,7 +1,7 @@
 {
-  "gene": "geneticsresequenced:photosynthesis",
+  "gene": "genetics_resequenced:photosynthesis",
   "requirements": [
-    "geneticsresequenced:eat_grass",
-    "geneticsresequenced:thorns"
+    "genetics_resequenced:eat_grass",
+    "genetics_resequenced:thorns"
   ]
 }

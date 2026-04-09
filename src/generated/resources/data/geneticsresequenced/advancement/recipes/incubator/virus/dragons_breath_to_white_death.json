@@ -3,7 +3,7 @@
 	"criteria": {
 		"has_the_recipe": {
 			"conditions": {
-				"recipe": "geneticsresequenced:incubator/virus/dragons_breath_to_white_death"
+				"recipe": "genetics_resequenced:incubator/virus/dragons_breath_to_white_death"
 			},
 			"trigger": "minecraft:recipe_unlocked"
 		}
@@ -15,7 +15,7 @@
 	],
 	"rewards": {
 		"recipes": [
-			"geneticsresequenced:incubator/virus/dragons_breath_to_white_death"
+			"genetics_resequenced:incubator/virus/dragons_breath_to_white_death"
 		]
 	}
 }

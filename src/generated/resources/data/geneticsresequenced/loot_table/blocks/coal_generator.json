@@ -11,11 +11,11 @@
 			"entries": [
 				{
 					"type": "minecraft:item",
-					"name": "geneticsresequenced:coal_generator"
+					"name": "genetics_resequenced:coal_generator"
 				}
 			],
 			"rolls": 1.0
 		}
 	],
-	"random_sequence": "geneticsresequenced:blocks/coal_generator"
+	"random_sequence": "genetics_resequenced:blocks/coal_generator"
 }

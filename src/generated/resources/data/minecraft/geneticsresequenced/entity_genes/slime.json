@@ -1,9 +1,9 @@
 {
 	"entity": "minecraft:slime",
 	"gene_weights": {
-		"geneticsresequenced:basic": 5,
-		"geneticsresequenced:no_fall_damage": 4,
-		"geneticsresequenced:oozing": 5,
-		"geneticsresequenced:slimy_death": 2
+		"genetics_resequenced:basic": 5,
+		"genetics_resequenced:no_fall_damage": 4,
+		"genetics_resequenced:oozing": 5,
+		"genetics_resequenced:slimy_death": 2
 	}
 }

@@ -1,31 +1,31 @@
 {
 	"name": "DNA Helix",
-	"category": "geneticsresequenced:items",
-	"icon": "geneticsresequenced:dna_helix",
+	"category": "genetics_resequenced:items",
+	"icon": "genetics_resequenced:dna_helix",
 	"sortnum": 4,
 	"pages": [
 		{
 			"type": "patchouli:text",
-			"text": "$(major)DNA Helices/$ contain genetic information. This can be either in the form of a $(l:geneticsresequenced:genes)Gene/$, or an $(minor)Entity/$.$(br2)Freshly crafted, a DNA Helix contains only the Entity that the DNA came from."
+			"text": "$(major)DNA Helices/$ contain genetic information. This can be either in the form of a $(l:genetics_resequenced:genes)Gene/$, or an $(minor)Entity/$.$(br2)Freshly crafted, a DNA Helix contains only the Entity that the DNA came from."
 		},
 		{
 			"type": "patchouli:spotlight",
 			"title": "Encrypted DNA Helix",
-			"item": "geneticsresequenced:dna_helix[geneticsresequenced:entity_type='minecraft:cow']",
+			"item": "genetics_resequenced:dna_helix[genetics_resequenced:entity_type='minecraft:cow']",
 			"link_recipe": true,
-			"text": "This DNA Helix contains the genetic information of a $(minor)Cow/$, but the actual Gene it has is $(bad)unknown/$. To decrypt it, you'll need to pass it through a $(l:geneticsresequenced:blocks/dna_decryptor)DNA Decryptor/$."
+			"text": "This DNA Helix contains the genetic information of a $(minor)Cow/$, but the actual Gene it has is $(bad)unknown/$. To decrypt it, you'll need to pass it through a $(l:genetics_resequenced:blocks/dna_decryptor)DNA Decryptor/$."
 		},
 		{
 			"type": "patchouli:spotlight",
 			"title": "Decrypted DNA Helix",
-			"item": "geneticsresequenced:dna_helix[geneticsresequenced:gene='geneticsresequenced:milky']",
-			"text": "This DNA Helix has been decrypted, and now we can see it contains the $(l:geneticsresequenced:genes/milky)Milky/$ Gene."
+			"item": "genetics_resequenced:dna_helix[genetics_resequenced:gene='genetics_resequenced:milky']",
+			"text": "This DNA Helix has been decrypted, and now we can see it contains the $(l:genetics_resequenced:genes/milky)Milky/$ Gene."
 		},
 		{
 			"type": "patchouli:spotlight",
 			"title": "Basic Gene",
-			"item": "geneticsresequenced:dna_helix[geneticsresequenced:gene='geneticsresequenced:basic']",
-			"text": "DNA Helices have a chance of being $(minor)Basic/$. This means that they $(bad)don't contain any Gene/$, but they can still contribute to $(l:geneticsresequenced:items/plasmid)Plasmids/$."
+			"item": "genetics_resequenced:dna_helix[genetics_resequenced:gene='genetics_resequenced:basic']",
+			"text": "DNA Helices have a chance of being $(minor)Basic/$. This means that they $(bad)don't contain any Gene/$, but they can still contribute to $(l:genetics_resequenced:items/plasmid)Plasmids/$."
 		}
 	]
 }

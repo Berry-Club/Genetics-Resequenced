@@ -4,24 +4,24 @@ You cannot unregister a Gene, but you _can_ disable them using tags.
 
 There are 4 built-in Gene tags:
 
-- `#geneticsresequenced:disabled`
+- `#genetics_resequenced:disabled`
 	- Stops the Gene from functioning
 	- Prevents it from the list of possible Genes
-- `#geneticsresequenced:hidden`
+- `#genetics_resequenced:hidden`
 	- Removes it from the Plasmid list
-	- Currently only `geneticsresequenced:basic` has this, as it's not really a Gene
-- `#geneticsresequenced:negative`
+	- Currently only `genetics_resequenced:basic` has this, as it's not really a Gene
+- `#genetics_resequenced:negative`
 	- Marks the Gene as negative
 	- Colors the Gene red
 	- Prevents it from being given to Players (unless the server config is changed) (ignored by the Cringe gene)
-- `#geneticsresequenced:mutation`
+- `#genetics_resequenced:mutation`
 	- Colors the name purple
 
 You can add these tags using KubeJS like so:
 
 ```js
-ServerEvents.tags('geneticsresequenced:gene', event => {
+ServerEvents.tags('genetics_resequenced:gene', event => {
   // Disables the Keep Inventory Gene, in case of conflicts with grave style mods etc
-  event.add('geneticsresequenced:disabled', 'geneticsresequenced:keep_inventory')
+  event.add('genetics_resequenced:disabled', 'genetics_resequenced:keep_inventory')
 })
 ```

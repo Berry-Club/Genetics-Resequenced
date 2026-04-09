@@ -1,6 +1,6 @@
 {
 	"parent": "minecraft:item/generated",
 	"textures": {
-		"layer0": "geneticsresequenced:item/glass_syringe_full_flipped"
+		"layer0": "genetics_resequenced:item/glass_syringe_full_flipped"
 	}
 }

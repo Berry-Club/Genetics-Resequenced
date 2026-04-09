@@ -2,12 +2,12 @@
 	"background_u_index": 0,
 	"background_v_index": 0,
 	"category": "items",
-	"description": "book.geneticsresequenced.guide.items.syringe.description",
+	"description": "book.genetics_resequenced.guide.items.syringe.description",
 	"hide_while_locked": false,
 	"icon": {
-		"item": "geneticsresequenced:syringe"
+		"item": "genetics_resequenced:syringe"
 	},
-	"name": "book.geneticsresequenced.guide.items.syringe.name",
+	"name": "book.genetics_resequenced.guide.items.syringe.name",
 	"pages": [
 		{
 			"type": "modonomicon:text",
@@ -16,8 +16,8 @@
 				"type": "modonomicon:none"
 			},
 			"show_title_separator": true,
-			"text": "book.geneticsresequenced.guide.items.syringe.page_0.text",
-			"title": "book.geneticsresequenced.guide.items.syringe.page_0.title",
+			"text": "book.genetics_resequenced.guide.items.syringe.page_0.text",
+			"title": "book.genetics_resequenced.guide.items.syringe.page_0.title",
 			"use_markdown_in_title": false
 		},
 		{
@@ -28,10 +28,10 @@
 			},
 			"item": {
 				"count": 1,
-				"item": "geneticsresequenced:syringe"
+				"item": "genetics_resequenced:syringe"
 			},
-			"text": "book.geneticsresequenced.guide.items.syringe.page_1.text",
-			"title": "book.geneticsresequenced.guide.items.syringe.page_1.title"
+			"text": "book.genetics_resequenced.guide.items.syringe.page_1.text",
+			"title": "book.genetics_resequenced.guide.items.syringe.page_1.title"
 		},
 		{
 			"type": "modonomicon:spotlight",
@@ -41,10 +41,10 @@
 			},
 			"item": {
 				"count": 1,
-				"item": "geneticsresequenced:metal_syringe"
+				"item": "genetics_resequenced:metal_syringe"
 			},
-			"text": "book.geneticsresequenced.guide.items.syringe.page_2.text",
-			"title": "book.geneticsresequenced.guide.items.syringe.page_2.title"
+			"text": "book.genetics_resequenced.guide.items.syringe.page_2.text",
+			"title": "book.genetics_resequenced.guide.items.syringe.page_2.title"
 		}
 	],
 	"show_when_any_parent_unlocked": false,

@@ -11,11 +11,11 @@
 			"entries": [
 				{
 					"type": "minecraft:item",
-					"name": "geneticsresequenced:plasmid_infuser"
+					"name": "genetics_resequenced:plasmid_infuser"
 				}
 			],
 			"rolls": 1.0
 		}
 	],
-	"random_sequence": "geneticsresequenced:blocks/plasmid_infuser"
+	"random_sequence": "genetics_resequenced:blocks/plasmid_infuser"
 }

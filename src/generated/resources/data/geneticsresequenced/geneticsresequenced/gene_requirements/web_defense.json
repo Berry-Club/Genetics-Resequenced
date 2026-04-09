@@ -1,6 +1,6 @@
 {
-  "gene": "geneticsresequenced:web_defense",
+  "gene": "genetics_resequenced:web_defense",
   "requirements": [
-    "geneticsresequenced:weaving"
+    "genetics_resequenced:weaving"
   ]
 }

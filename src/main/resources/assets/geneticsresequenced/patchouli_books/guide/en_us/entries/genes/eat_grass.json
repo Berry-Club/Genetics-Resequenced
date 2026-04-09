@@ -1,6 +1,6 @@
 {
 	"name": "Eat Grass",
-	"category": "geneticsresequenced:genes",
+	"category": "genetics_resequenced:genes",
 	"icon": "minecraft:grass_block",
 	"pages": [
 		{

@@ -3,7 +3,7 @@
 	"criteria": {
 		"has_the_recipe": {
 			"conditions": {
-				"recipe": "geneticsresequenced:incubator/virus/speed_4_to_slowness_6"
+				"recipe": "genetics_resequenced:incubator/virus/speed_4_to_slowness_6"
 			},
 			"trigger": "minecraft:recipe_unlocked"
 		}
@@ -15,7 +15,7 @@
 	],
 	"rewards": {
 		"recipes": [
-			"geneticsresequenced:incubator/virus/speed_4_to_slowness_6"
+			"genetics_resequenced:incubator/virus/speed_4_to_slowness_6"
 		]
 	}
 }

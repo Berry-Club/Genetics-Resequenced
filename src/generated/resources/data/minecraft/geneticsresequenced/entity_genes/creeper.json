@@ -1,7 +1,7 @@
 {
 	"entity": "minecraft:creeper",
 	"gene_weights": {
-		"geneticsresequenced:basic": 5,
-		"geneticsresequenced:explosive_exit": 3
+		"genetics_resequenced:basic": 5,
+		"genetics_resequenced:explosive_exit": 3
 	}
 }

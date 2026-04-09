@@ -1,16 +1,16 @@
 {
 	"name": "Viral Agents",
-	"category": "geneticsresequenced:items",
-	"icon": "minecraft:potion[potion_contents={potion:'geneticsresequenced:viral_agents'}]",
+	"category": "genetics_resequenced:items",
+	"icon": "minecraft:potion[potion_contents={potion:'genetics_resequenced:viral_agents'}]",
 	"sortnum": 14,
 	"pages": [
 		{
 			"type": "patchouli:text",
-			"text": "$(major)Viral Agents/$ are the final crafting potion of the mod. They are used to craft $(l:geneticsresequenced:genes/negative)negative Genes/$, which are generally just any Gene that's harmful.$(br2)Negative Genes are $(minor)always lost on death/$, regardless of config setting. Additionally, there's a config to prevent players from even being able to $(o)get/$ negative Genes in the first place."
+			"text": "$(major)Viral Agents/$ are the final crafting potion of the mod. They are used to craft $(l:genetics_resequenced:genes/negative)negative Genes/$, which are generally just any Gene that's harmful.$(br2)Negative Genes are $(minor)always lost on death/$, regardless of config setting. Additionally, there's a config to prevent players from even being able to $(o)get/$ negative Genes in the first place."
 		},
 		{
 			"type": "patchouli:spotlight",
-			"item": "minecraft:potion[potion_contents={potion:'geneticsresequenced:viral_agents'}]",
+			"item": "minecraft:potion[potion_contents={potion:'genetics_resequenced:viral_agents'}]",
 			"text": "Virus Cultivation recipes can be crafted in the Brewing Stand or in either Incubator."
 		}
 	]

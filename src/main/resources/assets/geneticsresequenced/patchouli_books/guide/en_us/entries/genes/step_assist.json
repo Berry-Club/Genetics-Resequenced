@@ -1,6 +1,6 @@
 {
 	"name": "Step Assist",
-	"category": "geneticsresequenced:genes",
+	"category": "genetics_resequenced:genes",
 	"icon": "minecraft:cobblestone_stairs",
 	"pages": [
 		{

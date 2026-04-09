@@ -9,7 +9,7 @@
 			"tag": "c:ingots/iron"
 		},
 		"S": {
-			"item": "geneticsresequenced:syringe"
+			"item": "genetics_resequenced:syringe"
 		},
 		"W": {
 			"item": "minecraft:white_wool"
@@ -22,6 +22,6 @@
 	],
 	"result": {
 		"count": 1,
-		"id": "geneticsresequenced:blood_purifier"
+		"id": "genetics_resequenced:blood_purifier"
 	}
 }

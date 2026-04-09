@@ -1,6 +1,6 @@
 {
-  "gene": "geneticsresequenced:speed_2",
+  "gene": "genetics_resequenced:speed_2",
   "requirements": [
-    "geneticsresequenced:speed"
+    "genetics_resequenced:speed"
   ]
 }

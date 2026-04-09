@@ -1,4 +1,4 @@
 {
 	"dna_points_required": 50,
-	"scares_entities_with_tag": "geneticsresequenced:avoids_scare_spider_gene"
+	"scares_entities_with_tag": "genetics_resequenced:avoids_scare_spider_gene"
 }

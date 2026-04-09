@@ -2,17 +2,17 @@
 	"background_u_index": 0,
 	"background_v_index": 0,
 	"category": "items",
-	"description": "book.geneticsresequenced.guide.items.potion_mutation.description",
+	"description": "book.genetics_resequenced.guide.items.potion_mutation.description",
 	"hide_while_locked": false,
 	"icon": {
 		"components": {
 			"minecraft:potion_contents": {
-				"potion": "geneticsresequenced:mutation"
+				"potion": "genetics_resequenced:mutation"
 			}
 		},
 		"item": "minecraft:potion"
 	},
-	"name": "book.geneticsresequenced.guide.items.potion_mutation.name",
+	"name": "book.genetics_resequenced.guide.items.potion_mutation.name",
 	"pages": [
 		{
 			"type": "modonomicon:spotlight",
@@ -23,14 +23,14 @@
 			"item": {
 				"components": {
 					"minecraft:potion_contents": {
-						"potion": "geneticsresequenced:mutation"
+						"potion": "genetics_resequenced:mutation"
 					}
 				},
 				"count": 1,
 				"item": "minecraft:potion"
 			},
-			"text": "book.geneticsresequenced.guide.items.potion_mutation.page_0.text",
-			"title": "book.geneticsresequenced.guide.items.potion_mutation.page_0.title"
+			"text": "book.genetics_resequenced.guide.items.potion_mutation.page_0.text",
+			"title": "book.genetics_resequenced.guide.items.potion_mutation.page_0.title"
 		}
 	],
 	"show_when_any_parent_unlocked": false,

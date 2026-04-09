@@ -5,7 +5,7 @@
 			"conditions": {
 				"items": [
 					{
-						"items": "geneticsresequenced:scraper"
+						"items": "genetics_resequenced:scraper"
 					}
 				]
 			},
@@ -13,7 +13,7 @@
 		},
 		"has_the_recipe": {
 			"conditions": {
-				"recipe": "geneticsresequenced:syringe"
+				"recipe": "genetics_resequenced:syringe"
 			},
 			"trigger": "minecraft:recipe_unlocked"
 		}
@@ -26,7 +26,7 @@
 	],
 	"rewards": {
 		"recipes": [
-			"geneticsresequenced:syringe"
+			"genetics_resequenced:syringe"
 		]
 	}
 }

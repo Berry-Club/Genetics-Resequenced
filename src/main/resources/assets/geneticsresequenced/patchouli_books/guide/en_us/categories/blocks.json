@@ -1,6 +1,6 @@
 {
 	"name": "Blocks",
-	"icon": "geneticsresequenced:cell_analyzer",
+	"icon": "genetics_resequenced:cell_analyzer",
 	"description": "All the blocks in the mod",
 	"sortnum": 1
 }

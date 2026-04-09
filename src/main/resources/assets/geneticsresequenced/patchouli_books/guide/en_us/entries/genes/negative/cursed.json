@@ -1,6 +1,6 @@
 {
 	"name": "Cursed",
-	"category": "geneticsresequenced:genes/negative",
+	"category": "genetics_resequenced:genes/negative",
 	"icon": "minecraft:textures/mob_effect/unluck.png",
 	"pages": [
 		{

@@ -13,10 +13,10 @@
   },
   "attribute_modifiers": [
     {
-      "attribute": "geneticsresequenced:base_looting",
+      "attribute": "genetics_resequenced:base_looting",
       "modifier": {
         "amount": 1.0,
-        "id": "geneticsresequenced:bountiful_two",
+        "id": "genetics_resequenced:bountiful_two",
         "operation": "add_value"
       }
     }

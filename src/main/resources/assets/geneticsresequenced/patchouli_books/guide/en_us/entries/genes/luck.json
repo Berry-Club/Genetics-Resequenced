@@ -1,6 +1,6 @@
 {
 	"name": "Luck",
-	"category": "geneticsresequenced:genes",
+	"category": "genetics_resequenced:genes",
 	"icon": "minecraft:textures/mob_effect/luck.png",
 	"pages": [
 		{

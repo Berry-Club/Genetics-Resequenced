@@ -4,7 +4,7 @@
 
 While the mod doesn't explicitly have KubeJS support, it's relatively simple to implement it yourself!
 
-### [GeneChangeEvent](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/event/custom/GeneChangeEvent.kt)
+### [GeneChangeEvent](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/genetics_resequenced/event/custom/GeneChangeEvent.kt)
 
 There are two GeneChangeEvents: Pre and Post.
 
@@ -17,24 +17,24 @@ Both of them have the following properties:
 - `isAddition()` - A Boolean representing whether the Gene is being added (true) or removed (false)
 
 ```js
-NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent$Pre", (event) => {
+NativeEvents.onEvent("dev.aaronhowser.mods.genetics_resequenced.event.custom.GeneChangeEvent$Pre", (event) => {
 	let entity = event.entity;
 	if (entity.level.isClientSide()) return;
 
-	if (!event.isAddition() && entity.name.getString() == "1aaron5" && event.geneId == "geneticsresequenced:cringe") {
+	if (!event.isAddition() && entity.name.getString() == "1aaron5" && event.geneId == "genetics_resequenced:cringe") {
 		event.canceled = true;
 	}
 });
 ```
 ```js
-NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent$Post", event => {
+NativeEvents.onEvent("dev.aaronhowser.mods.genetics_resequenced.event.custom.GeneChangeEvent$Post", event => {
 	event.entity.tell("Your genes have changed!")
 })
 ```
 
-### [ModifyEntityGenesEvent](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/event/custom/ModifyEntityGenesEvent.kt)
+### [ModifyEntityGenesEvent](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/genetics_resequenced/event/custom/ModifyEntityGenesEvent.kt)
 
-This event is fired every time something checks what Genes an entity can have, such as when a [Gene Checker](@geneticsresequenced:gene_checker) is used, or when the [DNA Decryptor](@geneticsresequenced:dna_decryptor) reveals a Helix's Gene.
+This event is fired every time something checks what Genes an entity can have, such as when a [Gene Checker](@genetics_resequenced:gene_checker) is used, or when the [DNA Decryptor](@genetics_resequenced:dna_decryptor) reveals a Helix's Gene.
 
 ModifyEntityGenesEvent has the following properties:
 - entityType: The EntityType being modified
@@ -51,15 +51,15 @@ There are also some useful methods on the event:
 `getWeight`, `setWeight`, and `remove` can all accept either a ResourceKey\<Gene>, or a String representing the Gene id.
 
 ```js
-NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyEntityGenesEvent", (event) => {
+NativeEvents.onEvent("dev.aaronhowser.mods.genetics_resequenced.event.custom.ModifyEntityGenesEvent", (event) => {
 	if (event.entityTypeString == "minecraft:cow") {
-		event.setWeight("geneticsresequenced:lay_egg", 999);
-		event.remove("geneticsresequenced:milky");
+		event.setWeight("genetics_resequenced:lay_egg", 999);
+		event.remove("genetics_resequenced:milky");
 	}
 });
 ```
 
-### [ModifyGeneRequirementsEvent](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/event/custom/ModifyGeneRequirementsEvent.kt)
+### [ModifyGeneRequirementsEvent](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/genetics_resequenced/event/custom/ModifyGeneRequirementsEvent.kt)
 
 This event is fired when the mod checks if an entity can have a specific Gene. This usually only happens when the entity's Genes change.
 
@@ -68,9 +68,9 @@ ModifyGeneRequirementsEvent has the following properties:
 - `requirements` - A MutableSet\<ResourceKey\<Gene>> representing the Genes required to have the checked Gene
 
 ```js
-NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyGeneRequirementsEvent", (event) => {
-	if (event.gene == "geneticsresequenced:cringe") {
-		event.requirements.add("geneticsresequenced:cursed")
+NativeEvents.onEvent("dev.aaronhowser.mods.genetics_resequenced.event.custom.ModifyGeneRequirementsEvent", (event) => {
+	if (event.gene == "genetics_resequenced:cringe") {
+		event.requirements.add("genetics_resequenced:cursed")
 	}
 })
 ```
@@ -78,13 +78,13 @@ NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.Modi
 ## Adding, Removing, and Querying Genes
 
 ```js
-const $GenesData = Java.loadClass('dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData')
+const $GenesData = Java.loadClass('dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData')
 
-$GenesData.addGene(livingEntity, "geneticsresequenced:chatterbox")
-$GenesData.removeGene(livingEntity, "geneticsresequenced:lay_egg")
-let hasSlimyDeath = $GenesData.hasGene(livingEntity, "geneticsresequenced:slimy_death")
+$GenesData.addGene(livingEntity, "genetics_resequenced:chatterbox")
+$GenesData.removeGene(livingEntity, "genetics_resequenced:lay_egg")
+let hasSlimyDeath = $GenesData.hasGene(livingEntity, "genetics_resequenced:slimy_death")
 ```
 
-This uses reflection to load the [GenesData](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/geneticsresequenced/attachment/GenesData.kt) class, allowing you to use its functions.
+This uses reflection to load the [GenesData](https://github.com/Berry-Club/Genetics-Resequenced/blob/NeoForge-1.21/src/main/kotlin/dev/aaronhowser/mods/genetics_resequenced/attachment/GenesData.kt) class, allowing you to use its functions.
 
 (In Kotlin, a function that looks like `fun Example.doSomething(int: Int)` is actually compiled to `doSomething(Example, Int)` in Java)

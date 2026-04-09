@@ -1,6 +1,6 @@
 {
 	"name": "Knockback",
-	"category": "geneticsresequenced:genes",
+	"category": "genetics_resequenced:genes",
 	"icon": "minecraft:piston",
 	"pages": [
 		{

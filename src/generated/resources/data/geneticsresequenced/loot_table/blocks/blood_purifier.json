@@ -11,11 +11,11 @@
 			"entries": [
 				{
 					"type": "minecraft:item",
-					"name": "geneticsresequenced:blood_purifier"
+					"name": "genetics_resequenced:blood_purifier"
 				}
 			],
 			"rolls": 1.0
 		}
 	],
-	"random_sequence": "geneticsresequenced:blocks/blood_purifier"
+	"random_sequence": "genetics_resequenced:blocks/blood_purifier"
 }

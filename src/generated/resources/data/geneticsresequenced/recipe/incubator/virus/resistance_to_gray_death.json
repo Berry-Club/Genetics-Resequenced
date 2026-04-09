@@ -1,5 +1,5 @@
 {
-	"type": "geneticsresequenced:incubator/virus",
-	"input_gene": "geneticsresequenced:resistance",
-	"output_gene": "geneticsresequenced:gray_death"
+	"type": "genetics_resequenced:incubator/virus",
+	"input_gene": "genetics_resequenced:resistance",
+	"output_gene": "genetics_resequenced:gray_death"
 }

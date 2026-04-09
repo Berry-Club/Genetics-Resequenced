@@ -1,10 +1,10 @@
 {
 	"attribute_modifiers": [
 		{
-			"attribute": "geneticsresequenced:efficiency",
+			"attribute": "genetics_resequenced:efficiency",
 			"modifier": {
 				"amount": 1.0,
-				"id": "geneticsresequenced:efficiency",
+				"id": "genetics_resequenced:efficiency",
 				"operation": "add_value"
 			}
 		}

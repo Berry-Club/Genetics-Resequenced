@@ -1,8 +1,8 @@
 {
-	"type": "geneticsresequenced:incubator/gmo",
+	"type": "genetics_resequenced:incubator/gmo",
 	"entity_type": "minecraft:rabbit",
 	"gene_chance": 0.5,
-	"ideal_gene": "geneticsresequenced:speed_2",
+	"ideal_gene": "genetics_resequenced:speed_2",
 	"ingredient": {
 		"item": "minecraft:diamond_boots"
 	},

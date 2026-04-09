@@ -1,6 +1,6 @@
 {
 	"name": "Wither",
-	"category": "geneticsresequenced:genes/negative",
+	"category": "genetics_resequenced:genes/negative",
 	"icon": "minecraft:textures/mob_effect/wither.png",
 	"pages": [
 		{

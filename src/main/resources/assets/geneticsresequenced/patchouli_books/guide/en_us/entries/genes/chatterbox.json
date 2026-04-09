@@ -1,6 +1,6 @@
 {
 	"name": "Chatterbox",
-	"category": "geneticsresequenced:genes",
+	"category": "genetics_resequenced:genes",
 	"icon": "minecraft:note_block",
 	"pages": [
 		{

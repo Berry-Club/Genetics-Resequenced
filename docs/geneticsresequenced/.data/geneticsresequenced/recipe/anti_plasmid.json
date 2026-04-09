@@ -3,7 +3,7 @@
 	"category": "misc",
 	"key": {
 		"D": {
-			"item": "geneticsresequenced:dna_helix"
+			"item": "genetics_resequenced:dna_helix"
 		},
 		"F": {
 			"item": "minecraft:fermented_spider_eye"
@@ -16,6 +16,6 @@
 	],
 	"result": {
 		"count": 1,
-		"id": "geneticsresequenced:anti_plasmid"
+		"id": "genetics_resequenced:anti_plasmid"
 	}
 }

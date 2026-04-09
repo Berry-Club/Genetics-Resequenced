@@ -1,6 +1,6 @@
 {
 	"name": "Weakness",
-	"category": "geneticsresequenced:genes/negative",
+	"category": "genetics_resequenced:genes/negative",
 	"icon": "minecraft:textures/mob_effect/weakness.png",
 	"pages": [
 		{

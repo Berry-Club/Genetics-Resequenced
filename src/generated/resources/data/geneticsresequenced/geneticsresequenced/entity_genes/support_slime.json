@@ -1,6 +1,6 @@
 {
-	"entity": "geneticsresequenced:support_slime",
+	"entity": "genetics_resequenced:support_slime",
 	"gene_weights": {
-		"geneticsresequenced:slimy_death": 1
+		"genetics_resequenced:slimy_death": 1
 	}
 }

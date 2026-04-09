@@ -5,7 +5,7 @@
 			"conditions": {
 				"items": [
 					{
-						"items": "geneticsresequenced:cell"
+						"items": "genetics_resequenced:cell"
 					}
 				]
 			},
@@ -13,7 +13,7 @@
 		},
 		"has_the_recipe": {
 			"conditions": {
-				"recipe": "geneticsresequenced:incubator/gmo/mutation/more_hearts_2_from_enderman_with_25_chance"
+				"recipe": "genetics_resequenced:incubator/gmo/mutation/more_hearts_2_from_enderman_with_25_chance"
 			},
 			"trigger": "minecraft:recipe_unlocked"
 		}
@@ -26,7 +26,7 @@
 	],
 	"rewards": {
 		"recipes": [
-			"geneticsresequenced:incubator/gmo/mutation/more_hearts_2_from_enderman_with_25_chance"
+			"genetics_resequenced:incubator/gmo/mutation/more_hearts_2_from_enderman_with_25_chance"
 		]
 	}
 }

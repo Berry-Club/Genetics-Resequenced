@@ -2,12 +2,12 @@
 	"background_u_index": 0,
 	"background_v_index": 0,
 	"category": "items",
-	"description": "book.geneticsresequenced.guide.items.plasmid.description",
+	"description": "book.genetics_resequenced.guide.items.plasmid.description",
 	"hide_while_locked": false,
 	"icon": {
-		"item": "geneticsresequenced:plasmid"
+		"item": "genetics_resequenced:plasmid"
 	},
-	"name": "book.geneticsresequenced.guide.items.plasmid.name",
+	"name": "book.genetics_resequenced.guide.items.plasmid.name",
 	"pages": [
 		{
 			"type": "modonomicon:text",
@@ -16,8 +16,8 @@
 				"type": "modonomicon:none"
 			},
 			"show_title_separator": true,
-			"text": "book.geneticsresequenced.guide.items.plasmid.page_0.text",
-			"title": "book.geneticsresequenced.guide.items.plasmid.page_0.title",
+			"text": "book.genetics_resequenced.guide.items.plasmid.page_0.text",
+			"title": "book.genetics_resequenced.guide.items.plasmid.page_0.title",
 			"use_markdown_in_title": false
 		},
 		{
@@ -28,10 +28,10 @@
 			},
 			"item": {
 				"count": 1,
-				"item": "geneticsresequenced:plasmid"
+				"item": "genetics_resequenced:plasmid"
 			},
-			"text": "book.geneticsresequenced.guide.items.plasmid.page_1.text",
-			"title": "book.geneticsresequenced.guide.items.plasmid.page_1.title"
+			"text": "book.genetics_resequenced.guide.items.plasmid.page_1.text",
+			"title": "book.genetics_resequenced.guide.items.plasmid.page_1.title"
 		},
 		{
 			"type": "modonomicon:spotlight",
@@ -41,16 +41,16 @@
 			},
 			"item": {
 				"components": {
-					"geneticsresequenced:plasmid_progress": {
+					"genetics_resequenced:plasmid_progress": {
 						"dna_points": 1,
-						"gene": "geneticsresequenced:scare_creepers"
+						"gene": "genetics_resequenced:scare_creepers"
 					}
 				},
 				"count": 1,
-				"item": "geneticsresequenced:plasmid"
+				"item": "genetics_resequenced:plasmid"
 			},
-			"text": "book.geneticsresequenced.guide.items.plasmid.page_2.text",
-			"title": "book.geneticsresequenced.guide.items.plasmid.page_2.title"
+			"text": "book.genetics_resequenced.guide.items.plasmid.page_2.text",
+			"title": "book.genetics_resequenced.guide.items.plasmid.page_2.title"
 		},
 		{
 			"type": "modonomicon:spotlight",
@@ -60,16 +60,16 @@
 			},
 			"item": {
 				"components": {
-					"geneticsresequenced:plasmid_progress": {
+					"genetics_resequenced:plasmid_progress": {
 						"dna_points": 99999999,
-						"gene": "geneticsresequenced:scare_creepers"
+						"gene": "genetics_resequenced:scare_creepers"
 					}
 				},
 				"count": 1,
-				"item": "geneticsresequenced:plasmid"
+				"item": "genetics_resequenced:plasmid"
 			},
-			"text": "book.geneticsresequenced.guide.items.plasmid.page_3.text",
-			"title": "book.geneticsresequenced.guide.items.plasmid.page_3.title"
+			"text": "book.genetics_resequenced.guide.items.plasmid.page_3.text",
+			"title": "book.genetics_resequenced.guide.items.plasmid.page_3.title"
 		}
 	],
 	"show_when_any_parent_unlocked": false,

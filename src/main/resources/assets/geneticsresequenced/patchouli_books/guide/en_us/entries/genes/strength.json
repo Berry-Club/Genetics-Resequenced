@@ -1,6 +1,6 @@
 {
 	"name": "Strength",
-	"category": "geneticsresequenced:genes",
+	"category": "genetics_resequenced:genes",
 	"icon": "minecraft:textures/mob_effect/strength.png",
 	"pages": [
 		{

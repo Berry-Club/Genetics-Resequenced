@@ -2,12 +2,12 @@
 	"background_u_index": 0,
 	"background_v_index": 0,
 	"category": "blocks",
-	"description": "book.geneticsresequenced.guide.blocks.cell_analyzer.description",
+	"description": "book.genetics_resequenced.guide.blocks.cell_analyzer.description",
 	"hide_while_locked": false,
 	"icon": {
-		"item": "geneticsresequenced:cell_analyzer"
+		"item": "genetics_resequenced:cell_analyzer"
 	},
-	"name": "book.geneticsresequenced.guide.blocks.cell_analyzer.name",
+	"name": "book.genetics_resequenced.guide.blocks.cell_analyzer.name",
 	"pages": [
 		{
 			"type": "modonomicon:spotlight",
@@ -17,10 +17,10 @@
 			},
 			"item": {
 				"count": 1,
-				"item": "geneticsresequenced:cell_analyzer"
+				"item": "genetics_resequenced:cell_analyzer"
 			},
-			"text": "book.geneticsresequenced.guide.blocks.cell_analyzer.page_0.text",
-			"title": "book.geneticsresequenced.guide.blocks.cell_analyzer.page_0.title"
+			"text": "book.genetics_resequenced.guide.blocks.cell_analyzer.page_0.text",
+			"title": "book.genetics_resequenced.guide.blocks.cell_analyzer.page_0.title"
 		}
 	],
 	"show_when_any_parent_unlocked": false,

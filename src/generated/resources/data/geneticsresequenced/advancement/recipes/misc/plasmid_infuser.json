@@ -5,7 +5,7 @@
 			"conditions": {
 				"items": [
 					{
-						"items": "geneticsresequenced:dna_decryptor"
+						"items": "genetics_resequenced:dna_decryptor"
 					}
 				]
 			},
@@ -13,7 +13,7 @@
 		},
 		"has_the_recipe": {
 			"conditions": {
-				"recipe": "geneticsresequenced:plasmid_infuser"
+				"recipe": "genetics_resequenced:plasmid_infuser"
 			},
 			"trigger": "minecraft:recipe_unlocked"
 		}
@@ -26,7 +26,7 @@
 	],
 	"rewards": {
 		"recipes": [
-			"geneticsresequenced:plasmid_infuser"
+			"genetics_resequenced:plasmid_infuser"
 		]
 	}
 }

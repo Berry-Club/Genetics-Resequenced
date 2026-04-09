@@ -9,7 +9,7 @@
 			"tag": "c:ingots/iron"
 		},
 		"L": {
-			"item": "geneticsresequenced:plasmid"
+			"item": "genetics_resequenced:plasmid"
 		},
 		"P": {
 			"item": "minecraft:piston"
@@ -22,6 +22,6 @@
 	],
 	"result": {
 		"count": 1,
-		"id": "geneticsresequenced:plasmid_infuser"
+		"id": "genetics_resequenced:plasmid_infuser"
 	}
 }

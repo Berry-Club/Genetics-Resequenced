@@ -4,7 +4,7 @@
 			"attribute": "minecraft:generic.max_health",
 			"modifier": {
 				"amount": 20.0,
-				"id": "geneticsresequenced:more_health_two",
+				"id": "genetics_resequenced:more_health_two",
 				"operation": "add_value"
 			}
 		}

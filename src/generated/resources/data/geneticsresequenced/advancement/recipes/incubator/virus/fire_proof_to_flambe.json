@@ -3,7 +3,7 @@
 	"criteria": {
 		"has_the_recipe": {
 			"conditions": {
-				"recipe": "geneticsresequenced:incubator/virus/fire_proof_to_flambe"
+				"recipe": "genetics_resequenced:incubator/virus/fire_proof_to_flambe"
 			},
 			"trigger": "minecraft:recipe_unlocked"
 		}
@@ -15,7 +15,7 @@
 	],
 	"rewards": {
 		"recipes": [
-			"geneticsresequenced:incubator/virus/fire_proof_to_flambe"
+			"genetics_resequenced:incubator/virus/fire_proof_to_flambe"
 		]
 	}
 }

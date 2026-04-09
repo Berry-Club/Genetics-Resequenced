@@ -1,7 +1,7 @@
 {
 	"name": "Coal Generator",
-	"category": "geneticsresequenced:blocks",
-	"icon": "geneticsresequenced:coal_generator",
+	"category": "genetics_resequenced:blocks",
+	"icon": "genetics_resequenced:coal_generator",
 	"sortnum": 1,
 	"pages": [
 		{
@@ -10,7 +10,7 @@
 		},
 		{
 			"type": "patchouli:spotlight",
-			"item": "geneticsresequenced:coal_generator",
+			"item": "genetics_resequenced:coal_generator",
 			"link_recipe": true,
 			"text": "If the Coal Generator fills up with fuel burning, it $(minor)pauses until it has room for more energy/$, preventing waste!"
 		}

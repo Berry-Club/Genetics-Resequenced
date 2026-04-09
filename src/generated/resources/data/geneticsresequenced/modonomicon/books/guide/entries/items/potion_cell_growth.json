@@ -2,18 +2,18 @@
 	"background_u_index": 0,
 	"background_v_index": 0,
 	"category": "items",
-	"description": "book.geneticsresequenced.guide.items.potion_cell_growth.description",
+	"description": "book.genetics_resequenced.guide.items.potion_cell_growth.description",
 	"hide_while_locked": false,
 	"icon": {
 		"components": {
-			"geneticsresequenced:entity_type": "minecraft:blaze",
+			"genetics_resequenced:entity_type": "minecraft:blaze",
 			"minecraft:potion_contents": {
-				"potion": "geneticsresequenced:cell_growth"
+				"potion": "genetics_resequenced:cell_growth"
 			}
 		},
 		"item": "minecraft:potion"
 	},
-	"name": "book.geneticsresequenced.guide.items.potion_cell_growth.name",
+	"name": "book.genetics_resequenced.guide.items.potion_cell_growth.name",
 	"pages": [
 		{
 			"type": "modonomicon:spotlight",
@@ -23,16 +23,16 @@
 			},
 			"item": {
 				"components": {
-					"geneticsresequenced:entity_type": "minecraft:blaze",
+					"genetics_resequenced:entity_type": "minecraft:blaze",
 					"minecraft:potion_contents": {
-						"potion": "geneticsresequenced:cell_growth"
+						"potion": "genetics_resequenced:cell_growth"
 					}
 				},
 				"count": 1,
 				"item": "minecraft:potion"
 			},
-			"text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_0.text",
-			"title": "book.geneticsresequenced.guide.items.potion_cell_growth.page_0.title"
+			"text": "book.genetics_resequenced.guide.items.potion_cell_growth.page_0.text",
+			"title": "book.genetics_resequenced.guide.items.potion_cell_growth.page_0.title"
 		},
 		{
 			"type": "modonomicon:spotlight",
@@ -42,16 +42,16 @@
 			},
 			"item": {
 				"components": {
-					"geneticsresequenced:entity_type": "minecraft:blaze",
+					"genetics_resequenced:entity_type": "minecraft:blaze",
 					"minecraft:potion_contents": {
-						"potion": "geneticsresequenced:cell_growth"
+						"potion": "genetics_resequenced:cell_growth"
 					}
 				},
 				"count": 1,
 				"item": "minecraft:potion"
 			},
-			"text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_1.text",
-			"title": "book.geneticsresequenced.guide.items.potion_cell_growth.page_1.title"
+			"text": "book.genetics_resequenced.guide.items.potion_cell_growth.page_1.text",
+			"title": "book.genetics_resequenced.guide.items.potion_cell_growth.page_1.title"
 		},
 		{
 			"type": "modonomicon:spotlight",
@@ -61,14 +61,14 @@
 			},
 			"item": {
 				"components": {
-					"geneticsresequenced:entity_type": "minecraft:blaze",
-					"geneticsresequenced:gene": "geneticsresequenced:bioluminescence"
+					"genetics_resequenced:entity_type": "minecraft:blaze",
+					"genetics_resequenced:gene": "genetics_resequenced:bioluminescence"
 				},
 				"count": 1,
-				"item": "geneticsresequenced:gmo_cell"
+				"item": "genetics_resequenced:gmo_cell"
 			},
-			"text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_2.text",
-			"title": "book.geneticsresequenced.guide.items.potion_cell_growth.page_2.title"
+			"text": "book.genetics_resequenced.guide.items.potion_cell_growth.page_2.text",
+			"title": "book.genetics_resequenced.guide.items.potion_cell_growth.page_2.title"
 		},
 		{
 			"type": "modonomicon:text",
@@ -77,8 +77,8 @@
 				"type": "modonomicon:none"
 			},
 			"show_title_separator": true,
-			"text": "book.geneticsresequenced.guide.items.potion_cell_growth.page_3.text",
-			"title": "book.geneticsresequenced.guide.items.potion_cell_growth.page_3.title",
+			"text": "book.genetics_resequenced.guide.items.potion_cell_growth.page_3.text",
+			"title": "book.genetics_resequenced.guide.items.potion_cell_growth.page_3.title",
 			"use_markdown_in_title": false
 		}
 	],

@@ -1,5 +1,5 @@
 {
-	"type": "geneticsresequenced:incubator/basic",
+	"type": "genetics_resequenced:incubator/basic",
 	"bottom_slot": {
 		"type": "neoforge:components",
 		"components": {
@@ -12,7 +12,7 @@
 			"minecraft:lore": [],
 			"minecraft:max_stack_size": 1,
 			"minecraft:potion_contents": {
-				"potion": "geneticsresequenced:viral_agents"
+				"potion": "genetics_resequenced:viral_agents"
 			},
 			"minecraft:rarity": "common",
 			"minecraft:repair_cost": 0
@@ -23,7 +23,7 @@
 	"output": {
 		"components": {
 			"minecraft:potion_contents": {
-				"potion": "geneticsresequenced:zombify_villager"
+				"potion": "genetics_resequenced:zombify_villager"
 			}
 		},
 		"count": 1,
@@ -32,7 +32,7 @@
 	"top_slot": {
 		"type": "neoforge:components",
 		"components": {
-			"geneticsresequenced:gene": "geneticsresequenced:emerald_heart",
+			"genetics_resequenced:gene": "genetics_resequenced:emerald_heart",
 			"minecraft:attribute_modifiers": {
 				"modifiers": []
 			},
@@ -44,6 +44,6 @@
 			"minecraft:rarity": "common",
 			"minecraft:repair_cost": 0
 		},
-		"items": "geneticsresequenced:dna_helix"
+		"items": "genetics_resequenced:dna_helix"
 	}
 }

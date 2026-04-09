@@ -25,7 +25,7 @@
 ### Added
 
 - New events for when Gene requirements and entity Genes are being calculated
-	- https://moddedmc.wiki/en/project/geneticsresequenced/latest/docs/devs/kubejs
+	- https://moddedmc.wiki/en/project/genetics_resequenced/latest/docs/devs/kubejs
 
 ### Changed
 
@@ -147,7 +147,7 @@
 ### Added
 
 - Made a wiki at moddedmc.wiki
-	- https://moddedmc.wiki/en/project/geneticsresequenced/latest
+	- https://moddedmc.wiki/en/project/genetics_resequenced/latest
 	- Also added in-game support via [Oracle Index](https://modrinth.com/mod/oracle-index), which has been added as an optional dependency
 
 ### Changes
@@ -349,7 +349,7 @@
 # 1.1.9
 
 - Fixed the Potion of Cell Growth recipe setting the entity when it shouldn't (#14)
-- Support Slimes now have a 100% chance to give the Slimy Death Gene. The file previously pointed at the entity `minecraft:slime` rather than `geneticsresequenced:support_slime`
+- Support Slimes now have a 100% chance to give the Slimy Death Gene. The file previously pointed at the entity `minecraft:slime` rather than `genetics_resequenced:support_slime`
 - Localized tags for EMI
 - Removed the reference to the Patchouli book from the first advancement, as Patchouli isn't on 1.21 yet
 - Moved to better practices (using less lazy values, mostly)
@@ -375,7 +375,7 @@
 - Fixed Genetically Modified Cells not having EMI recipe pages for turning into DNA Helices (#23)
 - GMO Recipes will have their logic printed in the tooltip of the Potion of Cell Growth in the Advanced Incubator
 - The Scare Genes can now be given to entities
-- The Scare Genes now apply based on an entity's tags (#geneticsresequenced:avoids_scare_creeper_gene etc) rather than based on their class (is or extends Creeper etc)
+- The Scare Genes now apply based on an entity's tags (#genetics_resequenced:avoids_scare_creeper_gene etc) rather than based on their class (is or extends Creeper etc)
 - Reimplemented Curios support for the Keep Inventory gene (#20)
 - If the items given by the Keep Inventory Gene don't fit in your inventory, they're dropped at your feet instead of being tossed from your camera
 - Updated Patchouli support to use item components rather than NBT
@@ -394,7 +394,7 @@
 - Updated to NeoForge 21.1.42
 - Added a recipe for the Metal Syringe
 - Moved most recipes to use item tags where possible
-- Made it so you can use the Metal Syringe and Scraper on Villagers without opening their menu (if the item is `#geneticsresequenced:prevents_some_mob_interaction` and the entity type is `#geneticsresequenced:allows_preventing_interaction`)
+- Made it so you can use the Metal Syringe and Scraper on Villagers without opening their menu (if the item is `#genetics_resequenced:prevents_some_mob_interaction` and the entity type is `#genetics_resequenced:allows_preventing_interaction`)
 - Fixed the Metal Syringe telling you that the wrong Genes can't be injected into mobs (it was displaying negative
   genes, rather than filtering against Gene.canMobsHave)
 - Fixed decrypted DNA Helices being able to be put through the DNA Decryptor
@@ -411,7 +411,7 @@
 
 ## Data
 
-- Genes are now data-driven! They're in `/data/_____/geneticsresequenced/gene/`
+- Genes are now data-driven! They're in `/data/_____/genetics_resequenced/gene/`
 - They follow the following structure, all fields are optional:
 	- `dna_points_required`: The amount of DNA Points required to complete a Plasmid. Defaults to 0
 	- `requires_genes`: A list of Resource Location IDs for Genes that are required to have this Gene
@@ -432,24 +432,24 @@
 - Incubator recipes are no longer actually Brewing recipes, and can therefore no longer be used in a Brewing Stand
 	- Consequently, you can now make custom recipes that use the Incubator! See `/data/geneticsresequeced/recipe/incubator/`
 	- There are 3 types (technically 5, but 2 of them are hardcoded with no parameters):
-		- `geneticsresequenced:incubator_basic`
+		- `genetics_resequenced:incubator_basic`
 			- Requires two ingredients `top_slot` and `bottom_slot`, and an output itemstack `output`
 			- Optionally can have `is_low_temperature`, which makes it require low temperature. Defaults to false, making it require high temperature
-		- `geneticsresequenced:incubator_gmo`
+		- `genetics_resequenced:incubator_gmo`
 			- Requires `entity_type` that the Cell Growth or Mutation Potion must be set to
 			- Requires `ingredient` for the item in the top slot
 			- Requires `ideal_gene` for the Gene that a successful Cell will have
 			- Optionally can have `gene_chance`, which is a number 0-1 for the chance of getting the Gene (giving Basic if it fails). Defaults to 1.
 			- Optionally can have `needs_mutation_potion` which makes it require a Potion of Mutation instead of a Potion of Cell Growth. Defaults to false.
-		- `geneticsresequenced:incubator_virus`
+		- `genetics_resequenced:incubator_virus`
 			- Takes in an input Gene and an output Gene, and makes a recipe that converts when crafted with Viral Agents
-- Disabling Genes now uses the Gene tag `#geneticsresequenced:disabled`
+- Disabling Genes now uses the Gene tag `#genetics_resequenced:disabled`
 - Genes requiring other Genes is now handled in the Gene's definition json, rather than a file in /gene_requirements/
 - Changed some default Gene requirements:
 	- Flight no longer requires Jump Boost, but now requires Step Assist
 	- Photosynthesis now requires Eat Grass
 	- Scare Spiders and Scare Zombies are no longer Mutation genes, and don't require Scare Creepers or Scare Skeletons
-- Added the following entity types to `geneticsresequenced:allows_preventing_interaction`: Horse, Donkey, Mule, Llama, Trader Llama
+- Added the following entity types to `genetics_resequenced:allows_preventing_interaction`: Horse, Donkey, Mule, Llama, Trader Llama
 
 ## Additions / Changes
 
@@ -474,25 +474,25 @@
 # 1.4.0
 
 - Added the Gene Checker, which lets you see the Genes of either yourself or the entity you're looking at
-	- Since this exists, `/geneticsresequenced list` now requires op permissions
+	- Since this exists, `/genetics_resequenced list` now requires op permissions
 - Reworked how the entity genes datapack system worked
 	- Previously, it would simply set the gene weights
 	- Now, it adds adds the weight to the gene, so you can have multiple files adding weight to the same gene
 - Re-included the lang file for the Modonomicon book, so now you can actually read it
 - Changed some tags:
-	- `#geneticsresequenced:syringe` is now `#geneticsresequenced:syringes`
-	- `#geneticsresequenced:fireball` is now `#geneticsresequenced:activates_shoot_fireball_gene`
-	- `#geneticsresequenced:magnet_blacklist` is now `#geneticsresequenced:item_magnet_gene_blacklist`
-- Removed the tag `#geneticsresequenced:wooly`, it just uses `#c:tools/shear` now
+	- `#genetics_resequenced:syringe` is now `#genetics_resequenced:syringes`
+	- `#genetics_resequenced:fireball` is now `#genetics_resequenced:activates_shoot_fireball_gene`
+	- `#genetics_resequenced:magnet_blacklist` is now `#genetics_resequenced:item_magnet_gene_blacklist`
+- Removed the tag `#genetics_resequenced:wooly`, it just uses `#c:tools/shear` now
 - Added EMI tag translations
-- The command `/geneticsresequenced removeNearbyLights` has been renamed to `/geneticsresequenced clearBioluminescenceBlocks`
+- The command `/genetics_resequenced removeNearbyLights` has been renamed to `/genetics_resequenced clearBioluminescenceBlocks`
 	- Additionally, it no longer requires op permissions. Its range argument does, however
 
 # 1.5.0
 
 - Updated NeoForge from 21.1.36 to 21.1.73
-- Moved Gene requirements from the Gene constructor to a separate datapack system, located in `/data/____/geneticsresequenced/geme_requirements/`
-- Combined the Gene commands to be arguments of `/geneticsresequenced gene`
+- Moved Gene requirements from the Gene constructor to a separate datapack system, located in `/data/____/genetics_resequenced/geme_requirements/`
+- Combined the Gene commands to be arguments of `/genetics_resequenced gene`
 - Localized into Simplified Chinese, thanks to @shenyx110! (#31)
 - Fixed a crash with Jade (and probably similar mods) (#37)
 - Minor improvements to the Entity Genes datapack loader
@@ -511,12 +511,12 @@
 	- This should be a non-breaking change
 - Moved several Data Component keys to snake_case from camelCase (for example, `dnaPoints` is now `dna_points`)
 	- This should also be a non-breaking change
-- Renamed the Data Component `geneticsresequenced:active` to `geneticsresequenced:is_active`
+- Renamed the Data Component `genetics_resequenced:active` to `genetics_resequenced:is_active`
 	- This is a breaking change, but only for Anti-Field Orbs, and it basically just resets them to false
-- The Data Component `geneticsresequenced:specific_entity` now uses a Component instead of a String for the name field.
+- The Data Component `genetics_resequenced:specific_entity` now uses a Component instead of a String for the name field.
 	- Consequently, Syringe tooltips should look better in some cases
 	- This shouldn't be a breaking change, but if it is, it only affects filled Syringes
-- The Gene tag `#geneticsresequenced:hidden` is now `#geneticsresequenced:helix_only`
+- The Gene tag `#genetics_resequenced:hidden` is now `#genetics_resequenced:helix_only`
 	- It's only for Genes that can only be held by DNA Helices, and not Plasmids or entities
 	- This fixes a point of confusion, because the only Gene currently set to this is the Basic Gene. It being called "hidden" made it look like it should be hidden from EMI etc too, which isn't the case
 		- As a result, a DNA Helix with the Basic Gene now shows up in EMI. It also now has an information page.
@@ -565,7 +565,7 @@
 - Fixed Set/Unset Anti-Plasmid recipes not working (#50)
 - Fixed Virus recipes not working (#48)
 - Added these tags to all custom damage types: `#minecraft:no_impact`, `#minecraft:no_anger`, `#minecraft:no_knockback`
-- Mod commands can now use any of the following: `/geneticsresequenced`, `/genetics`, `/gr`
+- Mod commands can now use any of the following: `/genetics_resequenced`, `/genetics`, `/gr`
 - Renamed the command `/gr clearBioluminescenceBlocks` to `/gr clearBioGlow`
 - Updated the Patchouli book to show changes to Flight's default required Genes (#49, #46 kinda)
 

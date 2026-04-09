@@ -1,6 +1,6 @@
 {
 	"name": "White Death",
-	"category": "geneticsresequenced:genes/plague",
+	"category": "genetics_resequenced:genes/plague",
 	"icon": "minecraft:shield",
 	"pages": [
 		{

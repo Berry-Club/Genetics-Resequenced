@@ -1,7 +1,7 @@
 {
 	"entity": "minecraft:ghast",
 	"gene_weights": {
-		"geneticsresequenced:basic": 5,
-		"geneticsresequenced:shoot_fireballs": 4
+		"genetics_resequenced:basic": 5,
+		"genetics_resequenced:shoot_fireballs": 4
 	}
 }

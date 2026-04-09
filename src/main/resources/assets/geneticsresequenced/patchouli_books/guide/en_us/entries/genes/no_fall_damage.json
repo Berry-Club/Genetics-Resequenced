@@ -1,6 +1,6 @@
 {
 	"name": "No Fall Damage",
-	"category": "geneticsresequenced:genes",
+	"category": "genetics_resequenced:genes",
 	"icon": "minecraft:feather",
 	"pages": [
 		{

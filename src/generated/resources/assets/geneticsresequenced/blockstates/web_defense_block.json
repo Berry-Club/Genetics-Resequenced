@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "geneticsresequenced:block/web_defense_block"
+      "model": "genetics_resequenced:block/web_defense_block"
     }
   }
 }

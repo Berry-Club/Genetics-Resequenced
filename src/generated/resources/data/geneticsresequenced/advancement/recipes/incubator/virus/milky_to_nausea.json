@@ -3,7 +3,7 @@
 	"criteria": {
 		"has_the_recipe": {
 			"conditions": {
-				"recipe": "geneticsresequenced:incubator/virus/milky_to_nausea"
+				"recipe": "genetics_resequenced:incubator/virus/milky_to_nausea"
 			},
 			"trigger": "minecraft:recipe_unlocked"
 		}
@@ -15,7 +15,7 @@
 	],
 	"rewards": {
 		"recipes": [
-			"geneticsresequenced:incubator/virus/milky_to_nausea"
+			"genetics_resequenced:incubator/virus/milky_to_nausea"
 		]
 	}
 }

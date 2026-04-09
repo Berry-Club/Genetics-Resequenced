@@ -1,6 +1,6 @@
 {
 	"name": "Milky",
-	"category": "geneticsresequenced:genes",
+	"category": "genetics_resequenced:genes",
 	"icon": "minecraft:milk_bucket",
 	"pages": [
 		{

@@ -3,7 +3,7 @@
 	"criteria": {
 		"has_the_recipe": {
 			"conditions": {
-				"recipe": "geneticsresequenced:incubator/virus/strength_to_weakness"
+				"recipe": "genetics_resequenced:incubator/virus/strength_to_weakness"
 			},
 			"trigger": "minecraft:recipe_unlocked"
 		}
@@ -15,7 +15,7 @@
 	],
 	"rewards": {
 		"recipes": [
-			"geneticsresequenced:incubator/virus/strength_to_weakness"
+			"genetics_resequenced:incubator/virus/strength_to_weakness"
 		]
 	}
 }

@@ -5,7 +5,7 @@
 			"attribute": "minecraft:player.entity_interaction_range",
 			"modifier": {
 				"amount": 1.25,
-				"id": "geneticsresequenced:reaching",
+				"id": "genetics_resequenced:reaching",
 				"operation": "add_multiplied_total"
 			}
 		},
@@ -13,7 +13,7 @@
 			"attribute": "minecraft:player.block_interaction_range",
 			"modifier": {
 				"amount": 1.25,
-				"id": "geneticsresequenced:reaching",
+				"id": "genetics_resequenced:reaching",
 				"operation": "add_multiplied_total"
 			}
 		}

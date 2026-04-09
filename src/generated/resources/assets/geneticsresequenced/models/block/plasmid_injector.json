@@ -1,12 +1,12 @@
 {
 	"parent": "minecraft:block/cube",
 	"textures": {
-		"down": "geneticsresequenced:block/machine_bottom",
-		"east": "geneticsresequenced:block/machine_side",
-		"north": "geneticsresequenced:block/plasmid_injector_front",
-		"particle": "geneticsresequenced:block/machine_top",
-		"south": "geneticsresequenced:block/machine_side",
-		"up": "geneticsresequenced:block/machine_top",
-		"west": "geneticsresequenced:block/machine_side"
+		"down": "genetics_resequenced:block/machine_bottom",
+		"east": "genetics_resequenced:block/machine_side",
+		"north": "genetics_resequenced:block/plasmid_injector_front",
+		"particle": "genetics_resequenced:block/machine_top",
+		"south": "genetics_resequenced:block/machine_side",
+		"up": "genetics_resequenced:block/machine_top",
+		"west": "genetics_resequenced:block/machine_side"
 	}
 }

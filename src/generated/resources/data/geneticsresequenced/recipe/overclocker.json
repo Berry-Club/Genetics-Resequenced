@@ -3,7 +3,7 @@
 	"category": "misc",
 	"key": {
 		"C": {
-			"item": "geneticsresequenced:cell"
+			"item": "genetics_resequenced:cell"
 		},
 		"L": {
 			"tag": "c:gems/lapis"
@@ -19,6 +19,6 @@
 	],
 	"result": {
 		"count": 1,
-		"id": "geneticsresequenced:overclocker"
+		"id": "genetics_resequenced:overclocker"
 	}
 }

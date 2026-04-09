@@ -2,10 +2,10 @@
 	"allowed_entities": "minecraft:player",
 	"attribute_modifiers": [
 		{
-			"attribute": "geneticsresequenced:efficiency",
+			"attribute": "genetics_resequenced:efficiency",
 			"modifier": {
 				"amount": 3.0,
-				"id": "geneticsresequenced:efficiency_four",
+				"id": "genetics_resequenced:efficiency_four",
 				"operation": "add_value"
 			}
 		}

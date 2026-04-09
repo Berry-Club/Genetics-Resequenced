@@ -6,7 +6,7 @@
 			"item": "minecraft:book"
 		},
 		"O": {
-			"item": "geneticsresequenced:organic_matter"
+			"item": "genetics_resequenced:organic_matter"
 		}
 	},
 	"pattern": [
@@ -14,7 +14,7 @@
 	],
 	"result": {
 		"components": {
-			"patchouli:book": "geneticsresequenced:guide"
+			"patchouli:book": "genetics_resequenced:guide"
 		},
 		"count": 1,
 		"id": "patchouli:guide_book"

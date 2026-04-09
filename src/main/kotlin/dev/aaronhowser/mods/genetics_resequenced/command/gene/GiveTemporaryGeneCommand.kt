@@ -1,0 +1,182 @@
+package dev.aaronhowser.mods.genetics_resequenced.command.gene
+
+import com.mojang.brigadier.arguments.IntegerArgumentType
+import com.mojang.brigadier.builder.ArgumentBuilder
+import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
+import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.hasPermanentGene
+import dev.aaronhowser.mods.genetics_resequenced.attachment.TemporaryGenesData.Companion.addTemporaryGene
+import dev.aaronhowser.mods.genetics_resequenced.command.ModCommands.SUGGEST_GENE_RLS
+import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
+import dev.aaronhowser.mods.genetics_resequenced.gene.Gene.Companion.getName
+import dev.aaronhowser.mods.genetics_resequenced.registry.ModGenes
+import net.minecraft.commands.CommandSourceStack
+import net.minecraft.commands.Commands
+import net.minecraft.commands.arguments.EntityArgument
+import net.minecraft.commands.arguments.IdentifierArgument
+import net.minecraft.core.Holder
+import net.minecraft.network.chat.Component
+import net.minecraft.resources.Identifier
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.LivingEntity
+
+object GiveTemporaryGeneCommand {
+
+	private const val GENE = "gene"
+	private const val TARGETS = "targets"
+	private const val DURATION = "duration"
+
+	fun register(): ArgumentBuilder<CommandSourceStack, *> {
+		return Commands
+			.literal("give-temporary-gene")
+			.requires { it.hasPermission(2) }
+			.then(
+				Commands
+					.argument(GENE, IdentifierArgument.id())
+					.suggests(SUGGEST_GENE_RLS)
+					.executes { cmd ->
+						val gene = IdentifierArgument.getId(cmd, GENE)
+						val duration = 20 * 60 * 5
+						val targets = listOf(cmd.source.playerOrException)
+						addGene(cmd.source, gene, targets, duration)
+					}
+					.then(
+						Commands
+							.argument(DURATION, IntegerArgumentType.integer(1))
+							.executes {
+								val gene = IdentifierArgument.getId(it, GENE)
+								val duration = IntegerArgumentType.getInteger(it, DURATION)
+								val targets = listOf(it.source.playerOrException)
+								addGene(it.source, gene, targets, duration)
+							}
+							.then(
+								Commands
+									.argument(TARGETS, EntityArgument.entities())
+									.executes {
+										val gene = IdentifierArgument.getId(it, GENE)
+										val duration = IntegerArgumentType.getInteger(it, DURATION)
+										val targets = EntityArgument.getEntities(it, TARGETS)
+										addGene(it.source, gene, targets, duration)
+									}
+							)
+					)
+			)
+	}
+
+	private fun addGene(
+		source: CommandSourceStack,
+		geneRl: Identifier,
+		entities: Collection<Entity>,
+		duration: Int
+	): Int {
+		val geneHolder = ModGenes.fromIdentifier(source.registryAccess(), geneRl)
+			?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
+
+		val targets = entities.mapNotNull { it as? LivingEntity }
+
+		if (targets.isEmpty()) {
+			source.sendFailure(Component.literal("No valid living entity targets found!"))
+			return 0
+		}
+
+		if (targets.size == 1) {
+			handleSingleTarget(source, targets.first(), geneHolder, duration)
+		} else {
+			handleMultipleTargets(source, targets, geneHolder, duration)
+		}
+
+		return 1
+	}
+
+	private fun handleSingleTarget(
+		source: CommandSourceStack,
+		target: LivingEntity,
+		geneHolder: Holder<Gene>,
+		duration: Int
+	) {
+		val success = addGeneToTarget(target, geneHolder, duration)
+
+		if (success) {
+			source.sendSuccess(
+				{
+					ModLanguageProvider.Commands.TEMPORARY_ADD_SINGLE_SUCCESS.toComponent(
+						geneHolder.getName(),
+						target.name,
+						duration
+					)
+				},
+				false
+			)
+		} else {
+			source.sendFailure(
+				ModLanguageProvider.Commands.TEMPORARY_ADD_SINGLE_FAIL.toComponent(
+					geneHolder.getName(),
+					target.name,
+					duration
+				)
+			)
+		}
+	}
+
+	private fun handleMultipleTargets(
+		source: CommandSourceStack,
+		targets: List<LivingEntity>,
+		geneHolder: Holder<Gene>,
+		duration: Int
+	) {
+		var amountSuccess = 0
+		var amountFail = 0
+
+		for (target in targets) {
+			val success = addGeneToTarget(target, geneHolder, duration)
+			if (success) amountSuccess++ else amountFail++
+		}
+
+		if (amountSuccess != 0) {
+			source.sendSuccess(
+				{
+					ModLanguageProvider.Commands.TEMPORARY_ADD_MULTIPLE_SUCCESS.toComponent(
+						geneHolder.getName(),
+						amountSuccess,
+						duration
+					)
+				},
+				false
+			)
+		}
+
+		if (amountFail != 0) {
+			source.sendFailure(
+				ModLanguageProvider.Commands.TEMPORARY_ADD_MULTIPLE_FAIL.toComponent(
+					geneHolder.getName(),
+					amountFail,
+					duration
+				)
+			)
+		}
+	}
+
+	private fun addGeneToTarget(
+		target: LivingEntity,
+		geneHolder: Holder<Gene>,
+		duration: Int,
+	): Boolean {
+		val alreadyHasGene = target.hasPermanentGene(geneHolder)
+
+		if (alreadyHasGene) {
+			GeneticsResequenced.LOGGER.info("Tried to add temporary gene ${geneHolder.key!!.identifier()} to ${target.name.string}, but they already have it as a permanent Gene!")
+			return false
+		}
+
+		if (!geneHolder.value().canEntityHave(target)) {
+			GeneticsResequenced.LOGGER.info("Tried to add temporary gene ${geneHolder.key!!.identifier()} to ${target.name.string}, but that entity type cannot have that gene!")
+			return false
+		}
+
+		val success = target.addTemporaryGene(geneHolder, duration)
+
+		return success
+	}
+
+}

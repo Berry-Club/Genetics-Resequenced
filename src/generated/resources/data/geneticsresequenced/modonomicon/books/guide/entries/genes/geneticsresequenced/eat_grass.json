@@ -2,12 +2,12 @@
 	"background_u_index": 0,
 	"background_v_index": 0,
 	"category": "genes",
-	"description": "book.geneticsresequenced.guide.genes.geneticsresequenced/eat_grass.description",
+	"description": "book.genetics_resequenced.guide.genes.genetics_resequenced/eat_grass.description",
 	"hide_while_locked": false,
 	"icon": {
 		"item": "minecraft:grass_block"
 	},
-	"name": "book.geneticsresequenced.guide.genes.geneticsresequenced/eat_grass.name",
+	"name": "book.genetics_resequenced.guide.genes.genetics_resequenced/eat_grass.name",
 	"pages": [
 		{
 			"type": "modonomicon:text",
@@ -16,8 +16,8 @@
 				"type": "modonomicon:none"
 			},
 			"show_title_separator": true,
-			"text": "book.geneticsresequenced.guide.genes.geneticsresequenced/eat_grass.page_0.text",
-			"title": "book.geneticsresequenced.guide.genes.geneticsresequenced/eat_grass.page_0.title",
+			"text": "book.genetics_resequenced.guide.genes.genetics_resequenced/eat_grass.page_0.text",
+			"title": "book.genetics_resequenced.guide.genes.genetics_resequenced/eat_grass.page_0.title",
 			"use_markdown_in_title": false
 		},
 		{
@@ -28,16 +28,16 @@
 			},
 			"item": {
 				"components": {
-					"geneticsresequenced:plasmid_progress": {
+					"genetics_resequenced:plasmid_progress": {
 						"dna_points": 16,
-						"gene": "geneticsresequenced:eat_grass"
+						"gene": "genetics_resequenced:eat_grass"
 					}
 				},
 				"count": 1,
-				"item": "geneticsresequenced:plasmid"
+				"item": "genetics_resequenced:plasmid"
 			},
-			"text": "book.geneticsresequenced.guide.genes.geneticsresequenced/eat_grass.page_1.text",
-			"title": "book.geneticsresequenced.guide.genes.geneticsresequenced/eat_grass.page_1.title"
+			"text": "book.genetics_resequenced.guide.genes.genetics_resequenced/eat_grass.page_1.text",
+			"title": "book.genetics_resequenced.guide.genes.genetics_resequenced/eat_grass.page_1.title"
 		}
 	],
 	"show_when_any_parent_unlocked": false,

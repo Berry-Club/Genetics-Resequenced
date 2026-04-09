@@ -6,7 +6,7 @@
 			"tag": "c:end_stones"
 		},
 		"I": {
-			"item": "geneticsresequenced:incubator"
+			"item": "genetics_resequenced:incubator"
 		},
 		"O": {
 			"tag": "c:obsidians"
@@ -19,6 +19,6 @@
 	],
 	"result": {
 		"count": 1,
-		"id": "geneticsresequenced:advanced_incubator"
+		"id": "genetics_resequenced:advanced_incubator"
 	}
 }

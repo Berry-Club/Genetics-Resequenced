@@ -1,7 +1,7 @@
 {
 	"name": "Panacea",
-	"category": "geneticsresequenced:items",
-	"icon": "minecraft:potion[potion_contents={potion:'geneticsresequenced:panacea'}]",
+	"category": "genetics_resequenced:items",
+	"icon": "minecraft:potion[potion_contents={potion:'genetics_resequenced:panacea'}]",
 	"sortnum": 15,
 	"pages": [
 		{
@@ -10,7 +10,7 @@
 		},
 		{
 			"type": "patchouli:spotlight",
-			"item": "minecraft:potion[potion_contents={potion:'geneticsresequenced:panacea'}]",
+			"item": "minecraft:potion[potion_contents={potion:'genetics_resequenced:panacea'}]",
 			"text": "Sure, you could do the same with a Bucket of Milk and an Anti-Plasmid, but this is much more convenient, sometimes, maybe."
 		}
 	]

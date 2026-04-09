@@ -1,6 +1,6 @@
 {
 	"name": "Speed",
-	"category": "geneticsresequenced:genes",
+	"category": "genetics_resequenced:genes",
 	"icon": "minecraft:textures/mob_effect/speed.png",
 	"pages": [
 		{
