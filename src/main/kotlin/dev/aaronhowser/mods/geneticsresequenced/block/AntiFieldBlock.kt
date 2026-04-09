@@ -11,6 +11,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
+import net.minecraft.world.level.redstone.Orientation
 import java.util.*
 
 class AntiFieldBlock : Block(
@@ -23,45 +24,44 @@ class AntiFieldBlock : Block(
 	init {
 		registerDefaultState(
 			stateDefinition.any()
-				.setValue(DISABLED, false)
+				.setValue(POWERED, false)
 		)
 	}
 
-	override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
-		return defaultBlockState().setValue(DISABLED, false)
+	override fun getStateForPlacement(context: BlockPlaceContext): BlockState {
+		return defaultBlockState()
+			.setValue(POWERED, context.level.hasNeighborSignal(context.clickedPos))
 	}
 
-	override fun createBlockStateDefinition(pBuilder: StateDefinition.Builder<Block, BlockState>) {
-		super.createBlockStateDefinition(pBuilder)
-		pBuilder.add(DISABLED)
+	override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
+		builder.add(POWERED)
 	}
 
 	override fun neighborChanged(
-		pState: BlockState,
-		pLevel: Level,
-		pPos: BlockPos,
-		pNeighborBlock: Block,
-		pNeighborPos: BlockPos,
-		pMovedByPiston: Boolean
+		state: BlockState,
+		level: Level,
+		pos: BlockPos,
+		block: Block,
+		orientation: Orientation?,
+		movedByPiston: Boolean
 	) {
+		val isPowered = level.hasNeighborSignal(pos)
+		val wasPowered = state.getValue(POWERED)
 
-		val isPowered = pLevel.hasNeighborSignal(pPos)
-
-		if (pState.getValue(DISABLED) != isPowered) {
-			pLevel.setBlock(pPos, pState.setValue(DISABLED, isPowered), 2)
+		if (wasPowered != isPowered) {
+			level.setBlock(pos, state.setValue(POWERED, isPowered), UPDATE_CLIENTS)
 		}
-
 	}
 
 	companion object {
-		val DISABLED: BooleanProperty = BlockStateProperties.POWERED
+		val POWERED: BooleanProperty = BlockStateProperties.POWERED
 
 		fun getNearestActiveAntifield(level: Level, location: BlockPos): Optional<BlockPos> {
 			val radius = ServerConfig.CONFIG.antifieldBlockRadius.get()
 
 			return BlockPos.findClosestMatch(location, radius, radius) { pos ->
 				val blockState = level.getBlockState(pos)
-				blockState.block == ModBlocks.ANTI_FIELD_BLOCK.get() && !blockState.getValue(DISABLED)
+				blockState.block == ModBlocks.ANTI_FIELD_BLOCK.get() && !blockState.getValue(POWERED)
 			}
 		}
 

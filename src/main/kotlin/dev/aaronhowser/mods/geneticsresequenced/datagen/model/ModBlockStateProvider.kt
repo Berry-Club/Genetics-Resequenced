@@ -42,7 +42,7 @@ class ModBlockStateProvider(
 
 		getVariantBuilder(deferredAntiFieldBlock.get())
 			.forAllStates { state ->
-				val disabled = state.getValue(AntiFieldBlock.DISABLED)
+				val disabled = state.getValue(AntiFieldBlock.POWERED)
 				val modelVariantName = if (disabled) "anti_field_block_disabled" else "anti_field_block_enabled"
 				val textureVariantName = if (disabled) "block/machine_bottom" else "block/machine_top"
 

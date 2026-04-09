@@ -9,6 +9,7 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.RandomSource
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.InsideBlockEffectApplier
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
@@ -32,7 +33,14 @@ class WebDefenseBlock : Block(Properties.ofFullCopy(Blocks.COBWEB)) {
 		level.removeBlock(pos, false)
 	}
 
-	override fun entityInside(state: BlockState, level: Level, pos: BlockPos, entity: Entity) {
+	override fun entityInside(
+		state: BlockState,
+		level: Level,
+		pos: BlockPos,
+		entity: Entity,
+		effectApplier: InsideBlockEffectApplier,
+		isPrecise: Boolean
+	) {
 		var motionMultiplier = Vec3(0.25, 0.05, 0.25)
 
 		if (entity is LivingEntity) {
