@@ -20,7 +20,7 @@ class FireballPacket private constructor() : AaronPacket() {
 
 	companion object {
 		val TYPE: CustomPacketPayload.Type<FireballPacket> =
-			CustomPacketPayload.Type<FireballPacket>(OtherUtil.modResource("fireball"))
+			CustomPacketPayload.Type<FireballPacket>(GeneticsResequenced.modResource("fireball"))
 
 		val INSTANCE = FireballPacket()
 

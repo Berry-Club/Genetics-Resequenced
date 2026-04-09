@@ -44,7 +44,7 @@ class VirusRecipeBuilder(
 			.append("_to_")
 			.append(outputGene.identifier().path)
 
-		val id = OtherUtil.modResource(idString.toString())
+		val id = GeneticsResequenced.modResource(idString.toString())
 
 		val advancement = output.advancement()
 			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))

@@ -9,7 +9,7 @@ import java.util.function.BiConsumer
 
 class ModModonomiconProvider(
 	defaultLang: BiConsumer<String, String>,
-) : SingleBookSubProvider("guide", GeneticsResequenced.ID, defaultLang) {
+) : SingleBookSubProvider("guide", GeneticsResequenced.MOD_ID, defaultLang) {
 
 	override fun additionalSetup(book: BookModel): BookModel {
 		return book

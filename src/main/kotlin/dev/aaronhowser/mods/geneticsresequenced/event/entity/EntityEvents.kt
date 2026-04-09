@@ -20,7 +20,7 @@ import net.neoforged.neoforge.event.level.ExplosionEvent
 import net.neoforged.neoforge.event.tick.EntityTickEvent
 
 @EventBusSubscriber(
-	modid = GeneticsResequenced.ID
+	modid = GeneticsResequenced.MOD_ID
 )
 object EntityEvents {
 

@@ -65,7 +65,7 @@ class Bubbles(
 	}
 
 	companion object {
-		val TEXTURE = OtherUtil.modResource("bubbles")
+		val TEXTURE = GeneticsResequenced.modResource("bubbles")
 		const val TEXTURE_SIZE = 32
 
 		const val WIDTH = 11

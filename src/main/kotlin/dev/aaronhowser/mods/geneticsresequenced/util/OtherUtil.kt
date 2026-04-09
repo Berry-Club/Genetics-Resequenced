@@ -25,9 +25,6 @@ import kotlin.jvm.optionals.getOrNull
 
 object OtherUtil {
 
-	fun modResource(path: String): Identifier =
-		Identifier.fromNamespaceAndPath(GeneticsResequenced.ID, path)
-
 	val ItemLike.itemStack: ItemStack
 		get() = this.asItem().defaultInstance
 

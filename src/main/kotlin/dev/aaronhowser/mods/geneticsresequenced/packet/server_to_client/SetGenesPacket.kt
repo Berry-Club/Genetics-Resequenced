@@ -42,7 +42,7 @@ data class SetGenesPacket(
 
 	companion object {
 		val TYPE: CustomPacketPayload.Type<SetGenesPacket> =
-			CustomPacketPayload.Type(OtherUtil.modResource("set_genes"))
+			CustomPacketPayload.Type(GeneticsResequenced.modResource("set_genes"))
 
 		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SetGenesPacket> =
 			StreamCodec.composite(

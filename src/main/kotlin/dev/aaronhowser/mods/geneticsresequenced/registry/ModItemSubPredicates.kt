@@ -12,7 +12,7 @@ import java.util.function.Supplier
 object ModItemSubPredicates {
 
 	val ITEM_SUB_PREDICATES: DeferredRegister<ItemSubPredicate.Type<*>> =
-		DeferredRegister.create(Registries.ITEM_SUB_PREDICATE_TYPE, GeneticsResequenced.ID)
+		DeferredRegister.create(Registries.ITEM_SUB_PREDICATE_TYPE, GeneticsResequenced.MOD_ID)
 
 	val HELIX_GENE: DeferredHolder<ItemSubPredicate.Type<*>, ItemSubPredicate.Type<HelixGenePredicate>> =
 		ITEM_SUB_PREDICATES.register("helix_gene", Supplier { HelixGenePredicate.TYPE })

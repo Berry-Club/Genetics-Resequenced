@@ -42,7 +42,7 @@ class BasicIncubatorRecipeBuilder(
 			.append("incubator/basic/")
 			.append(recipeName ?: defaultId.path)
 
-		val id = OtherUtil.modResource(idString.toString())
+		val id = GeneticsResequenced.modResource(idString.toString())
 
 		val advancement = output.advancement()
 			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))

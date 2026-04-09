@@ -27,7 +27,7 @@ data class EntityGenes(
 		val REGISTRY_KEY: ResourceKey<Registry<EntityGenes>> =
 			ResourceKey.createRegistryKey(
 				Identifier.fromNamespaceAndPath(
-					GeneticsResequenced.ID,
+					GeneticsResequenced.MOD_ID,
 					"entity_genes"
 				)
 			)

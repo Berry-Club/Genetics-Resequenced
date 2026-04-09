@@ -33,7 +33,7 @@ class BleedEffect : MobEffect(
 
 	companion object {
 		val BLEED_DAMAGE: ResourceKey<DamageType> =
-			ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource("bleed"))
+			ResourceKey.create(Registries.DAMAGE_TYPE, GeneticsResequenced.modResource("bleed"))
 
 		fun getHolder(level: Level): Holder.Reference<DamageType> {
 			return level.registryAccess().registry(Registries.DAMAGE_TYPE).get().getHolderOrThrow(BLEED_DAMAGE)

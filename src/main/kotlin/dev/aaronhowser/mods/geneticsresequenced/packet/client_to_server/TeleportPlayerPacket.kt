@@ -20,7 +20,7 @@ class TeleportPlayerPacket private constructor() : AaronPacket() {
 
 	companion object {
 		val TYPE: CustomPacketPayload.Type<TeleportPlayerPacket> =
-			CustomPacketPayload.Type<TeleportPlayerPacket>(OtherUtil.modResource("teleport"))
+			CustomPacketPayload.Type<TeleportPlayerPacket>(GeneticsResequenced.modResource("teleport"))
 
 		val INSTANCE = TeleportPlayerPacket()
 

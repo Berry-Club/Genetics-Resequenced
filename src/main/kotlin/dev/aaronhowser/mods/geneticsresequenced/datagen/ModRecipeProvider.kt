@@ -37,8 +37,8 @@ class ModRecipeProvider(
 		val setAntiPlasmid = SpecialRecipeBuilder.special(::SetAntiPlasmidRecipe)
 		val unsetAntiPlasmid = SpecialRecipeBuilder.special(::UnsetAntiPlasmidRecipe)
 
-		setAntiPlasmid.save(pRecipeOutput, OtherUtil.modResource("set_anti_plasmid"))
-		unsetAntiPlasmid.save(pRecipeOutput, OtherUtil.modResource("unset_anti_plasmid"))
+		setAntiPlasmid.save(pRecipeOutput, GeneticsResequenced.modResource("set_anti_plasmid"))
+		unsetAntiPlasmid.save(pRecipeOutput, GeneticsResequenced.modResource("unset_anti_plasmid"))
 	}
 
 	private fun buildShapedRecipes(pRecipeOutput: RecipeOutput) {
@@ -242,7 +242,7 @@ class ModRecipeProvider(
 		val bookStack = com.klikli_dev.modonomicon.registry.ItemRegistry.MODONOMICON.get().itemStack
 		val bookIdComponent = com.klikli_dev.modonomicon.registry.DataComponentRegistry.BOOK_ID.get()
 
-		bookStack.set(bookIdComponent, OtherUtil.modResource("guide"))
+		bookStack.set(bookIdComponent, GeneticsResequenced.modResource("guide"))
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, bookStack)
 			.pattern("OB")

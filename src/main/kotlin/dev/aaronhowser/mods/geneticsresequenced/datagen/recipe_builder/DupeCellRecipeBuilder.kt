@@ -34,7 +34,7 @@ class DupeCellRecipeBuilder(
 	}
 
 	override fun save(output: RecipeOutput, defaultId: Identifier) {
-		val id = OtherUtil.modResource("incubator/$name")
+		val id = GeneticsResequenced.modResource("incubator/$name")
 
 		val advancement = output.advancement()
 			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))

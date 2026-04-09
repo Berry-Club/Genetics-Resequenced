@@ -67,7 +67,7 @@ class EnergyBar(
 		const val WIDTH = 18
 		const val HEIGHT = 57
 		const val TEXTURE_SIZE = 64
-		val TEXTURE = OtherUtil.modResource("energy")
+		val TEXTURE = GeneticsResequenced.modResource("energy")
 	}
 
 }

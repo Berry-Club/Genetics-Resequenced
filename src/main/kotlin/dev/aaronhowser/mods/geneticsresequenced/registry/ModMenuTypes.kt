@@ -29,7 +29,7 @@ import net.neoforged.neoforge.registries.DeferredRegister
 object ModMenuTypes : AaronMenuTypesRegistry() {
 
 	val MENU_TYPE_REGISTRY: DeferredRegister<MenuType<*>> =
-		DeferredRegister.create(BuiltInRegistries.MENU, GeneticsResequenced.ID)
+		DeferredRegister.create(BuiltInRegistries.MENU, GeneticsResequenced.MOD_ID)
 
 	override fun getMenuTypeRegistry(): DeferredRegister<MenuType<*>> = MENU_TYPE_REGISTRY
 

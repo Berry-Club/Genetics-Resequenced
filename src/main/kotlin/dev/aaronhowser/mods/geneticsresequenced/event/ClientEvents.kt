@@ -31,7 +31,7 @@ import net.neoforged.neoforge.client.event.*
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 
 @EventBusSubscriber(
-	modid = GeneticsResequenced.ID,
+	modid = GeneticsResequenced.MOD_ID,
 	value = [Dist.CLIENT]
 )
 object ClientEvents {
@@ -92,21 +92,21 @@ object ClientEvents {
 
 		ItemProperties.register(
 			ModItems.SYRINGE.get(),
-			OtherUtil.modResource("full")
+			GeneticsResequenced.modResource("full")
 		) { stack, _, _, _ ->
 			if (SyringeItem.hasBlood(stack)) 1f else 0f
 		}
 
 		ItemProperties.register(
 			ModItems.SYRINGE.get(),
-			OtherUtil.modResource("injecting")
+			GeneticsResequenced.modResource("injecting")
 		) { stack, _, entity, _ ->
 			if (SyringeItem.isBeingUsed(stack, entity)) 1f else 0f
 		}
 
 		ItemProperties.register(
 			ModItems.METAL_SYRINGE.get(),
-			OtherUtil.modResource("full")
+			GeneticsResequenced.modResource("full")
 		) { stack, _, _, _ ->
 			if (SyringeItem.hasBlood(stack)) 1f else 0f
 		}

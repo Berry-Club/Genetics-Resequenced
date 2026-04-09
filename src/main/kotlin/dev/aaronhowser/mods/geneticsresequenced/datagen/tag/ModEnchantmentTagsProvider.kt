@@ -13,7 +13,7 @@ class ModEnchantmentTagsProvider(
 	pOutput: PackOutput,
 	pProvider: CompletableFuture<HolderLookup.Provider>,
 	existingFileHelper: ExistingFileHelper
-) : EnchantmentTagsProvider(pOutput, pProvider, GeneticsResequenced.ID, existingFileHelper) {
+) : EnchantmentTagsProvider(pOutput, pProvider, GeneticsResequenced.MOD_ID, existingFileHelper) {
 
 	override fun addTags(p0: HolderLookup.Provider) {
 		this.tag(EnchantmentTags.NON_TREASURE)

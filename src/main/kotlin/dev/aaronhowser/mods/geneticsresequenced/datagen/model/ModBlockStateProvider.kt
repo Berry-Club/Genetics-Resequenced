@@ -19,7 +19,7 @@ import net.neoforged.neoforge.registries.DeferredBlock
 class ModBlockStateProvider(
 	output: PackOutput,
 	private val existingFileHelper: ExistingFileHelper
-) : BlockStateProvider(output, GeneticsResequenced.ID, existingFileHelper) {
+) : BlockStateProvider(output, GeneticsResequenced.MOD_ID, existingFileHelper) {
 
 	override fun registerStatesAndModels() {
 		antiFieldBlock()

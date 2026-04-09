@@ -73,8 +73,8 @@ class TemperatureIndicator(
 	}
 
 	companion object {
-		val HIGH = OtherUtil.modResource("heat_high")
-		val LOW = OtherUtil.modResource("heat_low")
+		val HIGH = GeneticsResequenced.modResource("heat_high")
+		val LOW = GeneticsResequenced.modResource("heat_low")
 
 		const val TEXTURE_SIZE = 32
 

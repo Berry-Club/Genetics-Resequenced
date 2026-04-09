@@ -19,7 +19,7 @@ import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
 
 @EventBusSubscriber(
-	modid = GeneticsResequenced.ID
+	modid = GeneticsResequenced.MOD_ID
 )
 object DeathEvents {
 

@@ -22,7 +22,7 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent
 import net.neoforged.neoforge.event.tick.PlayerTickEvent
 
 @EventBusSubscriber(
-	modid = GeneticsResequenced.ID
+	modid = GeneticsResequenced.MOD_ID
 )
 object OtherPlayerEvents {
 

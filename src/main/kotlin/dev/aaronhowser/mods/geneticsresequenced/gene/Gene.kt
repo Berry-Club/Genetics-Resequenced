@@ -39,6 +39,7 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.Attribute
 import net.minecraft.world.entity.ai.attributes.AttributeModifier
+import net.minecraft.world.entity.player.Player
 import java.util.*
 
 data class Gene(
@@ -77,9 +78,12 @@ data class Gene(
 			val attributeInstance = livingEntity.getAttribute(attribute)
 
 			if (attributeInstance == null) {
-				livingEntity.tell(
-					Component.literal("A Gene tried to modify an attribute ${attribute.key} that you don't have!")
-				)
+				if (livingEntity is Player) {
+					livingEntity.tell(
+						Component.literal("A Gene tried to modify an attribute ${attribute.key} that you don't have!")
+					)
+				}
+
 				GeneticsResequenced.LOGGER.error("A Gene tried to modify an attribute ${attribute.key} that entity ${livingEntity.name} does not have!")
 				continue
 			}

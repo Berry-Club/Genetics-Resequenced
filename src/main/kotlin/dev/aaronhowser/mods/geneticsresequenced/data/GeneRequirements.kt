@@ -24,7 +24,7 @@ data class GeneRequirements(
 		val REGISTRY_KEY: ResourceKey<Registry<GeneRequirements>> =
 			ResourceKey.createRegistryKey(
 				Identifier.fromNamespaceAndPath(
-					GeneticsResequenced.ID,
+					GeneticsResequenced.MOD_ID,
 					"gene_requirements"
 				)
 			)

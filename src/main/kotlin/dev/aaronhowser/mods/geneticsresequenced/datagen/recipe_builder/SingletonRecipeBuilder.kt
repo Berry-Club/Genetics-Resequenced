@@ -32,7 +32,7 @@ class SingletonRecipeBuilder(
 	}
 
 	override fun save(output: RecipeOutput, defaultId: Identifier) {
-		val id = OtherUtil.modResource(idString)
+		val id = GeneticsResequenced.modResource(idString)
 
 		val advancement = output.advancement()
 			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))

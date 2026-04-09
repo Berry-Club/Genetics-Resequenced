@@ -69,7 +69,7 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 	}
 
 	companion object {
-		val SYRINGE_REACH_MODIFIER_RL = OtherUtil.modResource("syringe_reach_modifier")
+		val SYRINGE_REACH_MODIFIER_RL = GeneticsResequenced.modResource("syringe_reach_modifier")
 
 		val DEFAULT_PROPERTIES: Properties = Properties()
 			.stacksTo(1)

@@ -27,11 +27,11 @@ class ProgressArrow(
 	companion object {
 		const val TEXTURE_SIZE = 32
 
-		val RIGHT_TEXTURE = OtherUtil.modResource("arrow_right")
+		val RIGHT_TEXTURE = GeneticsResequenced.modResource("arrow_right")
 		const val RIGHT_WIDTH = 24
 		const val RIGHT_HEIGHT = 17
 
-		val DOWN_TEXTURE = OtherUtil.modResource("arrow_down")
+		val DOWN_TEXTURE = GeneticsResequenced.modResource("arrow_down")
 		const val DOWN_WIDTH = 9
 		const val DOWN_HEIGHT = 28
 	}
