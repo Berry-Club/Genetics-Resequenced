@@ -79,18 +79,16 @@ neoForge {
 		}
 
 		data {
-			data()
-
-			gameDirectory = file 'runs/client'
+			clientData()
 
 			programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
 		}
 
-		"Wiki-Export-Client" {
-			client()
-			gameDirectory = file 'runs/wiki_exporter'
-			systemProperty 'item_asset_export.render.namespaces', 'geneticsresequenced'
-		}
+//		"Wiki-Export-Client" {
+//			client()
+//			gameDirectory = file 'runs/wiki_exporter'
+//			systemProperty 'item_asset_export.render.namespaces', 'geneticsresequenced'
+//		}
 	}
 
 	mods {
