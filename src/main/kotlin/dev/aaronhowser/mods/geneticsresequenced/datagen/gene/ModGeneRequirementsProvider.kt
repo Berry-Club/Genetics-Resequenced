@@ -32,7 +32,7 @@ class ModGeneRequirementsProvider(
 		vararg requirements: ResourceKey<Gene>
 	) {
 		unconditional(
-			geneRk.location(),
+			geneRk.identifier(),
 			GeneRequirements(
 				geneRk,
 				requirements.toList()

@@ -165,12 +165,12 @@ object GiveTemporaryGeneCommand {
 		val alreadyHasGene = target.hasPermanentGene(geneHolder)
 
 		if (alreadyHasGene) {
-			GeneticsResequenced.LOGGER.info("Tried to add temporary gene ${geneHolder.key!!.location()} to ${target.name.string}, but they already have it as a permanent Gene!")
+			GeneticsResequenced.LOGGER.info("Tried to add temporary gene ${geneHolder.key!!.identifier()} to ${target.name.string}, but they already have it as a permanent Gene!")
 			return false
 		}
 
 		if (!geneHolder.value().canEntityHave(target)) {
-			GeneticsResequenced.LOGGER.info("Tried to add temporary gene ${geneHolder.key!!.location()} to ${target.name.string}, but that entity type cannot have that gene!")
+			GeneticsResequenced.LOGGER.info("Tried to add temporary gene ${geneHolder.key!!.identifier()} to ${target.name.string}, but that entity type cannot have that gene!")
 			return false
 		}
 

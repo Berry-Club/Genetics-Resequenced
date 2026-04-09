@@ -35,7 +35,7 @@ object RemoveGeneCommand {
 
 			val genesHeldByMobs = targets
 				.flatMap { it.getActiveGenes() }
-				.mapNotNull { it.key?.location() }
+				.mapNotNull { it.key?.identifier() }
 
 			SharedSuggestionProvider.suggestResource(genesHeldByMobs, suggestionsBuilder)
 		}

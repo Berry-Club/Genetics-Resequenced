@@ -40,9 +40,9 @@ class VirusRecipeBuilder(
 		idString
 			.append("incubator/")
 			.append("virus/")
-			.append(inputDnaGene.location().path)
+			.append(inputDnaGene.identifier().path)
 			.append("_to_")
-			.append(outputGene.location().path)
+			.append(outputGene.identifier().path)
 
 		val id = OtherUtil.modResource(idString.toString())
 

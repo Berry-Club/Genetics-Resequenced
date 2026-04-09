@@ -54,7 +54,7 @@ class GmoRecipeBuilder(
 
 	override fun save(output: RecipeOutput, defaultId: Identifier) {
 		val entityString = EntityType.getKey(entityType).path
-		val geneString = idealGeneRk.location().path
+		val geneString = idealGeneRk.identifier().path
 
 		val chanceString = if (geneChance == 1f) {
 			"100"

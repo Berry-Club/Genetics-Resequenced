@@ -156,8 +156,8 @@ data class Gene(
 
 		val ResourceKey<Gene>.translationKey: String
 			get() {
-				val namespace = this.location().namespace
-				val path = this.location().path
+				val namespace = this.identifier().namespace
+				val path = this.identifier().path
 
 				return "gene.$namespace.$path"
 			}
@@ -213,8 +213,8 @@ data class Gene(
 				.withStyle(
 					Style.EMPTY
 						.withColor(color)
-						.withHoverText(ModTooltipLang.COPY_GENE.toComponent(geneHolder.key!!.location().toString()))
-						.withClickToCopyToClipboard(geneHolder.key!!.location().toString())
+						.withHoverText(ModTooltipLang.COPY_GENE.toComponent(geneHolder.key!!.identifier().toString()))
+						.withClickToCopyToClipboard(geneHolder.key!!.identifier().toString())
 				)
 
 			if (geneHolder.isDisabled) {

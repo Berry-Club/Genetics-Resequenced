@@ -37,7 +37,7 @@ class ModEntityGenesProvider(
 		val entityRk = ResourceKey.create(Registries.ENTITY_TYPE, EntityType.getKey(entityType))
 
 		this.unconditional(
-			entityRk.location(),
+			entityRk.identifier(),
 			EntityGenes(
 				entityRk,
 				geneWeights.toMap()

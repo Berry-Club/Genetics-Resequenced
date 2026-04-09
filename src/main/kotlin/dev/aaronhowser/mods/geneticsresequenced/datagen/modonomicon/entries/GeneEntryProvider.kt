@@ -23,7 +23,7 @@ abstract class GeneEntryProvider : BaseEntryProvider {
 		parent = parent,
 		name = name,
 		icon = iconRl,
-		entryId = geneRk.location().toString().replace(":", "/")
+		entryId = geneRk.identifier().toString().replace(":", "/")
 	) {
 		this.geneHolder = geneRk.getHolderOrThrow(registries())
 
@@ -41,7 +41,7 @@ abstract class GeneEntryProvider : BaseEntryProvider {
 		parent = parent,
 		name = name,
 		icon = icon,
-		entryId = geneRk.location().toString().replace(":", "/")
+		entryId = geneRk.identifier().toString().replace(":", "/")
 	) {
 		this.geneHolder = geneRk.getHolderOrThrow(registries())
 

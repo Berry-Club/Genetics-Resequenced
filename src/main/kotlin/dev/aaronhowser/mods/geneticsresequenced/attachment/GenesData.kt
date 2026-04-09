@@ -80,7 +80,7 @@ data class GenesData(
 				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
 						.append("Tried to give negative gene ")
-						.append(newGeneHolder.key?.location() ?: newGeneHolder)
+						.append(newGeneHolder.key?.identifier() ?: newGeneHolder)
 						.append(" to player ").append(name.string)
 						.append(", but \"disableGivingPlayersNegativeGenes\" is true in the server config.")
 						.toString()
@@ -93,7 +93,7 @@ data class GenesData(
 				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
 						.append("Tried to give gene ")
-						.append(newGeneHolder.key?.location() ?: newGeneHolder)
+						.append(newGeneHolder.key?.identifier() ?: newGeneHolder)
 						.append(" to entity ").append(name.string)
 						.append(", but that entity type cannot have that gene!")
 						.toString()
@@ -107,10 +107,10 @@ data class GenesData(
 				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
 						.append("Tried to give gene ")
-						.append(newGeneHolder.key?.location() ?: newGeneHolder)
+						.append(newGeneHolder.key?.identifier() ?: newGeneHolder)
 						.append(" to entity ").append(name.string)
 						.append(", but it is incompatible with the following genes the entity already has: ")
-						.append(foundIncompatibleGenes.joinToString { it.key?.location().toString() })
+						.append(foundIncompatibleGenes.joinToString { it.key?.identifier().toString() })
 						.toString()
 				)
 				return false

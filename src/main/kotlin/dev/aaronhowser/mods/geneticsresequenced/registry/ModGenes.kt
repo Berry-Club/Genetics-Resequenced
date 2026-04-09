@@ -46,7 +46,7 @@ object ModGenes {
 
 	@JvmStatic
 	fun fromIdPath(registries: HolderLookup.Provider, path: String): Holder.Reference<Gene>? {
-		return getAllGeneHolders(registries).filter { it.key!!.location().path == path }.findFirst().orElse(null)
+		return getAllGeneHolders(registries).filter { it.key!!.identifier().path == path }.findFirst().orElse(null)
 	}
 
 	fun getRegistrySorted(
@@ -193,6 +193,6 @@ object ModGenes {
 		fromResourceKey(registries, this)
 
 	fun ResourceKey<Gene>.getHolderOrThrow(registries: HolderLookup.Provider): Holder.Reference<Gene> =
-		getHolder(registries) ?: throw IllegalArgumentException("Gene ${location()} not found")
+		getHolder(registries) ?: throw IllegalArgumentException("Gene ${identifier()} not found")
 
 }

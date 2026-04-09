@@ -154,12 +154,12 @@ object GiveGeneCommand {
 	): Boolean {
 		val alreadyHasGene = target.hasGene(geneHolder)
 		if (alreadyHasGene) {
-			GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.location()} to ${target.name.string}, but they already have it!")
+			GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.identifier()} to ${target.name.string}, but they already have it!")
 			return false
 		}
 
 		if (!geneHolder.value().canEntityHave(target)) {
-			GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.location()} to ${target.name.string}, but they can't have it!")
+			GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.identifier()} to ${target.name.string}, but they can't have it!")
 			return false
 		}
 
