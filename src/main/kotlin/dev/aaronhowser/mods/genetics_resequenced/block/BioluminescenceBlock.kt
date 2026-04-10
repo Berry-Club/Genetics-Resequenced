@@ -6,23 +6,15 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.RandomSource
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.AirBlock
+import net.minecraft.world.level.block.Blocks
 import net.minecraft.world.level.block.state.BlockState
 
 class BioluminescenceBlock :
 	AirBlock(
 		Properties
-			.of()
-			.replaceable()
-			.noCollission()
-			.instabreak()
-			.noLootTable()
-			.air()
+			.ofFullCopy(Blocks.AIR)
 			.lightLevel { LIGHT_LEVEL }
 	) {
-
-	companion object {
-		const val LIGHT_LEVEL = 10
-	}
 
 	override fun onPlace(
 		pState: BlockState,
@@ -40,6 +32,10 @@ class BioluminescenceBlock :
 			pLevel.removeBlock(pPos, false)
 		}
 		super.tick(pState, pLevel, pPos, pRandom)
+	}
+
+	companion object {
+		const val LIGHT_LEVEL = 10
 	}
 
 }
