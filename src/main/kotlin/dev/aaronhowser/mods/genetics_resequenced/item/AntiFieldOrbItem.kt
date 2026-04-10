@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.genetics_resequenced.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.setUnit
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModDataComponents
@@ -53,18 +54,18 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 		val DEFAULT_PROPERTIES: () -> Properties = {
 			Properties()
 				.stacksTo(1)
-				.component(ModDataComponents.IS_ACTIVE, false)
 		}
 
 		private fun isEnabled(itemStack: ItemStack): Boolean {
-			return itemStack.getOrDefault(ModDataComponents.IS_ACTIVE, false)
+			return itemStack.has(ModDataComponents.IS_ACTIVE)
 		}
 
 		private fun toggleEnabled(itemStack: ItemStack) {
-			itemStack.set(
-				ModDataComponents.IS_ACTIVE,
-				!isEnabled(itemStack)
-			)
+			if (isEnabled(itemStack)) {
+				itemStack.remove(ModDataComponents.IS_ACTIVE)
+			} else {
+				itemStack.setUnit(ModDataComponents.IS_ACTIVE)
+			}
 		}
 
 		fun isActiveForPlayer(player: Player): Boolean {
