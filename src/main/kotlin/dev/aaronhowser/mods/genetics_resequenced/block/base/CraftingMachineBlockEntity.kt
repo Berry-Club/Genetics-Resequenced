@@ -13,7 +13,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.items.IItemHandler
 import net.neoforged.neoforge.items.wrapper.RangedWrapper
-import java.util.function.IntSupplier
 
 abstract class CraftingMachineBlockEntity(
 	blockEntityType: BlockEntityType<*>,
@@ -21,15 +20,15 @@ abstract class CraftingMachineBlockEntity(
 	blockState: BlockState
 ) : MachineBlockEntity(blockEntityType, pos, blockState) {
 
-	abstract val baseEnergyCostPerTick: IntSupplier
+	abstract fun getBaseEnergyCostPerTick(): Int
 
 	override val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, DEFAULT_INVENTORY_SIZE)
 
 	open fun getEnergyCostPerTick(): Int {
-		val extraPerOverclocker = Mth.ceil(baseEnergyCostPerTick.asInt * 0.25f)
+		val extraPerOverclocker = Mth.ceil(getBaseEnergyCostPerTick() * 0.25f)
 		val totalExtraCost = (extraPerOverclocker * getAmountOfOverclocks())
 
-		return baseEnergyCostPerTick.asInt + totalExtraCost
+		return getBaseEnergyCostPerTick() + totalExtraCost
 	}
 
 	open fun getAmountOfOverclocks(): Int {

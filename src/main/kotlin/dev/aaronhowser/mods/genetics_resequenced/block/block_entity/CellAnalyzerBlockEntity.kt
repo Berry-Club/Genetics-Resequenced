@@ -21,7 +21,7 @@ class CellAnalyzerBlockEntity(
 	blockState: BlockState
 ) : CraftingMachineBlockEntity(ModBlockEntityTypes.CELL_ANALYZER.get(), pos, blockState) {
 
-	override val baseEnergyCostPerTick: IntSupplier = IntSupplier { 32 }
+	override fun getBaseEnergyCostPerTick(): Int = 32
 	override val maxEnergy: Int = 60_000
 	override val energyTransferRate: Int = 256
 

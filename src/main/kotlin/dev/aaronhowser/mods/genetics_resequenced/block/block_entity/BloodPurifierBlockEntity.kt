@@ -23,7 +23,7 @@ class BloodPurifierBlockEntity(
 
 	override val maxEnergy: Int = 60_000
 	override val energyTransferRate: Int = 256
-	override val baseEnergyCostPerTick: IntSupplier = IntSupplier { 32 }
+	override fun getBaseEnergyCostPerTick(): Int = 32
 
 	override val container: ImprovedSimpleContainer = object : ImprovedSimpleContainer(this, DEFAULT_INVENTORY_SIZE) {
 		override fun canPlaceItem(slot: Int, stack: ItemStack): Boolean {

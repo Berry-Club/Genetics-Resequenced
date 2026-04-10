@@ -27,7 +27,7 @@ class IncubatorBlockEntity(
 	blockState: BlockState
 ) : CraftingMachineBlockEntity(ModBlockEntityTypes.INCUBATOR.get(), pos, blockState) {
 
-	override val baseEnergyCostPerTick: IntSupplier = IntSupplier { 10 }
+	override fun getBaseEnergyCostPerTick(): Int = 10
 	override val maxEnergy: Int = 50_000
 	override val energyTransferRate: Int = 500
 
