@@ -4,7 +4,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.hasGene
-import dev.aaronhowser.mods.genetics_resequenced.command.ModCommands.SUGGEST_GENE_RLS
+import dev.aaronhowser.mods.genetics_resequenced.command.ModCommands.SUGGEST_GENES
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
@@ -32,7 +32,7 @@ object GiveGeneCommand {
 			.then(
 				Commands
 					.argument(GENE_ARGUMENT, IdentifierArgument.id())
-					.suggests(SUGGEST_GENE_RLS)
+					.suggests(SUGGEST_GENES)
 					.executes { cmd ->
 						addGene(
 							cmd.source,

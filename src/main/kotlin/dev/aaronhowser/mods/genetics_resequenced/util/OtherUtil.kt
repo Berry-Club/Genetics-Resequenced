@@ -27,11 +27,11 @@ object OtherUtil {
 	val ItemLike.itemStack: ItemStack
 		get() = this.asItem().defaultInstance
 
-	fun getEntityType(resourceLocation: Identifier): EntityType<*> {
-		val entityType = BuiltInRegistries.ENTITY_TYPE.get(resourceLocation)
+	fun getEntityType(identifier: Identifier): EntityType<*> {
+		val entityType = BuiltInRegistries.ENTITY_TYPE.get(identifier)
 
-		if (entityType === EntityType.PIG && resourceLocation != BuiltInRegistries.ENTITY_TYPE.defaultKey) {
-			throw IllegalArgumentException("Unknown entity type: $resourceLocation")
+		if (entityType === EntityType.PIG && identifier != BuiltInRegistries.ENTITY_TYPE.defaultKey) {
+			throw IllegalArgumentException("Unknown entity type: $identifier")
 		}
 
 		return entityType

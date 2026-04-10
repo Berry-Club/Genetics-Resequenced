@@ -35,22 +35,13 @@ object ModCommands {
 		}
 	}
 
-	val SUGGEST_GENE_RLS: SuggestionProvider<CommandSourceStack> =
+	val SUGGEST_GENES: SuggestionProvider<CommandSourceStack> =
 		SuggestionProvider { context: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
 			val allGeneIdentifiers = ModGenes
 				.getRegistrySorted(context.source.registryAccess())
 				.map { it.key!!.identifier() }
 
 			SharedSuggestionProvider.suggestResource(allGeneIdentifiers, suggestionsBuilder)
-		}
-
-	val SUGGEST_GENE_STRINGS: SuggestionProvider<CommandSourceStack> =
-		SuggestionProvider { context: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
-			val allGeneStrings = ModGenes
-				.getRegistrySorted(context.source.registryAccess())
-				.map { it.key!!.identifier().path.toString() }
-
-			SharedSuggestionProvider.suggest(allGeneStrings, suggestionsBuilder)
 		}
 
 }
