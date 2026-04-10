@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.item
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModDataComponents
@@ -8,41 +8,45 @@ import dev.aaronhowser.mods.genetics_resequenced.registry.ModItems
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
-import net.minecraft.world.InteractionResultHolder
+import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.item.component.TooltipDisplay
 import net.minecraft.world.level.Level
+import java.util.function.Consumer
 
 class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 
-	override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
-		toggleEnabled(pPlayer.getItemInHand(pUsedHand))
-		return super.use(pLevel, pPlayer, pUsedHand)
+	override fun use(level: Level, player: Player, hand: InteractionHand): InteractionResult {
+		if (!level.isClientSide) {
+			toggleEnabled(player.getItemInHand(hand))
+		}
+
+		return InteractionResult.SUCCESS
 	}
 
 	override fun isFoil(pStack: ItemStack): Boolean = isEnabled(pStack)
 
 	override fun appendHoverText(
-		pStack: ItemStack,
-		pContext: TooltipContext,
-		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
+		itemStack: ItemStack,
+		context: TooltipContext,
+		display: TooltipDisplay,
+		builder: Consumer<Component>,
+		tooltipFlag: TooltipFlag
 	) {
-		val componentString = if (isEnabled(pStack)) {
+		val componentString = if (isEnabled(itemStack)) {
 			ModTooltipLang.ACTIVE
 		} else {
 			ModTooltipLang.INACTIVE
 		}
 
-		pTooltipComponents.add(
+		builder.accept(
 			componentString
 				.toComponent()
 				.withStyle(ChatFormatting.GRAY)
 		)
-
-		super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag)
 	}
 
 	companion object {
@@ -64,7 +68,7 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 		}
 
 		fun isActiveForPlayer(player: Player): Boolean {
-			return player.inventory.items.any { it.isItem(ModItems.ANTI_FIELD_ORB) && isEnabled(it) }
+			return player.inventory.contains { it.isHolder(ModItems.ANTI_FIELD_ORB) && isEnabled(it) }
 		}
 	}
 
