@@ -42,11 +42,8 @@ object ModCreativeModeTabs {
 
 					for (item in regularItems) {
 						when (item) {
-							ModItems.DNA_HELIX.get() ->
-								output.acceptAll(DnaHelixItem.getAllHelices(displayContext.holders))
-
-							ModItems.PLASMID.get() ->
-								output.acceptAll(PlasmidItem.getAllPlasmids(displayContext.holders))
+							ModItems.DNA_HELIX.get(), ModItems.PLASMID.get() ->
+								continue
 
 							ModItems.ORGANIC_MATTER.get() ->
 								output.accept(EntityDnaItem.getOrganicStack(EntityType.PIG))
@@ -56,6 +53,9 @@ object ModCreativeModeTabs {
 
 							else -> output.accept(item)
 						}
+
+						output.acceptAll(DnaHelixItem.getAllHelices(displayContext.holders))
+						output.acceptAll(PlasmidItem.getAllPlasmids(displayContext.holders))
 					}
 
 					for (blockItem in blockItems) {
