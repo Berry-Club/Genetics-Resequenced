@@ -35,8 +35,8 @@ import java.util.*
 
 class SupportSlime(
 	pEntityType: EntityType<SupportSlime>,
-	pLevel: Level
-) : Slime(pEntityType, pLevel) {
+	level: Level
+) : Slime(pEntityType, level) {
 
 	constructor(
 		level: Level,

@@ -23,34 +23,35 @@ class GmoCell(properties: Properties) : Item(properties) {
 		builder: Consumer<Component>,
 		tooltipFlag: TooltipFlag
 	) {
-		val entityType = EntityDnaItem.getEntityType(pStack)
+		val entityType = EntityDnaItem.getEntityType(itemStack)
+
 		if (entityType != null) {
-			val entityComponent =
+			builder.accept(
 				ModTooltipLang.CELL_MOB
 					.toComponent(entityType.description)
 					.withStyle(ChatFormatting.GRAY)
-			pTooltipComponents.add(entityComponent)
+			)
 		} else {
-			val noEntityComponent =
+			builder.accept(
 				ModTooltipLang.CELL_NO_MOB
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
-			pTooltipComponents.add(noEntityComponent)
+			)
 		}
 
-		val geneHolder = DnaHelixItem.getGeneHolder(pStack)
+		val geneHolder = DnaHelixItem.getGeneHolder(itemStack)
 		if (geneHolder != null) {
-			val geneComponent =
+			builder.accept(
 				ModTooltipLang.GENE
 					.toComponent(geneHolder.getName())
 					.withStyle(ChatFormatting.GRAY)
-			pTooltipComponents.add(geneComponent)
+			)
 		} else {
-			val noGeneComponent =
+			builder.accept(
 				ModTooltipLang.GENE
 					.toComponent(Gene.UNKNOWN_GENE_COMPONENT)
 					.withStyle(ChatFormatting.GRAY)
-			pTooltipComponents.add(noGeneComponent)
+			)
 		}
 	}
 

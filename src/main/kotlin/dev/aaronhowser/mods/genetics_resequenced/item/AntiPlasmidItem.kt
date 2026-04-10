@@ -20,16 +20,16 @@ class AntiPlasmidItem(properties: Properties) : Item(properties) {
 		builder: Consumer<Component>,
 		tooltipFlag: TooltipFlag
 	) {
-		val geneHolder = PlasmidItem.getGene(pStack)
+		val geneHolder = PlasmidItem.getGene(itemStack)
 
 		if (geneHolder == null) {
-			pTooltipComponents.add(
+			builder.accept(
 				ModTooltipLang.ANTI_PLASMID_EMPTY
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
 			)
 		} else {
-			pTooltipComponents.add(
+			builder.accept(
 				ModTooltipLang.PLASMID_GENE
 					.toComponent(geneHolder.getName())
 					.withStyle(ChatFormatting.GRAY)

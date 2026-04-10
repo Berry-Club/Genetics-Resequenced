@@ -18,20 +18,20 @@ class BioluminescenceBlock :
 
 	override fun onPlace(
 		pState: BlockState,
-		pLevel: Level,
+		level: Level,
 		pPos: BlockPos,
 		pOldState: BlockState,
 		pMovedByPiston: Boolean
 	) {
-		pLevel.scheduleTick(pPos, this, ServerConfig.CONFIG.bioluminescenceDuration.get())
-		super.onPlace(pState, pLevel, pPos, pOldState, pMovedByPiston)
+		level.scheduleTick(pPos, this, ServerConfig.CONFIG.bioluminescenceDuration.get())
+		super.onPlace(pState, level, pPos, pOldState, pMovedByPiston)
 	}
 
-	override fun tick(pState: BlockState, pLevel: ServerLevel, pPos: BlockPos, pRandom: RandomSource) {
-		if (pLevel.getBlockState(pPos).`is`(this)) {
-			pLevel.removeBlock(pPos, false)
+	override fun tick(pState: BlockState, level: ServerLevel, pPos: BlockPos, pRandom: RandomSource) {
+		if (level.getBlockState(pPos).`is`(this)) {
+			level.removeBlock(pPos, false)
 		}
-		super.tick(pState, pLevel, pPos, pRandom)
+		super.tick(pState, level, pPos, pRandom)
 	}
 
 	companion object {

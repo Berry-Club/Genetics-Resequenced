@@ -28,7 +28,7 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 		return InteractionResult.SUCCESS
 	}
 
-	override fun isFoil(pStack: ItemStack): Boolean = isEnabled(pStack)
+	override fun isFoil(itemStack: ItemStack): Boolean = isEnabled(itemStack)
 
 	override fun appendHoverText(
 		itemStack: ItemStack,

@@ -26,13 +26,13 @@ import net.neoforged.neoforge.common.util.FakePlayer
 class ScraperItem(properties: Properties) : Item(properties) {
 
 	override fun use(
-		pLevel: Level,
+		level: Level,
 		pPlayer: Player,
 		pInteractionHand: InteractionHand
 	): InteractionResultHolder<ItemStack> {
 		val realStack = pPlayer.getItemInHand(pInteractionHand)
 
-		if (pLevel.isClientSide) return InteractionResultHolder.pass(realStack)
+		if (level.isClientSide) return InteractionResultHolder.pass(realStack)
 
 		// If the player is sneaking, try to scrape themselves
 		if (pPlayer.isCrouching) return tryScrapeSelf(pPlayer, realStack)
@@ -48,7 +48,7 @@ class ScraperItem(properties: Properties) : Item(properties) {
 	}
 
 	override fun interactLivingEntity(
-		pStack: ItemStack,
+		itemStack: ItemStack,
 		pPlayer: Player,
 		pInteractionTarget: LivingEntity,
 		pUsedHand: InteractionHand
@@ -64,7 +64,7 @@ class ScraperItem(properties: Properties) : Item(properties) {
 			return InteractionResult.CONSUME
 		}
 
-		return if (scrapeEntity(pPlayer, pStack, pInteractionTarget)) {
+		return if (scrapeEntity(pPlayer, itemStack, pInteractionTarget)) {
 			InteractionResult.SUCCESS
 		} else {
 			InteractionResult.CONSUME

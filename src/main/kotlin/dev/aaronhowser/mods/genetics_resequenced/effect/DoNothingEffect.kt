@@ -20,11 +20,11 @@ class DoNothingEffect(
 	override fun applyInstantenousEffect(
 		pSource: Entity?,
 		pIndirectSource: Entity?,
-		pLivingEntity: LivingEntity,
+		livingEntity: LivingEntity,
 		pAmplifier: Int,
 		pHealth: Double
 	) {
-		if (this.removeImmediately) pLivingEntity.removeEffect(Holder.direct(this))
+		if (this.removeImmediately) livingEntity.removeEffect(Holder.direct(this))
 	}
 
 }

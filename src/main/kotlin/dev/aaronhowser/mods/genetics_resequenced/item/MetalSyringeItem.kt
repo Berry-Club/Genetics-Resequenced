@@ -24,44 +24,44 @@ import net.neoforged.neoforge.common.util.FakePlayer
 
 class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 
-	override fun getUseDuration(pStack: ItemStack, pHolder: LivingEntity): Int = 40
-	override fun getUseAnimation(pStack: ItemStack): UseAnim = UseAnim.BOW
+	override fun getUseDuration(itemStack: ItemStack, pHolder: LivingEntity): Int = 40
+	override fun getUseAnimation(itemStack: ItemStack): UseAnim = UseAnim.BOW
 
-	override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
+	override fun use(level: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
 		val itemStack = pPlayer.getItemInHand(pUsedHand)
 		pPlayer.startUsingItem(pUsedHand)
 		return InteractionResultHolder.consume(itemStack)
 	}
 
-	override fun onUseTick(pLevel: Level, pLivingEntity: LivingEntity, pStack: ItemStack, pRemainingUseDuration: Int) {
-		if (pRemainingUseDuration <= 1) {
-			pLivingEntity.stopUsingItem()
-			releaseUsing(pStack, pLevel, pLivingEntity, pRemainingUseDuration)
+	override fun onUseTick(level: Level, livingEntity: LivingEntity, itemStack: ItemStack, ticksRemaining: Int) {
+		if (ticksRemaining <= 1) {
+			livingEntity.stopUsingItem()
+			releaseUsing(itemStack, level, livingEntity, ticksRemaining)
 		}
 	}
 
-	override fun releaseUsing(pStack: ItemStack, pLevel: Level, pLivingEntity: LivingEntity, pTimeCharged: Int) {
-		if (pLivingEntity !is Player) return
+	override fun releaseUsing(itemStack: ItemStack, level: Level, livingEntity: LivingEntity, pTimeCharged: Int) {
+		if (livingEntity !is Player) return
 		if (pTimeCharged > 1) return
 
-		if (pLivingEntity is FakePlayer) return
+		if (livingEntity is FakePlayer) return
 
-		val targetEntity = OtherUtil.getLookedAtEntity(pLivingEntity) as? LivingEntity ?: return
+		val targetEntity = OtherUtil.getLookedAtEntity(livingEntity) as? LivingEntity ?: return
 
-		if (hasBlood(pStack)) {
-			useFullSyringe(pStack, pLivingEntity, targetEntity)
+		if (hasBlood(itemStack)) {
+			useFullSyringe(itemStack, livingEntity, targetEntity)
 		} else {
-			extractBlood(pStack, targetEntity)
+			extractBlood(itemStack, targetEntity)
 
-			setContaminated(pStack, true)
+			setContaminated(itemStack, true)
 
-			targetEntity.hurt(damageSourceUseSyringe(pLevel, pLivingEntity), 1f)
+			targetEntity.hurt(damageSourceUseSyringe(level, livingEntity), 1f)
 			targetEntity.addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
 		}
 	}
 
-	override fun getName(pStack: ItemStack): Component {
-		return if (hasBlood(pStack)) {
+	override fun getName(itemStack: ItemStack): Component {
+		return if (hasBlood(itemStack)) {
 			ModItemLang.METAL_SYRINGE_FULL.toComponent()
 		} else {
 			ModItemLang.METAL_SYRINGE_EMPTY.toComponent()

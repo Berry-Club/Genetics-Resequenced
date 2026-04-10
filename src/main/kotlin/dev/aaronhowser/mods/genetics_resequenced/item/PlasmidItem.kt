@@ -27,10 +27,10 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 		builder: Consumer<Component>,
 		tooltipFlag: TooltipFlag
 	) {
-		val geneHolder = getGene(pStack)
+		val geneHolder = getGene(itemStack)
 
 		if (geneHolder == null) {
-			pTooltipComponents.add(
+			builder.accept(
 				ModTooltipLang.PLASMID_EMPTY
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
@@ -38,23 +38,23 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 			return
 		}
 
-		pTooltipComponents.add(
+		builder.accept(
 			ModTooltipLang.PLASMID_GENE
 				.toComponent(geneHolder.getName())
 				.withStyle(ChatFormatting.GRAY)
 		)
 
-		if (isComplete(pStack)) {
-			pTooltipComponents.add(
+		if (isComplete(itemStack)) {
+			builder.accept(
 				ModTooltipLang.PLASMID_COMPLETE
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
 			)
 		} else {
 			val amountNeeded = geneHolder.value().dnaPointsRequired
-			val amount = getDnaPoints(pStack)
+			val amount = getDnaPoints(itemStack)
 
-			pTooltipComponents.add(
+			builder.accept(
 				ModTooltipLang.PLASMID_PROGRESS
 					.toComponent(amount, amountNeeded)
 					.withStyle(ChatFormatting.GRAY)

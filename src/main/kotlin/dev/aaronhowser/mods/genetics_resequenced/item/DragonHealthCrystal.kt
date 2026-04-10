@@ -33,10 +33,11 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 		return Mth.ceil(MAX_DAMAGE - damageRemaining)
 	}
 
-	override fun isValidRepairItem(pStack: ItemStack, pRepairCandidate: ItemStack): Boolean {
+	override fun isValidRepairItem(itemStack: ItemStack, pRepairCandidate: ItemStack): Boolean {
 		return pRepairCandidate.item === Items.END_CRYSTAL
 	}
 
+	//TODO: No literal
 	override fun appendHoverText(
 		itemStack: ItemStack,
 		context: TooltipContext,
@@ -45,8 +46,8 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 		tooltipFlag: TooltipFlag
 	) {
 		val maxDamage = MAX_DAMAGE
-		val damageLeft = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0f)
-		tooltipComponents.add(
+		val damageLeft = itemStack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0f)
+		builder.accept(
 			Component.literal("${damageLeft.toInt()}/${maxDamage.toInt()}").withStyle(ChatFormatting.GRAY)
 		)
 	}

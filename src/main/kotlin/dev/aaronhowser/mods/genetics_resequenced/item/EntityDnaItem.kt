@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.item
 
-import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
@@ -25,21 +25,18 @@ import java.util.function.Consumer
 open class EntityDnaItem(properties: Properties) : Item(properties) {
 
 	override fun interactLivingEntity(
-		pStack: ItemStack,
+		itemStack: ItemStack,
 		pPlayer: Player,
 		pInteractionTarget: LivingEntity,
 		pUsedHand: InteractionHand
 	): InteractionResult {
-		if (!pPlayer.isCreative) return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand)
+		if (!pPlayer.isCreative) return super.interactLivingEntity(itemStack, pPlayer, pInteractionTarget, pUsedHand)
 
-		val newStack = pStack.copy()
+		val newStack = itemStack.copy()
 		val setWorked = setEntityType(newStack, pInteractionTarget.type)
 
 		if (!setWorked) {
-			pPlayer.displayClientMessage(
-				ModMessageLang.CANT_SET_ENTITY.toComponent(),
-				true
-			)
+			pPlayer.tell(ModMessageLang.CANT_SET_ENTITY.toComponent())
 
 			return InteractionResult.PASS
 		}
@@ -56,35 +53,29 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 		builder: Consumer<Component>,
 		tooltipFlag: TooltipFlag
 	) {
-		val entityType = getEntityType(pStack)
+		val entityType = getEntityType(itemStack)
+
 		if (entityType != null) {
-			val component =
+			builder.accept(
 				ModTooltipLang.CELL_MOB
 					.toComponent(entityType.description)
 					.withStyle(ChatFormatting.GRAY)
-			pTooltipComponents.add(component)
+			)
 		} else {
-			val component =
+			builder.accept(
 				ModTooltipLang.CELL_NO_MOB
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
-			pTooltipComponents.add(component)
+			)
 		}
 
-		try {
-			if (ClientUtil.playerIsCreative()) {
-				val component =
-					ModTooltipLang.CELL_CREATIVE
-						.toComponent()
-						.withStyle(ChatFormatting.GRAY)
-
-				pTooltipComponents.add(component)
-			}
-		} catch (e: Exception) {
-			GeneticsResequenced.LOGGER.error("EntityDnaItem isCreative check failed", e)
+		if (ClientUtil.playerIsCreative()) {
+			builder.accept(
+				ModTooltipLang.CELL_CREATIVE
+					.toComponent()
+					.withStyle(ChatFormatting.GRAY)
+			)
 		}
-
-		super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag)
 	}
 
 	companion object {

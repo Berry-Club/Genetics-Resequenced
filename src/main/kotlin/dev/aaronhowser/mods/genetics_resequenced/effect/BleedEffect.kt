@@ -19,11 +19,11 @@ class BleedEffect : MobEffect(
 		return pDuration % 20 == 0
 	}
 
-	override fun applyEffectTick(pLivingEntity: LivingEntity, pAmplifier: Int): Boolean {
-		if (pLivingEntity.level().isClientSide) return false
+	override fun applyEffectTick(livingEntity: LivingEntity, pAmplifier: Int): Boolean {
+		if (livingEntity.level().isClientSide) return false
 
-		pLivingEntity.hurt(
-			DamageSource(getHolder(pLivingEntity.level())),
+		livingEntity.hurt(
+			DamageSource(getHolder(livingEntity.level())),
 			1f
 		)
 

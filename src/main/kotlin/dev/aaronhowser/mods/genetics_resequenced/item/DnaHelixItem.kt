@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.genetics_resequenced.item
 
-import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
@@ -17,63 +16,52 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.item.component.TooltipDisplay
+import java.util.function.Consumer
 
 class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 
 	override fun appendHoverText(
-		pStack: ItemStack,
-		pContext: TooltipContext,
-		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
+		itemStack: ItemStack,
+		context: TooltipContext,
+		display: TooltipDisplay,
+		builder: Consumer<Component>,
+		tooltipFlag: TooltipFlag
 	) {
-		val geneHolder = getGeneHolder(pStack)
+		val geneHolder = getGeneHolder(itemStack)
 
-		if (geneHolder == null) {
-			showNoGeneTooltips(pStack, pTooltipComponents)
-		} else {
-			pTooltipComponents.add(
+		if (geneHolder != null) {
+			builder.accept(
 				ModTooltipLang.GENE
 					.toComponent(geneHolder.getName())
 					.withStyle(ChatFormatting.GRAY)
 			)
+
+			return
 		}
 
-	}
-
-	private fun showNoGeneTooltips(
-		pStack: ItemStack,
-		pTooltipComponents: MutableList<Component>
-	) {
-
-		pTooltipComponents.add(
+		builder.accept(
 			ModTooltipLang.GENE
 				.toComponent(Gene.UNKNOWN_GENE_COMPONENT)
 				.withStyle(ChatFormatting.GRAY)
 		)
 
-		val entity = getEntityType(pStack)
+		val entity = getEntityType(itemStack)
 		if (entity != null) {
-			pTooltipComponents.add(
+			builder.accept(
 				ModTooltipLang.HELIX_ENTITY
 					.toComponent(entity.description)
 					.withStyle(ChatFormatting.GRAY)
 			)
 		}
 
-		try {
-			val isCreative = ClientUtil.playerIsCreative()
-
-			if (isCreative) {
-				val component =
-					ModTooltipLang.CELL_CREATIVE
-						.toComponent()
-						.withStyle(ChatFormatting.GRAY)
-				pTooltipComponents.add(component)
-			}
-		} catch (e: Exception) {
-			GeneticsResequenced.LOGGER.error("DnaHelixItem isCreative check failed", e)
+		if (ClientUtil.playerIsCreative()) {
+			builder.accept(
+				ModTooltipLang.CELL_CREATIVE
+					.toComponent()
+					.withStyle(ChatFormatting.GRAY)
+			)
 		}
-
 	}
 
 	companion object {

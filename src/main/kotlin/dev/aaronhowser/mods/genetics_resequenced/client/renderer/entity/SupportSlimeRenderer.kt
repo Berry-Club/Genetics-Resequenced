@@ -122,17 +122,17 @@ class SupportSlimeRenderer(
 	}
 
 	override fun scale(
-		pLivingEntity: SupportSlime,
+		livingEntity: SupportSlime,
 		pMatrixStack: PoseStack,
 		pPartialTickTime: Float
 	) {
 		pMatrixStack.scale(0.999f, 0.999f, 0.999f)
 		pMatrixStack.translate(0.0, 0.001, 0.0)
-		val sizeFactor = pLivingEntity.size.toFloat()
+		val sizeFactor = livingEntity.size.toFloat()
 		val squishFactor = Mth.lerp(
 			pPartialTickTime,
-			pLivingEntity.oSquish,
-			pLivingEntity.squish
+			livingEntity.oSquish,
+			livingEntity.squish
 		) / (sizeFactor * 0.5f + 1.0f)
 		val inverseSquish = 1.0f / (squishFactor + 1.0f)
 		pMatrixStack.scale(inverseSquish * sizeFactor, 1.0f / inverseSquish * sizeFactor, inverseSquish * sizeFactor)

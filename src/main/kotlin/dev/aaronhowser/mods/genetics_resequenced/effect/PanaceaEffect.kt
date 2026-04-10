@@ -20,14 +20,14 @@ class PanaceaEffect : MobEffect(
 	override fun applyInstantenousEffect(
 		pSource: Entity?,
 		pIndirectSource: Entity?,
-		pLivingEntity: LivingEntity,
+		livingEntity: LivingEntity,
 		pAmplifier: Int,
 		pHealth: Double
 	) {
-		removeAllNegativeGenes(pLivingEntity)
-		removeAllNegativeEffects(pLivingEntity)
+		removeAllNegativeGenes(livingEntity)
+		removeAllNegativeEffects(livingEntity)
 
-		pLivingEntity.removeEffect(ModEffects.PANACEA)
+		livingEntity.removeEffect(ModEffects.PANACEA)
 	}
 
 	companion object {
