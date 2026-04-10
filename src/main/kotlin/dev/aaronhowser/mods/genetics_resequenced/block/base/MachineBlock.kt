@@ -1,9 +1,7 @@
 package dev.aaronhowser.mods.genetics_resequenced.block.base
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isRawType
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.world.Containers
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.entity.player.Player
@@ -18,7 +16,6 @@ import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
-import net.minecraft.world.level.block.state.properties.DirectionProperty
 import net.minecraft.world.level.block.state.properties.EnumProperty
 import net.minecraft.world.level.material.MapColor
 import net.minecraft.world.phys.BlockHitResult
@@ -54,7 +51,7 @@ abstract class MachineBlock(
 
 		if (blockEntity is MenuProvider) {
 			player.openMenu(blockEntity)
-			return InteractionResult.sidedSuccess(level.isClientSide)
+			return InteractionResult.SUCCESS_SERVER
 		}
 
 		return InteractionResult.PASS
@@ -66,17 +63,6 @@ abstract class MachineBlock(
 				MachineBlockEntity.tick(l, p, s, be)
 			}
 		}
-	}
-
-	override fun onRemove(state: BlockState, level: Level, pos: BlockPos, newState: BlockState, movedByPiston: Boolean) {
-		if (!state.isRawType(newState.block)) {
-			val blockEntity = level.getBlockEntity(pos)
-			if (blockEntity is MachineBlockEntity) {
-				Containers.dropContents(level, pos, blockEntity.container)
-			}
-		}
-
-		super.onRemove(state, level, pos, newState, movedByPiston)
 	}
 
 	companion object {
