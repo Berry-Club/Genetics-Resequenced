@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.block.base
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isRawType
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.world.Containers
@@ -19,6 +19,7 @@ import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.DirectionProperty
+import net.minecraft.world.level.block.state.properties.EnumProperty
 import net.minecraft.world.level.material.MapColor
 import net.minecraft.world.phys.BlockHitResult
 
@@ -68,7 +69,7 @@ abstract class MachineBlock(
 	}
 
 	override fun onRemove(state: BlockState, level: Level, pos: BlockPos, newState: BlockState, movedByPiston: Boolean) {
-		if (!state.isBlock(newState.block)) {
+		if (!state.isRawType(newState.block)) {
 			val blockEntity = level.getBlockEntity(pos)
 			if (blockEntity is MachineBlockEntity) {
 				Containers.dropContents(level, pos, blockEntity.container)
@@ -79,7 +80,7 @@ abstract class MachineBlock(
 	}
 
 	companion object {
-		val H_FACING: DirectionProperty = BlockStateProperties.HORIZONTAL_FACING
+		val H_FACING: EnumProperty<Direction> = BlockStateProperties.HORIZONTAL_FACING
 
 		val DEFAULT_PROPERTIES: Properties = Properties.of()
 			.mapColor(MapColor.METAL)

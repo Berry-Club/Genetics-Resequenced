@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.genetics_resequenced.command
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.requiresGameMaster
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -26,7 +27,7 @@ object ClearBioGlowCommand {
 			.then(
 				Commands
 					.argument(RANGE_ARGUMENT, IntegerArgumentType.integer(1, Integer.MAX_VALUE))
-					.requires { it.hasPermission(2) }
+					.requiresGameMaster()
 					.executes { cmd ->
 						removeNearbyLights(cmd, IntegerArgumentType.getInteger(cmd, RANGE_ARGUMENT))
 					}
@@ -38,10 +39,7 @@ object ClearBioGlowCommand {
 		val player = context.source.entity as? LivingEntity ?: return 0
 
 		if (range !in 1..100) {
-			player.sendSystemMessage(
-				ModLanguageProvider.Commands.REMOVED_LIGHTS_RANGE_TOO_HIGH
-					.toComponent(100)
-			)
+			context.source.sendFailure(ModLanguageProvider.Commands.REMOVED_LIGHTS_RANGE_TOO_HIGH.toComponent(100))
 			return 0
 		}
 
