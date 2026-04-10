@@ -32,9 +32,11 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
 import net.minecraft.world.item.UseAnim
+import net.minecraft.world.item.component.TooltipDisplay
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.util.FakePlayer
 import java.util.*
+import java.util.function.Consumer
 
 open class SyringeItem(properties: Properties) : Item(properties) {
 
@@ -93,12 +95,12 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 	}
 
 	override fun appendHoverText(
-		pStack: ItemStack,
-		pContext: TooltipContext,
-		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
+		itemStack: ItemStack,
+		context: TooltipContext,
+		display: TooltipDisplay,
+		builder: Consumer<Component>,
+		tooltipFlag: TooltipFlag
 	) {
-
 		val bloodOwner = getEntityName(pStack)
 		if (hasBlood(pStack) && bloodOwner != null) {
 			pTooltipComponents.add(

@@ -11,16 +11,18 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.item.component.TooltipDisplay
+import java.util.function.Consumer
 
 class GmoCell(properties: Properties) : Item(properties) {
 
 	override fun appendHoverText(
-		pStack: ItemStack,
-		pContext: TooltipContext,
-		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
+		itemStack: ItemStack,
+		context: TooltipContext,
+		display: TooltipDisplay,
+		builder: Consumer<Component>,
+		tooltipFlag: TooltipFlag
 	) {
-
 		val entityType = EntityDnaItem.getEntityType(pStack)
 		if (entityType != null) {
 			val entityComponent =
