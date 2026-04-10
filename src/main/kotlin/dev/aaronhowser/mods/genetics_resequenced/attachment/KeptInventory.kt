@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.attachment
 
-import com.mojang.serialization.Codec
+import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModAttachmentTypes
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
@@ -13,8 +13,10 @@ data class KeptInventory(
 
 	companion object {
 
-		val CODEC: Codec<KeptInventory> =
-			ItemStack.CODEC.listOf().xmap(::KeptInventory, KeptInventory::stacks)
+		val CODEC: MapCodec<KeptInventory> =
+			ItemStack.CODEC.listOf()
+				.optionalFieldOf("stacks", emptyList())
+				.xmap(::KeptInventory, KeptInventory::stacks)
 
 		fun Player.saveInventory(list: List<ItemStack>) {
 			this.setData(ModAttachmentTypes.KEPT_INVENTORY, KeptInventory(list))

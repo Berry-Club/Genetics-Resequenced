@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.genetics_resequenced.attachment
 
 import com.mojang.serialization.Codec
+import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.getActiveGenes
@@ -30,8 +31,8 @@ data class TemporaryGenesData(
 	constructor() : this(mutableListOf())
 
 	companion object {
-		val CODEC: Codec<TemporaryGenesData> =
-			RecordCodecBuilder.create { instance ->
+		val CODEC: MapCodec<TemporaryGenesData> =
+			RecordCodecBuilder.mapCodec { instance ->
 				instance.group(
 					TemporaryGene.CODEC
 						.listOf()

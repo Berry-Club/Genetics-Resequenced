@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.attachment
 
-import com.mojang.serialization.Codec
+import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.attachment.TemporaryGenesData.Companion.temporaryGeneHolders
@@ -33,13 +33,16 @@ data class GenesData(
 
 	constructor() : this(HolderSet.empty())
 	constructor(set: Set<Holder<Gene>>) : this(HolderSet.direct(set.toList()))
+	constructor(list: List<Holder<Gene>>) : this(list.toSet())
+
+	fun asList(): List<Holder<Gene>> = genes.toList()
 
 	companion object {
 
-		val CODEC: Codec<GenesData> = Gene.CODEC.listOf().xmap(
-			{ GenesData(it.toSet()) },
-			{ it.genes.toList() }
-		)
+		val CODEC: MapCodec<GenesData> =
+			Gene.CODEC.listOf()
+				.optionalFieldOf("genes", emptyList())
+				.xmap(::GenesData, GenesData::asList)
 
 		fun syncPlayer(player: Player) {
 			if (player !is ServerPlayer) return

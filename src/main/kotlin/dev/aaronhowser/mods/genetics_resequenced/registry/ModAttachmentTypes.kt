@@ -45,7 +45,7 @@ object ModAttachmentTypes {
 				.build()
 		)
 
-	private fun <T> register(name: String, type: AttachmentType<T>): DeferredHolder<AttachmentType<*>, AttachmentType<T>> {
+	private fun <T : Any> register(name: String, type: AttachmentType<T>): DeferredHolder<AttachmentType<*>, AttachmentType<T>> {
 		return ATTACHMENT_TYPES_REGISTRY.register(name, Supplier { type })
 	}
 

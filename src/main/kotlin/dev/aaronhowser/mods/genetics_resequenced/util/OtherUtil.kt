@@ -7,8 +7,8 @@ import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
-import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
@@ -27,10 +27,11 @@ object OtherUtil {
 	val ItemLike.itemStack: ItemStack
 		get() = this.asItem().defaultInstance
 
-	fun getEntityType(identifier: Identifier): EntityType<*> {
-		val entityType = BuiltInRegistries.ENTITY_TYPE.get(identifier)
+	fun getEntityType(identifier: Identifier): Holder<EntityType<*>> {
+		val entityType = BuiltInRegistries.ENTITY_TYPE.get(identifier).getOrNull()
+			?: error("Unknown entity type: $identifier")
 
-		if (entityType === EntityType.PIG && identifier != BuiltInRegistries.ENTITY_TYPE.defaultKey) {
+		if (entityType.value() === EntityType.PIG && identifier != BuiltInRegistries.ENTITY_TYPE.defaultKey) {
 			throw IllegalArgumentException("Unknown entity type: $identifier")
 		}
 
@@ -60,11 +61,11 @@ object OtherUtil {
 	}
 
 	fun getEnchantmentRegistry(entity: Entity): Registry<Enchantment> {
-		return entity.level().registryAccess().registryOrThrow(Registries.ENCHANTMENT)
+		return entity.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT)
 	}
 
 	fun getEnchantHolder(entity: Entity, enchantment: ResourceKey<Enchantment>): Holder.Reference<Enchantment> {
-		return getEnchantmentRegistry(entity).getHolderOrThrow(enchantment)
+		return getEnchantmentRegistry(entity).getOrThrow(enchantment)
 	}
 
 	fun componentList(components: List<Component>): MutableComponent {
