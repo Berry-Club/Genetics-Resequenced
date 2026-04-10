@@ -8,9 +8,10 @@ import dev.aaronhowser.mods.genetics_resequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.genetics_resequenced.item.PlasmidItem
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.CreativeModeTab
+import net.minecraft.world.item.Item
 import net.neoforged.neoforge.registries.DeferredHolder
-import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
 import java.util.function.Supplier
 
@@ -19,26 +20,50 @@ object ModCreativeModeTabs {
 	val TABS_REGISTRY: DeferredRegister<CreativeModeTab> =
 		DeferredRegister.create(BuiltInRegistries.CREATIVE_MODE_TAB, GeneticsResequenced.MOD_ID)
 
-	val MOD_TAB: DeferredHolder<CreativeModeTab, CreativeModeTab> = TABS_REGISTRY.register("creative_tab", Supplier {
-		CreativeModeTab.builder()
-			.title(ModItemLang.CREATIVE_TAB.toComponent())
-			.icon { ModItems.SYRINGE.toStack() }
-			.displayItems { displayContext: CreativeModeTab.ItemDisplayParameters, output: CreativeModeTab.Output ->
-				val regularItems =
-					ModItems.ITEM_REGISTRY.entries - ModItems.DNA_HELIX - ModItems.ORGANIC_MATTER - ModItems.CELL
+	@Suppress("unused")
+	val MOD_TAB: DeferredHolder<CreativeModeTab, CreativeModeTab> =
+		TABS_REGISTRY.register("creative_tab", Supplier {
+			CreativeModeTab.builder()
+				.title(ModItemLang.CREATIVE_TAB.toComponent())
+				.icon { ModItems.SYRINGE.toStack() }
+				.displayItems { displayContext: CreativeModeTab.ItemDisplayParameters, output: CreativeModeTab.Output ->
+					val regularItems = mutableListOf<Item>()
+					val blockItems = mutableListOf<BlockItem>()
 
-				val itemsToDisplay = buildList {
-					addAll(regularItems.map { (it as DeferredItem).toStack() })
+					for (deferred in ModItems.ITEM_REGISTRY.entries) {
+						val item = deferred.get()
 
-					add(EntityDnaItem.getOrganicStack(EntityType.PIG))
-					add(EntityDnaItem.getCell(EntityType.PIG))
-					addAll(DnaHelixItem.getAllHelices(displayContext.holders))
-					addAll(PlasmidItem.getAllPlasmids(displayContext.holders))
+						if (item is BlockItem) {
+							blockItems.add(item)
+						} else {
+							regularItems.add(item)
+						}
+					}
+
+					for (item in regularItems) {
+						when (item) {
+							ModItems.DNA_HELIX.get() ->
+								output.acceptAll(DnaHelixItem.getAllHelices(displayContext.holders))
+
+							ModItems.PLASMID.get() ->
+								output.acceptAll(PlasmidItem.getAllPlasmids(displayContext.holders))
+
+							ModItems.ORGANIC_MATTER.get() ->
+								output.accept(EntityDnaItem.getOrganicStack(EntityType.PIG))
+
+							ModItems.CELL.get() ->
+								output.accept(EntityDnaItem.getCell(EntityType.PIG))
+
+							else -> output.accept(item)
+						}
+					}
+
+					for (blockItem in blockItems) {
+						output.accept(blockItem)
+					}
+
 				}
-
-				output.acceptAll(itemsToDisplay)
-			}
-			.build()
-	})
+				.build()
+		})
 
 }
