@@ -45,6 +45,8 @@ object ModCreativeModeTabs {
 							ModItems.DNA_HELIX.get(), ModItems.PLASMID.get() ->
 								continue
 
+							// TODO: Make it so that those items just have pig component by default
+
 							ModItems.ORGANIC_MATTER.get() ->
 								output.accept(EntityDnaItem.getOrganicStack(EntityType.PIG))
 
