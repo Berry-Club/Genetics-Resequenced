@@ -1,10 +1,10 @@
 package dev.aaronhowser.mods.genetics_resequenced.block.base.container_data
 
-import net.neoforged.neoforge.energy.EnergyStorage
+import net.neoforged.neoforge.transfer.energy.SimpleEnergyHandler
 import java.util.function.IntSupplier
 
 open class CraftingContainerData(
-	energyStorage: EnergyStorage,
+	energyStorage: SimpleEnergyHandler,
 	private val currentProgressGetter: IntSupplier,
 	private val maxProgressGetter: IntSupplier,
 ) : EnergyContainerData(energyStorage) {

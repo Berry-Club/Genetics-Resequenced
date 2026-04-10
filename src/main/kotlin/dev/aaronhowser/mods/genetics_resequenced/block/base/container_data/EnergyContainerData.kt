@@ -1,16 +1,16 @@
 package dev.aaronhowser.mods.genetics_resequenced.block.base.container_data
 
 import net.minecraft.world.inventory.ContainerData
-import net.neoforged.neoforge.energy.EnergyStorage
+import net.neoforged.neoforge.transfer.energy.SimpleEnergyHandler
 
 open class EnergyContainerData(
-	val energyStorage: EnergyStorage
+	val energyStorage: SimpleEnergyHandler
 ) : ContainerData {
 
 	override fun get(index: Int): Int {
 		return when (index) {
-			CURRENT_ENERGY_INDEX -> energyStorage.energyStored
-			MAX_ENERGY_INDEX -> energyStorage.maxEnergyStored
+			CURRENT_ENERGY_INDEX -> energyStorage.amountAsInt
+			MAX_ENERGY_INDEX -> energyStorage.capacityAsInt
 			else -> -1
 		}
 	}

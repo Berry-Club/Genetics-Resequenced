@@ -35,9 +35,9 @@ abstract class MachineBlock(
 		builder.add(H_FACING)
 	}
 
-	override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
+	override fun getStateForPlacement(context: BlockPlaceContext): BlockState? {
 		return defaultBlockState()
-			.setValue(H_FACING, pContext.horizontalDirection.opposite)
+			.setValue(H_FACING, context.horizontalDirection.opposite)
 	}
 
 	override fun useWithoutItem(
@@ -57,7 +57,11 @@ abstract class MachineBlock(
 		return InteractionResult.PASS
 	}
 
-	override fun <T : BlockEntity?> getTicker(level: Level, state: BlockState, blockEntityType: BlockEntityType<T>): BlockEntityTicker<T> {
+	override fun <T : BlockEntity> getTicker(
+		level: Level,
+		blockState: BlockState,
+		type: BlockEntityType<T>
+	): BlockEntityTicker<T>? {
 		return BlockEntityTicker { l, p, s, be ->
 			if (be is MachineBlockEntity) {
 				MachineBlockEntity.tick(l, p, s, be)

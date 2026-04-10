@@ -69,7 +69,7 @@ class SupportSlimeRenderer(
 		pEntity: SupportSlime,
 		pEntityYaw: Float,
 		pPartialTicks: Float,
-		pPoseStack: PoseStack,
+		poseStack: PoseStack,
 		pBuffer: MultiBufferSource,
 		pPackedLight: Int
 	) {
@@ -83,12 +83,12 @@ class SupportSlimeRenderer(
 		 *  Hitbox is a bit broken.
 		 *  This isn't super important because they never attack players, but still.
 		 */
-		pPoseStack.translate(
+		poseStack.translate(
 			0.0,
 			pEntity.size.toDouble() / 4,
 			0.0
 		)
-		pPoseStack.scale(
+		poseStack.scale(
 			pEntity.size.toFloat(),
 			pEntity.size.toFloat(),
 			pEntity.size.toFloat()
@@ -107,14 +107,14 @@ class SupportSlimeRenderer(
 			cos(rotationAngleDegrees / 2f)
 		)
 
-		pPoseStack.mulPose(quaternion)
+		poseStack.mulPose(quaternion)
 
 		itemRenderer.renderStatic(
 			getHead(pEntity),
 			ItemDisplayContext.FIXED,
 			pPackedLight,
 			OverlayTexture.NO_OVERLAY,
-			pPoseStack,
+			poseStack,
 			pBuffer,
 			pEntity.level(),
 			pEntity.id

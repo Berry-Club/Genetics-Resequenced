@@ -34,9 +34,9 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 import java.util.*
 
 class SupportSlime(
-	pEntityType: EntityType<SupportSlime>,
+	entityType: EntityType<SupportSlime>,
 	level: Level
-) : Slime(pEntityType, level) {
+) : Slime(entityType, level) {
 
 	constructor(
 		level: Level,

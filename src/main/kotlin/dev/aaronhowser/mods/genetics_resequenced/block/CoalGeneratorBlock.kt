@@ -27,7 +27,7 @@ class CoalGeneratorBlock : MachineBlock() {
 		builder.add(BURNING)
 	}
 
-	override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
+	override fun getStateForPlacement(context: BlockPlaceContext): BlockState? {
 		return defaultBlockState()
 			.setValue(H_FACING, pContext.horizontalDirection.opposite)
 			.setValue(BURNING, false)
