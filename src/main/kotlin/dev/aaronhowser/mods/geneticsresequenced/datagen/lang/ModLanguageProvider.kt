@@ -86,11 +86,6 @@ class ModLanguageProvider(
 
 		add(Other.DELICATE_TOUCH, "Delicate Touch")
 		add(Other.SUPPORT_SLIME, "Support Slime")
-		add(Other.DEATH_SCRAPER, "%s was scraped to the bone")
-		add(Other.DEATH_SYRINGE, "%s died of blood loss")
-		add(Other.DEATH_SYRINGE_PICKUP, "%s stepped on a loose Syringe")
-		add(Other.BLEED_DEATH, "%s bled out!")
-		add(Other.VIRUS_DEATH, "%s succumbed to a Virus!")
 		add(Other.BOOK_LANDING_TEXT, "Welcome to Genetics: Resequenced! This guide book will help you get started with the mod.")
 		add(Other.ORACLE_INDEX_TITLE, "Genetics: Resequenced")
 	}
@@ -128,12 +123,6 @@ class ModLanguageProvider(
 	}
 
 	object Other {
-		const val DEATH_SCRAPER = "death.attack.gr_scraper"
-		const val DEATH_SYRINGE = "death.attack.gr_syringe"
-		const val DEATH_SYRINGE_PICKUP = "death.attack.gr_syringe_pickup"
-		const val BLEED_DEATH = "death.attack.gr_bleed"
-		const val VIRUS_DEATH = "death.attack.gr_virus"
-
 		const val DELICATE_TOUCH = "enchantment.geneticsresequenced.delicate_touch"
 		const val SUPPORT_SLIME = "entity.geneticsresequenced.support_slime"
 

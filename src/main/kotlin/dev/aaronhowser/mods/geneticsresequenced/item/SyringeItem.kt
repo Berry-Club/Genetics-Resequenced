@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.setUnit
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.datagen.datapack.ModDamageTypeProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModItemLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
@@ -325,11 +326,11 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		}
 
 		fun damageSourceStepOnSyringe(level: Level, thrower: LivingEntity?): DamageSource {
-			return level.damageSources().source(ModDamageTypeTagsProvider.STEP_ON_SYRINGE, thrower)
+			return level.damageSources().source(ModDamageTypeProvider.STEP_ON_SYRINGE, thrower)
 		}
 
 		fun damageSourceUseSyringe(level: Level, thrower: LivingEntity?): DamageSource {
-			return level.damageSources().source(ModDamageTypeTagsProvider.USE_SYRINGE, thrower)
+			return level.damageSources().source(ModDamageTypeProvider.USE_SYRINGE, thrower)
 		}
 	}
 

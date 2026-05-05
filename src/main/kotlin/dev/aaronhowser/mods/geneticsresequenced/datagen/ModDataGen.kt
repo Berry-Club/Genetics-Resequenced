@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.datagen.datapack.ModDamageTypeProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.datapack.ModEnchantmentProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModEntityGenesProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneProvider
@@ -39,6 +40,7 @@ object ModDataGen {
 				lookupProvider,
 				RegistrySetBuilder()
 					.add(ModGenes.GENE_REGISTRY_KEY, ModGeneProvider::bootstrap)
+					.add(Registries.DAMAGE_TYPE, ModDamageTypeProvider::bootstrap)
 					.add(Registries.ENCHANTMENT, ModEnchantmentProvider::bootstrap),
 				setOf(GeneticsResequenced.MOD_ID)
 			)
@@ -93,7 +95,7 @@ object ModDataGen {
 
 		generator.addProvider(
 			event.includeServer(),
-			ModDamageTypeTagsProvider(output, lookupProvider, existingFileHelper)
+			ModDamageTypeTagsProvider(output, lookupWithDatapack, existingFileHelper)
 		)
 
 		generator.addProvider(

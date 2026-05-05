@@ -42,9 +42,19 @@ object ModMessageLang {
 			add(GENE_WEIGHT, "%s with weight %d")
 			add(ADVANCED_INCUBATOR_HIGH_TEMP, "Temp: HIGH")
 			add(ADVANCED_INCUBATOR_LOW_TEMP, "Temp: LOW")
+			add(DEATH_SCRAPER, "%s was scraped to the bone")
+			add(DEATH_SYRINGE, "%s died of blood loss")
+			add(DEATH_SYRINGE_PICKUP, "%s stepped on a loose Syringe")
+			add(BLEED_DEATH, "%s bled out!")
+			add(VIRUS_DEATH, "%s succumbed to a Virus!")
 		}
 	}
 
+	const val DEATH_SCRAPER = "death.attack.gr_scraper"
+	const val DEATH_SYRINGE = "death.attack.gr_syringe"
+	const val DEATH_SYRINGE_PICKUP = "death.attack.gr_syringe_pickup"
+	const val BLEED_DEATH = "death.attack.gr_bleed"
+	const val VIRUS_DEATH = "death.attack.gr_virus"
 	const val SCRAPER_CANT_SCRAPE = "message.geneticsresequenced.scraper.cant_scrape"
 	const val CANT_SET_ENTITY = "message.geneticsresequenced.cant_set_entity"
 	const val DEATH_GENE_REMOVAL = "message.geneticsresequenced.death_gene_removal"

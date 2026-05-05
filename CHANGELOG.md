@@ -3,6 +3,7 @@
 ### Changes
 
 - Various improvements to the code
+- Damage Types have been moved to datagen
 
 # 1.12.3
 
