@@ -259,12 +259,10 @@ object TickGenes {
 		)
 
 		for (itemEntity in nearbyItems) {
-			if (itemEntity.item.count <= 0) continue
 			if (itemEntity.owner == player && itemEntity.age < 20 * 3) continue
 			if (itemEntity.item.isItem(ModItemTagsProvider.MAGNET_ITEM_BLACKLIST)) continue
 
-			if (AntiFieldBlock.isNearActiveAntifield(player.level(), itemEntity.blockPosition())) continue
-
+			if (AntiFieldBlock.isNearActiveAntifield(itemEntity)) continue
 			itemEntity.playerTouch(player)
 		}
 	}
@@ -281,6 +279,7 @@ object TickGenes {
 		val component = ModTooltipLang.ITEM_MAGNET_BLACKLIST
 			.toComponent()
 			.withStyle(ChatFormatting.DARK_GRAY)
+
 		event.toolTip.add(component)
 	}
 

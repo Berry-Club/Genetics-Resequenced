@@ -17,9 +17,22 @@ import net.minecraft.world.level.Level
 
 class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 
-	override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
-		toggleEnabled(pPlayer.getItemInHand(pUsedHand))
-		return super.use(pLevel, pPlayer, pUsedHand)
+//	override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
+//		toggleEnabled(pPlayer.getItemInHand(pUsedHand))
+//		return super.use(pLevel, pPlayer, pUsedHand)
+//	}
+
+	override fun use(
+		level: Level,
+		player: Player,
+		usedHand: InteractionHand
+	): InteractionResultHolder<ItemStack?> {
+		if (!level.isClientSide) {
+			val stack = player.getItemInHand(usedHand)
+			stack.set(ModDataComponents.IS_ACTIVE, !isEnabled(stack))
+		}
+
+		return super.use(level, player, usedHand)
 	}
 
 	override fun isFoil(pStack: ItemStack): Boolean = isEnabled(pStack)
@@ -54,13 +67,6 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 
 		private fun isEnabled(itemStack: ItemStack): Boolean {
 			return itemStack.getOrDefault(ModDataComponents.IS_ACTIVE, false)
-		}
-
-		private fun toggleEnabled(itemStack: ItemStack) {
-			itemStack.set(
-				ModDataComponents.IS_ACTIVE,
-				!isEnabled(itemStack)
-			)
 		}
 
 		fun isActiveForPlayer(player: Player): Boolean {
