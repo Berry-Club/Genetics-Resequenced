@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvide
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.ModModonomiconProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.ModRecipeProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.*
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.DataGenerator

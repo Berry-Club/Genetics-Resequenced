@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder
+package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder
 
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe

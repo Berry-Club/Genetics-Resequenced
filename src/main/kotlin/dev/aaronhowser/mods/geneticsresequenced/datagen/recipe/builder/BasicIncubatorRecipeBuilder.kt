@@ -1,7 +1,6 @@
-package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder
+package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder
 
-import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.DupeCellRecipe
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.BasicIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.advancements.AdvancementRequirements
 import net.minecraft.advancements.AdvancementRewards
@@ -11,11 +10,14 @@ import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.Ingredient
 
-class DupeCellRecipeBuilder(
-	val name: String,
-	val itemToDupe: Item,
-	val amountToCreate: Int,
+class BasicIncubatorRecipeBuilder(
+	val topSlotIngredient: Ingredient,
+	val bottomSlotIngredient: Ingredient,
+	val outputStack: ItemStack,
+	val recipeName: String? = null
 ) : RecipeBuilder {
 
 	private val criteria: MutableMap<String, Criterion<*>> = mutableMapOf()
@@ -30,11 +32,17 @@ class DupeCellRecipeBuilder(
 	}
 
 	override fun getResult(): Item {
-		return ModItems.CELL.get()
+		return outputStack.item
 	}
 
 	override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
-		val id = OtherUtil.modResource("incubator/$name")
+		val idString = StringBuilder()
+
+		idString
+			.append("incubator/basic/")
+			.append(recipeName ?: defaultId.path)
+
+		val id = OtherUtil.modResource(idString.toString())
 
 		val advancement = output.advancement()
 			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
@@ -43,7 +51,12 @@ class DupeCellRecipeBuilder(
 
 		criteria.forEach { (name, criterion) -> advancement.addCriterion(name, criterion) }
 
-		val recipe = DupeCellRecipe(itemToDupe, amountToCreate)
+		val recipe = BasicIncubatorRecipe(
+			topSlotIngredient,
+			bottomSlotIngredient,
+			outputStack,
+			isLowTemp = false
+		)
 
 		output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
 	}

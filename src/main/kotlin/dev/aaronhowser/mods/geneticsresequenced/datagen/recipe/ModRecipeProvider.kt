@@ -1,6 +1,12 @@
-package dev.aaronhowser.mods.geneticsresequenced.datagen
+package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe
 
-import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe_builder.*
+import com.klikli_dev.modonomicon.registry.DataComponentRegistry
+import com.klikli_dev.modonomicon.registry.ItemRegistry
+import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder.BasicIncubatorRecipeBuilder
+import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder.DupeCellRecipeBuilder
+import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder.GmoRecipeBuilder
+import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder.SingletonRecipeBuilder
+import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder.VirusRecipeBuilder
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
@@ -15,7 +21,11 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
-import net.minecraft.data.recipes.*
+import net.minecraft.data.recipes.RecipeCategory
+import net.minecraft.data.recipes.RecipeOutput
+import net.minecraft.data.recipes.RecipeProvider
+import net.minecraft.data.recipes.ShapedRecipeBuilder
+import net.minecraft.data.recipes.SpecialRecipeBuilder
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.Tags
@@ -232,15 +242,15 @@ class ModRecipeProvider(
 			.pattern("ISI")
 			.define('I', Tags.Items.INGOTS_IRON)
 			.define('G', Tags.Items.GLASS_BLOCKS)
-			.define('S', ModItemTagsProvider.SYRINGES)
+			.define('S', ModItemTagsProvider.Companion.SYRINGES)
 			.unlockedBy("has_scraper", has(ModItems.SCRAPER.get()))
 			.save(pRecipeOutput)
 
 	}
 
 	private fun modonomicon(pRecipeOutput: RecipeOutput) {
-		val bookStack = com.klikli_dev.modonomicon.registry.ItemRegistry.MODONOMICON.get().itemStack
-		val bookIdComponent = com.klikli_dev.modonomicon.registry.DataComponentRegistry.BOOK_ID.get()
+		val bookStack = ItemRegistry.MODONOMICON.get().itemStack
+		val bookIdComponent = DataComponentRegistry.BOOK_ID.get()
 
 		bookStack.set(bookIdComponent, OtherUtil.modResource("guide"))
 
@@ -256,7 +266,7 @@ class ModRecipeProvider(
 		BasicIncubatorRecipeBuilder(
 			DataComponentIngredient.of(
 				false,
-				DnaHelixItem.getHelixStack(ModGenes.BASIC, lookupProvider.get())
+				DnaHelixItem.Companion.getHelixStack(ModGenes.BASIC, lookupProvider.get())
 			),
 			DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.SUBSTRATE)),
 			OtherUtil.getPotionStack(ModPotions.CELL_GROWTH),
@@ -266,7 +276,7 @@ class ModRecipeProvider(
 		BasicIncubatorRecipeBuilder(
 			DataComponentIngredient.of(
 				false,
-				DnaHelixItem.getHelixStack(ModGenes.REGENERATION, lookupProvider.get())
+				DnaHelixItem.Companion.getHelixStack(ModGenes.REGENERATION, lookupProvider.get())
 			),
 			DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
 			OtherUtil.getPotionStack(ModPotions.PANACEA),
@@ -277,7 +287,7 @@ class ModRecipeProvider(
 		BasicIncubatorRecipeBuilder(
 			DataComponentIngredient.of(
 				false,
-				DnaHelixItem.getHelixStack(ModGenes.EMERALD_HEART, lookupProvider.get())
+				DnaHelixItem.Companion.getHelixStack(ModGenes.EMERALD_HEART, lookupProvider.get())
 			),
 			DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
 			OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER),
