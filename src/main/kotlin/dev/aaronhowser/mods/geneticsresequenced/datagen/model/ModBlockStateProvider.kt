@@ -38,26 +38,27 @@ class ModBlockStateProvider(
 	}
 
 	private fun antiFieldBlock() {
-		val deferredAntiFieldBlock = ModBlocks.ANTI_FIELD_BLOCK
+		val block = ModBlocks.ANTI_FIELD_BLOCK.get()
 
-		getVariantBuilder(deferredAntiFieldBlock.get())
+		getVariantBuilder(block)
 			.forAllStates { state ->
 				val disabled = state.getValue(AntiFieldBlock.DISABLED)
-				val modelVariantName = if (disabled) "anti_field_block_disabled" else "anti_field_block_enabled"
-				val textureVariantName = if (disabled) "block/machine_bottom" else "block/machine_top"
+				val modelName = if (disabled) "anti_field_block_disabled" else "anti_field_block_enabled"
+				val texture = if (disabled) "block/anti_field_off" else "block/anti_field_on"
 
 				ConfiguredModel
 					.builder()
 					.modelFile(
-						models().cubeAll(
-							modelVariantName,
-							modLoc(textureVariantName)
-						)
+						models()
+							.cubeAll(
+								modelName,
+								modLoc(texture)
+							)
 					).build()
 			}
 
 		simpleBlockItem(
-			deferredAntiFieldBlock.get(),
+			block,
 			ItemModelBuilder(
 				modLoc("block/anti_field_block_enabled"),
 				existingFileHelper
