@@ -124,15 +124,25 @@ object TickGenes {
 			)
 		}
 
-		val entityPredicate: (LivingEntity) -> Boolean = when {
-			geneHolder.isGene(ModGenes.GREEN_DEATH) -> { it -> it is Creeper }
-			geneHolder.isGene(ModGenes.UN_UNDEATH) -> { it -> it.isEntity(EntityTypeTags.UNDEAD) }
-			geneHolder.isGene(ModGenes.GRAY_DEATH) -> { it -> it is AgeableMob || it is Zombie || it is Piglin }
-			geneHolder.isGene(ModGenes.WHITE_DEATH) -> { it -> it.type.category == MobCategory.MONSTER }
+		when {
+			geneHolder.isGene(ModGenes.GREEN_DEATH) -> {
+				if (entity is Creeper) return
+			}
+
+			geneHolder.isGene(ModGenes.UN_UNDEATH) -> {
+				if (!entity.isEntity(EntityTypeTags.UNDEAD)) return
+			}
+
+			geneHolder.isGene(ModGenes.GRAY_DEATH) -> {
+				if (entity !is AgeableMob && entity !is Zombie && entity !is Piglin) return
+			}
+
+			geneHolder.isGene(ModGenes.WHITE_DEATH) -> {
+				if (entity.type.category != MobCategory.MONSTER) return
+			}
+
 			else -> return
 		}
-
-		if (!entityPredicate(entity)) return
 
 		val amount = maxOf(entity.health / 2, 2f)
 
