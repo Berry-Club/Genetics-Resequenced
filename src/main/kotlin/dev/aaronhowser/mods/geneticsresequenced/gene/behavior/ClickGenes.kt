@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.setUnit
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
@@ -435,7 +436,7 @@ object ClickGenes {
 		val weapon = event.projectileWeaponItemStack.item as? ProjectileWeaponItem ?: return
 		val defaultAmmo = weapon.getDefaultCreativeAmmo(player, event.projectileItemStack)
 
-		defaultAmmo.set(ModDataComponents.IS_INFINITY_ARROW, true)
+		defaultAmmo.setUnit(ModDataComponents.IS_INFINITY_ARROW)
 
 		event.projectileItemStack = defaultAmmo
 	}
@@ -446,7 +447,7 @@ object ClickGenes {
 
 		val arrowStack = arrow.pickupItemStackOrigin
 
-		val isInfinity = arrowStack.get(ModDataComponents.IS_INFINITY_ARROW) ?: false
+		val isInfinity = arrowStack.has(ModDataComponents.IS_INFINITY_ARROW)
 		if (!isInfinity) return
 
 		arrow.pickup = AbstractArrow.Pickup.DISALLOWED

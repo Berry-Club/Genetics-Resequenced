@@ -18,16 +18,7 @@ class ModDamageTypeTagsProvider(
 	existingFileHelper: ExistingFileHelper
 ) : DamageTypeTagsProvider(output, lookupProvider, GeneticsResequenced.ID, existingFileHelper) {
 
-	companion object {
-		private fun createType(name: String): ResourceKey<DamageType> = ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource(name))
-
-		val STEP_ON_SYRINGE: ResourceKey<DamageType> = createType("step_on_syringe")
-		val USE_SYRINGE: ResourceKey<DamageType> = createType("use_syringe")
-		val USE_SCRAPER: ResourceKey<DamageType> = createType("use_scraper")
-	}
-
 	override fun addTags(provider: HolderLookup.Provider) {
-
 		this.tag(DamageTypeTags.NO_IMPACT)
 			.add(
 				STEP_ON_SYRINGE,
@@ -48,7 +39,14 @@ class ModDamageTypeTagsProvider(
 				USE_SYRINGE,
 				USE_SCRAPER
 			)
+	}
 
+	companion object {
+		private fun createType(name: String): ResourceKey<DamageType> = ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource(name))
+
+		val STEP_ON_SYRINGE: ResourceKey<DamageType> = createType("step_on_syringe")
+		val USE_SYRINGE: ResourceKey<DamageType> = createType("use_syringe")
+		val USE_SCRAPER: ResourceKey<DamageType> = createType("use_scraper")
 	}
 
 }

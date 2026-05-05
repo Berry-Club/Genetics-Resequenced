@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.setUnit
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
@@ -199,8 +200,9 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			addGenes(entity, genesToAdd)
 			removeGenes(entity, genesToRemove)
 
-			clearGenes(syringeStack)
-			clearAntigenes(syringeStack)
+			syringeStack.remove(ModDataComponents.GENE_SET)
+			syringeStack.remove(ModDataComponents.ANTIGENE_SET)
+
 			setEntity(syringeStack, null)
 		}
 
@@ -272,10 +274,6 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			return syringeStack.get(ModDataComponents.GENE_SET)?.toSet() ?: emptySet()
 		}
 
-		fun getGeneRks(syringeStack: ItemStack): Set<ResourceKey<Gene>> {
-			return getGenes(syringeStack).mapNotNull { it.key }.toSet()
-		}
-
 		fun canAddGene(syringeStack: ItemStack, gene: Holder<Gene>): Boolean {
 			return hasBlood(syringeStack) && gene !in getGenes(syringeStack)
 		}
@@ -292,20 +290,16 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			return true
 		}
 
-		private fun clearGenes(syringeStack: ItemStack) {
-			syringeStack.remove(ModDataComponents.GENE_SET)
-		}
-
-		private fun clearAntigenes(syringeStack: ItemStack) {
-			syringeStack.remove(ModDataComponents.ANTIGENE_SET)
-		}
-
 		fun isContaminated(syringeStack: ItemStack): Boolean {
-			return syringeStack.get(ModDataComponents.IS_CONTAMINATED) ?: false
+			return syringeStack.has(ModDataComponents.IS_CONTAMINATED)
 		}
 
 		fun setContaminated(syringeStack: ItemStack, value: Boolean) {
-			syringeStack.set(ModDataComponents.IS_CONTAMINATED, value)
+			if (value) {
+				syringeStack.setUnit(ModDataComponents.IS_CONTAMINATED)
+			} else {
+				syringeStack.remove(ModDataComponents.IS_CONTAMINATED)
+			}
 		}
 
 		fun getAntigenes(syringeStack: ItemStack): Set<Holder<Gene>> {

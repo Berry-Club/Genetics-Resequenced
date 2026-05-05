@@ -25,10 +25,10 @@ object ModDataComponents : AaronDataComponentRegistry() {
 
 	val IS_ACTIVE: DeferredHolder<DataComponentType<*>, DataComponentType<Unit>> =
 		unit("is_active")
-	val IS_CONTAMINATED: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
-		boolean("is_contaminated")
-	val IS_INFINITY_ARROW: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
-		boolean("is_infinity_arrow")
+	val IS_CONTAMINATED: DeferredHolder<DataComponentType<*>, DataComponentType<Unit>> =
+		unit("is_contaminated")
+	val IS_INFINITY_ARROW: DeferredHolder<DataComponentType<*>, DataComponentType<Unit>> =
+		unit("is_infinity_arrow")
 	val DRAGON_HEALTH_CRYSTAL_DAMAGE: DeferredHolder<DataComponentType<*>, DataComponentType<Float>> =
 		float("dragon_health_crystal_damage")
 	val GENE: DeferredHolder<DataComponentType<*>, DataComponentType<Holder<Gene>>> =
