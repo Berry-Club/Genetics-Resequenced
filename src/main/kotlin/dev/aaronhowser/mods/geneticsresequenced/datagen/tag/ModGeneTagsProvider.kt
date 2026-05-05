@@ -19,7 +19,7 @@ class ModGeneTagsProvider(
 	output,
 	ModGenes.GENE_REGISTRY_KEY,
 	lookupProvider,
-	GeneticsResequenced.ID,
+	GeneticsResequenced.MOD_ID,
 	existingFileHelper
 ) {
 

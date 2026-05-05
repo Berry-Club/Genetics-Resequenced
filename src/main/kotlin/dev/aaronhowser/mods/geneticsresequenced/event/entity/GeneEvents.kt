@@ -25,7 +25,7 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 
 @EventBusSubscriber(
-	modid = GeneticsResequenced.ID
+	modid = GeneticsResequenced.MOD_ID
 )
 object GeneEvents {
 

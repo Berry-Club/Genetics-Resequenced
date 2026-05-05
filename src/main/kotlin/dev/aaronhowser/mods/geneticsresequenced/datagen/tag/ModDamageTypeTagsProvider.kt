@@ -16,7 +16,7 @@ class ModDamageTypeTagsProvider(
 	output: PackOutput,
 	lookupProvider: CompletableFuture<HolderLookup.Provider>,
 	existingFileHelper: ExistingFileHelper
-) : DamageTypeTagsProvider(output, lookupProvider, GeneticsResequenced.ID, existingFileHelper) {
+) : DamageTypeTagsProvider(output, lookupProvider, GeneticsResequenced.MOD_ID, existingFileHelper) {
 
 	override fun addTags(provider: HolderLookup.Provider) {
 		this.tag(DamageTypeTags.NO_IMPACT)

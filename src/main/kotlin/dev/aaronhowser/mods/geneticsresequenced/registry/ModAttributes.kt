@@ -13,7 +13,7 @@ import java.util.function.Supplier
 object ModAttributes {
 
 	val ATTRIBUTE_REGISTRY: DeferredRegister<Attribute> =
-		DeferredRegister.create(BuiltInRegistries.ATTRIBUTE, GeneticsResequenced.ID)
+		DeferredRegister.create(BuiltInRegistries.ATTRIBUTE, GeneticsResequenced.MOD_ID)
 
 	val EFFICIENCY: DeferredHolder<Attribute, RangedAttribute> =
 		register("efficiency", 0.0, 0.0, 10000.0)

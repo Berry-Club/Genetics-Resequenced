@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRegistries
+import net.minecraft.resources.ResourceLocation
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.fml.ModContainer
 import net.neoforged.fml.common.Mod
@@ -14,15 +15,10 @@ import org.apache.logging.log4j.Logger
 import thedarkcolour.kotlinforforge.neoforge.forge.MOD_BUS
 import thedarkcolour.kotlinforforge.neoforge.forge.runWhenOn
 
-@Mod(GeneticsResequenced.ID)
+@Mod(GeneticsResequenced.MOD_ID)
 class GeneticsResequenced(
 	modContainer: ModContainer
 ) {
-
-	companion object {
-		const val ID = "geneticsresequenced"
-		val LOGGER: Logger = LogManager.getLogger(ID)
-	}
 
 	init {
 		ModRegistries.register(MOD_BUS)
@@ -34,5 +30,13 @@ class GeneticsResequenced(
 
 		modContainer.registerConfig(ModConfig.Type.CLIENT, ClientConfig.CONFIG_SPEC)
 		modContainer.registerConfig(ModConfig.Type.SERVER, ServerConfig.CONFIG_SPEC)
+	}
+
+	companion object {
+		const val MOD_ID = "geneticsresequenced"
+		val LOGGER: Logger = LogManager.getLogger(MOD_ID)
+
+		fun modResource(path: String): ResourceLocation =
+			ResourceLocation.fromNamespaceAndPath(MOD_ID, path)
 	}
 }

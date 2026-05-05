@@ -12,7 +12,7 @@ import java.util.function.Supplier
 object ModPotions {
 
 	val POTION_REGISTRY: DeferredRegister<Potion> =
-		DeferredRegister.create(Registries.POTION, GeneticsResequenced.ID)
+		DeferredRegister.create(Registries.POTION, GeneticsResequenced.MOD_ID)
 
 	val SUBSTRATE: DeferredHolder<Potion, Potion> =
 		register("substrate", ModEffects.SUBSTRATE)
@@ -29,7 +29,7 @@ object ModPotions {
 		register("zombify_villager", ModEffects.ZOMBIFY_VILLAGER)
 
 	private fun register(id: String, effect: DeferredHolder<MobEffect, out MobEffect>): DeferredHolder<Potion, Potion> {
-		val potionId = "${GeneticsResequenced.ID}.$id"  // Required for localization
+		val potionId = "${GeneticsResequenced.MOD_ID}.$id"  // Required for localization
 
 		return POTION_REGISTRY.register(id, Supplier { Potion(potionId, MobEffectInstance(effect)) })
 	}

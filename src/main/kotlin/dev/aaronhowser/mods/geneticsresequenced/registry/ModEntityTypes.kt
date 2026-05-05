@@ -12,7 +12,7 @@ import java.util.function.Supplier
 object ModEntityTypes {
 
 	val ENTITY_TYPE_REGISTRY: DeferredRegister<EntityType<*>> =
-		DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, GeneticsResequenced.ID)
+		DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, GeneticsResequenced.MOD_ID)
 
 	val SUPPORT_SLIME: DeferredHolder<EntityType<*>, EntityType<SupportSlime>> = ENTITY_TYPE_REGISTRY.register("support_slime", Supplier {
 		EntityType.Builder.of(

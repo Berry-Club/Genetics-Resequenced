@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.util
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.core.Holder
 import net.minecraft.core.Registry
 import net.minecraft.core.component.DataComponents
@@ -24,9 +23,6 @@ import net.minecraft.world.level.ItemLike
 import kotlin.jvm.optionals.getOrNull
 
 object OtherUtil {
-
-	fun modResource(path: String): ResourceLocation =
-		ResourceLocation.fromNamespaceAndPath(GeneticsResequenced.ID, path)
 
 	val ItemLike.itemStack: ItemStack
 		get() = this.asItem().defaultInstance

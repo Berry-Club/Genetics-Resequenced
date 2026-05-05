@@ -13,7 +13,7 @@ class ModBlockTagsProvider(
 	output: PackOutput,
 	lookupProvider: CompletableFuture<HolderLookup.Provider>,
 	existingFileHelper: ExistingFileHelper?
-) : BlockTagsProvider(output, lookupProvider, GeneticsResequenced.ID, existingFileHelper) {
+) : BlockTagsProvider(output, lookupProvider, GeneticsResequenced.MOD_ID, existingFileHelper) {
 
 	override fun addTags(pProvider: HolderLookup.Provider) {
 		this.tag(BlockTags.MINEABLE_WITH_PICKAXE)

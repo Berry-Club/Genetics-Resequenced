@@ -31,7 +31,7 @@ import net.neoforged.neoforge.client.event.*
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 
 @EventBusSubscriber(
-	modid = GeneticsResequenced.ID,
+	modid = GeneticsResequenced.MOD_ID,
 	value = [Dist.CLIENT]
 )
 object ClientEvents {

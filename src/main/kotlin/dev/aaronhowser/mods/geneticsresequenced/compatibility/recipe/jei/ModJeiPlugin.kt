@@ -57,7 +57,7 @@ class ModJeiPlugin : IModPlugin {
 //	}
 
 	override fun registerModInfo(modAliasRegistration: IModInfoRegistration) {
-		modAliasRegistration.addModAliases(GeneticsResequenced.ID, "gene", "genetics", "gr")
+		modAliasRegistration.addModAliases(GeneticsResequenced.MOD_ID, "gene", "genetics", "gr")
 	}
 
 	override fun registerRecipes(registration: IRecipeRegistration) {
