@@ -36,7 +36,7 @@ object ModItems : AaronItemRegistry() {
 	val OVERCLOCKER: DeferredItem<Item> =
 		register("overclocker", ::Item, Item.Properties().stacksTo(8))
 	val ANTI_FIELD_ORB: DeferredItem<AntiFieldOrbItem> =
-		register("anti_field_orb", ::AntiFieldOrbItem, AntiFieldOrbItem.DEFAULT_PROPERTIES)
+		register("anti_field_orb", ::AntiFieldOrbItem, PROPERTIES_SINGLE_STACK)
 	val DRAGON_HEALTH_CRYSTAL: DeferredItem<DragonHealthCrystal> =
 		register("dragon_health_crystal", ::DragonHealthCrystal, DragonHealthCrystal.DEFAULT_PROPERTIES)
 	val FRIENDLY_SLIME_SPAWN_EGG: DeferredItem<SpawnEggItem> =

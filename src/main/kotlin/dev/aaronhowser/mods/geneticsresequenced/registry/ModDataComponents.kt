@@ -11,6 +11,7 @@ import net.minecraft.core.component.DataComponentType
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.codec.ByteBufCodecs
+import net.minecraft.util.Unit
 import net.minecraft.world.entity.EntityType
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -36,8 +37,8 @@ object ModDataComponents : AaronDataComponentRegistry() {
 			SpecificEntityItemComponent.STREAM_CODEC
 		)
 
-	val IS_ACTIVE: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
-		boolean("is_active")
+	val IS_ACTIVE: DeferredHolder<DataComponentType<*>, DataComponentType<Unit>> =
+		unit("is_active")
 
 	val IS_CONTAMINATED: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
 		boolean("is_contaminated")

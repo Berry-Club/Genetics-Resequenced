@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.setUnit
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
@@ -17,11 +18,6 @@ import net.minecraft.world.level.Level
 
 class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 
-//	override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
-//		toggleEnabled(pPlayer.getItemInHand(pUsedHand))
-//		return super.use(pLevel, pPlayer, pUsedHand)
-//	}
-
 	override fun use(
 		level: Level,
 		player: Player,
@@ -29,48 +25,46 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 	): InteractionResultHolder<ItemStack?> {
 		if (!level.isClientSide) {
 			val stack = player.getItemInHand(usedHand)
-			stack.set(ModDataComponents.IS_ACTIVE, !isEnabled(stack))
+			if (isActive(stack)) {
+				stack.remove(ModDataComponents.IS_ACTIVE)
+			} else {
+				stack.setUnit(ModDataComponents.IS_ACTIVE)
+			}
 		}
 
 		return super.use(level, player, usedHand)
 	}
 
-	override fun isFoil(pStack: ItemStack): Boolean = isEnabled(pStack)
+	override fun isFoil(stack: ItemStack): Boolean {
+		return isActive(stack)
+	}
 
 	override fun appendHoverText(
-		pStack: ItemStack,
-		pContext: TooltipContext,
-		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
+		stack: ItemStack,
+		context: TooltipContext,
+		tooltipComponents: MutableList<Component>,
+		tooltipFlag: TooltipFlag
 	) {
-		val componentString = if (isEnabled(pStack)) {
+		val componentString = if (isActive(stack)) {
 			ModTooltipLang.ACTIVE
 		} else {
 			ModTooltipLang.INACTIVE
 		}
 
-		pTooltipComponents.add(
+		tooltipComponents.add(
 			componentString
 				.toComponent()
 				.withStyle(ChatFormatting.GRAY)
 		)
-
-		super.appendHoverText(pStack, pContext, pTooltipComponents, pTooltipFlag)
 	}
 
 	companion object {
-		val DEFAULT_PROPERTIES: () -> Properties = {
-			Properties()
-				.stacksTo(1)
-				.component(ModDataComponents.IS_ACTIVE, false)
-		}
-
-		private fun isEnabled(itemStack: ItemStack): Boolean {
-			return itemStack.getOrDefault(ModDataComponents.IS_ACTIVE, false)
+		private fun isActive(itemStack: ItemStack): Boolean {
+			return itemStack.has(ModDataComponents.IS_ACTIVE)
 		}
 
 		fun isActiveForPlayer(player: Player): Boolean {
-			return player.inventory.items.any { it.isItem(ModItems.ANTI_FIELD_ORB) && isEnabled(it) }
+			return player.inventory.items.any { it.isItem(ModItems.ANTI_FIELD_ORB) && isActive(it) }
 		}
 	}
 
