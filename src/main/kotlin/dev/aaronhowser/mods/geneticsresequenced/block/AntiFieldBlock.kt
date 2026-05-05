@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import net.minecraft.core.BlockPos
+import net.minecraft.world.entity.Entity
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
@@ -57,6 +58,10 @@ class AntiFieldBlock : Block(
 
 	companion object {
 		val DISABLED: BooleanProperty = BlockStateProperties.POWERED
+
+		fun isNearActiveAntifield(entity: Entity): Boolean {
+			return isNearActiveAntifield(entity.level(), entity.blockPosition())
+		}
 
 		fun isNearActiveAntifield(level: Level, location: BlockPos): Boolean {
 			val radius = ServerConfig.CONFIG.antifieldBlockRadius.get()

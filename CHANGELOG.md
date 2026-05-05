@@ -1,3 +1,9 @@
+# 1.13.0
+
+### Changes
+
+- Various improvements to the code
+
 # 1.12.3
 
 ### Changes
