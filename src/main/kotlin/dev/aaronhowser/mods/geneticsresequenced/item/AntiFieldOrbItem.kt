@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.setUnit
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toggleUnit
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
@@ -25,11 +26,7 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 	): InteractionResultHolder<ItemStack?> {
 		if (!level.isClientSide) {
 			val stack = player.getItemInHand(usedHand)
-			if (isActive(stack)) {
-				stack.remove(ModDataComponents.IS_ACTIVE)
-			} else {
-				stack.setUnit(ModDataComponents.IS_ACTIVE)
-			}
+			stack.toggleUnit(ModDataComponents.IS_ACTIVE)
 		}
 
 		return super.use(level, player, usedHand)
