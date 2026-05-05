@@ -23,6 +23,21 @@ object ModDataComponents : AaronDataComponentRegistry() {
 
 	override fun getDataComponentRegistry(): DeferredRegister.DataComponents = DATA_COMPONENT_REGISTRY
 
+	val IS_ACTIVE: DeferredHolder<DataComponentType<*>, DataComponentType<Unit>> =
+		unit("is_active")
+	val IS_CONTAMINATED: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
+		boolean("is_contaminated")
+	val IS_INFINITY_ARROW: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
+		boolean("is_infinity_arrow")
+	val DRAGON_HEALTH_CRYSTAL_DAMAGE: DeferredHolder<DataComponentType<*>, DataComponentType<Float>> =
+		float("dragon_health_crystal_damage")
+	val GENE: DeferredHolder<DataComponentType<*>, DataComponentType<Holder<Gene>>> =
+		register("gene", Gene.CODEC, Gene.STREAM_CODEC)
+	val GENE_SET: DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =
+		register("genes", Gene.HOLDER_SET_CODEC, Gene.HOLDER_SET_STREAM_CODEC)
+	val ANTIGENE_SET: DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =
+		register("antigenes", Gene.HOLDER_SET_CODEC, Gene.HOLDER_SET_STREAM_CODEC)
+
 	val ENTITY_TYPE: DeferredHolder<DataComponentType<*>, DataComponentType<EntityType<*>>> =
 		register(
 			"entity_type",
@@ -36,27 +51,6 @@ object ModDataComponents : AaronDataComponentRegistry() {
 			SpecificEntityItemComponent.CODEC,
 			SpecificEntityItemComponent.STREAM_CODEC
 		)
-
-	val IS_ACTIVE: DeferredHolder<DataComponentType<*>, DataComponentType<Unit>> =
-		unit("is_active")
-
-	val IS_CONTAMINATED: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
-		boolean("is_contaminated")
-
-	val IS_INFINITY_ARROW: DeferredHolder<DataComponentType<*>, DataComponentType<Boolean>> =
-		boolean("is_infinity_arrow")
-
-	val DRAGON_HEALTH_CRYSTAL_DAMAGE: DeferredHolder<DataComponentType<*>, DataComponentType<Float>> =
-		float("dragon_health_crystal_damage")
-
-	val GENE: DeferredHolder<DataComponentType<*>, DataComponentType<Holder<Gene>>> =
-		register("gene", Gene.CODEC, Gene.STREAM_CODEC)
-
-	val GENE_SET: DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =
-		register("genes", Gene.HOLDER_SET_CODEC, Gene.HOLDER_SET_STREAM_CODEC)
-
-	val ANTIGENE_SET: DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =
-		register("antigenes", Gene.HOLDER_SET_CODEC, Gene.HOLDER_SET_STREAM_CODEC)
 
 	val PLASMID_PROGRESS: DeferredHolder<DataComponentType<*>, DataComponentType<PlasmidProgressItemComponent>> =
 		register(

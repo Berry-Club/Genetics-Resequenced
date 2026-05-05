@@ -4,6 +4,7 @@ import com.klikli_dev.modonomicon.api.datagen.CategoryProvider
 import com.klikli_dev.modonomicon.api.datagen.ModonomiconProviderBase
 import com.klikli_dev.modonomicon.api.datagen.book.BookEntryModel
 import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.setUnit
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.BaseEntryProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
@@ -498,7 +499,7 @@ class ItemsCategoryProvider(
 				)
 
 				val activeOrb = ModItems.ANTI_FIELD_ORB.toStack()
-				activeOrb.set(ModDataComponents.IS_ACTIVE, true)
+				activeOrb.setUnit(ModDataComponents.IS_ACTIVE)
 
 				spotlightPage(
 					activeOrb,
