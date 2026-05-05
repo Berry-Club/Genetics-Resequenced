@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.datagen
+package dev.aaronhowser.mods.geneticsresequenced.datagen.datapack
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -12,10 +12,7 @@ import net.minecraft.world.item.enchantment.Enchantment
 object ModEnchantmentProvider : RegistrySetBuilder() {
 
 	private fun createRk(name: String): ResourceKey<Enchantment> =
-		ResourceKey.create(
-			Registries.ENCHANTMENT,
-			OtherUtil.modResource(name)
-		)
+		ResourceKey.create(Registries.ENCHANTMENT, OtherUtil.modResource(name))
 
 	val DELICATE_TOUCH = createRk("delicate_touch")
 
@@ -27,7 +24,7 @@ object ModEnchantmentProvider : RegistrySetBuilder() {
 			DELICATE_TOUCH,
 			Enchantment.enchantment(
 				Enchantment.definition(
-					itemGetter.getOrThrow(ModItemTagsProvider.ENCHANTABLE_DELICATE_TOUCH),
+					itemGetter.getOrThrow(ModItemTagsProvider.Companion.ENCHANTABLE_DELICATE_TOUCH),
 					10,
 					1,
 					Enchantment.dynamicCost(4, 0),

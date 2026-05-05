@@ -2,7 +2,9 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import com.klikli_dev.modonomicon.api.datagen.NeoBookProvider
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.datagen.datapack.ModEnchantmentProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModEntityGenesProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneRequirementsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvider
@@ -11,32 +13,38 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvid
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.ModModonomiconProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.ModRecipeProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.*
-import net.minecraft.core.HolderLookup
-import net.minecraft.data.DataGenerator
-import net.minecraft.data.PackOutput
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import net.minecraft.core.RegistrySetBuilder
+import net.minecraft.core.registries.Registries
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.common.data.AdvancementProvider
-import net.neoforged.neoforge.common.data.ExistingFileHelper
+import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider
 import net.neoforged.neoforge.data.event.GatherDataEvent
-import java.util.concurrent.CompletableFuture
 
-@EventBusSubscriber(modid = GeneticsResequenced.ID)
+@EventBusSubscriber(modid = GeneticsResequenced.MOD_ID)
 object ModDataGen {
 
 	@SubscribeEvent
 	fun onGatherData(event: GatherDataEvent) {
-		val generator: DataGenerator = event.generator
-		val output: PackOutput = generator.packOutput
-		val existingFileHelper: ExistingFileHelper = event.existingFileHelper
-		val lookupProvider: CompletableFuture<HolderLookup.Provider> = event.lookupProvider
+		val generator = event.generator
+		val output = generator.packOutput
+		val existingFileHelper = event.existingFileHelper
+		val lookupProvider = event.lookupProvider
 
 		val datapackRegistrySets = generator.addProvider(
 			event.includeServer(),
-			ModDatapackBuiltinEntriesProvider(output, lookupProvider)
+			DatapackBuiltinEntriesProvider(
+				output,
+				lookupProvider,
+				RegistrySetBuilder()
+					.add(ModGenes.GENE_REGISTRY_KEY, ModGeneProvider::bootstrap)
+					.add(Registries.ENCHANTMENT, ModEnchantmentProvider::bootstrap),
+				setOf(GeneticsResequenced.MOD_ID)
+			)
 		)
 
-		val lookupWithDatapack: CompletableFuture<HolderLookup.Provider> = datapackRegistrySets.registryProvider
+		val lookupWithDatapack = datapackRegistrySets.registryProvider
 
 		generator.addProvider(
 			event.includeClient(),
