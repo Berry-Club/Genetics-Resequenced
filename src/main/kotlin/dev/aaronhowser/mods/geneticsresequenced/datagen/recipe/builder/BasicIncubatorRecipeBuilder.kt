@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.BasicIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.advancements.AdvancementRequirements
@@ -42,7 +43,7 @@ class BasicIncubatorRecipeBuilder(
 			.append("incubator/basic/")
 			.append(recipeName ?: defaultId.path)
 
-		val id = OtherUtil.modResource(idString.toString())
+		val id = GeneticsResequenced.modResource(idString.toString())
 
 		val advancement = output.advancement()
 			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))

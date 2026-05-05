@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine.incubator
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
@@ -93,7 +94,7 @@ class GmoEmiRecipe(
 		val entityTypeString = EntityType.getKey(entityType).toString().replace(':', '/')
 		val geneString = idealResourceKey.location().toString().replace(':', '/')
 
-		return OtherUtil.modResource("/gmo/$entityTypeString/$geneString")
+		return GeneticsResequenced.modResource("/gmo/$entityTypeString/$geneString")
 	}
 
 	override fun addWidgets(widgets: WidgetHolder) {

@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
@@ -110,7 +111,7 @@ class CellToHelixEmiRecipe(
 			stringBuilder.append(geneString)
 		}
 
-		return OtherUtil.modResource(stringBuilder.toString())
+		return GeneticsResequenced.modResource(stringBuilder.toString())
 	}
 
 	override fun getInputs(): List<EmiIngredient> {

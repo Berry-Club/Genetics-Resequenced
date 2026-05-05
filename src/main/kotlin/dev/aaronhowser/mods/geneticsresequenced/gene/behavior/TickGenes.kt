@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isEntity
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
@@ -152,7 +153,7 @@ object TickGenes {
 
 	private fun virusDamageSource(level: Level): DamageSource = level.damageSources().source(VIRUS_DAMAGE_KEY)
 	private val VIRUS_DAMAGE_KEY: ResourceKey<DamageType> =
-		ResourceKey.create(Registries.DAMAGE_TYPE, OtherUtil.modResource("virus"))
+		ResourceKey.create(Registries.DAMAGE_TYPE, GeneticsResequenced.modResource("virus"))
 
 	private val GENE_INFERIORITY_MAP: Map<ResourceKey<Gene>, List<ResourceKey<Gene>>> = mapOf(
 		ModGenes.SPEED_FOUR to listOf(ModGenes.SPEED, ModGenes.SPEED_TWO),

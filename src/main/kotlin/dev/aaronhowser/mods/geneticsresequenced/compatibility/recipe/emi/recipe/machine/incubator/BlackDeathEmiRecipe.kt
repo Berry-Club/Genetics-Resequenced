@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine.incubator
 
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModRecipeLang
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
@@ -69,6 +70,6 @@ class BlackDeathEmiRecipe(
 
 	override fun getId(): ResourceLocation {
 		val type = if (isMetal) "/metal" else ""
-		return OtherUtil.modResource("/brewing/black_death$type")
+		return GeneticsResequenced.modResource("/brewing/black_death$type")
 	}
 }

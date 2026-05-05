@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine.incubator
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
@@ -62,7 +63,7 @@ class SetPotionEntityEmiRecipe(
 		val potionString = if (isMutation) "mutation" else "pcg"
 		val entityTypeString = EntityType.getKey(entityType).toString().replace(':', '/')
 
-		return OtherUtil.modResource("/set_potion_entity/$potionString/$entityTypeString")
+		return GeneticsResequenced.modResource("/set_potion_entity/$potionString/$entityTypeString")
 	}
 
 }

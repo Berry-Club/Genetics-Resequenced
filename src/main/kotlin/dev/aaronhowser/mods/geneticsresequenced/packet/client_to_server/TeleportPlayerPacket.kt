@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server
 
 import dev.aaronhowser.mods.aaron.packet.AaronPacket
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.PacketGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
@@ -20,7 +21,7 @@ class TeleportPlayerPacket private constructor() : AaronPacket() {
 
 	companion object {
 		val TYPE: CustomPacketPayload.Type<TeleportPlayerPacket> =
-			CustomPacketPayload.Type<TeleportPlayerPacket>(OtherUtil.modResource("teleport"))
+			CustomPacketPayload.Type<TeleportPlayerPacket>(GeneticsResequenced.modResource("teleport"))
 
 		val INSTANCE = TeleportPlayerPacket()
 

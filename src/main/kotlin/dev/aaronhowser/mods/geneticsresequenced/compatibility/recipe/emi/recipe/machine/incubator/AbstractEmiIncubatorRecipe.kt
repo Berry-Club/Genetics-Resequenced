@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine.incubator
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.recipe.EmiRecipe
@@ -12,14 +13,10 @@ import net.minecraft.resources.ResourceLocation
 
 abstract class AbstractEmiIncubatorRecipe : EmiRecipe {
 
-	companion object {
-		val BACKGROUND: ResourceLocation = OtherUtil.modResource("textures/gui/container/incubator_emi.png")
-	}
-
 	abstract val ingredient: EmiIngredient
+
 	abstract val input: EmiIngredient
 	abstract val output: EmiStack
-
 	override fun getCategory(): EmiRecipeCategory {
 		return ModEmiPlugin.INCUBATOR_CATEGORY
 	}
@@ -49,6 +46,10 @@ abstract class AbstractEmiIncubatorRecipe : EmiRecipe {
 		widgets.addSlot(output, 51, 36).drawBack(false).recipeContext(this)
 
 		widgets.addTooltipText(tooltips, 0, 0, displayWidth, displayHeight)
+	}
+
+	companion object {
+		val BACKGROUND: ResourceLocation = GeneticsResequenced.modResource("textures/gui/container/incubator_emi.png")
 	}
 
 }

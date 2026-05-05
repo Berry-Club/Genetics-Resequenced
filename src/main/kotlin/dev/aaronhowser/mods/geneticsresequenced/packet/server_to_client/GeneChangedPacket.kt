@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 
 import dev.aaronhowser.mods.aaron.packet.AaronPacket
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -41,7 +42,7 @@ data class GeneChangedPacket(
 
 	companion object {
 		val TYPE: CustomPacketPayload.Type<GeneChangedPacket> =
-			CustomPacketPayload.Type(OtherUtil.modResource("gene_changed"))
+			CustomPacketPayload.Type(GeneticsResequenced.modResource("gene_changed"))
 
 		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, GeneChangedPacket> =
 			StreamCodec.composite(

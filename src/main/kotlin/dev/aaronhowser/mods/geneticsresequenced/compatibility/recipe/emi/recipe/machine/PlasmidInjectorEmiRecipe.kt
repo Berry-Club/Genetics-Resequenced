@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine
 
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModRecipeLang
@@ -91,7 +92,7 @@ class PlasmidInjectorEmiRecipe(
 		val syringeString = if (isMetal) "/metal" else ""
 		val plasmidString = if (isAntiPlasmid) "/anti" else ""
 
-		return OtherUtil.modResource("/plasmid_injector/$geneString$syringeString$plasmidString")
+		return GeneticsResequenced.modResource("/plasmid_injector/$geneString$syringeString$plasmidString")
 	}
 
 	override fun getInputs(): List<EmiIngredient> {

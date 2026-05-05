@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.data.EntityGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -66,7 +67,7 @@ class DecryptHelixEmiRecipe(
 		val entityString = entityTypeRl.toString().replace(':', '/')
 		val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
-		return OtherUtil.modResource("/dna_extractor/$entityString/to/$geneString")
+		return GeneticsResequenced.modResource("/dna_extractor/$entityString/to/$geneString")
 	}
 
 	override fun getInputs(): List<EmiIngredient> {

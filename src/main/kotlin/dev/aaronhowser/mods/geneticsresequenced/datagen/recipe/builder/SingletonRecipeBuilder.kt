@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.advancements.AdvancementRequirements
 import net.minecraft.advancements.AdvancementRewards
@@ -32,7 +33,7 @@ class SingletonRecipeBuilder(
 	}
 
 	override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
-		val id = OtherUtil.modResource(idString)
+		val id = GeneticsResequenced.modResource(idString)
 
 		val advancement = output.advancement()
 			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))

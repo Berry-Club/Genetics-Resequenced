@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 
 import dev.aaronhowser.mods.aaron.packet.AaronPacket
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
@@ -25,7 +26,7 @@ data class ShearedPacket(
 
 	companion object {
 		val TYPE: CustomPacketPayload.Type<ShearedPacket> =
-			CustomPacketPayload.Type<ShearedPacket>(OtherUtil.modResource("sheared"))
+			CustomPacketPayload.Type<ShearedPacket>(GeneticsResequenced.modResource("sheared"))
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, ShearedPacket> =
 			ByteBufCodecs.BOOL.map(::ShearedPacket, ShearedPacket::removingSkin)

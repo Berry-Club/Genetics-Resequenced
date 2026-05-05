@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine.incubator
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.BasicIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.emi.emi.api.stack.EmiIngredient
@@ -68,6 +69,6 @@ class BasicIncubatorEmiRecipe(
 				.append(potionId)
 		}
 
-		return OtherUtil.modResource(stringBuilder.toString())
+		return GeneticsResequenced.modResource(stringBuilder.toString())
 	}
 }

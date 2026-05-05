@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine.incubator
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
@@ -53,7 +54,7 @@ class VirusEmiRecipe(
 		val inputGeneString = inputDnaGeneRk.location().toString().replace(':', '/')
 		val outputGeneString = outputGeneRk.location().toString().replace(':', '/')
 
-		return OtherUtil.modResource("/virus/$inputGeneString/$outputGeneString")
+		return GeneticsResequenced.modResource("/virus/$inputGeneString/$outputGeneString")
 	}
 
 }

@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -54,7 +55,7 @@ class OrganicMatterToCellEmiRecipe(
 		val entityTypeRl = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
 		val entityString = entityTypeRl.toString().replace(':', '/')
 
-		return OtherUtil.modResource("/cell_analyzer/$entityString")
+		return GeneticsResequenced.modResource("/cell_analyzer/$entityString")
 	}
 
 	override fun getInputs(): List<EmiIngredient> {

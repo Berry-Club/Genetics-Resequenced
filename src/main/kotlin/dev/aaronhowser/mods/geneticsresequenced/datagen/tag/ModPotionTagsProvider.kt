@@ -26,7 +26,7 @@ class ModPotionTagsProvider(
 
 	companion object {
 		private fun create(id: String): TagKey<Potion> {
-			return TagKey.create(Registries.POTION, OtherUtil.modResource(id))
+			return TagKey.create(Registries.POTION, GeneticsResequenced.modResource(id))
 		}
 
 		val CAN_HAVE_ENTITY = create("can_have_entity")

@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine
 
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -51,7 +52,7 @@ class PurifySyringeEmiRecipe(
 
 	override fun getId(): ResourceLocation {
 		val type = if (isMetal) "metal" else "glass"
-		return OtherUtil.modResource("/purify_syringe/$type")
+		return GeneticsResequenced.modResource("/purify_syringe/$type")
 	}
 
 	override fun getInputs(): List<EmiIngredient> {

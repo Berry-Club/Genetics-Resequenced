@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.VirusRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -44,7 +45,7 @@ class VirusRecipeBuilder(
 			.append("_to_")
 			.append(outputGene.location().path)
 
-		val id = OtherUtil.modResource(idString.toString())
+		val id = GeneticsResequenced.modResource(idString.toString())
 
 		val advancement = output.advancement()
 			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))

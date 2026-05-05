@@ -2,11 +2,8 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe
 
 import com.klikli_dev.modonomicon.registry.DataComponentRegistry
 import com.klikli_dev.modonomicon.registry.ItemRegistry
-import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder.BasicIncubatorRecipeBuilder
-import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder.DupeCellRecipeBuilder
-import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder.GmoRecipeBuilder
-import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder.SingletonRecipeBuilder
-import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder.VirusRecipeBuilder
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder.*
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.crafting.SetAntiPlasmidRecipe
@@ -21,11 +18,7 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
-import net.minecraft.data.recipes.RecipeCategory
-import net.minecraft.data.recipes.RecipeOutput
-import net.minecraft.data.recipes.RecipeProvider
-import net.minecraft.data.recipes.ShapedRecipeBuilder
-import net.minecraft.data.recipes.SpecialRecipeBuilder
+import net.minecraft.data.recipes.*
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Items
 import net.neoforged.neoforge.common.Tags
@@ -37,21 +30,21 @@ class ModRecipeProvider(
 	val lookupProvider: CompletableFuture<HolderLookup.Provider>
 ) : RecipeProvider(output, lookupProvider) {
 
-	override fun buildRecipes(pRecipeOutput: RecipeOutput) {
-		buildShapedRecipes(pRecipeOutput)
-		buildSpecialRecipes(pRecipeOutput)
-		buildIncubatorRecipes(pRecipeOutput)
+	override fun buildRecipes(recipeOutput: RecipeOutput) {
+		buildShapedRecipes(recipeOutput)
+		buildSpecialRecipes(recipeOutput)
+		buildIncubatorRecipes(recipeOutput)
 	}
 
-	private fun buildSpecialRecipes(pRecipeOutput: RecipeOutput) {
+	private fun buildSpecialRecipes(recipeOutput: RecipeOutput) {
 		val setAntiPlasmid = SpecialRecipeBuilder.special(::SetAntiPlasmidRecipe)
 		val unsetAntiPlasmid = SpecialRecipeBuilder.special(::UnsetAntiPlasmidRecipe)
 
-		setAntiPlasmid.save(pRecipeOutput, OtherUtil.modResource("set_anti_plasmid"))
-		unsetAntiPlasmid.save(pRecipeOutput, OtherUtil.modResource("unset_anti_plasmid"))
+		setAntiPlasmid.save(recipeOutput, GeneticsResequenced.modResource("set_anti_plasmid"))
+		unsetAntiPlasmid.save(recipeOutput, GeneticsResequenced.modResource("unset_anti_plasmid"))
 	}
 
-	private fun buildShapedRecipes(pRecipeOutput: RecipeOutput) {
+	private fun buildShapedRecipes(recipeOutput: RecipeOutput) {
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ADVANCED_INCUBATOR.get())
 			.pattern("OOO")
 			.pattern("OIO")
@@ -60,7 +53,7 @@ class ModRecipeProvider(
 			.define('I', ModBlocks.INCUBATOR.get())
 			.define('E', Tags.Items.END_STONES)
 			.unlockedBy("has_incubator", has(ModBlocks.INCUBATOR.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.ANTI_FIELD_BLOCK.get())
 			.pattern("   ")
@@ -69,7 +62,7 @@ class ModRecipeProvider(
 			.define('O', ModItems.ANTI_FIELD_ORB.get())
 			.define('L', Items.REDSTONE_LAMP)
 			.unlockedBy("has_anti_field_orb", has(ModItems.ANTI_FIELD_ORB.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ANTI_FIELD_ORB.get())
 			.pattern("EGE")
@@ -79,7 +72,7 @@ class ModRecipeProvider(
 			.define('G', Tags.Items.GLASS_BLOCKS_COLORLESS)
 			.define('F', Items.FERMENTED_SPIDER_EYE)
 			.unlockedBy("has_plasmid", has(ModItems.PLASMID.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.ANTI_PLASMID.get())
 			.pattern("DDD")
@@ -88,7 +81,7 @@ class ModRecipeProvider(
 			.define('D', ModItems.DNA_HELIX.get())
 			.define('F', Items.FERMENTED_SPIDER_EYE)
 			.unlockedBy("has_plasmid", has(ModItems.PLASMID.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.BLOOD_PURIFIER.get())
 			.pattern("IWI")
@@ -99,7 +92,7 @@ class ModRecipeProvider(
 			.define('S', ModItems.SYRINGE.get())
 			.define('B', Items.BUCKET)
 			.unlockedBy("has_syringe", has(ModItems.SYRINGE.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.CELL_ANALYZER.get())
 			.pattern("III")
@@ -109,7 +102,7 @@ class ModRecipeProvider(
 			.define('S', ModItems.SYRINGE.get())
 			.define('R', Tags.Items.DUSTS_REDSTONE)
 			.unlockedBy("has_cell", has(ModItems.CELL.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.COAL_GENERATOR.get())
 			.pattern("III")
@@ -120,7 +113,7 @@ class ModRecipeProvider(
 			.define('F', Items.FURNACE)
 			.define('R', Tags.Items.INGOTS_IRON)
 			.unlockedBy("has_cell_analyzer", has(ModBlocks.CELL_ANALYZER.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.DNA_DECRYPTOR.get())
 			.pattern("ILI")
@@ -131,7 +124,7 @@ class ModRecipeProvider(
 			.define('D', ModItems.DNA_HELIX.get())
 			.define('G', Tags.Items.INGOTS_GOLD)
 			.unlockedBy("has_dna_extractor", has(ModBlocks.DNA_EXTRACTOR.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.DNA_EXTRACTOR.get())
 			.pattern("III")
@@ -141,7 +134,7 @@ class ModRecipeProvider(
 			.define('P', Items.STICKY_PISTON)
 			.define('C', ModItems.CELL.get())
 			.unlockedBy("has_cell_analyzer", has(ModBlocks.CELL_ANALYZER.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.DRAGON_HEALTH_CRYSTAL.get())
 			.pattern("DED")
@@ -150,7 +143,7 @@ class ModRecipeProvider(
 			.define('D', Tags.Items.GEMS_DIAMOND)
 			.define('E', Items.END_CRYSTAL)
 			.unlockedBy("has_plasmid", has(ModItems.PLASMID.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.INCUBATOR.get())
 			.pattern("IGI")
@@ -162,7 +155,7 @@ class ModRecipeProvider(
 			.define('S', Tags.Items.STONES)
 			.define('R', Tags.Items.INGOTS_IRON)
 			.unlockedBy("has_brewing_stand", has(Items.BREWING_STAND))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.OVERCLOCKER.get())
 			.pattern("CLC")
@@ -172,7 +165,7 @@ class ModRecipeProvider(
 			.define('L', Tags.Items.GEMS_LAPIS)
 			.define('O', Items.CLOCK)
 			.unlockedBy("has_cell_analyzer", has(ModBlocks.CELL_ANALYZER.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.PLASMID.get())
 			.pattern("DDD")
@@ -180,7 +173,7 @@ class ModRecipeProvider(
 			.pattern("DDD")
 			.define('D', ModItems.DNA_HELIX.get())
 			.unlockedBy("has_plasmid_injector", has(ModBlocks.PLASMID_INJECTOR.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.PLASMID_INFUSER.get())
 			.pattern("III")
@@ -191,7 +184,7 @@ class ModRecipeProvider(
 			.define('P', Items.PISTON)
 			.define('D', Tags.Items.GEMS_DIAMOND)
 			.unlockedBy("has_dna_decryptor", has(ModBlocks.DNA_DECRYPTOR.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.PLASMID_INJECTOR.get())
 			.pattern("ISI")
@@ -201,7 +194,7 @@ class ModRecipeProvider(
 			.define('S', ModItems.SYRINGE.get())
 			.define('B', Items.BUCKET)
 			.unlockedBy("has_plasmid_infuser", has(ModBlocks.PLASMID_INFUSER.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.SCRAPER.get())
 			.pattern(" IS")
@@ -210,7 +203,7 @@ class ModRecipeProvider(
 			.define('I', Tags.Items.INGOTS_IRON)
 			.define('S', Items.STICK)
 			.unlockedBy("has_iron_ingot", has(Tags.Items.INGOTS_IRON))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.SYRINGE.get())
 			.pattern(" P ")
@@ -221,7 +214,7 @@ class ModRecipeProvider(
 			.define('B', Items.GLASS_BOTTLE)
 			.define('A', Items.ARROW)
 			.unlockedBy("has_scraper", has(ModItems.SCRAPER.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.METAL_SYRINGE.get())
 			.pattern("IOI")
@@ -232,9 +225,9 @@ class ModRecipeProvider(
 			.define('S', ModItems.SYRINGE.get())
 			.define('O', Tags.Items.OBSIDIANS)
 			.unlockedBy("has_syringe", has(ModItems.SYRINGE.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
-		modonomicon(pRecipeOutput)
+		modonomicon(recipeOutput)
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.GENE_CHECKER.get())
 			.pattern("III")
@@ -244,25 +237,25 @@ class ModRecipeProvider(
 			.define('G', Tags.Items.GLASS_BLOCKS)
 			.define('S', ModItemTagsProvider.Companion.SYRINGES)
 			.unlockedBy("has_scraper", has(ModItems.SCRAPER.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 
 	}
 
-	private fun modonomicon(pRecipeOutput: RecipeOutput) {
+	private fun modonomicon(recipeOutput: RecipeOutput) {
 		val bookStack = ItemRegistry.MODONOMICON.get().itemStack
 		val bookIdComponent = DataComponentRegistry.BOOK_ID.get()
 
-		bookStack.set(bookIdComponent, OtherUtil.modResource("guide"))
+		bookStack.set(bookIdComponent, GeneticsResequenced.modResource("guide"))
 
 		ShapedRecipeBuilder.shaped(RecipeCategory.MISC, bookStack)
 			.pattern("OB")
 			.define('O', ModItems.ORGANIC_MATTER)
 			.define('B', Items.BOOK)
 			.unlockedBy("has_scraper", has(ModItems.SCRAPER.get()))
-			.save(pRecipeOutput)
+			.save(recipeOutput)
 	}
 
-	private fun buildIncubatorRecipes(pRecipeOutput: RecipeOutput) {
+	private fun buildIncubatorRecipes(recipeOutput: RecipeOutput) {
 		BasicIncubatorRecipeBuilder(
 			DataComponentIngredient.of(
 				false,
@@ -271,7 +264,7 @@ class ModRecipeProvider(
 			DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.SUBSTRATE)),
 			OtherUtil.getPotionStack(ModPotions.CELL_GROWTH),
 			"cell_growth"
-		).save(pRecipeOutput)
+		).save(recipeOutput)
 
 		BasicIncubatorRecipeBuilder(
 			DataComponentIngredient.of(
@@ -281,7 +274,7 @@ class ModRecipeProvider(
 			DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
 			OtherUtil.getPotionStack(ModPotions.PANACEA),
 			"panacea"
-		).save(pRecipeOutput)
+		).save(recipeOutput)
 
 
 		BasicIncubatorRecipeBuilder(
@@ -292,38 +285,91 @@ class ModRecipeProvider(
 			DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
 			OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER),
 			"zombify_villager"
-		).save(pRecipeOutput)
+		).save(recipeOutput)
 
 		val gmoRecipes = listOf(
-			GmoRecipeBuilder(EntityType.BLAZE, Items.GLOWSTONE_DUST, ModGenes.BIOLUMINESCENCE, 0.85f)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.MAGMA_CUBE, Items.GLOWSTONE_DUST, ModGenes.BIOLUMINESCENCE, 0.85f)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.VILLAGER, Items.EMERALD, ModGenes.EMERALD_HEART, 0.85f)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.SHULKER, Items.EMERALD_BLOCK, ModGenes.KEEP_INVENTORY, 0.45f)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.RABBIT, Items.GOLDEN_BOOTS, ModGenes.SPEED, 0.65f)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.RABBIT, Items.EMERALD, ModGenes.LUCK, 0.75f)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.IRON_GOLEM, Items.GOLDEN_APPLE, ModGenes.REGENERATION, 0.3f)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.CHICKEN, Items.EGG, ModGenes.LAY_EGG, 1f)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.PIG, Items.PORKCHOP, ModGenes.MEATY, 1f)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.ENDERMAN, Items.ENDER_PEARL, ModGenes.TELEPORT, 0.45f)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.MORE_HEARTS, 0.2f)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
-			GmoRecipeBuilder(EntityType.MOOSHROOM, Items.MUSHROOM_STEM, ModGenes.PHOTOSYNTHESIS, 0.7f)
-				.unlockedBy("has_cell", has(ModItems.CELL.get()))
+			GmoRecipeBuilder(
+				EntityType.BLAZE,
+				Items.GLOWSTONE_DUST,
+				ModGenes.BIOLUMINESCENCE,
+				0.85f
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.MAGMA_CUBE,
+				Items.GLOWSTONE_DUST,
+				ModGenes.BIOLUMINESCENCE,
+				0.85f
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.VILLAGER,
+				Items.EMERALD,
+				ModGenes.EMERALD_HEART,
+				0.85f
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.SHULKER,
+				Items.EMERALD_BLOCK,
+				ModGenes.KEEP_INVENTORY,
+				0.45f
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.RABBIT,
+				Items.GOLDEN_BOOTS,
+				ModGenes.SPEED,
+				0.65f
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.RABBIT,
+				Items.EMERALD,
+				ModGenes.LUCK,
+				0.75f
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.IRON_GOLEM,
+				Items.GOLDEN_APPLE,
+				ModGenes.REGENERATION,
+				0.3f
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.CHICKEN,
+				Items.EGG,
+				ModGenes.LAY_EGG,
+				1f
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.PIG,
+				Items.PORKCHOP,
+				ModGenes.MEATY,
+				1f
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.ENDERMAN,
+				Items.ENDER_PEARL,
+				ModGenes.TELEPORT,
+				0.45f
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.ENDERMAN,
+				Items.GOLDEN_APPLE,
+				ModGenes.MORE_HEARTS,
+				0.2f
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.MOOSHROOM,
+				Items.MUSHROOM_STEM,
+				ModGenes.PHOTOSYNTHESIS,
+				0.7f
+			).unlockedBy("has_cell", has(ModItems.CELL.get()))
 		)
 
 		val mutationRecipes = listOf(
-			GmoRecipeBuilder(EntityType.ENDER_DRAGON, Items.ELYTRA, ModGenes.FLIGHT, 0.55f, isMutation = true)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.ENDER_DRAGON,
+				Items.ELYTRA,
+				ModGenes.FLIGHT,
+				0.55f,
+				isMutation = true
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
 			GmoRecipeBuilder(
 				EntityType.POLAR_BEAR,
@@ -341,17 +387,37 @@ class ModRecipeProvider(
 				isMutation = true
 			).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-			GmoRecipeBuilder(EntityType.POLAR_BEAR, Items.DIAMOND_SWORD, ModGenes.CLAWS_TWO, 0.75f, isMutation = true)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.POLAR_BEAR,
+				Items.DIAMOND_SWORD,
+				ModGenes.CLAWS_TWO,
+				0.75f,
+				isMutation = true
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-			GmoRecipeBuilder(EntityType.RABBIT, Items.DIAMOND_BOOTS, ModGenes.SPEED_TWO, 0.5f, isMutation = true)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.RABBIT,
+				Items.DIAMOND_BOOTS,
+				ModGenes.SPEED_TWO,
+				0.5f,
+				isMutation = true
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-			GmoRecipeBuilder(EntityType.OCELOT, Items.NETHERITE_BOOTS, ModGenes.SPEED_FOUR, 0.5f, isMutation = true)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.OCELOT,
+				Items.NETHERITE_BOOTS,
+				ModGenes.SPEED_FOUR,
+				0.5f,
+				isMutation = true
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-			GmoRecipeBuilder(EntityType.RABBIT, Items.NETHERITE_PICKAXE, ModGenes.HASTE_TWO, 0.35f, isMutation = true)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.RABBIT,
+				Items.NETHERITE_PICKAXE,
+				ModGenes.HASTE_TWO,
+				0.35f,
+				isMutation = true
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
 			GmoRecipeBuilder(
 				EntityType.SILVERFISH,
@@ -385,11 +451,21 @@ class ModRecipeProvider(
 				isMutation = true
 			).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-			GmoRecipeBuilder(EntityType.PIG, Items.BLAZE_POWDER, ModGenes.MEATY_TWO, 0.75f, isMutation = true)
-				.unlockedBy("has_cell", has(ModItems.CELL.get())),
+			GmoRecipeBuilder(
+				EntityType.PIG,
+				Items.BLAZE_POWDER,
+				ModGenes.MEATY_TWO,
+				0.75f,
+				isMutation = true
+			).unlockedBy("has_cell", has(ModItems.CELL.get())),
 
-			GmoRecipeBuilder(EntityType.ENDERMAN, Items.GOLDEN_APPLE, ModGenes.MORE_HEARTS_TWO, 0.25f, true)
-				.unlockedBy("has_cell", has(ModItems.CELL.get()))
+			GmoRecipeBuilder(
+				EntityType.ENDERMAN,
+				Items.GOLDEN_APPLE,
+				ModGenes.MORE_HEARTS_TWO,
+				0.25f,
+				true
+			).unlockedBy("has_cell", has(ModItems.CELL.get()))
 		)
 
 		val setPotionEntity =
@@ -436,20 +512,20 @@ class ModRecipeProvider(
 		)
 
 		for (recipe in gmoRecipes) {
-			recipe.save(pRecipeOutput)
+			recipe.save(recipeOutput)
 		}
 
 		for (recipe in mutationRecipes) {
-			recipe.save(pRecipeOutput)
+			recipe.save(recipeOutput)
 		}
 
-		setPotionEntity.save(pRecipeOutput)
-		blackDeath.save(pRecipeOutput)
-		dupeCell.save(pRecipeOutput)
-		dupeGmoCell.save(pRecipeOutput)
+		setPotionEntity.save(recipeOutput)
+		blackDeath.save(recipeOutput)
+		dupeCell.save(recipeOutput)
+		dupeGmoCell.save(recipeOutput)
 
 		for (recipe in virusRecipes) {
-			recipe.save(pRecipeOutput)
+			recipe.save(recipeOutput)
 		}
 	}
 

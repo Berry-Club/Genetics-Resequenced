@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client
 
 import dev.aaronhowser.mods.aaron.packet.AaronPacket
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import io.netty.buffer.ByteBuf
@@ -23,7 +24,7 @@ data class NarratorPacket(
 
 	companion object {
 		val TYPE: CustomPacketPayload.Type<NarratorPacket> =
-			CustomPacketPayload.Type(OtherUtil.modResource("narrator"))
+			CustomPacketPayload.Type(GeneticsResequenced.modResource("narrator"))
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, NarratorPacket> =
 			ByteBufCodecs.STRING_UTF8.map(::NarratorPacket, NarratorPacket::message)

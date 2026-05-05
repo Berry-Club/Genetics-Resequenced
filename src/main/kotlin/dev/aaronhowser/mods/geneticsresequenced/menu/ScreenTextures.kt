@@ -2,13 +2,14 @@ package dev.aaronhowser.mods.geneticsresequenced.menu
 
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenSprite
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 
 object ScreenTextures {
 
 	object Backgrounds {
 		private fun background(path: String, width: Int, height: Int): ScreenBackground =
-			ScreenBackground(OtherUtil.modResource(path), width, height)
+			ScreenBackground(GeneticsResequenced.modResource(path), width, height)
 
 		val BASIC = background("textures/gui/container/basic_machine_bg.png", 176, 172)
 		val CELL_ANALYZER = background("textures/gui/container/cell_analyzer.png", 176, 172)
@@ -23,7 +24,7 @@ object ScreenTextures {
 
 	object Sprites {
 		fun sprite(path: String, width: Int, height: Int): ScreenSprite =
-			ScreenSprite(OtherUtil.modResource(path), width, height)
+			ScreenSprite(GeneticsResequenced.modResource(path), width, height)
 
 		val ARROW_DOWN = sprite("textures/gui/sprite/arrow_down.png", 9, 28)
 		val ARROW_RIGHT = sprite("textures/gui/sprite/arrow_right.png", 24, 17)

@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModRecipeLang
@@ -78,7 +79,7 @@ class PlasmidInfuserEmiRecipe(
 		val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 		val basicString = if (basic) "/basic" else ""
 
-		return OtherUtil.modResource("/plasmid_infuser/$geneString$basicString")
+		return GeneticsResequenced.modResource("/plasmid_infuser/$geneString$basicString")
 	}
 
 	override fun getInputs(): List<EmiIngredient> {

@@ -23,7 +23,7 @@ class ModItemTagsProvider(
 
 	companion object {
 		private fun create(id: String): TagKey<Item> {
-			return ItemTags.create(OtherUtil.modResource(id))
+			return ItemTags.create(GeneticsResequenced.modResource(id))
 		}
 
 		val SYRINGES: TagKey<Item> = create("syringes")

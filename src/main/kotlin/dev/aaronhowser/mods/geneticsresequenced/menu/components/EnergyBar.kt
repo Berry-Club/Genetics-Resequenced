@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -67,7 +68,7 @@ class EnergyBar(
 		const val WIDTH = 18
 		const val HEIGHT = 57
 		const val TEXTURE_SIZE = 64
-		val TEXTURE = OtherUtil.modResource("energy")
+		val TEXTURE = GeneticsResequenced.modResource("energy")
 	}
 
 }

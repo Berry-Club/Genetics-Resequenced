@@ -38,37 +38,37 @@ class ModItemModelProvider(
 	private fun syringe() {
 		val item = ModItems.SYRINGE.get()
 
-		val emptyFlipped = getBuilder(OtherUtil.modResource("syringe_flipped_empty").toString())
+		val emptyFlipped = getBuilder(GeneticsResequenced.modResource("syringe_flipped_empty").toString())
 			.parent(ModelFile.UncheckedModelFile("item/generated"))
-			.texture("layer0", OtherUtil.modResource("item/glass_syringe_flipped"))
+			.texture("layer0", GeneticsResequenced.modResource("item/glass_syringe_flipped"))
 
-		val full = getBuilder(OtherUtil.modResource("syringe_full").toString())
+		val full = getBuilder(GeneticsResequenced.modResource("syringe_full").toString())
 			.parent(ModelFile.UncheckedModelFile("item/generated"))
-			.texture("layer0", OtherUtil.modResource("item/glass_syringe_full"))
+			.texture("layer0", GeneticsResequenced.modResource("item/glass_syringe_full"))
 
-		val fullFlipped = getBuilder(OtherUtil.modResource("syringe_full_flipped").toString())
+		val fullFlipped = getBuilder(GeneticsResequenced.modResource("syringe_full_flipped").toString())
 			.parent(ModelFile.UncheckedModelFile("item/generated"))
-			.texture("layer0", OtherUtil.modResource("item/glass_syringe_full_flipped"))
+			.texture("layer0", GeneticsResequenced.modResource("item/glass_syringe_full_flipped"))
 
 		getBuilder(BuiltInRegistries.ITEM.getKey(item).toString())
 			.parent(ModelFile.UncheckedModelFile("item/generated"))
-			.texture("layer0", OtherUtil.modResource("item/glass_syringe_empty"))
+			.texture("layer0", GeneticsResequenced.modResource("item/glass_syringe_empty"))
 
 			.override()
-			.predicate(OtherUtil.modResource("injecting"), 1f)
-			.predicate(OtherUtil.modResource("full"), 0f)
+			.predicate(GeneticsResequenced.modResource("injecting"), 1f)
+			.predicate(GeneticsResequenced.modResource("full"), 0f)
 			.model(emptyFlipped)
 			.end()
 
 			.override()
-			.predicate(OtherUtil.modResource("injecting"), 0f)
-			.predicate(OtherUtil.modResource("full"), 1f)
+			.predicate(GeneticsResequenced.modResource("injecting"), 0f)
+			.predicate(GeneticsResequenced.modResource("full"), 1f)
 			.model(full)
 			.end()
 
 			.override()
-			.predicate(OtherUtil.modResource("injecting"), 1f)
-			.predicate(OtherUtil.modResource("full"), 1f)
+			.predicate(GeneticsResequenced.modResource("injecting"), 1f)
+			.predicate(GeneticsResequenced.modResource("full"), 1f)
 			.model(fullFlipped)
 			.end()
 	}
@@ -76,16 +76,16 @@ class ModItemModelProvider(
 	private fun metalSyringe() {
 		val item = ModItems.METAL_SYRINGE.get()
 
-		val full = getBuilder(OtherUtil.modResource("metal_syringe_full").toString())
+		val full = getBuilder(GeneticsResequenced.modResource("metal_syringe_full").toString())
 			.parent(ModelFile.UncheckedModelFile("item/generated"))
-			.texture("layer0", OtherUtil.modResource("item/metal_syringe_full"))
+			.texture("layer0", GeneticsResequenced.modResource("item/metal_syringe_full"))
 
 		getBuilder(BuiltInRegistries.ITEM.getKey(item).toString())
 			.parent(ModelFile.UncheckedModelFile("item/generated"))
-			.texture("layer0", OtherUtil.modResource("item/metal_syringe_empty"))
+			.texture("layer0", GeneticsResequenced.modResource("item/metal_syringe_empty"))
 
 			.override()
-			.predicate(OtherUtil.modResource("full"), 1f)
+			.predicate(GeneticsResequenced.modResource("full"), 1f)
 			.model(full)
 			.end()
 	}

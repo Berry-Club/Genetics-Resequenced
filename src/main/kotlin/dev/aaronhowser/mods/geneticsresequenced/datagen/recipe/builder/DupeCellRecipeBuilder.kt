@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.DupeCellRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -34,7 +35,7 @@ class DupeCellRecipeBuilder(
 	}
 
 	override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
-		val id = OtherUtil.modResource("incubator/$name")
+		val id = GeneticsResequenced.modResource("incubator/$name")
 
 		val advancement = output.advancement()
 			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))

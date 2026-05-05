@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -32,7 +33,7 @@ object AntiPlasmidEmiRecipes {
 				EmiCraftingRecipe(
 					listOf(emptyAntiPlasmid, EmiIngredient.of(Ingredient.of(plasmidStack))),
 					EmiStack.of(setAntiPlasmid),
-					OtherUtil.modResource("/set_anti_plasmid/${geneString}"),
+					GeneticsResequenced.modResource("/set_anti_plasmid/${geneString}"),
 					true
 				)
 			)
@@ -53,7 +54,7 @@ object AntiPlasmidEmiRecipes {
 				EmiCraftingRecipe(
 					listOf(EmiIngredient.of(Ingredient.of(antiPlasmidStack))),
 					EmiStack.of(ModItems.ANTI_PLASMID),
-					OtherUtil.modResource("/unset_anti_plasmid/${geneString}"),
+					GeneticsResequenced.modResource("/unset_anti_plasmid/${geneString}"),
 					true
 				)
 			)

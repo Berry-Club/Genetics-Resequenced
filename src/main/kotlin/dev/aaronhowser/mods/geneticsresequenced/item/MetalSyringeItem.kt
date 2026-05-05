@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModItemLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
@@ -69,7 +70,7 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 	}
 
 	companion object {
-		val SYRINGE_REACH_MODIFIER_RL = OtherUtil.modResource("syringe_reach_modifier")
+		val SYRINGE_REACH_MODIFIER_RL = GeneticsResequenced.modResource("syringe_reach_modifier")
 
 		val DEFAULT_PROPERTIES: Properties = Properties()
 			.stacksTo(1)
