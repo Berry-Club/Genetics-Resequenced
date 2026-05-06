@@ -5,12 +5,12 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModItemLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.CreativeModeTab
+import net.minecraft.world.item.Item
 import net.neoforged.neoforge.registries.DeferredHolder
-import net.neoforged.neoforge.registries.DeferredItem
 import net.neoforged.neoforge.registries.DeferredRegister
 import java.util.function.Supplier
 
@@ -24,19 +24,44 @@ object ModCreativeModeTabs {
 			.title(ModItemLang.CREATIVE_TAB.toComponent())
 			.icon { ModItems.SYRINGE.toStack() }
 			.displayItems { displayContext: CreativeModeTab.ItemDisplayParameters, output: CreativeModeTab.Output ->
-				val regularItems =
-					ModItems.ITEM_REGISTRY.entries - ModItems.DNA_HELIX - ModItems.ORGANIC_MATTER - ModItems.CELL
+				val regularItems = mutableListOf<Item>()
+				val blockItems = mutableListOf<Item>()
 
-				val itemsToDisplay = buildList {
-					addAll(regularItems.map { (it as DeferredItem).toStack() })
+				for (deferred in ModItems.ITEM_REGISTRY.entries) {
+					val item = deferred.get()
 
-					add(EntityDnaItem.getOrganicStack(EntityType.PIG))
-					add(EntityDnaItem.getCell(EntityType.PIG))
-					addAll(DnaHelixItem.getAllHelices(displayContext.holders))
-					addAll(PlasmidItem.getAllPlasmids(displayContext.holders))
+					if (item is BlockItem) {
+						blockItems.add(item)
+					} else {
+						regularItems.add(item)
+					}
 				}
 
-				output.acceptAll(itemsToDisplay)
+				for (item in regularItems) {
+					when (item) {
+						ModItems.ORGANIC_MATTER.get() -> {
+							output.accept(EntityDnaItem.getOrganicStack(EntityType.PIG))
+							continue
+						}
+
+						ModItems.CELL.get() -> {
+							output.accept(EntityDnaItem.getCell(EntityType.PIG))
+							continue
+						}
+
+						ModItems.DNA_HELIX.get() -> {
+							continue
+						}
+					}
+
+					output.accept(item)
+				}
+
+				for (blockItem in blockItems) {
+					output.accept(blockItem)
+				}
+
+				output.acceptAll(DnaHelixItem.getAllHelices(displayContext.holders))
 			}
 			.build()
 	})

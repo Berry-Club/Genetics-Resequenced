@@ -2,8 +2,10 @@
 
 ### Changes
 
+- NEW TEXTURES!!!!!!!!! Courtesy of Rid of the Enigmatica team
 - Various improvements to the code
 - Damage Types have been moved to datagen
+- Rearranged the creative menu
 
 # 1.12.3
 
