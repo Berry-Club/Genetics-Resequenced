@@ -22,9 +22,13 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty
 import net.minecraft.world.level.material.MapColor
 import net.minecraft.world.phys.BlockHitResult
 
-abstract class MachineBlock(
-	properties: Properties = DEFAULT_PROPERTIES
-) : Block(properties), EntityBlock {
+abstract class MachineBlock : Block(
+	Properties.of()
+		.mapColor(MapColor.METAL)
+		.requiresCorrectToolForDrops()
+		.strength(5f, 6f)
+		.sound(SoundType.METAL)
+), EntityBlock {
 
 	init {
 		registerDefaultState(
@@ -37,9 +41,9 @@ abstract class MachineBlock(
 		builder.add(H_FACING)
 	}
 
-	override fun getStateForPlacement(pContext: BlockPlaceContext): BlockState? {
+	override fun getStateForPlacement(context: BlockPlaceContext): BlockState {
 		return defaultBlockState()
-			.setValue(H_FACING, pContext.horizontalDirection.opposite)
+			.setValue(H_FACING, context.horizontalDirection.opposite)
 	}
 
 	override fun useWithoutItem(
@@ -80,12 +84,6 @@ abstract class MachineBlock(
 
 	companion object {
 		val H_FACING: DirectionProperty = BlockStateProperties.HORIZONTAL_FACING
-
-		val DEFAULT_PROPERTIES: Properties = Properties.of()
-			.mapColor(MapColor.METAL)
-			.requiresCorrectToolForDrops()
-			.strength(5f, 6f)
-			.sound(SoundType.METAL)
 	}
 
 }
