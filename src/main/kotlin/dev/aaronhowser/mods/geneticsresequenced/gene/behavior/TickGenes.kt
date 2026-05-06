@@ -126,7 +126,7 @@ object TickGenes {
 
 		when {
 			geneHolder.isGene(ModGenes.GREEN_DEATH) -> {
-				if (entity is Creeper) return
+				if (entity !is Creeper) return
 			}
 
 			geneHolder.isGene(ModGenes.UN_UNDEATH) -> {
@@ -134,7 +134,11 @@ object TickGenes {
 			}
 
 			geneHolder.isGene(ModGenes.GRAY_DEATH) -> {
-				if (entity !is AgeableMob && entity !is Zombie && entity !is Piglin) return
+				if (
+					entity !is AgeableMob
+					&& entity !is Zombie
+					&& entity !is Piglin
+				) return
 			}
 
 			geneHolder.isGene(ModGenes.WHITE_DEATH) -> {
