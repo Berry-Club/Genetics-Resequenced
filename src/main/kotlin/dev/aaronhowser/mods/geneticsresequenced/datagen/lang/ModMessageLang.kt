@@ -47,9 +47,9 @@ object ModMessageLang {
 			add(DEATH_SYRINGE_PICKUP, "%s stepped on a loose Syringe")
 			add(BLEED_DEATH, "%s bled out!")
 			add(VIRUS_DEATH, "%s succumbed to a Virus!")
-			add(COOLDOWN_STARTED, "%s triggered! Cooldown started: %s")
+			add(COOLDOWN_STARTED, "%s went on cooldown for %s seconds")
 			add(COOLDOWN_ENDED, "%s has come off cooldown!")
-			add(ALREADY_ON_COOLDOWN, "%s is on cooldown!")
+			add(ALREADY_ON_COOLDOWN, "%s will be on cooldown for %s")
 		}
 	}
 

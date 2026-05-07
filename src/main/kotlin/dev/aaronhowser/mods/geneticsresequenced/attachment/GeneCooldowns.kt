@@ -161,7 +161,9 @@ class GeneCooldowns(
 		fun notifyStart(entity: LivingEntity) {
 			if (!actuallyNotify || entity !is Player) return
 
-			val message = ModMessageLang.COOLDOWN_STARTED.toComponent(geneHolder.getName(), duration)
+			val totalSeconds = duration / 20
+
+			val message = ModMessageLang.COOLDOWN_STARTED.toComponent(geneHolder.getName(), totalSeconds)
 			entity.status(message)
 		}
 
