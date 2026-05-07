@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.chance
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
@@ -23,8 +24,6 @@ import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.animal.Cow
-import net.minecraft.world.entity.animal.MushroomCow
-import net.minecraft.world.entity.animal.Sheep
 import net.minecraft.world.entity.animal.goat.Goat
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
@@ -47,17 +46,12 @@ object ClickGenes {
 		val clicker = event.entity
 
 		val level = target.level()
-
 		if (level.isClientSide) return
-
-		when (target) {
-			is Sheep, is MushroomCow -> return
-		}
-
-		if (!target.hasGene(ModGenes.WOOLY)) return
 
 		val clickedWithShears = event.itemStack.isItem(Tags.Items.TOOLS_SHEAR)
 		if (!clickedWithShears) return
+
+		if (!target.hasGene(ModGenes.WOOLY)) return
 
 		val newlySheared = GeneCooldowns.addCooldown(
 			target,
@@ -70,14 +64,12 @@ object ClickGenes {
 			return
 		}
 
-		val woolItemStack = ItemStack(Blocks.WHITE_WOOL)
-
 		val woolEntity = ItemEntity(
 			level,
 			target.eyePosition.x,
 			target.eyePosition.y,
 			target.eyePosition.z,
-			woolItemStack
+			Blocks.WHITE_WOOL.getDefaultInstance()
 		)
 
 		level.addFreshEntity(woolEntity)
