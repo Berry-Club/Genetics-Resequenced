@@ -2,14 +2,19 @@ package dev.aaronhowser.mods.geneticsresequenced.attachment
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import net.minecraft.core.Holder
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
-import net.minecraft.world.entity.player.Player
+import net.minecraft.world.entity.LivingEntity
 
 class GeneCooldowns(
 	val cooldowns: List<Entry>
@@ -26,32 +31,49 @@ class GeneCooldowns(
 			Entry.STREAM_CODEC.apply(ByteBufCodecs.list())
 				.map(::GeneCooldowns, GeneCooldowns::cooldowns)
 
-		var Player.geneCooldowns: GeneCooldowns
+		var LivingEntity.geneCooldowns: GeneCooldowns
 			get() = this.getData(ModAttachmentTypes.GENE_COOLDOWNS)
 			set(value) {
 				this.setData(ModAttachmentTypes.GENE_COOLDOWNS, value)
 			}
 
-		fun tick(player: Player) {
-			val cooldowns = player.geneCooldowns.cooldowns
+		fun addCooldown(
+			entity: LivingEntity,
+			gene: Holder<Gene>,
+			duration: Int,
+			notify: Boolean = true
+		) {
 
-			cooldowns.forEach(Entry::tick)
-			val completed = cooldowns.filter(Entry::isCompleted)
+		}
+
+		fun tick(entity: LivingEntity) {
+			if (entity.isClientSide) return
+
+			val cooldowns = entity.geneCooldowns.cooldowns
+			val completed = mutableListOf<Entry>()
+			for (entry in cooldowns) {
+				entry.tick()
+
+				if (entry.isCompleted()) {
+					completed.add(entry)
+					entry.notifyEnd(entity)
+				}
+			}
 
 			if (completed.isNotEmpty()) {
 				val newCooldowns = cooldowns - completed.toSet()
-				player.geneCooldowns = GeneCooldowns(newCooldowns)
+				entity.geneCooldowns = GeneCooldowns(newCooldowns)
 			}
 
 		}
 	}
 
 	class Entry(
-		val gene: Holder<Gene>,
+		val geneHolder: Holder<Gene>,
 		val cooldownDuration: Int,
-		notifyPlayer: Boolean = true
+		notify: Boolean = true
 	) {
-		val actuallyNotify = notifyPlayer && cooldownDuration >= ServerConfig.CONFIG.minimumCooldownForNotification.get()
+		val actuallyNotify = notify && cooldownDuration >= ServerConfig.CONFIG.minimumCooldownForNotification.get()
 
 		// Not persistent but like whatever, cooldowns probably won't ever be THAT long
 		private var ticks = 0
@@ -63,6 +85,21 @@ class GeneCooldowns(
 		}
 
 		fun isCompleted(): Boolean = ticks >= cooldownDuration
+		fun remainingTicks(): Int = (cooldownDuration - ticks)
+
+		fun notifyStart(entity: LivingEntity) {
+			if (!actuallyNotify) return
+
+			val message = ModMessageLang.COOLDOWN_STARTED.toComponent(geneHolder.getName(), cooldownDuration)
+			entity.tell(message)
+		}
+
+		fun notifyEnd(entity: LivingEntity) {
+			if (!actuallyNotify) return
+
+			val message = ModMessageLang.COOLDOWN_ENDED.toComponent(geneHolder.getName())
+			entity.tell(message)
+		}
 
 		companion object {
 			val CODEC: Codec<Entry> =
@@ -70,7 +107,7 @@ class GeneCooldowns(
 					instance.group(
 						Gene.CODEC
 							.fieldOf("gene")
-							.forGetter(Entry::gene),
+							.forGetter(Entry::geneHolder),
 						Codec.INT
 							.fieldOf("duration")
 							.forGetter(Entry::cooldownDuration),
@@ -82,7 +119,7 @@ class GeneCooldowns(
 
 			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, Entry> =
 				StreamCodec.composite(
-					Gene.STREAM_CODEC, Entry::gene,
+					Gene.STREAM_CODEC, Entry::geneHolder,
 					ByteBufCodecs.INT, Entry::cooldownDuration,
 					ByteBufCodecs.BOOL, Entry::actuallyNotify,
 					::Entry

@@ -76,10 +76,6 @@ class ModLanguageProvider(
 		add(Commands.REMOVE_ALL_SINGLE, "Removed all Genes from %s!")
 		add(Commands.REMOVE_ALL_MULTIPLE, "Removed all Genes from %d entities!")
 
-		add(Cooldown.STARTED, " triggered! Cooldown started: %s")
-		add(Cooldown.ENDED, "%s has come off cooldown!")
-		add(Cooldown.ON_COOLDOWN, "%s is on cooldown!")
-
 		add(Keys.CATEGORY, "Genetics: Resequenced")
 		add(Keys.DRAGONS_BREATH, "Dragon's Breath")
 		add(Keys.TELEPORT, "Teleport")
@@ -114,12 +110,6 @@ class ModLanguageProvider(
 		const val REMOVE_SINGLE_FAIL = "command.geneticsresequenced.remove_gene.single_target.fail"
 		const val REMOVE_ALL_SINGLE = "command.geneticsresequenced.remove_all.single_target"
 		const val REMOVE_ALL_MULTIPLE = "command.geneticsresequenced.remove_all.multiple_targets"
-	}
-
-	object Cooldown {
-		const val STARTED = "cooldown.geneticsresequenced.started"
-		const val ENDED = "cooldown.geneticsresequenced.ended"
-		const val ON_COOLDOWN = "cooldown.geneticsresequenced.on_cooldown"
 	}
 
 	object Other {

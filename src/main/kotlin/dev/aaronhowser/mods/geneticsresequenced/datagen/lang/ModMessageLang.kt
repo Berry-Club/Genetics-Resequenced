@@ -47,6 +47,9 @@ object ModMessageLang {
 			add(DEATH_SYRINGE_PICKUP, "%s stepped on a loose Syringe")
 			add(BLEED_DEATH, "%s bled out!")
 			add(VIRUS_DEATH, "%s succumbed to a Virus!")
+			add(COOLDOWN_STARTED, "%s triggered! Cooldown started: %s")
+			add(COOLDOWN_ENDED, "%s has come off cooldown!")
+			add(ALREADY_ON_COOLDOWN, "%s is on cooldown!")
 		}
 	}
 
@@ -95,5 +98,8 @@ object ModMessageLang {
 	const val GENE_WEIGHT = "message.geneticsresequenced.gene_weight"
 	const val ADVANCED_INCUBATOR_HIGH_TEMP = "message.geneticsresequenced.advanced_incubator.high_temperature"
 	const val ADVANCED_INCUBATOR_LOW_TEMP = "message.geneticsresequenced.advanced_incubator.low_temperature"
+	const val COOLDOWN_STARTED = "message.geneticsresequenced.cooldown_started"
+	const val COOLDOWN_ENDED = "message.geneticsresequenced.cooldown_ended"
+	const val ALREADY_ON_COOLDOWN = "message.geneticsresequenced.already_on_cooldown"
 
 }
