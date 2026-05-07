@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
@@ -42,6 +43,16 @@ object ModAttachmentTypes {
 				.builder(::KeptInventory)
 				.serialize(KeptInventory.CODEC)
 				.copyOnDeath()
+				.build()
+		)
+
+	val GENE_COOLDOWNS =
+		register(
+			"gene_cooldowns",
+			AttachmentType
+				.builder(::GeneCooldowns)
+				.serialize(GeneCooldowns.CODEC)
+				.sync(GeneCooldowns.STREAM_CODEC)
 				.build()
 		)
 
