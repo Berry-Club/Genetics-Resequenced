@@ -4,6 +4,7 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import net.minecraft.core.Holder
 import net.minecraft.network.RegistryFriendlyByteBuf
@@ -16,6 +17,10 @@ class GeneCooldowns(
 ) {
 
 	constructor() : this(emptyList())
+
+	fun isOnCooldown(gene: Holder<Gene>): Boolean {
+		return cooldowns.any { it.gene.isGene(gene) }
+	}
 
 	companion object {
 		val CODEC: Codec<GeneCooldowns> =
@@ -45,8 +50,6 @@ class GeneCooldowns(
 		fun tick() {
 			if (ticks < cooldownDuration) {
 				ticks++
-			} else {
-
 			}
 		}
 
