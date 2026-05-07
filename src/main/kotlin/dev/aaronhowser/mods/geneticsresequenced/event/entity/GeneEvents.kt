@@ -11,10 +11,14 @@ import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneCooldownEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.GeneChangedPacket
+import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.Style
@@ -98,6 +102,16 @@ object GeneEvents {
 
 		val packet = GeneChangedPacket(entity.id, changedGene, wasAdded)
 		packet.messageAllPlayers()
+	}
+
+	@SubscribeEvent
+	fun onCooldownEnded(event: GeneCooldownEvent.Remove) {
+		val (entity, geneHolder) = event
+
+		if (entity is ServerPlayer && geneHolder.isGene(ModGenes.WOOLY)) {
+			val packet = ShearedPacket(removingSkin = false)
+			packet.messagePlayer(entity)
+		}
 	}
 
 }
