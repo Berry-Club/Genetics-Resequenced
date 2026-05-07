@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.blood_purifier
 
-import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.menu.CraftingMachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes

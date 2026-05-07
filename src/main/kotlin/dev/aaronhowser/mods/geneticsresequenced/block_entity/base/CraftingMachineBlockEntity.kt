@@ -1,7 +1,8 @@
-package dev.aaronhowser.mods.geneticsresequenced.block.base
+package dev.aaronhowser.mods.geneticsresequenced.block_entity.base
 
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
-import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
+import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlock
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.CraftingContainerData
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -108,7 +109,7 @@ abstract class CraftingMachineBlockEntity(
 	}
 
 	override fun getItemHandler(direction: Direction?): IItemHandler? {
-		val blockFacing = this.blockState.getValue(MachineBlock.H_FACING)
+		val blockFacing = this.blockState.getValue(MachineBlock.Companion.H_FACING)
 
 		return when (direction) {
 			blockFacing.opposite -> overclockHandler

@@ -1,9 +1,8 @@
-package dev.aaronhowser.mods.geneticsresequenced.block.base
+package dev.aaronhowser.mods.geneticsresequenced.block_entity.base
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
-import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity.Companion.OUTPUT_SLOT_INDEX
-import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.EnergyContainerData
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.EnergyContainerData
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
@@ -54,7 +53,7 @@ abstract class MachineBlockEntity(
 	protected open val itemHandler: IItemHandlerModifiable by lazy {
 		object : InvWrapper(container) {
 			override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
-				return if (slot == OUTPUT_SLOT_INDEX) {
+				return if (slot == CraftingMachineBlockEntity.Companion.OUTPUT_SLOT_INDEX) {
 					false
 				} else {
 					super.isItemValid(slot, stack)

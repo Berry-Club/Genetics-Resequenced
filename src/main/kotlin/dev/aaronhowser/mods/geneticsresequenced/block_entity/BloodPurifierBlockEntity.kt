@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block_entity
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
-import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.menu.blood_purifier.BloodPurifierMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes

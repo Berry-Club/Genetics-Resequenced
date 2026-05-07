@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.block.base.container_data
+package dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data
 
 import net.minecraft.world.inventory.ContainerData
 import net.neoforged.neoforge.energy.EnergyStorage
