@@ -1,10 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.block.base
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
+import dev.aaronhowser.mods.aaron.block.SimpleContainerBlock
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.MachineBlockEntity
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.world.Containers
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.entity.player.Player
@@ -23,7 +22,7 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty
 import net.minecraft.world.level.material.MapColor
 import net.minecraft.world.phys.BlockHitResult
 
-abstract class MachineBlock : Block(
+abstract class MachineBlock : SimpleContainerBlock(
 	Properties.of()
 		.mapColor(MapColor.METAL)
 		.requiresCorrectToolForDrops()
@@ -64,23 +63,16 @@ abstract class MachineBlock : Block(
 		return InteractionResult.PASS
 	}
 
-	override fun <T : BlockEntity?> getTicker(level: Level, state: BlockState, blockEntityType: BlockEntityType<T>): BlockEntityTicker<T> {
+	override fun <T : BlockEntity> getTicker(
+		level: Level,
+		state: BlockState,
+		blockEntityType: BlockEntityType<T>
+	): BlockEntityTicker<T> {
 		return BlockEntityTicker { l, p, s, be ->
 			if (be is MachineBlockEntity) {
 				MachineBlockEntity.tick(l, p, s, be)
 			}
 		}
-	}
-
-	override fun onRemove(state: BlockState, level: Level, pos: BlockPos, newState: BlockState, movedByPiston: Boolean) {
-		if (!state.isBlock(newState.block)) {
-			val blockEntity = level.getBlockEntity(pos)
-			if (blockEntity is MachineBlockEntity) {
-				Containers.dropContents(level, pos, blockEntity.container)
-			}
-		}
-
-		super.onRemove(state, level, pos, newState, movedByPiston)
 	}
 
 	companion object {

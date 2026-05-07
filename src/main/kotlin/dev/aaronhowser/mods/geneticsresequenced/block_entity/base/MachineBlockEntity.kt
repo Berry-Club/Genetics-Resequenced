@@ -1,7 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_entity.base
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.aaron.container.ContainerContainer
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.EnergyContainerData
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
@@ -12,6 +13,7 @@ import net.minecraft.network.chat.Component
 import net.minecraft.network.protocol.Packet
 import net.minecraft.network.protocol.game.ClientGamePacketListener
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket
+import net.minecraft.world.Container
 import net.minecraft.world.ContainerHelper
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.inventory.ContainerData
@@ -34,7 +36,7 @@ abstract class MachineBlockEntity(
 	blockEntityType,
 	pos,
 	blockState
-), MenuProvider {
+), MenuProvider, ContainerContainer {
 
 	abstract val maxEnergy: Int
 	abstract val energyTransferRate: Int
@@ -50,7 +52,12 @@ abstract class MachineBlockEntity(
 	protected open val containerData: ContainerData by lazy { EnergyContainerData(energyStorage) }
 
 	open val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, 0)
-	protected open val itemHandler: IItemHandlerModifiable by lazy {
+
+	override fun getContainers(): List<Container> {
+		return listOf(container)
+	}
+
+	protected val itemHandler: IItemHandlerModifiable by lazy {
 		object : InvWrapper(container) {
 			override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
 				return if (slot == CraftingMachineBlockEntity.Companion.OUTPUT_SLOT_INDEX) {
