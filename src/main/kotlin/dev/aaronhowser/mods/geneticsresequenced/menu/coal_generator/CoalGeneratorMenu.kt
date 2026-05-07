@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator
 
 import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
-import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.CoalGeneratorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.CoalGeneratorBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.menu.MachineMenu

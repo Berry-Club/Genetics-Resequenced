@@ -2,7 +2,15 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.aaron.registry.AaronBlockEntityTypeRegistry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.block.block_entity.*
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.AdvancedIncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.BloodPurifierBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.CellAnalyzerBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.CoalGeneratorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.DnaDecryptorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.DnaExtractorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.IncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.PlasmidInfuserBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.PlasmidInjectorBlockEntity
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.neoforged.neoforge.registries.DeferredHolder

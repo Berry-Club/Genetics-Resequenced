@@ -1,4 +1,4 @@
-package dev.aaronhowser.mods.geneticsresequenced.block.block_entity
+package dev.aaronhowser.mods.geneticsresequenced.block_entity
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
