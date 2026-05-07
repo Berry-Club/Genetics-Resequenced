@@ -6,6 +6,10 @@
 - Various improvements to the code
 - Damage Types have been moved to datagen
 - Rearranged the creative menu
+- Complete overhaul of Gene cooldowns, because they were awful
+	- Previously they were a really gross static list
+	- Now they're an entity attachment
+	- Also added two new events: GeneCooldownEvent.Add and GeneCooldownEvent.Remove
 
 # 1.12.3
 
