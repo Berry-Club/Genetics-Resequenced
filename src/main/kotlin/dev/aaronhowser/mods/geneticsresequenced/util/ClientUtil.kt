@@ -13,7 +13,6 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
-import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -53,10 +52,6 @@ object ClientUtil {
 		this.removedSkinLayers = enabledModelParts
 
 		GeneticsResequenced.LOGGER.info("Sheared layers off player skin: ${this.removedSkinLayers.joinToString(", ")}")
-
-		val addLayersBackTask = { addSkinLayersBack() }
-
-		ClickGenes.RECENTLY_SHEARED_ENTITIES.cooldownEndedTasks.add(addLayersBackTask)
 	}
 
 	fun addSkinLayersBack() {
