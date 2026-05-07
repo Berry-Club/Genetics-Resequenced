@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.clearSavedInventory
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.getSavedInventory
@@ -10,7 +11,6 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.curios.KeepCurioIn
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
-import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.server.level.ServerPlayer
@@ -67,11 +67,6 @@ object DeathGenes {
 		player.clearSavedInventory()
 	}
 
-	private val EMERALD_HEART_COOLDOWN = GeneCooldown(
-		ModGenes.EMERALD_HEART,
-		ServerConfig.CONFIG.emeraldHeartCooldown.get()
-	)
-
 	fun handleEmeraldHeart(event: LivingDeathEvent) {
 		val entity = event.entity
 		if (!entity.hasGene(ModGenes.EMERALD_HEART)) return
@@ -82,8 +77,13 @@ object DeathGenes {
 			return
 		}
 
-		val wasNotOnCooldown = EMERALD_HEART_COOLDOWN.add(entity)
-		if (!wasNotOnCooldown) return
+		val putOnCooldown = GeneCooldowns.addCooldown(
+			entity,
+			ModGenes.EMERALD_HEART,
+			ServerConfig.CONFIG.emeraldHeartCooldown.get()
+		)
+
+		if (!putOnCooldown) return
 
 		entity.inventory.add(ItemStack(Items.EMERALD, 1))
 	}
@@ -143,19 +143,19 @@ object DeathGenes {
 		event.affectedBlocks.clear()
 	}
 
-	private val SLIMY_DEATH_COOLDOWN = GeneCooldown(
-		ModGenes.SLIMY_DEATH,
-		ServerConfig.CONFIG.slimyDeathCooldown.get()
-	)
-
 	fun handleSlimyDeath(event: LivingDeathEvent) {
 		if (event.isCanceled) return
 
 		val entity = event.entity
 		if (!entity.hasGene(ModGenes.SLIMY_DEATH)) return
 
-		val newlyUsed = SLIMY_DEATH_COOLDOWN.add(entity)
-		if (!newlyUsed) return
+		val putOnCooldown = GeneCooldowns.addCooldown(
+			entity,
+			ModGenes.SLIMY_DEATH,
+			ServerConfig.CONFIG.slimyDeathCooldown.get()
+		)
+
+		if (!putOnCooldown) return
 
 		val amount = entity.random.nextRange(3, 6)
 

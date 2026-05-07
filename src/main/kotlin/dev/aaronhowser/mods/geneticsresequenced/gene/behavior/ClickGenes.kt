@@ -14,7 +14,6 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
-import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -55,7 +54,7 @@ object ClickGenes {
 
 		val newlySheared = GeneCooldowns.addCooldown(
 			target,
-			ModGenes.WOOLY.getHolderOrThrow(target.registryAccess()),
+			ModGenes.WOOLY,
 			ServerConfig.CONFIG.woolyCooldown.get()
 		)
 
@@ -148,11 +147,6 @@ object ClickGenes {
 		packet.messagePlayer(player)
 	}
 
-	private val RECENTLY_MEATED_PLAYERS = GeneCooldown(
-		ModGenes.MEATY,
-		ServerConfig.CONFIG.meatyCooldown.get()
-	)
-
 	fun handleMeatyOther(event: PlayerInteractEvent.EntityInteract) {
 		val target = event.target as? LivingEntity ?: return
 		if (!target.hasGene(ModGenes.MEATY)) return
@@ -163,9 +157,13 @@ object ClickGenes {
 		val clickedWithShears = event.itemStack.isItem(Tags.Items.TOOLS_SHEAR)
 		if (!clickedWithShears) return
 
-		val newlyMeated = RECENTLY_MEATED_PLAYERS.add(target)
-
 		val clicker = event.entity
+
+		val newlyMeated = GeneCooldowns.addCooldown(
+			target,
+			ModGenes.MEATY,
+			ServerConfig.CONFIG.meatyCooldown.get()
+		)
 
 		if (!newlyMeated) {
 			clicker.sendSystemMessage(ModMessageLang.RECENT_MEATY.toComponent())
@@ -212,7 +210,11 @@ object ClickGenes {
 		val clickedWithShears = event.itemStack.isItem(Tags.Items.TOOLS_SHEAR)
 		if (!clickedWithShears) return
 
-		val newlyMeated = RECENTLY_MEATED_PLAYERS.add(player)
+		val newlyMeated = GeneCooldowns.addCooldown(
+			player,
+			ModGenes.MEATY,
+			ServerConfig.CONFIG.meatyCooldown.get()
+		)
 
 		if (!newlyMeated) {
 			player.sendSystemMessage(ModMessageLang.RECENT_MEATY.toComponent())
@@ -246,11 +248,6 @@ object ClickGenes {
 		)
 	}
 
-	private val RECENTLY_MILKED_ENTITIES = GeneCooldown(
-		ModGenes.MILKY,
-		ServerConfig.CONFIG.milkyCooldown.get()
-	)
-
 	fun handleMilkyOther(event: PlayerInteractEvent.EntityInteract) {
 		val target = event.target as? LivingEntity ?: return
 		if (target.level().isClientSide) return
@@ -264,7 +261,11 @@ object ClickGenes {
 		val clickedWithBucket = event.itemStack.isItem(Items.BUCKET)
 		if (!clickedWithBucket) return
 
-		val newlyMilked = RECENTLY_MILKED_ENTITIES.add(target)
+		val newlyMilked = GeneCooldowns.addCooldown(
+			target,
+			ModGenes.MILKY,
+			ServerConfig.CONFIG.milkyCooldown.get()
+		)
 
 		val clicker = event.entity
 		if (!newlyMilked) {
@@ -307,7 +308,11 @@ object ClickGenes {
 
 		if (!player.hasGene(ModGenes.MILKY)) return
 
-		val newlyMilked = RECENTLY_MILKED_ENTITIES.add(player)
+		val newlyMilked = GeneCooldowns.addCooldown(
+			player,
+			ModGenes.MILKY,
+			ServerConfig.CONFIG.milkyCooldown.get()
+		)
 
 		if (!newlyMilked) return
 

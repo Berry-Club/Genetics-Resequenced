@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isEntity
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
@@ -14,7 +15,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
-import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
 import dev.aaronhowser.mods.geneticsresequenced.item.AntiFieldOrbItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -203,14 +203,12 @@ object TickGenes {
 		}
 	}
 
-	private val RECENTLY_MEATED_TWO = GeneCooldown(
-		ModGenes.MEATY_TWO,
-		ServerConfig.CONFIG.meaty2Cooldown.get(),
-		notifyPlayer = false
-	)
-
 	private fun handleMeatyTwo(entity: LivingEntity) {
-		val newlyMeated = RECENTLY_MEATED_TWO.add(entity)
+		val newlyMeated = GeneCooldowns.addCooldown(
+			entity,
+			ModGenes.MEATY_TWO,
+			ServerConfig.CONFIG.meaty2Cooldown.get()
+		)
 		if (!newlyMeated) return
 
 		val luck = entity.activeEffects.find { it.effect == MobEffects.LUCK }?.amplifier ?: 0
@@ -226,15 +224,14 @@ object TickGenes {
 		entity.level().addFreshEntity(meatEntity)
 	}
 
-	private val RECENTLY_LAID_EGGS = GeneCooldown(
-		ModGenes.LAY_EGG,
-		ServerConfig.CONFIG.eggCooldown.get(),
-		notifyPlayer = false
-	)
-
 	private fun handleLayEgg(entity: LivingEntity) {
-		val hasNotRecentlyLainEgg = RECENTLY_LAID_EGGS.add(entity)
-		if (!hasNotRecentlyLainEgg) return
+		val putOnCooldown = GeneCooldowns.addCooldown(
+			entity,
+			ModGenes.LAY_EGG,
+			ServerConfig.CONFIG.eggCooldown.get()
+		)
+
+		if (!putOnCooldown) return
 
 		val luck = entity.activeEffects.find { it.effect == MobEffects.LUCK }?.amplifier ?: 0
 
