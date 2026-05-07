@@ -10,10 +10,12 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.core.Holder
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.LivingEntity
 
 class GeneCooldowns(
@@ -43,6 +45,21 @@ class GeneCooldowns(
 				.any { it.geneHolder == gene }
 		}
 
+		fun isOnCooldown(entity: LivingEntity, geneRk: ResourceKey<Gene>): Boolean {
+			val geneHolder = geneRk.getHolderOrThrow(entity.registryAccess())
+			return isOnCooldown(entity, geneHolder)
+		}
+
+		fun addCooldown(
+			entity: LivingEntity,
+			geneRk: ResourceKey<Gene>,
+			duration: Int,
+			notify: Boolean = true
+		): Boolean {
+			val geneHolder = geneRk.getHolderOrThrow(entity.registryAccess())
+			return addCooldown(entity, geneHolder, duration, notify)
+		}
+
 		fun addCooldown(
 			entity: LivingEntity,
 			gene: Holder<Gene>,
@@ -59,6 +76,31 @@ class GeneCooldowns(
 			entity.geneCooldowns = GeneCooldowns(newCooldowns)
 
 			return true
+		}
+
+		fun removeCooldown(
+			entity: LivingEntity,
+			gene: Holder<Gene>
+		): Boolean {
+			if (entity.isClientSide) return false
+
+			val cooldowns = entity.geneCooldowns.cooldowns
+			val entry = cooldowns.firstOrNull { it.geneHolder == gene } ?: return false
+
+			entry.notifyEnd(entity)
+
+			val newCooldowns = cooldowns - entry
+			entity.geneCooldowns = GeneCooldowns(newCooldowns)
+
+			return true
+		}
+
+		fun removeCooldown(
+			entity: LivingEntity,
+			geneRk: ResourceKey<Gene>
+		): Boolean {
+			val geneHolder = geneRk.getHolderOrThrow(entity.registryAccess())
+			return removeCooldown(entity, geneHolder)
 		}
 
 		fun tick(entity: LivingEntity) {

@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.setUnit
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -41,11 +42,6 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 
 object ClickGenes {
 
-	val RECENTLY_SHEARED_ENTITIES = GeneCooldown(
-		ModGenes.WOOLY,
-		ServerConfig.CONFIG.woolyCooldown.get()
-	)
-
 	fun handleWoolyOther(event: PlayerInteractEvent.EntityInteract) {
 		val target = event.target as? LivingEntity ?: return
 		val clicker = event.entity
@@ -63,7 +59,11 @@ object ClickGenes {
 		val clickedWithShears = event.itemStack.isItem(Tags.Items.TOOLS_SHEAR)
 		if (!clickedWithShears) return
 
-		val newlySheared = RECENTLY_SHEARED_ENTITIES.add(target)
+		val newlySheared = GeneCooldowns.addCooldown(
+			target,
+			ModGenes.WOOLY.getHolderOrThrow(target.registryAccess()),
+			ServerConfig.CONFIG.woolyCooldown.get()
+		)
 
 		if (!newlySheared) {
 			clicker.sendSystemMessage(ModMessageLang.RECENT_WOOLY.toComponent())
@@ -113,7 +113,12 @@ object ClickGenes {
 		val clickedWithShears = event.itemStack.isItem(Tags.Items.TOOLS_SHEAR)
 		if (!clickedWithShears) return
 
-		val newlySheared = RECENTLY_SHEARED_ENTITIES.add(player)
+		val newlySheared = GeneCooldowns.addCooldown(
+			player,
+			ModGenes.WOOLY,
+			ServerConfig.CONFIG.woolyCooldown.get()
+		)
+
 		if (!newlySheared) return
 
 		val level = event.level
@@ -406,10 +411,7 @@ object ClickGenes {
 			1.0f
 		)
 
-		if (player.uuid in RECENTLY_SHEARED_ENTITIES) {
-			RECENTLY_SHEARED_ENTITIES.remove(player.uuid)
-			GeneCooldown.tellCooldownEnded(player, ModGenes.WOOLY)
-		}
+		GeneCooldowns.removeCooldown(player, ModGenes.EAT_GRASS)
 	}
 
 	fun cureCringe(event: PlayerInteractEvent.RightClickBlock) {
