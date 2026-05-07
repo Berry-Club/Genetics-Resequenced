@@ -37,13 +37,28 @@ class GeneCooldowns(
 				this.setData(ModAttachmentTypes.GENE_COOLDOWNS, value)
 			}
 
+		fun isOnCooldown(entity: LivingEntity, gene: Holder<Gene>): Boolean {
+			return entity.geneCooldowns
+				.cooldowns
+				.any { it.geneHolder == gene }
+		}
+
 		fun addCooldown(
 			entity: LivingEntity,
 			gene: Holder<Gene>,
 			duration: Int,
 			notify: Boolean = true
-		) {
+		): Boolean {
+			if (entity.isClientSide) return false
+			if (isOnCooldown(entity, gene)) return false
 
+			val newEntry = Entry(gene, duration, notify)
+			newEntry.notifyStart(entity)
+
+			val newCooldowns = entity.geneCooldowns.cooldowns + newEntry
+			entity.geneCooldowns = GeneCooldowns(newCooldowns)
+
+			return true
 		}
 
 		fun tick(entity: LivingEntity) {
