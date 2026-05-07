@@ -1,13 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene
 
-import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.LivingEntity
 import java.util.*
@@ -30,32 +24,10 @@ class GeneCooldown(
 		addedViaEntity = true
 
 		val success = add(entity.uuid)
-
-		if (success) {
-			onAddSucceed(entity)
-		} else {
-			onAddFail(entity)
-		}
-
 		return success
 	}
 
-	private fun onAddSucceed(entity: LivingEntity) {
-		if (this.actuallyNotify) tellCooldownStarted(entity, this.gene, this.cooldownTicks)
-
-		entity.level().scheduleTaskInTicks(this.cooldownTicks) {
-			remove(entity)
-		}
-	}
-
-	private fun onAddFail(entity: LivingEntity) {
-		if (this.actuallyNotify) tellOnCooldown(entity, this.gene)
-	}
-
 	fun remove(entity: LivingEntity): Boolean {
-		if (entity.uuid in this) {
-			if (this.actuallyNotify) tellCooldownEnded(entity, this.gene)
-		}
 
 		return remove(entity.uuid)
 	}
@@ -94,44 +66,5 @@ class GeneCooldown(
 	override fun contains(element: UUID): Boolean = this.uuidsOnCooldown.contains(element)
 	override fun addAll(elements: Collection<UUID>): Boolean = this.uuidsOnCooldown.addAll(elements)
 	override fun toString(): String = "GeneCooldown(${this.gene})"
-
-	companion object {
-		fun tellCooldownStarted(player: LivingEntity, geneRk: ResourceKey<Gene>, cooldownTicks: Int) {
-			val cooldownSeconds = cooldownTicks / 20
-			val cooldownString: String
-			if (cooldownSeconds > 60) {
-				val minutes = cooldownSeconds / 60
-				val seconds = cooldownSeconds % 60
-				cooldownString = "$minutes minutes and $seconds seconds"
-			} else {
-				cooldownString = "$cooldownSeconds seconds"
-			}
-
-			val geneHolder = ModGenes.fromResourceLocation(player.registryAccess(), geneRk.location())!!
-
-			val message = Component.empty()
-				.append(geneHolder.getName())
-				.append(ModLanguageProvider.Cooldown.COOLDOWN_STARTED.toComponent(cooldownString))
-
-			player.sendSystemMessage(message)
-		}
-
-		fun tellCooldownEnded(player: LivingEntity, geneRk: ResourceKey<Gene>) {
-			val geneHolder = ModGenes.fromResourceLocation(player.registryAccess(), geneRk.location())!!
-			val message =
-				ModLanguageProvider.Cooldown.COOLDOWN_ENDED
-					.toComponent(geneHolder.getName())
-
-			player.sendSystemMessage(message)
-		}
-
-		fun tellOnCooldown(player: LivingEntity, geneRk: ResourceKey<Gene>) {
-			val geneHolder = ModGenes.fromResourceLocation(player.registryAccess(), geneRk.location())!!
-			val message = ModLanguageProvider.Cooldown.ALREADY_ON_COOLDOWN
-				.toComponent(geneHolder.getName())
-
-			player.sendSystemMessage(message)
-		}
-	}
 
 }
