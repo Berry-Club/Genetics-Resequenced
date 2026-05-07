@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import net.minecraft.core.Holder
 import net.minecraft.world.entity.LivingEntity
 import net.neoforged.bus.api.Event
+import net.neoforged.bus.api.ICancellableEvent
 
 sealed class GeneCooldownEvent : Event() {
 
@@ -14,7 +15,7 @@ sealed class GeneCooldownEvent : Event() {
 		override val entity: LivingEntity,
 		override val geneHolder: Holder<Gene>,
 		val cooldownTicks: Int
-	) : GeneCooldownEvent()
+	) : GeneCooldownEvent(), ICancellableEvent
 
 	data class Remove(
 		override val entity: LivingEntity,

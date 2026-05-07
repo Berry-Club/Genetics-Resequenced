@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneCooldownEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
@@ -17,6 +18,7 @@ import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.LivingEntity
+import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
 
 class GeneCooldowns(
 	val cooldowns: List<Entry>
@@ -69,6 +71,11 @@ class GeneCooldowns(
 			if (entity.isClientSide) return false
 			if (isOnCooldown(entity, gene)) return false
 
+			val event = GeneCooldownEvent.Add(entity, gene, duration)
+			if (FORGE_BUS.post(event).isCanceled) {
+				return false
+			}
+
 			val newEntry = Entry(gene, duration, notify)
 			newEntry.notifyStart(entity)
 
@@ -92,6 +99,9 @@ class GeneCooldowns(
 			val newCooldowns = cooldowns - entry
 			entity.geneCooldowns = GeneCooldowns(newCooldowns)
 
+			val event = GeneCooldownEvent.Remove(entity, gene)
+			FORGE_BUS.post(event)
+
 			return true
 		}
 
@@ -114,6 +124,9 @@ class GeneCooldowns(
 				if (entry.isCompleted()) {
 					completed.add(entry)
 					entry.notifyEnd(entity)
+
+					val event = GeneCooldownEvent.Remove(entity, entry.geneHolder)
+					FORGE_BUS.post(event)
 				}
 			}
 
