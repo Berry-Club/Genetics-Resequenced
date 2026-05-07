@@ -4,15 +4,17 @@ import dev.aaronhowser.mods.aaron.block_entity.SyncingBlockEntity
 import dev.aaronhowser.mods.aaron.container.ContainerContainer
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadEnergy
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.loadItems
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveEnergy
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.EnergyContainerData
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.core.HolderLookup
 import net.minecraft.nbt.CompoundTag
-import net.minecraft.nbt.IntTag
 import net.minecraft.network.chat.Component
 import net.minecraft.world.Container
-import net.minecraft.world.ContainerHelper
 import net.minecraft.world.MenuProvider
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
@@ -76,18 +78,15 @@ abstract class MachineBlockEntity(
 	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.saveAdditional(tag, registries)
 
-		ContainerHelper.saveAllItems(tag, this.container.items, registries)
-		tag.put(ENERGY_NBT, energyStorage.serializeNBT(registries))
+		tag.saveItems(container, registries)
+		tag.saveEnergy(ENERGY_NBT, energyStorage, registries)
 	}
 
 	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
 		super.loadAdditional(tag, registries)
 
-		ContainerHelper.loadAllItems(tag, this.container.items, registries)
-		val energy = tag.get(ENERGY_NBT)
-		if (energy is IntTag) {
-			energyStorage.deserializeNBT(registries, energy)
-		}
+		tag.loadItems(container, registries)
+		tag.loadEnergy(ENERGY_NBT, energyStorage, registries)
 	}
 
 	override fun getDisplayName(): Component {
