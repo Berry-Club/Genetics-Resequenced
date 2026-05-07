@@ -46,7 +46,7 @@ object ModAttachmentTypes {
 				.build()
 		)
 
-	val GENE_COOLDOWNS =
+	val GENE_COOLDOWNS: DeferredHolder<AttachmentType<*>, AttachmentType<GeneCooldowns>> =
 		register(
 			"gene_cooldowns",
 			AttachmentType
@@ -56,7 +56,10 @@ object ModAttachmentTypes {
 				.build()
 		)
 
-	private fun <T> register(name: String, type: AttachmentType<T>): DeferredHolder<AttachmentType<*>, AttachmentType<T>> {
+	private fun <T> register(
+		name: String,
+		type: AttachmentType<T>
+	): DeferredHolder<AttachmentType<*>, AttachmentType<T>> {
 		return ATTACHMENT_TYPES_REGISTRY.register(name, Supplier { type })
 	}
 
