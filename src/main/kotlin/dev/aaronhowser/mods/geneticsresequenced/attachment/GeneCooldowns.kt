@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
 import net.minecraft.core.Holder
 import net.minecraft.network.RegistryFriendlyByteBuf
@@ -17,10 +16,6 @@ class GeneCooldowns(
 ) {
 
 	constructor() : this(emptyList())
-
-	fun isOnCooldown(gene: Holder<Gene>): Boolean {
-		return cooldowns.any { it.gene.isGene(gene) }
-	}
 
 	companion object {
 		val CODEC: Codec<GeneCooldowns> =
@@ -36,6 +31,19 @@ class GeneCooldowns(
 			set(value) {
 				this.setData(ModAttachmentTypes.GENE_COOLDOWNS, value)
 			}
+
+		fun tick(player: Player) {
+			val cooldowns = player.geneCooldowns.cooldowns
+
+			cooldowns.forEach(Entry::tick)
+			val completed = cooldowns.filter(Entry::isCompleted)
+
+			if (completed.isNotEmpty()) {
+				val newCooldowns = cooldowns - completed.toSet()
+				player.geneCooldowns = GeneCooldowns(newCooldowns)
+			}
+
+		}
 	}
 
 	class Entry(
@@ -45,6 +53,7 @@ class GeneCooldowns(
 	) {
 		val actuallyNotify = notifyPlayer && cooldownDuration >= ServerConfig.CONFIG.minimumCooldownForNotification.get()
 
+		// Not persistent but like whatever, cooldowns probably won't ever be THAT long
 		private var ticks = 0
 
 		fun tick() {
@@ -52,6 +61,8 @@ class GeneCooldowns(
 				ticks++
 			}
 		}
+
+		fun isCompleted(): Boolean = ticks >= cooldownDuration
 
 		companion object {
 			val CODEC: Codec<Entry> =
