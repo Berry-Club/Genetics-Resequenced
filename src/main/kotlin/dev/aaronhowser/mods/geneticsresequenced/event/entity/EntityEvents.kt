@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
@@ -70,6 +71,7 @@ object EntityEvents {
 		TickGenes.handleBioluminescence(entity)
 		TickGenes.handlePhotosynthesis(entity)
 		TickGenes.handleTickingGenes(entity)
+		GeneCooldowns.tick(entity)
 	}
 
 	@SubscribeEvent
