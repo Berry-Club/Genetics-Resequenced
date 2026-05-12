@@ -52,13 +52,8 @@ class DupeCellRecipe(
 	}
 
 	class Serializer : RecipeSerializer<DupeCellRecipe> {
-		override fun codec(): MapCodec<DupeCellRecipe> {
-			return CODEC
-		}
-
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, DupeCellRecipe> {
-			return STREAM_CODEC
-		}
+		override fun codec(): MapCodec<DupeCellRecipe> = CODEC
+		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, DupeCellRecipe> = STREAM_CODEC
 
 		companion object {
 			val CODEC: MapCodec<DupeCellRecipe> =

@@ -44,14 +44,24 @@ class BasicIncubatorRecipe(
 		return ModRecipeSerializers.BASIC_INCUBATOR.get()
 	}
 
-	class Serializer : RecipeSerializer<BasicIncubatorRecipe> {
-		override fun codec(): MapCodec<BasicIncubatorRecipe> {
-			return CODEC
-		}
+	companion object {
+		@Suppress("UNCHECKED_CAST")
+		fun getBasicRecipes(recipeManager: RecipeManager): List<RecipeHolder<BasicIncubatorRecipe>> {
+			val incubatorRecipes = getIncubatorRecipes(recipeManager)
 
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, BasicIncubatorRecipe> {
-			return STREAM_CODEC
+			return buildList {
+				for (recipe in incubatorRecipes) {
+					if (recipe.value is BasicIncubatorRecipe) {
+						add(recipe as RecipeHolder<BasicIncubatorRecipe>)
+					}
+				}
+			}
 		}
+	}
+
+	class Serializer : RecipeSerializer<BasicIncubatorRecipe> {
+		override fun codec(): MapCodec<BasicIncubatorRecipe> = CODEC
+		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, BasicIncubatorRecipe> = STREAM_CODEC
 
 		companion object {
 			val CODEC: MapCodec<BasicIncubatorRecipe> =
@@ -80,15 +90,6 @@ class BasicIncubatorRecipe(
 					ByteBufCodecs.BOOL, BasicIncubatorRecipe::isLowTemp,
 					::BasicIncubatorRecipe
 				)
-		}
-	}
-
-	companion object {
-		@Suppress("UNCHECKED_CAST")
-		fun getBasicRecipes(recipeManager: RecipeManager): List<RecipeHolder<BasicIncubatorRecipe>> {
-			val incubatorRecipes = getIncubatorRecipes(recipeManager)
-
-			return incubatorRecipes.mapNotNull { if (it.value is BasicIncubatorRecipe) it as? RecipeHolder<BasicIncubatorRecipe> else null }
 		}
 	}
 

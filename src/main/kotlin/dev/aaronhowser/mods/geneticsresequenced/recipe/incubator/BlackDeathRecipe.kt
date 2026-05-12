@@ -63,13 +63,8 @@ object BlackDeathRecipe : IncubatorRecipe(
 	}
 
 	class Serializer : RecipeSerializer<BlackDeathRecipe> {
-		override fun codec(): MapCodec<BlackDeathRecipe> {
-			return CODEC
-		}
-
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, BlackDeathRecipe> {
-			return STREAM_CODEC
-		}
+		override fun codec(): MapCodec<BlackDeathRecipe> = CODEC
+		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, BlackDeathRecipe> = STREAM_CODEC
 
 		companion object {
 			val CODEC: MapCodec<BlackDeathRecipe> = MapCodec.unit(BlackDeathRecipe)

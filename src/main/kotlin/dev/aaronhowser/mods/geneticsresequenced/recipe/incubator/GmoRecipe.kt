@@ -84,50 +84,6 @@ class GmoRecipe(
 		return ModRecipeSerializers.GMO.get()
 	}
 
-	class Serializer : RecipeSerializer<GmoRecipe> {
-		override fun codec(): MapCodec<GmoRecipe> {
-			return CODEC
-		}
-
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, GmoRecipe> {
-			return STREAM_CODEC
-		}
-
-		companion object {
-			val CODEC: MapCodec<GmoRecipe> =
-				RecordCodecBuilder.mapCodec { instance ->
-					instance.group(
-						BuiltInRegistries.ENTITY_TYPE.byNameCodec()
-							.fieldOf("entity_type")
-							.forGetter(GmoRecipe::entityType),
-						Ingredient.CODEC_NONEMPTY
-							.fieldOf("ingredient")
-							.forGetter(GmoRecipe::topIngredient),
-						ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
-							.fieldOf("ideal_gene")
-							.forGetter(GmoRecipe::idealGeneRk),
-						Codec.FLOAT
-							.optionalFieldOf("gene_chance", 1f)
-							.forGetter(GmoRecipe::geneChance),
-						Codec.BOOL
-							.optionalFieldOf("needs_mutation_potion", false)
-							.forGetter(GmoRecipe::needsMutationPotion)
-					).apply(instance, ::GmoRecipe)
-				}
-
-			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, GmoRecipe> =
-				StreamCodec.composite(
-					ByteBufCodecs.registry(Registries.ENTITY_TYPE), GmoRecipe::entityType,
-					Ingredient.CONTENTS_STREAM_CODEC, GmoRecipe::topIngredient,
-					ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), GmoRecipe::idealGeneRk,
-					ByteBufCodecs.FLOAT, GmoRecipe::geneChance,
-					ByteBufCodecs.BOOL, GmoRecipe::needsMutationPotion,
-					::GmoRecipe
-				)
-		}
-
-	}
-
 	companion object {
 
 		private fun getBottomIngredient(needsMutationPotion: Boolean, entityType: EntityType<*>): Ingredient {
@@ -161,14 +117,53 @@ class GmoRecipe(
 			}
 		}
 
-		fun getGmoRecipe(level: Level, `input `: Input): GmoRecipe? {
+		fun getGmoRecipe(level: Level, input: Input): GmoRecipe? {
 			return getGmoRecipes(level).find { recipeHolder ->
-				recipeHolder.value.matches(`input `, level)
+				recipeHolder.value.matches(input, level)
 			}?.value
 		}
 
 		fun getGmoRecipe(level: Level, topStack: ItemStack, bottomStack: ItemStack, isHighTemp: Boolean): GmoRecipe? {
 			return getGmoRecipe(level, Input(topStack, bottomStack, isHighTemp))
+		}
+
+	}
+
+	class Serializer : RecipeSerializer<GmoRecipe> {
+		override fun codec(): MapCodec<GmoRecipe> = CODEC
+		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, GmoRecipe> = STREAM_CODEC
+
+		companion object {
+			val CODEC: MapCodec<GmoRecipe> =
+				RecordCodecBuilder.mapCodec { instance ->
+					instance.group(
+						BuiltInRegistries.ENTITY_TYPE.byNameCodec()
+							.fieldOf("entity_type")
+							.forGetter(GmoRecipe::entityType),
+						Ingredient.CODEC_NONEMPTY
+							.fieldOf("ingredient")
+							.forGetter(GmoRecipe::topIngredient),
+						ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
+							.fieldOf("ideal_gene")
+							.forGetter(GmoRecipe::idealGeneRk),
+						Codec.FLOAT
+							.optionalFieldOf("gene_chance", 1f)
+							.forGetter(GmoRecipe::geneChance),
+						Codec.BOOL
+							.optionalFieldOf("needs_mutation_potion", false)
+							.forGetter(GmoRecipe::needsMutationPotion)
+					).apply(instance, ::GmoRecipe)
+				}
+
+			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, GmoRecipe> =
+				StreamCodec.composite(
+					ByteBufCodecs.registry(Registries.ENTITY_TYPE), GmoRecipe::entityType,
+					Ingredient.CONTENTS_STREAM_CODEC, GmoRecipe::topIngredient,
+					ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), GmoRecipe::idealGeneRk,
+					ByteBufCodecs.FLOAT, GmoRecipe::geneChance,
+					ByteBufCodecs.BOOL, GmoRecipe::needsMutationPotion,
+					::GmoRecipe
+				)
 		}
 
 	}

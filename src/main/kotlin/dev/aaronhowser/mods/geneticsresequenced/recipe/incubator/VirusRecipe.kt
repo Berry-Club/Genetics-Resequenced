@@ -59,15 +59,26 @@ class VirusRecipe(
 		return ModRecipeSerializers.VIRUS.get()
 	}
 
+
+	companion object {
+		@Suppress("UNCHECKED_CAST")
+		fun getVirusRecipes(recipeManager: RecipeManager): List<RecipeHolder<VirusRecipe>> {
+			val incubatorRecipes = getIncubatorRecipes(recipeManager)
+
+//			return incubatorRecipes.mapNotNull { if (it.value is VirusRecipe) it as? RecipeHolder<VirusRecipe> else null }
+			return buildList {
+				for (recipe in incubatorRecipes) {
+					if (recipe.value is VirusRecipe) {
+						add(recipe as RecipeHolder<VirusRecipe>)
+					}
+				}
+			}
+		}
+	}
+
 	class Serializer : RecipeSerializer<VirusRecipe> {
-
-		override fun codec(): MapCodec<VirusRecipe> {
-			return CODEC
-		}
-
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, VirusRecipe> {
-			return STREAM_CODEC
-		}
+		override fun codec(): MapCodec<VirusRecipe> = CODEC
+		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, VirusRecipe> = STREAM_CODEC
 
 		companion object {
 			val CODEC: MapCodec<VirusRecipe> =
@@ -91,15 +102,6 @@ class VirusRecipe(
 
 		}
 
-	}
-
-	companion object {
-		@Suppress("UNCHECKED_CAST")
-		fun getVirusRecipes(recipeManager: RecipeManager): List<RecipeHolder<VirusRecipe>> {
-			val incubatorRecipes = getIncubatorRecipes(recipeManager)
-
-			return incubatorRecipes.mapNotNull { if (it.value is VirusRecipe) it as? RecipeHolder<VirusRecipe> else null }
-		}
 	}
 
 }

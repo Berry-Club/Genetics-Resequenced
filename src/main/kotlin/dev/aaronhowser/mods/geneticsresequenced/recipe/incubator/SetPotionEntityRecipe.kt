@@ -53,17 +53,12 @@ object SetPotionEntityRecipe : IncubatorRecipe(
 	}
 
 	class Serializer : RecipeSerializer<SetPotionEntityRecipe> {
-
-		override fun codec(): MapCodec<SetPotionEntityRecipe> {
-			return CODEC
-		}
-
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> {
-			return STREAM_CODEC
-		}
+		override fun codec(): MapCodec<SetPotionEntityRecipe> = CODEC
+		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> = STREAM_CODEC
 
 		companion object {
-			val CODEC: MapCodec<SetPotionEntityRecipe> = MapCodec.unit(SetPotionEntityRecipe)
+			val CODEC: MapCodec<SetPotionEntityRecipe> =
+				MapCodec.unit(SetPotionEntityRecipe)
 
 			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> =
 				StreamCodec.unit(SetPotionEntityRecipe)
