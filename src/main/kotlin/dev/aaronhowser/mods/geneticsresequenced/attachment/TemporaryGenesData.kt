@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneAddedEvent
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneRemovedEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -158,7 +159,7 @@ data class TemporaryGenesData(
 		}
 
 		fun getComponent(): Component {
-			return ModLanguageProvider.Commands.TEMPORARY_GENE_WITH_DURATION.toComponent(
+			return ModMessageLang.TEMPORARY_GENE_WITH_DURATION.toComponent(
 				geneHolder.getName(),
 				ticksRemaining
 			)

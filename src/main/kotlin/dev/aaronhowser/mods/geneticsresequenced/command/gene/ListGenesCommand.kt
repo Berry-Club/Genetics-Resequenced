@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.commands.CommandSourceStack
@@ -60,7 +61,7 @@ object ListGenesCommand : AaronCommandHelper {
 
 		if (targetGenesList.isEmpty()) {
 			source.sendSuccess(
-				{ ModLanguageProvider.Commands.NO_GENES.toComponent() },
+				{ ModMessageLang.Commands.NO_GENES.toComponent() },
 				false
 			)
 			return
@@ -69,7 +70,7 @@ object ListGenesCommand : AaronCommandHelper {
 		source.sendSuccess(
 			{
 				val messageComponent =
-					ModLanguageProvider.Commands.TARGET_GENE_LIST.toComponent(
+					ModMessageLang.Commands.TARGET_GENE_LIST.toComponent(
 						target.displayName
 					)
 
@@ -95,7 +96,7 @@ object ListGenesCommand : AaronCommandHelper {
 		source.sendSuccess(
 			{
 				val messageComponent =
-					ModLanguageProvider.Commands.TEMPORARY_GENE_LIST.toComponent(
+					ModMessageLang.Commands.TEMPORARY_GENE_LIST.toComponent(
 						target.displayName
 					)
 

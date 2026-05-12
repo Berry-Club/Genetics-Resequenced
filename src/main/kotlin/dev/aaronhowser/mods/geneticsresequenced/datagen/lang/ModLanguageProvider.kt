@@ -48,34 +48,6 @@ class ModLanguageProvider(
 		addBlock(ModBlocks.PLASMID_INFUSER, "Plasmid Infuser")
 		addBlock(ModBlocks.PLASMID_INJECTOR, "Plasmid Injector")
 
-		add(Commands.LIST_ALL_GENES, "Gene List:\n")
-		add(Commands.NO_GENES, "No Genes found!")
-		add(Commands.TARGET_GENE_LIST, "%1\$s's Genes:\n")
-		add(Commands.TEMPORARY_GENE_LIST, "%1\$s's Temporary Genes:\n")
-		add(Commands.TEMPORARY_GENE_WITH_DURATION, "%1\$s (%2\$d ticks)")
-
-		add(Commands.REMOVED_LIGHTS, "Removed %d nearby Bioluminescence Gene light sources.")
-		add(Commands.REMOVED_LIGHTS_RANGE_TOO_HIGH, "Range too high! Must be between 1 and 100.")
-
-		add(Commands.ADD_SINGLE_SUCCESS, "Added %1\$s to %2\$s!")
-		add(Commands.ADD_SINGLE_FAIL, "Failed to add %1\$s to %2\$s!")
-		add(Commands.ADD_MULTIPLE_SUCCESS, "Added %1\$s to %2\$d entities!")
-		add(Commands.ADD_MULTIPLE_FAIL, "Failed to add %1\$s to %2\$d entities!")
-		add(Commands.ADD_ALL_SINGLE, "Added all positive Genes to %s!")
-		add(Commands.ADD_ALL_MULTIPLE, "Added all positive Genes to %d entities!")
-
-		add(Commands.TEMPORARY_ADD_SINGLE_SUCCESS, "Temporarily added %1\$s to %2\$s for %3\$s ticks!")
-		add(Commands.TEMPORARY_ADD_SINGLE_FAIL, "Failed to temporarily add %1\$s to %2\$s ticks.")
-		add(Commands.TEMPORARY_ADD_MULTIPLE_SUCCESS, "Temporarily added %1\$s to %2\$d entities for %3\$s ticks!")
-		add(Commands.TEMPORARY_ADD_MULTIPLE_FAIL, "Failed to temporarily add %1\$s to %2\$d entities for %3\$s ticks.")
-
-		add(Commands.REMOVE_MULTIPLE_SUCCESS, "Removed %1\$s from %2\$d entities!")
-		add(Commands.REMOVE_MULTIPLE_FAIL, "Failed to remove %1\$s from %2\$d entities!")
-		add(Commands.REMOVE_SINGLE_SUCCESS, "Removed %1\$s from %2\$s!")
-		add(Commands.REMOVE_SINGLE_FAIL, "Failed to remove %1\$s from %2\$s!")
-		add(Commands.REMOVE_ALL_SINGLE, "Removed all Genes from %s!")
-		add(Commands.REMOVE_ALL_MULTIPLE, "Removed all Genes from %d entities!")
-
 		add(Keys.CATEGORY, "Genetics: Resequenced")
 		add(Keys.DRAGONS_BREATH, "Dragon's Breath")
 		add(Keys.TELEPORT, "Teleport")
@@ -84,32 +56,6 @@ class ModLanguageProvider(
 		add(Other.SUPPORT_SLIME, "Support Slime")
 		add(Other.BOOK_LANDING_TEXT, "Welcome to Genetics: Resequenced! This guide book will help you get started with the mod.")
 		add(Other.ORACLE_INDEX_TITLE, "Genetics: Resequenced")
-	}
-
-	object Commands {
-		const val LIST_ALL_GENES = "command.geneticsresequenced.list_all_genes"
-		const val NO_GENES = "command.geneticsresequenced.list.no_genes"
-		const val TARGET_GENE_LIST = "command.geneticsresequenced.list.genes"
-		const val TEMPORARY_GENE_LIST = "command.geneticsresequenced.list.temporary_genes"
-		const val TEMPORARY_GENE_WITH_DURATION = "command.geneticsresequenced.list.temporary_genes_with_duration"
-		const val REMOVED_LIGHTS = "command.geneticsresequenced.remove_nearby_lights.success"
-		const val REMOVED_LIGHTS_RANGE_TOO_HIGH = "command.geneticsresequenced.remove_nearby_lights.range_too_high"
-		const val ADD_SINGLE_SUCCESS = "command.geneticsresequenced.add_gene.single_target.success"
-		const val ADD_SINGLE_FAIL = "command.geneticsresequenced.add_gene.single_target.fail"
-		const val ADD_MULTIPLE_SUCCESS = "command.geneticsresequenced.add_gene.multiple_targets.success"
-		const val ADD_MULTIPLE_FAIL = "command.geneticsresequenced.add_gene.multiple_targets.fail"
-		const val TEMPORARY_ADD_SINGLE_SUCCESS = "command.geneticsresequenced.temporary_add_gene.single_target.success"
-		const val TEMPORARY_ADD_SINGLE_FAIL = "command.geneticsresequenced.temporary_add_gene.single_target.fail"
-		const val TEMPORARY_ADD_MULTIPLE_SUCCESS = "command.geneticsresequenced.temporary_add_gene.multiple_targets.success"
-		const val TEMPORARY_ADD_MULTIPLE_FAIL = "command.geneticsresequenced.temporary_add_gene.multiple_targets.fail"
-		const val ADD_ALL_SINGLE = "command.geneticsresequenced.add_all.single_target"
-		const val ADD_ALL_MULTIPLE = "command.geneticsresequenced.add_all.multiple_targets"
-		const val REMOVE_MULTIPLE_SUCCESS = "command.geneticsresequenced.remove_gene.multiple_targets.success"
-		const val REMOVE_MULTIPLE_FAIL = "command.geneticsresequenced.remove_gene.multiple_targets.fail"
-		const val REMOVE_SINGLE_SUCCESS = "command.geneticsresequenced.remove_gene.single_target.success"
-		const val REMOVE_SINGLE_FAIL = "command.geneticsresequenced.remove_gene.single_target.fail"
-		const val REMOVE_ALL_SINGLE = "command.geneticsresequenced.remove_all.single_target"
-		const val REMOVE_ALL_MULTIPLE = "command.geneticsresequenced.remove_all.multiple_targets"
 	}
 
 	object Other {

@@ -6,8 +6,8 @@ import com.mojang.brigadier.suggestion.SuggestionProvider
 import com.mojang.brigadier.suggestion.SuggestionsBuilder
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
-import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -95,7 +95,7 @@ object RemoveGeneCommand {
 		if (success) {
 			context.source.sendSuccess(
 				{
-					ModLanguageProvider.Commands.REMOVE_SINGLE_SUCCESS.toComponent(
+					ModMessageLang.Commands.REMOVE_SINGLE_SUCCESS.toComponent(
 						geneHolder.getName(),
 						target.displayName
 					)
@@ -104,7 +104,7 @@ object RemoveGeneCommand {
 			)
 		} else {
 			context.source.sendFailure(
-				ModLanguageProvider.Commands.REMOVE_SINGLE_FAIL.toComponent(
+				ModMessageLang.Commands.REMOVE_SINGLE_FAIL.toComponent(
 					geneHolder.getName(),
 					target.displayName
 				)
@@ -129,7 +129,7 @@ object RemoveGeneCommand {
 		if (amountSuccess != 0) {
 			context.source.sendSuccess(
 				{
-					ModLanguageProvider.Commands.REMOVE_MULTIPLE_SUCCESS.toComponent(
+					ModMessageLang.Commands.REMOVE_MULTIPLE_SUCCESS.toComponent(
 						geneHolder.getName(),
 						amountSuccess
 					)
@@ -139,7 +139,7 @@ object RemoveGeneCommand {
 		}
 		if (amountFail != 0) {
 			context.source.sendFailure(
-				ModLanguageProvider.Commands.REMOVE_MULTIPLE_FAIL.toComponent(
+				ModMessageLang.Commands.REMOVE_MULTIPLE_FAIL.toComponent(
 					geneHolder.getName(),
 					amountFail
 				)

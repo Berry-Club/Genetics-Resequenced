@@ -3,8 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.command.gene
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
-import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -68,7 +68,7 @@ object GiveAllGenesCommand {
 			}
 		}
 
-		val component = ModLanguageProvider.Commands.ADD_ALL_MULTIPLE
+		val component = ModMessageLang.Commands.ADD_ALL_MULTIPLE
 			.toComponent(targets.size)
 
 		context.source.sendSuccess({ component }, false)
@@ -84,10 +84,13 @@ object GiveAllGenesCommand {
 			target.addGene(gene)
 		}
 
-		val component = ModLanguageProvider.Commands.ADD_ALL_SINGLE
-			.toComponent(target.name)
-
-		context.source.sendSuccess({ component }, false)
+		context.source.sendSuccess(
+			{
+				ModMessageLang.Commands.ADD_ALL_SINGLE
+					.toComponent(target.name)
+			},
+			false
+		)
 	}
 
 }

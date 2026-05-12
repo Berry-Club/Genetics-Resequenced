@@ -10,6 +10,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Co
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands.SUGGEST_GENE_RLS
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -115,7 +116,7 @@ object GiveGeneCommand : AaronCommandHelper {
 		if (success) {
 			source.sendSuccess(
 				{
-					ModLanguageProvider.Commands.ADD_SINGLE_SUCCESS.toComponent(
+					ModMessageLang.Commands.ADD_SINGLE_SUCCESS.toComponent(
 						geneHolder.getName(),
 						target.name
 					)
@@ -127,7 +128,7 @@ object GiveGeneCommand : AaronCommandHelper {
 		}
 
 		source.sendFailure(
-			ModLanguageProvider.Commands.ADD_SINGLE_FAIL.toComponent(
+			ModMessageLang.Commands.ADD_SINGLE_FAIL.toComponent(
 				geneHolder.getName(),
 				target.name
 			)
@@ -152,7 +153,7 @@ object GiveGeneCommand : AaronCommandHelper {
 		if (amountSuccess != 0) {
 			source.sendSuccess(
 				{
-					ModLanguageProvider.Commands.ADD_MULTIPLE_SUCCESS.toComponent(
+					ModMessageLang.Commands.ADD_MULTIPLE_SUCCESS.toComponent(
 						geneHolder.getName(),
 						amountSuccess
 					)
@@ -163,7 +164,7 @@ object GiveGeneCommand : AaronCommandHelper {
 
 		if (amountFail != 0) {
 			source.sendFailure(
-				ModLanguageProvider.Commands.ADD_MULTIPLE_FAIL.toComponent(
+				ModMessageLang.Commands.ADD_MULTIPLE_FAIL.toComponent(
 					geneHolder.getName(),
 					amountFail
 				)

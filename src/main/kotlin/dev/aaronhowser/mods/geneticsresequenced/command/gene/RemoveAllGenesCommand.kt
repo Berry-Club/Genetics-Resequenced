@@ -3,8 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.command.gene
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeAllGenes
-import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
@@ -48,12 +48,14 @@ object RemoveAllGenesCommand {
 
 		target.removeAllGenes()
 
-		val component =
-			ModLanguageProvider.Commands.REMOVE_ALL_SINGLE.toComponent(
-				target.displayName
-			)
-
-		context.source.sendSuccess({ component }, false)
+		context.source.sendSuccess(
+			{
+				ModMessageLang.Commands.REMOVE_ALL_SINGLE.toComponent(
+					target.displayName
+				)
+			},
+			false
+		)
 	}
 
 	private fun handleMultipleTargets(context: CommandContext<CommandSourceStack>, targets: List<LivingEntity>) {
@@ -61,12 +63,14 @@ object RemoveAllGenesCommand {
 			target.removeAllGenes()
 		}
 
-		val component =
-			ModLanguageProvider.Commands.REMOVE_ALL_MULTIPLE.toComponent(
-				targets.size
-			)
-
-		context.source.sendSuccess({ component }, false)
+		context.source.sendSuccess(
+			{
+				ModMessageLang.Commands.REMOVE_ALL_MULTIPLE.toComponent(
+					targets.size
+				)
+			},
+			false
+		)
 
 	}
 

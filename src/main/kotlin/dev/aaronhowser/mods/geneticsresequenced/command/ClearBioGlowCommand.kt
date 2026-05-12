@@ -2,87 +2,70 @@ package dev.aaronhowser.mods.geneticsresequenced.command
 
 import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
-import com.mojang.brigadier.context.CommandContext
-import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
-import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import net.minecraft.commands.CommandSourceStack
-import net.minecraft.commands.Commands
 import net.minecraft.core.BlockPos
-import net.minecraft.world.entity.Display.BlockDisplay
-import net.minecraft.world.entity.Entity
-import net.minecraft.world.entity.EntityType
-import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.level.block.Blocks
 
-object ClearBioGlowCommand {
+object ClearBioGlowCommand : AaronCommandHelper {
 
-	private const val RANGE_ARGUMENT = "range"
+	private const val RADIUS = "radius"
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
-		return Commands
-			.literal("clear-bio-glow")
-			.then(
-				Commands
-					.argument(RANGE_ARGUMENT, IntegerArgumentType.integer(1, Integer.MAX_VALUE))
-					.requires { it.hasPermission(2) }
-					.executes { cmd ->
-						removeNearbyLights(cmd, IntegerArgumentType.getInteger(cmd, RANGE_ARGUMENT))
-					}
-			)
-			.executes { cmd -> removeNearbyLights(cmd, 25) }
-	}
+		return literal("clear-bio-glow") {
 
-	private fun removeNearbyLights(context: CommandContext<CommandSourceStack>, range: Int): Int {
-		val player = context.source.entity as? LivingEntity ?: return 0
+			executes {
+				val source = it.source
+				val center = BlockPos.containing(source.position)
 
-		if (range !in 1..100) {
-			player.sendSystemMessage(
-				ModLanguageProvider.Commands.REMOVED_LIGHTS_RANGE_TOO_HIGH
-					.toComponent(100)
-			)
-			return 0
-		}
+				removeNearbyLights(source, center, range = 25)
+			}
 
+			thenArgument(RADIUS, IntegerArgumentType.integer(1, 200)) {
+				requires { it.hasPermission(2) }
 
-		val level = player.level()
-		val playerPos = player.blockPosition()
+				executes { cmd ->
+					val source = cmd.source
+					val center = BlockPos.containing(source.position)
+					val radius = IntegerArgumentType.getInteger(cmd, RADIUS)
 
-		val lightSpots = buildSet {
-			for (x in -range..range) for (y in -range..range) for (z in -range..range) {
-				val pos = BlockPos(playerPos.x + x, playerPos.y + y, playerPos.z + z)
-
-				if (level.getBlockState(pos).block == ModBlocks.BIOLUMINESCENCE_BLOCK.get()) {
-					add(pos)
+					removeNearbyLights(source, center, radius)
 				}
 			}
 		}
+	}
 
-		for (blockPos in lightSpots) {
-			level.removeBlock(blockPos, false)
+	private fun removeNearbyLights(
+		source: CommandSourceStack,
+		center: BlockPos,
+		range: Int
+	): Int {
+		val level = source.level
 
-			val blockDisplayEntity = BlockDisplay(EntityType.BLOCK_DISPLAY, level)
+		var removed = 0
 
-			blockDisplayEntity.setPos(blockPos.x.toDouble(), blockPos.y.toDouble(), blockPos.z.toDouble())
-			blockDisplayEntity.setGlowingTag(true)
-			@Suppress("UsePropertyAccessSyntax")
-			blockDisplayEntity.setBlockState(Blocks.GLOWSTONE.defaultBlockState())
-
-			level.addFreshEntity(blockDisplayEntity)
-
-			level.scheduleTaskInTicks(20 * 2) {
-				blockDisplayEntity.remove(Entity.RemovalReason.DISCARDED)
-			}
-		}
-
-		player.sendSystemMessage(
-			ModLanguageProvider.Commands.REMOVED_LIGHTS.toComponent(
-				lightSpots.size
-			)
+		val positions = BlockPos.betweenClosed(
+			center.offset(-range, -range, -range),
+			center.offset(range, range, range)
 		)
 
-		return 1
+		for (pos in positions) {
+			val stateThere = level.getBlockState(pos)
+			if (!stateThere.isBlock(ModBlocks.BIOLUMINESCENCE_BLOCK)) continue
+
+			removed++
+			level.removeBlock(pos, false)
+		}
+
+		source.sendSuccess(
+			{ ModMessageLang.Commands.REMOVED_LIGHTS.toComponent(removed) },
+			true
+		)
+
+		return removed
 	}
 
 }
