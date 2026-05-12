@@ -126,7 +126,7 @@ object OtherGenes {
 		val nearbySupportSlimes = player.level().getEntities(
 			player,
 			player.boundingBox.inflate(64.0)
-		).filter { it is SupportSlime && it.getOwnerUuid() == player.uuid }
+		).filter { it is SupportSlime && it.ownerUuid == player.uuid }
 
 		val amountSlimes = nearbySupportSlimes.size
 		val allPlayers = player.server.playerList.players
