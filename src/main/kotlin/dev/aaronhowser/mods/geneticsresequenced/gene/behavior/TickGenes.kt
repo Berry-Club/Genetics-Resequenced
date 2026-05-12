@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.AntiFieldBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.datapack.ModDamageTypeProvider
@@ -261,7 +262,7 @@ object TickGenes {
 			if (itemEntity.owner == player && itemEntity.age < 20 * 3) continue
 			if (itemEntity.item.isItem(ModItemTagsProvider.MAGNET_ITEM_BLACKLIST)) continue
 
-			if (AntiFieldBlock.isNearActiveAntifield(itemEntity)) continue
+			if (AntiFieldBlockEntity.isNearActiveAntiField(itemEntity)) continue
 			itemEntity.playerTouch(player)
 		}
 	}
@@ -294,7 +295,7 @@ object TickGenes {
 		)
 
 		for (xpOrb in nearbyXpOrbs) {
-			if (AntiFieldBlock.isNearActiveAntifield(player.level(), xpOrb.blockPosition())) continue
+			if (AntiFieldBlockEntity.isNearActiveAntiField(player.level(), xpOrb.blockPosition())) continue
 
 			xpOrb.playerTouch(player)
 			player.takeXpDelay = 1

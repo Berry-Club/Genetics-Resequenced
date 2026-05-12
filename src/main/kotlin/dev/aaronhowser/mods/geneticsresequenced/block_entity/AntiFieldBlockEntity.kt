@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.block_entity
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toBlockPos
 import dev.aaronhowser.mods.geneticsresequenced.AntiFieldCarrier
+import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import it.unimi.dsi.fastutil.longs.LongOpenHashSet
@@ -15,6 +16,21 @@ class AntiFieldBlockEntity(
 	pos: BlockPos,
 	blockState: BlockState
 ) : BlockEntity(ModBlockEntityTypes.ANTI_FIELD_BLOCK.get(), pos, blockState) {
+
+	private fun addToList() {
+		val level = level as? AntiFieldCarrier ?: return
+		level.getAntiFieldBlocks().add(worldPosition.asLong())
+	}
+
+	private fun removeFromList() {
+		val level = level as? AntiFieldCarrier ?: return
+		level.getAntiFieldBlocks().remove(worldPosition.asLong())
+	}
+
+	override fun setRemoved() {
+		super.setRemoved()
+		removeFromList()
+	}
 
 	companion object {
 		fun AntiFieldCarrier.getAntiFieldBlocks(): LongOpenHashSet = this.`geneticsresequenced$getAntiFieldPositions`()
@@ -40,6 +56,23 @@ class AntiFieldBlockEntity(
 			}
 
 			return false
+		}
+
+		fun tick(
+			level: Level,
+			blockPos: BlockPos,
+			blockState: BlockState,
+			blockEntity: AntiFieldBlockEntity
+		) {
+			if (level !is AntiFieldCarrier) return
+
+			val isDisabled = blockState.getValue(AntiFieldBlock.DISABLED)
+
+			if (isDisabled) {
+				blockEntity.removeFromList()
+			} else {
+				blockEntity.addToList()
+			}
 		}
 
 	}

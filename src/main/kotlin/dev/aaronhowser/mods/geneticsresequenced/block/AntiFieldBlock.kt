@@ -1,18 +1,19 @@
 package dev.aaronhowser.mods.geneticsresequenced.block
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
-import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.AntiFieldBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.world.entity.Entity
 import net.minecraft.world.item.context.BlockPlaceContext
 import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.block.BaseEntityBlock
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.EntityBlock
 import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.entity.BlockEntity
+import net.minecraft.world.level.block.entity.BlockEntityTicker
+import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
@@ -64,8 +65,20 @@ class AntiFieldBlock : Block(
 		return true
 	}
 
-	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity? {
-		TODO("Not yet implemented")
+	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity {
+		return AntiFieldBlockEntity(pos, state)
+	}
+
+	override fun <T : BlockEntity> getTicker(
+		level: Level,
+		state: BlockState,
+		blockEntityType: BlockEntityType<T>
+	): BlockEntityTicker<T>? {
+		return BaseEntityBlock.createTickerHelper(
+			blockEntityType,
+			ModBlockEntityTypes.ANTI_FIELD_BLOCK.get(),
+			AntiFieldBlockEntity::tick
+		)
 	}
 
 	companion object {
