@@ -66,12 +66,15 @@ class SupportSlimeRenderer(
 		val skinRenderType = getPlayerSkinRenderType(entity) ?: return
 
 		poseStack.withPose {
-			poseStack.translate(-1.0, 0.0, -1.0)
+			val scale = entity.size
 
-			val scale = entity.size.toFloat()
-			poseStack.scale(scale, scale, scale)
+			val scaleF = scale.toFloat()
+			val scaleD = scale.toDouble()
 
-			val lerpedRot = -Mth.rotLerp(partialTicks, entity.yRotO, entity.yRot)
+			poseStack.translate(-scaleD / 2.0, 0.0, -scaleD / 2.0)
+			poseStack.scale(scaleF, scaleF, scaleF)
+
+			val lerpedRot = 180 + Mth.rotLerp(partialTicks, entity.yRotO, entity.yRot)
 
 			SkullBlockRenderer.renderSkull(
 				null,
