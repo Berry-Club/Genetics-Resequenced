@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_entity
 
+import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
-import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -49,35 +49,34 @@ class AdvancedIncubatorBlockEntity(
 			}
 		}
 
-	override val container: ImprovedSimpleContainer = object : ImprovedSimpleContainer(this, INVENTORY_SIZE) {
-		override fun setChanged() {
-			super.setChanged()
-			currentProgress = 0
-		}
+	override val container: ImprovedSimpleContainer =
+		object : ImprovedSimpleContainer(this, INVENTORY_SIZE) {
+			override fun setChanged() {
+				super.setChanged()
+				currentProgress = 0
+			}
 
-		override fun canPlaceItem(slot: Int, stack: ItemStack): Boolean {
-			val level = level ?: return false
+			override fun canPlaceItem(slot: Int, stack: ItemStack): Boolean {
+				val level = level ?: return false
 
-			return when (slot) {
-				TOP_SLOT_INDEX -> AbstractIncubatorRecipe.isValidTopIngredient(level, stack)
+				return when (slot) {
+					TOP_SLOT_INDEX -> AbstractIncubatorRecipe.isValidTopIngredient(level, stack)
 
-				LEFT_BOTTLE_SLOT_INDEX,
-				MIDDLE_BOTTLE_SLOT_INDEX,
-				RIGHT_BOTTLE_SLOT_INDEX -> AbstractIncubatorRecipe.isValidBottomIngredient(level, stack)
+					LEFT_BOTTLE_SLOT_INDEX,
+					MIDDLE_BOTTLE_SLOT_INDEX,
+					RIGHT_BOTTLE_SLOT_INDEX -> AbstractIncubatorRecipe.isValidBottomIngredient(level, stack)
 
-				OVERCLOCKER_SLOT_INDEX -> stack.isItem(ModItems.OVERCLOCKER)
+					OVERCLOCKER_SLOT_INDEX -> stack.isItem(ModItems.OVERCLOCKER)
 
-				CHORUS_SLOT_INDEX -> stack.isItem(Items.CHORUS_FRUIT)
+					CHORUS_SLOT_INDEX -> stack.isItem(Items.CHORUS_FRUIT)
 
-				else -> false
+					else -> false
+				}
 			}
 		}
-	}
 
 	override val containerData: ContainerData = object : CraftingContainerData(
-		energyStorage,
-		{ currentProgress },
-		{ maxProgress }
+		energyStorage, ::currentProgress, ::maxProgress
 	) {
 
 		override fun get(index: Int): Int {
@@ -129,7 +128,8 @@ class AdvancedIncubatorBlockEntity(
 		} else {
 			subTicks += 1 + getAmountOfOverclocks()
 
-			val ticksOverMax = subTicks - getIncubatorLowTemperatureTickFactor()
+			val tickFactor = ServerConfig.CONFIG.incubatorLowTempTickFactor.get()
+			val ticksOverMax = subTicks - tickFactor
 			if (ticksOverMax >= 0) {
 				subTicks = ticksOverMax
 				energyStorage.extractEnergy(getEnergyCostPerTick(), false)
@@ -288,8 +288,6 @@ class AdvancedIncubatorBlockEntity(
 
 		const val CONTAINER_DATA_SIZE = 5
 		const val IS_HIGH_TEMPERATURE_INDEX = 4
-
-		fun getIncubatorLowTemperatureTickFactor(): Int = ServerConfig.CONFIG.incubatorLowTempTickFactor.get()
 	}
 
 }

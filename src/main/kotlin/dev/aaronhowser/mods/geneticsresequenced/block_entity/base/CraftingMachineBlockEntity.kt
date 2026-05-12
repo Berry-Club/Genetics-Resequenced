@@ -65,7 +65,7 @@ abstract class CraftingMachineBlockEntity(
 		}
 
 	override val containerData: ContainerData by lazy {
-		CraftingContainerData(energyStorage, { currentProgress }, { maxProgress })
+		CraftingContainerData(energyStorage, ::currentProgress, ::maxProgress)
 	}
 
 	protected abstract fun hasRecipe(): Boolean
