@@ -24,7 +24,6 @@ object ModCommands : AaronCommandHelper {
 				then(ListAllGenesCommand.register())
 
 				then(GiveGeneCommand.register())
-				then(GiveTemporaryGeneCommand.register())
 				then(GiveAllGenesCommand.register())
 
 				then(RemoveGeneCommand.register())

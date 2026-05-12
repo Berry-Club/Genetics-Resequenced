@@ -13,6 +13,13 @@
     - Cooldown notifications have been moved to the status bar instead of text
 - Anti-Field Blocks are now a Block Entity, so it's faster to check if you're near one
 - The Anti-Field radius is now a double, not an int
+- Reworked commands again
+  - `/gr gene list <target>`
+  - `/gr gene list-all`
+  - `/gr gene give <gene> <targets> <duration>`
+  - `/gr gene remove <gene> <targets>`
+  - `/gr gene remove-all <targets>`
+  - `/gr clear-bio-glow <range>`
 
 # 1.12.3
 
