@@ -1,54 +1,64 @@
 package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
-import com.mojang.brigadier.context.CommandContext
+import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeAllGenes
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import net.minecraft.commands.CommandSourceStack
-import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
-object RemoveAllGenesCommand {
+object RemoveAllGenesCommand : AaronCommandHelper {
 
-	private const val TARGET_ARGUMENT = "targets"
+	private const val TARGETS = "targets"
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
-		return Commands
-			.literal("remove-all-genes")
-			.requires { it.hasPermission(2) }
-			.then(
-				Commands
-					.argument(TARGET_ARGUMENT, EntityArgument.entities())
-					.executes { cmd -> removeAllGenes(cmd, EntityArgument.getEntities(cmd, TARGET_ARGUMENT)) }
-			)
-			.executes { cmd -> removeAllGenes(cmd) }
+		return literal("remove-all") {
+			requires { it.hasPermission(2) }
+
+			executes {
+				val source = it.source
+				val targets = listOf(source.entityOrException)
+
+				removeAllGenes(source, targets)
+			}
+
+			thenArgument(TARGETS, EntityArgument.entities()) {
+				executes {
+					val source = it.source
+					val entities = EntityArgument.getEntities(it, TARGETS)
+
+					removeAllGenes(source, entities)
+				}
+			}
+		}
 	}
 
 	private fun removeAllGenes(
-		context: CommandContext<CommandSourceStack>,
-		entities: MutableCollection<out Entity>? = null
+		source: CommandSourceStack,
+		targets: Collection<Entity>
 	): Int {
+		val actualTargets = targets.filterIsInstance<LivingEntity>()
+		if (actualTargets.isEmpty()) return 0
 
-		val targets: List<LivingEntity> =
-			entities?.mapNotNull { it as? LivingEntity } ?: listOfNotNull(context.source.entity as? LivingEntity)
-
-		if (targets.size == 1) {
-			handleSingleTarget(context, targets.first())
+		if (actualTargets.size == 1) {
+			handleSingleTarget(source, actualTargets.first())
 		} else {
-			handleMultipleTargets(context, targets)
+			handleMultipleTargets(source, actualTargets)
 		}
 
 		return 1
 	}
 
-	private fun handleSingleTarget(context: CommandContext<CommandSourceStack>, target: LivingEntity) {
-
+	private fun handleSingleTarget(
+		source: CommandSourceStack,
+		target: LivingEntity
+	) {
 		target.removeAllGenes()
 
-		context.source.sendSuccess(
+		source.sendSuccess(
 			{
 				ModMessageLang.Commands.REMOVE_ALL_SINGLE.toComponent(
 					target.displayName
@@ -58,12 +68,15 @@ object RemoveAllGenesCommand {
 		)
 	}
 
-	private fun handleMultipleTargets(context: CommandContext<CommandSourceStack>, targets: List<LivingEntity>) {
+	private fun handleMultipleTargets(
+		source: CommandSourceStack,
+		targets: List<LivingEntity>
+	) {
 		for (target in targets) {
 			target.removeAllGenes()
 		}
 
-		context.source.sendSuccess(
+		source.sendSuccess(
 			{
 				ModMessageLang.Commands.REMOVE_ALL_MULTIPLE.toComponent(
 					targets.size
@@ -71,7 +84,6 @@ object RemoveAllGenesCommand {
 			},
 			false
 		)
-
 	}
 
 }

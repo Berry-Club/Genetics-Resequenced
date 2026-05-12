@@ -4,6 +4,7 @@ import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
 import com.mojang.brigadier.suggestion.SuggestionProvider
 import com.mojang.brigadier.suggestion.SuggestionsBuilder
+import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -12,7 +13,6 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.commands.CommandSourceStack
-import net.minecraft.commands.Commands
 import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.commands.arguments.ResourceLocationArgument
@@ -22,14 +22,14 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
-object RemoveGeneCommand {
+object RemoveGeneCommand : AaronCommandHelper {
 
-	private const val GENE_ARGUMENT = "gene"
-	private const val TARGETS_ARGUMENT = "targets"
+	private const val GENE = "gene"
+	private const val TARGETS = "targets"
 
 	val SUGGEST_GENE_RLS: SuggestionProvider<CommandSourceStack> =
 		SuggestionProvider { context: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
-			val targets = context.getArgument(TARGETS_ARGUMENT, EntitySelector::class.java)
+			val targets = context.getArgument(TARGETS, EntitySelector::class.java)
 				.findEntities(context.source)
 				.filterIsInstance<LivingEntity>()
 
@@ -41,59 +41,54 @@ object RemoveGeneCommand {
 		}
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
-		return Commands
-			.literal("remove-gene")
-			.requires { it.hasPermission(2) }
-			.then(
-				Commands.argument(TARGETS_ARGUMENT, EntityArgument.entities())
-					.then(
-						Commands.argument(GENE_ARGUMENT, ResourceLocationArgument.id())
-							.suggests(SUGGEST_GENE_RLS)
-							.executes { cmd ->
-								val geneRl = ResourceLocationArgument.getId(cmd, GENE_ARGUMENT)
-								val entities = EntityArgument.getEntities(cmd, TARGETS_ARGUMENT)
-								removeGene(cmd, geneRl, entities)
-							}
-					)
-			)
+		return literal("remove") {
+			requires { it.hasPermission(2) }
+
+			thenArgument(TARGETS, EntityArgument.entities()) {
+
+				thenArgument(GENE, ResourceLocationArgument.id()) {
+					suggests(SUGGEST_GENE_RLS)
+
+					executes { cmd ->
+						val source = cmd.source
+						val geneRl = ResourceLocationArgument.getId(cmd, GENE)
+						val entities = EntityArgument.getEntities(cmd, TARGETS)
+						removeGene(source, geneRl, entities)
+					}
+				}
+			}
+		}
 	}
 
 	private fun removeGene(
-		context: CommandContext<CommandSourceStack>,
+		source: CommandSourceStack,
 		geneRl: ResourceLocation,
-		entities: MutableCollection<out Entity>
+		targets: Collection<Entity>
 	): Int {
-		val gene = ModGenes.fromResourceLocation(context.source.registryAccess(), geneRl)
+		val geneHolder = ModGenes.fromResourceLocation(source.registryAccess(), geneRl)
 			?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
 
-		return removeGene(context, gene, entities)
-	}
+		val actualTargets = targets.filterIsInstance<LivingEntity>()
+		if (actualTargets.isEmpty()) return 0
 
-	private fun removeGene(
-		context: CommandContext<CommandSourceStack>,
-		geneToRemove: Holder<Gene>,
-		entities: MutableCollection<out Entity>
-	): Int {
-		val targets = entities.mapNotNull { it as? LivingEntity }
-
-		if (targets.size == 1) {
-			handleSingleTarget(context, targets.first(), geneToRemove)
+		if (actualTargets.size == 1) {
+			handleSingleTarget(source, actualTargets.first(), geneHolder)
 		} else {
-			handleMultipleTargets(context, targets, geneToRemove)
+			handleMultipleTargets(source, actualTargets, geneHolder)
 		}
 
 		return 1
 	}
 
 	private fun handleSingleTarget(
-		context: CommandContext<CommandSourceStack>,
+		source: CommandSourceStack,
 		target: LivingEntity,
 		geneHolder: Holder<Gene>
 	) {
-		val success = removeGeneFromTarget(target, geneHolder)
+		val success = target.removeGene(geneHolder)
 
 		if (success) {
-			context.source.sendSuccess(
+			source.sendSuccess(
 				{
 					ModMessageLang.Commands.REMOVE_SINGLE_SUCCESS.toComponent(
 						geneHolder.getName(),
@@ -102,18 +97,20 @@ object RemoveGeneCommand {
 				},
 				false
 			)
-		} else {
-			context.source.sendFailure(
-				ModMessageLang.Commands.REMOVE_SINGLE_FAIL.toComponent(
-					geneHolder.getName(),
-					target.displayName
-				)
-			)
+
+			return
 		}
+
+		source.sendFailure(
+			ModMessageLang.Commands.REMOVE_SINGLE_FAIL.toComponent(
+				geneHolder.getName(),
+				target.displayName
+			)
+		)
 	}
 
 	private fun handleMultipleTargets(
-		context: CommandContext<CommandSourceStack>,
+		source: CommandSourceStack,
 		targets: List<LivingEntity>,
 		geneHolder: Holder<Gene>
 	) {
@@ -121,13 +118,12 @@ object RemoveGeneCommand {
 		var amountFail = 0
 
 		for (target in targets) {
-			val success = removeGeneFromTarget(target, geneHolder)
-
+			val success = target.removeGene(geneHolder)
 			if (success) amountSuccess++ else amountFail++
 		}
 
 		if (amountSuccess != 0) {
-			context.source.sendSuccess(
+			source.sendSuccess(
 				{
 					ModMessageLang.Commands.REMOVE_MULTIPLE_SUCCESS.toComponent(
 						geneHolder.getName(),
@@ -137,20 +133,15 @@ object RemoveGeneCommand {
 				true
 			)
 		}
+
 		if (amountFail != 0) {
-			context.source.sendFailure(
+			source.sendFailure(
 				ModMessageLang.Commands.REMOVE_MULTIPLE_FAIL.toComponent(
 					geneHolder.getName(),
 					amountFail
 				)
 			)
 		}
-
-	}
-
-	private fun removeGeneFromTarget(target: LivingEntity, geneToRemove: Holder<Gene>): Boolean {
-		val success = target.removeGene(geneToRemove)
-		return success
 	}
 
 }
