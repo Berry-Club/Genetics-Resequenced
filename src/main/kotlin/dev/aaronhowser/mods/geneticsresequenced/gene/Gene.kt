@@ -62,14 +62,14 @@ data class Gene(
 			)
 		}
 
-	val allowsMobs: Boolean = allowedEntities.stream().anyMatch { it.value() != EntityType.PLAYER }
+	val allowsMobs = this.allowedEntities.any { it.value() != EntityType.PLAYER }
 
 	fun canEntityHave(entity: Entity): Boolean {
 		return canEntityTypeHave(entity.type)
 	}
 
 	fun canEntityTypeHave(entityType: EntityType<*>): Boolean {
-		return allowedEntities.stream().anyMatch { it.value() == entityType }
+		return this.allowedEntities.map(Holder<EntityType<*>>::value).contains(entityType)
 	}
 
 	fun setAttributeModifiers(livingEntity: LivingEntity, isAdding: Boolean) {
