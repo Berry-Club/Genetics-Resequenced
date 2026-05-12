@@ -19,15 +19,15 @@ import net.minecraft.world.item.TooltipFlag
 class PlasmidItem(properties: Properties) : Item(properties) {
 
 	override fun appendHoverText(
-		pStack: ItemStack,
-		pContext: TooltipContext,
-		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
+		stack: ItemStack,
+		context: TooltipContext,
+		components: MutableList<Component>,
+		tooltipFlag: TooltipFlag
 	) {
-		val geneHolder = getGene(pStack)
+		val geneHolder = getGene(stack)
 
 		if (geneHolder == null) {
-			pTooltipComponents.add(
+			components.add(
 				ModTooltipLang.PLASMID_EMPTY
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
@@ -35,23 +35,23 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 			return
 		}
 
-		pTooltipComponents.add(
+		components.add(
 			ModTooltipLang.PLASMID_GENE
 				.toComponent(geneHolder.getName())
 				.withStyle(ChatFormatting.GRAY)
 		)
 
-		if (isComplete(pStack)) {
-			pTooltipComponents.add(
+		if (isComplete(stack)) {
+			components.add(
 				ModTooltipLang.PLASMID_COMPLETE
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
 			)
 		} else {
 			val amountNeeded = geneHolder.value().dnaPointsRequired
-			val amount = getDnaPoints(pStack)
+			val amount = getDnaPoints(stack)
 
-			pTooltipComponents.add(
+			components.add(
 				ModTooltipLang.PLASMID_PROGRESS
 					.toComponent(amount, amountNeeded)
 					.withStyle(ChatFormatting.GRAY)
