@@ -42,4 +42,7 @@ object ModBlockEntityTypes : AaronBlockEntityTypeRegistry() {
 	val ADVANCED_INCUBATOR: DeferredHolder<BlockEntityType<*>, BlockEntityType<AdvancedIncubatorBlockEntity>> =
 		register("advanced_incubator", ::AdvancedIncubatorBlockEntity, ModBlocks.ADVANCED_INCUBATOR)
 
+	val ANTI_FIELD_BLOCK: DeferredHolder<BlockEntityType<*>, BlockEntityType<AntiFieldBlockEntity>> =
+		register("anti_field_block", ::AntiFieldBlockEntity, ModBlocks.ANTI_FIELD_BLOCK)
+
 }

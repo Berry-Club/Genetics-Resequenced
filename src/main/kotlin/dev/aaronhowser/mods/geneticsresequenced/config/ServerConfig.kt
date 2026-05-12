@@ -9,7 +9,7 @@ class ServerConfig(
 
 	lateinit var keepGenesOnDeath: ModConfigSpec.BooleanValue
 	lateinit var minimumCooldownForNotification: ModConfigSpec.IntValue
-	lateinit var antifieldBlockRadius: ModConfigSpec.IntValue
+	lateinit var antifieldBlockRadius: ModConfigSpec.DoubleValue
 
 	lateinit var coalGeneratorEnergyCapacity: ModConfigSpec.IntValue
 	lateinit var coalGeneratorEnergyTransferRate: ModConfigSpec.IntValue
@@ -79,7 +79,7 @@ class ServerConfig(
 
 		antifieldBlockRadius = builder
 			.comment("How far should the Antifield Block prevent Item/XP Magnet Genes from working (in blocks)")
-			.defineInRange("antifieldBlockRadius", 25, 1, Int.MAX_VALUE)
+			.defineInRange("antifieldBlockRadius", 25.0, 1.0, Double.MAX_VALUE)
 	}
 
 	private fun machineConfigs() {

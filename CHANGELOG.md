@@ -11,6 +11,8 @@
 	- Now they're an entity attachment
 	- Also added two new events: GeneCooldownEvent.Add and GeneCooldownEvent.Remove
     - Cooldown notifications have been moved to the status bar instead of text
+- Anti-Field Blocks are now a Block Entity, so it's faster to check if you're near one
+- The Anti-Field radius is now a double, not an int
 
 # 1.12.3
 

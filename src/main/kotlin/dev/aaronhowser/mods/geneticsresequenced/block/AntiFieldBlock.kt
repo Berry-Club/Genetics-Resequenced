@@ -4,11 +4,15 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Direction
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.item.context.BlockPlaceContext
+import net.minecraft.world.level.BlockGetter
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.EntityBlock
 import net.minecraft.world.level.block.SoundType
+import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
@@ -19,7 +23,7 @@ class AntiFieldBlock : Block(
 		.of()
 		.sound(SoundType.METAL)
 		.strength(0.3f)
-) {
+), EntityBlock {
 
 	init {
 		registerDefaultState(
@@ -56,29 +60,16 @@ class AntiFieldBlock : Block(
 		}
 	}
 
+	override fun canConnectRedstone(state: BlockState, level: BlockGetter, pos: BlockPos, direction: Direction?): Boolean {
+		return true
+	}
+
+	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity? {
+		TODO("Not yet implemented")
+	}
+
 	companion object {
 		val DISABLED: BooleanProperty = BlockStateProperties.POWERED
-
-		fun isNearActiveAntifield(entity: Entity): Boolean {
-			return isNearActiveAntifield(entity.level(), entity.blockPosition())
-		}
-
-		fun isNearActiveAntifield(level: Level, location: BlockPos): Boolean {
-			val radius = ServerConfig.CONFIG.antifieldBlockRadius.get()
-
-			val nearbyBlocks = BlockPos.betweenClosed(
-				location.offset(-radius, -radius, -radius),
-				location.offset(radius, radius, radius)
-			)
-
-			for (pos in nearbyBlocks) {
-				val state = level.getBlockState(pos)
-				if (!state.isBlock(ModBlocks.ANTI_FIELD_BLOCK.get())) continue
-				if (!state.getValue(DISABLED)) return true
-			}
-
-			return false
-		}
 	}
 
 
