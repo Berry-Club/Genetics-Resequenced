@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -23,15 +24,12 @@ import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 
 object BrewingRecipes {
 
-	private val modPotions: List<Potion>
-		get() = ModPotions.POTION_REGISTRY.entries.map { it.get() }
-
 	fun tooltip(event: ItemTooltipEvent) {
 		val stack = event.itemStack
 		val itemPotion = OtherUtil.getPotion(stack) ?: return
 
+		if (itemPotion.key?.location()?.namespace != GeneticsResequenced.MOD_ID) return
 		if (itemPotion == ModPotions.ZOMBIFY_VILLAGER || itemPotion == ModPotions.PANACEA) return
-		if (itemPotion.value() !in this.modPotions) return
 
 		if (stack.item != Items.POTION) {
 			event.toolTip.add(
