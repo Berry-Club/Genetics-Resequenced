@@ -22,9 +22,11 @@ object ModCommands : AaronCommandHelper {
 			thenLiteral("gene") {
 				then(ListGenesCommand.register())
 				then(ListAllGenesCommand.register())
+
 				then(GiveGeneCommand.register())
 				then(GiveTemporaryGeneCommand.register())
 				then(GiveAllGenesCommand.register())
+
 				then(RemoveGeneCommand.register())
 				then(RemoveAllGenesCommand.register())
 			}

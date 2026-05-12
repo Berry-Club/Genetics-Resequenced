@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
+import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
@@ -20,38 +21,39 @@ import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
-object GiveGeneCommand {
+object GiveGeneCommand : AaronCommandHelper {
 
-	private const val GENE_ARGUMENT = "gene"
-	private const val TARGET_ARGUMENT = "targets"
+	private const val GENE = "gene"
+	private const val TARGETS = "targets"
+
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
-		return Commands
-			.literal("give-gene")
-			.requires { it.hasPermission(2) }
-			.then(
-				Commands
-					.argument(GENE_ARGUMENT, ResourceLocationArgument.id())
-					.suggests(SUGGEST_GENE_RLS)
-					.executes { cmd ->
-						addGene(
-							cmd.source,
-							ResourceLocationArgument.getId(cmd, GENE_ARGUMENT),
-							entities = listOf(cmd.source.playerOrException)
-						)
+		return literal("give") {
+			requires { it.hasPermission(2) }
+
+			thenArgument(GENE, ResourceLocationArgument.id()) {
+
+				suggests(SUGGEST_GENE_RLS)
+
+				executes {
+					val source = it.source
+					val geneRl = ResourceLocationArgument.getId(it, GENE)
+					val targets = listOf(source.playerOrException)
+
+					addGene(source, geneRl, targets)
+				}
+
+				thenArgument(TARGETS, EntityArgument.entities()) {
+					executes {
+						val source = it.source
+						val geneRl = ResourceLocationArgument.getId(it, GENE)
+						val targets = EntityArgument.getEntities(it, TARGETS)
+
+						addGene(source, geneRl, targets)
 					}
-					.then(
-						Commands
-							.argument(TARGET_ARGUMENT, EntityArgument.entities())
-							.executes { cmd ->
-								addGene(
-									cmd.source,
-									ResourceLocationArgument.getId(cmd, GENE_ARGUMENT),
-									EntityArgument.getEntities(cmd, TARGET_ARGUMENT)
-								)
-							}
-					)
-			)
+				}
+			}
+		}
 	}
 
 	private fun addGene(
