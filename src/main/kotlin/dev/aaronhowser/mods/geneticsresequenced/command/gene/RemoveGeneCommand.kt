@@ -45,7 +45,6 @@ object RemoveGeneCommand : AaronCommandHelper {
 			requires { it.hasPermission(2) }
 
 			thenArgument(TARGETS, EntityArgument.entities()) {
-
 				thenArgument(GENE, ResourceLocationArgument.id()) {
 					suggests(SUGGEST_GENE_RLS)
 
