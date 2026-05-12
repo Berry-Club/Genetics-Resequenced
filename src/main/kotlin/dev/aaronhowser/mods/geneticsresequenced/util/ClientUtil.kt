@@ -35,18 +35,19 @@ object ClientUtil {
 
 	fun playerIsCreative(): Boolean = AaronClientUtil.localPlayer?.isCreative.isTrue()
 
-	private val options: Options
-		get() = Minecraft.getInstance().options
+	private fun getOptions(): Options = Minecraft.getInstance().options
 
 	private var removedSkinLayers: Set<PlayerModelPart> = emptySet()
 	fun shearPlayerSkin() {
-		val enabledModelParts = this.options.modelParts.toMutableSet()
+		val options = getOptions()
+
+		val enabledModelParts = options.modelParts.toMutableSet()
 		if (!ClientConfig.CONFIG.woolyRemovesCape.get()) {
 			enabledModelParts.remove(PlayerModelPart.CAPE)
 		}
 
 		for (part in enabledModelParts) {
-			this.options.toggleModelPart(part, false)
+			options.toggleModelPart(part, false)
 		}
 
 		this.removedSkinLayers = enabledModelParts
@@ -56,15 +57,17 @@ object ClientUtil {
 
 	fun addSkinLayersBack() {
 		if (this.removedSkinLayers.isEmpty()) return
+
+		val options = getOptions()
 		for (part in this.removedSkinLayers) {
-			this.options.toggleModelPart(part, true)
+			options.toggleModelPart(part, true)
 		}
 
 		GeneticsResequenced.LOGGER.info("Added layers back to player skin: ${this.removedSkinLayers.joinToString(", ")}")
 		this.removedSkinLayers = emptySet()
 	}
 
-	private var amountTryingToChangeLanguage = 0
+	private var languageChangeAttempts = 0
 		set(value) {
 			field = value.coerceAtLeast(0)
 		}
@@ -142,7 +145,7 @@ object ClientUtil {
 			secondsLeft--
 		}
 
-		this.amountTryingToChangeLanguage++
+		this.languageChangeAttempts++
 		localPlayer.level().scheduleTaskInTicks(20 * countdownSeconds) {
 			localPlayer.sendSystemMessage(
 				ModMessageLang.CRINGE_RELOADING
@@ -150,9 +153,9 @@ object ClientUtil {
 					.withStyle(Style.EMPTY.withHoverText(ModMessageLang.CRINGE_CONFIG.toComponent()))
 			)
 
-			if (this.amountTryingToChangeLanguage == 1) {
+			if (this.languageChangeAttempts == 1) {
 				Minecraft.getInstance().reloadResourcePacks()
-				this.amountTryingToChangeLanguage--
+				this.languageChangeAttempts--
 			} else {
 				GeneticsResequenced.LOGGER.warn("Tried to reload resources, but it would have caused a concurrency error!")
 			}
