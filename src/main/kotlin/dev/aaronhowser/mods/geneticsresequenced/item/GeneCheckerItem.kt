@@ -20,11 +20,15 @@ import net.minecraft.world.level.Level
 
 class GeneCheckerItem(properties: Properties) : Item(properties) {
 
-	override fun use(level: Level, player: Player, usedHand: InteractionHand): InteractionResultHolder<ItemStack> {
+	override fun use(
+		level: Level,
+		player: Player,
+		usedHand: InteractionHand
+	): InteractionResultHolder<ItemStack> {
 		val usedStack = player.getItemInHand(usedHand)
 
 		if (!level.isClientSide) {
-			val targetEntity = OtherUtil.getLookedAtEntity(player) as? LivingEntity ?: player
+			val targetEntity = OtherUtil.getLookedAtEntity(player) ?: player
 
 			tellHeldGenes(player, targetEntity)
 			tellPossibleGenes(player, targetEntity)

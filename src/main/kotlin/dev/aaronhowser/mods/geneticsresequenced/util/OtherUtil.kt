@@ -37,7 +37,7 @@ object OtherUtil {
 		return entityType
 	}
 
-	fun getLookedAtEntity(livingEntity: LivingEntity): Entity? {
+	fun getLookedAtEntity(livingEntity: LivingEntity): LivingEntity? {
 		val reach = livingEntity.getAttributeValue(Attributes.ENTITY_INTERACTION_RANGE)
 
 		val entityHitResult = ProjectileUtil.getEntityHitResult(
@@ -45,11 +45,11 @@ object OtherUtil {
 			livingEntity.eyePosition,
 			livingEntity.eyePosition.add(livingEntity.lookAngle.scale(reach)),
 			livingEntity.boundingBox.inflate(reach),
-			{ true },
+			{ it is LivingEntity },
 			reach
 		)
 
-		return entityHitResult?.entity
+		return entityHitResult?.entity as? LivingEntity
 	}
 
 	fun getPotionContents(itemStack: ItemStack): PotionContents? = itemStack.get(DataComponents.POTION_CONTENTS)
