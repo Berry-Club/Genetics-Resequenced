@@ -20,7 +20,7 @@
 	- `/gr gene remove <targets> <gene>`
 	- `/gr gene remove-all <targets>`
 	- `/gr clear-bio-glow <radius>`
-- Updated the Support Slime's renderer
+- Updated the Support Slime's renderer to use the actual Skull renderer instead of making a Player Head item stack and rendering that
 
 # 1.12.3
 

@@ -1,8 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.entity
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getUuidOrNull
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.putUuidIfNotNull
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
@@ -34,34 +35,47 @@ import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 import java.util.*
 
 class SupportSlime(
-	pEntityType: EntityType<SupportSlime>,
-	pLevel: Level
-) : Slime(pEntityType, pLevel) {
+	entityType: EntityType<SupportSlime>,
+	level: Level
+) : Slime(entityType, level) {
 
 	constructor(
 		level: Level,
 		ownerUuid: UUID
 	) : this(ModEntityTypes.SUPPORT_SLIME.get(), level) {
-		setOwner(ownerUuid)
+		this.ownerUuid = ownerUuid
 	}
 
-	override fun defineSynchedData(pBuilder: SynchedEntityData.Builder) {
-		pBuilder.define(OWNER, Optional.empty())
-		super.defineSynchedData(pBuilder)
+	var ownerUuid: UUID?
+		get() = entityData.get(OWNER).orElse(null)
+		private set(value) {
+			if (value != null) {
+				entityData.set(OWNER, Optional.of(value))
+			} else {
+				entityData.set(OWNER, Optional.empty())
+			}
+		}
+
+	private fun setOwner(entity: Entity) {
+		this.ownerUuid = entity.uuid
+	}
+
+	override fun defineSynchedData(builder: SynchedEntityData.Builder) {
+		super.defineSynchedData(builder)
+		builder.define(OWNER, Optional.empty())
 	}
 
 	override fun onAddedToLevel() {
-
-		if (!this.isClientSide) {
-			if (getOwnerUuid() == null) {
-				setOwnerIfNotSet()
-			}
+		if (isServerSide) {
+			setOwnerIfNotSet()
 		}
 
 		super.onAddedToLevel()
 	}
 
 	private fun setOwnerIfNotSet() {
+		if (ownerUuid != null) return
+
 		val nearbyLivingEntities = level().getEntitiesOfClass(
 			LivingEntity::class.java,
 			this.boundingBox.inflate(10.0)
@@ -69,23 +83,11 @@ class SupportSlime(
 
 		val owner = nearbyLivingEntities.firstOrNull { it.hasGene(ModGenes.SLIMY_DEATH) }
 		if (owner != null) {
-			setOwner(owner.uuid)
+			ownerUuid = owner.uuid
 		} else {
 			GeneticsResequenced.LOGGER.warn("Support Slime spawned without an owner!")
 			this.remove(RemovalReason.DISCARDED)
 		}
-	}
-
-	fun getOwnerUuid(): UUID? {
-		return try {
-			this.entityData.get(OWNER).orElse(null)
-		} catch (e: NullPointerException) {
-			null
-		}
-	}
-
-	private fun setOwner(ownerUuid: UUID) {
-		this.entityData.set(OWNER, Optional.of(ownerUuid))
 	}
 
 	override fun tick() {
@@ -113,11 +115,11 @@ class SupportSlime(
 		for (entity in nearbyEntities) {
 			if (nearEnemies && nearOwner) break
 
-			if (entity.uuid == getOwnerUuid()) {
+			if (entity.uuid == uuid) {
 				nearOwner = true
 			}
 
-			if (entity is Mob && entity.target?.uuid == getOwnerUuid()) {
+			if (entity is Mob && entity.target?.uuid == ownerUuid) {
 				nearEnemies = true
 			}
 		}
@@ -151,40 +153,36 @@ class SupportSlime(
 		}
 	}
 
-	override fun readAdditionalSaveData(pCompound: CompoundTag) {
-		super.readAdditionalSaveData(pCompound)
+	override fun readAdditionalSaveData(compoundTag: CompoundTag) {
+		super.readAdditionalSaveData(compoundTag)
 
-		val owner = pCompound.getUuidOrNull(OWNER_UUID_NBT_KEY) ?: return
-		setOwner(owner)
+		val owner = compoundTag.getUuidOrNull(OWNER_UUID_NBT_KEY) ?: return
+		this.ownerUuid = owner
 	}
 
-	override fun addAdditionalSaveData(pCompound: CompoundTag) {
-		super.addAdditionalSaveData(pCompound)
+	override fun addAdditionalSaveData(compoundTag: CompoundTag) {
+		super.addAdditionalSaveData(compoundTag)
 
-		val owner = getOwnerUuid()
-		if (owner != null) {
-			pCompound.putUUID(OWNER_UUID_NBT_KEY, owner)
-		}
+		compoundTag.putUuidIfNotNull(OWNER_UUID_NBT_KEY, ownerUuid)
 	}
 
-	override fun setSize(pSize: Int, pResetHealth: Boolean) {
-		super.setSize(pSize, pResetHealth)
+	override fun setSize(size: Int, resetHealth: Boolean) {
+		super.setSize(size, resetHealth)
 
-		getAttribute(Attributes.ATTACK_DAMAGE)?.baseValue = pSize * 3.0
-		getAttribute(Attributes.MOVEMENT_SPEED)?.baseValue = 0.4 + 0.2 * pSize
+		getAttribute(Attributes.ATTACK_DAMAGE)?.baseValue = size * 3.0
+		getAttribute(Attributes.MOVEMENT_SPEED)?.baseValue = 0.4 + 0.2 * size
 	}
 
-	override fun push(pEntity: Entity) {
-		if (pEntity.uuid != getOwnerUuid()) super.push(pEntity)
+	override fun push(entity: Entity) {
+		if (entity.uuid != ownerUuid) super.push(entity)
 	}
 
-	override fun playerTouch(pEntity: Player) {}
+	override fun playerTouch(entity: Player) {}
 
 	private fun shouldSlimeAttackEntity(livingEntity: LivingEntity): Boolean {
-		val owner: UUID = getOwnerUuid() ?: return false
-		val mob: Mob = livingEntity as? Mob ?: return false
+		val mob = livingEntity as? Mob ?: return false
 
-		val mobIsAttackingOwner = mob.target?.uuid == owner
+		val mobIsAttackingOwner = ownerUuid != null && mob.target?.uuid == ownerUuid
 		return mobIsAttackingOwner
 	}
 

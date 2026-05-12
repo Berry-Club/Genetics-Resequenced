@@ -38,7 +38,7 @@ class SupportSlimeRenderer(
 	private val skinRenderTypesByOwner: MutableMap<UUID, RenderType> = mutableMapOf()
 
 	private fun getPlayerSkinRenderType(entity: SupportSlime): RenderType? {
-		val ownerUuid = entity.getOwnerUuid() ?: return null
+		val ownerUuid = entity.ownerUuid ?: return null
 
 		val existing = skinRenderTypesByOwner[ownerUuid]
 		if (existing != null) return existing

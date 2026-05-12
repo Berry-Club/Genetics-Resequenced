@@ -159,8 +159,9 @@ object DeathGenes {
 		if (!putOnCooldown) return
 
 		val amount = entity.random.nextRange(3, 6)
+		val level = entity.level()
 
-		repeat(amount) {
+		for (i in 0 until amount) {
 			val supportSlime = SupportSlime(entity.level(), entity.uuid)
 
 			val randomNearbyPosition = entity.position().add(
@@ -170,7 +171,7 @@ object DeathGenes {
 			)
 
 			supportSlime.moveTo(randomNearbyPosition.x, randomNearbyPosition.y, randomNearbyPosition.z)
-			entity.level().addFreshEntity(supportSlime)
+			level.addFreshEntity(supportSlime)
 		}
 
 		event.isCanceled = true
