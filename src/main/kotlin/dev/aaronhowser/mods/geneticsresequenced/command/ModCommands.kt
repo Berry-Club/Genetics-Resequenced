@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command
 
 import com.mojang.brigadier.CommandDispatcher
 import com.mojang.brigadier.context.CommandContext
-import com.mojang.brigadier.suggestion.SuggestionProvider
+import com.mojang.brigadier.suggestion.Suggestions
 import com.mojang.brigadier.suggestion.SuggestionsBuilder
 import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.SharedSuggestionProvider
+import java.util.concurrent.CompletableFuture
 
 object ModCommands : AaronCommandHelper {
 
@@ -37,13 +38,15 @@ object ModCommands : AaronCommandHelper {
 		dispatcher.register(Commands.literal("gr").redirect(primary))
 	}
 
-	val SUGGEST_GENE_RLS: SuggestionProvider<CommandSourceStack> =
-		SuggestionProvider { context: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
-			val allGeneResourceLocations = ModGenes
-				.getRegistrySorted(context.source.registryAccess())
-				.mapNotNull { it.key?.location() }
+	fun getGeneSuggestions(
+		context: CommandContext<CommandSourceStack>,
+		suggestionsBuilder: SuggestionsBuilder
+	): CompletableFuture<Suggestions> {
+		val allGeneResourceLocations = ModGenes
+			.getRegistrySorted(context.source.registryAccess())
+			.mapNotNull { it.key?.location() }
 
-			SharedSuggestionProvider.suggestResource(allGeneResourceLocations, suggestionsBuilder)
-		}
+		return SharedSuggestionProvider.suggestResource(allGeneResourceLocations, suggestionsBuilder)
+	}
 
 }

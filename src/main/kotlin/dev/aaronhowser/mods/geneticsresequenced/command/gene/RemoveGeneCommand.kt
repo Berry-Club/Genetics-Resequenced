@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
 import com.mojang.brigadier.context.CommandContext
-import com.mojang.brigadier.suggestion.SuggestionProvider
+import com.mojang.brigadier.suggestion.Suggestions
 import com.mojang.brigadier.suggestion.SuggestionsBuilder
 import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
@@ -21,24 +21,12 @@ import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
+import java.util.concurrent.CompletableFuture
 
 object RemoveGeneCommand : AaronCommandHelper {
 
 	private const val GENE = "gene"
 	private const val TARGETS = "targets"
-
-	val SUGGEST_GENE_RLS: SuggestionProvider<CommandSourceStack> =
-		SuggestionProvider { context: CommandContext<CommandSourceStack>, suggestionsBuilder: SuggestionsBuilder ->
-			val targets = context.getArgument(TARGETS, EntitySelector::class.java)
-				.findEntities(context.source)
-				.filterIsInstance<LivingEntity>()
-
-			val genesHeldByMobs = targets
-				.flatMap { it.getActiveGenes() }
-				.mapNotNull { it.key?.location() }
-
-			SharedSuggestionProvider.suggestResource(genesHeldByMobs, suggestionsBuilder)
-		}
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return literal("remove") {
@@ -46,7 +34,7 @@ object RemoveGeneCommand : AaronCommandHelper {
 
 			thenArgument(TARGETS, EntityArgument.entities()) {
 				thenArgument(GENE, ResourceLocationArgument.id()) {
-					suggests(SUGGEST_GENE_RLS)
+					suggests(::getGeneSuggestions)
 
 					executes { cmd ->
 						val source = cmd.source
@@ -57,6 +45,21 @@ object RemoveGeneCommand : AaronCommandHelper {
 				}
 			}
 		}
+	}
+
+	private fun getGeneSuggestions(
+		context: CommandContext<CommandSourceStack>,
+		suggestionsBuilder: SuggestionsBuilder
+	): CompletableFuture<Suggestions> {
+		val targets = context.getArgument(TARGETS, EntitySelector::class.java)
+			.findEntities(context.source)
+			.filterIsInstance<LivingEntity>()
+
+		val genesHeldByMobs = targets
+			.flatMap { it.getActiveGenes() }
+			.mapNotNull { it.key?.location() }
+
+		return SharedSuggestionProvider.suggestResource(genesHeldByMobs, suggestionsBuilder)
 	}
 
 	private fun removeGene(
