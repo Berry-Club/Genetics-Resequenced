@@ -22,7 +22,9 @@ import net.minecraft.world.level.block.state.properties.DirectionProperty
 import net.minecraft.world.level.material.MapColor
 import net.minecraft.world.phys.BlockHitResult
 
-abstract class MachineBlock : SimpleContainerBlock(
+open class MachineBlock(
+	val beFactory: (BlockPos, BlockState) -> BlockEntity
+) : SimpleContainerBlock(
 	Properties.of()
 		.mapColor(MapColor.METAL)
 		.requiresCorrectToolForDrops()
@@ -61,6 +63,10 @@ abstract class MachineBlock : SimpleContainerBlock(
 		}
 
 		return InteractionResult.PASS
+	}
+
+	override fun newBlockEntity(pos: BlockPos, state: BlockState): BlockEntity {
+		return beFactory(pos, state)
 	}
 
 	override fun <T : BlockEntity> getTicker(

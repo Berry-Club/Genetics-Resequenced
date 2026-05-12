@@ -3,7 +3,19 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 import dev.aaronhowser.mods.aaron.registry.AaronBlockRegistry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.*
+import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlock
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.AdvancedIncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.BloodPurifierBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.CellAnalyzerBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.DnaDecryptorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.DnaExtractorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.IncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.PlasmidInfuserBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.PlasmidInjectorBlockEntity
+import net.minecraft.core.BlockPos
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.entity.BlockEntity
+import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.registries.DeferredBlock
 import net.neoforged.neoforge.registries.DeferredRegister
 
@@ -22,21 +34,28 @@ object ModBlocks : AaronBlockRegistry() {
 
 	val COAL_GENERATOR: DeferredBlock<CoalGeneratorBlock> =
 		registerBlock("coal_generator", ::CoalGeneratorBlock)
-	val CELL_ANALYZER: DeferredBlock<CellAnalyzerBlock> =
-		registerBlock("cell_analyzer", ::CellAnalyzerBlock)
-	val DNA_EXTRACTOR: DeferredBlock<DnaExtractorBlock> =
-		registerBlock("dna_extractor", ::DnaExtractorBlock)
-	val DNA_DECRYPTOR: DeferredBlock<DnaDecryptorBlock> =
-		registerBlock("dna_decryptor", ::DnaDecryptorBlock)
-	val BLOOD_PURIFIER: DeferredBlock<BloodPurifierBlock> =
-		registerBlock("blood_purifier", ::BloodPurifierBlock)
-	val PLASMID_INFUSER: DeferredBlock<PlasmidInfuserBlock> =
-		registerBlock("plasmid_infuser", ::PlasmidInfuserBlock)
-	val PLASMID_INJECTOR: DeferredBlock<PlasmidInjectorBlock> =
-		registerBlock("plasmid_injector", ::PlasmidInjectorBlock)
-	val INCUBATOR: DeferredBlock<IncubatorBlock> =
-		registerBlock("incubator", ::IncubatorBlock)
-	val ADVANCED_INCUBATOR: DeferredBlock<Block> =
-		registerBlock("advanced_incubator", ::AdvancedIncubatorBlock)
+	val CELL_ANALYZER: DeferredBlock<out MachineBlock> =
+		registerMachineBlock("cell_analyzer", ::CellAnalyzerBlockEntity)
+	val DNA_EXTRACTOR: DeferredBlock<out MachineBlock> =
+		registerMachineBlock("dna_extractor", ::DnaExtractorBlockEntity)
+	val DNA_DECRYPTOR: DeferredBlock<out MachineBlock> =
+		registerMachineBlock("dna_decryptor", ::DnaDecryptorBlockEntity)
+	val BLOOD_PURIFIER: DeferredBlock<out MachineBlock> =
+		registerMachineBlock("blood_purifier", ::BloodPurifierBlockEntity)
+	val PLASMID_INFUSER: DeferredBlock<out MachineBlock> =
+		registerMachineBlock("plasmid_infuser", ::PlasmidInfuserBlockEntity)
+	val PLASMID_INJECTOR: DeferredBlock<out MachineBlock> =
+		registerMachineBlock("plasmid_injector", ::PlasmidInjectorBlockEntity)
+	val INCUBATOR: DeferredBlock<out MachineBlock> =
+		registerMachineBlock("incubator", ::IncubatorBlockEntity)
+	val ADVANCED_INCUBATOR: DeferredBlock<out MachineBlock> =
+		registerMachineBlock("advanced_incubator", ::AdvancedIncubatorBlockEntity)
+
+	private fun registerMachineBlock(
+		name: String,
+		factory: (BlockPos, BlockState) -> BlockEntity
+	): DeferredBlock<out MachineBlock> {
+		return registerBlock(name) { MachineBlock(factory) }
+	}
 
 }
