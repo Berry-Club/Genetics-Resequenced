@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
+import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGenes
@@ -9,31 +10,32 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.commands.CommandSourceStack
-import net.minecraft.commands.Commands
 import net.minecraft.commands.arguments.EntityArgument
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
-object ListGenesCommand {
+object ListGenesCommand : AaronCommandHelper {
 
 	private const val TARGET_ARGUMENT = "target"
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
-		return Commands
-			.literal("list-genes")
-			.requires { it.hasPermission(2) }
-			.executes {
-				val target = it.source.entityOrException
-				listGenes(it.source, target)
+		return literal("list") {
+			requires { it.hasPermission(2) }
+
+			executes {
+				val source = it.source
+				val target = source.entityOrException
+				listGenes(source, target)
 			}
-			.then(
-				Commands
-					.argument(TARGET_ARGUMENT, EntityArgument.entity())
-					.executes {
-						val target = EntityArgument.getEntity(it, TARGET_ARGUMENT)
-						listGenes(it.source, target)
-					}
-			)
+
+			thenArgument(TARGET_ARGUMENT, EntityArgument.entity()) {
+				executes {
+					val source = it.source
+					val target = EntityArgument.getEntity(it, TARGET_ARGUMENT)
+					listGenes(source, target)
+				}
+			}
+		}
 	}
 
 	private fun listGenes(

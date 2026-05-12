@@ -1,34 +1,36 @@
 package dev.aaronhowser.mods.geneticsresequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
-import com.mojang.brigadier.context.CommandContext
+import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.commands.CommandSourceStack
-import net.minecraft.commands.Commands
 
-object ListAllGenesCommand {
+object ListAllGenesCommand : AaronCommandHelper {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
-		return Commands
-			.literal("list-all-genes")
-			.executes { listAllGenes(it) }
+		return noArg("list-all", ::listAllGenes)
 	}
 
-	private fun listAllGenes(context: CommandContext<CommandSourceStack>): Int {
-		val messageComponent = ModLanguageProvider.Commands.LIST_ALL_GENES.toComponent()
-
-		messageComponent.append(
-			OtherUtil.componentList(
-				ModGenes.getRegistrySorted(context.source.registryAccess())
-					.map(Gene::getNameComponent)
-			)
+	private fun listAllGenes(
+		source: CommandSourceStack
+	): Int {
+		source.sendSuccess(
+			{
+				ModLanguageProvider.Commands.LIST_ALL_GENES.toComponent()
+					.append(
+						OtherUtil.componentList(
+							ModGenes.getRegistrySorted(source.registryAccess())
+								.map(Gene::getNameComponent)
+						)
+					)
+			},
+			false
 		)
 
-		context.source.sendSuccess({ messageComponent }, false)
 		return 1
 	}
 
