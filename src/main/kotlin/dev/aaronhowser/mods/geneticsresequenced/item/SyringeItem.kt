@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.setUnit
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
@@ -11,7 +11,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModItemLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
-import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
@@ -68,12 +67,12 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		livingEntity: LivingEntity,
 		timeCharged: Int
 	) {
-		if (livingEntity !is Player || timeCharged > 1) return
-		if (livingEntity is FakePlayer) return
+		if (timeCharged > 1) return
+		if (livingEntity !is Player || livingEntity is FakePlayer) return
 
 		if (isContaminated(stack)) {
 			if (!level.isClientSide) {
-				livingEntity.sendSystemMessage(
+				livingEntity.tell(
 					ModMessageLang.SYRINGE_CONTAMINATED.toComponent()
 				)
 			}

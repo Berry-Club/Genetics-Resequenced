@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModItemLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -38,30 +40,26 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 		return InteractionResultHolder.consume(itemStack)
 	}
 
-	override fun onUseTick(level: Level, livingEntity: LivingEntity, stack: ItemStack, remainingUseDuration: Int) {
-		if (remainingUseDuration <= 1) {
-			livingEntity.stopUsingItem()
-			releaseUsing(stack, level, livingEntity, remainingUseDuration)
-		}
-	}
-
-	override fun releaseUsing(stack: ItemStack, level: Level, livingEntity: LivingEntity, timeCharged: Int) {
-		if (livingEntity !is Player) return
+	override fun releaseUsing(
+		stack: ItemStack,
+		level: Level,
+		livingEntity: LivingEntity,
+		timeCharged: Int
+	) {
 		if (timeCharged > 1) return
+		if (livingEntity !is Player || livingEntity is FakePlayer) return
 
-		if (livingEntity is FakePlayer) return
-
-		val targetEntity = OtherUtil.getLookedAtEntity(livingEntity) ?: return
+		val target = OtherUtil.getLookedAtEntity(livingEntity) ?: return
 
 		if (hasBlood(stack)) {
-			useFullSyringe(stack, livingEntity, targetEntity)
+			useFullSyringe(stack, livingEntity, target)
 		} else {
-			extractBlood(stack, targetEntity)
+			SpecificEntityItemComponent.setEntity(stack, target)
 
 			setContaminated(stack, true)
 
-			targetEntity.hurt(getUseSyringeDamageSource(level, livingEntity), 1f)
-			targetEntity.addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
+			target.hurt(getUseSyringeDamageSource(level, livingEntity), 1f)
+			target.addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
 		}
 	}
 
@@ -74,8 +72,6 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 	}
 
 	companion object {
-		val SYRINGE_REACH_MODIFIER_RL = GeneticsResequenced.modResource("syringe_reach_modifier")
-
 		val DEFAULT_PROPERTIES: Properties = Properties()
 			.stacksTo(1)
 			.attributes(
@@ -83,7 +79,7 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 					.add(
 						Attributes.ENTITY_INTERACTION_RANGE,
 						AttributeModifier(
-							SYRINGE_REACH_MODIFIER_RL,
+							GeneticsResequenced.modResource("syringe_reach_modifier"),
 							3.0,
 							AttributeModifier.Operation.ADD_VALUE
 						),
@@ -94,15 +90,15 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 
 		private fun useFullSyringe(
 			syringeStack: ItemStack,
-			pPlayer: Player,
-			pTarget: LivingEntity
+			player: Player,
+			target: LivingEntity
 		) {
 			val uuid = SpecificEntityItemComponent.getEntityUuid(syringeStack)
-			if (pTarget.uuid != uuid) return
+			if (target.uuid != uuid) return
 
 			if (isContaminated(syringeStack)) {
-				if (!pPlayer.level().isClientSide) {
-					pPlayer.sendSystemMessage(
+				if (!player.level().isClientSide) {
+					player.tell(
 						ModMessageLang.METAL_SYRINGE_CONTAMINATED.toComponent()
 					)
 				}
@@ -110,28 +106,28 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 
 			}
 
-			tryInjectBlood(syringeStack, pPlayer, pTarget)
+			tryInjectBlood(syringeStack, player, target)
 		}
 
 		private fun tryInjectBlood(
 			syringeStack: ItemStack,
 			player: Player,
-			pInteractionTarget: LivingEntity
+			target: LivingEntity
 		) {
-			if (player.level().isClientSide) return
+			if (player.isClientSide) return
 
 			val entityUuid = SpecificEntityItemComponent.getEntityUuid(syringeStack) ?: return
 
-			if (entityUuid != pInteractionTarget.uuid) {
-				player.sendSystemMessage(ModMessageLang.METAL_SYRINGE_MISMATCH.toComponent())
+			if (entityUuid != target.uuid) {
+				player.tell(ModMessageLang.METAL_SYRINGE_MISMATCH.toComponent())
 				return
 			}
 
-			if (pInteractionTarget !is Player) {
+			if (target !is Player) {
 				val syringeGenes = getGenes(syringeStack)
-				val genesCantAdd = syringeGenes.filterNot { it.value().canEntityHave(pInteractionTarget) }
-				for (geneHolder in genesCantAdd) {
-					player.sendSystemMessage(
+				val incompatibleGenes = syringeGenes.filterNot { it.value().canEntityHave(target) }
+				for (geneHolder in incompatibleGenes) {
+					player.tell(
 						ModMessageLang.METAL_SYRINGE_NO_MOBS.toComponent(
 							geneHolder.getName()
 						)
@@ -139,16 +135,9 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 				}
 			}
 
-			injectEntity(syringeStack, pInteractionTarget)
+			injectEntity(syringeStack, target)
 
 			return
-		}
-
-		private fun extractBlood(
-			syringeStack: ItemStack,
-			pInteractionTarget: LivingEntity
-		) {
-			SpecificEntityItemComponent.setEntity(syringeStack, pInteractionTarget)
 		}
 
 	}
