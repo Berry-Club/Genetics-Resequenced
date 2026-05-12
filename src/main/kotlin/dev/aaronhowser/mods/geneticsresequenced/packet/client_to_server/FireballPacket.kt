@@ -19,10 +19,10 @@ class FireballPacket private constructor() : AaronPacket() {
 	override fun type(): CustomPacketPayload.Type<FireballPacket> = TYPE
 
 	companion object {
+		val INSTANCE = FireballPacket()
+
 		val TYPE: CustomPacketPayload.Type<FireballPacket> =
 			CustomPacketPayload.Type<FireballPacket>(GeneticsResequenced.modResource("fireball"))
-
-		val INSTANCE = FireballPacket()
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, FireballPacket> = StreamCodec.unit(INSTANCE)
 	}

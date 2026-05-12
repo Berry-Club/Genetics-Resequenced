@@ -19,10 +19,10 @@ class TeleportPlayerPacket private constructor() : AaronPacket() {
 	override fun type(): CustomPacketPayload.Type<TeleportPlayerPacket> = TYPE
 
 	companion object {
+		val INSTANCE = TeleportPlayerPacket()
+
 		val TYPE: CustomPacketPayload.Type<TeleportPlayerPacket> =
 			CustomPacketPayload.Type<TeleportPlayerPacket>(GeneticsResequenced.modResource("teleport"))
-
-		val INSTANCE = TeleportPlayerPacket()
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, TeleportPlayerPacket> = StreamCodec.unit(INSTANCE)
 	}

@@ -27,14 +27,16 @@ data class GeneChangedPacket(
 		val entity = level.getEntity(entityId) as? LivingEntity ?: return
 
 		if (this.wasAdded) {
-			entity.addGene(this.geneHolder)
+			entity.addGene(geneHolder)
 		} else {
-			entity.removeGene(this.geneHolder)
+			entity.removeGene(geneHolder)
 		}
 
-		if (this.geneHolder.isGene(ModGenes.CRINGE)) ClientUtil.handleCringe(this.wasAdded)
+		if (this.geneHolder.isGene(ModGenes.CRINGE)) {
+			ClientUtil.handleCringe(wasAdded)
+		}
 
-		this.geneHolder.value().setAttributeModifiers(entity, this.wasAdded)
+		geneHolder.value().setAttributeModifiers(entity, wasAdded)
 	}
 
 	override fun type(): CustomPacketPayload.Type<GeneChangedPacket> = TYPE

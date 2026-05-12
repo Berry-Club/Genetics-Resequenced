@@ -14,7 +14,7 @@ data class ShearedPacket(
 ) : AaronPacket() {
 
 	override fun handleOnClient(context: IPayloadContext) {
-		if (this.removingSkin) {
+		if (removingSkin) {
 			ClientUtil.shearPlayerSkin()
 		} else {
 			ClientUtil.addSkinLayersBack()
