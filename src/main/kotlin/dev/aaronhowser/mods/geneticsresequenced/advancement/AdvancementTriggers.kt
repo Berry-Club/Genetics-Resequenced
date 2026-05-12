@@ -12,31 +12,28 @@ import net.minecraft.server.level.ServerPlayer
 
 object AdvancementTriggers {
 
-	private fun completeAdvancement(player: ServerPlayer, advancement: AdvancementHolder) {
-		val progress = player.advancements.getOrStartProgress(advancement)
-		if (progress.isDone) return
-
-		val criteria = progress.remainingCriteria.iterator()
-
-		while (criteria.hasNext()) {
-			val criterion = criteria.next()
-			player.advancements.award(advancement, criterion)
-		}
-	}
-
-	fun geneAdvancements(player: ServerPlayer, geneHolder: Holder<Gene>, wasAdded: Boolean) {
+	fun geneAdvancements(
+		player: ServerPlayer,
+		geneHolder: Holder<Gene>,
+		wasAdded: Boolean
+	) {
 		if (!wasAdded) return
 
-		getAnyGeneAdvancement(player)
+		completeAdvancement(player, ModAdvancementSubProvider.GET_GENE)
+		completeAllScareGenesAdvancement(player)
 
-		when {
-			geneHolder.isGene(ModGenes.CRINGE) -> getCringeGeneAdvancement(player)
-			geneHolder.isGene(ModGenes.FLIGHT) -> getFlightGeneAdvancement(player)
-			geneHolder.isGene(ModGenes.SCARE_SPIDERS) -> getAllScareGenes(player)
+		val otherAdvancement = when {
+			geneHolder.isGene(ModGenes.CRINGE) -> ModAdvancementSubProvider.GET_CRINGE
+			geneHolder.isGene(ModGenes.FLIGHT) -> ModAdvancementSubProvider.GET_FLIGHT
+			else -> null
+		}
+
+		if (otherAdvancement != null) {
+			completeAdvancement(player, otherAdvancement)
 		}
 	}
 
-	private fun getAllScareGenes(player: ServerPlayer) {
+	private fun completeAllScareGenesAdvancement(player: ServerPlayer) {
 		val scareGeneKeys =
 			listOf(
 				ModGenes.SCARE_SPIDERS,
@@ -47,36 +44,28 @@ object AdvancementTriggers {
 
 		if (scareGeneKeys.any { !player.hasGene(it) }) return
 
-		val advancement = getAdvancement(player, ModAdvancementSubProvider.GET_ALL_SCARE_GENES) ?: return
+		completeAdvancement(player, ModAdvancementSubProvider.GET_ALL_SCARE_GENES)
+	}
+
+	fun ResourceLocation.getAdvancement(player: ServerPlayer): AdvancementHolder? {
+		return player.server.advancements.get(this)
+	}
+
+	fun completeAdvancement(player: ServerPlayer, advancementId: ResourceLocation) {
+		val advancement = advancementId.getAdvancement(player) ?: return
 		completeAdvancement(player, advancement)
 	}
 
-	private fun getFlightGeneAdvancement(player: ServerPlayer) {
-		val advancement = getAdvancement(player, ModAdvancementSubProvider.GET_FLIGHT) ?: return
-		completeAdvancement(player, advancement)
-	}
+	fun completeAdvancement(player: ServerPlayer, advancement: AdvancementHolder) {
+		val progress = player.advancements.getOrStartProgress(advancement)
+		if (progress.isDone) return
 
-	fun slimyDeathAdvancement(player: ServerPlayer) {
-		val advancement = getAdvancement(player, ModAdvancementSubProvider.TRIGGER_SLIMY_DEATH) ?: return
-		completeAdvancement(player, advancement)
-	}
+		val criteria = progress.remainingCriteria.iterator()
 
-	private fun getCringeGeneAdvancement(player: ServerPlayer) {
-		val advancement = getAdvancement(player, ModAdvancementSubProvider.GET_CRINGE) ?: return
-		completeAdvancement(player, advancement)
+		while (criteria.hasNext()) {
+			val criterion = criteria.next()
+			player.advancements.award(advancement, criterion)
+		}
 	}
-
-	private fun getAnyGeneAdvancement(player: ServerPlayer) {
-		val advancement = getAdvancement(player, ModAdvancementSubProvider.GET_GENE) ?: return
-		completeAdvancement(player, advancement)
-	}
-
-	fun getMilkedAdvancement(player: ServerPlayer) {
-		val advancement = getAdvancement(player, ModAdvancementSubProvider.GET_MILKED) ?: return
-		completeAdvancement(player, advancement)
-	}
-
-	fun getAdvancement(player: ServerPlayer, advancementId: ResourceLocation): AdvancementHolder? =
-		player.server.advancements.get(advancementId)
 
 }

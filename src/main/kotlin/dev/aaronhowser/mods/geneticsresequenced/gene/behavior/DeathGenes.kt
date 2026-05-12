@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Compani
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.saveInventory
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.curios.KeepCurioInventory
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
+import dev.aaronhowser.mods.geneticsresequenced.datagen.ModAdvancementSubProvider
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
@@ -176,7 +177,7 @@ object DeathGenes {
 		entity.health = entity.maxHealth * ServerConfig.CONFIG.slimyDeathHealthMultiplier.get().toFloat()
 
 		if (entity is ServerPlayer) {
-			AdvancementTriggers.slimyDeathAdvancement(entity)
+			AdvancementTriggers.completeAdvancement(entity, ModAdvancementSubProvider.TRIGGER_SLIMY_DEATH)
 		}
 	}
 
