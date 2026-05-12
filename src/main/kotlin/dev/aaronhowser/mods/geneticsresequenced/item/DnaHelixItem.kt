@@ -21,17 +21,17 @@ import net.minecraft.world.item.TooltipFlag
 class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 
 	override fun appendHoverText(
-		pStack: ItemStack,
-		pContext: TooltipContext,
-		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
+		stack: ItemStack,
+		context: TooltipContext,
+		tooltipComponents: MutableList<Component>,
+		tooltipFlag: TooltipFlag
 	) {
-		val geneHolder = getGeneHolder(pStack)
+		val geneHolder = getGeneHolder(stack)
 
 		if (geneHolder == null) {
-			showNoGeneTooltips(pStack, pTooltipComponents)
+			showNoGeneTooltips(stack, tooltipComponents)
 		} else {
-			pTooltipComponents.add(
+			tooltipComponents.add(
 				ModTooltipLang.GENE
 					.toComponent(geneHolder.getName())
 					.withStyle(ChatFormatting.GRAY)

@@ -12,21 +12,21 @@ import net.minecraft.world.item.TooltipFlag
 class AntiPlasmidItem(properties: Properties) : Item(properties) {
 
 	override fun appendHoverText(
-		pStack: ItemStack,
-		pContext: TooltipContext,
-		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
+		stack: ItemStack,
+		context: TooltipContext,
+		tooltipComponents: MutableList<Component>,
+		tooltipFlag: TooltipFlag
 	) {
-		val geneHolder = PlasmidItem.getGene(pStack)
+		val geneHolder = PlasmidItem.getGene(stack)
 
 		if (geneHolder == null) {
-			pTooltipComponents.add(
+			tooltipComponents.add(
 				ModTooltipLang.ANTI_PLASMID_EMPTY
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
 			)
 		} else {
-			pTooltipComponents.add(
+			tooltipComponents.add(
 				ModTooltipLang.PLASMID_GENE
 					.toComponent(geneHolder.getName())
 					.withStyle(ChatFormatting.GRAY)

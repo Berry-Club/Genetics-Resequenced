@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toggleUnit
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
@@ -22,13 +23,14 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 		level: Level,
 		player: Player,
 		usedHand: InteractionHand
-	): InteractionResultHolder<ItemStack?> {
-		if (!level.isClientSide) {
-			val stack = player.getItemInHand(usedHand)
+	): InteractionResultHolder<ItemStack> {
+		val stack = player.getItemInHand(usedHand)
+
+		if (level.isServerSide) {
 			stack.toggleUnit(ModDataComponents.IS_ACTIVE)
 		}
 
-		return super.use(level, player, usedHand)
+		return InteractionResultHolder.success(stack)
 	}
 
 	override fun isFoil(stack: ItemStack): Boolean {
