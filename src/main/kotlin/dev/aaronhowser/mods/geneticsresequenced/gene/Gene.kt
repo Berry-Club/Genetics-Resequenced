@@ -69,11 +69,11 @@ data class Gene(
 	}
 
 	fun canEntityTypeHave(entityType: EntityType<*>): Boolean {
-		return this.allowedEntities.map(Holder<EntityType<*>>::value).contains(entityType)
+		return this.allowedEntities.any { it.value() == entityType }
 	}
 
 	fun setAttributeModifiers(livingEntity: LivingEntity, isAdding: Boolean) {
-		for ((attribute, modifier) in this.attributeModifiers) {
+		for ((attribute, modifier) in attributeModifiers) {
 			val attributeInstance = livingEntity.getAttribute(attribute)
 
 			if (attributeInstance == null) {
@@ -85,70 +85,14 @@ data class Gene(
 			}
 
 			if (isAdding) {
-				if (!attributeInstance.hasModifier(modifier.id)) attributeInstance.addPermanentModifier(modifier)
+				if (!attributeInstance.hasModifier(modifier.id)) {
+					attributeInstance.addPermanentModifier(modifier)
+				}
 			} else {
-				if (attributeInstance.hasModifier(modifier.id)) attributeInstance.removeModifier(modifier)
+				if (attributeInstance.hasModifier(modifier.id)) {
+					attributeInstance.removeModifier(modifier)
+				}
 			}
-		}
-	}
-
-	data class AttributeEntry(
-		val attribute: Holder<Attribute>,
-		val modifier: AttributeModifier
-	) {
-		companion object {
-			val DIRECT_CODEC: Codec<AttributeEntry> = RecordCodecBuilder.create { instance ->
-				instance.group(
-					Attribute.CODEC
-						.fieldOf("attribute")
-						.forGetter(AttributeEntry::attribute),
-					AttributeModifier.CODEC
-						.fieldOf("modifier")
-						.forGetter(AttributeEntry::modifier)
-				).apply(instance, Gene::AttributeEntry)
-			}
-
-			val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, AttributeEntry> =
-				StreamCodec.composite(
-					Attribute.STREAM_CODEC, AttributeEntry::attribute,
-					AttributeModifier.STREAM_CODEC, AttributeEntry::modifier,
-					Gene::AttributeEntry
-				)
-		}
-	}
-
-	data class PotionDetails(
-		val effect: Holder<MobEffect>,
-		val level: Int = 1,
-		val duration: Int = -1,
-		val showIcon: Boolean = false
-	) {
-		companion object {
-			val DIRECT_CODEC: Codec<PotionDetails> = RecordCodecBuilder.create { instance ->
-				instance.group(
-					MobEffect.CODEC
-						.fieldOf("effect")
-						.forGetter(PotionDetails::effect),
-					Codec.INT
-						.optionalFieldOf("level", 1)
-						.forGetter(PotionDetails::level),
-					Codec.INT
-						.optionalFieldOf("duration", -1)
-						.forGetter(PotionDetails::duration),
-					Codec.BOOL
-						.optionalFieldOf("show_icon", false)
-						.forGetter(PotionDetails::showIcon)
-				).apply(instance, Gene::PotionDetails)
-			}
-
-			val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, PotionDetails> =
-				StreamCodec.composite(
-					MobEffect.STREAM_CODEC, PotionDetails::effect,
-					ByteBufCodecs.VAR_INT, PotionDetails::level,
-					ByteBufCodecs.VAR_INT, PotionDetails::duration,
-					ByteBufCodecs.BOOL, PotionDetails::showIcon,
-					Gene::PotionDetails
-				)
 		}
 	}
 
@@ -296,6 +240,66 @@ data class Gene(
 			.append(", scaresEntitiesWithTag=").append(this.scaresEntitiesWithTag)
 			.append("}")
 			.toString()
+	}
+
+	data class AttributeEntry(
+		val attribute: Holder<Attribute>,
+		val modifier: AttributeModifier
+	) {
+		companion object {
+			val DIRECT_CODEC: Codec<AttributeEntry> = RecordCodecBuilder.create { instance ->
+				instance.group(
+					Attribute.CODEC
+						.fieldOf("attribute")
+						.forGetter(AttributeEntry::attribute),
+					AttributeModifier.CODEC
+						.fieldOf("modifier")
+						.forGetter(AttributeEntry::modifier)
+				).apply(instance, Gene::AttributeEntry)
+			}
+
+			val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, AttributeEntry> =
+				StreamCodec.composite(
+					Attribute.STREAM_CODEC, AttributeEntry::attribute,
+					AttributeModifier.STREAM_CODEC, AttributeEntry::modifier,
+					Gene::AttributeEntry
+				)
+		}
+	}
+
+	data class PotionDetails(
+		val effect: Holder<MobEffect>,
+		val level: Int = 1,
+		val duration: Int = -1,
+		val showIcon: Boolean = false
+	) {
+		companion object {
+			val DIRECT_CODEC: Codec<PotionDetails> = RecordCodecBuilder.create { instance ->
+				instance.group(
+					MobEffect.CODEC
+						.fieldOf("effect")
+						.forGetter(PotionDetails::effect),
+					Codec.INT
+						.optionalFieldOf("level", 1)
+						.forGetter(PotionDetails::level),
+					Codec.INT
+						.optionalFieldOf("duration", -1)
+						.forGetter(PotionDetails::duration),
+					Codec.BOOL
+						.optionalFieldOf("show_icon", false)
+						.forGetter(PotionDetails::showIcon)
+				).apply(instance, Gene::PotionDetails)
+			}
+
+			val DIRECT_STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, PotionDetails> =
+				StreamCodec.composite(
+					MobEffect.STREAM_CODEC, PotionDetails::effect,
+					ByteBufCodecs.VAR_INT, PotionDetails::level,
+					ByteBufCodecs.VAR_INT, PotionDetails::duration,
+					ByteBufCodecs.BOOL, PotionDetails::showIcon,
+					Gene::PotionDetails
+				)
+		}
 	}
 
 }
