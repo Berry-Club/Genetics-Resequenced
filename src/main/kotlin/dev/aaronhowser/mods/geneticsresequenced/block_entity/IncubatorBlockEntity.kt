@@ -6,8 +6,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.menu.incubator.IncubatorMenu
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
+import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.DupeCellRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -41,11 +40,11 @@ class IncubatorBlockEntity(
 			val level = level ?: return false
 
 			return when (slot) {
-				TOP_SLOT_INDEX -> AbstractIncubatorRecipe.isValidTopIngredient(level, stack)
+				TOP_SLOT_INDEX -> IncubatorRecipe.isValidTopIngredient(level, stack)
 
 				LEFT_BOTTLE_SLOT_INDEX,
 				MIDDLE_BOTTLE_SLOT_INDEX,
-				RIGHT_BOTTLE_SLOT_INDEX -> AbstractIncubatorRecipe.isValidBottomIngredient(level, stack)
+				RIGHT_BOTTLE_SLOT_INDEX -> IncubatorRecipe.isValidBottomIngredient(level, stack)
 
 				OVERCLOCKER_SLOT_INDEX -> stack.isItem(ModItems.OVERCLOCKER)
 
@@ -102,8 +101,8 @@ class IncubatorBlockEntity(
 		return bottomStacks.any { bottomStack ->
 			if (bottomStack.isEmpty) return@any false
 
-			val input = IncubatorRecipeInput(topStack, bottomStack, isHighTemp = true)
-			AbstractIncubatorRecipe.hasIncubatorRecipe(level, input)
+			val input = IncubatorRecipe.Input(topStack, bottomStack, isHighTemp = true)
+			IncubatorRecipe.hasIncubatorRecipe(level, input)
 		}
 	}
 
@@ -121,8 +120,8 @@ class IncubatorBlockEntity(
 		for (slotIndex in bottleSlots) {
 			val bottomStack = itemHandler.getStackInSlot(slotIndex)
 
-			val recipeInput = IncubatorRecipeInput(topStack, bottomStack, isHighTemp = true)
-			val incubatorRecipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, recipeInput)
+			val recipeInput = IncubatorRecipe.Input(topStack, bottomStack, isHighTemp = true)
+			val incubatorRecipe = IncubatorRecipe.getIncubatorRecipe(level!!, recipeInput)
 
 			if (incubatorRecipe != null) {
 				if (incubatorRecipe !is DupeCellRecipe) onlyDupeCellRecipes = false

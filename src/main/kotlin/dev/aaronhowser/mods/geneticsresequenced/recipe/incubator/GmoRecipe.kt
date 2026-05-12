@@ -6,8 +6,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
+import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -37,12 +36,12 @@ class GmoRecipe(
 	val idealGeneRk: ResourceKey<Gene>,
 	val geneChance: Float,
 	val needsMutationPotion: Boolean,
-) : AbstractIncubatorRecipe(
+) : IncubatorRecipe(
 	topIngredient = topIngredient,
 	bottomIngredient = getBottomIngredient(needsMutationPotion, entityType)
 ) {
 
-	override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
+	override fun matches(input: Input, level: Level): Boolean {
 		val topSlotStack = input.getTopItem()
 		val bottomSlotStack = input.getBottomItem()
 
@@ -53,7 +52,7 @@ class GmoRecipe(
 		return true //TODO: Make sure it actually detects the entity type too
 	}
 
-	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
+	override fun assemble(input: Input, lookup: HolderLookup.Provider): ItemStack {
 		return getResultItem(lookup)
 	}
 
@@ -162,14 +161,14 @@ class GmoRecipe(
 			}
 		}
 
-		fun getGmoRecipe(level: Level, incubatorRecipeInput: IncubatorRecipeInput): GmoRecipe? {
+		fun getGmoRecipe(level: Level, `input `: Input): GmoRecipe? {
 			return getGmoRecipes(level).find { recipeHolder ->
-				recipeHolder.value.matches(incubatorRecipeInput, level)
+				recipeHolder.value.matches(`input `, level)
 			}?.value
 		}
 
 		fun getGmoRecipe(level: Level, topStack: ItemStack, bottomStack: ItemStack, isHighTemp: Boolean): GmoRecipe? {
-			return getGmoRecipe(level, IncubatorRecipeInput(topStack, bottomStack, isHighTemp))
+			return getGmoRecipe(level, Input(topStack, bottomStack, isHighTemp))
 		}
 
 	}

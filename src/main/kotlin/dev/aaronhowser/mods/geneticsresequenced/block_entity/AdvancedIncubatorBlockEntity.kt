@@ -8,8 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.CraftingMachin
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator.AdvancedIncubatorMenu
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
+import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.DupeCellRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
@@ -60,11 +59,11 @@ class AdvancedIncubatorBlockEntity(
 				val level = level ?: return false
 
 				return when (slot) {
-					TOP_SLOT_INDEX -> AbstractIncubatorRecipe.isValidTopIngredient(level, stack)
+					TOP_SLOT_INDEX -> IncubatorRecipe.isValidTopIngredient(level, stack)
 
 					LEFT_BOTTLE_SLOT_INDEX,
 					MIDDLE_BOTTLE_SLOT_INDEX,
-					RIGHT_BOTTLE_SLOT_INDEX -> AbstractIncubatorRecipe.isValidBottomIngredient(level, stack)
+					RIGHT_BOTTLE_SLOT_INDEX -> IncubatorRecipe.isValidBottomIngredient(level, stack)
 
 					OVERCLOCKER_SLOT_INDEX -> stack.isItem(ModItems.OVERCLOCKER)
 
@@ -156,8 +155,8 @@ class AdvancedIncubatorBlockEntity(
 
 		return bottomStacks.any { bottomStack ->
 			if (bottomStack.isEmpty) return@any false
-			val input = IncubatorRecipeInput(topStack, bottomStack, isHighTemp = isHighTemperature)
-			AbstractIncubatorRecipe.hasIncubatorRecipe(level!!, input)
+			val input = IncubatorRecipe.Input(topStack, bottomStack, isHighTemp = isHighTemperature)
+			IncubatorRecipe.hasIncubatorRecipe(level!!, input)
 		}
 	}
 
@@ -175,13 +174,13 @@ class AdvancedIncubatorBlockEntity(
 		for (slotIndex in bottleSlots) {
 			val bottomStack = itemHandler.getStackInSlot(slotIndex)
 
-			val incubatorInput = IncubatorRecipeInput(
+			val incubatorInput = IncubatorRecipe.Input(
 				topStack,
 				bottomStack,
 				isHighTemp = isHighTemperature
 			)
 
-			val incubatorRecipe = AbstractIncubatorRecipe.getIncubatorRecipe(level!!, incubatorInput)
+			val incubatorRecipe = IncubatorRecipe.getIncubatorRecipe(level!!, incubatorInput)
 
 			if (incubatorRecipe != null) {
 				if (incubatorRecipe !is DupeCellRecipe) onlyDupeCellRecipes = false
@@ -215,7 +214,7 @@ class AdvancedIncubatorBlockEntity(
 	}
 
 
-	private fun gmoRecipeOutput(gmoRecipe: GmoRecipe, input: IncubatorRecipeInput): ItemStack {
+	private fun gmoRecipeOutput(gmoRecipe: GmoRecipe, input: IncubatorRecipe.Input): ItemStack {
 		val level = level ?: return ItemStack.EMPTY
 
 		val chanceDecreasePerOverclocker = ServerConfig.CONFIG.incubatorOverclockerChanceDecrease.get().toFloat()
@@ -245,11 +244,11 @@ class AdvancedIncubatorBlockEntity(
 		}
 	}
 
-	private fun nonGmoRecipeOutput(incubatorRecipe: AbstractIncubatorRecipe): ItemStack {
+	private fun nonGmoRecipeOutput(incubatorRecipe: IncubatorRecipe): ItemStack {
 		val level = level ?: return ItemStack.EMPTY
 
 		val output = incubatorRecipe.assemble(
-			IncubatorRecipeInput(
+			IncubatorRecipe.Input(
 				itemHandler.getStackInSlot(TOP_SLOT_INDEX),
 				itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX),
 				isHighTemp = this.isHighTemperature

@@ -4,8 +4,7 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
+import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -25,12 +24,12 @@ import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 class DupeCellRecipe(
 	val itemToDupe: Item,
 	val amountToCreate: Int
-) : AbstractIncubatorRecipe(
+) : IncubatorRecipe(
 	topIngredient = Ingredient.of(itemToDupe),
 	bottomIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.SUBSTRATE)),
 ) {
 
-	override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
+	override fun matches(input: Input, level: Level): Boolean {
 		val topStack = input.getTopItem()
 		val potionStack = input.getBottomItem()
 
@@ -40,7 +39,7 @@ class DupeCellRecipe(
 		return EntityDnaItem.hasEntity(topStack)
 	}
 
-	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
+	override fun assemble(input: Input, lookup: HolderLookup.Provider): ItemStack {
 		return input.getTopItem().copyWithCount(amountToCreate)
 	}
 

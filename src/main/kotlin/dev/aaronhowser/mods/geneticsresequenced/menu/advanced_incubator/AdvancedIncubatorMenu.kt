@@ -10,7 +10,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.menu.CraftingMachineMenu
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
@@ -59,10 +59,10 @@ class AdvancedIncubatorMenu(
 	}
 
 	override fun addSlots() {
-		val topSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX, 83, 21) { AbstractIncubatorRecipe.isValidTopIngredient(level, it) }
-		val leftBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 55) { AbstractIncubatorRecipe.isValidBottomIngredient(level, it) }
-		val middleBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX, 83, 62) { AbstractIncubatorRecipe.isValidBottomIngredient(level, it) }
-		val rightBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX, 106, 55) { AbstractIncubatorRecipe.isValidBottomIngredient(level, it) }
+		val topSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX, 83, 21) { IncubatorRecipe.isValidTopIngredient(level, it) }
+		val leftBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 55) { IncubatorRecipe.isValidBottomIngredient(level, it) }
+		val middleBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX, 83, 62) { IncubatorRecipe.isValidBottomIngredient(level, it) }
+		val rightBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX, 106, 55) { IncubatorRecipe.isValidBottomIngredient(level, it) }
 		val chorusSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.CHORUS_SLOT_INDEX, 141, 38) { it.isItem(Items.CHORUS_FRUIT) }
 
 		val overclockerSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.OVERCLOCKER_SLOT_INDEX, 141, 60) { it.isItem(ModItems.OVERCLOCKER) }

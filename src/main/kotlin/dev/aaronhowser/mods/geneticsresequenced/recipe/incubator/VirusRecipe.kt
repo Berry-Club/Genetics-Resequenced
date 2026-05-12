@@ -5,8 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
+import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -28,12 +27,12 @@ import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 class VirusRecipe(
 	val inputDnaGene: ResourceKey<Gene>,
 	val outputGene: ResourceKey<Gene>
-) : AbstractIncubatorRecipe(
+) : IncubatorRecipe(
 	topIngredient = Ingredient.of(ModItems.DNA_HELIX.get()),
 	bottomIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))
 ) {
 
-	override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
+	override fun matches(input: Input, level: Level): Boolean {
 		val helixStack = input.getTopItem()
 		val potionStack = input.getBottomItem()
 
@@ -43,7 +42,7 @@ class VirusRecipe(
 		return DnaHelixItem.getGeneHolder(helixStack).isGene(inputDnaGene)
 	}
 
-	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
+	override fun assemble(input: Input, lookup: HolderLookup.Provider): ItemStack {
 		return getResultItem(lookup)
 	}
 

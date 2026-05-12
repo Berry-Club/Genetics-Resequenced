@@ -8,8 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
+import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
@@ -25,12 +24,12 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
-object BlackDeathRecipe : AbstractIncubatorRecipe(
+object BlackDeathRecipe : IncubatorRecipe(
 	topIngredient = Ingredient.of(ModItemTagsProvider.SYRINGES),
 	bottomIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))
 ) {
 
-	override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
+	override fun matches(input: Input, level: Level): Boolean {
 		val syringeStack = input.getTopItem()
 		val potionStack = input.getBottomItem()
 
@@ -45,7 +44,7 @@ object BlackDeathRecipe : AbstractIncubatorRecipe(
 		return syringeGenes.containsAll(requiredGenes)
 	}
 
-	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
+	override fun assemble(input: Input, lookup: HolderLookup.Provider): ItemStack {
 		return getResultItem(lookup)
 	}
 

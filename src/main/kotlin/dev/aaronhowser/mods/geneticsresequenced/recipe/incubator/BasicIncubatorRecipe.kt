@@ -3,8 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
+import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.RegistryFriendlyByteBuf
@@ -22,9 +21,9 @@ class BasicIncubatorRecipe(
 	bottomIngredient: Ingredient,
 	val outputStack: ItemStack,
 	val isLowTemp: Boolean
-) : AbstractIncubatorRecipe(topIngredient, bottomIngredient) {
+) : IncubatorRecipe(topIngredient, bottomIngredient) {
 
-	override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
+	override fun matches(input: Input, level: Level): Boolean {
 		val topItem = input.getTopItem()
 		val bottomItem = input.getBottomItem()
 
@@ -33,7 +32,7 @@ class BasicIncubatorRecipe(
 				&& this.bottomIngredient.test(bottomItem)
 	}
 
-	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
+	override fun assemble(input: Input, lookup: HolderLookup.Provider): ItemStack {
 		return getResultItem(lookup)
 	}
 

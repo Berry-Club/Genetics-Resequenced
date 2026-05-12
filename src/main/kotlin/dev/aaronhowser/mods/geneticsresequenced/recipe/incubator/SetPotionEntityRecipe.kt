@@ -3,8 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModPotionTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
+import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.PotionTagIngredient
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
@@ -16,12 +15,12 @@ import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
-object SetPotionEntityRecipe : AbstractIncubatorRecipe(
+object SetPotionEntityRecipe : IncubatorRecipe(
 	topIngredient = Ingredient.of(ModItems.CELL.get()),
 	bottomIngredient = PotionTagIngredient(ModPotionTagsProvider.CAN_HAVE_ENTITY).toVanilla()
 ) {
 
-	override fun matches(input: IncubatorRecipeInput, level: Level): Boolean {
+	override fun matches(input: Input, level: Level): Boolean {
 		val cellStack = input.getTopItem()
 		val potionStack = input.getBottomItem()
 
@@ -34,7 +33,7 @@ object SetPotionEntityRecipe : AbstractIncubatorRecipe(
 		return topEntity != bottomEntity
 	}
 
-	override fun assemble(input: IncubatorRecipeInput, lookup: HolderLookup.Provider): ItemStack {
+	override fun assemble(input: Input, lookup: HolderLookup.Provider): ItemStack {
 		val topItem = input.getTopItem()
 		val bottomItem = input.getBottomItem()
 
