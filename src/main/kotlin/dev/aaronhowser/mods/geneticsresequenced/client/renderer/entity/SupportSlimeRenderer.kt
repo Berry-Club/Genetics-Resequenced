@@ -66,13 +66,10 @@ class SupportSlimeRenderer(
 		val skinRenderType = getPlayerSkinRenderType(entity) ?: return
 
 		poseStack.withPose {
-			val scale = entity.size
+			val scale = entity.size.toFloat()
 
-			val scaleF = scale.toFloat()
-			val scaleD = scale.toDouble()
-
-			poseStack.translate(-scaleD / 2.0, 0.0, -scaleD / 2.0)
-			poseStack.scale(scaleF, scaleF, scaleF)
+			poseStack.translate(-scale / 2.0, 0.0, -scale / 2.0)
+			poseStack.scale(scale, scale, scale)
 
 			val lerpedRot = 180 + Mth.rotLerp(partialTicks, entity.yRotO, entity.yRot)
 
