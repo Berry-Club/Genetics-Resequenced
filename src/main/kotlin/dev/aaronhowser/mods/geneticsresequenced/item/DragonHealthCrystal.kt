@@ -28,8 +28,8 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 
 	override fun getMaxDamage(stack: ItemStack): Int = Mth.ceil(getMaxDamage())
 	override fun getDamage(stack: ItemStack): Int {
-		val damageRemaining = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0.0)
-		return Mth.ceil(getMaxDamage() - damageRemaining)
+		val usedDamage = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0.0)
+		return Mth.ceil(usedDamage)
 	}
 
 	override fun isValidRepairItem(stack: ItemStack, repairCandidate: ItemStack): Boolean {
@@ -43,11 +43,13 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 		tooltipFlag: TooltipFlag
 	) {
 		val maxDamage = getMaxDamage()
-		val damageLeft = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0.0)
+		val currentDamage = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0.0)
+		val remainingHealth = maxDamage - currentDamage
 
 		tooltipComponents.add(
-			Component.literal("${damageLeft.toInt()}/${maxDamage.toInt()}")
-				.withStyle(ChatFormatting.GRAY)
+			Component.literal(
+				"${Mth.ceil(remainingHealth)} / ${Mth.ceil(maxDamage)}"
+			).withStyle(ChatFormatting.GRAY)
 		)
 	}
 
