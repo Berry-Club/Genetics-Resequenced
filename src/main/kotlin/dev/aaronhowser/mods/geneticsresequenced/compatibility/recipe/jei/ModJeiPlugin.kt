@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.ModJeiInformationRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
 import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter

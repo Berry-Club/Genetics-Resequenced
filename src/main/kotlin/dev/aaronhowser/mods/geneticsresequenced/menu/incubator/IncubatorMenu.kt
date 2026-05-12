@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.incubator
 
-import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.IncubatorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.geneticsresequenced.menu.CraftingMachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import net.minecraft.world.Container

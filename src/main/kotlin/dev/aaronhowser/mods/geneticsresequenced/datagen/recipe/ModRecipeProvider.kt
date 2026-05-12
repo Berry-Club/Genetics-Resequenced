@@ -235,7 +235,7 @@ class ModRecipeProvider(
 			.pattern("ISI")
 			.define('I', Tags.Items.INGOTS_IRON)
 			.define('G', Tags.Items.GLASS_BLOCKS)
-			.define('S', ModItemTagsProvider.Companion.SYRINGES)
+			.define('S', ModItemTagsProvider.SYRINGES)
 			.unlockedBy("has_scraper", has(ModItems.SCRAPER.get()))
 			.save(recipeOutput)
 
@@ -259,7 +259,7 @@ class ModRecipeProvider(
 		BasicIncubatorRecipeBuilder(
 			DataComponentIngredient.of(
 				false,
-				DnaHelixItem.Companion.getHelixStack(ModGenes.BASIC, lookupProvider.get())
+				DnaHelixItem.getHelixStack(ModGenes.BASIC, lookupProvider.get())
 			),
 			DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.SUBSTRATE)),
 			OtherUtil.getPotionStack(ModPotions.CELL_GROWTH),
@@ -269,7 +269,7 @@ class ModRecipeProvider(
 		BasicIncubatorRecipeBuilder(
 			DataComponentIngredient.of(
 				false,
-				DnaHelixItem.Companion.getHelixStack(ModGenes.REGENERATION, lookupProvider.get())
+				DnaHelixItem.getHelixStack(ModGenes.REGENERATION, lookupProvider.get())
 			),
 			DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
 			OtherUtil.getPotionStack(ModPotions.PANACEA),
@@ -280,7 +280,7 @@ class ModRecipeProvider(
 		BasicIncubatorRecipeBuilder(
 			DataComponentIngredient.of(
 				false,
-				DnaHelixItem.Companion.getHelixStack(ModGenes.EMERALD_HEART, lookupProvider.get())
+				DnaHelixItem.getHelixStack(ModGenes.EMERALD_HEART, lookupProvider.get())
 			),
 			DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)),
 			OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER),

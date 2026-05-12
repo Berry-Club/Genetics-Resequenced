@@ -19,7 +19,7 @@ object ModEnchantmentProvider {
 			DELICATE_TOUCH,
 			Enchantment.enchantment(
 				Enchantment.definition(
-					itemGetter.getOrThrow(ModItemTagsProvider.Companion.ENCHANTABLE_DELICATE_TOUCH),
+					itemGetter.getOrThrow(ModItemTagsProvider.ENCHANTABLE_DELICATE_TOUCH),
 					10,
 					1,
 					Enchantment.dynamicCost(4, 0),

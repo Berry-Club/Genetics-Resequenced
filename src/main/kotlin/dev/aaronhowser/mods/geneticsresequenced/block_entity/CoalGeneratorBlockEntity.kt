@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_entity
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.geneticsresequenced.block.CoalGeneratorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.MachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.CraftingContainerData

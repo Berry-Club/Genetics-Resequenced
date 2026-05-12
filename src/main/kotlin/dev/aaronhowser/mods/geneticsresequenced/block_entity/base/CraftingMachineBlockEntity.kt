@@ -109,7 +109,7 @@ abstract class CraftingMachineBlockEntity(
 	}
 
 	override fun getItemHandler(direction: Direction?): IItemHandler? {
-		val blockFacing = this.blockState.getValue(MachineBlock.Companion.H_FACING)
+		val blockFacing = this.blockState.getValue(MachineBlock.H_FACING)
 
 		return when (direction) {
 			blockFacing.opposite -> overclockHandler

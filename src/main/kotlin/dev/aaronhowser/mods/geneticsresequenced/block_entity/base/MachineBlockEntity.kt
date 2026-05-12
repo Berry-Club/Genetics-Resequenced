@@ -51,7 +51,7 @@ abstract class MachineBlockEntity(
 	protected val itemHandler: IItemHandlerModifiable by lazy {
 		object : InvWrapper(container) {
 			override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
-				return if (slot == CraftingMachineBlockEntity.Companion.OUTPUT_SLOT_INDEX) {
+				return if (slot == CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX) {
 					false
 				} else {
 					super.isItemValid(slot, stack)
