@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
-import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -40,42 +39,6 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 
 	}
 
-	private fun showNoGeneTooltips(
-		pStack: ItemStack,
-		pTooltipComponents: MutableList<Component>
-	) {
-
-		pTooltipComponents.add(
-			ModTooltipLang.GENE
-				.toComponent(Gene.UNKNOWN_GENE_COMPONENT)
-				.withStyle(ChatFormatting.GRAY)
-		)
-
-		val entity = getEntityType(pStack)
-		if (entity != null) {
-			pTooltipComponents.add(
-				ModTooltipLang.HELIX_ENTITY
-					.toComponent(entity.description)
-					.withStyle(ChatFormatting.GRAY)
-			)
-		}
-
-		try {
-			val isCreative = ClientUtil.playerIsCreative()
-
-			if (isCreative) {
-				val component =
-					ModTooltipLang.CELL_CREATIVE
-						.toComponent()
-						.withStyle(ChatFormatting.GRAY)
-				pTooltipComponents.add(component)
-			}
-		} catch (e: Exception) {
-			GeneticsResequenced.LOGGER.error("DnaHelixItem isCreative check failed", e)
-		}
-
-	}
-
 	companion object {
 		fun hasGene(itemStack: ItemStack): Boolean = itemStack.has(ModDataComponents.GENE)
 		fun getGeneHolder(itemStack: ItemStack): Holder<Gene>? = itemStack.get(ModDataComponents.GENE)
@@ -98,6 +61,35 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 		fun getAllHelices(registries: HolderLookup.Provider): List<ItemStack> {
 			return ModGenes.getRegistrySorted(registries, includeHelixOnly = true)
 				.map { geneHolder -> getHelixStack(geneHolder) }
+		}
+
+		private fun showNoGeneTooltips(
+			stack: ItemStack,
+			components: MutableList<Component>
+		) {
+			components.add(
+				ModTooltipLang.GENE
+					.toComponent(Gene.UNKNOWN_GENE_COMPONENT)
+					.withStyle(ChatFormatting.GRAY)
+			)
+
+			val entity = getEntityType(stack)
+			if (entity != null) {
+				components.add(
+					ModTooltipLang.HELIX_ENTITY
+						.toComponent(entity.description)
+						.withStyle(ChatFormatting.GRAY)
+				)
+			}
+
+			if (ClientUtil.playerIsCreative()) {
+				val component =
+					ModTooltipLang.CELL_CREATIVE
+						.toComponent()
+						.withStyle(ChatFormatting.GRAY)
+
+				components.add(component)
+			}
 		}
 	}
 

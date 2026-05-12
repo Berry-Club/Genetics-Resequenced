@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -25,21 +26,28 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 	override fun isDamageable(stack: ItemStack): Boolean = true
 	override fun isBarVisible(stack: ItemStack): Boolean = getDamage(stack) > 0
 
-	override fun getMaxDamage(stack: ItemStack): Int = Mth.ceil(MAX_DAMAGE)
+	override fun getMaxDamage(stack: ItemStack): Int = Mth.ceil(getMaxDamage())
 	override fun getDamage(stack: ItemStack): Int {
-		val damageRemaining = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0f)
-		return Mth.ceil(MAX_DAMAGE - damageRemaining)
+		val damageRemaining = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0.0)
+		return Mth.ceil(getMaxDamage() - damageRemaining)
 	}
 
-	override fun isValidRepairItem(pStack: ItemStack, pRepairCandidate: ItemStack): Boolean {
-		return pRepairCandidate.item === Items.END_CRYSTAL
+	override fun isValidRepairItem(stack: ItemStack, repairCandidate: ItemStack): Boolean {
+		return repairCandidate.item === Items.END_CRYSTAL
 	}
 
-	override fun appendHoverText(stack: ItemStack, context: TooltipContext, tooltipComponents: MutableList<Component>, tooltipFlag: TooltipFlag) {
-		val maxDamage = MAX_DAMAGE
-		val damageLeft = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0f)
+	override fun appendHoverText(
+		stack: ItemStack,
+		context: TooltipContext,
+		tooltipComponents: MutableList<Component>,
+		tooltipFlag: TooltipFlag
+	) {
+		val maxDamage = getMaxDamage()
+		val damageLeft = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0.0)
+
 		tooltipComponents.add(
-			Component.literal("${damageLeft.toInt()}/${maxDamage.toInt()}").withStyle(ChatFormatting.GRAY)
+			Component.literal("${damageLeft.toInt()}/${maxDamage.toInt()}")
+				.withStyle(ChatFormatting.GRAY)
 		)
 	}
 
@@ -47,10 +55,8 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 		val DEFAULT_PROPERTIES: () -> Properties = {
 			Properties()
 				.stacksTo(1)
-				.component(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, MAX_DAMAGE)
+				.component(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0.0)
 		}
-
-		const val MAX_DAMAGE = 1000f
 
 		fun handleIncomingDamage(event: LivingDamageEvent.Pre) {
 			val entity = event.entity
@@ -65,24 +71,30 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 			val healthCrystals = heldStacks.filter { it.isItem(ModItems.DRAGON_HEALTH_CRYSTAL) }
 			if (healthCrystals.isEmpty()) return
 
-			for (crystal in healthCrystals) {
-				val damageLeft = crystal.get(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE) ?: continue
-				val amountToRemove = minOf(event.container.newDamage, damageLeft)
+			val maxDamage = getMaxDamage()
 
+			for (crystal in healthCrystals) {
+				val currentDamage = crystal.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0.0)
+				val damageLeft = maxDamage - currentDamage
+
+				val amountToRemove = minOf(event.container.newDamage, damageLeft.toFloat())
 				event.container.newDamage -= amountToRemove
 
-				val newStackDamage = damageLeft - amountToRemove
+				val newStackDamage = currentDamage + amountToRemove
 				crystal.set(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, newStackDamage)
-				if (newStackDamage <= 0f) {
-					crystal.shrink(1)
-					entity.onEquippedItemBroken(crystal.item, entity.getEquipmentSlotForItem(crystal))
+				if (newStackDamage >= maxDamage) {
+					crystal.hurtAndBreak(1, entity, entity.getEquipmentSlotForItem(crystal))
 				}
 
 				if (event.container.newDamage <= 0f) break
 			}
 
-			if (event.container.newDamage < 0f) event.container.newDamage = 0f
+			if (event.container.newDamage < 0f) {
+				event.container.newDamage = 0f
+			}
 		}
+
+		fun getMaxDamage(): Double = ServerConfig.CONFIG.dragonHealthCrystalMaxDamage.get()
 	}
 
 }

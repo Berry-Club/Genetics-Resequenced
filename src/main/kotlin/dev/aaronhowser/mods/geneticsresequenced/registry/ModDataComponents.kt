@@ -29,8 +29,8 @@ object ModDataComponents : AaronDataComponentRegistry() {
 		unit("is_contaminated")
 	val IS_INFINITY_ARROW: DeferredHolder<DataComponentType<*>, DataComponentType<Unit>> =
 		unit("is_infinity_arrow")
-	val DRAGON_HEALTH_CRYSTAL_DAMAGE: DeferredHolder<DataComponentType<*>, DataComponentType<Float>> =
-		float("dragon_health_crystal_damage")
+	val DRAGON_HEALTH_CRYSTAL_DAMAGE: DeferredHolder<DataComponentType<*>, DataComponentType<Double>> =
+		double("dragon_health_crystal_damage")
 	val GENE: DeferredHolder<DataComponentType<*>, DataComponentType<Holder<Gene>>> =
 		register("gene", Gene.CODEC, Gene.STREAM_CODEC)
 	val GENE_SET: DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =

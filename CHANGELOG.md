@@ -21,6 +21,9 @@
 	- `/gr gene remove-all <targets>`
 	- `/gr clear-bio-glow <radius>`
 - Updated the Support Slime's renderer to use the actual Skull renderer instead of making a Player Head item stack and rendering that
+- Reworked the Dragon Health Crystal a bit
+	- Instead of starting at a high number and going down, it starts at 0 and goes up
+    - The max damage is also configurable
 
 # 1.12.3
 
