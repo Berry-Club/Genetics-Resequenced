@@ -17,7 +17,7 @@
 	- `/gr gene list <target>`
 	- `/gr gene list-all`
 	- `/gr gene give <gene> <targets> <duration>`
-	- `/gr gene remove <gene> <targets>`
+	- `/gr gene remove <targets> <gene>`
 	- `/gr gene remove-all <targets>`
 	- `/gr clear-bio-glow <radius>`
 

@@ -7,6 +7,7 @@ import com.mojang.brigadier.suggestion.SuggestionsBuilder
 import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
+import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -34,7 +35,7 @@ object RemoveGeneCommand : AaronCommandHelper {
 
 			thenArgument(TARGETS, EntityArgument.entities()) {
 				thenArgument(GENE, ResourceLocationArgument.id()) {
-					suggests(::getGeneSuggestions)
+					suggests(ModCommands::getGeneSuggestions)
 
 					executes { cmd ->
 						val source = cmd.source
@@ -47,6 +48,7 @@ object RemoveGeneCommand : AaronCommandHelper {
 		}
 	}
 
+	//FIXME: For some reason the context doesn't have the arguments when this is called, which is sad
 	private fun getGeneSuggestions(
 		context: CommandContext<CommandSourceStack>,
 		suggestionsBuilder: SuggestionsBuilder
