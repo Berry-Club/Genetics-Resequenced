@@ -1,33 +1,24 @@
 package dev.aaronhowser.mods.geneticsresequenced.client.renderer.entity
 
 import com.mojang.blaze3d.vertex.PoseStack
-import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
+import dev.aaronhowser.mods.aaron.misc.AaronDsls.withPose
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
+import net.minecraft.client.model.SkullModelBase
 import net.minecraft.client.model.SlimeModel
 import net.minecraft.client.model.geom.ModelLayers
 import net.minecraft.client.renderer.MultiBufferSource
+import net.minecraft.client.renderer.RenderType
+import net.minecraft.client.renderer.blockentity.SkullBlockRenderer
 import net.minecraft.client.renderer.entity.EntityRendererProvider
-import net.minecraft.client.renderer.entity.ItemRenderer
 import net.minecraft.client.renderer.entity.MobRenderer
 import net.minecraft.client.renderer.entity.SlimeRenderer
 import net.minecraft.client.renderer.entity.layers.SlimeOuterLayer
-import net.minecraft.client.renderer.texture.OverlayTexture
-import net.minecraft.core.component.DataComponents
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Mth
-import net.minecraft.world.item.ItemDisplayContext
-import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.Items
 import net.minecraft.world.item.component.ResolvableProfile
-import net.neoforged.api.distmarker.Dist
-import net.neoforged.api.distmarker.OnlyIn
-import org.joml.Quaternionf
-import org.joml.Vector3f
-import kotlin.math.cos
-import kotlin.math.sin
+import net.minecraft.world.level.block.SkullBlock
+import java.util.*
 
-@OnlyIn(Dist.CLIENT)
 class SupportSlimeRenderer(
 	context: EntityRendererProvider.Context
 ) : MobRenderer<SupportSlime, SlimeModel<SupportSlime>>(
@@ -36,112 +27,67 @@ class SupportSlimeRenderer(
 	0.25f
 ) {
 
+	private val skullModel: SkullModelBase =
+		SkullBlockRenderer.createSkullRenderers(context.modelSet)
+			.getValue(SkullBlock.Types.PLAYER)
+
 	init {
-		this.addLayer(SlimeOuterLayer(this, context.modelSet))
+		addLayer(SlimeOuterLayer(this, context.modelSet))
 	}
 
-	private val itemRenderer: ItemRenderer = context.itemRenderer
+	private val skinRenderTypesByOwner: MutableMap<UUID, RenderType> = mutableMapOf()
 
-	private var headStack: ItemStack? = null
+	private fun getPlayerSkinRenderType(entity: SupportSlime): RenderType? {
+		val ownerUuid = entity.getOwnerUuid() ?: return null
 
-	private fun getHead(pEntity: SupportSlime): ItemStack {
-		if (headStack != null) return headStack!!
+		val existing = skinRenderTypesByOwner[ownerUuid]
+		if (existing != null) return existing
 
-		val ownerUuid = pEntity.getOwnerUuid()
-		val owner = if (ownerUuid == null) null else pEntity.level().getPlayerByUUID(ownerUuid)
+		val owner = entity.level().getPlayerByUUID(ownerUuid) ?: return null
 
-		if (owner == null) return ItemStack.EMPTY
-
-		val ownerProfile = owner.gameProfile
-		val ownerProfileComponent = ResolvableProfile(ownerProfile)
-
-		val newHeadStack = Items.PLAYER_HEAD.itemStack
-		newHeadStack.set(
-			DataComponents.PROFILE,
-			ownerProfileComponent
+		val skinRenderType = SkullBlockRenderer.getRenderType(
+			SkullBlock.Types.PLAYER,
+			ResolvableProfile(owner.gameProfile)
 		)
 
-		headStack = newHeadStack
-		return newHeadStack
+		skinRenderTypesByOwner[ownerUuid] = skinRenderType
+		return skinRenderType
 	}
 
 	override fun render(
-		pEntity: SupportSlime,
-		pEntityYaw: Float,
-		pPartialTicks: Float,
-		pPoseStack: PoseStack,
-		pBuffer: MultiBufferSource,
-		pPackedLight: Int
+		entity: SupportSlime,
+		entityYaw: Float,
+		partialTicks: Float,
+		poseStack: PoseStack,
+		buffer: MultiBufferSource,
+		packedLight: Int
 	) {
 
-		if (ClientConfig.CONFIG.supportSlimeRenderDebug.get()) {
-			super.render(pEntity, pEntityYaw, pPartialTicks, pPoseStack, pBuffer, pPackedLight)
+		val skinRenderType = getPlayerSkinRenderType(entity) ?: return
+
+		poseStack.withPose {
+			poseStack.translate(-1.0, 0.0, -1.0)
+
+			val scale = entity.size.toFloat()
+			poseStack.scale(scale, scale, scale)
+
+			val lerpedRot = -Mth.rotLerp(partialTicks, entity.yRotO, entity.yRot)
+
+			SkullBlockRenderer.renderSkull(
+				null,
+				lerpedRot,
+				0f,
+				poseStack,
+				buffer,
+				packedLight,
+				skullModel,
+				skinRenderType
+			)
 		}
-
-		/**
-		 * FIXME:
-		 *  Hitbox is a bit broken.
-		 *  This isn't super important because they never attack players, but still.
-		 */
-		pPoseStack.translate(
-			0.0,
-			pEntity.size.toDouble() / 4,
-			0.0
-		)
-		pPoseStack.scale(
-			pEntity.size.toFloat(),
-			pEntity.size.toFloat(),
-			pEntity.size.toFloat()
-		)
-
-
-		// I don't understand this bit at ALL. It's copied from the 1.19 constructor Quaternion(Vector3f pRotationAxis, float pRotationAngle, boolean pDegrees)
-		val lerpedRotY = Mth.lerp(pPartialTicks, pEntity.yRotO, pEntity.yRot)
-		val vectorPositiveY = Vector3f(0f, 1f, 0f)
-		val rotationAngleDegrees = lerpedRotY * 0.017453292f
-		val thing = sin(rotationAngleDegrees / 2f)
-		val quaternion = Quaternionf(
-			vectorPositiveY.x * thing,
-			vectorPositiveY.y * thing,
-			vectorPositiveY.z * thing,
-			cos(rotationAngleDegrees / 2f)
-		)
-
-		pPoseStack.mulPose(quaternion)
-
-		itemRenderer.renderStatic(
-			getHead(pEntity),
-			ItemDisplayContext.FIXED,
-			pPackedLight,
-			OverlayTexture.NO_OVERLAY,
-			pPoseStack,
-			pBuffer,
-			pEntity.level(),
-			pEntity.id
-		)
 	}
 
-	override fun scale(
-		pLivingEntity: SupportSlime,
-		pMatrixStack: PoseStack,
-		pPartialTickTime: Float
-	) {
-		pMatrixStack.scale(0.999f, 0.999f, 0.999f)
-		pMatrixStack.translate(0.0, 0.001, 0.0)
-		val sizeFactor = pLivingEntity.size.toFloat()
-		val squishFactor = Mth.lerp(
-			pPartialTickTime,
-			pLivingEntity.oSquish,
-			pLivingEntity.squish
-		) / (sizeFactor * 0.5f + 1.0f)
-		val inverseSquish = 1.0f / (squishFactor + 1.0f)
-		pMatrixStack.scale(inverseSquish * sizeFactor, 1.0f / inverseSquish * sizeFactor, inverseSquish * sizeFactor)
-	}
-
-	/**
-	 * Returns the location of an entity's texture.
-	 */
-	override fun getTextureLocation(pEntity: SupportSlime): ResourceLocation {
+	override fun getTextureLocation(entity: SupportSlime): ResourceLocation {
 		return SlimeRenderer.SLIME_LOCATION
 	}
+
 }

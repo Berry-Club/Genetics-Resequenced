@@ -20,6 +20,7 @@
 	- `/gr gene remove <targets> <gene>`
 	- `/gr gene remove-all <targets>`
 	- `/gr clear-bio-glow <radius>`
+- Updated the Support Slime's renderer
 
 # 1.12.3
 

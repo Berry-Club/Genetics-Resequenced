@@ -9,7 +9,6 @@ class ClientConfig(
 
 	lateinit var woolyRemovesCape: ModConfigSpec.BooleanValue
 	lateinit var disableParrotNarrator: ModConfigSpec.BooleanValue
-	lateinit var supportSlimeRenderDebug: ModConfigSpec.BooleanValue
 	lateinit var itemMagnetBlacklistTooltip: ModConfigSpec.BooleanValue
 
 	lateinit var disableCringeLangChange: ModConfigSpec.BooleanValue
@@ -32,10 +31,6 @@ class ClientConfig(
 		disableParrotNarrator = builder
 			.comment("Disables the narrator when a player with the Parrot gene speaks.")
 			.define("disableParrotNarrator", false)
-
-		supportSlimeRenderDebug = builder
-			.comment("Enable to render the base Slime model for Support Slime entities.")
-			.define("supportSlimeRenderDebug", false)
 
 		itemMagnetBlacklistTooltip = builder
 			.comment("Show that an item is in the Item Magnet's blacklist in its tooltip.")
