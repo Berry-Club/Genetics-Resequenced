@@ -15,40 +15,39 @@ import net.minecraft.world.item.TooltipFlag
 class GmoCell(properties: Properties) : Item(properties) {
 
 	override fun appendHoverText(
-		pStack: ItemStack,
-		pContext: TooltipContext,
-		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
+		stack: ItemStack,
+		context: TooltipContext,
+		components: MutableList<Component>,
+		tooltipFlag: TooltipFlag
 	) {
-
-		val entityType = EntityDnaItem.getEntityType(pStack)
+		val entityType = EntityDnaItem.getEntityType(stack)
 		if (entityType != null) {
-			val entityComponent =
+			components.add(
 				ModTooltipLang.CELL_MOB
 					.toComponent(entityType.description)
 					.withStyle(ChatFormatting.GRAY)
-			pTooltipComponents.add(entityComponent)
+			)
 		} else {
-			val noEntityComponent =
+			components.add(
 				ModTooltipLang.CELL_NO_MOB
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
-			pTooltipComponents.add(noEntityComponent)
+			)
 		}
 
-		val geneHolder = DnaHelixItem.getGeneHolder(pStack)
+		val geneHolder = DnaHelixItem.getGeneHolder(stack)
 		if (geneHolder != null) {
-			val geneComponent =
+			components.add(
 				ModTooltipLang.GENE
 					.toComponent(geneHolder.getName())
 					.withStyle(ChatFormatting.GRAY)
-			pTooltipComponents.add(geneComponent)
+			)
 		} else {
-			val noGeneComponent =
+			components.add(
 				ModTooltipLang.GENE
 					.toComponent(Gene.UNKNOWN_GENE_COMPONENT)
 					.withStyle(ChatFormatting.GRAY)
-			pTooltipComponents.add(noGeneComponent)
+			)
 		}
 	}
 

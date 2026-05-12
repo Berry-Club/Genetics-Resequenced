@@ -16,7 +16,6 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderSet
@@ -38,54 +37,62 @@ import java.util.*
 
 open class SyringeItem(properties: Properties) : Item(properties) {
 
-	override fun getUseDuration(pStack: ItemStack, pHolder: LivingEntity): Int = 40
-	override fun getUseAnimation(pStack: ItemStack): UseAnim = UseAnim.BOW
+	override fun getUseDuration(stack: ItemStack, holder: LivingEntity): Int = 40
+	override fun getUseAnimation(stack: ItemStack): UseAnim = UseAnim.BOW
 
-	override fun use(pLevel: Level, pPlayer: Player, pUsedHand: InteractionHand): InteractionResultHolder<ItemStack> {
-		val realStack = pPlayer.getItemInHand(pUsedHand)
-		pPlayer.startUsingItem(pUsedHand)
-		return InteractionResultHolder.consume(realStack)
+	override fun use(
+		level: Level,
+		player: Player,
+		usedHand: InteractionHand
+	): InteractionResultHolder<ItemStack> {
+		val stack = player.getItemInHand(usedHand)
+		player.startUsingItem(usedHand)
+		return InteractionResultHolder.consume(stack)
 	}
 
-	override fun onUseTick(pLevel: Level, pLivingEntity: LivingEntity, pStack: ItemStack, pRemainingUseDuration: Int) {
-
-		if (pRemainingUseDuration <= 1) {
-			pLivingEntity.stopUsingItem()
-			releaseUsing(pStack, pLevel, pLivingEntity, pRemainingUseDuration)
+	override fun onUseTick(
+		level: Level,
+		livingEntity: LivingEntity,
+		stack: ItemStack,
+		remainingUseDuration: Int
+	) {
+		if (remainingUseDuration <= 1) {
+			livingEntity.stopUsingItem()
+			releaseUsing(stack, level, livingEntity, remainingUseDuration)
 		}
-
 	}
 
-	override fun releaseUsing(pStack: ItemStack, pLevel: Level, pLivingEntity: LivingEntity, pTimeCharged: Int) {
+	override fun releaseUsing(
+		stack: ItemStack,
+		level: Level,
+		livingEntity: LivingEntity,
+		timeCharged: Int
+	) {
+		if (livingEntity !is Player || timeCharged > 1) return
+		if (livingEntity is FakePlayer) return
 
-		if (pLivingEntity !is Player || pTimeCharged > 1) return
-		if (pLivingEntity is FakePlayer) return
-
-		if (isContaminated(pStack)) {
-			if (!pLevel.isClientSide) {
-				pLivingEntity.sendSystemMessage(
+		if (isContaminated(stack)) {
+			if (!level.isClientSide) {
+				livingEntity.sendSystemMessage(
 					ModMessageLang.SYRINGE_CONTAMINATED.toComponent()
 				)
 			}
 			return
 		}
 
-		if (hasBlood(pStack)) {
-			injectEntity(pStack, pLivingEntity)
+		if (hasBlood(stack)) {
+			injectEntity(stack, livingEntity)
 		} else {
-			setEntity(pStack, pLivingEntity)
+			setEntity(stack, livingEntity)
 		}
 
-		pLivingEntity.apply {
-			hurt(damageSourceUseSyringe(pLevel, pLivingEntity), 1f)
-			addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
-
-			cooldowns.addCooldown(ModItems.SYRINGE.get(), 10)
-		}
+		livingEntity.hurt(getUseSyringeDamageSource(level, livingEntity), 1f)
+		livingEntity.addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
+		livingEntity.cooldowns.addCooldown(this, 10)
 	}
 
-	override fun getName(pStack: ItemStack): Component {
-		return if (hasBlood(pStack)) {
+	override fun getName(stack: ItemStack): Component {
+		return if (hasBlood(stack)) {
 			ModItemLang.SYRINGE_FULL.toComponent()
 		} else {
 			ModItemLang.SYRINGE_EMPTY.toComponent()
@@ -93,32 +100,31 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 	}
 
 	override fun appendHoverText(
-		pStack: ItemStack,
-		pContext: TooltipContext,
-		pTooltipComponents: MutableList<Component>,
-		pTooltipFlag: TooltipFlag
+		stack: ItemStack,
+		context: TooltipContext,
+		components: MutableList<Component>,
+		tooltipFlag: TooltipFlag
 	) {
-
-		val bloodOwner = getEntityName(pStack)
-		if (hasBlood(pStack) && bloodOwner != null) {
-			pTooltipComponents.add(
+		val ownerName = SpecificEntityItemComponent.getEntityName(stack)
+		if (ownerName != null) {
+			components.add(
 				ModTooltipLang.SYRINGE_OWNER
-					.toComponent(bloodOwner)
+					.toComponent(ownerName)
 					.withStyle(ChatFormatting.GRAY)
 			)
 		}
 
-		if (isContaminated(pStack)) {
-			pTooltipComponents.add(
+		if (isContaminated(stack)) {
+			components.add(
 				ModTooltipLang.SYRINGE_CONTAMINATED
 					.toComponent()
 					.withStyle(ChatFormatting.DARK_GREEN)
 			)
 		}
 
-		val addingGenes = getGenes(pStack)
+		val addingGenes = getGenes(stack)
 		if (addingGenes.isNotEmpty()) {
-			pTooltipComponents.add(
+			components.add(
 				ModTooltipLang.SYRINGE_ADDING_GENES
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
@@ -133,13 +139,13 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 						it.withColor(nameComponent.style.color)
 					}.append(nameComponent)
 
-				pTooltipComponents.add(component)
+				components.add(component)
 			}
 		}
 
-		val removingGenes = getAntigenes(pStack)
+		val removingGenes = getAntigenes(stack)
 		if (removingGenes.isNotEmpty()) {
-			pTooltipComponents.add(
+			components.add(
 				ModTooltipLang.SYRINGE_REMOVING_GENES
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
@@ -154,15 +160,13 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 						it.withColor(nameComponent.style.color)
 					}.append(nameComponent)
 
-				pTooltipComponents.add(component)
+				components.add(component)
 			}
 		}
 	}
 
 	companion object {
 		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
-
-		fun ItemStack.isSyringe(): Boolean = this.isItem(ModItemTagsProvider.SYRINGES)
 
 		fun isBeingUsed(syringeStack: ItemStack, entity: LivingEntity?): Boolean {
 			return entity?.useItem == syringeStack
@@ -182,7 +186,6 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		}
 
 		private fun getEntityUuid(syringeStack: ItemStack): UUID? = SpecificEntityItemComponent.getEntityUuid(syringeStack)
-		fun getEntityName(syringeStack: ItemStack): Component? = SpecificEntityItemComponent.getEntityName(syringeStack)
 
 		fun injectEntity(syringeStack: ItemStack, entity: LivingEntity) {
 			val syringeEntityUuid = getEntityUuid(syringeStack) ?: return
@@ -323,12 +326,12 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			return true
 		}
 
-		fun damageSourceStepOnSyringe(level: Level, thrower: LivingEntity?): DamageSource {
+		fun getStepOnSyringeDamageSource(level: Level, thrower: LivingEntity?): DamageSource {
 			return level.damageSources().source(ModDamageTypeProvider.STEP_ON_SYRINGE, thrower)
 		}
 
-		fun damageSourceUseSyringe(level: Level, thrower: LivingEntity?): DamageSource {
-			return level.damageSources().source(ModDamageTypeProvider.USE_SYRINGE, thrower)
+		fun getUseSyringeDamageSource(level: Level, user: LivingEntity?): DamageSource {
+			return level.damageSources().source(ModDamageTypeProvider.USE_SYRINGE, user)
 		}
 	}
 

@@ -3,9 +3,9 @@ package dev.aaronhowser.mods.geneticsresequenced.block_entity
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.CraftingMachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
-import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
 import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_injector.PlasmidInjectorMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -49,7 +49,7 @@ class PlasmidInjectorBlockEntity(
 		val plasmidStack = itemHandler.getStackInSlot(INPUT_SLOT_INDEX)
 		val syringeStack = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
-		if (!syringeStack.isSyringe()) return false
+		if (!syringeStack.isItem(ModItemTagsProvider.SYRINGES)) return false
 
 		if (plasmidStack.isItem(ModItems.PLASMID)) {
 			val plasmidGene = PlasmidItem.getGene(plasmidStack) ?: return false

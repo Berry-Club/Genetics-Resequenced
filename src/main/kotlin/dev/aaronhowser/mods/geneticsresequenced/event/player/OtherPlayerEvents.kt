@@ -1,13 +1,14 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
+import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isContaminated
-import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isSyringe
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.SetGenesPacket
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.effect.MobEffectInstance
@@ -39,10 +40,10 @@ object OtherPlayerEvents {
 		val originalStack = event.originalStack
 		val player = event.player
 
-		if (originalStack.isSyringe()) {
+		if (originalStack.isItem(ModItemTagsProvider.SYRINGES)) {
 			val thrower = event.itemEntity.owner as? LivingEntity
 
-			player.hurt(SyringeItem.damageSourceStepOnSyringe(event.player.level(), thrower), 1.0f)
+			player.hurt(SyringeItem.getStepOnSyringeDamageSource(event.player.level(), thrower), 1.0f)
 
 			if (isContaminated(originalStack)) {
 				player.addEffect(MobEffectInstance(MobEffects.POISON, 20 * 3))
