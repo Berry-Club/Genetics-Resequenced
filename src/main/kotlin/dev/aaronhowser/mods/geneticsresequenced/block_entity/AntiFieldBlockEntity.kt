@@ -64,8 +64,6 @@ class AntiFieldBlockEntity(
 			blockState: BlockState,
 			blockEntity: AntiFieldBlockEntity
 		) {
-			if (level !is AntiFieldCarrier) return
-
 			val isDisabled = blockState.getValue(AntiFieldBlock.DISABLED)
 
 			if (isDisabled) {
