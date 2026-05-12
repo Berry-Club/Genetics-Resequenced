@@ -10,6 +10,7 @@
 	- Previously they were a really gross static list
 	- Now they're an entity attachment
 	- Also added two new events: GeneCooldownEvent.Add and GeneCooldownEvent.Remove
+    - Cooldown notifications have been moved to the status bar instead of text
 
 # 1.12.3
 
