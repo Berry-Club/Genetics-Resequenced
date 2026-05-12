@@ -39,16 +39,6 @@ object ModGenes {
 		return fromResourceKey(registries, ResourceKey.create(GENE_REGISTRY_KEY, rl))
 	}
 
-	@JvmStatic
-	fun fromString(registries: HolderLookup.Provider, id: String): Holder<Gene>? {
-		return fromResourceLocation(registries, ResourceLocation.parse(id))
-	}
-
-	@JvmStatic
-	fun fromIdPath(registries: HolderLookup.Provider, path: String): Holder.Reference<Gene>? {
-		return getAllGeneHolders(registries).filter { it.key!!.location().path == path }.findFirst().orElse(null)
-	}
-
 	fun getRegistrySorted(
 		registries: HolderLookup.Provider,
 		includeHelixOnly: Boolean = false,
@@ -69,7 +59,11 @@ object ModGenes {
 			}
 		}
 
-		return other.sortedBy { it.key } + mutations.sortedBy { it.key } + negatives.sortedBy { it.key }
+		return buildList {
+			addAll(other.sortedBy { it.key })
+			addAll(mutations.sortedBy { it.key })
+			addAll(negatives.sortedBy { it.key })
+		}
 	}
 
 	private fun resourceKey(geneName: String): ResourceKey<Gene> {
