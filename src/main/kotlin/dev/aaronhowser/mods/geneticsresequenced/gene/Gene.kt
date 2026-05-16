@@ -112,7 +112,7 @@ data class Gene(
 			}
 
 		fun Holder<Gene>?.isGene(geneRk: ResourceKey<Gene>?): Boolean {
-			return this != null && geneRk != null && this.key === geneRk
+			return this != null && geneRk != null && this.isHolder(geneRk)
 		}
 
 		fun Holder<Gene>?.isGene(geneHolder: Holder<Gene>): Boolean {
