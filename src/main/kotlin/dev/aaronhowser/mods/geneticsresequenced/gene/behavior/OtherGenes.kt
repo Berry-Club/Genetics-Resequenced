@@ -9,9 +9,11 @@ import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.NarratorPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.BlockPos
+import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.world.entity.Entity
@@ -151,8 +153,8 @@ object OtherGenes {
 		}
 	}
 
-	fun handleWallClimbing(player: Player) {
-		if (!player.hasGene(ModGenes.WALL_CLIMBING)) return
+	fun handleWallClimbing(player: Player, genes: Set<Holder<Gene>>) {
+		if (!genes.hasGene(player.registryAccess(), ModGenes.WALL_CLIMBING)) return
 
 		if (player.horizontalCollision || player.minorHorizontalCollision) {
 			player.setDeltaMovement(

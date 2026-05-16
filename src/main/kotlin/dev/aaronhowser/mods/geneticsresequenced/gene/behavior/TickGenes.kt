@@ -45,10 +45,10 @@ object TickGenes {
 		handlePassiveGenes(entity, genes)
 
 		if (entity is Player) {
-			handleNoHunger(entity)
-			handleItemMagnet(entity)
-			handleXpMagnet(entity)
-			OtherGenes.handleWallClimbing(entity)     // Requires clientside handling
+			handleNoHunger(entity, genes)
+			handleItemMagnet(entity, genes)
+			handleXpMagnet(entity, genes)
+			OtherGenes.handleWallClimbing(entity, genes)     // Requires clientside handling
 		}
 	}
 
@@ -257,18 +257,18 @@ object TickGenes {
 		entity.level().addFreshEntity(eggEntity)
 	}
 
-	private fun handleNoHunger(entity: Player) {
-		if (entity.tickCount % ServerConfig.CONFIG.noHungerCooldown.get() != 0) return
-		if (!entity.hasGene(ModGenes.NO_HUNGER)) return
+	private fun handleNoHunger(player: Player, genes: Set<Holder<Gene>>) {
+		if (player.tickCount % ServerConfig.CONFIG.noHungerCooldown.get() != 0) return
+		if (!genes.hasGene(player.registryAccess(), ModGenes.NO_HUNGER)) return
 
-		val foodData = entity.foodData
+		val foodData = player.foodData
 		foodData.foodLevel = max(foodData.foodLevel, ServerConfig.CONFIG.noHungerMinimum.get())
 	}
 
-	private fun handleItemMagnet(player: Player) {
+	private fun handleItemMagnet(player: Player, genes: Set<Holder<Gene>>) {
 		if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 		if (player.tickCount % ServerConfig.CONFIG.itemMagnetCooldown.get() != 0) return
-		if (!player.hasGene(ModGenes.ITEM_MAGNET)) return
+		if (!genes.hasGene(player.registryAccess(), ModGenes.ITEM_MAGNET)) return
 		if (AntiFieldOrbItem.isActiveForPlayer(player)) return
 
 		val nearbyItems = player.level().getEntitiesOfClass(
@@ -301,10 +301,10 @@ object TickGenes {
 		event.toolTip.add(component)
 	}
 
-	private fun handleXpMagnet(player: Player) {
+	private fun handleXpMagnet(player: Player, genes: Set<Holder<Gene>>) {
 		if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 		if (player.tickCount % ServerConfig.CONFIG.xpMagnetCooldown.get() != 0) return
-		if (!player.hasGene(ModGenes.XP_MAGNET)) return
+		if (!genes.hasGene(player.registryAccess(), ModGenes.XP_MAGNET)) return
 		if (AntiFieldOrbItem.isActiveForPlayer(player)) return
 
 		val nearbyXpOrbs = player.level().getEntitiesOfClass(
