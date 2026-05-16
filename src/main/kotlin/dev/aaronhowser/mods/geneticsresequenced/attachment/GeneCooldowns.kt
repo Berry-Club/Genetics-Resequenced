@@ -114,7 +114,7 @@ class GeneCooldowns(
 			return removeCooldown(entity, geneHolder)
 		}
 
-		fun tick(entity: LivingEntity, genes: Set<Holder<Gene>>) {
+		fun tick(entity: LivingEntity) {
 			if (entity.isClientSide) return
 
 			val cooldowns = entity.geneCooldowns.cooldowns

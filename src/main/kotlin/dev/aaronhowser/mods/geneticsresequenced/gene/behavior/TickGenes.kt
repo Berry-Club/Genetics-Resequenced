@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isEntity
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.AntiFieldBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
@@ -37,8 +38,10 @@ import kotlin.math.max
 
 object TickGenes {
 
-	fun handleTickGenes(entity: LivingEntity, genes: Set<Holder<Gene>>) {
+	fun handleTickGenes(entity: LivingEntity) {
 		if (entity !is Mob && entity !is Player) return
+
+		val genes = entity.getActiveGenes()
 
 		handleBioluminescence(entity, genes)
 		handlePhotosynthesis(entity, genes)
