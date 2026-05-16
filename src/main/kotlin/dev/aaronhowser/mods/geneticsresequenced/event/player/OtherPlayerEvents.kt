@@ -6,7 +6,6 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
-import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem.Companion.isContaminated
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.SetGenesPacket
@@ -20,20 +19,11 @@ import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.neoforge.event.ServerChatEvent
 import net.neoforged.neoforge.event.entity.player.ItemEntityPickupEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
-import net.neoforged.neoforge.event.tick.PlayerTickEvent
 
 @EventBusSubscriber(
 	modid = GeneticsResequenced.MOD_ID
 )
 object OtherPlayerEvents {
-
-	@SubscribeEvent
-	fun onPlayerTick(event: PlayerTickEvent.Pre) {
-		TickGenes.handleNoHunger(event.entity)
-		OtherGenes.handleWallClimbing(event.entity)     // Requires clientside handling
-		TickGenes.handleItemMagnet(event.entity)
-		TickGenes.handleXpMagnet(event.entity)
-	}
 
 	@SubscribeEvent
 	fun onPickUpItem(event: ItemEntityPickupEvent.Post) {

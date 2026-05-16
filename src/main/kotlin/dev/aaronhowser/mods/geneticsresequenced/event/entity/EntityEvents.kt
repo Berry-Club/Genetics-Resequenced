@@ -71,8 +71,6 @@ object EntityEvents {
 
 		val genes = entity.getActiveGenes()
 
-		TickGenes.handleBioluminescence(entity, genes)
-		TickGenes.handlePhotosynthesis(entity, genes)
 		TickGenes.handleMiscGenes(entity, genes)
 		GeneCooldowns.tick(entity, genes)
 	}

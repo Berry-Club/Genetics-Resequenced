@@ -37,60 +37,22 @@ import kotlin.math.max
 
 object TickGenes {
 
-	fun handleBioluminescence(entity: LivingEntity, genes: Set<Holder<Gene>>) {
-		if (!genes.hasGene(entity.registryAccess(), ModGenes.BIOLUMINESCENCE)) return
-		if (entity.tickCount % ServerConfig.CONFIG.bioluminescenceCooldown.get() != 0) return
-
-		val level = entity.level()
-		if (level.getBrightness(LightLayer.BLOCK, entity.blockPosition()) > 8) return
-
-		val headBlock = level.getBlockState(entity.blockPosition().above())
-		if (!headBlock.isAir) return
-
-		level.setBlockAndUpdate(
-			entity.blockPosition().above(),
-			ModBlocks.BIOLUMINESCENCE_BLOCK.get().defaultBlockState()
-		)
-	}
-
-	fun handlePhotosynthesis(entity: LivingEntity, genes: Set<Holder<Gene>>) {
-		if (entity !is Player) return
-		if (entity.tickCount % ServerConfig.CONFIG.photosynthesisCooldown.get() != 0) return
-
-		if (!genes.hasGene(entity.registryAccess(), ModGenes.PHOTOSYNTHESIS)) return
-
-		val foodData = entity.foodData
-		if (!foodData.needsFood()) return
-
-		val inDirectSunlight = entity.level().canSeeSky(entity.blockPosition())
-		val isDay = entity.level().isDay
-		if (!inDirectSunlight || !isDay) return
-
-		foodData.eat(
-			ServerConfig.CONFIG.photosynthesisHungerAmount.get(),
-			ServerConfig.CONFIG.photosynthesisSaturationAmount.get().toFloat()
-		)
-	}
-
-	fun handleNoHunger(entity: Player) {
-		if (entity.tickCount % ServerConfig.CONFIG.noHungerCooldown.get() != 0) return
-		if (!entity.hasGene(ModGenes.NO_HUNGER)) return
-
-		val foodData = entity.foodData
-		foodData.foodLevel = max(foodData.foodLevel, ServerConfig.CONFIG.noHungerMinimum.get())
-	}
-
-	private fun isDeathGene(geneHolder: Holder<Gene>): Boolean {
-		return geneHolder.isGene(ModGenes.BLACK_DEATH)
-				|| geneHolder.isGene(ModGenes.GREEN_DEATH)
-				|| geneHolder.isGene(ModGenes.GRAY_DEATH)
-				|| geneHolder.isGene(ModGenes.UN_UNDEATH)
-				|| geneHolder.isGene(ModGenes.WHITE_DEATH)
-	}
-
 	fun handleMiscGenes(entity: LivingEntity, genes: Set<Holder<Gene>>) {
 		if (entity !is Mob && entity !is Player) return
 
+		handleBioluminescence(entity, genes)
+		handlePhotosynthesis(entity, genes)
+		handlePassiveGenes(entity, genes)
+
+		if (entity is Player) {
+			handleNoHunger(entity)
+			handleItemMagnet(entity)
+			handleXpMagnet(entity)
+			OtherGenes.handleWallClimbing(entity)     // Requires clientside handling
+		}
+	}
+
+	private fun handlePassiveGenes(entity: LivingEntity, genes: Set<Holder<Gene>>) {
 		val passiveCooldown = ServerConfig.CONFIG.passivesCheckCooldown.get()
 		if (entity.tickCount % passiveCooldown != 0) return
 
@@ -117,6 +79,49 @@ object TickGenes {
 		}
 
 		handlePotionGenes(entity, potionGenes)
+	}
+
+	private fun isDeathGene(geneHolder: Holder<Gene>): Boolean {
+		return geneHolder.isGene(ModGenes.BLACK_DEATH)
+				|| geneHolder.isGene(ModGenes.GREEN_DEATH)
+				|| geneHolder.isGene(ModGenes.GRAY_DEATH)
+				|| geneHolder.isGene(ModGenes.UN_UNDEATH)
+				|| geneHolder.isGene(ModGenes.WHITE_DEATH)
+	}
+
+	private fun handleBioluminescence(entity: LivingEntity, genes: Set<Holder<Gene>>) {
+		if (!genes.hasGene(entity.registryAccess(), ModGenes.BIOLUMINESCENCE)) return
+		if (entity.tickCount % ServerConfig.CONFIG.bioluminescenceCooldown.get() != 0) return
+
+		val level = entity.level()
+		if (level.getBrightness(LightLayer.BLOCK, entity.blockPosition()) > 8) return
+
+		val headBlock = level.getBlockState(entity.blockPosition().above())
+		if (!headBlock.isAir) return
+
+		level.setBlockAndUpdate(
+			entity.blockPosition().above(),
+			ModBlocks.BIOLUMINESCENCE_BLOCK.get().defaultBlockState()
+		)
+	}
+
+	private fun handlePhotosynthesis(entity: LivingEntity, genes: Set<Holder<Gene>>) {
+		if (entity !is Player) return
+		if (entity.tickCount % ServerConfig.CONFIG.photosynthesisCooldown.get() != 0) return
+
+		if (!genes.hasGene(entity.registryAccess(), ModGenes.PHOTOSYNTHESIS)) return
+
+		val foodData = entity.foodData
+		if (!foodData.needsFood()) return
+
+		val inDirectSunlight = entity.level().canSeeSky(entity.blockPosition())
+		val isDay = entity.level().isDay
+		if (!inDirectSunlight || !isDay) return
+
+		foodData.eat(
+			ServerConfig.CONFIG.photosynthesisHungerAmount.get(),
+			ServerConfig.CONFIG.photosynthesisSaturationAmount.get().toFloat()
+		)
 	}
 
 	private fun handleDeathGenes(entity: LivingEntity, geneHolder: Holder<Gene>) {
@@ -252,7 +257,15 @@ object TickGenes {
 		entity.level().addFreshEntity(eggEntity)
 	}
 
-	fun handleItemMagnet(player: Player) {
+	private fun handleNoHunger(entity: Player) {
+		if (entity.tickCount % ServerConfig.CONFIG.noHungerCooldown.get() != 0) return
+		if (!entity.hasGene(ModGenes.NO_HUNGER)) return
+
+		val foodData = entity.foodData
+		foodData.foodLevel = max(foodData.foodLevel, ServerConfig.CONFIG.noHungerMinimum.get())
+	}
+
+	private fun handleItemMagnet(player: Player) {
 		if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 		if (player.tickCount % ServerConfig.CONFIG.itemMagnetCooldown.get() != 0) return
 		if (!player.hasGene(ModGenes.ITEM_MAGNET)) return
@@ -288,7 +301,7 @@ object TickGenes {
 		event.toolTip.add(component)
 	}
 
-	fun handleXpMagnet(player: Player) {
+	private fun handleXpMagnet(player: Player) {
 		if (player.isCrouching || player.isDeadOrDying || player.isSpectator) return
 		if (player.tickCount % ServerConfig.CONFIG.xpMagnetCooldown.get() != 0) return
 		if (!player.hasGene(ModGenes.XP_MAGNET)) return
