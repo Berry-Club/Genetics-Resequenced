@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
-import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneAddedEvent
@@ -60,11 +59,17 @@ data class TemporaryGenesData(
 			get() = this.temporaryGenes.map(TemporaryGene::geneHolder)
 
 		fun tickTemporaryGenes(entity: LivingEntity) {
-			val copy = entity.temporaryGenes.toList()
-			for (tempGene in copy) {
+			val toRemove = mutableListOf<TemporaryGene>()
+			val tempGenes = entity.temporaryGenes
+
+			for (tempGene in tempGenes) {
 				if (tempGene.tick()) {
-					entity.removeTemporaryGene(tempGene.geneHolder)
+					toRemove.add(tempGene)
 				}
+			}
+
+			for (tempGene in toRemove) {
+				entity.removeTemporaryGene(tempGene.geneHolder)
 			}
 		}
 
