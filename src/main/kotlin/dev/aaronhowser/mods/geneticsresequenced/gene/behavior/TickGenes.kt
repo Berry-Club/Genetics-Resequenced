@@ -37,7 +37,7 @@ import kotlin.math.max
 
 object TickGenes {
 
-	fun handleMiscGenes(entity: LivingEntity, genes: Set<Holder<Gene>>) {
+	fun handleTickGenes(entity: LivingEntity, genes: Set<Holder<Gene>>) {
 		if (entity !is Mob && entity !is Player) return
 
 		handleBioluminescence(entity, genes)

@@ -71,7 +71,7 @@ object EntityEvents {
 
 		val genes = entity.getActiveGenes()
 
-		TickGenes.handleMiscGenes(entity, genes)
+		TickGenes.handleTickGenes(entity, genes)
 		GeneCooldowns.tick(entity, genes)
 	}
 
