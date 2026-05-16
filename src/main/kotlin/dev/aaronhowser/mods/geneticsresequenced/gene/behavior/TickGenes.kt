@@ -3,9 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isEntity
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
-import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.AntiFieldBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -39,9 +37,8 @@ import kotlin.math.max
 
 object TickGenes {
 
-	fun handleBioluminescence(entity: LivingEntity) {
-		if (!entity.hasGene(ModGenes.BIOLUMINESCENCE)) return
-
+	fun handleBioluminescence(entity: LivingEntity, genes: Set<Holder<Gene>>) {
+		if (!genes.hasGene(entity.registryAccess(), ModGenes.BIOLUMINESCENCE)) return
 		if (entity.tickCount % ServerConfig.CONFIG.bioluminescenceCooldown.get() != 0) return
 
 		val level = entity.level()
@@ -56,11 +53,11 @@ object TickGenes {
 		)
 	}
 
-	fun handlePhotosynthesis(entity: LivingEntity) {
+	fun handlePhotosynthesis(entity: LivingEntity, genes: Set<Holder<Gene>>) {
 		if (entity !is Player) return
 		if (entity.tickCount % ServerConfig.CONFIG.photosynthesisCooldown.get() != 0) return
 
-		if (!entity.hasGene(ModGenes.PHOTOSYNTHESIS)) return
+		if (!genes.hasGene(entity.registryAccess(), ModGenes.PHOTOSYNTHESIS)) return
 
 		val foodData = entity.foodData
 		if (!foodData.needsFood()) return
@@ -91,25 +88,30 @@ object TickGenes {
 				|| geneHolder.isGene(ModGenes.WHITE_DEATH)
 	}
 
-	fun handleTickingGenes(entity: LivingEntity) {
-		if (entity.tickCount % ServerConfig.CONFIG.passivesCheckCooldown.get() != 0) return
+	fun handleMiscGenes(entity: LivingEntity, genes: Set<Holder<Gene>>) {
 		if (entity !is Mob && entity !is Player) return
 
-		val geneHolders = entity.getActiveGenes()
+		val passiveCooldown = ServerConfig.CONFIG.passivesCheckCooldown.get()
+		if (entity.tickCount % passiveCooldown != 0) return
 
 		val potionGenes = mutableListOf<Holder<Gene>>()
 
-		for (geneHolder in geneHolders) {
+		for (geneHolder in genes) {
 			if (geneHolder.isDisabled) continue
 
 			if (geneHolder.value().potions.isNotEmpty()) potionGenes.add(geneHolder)
 
 			when {
-				geneHolder.isGene(ModGenes.WATER_BREATHING) -> entity.airSupply = entity.maxAirSupply
-				geneHolder.isGene(ModGenes.FLAMBE) -> entity.remainingFireTicks = ServerConfig.CONFIG.passivesCheckCooldown.get() * 2 * 20
+				geneHolder.isGene(ModGenes.WATER_BREATHING) -> {
+					entity.airSupply = entity.maxAirSupply
+				}
+
+				geneHolder.isGene(ModGenes.FLAMBE) -> {
+					entity.remainingFireTicks = passiveCooldown * 2
+				}
+
 				geneHolder.isGene(ModGenes.LAY_EGG) -> handleLayEgg(entity)
 				geneHolder.isGene(ModGenes.MEATY_TWO) -> handleMeatyTwo(entity)
-
 				isDeathGene(geneHolder) -> handleDeathGenes(entity, geneHolder)
 			}
 		}
@@ -169,7 +171,10 @@ object TickGenes {
 		ModGenes.SLOWNESS_SIX to listOf(ModGenes.SLOWNESS, ModGenes.SLOWNESS_FOUR)
 	)
 
-	private fun handlePotionGenes(entity: LivingEntity, genesWithPotions: MutableList<Holder<Gene>>) {
+	private fun handlePotionGenes(
+		entity: LivingEntity,
+		genesWithPotions: MutableList<Holder<Gene>>
+	) {
 		if (genesWithPotions.isEmpty()) return
 
 		val genesToSkip = mutableListOf<ResourceKey<Gene>>()

@@ -189,6 +189,17 @@ data class GenesData(
 		}
 
 		@JvmStatic
+		fun Collection<Holder<Gene>>.hasGene(registries: HolderLookup.Provider, geneKey: ResourceKey<Gene>): Boolean {
+			val holder = ModGenes.fromResourceKey(registries, geneKey) ?: return false
+			return this.hasGene(holder)
+		}
+
+		@JvmStatic
+		fun Collection<Holder<Gene>>.hasGene(gene: Holder<Gene>): Boolean {
+			return !gene.isDisabled && gene in this
+		}
+
+		@JvmStatic
 		fun LivingEntity.removeAllGenes() {
 			for (gene in this.permanentGeneHolders) {
 				this.removeGene(gene)

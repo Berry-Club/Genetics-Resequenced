@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event.entity
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DamageGenes
@@ -68,10 +69,12 @@ object EntityEvents {
 	fun onEntityTick(event: EntityTickEvent.Pre) {
 		val entity = event.entity as? LivingEntity ?: return
 
-		TickGenes.handleBioluminescence(entity)
-		TickGenes.handlePhotosynthesis(entity)
-		TickGenes.handleTickingGenes(entity)
-		GeneCooldowns.tick(entity)
+		val genes = entity.getActiveGenes()
+
+		TickGenes.handleBioluminescence(entity, genes)
+		TickGenes.handlePhotosynthesis(entity, genes)
+		TickGenes.handleMiscGenes(entity, genes)
+		GeneCooldowns.tick(entity, genes)
 	}
 
 	@SubscribeEvent

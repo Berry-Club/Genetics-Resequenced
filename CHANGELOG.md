@@ -1,3 +1,11 @@
+# 1.14.0
+
+### Changes
+
+- Improved performance, hopefully
+	- Before, every function that needed to check your genes would check your player data individually
+	- Now, it gets a list from that at the start and passes it to every function that needs it, and checks that instead
+
 # 1.13.0
 
 ### Changes
@@ -23,7 +31,7 @@
 - Updated the Support Slime's renderer to use the actual Skull renderer instead of making a Player Head item stack and rendering that
 - Reworked the Dragon Health Crystal a bit
 	- Instead of starting at a high number and going down, it starts at 0 and goes up
-    - The max damage is also configurable
+	- The max damage is also configurable
 
 # 1.12.3
 
