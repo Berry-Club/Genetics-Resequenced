@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
@@ -95,33 +94,8 @@ object EntityEvents {
 	fun onBabySpawn(event: BabyEntitySpawnEvent) {
 		if (event.isCanceled) return
 
-		inheritGenes(event)
 		MobGenes.handleFertile(event)
-	}
-
-	private fun inheritGenes(event: BabyEntitySpawnEvent) {
-		val parentA = event.parentA
-		val parentB = event.parentB
-
-		val child = event.child ?: return
-
-		val aGenes = parentA.permanentGeneHolders
-		val bGenes = parentB.permanentGeneHolders
-
-		if (aGenes.isEmpty() && bGenes.isEmpty()) return
-
-		val commonGenes = aGenes.intersect(bGenes)
-		val uniqueGenes = aGenes.union(bGenes) - commonGenes
-
-		for (gene in commonGenes) {
-			child.addGene(gene)
-		}
-
-		for (gene in uniqueGenes) {
-			if (parentA.random.nextBoolean()) {
-				child.addGene(gene)
-			}
-		}
+		MobGenes.inheritGenes(event)
 	}
 
 	@SubscribeEvent

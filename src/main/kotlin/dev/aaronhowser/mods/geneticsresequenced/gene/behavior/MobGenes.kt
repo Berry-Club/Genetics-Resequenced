@@ -1,7 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isEntity
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.FrenzyMeleeAttackGoal
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.FrenzyTargetGoal
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
@@ -40,6 +42,31 @@ object MobGenes {
 			parentA.spawnChildFromBreeding(level, parentB)
 		}
 		isFertileCloning = false
+	}
+
+	fun inheritGenes(event: BabyEntitySpawnEvent) {
+		val parentA = event.parentA
+		val parentB = event.parentB
+
+		val child = event.child ?: return
+
+		val aGenes = parentA.permanentGeneHolders
+		val bGenes = parentB.permanentGeneHolders
+
+		if (aGenes.isEmpty() && bGenes.isEmpty()) return
+
+		val commonGenes = aGenes.intersect(bGenes)
+		val uniqueGenes = aGenes.union(bGenes) - commonGenes
+
+		for (gene in commonGenes) {
+			child.addGene(gene)
+		}
+
+		for (gene in uniqueGenes) {
+			if (parentA.random.nextBoolean()) {
+				child.addGene(gene)
+			}
+		}
 	}
 
 	@JvmStatic
