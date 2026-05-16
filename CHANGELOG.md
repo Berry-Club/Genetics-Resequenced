@@ -1,10 +1,13 @@
-# 1.14.0
+# 1.13.0
 
 ### Changes
 
 - Improved performance, hopefully
 	- Before, every function that needed to check your genes would check your player data individually
 	- Now, it gets a list from that at the start and passes it to every function that needs it, and checks that instead
+- Also improved the Frenzy Gene, slightly
+	- It no longer gives FrenzyTargetGoal or FrenzyAttackGoal to mobs if the gene is disabled
+	- Additionally, the `canUse` now checks if the mob has the gene _before_ calling the `super.canUse`, since the super method is more costly
 
 # 1.13.0
 

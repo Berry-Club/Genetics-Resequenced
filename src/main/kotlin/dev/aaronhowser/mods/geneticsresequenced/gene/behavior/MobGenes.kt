@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.entity.goals.FrenzyMeleeAttackGo
 import dev.aaronhowser.mods.geneticsresequenced.entity.goals.FrenzyTargetGoal
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.EntitySelector
 import net.minecraft.world.entity.LivingEntity
@@ -77,6 +78,9 @@ object MobGenes {
 	// https://github.com/Elenterius/Biomancy/blob/mc1.20.1/prod/src/main/java/com/github/elenterius/biomancy/serum/FrenzySerum.java#L99
 	fun giveFrenzyGoals(mob: Mob) {
 		if (mob !is PathfinderMob) return
+
+		val frenzyGene = ModGenes.FRENZIED.getHolderOrThrow(mob.registryAccess())
+		if (frenzyGene.isDisabled) return
 
 		val alreadyHasFrenzyTargetGoal = mob.targetSelector.availableGoals.any { it.goal is FrenzyTargetGoal<*> }
 		if (!alreadyHasFrenzyTargetGoal) {
