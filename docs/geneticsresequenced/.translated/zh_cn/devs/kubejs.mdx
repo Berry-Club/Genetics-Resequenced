@@ -41,6 +41,7 @@ NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.Gene
 属性：
 - `entityType` — 正在被修改的EntityType
 - `geneWeights` — MutableMap\<ResourceKey\<Gene>, Double>，表示实体的基因权重
+  - 在KubeJS中以JS对象表示，无法直接修改
 
 方法：
 - `getTotalWeights()`: Int — 返回所有基因的总权重
@@ -48,6 +49,8 @@ NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.Gene
 - `getWeight(gene)`: Int — 返回特定基因的权重
 - `setWeight(gene, weight)` — 设置特定基因的权重
 - `remove(gene)` — 从实体的可能基因中移除一个基因
+
+`getWeight`、`setWeight` 和 `remove` 都可以接受 ResourceKey\<Gene> 或表示基因ID的字符串。
 
 ```js
 NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyEntityGenesEvent", (event) => {

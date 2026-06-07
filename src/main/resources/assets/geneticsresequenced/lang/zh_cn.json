@@ -414,7 +414,7 @@
   "tooltip.geneticsresequenced.gmo_temperature_requirement": "高级孵化器§l必须保持低温§r",
   "tooltip.geneticsresequenced.helix_entity": "实体：%1$s",
   "tooltip.geneticsresequenced.item_magnet_blacklist": "“物品磁铁”基因的黑名单",
-  "tooltip.geneticsresequenced.plasmid.amount": "DNA 点数：%d/%d",
+  "tooltip.geneticsresequenced.plasmid.amount": "DNA点数：%d/%d",
   "tooltip.geneticsresequenced.plasmid.complete": "质粒已完成！",
   "tooltip.geneticsresequenced.plasmid.empty": "空质粒",
   "tooltip.geneticsresequenced.plasmid.gene": "包含基因：%s",
