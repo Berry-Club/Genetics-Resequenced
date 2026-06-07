@@ -1,0 +1,89 @@
+---
+title: KubeJS 支持
+---
+
+## 事件
+
+虽然本模组没有显式集成KubeJS支持，但自己实现它相对简单！
+
+### GeneChangeEvent
+
+有两个GeneChangeEvent：Pre和Post。
+
+Pre在实体基因改变*之前*触发，可以被取消。Post在之后触发，不可取消。
+
+两者都有以下属性：
+- `entity` — 基因正在变化的LivingEntity
+- `geneHolder` — 正在被添加或移除的Gene的Holder\<Gene>
+- `geneId` — 正在被添加或移除的Gene的ResourceKey\<Gene>
+- `isAddition()` — Boolean值，表示基因是被添加（true）还是移除（false）
+
+```js
+NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent$Pre", (event) => {
+  let entity = event.entity;
+  if (entity.level.isClientSide()) return;
+
+  if (!event.isAddition() && entity.name.getString() == "1aaron5" && event.geneId == "geneticsresequenced:cringe") {
+    event.canceled = true;
+  }
+});
+```
+```js
+NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent$Post", event => {
+  event.entity.tell("你的基因已改变！")
+})
+```
+
+### ModifyEntityGenesEvent
+
+此事件在每次检查实体可拥有哪些基因时触发，例如使用[基因检测器](@geneticsresequenced:gene_checker)时，或[DNA解码器](@geneticsresequenced:dna_decryptor)分析DNA螺旋的基因时。
+
+属性：
+- `entityType` — 正在被修改的EntityType
+- `geneWeights` — MutableMap\<ResourceKey\<Gene>, Double>，表示实体的基因权重
+
+方法：
+- `getTotalWeights()`: Int — 返回所有基因的总权重
+- `getEntityTypeString()`: String — 返回EntityType的字符串ID
+- `getWeight(gene)`: Int — 返回特定基因的权重
+- `setWeight(gene, weight)` — 设置特定基因的权重
+- `remove(gene)` — 从实体的可能基因中移除一个基因
+
+```js
+NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyEntityGenesEvent", (event) => {
+  if (event.entityTypeString == "minecraft:cow") {
+    event.setWeight("geneticsresequenced:lay_egg", 999);
+    event.remove("geneticsresequenced:milky");
+  }
+});
+```
+
+### ModifyGeneRequirementsEvent
+
+此事件在模组检查实体是否可以拥有特定基因时触发，通常只在实体基因改变时发生。
+
+属性：
+- `gene` — 正在被检查的ResourceKey\<Gene>
+- `requirements` — MutableSet\<ResourceKey\<Gene>>，表示拥有该基因所需的前置基因
+
+```js
+NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyGeneRequirementsEvent", (event) => {
+  if (event.gene == "geneticsresequenced:cringe") {
+    event.requirements.add("geneticsresequenced:cursed")
+  }
+})
+```
+
+## 添加、移除和查询基因
+
+```js
+const $GenesData = Java.loadClass('dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData')
+
+$GenesData.addGene(livingEntity, "geneticsresequenced:chatterbox")
+$GenesData.removeGene(livingEntity, "geneticsresequenced:lay_egg")
+let hasSlimyDeath = $GenesData.hasGene(livingEntity, "geneticsresequenced:slimy_death")
+```
+
+这里使用反射加载GenesData类，从而使用其方法。
+
+（在Kotlin中，形如 `fun Example.doSomething(int: Int)` 的函数实际编译为Java中的 `doSomething(Example, Int)`）

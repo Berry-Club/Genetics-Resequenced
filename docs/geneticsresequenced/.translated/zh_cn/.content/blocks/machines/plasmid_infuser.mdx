@@ -1,0 +1,30 @@
+---
+title: 质粒注入器
+id: geneticsresequenced:plasmid_infuser
+related_items:[geneticsresequenced:plasmid_infuser]
+type: block
+---
+
+<PrefabObtaining/>
+
+**质粒注入器**用来将[DNA螺旋](@geneticsresequenced:dna_helix)中的基因填入[质粒](@geneticsresequenced:plasmid)。
+
+将质粒放入右侧槽位，DNA螺旋放入左侧槽位。
+
+每种基因需要特定数量的DNA点数，才能将质粒注入该基因。
+
+第一个注入质粒的DNA螺旋将决定质粒会携带哪种基因，之后每个螺旋将贡献DNA点数。
+
+带有基础基因的螺旋贡献1点，与质粒基因匹配的螺旋贡献2点。
+
+## 示例
+
+[草食性](@geneticsresequenced:genes/eat_grass)基因需要16点DNA点数。
+
+首先，将空质粒放入右侧槽位。
+
+然后，将草食性DNA螺旋放入左侧槽位。 这将把质粒的基因设定为草食性，但不会贡献点数。
+
+之后每放入一个草食性螺旋贡献2点。 基础螺旋贡献1点。
+
+放入总计16点之后，质粒即完成，可取出并放入[质粒注射器](@geneticsresequenced:plasmid_injector)中使用。
