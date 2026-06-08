@@ -1,7 +1,8 @@
 {
-  "mutation.mdx": "Potion of Mutation",
-  "organic_substrate.mdx": "Organic Substrate",
-  "panacea.mdx": "Panacea",
-  "potion_of_cell_growth.mdx": "Potion of Cell Growth",
-  "viral_agents.mdx": "Viral Agents"
+  "mutation.mdx": "突变药水",
+  "organic_substrate.mdx": "有机基质",
+  "panacea.mdx": "万能药",
+  "potion_of_cell_growth.mdx": "细胞生长药水",
+  "viral_agents.mdx": "病毒因子",
+  "zombify_villager.mdx": "僵尸化村民"
 }
