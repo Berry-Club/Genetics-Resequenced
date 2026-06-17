@@ -1,0 +1,26 @@
+---
+title: DNA解码器
+id: geneticsresequenced:dna_decryptor
+related_items: [geneticsresequenced:dna_decryptor]
+type: block
+---
+
+<PrefabObtaining/>
+
+**DNA解码器**用来分析[DNA螺旋](@geneticsresequenced:dna_helix)，找出里面包含的基因。
+
+## 用法
+
+把带有未知基因的DNA螺旋放入解码器。
+
+解码器会检查该实体类型所有可能的基因，然后按权重随机抽取一个。
+
+举个例子，羊的默认基因权重如下：
+
+- 基础：5
+- 草食性：3
+- 产毛：4
+
+也就是说，有 5/12 概率开出基础基因，3/12 概率开出草食性基因，4/12 概率开出产毛基因。
+
+螺旋随后会被移动到输出槽，基因也就确定了。 如果输出槽已有无法与新螺旋堆叠的螺旋，解码器会暂停工作，直到空位腾出。
