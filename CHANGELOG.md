@@ -9,6 +9,8 @@
 
 - Accepted a Simplified Chinese translation for the wiki from KronosXup
 - Accepted a Japanese translation from hamu6251ren0725-hue
+- Only the first Dragon Health Crystal in your inventory is taken into account
+	- Having more than one doesn't give you more protection
 
 # 1.13.1
 

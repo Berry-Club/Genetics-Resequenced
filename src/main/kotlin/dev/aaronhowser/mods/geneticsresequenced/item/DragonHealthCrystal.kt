@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getFirstItemStack
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
@@ -67,28 +68,26 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 			if (entity.isClientSide) return
 			if (!entity.hasGene(ModGenes.ENDER_DRAGON_HEALTH)) return
 
-			val heldStacks = entity.handSlots.toMutableSet()
-			if (entity is Player) heldStacks += entity.inventory.items
+			val crystalStack = if (entity is Player) {
+				entity.getFirstItemStack { it.isItem(ModItems.DRAGON_HEALTH_CRYSTAL) }
+			} else {
+				entity.handSlots.firstOrNull { it.isItem(ModItems.DRAGON_HEALTH_CRYSTAL) }
+			}
 
-			val healthCrystals = heldStacks.filter { it.isItem(ModItems.DRAGON_HEALTH_CRYSTAL) }
-			if (healthCrystals.isEmpty()) return
+			if (crystalStack == null) return
 
 			val maxDamage = getMaxDamage()
 
-			for (crystal in healthCrystals) {
-				val currentDamage = crystal.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0.0)
-				val damageLeft = maxDamage - currentDamage
+			val currentDamage = crystalStack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0.0)
+			val damageLeft = maxDamage - currentDamage
 
-				val amountToRemove = minOf(event.container.newDamage, damageLeft.toFloat())
-				event.container.newDamage -= amountToRemove
+			val amountToRemove = minOf(event.container.newDamage, damageLeft.toFloat())
+			event.container.newDamage -= amountToRemove
 
-				val newStackDamage = currentDamage + amountToRemove
-				crystal.set(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, newStackDamage)
-				if (newStackDamage >= maxDamage) {
-					crystal.hurtAndBreak(1, entity, entity.getEquipmentSlotForItem(crystal))
-				}
-
-				if (event.container.newDamage <= 0f) break
+			val newStackDamage = currentDamage + amountToRemove
+			crystalStack.set(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, newStackDamage)
+			if (newStackDamage >= maxDamage) {
+				crystalStack.hurtAndBreak(1, entity, entity.getEquipmentSlotForItem(crystalStack))
 			}
 
 			if (event.container.newDamage < 0f) {
