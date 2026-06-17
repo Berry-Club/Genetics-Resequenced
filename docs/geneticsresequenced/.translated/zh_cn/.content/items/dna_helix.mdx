@@ -1,0 +1,21 @@
+---
+title: DNA螺旋
+id: geneticsresequenced:dna_helix
+related_items: [geneticsresequenced:dna_helix]
+type: item
+---
+
+每份**DNA螺旋**各包含一种特定基因。默认情况下该基因是未知的，需通过[DNA解码器](@geneticsresequenced:dna_decryptor)来鉴定。
+
+每种实体类型都有一组预设的基因池，这些基因设有权重，因此某些基因比其他的更容易获得。
+
+你可以使用[基因检测器](@geneticsresequenced:gene_checker)、[EMI](https://www.curseforge.com/minecraft/mc-mods/emi)或查阅[模组数据包](https://github.com/Berry-Club/Genetics-Resequenced/tree/NeoForge-1.21/src/generated/resources/data/minecraft/geneticsresequenced/entity_genes)来查看生物可以提供哪些基因。
+
+例如，一头牛拥有以下基因权重：
+- 基础：5
+- 草食性：3
+- 产奶：4
+
+这些权重总和为12。意味着解码牛DNA螺旋时，有5/12的概率获得基础基因，3/12的概率获得草食性基因，4/12的概率获得产奶基因。
+
+DNA螺旋解码后，必须通过[质粒注入器](@geneticsresequenced:plasmid_infuser)将其插入[质粒](@geneticsresequenced:plasmid)中。

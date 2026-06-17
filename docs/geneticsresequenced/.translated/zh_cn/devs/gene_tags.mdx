@@ -1,0 +1,21 @@
+---
+title: 基因标签
+---
+
+你无法取消注册基因，但*可以*使用标签来禁用它们。
+
+有4个内置基因标签：
+
+- `#geneticsresequenced:disabled` — 阻止基因生效，将其从可能的基因列表中移除
+- `#geneticsresequenced:hidden` — 将其从质粒列表中移除。目前只有`geneticsresequenced:basic`使用此标签，因为它不算真正的基因
+- `#geneticsresequenced:negative` — 将基因标记为负面，名称显示为红色，阻止其被赋予玩家（除非服务器配置更改）（尬尬基因忽略此限制）
+- `#geneticsresequenced:mutation` — 将基因名称显示为紫色
+
+你可以使用KubeJS添加这些标签：
+
+```js
+ServerEvents.tags('geneticsresequenced:gene', event => {
+ // 禁用死亡不掉落基因，防止与墓碑类mod冲突等
+ event.add('geneticsresequenced:disabled', 'geneticsresequenced:keep_inventory')
+})
+```
