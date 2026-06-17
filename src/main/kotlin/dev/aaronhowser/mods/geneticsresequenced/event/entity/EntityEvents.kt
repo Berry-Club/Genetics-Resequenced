@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.event.entity
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns
-import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.DamageGenes

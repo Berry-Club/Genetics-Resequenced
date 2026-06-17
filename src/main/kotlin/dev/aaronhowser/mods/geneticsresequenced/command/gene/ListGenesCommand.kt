@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGenes
-import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene

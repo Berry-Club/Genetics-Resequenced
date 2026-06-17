@@ -3,6 +3,7 @@
 ### Fixed
 
 - Machines accept IO from pipes again (#94)
+- Updated Aaron dependency
 
 # 1.13.1
 

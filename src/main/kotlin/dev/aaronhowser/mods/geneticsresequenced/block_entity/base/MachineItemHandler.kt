@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.block_entity.base
 
 import net.minecraft.world.Container
 import net.minecraft.world.item.ItemStack
-import net.neoforged.neoforge.items.IItemHandler
 import net.neoforged.neoforge.items.IItemHandlerModifiable
 
 class MachineItemHandler(

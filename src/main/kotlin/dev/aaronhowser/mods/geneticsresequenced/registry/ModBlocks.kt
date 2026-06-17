@@ -2,18 +2,13 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 
 import dev.aaronhowser.mods.aaron.registry.AaronBlockRegistry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.block.*
+import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
+import dev.aaronhowser.mods.geneticsresequenced.block.BioluminescenceBlock
+import dev.aaronhowser.mods.geneticsresequenced.block.CoalGeneratorBlock
+import dev.aaronhowser.mods.geneticsresequenced.block.WebDefenseBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlock
-import dev.aaronhowser.mods.geneticsresequenced.block_entity.AdvancedIncubatorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_entity.BloodPurifierBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_entity.CellAnalyzerBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_entity.DnaDecryptorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_entity.DnaExtractorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_entity.IncubatorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_entity.PlasmidInfuserBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_entity.PlasmidInjectorBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.*
 import net.minecraft.core.BlockPos
-import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.registries.DeferredBlock
