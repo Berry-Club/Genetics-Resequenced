@@ -3,7 +3,11 @@
 ### Fixed
 
 - Machines accept IO from pipes again (#94)
-- Updated Aaron dependency
+
+### Changed
+
+- Accepted a Simplified Chinese translation for the wiki from KronosXup
+- Accepted a Japanese translation from hamu6251ren0725-hue
 
 # 1.13.1
 
