@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.geneticsresequenced.block.CoalGeneratorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.MachineBlockEntity
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.SidedMachineItemHandler
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGeneratorMenu
@@ -16,9 +17,11 @@ import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.inventory.ContainerData
+import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.capabilities.Capabilities
+import net.neoforged.neoforge.items.IItemHandler
 
 class CoalGeneratorBlockEntity(
 	pos: BlockPos,
@@ -28,7 +31,20 @@ class CoalGeneratorBlockEntity(
 	override val maxEnergy: Int = ServerConfig.CONFIG.coalGeneratorEnergyCapacity.get()
 	override val energyTransferRate: Int = ServerConfig.CONFIG.coalGeneratorEnergyTransferRate.get()
 
-	override val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, CONTAINER_SIZE)
+	override val container: ImprovedSimpleContainer = object : ImprovedSimpleContainer(this, CONTAINER_SIZE) {
+		override fun canPlaceItem(slot: Int, stack: ItemStack): Boolean {
+			return slot == INPUT_SLOT_INDEX && stack.getBurnTime(RecipeType.SMELTING) > 0
+		}
+	}
+
+	private val fuelHandler: IItemHandler by lazy {
+		SidedMachineItemHandler(
+			itemHandler,
+			INPUT_SLOT_INDEX,
+			canInsert = ::canAutomateInsert,
+			canExtract = { _, stack -> stack.getBurnTime(RecipeType.SMELTING) <= 0 }
+		)
+	}
 
 	private var burnTimeRemaining: Int = 0
 		set(value) {
@@ -115,6 +131,10 @@ class CoalGeneratorBlockEntity(
 			val energyToTransfer = neighborEnergy.receiveEnergy(maxEnergyToSend, false)
 			energyStorage.extractEnergy(energyToTransfer, false)
 		}
+	}
+
+	override fun getItemHandler(direction: Direction?): IItemHandler {
+		return fuelHandler
 	}
 
 	override fun createMenu(pContainerId: Int, pPlayerInventory: Inventory, pPlayer: Player): AbstractContainerMenu {

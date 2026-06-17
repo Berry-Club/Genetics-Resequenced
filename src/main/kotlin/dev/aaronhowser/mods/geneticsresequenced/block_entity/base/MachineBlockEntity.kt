@@ -24,7 +24,6 @@ import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.energy.EnergyStorage
 import net.neoforged.neoforge.items.IItemHandler
 import net.neoforged.neoforge.items.IItemHandlerModifiable
-import net.neoforged.neoforge.items.wrapper.InvWrapper
 
 abstract class MachineBlockEntity(
 	blockEntityType: BlockEntityType<*>,
@@ -49,15 +48,38 @@ abstract class MachineBlockEntity(
 	open val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, 0)
 
 	protected val itemHandler: IItemHandlerModifiable by lazy {
-		object : InvWrapper(container) {
-			override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
-				return if (slot == CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX) {
-					false
-				} else {
-					super.isItemValid(slot, stack)
-				}
-			}
-		}
+		MachineItemHandler(container)
+	}
+
+	protected fun insertOnlyHandler(vararg slots: Int): IItemHandler {
+		return SidedMachineItemHandler(
+			itemHandler,
+			slots,
+			canInsert = ::canAutomateInsert,
+			canExtract = { _, _ -> false }
+		)
+	}
+
+	protected fun extractOnlyHandler(vararg slots: Int): IItemHandler {
+		return SidedMachineItemHandler(
+			itemHandler,
+			slots,
+			canInsert = { _, _ -> false },
+			canExtract = { _, _ -> true }
+		)
+	}
+
+	protected fun insertAndExtractHandler(vararg slots: Int): IItemHandler {
+		return SidedMachineItemHandler(
+			itemHandler,
+			slots,
+			canInsert = ::canAutomateInsert,
+			canExtract = { _, _ -> true }
+		)
+	}
+
+	protected open fun canAutomateInsert(slot: Int, stack: ItemStack): Boolean {
+		return container.canPlaceItem(slot, stack)
 	}
 
 	open fun getEnergyCapability(direction: Direction?): EnergyStorage {

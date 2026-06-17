@@ -18,7 +18,6 @@ import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.items.IItemHandler
-import net.neoforged.neoforge.items.wrapper.RangedWrapper
 import java.util.function.IntSupplier
 
 class IncubatorBlockEntity(
@@ -53,8 +52,12 @@ class IncubatorBlockEntity(
 		}
 	}
 
-	override val inputHandler: RangedWrapper = RangedWrapper(itemHandler, TOP_SLOT_INDEX, TOP_SLOT_INDEX + 1)
-	private val bottleHandler: RangedWrapper = RangedWrapper(itemHandler, LEFT_BOTTLE_SLOT_INDEX, RIGHT_BOTTLE_SLOT_INDEX + 1)
+	override val inputHandler: IItemHandler = insertOnlyHandler(TOP_SLOT_INDEX)
+	private val bottleHandler: IItemHandler = insertAndExtractHandler(
+		LEFT_BOTTLE_SLOT_INDEX,
+		MIDDLE_BOTTLE_SLOT_INDEX,
+		RIGHT_BOTTLE_SLOT_INDEX
+	)
 
 	override fun getItemHandler(direction: Direction?): IItemHandler? {
 		return when (direction) {

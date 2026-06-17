@@ -1,3 +1,9 @@
+# 1.14.0
+
+### Fixed
+
+- Machines accept IO from pipes again (#94)
+
 # 1.13.1
 
 ### Changes

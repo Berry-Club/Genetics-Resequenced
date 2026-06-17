@@ -26,7 +26,6 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.items.IItemHandler
-import net.neoforged.neoforge.items.wrapper.RangedWrapper
 import java.util.function.IntSupplier
 import kotlin.math.min
 
@@ -95,10 +94,14 @@ class AdvancedIncubatorBlockEntity(
 		override fun getCount(): Int = CONTAINER_DATA_SIZE
 	}
 
-	override val inputHandler: RangedWrapper = RangedWrapper(itemHandler, TOP_SLOT_INDEX, TOP_SLOT_INDEX + 1)
-	private val bottleHandler: RangedWrapper = RangedWrapper(itemHandler, LEFT_BOTTLE_SLOT_INDEX, RIGHT_BOTTLE_SLOT_INDEX + 1)
-	override val overclockHandler: RangedWrapper = RangedWrapper(itemHandler, OVERCLOCKER_SLOT_INDEX, OVERCLOCKER_SLOT_INDEX + 1)
-	override val outputHandler: RangedWrapper = bottleHandler
+	override val inputHandler: IItemHandler = insertOnlyHandler(TOP_SLOT_INDEX)
+	private val bottleHandler: IItemHandler = insertAndExtractHandler(
+		LEFT_BOTTLE_SLOT_INDEX,
+		MIDDLE_BOTTLE_SLOT_INDEX,
+		RIGHT_BOTTLE_SLOT_INDEX
+	)
+	override val overclockHandler: IItemHandler = insertAndExtractHandler(OVERCLOCKER_SLOT_INDEX)
+	override val outputHandler: IItemHandler = bottleHandler
 
 	override fun getItemHandler(direction: Direction?): IItemHandler? {
 		return when (direction) {

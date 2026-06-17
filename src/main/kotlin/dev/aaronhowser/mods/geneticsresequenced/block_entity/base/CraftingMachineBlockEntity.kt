@@ -13,7 +13,6 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.items.IItemHandler
-import net.neoforged.neoforge.items.wrapper.RangedWrapper
 import java.util.function.IntSupplier
 
 abstract class CraftingMachineBlockEntity(
@@ -99,13 +98,13 @@ abstract class CraftingMachineBlockEntity(
 	}
 
 	protected open val inputHandler by lazy {
-		RangedWrapper(itemHandler, INPUT_SLOT_INDEX, INPUT_SLOT_INDEX + 1)
+		insertOnlyHandler(INPUT_SLOT_INDEX)
 	}
 	protected open val outputHandler by lazy {
-		RangedWrapper(itemHandler, OUTPUT_SLOT_INDEX, OUTPUT_SLOT_INDEX + 1)
+		extractOnlyHandler(OUTPUT_SLOT_INDEX)
 	}
 	protected open val overclockHandler by lazy {
-		RangedWrapper(itemHandler, OVERCLOCK_SLOT_INDEX, OVERCLOCK_SLOT_INDEX + 1)
+		insertAndExtractHandler(OVERCLOCK_SLOT_INDEX)
 	}
 
 	override fun getItemHandler(direction: Direction?): IItemHandler? {
