@@ -3,6 +3,7 @@
 ### Fixed
 
 - Machines accept IO from pipes again (#94)
+- Fixed a lot of issues in the wiki (#92)
 
 ### Changed
 
