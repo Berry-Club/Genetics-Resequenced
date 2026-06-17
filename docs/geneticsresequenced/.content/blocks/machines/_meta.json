@@ -5,5 +5,7 @@
 	"dna_decryptor.mdx": "DNA Decryptor",
 	"dna_extractor.mdx": "DNA Extractor",
 	"plasmid_infuser.mdx": "Plasmid Infuser",
-	"plasmid_injector.mdx": "Plasmid Injector"
+	"plasmid_injector.mdx": "Plasmid Injector",
+	"incubator.mdx": "Incubator",
+	"advanced_incubator.mdx": "Advanced Incubator"
 }
