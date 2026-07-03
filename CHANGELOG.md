@@ -1,3 +1,9 @@
+# 1.14.1
+
+### Fixed
+
+- Compatibility with new version of Aaron
+
 # 1.14.0
 
 ### Fixed
