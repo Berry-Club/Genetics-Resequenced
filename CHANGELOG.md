@@ -1,15 +1,4 @@
-# 1.14.1
-
-### Fixed
-
-- Compatibility with new version of Aaron
-
 # 1.14.0
-
-### Fixed
-
-- Machines accept IO from pipes again (#94)
-- Fixed a lot of issues in the wiki (#92)
 
 ### Changed
 
@@ -17,6 +6,12 @@
 - Accepted a Japanese translation from hamu6251ren0725-hue
 - Only the first Dragon Health Crystal in your inventory is taken into account
 	- Having more than one doesn't give you more protection
+
+### Fixed
+
+- Machines accept IO from pipes again (#94)
+- Fixed a lot of issues in the wiki (#92)
+- Compatibility with new version of Aaron
 
 # 1.13.1
 
