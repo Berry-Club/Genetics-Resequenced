@@ -1,12 +1,10 @@
 {
-  "parent": "minecraft:block/cube",
+  "parent": "minecraft:block/orientable_with_bottom",
   "textures": {
-    "down": "geneticsresequenced:block/machine_bottom",
-    "east": "geneticsresequenced:block/machine_side",
-    "north": "geneticsresequenced:block/coal_generator_front_on",
+    "bottom": "geneticsresequenced:block/machine_bottom",
+    "front": "geneticsresequenced:block/coal_generator_front_on",
     "particle": "geneticsresequenced:block/machine_top",
-    "south": "geneticsresequenced:block/machine_side",
-    "up": "geneticsresequenced:block/machine_top",
-    "west": "geneticsresequenced:block/machine_side"
+    "side": "geneticsresequenced:block/machine_side",
+    "top": "geneticsresequenced:block/machine_top"
   }
 }

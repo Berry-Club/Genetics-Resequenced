@@ -126,7 +126,6 @@ sourceSets.main {
 		srcDir generatedStaticResourcesDir
 		srcDir generatedClientResourcesDir
 		srcDir generatedServerResourcesDir
-		exclude '.cache/**'
 		exclude 'assets/geneticsresequenced/patchouli_books/**'
 		exclude 'data/geneticsresequenced/patchouli_books/**'
 		exclude 'data/geneticsresequenced/recipe/patchouli.json'

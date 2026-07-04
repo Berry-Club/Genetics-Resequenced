@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.model
 
-import com.google.gson.JsonObject
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.CoalGeneratorBlock
@@ -10,7 +9,8 @@ import net.minecraft.client.data.models.ItemModelGenerators
 import net.minecraft.client.data.models.ModelProvider
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator
 import net.minecraft.client.data.models.blockstates.PropertyDispatch
-import net.minecraft.client.data.models.model.ModelLocationUtils
+import net.minecraft.client.data.models.model.*
+import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.core.Holder
 import net.minecraft.data.PackOutput
 import net.minecraft.resources.Identifier
@@ -18,6 +18,7 @@ import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import net.neoforged.neoforge.registries.DeferredBlock
+import java.util.*
 import java.util.stream.Stream
 
 class ModBlockStateProvider(
@@ -33,14 +34,14 @@ class ModBlockStateProvider(
 		webDefense(blockModels)
 
 		coalGenerator(blockModels)
-		frontFacingBlock(blockModels, ModBlocks.CELL_ANALYZER, "cell_analyzer", "block/cell_analyzer_front")
-		frontFacingBlock(blockModels, ModBlocks.DNA_EXTRACTOR, "dna_extractor", "block/dna_extractor_front")
-		frontFacingBlock(blockModels, ModBlocks.DNA_DECRYPTOR, "dna_decryptor", "block/dna_decryptor_front")
-		frontFacingBlock(blockModels, ModBlocks.BLOOD_PURIFIER, "blood_purifier", "block/blood_purifier_front")
-		frontFacingBlock(blockModels, ModBlocks.PLASMID_INFUSER, "plasmid_infuser", "block/plasmid_infuser_front")
-		frontFacingBlock(blockModels, ModBlocks.PLASMID_INJECTOR, "plasmid_injector", "block/plasmid_injector_front")
-		frontFacingBlock(blockModels, ModBlocks.INCUBATOR, "incubator", "block/incubator_front")
-		frontFacingBlock(blockModels, ModBlocks.ADVANCED_INCUBATOR, "advanced_incubator", "block/incubator_front")
+		frontFacingBlock(blockModels, ModBlocks.CELL_ANALYZER, "block/cell_analyzer_front")
+		frontFacingBlock(blockModels, ModBlocks.DNA_EXTRACTOR, "block/dna_extractor_front")
+		frontFacingBlock(blockModels, ModBlocks.DNA_DECRYPTOR, "block/dna_decryptor_front")
+		frontFacingBlock(blockModels, ModBlocks.BLOOD_PURIFIER, "block/blood_purifier_front")
+		frontFacingBlock(blockModels, ModBlocks.PLASMID_INFUSER, "block/plasmid_infuser_front")
+		frontFacingBlock(blockModels, ModBlocks.PLASMID_INJECTOR, "block/plasmid_injector_front")
+		frontFacingBlock(blockModels, ModBlocks.INCUBATOR, "block/incubator_front")
+		frontFacingBlock(blockModels, ModBlocks.ADVANCED_INCUBATOR, "block/incubator_front")
 	}
 
 	override fun getKnownBlocks(): Stream<out Holder<Block>> =
@@ -80,47 +81,42 @@ class ModBlockStateProvider(
 
 	private fun bioluminescence(blockModels: BlockModelGenerators) {
 		val block = ModBlocks.BIOLUMINESCENCE_BLOCK.get()
-		val modelLocation = blockModelLocation("bioluminescence")
-
-		blockModels.modelOutput.accept(modelLocation) {
-			JsonObject().apply {
-				addProperty("parent", "minecraft:block/air")
-			}
-		}
+		val modelLocation = ModelTemplate(
+			Optional.of(ModelLocationUtils.getModelLocation(Blocks.AIR)),
+			Optional.empty()
+		).create(blockModelLocation("bioluminescence"), TextureMapping(), blockModels.modelOutput)
 
 		blockModels.blockStateOutput.accept(
-			BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(modelLocation))
+			BlockModelGenerators.createSimpleBlock(
+				block,
+				BlockModelGenerators.plainVariant(modelLocation)
+			)
 		)
 	}
 
 	private fun webDefense(blockModels: BlockModelGenerators) {
 		val block = ModBlocks.WEB_DEFENSE_BLOCK.get()
-		val modelLocation = blockModelLocation("web_defense_block")
-
-		blockModels.modelOutput.accept(modelLocation) {
-			JsonObject().apply {
-				addProperty("parent", ModelLocationUtils.getModelLocation(Blocks.COBWEB).toString())
-				addProperty("render_type", "minecraft:cutout")
-			}
-		}
+		val modelLocation = ModelTemplate(
+			Optional.of(ModelLocationUtils.getModelLocation(Blocks.COBWEB)),
+			Optional.empty()
+		).create(blockModelLocation("web_defense_block"), TextureMapping(), blockModels.modelOutput)
 
 		blockModels.blockStateOutput.accept(
-			BlockModelGenerators.createSimpleBlock(block, BlockModelGenerators.plainVariant(modelLocation))
+			BlockModelGenerators.createSimpleBlock(
+				block,
+				BlockModelGenerators.plainVariant(modelLocation)
+			)
 		)
 	}
 
 	private fun frontFacingBlock(
 		blockModels: BlockModelGenerators,
 		deferredBlock: DeferredBlock<out Block>,
-		name: String,
 		frontTexture: String
 	) {
-		val block = deferredBlock.get()
-		val model = machineModel(blockModels, name, frontTexture)
-
-		blockModels.blockStateOutput.accept(
-			MultiVariantGenerator.dispatch(block, BlockModelGenerators.plainVariant(model))
-				.with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING)
+		blockModels.createHorizontallyRotatedBlock(
+			deferredBlock.get(),
+			machineTextures(frontTexture)
 		)
 	}
 
@@ -145,21 +141,11 @@ class ModBlockStateProvider(
 		modelName: String,
 		texturePath: String
 	): Identifier {
-		val modelLocation = blockModelLocation(modelName)
-
-		blockModels.modelOutput.accept(modelLocation) {
-			JsonObject().apply {
-				addProperty("parent", "minecraft:block/cube_all")
-				add(
-					"textures",
-					JsonObject().apply {
-						addProperty("all", GeneticsResequenced.modResource(texturePath).toString())
-					}
-				)
-			}
-		}
-
-		return modelLocation
+		return ModelTemplates.CUBE_ALL.create(
+			blockModelLocation(modelName),
+			TextureMapping.cube(texture(texturePath)),
+			blockModels.modelOutput
+		)
 	}
 
 	private fun machineModel(
@@ -167,30 +153,35 @@ class ModBlockStateProvider(
 		modelName: String,
 		frontTexture: String
 	): Identifier {
-		val modelLocation = blockModelLocation(modelName)
+		return ModelTemplates.CUBE_ORIENTABLE_TOP_BOTTOM.create(
+			blockModelLocation(modelName),
+			machineTextureMapping(frontTexture),
+			blockModels.modelOutput
+		)
+	}
 
-		blockModels.modelOutput.accept(modelLocation) {
-			JsonObject().apply {
-				addProperty("parent", "minecraft:block/cube")
-				add(
-					"textures",
-					JsonObject().apply {
-						addProperty("down", GeneticsResequenced.modResource("block/machine_bottom").toString())
-						addProperty("up", GeneticsResequenced.modResource("block/machine_top").toString())
-						addProperty("north", GeneticsResequenced.modResource(frontTexture).toString())
-						addProperty("south", GeneticsResequenced.modResource("block/machine_side").toString())
-						addProperty("east", GeneticsResequenced.modResource("block/machine_side").toString())
-						addProperty("west", GeneticsResequenced.modResource("block/machine_side").toString())
-						addProperty("particle", GeneticsResequenced.modResource("block/machine_top").toString())
-					}
-				)
-			}
+	private fun machineTextures(frontTexture: String): TexturedModel.Provider =
+		TexturedModel.ORIENTABLE.updateTexture { mapping ->
+			mapping
+				.put(TextureSlot.SIDE, texture("block/machine_side"))
+				.put(TextureSlot.FRONT, texture(frontTexture))
+				.put(TextureSlot.TOP, texture("block/machine_top"))
+				.put(TextureSlot.BOTTOM, texture("block/machine_bottom"))
+				.putForced(TextureSlot.PARTICLE, texture("block/machine_top"))
 		}
 
-		return modelLocation
-	}
+	private fun machineTextureMapping(frontTexture: String): TextureMapping =
+		TextureMapping()
+			.put(TextureSlot.SIDE, texture("block/machine_side"))
+			.put(TextureSlot.FRONT, texture(frontTexture))
+			.put(TextureSlot.TOP, texture("block/machine_top"))
+			.put(TextureSlot.BOTTOM, texture("block/machine_bottom"))
+			.putForced(TextureSlot.PARTICLE, texture("block/machine_top"))
 
 	private fun blockModelLocation(path: String): Identifier =
 		GeneticsResequenced.modResource("block/$path")
+
+	private fun texture(path: String): Material =
+		Material(GeneticsResequenced.modResource(path))
 
 }
