@@ -137,7 +137,7 @@ sourceSets.main {
 	kotlin {
 		exclude 'dev/aaronhowser/mods/geneticsresequenced/compatibility/recipe/emi/**'
 		exclude 'dev/aaronhowser/mods/geneticsresequenced/compatibility/recipe/jei/**'
-		exclude 'dev/aaronhowser/mods/geneticsresequenced/datagen/model/**'
+		exclude 'dev/aaronhowser/mods/geneticsresequenced/datagen/model/ModBlockStateProvider.kt'
 		exclude 'dev/aaronhowser/mods/geneticsresequenced/datagen/modonomicon/**'
 	}
 }
