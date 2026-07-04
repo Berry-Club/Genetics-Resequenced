@@ -6,7 +6,6 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.h
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import net.minecraft.client.model.EntityModel
 import net.minecraft.client.renderer.entity.LivingEntityRenderer
 import net.minecraft.client.renderer.entity.state.LivingEntityRenderState
 import net.minecraft.util.context.ContextKey
@@ -22,7 +21,7 @@ object GeneRenderChanges {
 
 	fun registerRenderStateModifiers(event: RegisterRenderStateModifiersEvent) {
 		event.registerEntityModifier(
-			object : TypeToken<LivingEntityRenderer<LivingEntity, LivingEntityRenderState, EntityModel<in LivingEntityRenderState>>>() {},
+			object : TypeToken<LivingEntityRenderer<LivingEntity, LivingEntityRenderState, *>>() {},
 			::extractLivingEntityGeneState
 		)
 	}
