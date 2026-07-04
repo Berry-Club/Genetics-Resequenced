@@ -53,17 +53,12 @@ class ModModelProvider(
 	}
 
 	private fun syringe(itemModels: ItemModelGenerators) {
-		val template = ModelTemplates.createItem(
-			modLocation("syringe").toString(),
-			TextureSlot.TEXTURE
-		)
-
 		val item = ModItems.SYRINGE.get()
 
 		val emptyUnused = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item))
-		val emptyUsed = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_empty_flipped", template))
-		val fullUnused = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_full", template))
-		val fullUsed = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_full_flipped", template))
+		val emptyUsed = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_empty_flipped", ModelTemplates.FLAT_ITEM))
+		val fullUnused = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_full", ModelTemplates.FLAT_ITEM))
+		val fullUsed = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_full_flipped", ModelTemplates.FLAT_ITEM))
 
 		val used = ItemModelUtils.conditional(
 			ItemModelUtils.hasComponent(ModDataComponents.SPECIFIC_ENTITY.get()),
