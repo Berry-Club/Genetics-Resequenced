@@ -1,15 +1,6 @@
 {
   "model": {
-    "type": "minecraft:condition",
-    "component": "geneticsresequenced:specific_entity",
-    "on_false": {
-      "type": "minecraft:model",
-      "model": "geneticsresequenced:item/metal_syringe"
-    },
-    "on_true": {
-      "type": "minecraft:model",
-      "model": "geneticsresequenced:item/metal_syringe_full"
-    },
-    "property": "minecraft:has_component"
+    "type": "minecraft:model",
+    "model": "geneticsresequenced:item/metal_syringe"
   }
 }

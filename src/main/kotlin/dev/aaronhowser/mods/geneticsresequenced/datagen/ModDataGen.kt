@@ -8,8 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneRequirementsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModBlockStateProvider
-import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModModelProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.ModRecipeProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.*
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -27,8 +26,7 @@ object ModDataGen {
 	fun onGatherClientData(event: GatherDataEvent.Client) {
 		val output = event.generator.packOutput
 
-		event.addProvider(ModBlockStateProvider(output))
-		event.addProvider(ModItemModelProvider(output))
+		event.addProvider(ModModelProvider(output))
 		event.addProvider(ModLanguageProvider(output))
 	}
 
