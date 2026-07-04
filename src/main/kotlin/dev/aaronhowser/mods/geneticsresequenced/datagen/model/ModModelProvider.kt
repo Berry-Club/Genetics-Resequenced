@@ -1,10 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.model
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.client.data.models.BlockModelGenerators
 import net.minecraft.client.data.models.ItemModelGenerators
 import net.minecraft.client.data.models.ModelProvider
+import net.minecraft.client.data.models.model.ItemModelUtils
 import net.minecraft.client.data.models.model.ModelTemplates
 import net.minecraft.core.Holder
 import net.minecraft.data.PackOutput
@@ -38,12 +40,39 @@ class ModModelProvider(
 		}
 
 		val flatHandheldItems = listOf(
-			ModItems.SCRAPER, ModItems.SYRINGE, ModItems.METAL_SYRINGE
+			ModItems.SCRAPER, ModItems.METAL_SYRINGE
 		)
 
 		for (item in flatHandheldItems) {
 			itemModels.generateFlatItem(item.get(), ModelTemplates.FLAT_HANDHELD_ITEM)
 		}
+
+		syringe(itemModels)
 	}
+
+	private fun syringe(itemModels: ItemModelGenerators) {
+		val isUsing = ItemModelUtils.conditional(
+			ItemModelUtils.hasComponent(ModDataComponents.SPECIFIC_ENTITY.get()),
+			plainItemModel("syringe_full_flipped"),
+			plainItemModel("syringe_flipped_empty")
+		)
+
+		val isNotUsing = ItemModelUtils.conditional(
+			ItemModelUtils.hasComponent(ModDataComponents.SPECIFIC_ENTITY.get()),
+			plainItemModel("syringe_full"),
+			plainItemModel("syringe")
+		)
+
+		itemModels.itemModelOutput.accept(
+			ModItems.SYRINGE.get(),
+			ItemModelUtils.conditional(
+				ItemModelUtils.isUsingItem(),
+				isUsing, isNotUsing
+			)
+		)
+	}
+
+	private fun plainItemModel(modelName: String) =
+		ItemModelUtils.plainModel(modLocation("item/$modelName"))
 
 }
