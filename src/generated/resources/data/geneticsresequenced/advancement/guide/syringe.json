@@ -1,7 +1,7 @@
 {
   "parent": "geneticsresequenced:guide/root",
   "criteria": {
-    "metal_syringe": {
+    "has_metal_syringe": {
       "conditions": {
         "items": [
           {
@@ -11,7 +11,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "syringe": {
+    "has_syringe": {
       "conditions": {
         "items": [
           {
@@ -36,8 +36,8 @@
   },
   "requirements": [
     [
-      "syringe",
-      "metal_syringe"
+      "has_syringe",
+      "has_metal_syringe"
     ]
   ],
   "sends_telemetry_event": true

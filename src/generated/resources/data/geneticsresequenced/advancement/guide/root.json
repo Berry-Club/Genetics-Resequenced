@@ -1,6 +1,6 @@
 {
   "criteria": {
-    "scraper": {
+    "has_scraper": {
       "conditions": {
         "items": [
           {
@@ -24,7 +24,7 @@
   },
   "requirements": [
     [
-      "scraper"
+      "has_scraper"
     ]
   ],
   "sends_telemetry_event": true

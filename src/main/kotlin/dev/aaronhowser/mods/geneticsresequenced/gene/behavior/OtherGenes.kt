@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.random
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -43,7 +44,7 @@ object OtherGenes {
 			player.level().playSound(
 				null,
 				player.blockPosition(),
-				VILLAGER_SOUNDS.random(),
+				VILLAGER_SOUNDS.random(player.random),
 				player.soundSource,
 				1f,
 				1f

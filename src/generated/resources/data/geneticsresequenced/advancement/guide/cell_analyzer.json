@@ -1,7 +1,7 @@
 {
   "parent": "geneticsresequenced:guide/root",
   "criteria": {
-    "cell": {
+    "has_cell": {
       "conditions": {
         "items": [
           {
@@ -11,7 +11,7 @@
       },
       "trigger": "minecraft:inventory_changed"
     },
-    "cell_analyzer": {
+    "has_cell_analyzer": {
       "conditions": {
         "items": [
           {
@@ -36,8 +36,8 @@
   },
   "requirements": [
     [
-      "cell_analyzer",
-      "cell"
+      "has_cell_analyzer",
+      "has_cell"
     ]
   ],
   "sends_telemetry_event": true
