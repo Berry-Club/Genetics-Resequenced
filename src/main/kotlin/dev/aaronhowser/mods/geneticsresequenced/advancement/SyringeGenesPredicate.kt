@@ -4,30 +4,22 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
-import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
-import net.minecraft.advancements.critereon.ItemSubPredicate
-import net.minecraft.advancements.critereon.SingleComponentItemPredicate
+import net.minecraft.advancements.criterion.SingleComponentItemPredicate
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.HolderSet
 import net.minecraft.core.component.DataComponentType
-import net.minecraft.world.item.ItemStack
+import net.minecraft.core.component.predicates.DataComponentPredicate
 
 data class SyringeGenesPredicate(
 	val genes: HolderSet<Gene>,
 	val isAntigene: Boolean
 ) : SingleComponentItemPredicate<HolderSet<Gene>> {
 
-	override fun matches(stack: ItemStack, requiredGenes: HolderSet<Gene>): Boolean {
-		val stackGenes = if (isAntigene) {
-			SyringeItem.getAntigenes(stack)
-		} else {
-			SyringeItem.getGenes(stack)
-		}
-
-		return requiredGenes.all { requiredGene ->
+	override fun matches(stackGenes: HolderSet<Gene>): Boolean {
+		return genes.all { requiredGene ->
 			stackGenes.any { it.isGene(requiredGene) }
 		}
 	}
@@ -63,7 +55,7 @@ data class SyringeGenesPredicate(
 				).apply(instance, ::SyringeGenesPredicate)
 			}
 
-		val TYPE: ItemSubPredicate.Type<SyringeGenesPredicate> = ItemSubPredicate.Type(CODEC)
+		val TYPE: DataComponentPredicate.Type<SyringeGenesPredicate> = DataComponentPredicate.ConcreteType(CODEC)
 	}
 
 }

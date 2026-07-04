@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.aaron.datagen.AaronAdvancementSubProvider
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withComponent
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.HelixGenePredicate
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModAdvancementLang
@@ -14,13 +13,16 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.advancements.Advancement
 import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.advancements.AdvancementType
-import net.minecraft.advancements.critereon.InventoryChangeTrigger
-import net.minecraft.advancements.critereon.ItemPredicate
+import net.minecraft.advancements.criterion.DataComponentMatchers
+import net.minecraft.advancements.criterion.InventoryChangeTrigger
+import net.minecraft.advancements.criterion.ItemPredicate
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.component.DataComponentPatch
+import net.minecraft.core.registries.Registries
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
+import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.item.Items
-import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.*
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -31,13 +33,13 @@ class ModAdvancementSubProvider(
 
 	override fun generate(
 		registries: HolderLookup.Provider,
-		saver: Consumer<AdvancementHolder>,
-		existingFileHelper: ExistingFileHelper
+		saver: Consumer<AdvancementHolder>
 	) {
-		fun Advancement.Builder.save(id: ResourceLocation) = save(saver, id, existingFileHelper)
+		val itemLookup = registries.lookupOrThrow(Registries.ITEM)
+		fun Advancement.Builder.save(id: Identifier) = save(saver, id)
 
 		val root = advancement()
-			.display(
+			.displayWithBackground(
 				ModItems.SCRAPER.get(),
 				Component.literal("Genetics: Resequenced"),
 				ModAdvancementLang.SCRAPER_DESC.toComponent(),
@@ -92,10 +94,14 @@ class ModAdvancementSubProvider(
 				InventoryChangeTrigger.TriggerInstance.hasItems(
 					ItemPredicate.Builder
 						.item()
-						.of(ModItems.DNA_HELIX.get())
-						.withSubPredicate(
-							ModItemSubPredicates.HELIX_GENE.get(),
-							HelixGenePredicate.any()
+						.of(itemLookup, ModItems.DNA_HELIX.get())
+						.withComponents(
+							DataComponentMatchers.Builder.components()
+								.partial(
+									ModItemSubPredicates.HELIX_GENE.get(),
+									HelixGenePredicate.any()
+								)
+								.build()
 						)
 						.build()
 				)
@@ -117,10 +123,14 @@ class ModAdvancementSubProvider(
 				InventoryChangeTrigger.TriggerInstance.hasItems(
 					ItemPredicate.Builder
 						.item()
-						.of(ModItems.DNA_HELIX)
-						.withSubPredicate(
-							ModItemSubPredicates.HELIX_GENE.get(),
-							HelixGenePredicate.blackDeath()
+						.of(itemLookup, ModItems.DNA_HELIX.get())
+						.withComponents(
+							DataComponentMatchers.Builder.components()
+								.partial(
+									ModItemSubPredicates.HELIX_GENE.get(),
+									HelixGenePredicate.blackDeath()
+								)
+								.build()
 						)
 						.build()
 				)
@@ -147,16 +157,23 @@ class ModAdvancementSubProvider(
 			.has(ModBlocks.PLASMID_INJECTOR)
 			.save(PLASMID_INJECTOR)
 
+		val fakeMobSyringe = ItemStackTemplate(
+			ModItems.SYRINGE.get(),
+			DataComponentPatch.builder()
+				.set(
+					ModDataComponents.SPECIFIC_ENTITY.get(),
+					SpecificEntityItemComponent(
+						UUID.fromString("b0aa4edd-29e0-421f-b65c-be90055071b0"), // Arbitrary UUID
+						Component.literal("A Fake Mob")
+					)
+				)
+				.build()
+		)
+
 		val getGene = advancement()
 			.parent(plasmidInjector)
 			.display(
-				ModItems.SYRINGE.withComponent(
-					ModDataComponents.SPECIFIC_ENTITY.get(),
-					SpecificEntityItemComponent(
-						UUID.fromString("b0aa4edd-29e0-421f-b65c-be90055071b0"), //Arbitrary UUID
-						Component.literal("A Fake Mob")
-					)
-				),
+				fakeMobSyringe,
 				ModAdvancementLang.GET_GENE_TITLE.toComponent(),
 				ModAdvancementLang.GET_GENE_DESC.toComponent(),
 				null,

@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.advancements.AdvancementHolder
 import net.minecraft.core.Holder
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.server.level.ServerPlayer
 
 object AdvancementTriggers {
@@ -47,11 +47,11 @@ object AdvancementTriggers {
 		completeAdvancement(player, ModAdvancementSubProvider.GET_ALL_SCARE_GENES)
 	}
 
-	fun ResourceLocation.getAdvancement(player: ServerPlayer): AdvancementHolder? {
-		return player.server.advancements.get(this)
+	fun Identifier.getAdvancement(player: ServerPlayer): AdvancementHolder? {
+		return player.level().server.advancements.get(this)
 	}
 
-	fun completeAdvancement(player: ServerPlayer, advancementId: ResourceLocation) {
+	fun completeAdvancement(player: ServerPlayer, advancementId: Identifier) {
 		val advancement = advancementId.getAdvancement(player) ?: return
 		completeAdvancement(player, advancement)
 	}

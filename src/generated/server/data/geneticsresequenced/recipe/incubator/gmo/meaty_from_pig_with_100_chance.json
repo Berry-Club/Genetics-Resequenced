@@ -1,0 +1,6 @@
+{
+  "type": "geneticsresequenced:incubator/gmo",
+  "entity_type": "minecraft:pig",
+  "ideal_gene": "geneticsresequenced:meaty",
+  "ingredient": "minecraft:porkchop"
+}

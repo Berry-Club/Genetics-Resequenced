@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.cell_analyzer
 
-import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.geneticsresequenced.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import net.minecraft.network.chat.Component
@@ -10,9 +9,7 @@ class CellAnalyzerScreen(
 	menu: CellAnalyzerMenu,
 	playerInventory: Inventory,
 	title: Component
-) : MachineScreen<CellAnalyzerMenu>(menu, playerInventory, title) {
-
-	override val background: ScreenBackground = ScreenTextures.Backgrounds.CELL_ANALYZER
+) : MachineScreen<CellAnalyzerMenu>(menu, playerInventory, title, ScreenTextures.Backgrounds.CELL_ANALYZER) {
 
 	init {
 		topPos -= 8

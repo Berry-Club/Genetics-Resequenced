@@ -7,7 +7,7 @@ import com.klikli_dev.modonomicon.api.datagen.book.BookIconModel
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.entries.GeneEntryProvider
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.Items
 
 class NegativeGenesCategoryProvider(
@@ -32,8 +32,8 @@ class NegativeGenesCategoryProvider(
 		return arrayOf("")
 	}
 
-	fun mcLoc(path: String): ResourceLocation {
-		return ResourceLocation.withDefaultNamespace(path)
+	fun mcLoc(path: String): Identifier {
+		return Identifier.withDefaultNamespace(path)
 	}
 
 	override fun generateEntries() {

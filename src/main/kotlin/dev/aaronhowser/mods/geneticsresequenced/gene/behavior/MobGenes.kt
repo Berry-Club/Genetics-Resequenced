@@ -18,7 +18,7 @@ import net.minecraft.world.entity.ai.goal.AvoidEntityGoal
 import net.minecraft.world.entity.ai.goal.MeleeAttackGoal
 import net.minecraft.world.entity.ai.goal.target.TargetGoal
 import net.minecraft.world.entity.animal.Animal
-import net.minecraft.world.entity.animal.Bee
+import net.minecraft.world.entity.animal.bee.Bee
 import net.neoforged.neoforge.event.entity.living.BabyEntitySpawnEvent
 import kotlin.jvm.optionals.getOrNull
 

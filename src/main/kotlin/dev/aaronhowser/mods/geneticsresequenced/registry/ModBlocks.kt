@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.registry
 
-import dev.aaronhowser.mods.aaron.registry.AaronBlockRegistry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.BioluminescenceBlock
@@ -9,26 +8,28 @@ import dev.aaronhowser.mods.geneticsresequenced.block.WebDefenseBlock
 import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlock
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.*
 import net.minecraft.core.BlockPos
+import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
+import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.registries.DeferredBlock
 import net.neoforged.neoforge.registries.DeferredRegister
+import java.util.function.Function
+import java.util.function.Supplier
 
-object ModBlocks : AaronBlockRegistry() {
+object ModBlocks {
 
 	val BLOCK_REGISTRY: DeferredRegister.Blocks = DeferredRegister.createBlocks(GeneticsResequenced.MOD_ID)
-	override fun getBlockRegistry(): DeferredRegister.Blocks = BLOCK_REGISTRY
-	override fun getItemRegistry(): DeferredRegister.Items = ModItems.ITEM_REGISTRY
 
 	val ANTI_FIELD_BLOCK: DeferredBlock<AntiFieldBlock> =
-		registerBlock("anti_field_block", ::AntiFieldBlock)
+		registerBlock("anti_field_block", ::AntiFieldBlock, AntiFieldBlock::properties)
 	val BIOLUMINESCENCE_BLOCK: DeferredBlock<BioluminescenceBlock> =
-		registerBlockWithoutItem("bioluminescence", ::BioluminescenceBlock)
+		registerBlockWithoutItem("bioluminescence", ::BioluminescenceBlock, BioluminescenceBlock::properties)
 	val WEB_DEFENSE_BLOCK: DeferredBlock<WebDefenseBlock> =
-		registerBlockWithoutItem("web_defense_block", ::WebDefenseBlock)
+		registerBlockWithoutItem("web_defense_block", ::WebDefenseBlock, WebDefenseBlock::properties)
 
 	val COAL_GENERATOR: DeferredBlock<CoalGeneratorBlock> =
-		registerBlock("coal_generator", ::CoalGeneratorBlock)
+		registerBlock("coal_generator", ::CoalGeneratorBlock, MachineBlock::properties)
 	val CELL_ANALYZER: DeferredBlock<out MachineBlock> =
 		registerMachineBlock("cell_analyzer", ::CellAnalyzerBlockEntity)
 	val DNA_EXTRACTOR: DeferredBlock<out MachineBlock> =
@@ -50,7 +51,29 @@ object ModBlocks : AaronBlockRegistry() {
 		name: String,
 		factory: (BlockPos, BlockState) -> BlockEntity
 	): DeferredBlock<out MachineBlock> {
-		return registerBlock(name) { MachineBlock(factory) }
+		return registerBlock(name, { properties -> MachineBlock(factory, properties) }, MachineBlock::properties)
+	}
+
+	private fun <T : Block> registerBlock(
+		name: String,
+		factory: (BlockBehaviour.Properties) -> T,
+		properties: () -> BlockBehaviour.Properties
+	): DeferredBlock<T> {
+		val block = registerBlockWithoutItem(name, factory, properties)
+		ModItems.ITEM_REGISTRY.registerSimpleBlockItem(block)
+		return block
+	}
+
+	private fun <T : Block> registerBlockWithoutItem(
+		name: String,
+		factory: (BlockBehaviour.Properties) -> T,
+		properties: () -> BlockBehaviour.Properties
+	): DeferredBlock<T> {
+		return BLOCK_REGISTRY.registerBlock(
+			name,
+			Function { blockProperties -> factory(blockProperties) },
+			Supplier { properties() }
+		)
 	}
 
 }

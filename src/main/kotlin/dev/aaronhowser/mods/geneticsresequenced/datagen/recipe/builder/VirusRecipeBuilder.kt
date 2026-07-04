@@ -7,12 +7,12 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.advancements.AdvancementRequirements
 import net.minecraft.advancements.AdvancementRewards
 import net.minecraft.advancements.Criterion
-import net.minecraft.advancements.critereon.RecipeUnlockedTrigger
+import net.minecraft.advancements.criterion.RecipeUnlockedTrigger
+import net.minecraft.core.registries.Registries
 import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
-import net.minecraft.world.item.Item
+import net.minecraft.world.item.crafting.Recipe
 
 class VirusRecipeBuilder(
 	val inputDnaGene: ResourceKey<Gene>,
@@ -30,21 +30,11 @@ class VirusRecipeBuilder(
 		error("Unsupported")
 	}
 
-	override fun getResult(): Item {
-		return ModItems.DNA_HELIX.get()
-	}
+	override fun defaultId(): ResourceKey<Recipe<*>> =
+		recipeKey(recipePath())
 
-	override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
-		val idString = StringBuilder()
-
-		idString
-			.append("incubator/")
-			.append("virus/")
-			.append(inputDnaGene.location().path)
-			.append("_to_")
-			.append(outputGene.location().path)
-
-		val id = GeneticsResequenced.modResource(idString.toString())
+	override fun save(output: RecipeOutput, defaultId: ResourceKey<Recipe<*>>) {
+		val id = recipeKey(recipePath())
 
 		val advancement = output.advancement()
 			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
@@ -55,6 +45,22 @@ class VirusRecipeBuilder(
 
 		val recipe = VirusRecipe(inputDnaGene, outputGene)
 
-		output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
+		output.accept(id, recipe, advancement.build(id.identifier().withPrefix("recipes/")))
 	}
+
+	private fun recipePath(): String {
+		val idString = StringBuilder()
+
+		idString
+			.append("incubator/")
+			.append("virus/")
+			.append(inputDnaGene.identifier().path)
+			.append("_to_")
+			.append(outputGene.identifier().path)
+
+		return idString.toString()
+	}
+
+	private fun recipeKey(path: String): ResourceKey<Recipe<*>> =
+		ResourceKey.create(Registries.RECIPE, GeneticsResequenced.modResource(path))
 }

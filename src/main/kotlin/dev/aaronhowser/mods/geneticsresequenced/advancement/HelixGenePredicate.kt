@@ -3,16 +3,19 @@ package dev.aaronhowser.mods.geneticsresequenced.advancement
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
-import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import net.minecraft.advancements.critereon.ItemSubPredicate
+import net.minecraft.advancements.criterion.SingleComponentItemPredicate
+import net.minecraft.core.Holder
+import net.minecraft.core.component.DataComponentType
+import net.minecraft.core.component.predicates.DataComponentPredicate
 import net.minecraft.util.StringRepresentable
-import net.minecraft.world.item.ItemStack
 
 //TODO: Move away from something as hardcoded as this
 data class HelixGenePredicate(
 	val helixType: HelixType
-) : ItemSubPredicate {
+) : SingleComponentItemPredicate<Holder<Gene>> {
 
 	enum class HelixType : StringRepresentable {
 		ANY, BLACK_DEATH;
@@ -22,10 +25,14 @@ data class HelixGenePredicate(
 		}
 	}
 
-	override fun matches(stack: ItemStack): Boolean {
+	override fun componentType(): DataComponentType<Holder<Gene>> {
+		return ModDataComponents.GENE.get()
+	}
+
+	override fun matches(geneHolder: Holder<Gene>): Boolean {
 		return when (helixType) {
-			HelixType.ANY -> DnaHelixItem.hasGene(stack)
-			HelixType.BLACK_DEATH -> DnaHelixItem.getGeneHolder(stack).isGene(ModGenes.BLACK_DEATH)
+			HelixType.ANY -> true
+			HelixType.BLACK_DEATH -> geneHolder.isGene(ModGenes.BLACK_DEATH)
 		}
 	}
 
@@ -45,7 +52,7 @@ data class HelixGenePredicate(
 				).apply(instance, ::HelixGenePredicate)
 			}
 
-		val TYPE: ItemSubPredicate.Type<HelixGenePredicate> = ItemSubPredicate.Type(CODEC)
+		val TYPE: DataComponentPredicate.Type<HelixGenePredicate> = DataComponentPredicate.ConcreteType(CODEC)
 	}
 
 }

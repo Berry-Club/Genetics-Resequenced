@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.attachment
 
 import com.mojang.serialization.Codec
+import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
@@ -30,8 +31,8 @@ data class TemporaryGenesData(
 	constructor() : this(mutableListOf())
 
 	companion object {
-		val CODEC: Codec<TemporaryGenesData> =
-			RecordCodecBuilder.create { instance ->
+		val MAP_CODEC: MapCodec<TemporaryGenesData> =
+			RecordCodecBuilder.mapCodec { instance ->
 				instance.group(
 					TemporaryGene.CODEC
 						.listOf()
@@ -39,6 +40,7 @@ data class TemporaryGenesData(
 						.forGetter(TemporaryGenesData::temporaryGenes)
 				).apply(instance, ::TemporaryGenesData)
 			}
+		val CODEC: Codec<TemporaryGenesData> = MAP_CODEC.codec()
 
 		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, TemporaryGenesData> =
 			StreamCodec.composite(
@@ -107,7 +109,7 @@ data class TemporaryGenesData(
 				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
 						.append("Tried to give temporary gene ")
-						.append(newGeneHolder.key?.location() ?: newGeneHolder)
+						.append(newGeneHolder.key?.identifier() ?: newGeneHolder)
 						.append(" to entity ").append(name.string)
 						.append(", but that entity type cannot have that gene!")
 						.toString()
@@ -120,10 +122,10 @@ data class TemporaryGenesData(
 				GeneticsResequenced.LOGGER.debug(
 					StringBuilder()
 						.append("Tried to give temporary gene ")
-						.append(newGeneHolder.key?.location() ?: newGeneHolder)
+						.append(newGeneHolder.key?.identifier() ?: newGeneHolder)
 						.append(" to entity ").append(name.string)
 						.append(", but it is incompatible with the following genes the entity already has: ")
-						.append(foundIncompatibleGenes.joinToString { it.key?.location().toString() })
+						.append(foundIncompatibleGenes.joinToString { it.key?.identifier().toString() })
 						.toString()
 				)
 				return false

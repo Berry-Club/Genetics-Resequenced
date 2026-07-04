@@ -4,9 +4,9 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
-import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.item.GmoCell
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipe
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -15,6 +15,8 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.component.DataComponentPatch
+import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.RegistryFriendlyByteBuf
@@ -22,6 +24,7 @@ import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.EntityType
+import net.minecraft.world.item.Items
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeHolder
@@ -52,11 +55,12 @@ class GmoRecipe(
 		return true //TODO: Make sure it actually detects the entity type too
 	}
 
-	override fun assemble(input: Input, lookup: HolderLookup.Provider): ItemStack {
+	override fun assemble(input: Input): ItemStack {
+		val lookup = input.registryAccess ?: return ItemStack.EMPTY
 		return getResultItem(lookup)
 	}
 
-	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
+	fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
 		val output = ModItems.GMO_CELL.itemStack
 
 		GmoCell.setDetails(
@@ -80,27 +84,28 @@ class GmoRecipe(
 		return output
 	}
 
-	override fun getSerializer(): RecipeSerializer<*> {
+	override fun getSerializer(): RecipeSerializer<GmoRecipe> {
 		return ModRecipeSerializers.GMO.get()
 	}
 
 	companion object {
 
 		private fun getBottomIngredient(needsMutationPotion: Boolean, entityType: EntityType<*>): Ingredient {
-			val potionStack = OtherUtil.getPotionStack(
-				if (needsMutationPotion) ModPotions.MUTATION else ModPotions.CELL_GROWTH
-			)
-
-			EntityDnaItem.setEntityType(potionStack, entityType)
+			val potion = if (needsMutationPotion) ModPotions.MUTATION else ModPotions.CELL_GROWTH
+			val components = DataComponentPatch.builder()
+				.set(DataComponents.POTION_CONTENTS, OtherUtil.potionContents(potion))
+				.set(ModDataComponents.ENTITY_TYPE.get(), entityType)
+				.build()
 
 			return DataComponentIngredient.of(
 				false,
-				potionStack
+				components,
+				Items.POTION
 			)
 		}
 
 		fun getGmoRecipes(level: Level): List<RecipeHolder<GmoRecipe>> {
-			val recipeManager = level.recipeManager
+			val recipeManager = level.server?.recipeManager ?: return emptyList()
 			return getGmoRecipes(recipeManager)
 		}
 
@@ -124,47 +129,39 @@ class GmoRecipe(
 		}
 
 		fun getGmoRecipe(level: Level, topStack: ItemStack, bottomStack: ItemStack, isHighTemp: Boolean): GmoRecipe? {
-			return getGmoRecipe(level, Input(topStack, bottomStack, isHighTemp))
+			return getGmoRecipe(level, Input(topStack, bottomStack, isHighTemp, level.registryAccess()))
 		}
 
-	}
+		val CODEC: MapCodec<GmoRecipe> =
+			RecordCodecBuilder.mapCodec { instance ->
+				instance.group(
+					BuiltInRegistries.ENTITY_TYPE.byNameCodec()
+						.fieldOf("entity_type")
+						.forGetter(GmoRecipe::entityType),
+					Ingredient.CODEC
+						.fieldOf("ingredient")
+						.forGetter(GmoRecipe::topIngredient),
+					ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
+						.fieldOf("ideal_gene")
+						.forGetter(GmoRecipe::idealGeneRk),
+					Codec.FLOAT
+						.optionalFieldOf("gene_chance", 1f)
+						.forGetter(GmoRecipe::geneChance),
+					Codec.BOOL
+						.optionalFieldOf("needs_mutation_potion", false)
+						.forGetter(GmoRecipe::needsMutationPotion)
+				).apply(instance, ::GmoRecipe)
+			}
 
-	class Serializer : RecipeSerializer<GmoRecipe> {
-		override fun codec(): MapCodec<GmoRecipe> = CODEC
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, GmoRecipe> = STREAM_CODEC
-
-		companion object {
-			val CODEC: MapCodec<GmoRecipe> =
-				RecordCodecBuilder.mapCodec { instance ->
-					instance.group(
-						BuiltInRegistries.ENTITY_TYPE.byNameCodec()
-							.fieldOf("entity_type")
-							.forGetter(GmoRecipe::entityType),
-						Ingredient.CODEC_NONEMPTY
-							.fieldOf("ingredient")
-							.forGetter(GmoRecipe::topIngredient),
-						ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
-							.fieldOf("ideal_gene")
-							.forGetter(GmoRecipe::idealGeneRk),
-						Codec.FLOAT
-							.optionalFieldOf("gene_chance", 1f)
-							.forGetter(GmoRecipe::geneChance),
-						Codec.BOOL
-							.optionalFieldOf("needs_mutation_potion", false)
-							.forGetter(GmoRecipe::needsMutationPotion)
-					).apply(instance, ::GmoRecipe)
-				}
-
-			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, GmoRecipe> =
-				StreamCodec.composite(
-					ByteBufCodecs.registry(Registries.ENTITY_TYPE), GmoRecipe::entityType,
-					Ingredient.CONTENTS_STREAM_CODEC, GmoRecipe::topIngredient,
-					ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), GmoRecipe::idealGeneRk,
-					ByteBufCodecs.FLOAT, GmoRecipe::geneChance,
-					ByteBufCodecs.BOOL, GmoRecipe::needsMutationPotion,
-					::GmoRecipe
-				)
-		}
+		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, GmoRecipe> =
+			StreamCodec.composite(
+				ByteBufCodecs.registry(Registries.ENTITY_TYPE), GmoRecipe::entityType,
+				Ingredient.CONTENTS_STREAM_CODEC, GmoRecipe::topIngredient,
+				ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), GmoRecipe::idealGeneRk,
+				ByteBufCodecs.FLOAT, GmoRecipe::geneChance,
+				ByteBufCodecs.BOOL, GmoRecipe::needsMutationPotion,
+				::GmoRecipe
+			)
 
 	}
 

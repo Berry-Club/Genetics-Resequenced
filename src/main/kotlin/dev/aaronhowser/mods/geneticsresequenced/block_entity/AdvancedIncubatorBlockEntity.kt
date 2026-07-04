@@ -15,8 +15,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.core.HolderLookup
-import net.minecraft.nbt.CompoundTag
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
@@ -25,7 +23,10 @@ import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.level.block.state.BlockState
-import net.neoforged.neoforge.items.IItemHandler
+import net.minecraft.world.level.storage.ValueInput
+import net.minecraft.world.level.storage.ValueOutput
+import net.neoforged.neoforge.transfer.ResourceHandler
+import net.neoforged.neoforge.transfer.item.ItemResource
 import java.util.function.IntSupplier
 import kotlin.math.min
 
@@ -94,16 +95,16 @@ class AdvancedIncubatorBlockEntity(
 		override fun getCount(): Int = CONTAINER_DATA_SIZE
 	}
 
-	override val inputHandler: IItemHandler = insertOnlyHandler(TOP_SLOT_INDEX)
-	private val bottleHandler: IItemHandler = insertAndExtractHandler(
+	override val inputHandler: ResourceHandler<ItemResource> = insertOnlyHandler(TOP_SLOT_INDEX)
+	private val bottleHandler: ResourceHandler<ItemResource> = insertAndExtractHandler(
 		LEFT_BOTTLE_SLOT_INDEX,
 		MIDDLE_BOTTLE_SLOT_INDEX,
 		RIGHT_BOTTLE_SLOT_INDEX
 	)
-	override val overclockHandler: IItemHandler = insertAndExtractHandler(OVERCLOCKER_SLOT_INDEX)
-	override val outputHandler: IItemHandler = bottleHandler
+	override val overclockHandler: ResourceHandler<ItemResource> = insertAndExtractHandler(OVERCLOCKER_SLOT_INDEX)
+	override val outputHandler: ResourceHandler<ItemResource> = bottleHandler
 
-	override fun getItemHandler(direction: Direction?): IItemHandler? {
+	override fun getItemHandler(direction: Direction?): ResourceHandler<ItemResource>? {
 		return when (direction) {
 			Direction.UP -> inputHandler
 			else -> bottleHandler
@@ -125,7 +126,7 @@ class AdvancedIncubatorBlockEntity(
 		maxProgress = IncubatorBlockEntity.getTicksPerBrew()
 
 		if (isHighTemperature) {
-			energyStorage.extractEnergy(getEnergyCostPerTick(), false)
+			extractEnergy(getEnergyCostPerTick())
 			currentProgress += 1 + getAmountOfOverclocks()
 		} else {
 			subTicks += 1 + getAmountOfOverclocks()
@@ -134,7 +135,7 @@ class AdvancedIncubatorBlockEntity(
 			val ticksOverMax = subTicks - tickFactor
 			if (ticksOverMax >= 0) {
 				subTicks = ticksOverMax
-				energyStorage.extractEnergy(getEnergyCostPerTick(), false)
+				extractEnergy(getEnergyCostPerTick())
 				currentProgress += 1
 			}
 		}
@@ -180,7 +181,8 @@ class AdvancedIncubatorBlockEntity(
 			val incubatorInput = IncubatorRecipe.Input(
 				topStack,
 				bottomStack,
-				isHighTemp = isHighTemperature
+				isHighTemp = isHighTemperature,
+				registryAccess = level!!.registryAccess()
 			)
 
 			val incubatorRecipe = IncubatorRecipe.getIncubatorRecipe(level!!, incubatorInput)
@@ -241,7 +243,7 @@ class AdvancedIncubatorBlockEntity(
 		val finalChance = reducedChance + chorusBoost
 
 		return if (level.random.chance(finalChance)) {
-			gmoRecipe.assemble(input, level.registryAccess())
+			gmoRecipe.assemble(input)
 		} else {
 			gmoRecipe.getFailure(level.registryAccess())
 		}
@@ -255,8 +257,7 @@ class AdvancedIncubatorBlockEntity(
 				itemHandler.getStackInSlot(TOP_SLOT_INDEX),
 				itemHandler.getStackInSlot(LEFT_BOTTLE_SLOT_INDEX),
 				isHighTemp = this.isHighTemperature
-			),
-			level.registryAccess()
+			)
 		)
 
 		return output
@@ -266,14 +267,14 @@ class AdvancedIncubatorBlockEntity(
 		return AdvancedIncubatorMenu(containerId, playerInventory, this.container, this.containerData)
 	}
 
-	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.saveAdditional(tag, registries)
-		tag.putBoolean(IS_HIGH_TEMPERATURE_TAG, isHighTemperature)
+	override fun saveAdditional(output: ValueOutput) {
+		super.saveAdditional(output)
+		output.putBoolean(IS_HIGH_TEMPERATURE_TAG, isHighTemperature)
 	}
 
-	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.loadAdditional(tag, registries)
-		isHighTemperature = tag.getBoolean(IS_HIGH_TEMPERATURE_TAG)
+	override fun loadAdditional(input: ValueInput) {
+		super.loadAdditional(input)
+		isHighTemperature = input.getBooleanOr(IS_HIGH_TEMPERATURE_TAG, false)
 	}
 
 	companion object {

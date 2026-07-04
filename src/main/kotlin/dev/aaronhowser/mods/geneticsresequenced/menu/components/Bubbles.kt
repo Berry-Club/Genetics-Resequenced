@@ -3,9 +3,10 @@ package dev.aaronhowser.mods.geneticsresequenced.menu.components
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator.AdvancedIncubatorScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.incubator.IncubatorScreen
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
+import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.network.chat.Component
 
 class Bubbles(
@@ -31,7 +32,7 @@ class Bubbles(
 			}
 		}
 
-	override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
+	override fun extractWidgetRenderState(graphics: GuiGraphicsExtractor, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
 		if (!shouldRender()) return
 
 		val bubbleSpeed = if (highTemperature()) {
@@ -47,7 +48,8 @@ class Bubbles(
 
 		val amountBubbleToRender = HEIGHT - bubblePos
 
-		pGuiGraphics.blitSprite(
+		graphics.blitSprite(
+			RenderPipelines.GUI_TEXTURED,
 			TEXTURE,
 			TEXTURE_SIZE,
 			TEXTURE_SIZE,

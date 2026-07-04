@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.registry
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.HelixGenePredicate
 import dev.aaronhowser.mods.geneticsresequenced.advancement.SyringeGenesPredicate
-import net.minecraft.advancements.critereon.ItemSubPredicate
+import net.minecraft.core.component.predicates.DataComponentPredicate
 import net.minecraft.core.registries.Registries
 import net.neoforged.neoforge.registries.DeferredHolder
 import net.neoforged.neoforge.registries.DeferredRegister
@@ -11,13 +11,13 @@ import java.util.function.Supplier
 
 object ModItemSubPredicates {
 
-	val ITEM_SUB_PREDICATES: DeferredRegister<ItemSubPredicate.Type<*>> =
-		DeferredRegister.create(Registries.ITEM_SUB_PREDICATE_TYPE, GeneticsResequenced.MOD_ID)
+	val DATA_COMPONENT_PREDICATES: DeferredRegister<DataComponentPredicate.Type<*>> =
+		DeferredRegister.create(Registries.DATA_COMPONENT_PREDICATE_TYPE, GeneticsResequenced.MOD_ID)
 
-	val HELIX_GENE: DeferredHolder<ItemSubPredicate.Type<*>, ItemSubPredicate.Type<HelixGenePredicate>> =
-		ITEM_SUB_PREDICATES.register("helix_gene", Supplier { HelixGenePredicate.TYPE })
+	val HELIX_GENE: DeferredHolder<DataComponentPredicate.Type<*>, DataComponentPredicate.Type<HelixGenePredicate>> =
+		DATA_COMPONENT_PREDICATES.register("helix_gene", Supplier { HelixGenePredicate.TYPE })
 
-	val SYRINGE_GENES: DeferredHolder<ItemSubPredicate.Type<*>, ItemSubPredicate.Type<SyringeGenesPredicate>> =
-		ITEM_SUB_PREDICATES.register("syringe_genes", Supplier { SyringeGenesPredicate.TYPE })
+	val SYRINGE_GENES: DeferredHolder<DataComponentPredicate.Type<*>, DataComponentPredicate.Type<SyringeGenesPredicate>> =
+		DATA_COMPONENT_PREDICATES.register("syringe_genes", Supplier { SyringeGenesPredicate.TYPE })
 
 }

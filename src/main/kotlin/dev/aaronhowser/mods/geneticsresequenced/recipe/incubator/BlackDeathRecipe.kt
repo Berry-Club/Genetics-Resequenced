@@ -16,17 +16,17 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
-import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 object BlackDeathRecipe : IncubatorRecipe(
-	topIngredient = Ingredient.of(ModItemTagsProvider.SYRINGES),
-	bottomIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))
+	topIngredientSupplier = { Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(ModItemTagsProvider.SYRINGES)) },
+	bottomIngredientSupplier = { OtherUtil.potionIngredient(ModPotions.VIRAL_AGENTS) }
 ) {
 
 	override fun matches(input: Input, level: Level): Boolean {
@@ -44,15 +44,19 @@ object BlackDeathRecipe : IncubatorRecipe(
 		return syringeGenes.containsAll(requiredGenes)
 	}
 
-	override fun assemble(input: Input, lookup: HolderLookup.Provider): ItemStack {
-		return getResultItem(lookup)
+	override fun assemble(input: Input): ItemStack {
+		val lookup = SyringeItem.getGenes(input.getTopItem())
+			.firstNotNullOfOrNull { geneHolder -> geneHolder.unwrapLookup() }
+			?: return ItemStack.EMPTY
+
+		return DnaHelixItem.getHelixStack(lookup.getOrThrow(ModGenes.BLACK_DEATH))
 	}
 
-	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
+	fun createOutput(lookup: HolderLookup.Provider): ItemStack {
 		return DnaHelixItem.getHelixStack(ModGenes.BLACK_DEATH.getHolderOrThrow(lookup))
 	}
 
-	override fun getSerializer(): RecipeSerializer<*> {
+	override fun getSerializer(): RecipeSerializer<BlackDeathRecipe> {
 		return ModRecipeSerializers.BLACK_DEATH.get()
 	}
 
@@ -62,17 +66,9 @@ object BlackDeathRecipe : IncubatorRecipe(
 			.minus(ModGenes.BLACK_DEATH.getHolderOrThrow(lookup))
 	}
 
-	class Serializer : RecipeSerializer<BlackDeathRecipe> {
-		override fun codec(): MapCodec<BlackDeathRecipe> = CODEC
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, BlackDeathRecipe> = STREAM_CODEC
+	val CODEC: MapCodec<BlackDeathRecipe> = MapCodec.unit(BlackDeathRecipe)
 
-		companion object {
-			val CODEC: MapCodec<BlackDeathRecipe> = MapCodec.unit(BlackDeathRecipe)
-
-			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, BlackDeathRecipe> =
-				StreamCodec.unit(BlackDeathRecipe)
-		}
-
-	}
+	val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, BlackDeathRecipe> =
+		StreamCodec.unit(BlackDeathRecipe)
 
 }

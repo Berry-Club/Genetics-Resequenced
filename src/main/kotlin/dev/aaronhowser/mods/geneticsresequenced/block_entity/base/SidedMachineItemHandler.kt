@@ -1,58 +1,77 @@
 package dev.aaronhowser.mods.geneticsresequenced.block_entity.base
 
 import net.minecraft.world.item.ItemStack
-import net.neoforged.neoforge.items.IItemHandler
+import net.neoforged.neoforge.transfer.CombinedResourceHandler
+import net.neoforged.neoforge.transfer.ResourceHandler
+import net.neoforged.neoforge.transfer.item.ItemResource
+import net.neoforged.neoforge.transfer.item.ItemStackResourceHandler
+import net.neoforged.neoforge.transfer.transaction.TransactionContext
 
-class SidedMachineItemHandler(
-	private val backingHandler: IItemHandler,
-	private val slots: IntArray,
-	private val canInsert: (slot: Int, stack: ItemStack) -> Boolean,
-	private val canExtract: (slot: Int, stack: ItemStack) -> Boolean
-) : IItemHandler {
+class SidedMachineItemHandler private constructor(
+	handlers: Array<ResourceHandler<ItemResource>>
+) : CombinedResourceHandler<ItemResource>(*handlers) {
 
 	constructor(
-		backingHandler: IItemHandler,
+		backingHandler: MachineItemHandler,
+		slots: IntArray,
+		canInsert: (slot: Int, stack: ItemStack) -> Boolean,
+		canExtract: (slot: Int, stack: ItemStack) -> Boolean
+	) : this(
+		Array<ResourceHandler<ItemResource>>(slots.size) { index ->
+			ContainerSlotResourceHandler(backingHandler, slots[index], canInsert, canExtract)
+		}
+	)
+
+	constructor(
+		backingHandler: MachineItemHandler,
 		slot: Int,
 		canInsert: (slot: Int, stack: ItemStack) -> Boolean,
 		canExtract: (slot: Int, stack: ItemStack) -> Boolean
 	) : this(backingHandler, intArrayOf(slot), canInsert, canExtract)
 
-	override fun getSlots(): Int = slots.size
+	private class ContainerSlotResourceHandler(
+		private val backingHandler: MachineItemHandler,
+		private val slot: Int,
+		private val canInsert: (slot: Int, stack: ItemStack) -> Boolean,
+		private val canExtract: (slot: Int, stack: ItemStack) -> Boolean
+	) : ItemStackResourceHandler() {
 
-	override fun getStackInSlot(slot: Int): ItemStack {
-		return backingHandler.getStackInSlot(toContainerSlot(slot))
-	}
-
-	override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
-		val containerSlot = toContainerSlot(slot)
-		if (stack.isEmpty || !canInsert(containerSlot, stack)) return stack
-
-		return backingHandler.insertItem(containerSlot, stack, simulate)
-	}
-
-	override fun extractItem(slot: Int, amount: Int, simulate: Boolean): ItemStack {
-		val containerSlot = toContainerSlot(slot)
-		val stack = backingHandler.getStackInSlot(containerSlot)
-		if (stack.isEmpty || !canExtract(containerSlot, stack)) return ItemStack.EMPTY
-
-		return backingHandler.extractItem(containerSlot, amount, simulate)
-	}
-
-	override fun getSlotLimit(slot: Int): Int {
-		return backingHandler.getSlotLimit(toContainerSlot(slot))
-	}
-
-	override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
-		val containerSlot = toContainerSlot(slot)
-		return canInsert(containerSlot, stack) && backingHandler.isItemValid(containerSlot, stack)
-	}
-
-	private fun toContainerSlot(slot: Int): Int {
-		require(slot in slots.indices) {
-			"Slot $slot is not in sided inventory range [0, ${slots.size})"
+		override fun getStack(): ItemStack {
+			return backingHandler.getStackInSlot(slot)
 		}
 
-		return slots[slot]
-	}
+		override fun setStack(stack: ItemStack) {
+			backingHandler.setStackInSlot(slot, stack)
+		}
 
+		override fun isValid(resource: ItemResource): Boolean {
+			val stack = resource.toStack()
+			return canInsert(slot, stack) && backingHandler.isItemValid(slot, stack)
+		}
+
+		override fun getCapacity(resource: ItemResource): Int {
+			val slotLimit = backingHandler.getSlotLimit(slot)
+			return if (resource.isEmpty) {
+				slotLimit
+			} else {
+				minOf(slotLimit, resource.maxStackSize)
+			}
+		}
+
+		override fun extract(
+			index: Int,
+			resource: ItemResource,
+			amount: Int,
+			transaction: TransactionContext
+		): Int {
+			val stack = backingHandler.getStackInSlot(slot)
+			if (stack.isEmpty || !canExtract(slot, stack)) return 0
+
+			return super.extract(index, resource, amount, transaction)
+		}
+
+		override fun onRootCommit(snapshot: ItemStack) {
+			backingHandler.setChanged()
+		}
+	}
 }

@@ -1,29 +1,46 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.base
 
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeTypes
-import net.minecraft.core.NonNullList
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.alchemy.PotionBrewing
 import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeTypes
+import net.minecraft.core.HolderLookup
 
 abstract class IncubatorRecipe(
-	val topIngredient: Ingredient,
-	val bottomIngredient: Ingredient
+	topIngredientSupplier: () -> Ingredient,
+	bottomIngredientSupplier: () -> Ingredient
 ) : Recipe<IncubatorRecipe.Input> {
 
-	override fun canCraftInDimensions(width: Int, height: Int): Boolean = true
+	constructor(
+		topIngredient: Ingredient,
+		bottomIngredient: Ingredient
+	) : this({ topIngredient }, { bottomIngredient })
 
-	final override fun getType(): RecipeType<*> {
+	val topIngredient: Ingredient by lazy(LazyThreadSafetyMode.NONE) { topIngredientSupplier() }
+	val bottomIngredient: Ingredient by lazy(LazyThreadSafetyMode.NONE) { bottomIngredientSupplier() }
+
+	val ingredients: List<Ingredient>
+		get() = listOf(topIngredient, bottomIngredient)
+
+	final override fun getType(): RecipeType<out IncubatorRecipe> {
 		return ModRecipeTypes.INCUBATOR.get()
 	}
 
-	override fun getIngredients(): NonNullList<Ingredient> {
-		val list = NonNullList.create<Ingredient>()
-		list.add(topIngredient)
-		list.add(bottomIngredient)
+	override fun showNotification(): Boolean {
+		return false
+	}
 
-		return list
+	override fun group(): String {
+		return ""
+	}
+
+	override fun placementInfo(): PlacementInfo {
+		return PlacementInfo.create(ingredients)
+	}
+
+	override fun recipeBookCategory(): RecipeBookCategory {
+		return RecipeBookCategories.CRAFTING_MISC
 	}
 
 	companion object {
@@ -31,14 +48,15 @@ abstract class IncubatorRecipe(
 		fun getIncubatorRecipes(
 			recipeManager: RecipeManager
 		): List<RecipeHolder<IncubatorRecipe>> {
-			return recipeManager.getAllRecipesFor(ModRecipeTypes.INCUBATOR.get())
+			return recipeManager.recipeMap().byType(ModRecipeTypes.INCUBATOR.get()).toList()
 		}
 
 		fun isValidTopIngredient(
 			level: Level,
 			itemStack: ItemStack
 		): Boolean {
-			val usedInIncubatorRecipe = getIncubatorRecipes(level.recipeManager)
+			val recipeManager = level.server?.recipeManager ?: return false
+			val usedInIncubatorRecipe = getIncubatorRecipes(recipeManager)
 				.any { recipeHolder ->
 					recipeHolder.value.topIngredient.test(itemStack)
 				}
@@ -52,7 +70,8 @@ abstract class IncubatorRecipe(
 			level: Level,
 			itemStack: ItemStack
 		): Boolean {
-			val usedInIncubatorRecipe = getIncubatorRecipes(level.recipeManager).any { recipeHolder ->
+			val recipeManager = level.server?.recipeManager ?: return false
+			val usedInIncubatorRecipe = getIncubatorRecipes(recipeManager).any { recipeHolder ->
 				recipeHolder.value.bottomIngredient.test(itemStack)
 			}
 
@@ -65,7 +84,8 @@ abstract class IncubatorRecipe(
 			level: Level,
 			input: Input
 		): IncubatorRecipe? {
-			return getIncubatorRecipes(level.recipeManager).find { recipeHolder ->
+			val recipeManager = level.server?.recipeManager ?: return null
+			return getIncubatorRecipes(recipeManager).find { recipeHolder ->
 				recipeHolder.value.matches(input, level)
 			}?.value
 		}
@@ -82,7 +102,8 @@ abstract class IncubatorRecipe(
 	class Input(
 		private val topItem: ItemStack,
 		private val bottomItem: ItemStack,
-		val isHighTemp: Boolean
+		val isHighTemp: Boolean,
+		val registryAccess: HolderLookup.Provider? = null
 	) : RecipeInput {
 
 		fun isValidPotionRecipe(potionBrewing: PotionBrewing): Boolean {

@@ -8,6 +8,7 @@ import net.minecraft.client.Minecraft
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload
+import net.minecraft.sounds.SoundSource
 import net.neoforged.neoforge.network.handling.IPayloadContext
 
 data class NarratorPacket(
@@ -17,9 +18,10 @@ data class NarratorPacket(
 	override fun handleOnClient(context: IPayloadContext) {
 		if (ClientConfig.CONFIG.disableParrotNarrator.get()) return
 
-		Minecraft.getInstance()
+		val minecraft = Minecraft.getInstance()
+		minecraft
 			.narrator.narrator
-			.say(message, true)
+			.say(message, true, minecraft.options.getFinalSoundSourceVolume(SoundSource.VOICE))
 	}
 
 	override fun type(): CustomPacketPayload.Type<NarratorPacket> = TYPE

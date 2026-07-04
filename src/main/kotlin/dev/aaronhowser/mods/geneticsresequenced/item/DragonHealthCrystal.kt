@@ -10,19 +10,17 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
-import net.minecraft.sounds.SoundEvent
-import net.minecraft.sounds.SoundEvents
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.item.component.TooltipDisplay
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent
+import java.util.function.Consumer
 
 class DragonHealthCrystal(properties: Properties) : Item(properties) {
-
-	override fun getBreakingSound(): SoundEvent = SoundEvents.ENDER_DRAGON_HURT
 
 	override fun isDamageable(stack: ItemStack): Boolean = true
 	override fun isBarVisible(stack: ItemStack): Boolean = getDamage(stack) > 0
@@ -33,21 +31,18 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 		return Mth.ceil(usedDamage)
 	}
 
-	override fun isValidRepairItem(stack: ItemStack, repairCandidate: ItemStack): Boolean {
-		return repairCandidate.item === Items.END_CRYSTAL
-	}
-
 	override fun appendHoverText(
 		stack: ItemStack,
 		context: TooltipContext,
-		tooltipComponents: MutableList<Component>,
+		tooltipDisplay: TooltipDisplay,
+		tooltipComponents: Consumer<Component>,
 		tooltipFlag: TooltipFlag
 	) {
 		val maxDamage = getMaxDamage()
 		val currentDamage = stack.getOrDefault(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0.0)
 		val remainingHealth = maxDamage - currentDamage
 
-		tooltipComponents.add(
+		tooltipComponents.accept(
 			Component.literal(
 				"${Mth.ceil(remainingHealth)} / ${Mth.ceil(maxDamage)}"
 			).withStyle(ChatFormatting.GRAY)
@@ -58,6 +53,7 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 		val DEFAULT_PROPERTIES: () -> Properties = {
 			Properties()
 				.stacksTo(1)
+				.repairable(Items.END_CRYSTAL)
 				.component(ModDataComponents.DRAGON_HEALTH_CRYSTAL_DAMAGE, 0.0)
 		}
 
@@ -71,7 +67,8 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 			val crystalStack = if (entity is Player) {
 				entity.getFirstItemStack { it.isItem(ModItems.DRAGON_HEALTH_CRYSTAL) }
 			} else {
-				entity.handSlots.firstOrNull { it.isItem(ModItems.DRAGON_HEALTH_CRYSTAL) }
+				listOf(entity.mainHandItem, entity.offhandItem)
+					.firstOrNull { it.isItem(ModItems.DRAGON_HEALTH_CRYSTAL) }
 			}
 
 			if (crystalStack == null) return

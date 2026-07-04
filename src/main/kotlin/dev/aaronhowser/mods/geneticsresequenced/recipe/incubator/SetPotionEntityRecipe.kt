@@ -7,7 +7,6 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.PotionTagIngredient
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
-import net.minecraft.core.HolderLookup
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
@@ -16,8 +15,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 object SetPotionEntityRecipe : IncubatorRecipe(
-	topIngredient = Ingredient.of(ModItems.CELL.get()),
-	bottomIngredient = PotionTagIngredient(ModPotionTagsProvider.CAN_HAVE_ENTITY).toVanilla()
+	topIngredientSupplier = { Ingredient.of(ModItems.CELL.get()) },
+	bottomIngredientSupplier = { PotionTagIngredient(ModPotionTagsProvider.CAN_HAVE_ENTITY).toVanilla() }
 ) {
 
 	override fun matches(input: Input, level: Level): Boolean {
@@ -33,7 +32,7 @@ object SetPotionEntityRecipe : IncubatorRecipe(
 		return topEntity != bottomEntity
 	}
 
-	override fun assemble(input: Input, lookup: HolderLookup.Provider): ItemStack {
+	override fun assemble(input: Input): ItemStack {
 		val topItem = input.getTopItem()
 		val bottomItem = input.getBottomItem()
 
@@ -44,26 +43,18 @@ object SetPotionEntityRecipe : IncubatorRecipe(
 		return output
 	}
 
-	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
+	fun getResultItem(): ItemStack {
 		return ItemStack.EMPTY
 	}
 
-	override fun getSerializer(): RecipeSerializer<*> {
+	override fun getSerializer(): RecipeSerializer<SetPotionEntityRecipe> {
 		return ModRecipeSerializers.SET_POTION_ENTITY.get()
 	}
 
-	class Serializer : RecipeSerializer<SetPotionEntityRecipe> {
-		override fun codec(): MapCodec<SetPotionEntityRecipe> = CODEC
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> = STREAM_CODEC
+	val CODEC: MapCodec<SetPotionEntityRecipe> =
+		MapCodec.unit(SetPotionEntityRecipe)
 
-		companion object {
-			val CODEC: MapCodec<SetPotionEntityRecipe> =
-				MapCodec.unit(SetPotionEntityRecipe)
-
-			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> =
-				StreamCodec.unit(SetPotionEntityRecipe)
-		}
-
-	}
+	val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> =
+		StreamCodec.unit(SetPotionEntityRecipe)
 
 }

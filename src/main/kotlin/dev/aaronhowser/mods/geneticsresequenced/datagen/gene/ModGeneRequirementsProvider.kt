@@ -7,24 +7,19 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
 import net.minecraft.resources.ResourceKey
-import net.minecraft.server.packs.PackType
-import net.neoforged.neoforge.common.data.ExistingFileHelper
 import net.neoforged.neoforge.common.data.JsonCodecProvider
 import java.util.concurrent.CompletableFuture
 
 class ModGeneRequirementsProvider(
 	output: PackOutput,
-	lookupProvider: CompletableFuture<HolderLookup.Provider>,
-	existingFileHelper: ExistingFileHelper
+	lookupProvider: CompletableFuture<HolderLookup.Provider>
 ) : JsonCodecProvider<GeneRequirements>(
 	output,
 	PackOutput.Target.DATA_PACK,
 	"geneticsresequenced/gene_requirements",
-	PackType.SERVER_DATA,
 	GeneRequirements.CODEC,
 	lookupProvider,
-	GeneticsResequenced.MOD_ID,
-	existingFileHelper
+	GeneticsResequenced.MOD_ID
 ) {
 
 	private fun addRequirements(
@@ -32,7 +27,7 @@ class ModGeneRequirementsProvider(
 		vararg requirements: ResourceKey<Gene>
 	) {
 		unconditional(
-			geneRk.location(),
+			geneRk.identifier(),
 			GeneRequirements(
 				geneRk,
 				requirements.toList()

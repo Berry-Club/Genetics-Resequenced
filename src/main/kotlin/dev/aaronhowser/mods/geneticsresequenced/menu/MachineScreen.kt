@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu
 
 import dev.aaronhowser.mods.aaron.menu.BaseScreen
+import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.EnergyBar
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.ProgressArrow
 import net.minecraft.network.chat.Component
@@ -9,8 +10,9 @@ import net.minecraft.world.entity.player.Inventory
 abstract class MachineScreen<T : MachineMenu>(
 	menu: T,
 	playerInventory: Inventory,
-	title: Component
-) : BaseScreen<T>(menu, playerInventory, title) {
+	title: Component,
+	background: ScreenBackground
+) : BaseScreen<T>(menu, playerInventory, title, background) {
 
 	protected lateinit var energyBar: EnergyBar
 	protected open val energyPosLeft: Int = 7

@@ -11,7 +11,7 @@ import com.mojang.datafixers.util.Pair
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import net.minecraft.ChatFormatting
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ItemLike
 
@@ -20,7 +20,7 @@ abstract class BaseEntryProvider : EntryProvider {
 	constructor(
 		parent: CategoryProviderBase?,
 		name: String,
-		icon: ResourceLocation,
+		icon: Identifier,
 		entryId: String
 	) : super(parent) {
 		this.name = name
@@ -48,7 +48,7 @@ abstract class BaseEntryProvider : EntryProvider {
 
 	val name: String
 	val entryId: String
-	val icon: Either<ResourceLocation, ItemStack>
+	val icon: Either<Identifier, ItemStack>
 
 	override fun entryName(): String {
 		return this.name

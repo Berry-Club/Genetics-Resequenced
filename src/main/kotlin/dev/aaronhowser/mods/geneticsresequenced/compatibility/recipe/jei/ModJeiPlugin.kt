@@ -10,7 +10,7 @@ import mezz.jei.api.ingredients.subtypes.UidContext
 import mezz.jei.api.registration.IModInfoRegistration
 import mezz.jei.api.registration.IRecipeRegistration
 import mezz.jei.api.registration.ISubtypeRegistration
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ItemLike
 import net.neoforged.fml.ModList
@@ -65,7 +65,7 @@ class ModJeiPlugin : IModPlugin {
 
 	}
 
-	override fun getPluginUid(): ResourceLocation = PLUGIN_UID
+	override fun getPluginUid(): Identifier = PLUGIN_UID
 
 	companion object {
 		val PLUGIN_UID = GeneticsResequenced.modResource("jei_plugin")

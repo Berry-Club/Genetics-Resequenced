@@ -16,7 +16,6 @@ import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
-import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -31,21 +30,21 @@ class ScraperItem(properties: Properties) : Item(properties) {
 		level: Level,
 		player: Player,
 		usedHand: InteractionHand
-	): InteractionResultHolder<ItemStack> {
+	): InteractionResult {
 		val stack = player.getItemInHand(usedHand)
 
-		if (player !is ServerPlayer) return InteractionResultHolder.pass(stack)
+		if (player !is ServerPlayer) return InteractionResult.PASS
 
 		// If the player is sneaking, try to scrape themselves
 		if (player.isCrouching) return tryScrapeSelf(player, stack)
 
-		val lookedAtEntity = OtherUtil.getLookedAtEntity(player) ?: return InteractionResultHolder.pass(stack)
+		val lookedAtEntity = OtherUtil.getLookedAtEntity(player) ?: return InteractionResult.PASS
 		val scrapeWorked = scrapeEntity(player, stack, lookedAtEntity)
 
 		return if (scrapeWorked) {
-			InteractionResultHolder.success(stack)
+			InteractionResult.SUCCESS
 		} else {
-			InteractionResultHolder.pass(stack)
+			InteractionResult.PASS
 		}
 	}
 
@@ -73,24 +72,22 @@ class ScraperItem(properties: Properties) : Item(properties) {
 
 	}
 
-	override fun getEnchantmentValue(stack: ItemStack): Int = 5
-
 	companion object {
-		val DEFAULT_PROPERTIES: Properties = Properties().durability(200)
+		val DEFAULT_PROPERTIES: Properties = Properties().durability(200).enchantable(5)
 
 		private fun tryScrapeSelf(
 			player: Player,
 			stack: ItemStack
-		): InteractionResultHolder<ItemStack> {
-			if (player is FakePlayer) return InteractionResultHolder.pass(stack)
-			if (player !is ServerPlayer) return InteractionResultHolder.pass(stack)
+		): InteractionResult {
+			if (player is FakePlayer) return InteractionResult.PASS
+			if (player !is ServerPlayer) return InteractionResult.PASS
 
 			val scrapeWorked = scrapeEntity(player, stack, player)
 
 			return if (scrapeWorked) {
-				InteractionResultHolder.success(stack)
+				InteractionResult.SUCCESS
 			} else {
-				InteractionResultHolder.pass(stack)
+				InteractionResult.PASS
 			}
 		}
 
@@ -118,7 +115,7 @@ class ScraperItem(properties: Properties) : Item(properties) {
 			val hasDelicateTouch = stack.hasEnchantment(delicateTouch)
 
 			if (!hasDelicateTouch) {
-				target.hurt(getUseDamageSource(player.level(), player), 1f)
+				target.hurtServer(player.level(), getUseDamageSource(player.level(), player), 1f)
 			}
 
 			val equipmentSlot = player.getEquipmentSlotForItem(stack)

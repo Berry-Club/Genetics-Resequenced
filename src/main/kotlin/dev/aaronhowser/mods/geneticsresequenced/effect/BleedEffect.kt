@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.effect
 import dev.aaronhowser.mods.geneticsresequenced.datagen.datapack.ModDamageTypeProvider
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectCategory
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.LivingEntity
 
 class BleedEffect : MobEffect(
@@ -14,9 +15,7 @@ class BleedEffect : MobEffect(
 		return duration % 20 == 0
 	}
 
-	override fun applyEffectTick(livingEntity: LivingEntity, amplifier: Int): Boolean {
-		if (livingEntity.level().isClientSide) return false
-
+	override fun applyEffectTick(serverLevel: ServerLevel, livingEntity: LivingEntity, amplifier: Int): Boolean {
 		livingEntity.hurt(
 			livingEntity.damageSources().source(ModDamageTypeProvider.BLEED),
 			1f

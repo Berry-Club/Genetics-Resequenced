@@ -6,14 +6,12 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
 import net.minecraft.data.tags.EnchantmentTagsProvider
 import net.minecraft.tags.EnchantmentTags
-import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
 
 class ModEnchantmentTagsProvider(
 	pOutput: PackOutput,
-	pProvider: CompletableFuture<HolderLookup.Provider>,
-	existingFileHelper: ExistingFileHelper
-) : EnchantmentTagsProvider(pOutput, pProvider, GeneticsResequenced.MOD_ID, existingFileHelper) {
+	pProvider: CompletableFuture<HolderLookup.Provider>
+) : EnchantmentTagsProvider(pOutput, pProvider, GeneticsResequenced.MOD_ID) {
 
 	override fun addTags(p0: HolderLookup.Provider) {
 		this.tag(EnchantmentTags.NON_TREASURE)

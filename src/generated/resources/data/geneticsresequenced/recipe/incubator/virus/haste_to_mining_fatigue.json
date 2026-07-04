@@ -1,5 +1,0 @@
-{
-	"type": "geneticsresequenced:incubator/virus",
-	"input_gene": "geneticsresequenced:haste",
-	"output_gene": "geneticsresequenced:mining_fatigue"
-}

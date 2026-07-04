@@ -1,21 +1,20 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.crafting
 
+import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
-import net.minecraft.core.HolderLookup
+import net.minecraft.network.RegistryFriendlyByteBuf
+import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.CraftingBookCategory
 import net.minecraft.world.item.crafting.CraftingInput
 import net.minecraft.world.item.crafting.CustomRecipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
-class SetAntiPlasmidRecipe(
-	craftingCategory: CraftingBookCategory = CraftingBookCategory.MISC
-) : CustomRecipe(craftingCategory) {
+class SetAntiPlasmidRecipe : CustomRecipe() {
 
 	override fun matches(input: CraftingInput, level: Level): Boolean {
 		var plasmid: ItemStack? = null
@@ -38,7 +37,7 @@ class SetAntiPlasmidRecipe(
 		return !PlasmidItem.hasGene(antiPlasmid) && PlasmidItem.isComplete(plasmid)
 	}
 
-	override fun assemble(input: CraftingInput, provider: HolderLookup.Provider): ItemStack {
+	override fun assemble(input: CraftingInput): ItemStack {
 		var plasmidStack: ItemStack? = null
 		for (stack in input.items()) {
 			if (stack.item == ModItems.PLASMID.get()) {
@@ -54,12 +53,15 @@ class SetAntiPlasmidRecipe(
 		return antiPlasmidStack
 	}
 
-	override fun canCraftInDimensions(pWidth: Int, pHeight: Int): Boolean {
-		return pWidth * pHeight >= 2
+	override fun getSerializer(): RecipeSerializer<SetAntiPlasmidRecipe> {
+		return ModRecipeSerializers.SET_ANTI_PLASMID.get()
 	}
 
-	override fun getSerializer(): RecipeSerializer<*> {
-		return ModRecipeSerializers.SET_ANTI_PLASMID.get()
+	companion object {
+		val CODEC: MapCodec<SetAntiPlasmidRecipe> = MapCodec.unit(SetAntiPlasmidRecipe())
+
+		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SetAntiPlasmidRecipe> =
+			StreamCodec.unit(SetAntiPlasmidRecipe())
 	}
 
 }

@@ -15,22 +15,18 @@ import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
+import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
-import net.minecraft.world.level.block.state.properties.DirectionProperty
+import net.minecraft.world.level.block.state.properties.EnumProperty
 import net.minecraft.world.level.material.MapColor
 import net.minecraft.world.phys.BlockHitResult
 
 open class MachineBlock(
-	val beFactory: (BlockPos, BlockState) -> BlockEntity
-) : SimpleContainerBlock(
-	Properties.of()
-		.mapColor(MapColor.METAL)
-		.requiresCorrectToolForDrops()
-		.strength(5f, 6f)
-		.sound(SoundType.METAL)
-), EntityBlock {
+	val beFactory: (BlockPos, BlockState) -> BlockEntity,
+	properties: BlockBehaviour.Properties
+) : SimpleContainerBlock(properties), EntityBlock {
 
 	init {
 		registerDefaultState(
@@ -59,7 +55,7 @@ open class MachineBlock(
 
 		if (blockEntity is MenuProvider) {
 			player.openMenu(blockEntity)
-			return InteractionResult.sidedSuccess(level.isClientSide)
+			return if (level.isClientSide) InteractionResult.SUCCESS else InteractionResult.SUCCESS_SERVER
 		}
 
 		return InteractionResult.PASS
@@ -82,7 +78,16 @@ open class MachineBlock(
 	}
 
 	companion object {
-		val H_FACING: DirectionProperty = BlockStateProperties.HORIZONTAL_FACING
+		val H_FACING: EnumProperty<Direction> = BlockStateProperties.HORIZONTAL_FACING
+
+		fun properties(): BlockBehaviour.Properties {
+			return BlockBehaviour.Properties
+				.of()
+				.mapColor(MapColor.METAL)
+				.requiresCorrectToolForDrops()
+				.strength(5f, 6f)
+				.sound(SoundType.METAL)
+		}
 	}
 
 }

@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.command.gene
 import com.mojang.brigadier.builder.ArgumentBuilder
 import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
+import dev.aaronhowser.mods.geneticsresequenced.command.hasGamemasterPermission
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
@@ -19,7 +20,7 @@ object GiveAllGenesCommand : AaronCommandHelper {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return literal("give-all") {
-			requires { it.hasPermission(2) }
+			requires { it.hasGamemasterPermission() }
 
 			executes {
 				val source = it.source

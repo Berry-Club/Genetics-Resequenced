@@ -24,7 +24,7 @@ import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeManager
@@ -90,9 +90,9 @@ class GmoEmiRecipe(
 			.withStyle(ChatFormatting.GRAY)
 	)
 
-	override fun getId(): ResourceLocation {
+	override fun getId(): Identifier {
 		val entityTypeString = EntityType.getKey(entityType).toString().replace(':', '/')
-		val geneString = idealResourceKey.location().toString().replace(':', '/')
+		val geneString = idealResourceKey.identifier().toString().replace(':', '/')
 
 		return GeneticsResequenced.modResource("/gmo/$entityTypeString/$geneString")
 	}

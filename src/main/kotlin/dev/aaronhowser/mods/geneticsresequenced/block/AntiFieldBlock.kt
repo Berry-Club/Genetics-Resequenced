@@ -14,17 +14,14 @@ import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
+import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
+import net.minecraft.world.level.redstone.Orientation
 
-class AntiFieldBlock : Block(
-	Properties
-		.of()
-		.sound(SoundType.METAL)
-		.strength(0.3f)
-), EntityBlock {
+class AntiFieldBlock(properties: BlockBehaviour.Properties) : Block(properties), EntityBlock {
 
 	init {
 		registerDefaultState(
@@ -50,7 +47,7 @@ class AntiFieldBlock : Block(
 		level: Level,
 		pos: BlockPos,
 		neighborBlock: Block,
-		neighborPos: BlockPos,
+		orientation: Orientation?,
 		movedByPiston: Boolean
 	) {
 		val isPowered = level.hasNeighborSignal(pos)
@@ -83,6 +80,13 @@ class AntiFieldBlock : Block(
 
 	companion object {
 		val DISABLED: BooleanProperty = BlockStateProperties.POWERED
+
+		fun properties(): BlockBehaviour.Properties {
+			return BlockBehaviour.Properties
+				.of()
+				.sound(SoundType.METAL)
+				.strength(0.3f)
+		}
 	}
 
 

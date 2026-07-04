@@ -54,7 +54,7 @@ object EntityEvents {
 
 	@SubscribeEvent
 	fun onLivingHurtPost(event: LivingDamageEvent.Post) {
-		if (event.newDamage <= 0f) return
+		if (event.healthDamage <= 0f) return
 
 		DamageGenes.handleThorns(event)
 		DamageGenes.handleClawsBleeding(event)

@@ -1,19 +1,20 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.builder
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.advancements.AdvancementRequirements
 import net.minecraft.advancements.AdvancementRewards
 import net.minecraft.advancements.Criterion
-import net.minecraft.advancements.critereon.RecipeUnlockedTrigger
+import net.minecraft.advancements.criterion.RecipeUnlockedTrigger
+import net.minecraft.core.registries.Registries
 import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeOutput
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.item.crafting.Recipe
 
 class GmoRecipeBuilder(
 	private val entityType: EntityType<*>,
@@ -48,13 +49,33 @@ class GmoRecipeBuilder(
 		error("Unsupported")
 	}
 
-	override fun getResult(): Item {
-		return ModItems.GMO_CELL.get()
+	override fun defaultId(): ResourceKey<Recipe<*>> =
+		recipeKey(recipePath())
+
+	override fun save(output: RecipeOutput, defaultId: ResourceKey<Recipe<*>>) {
+		val id = recipeKey(recipePath())
+
+		val advancement = output.advancement()
+			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
+			.rewards(AdvancementRewards.Builder.recipe(id))
+			.requirements(AdvancementRequirements.Strategy.OR)
+
+		criteria.forEach { (name, criterion) -> advancement.addCriterion(name, criterion) }
+
+		val recipe = GmoRecipe(
+			entityType,
+			ingredient,
+			idealGeneRk,
+			geneChance,
+			needsMutationPotion
+		)
+
+		output.accept(id, recipe, advancement.build(id.identifier().withPrefix("recipes/")))
 	}
 
-	override fun save(output: RecipeOutput, defaultId: ResourceLocation) {
+	private fun recipePath(): String {
 		val entityString = EntityType.getKey(entityType).path
-		val geneString = idealGeneRk.location().path
+		val geneString = idealGeneRk.identifier().path
 
 		val chanceString = if (geneChance == 1f) {
 			"100"
@@ -78,26 +99,9 @@ class GmoRecipeBuilder(
 			.append(chanceString)
 			.append("_chance")
 
-		val id = ResourceLocation.fromNamespaceAndPath(
-			defaultId.namespace,
-			pathBuilder.toString()
-		)
-
-		val advancement = output.advancement()
-			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
-			.rewards(AdvancementRewards.Builder.recipe(id))
-			.requirements(AdvancementRequirements.Strategy.OR)
-
-		criteria.forEach { (name, criterion) -> advancement.addCriterion(name, criterion) }
-
-		val recipe = GmoRecipe(
-			entityType,
-			ingredient,
-			idealGeneRk,
-			geneChance,
-			needsMutationPotion
-		)
-
-		output.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
+		return pathBuilder.toString()
 	}
+
+	private fun recipeKey(path: String): ResourceKey<Recipe<*>> =
+		ResourceKey.create(Registries.RECIPE, GeneticsResequenced.modResource(path))
 }

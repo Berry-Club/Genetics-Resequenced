@@ -13,7 +13,7 @@ class ModLanguageProvider(
 ) : LanguageProvider(output, GeneticsResequenced.MOD_ID, "en_us") {
 
 	companion object {
-		fun String.toComponent(vararg args: Any?): MutableComponent = Component.translatable(this, *args)
+		fun String.toComponent(vararg args: Any): MutableComponent = Component.translatable(this, *args)
 	}
 
 	override fun addTranslations() {
@@ -67,7 +67,7 @@ class ModLanguageProvider(
 	}
 
 	object Keys {
-		const val CATEGORY = "key.geneticsresequenced.category"
+		const val CATEGORY = "key.category.geneticsresequenced.genetics_resequenced"
 		const val DRAGONS_BREATH = "key.geneticsresequenced.dragons_breath"
 		const val TELEPORT = "key.geneticsresequenced.teleport"
 	}

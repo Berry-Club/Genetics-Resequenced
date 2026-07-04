@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "minecraft:bucket",
+    "I": "#c:ingots/iron",
+    "S": "geneticsresequenced:syringe"
+  },
+  "pattern": [
+    "ISI",
+    "SBS",
+    "ISI"
+  ],
+  "result": {
+    "id": "geneticsresequenced:plasmid_injector"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:shulker",
+  "gene_weights": {
+    "geneticsresequenced:basic": 3,
+    "geneticsresequenced:levitation": 4,
+    "geneticsresequenced:resistance": 4
+  }
+}

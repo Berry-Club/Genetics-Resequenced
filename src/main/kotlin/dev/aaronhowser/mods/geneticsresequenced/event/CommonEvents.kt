@@ -72,7 +72,7 @@ object CommonEvents {
 			val blockEntityType = deferredBlockEntityType.get()
 
 			event.registerBlockEntity(
-				Capabilities.ItemHandler.BLOCK,
+				Capabilities.Item.BLOCK,
 				blockEntityType
 			) { blockEntity, direction ->
 				if (blockEntity is MachineBlockEntity) {
@@ -81,7 +81,7 @@ object CommonEvents {
 			}
 
 			event.registerBlockEntity(
-				Capabilities.EnergyStorage.BLOCK,
+				Capabilities.Energy.BLOCK,
 				blockEntityType
 			) { blockEntity, direction ->
 				if (blockEntity is MachineBlockEntity) {

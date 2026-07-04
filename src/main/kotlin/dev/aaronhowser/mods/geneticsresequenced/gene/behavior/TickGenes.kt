@@ -27,7 +27,7 @@ import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.*
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.monster.Creeper
-import net.minecraft.world.entity.monster.Zombie
+import net.minecraft.world.entity.monster.zombie.Zombie
 import net.minecraft.world.entity.monster.piglin.Piglin
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
@@ -118,7 +118,7 @@ object TickGenes {
 		if (!foodData.needsFood()) return
 
 		val inDirectSunlight = entity.level().canSeeSky(entity.blockPosition())
-		val isDay = entity.level().isDay
+		val isDay = entity.level().isBrightOutside
 		if (!inDirectSunlight || !isDay) return
 
 		foodData.eat(

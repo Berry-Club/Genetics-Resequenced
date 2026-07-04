@@ -2,20 +2,19 @@ package dev.aaronhowser.mods.geneticsresequenced.block_entity.base
 
 import net.minecraft.world.Container
 import net.minecraft.world.item.ItemStack
-import net.neoforged.neoforge.items.IItemHandlerModifiable
 
 class MachineItemHandler(
 	private val container: Container
-) : IItemHandlerModifiable {
+) {
 
-	override fun getSlots(): Int = container.containerSize
+	fun getSlots(): Int = container.containerSize
 
-	override fun getStackInSlot(slot: Int): ItemStack {
+	fun getStackInSlot(slot: Int): ItemStack {
 		validateSlot(slot)
 		return container.getItem(slot)
 	}
 
-	override fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
+	fun insertItem(slot: Int, stack: ItemStack, simulate: Boolean): ItemStack {
 		validateSlot(slot)
 		if (stack.isEmpty) return ItemStack.EMPTY
 
@@ -46,7 +45,7 @@ class MachineItemHandler(
 		}
 	}
 
-	override fun extractItem(slot: Int, amount: Int, simulate: Boolean): ItemStack {
+	fun extractItem(slot: Int, amount: Int, simulate: Boolean): ItemStack {
 		validateSlot(slot)
 		if (amount <= 0) return ItemStack.EMPTY
 
@@ -62,19 +61,23 @@ class MachineItemHandler(
 		}
 	}
 
-	override fun getSlotLimit(slot: Int): Int {
+	fun getSlotLimit(slot: Int): Int {
 		validateSlot(slot)
 		return container.maxStackSize
 	}
 
-	override fun isItemValid(slot: Int, stack: ItemStack): Boolean {
+	fun isItemValid(slot: Int, stack: ItemStack): Boolean {
 		validateSlot(slot)
 		return container.canPlaceItem(slot, stack)
 	}
 
-	override fun setStackInSlot(slot: Int, stack: ItemStack) {
+	fun setStackInSlot(slot: Int, stack: ItemStack) {
 		validateSlot(slot)
 		container.setItem(slot, stack)
+	}
+
+	fun setChanged() {
+		container.setChanged()
 	}
 
 	private fun validateSlot(slot: Int) {

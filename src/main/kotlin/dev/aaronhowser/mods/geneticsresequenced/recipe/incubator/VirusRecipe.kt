@@ -12,7 +12,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.core.HolderLookup
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceKey
@@ -22,14 +21,13 @@ import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.item.crafting.RecipeManager
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
-import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class VirusRecipe(
 	val inputDnaGene: ResourceKey<Gene>,
 	val outputGene: ResourceKey<Gene>
 ) : IncubatorRecipe(
 	topIngredient = Ingredient.of(ModItems.DNA_HELIX.get()),
-	bottomIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS))
+	bottomIngredient = OtherUtil.potionIngredient(ModPotions.VIRAL_AGENTS)
 ) {
 
 	override fun matches(input: Input, level: Level): Boolean {
@@ -42,20 +40,22 @@ class VirusRecipe(
 		return DnaHelixItem.getGeneHolder(helixStack).isGene(inputDnaGene)
 	}
 
-	override fun assemble(input: Input, lookup: HolderLookup.Provider): ItemStack {
-		return getResultItem(lookup)
+	override fun assemble(input: Input): ItemStack {
+		val inputGeneHolder = DnaHelixItem.getGeneHolder(input.getTopItem()) ?: return ItemStack.EMPTY
+		val lookup = inputGeneHolder.unwrapLookup() ?: return ItemStack.EMPTY
+
+		return createResult(lookup.getOrThrow(outputGene))
 	}
 
-	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
-		val output = DnaHelixItem.setGeneHolder(
-			ModItems.DNA_HELIX.toStack(),
-			this.outputGene.getHolderOrThrow(lookup)
-		)
-
-		return output
+	fun getResultItem(lookup: net.minecraft.core.HolderLookup.Provider): ItemStack {
+		return createResult(this.outputGene.getHolderOrThrow(lookup))
 	}
 
-	override fun getSerializer(): RecipeSerializer<*> {
+	private fun createResult(outputGeneHolder: net.minecraft.core.Holder<Gene>): ItemStack {
+		return DnaHelixItem.setGeneHolder(ModItems.DNA_HELIX.toStack(), outputGeneHolder)
+	}
+
+	override fun getSerializer(): RecipeSerializer<VirusRecipe> {
 		return ModRecipeSerializers.VIRUS.get()
 	}
 
@@ -74,34 +74,25 @@ class VirusRecipe(
 				}
 			}
 		}
-	}
 
-	class Serializer : RecipeSerializer<VirusRecipe> {
-		override fun codec(): MapCodec<VirusRecipe> = CODEC
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, VirusRecipe> = STREAM_CODEC
+		val CODEC: MapCodec<VirusRecipe> =
+			RecordCodecBuilder.mapCodec { instance ->
+				instance.group(
+					ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
+						.fieldOf("input_gene")
+						.forGetter(VirusRecipe::inputDnaGene),
+					ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
+						.fieldOf("output_gene")
+						.forGetter(VirusRecipe::outputGene)
+				).apply(instance, ::VirusRecipe)
+			}
 
-		companion object {
-			val CODEC: MapCodec<VirusRecipe> =
-				RecordCodecBuilder.mapCodec { instance ->
-					instance.group(
-						ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
-							.fieldOf("input_gene")
-							.forGetter(VirusRecipe::inputDnaGene),
-						ResourceKey.codec(ModGenes.GENE_REGISTRY_KEY)
-							.fieldOf("output_gene")
-							.forGetter(VirusRecipe::outputGene)
-					).apply(instance, ::VirusRecipe)
-				}
-
-			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, VirusRecipe> =
-				StreamCodec.composite(
-					ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), VirusRecipe::inputDnaGene,
-					ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), VirusRecipe::outputGene,
-					::VirusRecipe
-				)
-
-		}
-
+		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, VirusRecipe> =
+			StreamCodec.composite(
+				ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), VirusRecipe::inputDnaGene,
+				ResourceKey.streamCodec(ModGenes.GENE_REGISTRY_KEY), VirusRecipe::outputGene,
+				::VirusRecipe
+			)
 	}
 
 }

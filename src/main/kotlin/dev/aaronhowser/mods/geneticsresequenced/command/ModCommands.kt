@@ -42,11 +42,11 @@ object ModCommands : AaronCommandHelper {
 		context: CommandContext<CommandSourceStack>,
 		suggestionsBuilder: SuggestionsBuilder
 	): CompletableFuture<Suggestions> {
-		val allGeneResourceLocations = ModGenes
+		val allGeneIdentifiers = ModGenes
 			.getRegistrySorted(context.source.registryAccess())
-			.mapNotNull { it.key?.location() }
+			.mapNotNull { it.key?.identifier() }
 
-		return SharedSuggestionProvider.suggestResource(allGeneResourceLocations, suggestionsBuilder)
+		return SharedSuggestionProvider.suggestResource(allGeneIdentifiers, suggestionsBuilder)
 	}
 
 }

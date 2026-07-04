@@ -11,7 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
-import net.minecraft.world.InteractionResultHolder
+import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
@@ -24,9 +24,7 @@ class GeneCheckerItem(properties: Properties) : Item(properties) {
 		level: Level,
 		player: Player,
 		usedHand: InteractionHand
-	): InteractionResultHolder<ItemStack> {
-		val usedStack = player.getItemInHand(usedHand)
-
+	): InteractionResult {
 		if (!level.isClientSide) {
 			val targetEntity = OtherUtil.getLookedAtEntity(player) ?: player
 
@@ -34,7 +32,7 @@ class GeneCheckerItem(properties: Properties) : Item(properties) {
 			tellPossibleGenes(player, targetEntity)
 		}
 
-		return InteractionResultHolder.success(usedStack)
+		return InteractionResult.SUCCESS
 	}
 
 	companion object {

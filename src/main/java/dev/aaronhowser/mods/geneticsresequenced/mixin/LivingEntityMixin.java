@@ -26,7 +26,7 @@ public abstract class LivingEntityMixin extends Entity {
 		}
 
 		var self = (LivingEntity) (Object) this;
-		if (self.level().isClientSide) {
+		if (self.level().isClientSide()) {
 			return ClientUtil.shouldMobGlow(self);
 		} else {
 			return original;

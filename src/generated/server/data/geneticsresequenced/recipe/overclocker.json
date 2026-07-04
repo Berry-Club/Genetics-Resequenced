@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": "geneticsresequenced:cell",
+    "L": "#c:gems/lapis",
+    "O": "minecraft:clock"
+  },
+  "pattern": [
+    "CLC",
+    "LOL",
+    "CLC"
+  ],
+  "result": {
+    "id": "geneticsresequenced:overclocker"
+  }
+}

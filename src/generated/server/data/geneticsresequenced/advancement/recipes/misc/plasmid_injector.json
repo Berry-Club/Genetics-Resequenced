@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_plasmid_infuser": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:plasmid_infuser"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "geneticsresequenced:plasmid_injector"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_plasmid_infuser"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "geneticsresequenced:plasmid_injector"
+    ]
+  }
+}

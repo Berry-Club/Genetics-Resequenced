@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands
+import dev.aaronhowser.mods.geneticsresequenced.command.hasGamemasterPermission
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -16,10 +17,10 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.SharedSuggestionProvider
 import net.minecraft.commands.arguments.EntityArgument
-import net.minecraft.commands.arguments.ResourceLocationArgument
+import net.minecraft.commands.arguments.IdentifierArgument
 import net.minecraft.commands.arguments.selector.EntitySelector
 import net.minecraft.core.Holder
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 import java.util.concurrent.CompletableFuture
@@ -31,15 +32,15 @@ object RemoveGeneCommand : AaronCommandHelper {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return literal("remove") {
-			requires { it.hasPermission(2) }
+			requires { it.hasGamemasterPermission() }
 
 			thenArgument(TARGETS, EntityArgument.entities()) {
-				thenArgument(GENE, ResourceLocationArgument.id()) {
+				thenArgument(GENE, IdentifierArgument.id()) {
 					suggests(ModCommands::getGeneSuggestions)
 
 					executes { cmd ->
 						val source = cmd.source
-						val geneRl = ResourceLocationArgument.getId(cmd, GENE)
+						val geneRl = IdentifierArgument.getId(cmd, GENE)
 						val entities = EntityArgument.getEntities(cmd, TARGETS)
 						removeGene(source, geneRl, entities)
 					}
@@ -59,17 +60,17 @@ object RemoveGeneCommand : AaronCommandHelper {
 
 		val genesHeldByMobs = targets
 			.flatMap { it.getActiveGenes() }
-			.mapNotNull { it.key?.location() }
+			.mapNotNull { it.key?.identifier() }
 
 		return SharedSuggestionProvider.suggestResource(genesHeldByMobs, suggestionsBuilder)
 	}
 
 	private fun removeGene(
 		source: CommandSourceStack,
-		geneRl: ResourceLocation,
+		geneRl: Identifier,
 		targets: Collection<Entity>
 	): Int {
-		val geneHolder = ModGenes.fromResourceLocation(source.registryAccess(), geneRl)
+		val geneHolder = ModGenes.fromIdentifier(source.registryAccess(), geneRl)
 			?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
 
 		val actualTargets = targets.filterIsInstance<LivingEntity>()

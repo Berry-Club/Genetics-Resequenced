@@ -7,19 +7,16 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
 import net.minecraft.data.tags.TagsProvider
 import net.minecraft.tags.TagKey
-import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
 
 class ModGeneTagsProvider(
 	output: PackOutput,
-	lookupProvider: CompletableFuture<HolderLookup.Provider>,
-	existingFileHelper: ExistingFileHelper?
+	lookupProvider: CompletableFuture<HolderLookup.Provider>
 ) : TagsProvider<Gene>(
 	output,
 	ModGenes.GENE_REGISTRY_KEY,
 	lookupProvider,
-	GeneticsResequenced.MOD_ID,
-	existingFileHelper
+	GeneticsResequenced.MOD_ID
 ) {
 
 	companion object {
@@ -35,11 +32,11 @@ class ModGeneTagsProvider(
 
 	override fun addTags(pProvider: HolderLookup.Provider) {
 
-		this.tag(HELIX_ONLY)
-			.add(ModGenes.BASIC)
+		getOrCreateRawBuilder(HELIX_ONLY)
+			.addElement(ModGenes.BASIC.identifier())
 
-		this.tag(MUTATION)
-			.add(
+		getOrCreateRawBuilder(MUTATION).apply {
+			listOf(
 				ModGenes.CLAWS_TWO,
 				ModGenes.EFFICIENCY_FOUR,
 				ModGenes.FLIGHT,
@@ -53,10 +50,11 @@ class ModGeneTagsProvider(
 				ModGenes.SPEED_TWO,
 				ModGenes.STRENGTH_TWO,
 				ModGenes.LAVA_PROOF
-			)
+			).forEach { addElement(it.identifier()) }
+		}
 
-		this.tag(NEGATIVE)
-			.add(
+		getOrCreateRawBuilder(NEGATIVE).apply {
+			listOf(
 				ModGenes.BLINDNESS,
 				ModGenes.CRINGE,
 				ModGenes.CURSED,
@@ -78,9 +76,10 @@ class ModGeneTagsProvider(
 				ModGenes.WHITE_DEATH,
 				ModGenes.GRAY_DEATH,
 				ModGenes.UN_UNDEATH,
-			)
+			).forEach { addElement(it.identifier()) }
+		}
 
-		this.tag(DISABLED)
+		getOrCreateRawBuilder(DISABLED)
 
 	}
 }

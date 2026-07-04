@@ -17,7 +17,8 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.state.BlockState
-import net.neoforged.neoforge.items.IItemHandler
+import net.neoforged.neoforge.transfer.ResourceHandler
+import net.neoforged.neoforge.transfer.item.ItemResource
 import java.util.function.IntSupplier
 
 class IncubatorBlockEntity(
@@ -52,14 +53,14 @@ class IncubatorBlockEntity(
 		}
 	}
 
-	override val inputHandler: IItemHandler = insertOnlyHandler(TOP_SLOT_INDEX)
-	private val bottleHandler: IItemHandler = insertAndExtractHandler(
+	override val inputHandler: ResourceHandler<ItemResource> = insertOnlyHandler(TOP_SLOT_INDEX)
+	private val bottleHandler: ResourceHandler<ItemResource> = insertAndExtractHandler(
 		LEFT_BOTTLE_SLOT_INDEX,
 		MIDDLE_BOTTLE_SLOT_INDEX,
 		RIGHT_BOTTLE_SLOT_INDEX
 	)
 
-	override fun getItemHandler(direction: Direction?): IItemHandler? {
+	override fun getItemHandler(direction: Direction?): ResourceHandler<ItemResource>? {
 		return when (direction) {
 			Direction.UP -> inputHandler
 			Direction.DOWN -> outputHandler
@@ -80,7 +81,7 @@ class IncubatorBlockEntity(
 
 		maxProgress = getTicksPerBrew()
 
-		energyStorage.extractEnergy(getEnergyCostPerTick(), false)
+		extractEnergy(getEnergyCostPerTick())
 		currentProgress += 1 + getAmountOfOverclocks()
 
 		while (currentProgress >= maxProgress) {
@@ -129,7 +130,7 @@ class IncubatorBlockEntity(
 			if (incubatorRecipe != null) {
 				if (incubatorRecipe !is DupeCellRecipe) onlyDupeCellRecipes = false
 
-				val output = incubatorRecipe.assemble(recipeInput, level!!.registryAccess())
+				val output = incubatorRecipe.assemble(recipeInput)
 
 				if (output.isNotEmpty()) {
 					itemHandler.setStackInSlot(slotIndex, output)

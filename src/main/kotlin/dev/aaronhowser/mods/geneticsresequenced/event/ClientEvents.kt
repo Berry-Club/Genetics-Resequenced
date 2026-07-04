@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.geneticsresequenced.client.renderer.GeneRenderChange
 import dev.aaronhowser.mods.geneticsresequenced.client.renderer.entity.SupportSlimeRenderer
 import dev.aaronhowser.mods.geneticsresequenced.control.ModKeyMappings
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
-import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator.AdvancedIncubatorMenu
 import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGeneratorMenu
 import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser.PlasmidInfuserMenu
@@ -14,19 +13,16 @@ import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.Fireball
 import dev.aaronhowser.mods.geneticsresequenced.packet.client_to_server.TeleportPlayerPacket
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
-import net.minecraft.client.model.HumanoidModel
 import net.minecraft.client.renderer.entity.EntityRenderers
-import net.minecraft.client.renderer.item.ItemProperties
-import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.inventory.AbstractContainerMenu
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent
 import net.neoforged.neoforge.client.event.*
+import net.neoforged.neoforge.client.renderstate.RegisterRenderStateModifiersEvent
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 
 @EventBusSubscriber(
@@ -82,34 +78,13 @@ object ClientEvents {
 		registerEntityRenderers()
 	}
 
-	private fun registerEntityRenderers() {
-		EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::SupportSlimeRenderer)
+	@SubscribeEvent
+	fun onRegisterRenderStateModifiers(event: RegisterRenderStateModifiersEvent) {
+		GeneRenderChanges.registerRenderStateModifiers(event)
 	}
 
-	@SubscribeEvent
-	fun onModelRegistry(event: ModelEvent.RegisterAdditional) {
-
-		ItemProperties.register(
-			ModItems.SYRINGE.get(),
-			GeneticsResequenced.modResource("full")
-		) { stack, _, _, _ ->
-			if (SyringeItem.hasBlood(stack)) 1f else 0f
-		}
-
-		ItemProperties.register(
-			ModItems.SYRINGE.get(),
-			GeneticsResequenced.modResource("injecting")
-		) { stack, _, entity, _ ->
-			if (SyringeItem.isBeingUsed(stack, entity)) 1f else 0f
-		}
-
-		ItemProperties.register(
-			ModItems.METAL_SYRINGE.get(),
-			GeneticsResequenced.modResource("full")
-		) { stack, _, _, _ ->
-			if (SyringeItem.hasBlood(stack)) 1f else 0f
-		}
-
+	private fun registerEntityRenderers() {
+		EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::SupportSlimeRenderer)
 	}
 
 	@SubscribeEvent
@@ -118,13 +93,13 @@ object ClientEvents {
 	}
 
 	@SubscribeEvent
-	fun beforeRenderEntity(event: RenderLivingEvent.Pre<LivingEntity, HumanoidModel<LivingEntity>>) {
+	fun beforeRenderEntity(event: RenderLivingEvent.Pre<*, *, *>) {
 		GeneRenderChanges.spiderClimbFlip(event)
 		GeneRenderChanges.shakeFromCringe(event)
 	}
 
 	@SubscribeEvent
-	fun afterRenderLiving(event: RenderLivingEvent.Post<LivingEntity, HumanoidModel<LivingEntity>>) {
+	fun afterRenderLiving(event: RenderLivingEvent.Post<*, *, *>) {
 		GeneRenderChanges.spiderClimbFlipPost(event)
 		GeneRenderChanges.shakeFromCringePost(event)
 	}

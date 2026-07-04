@@ -32,12 +32,12 @@ object ModGeneProvider : RegistrySetBuilder() {
 		incompatibleGenes: List<ResourceKey<Gene>> = emptyList()
 	) = Gene(dnaPointsRequired, allowedEntities, potionDetails, attributeModifiers, scaresEntitiesWithTag, incompatibleGenes)
 
-	val DEFAULT_ALLOWED_ENTITIES = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup())
+	val DEFAULT_ALLOWED_ENTITIES = AnyHolderSet(BuiltInRegistries.ENTITY_TYPE)
 	val NO_ENTITIES: HolderSet<EntityType<*>> = HolderSet.empty()
 	val ONLY_PLAYERS: HolderSet.Direct<EntityType<*>> = HolderSet.direct(EntityType.PLAYER.builtInRegistryHolder())
 	val NON_PLAYERS: AndHolderSet<EntityType<*>> = AndHolderSet(
-		AnyHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup()),
-		NotHolderSet(BuiltInRegistries.ENTITY_TYPE.asLookup(), ONLY_PLAYERS)
+		AnyHolderSet(BuiltInRegistries.ENTITY_TYPE),
+		NotHolderSet(BuiltInRegistries.ENTITY_TYPE, ONLY_PLAYERS)
 	)
 
 	fun bootstrap(context: BootstrapContext<Gene>) {
@@ -99,7 +99,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 				dnaPointsRequired = 50,
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.DIG_SPEED,
+						effect = MobEffects.HASTE,
 						level = 2
 					)
 				)
@@ -153,7 +153,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 				dnaPointsRequired = 50,
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.DAMAGE_RESISTANCE,
+						effect = MobEffects.RESISTANCE,
 						level = 2
 					)
 				)
@@ -166,7 +166,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 				dnaPointsRequired = 50,
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.MOVEMENT_SPEED,
+						effect = MobEffects.SPEED,
 						level = 4
 					)
 				)
@@ -179,7 +179,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 				dnaPointsRequired = 50,
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.MOVEMENT_SPEED,
+						effect = MobEffects.SPEED,
 						level = 2
 					)
 				)
@@ -192,7 +192,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 				dnaPointsRequired = 50,
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.DAMAGE_BOOST,
+						effect = MobEffects.STRENGTH,
 						level = 2
 					)
 				)
@@ -291,7 +291,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 				dnaPointsRequired = 30,
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.DIG_SPEED
+						effect = MobEffects.HASTE
 					)
 				)
 			)
@@ -331,7 +331,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 				dnaPointsRequired = 10,
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.JUMP
+						effect = MobEffects.JUMP_BOOST
 					)
 				),
 			)
@@ -489,7 +489,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 				dnaPointsRequired = 30,
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.DAMAGE_RESISTANCE
+						effect = MobEffects.RESISTANCE
 					)
 				),
 			)
@@ -549,7 +549,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 				dnaPointsRequired = 20,
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.MOVEMENT_SPEED
+						effect = MobEffects.SPEED
 					)
 				),
 			)
@@ -574,7 +574,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 				dnaPointsRequired = 20,
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.DAMAGE_BOOST
+						effect = MobEffects.STRENGTH
 					)
 				),
 			)
@@ -717,7 +717,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 			makeGene(
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.DIG_SLOWDOWN
+						effect = MobEffects.MINING_FATIGUE
 					)
 				)
 			)
@@ -728,7 +728,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 			makeGene(
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.CONFUSION
+						effect = MobEffects.NAUSEA
 					)
 				)
 			)
@@ -774,7 +774,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 			makeGene(
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.MOVEMENT_SLOWDOWN
+						effect = MobEffects.SLOWNESS
 					)
 				)
 			)
@@ -785,7 +785,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 			makeGene(
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.MOVEMENT_SLOWDOWN,
+						effect = MobEffects.SLOWNESS,
 						level = 4
 					)
 				)
@@ -797,7 +797,7 @@ object ModGeneProvider : RegistrySetBuilder() {
 			makeGene(
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.MOVEMENT_SLOWDOWN,
+						effect = MobEffects.SLOWNESS,
 						level = 6
 					)
 				)

@@ -9,25 +9,20 @@ import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.PackOutput
 import net.minecraft.resources.ResourceKey
-import net.minecraft.server.packs.PackType
 import net.minecraft.world.entity.EntityType
-import net.neoforged.neoforge.common.data.ExistingFileHelper
 import net.neoforged.neoforge.common.data.JsonCodecProvider
 import java.util.concurrent.CompletableFuture
 
 class ModEntityGenesProvider(
 	output: PackOutput,
-	lookupProvider: CompletableFuture<HolderLookup.Provider>,
-	existingFileHelper: ExistingFileHelper
+	lookupProvider: CompletableFuture<HolderLookup.Provider>
 ) : JsonCodecProvider<EntityGenes>(
 	output,
 	PackOutput.Target.DATA_PACK,
 	"geneticsresequenced/entity_genes",
-	PackType.SERVER_DATA,
 	EntityGenes.CODEC,
 	lookupProvider,
-	GeneticsResequenced.MOD_ID,
-	existingFileHelper
+	GeneticsResequenced.MOD_ID
 ) {
 
 	private fun addEntityGenes(
@@ -37,7 +32,7 @@ class ModEntityGenesProvider(
 		val entityRk = ResourceKey.create(Registries.ENTITY_TYPE, EntityType.getKey(entityType))
 
 		this.unconditional(
-			entityRk.location(),
+			entityRk.identifier(),
 			EntityGenes(
 				entityRk,
 				geneWeights.toMap()

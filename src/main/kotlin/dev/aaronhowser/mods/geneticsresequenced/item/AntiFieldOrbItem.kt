@@ -10,12 +10,14 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
-import net.minecraft.world.InteractionResultHolder
+import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.item.component.TooltipDisplay
 import net.minecraft.world.level.Level
+import java.util.function.Consumer
 
 class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 
@@ -23,14 +25,14 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 		level: Level,
 		player: Player,
 		usedHand: InteractionHand
-	): InteractionResultHolder<ItemStack> {
+	): InteractionResult {
 		val stack = player.getItemInHand(usedHand)
 
 		if (level.isServerSide) {
 			stack.toggleUnit(ModDataComponents.IS_ACTIVE)
 		}
 
-		return InteractionResultHolder.success(stack)
+		return InteractionResult.SUCCESS
 	}
 
 	override fun isFoil(stack: ItemStack): Boolean {
@@ -40,7 +42,8 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 	override fun appendHoverText(
 		stack: ItemStack,
 		context: TooltipContext,
-		tooltipComponents: MutableList<Component>,
+		tooltipDisplay: TooltipDisplay,
+		tooltipComponents: Consumer<Component>,
 		tooltipFlag: TooltipFlag
 	) {
 		val componentString = if (isActive(stack)) {
@@ -49,7 +52,7 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 			ModTooltipLang.INACTIVE
 		}
 
-		tooltipComponents.add(
+		tooltipComponents.accept(
 			componentString
 				.toComponent()
 				.withStyle(ChatFormatting.GRAY)
@@ -62,7 +65,7 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 		}
 
 		fun isActiveForPlayer(player: Player): Boolean {
-			return player.inventory.items.any { it.isItem(ModItems.ANTI_FIELD_ORB) && isActive(it) }
+			return player.inventory.nonEquipmentItems.any { it.isItem(ModItems.ANTI_FIELD_ORB) && isActive(it) }
 		}
 	}
 

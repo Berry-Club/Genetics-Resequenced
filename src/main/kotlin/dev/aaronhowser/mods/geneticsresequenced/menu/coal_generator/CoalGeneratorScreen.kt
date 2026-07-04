@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator
 
-import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.geneticsresequenced.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.GeneratorBurn
@@ -11,9 +10,7 @@ class CoalGeneratorScreen(
 	menu: CoalGeneratorMenu,
 	playerInventory: Inventory,
 	title: Component
-) : MachineScreen<CoalGeneratorMenu>(menu, playerInventory, title) {
-
-	override val background: ScreenBackground = ScreenTextures.Backgrounds.COAL_GENERATOR
+) : MachineScreen<CoalGeneratorMenu>(menu, playerInventory, title, ScreenTextures.Backgrounds.COAL_GENERATOR) {
 
 	private lateinit var generatorBurn: GeneratorBurn
 
@@ -29,8 +26,8 @@ class CoalGeneratorScreen(
 		super.baseInit()
 
 		generatorBurn = GeneratorBurn(
-			x = guiLeft + GeneratorBurn.X,
-			y = guiTop + GeneratorBurn.Y,
+			x = leftPos + GeneratorBurn.X,
+			y = topPos + GeneratorBurn.Y,
 			shouldRender = { menu.isBurning() },
 			percentDone = { menu.getPercentDone() }
 		)

@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRegistries
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.neoforged.api.distmarker.Dist
 import net.neoforged.fml.ModContainer
 import net.neoforged.fml.common.Mod
@@ -36,7 +36,7 @@ class GeneticsResequenced(
 		const val MOD_ID = "geneticsresequenced"
 		val LOGGER: Logger = LogManager.getLogger(MOD_ID)
 
-		fun modResource(path: String): ResourceLocation =
-			ResourceLocation.fromNamespaceAndPath(MOD_ID, path)
+		fun modResource(path: String): Identifier =
+			Identifier.fromNamespaceAndPath(MOD_ID, path)
 	}
 }

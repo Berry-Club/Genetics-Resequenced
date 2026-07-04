@@ -8,19 +8,16 @@ import net.minecraft.data.PackOutput
 import net.minecraft.data.tags.TagsProvider
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.alchemy.Potion
-import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
 
 class ModPotionTagsProvider(
 	output: PackOutput,
-	lookupProvider: CompletableFuture<HolderLookup.Provider>,
-	existingFileHelper: ExistingFileHelper?
+	lookupProvider: CompletableFuture<HolderLookup.Provider>
 ) : TagsProvider<Potion>(
 	output,
 	Registries.POTION,
 	lookupProvider,
-	GeneticsResequenced.MOD_ID,
-	existingFileHelper
+	GeneticsResequenced.MOD_ID
 ) {
 
 	companion object {
@@ -32,10 +29,8 @@ class ModPotionTagsProvider(
 	}
 
 	override fun addTags(p0: HolderLookup.Provider) {
-		this.tag(CAN_HAVE_ENTITY)
-			.add(
-				ModPotions.CELL_GROWTH.key!!,
-				ModPotions.MUTATION.key!!
-			)
+		getOrCreateRawBuilder(CAN_HAVE_ENTITY)
+			.addElement(ModPotions.CELL_GROWTH.key!!.identifier())
+			.addElement(ModPotions.MUTATION.key!!.identifier())
 	}
 }

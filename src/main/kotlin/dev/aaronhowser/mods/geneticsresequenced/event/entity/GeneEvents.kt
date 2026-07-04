@@ -94,7 +94,7 @@ object GeneEvents {
 	private fun tellAllPlayersGeneChanged(entity: LivingEntity, changedGene: Holder<Gene>, wasAdded: Boolean) {
 		if (entity.level().isClientSide) return
 
-		val server = entity.server
+		val server = entity.level().server
 		if (server == null) {
 			GeneticsResequenced.LOGGER.error("Server is null when trying to tell all players about gene change")
 			return

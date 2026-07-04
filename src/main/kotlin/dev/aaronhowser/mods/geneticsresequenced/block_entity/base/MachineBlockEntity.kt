@@ -11,8 +11,6 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.saveItems
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.EnergyContainerData
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.core.HolderLookup
-import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.chat.Component
 import net.minecraft.world.Container
 import net.minecraft.world.MenuProvider
@@ -21,9 +19,13 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
-import net.neoforged.neoforge.energy.EnergyStorage
-import net.neoforged.neoforge.items.IItemHandler
-import net.neoforged.neoforge.items.IItemHandlerModifiable
+import net.minecraft.world.level.storage.ValueInput
+import net.minecraft.world.level.storage.ValueOutput
+import net.neoforged.neoforge.transfer.ResourceHandler
+import net.neoforged.neoforge.transfer.energy.EnergyHandler
+import net.neoforged.neoforge.transfer.energy.SimpleEnergyHandler
+import net.neoforged.neoforge.transfer.item.ItemResource
+import net.neoforged.neoforge.transfer.transaction.Transaction
 
 abstract class MachineBlockEntity(
 	blockEntityType: BlockEntityType<*>,
@@ -41,17 +43,25 @@ abstract class MachineBlockEntity(
 	abstract val energyTransferRate: Int
 
 	protected val energyStorage by lazy {
-		EnergyStorage(maxEnergy, energyTransferRate)
+		object : SimpleEnergyHandler(maxEnergy, energyTransferRate) {
+			override fun onEnergyChanged(previousAmount: Int) {
+				setChanged()
+			}
+		}
 	}
 
 	protected open val containerData: ContainerData by lazy { EnergyContainerData(energyStorage) }
 	open val container: ImprovedSimpleContainer = ImprovedSimpleContainer(this, 0)
 
-	protected val itemHandler: IItemHandlerModifiable by lazy {
+	protected val itemHandler: MachineItemHandler by lazy {
 		MachineItemHandler(container)
 	}
 
-	protected fun insertOnlyHandler(vararg slots: Int): IItemHandler {
+	private val automationItemHandler: ResourceHandler<ItemResource> by lazy {
+		insertAndExtractHandler(*IntArray(container.containerSize) { it })
+	}
+
+	protected fun insertOnlyHandler(vararg slots: Int): ResourceHandler<ItemResource> {
 		return SidedMachineItemHandler(
 			itemHandler,
 			slots,
@@ -60,7 +70,7 @@ abstract class MachineBlockEntity(
 		)
 	}
 
-	protected fun extractOnlyHandler(vararg slots: Int): IItemHandler {
+	protected fun extractOnlyHandler(vararg slots: Int): ResourceHandler<ItemResource> {
 		return SidedMachineItemHandler(
 			itemHandler,
 			slots,
@@ -69,7 +79,7 @@ abstract class MachineBlockEntity(
 		)
 	}
 
-	protected fun insertAndExtractHandler(vararg slots: Int): IItemHandler {
+	protected fun insertAndExtractHandler(vararg slots: Int): ResourceHandler<ItemResource> {
 		return SidedMachineItemHandler(
 			itemHandler,
 			slots,
@@ -82,7 +92,7 @@ abstract class MachineBlockEntity(
 		return container.canPlaceItem(slot, stack)
 	}
 
-	open fun getEnergyCapability(direction: Direction?): EnergyStorage {
+	open fun getEnergyCapability(direction: Direction?): EnergyHandler {
 		return energyStorage
 	}
 
@@ -90,25 +100,41 @@ abstract class MachineBlockEntity(
 		return listOf(container)
 	}
 
-	open fun getItemHandler(direction: Direction?): IItemHandler? {
-		return itemHandler
+	open fun getItemHandler(direction: Direction?): ResourceHandler<ItemResource>? {
+		return automationItemHandler
+	}
+
+	protected fun insertEnergy(amount: Int): Int {
+		Transaction.openRoot().use { transaction ->
+			val inserted = energyStorage.insert(amount, transaction)
+			transaction.commit()
+			return inserted
+		}
+	}
+
+	protected fun extractEnergy(amount: Int): Int {
+		Transaction.openRoot().use { transaction ->
+			val extracted = energyStorage.extract(amount, transaction)
+			transaction.commit()
+			return extracted
+		}
 	}
 
 	protected open fun serverTick() {}
 	protected open fun clientTick() {}
 
-	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.saveAdditional(tag, registries)
+	override fun saveAdditional(output: ValueOutput) {
+		super.saveAdditional(output)
 
-		tag.saveItems(container, registries)
-		tag.saveEnergy(ENERGY_NBT, energyStorage, registries)
+		output.saveItems(container)
+		output.saveEnergy(ENERGY_NBT, energyStorage)
 	}
 
-	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.loadAdditional(tag, registries)
+	override fun loadAdditional(input: ValueInput) {
+		super.loadAdditional(input)
 
-		tag.loadItems(container, registries)
-		tag.loadEnergy(ENERGY_NBT, energyStorage, registries)
+		input.loadItems(container)
+		input.loadEnergy(ENERGY_NBT, energyStorage)
 	}
 
 	override fun getDisplayName(): Component {

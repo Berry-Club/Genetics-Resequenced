@@ -15,19 +15,22 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.item.component.TooltipDisplay
+import java.util.function.Consumer
 
 class PlasmidItem(properties: Properties) : Item(properties) {
 
 	override fun appendHoverText(
 		stack: ItemStack,
 		context: TooltipContext,
-		components: MutableList<Component>,
+		tooltipDisplay: TooltipDisplay,
+		components: Consumer<Component>,
 		tooltipFlag: TooltipFlag
 	) {
 		val geneHolder = getGene(stack)
 
 		if (geneHolder == null) {
-			components.add(
+			components.accept(
 				ModTooltipLang.PLASMID_EMPTY
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
@@ -35,14 +38,14 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 			return
 		}
 
-		components.add(
+		components.accept(
 			ModTooltipLang.PLASMID_GENE
 				.toComponent(geneHolder.getName())
 				.withStyle(ChatFormatting.GRAY)
 		)
 
 		if (isComplete(stack)) {
-			components.add(
+			components.accept(
 				ModTooltipLang.PLASMID_COMPLETE
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
@@ -51,7 +54,7 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 			val amountNeeded = geneHolder.value().dnaPointsRequired
 			val amount = getDnaPoints(stack)
 
-			components.add(
+			components.accept(
 				ModTooltipLang.PLASMID_PROGRESS
 					.toComponent(amount, amountNeeded)
 					.withStyle(ChatFormatting.GRAY)

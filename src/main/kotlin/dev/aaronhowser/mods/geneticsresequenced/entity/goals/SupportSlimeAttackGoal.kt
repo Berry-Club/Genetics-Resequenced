@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.entity.goals
 
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.goal.Goal
 
@@ -49,8 +50,9 @@ class SupportSlimeAttackGoal(
 	private fun checkAndPerformAttack(pEnemy: LivingEntity, pDistToEnemySqr: Double) {
 		val d0: Double = this.getAttackReachSqr(pEnemy)
 		if (pDistToEnemySqr <= d0 && this.ticksUntilNextAttack <= 0) {
+			val serverLevel = this.mob.level() as? ServerLevel ?: return
 			this.resetAttackCooldown()
-			this.mob.doHurtTarget(pEnemy)
+			this.mob.doHurtTarget(serverLevel, pEnemy)
 		}
 	}
 

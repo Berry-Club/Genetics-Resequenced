@@ -84,7 +84,7 @@ object ModEmiInformationRecipes {
 					)
 				),
 				components.toList(),
-				GeneticsResequenced.modResource("/info/gene/${geneHolder.key!!.location().toString().replace(':', '/')}")
+				GeneticsResequenced.modResource("/info/gene/${geneHolder.key!!.identifier().toString().replace(':', '/')}")
 			)
 
 			recipes.add(recipe)

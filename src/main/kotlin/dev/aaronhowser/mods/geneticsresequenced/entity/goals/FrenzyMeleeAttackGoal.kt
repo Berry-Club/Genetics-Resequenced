@@ -51,13 +51,13 @@ class FrenzyMeleeAttackGoal(
 			var damage = 3f
 
 			val level = attacker.level()
+			if (level !is ServerLevel) return
+
 			val damageSource = level.damageSources().mobAttack(attacker)
 
-			if (level is ServerLevel) {
-				damage = EnchantmentHelper.modifyDamage(level, attacker.weaponItem, target, damageSource, damage)
-			}
+			damage = EnchantmentHelper.modifyDamage(level, attacker.weaponItem, target, damageSource, damage)
 
-			val flag = target.hurt(damageSource, damage)
+			val flag = target.hurtServer(level, damageSource, damage)
 
 			if (flag) {
 				val knockback = attacker.getKnockback(target, damageSource)
@@ -71,9 +71,7 @@ class FrenzyMeleeAttackGoal(
 					attacker.deltaMovement = attacker.deltaMovement.multiply(0.6, 1.0, 0.6)
 				}
 
-				if (level is ServerLevel) {
-					EnchantmentHelper.doPostAttackEffects(level, target, damageSource)
-				}
+				EnchantmentHelper.doPostAttackEffects(level, target, damageSource)
 
 				attacker.setLastHurtMob(target)
 				attacker.playAttackSound()

@@ -21,7 +21,7 @@ object ModAttachmentTypes {
 			"genes",
 			AttachmentType
 				.builder(::GenesData)
-				.serialize(GenesData.CODEC)
+				.serialize(GenesData.MAP_CODEC)
 				.copyOnDeath()
 				.build()
 		)
@@ -31,7 +31,7 @@ object ModAttachmentTypes {
 			"temporary_genes",
 			AttachmentType
 				.builder(::TemporaryGenesData)
-				.serialize(TemporaryGenesData.CODEC)
+				.serialize(TemporaryGenesData.MAP_CODEC)
 				.sync(TemporaryGenesData.STREAM_CODEC)
 				.build()
 		)
@@ -41,7 +41,7 @@ object ModAttachmentTypes {
 			"kept_inventory",
 			AttachmentType
 				.builder(::KeptInventory)
-				.serialize(KeptInventory.CODEC)
+				.serialize(KeptInventory.MAP_CODEC)
 				.copyOnDeath()
 				.build()
 		)
@@ -51,12 +51,12 @@ object ModAttachmentTypes {
 			"gene_cooldowns",
 			AttachmentType
 				.builder(::GeneCooldowns)
-				.serialize(GeneCooldowns.CODEC)
+				.serialize(GeneCooldowns.MAP_CODEC)
 				.sync(GeneCooldowns.STREAM_CODEC)
 				.build()
 		)
 
-	private fun <T> register(
+	private fun <T : Any> register(
 		name: String,
 		type: AttachmentType<T>
 	): DeferredHolder<AttachmentType<*>, AttachmentType<T>> {

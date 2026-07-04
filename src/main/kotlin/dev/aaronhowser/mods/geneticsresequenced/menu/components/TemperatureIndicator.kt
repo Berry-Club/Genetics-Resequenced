@@ -4,9 +4,11 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import net.minecraft.client.gui.Font
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
+import net.minecraft.client.input.MouseButtonEvent
+import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.network.chat.Component
 
 class TemperatureIndicator(
@@ -24,7 +26,7 @@ class TemperatureIndicator(
 	Component.empty()
 ) {
 
-	override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
+	override fun extractWidgetRenderState(graphics: GuiGraphicsExtractor, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
 		if (!shouldRender()) return
 
 		val texture = if (isHighTemperature()) {
@@ -33,7 +35,8 @@ class TemperatureIndicator(
 			LOW
 		}
 
-		pGuiGraphics.blitSprite(
+		graphics.blitSprite(
+			RenderPipelines.GUI_TEXTURED,
 			texture,
 			TEXTURE_SIZE,
 			TEXTURE_SIZE,
@@ -44,13 +47,13 @@ class TemperatureIndicator(
 			HEIGHT
 		)
 
-		if (isHovered) renderTooltip(pGuiGraphics, pMouseX, pMouseY)
+		if (isHovered) renderTooltip(graphics, pMouseX, pMouseY)
 	}
 
-	private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
+	private fun renderTooltip(graphics: GuiGraphicsExtractor, pMouseX: Int, pMouseY: Int) {
 		if (!shouldRenderTooltip) return
 
-		pGuiGraphics.renderComponentTooltip(
+		graphics.setComponentTooltipForNextFrame(
 			font,
 			listOf(
 				if (isHighTemperature())
@@ -62,10 +65,10 @@ class TemperatureIndicator(
 		)
 	}
 
-	override fun onClick(mouseX: Double, mouseY: Double, button: Int) {
-		super.onClick(mouseX, mouseY, button)
+	override fun onClick(event: MouseButtonEvent, doubleClick: Boolean) {
+		super.onClick(event, doubleClick)
 
-		onClickFunction(mouseX, mouseY, button)
+		onClickFunction(event.x(), event.y(), event.button())
 	}
 
 	override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {

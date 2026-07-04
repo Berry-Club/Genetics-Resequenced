@@ -1,20 +1,19 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.crafting
 
+import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
-import net.minecraft.core.HolderLookup
+import net.minecraft.network.RegistryFriendlyByteBuf
+import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.CraftingBookCategory
 import net.minecraft.world.item.crafting.CraftingInput
 import net.minecraft.world.item.crafting.CustomRecipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
-class UnsetAntiPlasmidRecipe(
-	craftingCategory: CraftingBookCategory = CraftingBookCategory.MISC
-) : CustomRecipe(craftingCategory) {
+class UnsetAntiPlasmidRecipe : CustomRecipe() {
 
 	override fun matches(input: CraftingInput, level: Level): Boolean {
 		var antiPlasmid: ItemStack? = null
@@ -31,16 +30,19 @@ class UnsetAntiPlasmidRecipe(
 		return antiPlasmid != null
 	}
 
-	override fun assemble(input: CraftingInput, provider: HolderLookup.Provider): ItemStack {
+	override fun assemble(input: CraftingInput): ItemStack {
 		return ModItems.ANTI_PLASMID.toStack()
 	}
 
-	override fun canCraftInDimensions(pWidth: Int, pHeight: Int): Boolean {
-		return pWidth * pHeight >= 1
+	override fun getSerializer(): RecipeSerializer<UnsetAntiPlasmidRecipe> {
+		return ModRecipeSerializers.UNSET_ANTI_PLASMID.get()
 	}
 
-	override fun getSerializer(): RecipeSerializer<*> {
-		return ModRecipeSerializers.UNSET_ANTI_PLASMID.get()
+	companion object {
+		val CODEC: MapCodec<UnsetAntiPlasmidRecipe> = MapCodec.unit(UnsetAntiPlasmidRecipe())
+
+		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, UnsetAntiPlasmidRecipe> =
+			StreamCodec.unit(UnsetAntiPlasmidRecipe())
 	}
 
 }

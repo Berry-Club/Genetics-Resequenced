@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_incubator": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:incubator"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "geneticsresequenced:advanced_incubator"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_incubator"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "geneticsresequenced:advanced_incubator"
+    ]
+  }
+}

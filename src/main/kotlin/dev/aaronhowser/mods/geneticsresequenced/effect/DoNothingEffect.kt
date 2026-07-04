@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.effect
 
 import net.minecraft.core.Holder
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectCategory
 import net.minecraft.world.entity.Entity
@@ -18,6 +19,7 @@ class DoNothingEffect(
 	override fun isInstantenous(): Boolean = this.removeImmediately
 
 	override fun applyInstantenousEffect(
+		serverLevel: ServerLevel,
 		pSource: Entity?,
 		pIndirectSource: Entity?,
 		pLivingEntity: LivingEntity,

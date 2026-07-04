@@ -18,7 +18,6 @@ import net.minecraft.world.item.alchemy.Potions
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.level.ItemLike
 import net.neoforged.neoforge.common.brewing.BrewingRecipe
-import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 import net.neoforged.neoforge.event.brewing.RegisterBrewingRecipesEvent
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent
 
@@ -28,7 +27,7 @@ object BrewingRecipes {
 		val stack = event.itemStack
 		val itemPotion = OtherUtil.getPotion(stack) ?: return
 
-		if (itemPotion.key?.location()?.namespace != GeneticsResequenced.MOD_ID) return
+		if (itemPotion.key?.identifier()?.namespace != GeneticsResequenced.MOD_ID) return
 		if (itemPotion == ModPotions.ZOMBIFY_VILLAGER || itemPotion == ModPotions.PANACEA) return
 
 		if (stack.item != Items.POTION) {
@@ -62,7 +61,7 @@ object BrewingRecipes {
 	}
 
 	private fun ingredient(potion: Holder<Potion>): Ingredient =
-		DataComponentIngredient.of(false, OtherUtil.getPotionStack(potion))
+		OtherUtil.potionIngredient(potion)
 
 	private fun ingredient(itemLike: ItemLike): Ingredient = Ingredient.of(itemLike)
 

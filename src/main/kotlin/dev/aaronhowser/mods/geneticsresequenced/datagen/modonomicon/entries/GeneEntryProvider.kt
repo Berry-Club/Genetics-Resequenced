@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThr
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.ItemLike
@@ -18,12 +18,12 @@ abstract class GeneEntryProvider : BaseEntryProvider {
 		parent: CategoryProviderBase?,
 		geneRk: ResourceKey<Gene>,
 		name: String,
-		iconRl: ResourceLocation
+		iconRl: Identifier
 	) : super(
 		parent = parent,
 		name = name,
 		icon = iconRl,
-		entryId = geneRk.location().toString().replace(":", "/")
+		entryId = geneRk.identifier().toString().replace(":", "/")
 	) {
 		this.geneHolder = geneRk.getHolderOrThrow(registries())
 
@@ -41,7 +41,7 @@ abstract class GeneEntryProvider : BaseEntryProvider {
 		parent = parent,
 		name = name,
 		icon = icon,
-		entryId = geneRk.location().toString().replace(":", "/")
+		entryId = geneRk.identifier().toString().replace(":", "/")
 	) {
 		this.geneHolder = geneRk.getHolderOrThrow(registries())
 

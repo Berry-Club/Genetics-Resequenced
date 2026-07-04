@@ -46,7 +46,13 @@ class CoalGeneratorMenu(
 	}
 
 	override fun addSlots() {
-		val slot = FilteredSlot(coalGeneratorContainer, CoalGeneratorBlockEntity.INPUT_SLOT_INDEX, 52, 40) { it.getBurnTime(RecipeType.SMELTING) > 0 }
+		val fuelValues = playerInventory.player.level().fuelValues()
+		val slot = FilteredSlot(
+			coalGeneratorContainer,
+			CoalGeneratorBlockEntity.INPUT_SLOT_INDEX,
+			52,
+			40
+		) { it.getBurnTime(RecipeType.SMELTING, fuelValues) > 0 }
 		addSlot(slot)
 	}
 
@@ -62,7 +68,7 @@ class CoalGeneratorMenu(
 	companion object {
 		fun showFuelTooltip(event: ItemTooltipEvent) {
 			val itemStack = event.itemStack
-			val fuelPer = itemStack.getBurnTime(RecipeType.SMELTING)
+			val fuelPer = itemStack.getBurnTime(RecipeType.SMELTING, event.entity.level().fuelValues())
 			if (fuelPer <= 0) return
 
 			val feProducedPer = CoalGeneratorBlockEntity.getEnergyPerTick() * fuelPer

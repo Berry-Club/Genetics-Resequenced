@@ -27,7 +27,7 @@ object ModEnchantmentProvider {
 					1,
 					EquipmentSlotGroup.HAND
 				)
-			).build(DELICATE_TOUCH.location())
+			).build(DELICATE_TOUCH.identifier())
 		)
 	}
 

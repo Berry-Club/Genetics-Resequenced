@@ -10,7 +10,7 @@ import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.Registry
 import net.minecraft.resources.ResourceKey
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import java.util.stream.Stream
 import kotlin.jvm.optionals.getOrNull
 
@@ -35,7 +35,7 @@ object ModGenes {
 	}
 
 	@JvmStatic
-	fun fromResourceLocation(registries: HolderLookup.Provider, rl: ResourceLocation): Holder.Reference<Gene>? {
+	fun fromIdentifier(registries: HolderLookup.Provider, rl: Identifier): Holder.Reference<Gene>? {
 		return fromResourceKey(registries, ResourceKey.create(GENE_REGISTRY_KEY, rl))
 	}
 
@@ -187,6 +187,6 @@ object ModGenes {
 		fromResourceKey(registries, this)
 
 	fun ResourceKey<Gene>.getHolderOrThrow(registries: HolderLookup.Provider): Holder.Reference<Gene> =
-		getHolder(registries) ?: throw IllegalArgumentException("Gene ${location()} not found")
+		getHolder(registries) ?: throw IllegalArgumentException("Gene ${identifier()} not found")
 
 }

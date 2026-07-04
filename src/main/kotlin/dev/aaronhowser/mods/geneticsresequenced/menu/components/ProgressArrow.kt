@@ -2,11 +2,13 @@ package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import net.minecraft.client.gui.Font
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
+import net.minecraft.client.input.MouseButtonEvent
+import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.util.Mth
 
 class ProgressArrow(
@@ -39,7 +41,7 @@ class ProgressArrow(
 	enum class ArrowDirection(
 		val width: Int,
 		val height: Int,
-		val texture: ResourceLocation,
+		val texture: Identifier,
 		val textureSize: Int
 	) {
 		DOWN(
@@ -56,21 +58,22 @@ class ProgressArrow(
 		)
 	}
 
-	override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
+	override fun extractWidgetRenderState(graphics: GuiGraphicsExtractor, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
 
 		if (arrowDirection == ArrowDirection.DOWN) {
-			renderDownArrow(pGuiGraphics)
+			renderDownArrow(graphics)
 		} else {
-			renderRightArrow(pGuiGraphics)
+			renderRightArrow(graphics)
 		}
 
-		if (isHovered) renderTooltip(pGuiGraphics, pMouseX, pMouseY)
+		if (isHovered) renderTooltip(graphics, pMouseX, pMouseY)
 	}
 
-	private fun renderDownArrow(pGuiGraphics: GuiGraphics) {
+	private fun renderDownArrow(graphics: GuiGraphicsExtractor) {
 		if (!shouldRenderProgress()) return
 
-		pGuiGraphics.blitSprite(
+		graphics.blitSprite(
+			RenderPipelines.GUI_TEXTURED,
 			arrowDirection.texture,
 			arrowDirection.textureSize, arrowDirection.textureSize,
 			0, 0,
@@ -81,10 +84,11 @@ class ProgressArrow(
 		)
 	}
 
-	private fun renderRightArrow(pGuiGraphics: GuiGraphics) {
+	private fun renderRightArrow(graphics: GuiGraphicsExtractor) {
 		if (!shouldRenderProgress()) return
 
-		pGuiGraphics.blitSprite(
+		graphics.blitSprite(
+			RenderPipelines.GUI_TEXTURED,
 			arrowDirection.texture,
 			arrowDirection.textureSize, arrowDirection.textureSize,
 			0, 0,
@@ -95,12 +99,12 @@ class ProgressArrow(
 		)
 	}
 
-	private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
+	private fun renderTooltip(graphics: GuiGraphicsExtractor, pMouseX: Int, pMouseY: Int) {
 		if (percentDoneFunction() <= 0f) return
 
 		val percentString = (percentDoneFunction() * 100).toInt().toString() + "%"
 
-		pGuiGraphics.renderComponentTooltip(
+		graphics.setComponentTooltipForNextFrame(
 			font,
 			listOf(Component.literal(percentString)),
 			pMouseX,
@@ -108,10 +112,10 @@ class ProgressArrow(
 		)
 	}
 
-	override fun onClick(mouseX: Double, mouseY: Double, button: Int) {
-		super.onClick(mouseX, mouseY, button)
+	override fun onClick(event: MouseButtonEvent, doubleClick: Boolean) {
+		super.onClick(event, doubleClick)
 
-		onClickFunction(mouseX, mouseY, button)
+		onClickFunction(event.x(), event.y(), event.button())
 	}
 
 	override fun updateWidgetNarration(pNarrationElementOutput: NarrationElementOutput) {

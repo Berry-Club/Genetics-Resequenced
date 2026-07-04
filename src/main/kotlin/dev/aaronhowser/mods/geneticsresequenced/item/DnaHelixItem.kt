@@ -16,13 +16,16 @@ import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.item.component.TooltipDisplay
+import java.util.function.Consumer
 
 class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 
 	override fun appendHoverText(
 		stack: ItemStack,
 		context: TooltipContext,
-		tooltipComponents: MutableList<Component>,
+		tooltipDisplay: TooltipDisplay,
+		tooltipComponents: Consumer<Component>,
 		tooltipFlag: TooltipFlag
 	) {
 		val geneHolder = getGeneHolder(stack)
@@ -30,7 +33,7 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 		if (geneHolder == null) {
 			showNoGeneTooltips(stack, tooltipComponents)
 		} else {
-			tooltipComponents.add(
+			tooltipComponents.accept(
 				ModTooltipLang.GENE
 					.toComponent(geneHolder.getName())
 					.withStyle(ChatFormatting.GRAY)
@@ -65,9 +68,9 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 
 		private fun showNoGeneTooltips(
 			stack: ItemStack,
-			components: MutableList<Component>
+			components: Consumer<Component>
 		) {
-			components.add(
+			components.accept(
 				ModTooltipLang.GENE
 					.toComponent(Gene.UNKNOWN_GENE_COMPONENT)
 					.withStyle(ChatFormatting.GRAY)
@@ -75,7 +78,7 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 
 			val entity = getEntityType(stack)
 			if (entity != null) {
-				components.add(
+				components.accept(
 					ModTooltipLang.HELIX_ENTITY
 						.toComponent(entity.description)
 						.withStyle(ChatFormatting.GRAY)
@@ -88,7 +91,7 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 						.toComponent()
 						.withStyle(ChatFormatting.GRAY)
 
-				components.add(component)
+				components.accept(component)
 			}
 		}
 	}

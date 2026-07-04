@@ -1,9 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.components
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
+import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.network.chat.Component
 import java.util.function.BooleanSupplier
 import java.util.function.Supplier
@@ -20,14 +21,15 @@ class GeneratorBurn(
 	Component.empty()
 ) {
 
-	override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
+	override fun extractWidgetRenderState(graphics: GuiGraphicsExtractor, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
 
 		if (!shouldRender.asBoolean) return
 
 		val totalHeight = HEIGHT
 		val amountToRender = totalHeight - (totalHeight * percentDone.get()).toInt()
 
-		pGuiGraphics.blitSprite(
+		graphics.blitSprite(
+			RenderPipelines.GUI_TEXTURED,
 			TEXTURE,
 			TEXTURE_SIZE,
 			TEXTURE_SIZE,

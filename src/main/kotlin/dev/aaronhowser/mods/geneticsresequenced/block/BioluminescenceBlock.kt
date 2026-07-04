@@ -6,22 +6,24 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.RandomSource
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.AirBlock
+import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.block.state.BlockState
 
-class BioluminescenceBlock :
-	AirBlock(
-		Properties
-			.of()
-			.replaceable()
-			.noCollission()
-			.instabreak()
-			.noLootTable()
-			.air()
-			.lightLevel { LIGHT_LEVEL }
-	) {
+class BioluminescenceBlock(properties: BlockBehaviour.Properties) : AirBlock(properties) {
 
 	companion object {
 		const val LIGHT_LEVEL = 10
+
+		fun properties(): BlockBehaviour.Properties {
+			return BlockBehaviour.Properties
+				.of()
+				.replaceable()
+				.noCollision()
+				.instabreak()
+				.noLootTable()
+				.air()
+				.lightLevel { LIGHT_LEVEL }
+		}
 	}
 
 	override fun onPlace(

@@ -4,9 +4,10 @@ import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import net.minecraft.client.gui.Font
-import net.minecraft.client.gui.GuiGraphics
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.client.gui.components.AbstractWidget
 import net.minecraft.client.gui.narration.NarrationElementOutput
+import net.minecraft.client.renderer.RenderPipelines
 import net.minecraft.network.chat.Component
 import net.minecraft.util.Mth
 import java.util.function.IntSupplier
@@ -24,13 +25,14 @@ class EnergyBar(
 	Component.empty()
 ) {
 
-	override fun renderWidget(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
+	override fun extractWidgetRenderState(graphics: GuiGraphicsExtractor, pMouseX: Int, pMouseY: Int, pPartialTick: Float) {
 		val percentFull = currentGetter.asInt.toFloat() / maxGetter.asInt.toFloat()
 
 		val energyTotalHeight = this.height
 		val energyCurrentHeight = Mth.ceil(energyTotalHeight.toDouble() * percentFull)
 
-		pGuiGraphics.blitSprite(
+		graphics.blitSprite(
+			RenderPipelines.GUI_TEXTURED,
 			TEXTURE,
 			TEXTURE_SIZE,
 			TEXTURE_SIZE,
@@ -42,16 +44,16 @@ class EnergyBar(
 			energyCurrentHeight
 		)
 
-		if (isHovered) renderTooltip(pGuiGraphics, pMouseX, pMouseY)
+		if (isHovered) renderTooltip(graphics, pMouseX, pMouseY)
 	}
 
-	private fun renderTooltip(pGuiGraphics: GuiGraphics, pMouseX: Int, pMouseY: Int) {
+	private fun renderTooltip(graphics: GuiGraphicsExtractor, pMouseX: Int, pMouseY: Int) {
 		val currentAmountString = String.format("%,d", currentGetter.asInt)
 		val maxAmountString = String.format("%,d", maxGetter.asInt)
 
 		val component = ModTooltipLang.FE.toComponent(currentAmountString, maxAmountString)
 
-		pGuiGraphics.renderComponentTooltip(
+		graphics.setComponentTooltipForNextFrame(
 			font,
 			listOf(component),
 			pMouseX,

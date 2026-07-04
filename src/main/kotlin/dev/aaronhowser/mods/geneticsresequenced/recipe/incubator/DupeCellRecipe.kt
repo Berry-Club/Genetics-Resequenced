@@ -8,7 +8,6 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.core.registries.Registries
 import net.minecraft.network.RegistryFriendlyByteBuf
@@ -19,14 +18,13 @@ import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
-import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
 class DupeCellRecipe(
 	val itemToDupe: Item,
 	val amountToCreate: Int
 ) : IncubatorRecipe(
 	topIngredient = Ingredient.of(itemToDupe),
-	bottomIngredient = DataComponentIngredient.of(false, OtherUtil.getPotionStack(ModPotions.SUBSTRATE)),
+	bottomIngredient = OtherUtil.potionIngredient(ModPotions.SUBSTRATE),
 ) {
 
 	override fun matches(input: Input, level: Level): Boolean {
@@ -39,43 +37,38 @@ class DupeCellRecipe(
 		return EntityDnaItem.hasEntity(topStack)
 	}
 
-	override fun assemble(input: Input, lookup: HolderLookup.Provider): ItemStack {
+	override fun assemble(input: Input): ItemStack {
 		return input.getTopItem().copyWithCount(amountToCreate)
 	}
 
-	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
+	fun getResultItem(): ItemStack {
 		return itemToDupe.defaultInstance
 	}
 
-	override fun getSerializer(): RecipeSerializer<*> {
+	override fun getSerializer(): RecipeSerializer<DupeCellRecipe> {
 		return ModRecipeSerializers.DUPE_CELL.get()
 	}
 
-	class Serializer : RecipeSerializer<DupeCellRecipe> {
-		override fun codec(): MapCodec<DupeCellRecipe> = CODEC
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, DupeCellRecipe> = STREAM_CODEC
+	companion object {
+		val CODEC: MapCodec<DupeCellRecipe> =
+			RecordCodecBuilder.mapCodec { instance ->
+				instance.group(
+					BuiltInRegistries.ITEM
+						.byNameCodec()
+						.fieldOf("item_to_dupe")
+						.forGetter(DupeCellRecipe::itemToDupe),
+					Codec.INT
+						.fieldOf("amount_to_create")
+						.forGetter(DupeCellRecipe::amountToCreate)
+				).apply(instance, ::DupeCellRecipe)
+			}
 
-		companion object {
-			val CODEC: MapCodec<DupeCellRecipe> =
-				RecordCodecBuilder.mapCodec { instance ->
-					instance.group(
-						BuiltInRegistries.ITEM
-							.byNameCodec()
-							.fieldOf("item_to_dupe")
-							.forGetter(DupeCellRecipe::itemToDupe),
-						Codec.INT
-							.fieldOf("amount_to_create")
-							.forGetter(DupeCellRecipe::amountToCreate)
-					).apply(instance, ::DupeCellRecipe)
-				}
-
-			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, DupeCellRecipe> =
-				StreamCodec.composite(
-					ByteBufCodecs.registry(Registries.ITEM), DupeCellRecipe::itemToDupe,
-					ByteBufCodecs.INT, DupeCellRecipe::amountToCreate,
-					::DupeCellRecipe
-				)
-		}
+		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, DupeCellRecipe> =
+			StreamCodec.composite(
+				ByteBufCodecs.registry(Registries.ITEM), DupeCellRecipe::itemToDupe,
+				ByteBufCodecs.INT, DupeCellRecipe::amountToCreate,
+				::DupeCellRecipe
+			)
 	}
 
 }

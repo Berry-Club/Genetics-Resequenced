@@ -23,7 +23,7 @@ public abstract class EnchantedCountIncreaseFunctionMixin {
 			)
 	)
 	private int modifyEnchantmentLevel(int originalLevel, ItemStack stack, LootContext context) {
-		Entity target = context.getParamOrNull(LootContextParams.THIS_ENTITY);
+		Entity target = context.getOptionalParameter(LootContextParams.THIS_ENTITY);
 		double bountifulLevel = 0;
 
 		if (target instanceof LivingEntity le) {

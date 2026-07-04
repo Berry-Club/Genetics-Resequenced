@@ -19,8 +19,9 @@ import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderSet
 import net.minecraft.network.chat.Component
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.InteractionHand
-import net.minecraft.world.InteractionResultHolder
+import net.minecraft.world.InteractionResult
 import net.minecraft.world.damagesource.DamageSource
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
@@ -28,25 +29,26 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.ItemUseAnimation
 import net.minecraft.world.item.TooltipFlag
-import net.minecraft.world.item.UseAnim
+import net.minecraft.world.item.component.TooltipDisplay
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.util.FakePlayer
 import java.util.*
+import java.util.function.Consumer
 
 open class SyringeItem(properties: Properties) : Item(properties) {
 
 	override fun getUseDuration(stack: ItemStack, holder: LivingEntity): Int = 40
-	override fun getUseAnimation(stack: ItemStack): UseAnim = UseAnim.BOW
+	override fun getUseAnimation(stack: ItemStack): ItemUseAnimation = ItemUseAnimation.BOW
 
 	override fun use(
 		level: Level,
 		player: Player,
 		usedHand: InteractionHand
-	): InteractionResultHolder<ItemStack> {
-		val stack = player.getItemInHand(usedHand)
+	): InteractionResult {
 		player.startUsingItem(usedHand)
-		return InteractionResultHolder.consume(stack)
+		return InteractionResult.CONSUME
 	}
 
 	override fun onUseTick(
@@ -66,17 +68,16 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		level: Level,
 		livingEntity: LivingEntity,
 		timeCharged: Int
-	) {
-		if (timeCharged > 1) return
-		if (livingEntity !is Player || livingEntity is FakePlayer) return
+	): Boolean {
+		if (timeCharged > 1) return false
+		if (livingEntity !is Player || livingEntity is FakePlayer) return false
+		val serverLevel = level as? ServerLevel ?: return false
 
 		if (isContaminated(stack)) {
-			if (!level.isClientSide) {
-				livingEntity.tell(
-					ModMessageLang.SYRINGE_CONTAMINATED.toComponent()
-				)
-			}
-			return
+			livingEntity.tell(
+				ModMessageLang.SYRINGE_CONTAMINATED.toComponent()
+			)
+			return false
 		}
 
 		if (hasBlood(stack)) {
@@ -85,9 +86,10 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			setEntity(stack, livingEntity)
 		}
 
-		livingEntity.hurt(getUseSyringeDamageSource(level, livingEntity), 1f)
+		livingEntity.hurtServer(serverLevel, getUseSyringeDamageSource(level, livingEntity), 1f)
 		livingEntity.addEffect(MobEffectInstance(MobEffects.BLINDNESS, 20 * 3))
-		livingEntity.cooldowns.addCooldown(this, 10)
+		livingEntity.cooldowns.addCooldown(stack, 10)
+		return true
 	}
 
 	override fun getName(stack: ItemStack): Component {
@@ -101,12 +103,13 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 	override fun appendHoverText(
 		stack: ItemStack,
 		context: TooltipContext,
-		components: MutableList<Component>,
+		tooltipDisplay: TooltipDisplay,
+		components: Consumer<Component>,
 		tooltipFlag: TooltipFlag
 	) {
 		val ownerName = SpecificEntityItemComponent.getEntityName(stack)
 		if (ownerName != null) {
-			components.add(
+			components.accept(
 				ModTooltipLang.SYRINGE_OWNER
 					.toComponent(ownerName)
 					.withStyle(ChatFormatting.GRAY)
@@ -114,7 +117,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		}
 
 		if (isContaminated(stack)) {
-			components.add(
+			components.accept(
 				ModTooltipLang.SYRINGE_CONTAMINATED
 					.toComponent()
 					.withStyle(ChatFormatting.DARK_GREEN)
@@ -123,7 +126,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 
 		val addingGenes = getGenes(stack)
 		if (addingGenes.isNotEmpty()) {
-			components.add(
+			components.accept(
 				ModTooltipLang.SYRINGE_ADDING_GENES
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
@@ -138,13 +141,13 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 						it.withColor(nameComponent.style.color)
 					}.append(nameComponent)
 
-				components.add(component)
+				components.accept(component)
 			}
 		}
 
 		val removingGenes = getAntigenes(stack)
 		if (removingGenes.isNotEmpty()) {
-			components.add(
+			components.accept(
 				ModTooltipLang.SYRINGE_REMOVING_GENES
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
@@ -159,7 +162,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 						it.withColor(nameComponent.style.color)
 					}.append(nameComponent)
 
-				components.add(component)
+				components.accept(component)
 			}
 		}
 	}
@@ -218,7 +221,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			val genesRemoved = entityGenesBefore - entityGenesAfter
 			val genesNotRemoved = syringeAntigenes - genesRemoved
 
-			if (!entity.level().isClientSide) {
+			if (entity is Player && !entity.level().isClientSide) {
 				for (removedGeneHolder in genesRemoved) {
 					entity.sendSystemMessage(
 						ModMessageLang.SYRINGE_REMOVE_GENES_SUCCESS.toComponent(
@@ -249,7 +252,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			val genesAdded = entityGenesAfter - entityGenesBefore
 			val genesNotAdded = syringeGenes - genesAdded
 
-			if (!entity.isClientSide) {
+			if (entity is Player && !entity.isClientSide) {
 				for (addedGeneHolder in genesAdded) {
 					entity.sendSystemMessage(
 						ModMessageLang.SYRINGE_INJECTED.toComponent(

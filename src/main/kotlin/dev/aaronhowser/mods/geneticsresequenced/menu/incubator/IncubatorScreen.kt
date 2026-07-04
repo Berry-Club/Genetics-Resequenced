@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.incubator
 
-import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.geneticsresequenced.menu.MachineScreen
 import dev.aaronhowser.mods.geneticsresequenced.menu.ScreenTextures
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.Bubbles
@@ -13,9 +12,7 @@ class IncubatorScreen(
 	menu: IncubatorMenu,
 	playerInventory: Inventory,
 	title: Component
-) : MachineScreen<IncubatorMenu>(menu, playerInventory, title) {
-
-	override val background: ScreenBackground = ScreenTextures.Backgrounds.INCUBATOR
+) : MachineScreen<IncubatorMenu>(menu, playerInventory, title, ScreenTextures.Backgrounds.INCUBATOR) {
 
 	private lateinit var temperatureIndicator: TemperatureIndicator
 	private lateinit var bubbles: Bubbles

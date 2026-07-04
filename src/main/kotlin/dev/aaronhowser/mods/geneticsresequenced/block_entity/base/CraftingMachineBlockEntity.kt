@@ -5,14 +5,15 @@ import dev.aaronhowser.mods.geneticsresequenced.block.base.MachineBlock
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.CraftingContainerData
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.core.HolderLookup
-import net.minecraft.nbt.CompoundTag
 import net.minecraft.util.Mth
 import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.level.block.entity.BlockEntityType
 import net.minecraft.world.level.block.state.BlockState
-import net.neoforged.neoforge.items.IItemHandler
+import net.minecraft.world.level.storage.ValueInput
+import net.minecraft.world.level.storage.ValueOutput
+import net.neoforged.neoforge.transfer.ResourceHandler
+import net.neoforged.neoforge.transfer.item.ItemResource
 import java.util.function.IntSupplier
 
 abstract class CraftingMachineBlockEntity(
@@ -37,13 +38,13 @@ abstract class CraftingMachineBlockEntity(
 	}
 
 	protected fun hasEnoughEnergy(): Boolean {
-		return energyStorage.energyStored >= getEnergyCostPerTick()
+		return energyStorage.getAmountAsInt() >= getEnergyCostPerTick()
 	}
 
 	protected fun drainEnergy(): Boolean {
 		val cost = getEnergyCostPerTick()
-		if (energyStorage.energyStored < cost) return false
-		energyStorage.extractEnergy(cost, false)
+		if (energyStorage.getAmountAsInt() < cost) return false
+		extractEnergy(cost)
 		return true
 	}
 
@@ -107,33 +108,28 @@ abstract class CraftingMachineBlockEntity(
 		insertAndExtractHandler(OVERCLOCK_SLOT_INDEX)
 	}
 
-	override fun getItemHandler(direction: Direction?): IItemHandler? {
+	override fun getItemHandler(direction: Direction?): ResourceHandler<ItemResource>? {
 		val blockFacing = this.blockState.getValue(MachineBlock.H_FACING)
 
 		return when (direction) {
-			blockFacing.opposite -> overclockHandler
+			blockFacing.getOpposite() -> overclockHandler
 			Direction.DOWN -> outputHandler
 			else -> inputHandler
 		}
 	}
 
-	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.saveAdditional(tag, registries)
+	override fun saveAdditional(output: ValueOutput) {
+		super.saveAdditional(output)
 
-		tag.putInt(CURRENT_PROGRESS_NBT, currentProgress)
-		tag.putInt(MAX_PROGRESS_NBT, maxProgress)
+		output.putInt(CURRENT_PROGRESS_NBT, currentProgress)
+		output.putInt(MAX_PROGRESS_NBT, maxProgress)
 	}
 
-	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.loadAdditional(tag, registries)
+	override fun loadAdditional(input: ValueInput) {
+		super.loadAdditional(input)
 
-		if (tag.contains(CURRENT_PROGRESS_NBT)) {
-			currentProgress = tag.getInt(CURRENT_PROGRESS_NBT)
-		}
-
-		if (tag.contains(MAX_PROGRESS_NBT)) {
-			maxProgress = tag.getInt(MAX_PROGRESS_NBT)
-		}
+		currentProgress = input.getIntOr(CURRENT_PROGRESS_NBT, currentProgress)
+		maxProgress = input.getIntOr(MAX_PROGRESS_NBT, maxProgress)
 	}
 
 	companion object {

@@ -25,7 +25,7 @@ object ClearBioGlowCommand : AaronCommandHelper {
 			}
 
 			thenArgument(RADIUS, IntegerArgumentType.integer(1, 200)) {
-				requires { it.hasPermission(2) }
+				requires { it.hasGamemasterPermission() }
 
 				executes { cmd ->
 					val source = cmd.source

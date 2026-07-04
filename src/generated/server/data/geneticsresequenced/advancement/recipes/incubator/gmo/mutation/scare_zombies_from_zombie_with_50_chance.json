@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cell": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:cell"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "geneticsresequenced:incubator/gmo/mutation/scare_zombies_from_zombie_with_50_chance"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_cell"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "geneticsresequenced:incubator/gmo/mutation/scare_zombies_from_zombie_with_50_chance"
+    ]
+  }
+}

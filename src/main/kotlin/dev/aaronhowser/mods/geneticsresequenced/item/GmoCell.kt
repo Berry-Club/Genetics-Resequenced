@@ -11,24 +11,27 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.item.component.TooltipDisplay
+import java.util.function.Consumer
 
 class GmoCell(properties: Properties) : Item(properties) {
 
 	override fun appendHoverText(
 		stack: ItemStack,
 		context: TooltipContext,
-		components: MutableList<Component>,
+		tooltipDisplay: TooltipDisplay,
+		components: Consumer<Component>,
 		tooltipFlag: TooltipFlag
 	) {
 		val entityType = EntityDnaItem.getEntityType(stack)
 		if (entityType != null) {
-			components.add(
+			components.accept(
 				ModTooltipLang.CELL_MOB
 					.toComponent(entityType.description)
 					.withStyle(ChatFormatting.GRAY)
 			)
 		} else {
-			components.add(
+			components.accept(
 				ModTooltipLang.CELL_NO_MOB
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
@@ -37,13 +40,13 @@ class GmoCell(properties: Properties) : Item(properties) {
 
 		val geneHolder = DnaHelixItem.getGeneHolder(stack)
 		if (geneHolder != null) {
-			components.add(
+			components.accept(
 				ModTooltipLang.GENE
 					.toComponent(geneHolder.getName())
 					.withStyle(ChatFormatting.GRAY)
 			)
 		} else {
-			components.add(
+			components.accept(
 				ModTooltipLang.GENE
 					.toComponent(Gene.UNKNOWN_GENE_COMPONENT)
 					.withStyle(ChatFormatting.GRAY)

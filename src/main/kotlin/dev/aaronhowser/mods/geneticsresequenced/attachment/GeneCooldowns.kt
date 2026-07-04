@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.attachment
 
 import com.mojang.serialization.Codec
+import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.status
@@ -28,9 +29,11 @@ class GeneCooldowns(
 	constructor() : this(emptyList())
 
 	companion object {
-		val CODEC: Codec<GeneCooldowns> =
+		val MAP_CODEC: MapCodec<GeneCooldowns> =
 			Entry.CODEC.listOf()
+				.fieldOf("cooldowns")
 				.xmap(::GeneCooldowns, GeneCooldowns::cooldowns)
+		val CODEC: Codec<GeneCooldowns> = MAP_CODEC.codec()
 
 		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, GeneCooldowns> =
 			Entry.STREAM_CODEC.apply(ByteBufCodecs.list())

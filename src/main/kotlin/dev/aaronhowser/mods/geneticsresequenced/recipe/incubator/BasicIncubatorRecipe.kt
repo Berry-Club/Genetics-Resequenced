@@ -5,11 +5,11 @@ import com.mojang.serialization.MapCodec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
-import net.minecraft.core.HolderLookup
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.item.crafting.RecipeManager
@@ -19,9 +19,24 @@ import net.minecraft.world.level.Level
 class BasicIncubatorRecipe(
 	topIngredient: Ingredient,
 	bottomIngredient: Ingredient,
-	val outputStack: ItemStack,
+	private val outputTemplate: ItemStackTemplate,
 	val isLowTemp: Boolean
 ) : IncubatorRecipe(topIngredient, bottomIngredient) {
+
+	constructor(
+		topIngredient: Ingredient,
+		bottomIngredient: Ingredient,
+		outputStack: ItemStack,
+		isLowTemp: Boolean
+	) : this(
+		topIngredient,
+		bottomIngredient,
+		ItemStackTemplate.fromNonEmptyStack(outputStack),
+		isLowTemp
+	)
+
+	val outputStack: ItemStack
+		get() = outputTemplate.create()
 
 	override fun matches(input: Input, level: Level): Boolean {
 		val topItem = input.getTopItem()
@@ -32,15 +47,15 @@ class BasicIncubatorRecipe(
 				&& this.bottomIngredient.test(bottomItem)
 	}
 
-	override fun assemble(input: Input, lookup: HolderLookup.Provider): ItemStack {
-		return getResultItem(lookup)
-	}
-
-	override fun getResultItem(lookup: HolderLookup.Provider): ItemStack {
+	override fun assemble(input: Input): ItemStack {
 		return this.outputStack.copy()
 	}
 
-	override fun getSerializer(): RecipeSerializer<*> {
+	fun getResultItem(): ItemStack {
+		return this.outputStack.copy()
+	}
+
+	override fun getSerializer(): RecipeSerializer<BasicIncubatorRecipe> {
 		return ModRecipeSerializers.BASIC_INCUBATOR.get()
 	}
 
@@ -57,40 +72,33 @@ class BasicIncubatorRecipe(
 				}
 			}
 		}
-	}
 
-	class Serializer : RecipeSerializer<BasicIncubatorRecipe> {
-		override fun codec(): MapCodec<BasicIncubatorRecipe> = CODEC
-		override fun streamCodec(): StreamCodec<RegistryFriendlyByteBuf, BasicIncubatorRecipe> = STREAM_CODEC
+		val CODEC: MapCodec<BasicIncubatorRecipe> =
+			RecordCodecBuilder.mapCodec { instance ->
+				instance.group(
+					Ingredient.CODEC
+						.fieldOf("top_slot")
+						.forGetter(BasicIncubatorRecipe::topIngredient),
+					Ingredient.CODEC
+						.fieldOf("bottom_slot")
+						.forGetter(BasicIncubatorRecipe::bottomIngredient),
+					ItemStackTemplate.CODEC
+						.fieldOf("output")
+						.forGetter(BasicIncubatorRecipe::outputTemplate),
+					Codec.BOOL
+						.fieldOf("is_low_temperature")
+						.forGetter(BasicIncubatorRecipe::isLowTemp)
+				).apply(instance, ::BasicIncubatorRecipe)
+			}
 
-		companion object {
-			val CODEC: MapCodec<BasicIncubatorRecipe> =
-				RecordCodecBuilder.mapCodec { instance ->
-					instance.group(
-						Ingredient.CODEC_NONEMPTY
-							.fieldOf("top_slot")
-							.forGetter(BasicIncubatorRecipe::topIngredient),
-						Ingredient.CODEC_NONEMPTY
-							.fieldOf("bottom_slot")
-							.forGetter(BasicIncubatorRecipe::bottomIngredient),
-						ItemStack.CODEC
-							.fieldOf("output")
-							.forGetter(BasicIncubatorRecipe::outputStack),
-						Codec.BOOL
-							.fieldOf("is_low_temperature")
-							.forGetter(BasicIncubatorRecipe::isLowTemp)
-					).apply(instance, ::BasicIncubatorRecipe)
-				}
-
-			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, BasicIncubatorRecipe> =
-				StreamCodec.composite(
-					Ingredient.CONTENTS_STREAM_CODEC, BasicIncubatorRecipe::topIngredient,
-					Ingredient.CONTENTS_STREAM_CODEC, BasicIncubatorRecipe::bottomIngredient,
-					ItemStack.STREAM_CODEC, BasicIncubatorRecipe::outputStack,
-					ByteBufCodecs.BOOL, BasicIncubatorRecipe::isLowTemp,
-					::BasicIncubatorRecipe
-				)
-		}
+		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, BasicIncubatorRecipe> =
+			StreamCodec.composite(
+				Ingredient.CONTENTS_STREAM_CODEC, BasicIncubatorRecipe::topIngredient,
+				Ingredient.CONTENTS_STREAM_CODEC, BasicIncubatorRecipe::bottomIngredient,
+				ItemStackTemplate.STREAM_CODEC, BasicIncubatorRecipe::outputTemplate,
+				ByteBufCodecs.BOOL, BasicIncubatorRecipe::isLowTemp,
+				::BasicIncubatorRecipe
+			)
 	}
 
 }

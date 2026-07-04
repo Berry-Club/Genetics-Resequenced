@@ -47,8 +47,9 @@ object ClientUtil {
 		}
 
 		for (part in enabledModelParts) {
-			options.toggleModelPart(part, false)
+			options.setModelPart(part, false)
 		}
+		options.save()
 
 		this.removedSkinLayers = enabledModelParts
 
@@ -60,8 +61,9 @@ object ClientUtil {
 
 		val options = getOptions()
 		for (part in this.removedSkinLayers) {
-			options.toggleModelPart(part, true)
+			options.setModelPart(part, true)
 		}
+		options.save()
 
 		GeneticsResequenced.LOGGER.info("Added layers back to player skin: ${this.removedSkinLayers.joinToString(", ")}")
 		this.removedSkinLayers = emptySet()

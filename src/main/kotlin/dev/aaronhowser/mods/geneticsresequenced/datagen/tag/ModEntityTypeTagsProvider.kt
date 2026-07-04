@@ -7,14 +7,12 @@ import net.minecraft.data.PackOutput
 import net.minecraft.data.tags.EntityTypeTagsProvider
 import net.minecraft.tags.TagKey
 import net.minecraft.world.entity.EntityType
-import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
 
 class ModEntityTypeTagsProvider(
 	pOutput: PackOutput,
-	pProvider: CompletableFuture<HolderLookup.Provider>,
-	existingFileHelper: ExistingFileHelper?
-) : EntityTypeTagsProvider(pOutput, pProvider, GeneticsResequenced.MOD_ID, existingFileHelper) {
+	pProvider: CompletableFuture<HolderLookup.Provider>
+) : EntityTypeTagsProvider(pOutput, pProvider, GeneticsResequenced.MOD_ID) {
 
 	override fun addTags(pProvider: HolderLookup.Provider) {
 		this.tag(SCRAPER_ENTITY_BLACKLIST)

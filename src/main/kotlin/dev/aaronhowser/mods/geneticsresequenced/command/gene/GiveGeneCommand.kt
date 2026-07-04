@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.a
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.addTemporaryGene
 import dev.aaronhowser.mods.geneticsresequenced.command.ModCommands
+import dev.aaronhowser.mods.geneticsresequenced.command.hasGamemasterPermission
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -15,10 +16,10 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.arguments.EntityArgument
-import net.minecraft.commands.arguments.ResourceLocationArgument
+import net.minecraft.commands.arguments.IdentifierArgument
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.LivingEntity
 
@@ -30,14 +31,14 @@ object GiveGeneCommand : AaronCommandHelper {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return literal("give") {
-			requires { it.hasPermission(2) }
+			requires { it.hasGamemasterPermission() }
 
-			thenArgument(GENE, ResourceLocationArgument.id()) {
+			thenArgument(GENE, IdentifierArgument.id()) {
 				suggests(ModCommands::getGeneSuggestions)
 
 				executes {
 					val source = it.source
-					val geneRl = ResourceLocationArgument.getId(it, GENE)
+					val geneRl = IdentifierArgument.getId(it, GENE)
 					val targets = listOf(source.playerOrException)
 
 					addGene(source, geneRl, targets, duration = -1)
@@ -46,7 +47,7 @@ object GiveGeneCommand : AaronCommandHelper {
 				thenArgument(TARGETS, EntityArgument.entities()) {
 					executes {
 						val source = it.source
-						val geneRl = ResourceLocationArgument.getId(it, GENE)
+						val geneRl = IdentifierArgument.getId(it, GENE)
 						val targets = EntityArgument.getEntities(it, TARGETS)
 
 						addGene(source, geneRl, targets, duration = -1)
@@ -56,7 +57,7 @@ object GiveGeneCommand : AaronCommandHelper {
 						thenArgument(DURATION, IntegerArgumentType.integer(1)) {
 							executes {
 								val source = it.source
-								val geneRl = ResourceLocationArgument.getId(it, GENE)
+								val geneRl = IdentifierArgument.getId(it, GENE)
 								val targets = EntityArgument.getEntities(it, TARGETS)
 								val duration = IntegerArgumentType.getInteger(it, DURATION)
 
@@ -71,11 +72,11 @@ object GiveGeneCommand : AaronCommandHelper {
 
 	private fun addGene(
 		source: CommandSourceStack,
-		geneRl: ResourceLocation,
+		geneRl: Identifier,
 		entities: Collection<Entity>,
 		duration: Int
 	): Int {
-		val gene = ModGenes.fromResourceLocation(source.registryAccess(), geneRl)
+		val gene = ModGenes.fromIdentifier(source.registryAccess(), geneRl)
 			?: throw IllegalArgumentException("Gene with id $geneRl does not exist!")
 
 		return addGene(source, gene, entities, duration)
@@ -176,12 +177,12 @@ object GiveGeneCommand : AaronCommandHelper {
 		duration: Int
 	): Boolean {
 		if (target.hasGene(geneHolder)) {
-			GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.location()} to ${target.name.string}, but they already have it!")
+			GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.identifier()} to ${target.name.string}, but they already have it!")
 			return false
 		}
 
 		if (!geneHolder.value().canEntityHave(target)) {
-			GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.location()} to ${target.name.string}, but they can't have it!")
+			GeneticsResequenced.LOGGER.info("Tried to add gene ${geneHolder.key!!.identifier()} to ${target.name.string}, but they can't have it!")
 			return false
 		}
 

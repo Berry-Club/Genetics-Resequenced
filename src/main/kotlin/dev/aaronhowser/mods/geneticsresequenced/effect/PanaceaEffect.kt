@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.r
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModEffects
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectCategory
 import net.minecraft.world.entity.Entity
@@ -18,6 +19,7 @@ class PanaceaEffect : MobEffect(
 	override fun isInstantenous(): Boolean = true
 
 	override fun applyInstantenousEffect(
+		serverLevel: ServerLevel,
 		pSource: Entity?,
 		pIndirectSource: Entity?,
 		pLivingEntity: LivingEntity,

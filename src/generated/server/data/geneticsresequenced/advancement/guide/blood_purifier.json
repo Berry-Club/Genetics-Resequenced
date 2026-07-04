@@ -1,0 +1,32 @@
+{
+  "parent": "geneticsresequenced:guide/syringe",
+  "criteria": {
+    "has_blood_purifier": {
+      "conditions": {
+        "items": [
+          {
+            "items": "geneticsresequenced:blood_purifier"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancement.geneticsresequenced.blood_purifier.desc"
+    },
+    "icon": {
+      "id": "geneticsresequenced:blood_purifier"
+    },
+    "title": {
+      "translate": "advancement.geneticsresequenced.blood_purifier.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_blood_purifier"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

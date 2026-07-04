@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.advanced_incubator
 
 import dev.aaronhowser.mods.aaron.menu.components.ChangingTextButton
-import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.aaron.packet.c2s.ClientClickedMenuButton
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
@@ -18,9 +17,7 @@ class AdvancedIncubatorScreen(
 	menu: AdvancedIncubatorMenu,
 	playerInventory: Inventory,
 	title: Component
-) : MachineScreen<AdvancedIncubatorMenu>(menu, playerInventory, title) {
-
-	override val background: ScreenBackground = ScreenTextures.Backgrounds.INCUBATOR_ADVANCED
+) : MachineScreen<AdvancedIncubatorMenu>(menu, playerInventory, title, ScreenTextures.Backgrounds.INCUBATOR_ADVANCED) {
 
 	private lateinit var temperatureIndicator: TemperatureIndicator
 	private lateinit var bubbles: Bubbles

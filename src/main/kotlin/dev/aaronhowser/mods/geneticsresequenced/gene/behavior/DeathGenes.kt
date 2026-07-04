@@ -14,6 +14,7 @@ import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.util.Mth
 import net.minecraft.world.entity.LivingEntity
@@ -21,7 +22,7 @@ import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
-import net.minecraft.world.level.GameRules
+import net.minecraft.world.level.gamerules.GameRules
 import net.minecraft.world.level.Level
 import net.neoforged.fml.ModList
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
@@ -33,16 +34,18 @@ object DeathGenes {
 
 	//TODO: Test with grave mods
 	fun saveInventory(player: Player) {
-		val level = player.level()
-		if (level.isClientSide
-			|| level.gameRules.getBoolean(GameRules.RULE_KEEPINVENTORY)
-			|| level.levelData.isHardcore
+		val level = player.level() as? ServerLevel ?: return
+		if (level.gameRules.get(GameRules.KEEP_INVENTORY)
+			|| level.server.isHardcore
 		) return
 
 		if (!player.hasGene(ModGenes.KEEP_INVENTORY)) return
 
 		val playerItems =
-			(player.inventory.items + player.inventory.armor + player.inventory.offhand).filter { !it.isEmpty }
+			(0 until player.inventory.containerSize)
+				.map(player.inventory::getItem)
+				.filter { !it.isEmpty }
+				.map(ItemStack::copy)
 
 		player.saveInventory(playerItems)
 
@@ -101,7 +104,7 @@ object DeathGenes {
 		val shouldExplode = if (entity !is Player) {
 			true
 		} else {
-			val amountGunpowder = entity.inventory.items.sumOf { if (it.item == Items.GUNPOWDER) it.count else 0 }
+			val amountGunpowder = entity.inventory.nonEquipmentItems.sumOf { if (it.item == Items.GUNPOWDER) it.count else 0 }
 			amountGunpowder >= GUNPOWDER_REQUIRED
 		}
 
@@ -122,7 +125,7 @@ object DeathGenes {
 
 		if (entity is Player) {
 			var amountGunpowderRemoved = 0
-			for (stack in entity.inventory.items) {
+			for (stack in entity.inventory.nonEquipmentItems) {
 				if (stack.item != Items.GUNPOWDER) continue
 
 				while (stack.count > 0 && amountGunpowderRemoved < GUNPOWDER_REQUIRED) {
@@ -170,7 +173,7 @@ object DeathGenes {
 				entity.random.nextRange(-1.0, 1.0)
 			)
 
-			supportSlime.moveTo(randomNearbyPosition.x, randomNearbyPosition.y, randomNearbyPosition.z)
+			supportSlime.setPos(randomNearbyPosition)
 			level.addFreshEntity(supportSlime)
 		}
 

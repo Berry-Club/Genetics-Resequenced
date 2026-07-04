@@ -8,25 +8,28 @@ import net.minecraft.network.chat.Component
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.item.component.TooltipDisplay
+import java.util.function.Consumer
 
 class AntiPlasmidItem(properties: Properties) : Item(properties) {
 
 	override fun appendHoverText(
 		stack: ItemStack,
 		context: TooltipContext,
-		tooltipComponents: MutableList<Component>,
+		tooltipDisplay: TooltipDisplay,
+		tooltipComponents: Consumer<Component>,
 		tooltipFlag: TooltipFlag
 	) {
 		val geneHolder = PlasmidItem.getGene(stack)
 
 		if (geneHolder == null) {
-			tooltipComponents.add(
+			tooltipComponents.accept(
 				ModTooltipLang.ANTI_PLASMID_EMPTY
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
 			)
 		} else {
-			tooltipComponents.add(
+			tooltipComponents.accept(
 				ModTooltipLang.PLASMID_GENE
 					.toComponent(geneHolder.getName())
 					.withStyle(ChatFormatting.GRAY)

@@ -23,13 +23,13 @@ import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
 import net.minecraft.sounds.SoundSource
 import net.minecraft.world.entity.LivingEntity
-import net.minecraft.world.entity.animal.Cow
+import net.minecraft.world.entity.animal.cow.Cow
 import net.minecraft.world.entity.animal.goat.Goat
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.player.Player
-import net.minecraft.world.entity.projectile.AbstractArrow
-import net.minecraft.world.entity.projectile.Arrow
-import net.minecraft.world.entity.projectile.SmallFireball
+import net.minecraft.world.entity.projectile.arrow.AbstractArrow
+import net.minecraft.world.entity.projectile.arrow.Arrow
+import net.minecraft.world.entity.projectile.hurtingprojectile.SmallFireball
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.ProjectileWeaponItem
@@ -274,7 +274,9 @@ object ClickGenes {
 			return
 		}
 
-		target.sendSystemMessage(ModMessageLang.MILK_MILKED.toComponent())
+		if (target is ServerPlayer) {
+			target.sendSystemMessage(ModMessageLang.MILK_MILKED.toComponent())
+		}
 
 		event.itemStack.shrink(1)
 		clicker.addItem(ItemStack(Items.MILK_BUCKET))

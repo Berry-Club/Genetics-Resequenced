@@ -132,7 +132,7 @@ object OtherGenes {
 		).filter { it is SupportSlime && it.ownerUuid == player.uuid }
 
 		val amountSlimes = nearbySupportSlimes.size
-		val allPlayers = player.server.playerList.players
+		val allPlayers = player.level().server.playerList.players
 
 		for (i in 0 until amountSlimes) {
 			val message = Component
@@ -160,17 +160,17 @@ object OtherGenes {
 		if (player.horizontalCollision || player.minorHorizontalCollision) {
 			player.setDeltaMovement(
 				player.deltaMovement.x,
-				if (player.isCrouching) 0.0 else ServerConfig.CONFIG.wallClimbSpeed.get(),
+				if (player.isCrouching) 0.0 else ServerConfig.CONFIG.wallClimbSpeed.get().toDouble(),
 				player.deltaMovement.z
 			)
 
-			player.fallDistance = 0.0f
+			player.fallDistance = 0.0
 		}
 
 		if (shouldClingToCeiling(player)) {
 			player.setDeltaMovement(
 				player.deltaMovement.x,
-				ServerConfig.CONFIG.wallClimbSpeed.get(),
+				ServerConfig.CONFIG.wallClimbSpeed.get().toDouble(),
 				player.deltaMovement.z
 			)
 
@@ -189,7 +189,7 @@ object OtherGenes {
 				player.setPos(startPos.x, startPos.y, startPos.z)
 			}
 
-			player.fallDistance = 0.0f
+			player.fallDistance = 0.0
 		}
 	}
 

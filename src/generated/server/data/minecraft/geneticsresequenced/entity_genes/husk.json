@@ -1,0 +1,7 @@
+{
+  "entity": "minecraft:husk",
+  "gene_weights": {
+    "geneticsresequenced:basic": 5,
+    "geneticsresequenced:chilling": 4
+  }
+}

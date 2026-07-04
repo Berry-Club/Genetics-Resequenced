@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.mixin;
 
 import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.MobGenes;
-import net.minecraft.world.entity.animal.Bee;
+import net.minecraft.world.entity.animal.bee.Bee;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;

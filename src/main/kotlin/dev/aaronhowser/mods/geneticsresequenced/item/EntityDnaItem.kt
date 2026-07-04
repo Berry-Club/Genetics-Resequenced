@@ -18,6 +18,8 @@ import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.item.component.TooltipDisplay
+import java.util.function.Consumer
 
 open class EntityDnaItem(properties: Properties) : Item(properties) {
 
@@ -35,10 +37,7 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 		val setWorked = setEntityType(newStack, interactionTarget.type)
 
 		if (!setWorked) {
-			player.displayClientMessage(
-				ModMessageLang.CANT_SET_ENTITY.toComponent(),
-				true
-			)
+			player.sendOverlayMessage(ModMessageLang.CANT_SET_ENTITY.toComponent())
 
 			return InteractionResult.PASS
 		}
@@ -51,7 +50,8 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 	override fun appendHoverText(
 		stack: ItemStack,
 		context: TooltipContext,
-		tooltipComponents: MutableList<Component>,
+		tooltipDisplay: TooltipDisplay,
+		tooltipComponents: Consumer<Component>,
 		tooltipFlag: TooltipFlag
 	) {
 		val entityType = getEntityType(stack)
@@ -60,13 +60,13 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 				ModTooltipLang.CELL_MOB
 					.toComponent(entityType.description)
 					.withStyle(ChatFormatting.GRAY)
-			tooltipComponents.add(component)
+			tooltipComponents.accept(component)
 		} else {
 			val component =
 				ModTooltipLang.CELL_NO_MOB
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
-			tooltipComponents.add(component)
+			tooltipComponents.accept(component)
 		}
 
 		if (ClientUtil.playerIsCreative()) {
@@ -75,7 +75,7 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 					.toComponent()
 					.withStyle(ChatFormatting.GRAY)
 
-			tooltipComponents.add(component)
+			tooltipComponents.accept(component)
 		}
 	}
 

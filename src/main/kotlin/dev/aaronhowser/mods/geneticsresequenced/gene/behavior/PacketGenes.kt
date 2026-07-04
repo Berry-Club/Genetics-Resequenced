@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toVec3
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
@@ -8,7 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.server.level.ServerPlayer
-import net.minecraft.world.entity.projectile.DragonFireball
+import net.minecraft.world.entity.projectile.hurtingprojectile.DragonFireball
 import net.minecraft.world.level.ClipContext
 import net.minecraft.world.phys.BlockHitResult
 import net.minecraft.world.phys.HitResult
@@ -50,7 +49,7 @@ object PacketGenes {
 			val offset = when (sideHit) {
 				Direction.DOWN -> Vec3(0.0, -2.0, 0.0)
 				Direction.UP -> Vec3(0.0, 0.5, 0.0)
-				else -> sideHit.normal.toVec3()
+				else -> sideHit.unitVec3
 			}
 
 			blockLocation.add(offset)

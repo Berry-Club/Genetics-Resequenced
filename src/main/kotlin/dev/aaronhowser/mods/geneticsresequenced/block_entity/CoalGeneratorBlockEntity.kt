@@ -11,8 +11,6 @@ import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGenerato
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
-import net.minecraft.core.HolderLookup
-import net.minecraft.nbt.CompoundTag
 import net.minecraft.world.entity.player.Inventory
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.inventory.AbstractContainerMenu
@@ -20,8 +18,13 @@ import net.minecraft.world.inventory.ContainerData
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.RecipeType
 import net.minecraft.world.level.block.state.BlockState
+import net.minecraft.world.level.storage.ValueInput
+import net.minecraft.world.level.storage.ValueOutput
 import net.neoforged.neoforge.capabilities.Capabilities
-import net.neoforged.neoforge.items.IItemHandler
+import net.neoforged.neoforge.transfer.ResourceHandler
+import net.neoforged.neoforge.transfer.energy.EnergyHandlerUtil
+import net.neoforged.neoforge.transfer.item.ItemResource
+import net.neoforged.neoforge.transfer.transaction.Transaction
 
 class CoalGeneratorBlockEntity(
 	pos: BlockPos,
@@ -33,16 +36,16 @@ class CoalGeneratorBlockEntity(
 
 	override val container: ImprovedSimpleContainer = object : ImprovedSimpleContainer(this, CONTAINER_SIZE) {
 		override fun canPlaceItem(slot: Int, stack: ItemStack): Boolean {
-			return slot == INPUT_SLOT_INDEX && stack.getBurnTime(RecipeType.SMELTING) > 0
+			return slot == INPUT_SLOT_INDEX && getBurnTime(stack) > 0
 		}
 	}
 
-	private val fuelHandler: IItemHandler by lazy {
+	private val fuelHandler: ResourceHandler<ItemResource> by lazy {
 		SidedMachineItemHandler(
 			itemHandler,
 			INPUT_SLOT_INDEX,
 			canInsert = ::canAutomateInsert,
-			canExtract = { _, stack -> stack.getBurnTime(RecipeType.SMELTING) <= 0 }
+			canExtract = { _, stack -> getBurnTime(stack) <= 0 }
 		)
 	}
 
@@ -80,14 +83,14 @@ class CoalGeneratorBlockEntity(
 		val level = this.level ?: return
 
 		val inputItem = container.getItem(INPUT_SLOT_INDEX)
-		val fuelTime = inputItem.getBurnTime(RecipeType.SMELTING)
+		val fuelTime = getBurnTime(inputItem)
 
 		if (fuelTime <= 0) return
 
 		val newState = blockState.setValue(CoalGeneratorBlock.BURNING, true)
 		level.setBlockAndUpdate(blockPos, newState)
 
-		val fuelReplacedItem = inputItem.craftingRemainingItem
+		val fuelReplacedItem = inputItem.item.getCraftingRemainder(inputItem)?.create() ?: ItemStack.EMPTY
 
 		maxBurnTime = fuelTime
 		burnTimeRemaining = fuelTime
@@ -100,40 +103,47 @@ class CoalGeneratorBlockEntity(
 	}
 
 	private fun generateEnergy() {
-		energyStorage.receiveEnergy(getEnergyPerTick(), false)
+		insertEnergy(getEnergyPerTick())
 		burnTimeRemaining--
 	}
 
 	private fun hasRoomForEnergy(): Boolean {
-		return energyStorage.energyStored < energyStorage.maxEnergyStored
+		return energyStorage.getAmountAsInt() < energyStorage.getCapacityAsInt()
 	}
 
 	private fun exportEnergy() {
 		val level = this.level ?: return
 
-		if (energyStorage.energyStored <= 0) return
+		if (energyStorage.getAmountAsInt() <= 0) return
 
 		for (direction in Direction.entries) {
 			val neighborPos = blockPos.relative(direction)
 			val neighborEnergy = level.getCapability(
-				Capabilities.EnergyStorage.BLOCK,
+				Capabilities.Energy.BLOCK,
 				neighborPos,
-				direction.opposite
+				direction.getOpposite()
 			) ?: continue
-
-			if (!neighborEnergy.canReceive()) continue
 
 			val maxEnergyToSend = minOf(
 				energyTransferRate,
-				energyStorage.energyStored
+				energyStorage.getAmountAsInt()
 			)
 
-			val energyToTransfer = neighborEnergy.receiveEnergy(maxEnergyToSend, false)
-			energyStorage.extractEnergy(energyToTransfer, false)
+			Transaction.openRoot().use { transaction ->
+				val moved = EnergyHandlerUtil.move(energyStorage, neighborEnergy, maxEnergyToSend, transaction)
+				if (moved > 0) {
+					transaction.commit()
+				}
+			}
 		}
 	}
 
-	override fun getItemHandler(direction: Direction?): IItemHandler {
+	private fun getBurnTime(stack: ItemStack): Int {
+		val level = this.level ?: return 0
+		return stack.getBurnTime(RecipeType.SMELTING, level.fuelValues())
+	}
+
+	override fun getItemHandler(direction: Direction?): ResourceHandler<ItemResource> {
 		return fuelHandler
 	}
 
@@ -141,18 +151,18 @@ class CoalGeneratorBlockEntity(
 		return CoalGeneratorMenu(pContainerId, pPlayerInventory, container, containerData)
 	}
 
-	override fun saveAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.saveAdditional(tag, registries)
+	override fun saveAdditional(output: ValueOutput) {
+		super.saveAdditional(output)
 
-		tag.putInt(BURN_TIME_REMAINING_NBT, burnTimeRemaining)
-		tag.putInt(MAX_BURN_TIME_NBT, maxBurnTime)
+		output.putInt(BURN_TIME_REMAINING_NBT, burnTimeRemaining)
+		output.putInt(MAX_BURN_TIME_NBT, maxBurnTime)
 	}
 
-	override fun loadAdditional(tag: CompoundTag, registries: HolderLookup.Provider) {
-		super.loadAdditional(tag, registries)
+	override fun loadAdditional(input: ValueInput) {
+		super.loadAdditional(input)
 
-		burnTimeRemaining = tag.getInt(BURN_TIME_REMAINING_NBT)
-		maxBurnTime = tag.getInt(MAX_BURN_TIME_NBT)
+		burnTimeRemaining = input.getIntOr(BURN_TIME_REMAINING_NBT, 0)
+		maxBurnTime = input.getIntOr(MAX_BURN_TIME_NBT, 0)
 	}
 
 	companion object {

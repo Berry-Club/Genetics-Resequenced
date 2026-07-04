@@ -1,9 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.entity
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getUuidOrNull
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.putUuidIfNotNull
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
@@ -16,7 +14,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
-import net.minecraft.nbt.CompoundTag
 import net.minecraft.network.syncher.EntityDataAccessor
 import net.minecraft.network.syncher.EntityDataSerializers
 import net.minecraft.network.syncher.SynchedEntityData
@@ -28,9 +25,12 @@ import net.minecraft.world.entity.Mob
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal
+import net.minecraft.world.entity.ai.targeting.TargetingConditions
 import net.minecraft.world.entity.monster.Slime
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.level.Level
+import net.minecraft.world.level.storage.ValueInput
+import net.minecraft.world.level.storage.ValueOutput
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent
 import java.util.*
 
@@ -47,13 +47,11 @@ class SupportSlime(
 	}
 
 	var ownerUuid: UUID?
-		get() = entityData.get(OWNER).orElse(null)
+		get() = entityData.get(OWNER)
+			.takeIf(String::isNotEmpty)
+			?.let(UUID::fromString)
 		private set(value) {
-			if (value != null) {
-				entityData.set(OWNER, Optional.of(value))
-			} else {
-				entityData.set(OWNER, Optional.empty())
-			}
+			entityData.set(OWNER, value?.toString() ?: "")
 		}
 
 	private fun setOwner(entity: Entity) {
@@ -62,7 +60,7 @@ class SupportSlime(
 
 	override fun defineSynchedData(builder: SynchedEntityData.Builder) {
 		super.defineSynchedData(builder)
-		builder.define(OWNER, Optional.empty())
+		builder.define(OWNER, "")
 	}
 
 	override fun onAddedToLevel() {
@@ -153,17 +151,18 @@ class SupportSlime(
 		}
 	}
 
-	override fun readAdditionalSaveData(compoundTag: CompoundTag) {
-		super.readAdditionalSaveData(compoundTag)
+	override fun readAdditionalSaveData(input: ValueInput) {
+		super.readAdditionalSaveData(input)
 
-		val owner = compoundTag.getUuidOrNull(OWNER_UUID_NBT_KEY) ?: return
-		this.ownerUuid = owner
+		this.ownerUuid = input.getString(OWNER_UUID_NBT_KEY)
+			.map(UUID::fromString)
+			.orElse(null)
 	}
 
-	override fun addAdditionalSaveData(compoundTag: CompoundTag) {
-		super.addAdditionalSaveData(compoundTag)
+	override fun addAdditionalSaveData(output: ValueOutput) {
+		super.addAdditionalSaveData(output)
 
-		compoundTag.putUuidIfNotNull(OWNER_UUID_NBT_KEY, ownerUuid)
+		ownerUuid?.let { output.putString(OWNER_UUID_NBT_KEY, it.toString()) }
 	}
 
 	override fun setSize(size: Int, resetHealth: Boolean) {
@@ -196,8 +195,9 @@ class SupportSlime(
 			NearestAttackableTargetGoal(
 				this,
 				Mob::class.java,
-				true
-			) { shouldSlimeAttackEntity(it) }
+				true,
+				TargetingConditions.Selector { target, _ -> shouldSlimeAttackEntity(target) }
+			)
 		)
 
 	}
@@ -212,8 +212,8 @@ class SupportSlime(
 		}
 
 		private const val OWNER_UUID_NBT_KEY = "OwnerUUID"
-		private val OWNER: EntityDataAccessor<Optional<UUID>> =
-			SynchedEntityData.defineId(SupportSlime::class.java, EntityDataSerializers.OPTIONAL_UUID)
+		private val OWNER: EntityDataAccessor<String> =
+			SynchedEntityData.defineId(SupportSlime::class.java, EntityDataSerializers.STRING)
 
 		fun spawnEggMessage(event: PlayerInteractEvent.RightClickBlock) {
 			if (event.side.isClient) return

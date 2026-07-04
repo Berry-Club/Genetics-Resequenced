@@ -3,22 +3,25 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.tag
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.registries.Registries
 import net.minecraft.data.PackOutput
-import net.minecraft.data.tags.ItemTagsProvider
+import net.minecraft.data.tags.IntrinsicHolderTagsProvider
 import net.minecraft.tags.ItemTags
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.Items
-import net.minecraft.world.level.block.Block
-import net.neoforged.neoforge.common.data.ExistingFileHelper
 import java.util.concurrent.CompletableFuture
 
 class ModItemTagsProvider(
 	pOutput: PackOutput,
-	pLookupProvider: CompletableFuture<HolderLookup.Provider>,
-	pBlockTags: CompletableFuture<TagLookup<Block>>,
-	existingFileHelper: ExistingFileHelper?
-) : ItemTagsProvider(pOutput, pLookupProvider, pBlockTags, GeneticsResequenced.MOD_ID, existingFileHelper) {
+	pLookupProvider: CompletableFuture<HolderLookup.Provider>
+) : IntrinsicHolderTagsProvider<Item>(
+	pOutput,
+	Registries.ITEM,
+	pLookupProvider,
+	{ item -> item.builtInRegistryHolder().key() },
+	GeneticsResequenced.MOD_ID
+) {
 
 	companion object {
 		private fun create(id: String): TagKey<Item> {
