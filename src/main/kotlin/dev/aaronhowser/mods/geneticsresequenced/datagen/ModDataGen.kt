@@ -25,16 +25,14 @@ object ModDataGen {
 	@SubscribeEvent
 	fun onGatherClientData(event: GatherDataEvent.Client) {
 		val output = event.generator.packOutput
+		val baseLookupProvider = event.lookupProvider
+
+		// Assets
 
 		event.addProvider(ModModelProvider(output))
 		event.addProvider(ModLanguageProvider(output))
-	}
 
-	@SubscribeEvent
-	fun onGatherServerData(event: GatherDataEvent.Server) {
-		val generator = event.generator
-		val output = generator.packOutput
-		val baseLookupProvider = event.lookupProvider
+		// Data
 
 		event.createDatapackRegistryObjects(
 			RegistrySetBuilder()
