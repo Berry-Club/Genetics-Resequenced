@@ -44,21 +44,7 @@ class ModBlockStateProvider(
 		frontFacingBlock(blockModels, ModBlocks.ADVANCED_INCUBATOR, "block/incubator_front")
 	}
 
-	override fun getKnownBlocks(): Stream<out Holder<Block>> =
-		Stream.of(
-			ModBlocks.ANTI_FIELD_BLOCK.get().builtInRegistryHolder(),
-			ModBlocks.BIOLUMINESCENCE_BLOCK.get().builtInRegistryHolder(),
-			ModBlocks.WEB_DEFENSE_BLOCK.get().builtInRegistryHolder(),
-			ModBlocks.COAL_GENERATOR.get().builtInRegistryHolder(),
-			ModBlocks.CELL_ANALYZER.get().builtInRegistryHolder(),
-			ModBlocks.DNA_EXTRACTOR.get().builtInRegistryHolder(),
-			ModBlocks.DNA_DECRYPTOR.get().builtInRegistryHolder(),
-			ModBlocks.BLOOD_PURIFIER.get().builtInRegistryHolder(),
-			ModBlocks.PLASMID_INFUSER.get().builtInRegistryHolder(),
-			ModBlocks.PLASMID_INJECTOR.get().builtInRegistryHolder(),
-			ModBlocks.INCUBATOR.get().builtInRegistryHolder(),
-			ModBlocks.ADVANCED_INCUBATOR.get().builtInRegistryHolder()
-		)
+	override fun getKnownBlocks(): Stream<out Holder<Block>> = ModBlocks.BLOCK_REGISTRY.entries.stream()
 
 	override fun getKnownItems(): Stream<out Holder<Item>> = Stream.empty()
 
