@@ -6,7 +6,7 @@
       "component": "geneticsresequenced:specific_entity",
       "on_false": {
         "type": "minecraft:model",
-        "model": "geneticsresequenced:item/syringe"
+        "model": "geneticsresequenced:item/syringe_empty"
       },
       "on_true": {
         "type": "minecraft:model",
