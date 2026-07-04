@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneRequirementsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.ModRecipeProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.*
@@ -26,8 +27,7 @@ object ModDataGen {
 	fun onGatherClientData(event: GatherDataEvent.Client) {
 		val output = event.generator.packOutput
 
-		// NeoForge's legacy model generator classes were removed before 26.1.2.
-		// Existing generated model assets stay in src/generated/resources until these providers are rewritten.
+		event.addProvider(ModBlockStateProvider(output))
 		event.addProvider(ModItemModelProvider(output))
 		event.addProvider(ModLanguageProvider(output))
 	}
@@ -49,19 +49,18 @@ object ModDataGen {
 
 		event.addProvider(ModRecipeProvider.Runner(output, lookupWithDatapack))
 
-		val blockTagProvider = event.addProvider(ModBlockTagsProvider(output, baseLookupProvider))
-
+		event.addProvider(ModBlockTagsProvider(output, baseLookupProvider))
 		event.addProvider(ModItemTagsProvider(output, baseLookupProvider))
-
 		event.addProvider(ModGeneTagsProvider(output, lookupWithDatapack))
-
 		event.addProvider(ModEntityTypeTagsProvider(output, baseLookupProvider))
-
 		event.addProvider(ModEnchantmentTagsProvider(output, lookupWithDatapack))
-
 		event.addProvider(ModPotionTagsProvider(output, baseLookupProvider))
-
 		event.addProvider(ModDamageTypeTagsProvider(output, lookupWithDatapack))
+
+		event.addProvider(ModLootTableProvider.create(output, baseLookupProvider))
+
+		event.addProvider(ModGeneRequirementsProvider(output, baseLookupProvider))
+		event.addProvider(ModEntityGenesProvider(output, baseLookupProvider))
 
 		event.addProvider(
 			AdvancementProvider(
@@ -70,13 +69,6 @@ object ModDataGen {
 				listOf(ModAdvancementSubProvider(lookupWithDatapack))
 			)
 		)
-
-		event.addProvider(ModLootTableProvider.create(output, baseLookupProvider))
-
-		event.addProvider(ModGeneRequirementsProvider(output, baseLookupProvider))
-
-		event.addProvider(ModEntityGenesProvider(output, baseLookupProvider))
-
 	}
 
 }

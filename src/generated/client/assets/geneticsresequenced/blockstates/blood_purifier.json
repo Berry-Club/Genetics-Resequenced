@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "geneticsresequenced:block/blood_purifier",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "geneticsresequenced:block/blood_purifier"
+    },
+    "facing=south": {
+      "model": "geneticsresequenced:block/blood_purifier",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "geneticsresequenced:block/blood_purifier",
+      "y": 270
+    }
+  }
+}
