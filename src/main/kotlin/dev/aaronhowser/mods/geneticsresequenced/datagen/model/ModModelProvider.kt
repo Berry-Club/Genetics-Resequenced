@@ -42,7 +42,7 @@ class ModModelProvider(
 		}
 
 		val flatHandheldItems = listOf(
-			ModItems.SCRAPER, ModItems.METAL_SYRINGE
+			ModItems.SCRAPER
 		)
 
 		for (item in flatHandheldItems) {
@@ -50,8 +50,10 @@ class ModModelProvider(
 		}
 
 		syringe(itemModels)
+		metalSyringe(itemModels)
 	}
 
+	//FIXME: Conditionals not working
 	private fun syringe(itemModels: ItemModelGenerators) {
 		val item = ModItems.SYRINGE.get()
 
@@ -75,6 +77,22 @@ class ModModelProvider(
 			ItemModelUtils.conditional(
 				ItemModelUtils.isUsingItem(),
 				used, unused
+			)
+		)
+	}
+
+	//FIXME: Conditionals not working
+	private fun metalSyringe(itemModels: ItemModelGenerators) {
+		val item = ModItems.METAL_SYRINGE.get()
+
+		val empty = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item))
+		val full = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_full", ModelTemplates.FLAT_ITEM))
+
+		itemModels.itemModelOutput.accept(
+			item,
+			ItemModelUtils.conditional(
+				ItemModelUtils.hasComponent(ModDataComponents.SPECIFIC_ENTITY.get()),
+				full, empty
 			)
 		)
 	}
