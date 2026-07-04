@@ -3,6 +3,7 @@
     "type": "minecraft:condition",
     "on_false": {
       "type": "minecraft:condition",
+      "component": "geneticsresequenced:specific_entity",
       "on_false": {
         "type": "minecraft:model",
         "model": "geneticsresequenced:item/syringe"
@@ -11,11 +12,11 @@
         "type": "minecraft:model",
         "model": "geneticsresequenced:item/syringe_full"
       },
-      "property": "minecraft:has_component",
-      "component": "geneticsresequenced:specific_entity"
+      "property": "minecraft:has_component"
     },
     "on_true": {
       "type": "minecraft:condition",
+      "component": "geneticsresequenced:specific_entity",
       "on_false": {
         "type": "minecraft:model",
         "model": "geneticsresequenced:item/syringe_flipped_empty"
@@ -24,8 +25,7 @@
         "type": "minecraft:model",
         "model": "geneticsresequenced:item/syringe_full_flipped"
       },
-      "property": "minecraft:has_component",
-      "component": "geneticsresequenced:specific_entity"
+      "property": "minecraft:has_component"
     },
     "property": "minecraft:using_item"
   }

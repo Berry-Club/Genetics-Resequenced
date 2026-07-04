@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneRequirementsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.ModRecipeProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.*
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -27,6 +28,7 @@ object ModDataGen {
 
 		// NeoForge's legacy model generator classes were removed before 26.1.2.
 		// Existing generated model assets stay in src/generated/resources until these providers are rewritten.
+		event.addProvider(ModItemModelProvider(output))
 		event.addProvider(ModLanguageProvider(output))
 	}
 
