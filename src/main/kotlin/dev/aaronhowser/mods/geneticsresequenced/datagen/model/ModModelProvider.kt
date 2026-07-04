@@ -7,10 +7,9 @@ import net.minecraft.client.data.models.BlockModelGenerators
 import net.minecraft.client.data.models.ItemModelGenerators
 import net.minecraft.client.data.models.ModelProvider
 import net.minecraft.client.data.models.model.ItemModelUtils
+import net.minecraft.client.data.models.model.ModelLocationUtils
 import net.minecraft.client.data.models.model.ModelTemplates
-import net.minecraft.client.data.models.model.TextureMapping
 import net.minecraft.client.data.models.model.TextureSlot
-import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.core.Holder
 import net.minecraft.data.PackOutput
 import net.minecraft.world.item.BlockItem
@@ -54,56 +53,32 @@ class ModModelProvider(
 	}
 
 	private fun syringe(itemModels: ItemModelGenerators) {
-		val baseTemplate = ModelTemplates.createItem(
+		val template = ModelTemplates.createItem(
 			modLocation("syringe_base").toString(),
 			TextureSlot.TEXTURE
 		)
 
 		val item = ModItems.SYRINGE.get()
 
-//		val emptyUnused = ModelTemplates.FLAT_ITEM.create(
-//			ModItems.SYRINGE.get(),
-//			TextureMapping.singleSlot(
-//				TextureSlot.TEXTURE,
-//				Material(modLocation("glass_syringe_empty"), false)
-//			),
-//			itemModels.itemModelOutput
-//		)
-
-//		val emptyUnused = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item))
-
-		val emptyUnused = ItemModelUtils.plainModel(
-			ModelTemplates.FLAT_ITEM.create(
-				modLocation("item/syringe_empty"),
-				TextureMapping.layer0(
-					Material(modLocation("glass_syringe_empty"))
-				),
-				itemModels.modelOutput
-			)
-		)
-
-		val isUsing = ItemModelUtils.conditional(
-			ItemModelUtils.hasComponent(ModDataComponents.SPECIFIC_ENTITY.get()),
-			plainItemModel("syringe_full_flipped"),
-			plainItemModel("syringe_flipped_empty")
-		)
-
-		val isNotUsing = ItemModelUtils.conditional(
-			ItemModelUtils.hasComponent(ModDataComponents.SPECIFIC_ENTITY.get()),
-			plainItemModel("syringe_full"),
-			emptyUnused
-		)
+		val emptyUnused = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item))
+		val emptyUsed = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_empty_flipped", template))
+		val fullUnused = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_full", template))
+		val fullUsed = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_full_flipped", template))
 
 		itemModels.itemModelOutput.accept(
-			ModItems.SYRINGE.get(),
+			item,
 			ItemModelUtils.conditional(
 				ItemModelUtils.isUsingItem(),
-				isUsing, isNotUsing
+				ItemModelUtils.conditional(
+					ItemModelUtils.hasComponent(ModDataComponents.SPECIFIC_ENTITY.get()),
+					fullUsed, emptyUsed
+				),
+				ItemModelUtils.conditional(
+					ItemModelUtils.hasComponent(ModDataComponents.SPECIFIC_ENTITY.get()),
+					fullUnused, emptyUnused
+				)
 			)
 		)
 	}
-
-	private fun plainItemModel(modelName: String) =
-		ItemModelUtils.plainModel(modLocation("item/$modelName"))
 
 }
