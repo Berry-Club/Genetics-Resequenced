@@ -1,0 +1,5 @@
+{
+  "type": "geneticsresequenced:incubator/virus",
+  "input_gene": "geneticsresequenced:scare_zombies",
+  "output_gene": "geneticsresequenced:un_undeath"
+}

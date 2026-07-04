@@ -1,0 +1,9 @@
+{
+  "dna_points_required": 50,
+  "potion_details": [
+    {
+      "effect": "minecraft:resistance",
+      "level": 2
+    }
+  ]
+}

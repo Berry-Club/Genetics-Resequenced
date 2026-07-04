@@ -83,27 +83,11 @@ neoForge {
 		}
 
 		data {
+			ideName = 'Data'
 			clientData()
-
-			gameDirectory = file 'runs/client'
-
-			programArguments.addAll '--mod', project.mod_id, '--all',
-					'--output', generatedClientResourcesDir.getAbsolutePath(),
-					'--existing', file('src/main/resources/').getAbsolutePath(),
-					'--existing', generatedStaticResourcesDir.getAbsolutePath(),
-					'--existing', generatedServerResourcesDir.getAbsolutePath()
-		}
-
-		serverData {
 			serverData()
-
-			gameDirectory = file 'runs/server_data'
-
-			programArguments.addAll '--mod', project.mod_id, '--all',
-					'--output', generatedServerResourcesDir.getAbsolutePath(),
-					'--existing', file('src/main/resources/').getAbsolutePath(),
-					'--existing', generatedStaticResourcesDir.getAbsolutePath(),
-					'--existing', generatedClientResourcesDir.getAbsolutePath()
+			programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources').getAbsolutePath(), '--existing', file('src/main/resources').getAbsolutePath()
+			gameDirectory = file 'runs/client'
 		}
 
 		"Wiki-Export-Client" {

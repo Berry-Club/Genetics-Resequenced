@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "F": "minecraft:furnace",
+    "G": "#c:glass_blocks/colorless",
+    "I": "#c:ingots/iron",
+    "R": "#c:ingots/iron"
+  },
+  "pattern": [
+    "III",
+    "GFG",
+    "GRG"
+  ],
+  "result": {
+    "id": "geneticsresequenced:coal_generator"
+  }
+}

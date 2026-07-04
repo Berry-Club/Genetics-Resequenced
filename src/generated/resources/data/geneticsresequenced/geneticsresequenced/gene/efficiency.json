@@ -1,0 +1,13 @@
+{
+  "attribute_modifiers": [
+    {
+      "attribute": "geneticsresequenced:efficiency",
+      "modifier": {
+        "amount": 1.0,
+        "id": "geneticsresequenced:efficiency",
+        "operation": "add_value"
+      }
+    }
+  ],
+  "dna_points_required": 30
+}

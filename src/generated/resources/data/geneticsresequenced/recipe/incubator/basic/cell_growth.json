@@ -1,0 +1,28 @@
+{
+  "type": "geneticsresequenced:incubator/basic",
+  "bottom_slot": {
+    "neoforge:ingredient_type": "neoforge:components",
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "geneticsresequenced:substrate"
+      }
+    },
+    "items": "minecraft:potion"
+  },
+  "is_low_temperature": false,
+  "output": {
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "geneticsresequenced:cell_growth"
+      }
+    },
+    "id": "minecraft:potion"
+  },
+  "top_slot": {
+    "neoforge:ingredient_type": "neoforge:components",
+    "components": {
+      "geneticsresequenced:gene": "geneticsresequenced:basic"
+    },
+    "items": "geneticsresequenced:dna_helix"
+  }
+}

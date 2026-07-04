@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": "minecraft:bucket",
+    "I": "#c:ingots/iron",
+    "S": "geneticsresequenced:syringe",
+    "W": "minecraft:white_wool"
+  },
+  "pattern": [
+    "IWI",
+    "SBS",
+    "IWI"
+  ],
+  "result": {
+    "id": "geneticsresequenced:blood_purifier"
+  }
+}

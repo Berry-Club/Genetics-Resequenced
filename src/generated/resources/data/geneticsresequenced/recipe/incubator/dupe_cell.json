@@ -1,0 +1,5 @@
+{
+  "type": "geneticsresequenced:incubator/dupe_cell",
+  "amount_to_create": 8,
+  "item_to_dupe": "geneticsresequenced:cell"
+}
