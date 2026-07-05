@@ -43,7 +43,7 @@ class ModAdvancementSubProvider(
 				ModItems.SCRAPER.get(),
 				Component.literal("Genetics: Resequenced"),
 				ModAdvancementLang.SCRAPER_DESC.toComponent(),
-				GeneticsResequenced.modResource("textures/block/machine_bottom.png"),
+				GeneticsResequenced.modId("textures/block/machine_bottom.png"),
 				AdvancementType.TASK,
 				true,
 				true,
@@ -261,7 +261,7 @@ class ModAdvancementSubProvider(
 	}
 
 	companion object {
-		private fun guide(string: String) = GeneticsResequenced.modResource("guide/$string")
+		private fun guide(string: String) = GeneticsResequenced.modId("guide/$string")
 
 		val ROOT = guide("root")
 		val CELL_ANALYZER = guide("cell_analyzer")

@@ -43,7 +43,7 @@ data class GeneChangedPacket(
 
 	companion object {
 		val TYPE: CustomPacketPayload.Type<GeneChangedPacket> =
-			CustomPacketPayload.Type(GeneticsResequenced.modResource("gene_changed"))
+			CustomPacketPayload.Type(GeneticsResequenced.modId("gene_changed"))
 
 		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, GeneChangedPacket> =
 			StreamCodec.composite(

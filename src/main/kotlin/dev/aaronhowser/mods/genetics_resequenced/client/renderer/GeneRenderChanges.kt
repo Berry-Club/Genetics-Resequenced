@@ -16,8 +16,8 @@ import org.joml.SimplexNoise
 
 object GeneRenderChanges {
 
-	private val HAS_CRINGE = ContextKey<Boolean>(GeneticsResequenced.modResource("has_cringe"))
-	private val CLINGS_TO_CEILING = ContextKey<Boolean>(GeneticsResequenced.modResource("clings_to_ceiling"))
+	private val HAS_CRINGE = ContextKey<Boolean>(GeneticsResequenced.modId("has_cringe"))
+	private val CLINGS_TO_CEILING = ContextKey<Boolean>(GeneticsResequenced.modId("clings_to_ceiling"))
 
 	fun registerRenderStateModifiers(event: RegisterRenderStateModifiersEvent) {
 		event.registerEntityModifier(

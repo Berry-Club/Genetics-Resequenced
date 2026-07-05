@@ -66,7 +66,7 @@ class DecryptHelixEmiRecipe(
 		val entityString = entityTypeRl.toString().replace(':', '/')
 		val geneString = geneHolder.key!!.identifier().toString().replace(':', '/')
 
-		return GeneticsResequenced.modResource("/dna_extractor/$entityString/to/$geneString")
+		return GeneticsResequenced.modId("/dna_extractor/$entityString/to/$geneString")
 	}
 
 	override fun getInputs(): List<EmiIngredient> {

@@ -32,7 +32,7 @@ object AntiPlasmidEmiRecipes {
 				EmiCraftingRecipe(
 					listOf(emptyAntiPlasmid, EmiIngredient.of(Ingredient.of(plasmidStack))),
 					EmiStack.of(setAntiPlasmid),
-					GeneticsResequenced.modResource("/set_anti_plasmid/${geneString}"),
+					GeneticsResequenced.modId("/set_anti_plasmid/${geneString}"),
 					true
 				)
 			)
@@ -53,7 +53,7 @@ object AntiPlasmidEmiRecipes {
 				EmiCraftingRecipe(
 					listOf(EmiIngredient.of(Ingredient.of(antiPlasmidStack))),
 					EmiStack.of(ModItems.ANTI_PLASMID),
-					GeneticsResequenced.modResource("/unset_anti_plasmid/${geneString}"),
+					GeneticsResequenced.modId("/unset_anti_plasmid/${geneString}"),
 					true
 				)
 			)

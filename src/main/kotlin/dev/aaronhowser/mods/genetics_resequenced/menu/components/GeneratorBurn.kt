@@ -47,7 +47,7 @@ class GeneratorBurn(
 	}
 
 	companion object {
-		val TEXTURE = GeneticsResequenced.modResource("burn")
+		val TEXTURE = GeneticsResequenced.modId("burn")
 		const val TEXTURE_SIZE = 16
 
 		const val X = 52

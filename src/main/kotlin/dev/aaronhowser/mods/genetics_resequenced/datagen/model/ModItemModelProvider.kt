@@ -55,7 +55,7 @@ class ModItemModelProvider(
 		)
 
 	private fun plainItemModel(modelName: String) =
-		ItemModelUtils.plainModel(GeneticsResequenced.modResource("item/$modelName"))
+		ItemModelUtils.plainModel(GeneticsResequenced.modId("item/$modelName"))
 
 	private companion object {
 		val SIMPLE_ITEMS: List<Pair<ItemLike, String>> = listOf(

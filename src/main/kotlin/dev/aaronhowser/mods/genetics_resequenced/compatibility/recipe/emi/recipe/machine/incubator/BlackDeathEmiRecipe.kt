@@ -69,6 +69,6 @@ class BlackDeathEmiRecipe(
 
 	override fun getId(): Identifier {
 		val type = if (isMetal) "/metal" else ""
-		return GeneticsResequenced.modResource("/brewing/black_death$type")
+		return GeneticsResequenced.modId("/brewing/black_death$type")
 	}
 }

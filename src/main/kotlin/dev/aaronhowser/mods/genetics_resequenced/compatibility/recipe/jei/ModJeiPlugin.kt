@@ -68,7 +68,7 @@ class ModJeiPlugin : IModPlugin {
 	override fun getPluginUid(): Identifier = PLUGIN_UID
 
 	companion object {
-		val PLUGIN_UID = GeneticsResequenced.modResource("jei_plugin")
+		val PLUGIN_UID = GeneticsResequenced.modId("jei_plugin")
 
 		val IS_EMI_INSTALLED by lazy { ModList.get().isLoaded("emi") }
 	}

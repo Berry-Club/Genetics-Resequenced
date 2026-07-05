@@ -82,7 +82,7 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 					.add(
 						Attributes.ENTITY_INTERACTION_RANGE,
 						AttributeModifier(
-							GeneticsResequenced.modResource("syringe_reach_modifier"),
+							GeneticsResequenced.modId("syringe_reach_modifier"),
 							3.0,
 							AttributeModifier.Operation.ADD_VALUE
 						),

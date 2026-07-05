@@ -165,9 +165,9 @@ class ModBlockStateProvider(
 			.putForced(TextureSlot.PARTICLE, texture("block/machine_top"))
 
 	private fun blockModelLocation(path: String): Identifier =
-		GeneticsResequenced.modResource("block/$path")
+		GeneticsResequenced.modId("block/$path")
 
 	private fun texture(path: String): Material =
-		Material(GeneticsResequenced.modResource(path))
+		Material(GeneticsResequenced.modId(path))
 
 }

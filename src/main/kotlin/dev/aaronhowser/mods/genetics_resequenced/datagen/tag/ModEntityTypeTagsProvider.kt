@@ -61,7 +61,7 @@ class ModEntityTypeTagsProvider(
 
 	companion object {
 		private fun create(id: String): TagKey<EntityType<*>> {
-			return TagKey.create(Registries.ENTITY_TYPE, GeneticsResequenced.modResource(id))
+			return TagKey.create(Registries.ENTITY_TYPE, GeneticsResequenced.modId(id))
 		}
 
 		val SCRAPER_ENTITY_BLACKLIST = create("scraper_blacklist")

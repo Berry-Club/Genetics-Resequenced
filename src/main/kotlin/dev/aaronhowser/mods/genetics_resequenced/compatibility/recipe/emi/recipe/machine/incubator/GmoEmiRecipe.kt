@@ -94,7 +94,7 @@ class GmoEmiRecipe(
 		val entityTypeString = EntityType.getKey(entityType).toString().replace(':', '/')
 		val geneString = idealResourceKey.identifier().toString().replace(':', '/')
 
-		return GeneticsResequenced.modResource("/gmo/$entityTypeString/$geneString")
+		return GeneticsResequenced.modId("/gmo/$entityTypeString/$geneString")
 	}
 
 	override fun addWidgets(widgets: WidgetHolder) {

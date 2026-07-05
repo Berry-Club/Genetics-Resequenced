@@ -21,7 +21,7 @@ class ModGeneTagsProvider(
 
 	companion object {
 		private fun create(name: String): TagKey<Gene> {
-			return TagKey.create(ModGenes.GENE_REGISTRY_KEY, GeneticsResequenced.modResource(name))
+			return TagKey.create(ModGenes.GENE_REGISTRY_KEY, GeneticsResequenced.modId(name))
 		}
 
 		val HELIX_ONLY = create("helix_only")

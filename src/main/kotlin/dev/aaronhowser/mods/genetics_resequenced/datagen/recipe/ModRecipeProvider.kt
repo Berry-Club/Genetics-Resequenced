@@ -519,7 +519,7 @@ class ModRecipeProvider(
 	}
 
 	private fun recipeKey(path: String): ResourceKey<Recipe<*>> =
-		ResourceKey.create(Registries.RECIPE, GeneticsResequenced.modResource(path))
+		ResourceKey.create(Registries.RECIPE, GeneticsResequenced.modId(path))
 
 	class Runner(
 		output: PackOutput,

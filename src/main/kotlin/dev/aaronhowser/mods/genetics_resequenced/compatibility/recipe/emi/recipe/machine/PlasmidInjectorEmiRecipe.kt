@@ -91,7 +91,7 @@ class PlasmidInjectorEmiRecipe(
 		val syringeString = if (isMetal) "/metal" else ""
 		val plasmidString = if (isAntiPlasmid) "/anti" else ""
 
-		return GeneticsResequenced.modResource("/plasmid_injector/$geneString$syringeString$plasmidString")
+		return GeneticsResequenced.modId("/plasmid_injector/$geneString$syringeString$plasmidString")
 	}
 
 	override fun getInputs(): List<EmiIngredient> {

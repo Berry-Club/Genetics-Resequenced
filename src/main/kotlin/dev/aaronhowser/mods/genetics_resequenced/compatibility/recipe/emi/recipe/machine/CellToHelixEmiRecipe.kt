@@ -110,7 +110,7 @@ class CellToHelixEmiRecipe(
 			stringBuilder.append(geneString)
 		}
 
-		return GeneticsResequenced.modResource(stringBuilder.toString())
+		return GeneticsResequenced.modId(stringBuilder.toString())
 	}
 
 	override fun getInputs(): List<EmiIngredient> {

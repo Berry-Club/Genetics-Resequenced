@@ -38,67 +38,67 @@ object ModAttributes {
 	object AttributeModifiers {
 		//TODO: Maybe make this not an attribute modifier?
 		val KNOCKBACK = AttributeModifier(
-			GeneticsResequenced.modResource("knockback"),
+			GeneticsResequenced.modId("knockback"),
 			2.0,
 			AttributeModifier.Operation.ADD_VALUE
 		)
 
 		val FLIGHT = AttributeModifier(
-			GeneticsResequenced.modResource("flight"),
+			GeneticsResequenced.modId("flight"),
 			1.0,
 			AttributeModifier.Operation.ADD_VALUE
 		)
 
 		val MORE_HEALTH_ONE = AttributeModifier(
-			GeneticsResequenced.modResource("more_health_one"),
+			GeneticsResequenced.modId("more_health_one"),
 			20.0,
 			AttributeModifier.Operation.ADD_VALUE
 		)
 
 		val MORE_HEALTH_TWO = AttributeModifier(
-			GeneticsResequenced.modResource("more_health_two"),
+			GeneticsResequenced.modId("more_health_two"),
 			20.0,
 			AttributeModifier.Operation.ADD_VALUE
 		)
 
 		val STEP_ASSIST = AttributeModifier(
-			GeneticsResequenced.modResource("step_assist"),
+			GeneticsResequenced.modId("step_assist"),
 			1.0,
 			AttributeModifier.Operation.ADD_VALUE
 		)
 
 		val EFFICIENCY = AttributeModifier(
-			GeneticsResequenced.modResource("efficiency"),
+			GeneticsResequenced.modId("efficiency"),
 			1.0,
 			AttributeModifier.Operation.ADD_VALUE
 		)
 
 		val EFFICIENCY_FOUR = AttributeModifier(
-			GeneticsResequenced.modResource("efficiency_four"),
+			GeneticsResequenced.modId("efficiency_four"),
 			3.0, // Because you can't have this without the first level
 			AttributeModifier.Operation.ADD_VALUE
 		)
 
 		val REACHING = AttributeModifier(
-			GeneticsResequenced.modResource("reaching"),
+			GeneticsResequenced.modId("reaching"),
 			1.25,
 			AttributeModifier.Operation.ADD_MULTIPLIED_TOTAL
 		)
 
 		val BOUNTIFUL = AttributeModifier(
-			GeneticsResequenced.modResource("bountiful"),
+			GeneticsResequenced.modId("bountiful"),
 			1.0,
 			AttributeModifier.Operation.ADD_VALUE
 		)
 
 		val BOUNTIFUL_TWO = AttributeModifier(
-			GeneticsResequenced.modResource("bountiful_two"),
+			GeneticsResequenced.modId("bountiful_two"),
 			1.0,
 			AttributeModifier.Operation.ADD_VALUE
 		)
 
 		val EXPERIENCED = AttributeModifier(
-			GeneticsResequenced.modResource("experienced"),
+			GeneticsResequenced.modId("experienced"),
 			1.0,
 			AttributeModifier.Operation.ADD_VALUE
 		)

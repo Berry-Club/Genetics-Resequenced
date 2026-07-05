@@ -36,7 +36,7 @@ class GeneticsResequenced(
 		const val MOD_ID = "genetics_resequenced"
 		val LOGGER: Logger = LogManager.getLogger(MOD_ID)
 
-		fun modResource(path: String): Identifier =
+		fun modId(path: String): Identifier =
 			Identifier.fromNamespaceAndPath(MOD_ID, path)
 	}
 }

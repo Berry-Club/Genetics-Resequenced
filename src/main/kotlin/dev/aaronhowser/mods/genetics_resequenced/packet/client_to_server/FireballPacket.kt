@@ -22,7 +22,7 @@ class FireballPacket private constructor() : AaronPacket() {
 		val INSTANCE = FireballPacket()
 
 		val TYPE: CustomPacketPayload.Type<FireballPacket> =
-			CustomPacketPayload.Type<FireballPacket>(GeneticsResequenced.modResource("fireball"))
+			CustomPacketPayload.Type<FireballPacket>(GeneticsResequenced.modId("fireball"))
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, FireballPacket> = StreamCodec.unit(INSTANCE)
 	}

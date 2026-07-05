@@ -62,7 +62,7 @@ class SetPotionEntityEmiRecipe(
 		val potionString = if (isMutation) "mutation" else "pcg"
 		val entityTypeString = EntityType.getKey(entityType).toString().replace(':', '/')
 
-		return GeneticsResequenced.modResource("/set_potion_entity/$potionString/$entityTypeString")
+		return GeneticsResequenced.modId("/set_potion_entity/$potionString/$entityTypeString")
 	}
 
 }

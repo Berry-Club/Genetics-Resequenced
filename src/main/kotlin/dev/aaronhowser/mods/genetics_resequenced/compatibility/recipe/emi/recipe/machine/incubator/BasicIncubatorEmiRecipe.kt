@@ -69,6 +69,6 @@ class BasicIncubatorEmiRecipe(
 				.append(potionId)
 		}
 
-		return GeneticsResequenced.modResource(stringBuilder.toString())
+		return GeneticsResequenced.modId(stringBuilder.toString())
 	}
 }

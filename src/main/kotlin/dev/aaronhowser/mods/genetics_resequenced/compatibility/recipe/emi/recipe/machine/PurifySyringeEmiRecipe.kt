@@ -51,7 +51,7 @@ class PurifySyringeEmiRecipe(
 
 	override fun getId(): Identifier {
 		val type = if (isMetal) "metal" else "glass"
-		return GeneticsResequenced.modResource("/purify_syringe/$type")
+		return GeneticsResequenced.modId("/purify_syringe/$type")
 	}
 
 	override fun getInputs(): List<EmiIngredient> {

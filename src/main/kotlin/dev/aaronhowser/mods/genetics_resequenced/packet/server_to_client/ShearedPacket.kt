@@ -25,7 +25,7 @@ data class ShearedPacket(
 
 	companion object {
 		val TYPE: CustomPacketPayload.Type<ShearedPacket> =
-			CustomPacketPayload.Type<ShearedPacket>(GeneticsResequenced.modResource("sheared"))
+			CustomPacketPayload.Type<ShearedPacket>(GeneticsResequenced.modId("sheared"))
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, ShearedPacket> =
 			ByteBufCodecs.BOOL.map(::ShearedPacket, ShearedPacket::removingSkin)

@@ -9,7 +9,7 @@ import org.lwjgl.glfw.GLFW
 
 object ModKeyMappings {
 
-	private val CATEGORY = KeyMapping.Category.register(GeneticsResequenced.modResource("genetics_resequenced"))
+	private val CATEGORY = KeyMapping.Category.register(GeneticsResequenced.modId("genetics_resequenced"))
 
 	val DRAGONS_BREATH = KeyMapping(
 		ModLanguageProvider.Keys.DRAGONS_BREATH,

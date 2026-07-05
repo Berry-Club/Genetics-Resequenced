@@ -22,7 +22,7 @@ class TeleportPlayerPacket private constructor() : AaronPacket() {
 		val INSTANCE = TeleportPlayerPacket()
 
 		val TYPE: CustomPacketPayload.Type<TeleportPlayerPacket> =
-			CustomPacketPayload.Type<TeleportPlayerPacket>(GeneticsResequenced.modResource("teleport"))
+			CustomPacketPayload.Type<TeleportPlayerPacket>(GeneticsResequenced.modId("teleport"))
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, TeleportPlayerPacket> = StreamCodec.unit(INSTANCE)
 	}

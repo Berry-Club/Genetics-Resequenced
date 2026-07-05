@@ -53,7 +53,7 @@ class VirusEmiRecipe(
 		val inputGeneString = inputDnaGeneRk.identifier().toString().replace(':', '/')
 		val outputGeneString = outputGeneRk.identifier().toString().replace(':', '/')
 
-		return GeneticsResequenced.modResource("/virus/$inputGeneString/$outputGeneString")
+		return GeneticsResequenced.modId("/virus/$inputGeneString/$outputGeneString")
 	}
 
 }

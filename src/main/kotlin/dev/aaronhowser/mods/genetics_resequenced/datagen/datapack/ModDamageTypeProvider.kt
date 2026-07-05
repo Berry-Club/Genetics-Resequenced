@@ -11,7 +11,7 @@ import net.minecraft.world.damagesource.DamageType
 object ModDamageTypeProvider {
 
 	private fun createRk(name: String): ResourceKey<DamageType> =
-		ResourceKey.create(Registries.DAMAGE_TYPE, GeneticsResequenced.modResource(name))
+		ResourceKey.create(Registries.DAMAGE_TYPE, GeneticsResequenced.modId(name))
 
 	val STEP_ON_SYRINGE: ResourceKey<DamageType> = createRk("step_on_syringe")
 	val USE_SYRINGE: ResourceKey<DamageType> = createRk("use_syringe")

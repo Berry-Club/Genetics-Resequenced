@@ -88,7 +88,7 @@ class DupeCellEmiRecipe(
 			string += "/$geneString"
 		}
 
-		return GeneticsResequenced.modResource(string)
+		return GeneticsResequenced.modId(string)
 	}
 
 }

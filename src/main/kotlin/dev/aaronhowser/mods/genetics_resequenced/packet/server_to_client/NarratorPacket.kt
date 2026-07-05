@@ -28,7 +28,7 @@ data class NarratorPacket(
 
 	companion object {
 		val TYPE: CustomPacketPayload.Type<NarratorPacket> =
-			CustomPacketPayload.Type(GeneticsResequenced.modResource("narrator"))
+			CustomPacketPayload.Type(GeneticsResequenced.modId("narrator"))
 
 		val STREAM_CODEC: StreamCodec<ByteBuf, NarratorPacket> =
 			ByteBufCodecs.STRING_UTF8.map(::NarratorPacket, NarratorPacket::message)

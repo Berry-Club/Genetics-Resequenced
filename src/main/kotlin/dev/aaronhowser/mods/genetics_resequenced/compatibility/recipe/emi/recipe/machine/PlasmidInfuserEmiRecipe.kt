@@ -78,7 +78,7 @@ class PlasmidInfuserEmiRecipe(
 		val geneString = geneHolder.key!!.identifier().toString().replace(':', '/')
 		val basicString = if (basic) "/basic" else ""
 
-		return GeneticsResequenced.modResource("/plasmid_infuser/$geneString$basicString")
+		return GeneticsResequenced.modId("/plasmid_infuser/$geneString$basicString")
 	}
 
 	override fun getInputs(): List<EmiIngredient> {

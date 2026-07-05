@@ -32,6 +32,6 @@ object ModEnchantmentProvider {
 	}
 
 	private fun createRk(name: String): ResourceKey<Enchantment> =
-		ResourceKey.create(Registries.ENCHANTMENT, GeneticsResequenced.modResource(name))
+		ResourceKey.create(Registries.ENCHANTMENT, GeneticsResequenced.modId(name))
 
 }

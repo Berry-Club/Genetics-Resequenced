@@ -17,7 +17,7 @@ object ModEntityTypes {
 		DeferredRegister.create(BuiltInRegistries.ENTITY_TYPE, GeneticsResequenced.MOD_ID)
 
 	val SUPPORT_SLIME: DeferredHolder<EntityType<*>, EntityType<SupportSlime>> = ENTITY_TYPE_REGISTRY.register("support_slime", Supplier {
-		val key: ResourceKey<EntityType<*>> = ResourceKey.create(Registries.ENTITY_TYPE, GeneticsResequenced.modResource("support_slime"))
+		val key: ResourceKey<EntityType<*>> = ResourceKey.create(Registries.ENTITY_TYPE, GeneticsResequenced.modId("support_slime"))
 		EntityType.Builder.of(
 			{ type, level -> SupportSlime(type, level) },
 			MobCategory.CREATURE

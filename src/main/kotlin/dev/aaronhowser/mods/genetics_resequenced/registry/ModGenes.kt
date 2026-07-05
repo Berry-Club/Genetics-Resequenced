@@ -17,7 +17,7 @@ import kotlin.jvm.optionals.getOrNull
 object ModGenes {
 
 	val GENE_REGISTRY_KEY: ResourceKey<Registry<Gene>> =
-		ResourceKey.createRegistryKey(GeneticsResequenced.modResource("gene"))
+		ResourceKey.createRegistryKey(GeneticsResequenced.modId("gene"))
 
 	@JvmStatic
 	fun getGeneRegistry(registries: HolderLookup.Provider): HolderLookup.RegistryLookup<Gene> {
@@ -67,7 +67,7 @@ object ModGenes {
 	}
 
 	private fun resourceKey(geneName: String): ResourceKey<Gene> {
-		return ResourceKey.create(GENE_REGISTRY_KEY, GeneticsResequenced.modResource(geneName))
+		return ResourceKey.create(GENE_REGISTRY_KEY, GeneticsResequenced.modId(geneName))
 	}
 
 	val BASIC = resourceKey("basic")

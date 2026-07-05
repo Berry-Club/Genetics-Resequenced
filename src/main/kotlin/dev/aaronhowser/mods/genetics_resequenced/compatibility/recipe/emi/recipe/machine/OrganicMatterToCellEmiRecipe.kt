@@ -54,7 +54,7 @@ class OrganicMatterToCellEmiRecipe(
 		val entityTypeRl = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
 		val entityString = entityTypeRl.toString().replace(':', '/')
 
-		return GeneticsResequenced.modResource("/cell_analyzer/$entityString")
+		return GeneticsResequenced.modId("/cell_analyzer/$entityString")
 	}
 
 	override fun getInputs(): List<EmiIngredient> {
