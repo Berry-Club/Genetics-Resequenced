@@ -1,8 +1,0 @@
-{
-  "entity": "minecraft:breeze",
-  "gene_weights": {
-    "geneticsresequenced:basic": 2,
-    "geneticsresequenced:jump_boost": 5,
-    "geneticsresequenced:wind_charged": 4
-  }
-}

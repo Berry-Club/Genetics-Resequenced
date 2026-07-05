@@ -1,7 +1,0 @@
-{
-  "entity": "minecraft:skeleton",
-  "gene_weights": {
-    "geneticsresequenced:basic": 5,
-    "geneticsresequenced:infinity": 1
-  }
-}

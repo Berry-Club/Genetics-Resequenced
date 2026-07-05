@@ -1,8 +1,0 @@
-{
-  "entity": "minecraft:phantom",
-  "gene_weights": {
-    "geneticsresequenced:basic": 5,
-    "geneticsresequenced:invisible": 3,
-    "geneticsresequenced:teleport": 3
-  }
-}

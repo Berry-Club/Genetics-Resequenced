@@ -1,5 +1,0 @@
-{
-  "type": "geneticsresequenced:incubator/virus",
-  "input_gene": "geneticsresequenced:strength",
-  "output_gene": "geneticsresequenced:weakness"
-}

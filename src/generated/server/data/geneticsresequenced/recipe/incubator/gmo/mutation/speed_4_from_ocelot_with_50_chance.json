@@ -1,8 +1,0 @@
-{
-  "type": "geneticsresequenced:incubator/gmo",
-  "entity_type": "minecraft:ocelot",
-  "gene_chance": 0.5,
-  "ideal_gene": "geneticsresequenced:speed_4",
-  "ingredient": "minecraft:netherite_boots",
-  "needs_mutation_potion": true
-}
