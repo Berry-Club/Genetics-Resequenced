@@ -88,7 +88,6 @@ class ModModelProvider(
 		metalSyringe(itemModels)
 	}
 
-	//FIXME: Conditionals not working
 	private fun syringe(itemModels: ItemModelGenerators) {
 		val item = ModItems.SYRINGE.get()
 
@@ -116,7 +115,6 @@ class ModModelProvider(
 		)
 	}
 
-	//FIXME: Conditionals not working
 	private fun metalSyringe(itemModels: ItemModelGenerators) {
 		val item = ModItems.METAL_SYRINGE.get()
 
