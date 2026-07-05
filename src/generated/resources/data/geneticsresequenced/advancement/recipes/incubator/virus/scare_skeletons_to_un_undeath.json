@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:incubator/virus/scare_skeletons_to_un_undeath"
+        "recipe": "genetics_resequenced:incubator/virus/scare_skeletons_to_un_undeath"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:incubator/virus/scare_skeletons_to_un_undeath"
+      "genetics_resequenced:incubator/virus/scare_skeletons_to_un_undeath"
     ]
   }
 }

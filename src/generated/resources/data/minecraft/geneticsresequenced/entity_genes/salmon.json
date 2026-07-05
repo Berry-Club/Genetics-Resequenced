@@ -1,7 +1,7 @@
 {
   "entity": "minecraft:salmon",
   "gene_weights": {
-    "geneticsresequenced:basic": 5,
-    "geneticsresequenced:water_breathing": 3
+    "genetics_resequenced:basic": 5,
+    "genetics_resequenced:water_breathing": 3
   }
 }

@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "geneticsresequenced:dna_extractor"
+          "name": "genetics_resequenced:dna_extractor"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "geneticsresequenced:blocks/dna_extractor"
+  "random_sequence": "genetics_resequenced:blocks/dna_extractor"
 }

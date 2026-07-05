@@ -1,6 +1,6 @@
 {
-	"id": "geneticsresequenced",
-	"modid": "geneticsresequenced",
+	"id": "genetics_resequenced",
+	"modid": "genetics_resequenced",
 	"owners": ["aaronhowser1"],
 	"platforms": {
 		"curseforge": "genetics-resequenced",

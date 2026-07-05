@@ -1,0 +1,19 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "dev.aaronhowser.mods.genetics_resequenced.mixin",
+  "mixins": [
+    "BeePollinateGoalMixin",
+    "ClientHooksMixin",
+    "EnchantedCountIncreaseFunctionMixin",
+    "EntityMixin",
+    "LevelMixin",
+    "LivingEntityMixin",
+    "TargetGoalMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "client": [
+	]
+}

@@ -1,5 +1,5 @@
 {
-  "type": "geneticsresequenced:incubator/virus",
-  "input_gene": "geneticsresequenced:night_vision",
-  "output_gene": "geneticsresequenced:blindness"
+  "type": "genetics_resequenced:incubator/virus",
+  "input_gene": "genetics_resequenced:night_vision",
+  "output_gene": "genetics_resequenced:blindness"
 }

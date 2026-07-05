@@ -3,7 +3,7 @@
   "category": "misc",
   "key": {
     "E": "#c:end_stones",
-    "I": "geneticsresequenced:incubator",
+    "I": "genetics_resequenced:incubator",
     "O": "#c:obsidians"
   },
   "pattern": [
@@ -12,6 +12,6 @@
     "EEE"
   ],
   "result": {
-    "id": "geneticsresequenced:advanced_incubator"
+    "id": "genetics_resequenced:advanced_incubator"
   }
 }

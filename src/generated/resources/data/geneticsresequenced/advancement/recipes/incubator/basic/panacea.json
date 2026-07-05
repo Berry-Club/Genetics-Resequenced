@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:incubator/basic/panacea"
+        "recipe": "genetics_resequenced:incubator/basic/panacea"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:incubator/basic/panacea"
+      "genetics_resequenced:incubator/basic/panacea"
     ]
   }
 }

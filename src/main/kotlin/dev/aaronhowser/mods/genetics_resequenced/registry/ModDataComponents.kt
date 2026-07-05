@@ -1,0 +1,62 @@
+package dev.aaronhowser.mods.genetics_resequenced.registry
+
+import dev.aaronhowser.mods.aaron.registry.AaronDataComponentRegistry
+import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
+import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
+import dev.aaronhowser.mods.genetics_resequenced.item.components.PlasmidProgressItemComponent
+import dev.aaronhowser.mods.genetics_resequenced.item.components.SpecificEntityItemComponent
+import net.minecraft.core.Holder
+import net.minecraft.core.HolderSet
+import net.minecraft.core.component.DataComponentType
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.core.registries.Registries
+import net.minecraft.network.codec.ByteBufCodecs
+import net.minecraft.util.Unit
+import net.minecraft.world.entity.EntityType
+import net.neoforged.neoforge.registries.DeferredHolder
+import net.neoforged.neoforge.registries.DeferredRegister
+
+object ModDataComponents : AaronDataComponentRegistry() {
+
+	val DATA_COMPONENT_REGISTRY: DeferredRegister.DataComponents =
+		DeferredRegister.createDataComponents(Registries.DATA_COMPONENT_TYPE, GeneticsResequenced.MOD_ID)
+
+	override fun getDataComponentRegistry(): DeferredRegister.DataComponents = DATA_COMPONENT_REGISTRY
+
+	val IS_ACTIVE: DeferredHolder<DataComponentType<*>, DataComponentType<Unit>> =
+		unit("is_active")
+	val IS_CONTAMINATED: DeferredHolder<DataComponentType<*>, DataComponentType<Unit>> =
+		unit("is_contaminated")
+	val IS_INFINITY_ARROW: DeferredHolder<DataComponentType<*>, DataComponentType<Unit>> =
+		unit("is_infinity_arrow")
+	val DRAGON_HEALTH_CRYSTAL_DAMAGE: DeferredHolder<DataComponentType<*>, DataComponentType<Double>> =
+		double("dragon_health_crystal_damage")
+	val GENE: DeferredHolder<DataComponentType<*>, DataComponentType<Holder<Gene>>> =
+		register("gene", Gene.CODEC, Gene.STREAM_CODEC)
+	val GENE_SET: DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =
+		register("genes", Gene.HOLDER_SET_CODEC, Gene.HOLDER_SET_STREAM_CODEC)
+	val ANTIGENE_SET: DeferredHolder<DataComponentType<*>, DataComponentType<HolderSet<Gene>>> =
+		register("antigenes", Gene.HOLDER_SET_CODEC, Gene.HOLDER_SET_STREAM_CODEC)
+
+	val ENTITY_TYPE: DeferredHolder<DataComponentType<*>, DataComponentType<EntityType<*>>> =
+		register(
+			"entity_type",
+			BuiltInRegistries.ENTITY_TYPE.byNameCodec(),
+			ByteBufCodecs.registry(Registries.ENTITY_TYPE)
+		)
+
+	val SPECIFIC_ENTITY: DeferredHolder<DataComponentType<*>, DataComponentType<SpecificEntityItemComponent>> =
+		register(
+			"specific_entity",
+			SpecificEntityItemComponent.CODEC,
+			SpecificEntityItemComponent.STREAM_CODEC
+		)
+
+	val PLASMID_PROGRESS: DeferredHolder<DataComponentType<*>, DataComponentType<PlasmidProgressItemComponent>> =
+		register(
+			"plasmid_progress",
+			PlasmidProgressItemComponent.CODEC,
+			PlasmidProgressItemComponent.STREAM_CODEC
+		)
+
+}

@@ -3,7 +3,7 @@
 	"category": "misc",
 	"key": {
 		"D": {
-			"item": "geneticsresequenced:dna_helix"
+			"item": "genetics_resequenced:dna_helix"
 		}
 	},
 	"pattern": [
@@ -13,6 +13,6 @@
 	],
 	"result": {
 		"count": 1,
-		"id": "geneticsresequenced:plasmid"
+		"id": "genetics_resequenced:plasmid"
 	}
 }

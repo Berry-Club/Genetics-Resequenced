@@ -1,8 +1,8 @@
 {
-  "type": "geneticsresequenced:incubator/gmo",
+  "type": "genetics_resequenced:incubator/gmo",
   "entity_type": "minecraft:polar_bear",
   "gene_chance": 0.5,
-  "ideal_gene": "geneticsresequenced:strength_2",
+  "ideal_gene": "genetics_resequenced:strength_2",
   "ingredient": "minecraft:netherite_sword",
   "needs_mutation_potion": true
 }

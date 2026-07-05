@@ -1,11 +1,11 @@
 {
-  "parent": "geneticsresequenced:guide/cell_analyzer",
+  "parent": "genetics_resequenced:guide/cell_analyzer",
   "criteria": {
     "has_dna_extractor": {
       "conditions": {
         "items": [
           {
-            "items": "geneticsresequenced:dna_extractor"
+            "items": "genetics_resequenced:dna_extractor"
           }
         ]
       },
@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": "geneticsresequenced:dna_helix"
+            "items": "genetics_resequenced:dna_helix"
           }
         ]
       },
@@ -24,13 +24,13 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.dna_extractor.desc"
+      "translate": "advancement.genetics_resequenced.dna_extractor.desc"
     },
     "icon": {
-      "id": "geneticsresequenced:dna_extractor"
+      "id": "genetics_resequenced:dna_extractor"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.dna_extractor.title"
+      "translate": "advancement.genetics_resequenced.dna_extractor.title"
     }
   },
   "requirements": [

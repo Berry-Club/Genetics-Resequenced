@@ -1,7 +1,7 @@
 {
   "values": [
-    "geneticsresequenced:metal_syringe",
-    "geneticsresequenced:scraper",
-    "geneticsresequenced:gene_checker"
+    "genetics_resequenced:metal_syringe",
+    "genetics_resequenced:scraper",
+    "genetics_resequenced:gene_checker"
   ]
 }

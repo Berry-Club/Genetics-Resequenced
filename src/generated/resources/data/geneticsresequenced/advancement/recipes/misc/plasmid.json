@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "geneticsresequenced:plasmid_injector"
+            "items": "genetics_resequenced:plasmid_injector"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:plasmid"
+        "recipe": "genetics_resequenced:plasmid"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:plasmid"
+      "genetics_resequenced:plasmid"
     ]
   }
 }

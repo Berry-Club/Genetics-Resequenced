@@ -13,6 +13,6 @@
   },
   "dna_points_required": 40,
   "incompatible_genes": [
-    "geneticsresequenced:placid"
+    "genetics_resequenced:placid"
   ]
 }

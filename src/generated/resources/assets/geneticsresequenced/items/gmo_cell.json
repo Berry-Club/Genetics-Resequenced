@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "geneticsresequenced:item/gmo_cell"
+    "model": "genetics_resequenced:item/gmo_cell"
   }
 }

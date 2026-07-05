@@ -5,7 +5,7 @@
     "D": "#c:gems/diamond",
     "I": "#c:ingots/iron",
     "O": "#c:obsidians",
-    "S": "geneticsresequenced:syringe"
+    "S": "genetics_resequenced:syringe"
   },
   "pattern": [
     "IOI",
@@ -13,6 +13,6 @@
     "IDI"
   ],
   "result": {
-    "id": "geneticsresequenced:metal_syringe"
+    "id": "genetics_resequenced:metal_syringe"
   }
 }

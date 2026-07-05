@@ -9,7 +9,7 @@
 			"tag": "c:ingots/iron"
 		},
 		"S": {
-			"item": "geneticsresequenced:syringe"
+			"item": "genetics_resequenced:syringe"
 		}
 	},
 	"pattern": [
@@ -19,6 +19,6 @@
 	],
 	"result": {
 		"count": 1,
-		"id": "geneticsresequenced:plasmid_injector"
+		"id": "genetics_resequenced:plasmid_injector"
 	}
 }

@@ -1,11 +1,11 @@
 {
-  "parent": "geneticsresequenced:guide/root",
+  "parent": "genetics_resequenced:guide/root",
   "criteria": {
     "has_cell": {
       "conditions": {
         "items": [
           {
-            "items": "geneticsresequenced:cell"
+            "items": "genetics_resequenced:cell"
           }
         ]
       },
@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": "geneticsresequenced:cell_analyzer"
+            "items": "genetics_resequenced:cell_analyzer"
           }
         ]
       },
@@ -24,13 +24,13 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.cell_analyzer.desc"
+      "translate": "advancement.genetics_resequenced.cell_analyzer.desc"
     },
     "icon": {
-      "id": "geneticsresequenced:cell_analyzer"
+      "id": "genetics_resequenced:cell_analyzer"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.cell_analyzer.title"
+      "translate": "advancement.genetics_resequenced.cell_analyzer.title"
     }
   },
   "requirements": [

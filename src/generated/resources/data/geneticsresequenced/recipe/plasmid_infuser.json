@@ -4,7 +4,7 @@
   "key": {
     "D": "#c:gems/diamond",
     "I": "#c:ingots/iron",
-    "L": "geneticsresequenced:plasmid",
+    "L": "genetics_resequenced:plasmid",
     "P": "minecraft:piston"
   },
   "pattern": [
@@ -13,6 +13,6 @@
     "IDI"
   ],
   "result": {
-    "id": "geneticsresequenced:plasmid_infuser"
+    "id": "genetics_resequenced:plasmid_infuser"
   }
 }

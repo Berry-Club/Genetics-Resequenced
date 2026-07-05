@@ -1,0 +1,32 @@
+package dev.aaronhowser.mods.genetics_resequenced.effect
+
+import net.minecraft.core.Holder
+import net.minecraft.server.level.ServerLevel
+import net.minecraft.world.effect.MobEffect
+import net.minecraft.world.effect.MobEffectCategory
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.LivingEntity
+
+class DoNothingEffect(
+	color: Int,
+	isBad: Boolean = false,
+	private val removeImmediately: Boolean = true
+) : MobEffect(
+	if (isBad) MobEffectCategory.HARMFUL else MobEffectCategory.NEUTRAL,
+	color
+) {
+
+	override fun isInstantenous(): Boolean = this.removeImmediately
+
+	override fun applyInstantenousEffect(
+		serverLevel: ServerLevel,
+		pSource: Entity?,
+		pIndirectSource: Entity?,
+		pLivingEntity: LivingEntity,
+		pAmplifier: Int,
+		pHealth: Double
+	) {
+		if (this.removeImmediately) pLivingEntity.removeEffect(Holder.direct(this))
+	}
+
+}

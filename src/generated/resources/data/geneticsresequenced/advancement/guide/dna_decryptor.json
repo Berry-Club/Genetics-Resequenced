@@ -1,11 +1,11 @@
 {
-  "parent": "geneticsresequenced:guide/dna_extractor",
+  "parent": "genetics_resequenced:guide/dna_extractor",
   "criteria": {
     "has_dna_decryptor": {
       "conditions": {
         "items": [
           {
-            "items": "geneticsresequenced:dna_decryptor"
+            "items": "genetics_resequenced:dna_decryptor"
           }
         ]
       },
@@ -14,13 +14,13 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.dna_decryptor.desc"
+      "translate": "advancement.genetics_resequenced.dna_decryptor.desc"
     },
     "icon": {
-      "id": "geneticsresequenced:dna_decryptor"
+      "id": "genetics_resequenced:dna_decryptor"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.dna_decryptor.title"
+      "translate": "advancement.genetics_resequenced.dna_decryptor.title"
     }
   },
   "requirements": [

@@ -3,7 +3,7 @@
 	"category": "misc",
 	"key": {
 		"D": {
-			"item": "geneticsresequenced:dna_helix"
+			"item": "genetics_resequenced:dna_helix"
 		},
 		"G": {
 			"tag": "c:ingots/gold"
@@ -22,6 +22,6 @@
 	],
 	"result": {
 		"count": 1,
-		"id": "geneticsresequenced:dna_decryptor"
+		"id": "genetics_resequenced:dna_decryptor"
 	}
 }

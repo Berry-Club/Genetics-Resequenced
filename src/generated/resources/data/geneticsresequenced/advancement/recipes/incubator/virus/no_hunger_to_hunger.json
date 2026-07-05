@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:incubator/virus/no_hunger_to_hunger"
+        "recipe": "genetics_resequenced:incubator/virus/no_hunger_to_hunger"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:incubator/virus/no_hunger_to_hunger"
+      "genetics_resequenced:incubator/virus/no_hunger_to_hunger"
     ]
   }
 }

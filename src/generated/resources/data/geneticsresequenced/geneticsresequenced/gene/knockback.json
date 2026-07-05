@@ -4,7 +4,7 @@
       "attribute": "minecraft:attack_knockback",
       "modifier": {
         "amount": 2.0,
-        "id": "geneticsresequenced:knockback",
+        "id": "genetics_resequenced:knockback",
         "operation": "add_value"
       }
     }

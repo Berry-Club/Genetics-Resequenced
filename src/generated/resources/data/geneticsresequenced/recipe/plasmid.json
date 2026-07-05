@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "D": "geneticsresequenced:dna_helix"
+    "D": "genetics_resequenced:dna_helix"
   },
   "pattern": [
     "DDD",
@@ -10,6 +10,6 @@
     "DDD"
   ],
   "result": {
-    "id": "geneticsresequenced:plasmid"
+    "id": "genetics_resequenced:plasmid"
   }
 }

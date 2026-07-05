@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "geneticsresequenced:advanced_incubator"
+          "name": "genetics_resequenced:advanced_incubator"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "geneticsresequenced:blocks/advanced_incubator"
+  "random_sequence": "genetics_resequenced:blocks/advanced_incubator"
 }

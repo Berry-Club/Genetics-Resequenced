@@ -1,11 +1,11 @@
 {
-  "parent": "geneticsresequenced:guide/root",
+  "parent": "genetics_resequenced:guide/root",
   "criteria": {
     "has_metal_syringe": {
       "conditions": {
         "items": [
           {
-            "items": "geneticsresequenced:metal_syringe"
+            "items": "genetics_resequenced:metal_syringe"
           }
         ]
       },
@@ -15,7 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": "geneticsresequenced:syringe"
+            "items": "genetics_resequenced:syringe"
           }
         ]
       },
@@ -24,13 +24,13 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.syringe.desc"
+      "translate": "advancement.genetics_resequenced.syringe.desc"
     },
     "icon": {
-      "id": "geneticsresequenced:syringe"
+      "id": "genetics_resequenced:syringe"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.syringe.title"
+      "translate": "advancement.genetics_resequenced.syringe.title"
     }
   },
   "requirements": [

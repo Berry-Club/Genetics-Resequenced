@@ -4,7 +4,7 @@
   "key": {
     "B": "minecraft:bucket",
     "I": "#c:ingots/iron",
-    "S": "geneticsresequenced:syringe",
+    "S": "genetics_resequenced:syringe",
     "W": "minecraft:white_wool"
   },
   "pattern": [
@@ -13,6 +13,6 @@
     "IWI"
   ],
   "result": {
-    "id": "geneticsresequenced:blood_purifier"
+    "id": "genetics_resequenced:blood_purifier"
   }
 }

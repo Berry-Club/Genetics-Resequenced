@@ -1,6 +1,6 @@
 {
   "values": [
-    "geneticsresequenced:cell_growth",
-    "geneticsresequenced:mutation"
+    "genetics_resequenced:cell_growth",
+    "genetics_resequenced:mutation"
   ]
 }

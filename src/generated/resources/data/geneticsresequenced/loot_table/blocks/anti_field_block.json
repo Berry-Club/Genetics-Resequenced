@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "geneticsresequenced:anti_field_block"
+          "name": "genetics_resequenced:anti_field_block"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "geneticsresequenced:blocks/anti_field_block"
+  "random_sequence": "genetics_resequenced:blocks/anti_field_block"
 }

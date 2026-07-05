@@ -1,5 +1,5 @@
 {
-  "type": "geneticsresequenced:incubator/virus",
-  "input_gene": "geneticsresequenced:milky",
-  "output_gene": "geneticsresequenced:nausea"
+  "type": "genetics_resequenced:incubator/virus",
+  "input_gene": "genetics_resequenced:milky",
+  "output_gene": "genetics_resequenced:nausea"
 }

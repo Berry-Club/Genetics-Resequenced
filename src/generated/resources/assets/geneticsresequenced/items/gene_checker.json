@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "geneticsresequenced:item/gene_checker"
+    "model": "genetics_resequenced:item/gene_checker"
   }
 }

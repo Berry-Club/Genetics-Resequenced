@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "D": "geneticsresequenced:dna_helix",
+    "D": "genetics_resequenced:dna_helix",
     "F": "minecraft:fermented_spider_eye"
   },
   "pattern": [
@@ -11,6 +11,6 @@
     "DDD"
   ],
   "result": {
-    "id": "geneticsresequenced:anti_plasmid"
+    "id": "genetics_resequenced:anti_plasmid"
   }
 }

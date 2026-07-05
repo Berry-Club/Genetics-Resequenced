@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:incubator/virus/scare_creepers_to_green_death"
+        "recipe": "genetics_resequenced:incubator/virus/scare_creepers_to_green_death"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:incubator/virus/scare_creepers_to_green_death"
+      "genetics_resequenced:incubator/virus/scare_creepers_to_green_death"
     ]
   }
 }

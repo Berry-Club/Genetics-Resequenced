@@ -1,5 +1,5 @@
 {
-  "type": "geneticsresequenced:incubator/virus",
-  "input_gene": "geneticsresequenced:poison_immunity",
-  "output_gene": "geneticsresequenced:poison"
+  "type": "genetics_resequenced:incubator/virus",
+  "input_gene": "genetics_resequenced:poison_immunity",
+  "output_gene": "genetics_resequenced:poison"
 }

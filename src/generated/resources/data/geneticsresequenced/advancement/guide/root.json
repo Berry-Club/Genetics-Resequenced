@@ -4,7 +4,7 @@
       "conditions": {
         "items": [
           {
-            "items": "geneticsresequenced:scraper"
+            "items": "genetics_resequenced:scraper"
           }
         ]
       },
@@ -12,12 +12,12 @@
     }
   },
   "display": {
-    "background": "geneticsresequenced:textures/block/machine_bottom.png",
+    "background": "genetics_resequenced:textures/block/machine_bottom.png",
     "description": {
-      "translate": "advancement.geneticsresequenced.scraper.desc"
+      "translate": "advancement.genetics_resequenced.scraper.desc"
     },
     "icon": {
-      "id": "geneticsresequenced:scraper"
+      "id": "genetics_resequenced:scraper"
     },
     "title": "Genetics: Resequenced"
   },

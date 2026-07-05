@@ -4,7 +4,7 @@
   "key": {
     "G": "#c:glass_blocks",
     "I": "#c:ingots/iron",
-    "S": "#geneticsresequenced:syringes"
+    "S": "#genetics_resequenced:syringes"
   },
   "pattern": [
     "III",
@@ -12,6 +12,6 @@
     "ISI"
   ],
   "result": {
-    "id": "geneticsresequenced:gene_checker"
+    "id": "genetics_resequenced:gene_checker"
   }
 }

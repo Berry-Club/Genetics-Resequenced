@@ -9,7 +9,7 @@
 			"tag": "c:ingots/iron"
 		},
 		"S": {
-			"tag": "geneticsresequenced:syringes"
+			"tag": "genetics_resequenced:syringes"
 		}
 	},
 	"pattern": [
@@ -19,6 +19,6 @@
 	],
 	"result": {
 		"count": 1,
-		"id": "geneticsresequenced:gene_checker"
+		"id": "genetics_resequenced:gene_checker"
 	}
 }

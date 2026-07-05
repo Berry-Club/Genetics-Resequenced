@@ -1,6 +1,6 @@
 {
-  "gene": "geneticsresequenced:regeneration_4",
+  "gene": "genetics_resequenced:regeneration_4",
   "requirements": [
-    "geneticsresequenced:regeneration"
+    "genetics_resequenced:regeneration"
   ]
 }

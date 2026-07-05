@@ -1,6 +1,6 @@
 {
-  "gene": "geneticsresequenced:claws_2",
+  "gene": "genetics_resequenced:claws_2",
   "requirements": [
-    "geneticsresequenced:claws"
+    "genetics_resequenced:claws"
   ]
 }

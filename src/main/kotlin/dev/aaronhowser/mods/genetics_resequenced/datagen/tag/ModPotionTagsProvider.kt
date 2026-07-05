@@ -1,0 +1,36 @@
+package dev.aaronhowser.mods.genetics_resequenced.datagen.tag
+
+import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
+import dev.aaronhowser.mods.genetics_resequenced.registry.ModPotions
+import net.minecraft.core.HolderLookup
+import net.minecraft.core.registries.Registries
+import net.minecraft.data.PackOutput
+import net.minecraft.data.tags.TagsProvider
+import net.minecraft.tags.TagKey
+import net.minecraft.world.item.alchemy.Potion
+import java.util.concurrent.CompletableFuture
+
+class ModPotionTagsProvider(
+	output: PackOutput,
+	lookupProvider: CompletableFuture<HolderLookup.Provider>
+) : TagsProvider<Potion>(
+	output,
+	Registries.POTION,
+	lookupProvider,
+	GeneticsResequenced.MOD_ID
+) {
+
+	companion object {
+		private fun create(id: String): TagKey<Potion> {
+			return TagKey.create(Registries.POTION, GeneticsResequenced.modResource(id))
+		}
+
+		val CAN_HAVE_ENTITY = create("can_have_entity")
+	}
+
+	override fun addTags(p0: HolderLookup.Provider) {
+		getOrCreateRawBuilder(CAN_HAVE_ENTITY)
+			.addElement(ModPotions.CELL_GROWTH.key!!.identifier())
+			.addElement(ModPotions.MUTATION.key!!.identifier())
+	}
+}

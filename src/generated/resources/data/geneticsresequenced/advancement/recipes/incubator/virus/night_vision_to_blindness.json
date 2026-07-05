@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:incubator/virus/night_vision_to_blindness"
+        "recipe": "genetics_resequenced:incubator/virus/night_vision_to_blindness"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:incubator/virus/night_vision_to_blindness"
+      "genetics_resequenced:incubator/virus/night_vision_to_blindness"
     ]
   }
 }

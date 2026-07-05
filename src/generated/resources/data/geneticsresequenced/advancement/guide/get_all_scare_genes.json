@@ -1,5 +1,5 @@
 {
-  "parent": "geneticsresequenced:guide/get_gene",
+  "parent": "genetics_resequenced:guide/get_gene",
   "criteria": {
     "impossible": {
       "trigger": "minecraft:impossible"
@@ -7,14 +7,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.scare.desc"
+      "translate": "advancement.genetics_resequenced.scare.desc"
     },
     "frame": "challenge",
     "icon": {
       "id": "minecraft:jack_o_lantern"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.scare.title"
+      "translate": "advancement.genetics_resequenced.scare.title"
     }
   },
   "requirements": [

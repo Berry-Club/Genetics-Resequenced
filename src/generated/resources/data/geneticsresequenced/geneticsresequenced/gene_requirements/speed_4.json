@@ -1,7 +1,7 @@
 {
-  "gene": "geneticsresequenced:speed_4",
+  "gene": "genetics_resequenced:speed_4",
   "requirements": [
-    "geneticsresequenced:speed",
-    "geneticsresequenced:speed_2"
+    "genetics_resequenced:speed",
+    "genetics_resequenced:speed_2"
   ]
 }

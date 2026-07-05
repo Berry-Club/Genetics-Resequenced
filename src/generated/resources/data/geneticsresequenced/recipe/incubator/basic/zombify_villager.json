@@ -1,10 +1,10 @@
 {
-  "type": "geneticsresequenced:incubator/basic",
+  "type": "genetics_resequenced:incubator/basic",
   "bottom_slot": {
     "neoforge:ingredient_type": "neoforge:components",
     "components": {
       "minecraft:potion_contents": {
-        "potion": "geneticsresequenced:viral_agents"
+        "potion": "genetics_resequenced:viral_agents"
       }
     },
     "items": "minecraft:potion"
@@ -13,7 +13,7 @@
   "output": {
     "components": {
       "minecraft:potion_contents": {
-        "potion": "geneticsresequenced:zombify_villager"
+        "potion": "genetics_resequenced:zombify_villager"
       }
     },
     "id": "minecraft:potion"
@@ -21,8 +21,8 @@
   "top_slot": {
     "neoforge:ingredient_type": "neoforge:components",
     "components": {
-      "geneticsresequenced:gene": "geneticsresequenced:emerald_heart"
+      "genetics_resequenced:gene": "genetics_resequenced:emerald_heart"
     },
-    "items": "geneticsresequenced:dna_helix"
+    "items": "genetics_resequenced:dna_helix"
   }
 }

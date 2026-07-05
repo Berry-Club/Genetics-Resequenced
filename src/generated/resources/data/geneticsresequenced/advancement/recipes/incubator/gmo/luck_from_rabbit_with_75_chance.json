@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "geneticsresequenced:cell"
+            "items": "genetics_resequenced:cell"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:incubator/gmo/luck_from_rabbit_with_75_chance"
+        "recipe": "genetics_resequenced:incubator/gmo/luck_from_rabbit_with_75_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:incubator/gmo/luck_from_rabbit_with_75_chance"
+      "genetics_resequenced:incubator/gmo/luck_from_rabbit_with_75_chance"
     ]
   }
 }

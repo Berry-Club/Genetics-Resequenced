@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:incubator/virus/resistance_to_gray_death"
+        "recipe": "genetics_resequenced:incubator/virus/resistance_to_gray_death"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:incubator/virus/resistance_to_gray_death"
+      "genetics_resequenced:incubator/virus/resistance_to_gray_death"
     ]
   }
 }

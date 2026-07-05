@@ -9,7 +9,7 @@
 			"tag": "c:dusts/redstone"
 		},
 		"S": {
-			"item": "geneticsresequenced:syringe"
+			"item": "genetics_resequenced:syringe"
 		}
 	},
 	"pattern": [
@@ -19,6 +19,6 @@
 	],
 	"result": {
 		"count": 1,
-		"id": "geneticsresequenced:cell_analyzer"
+		"id": "genetics_resequenced:cell_analyzer"
 	}
 }

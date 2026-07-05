@@ -1,10 +1,10 @@
 {
   "attribute_modifiers": [
     {
-      "attribute": "geneticsresequenced:xp_drop_multiplier",
+      "attribute": "genetics_resequenced:xp_drop_multiplier",
       "modifier": {
         "amount": 1.0,
-        "id": "geneticsresequenced:experienced",
+        "id": "genetics_resequenced:experienced",
         "operation": "add_value"
       }
     }

@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "D": "geneticsresequenced:dna_helix",
+    "D": "genetics_resequenced:dna_helix",
     "G": "#c:ingots/gold",
     "I": "#c:ingots/iron",
     "L": "#c:glass_blocks/colorless"
@@ -13,6 +13,6 @@
     "ILI"
   ],
   "result": {
-    "id": "geneticsresequenced:dna_decryptor"
+    "id": "genetics_resequenced:dna_decryptor"
   }
 }

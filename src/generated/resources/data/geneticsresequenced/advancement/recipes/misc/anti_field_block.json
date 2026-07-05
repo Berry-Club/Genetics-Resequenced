@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "geneticsresequenced:anti_field_orb"
+            "items": "genetics_resequenced:anti_field_orb"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:anti_field_block"
+        "recipe": "genetics_resequenced:anti_field_block"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:anti_field_block"
+      "genetics_resequenced:anti_field_block"
     ]
   }
 }

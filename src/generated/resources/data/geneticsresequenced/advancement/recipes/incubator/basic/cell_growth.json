@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:incubator/basic/cell_growth"
+        "recipe": "genetics_resequenced:incubator/basic/cell_growth"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:incubator/basic/cell_growth"
+      "genetics_resequenced:incubator/basic/cell_growth"
     ]
   }
 }

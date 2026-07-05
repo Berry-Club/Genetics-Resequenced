@@ -3,7 +3,7 @@
 	"category": "misc",
 	"key": {
 		"C": {
-			"item": "geneticsresequenced:cell"
+			"item": "genetics_resequenced:cell"
 		},
 		"I": {
 			"tag": "c:ingots/iron"
@@ -19,6 +19,6 @@
 	],
 	"result": {
 		"count": 1,
-		"id": "geneticsresequenced:dna_extractor"
+		"id": "genetics_resequenced:dna_extractor"
 	}
 }

@@ -1,9 +1,9 @@
 {
   "entity": "minecraft:blaze",
   "gene_weights": {
-    "geneticsresequenced:basic": 5,
-    "geneticsresequenced:bioluminescence": 3,
-    "geneticsresequenced:fire_proof": 1,
-    "geneticsresequenced:shoot_fireballs": 3
+    "genetics_resequenced:basic": 5,
+    "genetics_resequenced:bioluminescence": 3,
+    "genetics_resequenced:fire_proof": 1,
+    "genetics_resequenced:shoot_fireballs": 3
   }
 }

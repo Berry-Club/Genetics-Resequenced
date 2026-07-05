@@ -11,11 +11,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "geneticsresequenced:incubator"
+          "name": "genetics_resequenced:incubator"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "geneticsresequenced:blocks/incubator"
+  "random_sequence": "genetics_resequenced:blocks/incubator"
 }

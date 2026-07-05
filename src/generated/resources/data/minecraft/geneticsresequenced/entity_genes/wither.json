@@ -1,9 +1,9 @@
 {
   "entity": "minecraft:wither",
   "gene_weights": {
-    "geneticsresequenced:basic": 5,
-    "geneticsresequenced:flight": 3,
-    "geneticsresequenced:wither_hit": 4,
-    "geneticsresequenced:wither_proof": 3
+    "genetics_resequenced:basic": 5,
+    "genetics_resequenced:flight": 3,
+    "genetics_resequenced:wither_hit": 4,
+    "genetics_resequenced:wither_proof": 3
   }
 }

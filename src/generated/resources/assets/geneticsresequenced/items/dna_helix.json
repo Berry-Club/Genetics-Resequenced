@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "geneticsresequenced:item/dna_helix"
+    "model": "genetics_resequenced:item/dna_helix"
   }
 }

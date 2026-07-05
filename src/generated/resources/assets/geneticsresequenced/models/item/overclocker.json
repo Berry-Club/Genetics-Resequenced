@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "geneticsresequenced:item/overclocker"
+    "layer0": "genetics_resequenced:item/overclocker"
   }
 }

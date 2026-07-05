@@ -1,6 +1,6 @@
 {
-  "gene": "geneticsresequenced:lava_proof",
+  "gene": "genetics_resequenced:lava_proof",
   "requirements": [
-    "geneticsresequenced:fire_proof"
+    "genetics_resequenced:fire_proof"
   ]
 }

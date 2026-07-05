@@ -89,7 +89,7 @@ neoForge {
 		"Wiki-Export-Client" {
 			client()
 			gameDirectory = file 'runs/wiki_exporter'
-			systemProperty 'item_asset_export.render.namespaces', 'geneticsresequenced'
+			systemProperty 'item_asset_export.render.namespaces', 'genetics_resequenced'
 		}
 	}
 
@@ -105,17 +105,17 @@ sourceSets.main {
 	resources {
 		srcDir 'src/generated/resources'
 
-		exclude 'assets/geneticsresequenced/patchouli_books/**'
-		exclude 'data/geneticsresequenced/patchouli_books/**'
-		exclude 'data/geneticsresequenced/recipe/patchouli.json'
-		exclude 'data/geneticsresequenced/modonomicon/**'
+		exclude 'assets/genetics_resequenced/patchouli_books/**'
+		exclude 'data/genetics_resequenced/patchouli_books/**'
+		exclude 'data/genetics_resequenced/recipe/patchouli.json'
+		exclude 'data/genetics_resequenced/modonomicon/**'
 		exclude 'data/modonomicon/**'
 	}
 
 	kotlin {
-		exclude 'dev/aaronhowser/mods/geneticsresequenced/compatibility/recipe/emi/**'
-		exclude 'dev/aaronhowser/mods/geneticsresequenced/compatibility/recipe/jei/**'
-		exclude 'dev/aaronhowser/mods/geneticsresequenced/datagen/modonomicon/**'
+		exclude 'dev/aaronhowser/mods/genetics_resequenced/compatibility/recipe/emi/**'
+		exclude 'dev/aaronhowser/mods/genetics_resequenced/compatibility/recipe/jei/**'
+		exclude 'dev/aaronhowser/mods/genetics_resequenced/datagen/modonomicon/**'
 	}
 }
 
@@ -328,8 +328,8 @@ wiki {
 	wikiAccessToken = ENV.MODDED_MC_WIKI_TOKEN
 
 	docs {
-		geneticsresequenced {
-			root = file('docs/geneticsresequenced')
+		genetics_resequenced {
+			root = file('docs/genetics_resequenced')
 		}
 	}
 }

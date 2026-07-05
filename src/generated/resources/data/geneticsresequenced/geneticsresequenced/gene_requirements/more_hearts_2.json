@@ -1,6 +1,6 @@
 {
-  "gene": "geneticsresequenced:more_hearts_2",
+  "gene": "genetics_resequenced:more_hearts_2",
   "requirements": [
-    "geneticsresequenced:more_hearts"
+    "genetics_resequenced:more_hearts"
   ]
 }

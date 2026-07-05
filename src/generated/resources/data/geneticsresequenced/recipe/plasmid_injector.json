@@ -4,7 +4,7 @@
   "key": {
     "B": "minecraft:bucket",
     "I": "#c:ingots/iron",
-    "S": "geneticsresequenced:syringe"
+    "S": "genetics_resequenced:syringe"
   },
   "pattern": [
     "ISI",
@@ -12,6 +12,6 @@
     "ISI"
   ],
   "result": {
-    "id": "geneticsresequenced:plasmid_injector"
+    "id": "genetics_resequenced:plasmid_injector"
   }
 }

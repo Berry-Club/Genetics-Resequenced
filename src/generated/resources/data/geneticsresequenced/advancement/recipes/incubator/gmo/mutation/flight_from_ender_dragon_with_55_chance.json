@@ -5,7 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": "geneticsresequenced:cell"
+            "items": "genetics_resequenced:cell"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:incubator/gmo/mutation/flight_from_ender_dragon_with_55_chance"
+        "recipe": "genetics_resequenced:incubator/gmo/mutation/flight_from_ender_dragon_with_55_chance"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:incubator/gmo/mutation/flight_from_ender_dragon_with_55_chance"
+      "genetics_resequenced:incubator/gmo/mutation/flight_from_ender_dragon_with_55_chance"
     ]
   }
 }

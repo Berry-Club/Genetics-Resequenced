@@ -3,7 +3,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "geneticsresequenced:incubator/virus/wither_proof_to_wither"
+        "recipe": "genetics_resequenced:incubator/virus/wither_proof_to_wither"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -15,7 +15,7 @@
   ],
   "rewards": {
     "recipes": [
-      "geneticsresequenced:incubator/virus/wither_proof_to_wither"
+      "genetics_resequenced:incubator/virus/wither_proof_to_wither"
     ]
   }
 }

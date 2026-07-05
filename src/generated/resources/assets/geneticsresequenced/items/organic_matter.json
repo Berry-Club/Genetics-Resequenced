@@ -1,6 +1,6 @@
 {
   "model": {
     "type": "minecraft:model",
-    "model": "geneticsresequenced:item/organic_matter"
+    "model": "genetics_resequenced:item/organic_matter"
   }
 }

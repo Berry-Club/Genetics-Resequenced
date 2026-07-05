@@ -1,5 +1,5 @@
 {
-  "parent": "geneticsresequenced:guide/plasmid_injector",
+  "parent": "genetics_resequenced:guide/plasmid_injector",
   "criteria": {
     "impossible": {
       "trigger": "minecraft:impossible"
@@ -7,12 +7,12 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.get_gene.desc"
+      "translate": "advancement.genetics_resequenced.get_gene.desc"
     },
     "frame": "goal",
     "icon": {
       "components": {
-        "geneticsresequenced:specific_entity": {
+        "genetics_resequenced:specific_entity": {
           "name": "A Fake Mob",
           "uuid": [
             -1331015971,
@@ -22,10 +22,10 @@
           ]
         }
       },
-      "id": "geneticsresequenced:syringe"
+      "id": "genetics_resequenced:syringe"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.get_gene.title"
+      "translate": "advancement.genetics_resequenced.get_gene.title"
     }
   },
   "requirements": [

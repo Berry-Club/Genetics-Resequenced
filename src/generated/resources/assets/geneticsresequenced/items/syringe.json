@@ -3,27 +3,27 @@
     "type": "minecraft:condition",
     "on_false": {
       "type": "minecraft:condition",
-      "component": "geneticsresequenced:specific_entity",
+      "component": "genetics_resequenced:specific_entity",
       "on_false": {
         "type": "minecraft:model",
-        "model": "geneticsresequenced:item/syringe"
+        "model": "genetics_resequenced:item/syringe"
       },
       "on_true": {
         "type": "minecraft:model",
-        "model": "geneticsresequenced:item/syringe_full"
+        "model": "genetics_resequenced:item/syringe_full"
       },
       "property": "minecraft:has_component"
     },
     "on_true": {
       "type": "minecraft:condition",
-      "component": "geneticsresequenced:specific_entity",
+      "component": "genetics_resequenced:specific_entity",
       "on_false": {
         "type": "minecraft:model",
-        "model": "geneticsresequenced:item/syringe_empty_flipped"
+        "model": "genetics_resequenced:item/syringe_empty_flipped"
       },
       "on_true": {
         "type": "minecraft:model",
-        "model": "geneticsresequenced:item/syringe_full_flipped"
+        "model": "genetics_resequenced:item/syringe_full_flipped"
       },
       "property": "minecraft:has_component"
     },

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "geneticsresequenced:item/anti_plasmid"
+    "layer0": "genetics_resequenced:item/anti_plasmid"
   }
 }

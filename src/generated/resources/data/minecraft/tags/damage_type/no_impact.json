@@ -1,7 +1,7 @@
 {
   "values": [
-    "geneticsresequenced:step_on_syringe",
-    "geneticsresequenced:use_syringe",
-    "geneticsresequenced:use_scraper"
+    "genetics_resequenced:step_on_syringe",
+    "genetics_resequenced:use_syringe",
+    "genetics_resequenced:use_scraper"
   ]
 }

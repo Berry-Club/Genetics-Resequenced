@@ -4,7 +4,7 @@
   "key": {
     "I": "#c:ingots/iron",
     "R": "#c:dusts/redstone",
-    "S": "geneticsresequenced:syringe"
+    "S": "genetics_resequenced:syringe"
   },
   "pattern": [
     "III",
@@ -12,6 +12,6 @@
     "IRI"
   ],
   "result": {
-    "id": "geneticsresequenced:cell_analyzer"
+    "id": "genetics_resequenced:cell_analyzer"
   }
 }

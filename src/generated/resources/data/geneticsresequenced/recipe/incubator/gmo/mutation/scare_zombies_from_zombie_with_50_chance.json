@@ -1,8 +1,8 @@
 {
-  "type": "geneticsresequenced:incubator/gmo",
+  "type": "genetics_resequenced:incubator/gmo",
   "entity_type": "minecraft:zombie",
   "gene_chance": 0.5,
-  "ideal_gene": "geneticsresequenced:scare_zombies",
+  "ideal_gene": "genetics_resequenced:scare_zombies",
   "ingredient": "minecraft:fermented_spider_eye",
   "needs_mutation_potion": true
 }

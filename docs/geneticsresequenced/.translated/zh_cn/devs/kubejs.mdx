@@ -19,24 +19,24 @@ Pre在实体基因改变*之前*触发，可以被取消。Post在之后触发�
 - `isAddition()` — Boolean值，表示基因是被添加（true）还是移除（false）
 
 ```js
-NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent$Pre", (event) => {
+NativeEvents.onEvent("dev.aaronhowser.mods.genetics_resequenced.event.custom.GeneChangeEvent$Pre", (event) => {
   let entity = event.entity;
   if (entity.level.isClientSide()) return;
 
-  if (!event.isAddition() && entity.name.getString() == "1aaron5" && event.geneId == "geneticsresequenced:cringe") {
+  if (!event.isAddition() && entity.name.getString() == "1aaron5" && event.geneId == "genetics_resequenced:cringe") {
     event.canceled = true;
   }
 });
 ```
 ```js
-NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent$Post", event => {
+NativeEvents.onEvent("dev.aaronhowser.mods.genetics_resequenced.event.custom.GeneChangeEvent$Post", event => {
   event.entity.tell("你的基因已改变！")
 })
 ```
 
 ### ModifyEntityGenesEvent
 
-此事件在每次检查实体可拥有哪些基因时触发，例如使用[基因检测器](@geneticsresequenced:gene_checker)时，或[DNA解码器](@geneticsresequenced:dna_decryptor)分析DNA螺旋的基因时。
+此事件在每次检查实体可拥有哪些基因时触发，例如使用[基因检测器](@genetics_resequenced:gene_checker)时，或[DNA解码器](@genetics_resequenced:dna_decryptor)分析DNA螺旋的基因时。
 
 属性：
 - `entityType` — 正在被修改的EntityType
@@ -53,10 +53,10 @@ NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.Gene
 `getWeight`、`setWeight` 和 `remove` 都可以接受 ResourceKey\<Gene> 或表示基因ID的字符串。
 
 ```js
-NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyEntityGenesEvent", (event) => {
+NativeEvents.onEvent("dev.aaronhowser.mods.genetics_resequenced.event.custom.ModifyEntityGenesEvent", (event) => {
   if (event.entityTypeString == "minecraft:cow") {
-    event.setWeight("geneticsresequenced:lay_egg", 999);
-    event.remove("geneticsresequenced:milky");
+    event.setWeight("genetics_resequenced:lay_egg", 999);
+    event.remove("genetics_resequenced:milky");
   }
 });
 ```
@@ -70,9 +70,9 @@ NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.Modi
 - `requirements` — MutableSet\<ResourceKey\<Gene>>，表示拥有该基因所需的前置基因
 
 ```js
-NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyGeneRequirementsEvent", (event) => {
-  if (event.gene == "geneticsresequenced:cringe") {
-    event.requirements.add("geneticsresequenced:cursed")
+NativeEvents.onEvent("dev.aaronhowser.mods.genetics_resequenced.event.custom.ModifyGeneRequirementsEvent", (event) => {
+  if (event.gene == "genetics_resequenced:cringe") {
+    event.requirements.add("genetics_resequenced:cursed")
   }
 })
 ```
@@ -80,11 +80,11 @@ NativeEvents.onEvent("dev.aaronhowser.mods.geneticsresequenced.event.custom.Modi
 ## 添加、移除和查询基因
 
 ```js
-const $GenesData = Java.loadClass('dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData')
+const $GenesData = Java.loadClass('dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData')
 
-$GenesData.addGene(livingEntity, "geneticsresequenced:chatterbox")
-$GenesData.removeGene(livingEntity, "geneticsresequenced:lay_egg")
-let hasSlimyDeath = $GenesData.hasGene(livingEntity, "geneticsresequenced:slimy_death")
+$GenesData.addGene(livingEntity, "genetics_resequenced:chatterbox")
+$GenesData.removeGene(livingEntity, "genetics_resequenced:lay_egg")
+let hasSlimyDeath = $GenesData.hasGene(livingEntity, "genetics_resequenced:slimy_death")
 ```
 
 这里使用反射加载GenesData类，从而使用其方法。

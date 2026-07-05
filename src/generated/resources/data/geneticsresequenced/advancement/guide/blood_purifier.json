@@ -1,11 +1,11 @@
 {
-  "parent": "geneticsresequenced:guide/syringe",
+  "parent": "genetics_resequenced:guide/syringe",
   "criteria": {
     "has_blood_purifier": {
       "conditions": {
         "items": [
           {
-            "items": "geneticsresequenced:blood_purifier"
+            "items": "genetics_resequenced:blood_purifier"
           }
         ]
       },
@@ -14,13 +14,13 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.blood_purifier.desc"
+      "translate": "advancement.genetics_resequenced.blood_purifier.desc"
     },
     "icon": {
-      "id": "geneticsresequenced:blood_purifier"
+      "id": "genetics_resequenced:blood_purifier"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.blood_purifier.title"
+      "translate": "advancement.genetics_resequenced.blood_purifier.title"
     }
   },
   "requirements": [
