@@ -1,0 +1,4 @@
+// 26.1.2	2026-07-04T19:44:27.988117	Tags for minecraft:damage_type mod id genetics_resequenced
+f972dca3d648b5325c91d0bd29704d63a515810f data/minecraft/tags/damage_type/no_anger.json
+f972dca3d648b5325c91d0bd29704d63a515810f data/minecraft/tags/damage_type/no_impact.json
+f972dca3d648b5325c91d0bd29704d63a515810f data/minecraft/tags/damage_type/no_knockback.json
