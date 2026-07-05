@@ -1,15 +1,15 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.model
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.block.AntiFieldBlock
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.client.data.models.BlockModelGenerators
 import net.minecraft.client.data.models.ItemModelGenerators
 import net.minecraft.client.data.models.ModelProvider
-import net.minecraft.client.data.models.model.ItemModelUtils
-import net.minecraft.client.data.models.model.ModelLocationUtils
-import net.minecraft.client.data.models.model.ModelTemplates
-import net.minecraft.client.data.models.model.TextureSlot
+import net.minecraft.client.data.models.blockstates.MultiVariantGenerator
+import net.minecraft.client.data.models.model.*
 import net.minecraft.core.Holder
 import net.minecraft.data.PackOutput
 import net.minecraft.world.item.BlockItem
@@ -27,6 +27,41 @@ class ModModelProvider(
 
 	override fun registerModels(blockModels: BlockModelGenerators, itemModels: ItemModelGenerators) {
 		makeItemModels(itemModels)
+		makeBlockModels(blockModels)
+	}
+
+	private fun makeBlockModels(blockModels: BlockModelGenerators) {
+		antiField(blockModels)
+	}
+
+	private fun antiField(blockModels: BlockModelGenerators) {
+		val block = ModBlocks.ANTI_FIELD_BLOCK.get()
+
+		val enabledMat = TextureMapping.getBlockTexture(block, "_on")
+		val disabledMat = TextureMapping.getBlockTexture(block, "_off")
+
+		val enabled = BlockModelGenerators.plainVariant(
+			TexturedModel.CUBE.get(block)
+				.updateTextures { it.put(TextureSlot.ALL, enabledMat) }
+				.createWithSuffix(block, "_on", blockModels.modelOutput)
+		)
+
+		val disabled = BlockModelGenerators.plainVariant(
+			TexturedModel.CUBE.get(block)
+				.updateTextures { it.put(TextureSlot.ALL, disabledMat) }
+				.createWithSuffix(block, "_off", blockModels.modelOutput)
+		)
+
+		blockModels.blockStateOutput.accept(
+			MultiVariantGenerator.dispatch(block)
+				.with(
+					BlockModelGenerators.createBooleanModelDispatch(
+						AntiFieldBlock.DISABLED,
+						enabled, disabled
+					)
+				)
+		)
+
 	}
 
 	private fun makeItemModels(itemModels: ItemModelGenerators) {

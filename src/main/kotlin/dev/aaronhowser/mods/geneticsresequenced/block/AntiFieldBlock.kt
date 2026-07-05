@@ -81,8 +81,8 @@ class AntiFieldBlock(properties: BlockBehaviour.Properties) : Block(properties),
 	companion object {
 		val DISABLED: BooleanProperty = BlockStateProperties.POWERED
 
-		fun properties(): BlockBehaviour.Properties {
-			return BlockBehaviour.Properties
+		fun properties(): Properties {
+			return Properties
 				.of()
 				.sound(SoundType.METAL)
 				.strength(0.3f)

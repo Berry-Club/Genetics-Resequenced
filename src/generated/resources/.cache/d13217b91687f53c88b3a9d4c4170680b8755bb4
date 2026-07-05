@@ -1,4 +1,5 @@
-// 26.1.2	2026-07-04T19:17:45.6154091	Model Definitions - geneticsresequenced
+// 26.1.2	2026-07-04T19:37:47.2234001	Model Definitions - geneticsresequenced
+164877a08b4b50cc193fe88764e81a6f7f348bed assets/geneticsresequenced/blockstates/anti_field_block.json
 d324641d13289816ccc41231652227e323fb5ece assets/geneticsresequenced/items/anti_field_orb.json
 acfe02343f47b8c016c509d186144f27aa5c7877 assets/geneticsresequenced/items/anti_plasmid.json
 3b3f1a3d31a7a4f0112666c0ae5122b12cf36326 assets/geneticsresequenced/items/cell.json
@@ -12,6 +13,8 @@ b6394a1590db0599d89f39c07e157062a327a41a assets/geneticsresequenced/items/overcl
 2ebf88178194e5c92986c3ad21beb0552c2afd6c assets/geneticsresequenced/items/plasmid.json
 eea5a94809c8b7ae27d30e41654f64aa172345a0 assets/geneticsresequenced/items/scraper.json
 063d98d9271a851493a71589560225beaa5696dd assets/geneticsresequenced/items/syringe.json
+833c8eef0d2daf9de8ad0fe1f3754cc6d7bd230b assets/geneticsresequenced/models/block/anti_field_block_off.json
+1e8f3fe6bddf26002f2713984b0ac673152a7a08 assets/geneticsresequenced/models/block/anti_field_block_on.json
 e6142e5a26fe99b35e4876dbc517032ecfce9d0d assets/geneticsresequenced/models/item/anti_field_orb.json
 36379184a7b62c4e49c307b6dcd7617bea211b53 assets/geneticsresequenced/models/item/anti_plasmid.json
 53bd8821a4e5d4d1dfcaebeadcc31d925b336b41 assets/geneticsresequenced/models/item/cell.json
