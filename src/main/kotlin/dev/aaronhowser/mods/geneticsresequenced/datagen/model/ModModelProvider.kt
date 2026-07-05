@@ -56,7 +56,7 @@ class ModModelProvider(
 			MultiVariantGenerator.dispatch(block)
 				.with(
 					BlockModelGenerators.createBooleanModelDispatch(
-						AntiFieldBlock.DISABLED,
+						AntiFieldBlock.POWERED,
 						enabled, disabled
 					)
 				)

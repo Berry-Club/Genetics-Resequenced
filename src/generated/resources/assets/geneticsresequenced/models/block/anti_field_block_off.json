@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:block/cube_all",
+  "textures": {
+    "all": "geneticsresequenced:block/anti_field_block_off"
+  }
+}

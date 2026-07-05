@@ -26,20 +26,20 @@ class AntiFieldBlock(properties: BlockBehaviour.Properties) : Block(properties),
 	init {
 		registerDefaultState(
 			stateDefinition.any()
-				.setValue(DISABLED, false)
+				.setValue(POWERED, false)
 		)
 	}
 
 	override fun getStateForPlacement(context: BlockPlaceContext): BlockState {
 		return defaultBlockState()
 			.setValue(
-				DISABLED,
+				POWERED,
 				context.level.hasNeighborSignal(context.clickedPos)
 			)
 	}
 
 	override fun createBlockStateDefinition(builder: StateDefinition.Builder<Block, BlockState>) {
-		builder.add(DISABLED)
+		builder.add(POWERED)
 	}
 
 	override fun neighborChanged(
@@ -51,10 +51,10 @@ class AntiFieldBlock(properties: BlockBehaviour.Properties) : Block(properties),
 		movedByPiston: Boolean
 	) {
 		val isPowered = level.hasNeighborSignal(pos)
-		val wasPowered = state.getValue(DISABLED)
+		val wasPowered = state.getValue(POWERED)
 
 		if (isPowered != wasPowered) {
-			level.setBlockAndUpdate(pos, state.setValue(DISABLED, isPowered))
+			level.setBlockAndUpdate(pos, state.setValue(POWERED, isPowered))
 		}
 	}
 
@@ -79,7 +79,7 @@ class AntiFieldBlock(properties: BlockBehaviour.Properties) : Block(properties),
 	}
 
 	companion object {
-		val DISABLED: BooleanProperty = BlockStateProperties.POWERED
+		val POWERED: BooleanProperty = BlockStateProperties.POWERED
 
 		fun properties(): Properties {
 			return Properties

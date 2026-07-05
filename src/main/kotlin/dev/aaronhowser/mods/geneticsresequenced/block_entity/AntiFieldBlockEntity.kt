@@ -64,7 +64,7 @@ class AntiFieldBlockEntity(
 			blockState: BlockState,
 			blockEntity: AntiFieldBlockEntity
 		) {
-			val isDisabled = blockState.getValue(AntiFieldBlock.DISABLED)
+			val isDisabled = blockState.getValue(AntiFieldBlock.POWERED)
 
 			if (isDisabled) {
 				blockEntity.removeFromList()

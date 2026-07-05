@@ -58,7 +58,7 @@ class ModBlockStateProvider(
 		blockModels.blockStateOutput.accept(
 			MultiVariantGenerator.dispatch(block)
 				.with(
-					PropertyDispatch.initial(AntiFieldBlock.DISABLED)
+					PropertyDispatch.initial(AntiFieldBlock.POWERED)
 						.select(false, BlockModelGenerators.plainVariant(enabledModel))
 						.select(true, BlockModelGenerators.plainVariant(disabledModel))
 				)
