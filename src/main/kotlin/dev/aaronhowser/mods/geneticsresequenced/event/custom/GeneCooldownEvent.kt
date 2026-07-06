@@ -11,6 +11,7 @@ sealed class GeneCooldownEvent : Event() {
 	abstract val entity: LivingEntity
 	abstract val geneHolder: Holder<Gene>
 
+	//TODO: Make cooldown ticks modifiable
 	data class Add(
 		override val entity: LivingEntity,
 		override val geneHolder: Holder<Gene>,
