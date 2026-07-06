@@ -35,7 +35,14 @@ class ModModelProvider(
 	private fun makeBlockModels(blockModels: BlockModelGenerators) {
 		antiField(blockModels)
 
+		orientableMachine(ModBlocks.CELL_ANALYZER.get(), blockModels)
+		orientableMachine(ModBlocks.DNA_EXTRACTOR.get(), blockModels)
+		orientableMachine(ModBlocks.DNA_DECRYPTOR.get(), blockModels)
 		orientableMachine(ModBlocks.BLOOD_PURIFIER.get(), blockModels)
+		orientableMachine(ModBlocks.PLASMID_INFUSER.get(), blockModels)
+		orientableMachine(ModBlocks.PLASMID_INJECTOR.get(), blockModels)
+		orientableMachine(ModBlocks.INCUBATOR.get(), blockModels)
+		orientableMachine(ModBlocks.ADVANCED_INCUBATOR.get(), blockModels)
 	}
 
 	private fun orientableMachine(block: MachineBlock, blockModels: BlockModelGenerators) {

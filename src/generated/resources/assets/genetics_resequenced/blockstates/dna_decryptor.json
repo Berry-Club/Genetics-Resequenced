@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "genetics_resequenced:block/dna_decryptor",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "genetics_resequenced:block/dna_decryptor"
+    },
+    "facing=south": {
+      "model": "genetics_resequenced:block/dna_decryptor",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "genetics_resequenced:block/dna_decryptor",
+      "y": 270
+    }
+  }
+}

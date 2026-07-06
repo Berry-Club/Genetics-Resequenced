@@ -1,0 +1,9 @@
+{
+  "parent": "minecraft:block/orientable_with_bottom",
+  "textures": {
+    "bottom": "genetics_resequenced:block/base/bottom",
+    "front": "genetics_resequenced:block/plasmid_injector",
+    "side": "genetics_resequenced:block/base/side",
+    "top": "genetics_resequenced:block/base/top"
+  }
+}
