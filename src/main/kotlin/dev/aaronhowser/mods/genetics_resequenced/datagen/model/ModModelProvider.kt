@@ -91,7 +91,7 @@ class ModModelProvider(
 	private fun syringe(itemModels: ItemModelGenerators) {
 		val item = ModItems.SYRINGE.get()
 
-		val emptyUnused = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item))
+		val emptyUnused = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, ModelTemplates.FLAT_ITEM))
 		val emptyUsed = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_empty_flipped", ModelTemplates.FLAT_ITEM))
 		val fullUnused = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_full", ModelTemplates.FLAT_ITEM))
 		val fullUsed = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_full_flipped", ModelTemplates.FLAT_ITEM))
@@ -118,7 +118,7 @@ class ModModelProvider(
 	private fun metalSyringe(itemModels: ItemModelGenerators) {
 		val item = ModItems.METAL_SYRINGE.get()
 
-		val empty = ItemModelUtils.plainModel(ModelLocationUtils.getModelLocation(item))
+		val empty = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, ModelTemplates.FLAT_ITEM))
 		val full = ItemModelUtils.plainModel(itemModels.createFlatItemModel(item, "_full", ModelTemplates.FLAT_ITEM))
 
 		itemModels.itemModelOutput.accept(

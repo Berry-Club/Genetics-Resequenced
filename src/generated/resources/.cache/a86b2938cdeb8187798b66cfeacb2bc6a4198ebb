@@ -1,4 +1,4 @@
-// 26.1.2	2026-07-04T19:44:27.9855989	Model Definitions - genetics_resequenced
+// 26.1.2	2026-07-06T16:26:45.7976253	Model Definitions - genetics_resequenced
 5c7f16c38e6bc436f6eeead3021cc53a05fbb851 assets/genetics_resequenced/blockstates/anti_field_block.json
 283e1fd622bc818f8e3b314c5a2443379c4b3b04 assets/genetics_resequenced/items/anti_field_orb.json
 e7ac846385ae1801787ee3c88869e937ee6664f4 assets/genetics_resequenced/items/anti_plasmid.json
@@ -22,11 +22,13 @@ a19b02109e99f948b2f0d56acb8751880e2f9af7 assets/genetics_resequenced/models/bloc
 f27bb23c8470ae5ed12a475387ac40caf98486f4 assets/genetics_resequenced/models/item/dragon_health_crystal.json
 7362806f1136a9d0f855e541c750e6d0781ad583 assets/genetics_resequenced/models/item/gene_checker.json
 0c18cb1552cc31dfd9cd3038cb4b5524715d0ad6 assets/genetics_resequenced/models/item/gmo_cell.json
+182e4386da292960740d18c3028a62f43ae9ff8e assets/genetics_resequenced/models/item/metal_syringe.json
 3f11777304859b3ca866b8043c33322bed403a6d assets/genetics_resequenced/models/item/metal_syringe_full.json
 25abd91efba4ca01d55f413b73fe2d5b180ceed3 assets/genetics_resequenced/models/item/organic_matter.json
 3d9888b893628361117ece93c1aa37d0f0576dda assets/genetics_resequenced/models/item/overclocker.json
 aa40057e4dd92947a713d78d4b47d60ef1011a9d assets/genetics_resequenced/models/item/plasmid.json
 135246a50aa31cd35195603242a0777ad9307280 assets/genetics_resequenced/models/item/scraper.json
+0461ba37b2195e25541080f27010fc6ef79b910d assets/genetics_resequenced/models/item/syringe.json
 8250bb689a5eb855ca947ddc881e728b6fb5c249 assets/genetics_resequenced/models/item/syringe_empty_flipped.json
 307daaf31dbadf103bc53eaedcf0874bb5716612 assets/genetics_resequenced/models/item/syringe_full.json
 2d1f2c3f2d6a6883c840c046b53d201cb542b549 assets/genetics_resequenced/models/item/syringe_full_flipped.json
