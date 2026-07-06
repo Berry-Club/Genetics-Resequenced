@@ -138,7 +138,7 @@ data class GenesData(
 
 		@JvmStatic
 		fun LivingEntity.removeGene(removedGeneHolder: Holder<Gene>): Boolean {
-			if (!this.hasGene(removedGeneHolder)) return false
+			if (removedGeneHolder !in this.permanentGeneHolders) return false
 
 			val eventPre = GeneChangeEvent.Pre(this, removedGeneHolder, false)
 			val wasCanceled = FORGE_BUS.post(eventPre).isCanceled
