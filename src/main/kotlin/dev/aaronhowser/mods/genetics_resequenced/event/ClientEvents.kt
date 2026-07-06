@@ -76,16 +76,14 @@ object ClientEvents {
 
 	@SubscribeEvent
 	fun onClientSetup(event: FMLClientSetupEvent) {
-		registerEntityRenderers()
+		event.enqueueWork {
+			EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::SupportSlimeRenderer)
+		}
 	}
 
 	@SubscribeEvent
 	fun onRegisterRenderStateModifiers(event: RegisterRenderStateModifiersEvent) {
 		GeneRenderChanges.registerRenderStateModifiers(event)
-	}
-
-	private fun registerEntityRenderers() {
-		EntityRenderers.register(ModEntityTypes.SUPPORT_SLIME.get(), ::SupportSlimeRenderer)
 	}
 
 	@SubscribeEvent
