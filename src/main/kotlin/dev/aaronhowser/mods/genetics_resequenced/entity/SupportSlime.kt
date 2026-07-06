@@ -47,9 +47,14 @@ class SupportSlime(
 	}
 
 	var ownerUuid: UUID?
-		get() = entityData.get(OWNER)
-			.takeIf(String::isNotEmpty)
-			?.let(UUID::fromString)
+		get() {
+			val s = entityData.get(OWNER)
+			return if (s.isNotEmpty()) {
+				UUID.fromString(s)
+			} else {
+				null
+			}
+		}
 		private set(value) {
 			entityData.set(OWNER, value?.toString() ?: "")
 		}
