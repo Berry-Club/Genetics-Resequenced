@@ -167,7 +167,10 @@ class SupportSlime(
 	override fun addAdditionalSaveData(output: ValueOutput) {
 		super.addAdditionalSaveData(output)
 
-		ownerUuid?.let { output.putString(OWNER_UUID_NBT_KEY, it.toString()) }
+		val o = ownerUuid
+		if (o != null) {
+			output.putString(OWNER_UUID_NBT_KEY, o.toString())
+		}
 	}
 
 	override fun setSize(size: Int, resetHealth: Boolean) {
@@ -200,9 +203,8 @@ class SupportSlime(
 			NearestAttackableTargetGoal(
 				this,
 				Mob::class.java,
-				true,
-				TargetingConditions.Selector { target, _ -> shouldSlimeAttackEntity(target) }
-			)
+				true
+			) { target, _ -> shouldSlimeAttackEntity(target) }
 		)
 
 	}

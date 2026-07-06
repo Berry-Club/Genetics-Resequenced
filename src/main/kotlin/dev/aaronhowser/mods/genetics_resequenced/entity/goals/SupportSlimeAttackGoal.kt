@@ -47,21 +47,22 @@ class SupportSlimeAttackGoal(
 	}
 
 
-	private fun checkAndPerformAttack(pEnemy: LivingEntity, pDistToEnemySqr: Double) {
-		val d0: Double = this.getAttackReachSqr(pEnemy)
-		if (pDistToEnemySqr <= d0 && this.ticksUntilNextAttack <= 0) {
-			val serverLevel = this.mob.level() as? ServerLevel ?: return
-			this.resetAttackCooldown()
-			this.mob.doHurtTarget(serverLevel, pEnemy)
+	private fun checkAndPerformAttack(enemy: LivingEntity, distToEnemySqr: Double) {
+		val serverLevel = mob.level() as? ServerLevel ?: return
+
+		val reachSqr = getAttackReachSqr(enemy)
+		if (distToEnemySqr <= reachSqr && ticksUntilNextAttack <= 0) {
+			resetAttackCooldown()
+			mob.doHurtTarget(serverLevel, enemy)
 		}
 	}
 
 	private fun getAttackReachSqr(pAttackTarget: LivingEntity): Double {
-		return (this.mob.bbWidth * 2.0f * this.mob.bbWidth * 2.0f + pAttackTarget.bbWidth).toDouble()
+		return (mob.bbWidth * 2.0f * mob.bbWidth * 2.0f + pAttackTarget.bbWidth).toDouble()
 	}
 
 	private fun resetAttackCooldown() {
-		this.ticksUntilNextAttack = this.adjustedTickDelay(20)
+		this.ticksUntilNextAttack = adjustedTickDelay(20)
 	}
 
 }
