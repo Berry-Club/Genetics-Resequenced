@@ -14,11 +14,13 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.Holder
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.Component
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
@@ -88,6 +90,15 @@ data class TemporaryGenesData(
 			FORGE_BUS.post(event)
 
 			this.temporaryGenes = existingList
+		}
+
+		@JvmStatic
+		fun LivingEntity.addTemporaryGene(
+			newGeneRk: ResourceKey<Gene>,
+			durationTicks: Int
+		): Boolean {
+			val geneHolder = ModGenes.fromResourceKey(registryAccess(), newGeneRk) ?: return false
+			return addTemporaryGene(geneHolder, durationTicks)
 		}
 
 		@JvmStatic
