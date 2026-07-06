@@ -3,8 +3,10 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneChangeKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneCooldownKubeEvent
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.ModifyEntityGenesKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneCooldownEvent
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyEntityGenesEvent
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 
@@ -36,6 +38,13 @@ object GeneticsJsServerHandler {
 	fun removeGeneCooldown(event: GeneCooldownEvent.Add) {
 		if (GeneticsJS.GENE_COOLDOWN_REMOVED.hasListeners()) {
 			GeneticsJS.GENE_COOLDOWN_REMOVED.post(GeneCooldownKubeEvent.Add(event))
+		}
+	}
+
+	@SubscribeEvent
+	fun modifyGeneWeights(event: ModifyEntityGenesEvent) {
+		if (GeneticsJS.MODIFY_GENE_WEIGHTS.hasListeners()) {
+			GeneticsJS.MODIFY_GENE_WEIGHTS.post(ModifyEntityGenesKubeEvent(event))
 		}
 	}
 
