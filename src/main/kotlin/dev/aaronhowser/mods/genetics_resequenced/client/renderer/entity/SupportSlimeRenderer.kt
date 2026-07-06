@@ -64,13 +64,9 @@ class SupportSlimeRenderer(
 		val skinRenderType = state.ownerSkinRenderType ?: return
 
 		poseStack.withPose {
-			val scale = state.size.toFloat()
-
-			poseStack.translate(-scale / 2.0, 0.0, -scale / 2.0)
-			poseStack.scale(scale, scale, scale)
-			poseStack.translate(0.5, 0.0, 0.5)
+			poseStack.translate(0f, 0.5f, 0f)
+			scale(state, poseStack)
 			poseStack.mulPose(Axis.YP.rotationDegrees(state.skullYaw))
-			poseStack.scale(-1.0f, -1.0f, 1.0f)
 
 			SkullBlockRenderer.submitSkull(
 				0f,
@@ -83,6 +79,16 @@ class SupportSlimeRenderer(
 				null
 			)
 		}
+	}
+
+	override fun scale(state: State, poseStack: PoseStack) {
+		val s = 0.999f
+		poseStack.scale(s, s, s)
+		poseStack.translate(0f, 0.001f, 0f)
+		val size = state.size
+		val ss = state.squish / (size * 0.5f + 1f)
+		val w = 1f / (ss + 1f)
+		poseStack.scale(w * size, 1f / w * size, w * size)
 	}
 
 	override fun getTextureLocation(state: State): Identifier {
