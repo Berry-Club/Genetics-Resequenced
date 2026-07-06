@@ -6,8 +6,9 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.h
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.addTemporaryGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.removeTemporaryGene
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneChangeKubeEvent
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneAddedKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneCooldownKubeEvent
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneRemovedKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.ModifyEntityGenesKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.ModifyGeneRequirementsKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
@@ -38,7 +39,8 @@ class GeneticsJS : KubeJSPlugin {
 
 	companion object {
 		private val EVENT_GROUP: EventGroup = EventGroup.of("GeneticsEvents")
-		val GENE_CHANGED: EventHandler = EVENT_GROUP.server("geneChanged") { GeneChangeKubeEvent::class.java }.hasResult()
+		val GENE_ADDED: EventHandler = EVENT_GROUP.server("geneAdded") { GeneAddedKubeEvent::class.java }.hasResult()
+		val GENE_REMOVED: EventHandler = EVENT_GROUP.server("geneRemoved") { GeneRemovedKubeEvent::class.java }.hasResult()
 		val GENE_COOLDOWN_ADDED: EventHandler = EVENT_GROUP.server("geneCooldownAdded") { GeneCooldownKubeEvent.Add::class.java }.hasResult()
 		val GENE_COOLDOWN_REMOVED: EventHandler = EVENT_GROUP.server("geneCooldownRemoved") { GeneCooldownKubeEvent.Remove::class.java }
 		val MODIFY_GENE_WEIGHTS: EventHandler = EVENT_GROUP.server("modifyGeneWeights") { ModifyEntityGenesKubeEvent::class.java }

@@ -1,8 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneChangeKubeEvent
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneAddedKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneCooldownKubeEvent
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneRemovedKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.ModifyEntityGenesKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.ModifyGeneRequirementsKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent
@@ -17,15 +18,27 @@ object GeneticsJsEventHandler {
 
 	@SubscribeEvent
 	fun beforeGeneChange(event: GeneChangeEvent.Pre) {
-		if (GeneticsJS.GENE_CHANGED.hasListeners()) {
-			GeneticsJS.GENE_CHANGED.post(GeneChangeKubeEvent(event)).applyCancel(event)
+		if (event.isAddition) {
+			if (GeneticsJS.GENE_ADDED.hasListeners()) {
+				GeneticsJS.GENE_ADDED.post(GeneAddedKubeEvent(event)).applyCancel(event)
+			}
+		} else {
+			if (GeneticsJS.GENE_REMOVED.hasListeners()) {
+				GeneticsJS.GENE_REMOVED.post(GeneRemovedKubeEvent(event)).applyCancel(event)
+			}
 		}
 	}
 
 	@SubscribeEvent
 	fun afterGeneChange(event: GeneChangeEvent.Post) {
-		if (GeneticsJS.GENE_CHANGED.hasListeners()) {
-			GeneticsJS.GENE_CHANGED.post(GeneChangeKubeEvent(event))
+		if (event.isAddition) {
+			if (GeneticsJS.GENE_ADDED.hasListeners()) {
+				GeneticsJS.GENE_ADDED.post(GeneAddedKubeEvent(event))
+			}
+		} else {
+			if (GeneticsJS.GENE_REMOVED.hasListeners()) {
+				GeneticsJS.GENE_REMOVED.post(GeneRemovedKubeEvent(event))
+			}
 		}
 	}
 
