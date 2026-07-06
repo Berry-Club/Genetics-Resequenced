@@ -10,6 +10,7 @@ import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneAddedE
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneRemovedEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
@@ -59,6 +60,17 @@ data class TemporaryGenesData(
 		@JvmStatic
 		val LivingEntity.temporaryGeneHolders: List<Holder<Gene>>
 			get() = this.temporaryGenes.map(TemporaryGene::geneHolder)
+
+		@JvmStatic
+		fun LivingEntity.hasTemporaryGene(geneHolder: Holder<Gene>): Boolean {
+			return !geneHolder.isDisabled && this.temporaryGeneHolders.any { it.isGene(geneHolder) }
+		}
+
+		@JvmStatic
+		fun LivingEntity.hasTemporaryGene(geneRk: ResourceKey<Gene>): Boolean {
+			val geneHolder = ModGenes.fromResourceKey(registryAccess(), geneRk) ?: return false
+			return hasTemporaryGene(geneHolder)
+		}
 
 		fun tickTemporaryGenes(entity: LivingEntity) {
 			val toRemove = mutableListOf<TemporaryGene>()
