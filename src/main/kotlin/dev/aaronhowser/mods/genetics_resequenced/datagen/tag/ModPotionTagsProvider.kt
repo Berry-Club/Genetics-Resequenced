@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.genetics_resequenced.registry.ModPotions
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.registries.Registries
 import net.minecraft.data.PackOutput
-import net.minecraft.data.tags.TagsProvider
+import net.minecraft.data.tags.KeyTagProvider
 import net.minecraft.tags.TagKey
 import net.minecraft.world.item.alchemy.Potion
 import java.util.concurrent.CompletableFuture
@@ -13,12 +13,20 @@ import java.util.concurrent.CompletableFuture
 class ModPotionTagsProvider(
 	output: PackOutput,
 	lookupProvider: CompletableFuture<HolderLookup.Provider>
-) : TagsProvider<Potion>(
+) : KeyTagProvider<Potion>(
 	output,
 	Registries.POTION,
 	lookupProvider,
 	GeneticsResequenced.MOD_ID
 ) {
+
+	override fun addTags(p0: HolderLookup.Provider) {
+		tag(CAN_HAVE_ENTITY)
+			.add(
+				ModPotions.CELL_GROWTH.key,
+				ModPotions.MUTATION.key
+			)
+	}
 
 	companion object {
 		private fun create(id: String): TagKey<Potion> {
@@ -26,11 +34,5 @@ class ModPotionTagsProvider(
 		}
 
 		val CAN_HAVE_ENTITY = create("can_have_entity")
-	}
-
-	override fun addTags(p0: HolderLookup.Provider) {
-		getOrCreateRawBuilder(CAN_HAVE_ENTITY)
-			.addElement(ModPotions.CELL_GROWTH.key!!.identifier())
-			.addElement(ModPotions.MUTATION.key!!.identifier())
 	}
 }

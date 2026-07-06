@@ -19,19 +19,7 @@ class ModGeneTagsProvider(
 	GeneticsResequenced.MOD_ID
 ) {
 
-	companion object {
-		private fun create(name: String): TagKey<Gene> {
-			return TagKey.create(ModGenes.GENE_REGISTRY_KEY, GeneticsResequenced.modId(name))
-		}
-
-		val HELIX_ONLY = create("helix_only")
-		val NEGATIVE = create("negative")
-		val MUTATION = create("mutation")
-		val DISABLED = create("disabled")
-	}
-
 	override fun addTags(pProvider: HolderLookup.Provider) {
-
 		tag(HELIX_ONLY)
 			.add(ModGenes.BASIC)
 
@@ -78,5 +66,16 @@ class ModGeneTagsProvider(
 			)
 
 		tag(DISABLED)
+	}
+
+	companion object {
+		private fun create(name: String): TagKey<Gene> {
+			return TagKey.create(ModGenes.GENE_REGISTRY_KEY, GeneticsResequenced.modId(name))
+		}
+
+		val HELIX_ONLY = create("helix_only")
+		val NEGATIVE = create("negative")
+		val MUTATION = create("mutation")
+		val DISABLED = create("disabled")
 	}
 }
