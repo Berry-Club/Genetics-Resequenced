@@ -107,7 +107,7 @@ class ModModelProvider(
 		val enabled = BlockModelGenerators.plainVariant(
 			TexturedModel.CUBE.get(block)
 				.updateTextures { it.put(TextureSlot.ALL, enabledMat) }
-				.createWithSuffix(block, "_on", blockModels.modelOutput)
+				.create(block, blockModels.modelOutput)
 		)
 
 		val disabled = BlockModelGenerators.plainVariant(
@@ -119,10 +119,9 @@ class ModModelProvider(
 		blockModels.blockStateOutput.accept(
 			MultiVariantGenerator.dispatch(block)
 				.with(
-					BlockModelGenerators.createBooleanModelDispatch(
-						AntiFieldBlock.POWERED,
-						enabled, disabled
-					)
+					PropertyDispatch.initial(AntiFieldBlock.POWERED)
+						.select(false, enabled)
+						.select(true, disabled)
 				)
 		)
 
@@ -139,7 +138,7 @@ class ModModelProvider(
 					it.put(TextureSlot.SIDE, Material(modLocation("block/base/side")))
 					it.put(TextureSlot.FRONT, Material(modLocation("block/coal_generator_off")))
 				}
-				.createWithSuffix(block, "_off", blockModels.modelOutput)
+				.create(block, blockModels.modelOutput)
 		)
 
 		val on = BlockModelGenerators.plainVariant(
