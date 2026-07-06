@@ -91,14 +91,21 @@ data class TemporaryGenesData(
 			val wasRemoved = existingList.removeIf { it.geneHolder.isGene(geneHolder) }
 			if (!wasRemoved) return false
 
+			val eventPre = TemporaryGeneRemovedEvent.Pre(this, geneHolder)
+			if (FORGE_BUS.post(eventPre).isCanceled) {
+				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
+				return false
+			}
+
 			if (geneHolder.value().potions.isNotEmpty()) {
 				TickGenes.handlePotionGeneRemoved(this, geneHolder)
 			}
 
-			val event = TemporaryGeneRemovedEvent(this, geneHolder)
-			FORGE_BUS.post(event)
-
 			this.temporaryGenes = existingList
+
+			val eventPost = TemporaryGeneRemovedEvent.Post(this, geneHolder)
+			FORGE_BUS.post(eventPost)
+
 			return true
 		}
 
