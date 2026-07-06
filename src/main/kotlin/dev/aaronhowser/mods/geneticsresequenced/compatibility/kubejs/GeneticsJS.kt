@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.latvian.mods.kubejs.event.EventGroup
+import dev.latvian.mods.kubejs.event.EventGroupRegistry
 import dev.latvian.mods.kubejs.event.EventHandler
 import dev.latvian.mods.kubejs.plugin.KubeJSPlugin
 import dev.latvian.mods.kubejs.registry.ServerRegistryRegistry
@@ -26,6 +27,10 @@ class GeneticsJS : KubeJSPlugin {
 
 	override fun registerServerRegistries(registry: ServerRegistryRegistry) {
 		registry.register(ModGenes.GENE_REGISTRY_KEY, Gene.DIRECT_CODEC, Gene::class.java)
+	}
+
+	override fun registerEvents(registry: EventGroupRegistry) {
+		registry.register(EVENT_GROUP)
 	}
 
 	companion object {
