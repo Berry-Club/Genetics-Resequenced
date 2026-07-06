@@ -17,8 +17,12 @@ public abstract class EntityMixin {
 			at = @At("HEAD"),
 			cancellable = true
 	)
-	private void genetics_resequenced$makeStuckInBlock(BlockState state, Vec3 motionMultiplier, CallbackInfo ci) {
-		if (OtherGenes.shouldNegateSlownessFromBlock((Entity) (Object) this, state)) {
+	private void genetics_resequenced$makeStuckInBlock(
+			BlockState blockState,
+			Vec3 speedMultiplier,
+			CallbackInfo ci
+	) {
+		if (OtherGenes.shouldNegateSlownessFromBlock((Entity) (Object) this, blockState)) {
 			ci.cancel();
 		}
 	}

@@ -17,14 +17,6 @@ data class HelixGenePredicate(
 	val helixType: HelixType
 ) : SingleComponentItemPredicate<Holder<Gene>> {
 
-	enum class HelixType : StringRepresentable {
-		ANY, BLACK_DEATH;
-
-		override fun getSerializedName(): String {
-			return name
-		}
-	}
-
 	override fun componentType(): DataComponentType<Holder<Gene>> {
 		return ModDataComponents.GENE.get()
 	}
@@ -53,6 +45,14 @@ data class HelixGenePredicate(
 			}
 
 		val TYPE: DataComponentPredicate.Type<HelixGenePredicate> = DataComponentPredicate.ConcreteType(CODEC)
+	}
+
+	enum class HelixType : StringRepresentable {
+		ANY, BLACK_DEATH;
+
+		override fun getSerializedName(): String {
+			return name
+		}
 	}
 
 }

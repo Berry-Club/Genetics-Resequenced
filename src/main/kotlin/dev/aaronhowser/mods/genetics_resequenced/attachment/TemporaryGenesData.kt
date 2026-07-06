@@ -43,7 +43,6 @@ data class TemporaryGenesData(
 						.forGetter(TemporaryGenesData::temporaryGenes)
 				).apply(instance, ::TemporaryGenesData)
 			}
-		val CODEC: Codec<TemporaryGenesData> = MAP_CODEC.codec()
 
 		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, TemporaryGenesData> =
 			StreamCodec.composite(

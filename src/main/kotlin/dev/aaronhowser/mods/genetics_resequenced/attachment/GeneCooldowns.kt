@@ -33,7 +33,6 @@ class GeneCooldowns(
 			Entry.CODEC.listOf()
 				.fieldOf("cooldowns")
 				.xmap(::GeneCooldowns, GeneCooldowns::cooldowns)
-		val CODEC: Codec<GeneCooldowns> = MAP_CODEC.codec()
 
 		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, GeneCooldowns> =
 			Entry.STREAM_CODEC.apply(ByteBufCodecs.list())

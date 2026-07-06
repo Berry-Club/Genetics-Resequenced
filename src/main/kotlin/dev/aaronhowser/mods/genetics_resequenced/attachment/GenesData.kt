@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.genetics_resequenced.attachment
 
-import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
@@ -37,11 +36,12 @@ data class GenesData(
 
 	companion object {
 
-		val MAP_CODEC: MapCodec<GenesData> = Gene.CODEC.listOf().fieldOf("genes").xmap(
-			{ GenesData(it.toSet()) },
-			{ it.genes.toList() }
-		)
-		val CODEC: Codec<GenesData> = MAP_CODEC.codec()
+		val MAP_CODEC: MapCodec<GenesData> = Gene.CODEC.listOf()
+			.fieldOf("genes")
+			.xmap(
+				{ GenesData(it.toSet()) },
+				{ it.genes.toList() }
+			)
 
 		fun syncPlayer(player: Player) {
 			if (player !is ServerPlayer) return

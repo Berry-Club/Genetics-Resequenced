@@ -20,9 +20,10 @@ public abstract class EnchantedCountIncreaseFunctionMixin {
 			at = @At(
 					value = "STORE",
 					target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getEnchantmentLevel(Lnet/minecraft/core/Holder;Lnet/minecraft/world/entity/LivingEntity;)I"
-			)
+			),
+			name = "level"
 	)
-	private int modifyEnchantmentLevel(int originalLevel, ItemStack stack, LootContext context) {
+	private int modifyEnchantmentLevel(int level, ItemStack itemStack, LootContext context) {
 		Entity target = context.getOptionalParameter(LootContextParams.THIS_ENTITY);
 		double bountifulLevel = 0;
 
@@ -30,7 +31,7 @@ public abstract class EnchantedCountIncreaseFunctionMixin {
 			bountifulLevel = le.getAttributeValue(ModAttributes.BASE_LOOTING);
 		}
 
-		return originalLevel + Mth.ceil(bountifulLevel);
+		return level + Mth.ceil(bountifulLevel);
 	}
 
 }
