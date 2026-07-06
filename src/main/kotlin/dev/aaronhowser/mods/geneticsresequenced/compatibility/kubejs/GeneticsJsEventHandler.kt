@@ -11,7 +11,7 @@ import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 
 @EventBusSubscriber(modid = GeneticsResequenced.MOD_ID)
-object GeneticsJsServerHandler {
+object GeneticsJsEventHandler {
 
 	@SubscribeEvent
 	fun beforeGeneChange(event: GeneChangeEvent.Pre) {
