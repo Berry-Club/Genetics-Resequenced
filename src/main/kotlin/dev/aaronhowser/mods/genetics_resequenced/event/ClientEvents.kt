@@ -43,6 +43,13 @@ object ClientEvents {
 	}
 
 	@SubscribeEvent
+	fun registerKeyMappings(event: RegisterKeyMappingsEvent) {
+		event.registerCategory(ModKeyMappings.CATEGORY)
+		event.register(ModKeyMappings.TELEPORT)
+		event.register(ModKeyMappings.DRAGONS_BREATH)
+	}
+
+	@SubscribeEvent
 	fun tooltip(event: ItemTooltipEvent) {
 		BrewingRecipes.tooltip(event)
 		TickGenes.itemMagnetBlacklistTooltip(event)
