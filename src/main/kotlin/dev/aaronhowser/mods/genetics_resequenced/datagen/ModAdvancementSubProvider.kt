@@ -44,10 +44,7 @@ class ModAdvancementSubProvider(
 				Component.literal("Genetics: Resequenced"),
 				ModAdvancementLang.SCRAPER_DESC.toComponent(),
 				GeneticsResequenced.modId("textures/block/machine_bottom.png"),
-				AdvancementType.TASK,
-				true,
-				true,
-				false
+				AdvancementType.TASK
 			)
 			.has(ModItems.SCRAPER)
 			.save(ROOT)
@@ -108,15 +105,13 @@ class ModAdvancementSubProvider(
 			)
 			.save(DECRYPT_DNA)
 
-		Advancement.Builder.advancement()
+		advancement()
 			.parent(decryptDna)
 			.display(
 				Items.WITHER_ROSE,
 				ModAdvancementLang.BLACK_DEATH_TITLE.toComponent(),
 				ModAdvancementLang.BLACK_DEATH_DESC.toComponent(),
-				null,
 				AdvancementType.CHALLENGE,
-				true, true, false
 			)
 			.addCriterion(
 				"black_death_helix",
