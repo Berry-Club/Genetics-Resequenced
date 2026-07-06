@@ -75,21 +75,31 @@ data class TemporaryGenesData(
 			}
 		}
 
+		@JvmStatic
 		fun LivingEntity.removeTemporaryGene(
-			geneHolderToRemove: Holder<Gene>
-		) {
-			val existingList = this.temporaryGenes.toMutableList()
-			val wasRemoved = existingList.removeIf { it.geneHolder.isGene(geneHolderToRemove) }
-			if (!wasRemoved) return
+			geneRk: ResourceKey<Gene>
+		): Boolean {
+			val geneHolder = ModGenes.fromResourceKey(registryAccess(), geneRk) ?: return false
+			return removeTemporaryGene(geneHolder)
+		}
 
-			if (geneHolderToRemove.value().potions.isNotEmpty()) {
-				TickGenes.handlePotionGeneRemoved(this, geneHolderToRemove)
+		@JvmStatic
+		fun LivingEntity.removeTemporaryGene(
+			geneHolder: Holder<Gene>
+		): Boolean {
+			val existingList = this.temporaryGenes.toMutableList()
+			val wasRemoved = existingList.removeIf { it.geneHolder.isGene(geneHolder) }
+			if (!wasRemoved) return false
+
+			if (geneHolder.value().potions.isNotEmpty()) {
+				TickGenes.handlePotionGeneRemoved(this, geneHolder)
 			}
 
-			val event = TemporaryGeneRemovedEvent(this, geneHolderToRemove)
+			val event = TemporaryGeneRemovedEvent(this, geneHolder)
 			FORGE_BUS.post(event)
 
 			this.temporaryGenes = existingList
+			return true
 		}
 
 		@JvmStatic
