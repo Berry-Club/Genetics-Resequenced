@@ -1,3 +1,9 @@
+# 1.15.0
+
+### Changed
+
+- Massively improved KubeJS support by making an actual plugin for it
+
 # 1.14.0
 
 ### Changed

@@ -176,6 +176,8 @@ repositories {
 		url "https://maven.latvian.dev/releases"
 		content {
 			includeGroup "dev.aaronhowser.mods"
+			includeGroup("dev.latvian.mods")
+			includeGroup("dev.latvian.apps")
 		}
 	}
 
@@ -203,6 +205,9 @@ dependencies {
 	implementation "dev.aaronhowser.mods:aaron-1.21.1:${aaron_lib_version}"
 
 	runtimeOnly "org.sinytra:item-asset-export-neoforge:1.0.2+1.21"
+
+	implementation "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
+	implementation "dev.latvian.mods:rhino:${rhino_version}"
 }
 
 tasks.withType(ProcessResources).configureEach {
