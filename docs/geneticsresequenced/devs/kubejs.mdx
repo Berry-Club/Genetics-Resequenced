@@ -5,7 +5,7 @@ Genetics: Resequenced has a KubeJS plugin. They go in `kubejs/server_scripts/`.
 The plugin adds:
 
 - `GeneticsEvents` - Events for Genes, temporary Genes, cooldowns, entity Gene weights, and Gene requirements
-- `GeneticsJS` - Helper methods for adding, removing, querying, and putting Genes on cooldown
+- `GeneticsJS` - Helper methods for adding, removing, querying, listing, and putting Genes on cooldown
 - The `geneticsresequenced:gene` server registry, so Genes can be created with KubeJS
 
 ## Gene Events
@@ -147,15 +147,44 @@ PlayerEvents.loggedIn(event => {
     GeneticsJS.addGene(player, 'geneticsresequenced:chatterbox')
   }
 
+  const hasPermanentChatterbox = GeneticsJS.hasPermanentGene(player, 'geneticsresequenced:chatterbox')
+  const hasTemporaryFlight = GeneticsJS.hasTemporaryGene(player, 'geneticsresequenced:flight')
+
   GeneticsJS.removeGene(player, 'geneticsresequenced:lay_egg')
   GeneticsJS.addTemporaryGene(player, 'geneticsresequenced:slimy_death', 20 * 60)
   GeneticsJS.removeTemporaryGene(player, 'geneticsresequenced:flight')
+
+  const permanentGenes = GeneticsJS.getPermanentGenes(player)
+  const temporaryGenes = GeneticsJS.getTemporaryGenes(player)
+  const activeGenes = GeneticsJS.getActiveGenes(player)
+  const temporarySlimyDeathTicks = GeneticsJS.getTemporaryGeneTicks(player, 'geneticsresequenced:slimy_death')
+
   GeneticsJS.addCooldown(player, 'geneticsresequenced:slimy_death', 20 * 60 * 5, true)
+  const onCooldown = GeneticsJS.isOnCooldown(player, 'geneticsresequenced:slimy_death')
+  const cooldownTicks = GeneticsJS.getCooldownTicks(player, 'geneticsresequenced:slimy_death')
   GeneticsJS.removeCooldown(player, 'geneticsresequenced:slimy_death')
 })
 ```
 
-The helper methods return `true` if they changed anything, and `false` if they did not.
+Mutation helper methods return `true` if they changed anything, and `false` if they did not.
+
+Available helpers:
+
+- `hasGene(entity, gene)` - Checks permanent and temporary Genes
+- `hasPermanentGene(entity, gene)` - Checks only permanent Genes
+- `hasTemporaryGene(entity, gene)` - Checks only temporary Genes
+- `getPermanentGenes(entity)` - Gets permanent Gene ids
+- `getTemporaryGenes(entity)` - Gets temporary Gene ids
+- `getActiveGenes(entity)` - Gets permanent and temporary Gene ids
+- `addGene(entity, gene)` - Adds a permanent Gene
+- `removeGene(entity, gene)` - Removes a permanent Gene
+- `addTemporaryGene(entity, gene, ticks)` - Adds or refreshes a temporary Gene
+- `removeTemporaryGene(entity, gene)` - Removes a temporary Gene
+- `getTemporaryGeneTicks(entity, gene)` - Gets remaining temporary Gene ticks, or `0` if absent
+- `isOnCooldown(entity, gene)` - Checks whether a Gene is on cooldown
+- `getCooldownTicks(entity, gene)` - Gets remaining cooldown ticks, or `0` if absent
+- `addCooldown(entity, gene, ticks, notify)` - Adds a Gene cooldown
+- `removeCooldown(entity, gene)` - Removes a Gene cooldown
 
 ## Creating Genes
 

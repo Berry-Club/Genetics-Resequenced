@@ -1,14 +1,23 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs
 
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns.Companion.geneCooldowns
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.addGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.getActiveGenes
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasPermanentGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.addTemporaryGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.hasTemporaryGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.removeTemporaryGene
+import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGeneHolders
+import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.temporaryGenes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.*
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.latvian.mods.kubejs.event.EventGroup
 import dev.latvian.mods.kubejs.event.EventGroupRegistry
 import dev.latvian.mods.kubejs.event.EventTargetType
@@ -85,6 +94,32 @@ class GeneticsJS : KubeJSPlugin {
 		}
 
 		@JvmStatic
+		fun hasPermanentGene(entity: LivingEntity, geneRk: ResourceKey<Gene>): Boolean {
+			val holder = ModGenes.fromResourceKey(entity.registryAccess(), geneRk) ?: return false
+			return entity.hasPermanentGene(holder)
+		}
+
+		@JvmStatic
+		fun hasTemporaryGene(entity: LivingEntity, geneRk: ResourceKey<Gene>): Boolean {
+			return entity.hasTemporaryGene(geneRk)
+		}
+
+		@JvmStatic
+		fun getPermanentGenes(entity: LivingEntity): List<ResourceKey<Gene>> {
+			return entity.permanentGeneHolders.mapNotNull { it.unwrapKey().orElse(null) }
+		}
+
+		@JvmStatic
+		fun getTemporaryGenes(entity: LivingEntity): List<ResourceKey<Gene>> {
+			return entity.temporaryGeneHolders.mapNotNull { it.unwrapKey().orElse(null) }
+		}
+
+		@JvmStatic
+		fun getActiveGenes(entity: LivingEntity): List<ResourceKey<Gene>> {
+			return entity.getActiveGenes().mapNotNull { it.unwrapKey().orElse(null) }
+		}
+
+		@JvmStatic
 		fun addGene(entity: LivingEntity, geneRk: ResourceKey<Gene>): Boolean {
 			return entity.addGene(geneRk)
 		}
@@ -102,6 +137,25 @@ class GeneticsJS : KubeJSPlugin {
 		@JvmStatic
 		fun removeTemporaryGene(entity: LivingEntity, geneRk: ResourceKey<Gene>): Boolean {
 			return entity.removeTemporaryGene(geneRk)
+		}
+
+		@JvmStatic
+		fun isOnCooldown(entity: LivingEntity, geneRk: ResourceKey<Gene>): Boolean {
+			return GeneCooldowns.isOnCooldown(entity, geneRk)
+		}
+
+		@JvmStatic
+		fun getCooldownTicks(entity: LivingEntity, geneRk: ResourceKey<Gene>): Int {
+			val holder = geneRk.getHolderOrThrow(entity.registryAccess())
+			val entry = entity.geneCooldowns.cooldowns.firstOrNull { it.geneHolder.isGene(holder) }
+			return entry?.remainingTicks() ?: 0
+		}
+
+		@JvmStatic
+		fun getTemporaryGeneTicks(entity: LivingEntity, geneRk: ResourceKey<Gene>): Int {
+			val holder = ModGenes.fromResourceKey(entity.registryAccess(), geneRk) ?: return 0
+			val temporaryGene = entity.temporaryGenes.firstOrNull { it.geneHolder.isGene(holder) }
+			return temporaryGene?.ticksRemaining ?: 0
 		}
 
 		@JvmStatic
