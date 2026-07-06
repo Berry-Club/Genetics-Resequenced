@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "genetics_resequenced:block/cell_analyzer"
+  }
+}

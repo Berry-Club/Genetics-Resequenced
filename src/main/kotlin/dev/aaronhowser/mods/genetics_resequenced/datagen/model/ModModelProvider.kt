@@ -27,8 +27,7 @@ class ModModelProvider(
 	output: PackOutput
 ) : ModelProvider(output, GeneticsResequenced.MOD_ID) {
 
-	override fun getKnownBlocks(): Stream<out Holder<Block>> = ModBlocks.BLOCK_REGISTRY.entries.stream()
-	override fun getKnownItems(): Stream<out Holder<Item>> = ModItems.ITEM_REGISTRY.entries.stream().filter { it.get() !is BlockItem && it != ModItems.FRIENDLY_SLIME_SPAWN_EGG }
+	override fun getKnownItems(): Stream<out Holder<Item>> = ModItems.ITEM_REGISTRY.entries.stream().filter { it != ModItems.FRIENDLY_SLIME_SPAWN_EGG }
 
 	override fun registerModels(blockModels: BlockModelGenerators, itemModels: ItemModelGenerators) {
 		makeItemModels(itemModels)
