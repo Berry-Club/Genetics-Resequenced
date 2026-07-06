@@ -15,7 +15,7 @@ sealed class TemporaryGeneAddedEvent : Event() {
 	data class Pre(
 		override val entity: LivingEntity,
 		override val geneHolder: Holder<Gene>,
-		override val durationTicks: Int
+		override var durationTicks: Int
 	) : TemporaryGeneAddedEvent(), ICancellableEvent
 
 	data class Post(

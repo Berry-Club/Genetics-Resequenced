@@ -186,6 +186,8 @@ repositories {
 		url "https://maven.latvian.dev/releases"
 		content {
 			includeGroup "dev.aaronhowser.mods"
+			includeGroup "dev.latvian.mods"
+			includeGroup "dev.latvian.apps"
 		}
 	}
 
@@ -211,6 +213,8 @@ dependencies {
 
 //	compileOnly "dev.aaronhowser.mods:patchoulidatagen-${pdg_version}"
 	implementation "dev.aaronhowser.mods:aaron-${aaron_lib_minecraft_version}:${aaron_lib_version}"
+	implementation "dev.latvian.mods:kubejs-neoforge:${kubejs_version}"
+	implementation "dev.latvian.mods:rhino:${rhino_version}"
 
 //	runtimeOnly "org.sinytra:item-asset-export-neoforge:1.0.2+1.21"
 }
@@ -328,8 +332,8 @@ wiki {
 	wikiAccessToken = ENV.MODDED_MC_WIKI_TOKEN
 
 	docs {
-		genetics_resequenced {
-			root = file('docs/genetics_resequenced')
+		geneticsresequenced {
+			root = file('docs/geneticsresequenced')
 		}
 	}
 }

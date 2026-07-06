@@ -1,3 +1,11 @@
+# 1.15.0
+
+### Changed
+
+- Massively improved KubeJS support by making an actual plugin for it
+	- See https://moddedmc.wiki/en/project/geneticsresequenced/latest/docs/devs/kubejs
+- Gene cooldowns and temporary gene durations can be changed in their events
+
 # 1.14.0
 
 ### Changed
@@ -78,7 +86,7 @@
 ### Added
 
 - New events for when Gene requirements and entity Genes are being calculated
-	- https://moddedmc.wiki/en/project/genetics_resequenced/latest/docs/devs/kubejs
+	- https://moddedmc.wiki/en/project/geneticsresequenced/latest/docs/devs/kubejs
 
 ### Changed
 
@@ -200,7 +208,7 @@
 ### Added
 
 - Made a wiki at moddedmc.wiki
-	- https://moddedmc.wiki/en/project/genetics_resequenced/latest
+	- https://moddedmc.wiki/en/project/geneticsresequenced/latest
 	- Also added in-game support via [Oracle Index](https://modrinth.com/mod/oracle-index), which has been added as an optional dependency
 
 ### Changes
@@ -483,7 +491,7 @@
 		- `amount`: The amount to modify the attribute by
 	- `scares_entities_with_tag`: An entity type tag that the Gene will scare
 - Incubator recipes are no longer actually Brewing recipes, and can therefore no longer be used in a Brewing Stand
-	- Consequently, you can now make custom recipes that use the Incubator! See `/data/geneticsresequenced/recipe/incubator/`
+	- Consequently, you can now make custom recipes that use the Incubator! See `/data/genetics_resequenced/recipe/incubator/`
 	- There are 3 types (technically 5, but 2 of them are hardcoded with no parameters):
 		- `genetics_resequenced:incubator_basic`
 			- Requires two ingredients `top_slot` and `bottom_slot`, and an output itemstack `output`

@@ -14,7 +14,7 @@ sealed class GeneCooldownEvent : Event() {
 	data class Add(
 		override val entity: LivingEntity,
 		override val geneHolder: Holder<Gene>,
-		val cooldownTicks: Int
+		var cooldownTicks: Int
 	) : GeneCooldownEvent(), ICancellableEvent
 
 	data class Remove(

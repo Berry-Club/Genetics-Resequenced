@@ -1,0 +1,1 @@
+dev.aaronhowser.mods.genetics_resequenced.compatibility.kubejs.GeneticsJS genetics_resequenced
