@@ -6,7 +6,6 @@ import net.minecraft.server.level.ServerLevel
 import net.minecraft.util.RandomSource
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.block.AirBlock
-import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.block.state.BlockState
 
 class BioluminescenceBlock(properties: Properties) : AirBlock(properties) {
@@ -14,7 +13,7 @@ class BioluminescenceBlock(properties: Properties) : AirBlock(properties) {
 	companion object {
 		const val LIGHT_LEVEL = 10
 
-		fun properties(): Properties {
+		fun defaultProperties(): Properties {
 			return Properties
 				.of()
 				.replaceable()

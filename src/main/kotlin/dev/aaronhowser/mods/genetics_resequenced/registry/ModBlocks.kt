@@ -22,14 +22,14 @@ object ModBlocks {
 	val BLOCK_REGISTRY: DeferredRegister.Blocks = DeferredRegister.createBlocks(GeneticsResequenced.MOD_ID)
 
 	val ANTI_FIELD_BLOCK: DeferredBlock<AntiFieldBlock> =
-		registerBlock("anti_field_block", ::AntiFieldBlock, AntiFieldBlock::properties)
+		registerBlock("anti_field_block", ::AntiFieldBlock, AntiFieldBlock::defaultProperties)
 	val BIOLUMINESCENCE_BLOCK: DeferredBlock<BioluminescenceBlock> =
-		registerBlockWithoutItem("bioluminescence", ::BioluminescenceBlock, BioluminescenceBlock::properties)
+		registerBlockWithoutItem("bioluminescence", ::BioluminescenceBlock, BioluminescenceBlock::defaultProperties)
 	val WEB_DEFENSE_BLOCK: DeferredBlock<WebDefenseBlock> =
-		registerBlockWithoutItem("web_defense_block", ::WebDefenseBlock, WebDefenseBlock::properties)
+		registerBlockWithoutItem("web_defense_block", ::WebDefenseBlock, WebDefenseBlock::defaultProperties)
 
 	val COAL_GENERATOR: DeferredBlock<CoalGeneratorBlock> =
-		registerBlock("coal_generator", ::CoalGeneratorBlock, MachineBlock::properties)
+		registerBlock("coal_generator", ::CoalGeneratorBlock, MachineBlock::defaultProperties)
 	val CELL_ANALYZER: DeferredBlock<out MachineBlock> =
 		registerMachineBlock("cell_analyzer", ::CellAnalyzerBlockEntity)
 	val DNA_EXTRACTOR: DeferredBlock<out MachineBlock> =
@@ -51,7 +51,11 @@ object ModBlocks {
 		name: String,
 		factory: (BlockPos, BlockState) -> BlockEntity
 	): DeferredBlock<out MachineBlock> {
-		return registerBlock(name, { properties -> MachineBlock(factory, properties) }, MachineBlock::properties)
+		return registerBlock(
+			name,
+			{ properties -> MachineBlock(factory, properties) },
+			MachineBlock::defaultProperties
+		)
 	}
 
 	private fun <T : Block> registerBlock(

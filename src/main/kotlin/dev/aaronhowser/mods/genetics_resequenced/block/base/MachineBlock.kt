@@ -15,7 +15,6 @@ import net.minecraft.world.level.block.SoundType
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.entity.BlockEntityTicker
 import net.minecraft.world.level.block.entity.BlockEntityType
-import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
@@ -80,7 +79,7 @@ open class MachineBlock(
 	companion object {
 		val H_FACING: EnumProperty<Direction> = BlockStateProperties.HORIZONTAL_FACING
 
-		fun properties(): Properties {
+		fun defaultProperties(): Properties {
 			return Properties
 				.of()
 				.mapColor(MapColor.METAL)
