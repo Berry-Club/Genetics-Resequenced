@@ -4,6 +4,7 @@ import com.mojang.brigadier.arguments.IntegerArgumentType
 import com.mojang.brigadier.builder.ArgumentBuilder
 import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
+import dev.aaronhowser.mods.genetics_resequenced.command.ModCommands.hasGameMasterPermission
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModBlocks
@@ -25,7 +26,7 @@ object ClearBioGlowCommand : AaronCommandHelper {
 			}
 
 			thenArgument(RADIUS, IntegerArgumentType.integer(1, 200)) {
-				requires { it.hasGamemasterPermission() }
+				requires { it.hasGameMasterPermission() }
 
 				executes { cmd ->
 					val source = cmd.source

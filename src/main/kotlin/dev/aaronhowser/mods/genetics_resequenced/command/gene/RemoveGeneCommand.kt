@@ -8,7 +8,7 @@ import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.getActiveGenes
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.genetics_resequenced.command.ModCommands
-import dev.aaronhowser.mods.genetics_resequenced.command.hasGamemasterPermission
+import dev.aaronhowser.mods.genetics_resequenced.command.ModCommands.hasGameMasterPermission
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
@@ -32,7 +32,7 @@ object RemoveGeneCommand : AaronCommandHelper {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return literal("remove") {
-			requires { it.hasGamemasterPermission() }
+			requires { it.hasGameMasterPermission() }
 
 			thenArgument(TARGETS, EntityArgument.entities()) {
 				thenArgument(GENE, IdentifierArgument.id()) {

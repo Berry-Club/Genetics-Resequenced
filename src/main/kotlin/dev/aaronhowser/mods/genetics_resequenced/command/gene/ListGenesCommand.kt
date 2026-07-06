@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.genetics_resequenced.attachment.TemporaryGenesData
 import dev.aaronhowser.mods.genetics_resequenced.attachment.TemporaryGenesData.Companion.temporaryGenes
-import dev.aaronhowser.mods.genetics_resequenced.command.hasGamemasterPermission
+import dev.aaronhowser.mods.genetics_resequenced.command.ModCommands.hasGameMasterPermission
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
@@ -21,7 +21,7 @@ object ListGenesCommand : AaronCommandHelper {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return literal("list") {
-			requires { it.hasGamemasterPermission() }
+			requires { it.hasGameMasterPermission() }
 
 			executes {
 				val source = it.source

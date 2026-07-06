@@ -11,6 +11,8 @@ import dev.aaronhowser.mods.genetics_resequenced.registry.ModGenes
 import net.minecraft.commands.CommandSourceStack
 import net.minecraft.commands.Commands
 import net.minecraft.commands.SharedSuggestionProvider
+import net.minecraft.server.permissions.Permission
+import net.minecraft.server.permissions.PermissionLevel
 import java.util.concurrent.CompletableFuture
 
 object ModCommands : AaronCommandHelper {
@@ -47,6 +49,10 @@ object ModCommands : AaronCommandHelper {
 			.mapNotNull { it.key?.identifier() }
 
 		return SharedSuggestionProvider.suggestResource(allGeneIdentifiers, suggestionsBuilder)
+	}
+
+	fun CommandSourceStack.hasGameMasterPermission(): Boolean {
+		return permissions().hasPermission(Permission.HasCommandLevel(PermissionLevel.GAMEMASTERS))
 	}
 
 }

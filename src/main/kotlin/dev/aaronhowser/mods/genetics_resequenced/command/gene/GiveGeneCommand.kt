@@ -8,7 +8,7 @@ import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.genetics_resequenced.attachment.TemporaryGenesData.Companion.addTemporaryGene
 import dev.aaronhowser.mods.genetics_resequenced.command.ModCommands
-import dev.aaronhowser.mods.genetics_resequenced.command.hasGamemasterPermission
+import dev.aaronhowser.mods.genetics_resequenced.command.ModCommands.hasGameMasterPermission
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
@@ -31,7 +31,7 @@ object GiveGeneCommand : AaronCommandHelper {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return literal("give") {
-			requires { it.hasGamemasterPermission() }
+			requires { it.hasGameMasterPermission() }
 
 			thenArgument(GENE, IdentifierArgument.id()) {
 				suggests(ModCommands::getGeneSuggestions)

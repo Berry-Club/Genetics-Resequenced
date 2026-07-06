@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.genetics_resequenced.command.gene
 import com.mojang.brigadier.builder.ArgumentBuilder
 import dev.aaronhowser.mods.aaron.command.AaronCommandHelper
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.removeAllGenes
-import dev.aaronhowser.mods.genetics_resequenced.command.hasGamemasterPermission
+import dev.aaronhowser.mods.genetics_resequenced.command.ModCommands.hasGameMasterPermission
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModMessageLang
 import net.minecraft.commands.CommandSourceStack
@@ -17,7 +17,7 @@ object RemoveAllGenesCommand : AaronCommandHelper {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return literal("remove-all") {
-			requires { it.hasGamemasterPermission() }
+			requires { it.hasGameMasterPermission() }
 
 			executes {
 				val source = it.source
