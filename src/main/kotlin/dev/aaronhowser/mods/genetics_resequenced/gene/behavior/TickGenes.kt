@@ -27,8 +27,8 @@ import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.entity.*
 import net.minecraft.world.entity.item.ItemEntity
 import net.minecraft.world.entity.monster.Creeper
-import net.minecraft.world.entity.monster.zombie.Zombie
 import net.minecraft.world.entity.monster.piglin.Piglin
+import net.minecraft.world.entity.monster.zombie.Zombie
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items

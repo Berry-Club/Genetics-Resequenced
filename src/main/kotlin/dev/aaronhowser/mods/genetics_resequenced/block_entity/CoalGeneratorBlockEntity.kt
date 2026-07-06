@@ -108,25 +108,25 @@ class CoalGeneratorBlockEntity(
 	}
 
 	private fun hasRoomForEnergy(): Boolean {
-		return energyStorage.getAmountAsInt() < energyStorage.getCapacityAsInt()
+		return energyStorage.amountAsInt < energyStorage.capacityAsInt
 	}
 
 	private fun exportEnergy() {
 		val level = this.level ?: return
 
-		if (energyStorage.getAmountAsInt() <= 0) return
+		if (energyStorage.amountAsInt <= 0) return
 
 		for (direction in Direction.entries) {
 			val neighborPos = blockPos.relative(direction)
 			val neighborEnergy = level.getCapability(
 				Capabilities.Energy.BLOCK,
 				neighborPos,
-				direction.getOpposite()
+				direction.opposite
 			) ?: continue
 
 			val maxEnergyToSend = minOf(
 				energyTransferRate,
-				energyStorage.getAmountAsInt()
+				energyStorage.amountAsInt
 			)
 
 			Transaction.openRoot().use { transaction ->

@@ -27,7 +27,7 @@ class ModJeiPlugin : IModPlugin {
 				object : ISubtypeInterpreter<ItemStack> {
 					@Suppress("OVERRIDE_DEPRECATION")
 					override fun getLegacyStringSubtypeInfo(ingredient: ItemStack, context: UidContext): String = ""
-					override fun getSubtypeData(ingredient: ItemStack, context: UidContext): Any? = ingredient.components
+					override fun getSubtypeData(ingredient: ItemStack, context: UidContext): Any = ingredient.components
 				}
 			)
 		}

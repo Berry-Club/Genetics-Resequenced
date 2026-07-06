@@ -25,7 +25,7 @@ import net.minecraft.world.phys.BlockHitResult
 
 open class MachineBlock(
 	val beFactory: (BlockPos, BlockState) -> BlockEntity,
-	properties: BlockBehaviour.Properties
+	properties: Properties
 ) : SimpleContainerBlock(properties), EntityBlock {
 
 	init {
@@ -80,8 +80,8 @@ open class MachineBlock(
 	companion object {
 		val H_FACING: EnumProperty<Direction> = BlockStateProperties.HORIZONTAL_FACING
 
-		fun properties(): BlockBehaviour.Properties {
-			return BlockBehaviour.Properties
+		fun properties(): Properties {
+			return Properties
 				.of()
 				.mapColor(MapColor.METAL)
 				.requiresCorrectToolForDrops()

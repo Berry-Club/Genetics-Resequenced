@@ -9,13 +9,13 @@ import net.minecraft.world.level.block.AirBlock
 import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.block.state.BlockState
 
-class BioluminescenceBlock(properties: BlockBehaviour.Properties) : AirBlock(properties) {
+class BioluminescenceBlock(properties: Properties) : AirBlock(properties) {
 
 	companion object {
 		const val LIGHT_LEVEL = 10
 
-		fun properties(): BlockBehaviour.Properties {
-			return BlockBehaviour.Properties
+		fun properties(): Properties {
+			return Properties
 				.of()
 				.replaceable()
 				.noCollision()

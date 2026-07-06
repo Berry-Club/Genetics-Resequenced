@@ -21,7 +21,7 @@ import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
 import net.minecraft.world.level.redstone.Orientation
 
-class AntiFieldBlock(properties: BlockBehaviour.Properties) : Block(properties), EntityBlock {
+class AntiFieldBlock(properties: Properties) : Block(properties), EntityBlock {
 
 	init {
 		registerDefaultState(

@@ -10,8 +10,8 @@ import dev.aaronhowser.mods.genetics_resequenced.util.ClientUtil
 import dev.emi.emi.api.recipe.EmiRecipeCategory
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
-import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeManager
 

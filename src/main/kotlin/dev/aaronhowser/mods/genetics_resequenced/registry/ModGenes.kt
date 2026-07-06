@@ -9,8 +9,8 @@ import dev.aaronhowser.mods.genetics_resequenced.gene.Gene.Companion.isNegative
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.Registry
-import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceKey
 import java.util.stream.Stream
 import kotlin.jvm.optionals.getOrNull
 

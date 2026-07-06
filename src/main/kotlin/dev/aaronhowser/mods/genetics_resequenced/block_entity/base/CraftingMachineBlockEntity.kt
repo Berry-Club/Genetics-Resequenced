@@ -38,12 +38,12 @@ abstract class CraftingMachineBlockEntity(
 	}
 
 	protected fun hasEnoughEnergy(): Boolean {
-		return energyStorage.getAmountAsInt() >= getEnergyCostPerTick()
+		return energyStorage.amountAsInt >= getEnergyCostPerTick()
 	}
 
 	protected fun drainEnergy(): Boolean {
 		val cost = getEnergyCostPerTick()
-		if (energyStorage.getAmountAsInt() < cost) return false
+		if (energyStorage.amountAsInt < cost) return false
 		extractEnergy(cost)
 		return true
 	}
@@ -112,7 +112,7 @@ abstract class CraftingMachineBlockEntity(
 		val blockFacing = this.blockState.getValue(MachineBlock.H_FACING)
 
 		return when (direction) {
-			blockFacing.getOpposite() -> overclockHandler
+			blockFacing.opposite -> overclockHandler
 			Direction.DOWN -> outputHandler
 			else -> inputHandler
 		}

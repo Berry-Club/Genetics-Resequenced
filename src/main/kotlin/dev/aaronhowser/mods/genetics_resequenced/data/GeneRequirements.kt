@@ -10,8 +10,8 @@ import dev.aaronhowser.mods.genetics_resequenced.registry.ModGenes
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.Registry
-import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceKey
 import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
 import kotlin.jvm.optionals.getOrNull
 

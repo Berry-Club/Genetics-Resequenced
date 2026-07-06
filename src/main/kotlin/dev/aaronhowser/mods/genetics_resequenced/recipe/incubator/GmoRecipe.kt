@@ -6,12 +6,8 @@ import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
 import dev.aaronhowser.mods.genetics_resequenced.item.GmoCell
 import dev.aaronhowser.mods.genetics_resequenced.recipe.base.IncubatorRecipe
-import dev.aaronhowser.mods.genetics_resequenced.registry.ModDataComponents
-import dev.aaronhowser.mods.genetics_resequenced.registry.ModGenes
+import dev.aaronhowser.mods.genetics_resequenced.registry.*
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModGenes.getHolderOrThrow
-import dev.aaronhowser.mods.genetics_resequenced.registry.ModItems
-import dev.aaronhowser.mods.genetics_resequenced.registry.ModPotions
-import dev.aaronhowser.mods.genetics_resequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.genetics_resequenced.util.OtherUtil
 import dev.aaronhowser.mods.genetics_resequenced.util.OtherUtil.itemStack
 import net.minecraft.core.HolderLookup
@@ -24,8 +20,8 @@ import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.item.Items
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.Items
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.item.crafting.RecipeManager

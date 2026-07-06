@@ -1,11 +1,11 @@
 package dev.aaronhowser.mods.genetics_resequenced.recipe.base
 
+import dev.aaronhowser.mods.genetics_resequenced.registry.ModRecipeTypes
+import net.minecraft.core.HolderLookup
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.alchemy.PotionBrewing
 import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
-import dev.aaronhowser.mods.genetics_resequenced.registry.ModRecipeTypes
-import net.minecraft.core.HolderLookup
 
 abstract class IncubatorRecipe(
 	topIngredientSupplier: () -> Ingredient,

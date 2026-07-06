@@ -18,7 +18,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.block.state.BlockState
 import net.minecraft.world.phys.Vec3
 
-class WebDefenseBlock(properties: BlockBehaviour.Properties) : Block(properties) {
+class WebDefenseBlock(properties: Properties) : Block(properties) {
 
 	override fun onPlace(
 		state: BlockState,
@@ -65,7 +65,7 @@ class WebDefenseBlock(properties: BlockBehaviour.Properties) : Block(properties)
 	}
 
 	companion object {
-		fun properties(): BlockBehaviour.Properties = BlockBehaviour.Properties.ofFullCopy(Blocks.COBWEB)
+		fun properties(): Properties = Properties.ofFullCopy(Blocks.COBWEB)
 	}
 
 }

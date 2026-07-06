@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.genetics_resequenced.datagen.model
 
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.block.AntiFieldBlock
+import dev.aaronhowser.mods.genetics_resequenced.block.base.MachineBlock
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModBlocks
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModItems
@@ -32,6 +33,10 @@ class ModModelProvider(
 
 	private fun makeBlockModels(blockModels: BlockModelGenerators) {
 		antiField(blockModels)
+	}
+
+	private fun orientableMachine(block: MachineBlock) {
+
 	}
 
 	private fun antiField(blockModels: BlockModelGenerators) {

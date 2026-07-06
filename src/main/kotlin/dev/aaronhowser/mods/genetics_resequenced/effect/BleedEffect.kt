@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.genetics_resequenced.effect
 
 import dev.aaronhowser.mods.genetics_resequenced.datagen.datapack.ModDamageTypeProvider
+import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectCategory
-import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.entity.LivingEntity
 
 class BleedEffect : MobEffect(

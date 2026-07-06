@@ -3,11 +3,7 @@ package dev.aaronhowser.mods.genetics_resequenced.effect
 import net.minecraft.server.level.ServerLevel
 import net.minecraft.world.effect.MobEffect
 import net.minecraft.world.effect.MobEffectCategory
-import net.minecraft.world.entity.ConversionParams
-import net.minecraft.world.entity.Entity
-import net.minecraft.world.entity.EntitySpawnReason
-import net.minecraft.world.entity.EntityType
-import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.*
 import net.minecraft.world.entity.monster.zombie.Zombie.ZombieGroupData
 import net.minecraft.world.entity.npc.villager.Villager
 import net.neoforged.neoforge.event.EventHooks
@@ -44,7 +40,7 @@ class ZombifyVillagerEffect : MobEffect(
 			zombie.setVillagerData(villager.villagerData)
 			zombie.setGossips(villager.gossips.copy())
 			zombie.setTradeOffers(villager.offers.copy())
-			zombie.setVillagerXp(villager.villagerXp)
+			zombie.villagerXp = villager.villagerXp
 
 			EventHooks.onLivingConvert(villager, zombie)
 

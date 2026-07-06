@@ -11,7 +11,7 @@ import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
 
-class CoalGeneratorBlock(properties: BlockBehaviour.Properties) : MachineBlock(::CoalGeneratorBlockEntity, properties) {
+class CoalGeneratorBlock(properties: Properties) : MachineBlock(::CoalGeneratorBlockEntity, properties) {
 
 	init {
 		registerDefaultState(

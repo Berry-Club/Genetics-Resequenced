@@ -6,14 +6,14 @@ import net.minecraft.advancements.AdvancementRequirements
 import net.minecraft.advancements.AdvancementRewards
 import net.minecraft.advancements.Criterion
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger
+import net.minecraft.core.registries.Registries
 import net.minecraft.data.recipes.RecipeBuilder
 import net.minecraft.data.recipes.RecipeOutput
-import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
-import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.ItemStackTemplate
 import net.minecraft.world.item.crafting.Ingredient
+import net.minecraft.world.item.crafting.Recipe
 
 class BasicIncubatorRecipeBuilder(
 	val topSlotIngredient: Ingredient,

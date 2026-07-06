@@ -9,8 +9,8 @@ open class EnergyContainerData(
 
 	override fun get(index: Int): Int {
 		return when (index) {
-			CURRENT_ENERGY_INDEX -> energyStorage.getAmountAsInt()
-			MAX_ENERGY_INDEX -> energyStorage.getCapacityAsInt()
+			CURRENT_ENERGY_INDEX -> energyStorage.amountAsInt
+			MAX_ENERGY_INDEX -> energyStorage.capacityAsInt
 			else -> -1
 		}
 	}

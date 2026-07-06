@@ -2,8 +2,8 @@ package dev.aaronhowser.mods.genetics_resequenced.advancement
 
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
-import dev.aaronhowser.mods.genetics_resequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
+import dev.aaronhowser.mods.genetics_resequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModGenes
 import net.minecraft.advancements.criterion.SingleComponentItemPredicate
