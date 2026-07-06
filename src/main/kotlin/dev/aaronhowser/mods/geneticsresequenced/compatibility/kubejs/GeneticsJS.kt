@@ -9,6 +9,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Co
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneChangeKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneCooldownKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.ModifyEntityGenesKubeEvent
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.ModifyGeneRequirementsKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.latvian.mods.kubejs.event.EventGroup
@@ -41,6 +42,7 @@ class GeneticsJS : KubeJSPlugin {
 		val GENE_COOLDOWN_ADDED: EventHandler = EVENT_GROUP.server("geneCooldownAdded") { GeneCooldownKubeEvent.Add::class.java }.hasResult()
 		val GENE_COOLDOWN_REMOVED: EventHandler = EVENT_GROUP.server("geneCooldownRemoved") { GeneCooldownKubeEvent.Remove::class.java }
 		val MODIFY_GENE_WEIGHTS: EventHandler = EVENT_GROUP.server("modifyGeneWeights") { ModifyEntityGenesKubeEvent::class.java }
+		val MODIFY_GENE_REQUIREMENTS: EventHandler = EVENT_GROUP.server("modifyGeneRequirements") { ModifyGeneRequirementsKubeEvent::class.java }
 
 		@JvmStatic
 		fun hasGene(entity: LivingEntity, geneRk: ResourceKey<Gene>): Boolean {

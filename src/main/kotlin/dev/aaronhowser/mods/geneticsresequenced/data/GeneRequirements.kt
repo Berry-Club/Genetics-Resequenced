@@ -57,7 +57,7 @@ data class GeneRequirements(
 				}
 			}
 
-			val event = ModifyGeneRequirementsEvent(gene.key!!, resultRks)
+			val event = ModifyGeneRequirementsEvent(gene, resultRks)
 			FORGE_BUS.post(event)
 
 			val geneRegistry = registries.lookupOrThrow(ModGenes.GENE_REGISTRY_KEY)
