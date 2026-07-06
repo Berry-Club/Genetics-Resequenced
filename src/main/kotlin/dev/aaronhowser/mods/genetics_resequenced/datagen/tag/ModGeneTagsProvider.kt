@@ -5,14 +5,14 @@ import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModGenes
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
-import net.minecraft.data.tags.TagsProvider
+import net.minecraft.data.tags.KeyTagProvider
 import net.minecraft.tags.TagKey
 import java.util.concurrent.CompletableFuture
 
 class ModGeneTagsProvider(
 	output: PackOutput,
 	lookupProvider: CompletableFuture<HolderLookup.Provider>
-) : TagsProvider<Gene>(
+) : KeyTagProvider<Gene>(
 	output,
 	ModGenes.GENE_REGISTRY_KEY,
 	lookupProvider,
@@ -32,11 +32,11 @@ class ModGeneTagsProvider(
 
 	override fun addTags(pProvider: HolderLookup.Provider) {
 
-		getOrCreateRawBuilder(HELIX_ONLY)
-			.addElement(ModGenes.BASIC.identifier())
+		tag(HELIX_ONLY)
+			.add(ModGenes.BASIC)
 
-		getOrCreateRawBuilder(MUTATION).apply {
-			listOf(
+		tag(MUTATION)
+			.add(
 				ModGenes.CLAWS_TWO,
 				ModGenes.EFFICIENCY_FOUR,
 				ModGenes.FLIGHT,
@@ -50,11 +50,10 @@ class ModGeneTagsProvider(
 				ModGenes.SPEED_TWO,
 				ModGenes.STRENGTH_TWO,
 				ModGenes.LAVA_PROOF
-			).forEach { addElement(it.identifier()) }
-		}
+			)
 
-		getOrCreateRawBuilder(NEGATIVE).apply {
-			listOf(
+		tag(NEGATIVE)
+			.add(
 				ModGenes.BLINDNESS,
 				ModGenes.CRINGE,
 				ModGenes.CURSED,
@@ -76,10 +75,8 @@ class ModGeneTagsProvider(
 				ModGenes.WHITE_DEATH,
 				ModGenes.GRAY_DEATH,
 				ModGenes.UN_UNDEATH,
-			).forEach { addElement(it.identifier()) }
-		}
+			)
 
-		getOrCreateRawBuilder(DISABLED)
-
+		tag(DISABLED)
 	}
 }
