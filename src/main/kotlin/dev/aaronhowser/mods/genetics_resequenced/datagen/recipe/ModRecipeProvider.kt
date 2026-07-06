@@ -28,7 +28,7 @@ import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 import java.util.concurrent.CompletableFuture
 
 class ModRecipeProvider(
-	private val registries: HolderLookup.Provider,
+	registries: HolderLookup.Provider,
 	output: RecipeOutput
 ) : RecipeProvider(registries, output) {
 
@@ -58,9 +58,8 @@ class ModRecipeProvider(
 			.save(output)
 
 		shaped(RecipeCategory.MISC, ModBlocks.ANTI_FIELD_BLOCK.get())
-			.pattern("   ")
-			.pattern(" O ")
-			.pattern(" L ")
+			.pattern("O")
+			.pattern("L")
 			.define('O', ModItems.ANTI_FIELD_ORB.get())
 			.define('L', Items.REDSTONE_LAMP)
 			.unlockedBy("has_anti_field_orb", has(ModItems.ANTI_FIELD_ORB.get()))

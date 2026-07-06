@@ -6,9 +6,8 @@
     "O": "genetics_resequenced:anti_field_orb"
   },
   "pattern": [
-    "   ",
-    " O ",
-    " L "
+    "O",
+    "L"
   ],
   "result": {
     "id": "genetics_resequenced:anti_field_block"

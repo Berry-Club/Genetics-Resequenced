@@ -1,4 +1,4 @@
-// 26.1.2	2026-07-04T19:44:27.9896242	genetics_resequenced recipes
+// 26.1.2	2026-07-06T18:37:46.6289538	genetics_resequenced recipes
 6331c4aa0e82d138c87ca2375e80ed2aa846ee09 data/genetics_resequenced/advancement/recipes/incubator/basic/cell_growth.json
 03a05896f86bba881d4cbf07e482f11d48df74bb data/genetics_resequenced/advancement/recipes/incubator/basic/panacea.json
 d314d8be1c445cee351988e33d58d7a7defbe8ef data/genetics_resequenced/advancement/recipes/incubator/basic/zombify_villager.json
@@ -71,7 +71,7 @@ fc0ec91a555bf950a85f837560e59fc870f93b18 data/genetics_resequenced/advancement/r
 eb38716910d666c51f9715f50687390df123a60e data/genetics_resequenced/advancement/recipes/misc/scraper.json
 73b2dcc2ca2406495851dbd446fca28a3192fbc2 data/genetics_resequenced/advancement/recipes/misc/syringe.json
 b7f8c438dcb9296c9a7b2de0012c106db0ba970e data/genetics_resequenced/recipe/advanced_incubator.json
-a4f779731f54d68057edb6894777a6fd59c25109 data/genetics_resequenced/recipe/anti_field_block.json
+eb50528632040be21adb56157f9f228c3d7cbb01 data/genetics_resequenced/recipe/anti_field_block.json
 195fcfd411c0c09891cff69c06f6b95d9fe895d8 data/genetics_resequenced/recipe/anti_field_orb.json
 c39ef6f0bf08af536a7e7d390d9d7569653ac797 data/genetics_resequenced/recipe/anti_plasmid.json
 1d86536204706ca9886836dbe6e48774243c909b data/genetics_resequenced/recipe/blood_purifier.json
