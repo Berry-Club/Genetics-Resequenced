@@ -14,39 +14,39 @@ object GeneticsJsEventHandler {
 
 	@SubscribeEvent
 	fun beforeGeneChange(event: GeneChangeEvent.Pre) {
-		if (event.isAddition) {
-			if (GeneticsJS.GENE_ADDED_PRE.hasListeners()) {
-				GeneticsJS.GENE_ADDED_PRE.post(
-					GeneAddedKubeEvent.Pre(event),
-					getGeneKey(event.geneHolder)
-				).applyCancel(event)
-			}
+		val handler = if (event.isAddition) {
+			GeneticsJS.GENE_ADDED_PRE
 		} else {
-			if (GeneticsJS.GENE_REMOVED_PRE.hasListeners()) {
-				GeneticsJS.GENE_REMOVED_PRE.post(
-					GeneRemovedKubeEvent.Pre(event),
-					getGeneKey(event.geneHolder)
-				).applyCancel(event)
+			GeneticsJS.GENE_REMOVED_PRE
+		}
+
+		if (handler.hasListeners()) {
+			val kubeEvent = if (event.isAddition) {
+				GeneAddedKubeEvent.Pre(event)
+			} else {
+				GeneRemovedKubeEvent.Pre(event)
 			}
+
+			handler.post(kubeEvent, getGeneKey(event.geneHolder)).applyCancel(event)
 		}
 	}
 
 	@SubscribeEvent
 	fun afterGeneChange(event: GeneChangeEvent.Post) {
-		if (event.isAddition) {
-			if (GeneticsJS.GENE_ADDED_POST.hasListeners()) {
-				GeneticsJS.GENE_ADDED_POST.post(
-					GeneAddedKubeEvent.Post(event),
-					getGeneKey(event.geneHolder)
-				)
-			}
+		val handler = if (event.isAddition) {
+			GeneticsJS.GENE_ADDED_POST
 		} else {
-			if (GeneticsJS.GENE_REMOVED_POST.hasListeners()) {
-				GeneticsJS.GENE_REMOVED_POST.post(
-					GeneRemovedKubeEvent.Post(event),
-					getGeneKey(event.geneHolder)
-				)
+			GeneticsJS.GENE_REMOVED_POST
+		}
+
+		if (handler.hasListeners()) {
+			val kubeEvent = if (event.isAddition) {
+				GeneAddedKubeEvent.Post(event)
+			} else {
+				GeneRemovedKubeEvent.Post(event)
 			}
+
+			handler.post(kubeEvent, getGeneKey(event.geneHolder))
 		}
 	}
 
