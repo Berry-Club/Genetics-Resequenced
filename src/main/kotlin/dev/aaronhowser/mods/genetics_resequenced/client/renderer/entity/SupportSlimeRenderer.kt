@@ -49,7 +49,7 @@ class SupportSlimeRenderer(
 			?.let(playerSkinRenderCache::getOrDefault)
 			?.renderType()
 
-		state.skullYaw = 180f + Mth.rotLerp(partialTicks, entity.yRotO, entity.yRot)
+		state.skullYaw = 180f - Mth.rotLerp(partialTicks, entity.yRotO, entity.yRot)
 	}
 
 	override fun submit(
