@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.genetics_resequenced.datagen.model
 
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.block.AntiFieldBlock
+import dev.aaronhowser.mods.genetics_resequenced.block.CoalGeneratorBlock
 import dev.aaronhowser.mods.genetics_resequenced.block.base.MachineBlock
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModBlocks
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModDataComponents
@@ -10,6 +11,7 @@ import net.minecraft.client.data.models.BlockModelGenerators
 import net.minecraft.client.data.models.ItemModelGenerators
 import net.minecraft.client.data.models.ModelProvider
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator
+import net.minecraft.client.data.models.blockstates.PropertyDispatch
 import net.minecraft.client.data.models.model.*
 import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.core.Holder
@@ -25,8 +27,7 @@ class ModModelProvider(
 	output: PackOutput
 ) : ModelProvider(output, GeneticsResequenced.MOD_ID) {
 
-	//	override fun getKnownBlocks(): Stream<out Holder<Block>> = ModBlocks.BLOCK_REGISTRY.entries.stream()
-	override fun getKnownBlocks(): Stream<out Holder<Block>> = Stream.empty()
+	override fun getKnownBlocks(): Stream<out Holder<Block>> = ModBlocks.BLOCK_REGISTRY.entries.stream()
 	override fun getKnownItems(): Stream<out Holder<Item>> = ModItems.ITEM_REGISTRY.entries.stream().filter { it.get() !is BlockItem && it != ModItems.FRIENDLY_SLIME_SPAWN_EGG }
 
 	override fun registerModels(blockModels: BlockModelGenerators, itemModels: ItemModelGenerators) {
@@ -36,6 +37,9 @@ class ModModelProvider(
 
 	private fun makeBlockModels(blockModels: BlockModelGenerators) {
 		antiField(blockModels)
+		bioluminescence(blockModels)
+		coalGenerator(blockModels)
+		webDefense(blockModels)
 
 		orientableMachine(ModBlocks.CELL_ANALYZER.get(), blockModels)
 		orientableMachine(ModBlocks.DNA_EXTRACTOR.get(), blockModels)
@@ -45,8 +49,6 @@ class ModModelProvider(
 		orientableMachine(ModBlocks.PLASMID_INJECTOR.get(), blockModels)
 		orientableMachine(ModBlocks.INCUBATOR.get(), blockModels)
 		orientableMachine(ModBlocks.ADVANCED_INCUBATOR.get(), blockModels)
-
-		webDefense(blockModels)
 	}
 
 	private fun webDefense(blockModels: BlockModelGenerators) {
@@ -54,6 +56,22 @@ class ModModelProvider(
 
 		val modelLocation = ModelTemplate(
 			Optional.of(ModelLocationUtils.getModelLocation(Blocks.COBWEB)),
+			Optional.empty()
+		).create(block, TextureMapping(), blockModels.modelOutput)
+
+		blockModels.blockStateOutput.accept(
+			BlockModelGenerators.createSimpleBlock(
+				block,
+				BlockModelGenerators.plainVariant(modelLocation)
+			)
+		)
+	}
+
+	private fun bioluminescence(blockModels: BlockModelGenerators) {
+		val block = ModBlocks.BIOLUMINESCENCE_BLOCK.get()
+
+		val modelLocation = ModelTemplate(
+			Optional.of(ModelLocationUtils.getModelLocation(Blocks.AIR)),
 			Optional.empty()
 		).create(block, TextureMapping(), blockModels.modelOutput)
 
@@ -116,6 +134,42 @@ class ModModelProvider(
 				)
 		)
 
+	}
+
+	private fun coalGenerator(blockModels: BlockModelGenerators) {
+		val block = ModBlocks.COAL_GENERATOR.get()
+
+		val off = BlockModelGenerators.plainVariant(
+			TexturedModel.ORIENTABLE.get(block)
+				.updateTextures {
+					it.put(TextureSlot.TOP, Material(modLocation("block/base/top")))
+					it.put(TextureSlot.BOTTOM, Material(modLocation("block/base/bottom")))
+					it.put(TextureSlot.SIDE, Material(modLocation("block/base/side")))
+					it.put(TextureSlot.FRONT, Material(modLocation("block/coal_generator_off")))
+				}
+				.createWithSuffix(block, "_off", blockModels.modelOutput)
+		)
+
+		val on = BlockModelGenerators.plainVariant(
+			TexturedModel.ORIENTABLE.get(block)
+				.updateTextures {
+					it.put(TextureSlot.TOP, Material(modLocation("block/base/top")))
+					it.put(TextureSlot.BOTTOM, Material(modLocation("block/base/bottom")))
+					it.put(TextureSlot.SIDE, Material(modLocation("block/base/side")))
+					it.put(TextureSlot.FRONT, Material(modLocation("block/coal_generator_on")))
+				}
+				.createWithSuffix(block, "_on", blockModels.modelOutput)
+		)
+
+		blockModels.blockStateOutput.accept(
+			MultiVariantGenerator.dispatch(block)
+				.with(
+					PropertyDispatch.initial(CoalGeneratorBlock.BURNING)
+						.select(false, off)
+						.select(true, on)
+				)
+				.with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING)
+		)
 	}
 
 	private fun makeItemModels(itemModels: ItemModelGenerators) {
