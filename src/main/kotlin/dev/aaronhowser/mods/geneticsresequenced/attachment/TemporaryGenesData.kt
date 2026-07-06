@@ -162,19 +162,20 @@ data class TemporaryGenesData(
 				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
 				return false
 			}
+			val finalDurationTicks = eventPre.durationTicks
 
 			val existingList = this.temporaryGenes.toMutableList()
 
 			val existingTempGene = existingList.find { it.geneHolder.isGene(newGeneHolder) }
 			if (existingTempGene != null) {
-				existingTempGene.ticksRemaining = durationTicks
+				existingTempGene.ticksRemaining = finalDurationTicks
 			} else {
-				existingList.add(TemporaryGene(newGeneHolder, durationTicks))
+				existingList.add(TemporaryGene(newGeneHolder, finalDurationTicks))
 			}
 
 			this.temporaryGenes = existingList
 
-			val eventPost = TemporaryGeneAddedEvent.Post(this, newGeneHolder, durationTicks)
+			val eventPost = TemporaryGeneAddedEvent.Post(this, newGeneHolder, finalDurationTicks)
 			FORGE_BUS.post(eventPost)
 
 			return true

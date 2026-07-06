@@ -77,7 +77,7 @@ class GeneCooldowns(
 				return false
 			}
 
-			val newEntry = Entry(gene, duration, notify)
+			val newEntry = Entry(gene, event.cooldownTicks, notify)
 			newEntry.notifyStart(entity)
 
 			val newCooldowns = entity.geneCooldowns.cooldowns + newEntry

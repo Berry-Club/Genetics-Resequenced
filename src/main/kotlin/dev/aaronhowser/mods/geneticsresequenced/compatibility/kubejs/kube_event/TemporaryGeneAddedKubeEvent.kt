@@ -20,7 +20,12 @@ sealed class TemporaryGeneAddedKubeEvent : GeneKubeEvent {
 
 	class Pre(
 		override val event: TemporaryGeneAddedEvent.Pre
-	) : TemporaryGeneAddedKubeEvent()
+	) : TemporaryGeneAddedKubeEvent() {
+		@Info("Sets how many ticks the temporary Gene will last.")
+		fun setDuration(durationTicks: Int) {
+			event.durationTicks = durationTicks
+		}
+	}
 
 	class Post(
 		override val event: TemporaryGeneAddedEvent.Post

@@ -20,6 +20,11 @@ sealed class GeneCooldownKubeEvent : GeneKubeEvent {
 	) : GeneCooldownKubeEvent() {
 		@Info("How many ticks the cooldown will be")
 		fun getDuration(): Int = event.cooldownTicks
+
+		@Info("Sets how many ticks the cooldown will be")
+		fun setDuration(durationTicks: Int) {
+			event.cooldownTicks = durationTicks
+		}
 	}
 
 	class Remove(
