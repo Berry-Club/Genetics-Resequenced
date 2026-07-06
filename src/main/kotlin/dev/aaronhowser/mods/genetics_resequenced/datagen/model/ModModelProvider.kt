@@ -17,6 +17,8 @@ import net.minecraft.data.PackOutput
 import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.Item
 import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.Blocks
+import java.util.*
 import java.util.stream.Stream
 
 class ModModelProvider(
@@ -43,6 +45,24 @@ class ModModelProvider(
 		orientableMachine(ModBlocks.PLASMID_INJECTOR.get(), blockModels)
 		orientableMachine(ModBlocks.INCUBATOR.get(), blockModels)
 		orientableMachine(ModBlocks.ADVANCED_INCUBATOR.get(), blockModels)
+
+		webDefense(blockModels)
+	}
+
+	private fun webDefense(blockModels: BlockModelGenerators) {
+		val block = ModBlocks.WEB_DEFENSE_BLOCK.get()
+
+		val modelLocation = ModelTemplate(
+			Optional.of(ModelLocationUtils.getModelLocation(Blocks.COBWEB)),
+			Optional.empty()
+		).create(block, TextureMapping(), blockModels.modelOutput)
+
+		blockModels.blockStateOutput.accept(
+			BlockModelGenerators.createSimpleBlock(
+				block,
+				BlockModelGenerators.plainVariant(modelLocation)
+			)
+		)
 	}
 
 	private fun orientableMachine(block: MachineBlock, blockModels: BlockModelGenerators) {
