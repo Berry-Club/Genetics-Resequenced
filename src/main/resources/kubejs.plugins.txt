@@ -1,1 +1,1 @@
-dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs GeneticsJS geneticsresequenced
+dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.GeneticsJS geneticsresequenced
