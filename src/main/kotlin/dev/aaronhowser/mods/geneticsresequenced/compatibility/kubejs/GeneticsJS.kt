@@ -7,6 +7,7 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.r
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.addTemporaryGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.removeTemporaryGene
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneChangeKubeEvent
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneCooldownKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.latvian.mods.kubejs.event.EventGroup
@@ -36,6 +37,8 @@ class GeneticsJS : KubeJSPlugin {
 	companion object {
 		private val EVENT_GROUP: EventGroup = EventGroup.of("GeneticsEvents")
 		val GENE_CHANGED: EventHandler = EVENT_GROUP.server("geneChanged") { GeneChangeKubeEvent::class.java }.hasResult()
+		val GENE_COOLDOWN_ADDED: EventHandler = EVENT_GROUP.server("geneCooldownAdded") { GeneCooldownKubeEvent.Add::class.java }.hasResult()
+		val GENE_COOLDOWN_REMOVED: EventHandler = EVENT_GROUP.server("geneCooldownRemoved") { GeneCooldownKubeEvent.Remove::class.java }
 
 		@JvmStatic
 		fun hasGene(entity: LivingEntity, geneRk: ResourceKey<Gene>): Boolean {

@@ -6,7 +6,7 @@ import dev.latvian.mods.kubejs.typings.Info
 import net.minecraft.core.Holder
 import net.minecraft.world.entity.LivingEntity
 
-sealed class GeneAddCooldownKubeEvent : GeneKubeEvent {
+sealed class GeneCooldownKubeEvent : GeneKubeEvent {
 
 	protected abstract val event: GeneCooldownEvent
 
@@ -17,13 +17,13 @@ sealed class GeneAddCooldownKubeEvent : GeneKubeEvent {
 
 	class Add(
 		override val event: GeneCooldownEvent.Add
-	) : GeneAddCooldownKubeEvent() {
+	) : GeneCooldownKubeEvent() {
 		@Info("How many ticks the cooldown will be")
 		fun getDuration(): Int = event.cooldownTicks
 	}
 
 	class Remove(
 		override val event: GeneCooldownEvent.Remove
-	) : GeneAddCooldownKubeEvent()
+	) : GeneCooldownKubeEvent()
 
 }
