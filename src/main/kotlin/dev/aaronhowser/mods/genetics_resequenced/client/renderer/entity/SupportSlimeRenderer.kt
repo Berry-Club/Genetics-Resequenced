@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.genetics_resequenced.client.renderer.entity
 
 import com.mojang.blaze3d.vertex.PoseStack
 import com.mojang.math.Axis
+import dev.aaronhowser.mods.aaron.misc.AaronDsls.withPose
 import dev.aaronhowser.mods.genetics_resequenced.entity.SupportSlime
 import net.minecraft.client.model.geom.ModelLayers
 import net.minecraft.client.model.monster.slime.SlimeModel
@@ -50,6 +51,8 @@ class SupportSlimeRenderer(
 			?.renderType()
 
 		state.skullYaw = 180f - Mth.rotLerp(partialTicks, entity.yRotO, entity.yRot)
+		state.squish = Mth.lerp(partialTicks, entity.oSquish, entity.squish)
+		state.size = entity.size
 	}
 
 	override fun submit(
@@ -60,27 +63,26 @@ class SupportSlimeRenderer(
 	) {
 		val skinRenderType = state.ownerSkinRenderType ?: return
 
-		poseStack.pushPose()
+		poseStack.withPose {
+			val scale = state.size.toFloat()
 
-		val scale = state.size.toFloat()
-		poseStack.translate(-scale / 2.0, 0.0, -scale / 2.0)
-		poseStack.scale(scale, scale, scale)
-		poseStack.translate(0.5, 0.0, 0.5)
-		poseStack.mulPose(Axis.YP.rotationDegrees(state.skullYaw))
-		poseStack.scale(-1.0f, -1.0f, 1.0f)
+			poseStack.translate(-scale / 2.0, 0.0, -scale / 2.0)
+			poseStack.scale(scale, scale, scale)
+			poseStack.translate(0.5, 0.0, 0.5)
+			poseStack.mulPose(Axis.YP.rotationDegrees(state.skullYaw))
+			poseStack.scale(-1.0f, -1.0f, 1.0f)
 
-		SkullBlockRenderer.submitSkull(
-			0f,
-			poseStack,
-			submitNodeCollector,
-			state.lightCoords,
-			skullModel,
-			skinRenderType,
-			state.outlineColor,
-			null
-		)
-
-		poseStack.popPose()
+			SkullBlockRenderer.submitSkull(
+				0f,
+				poseStack,
+				submitNodeCollector,
+				state.lightCoords,
+				skullModel,
+				skinRenderType,
+				state.outlineColor,
+				null
+			)
+		}
 	}
 
 	override fun getTextureLocation(state: State): Identifier {
