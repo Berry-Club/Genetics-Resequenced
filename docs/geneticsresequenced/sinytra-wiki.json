@@ -1,5 +1,5 @@
 {
-	"id": "genetics_resequenced",
+	"id": "geneticsresequenced",
 	"modid": "genetics_resequenced",
 	"owners": ["aaronhowser1"],
 	"platforms": {
@@ -12,6 +12,7 @@
 		}
 	},
 	"versions": {
+		"1.21.1": "1.21-Neoforge",
 		"26.1.2": "26.1-Neoforge"
 	}
 }
