@@ -44,11 +44,11 @@ object ModCommands : AaronCommandHelper {
 		context: CommandContext<CommandSourceStack>,
 		suggestionsBuilder: SuggestionsBuilder
 	): CompletableFuture<Suggestions> {
-		val allGeneIdentifiers = ModGenes
+		val allGeneIds = ModGenes
 			.getRegistrySorted(context.source.registryAccess())
 			.mapNotNull { it.key?.identifier() }
 
-		return SharedSuggestionProvider.suggestResource(allGeneIdentifiers, suggestionsBuilder)
+		return SharedSuggestionProvider.suggestResource(allGeneIds, suggestionsBuilder)
 	}
 
 	fun CommandSourceStack.hasGameMasterPermission(): Boolean {
