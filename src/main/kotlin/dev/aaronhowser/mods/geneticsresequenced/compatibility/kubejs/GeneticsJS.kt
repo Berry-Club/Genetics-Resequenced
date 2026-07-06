@@ -11,6 +11,8 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneRemovedKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.ModifyEntityGenesKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.ModifyGeneRequirementsKubeEvent
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.TemporaryGeneAddedKubeEvent
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.TemporaryGeneRemovedKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.latvian.mods.kubejs.event.EventGroup
@@ -43,6 +45,10 @@ class GeneticsJS : KubeJSPlugin {
 		val GENE_ADDED_POST: EventHandler = EVENT_GROUP.server("geneAdded") { GeneAddedKubeEvent.Post::class.java }
 		val GENE_REMOVED_PRE: EventHandler = EVENT_GROUP.server("geneRemovedPre") { GeneRemovedKubeEvent.Pre::class.java }.hasResult()
 		val GENE_REMOVED_POST: EventHandler = EVENT_GROUP.server("geneRemoved") { GeneRemovedKubeEvent.Post::class.java }
+		val TEMPORARY_GENE_ADDED_PRE: EventHandler = EVENT_GROUP.server("temporaryGeneAddedPre") { TemporaryGeneAddedKubeEvent.Pre::class.java }.hasResult()
+		val TEMPORARY_GENE_ADDED_POST: EventHandler = EVENT_GROUP.server("temporaryGeneAdded") { TemporaryGeneAddedKubeEvent.Post::class.java }
+		val TEMPORARY_GENE_REMOVED_PRE: EventHandler = EVENT_GROUP.server("temporaryGeneRemovedPre") { TemporaryGeneRemovedKubeEvent.Pre::class.java }.hasResult()
+		val TEMPORARY_GENE_REMOVED_POST: EventHandler = EVENT_GROUP.server("temporaryGeneRemoved") { TemporaryGeneRemovedKubeEvent.Post::class.java }
 		val GENE_COOLDOWN_ADDED: EventHandler = EVENT_GROUP.server("geneCooldownAdded") { GeneCooldownKubeEvent.Add::class.java }.hasResult()
 		val GENE_COOLDOWN_REMOVED: EventHandler = EVENT_GROUP.server("geneCooldownRemoved") { GeneCooldownKubeEvent.Remove::class.java }
 		val MODIFY_GENE_WEIGHTS: EventHandler = EVENT_GROUP.server("modifyGeneWeights") { ModifyEntityGenesKubeEvent::class.java }

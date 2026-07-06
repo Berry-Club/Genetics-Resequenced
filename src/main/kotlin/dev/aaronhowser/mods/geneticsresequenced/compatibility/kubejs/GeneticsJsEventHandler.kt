@@ -6,10 +6,14 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.GeneRemovedKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.ModifyEntityGenesKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.ModifyGeneRequirementsKubeEvent
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.TemporaryGeneAddedKubeEvent
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.kube_event.TemporaryGeneRemovedKubeEvent
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneChangeEvent
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.GeneCooldownEvent
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyEntityGenesEvent
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.ModifyGeneRequirementsEvent
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneAddedEvent
+import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneRemovedEvent
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
 
@@ -46,6 +50,34 @@ object GeneticsJsEventHandler {
 	fun addGeneCooldown(event: GeneCooldownEvent.Add) {
 		if (GeneticsJS.GENE_COOLDOWN_ADDED.hasListeners()) {
 			GeneticsJS.GENE_COOLDOWN_ADDED.post(GeneCooldownKubeEvent.Add(event)).applyCancel(event)
+		}
+	}
+
+	@SubscribeEvent
+	fun beforeTemporaryGeneAdded(event: TemporaryGeneAddedEvent.Pre) {
+		if (GeneticsJS.TEMPORARY_GENE_ADDED_PRE.hasListeners()) {
+			GeneticsJS.TEMPORARY_GENE_ADDED_PRE.post(TemporaryGeneAddedKubeEvent.Pre(event)).applyCancel(event)
+		}
+	}
+
+	@SubscribeEvent
+	fun afterTemporaryGeneAdded(event: TemporaryGeneAddedEvent.Post) {
+		if (GeneticsJS.TEMPORARY_GENE_ADDED_POST.hasListeners()) {
+			GeneticsJS.TEMPORARY_GENE_ADDED_POST.post(TemporaryGeneAddedKubeEvent.Post(event))
+		}
+	}
+
+	@SubscribeEvent
+	fun beforeTemporaryGeneRemoved(event: TemporaryGeneRemovedEvent.Pre) {
+		if (GeneticsJS.TEMPORARY_GENE_REMOVED_PRE.hasListeners()) {
+			GeneticsJS.TEMPORARY_GENE_REMOVED_PRE.post(TemporaryGeneRemovedKubeEvent.Pre(event)).applyCancel(event)
+		}
+	}
+
+	@SubscribeEvent
+	fun afterTemporaryGeneRemoved(event: TemporaryGeneRemovedEvent.Post) {
+		if (GeneticsJS.TEMPORARY_GENE_REMOVED_POST.hasListeners()) {
+			GeneticsJS.TEMPORARY_GENE_REMOVED_POST.post(TemporaryGeneRemovedKubeEvent.Post(event))
 		}
 	}
 
