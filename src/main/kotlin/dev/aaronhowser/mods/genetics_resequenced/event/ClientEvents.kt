@@ -75,12 +75,6 @@ object ClientEvents {
 	}
 
 	@SubscribeEvent
-	fun onKeyRegister(event: RegisterKeyMappingsEvent) {
-		event.register(ModKeyMappings.DRAGONS_BREATH)
-		event.register(ModKeyMappings.TELEPORT)
-	}
-
-	@SubscribeEvent
 	fun onClientSetup(event: FMLClientSetupEvent) {
 		registerEntityRenderers()
 	}
