@@ -17,11 +17,14 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.latvian.mods.kubejs.event.EventGroup
 import dev.latvian.mods.kubejs.event.EventGroupRegistry
-import dev.latvian.mods.kubejs.event.EventHandler
+import dev.latvian.mods.kubejs.event.EventTargetType
+import dev.latvian.mods.kubejs.event.TargetedEventHandler
 import dev.latvian.mods.kubejs.plugin.KubeJSPlugin
 import dev.latvian.mods.kubejs.registry.ServerRegistryRegistry
 import dev.latvian.mods.kubejs.script.BindingRegistry
+import net.minecraft.core.registries.Registries
 import net.minecraft.resources.ResourceKey
+import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 
 @Suppress("unused")
@@ -41,18 +44,22 @@ class GeneticsJS : KubeJSPlugin {
 
 	companion object {
 		private val EVENT_GROUP: EventGroup = EventGroup.of("GeneticsEvents")
-		val GENE_ADDED_PRE: EventHandler = EVENT_GROUP.server("geneAddedPre") { GeneAddedKubeEvent.Pre::class.java }.hasResult()
-		val GENE_ADDED_POST: EventHandler = EVENT_GROUP.server("geneAdded") { GeneAddedKubeEvent.Post::class.java }
-		val GENE_REMOVED_PRE: EventHandler = EVENT_GROUP.server("geneRemovedPre") { GeneRemovedKubeEvent.Pre::class.java }.hasResult()
-		val GENE_REMOVED_POST: EventHandler = EVENT_GROUP.server("geneRemoved") { GeneRemovedKubeEvent.Post::class.java }
-		val TEMPORARY_GENE_ADDED_PRE: EventHandler = EVENT_GROUP.server("temporaryGeneAddedPre") { TemporaryGeneAddedKubeEvent.Pre::class.java }.hasResult()
-		val TEMPORARY_GENE_ADDED_POST: EventHandler = EVENT_GROUP.server("temporaryGeneAdded") { TemporaryGeneAddedKubeEvent.Post::class.java }
-		val TEMPORARY_GENE_REMOVED_PRE: EventHandler = EVENT_GROUP.server("temporaryGeneRemovedPre") { TemporaryGeneRemovedKubeEvent.Pre::class.java }.hasResult()
-		val TEMPORARY_GENE_REMOVED_POST: EventHandler = EVENT_GROUP.server("temporaryGeneRemoved") { TemporaryGeneRemovedKubeEvent.Post::class.java }
-		val GENE_COOLDOWN_ADDED: EventHandler = EVENT_GROUP.server("geneCooldownAdded") { GeneCooldownKubeEvent.Add::class.java }.hasResult()
-		val GENE_COOLDOWN_REMOVED: EventHandler = EVENT_GROUP.server("geneCooldownRemoved") { GeneCooldownKubeEvent.Remove::class.java }
-		val MODIFY_GENE_WEIGHTS: EventHandler = EVENT_GROUP.server("modifyGeneWeights") { ModifyEntityGenesKubeEvent::class.java }
-		val MODIFY_GENE_REQUIREMENTS: EventHandler = EVENT_GROUP.server("modifyGeneRequirements") { ModifyGeneRequirementsKubeEvent::class.java }
+
+		private val GENE_TARGET: EventTargetType<ResourceKey<Gene>> = EventTargetType.registryKey(ModGenes.GENE_REGISTRY_KEY, Gene::class.java)
+		private val ENTITY_TYPE_TARGET: EventTargetType<ResourceKey<EntityType<*>>> = EventTargetType.registryKey(Registries.ENTITY_TYPE, EntityType::class.java)
+
+		val GENE_ADDED_PRE: TargetedEventHandler<ResourceKey<Gene>> = EVENT_GROUP.server("geneAddedPre") { GeneAddedKubeEvent.Pre::class.java }.hasResult().supportsTarget(GENE_TARGET)
+		val GENE_ADDED_POST: TargetedEventHandler<ResourceKey<Gene>> = EVENT_GROUP.server("geneAdded") { GeneAddedKubeEvent.Post::class.java }.supportsTarget(GENE_TARGET)
+		val GENE_REMOVED_PRE: TargetedEventHandler<ResourceKey<Gene>> = EVENT_GROUP.server("geneRemovedPre") { GeneRemovedKubeEvent.Pre::class.java }.hasResult().supportsTarget(GENE_TARGET)
+		val GENE_REMOVED_POST: TargetedEventHandler<ResourceKey<Gene>> = EVENT_GROUP.server("geneRemoved") { GeneRemovedKubeEvent.Post::class.java }.supportsTarget(GENE_TARGET)
+		val TEMPORARY_GENE_ADDED_PRE: TargetedEventHandler<ResourceKey<Gene>> = EVENT_GROUP.server("temporaryGeneAddedPre") { TemporaryGeneAddedKubeEvent.Pre::class.java }.hasResult().supportsTarget(GENE_TARGET)
+		val TEMPORARY_GENE_ADDED_POST: TargetedEventHandler<ResourceKey<Gene>> = EVENT_GROUP.server("temporaryGeneAdded") { TemporaryGeneAddedKubeEvent.Post::class.java }.supportsTarget(GENE_TARGET)
+		val TEMPORARY_GENE_REMOVED_PRE: TargetedEventHandler<ResourceKey<Gene>> = EVENT_GROUP.server("temporaryGeneRemovedPre") { TemporaryGeneRemovedKubeEvent.Pre::class.java }.hasResult().supportsTarget(GENE_TARGET)
+		val TEMPORARY_GENE_REMOVED_POST: TargetedEventHandler<ResourceKey<Gene>> = EVENT_GROUP.server("temporaryGeneRemoved") { TemporaryGeneRemovedKubeEvent.Post::class.java }.supportsTarget(GENE_TARGET)
+		val GENE_COOLDOWN_ADDED: TargetedEventHandler<ResourceKey<Gene>> = EVENT_GROUP.server("geneCooldownAdded") { GeneCooldownKubeEvent.Add::class.java }.hasResult().supportsTarget(GENE_TARGET)
+		val GENE_COOLDOWN_REMOVED: TargetedEventHandler<ResourceKey<Gene>> = EVENT_GROUP.server("geneCooldownRemoved") { GeneCooldownKubeEvent.Remove::class.java }.supportsTarget(GENE_TARGET)
+		val MODIFY_GENE_WEIGHTS: TargetedEventHandler<ResourceKey<EntityType<*>>> = EVENT_GROUP.server("modifyGeneWeights") { ModifyEntityGenesKubeEvent::class.java }.supportsTarget(ENTITY_TYPE_TARGET)
+		val MODIFY_GENE_REQUIREMENTS: TargetedEventHandler<ResourceKey<Gene>> = EVENT_GROUP.server("modifyGeneRequirements") { ModifyGeneRequirementsKubeEvent::class.java }.supportsTarget(GENE_TARGET)
 
 		@JvmStatic
 		fun hasGene(entity: LivingEntity, geneRk: ResourceKey<Gene>): Boolean {
