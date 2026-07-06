@@ -17,7 +17,7 @@ import org.joml.SimplexNoise
 object GeneRenderChanges {
 
 	private val HAS_CRINGE = ContextKey<Boolean>(GeneticsResequenced.modId("has_cringe"))
-	private val CLINGS_TO_CEILING = ContextKey<Boolean>(GeneticsResequenced.modId("clings_to_ceiling"))
+	private val CLINGING_TO_CEILING = ContextKey<Boolean>(GeneticsResequenced.modId("clinging_to_ceiling"))
 
 	fun registerRenderStateModifiers(event: RegisterRenderStateModifiersEvent) {
 		event.registerEntityModifier(
@@ -28,7 +28,7 @@ object GeneRenderChanges {
 
 	private fun extractLivingEntityGeneState(entity: LivingEntity, state: LivingEntityRenderState) {
 		state.setRenderData(HAS_CRINGE, entity.hasGene(ModGenes.CRINGE))
-		state.setRenderData(CLINGS_TO_CEILING, OtherGenes.shouldClingToCeiling(entity))
+		state.setRenderData(CLINGING_TO_CEILING, OtherGenes.shouldClingToCeiling(entity))
 	}
 
 	fun shakeFromCringe(event: RenderLivingEvent.Pre<*, *, *>) {
@@ -62,7 +62,7 @@ object GeneRenderChanges {
 	fun spiderClimbFlip(event: RenderLivingEvent.Pre<*, *, *>) {
 		val state = event.renderState
 
-		if (state.getRenderDataOrDefault(CLINGS_TO_CEILING, false)) {
+		if (state.getRenderDataOrDefault(CLINGING_TO_CEILING, false)) {
 			val poseStack = event.poseStack
 			poseStack.pushPose()
 			poseStack.translate(0.0, state.boundingBoxHeight.toDouble(), 0.0)
@@ -73,7 +73,7 @@ object GeneRenderChanges {
 	fun spiderClimbFlipPost(event: RenderLivingEvent.Post<*, *, *>) {
 		val state = event.renderState
 
-		if (state.getRenderDataOrDefault(CLINGS_TO_CEILING, false)) {
+		if (state.getRenderDataOrDefault(CLINGING_TO_CEILING, false)) {
 			event.poseStack.popPose()
 		}
 	}
