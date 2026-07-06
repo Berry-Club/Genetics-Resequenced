@@ -6,7 +6,9 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.r
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.addTemporaryGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.TemporaryGenesData.Companion.removeTemporaryGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.latvian.mods.kubejs.plugin.KubeJSPlugin
+import dev.latvian.mods.kubejs.registry.ServerRegistryRegistry
 import dev.latvian.mods.kubejs.script.BindingRegistry
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.Entity
@@ -17,6 +19,10 @@ class GeneticsJS : KubeJSPlugin {
 
 	override fun registerBindings(bindings: BindingRegistry) {
 		bindings.add("GeneticsJS", GeneticsJS::class.java)
+	}
+
+	override fun registerServerRegistries(registry: ServerRegistryRegistry) {
+		registry.register(ModGenes.GENE_REGISTRY_KEY, Gene.DIRECT_CODEC, Gene::class.java)
 	}
 
 	companion object {
