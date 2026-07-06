@@ -19,12 +19,12 @@ object GeneticsJsEventHandler {
 	@SubscribeEvent
 	fun beforeGeneChange(event: GeneChangeEvent.Pre) {
 		if (event.isAddition) {
-			if (GeneticsJS.GENE_ADDED.hasListeners()) {
-				GeneticsJS.GENE_ADDED.post(GeneAddedKubeEvent(event)).applyCancel(event)
+			if (GeneticsJS.GENE_ADDED_PRE.hasListeners()) {
+				GeneticsJS.GENE_ADDED_PRE.post(GeneAddedKubeEvent.Pre(event)).applyCancel(event)
 			}
 		} else {
-			if (GeneticsJS.GENE_REMOVED.hasListeners()) {
-				GeneticsJS.GENE_REMOVED.post(GeneRemovedKubeEvent(event)).applyCancel(event)
+			if (GeneticsJS.GENE_REMOVED_PRE.hasListeners()) {
+				GeneticsJS.GENE_REMOVED_PRE.post(GeneRemovedKubeEvent.Pre(event)).applyCancel(event)
 			}
 		}
 	}
@@ -32,12 +32,12 @@ object GeneticsJsEventHandler {
 	@SubscribeEvent
 	fun afterGeneChange(event: GeneChangeEvent.Post) {
 		if (event.isAddition) {
-			if (GeneticsJS.GENE_ADDED.hasListeners()) {
-				GeneticsJS.GENE_ADDED.post(GeneAddedKubeEvent(event))
+			if (GeneticsJS.GENE_ADDED_POST.hasListeners()) {
+				GeneticsJS.GENE_ADDED_POST.post(GeneAddedKubeEvent.Post(event))
 			}
 		} else {
-			if (GeneticsJS.GENE_REMOVED.hasListeners()) {
-				GeneticsJS.GENE_REMOVED.post(GeneRemovedKubeEvent(event))
+			if (GeneticsJS.GENE_REMOVED_POST.hasListeners()) {
+				GeneticsJS.GENE_REMOVED_POST.post(GeneRemovedKubeEvent.Post(event))
 			}
 		}
 	}

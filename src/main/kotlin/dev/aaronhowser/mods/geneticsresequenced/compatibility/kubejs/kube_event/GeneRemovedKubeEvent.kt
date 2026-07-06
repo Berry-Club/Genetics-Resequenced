@@ -6,16 +6,21 @@ import dev.latvian.mods.kubejs.typings.Info
 import net.minecraft.core.Holder
 import net.minecraft.world.entity.LivingEntity
 
-class GeneRemovedKubeEvent(
-	val event: GeneChangeEvent
-) : GeneKubeEvent {
+sealed class GeneRemovedKubeEvent : GeneKubeEvent {
+
+	protected abstract val event: GeneChangeEvent
 
 	override fun getEntity(): LivingEntity = event.entity
 
 	@Info("The Gene that's being removed.")
 	override fun getGene(): Holder<Gene> = event.geneHolder
 
-	@Info("Whether or not the event is the Post event.")
-	fun isPostEvent(): Boolean = event is GeneChangeEvent.Post
+	class Pre(
+		override val event: GeneChangeEvent.Pre
+	) : GeneRemovedKubeEvent()
+
+	class Post(
+		override val event: GeneChangeEvent.Post
+	) : GeneRemovedKubeEvent()
 
 }

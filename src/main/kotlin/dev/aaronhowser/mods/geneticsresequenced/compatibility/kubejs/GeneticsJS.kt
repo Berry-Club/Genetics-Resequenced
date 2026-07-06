@@ -39,8 +39,10 @@ class GeneticsJS : KubeJSPlugin {
 
 	companion object {
 		private val EVENT_GROUP: EventGroup = EventGroup.of("GeneticsEvents")
-		val GENE_ADDED: EventHandler = EVENT_GROUP.server("geneAdded") { GeneAddedKubeEvent::class.java }.hasResult()
-		val GENE_REMOVED: EventHandler = EVENT_GROUP.server("geneRemoved") { GeneRemovedKubeEvent::class.java }.hasResult()
+		val GENE_ADDED_PRE: EventHandler = EVENT_GROUP.server("geneAddedPre") { GeneAddedKubeEvent.Pre::class.java }.hasResult()
+		val GENE_ADDED_POST: EventHandler = EVENT_GROUP.server("geneAdded") { GeneAddedKubeEvent.Post::class.java }
+		val GENE_REMOVED_PRE: EventHandler = EVENT_GROUP.server("geneRemovedPre") { GeneRemovedKubeEvent.Pre::class.java }.hasResult()
+		val GENE_REMOVED_POST: EventHandler = EVENT_GROUP.server("geneRemoved") { GeneRemovedKubeEvent.Post::class.java }
 		val GENE_COOLDOWN_ADDED: EventHandler = EVENT_GROUP.server("geneCooldownAdded") { GeneCooldownKubeEvent.Add::class.java }.hasResult()
 		val GENE_COOLDOWN_REMOVED: EventHandler = EVENT_GROUP.server("geneCooldownRemoved") { GeneCooldownKubeEvent.Remove::class.java }
 		val MODIFY_GENE_WEIGHTS: EventHandler = EVENT_GROUP.server("modifyGeneWeights") { ModifyEntityGenesKubeEvent::class.java }
