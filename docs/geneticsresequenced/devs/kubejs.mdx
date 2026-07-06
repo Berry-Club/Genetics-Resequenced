@@ -163,7 +163,7 @@ The plugin registers the `geneticsresequenced:gene` server registry with KubeJS.
 
 ```js
 ServerEvents.registry('geneticsresequenced:gene', event => {
-  event.createFromJson('coolmodpack:sun_powered', {
+  event.createFromJson('modpackname:example', {
     dna_points_required: 8,
     allowed_entities: 'minecraft:player',
     potion_details: [
@@ -180,7 +180,7 @@ ServerEvents.registry('geneticsresequenced:gene', event => {
 })
 ```
 
-The generated translation keys are `gene.namespace.path` and `info.gene.namespace.path`. For the example above, those are `gene.coolmodpack.sun_powered` and `info.gene.coolmodpack.sun_powered`.
+The generated translation keys are `gene.namespace.path` and `info.gene.namespace.path`. For the example above, those are `gene.modpackname.example` and `info.gene.modpackname.example`.
 
 ## Gene Tags
 
