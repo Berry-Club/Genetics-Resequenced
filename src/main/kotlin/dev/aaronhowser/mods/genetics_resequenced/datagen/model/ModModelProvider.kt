@@ -16,9 +16,7 @@ import net.minecraft.client.data.models.model.*
 import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.core.Holder
 import net.minecraft.data.PackOutput
-import net.minecraft.world.item.BlockItem
 import net.minecraft.world.item.Item
-import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.Blocks
 import java.util.*
 import java.util.stream.Stream
@@ -89,19 +87,14 @@ class ModModelProvider(
 
 		val front = TextureMapping.getBlockTexture(block)
 
-		val model = TexturedModel.ORIENTABLE.get(block)
-			.updateTextures {
+		blockModels.createHorizontallyRotatedBlock(
+			block,
+			TexturedModel.ORIENTABLE.updateTexture {
 				it.put(TextureSlot.TOP, baseTop)
-				it.put(TextureSlot.BOTTOM, baseBottom)
-				it.put(TextureSlot.SIDE, baseSide)
-				it.put(TextureSlot.FRONT, front)
+					.put(TextureSlot.BOTTOM, baseBottom)
+					.put(TextureSlot.SIDE, baseSide)
+					.put(TextureSlot.FRONT, front)
 			}
-
-		val variant = BlockModelGenerators.plainVariant(model.create(block, blockModels.modelOutput))
-
-		blockModels.blockStateOutput.accept(
-			BlockModelGenerators.createSimpleBlock(block, variant)
-				.with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING)
 		)
 	}
 
