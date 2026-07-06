@@ -11,6 +11,7 @@ import net.minecraft.client.data.models.ItemModelGenerators
 import net.minecraft.client.data.models.ModelProvider
 import net.minecraft.client.data.models.blockstates.MultiVariantGenerator
 import net.minecraft.client.data.models.model.*
+import net.minecraft.client.resources.model.sprite.Material
 import net.minecraft.core.Holder
 import net.minecraft.data.PackOutput
 import net.minecraft.world.item.BlockItem
@@ -33,10 +34,31 @@ class ModModelProvider(
 
 	private fun makeBlockModels(blockModels: BlockModelGenerators) {
 		antiField(blockModels)
+
+		orientableMachine(ModBlocks.BLOOD_PURIFIER.get(), blockModels)
 	}
 
-	private fun orientableMachine(block: MachineBlock) {
+	private fun orientableMachine(block: MachineBlock, blockModels: BlockModelGenerators) {
+		val baseTop = Material(modLocation("block/base/top"))
+		val baseSide = Material(modLocation("block/base/side"))
+		val baseBottom = Material(modLocation("block/base/bottom"))
 
+		val front = TextureMapping.getBlockTexture(block)
+
+		val model = TexturedModel.ORIENTABLE.get(block)
+			.updateTextures {
+				it.put(TextureSlot.TOP, baseTop)
+				it.put(TextureSlot.BOTTOM, baseBottom)
+				it.put(TextureSlot.SIDE, baseSide)
+				it.put(TextureSlot.FRONT, front)
+			}
+
+		val variant = BlockModelGenerators.plainVariant(model.create(block, blockModels.modelOutput))
+
+		blockModels.blockStateOutput.accept(
+			BlockModelGenerators.createSimpleBlock(block, variant)
+				.with(BlockModelGenerators.ROTATION_HORIZONTAL_FACING)
+		)
 	}
 
 	private fun antiField(blockModels: BlockModelGenerators) {
