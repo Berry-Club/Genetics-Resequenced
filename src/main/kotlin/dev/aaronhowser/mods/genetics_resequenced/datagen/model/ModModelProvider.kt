@@ -37,8 +37,8 @@ class ModModelProvider(
 	private fun antiField(blockModels: BlockModelGenerators) {
 		val block = ModBlocks.ANTI_FIELD_BLOCK.get()
 
-		val enabledMat = TextureMapping.getBlockTexture(block, "_on")
-		val disabledMat = TextureMapping.getBlockTexture(block, "_off")
+		val enabledMat = TextureMapping.getBlockTexture(block, "/on")
+		val disabledMat = TextureMapping.getBlockTexture(block, "/off")
 
 		val enabled = BlockModelGenerators.plainVariant(
 			TexturedModel.CUBE.get(block)
