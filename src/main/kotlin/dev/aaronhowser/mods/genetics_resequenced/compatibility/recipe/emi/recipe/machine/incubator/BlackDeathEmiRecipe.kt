@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.emi.recipe.machine.incubator
 
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModRecipeLang
@@ -64,7 +65,7 @@ class BlackDeathEmiRecipe(
 	}
 
 	override val tooltips: List<Component> = listOf(
-		ModRecipeLang.BLACK_DEATH.toComponent().withStyle(ChatFormatting.GRAY)
+		ModRecipeLang.BLACK_DEATH.toGrayComponent()
 	)
 
 	override fun getId(): Identifier {

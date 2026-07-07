@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.item
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
@@ -27,14 +28,11 @@ class GmoCell(properties: Properties) : Item(properties) {
 		if (entityType != null) {
 			components.accept(
 				ModTooltipLang.CELL_MOB
-					.toComponent(entityType.description)
-					.withStyle(ChatFormatting.GRAY)
+					.toGrayComponent(entityType.description)
 			)
 		} else {
 			components.accept(
-				ModTooltipLang.CELL_NO_MOB
-					.toComponent()
-					.withStyle(ChatFormatting.GRAY)
+				ModTooltipLang.CELL_NO_MOB.toGrayComponent()
 			)
 		}
 
@@ -42,14 +40,12 @@ class GmoCell(properties: Properties) : Item(properties) {
 		if (geneHolder != null) {
 			components.accept(
 				ModTooltipLang.GENE
-					.toComponent(geneHolder.getName())
-					.withStyle(ChatFormatting.GRAY)
+					.toGrayComponent(geneHolder.getName())
 			)
 		} else {
 			components.accept(
 				ModTooltipLang.GENE
-					.toComponent(Gene.UNKNOWN_GENE_COMPONENT)
-					.withStyle(ChatFormatting.GRAY)
+					.toGrayComponent(Gene.UNKNOWN_GENE_COMPONENT)
 			)
 		}
 	}

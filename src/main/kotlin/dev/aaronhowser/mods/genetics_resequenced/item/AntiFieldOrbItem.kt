@@ -1,13 +1,13 @@
 package dev.aaronhowser.mods.genetics_resequenced.item
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getFirstItemStack
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toggleUnit
-import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModItems
-import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
@@ -54,8 +54,7 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 
 		tooltipComponents.accept(
 			componentString
-				.toComponent()
-				.withStyle(ChatFormatting.GRAY)
+				.toGrayComponent()
 		)
 	}
 
@@ -65,7 +64,7 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 		}
 
 		fun isActiveForPlayer(player: Player): Boolean {
-			return player.inventory.nonEquipmentItems.any { it.isItem(ModItems.ANTI_FIELD_ORB) && isActive(it) }
+			return player.hasItem { it.isItem(ModItems.ANTI_FIELD_ORB) && isActive(it) }
 		}
 	}
 

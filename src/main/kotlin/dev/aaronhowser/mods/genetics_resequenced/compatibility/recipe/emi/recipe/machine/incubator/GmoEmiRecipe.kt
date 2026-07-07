@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.emi.recipe.machine.incubator
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -82,12 +83,10 @@ class GmoEmiRecipe(
 
 	private val tooltips: List<Component> = listOf(
 		ModTooltipLang.GMO_TEMPERATURE_REQUIREMENT
-			.toComponent()
-			.withStyle(ChatFormatting.GRAY),
+			.toGrayComponent()
 		CommonComponents.EMPTY,
 		ModTooltipLang.GMO_CHORUS
-			.toComponent()
-			.withStyle(ChatFormatting.GRAY)
+			.toGrayComponent()
 	)
 
 	override fun getId(): Identifier {

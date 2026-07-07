@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.genetics_resequenced.menu.plasmid_infuser
 
 import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -84,12 +85,10 @@ class PlasmidInfuserMenu(
 			val outputGene = PlasmidItem.getGene(outputItem) ?: return
 
 			val component = when {
-				hoveredGeneHolder.isGene(ModGenes.BASIC) -> ModTooltipLang.INFUSER_BASIC.toComponent()
-
-				hoveredGeneHolder.isGene(outputGene) -> ModTooltipLang.INFUSER_MATCHING.toComponent()
-
-				else -> ModTooltipLang.INFUSER_MISMATCH.toComponent()
-			}.withStyle(ChatFormatting.GRAY)
+				hoveredGeneHolder.isGene(ModGenes.BASIC) -> ModTooltipLang.INFUSER_BASIC.toGrayComponent()
+				hoveredGeneHolder.isGene(outputGene) -> ModTooltipLang.INFUSER_MATCHING.toGrayComponent()
+				else -> ModTooltipLang.INFUSER_MISMATCH.toGrayComponent()
+			}
 
 			event.toolTip.add(2, component)
 

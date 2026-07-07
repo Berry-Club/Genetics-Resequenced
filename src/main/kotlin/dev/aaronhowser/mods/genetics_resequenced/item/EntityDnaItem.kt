@@ -1,13 +1,13 @@
 package dev.aaronhowser.mods.genetics_resequenced.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.status
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModItems
 import dev.aaronhowser.mods.genetics_resequenced.util.ClientUtil
-import net.minecraft.ChatFormatting
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
@@ -57,25 +57,15 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 	) {
 		val entityType = getEntityType(stack)
 		if (entityType != null) {
-			val component =
-				ModTooltipLang.CELL_MOB
-					.toComponent(entityType.description)
-					.withStyle(ChatFormatting.GRAY)
+			val component = ModTooltipLang.CELL_MOB.toGrayComponent(entityType.description)
 			tooltipComponents.accept(component)
 		} else {
-			val component =
-				ModTooltipLang.CELL_NO_MOB
-					.toComponent()
-					.withStyle(ChatFormatting.GRAY)
+			val component = ModTooltipLang.CELL_NO_MOB.toGrayComponent()
 			tooltipComponents.accept(component)
 		}
 
 		if (ClientUtil.playerIsCreative()) {
-			val component =
-				ModTooltipLang.CELL_CREATIVE
-					.toComponent()
-					.withStyle(ChatFormatting.GRAY)
-
+			val component = ModTooltipLang.CELL_CREATIVE.toGrayComponent()
 			tooltipComponents.accept(component)
 		}
 	}

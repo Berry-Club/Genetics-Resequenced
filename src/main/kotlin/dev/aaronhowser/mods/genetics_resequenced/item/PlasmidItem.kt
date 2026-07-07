@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.item
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
@@ -32,23 +33,19 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 		if (geneHolder == null) {
 			components.accept(
 				ModTooltipLang.PLASMID_EMPTY
-					.toComponent()
-					.withStyle(ChatFormatting.GRAY)
+					.toGrayComponent()
 			)
 			return
 		}
 
 		components.accept(
 			ModTooltipLang.PLASMID_GENE
-				.toComponent(geneHolder.getName())
-				.withStyle(ChatFormatting.GRAY)
+				.toGrayComponent(geneHolder.getName())
 		)
 
 		if (isComplete(stack)) {
 			components.accept(
-				ModTooltipLang.PLASMID_COMPLETE
-					.toComponent()
-					.withStyle(ChatFormatting.GRAY)
+				ModTooltipLang.PLASMID_COMPLETE.toGrayComponent()
 			)
 		} else {
 			val amountNeeded = geneHolder.value().dnaPointsRequired
@@ -56,8 +53,7 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 
 			components.accept(
 				ModTooltipLang.PLASMID_PROGRESS
-					.toComponent(amount, amountNeeded)
-					.withStyle(ChatFormatting.GRAY)
+					.toGrayComponent(amount, amountNeeded)
 			)
 		}
 	}

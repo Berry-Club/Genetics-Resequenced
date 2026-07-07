@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.item
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
@@ -35,8 +36,7 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 		} else {
 			tooltipComponents.accept(
 				ModTooltipLang.GENE
-					.toComponent(geneHolder.getName())
-					.withStyle(ChatFormatting.GRAY)
+					.toGrayComponent(geneHolder.getName())
 			)
 		}
 
@@ -72,24 +72,20 @@ class DnaHelixItem(properties: Properties) : EntityDnaItem(properties) {
 		) {
 			components.accept(
 				ModTooltipLang.GENE
-					.toComponent(Gene.UNKNOWN_GENE_COMPONENT)
-					.withStyle(ChatFormatting.GRAY)
+					.toGrayComponent(Gene.UNKNOWN_GENE_COMPONENT)
 			)
 
 			val entity = getEntityType(stack)
 			if (entity != null) {
 				components.accept(
 					ModTooltipLang.HELIX_ENTITY
-						.toComponent(entity.description)
-						.withStyle(ChatFormatting.GRAY)
+						.toGrayComponent(entity.description)
 				)
 			}
 
 			if (ClientUtil.playerIsCreative()) {
 				val component =
-					ModTooltipLang.CELL_CREATIVE
-						.toComponent()
-						.withStyle(ChatFormatting.GRAY)
+					ModTooltipLang.CELL_CREATIVE.toGrayComponent()
 
 				components.accept(component)
 			}

@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.genetics_resequenced.item
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.setUnit
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.addGene
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.removeGene
@@ -110,9 +111,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		val ownerName = SpecificEntityItemComponent.getEntityName(stack)
 		if (ownerName != null) {
 			components.accept(
-				ModTooltipLang.SYRINGE_OWNER
-					.toComponent(ownerName)
-					.withStyle(ChatFormatting.GRAY)
+				ModTooltipLang.SYRINGE_OWNER.toGrayComponent(ownerName)
 			)
 		}
 
@@ -127,9 +126,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 		val addingGenes = getGenes(stack)
 		if (addingGenes.isNotEmpty()) {
 			components.accept(
-				ModTooltipLang.SYRINGE_ADDING_GENES
-					.toComponent()
-					.withStyle(ChatFormatting.GRAY)
+				ModTooltipLang.SYRINGE_ADDING_GENES.toGrayComponent()
 			)
 
 			for (geneHolder in addingGenes) {

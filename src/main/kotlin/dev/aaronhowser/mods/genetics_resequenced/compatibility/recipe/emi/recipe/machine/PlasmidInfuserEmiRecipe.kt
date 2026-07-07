@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.emi.recipe.machine
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -99,21 +100,16 @@ class PlasmidInfuserEmiRecipe(
 
 	private val tooltips: List<Component> = listOf(
 		ModRecipeLang.REQUIRES_POINTS
-			.toComponent(
+			.toGrayComponent(
 				Gene
 					.getNameComponent(geneHolder)
 					.withStyle(ChatFormatting.GRAY),
 				geneHolder
 					.value()
 					.dnaPointsRequired
-			)
-			.withStyle(ChatFormatting.GRAY),
-		ModRecipeLang.BASIC_WORTH
-			.toComponent()
-			.withStyle(ChatFormatting.GRAY),
-		ModRecipeLang.MATCHING_WORTH
-			.toComponent()
-			.withStyle(ChatFormatting.GRAY)
+			),
+		ModRecipeLang.BASIC_WORTH.toGrayComponent(),
+		ModRecipeLang.MATCHING_WORTH.toGrayComponent()
 	)
 
 	override fun addWidgets(widgets: WidgetHolder) {

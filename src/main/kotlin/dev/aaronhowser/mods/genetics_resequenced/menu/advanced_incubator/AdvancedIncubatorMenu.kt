@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.menu.MenuWithButtons
 import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.AdvancedIncubatorBlockEntity
 import dev.aaronhowser.mods.genetics_resequenced.config.ServerConfig
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -138,22 +139,20 @@ class AdvancedIncubatorMenu(
 			event.toolTip.add(
 				index++,
 				ModTooltipLang.GMO_BASE_CHANCE
-					.toComponent(
+					.toGrayComponent(
 						Gene.getNameComponent(recipe.idealGeneRk),
 						(baseChance * 100).toInt()
 					)
-					.withStyle(ChatFormatting.GRAY)
 			)
 
 			if (amountOverclockers != 0) {
 				event.toolTip.add(
 					index++,
 					ModTooltipLang.GMO_OVERCLOCKER_CHANCE
-						.toComponent(
+						.toGrayComponent(
 							amountOverclockers,
 							(reducedChance * 100).toInt()
 						)
-						.withStyle(ChatFormatting.GRAY)
 				)
 			}
 
@@ -161,11 +160,10 @@ class AdvancedIncubatorMenu(
 				event.toolTip.add(
 					index,
 					ModTooltipLang.GMO_CHORUS_CHANCE
-						.toComponent(
+						.toGrayComponent(
 							chorusUsed,
 							(finalChance * 100).toInt()
 						)
-						.withStyle(ChatFormatting.GRAY)
 				)
 			}
 		}

@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.genetics_resequenced.menu.coal_generator
 
 import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.CoalGeneratorBlockEntity
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.CraftingContainerData
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
@@ -85,9 +86,7 @@ class CoalGeneratorMenu(
 
 				event.toolTip.add(
 					2,
-					ModTooltipLang.COAL_GEN_TOTAL_FE
-						.toComponent(feStringTotal)
-						.withStyle(ChatFormatting.GRAY)
+					ModTooltipLang.COAL_GEN_TOTAL_FE.toGrayComponent(feStringTotal)
 				)
 			}
 
