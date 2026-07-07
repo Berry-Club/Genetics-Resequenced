@@ -148,8 +148,8 @@ object OtherGenes {
 				.append(event.message)
 
 			player.level().scheduleTaskInTicks(i + 1) {
-				allPlayers.forEach {
-					it.tell(message)
+				for (player in allPlayers) {
+					player.tell(message)
 				}
 			}
 		}
@@ -161,7 +161,7 @@ object OtherGenes {
 		if (player.horizontalCollision || player.minorHorizontalCollision) {
 			player.setDeltaMovement(
 				player.deltaMovement.x,
-				if (player.isCrouching) 0.0 else ServerConfig.CONFIG.wallClimbSpeed.get().toDouble(),
+				if (player.isCrouching) 0.0 else ServerConfig.CONFIG.wallClimbSpeed.get(),
 				player.deltaMovement.z
 			)
 
@@ -171,7 +171,7 @@ object OtherGenes {
 		if (shouldClingToCeiling(player)) {
 			player.setDeltaMovement(
 				player.deltaMovement.x,
-				ServerConfig.CONFIG.wallClimbSpeed.get().toDouble(),
+				ServerConfig.CONFIG.wallClimbSpeed.get(),
 				player.deltaMovement.z
 			)
 

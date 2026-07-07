@@ -1,5 +1,7 @@
 package dev.aaronhowser.mods.genetics_resequenced.gene.behavior
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.allItemStacksSequence
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
 import dev.aaronhowser.mods.genetics_resequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GeneCooldowns
@@ -25,6 +27,7 @@ import net.minecraft.world.item.Items
 import net.minecraft.world.level.Level
 import net.minecraft.world.level.gamerules.GameRules
 import net.neoforged.fml.ModList
+import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.event.entity.living.LivingDeathEvent
 import net.neoforged.neoforge.event.entity.living.LivingExperienceDropEvent
 import net.neoforged.neoforge.event.level.ExplosionEvent
@@ -42,10 +45,10 @@ object DeathGenes {
 		if (!player.hasGene(ModGenes.KEEP_INVENTORY)) return
 
 		val playerItems =
-			(0 until player.inventory.containerSize)
-				.map(player.inventory::getItem)
-				.filter { !it.isEmpty }
+			player.allItemStacksSequence()
+				.filterNot(ItemStack::isEmpty)
 				.map(ItemStack::copy)
+				.toList()
 
 		player.saveInventory(playerItems)
 
@@ -104,7 +107,10 @@ object DeathGenes {
 		val shouldExplode = if (entity !is Player) {
 			true
 		} else {
-			val amountGunpowder = entity.inventory.nonEquipmentItems.sumOf { if (it.item == Items.GUNPOWDER) it.count else 0 }
+			val amountGunpowder = entity.allItemStacksSequence()
+				.filter { it.isItem(Tags.Items.GUNPOWDERS) }
+				.sumOf(ItemStack::count)
+
 			amountGunpowder >= GUNPOWDER_REQUIRED
 		}
 
