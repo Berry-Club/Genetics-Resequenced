@@ -28,7 +28,7 @@ object DamageGenes {
 	// Canceling
 
 	fun handleNoFallDamage(event: EntityInvulnerabilityCheckEvent) {
-		if (!event.source.`is`(DamageTypes.FALL)) return
+		if (!event.source.isDamageSource(DamageTypes.FALL)) return
 
 		val entity = event.entity
 		if (entity.hasGene(ModGenes.NO_FALL_DAMAGE)) {
@@ -85,7 +85,7 @@ object DamageGenes {
 		val attacker = event.container.source.entity as? LivingEntity ?: return
 		if (!attacker.hasGene(ModGenes.JOHNNY)) return
 
-		val weaponIsAxe = attacker.mainHandItem.`is`(ItemTags.AXES)
+		val weaponIsAxe = attacker.mainHandItem.isItem(ItemTags.AXES)
 		if (!weaponIsAxe) return
 
 		event.container.newDamage *= ServerConfig.CONFIG.johnnyAttackMultiplier.get().toFloat()
