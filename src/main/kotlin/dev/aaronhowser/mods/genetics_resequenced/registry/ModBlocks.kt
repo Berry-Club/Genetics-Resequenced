@@ -7,19 +7,18 @@ import dev.aaronhowser.mods.genetics_resequenced.block.CoalGeneratorBlock
 import dev.aaronhowser.mods.genetics_resequenced.block.WebDefenseBlock
 import dev.aaronhowser.mods.genetics_resequenced.block.base.MachineBlock
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.*
+import dev.aaronhowser.mods.aaron.registry.AaronBlockRegistry
 import net.minecraft.core.BlockPos
-import net.minecraft.world.level.block.Block
 import net.minecraft.world.level.block.entity.BlockEntity
-import net.minecraft.world.level.block.state.BlockBehaviour
 import net.minecraft.world.level.block.state.BlockState
 import net.neoforged.neoforge.registries.DeferredBlock
 import net.neoforged.neoforge.registries.DeferredRegister
-import java.util.function.Function
-import java.util.function.Supplier
 
-object ModBlocks {
+object ModBlocks : AaronBlockRegistry() {
 
 	val BLOCK_REGISTRY: DeferredRegister.Blocks = DeferredRegister.createBlocks(GeneticsResequenced.MOD_ID)
+	override fun getBlockRegistry(): DeferredRegister.Blocks = BLOCK_REGISTRY
+	override fun getItemRegistry(): DeferredRegister.Items = ModItems.ITEM_REGISTRY
 
 	val ANTI_FIELD_BLOCK: DeferredBlock<AntiFieldBlock> =
 		registerBlock("anti_field_block", ::AntiFieldBlock, AntiFieldBlock::defaultProperties)
@@ -55,28 +54,6 @@ object ModBlocks {
 			name,
 			{ properties -> MachineBlock(factory, properties) },
 			MachineBlock::defaultProperties
-		)
-	}
-
-	private fun <T : Block> registerBlock(
-		name: String,
-		factory: (BlockBehaviour.Properties) -> T,
-		properties: () -> BlockBehaviour.Properties
-	): DeferredBlock<T> {
-		val block = registerBlockWithoutItem(name, factory, properties)
-		ModItems.ITEM_REGISTRY.registerSimpleBlockItem(block)
-		return block
-	}
-
-	private fun <T : Block> registerBlockWithoutItem(
-		name: String,
-		factory: (BlockBehaviour.Properties) -> T,
-		properties: () -> BlockBehaviour.Properties
-	): DeferredBlock<T> {
-		return BLOCK_REGISTRY.registerBlock(
-			name,
-			Function { blockProperties -> factory(blockProperties) },
-			Supplier { properties() }
 		)
 	}
 
