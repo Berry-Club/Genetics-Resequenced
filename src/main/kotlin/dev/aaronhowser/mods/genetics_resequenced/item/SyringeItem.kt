@@ -223,7 +223,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 
 			if (entity is Player && !entity.level().isClientSide) {
 				for (removedGeneHolder in genesRemoved) {
-					entity.sendSystemMessage(
+					entity.tell(
 						ModMessageLang.SYRINGE_REMOVE_GENES_SUCCESS.toComponent(
 							removedGeneHolder.getName()
 						)
@@ -231,7 +231,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 				}
 
 				for (notRemovedGeneHolder in genesNotRemoved) {
-					entity.sendSystemMessage(
+					entity.tell(
 						ModMessageLang.SYRINGE_REMOVE_GENES_FAIL.toComponent(
 							Gene.getNameComponent(notRemovedGeneHolder)
 						)
@@ -254,7 +254,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 
 			if (entity is Player && !entity.isClientSide) {
 				for (addedGeneHolder in genesAdded) {
-					entity.sendSystemMessage(
+					entity.tell(
 						ModMessageLang.SYRINGE_INJECTED.toComponent(
 							Gene.getNameComponent(addedGeneHolder)
 						)
@@ -262,7 +262,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 				}
 
 				for (notAddedGeneHolder in genesNotAdded) {
-					entity.sendSystemMessage(
+					entity.tell(
 						ModMessageLang.SYRINGE_FAILED.toComponent(
 							Gene.getNameComponent(notAddedGeneHolder)
 						)

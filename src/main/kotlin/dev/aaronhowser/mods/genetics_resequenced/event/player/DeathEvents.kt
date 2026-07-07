@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.event.player
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.removeAllGenes
@@ -66,7 +67,7 @@ object DeathEvents {
 			ModMessageLang.DEATH_GENE_REMOVAL.toComponent()
 				.withStyle(ChatFormatting.GRAY)
 
-		player.sendSystemMessage(component)
+		player.tell(component)
 		player.removeAllGenes()
 	}
 
@@ -83,7 +84,7 @@ object DeathEvents {
 			ModMessageLang.DEATH_NEGATIVE_GENE_REMOVAL.toComponent()
 				.withStyle(ChatFormatting.GRAY)
 
-		player.sendSystemMessage(component)
+		player.tell(component)
 
 		for (gene in negativeGenes) {
 			player.removeGene(gene)

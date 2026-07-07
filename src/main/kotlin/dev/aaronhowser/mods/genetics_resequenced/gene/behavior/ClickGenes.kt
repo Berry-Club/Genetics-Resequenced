@@ -6,6 +6,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.setUnit
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.genetics_resequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GeneCooldowns
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.hasGene
@@ -60,7 +61,7 @@ object ClickGenes {
 		)
 
 		if (!newlySheared) {
-			clicker.sendSystemMessage(ModMessageLang.RECENT_WOOLY.toComponent())
+			clicker.tell(ModMessageLang.RECENT_WOOLY.toComponent())
 			return
 		}
 
@@ -167,7 +168,7 @@ object ClickGenes {
 		)
 
 		if (!newlyMeated) {
-			clicker.sendSystemMessage(ModMessageLang.RECENT_MEATY.toComponent())
+			clicker.tell(ModMessageLang.RECENT_MEATY.toComponent())
 			return
 		}
 
@@ -218,7 +219,7 @@ object ClickGenes {
 		)
 
 		if (!newlyMeated) {
-			player.sendSystemMessage(ModMessageLang.RECENT_MEATY.toComponent())
+			player.tell(ModMessageLang.RECENT_MEATY.toComponent())
 			return
 		}
 
@@ -270,13 +271,11 @@ object ClickGenes {
 
 		val clicker = event.entity
 		if (!newlyMilked) {
-			clicker.sendSystemMessage(ModMessageLang.RECENT_MILKY.toComponent())
+			clicker.tell(ModMessageLang.RECENT_MILKY.toComponent())
 			return
 		}
 
-		if (target is ServerPlayer) {
-			target.sendSystemMessage(ModMessageLang.MILK_MILKED.toComponent())
-		}
+		target.tell(ModMessageLang.MILK_MILKED.toComponent())
 
 		event.itemStack.shrink(1)
 		clicker.addItem(ItemStack(Items.MILK_BUCKET))
@@ -424,7 +423,7 @@ object ClickGenes {
 		val cringe = ModGenes.CRINGE.getHolderOrThrow(event.entity.registryAccess())
 		player.removeGene(cringe)
 		if (!player.level().isClientSide) {
-			player.sendSystemMessage(ModMessageLang.CRINGE_GRASS.toComponent())
+			player.tell(ModMessageLang.CRINGE_GRASS.toComponent())
 		}
 	}
 

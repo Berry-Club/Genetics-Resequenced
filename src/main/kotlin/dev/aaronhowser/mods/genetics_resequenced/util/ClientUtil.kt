@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isTrue
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.status
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withHoverText
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
@@ -129,7 +130,7 @@ object ClientUtil {
 				ModMessageLang.CRINGE_REMOVED.toComponent(countdownSeconds)
 			}.withStyle(Style.EMPTY.withHoverText(ModMessageLang.CRINGE_CONFIG.toComponent()))
 
-			localPlayer.sendSystemMessage(component)
+			localPlayer.tell(component)
 		}
 
 		var secondsLeft = countdownSeconds
@@ -149,7 +150,7 @@ object ClientUtil {
 
 		this.languageChangeAttempts++
 		localPlayer.level().scheduleTaskInTicks(20 * countdownSeconds) {
-			localPlayer.sendSystemMessage(
+			localPlayer.tell(
 				ModMessageLang.CRINGE_RELOADING
 					.toComponent()
 					.withStyle(Style.EMPTY.withHoverText(ModMessageLang.CRINGE_CONFIG.toComponent()))

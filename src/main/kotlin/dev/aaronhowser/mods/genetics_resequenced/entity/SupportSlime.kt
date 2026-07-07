@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.genetics_resequenced.entity
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.hasGene
@@ -231,7 +232,7 @@ class SupportSlime(
 			if (!item.isItem(ModItems.FRIENDLY_SLIME_SPAWN_EGG.get())) return
 
 			if (!player.hasGene(ModGenes.SLIMY_DEATH)) {
-				player.sendSystemMessage(
+				player.tell(
 					ModMessageLang.SUPPORT_SLIME_CREATIVE.toComponent(
 						Gene.getNameComponent(
 							ModGenes.SLIMY_DEATH,
@@ -242,7 +243,7 @@ class SupportSlime(
 			}
 
 			if (player.level().difficulty == Difficulty.PEACEFUL) {
-				player.sendSystemMessage(
+				player.tell(
 					ModMessageLang.SUPPORT_SLIME_PEACEFUL.toComponent()
 				)
 			}

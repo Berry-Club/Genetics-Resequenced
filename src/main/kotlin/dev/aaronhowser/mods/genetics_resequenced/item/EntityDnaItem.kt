@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.item
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.status
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
@@ -37,7 +38,7 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 		val setWorked = setEntityType(newStack, interactionTarget.type)
 
 		if (!setWorked) {
-			player.sendOverlayMessage(ModMessageLang.CANT_SET_ENTITY.toComponent())
+			player.status(ModMessageLang.CANT_SET_ENTITY.toComponent())
 
 			return InteractionResult.PASS
 		}

@@ -4,6 +4,7 @@ import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isBlock
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.random
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.genetics_resequenced.config.ServerConfig
@@ -148,7 +149,7 @@ object OtherGenes {
 
 			player.level().scheduleTaskInTicks(i + 1) {
 				allPlayers.forEach {
-					it.sendSystemMessage(message)
+					it.tell(message)
 				}
 			}
 		}
