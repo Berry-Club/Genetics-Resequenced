@@ -2,24 +2,19 @@ package dev.aaronhowser.mods.genetics_resequenced.registry
 
 import dev.aaronhowser.mods.aaron.registry.AaronMenuTypesRegistry
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
+import dev.aaronhowser.mods.genetics_resequenced.menu.MachineScreen
 import dev.aaronhowser.mods.genetics_resequenced.menu.advanced_incubator.AdvancedIncubatorMenu
 import dev.aaronhowser.mods.genetics_resequenced.menu.advanced_incubator.AdvancedIncubatorScreen
 import dev.aaronhowser.mods.genetics_resequenced.menu.blood_purifier.BloodPurifierMenu
-import dev.aaronhowser.mods.genetics_resequenced.menu.blood_purifier.BloodPurifierScreen
 import dev.aaronhowser.mods.genetics_resequenced.menu.cell_analyzer.CellAnalyzerMenu
-import dev.aaronhowser.mods.genetics_resequenced.menu.cell_analyzer.CellAnalyzerScreen
 import dev.aaronhowser.mods.genetics_resequenced.menu.coal_generator.CoalGeneratorMenu
 import dev.aaronhowser.mods.genetics_resequenced.menu.coal_generator.CoalGeneratorScreen
 import dev.aaronhowser.mods.genetics_resequenced.menu.dna_decryptor.DnaDecryptorMenu
-import dev.aaronhowser.mods.genetics_resequenced.menu.dna_decryptor.DnaDecryptorScreen
 import dev.aaronhowser.mods.genetics_resequenced.menu.dna_extractor.DnaExtractorMenu
-import dev.aaronhowser.mods.genetics_resequenced.menu.dna_extractor.DnaExtractorScreen
 import dev.aaronhowser.mods.genetics_resequenced.menu.incubator.IncubatorMenu
 import dev.aaronhowser.mods.genetics_resequenced.menu.incubator.IncubatorScreen
 import dev.aaronhowser.mods.genetics_resequenced.menu.plasmid_infuser.PlasmidInfuserMenu
-import dev.aaronhowser.mods.genetics_resequenced.menu.plasmid_infuser.PlasmidInfuserScreen
 import dev.aaronhowser.mods.genetics_resequenced.menu.plasmid_injector.PlasmidInjectorMenu
-import dev.aaronhowser.mods.genetics_resequenced.menu.plasmid_injector.PlasmidInjectorScreen
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.world.inventory.MenuType
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent
@@ -62,12 +57,24 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 
 	override fun registerScreens(event: RegisterMenuScreensEvent) {
 		event.register(COAL_GENERATOR.get(), ::CoalGeneratorScreen)
-		event.register(CELL_ANALYZER.get(), ::CellAnalyzerScreen)
-		event.register(DNA_EXTRACTOR.get(), ::DnaExtractorScreen)
-		event.register(DNA_DECRYPTOR.get(), ::DnaDecryptorScreen)
-		event.register(PLASMID_INFUSER.get(), ::PlasmidInfuserScreen)
-		event.register(PLASMID_INJECTOR.get(), ::PlasmidInjectorScreen)
-		event.register(BLOOD_PURIFIER.get(), ::BloodPurifierScreen)
+		event.register(CELL_ANALYZER.get()) { menu, playerInventory, title ->
+			MachineScreen(menu, playerInventory, title, MachineScreen.CELL_ANALYZER_BACKGROUND)
+		}
+		event.register(DNA_EXTRACTOR.get()) { menu, playerInventory, title ->
+			MachineScreen(menu, playerInventory, title, MachineScreen.DNA_EXTRACTOR_BACKGROUND)
+		}
+		event.register(DNA_DECRYPTOR.get()) { menu, playerInventory, title ->
+			MachineScreen(menu, playerInventory, title, MachineScreen.DNA_DECRYPTOR_BACKGROUND)
+		}
+		event.register(PLASMID_INFUSER.get()) { menu, playerInventory, title ->
+			MachineScreen(menu, playerInventory, title, MachineScreen.PLASMID_INFUSER_BACKGROUND)
+		}
+		event.register(PLASMID_INJECTOR.get()) { menu, playerInventory, title ->
+			MachineScreen(menu, playerInventory, title, MachineScreen.PLASMID_INJECTOR_BACKGROUND)
+		}
+		event.register(BLOOD_PURIFIER.get()) { menu, playerInventory, title ->
+			MachineScreen(menu, playerInventory, title, MachineScreen.BASIC_BACKGROUND)
+		}
 		event.register(INCUBATOR.get(), ::IncubatorScreen)
 		event.register(ADVANCED_INCUBATOR.get(), ::AdvancedIncubatorScreen)
 	}

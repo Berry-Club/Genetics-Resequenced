@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.menu.coal_generator
 
 import dev.aaronhowser.mods.genetics_resequenced.menu.MachineScreen
-import dev.aaronhowser.mods.genetics_resequenced.menu.ScreenTextures
 import dev.aaronhowser.mods.genetics_resequenced.menu.components.GeneratorBurn
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
@@ -10,7 +9,7 @@ class CoalGeneratorScreen(
 	menu: CoalGeneratorMenu,
 	playerInventory: Inventory,
 	title: Component
-) : MachineScreen<CoalGeneratorMenu>(menu, playerInventory, title, ScreenTextures.Backgrounds.COAL_GENERATOR) {
+) : MachineScreen<CoalGeneratorMenu>(menu, playerInventory, title, COAL_GENERATOR_BACKGROUND) {
 
 	private lateinit var generatorBurn: GeneratorBurn
 

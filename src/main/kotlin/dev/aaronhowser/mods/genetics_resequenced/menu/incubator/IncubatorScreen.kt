@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.menu.incubator
 
 import dev.aaronhowser.mods.genetics_resequenced.menu.MachineScreen
-import dev.aaronhowser.mods.genetics_resequenced.menu.ScreenTextures
 import dev.aaronhowser.mods.genetics_resequenced.menu.components.Bubbles
 import dev.aaronhowser.mods.genetics_resequenced.menu.components.ProgressArrow
 import dev.aaronhowser.mods.genetics_resequenced.menu.components.TemperatureIndicator
@@ -12,7 +11,7 @@ class IncubatorScreen(
 	menu: IncubatorMenu,
 	playerInventory: Inventory,
 	title: Component
-) : MachineScreen<IncubatorMenu>(menu, playerInventory, title, ScreenTextures.Backgrounds.INCUBATOR) {
+) : MachineScreen<IncubatorMenu>(menu, playerInventory, title, INCUBATOR_BACKGROUND) {
 
 	private lateinit var temperatureIndicator: TemperatureIndicator
 	private lateinit var bubbles: Bubbles

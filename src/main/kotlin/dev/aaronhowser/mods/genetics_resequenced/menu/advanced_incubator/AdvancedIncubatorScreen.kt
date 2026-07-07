@@ -5,7 +5,6 @@ import dev.aaronhowser.mods.aaron.packet.c2s.ClientClickedMenuButton
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.genetics_resequenced.menu.MachineScreen
-import dev.aaronhowser.mods.genetics_resequenced.menu.ScreenTextures
 import dev.aaronhowser.mods.genetics_resequenced.menu.components.Bubbles
 import dev.aaronhowser.mods.genetics_resequenced.menu.components.ProgressArrow
 import dev.aaronhowser.mods.genetics_resequenced.menu.components.TemperatureIndicator
@@ -17,7 +16,7 @@ class AdvancedIncubatorScreen(
 	menu: AdvancedIncubatorMenu,
 	playerInventory: Inventory,
 	title: Component
-) : MachineScreen<AdvancedIncubatorMenu>(menu, playerInventory, title, ScreenTextures.Backgrounds.INCUBATOR_ADVANCED) {
+) : MachineScreen<AdvancedIncubatorMenu>(menu, playerInventory, title, ADVANCED_INCUBATOR_BACKGROUND) {
 
 	private lateinit var temperatureIndicator: TemperatureIndicator
 	private lateinit var bubbles: Bubbles

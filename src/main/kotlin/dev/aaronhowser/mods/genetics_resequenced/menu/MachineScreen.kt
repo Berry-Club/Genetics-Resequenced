@@ -2,12 +2,13 @@ package dev.aaronhowser.mods.genetics_resequenced.menu
 
 import dev.aaronhowser.mods.aaron.menu.BaseScreen
 import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
+import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.menu.components.EnergyBar
 import dev.aaronhowser.mods.genetics_resequenced.menu.components.ProgressArrow
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
-abstract class MachineScreen<T : MachineMenu>(
+open class MachineScreen<T : MachineMenu>(
 	menu: T,
 	playerInventory: Inventory,
 	title: Component,
@@ -55,6 +56,21 @@ abstract class MachineScreen<T : MachineMenu>(
 
 		addRenderableWidget(progressArrow)
 		addRenderableWidget(energyBar)
+	}
+
+	companion object {
+		private fun background(path: String): ScreenBackground =
+			ScreenBackground(GeneticsResequenced.modId("textures/gui/container/$path.png"), 176, 172)
+
+		val BASIC_BACKGROUND = background("basic_machine_bg")
+		val CELL_ANALYZER_BACKGROUND = background("cell_analyzer")
+		val COAL_GENERATOR_BACKGROUND = background("coal_generator")
+		val DNA_DECRYPTOR_BACKGROUND = background("dna_decryptor")
+		val DNA_EXTRACTOR_BACKGROUND = background("dna_extractor")
+		val INCUBATOR_BACKGROUND = background("incubator")
+		val ADVANCED_INCUBATOR_BACKGROUND = background("incubator_advanced")
+		val PLASMID_INFUSER_BACKGROUND = background("plasmid_infuser")
+		val PLASMID_INJECTOR_BACKGROUND = background("plasmid_injector")
 	}
 
 }
