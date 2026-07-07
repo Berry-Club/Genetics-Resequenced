@@ -40,7 +40,10 @@ abstract class IncubatorRecipe(
 		fun getIncubatorRecipes(
 			recipeManager: RecipeManager
 		): List<RecipeHolder<IncubatorRecipe>> {
-			return recipeManager.recipeMap().byType(ModRecipeTypes.INCUBATOR.get()).toList()
+			return recipeManager
+				.recipeMap()
+				.byType(ModRecipeTypes.INCUBATOR.get())
+				.toList()
 		}
 
 		fun isValidTopIngredient(

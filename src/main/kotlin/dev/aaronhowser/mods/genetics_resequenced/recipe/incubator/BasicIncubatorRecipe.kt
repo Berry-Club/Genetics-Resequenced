@@ -23,21 +23,6 @@ class BasicIncubatorRecipe(
 	val isLowTemp: Boolean
 ) : IncubatorRecipe(topIngredient, bottomIngredient) {
 
-	constructor(
-		topIngredient: Ingredient,
-		bottomIngredient: Ingredient,
-		outputStack: ItemStack,
-		isLowTemp: Boolean
-	) : this(
-		topIngredient,
-		bottomIngredient,
-		ItemStackTemplate.fromNonEmptyStack(outputStack),
-		isLowTemp
-	)
-
-	val outputStack: ItemStack
-		get() = outputTemplate.create()
-
 	override fun matches(input: Input, level: Level): Boolean {
 		val topItem = input.getTopItem()
 		val bottomItem = input.getBottomItem()
@@ -47,13 +32,7 @@ class BasicIncubatorRecipe(
 				&& this.bottomIngredient.test(bottomItem)
 	}
 
-	override fun assemble(input: Input): ItemStack {
-		return this.outputStack.copy()
-	}
-
-	fun getResultItem(): ItemStack {
-		return this.outputStack.copy()
-	}
+	override fun assemble(input: Input): ItemStack = outputTemplate.create()
 
 	override fun getSerializer(): RecipeSerializer<BasicIncubatorRecipe> {
 		return ModRecipeSerializers.BASIC_INCUBATOR.get()
