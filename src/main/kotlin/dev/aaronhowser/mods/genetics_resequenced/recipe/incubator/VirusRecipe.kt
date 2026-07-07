@@ -26,7 +26,7 @@ class VirusRecipe(
 	val inputDnaGene: ResourceKey<Gene>,
 	val outputGene: ResourceKey<Gene>
 ) : IncubatorRecipe(
-	topIngredient = Ingredient.of(ModItems.DNA_HELIX.get()),
+	topIngredient = Ingredient.of(ModItems.DNA_HELIX),
 	bottomIngredient = OtherUtil.potionIngredient(ModPotions.VIRAL_AGENTS)
 ) {
 

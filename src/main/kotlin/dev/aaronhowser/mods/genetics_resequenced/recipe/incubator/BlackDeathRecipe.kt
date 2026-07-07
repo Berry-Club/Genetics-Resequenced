@@ -16,6 +16,7 @@ import dev.aaronhowser.mods.genetics_resequenced.registry.ModRecipeSerializers
 import dev.aaronhowser.mods.genetics_resequenced.util.OtherUtil
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.HolderSet
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.codec.StreamCodec
@@ -24,8 +25,8 @@ import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
-object BlackDeathRecipe : IncubatorRecipe(
-	topIngredient = Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(ModItemTagsProvider.SYRINGES)),
+class BlackDeathRecipe : IncubatorRecipe(
+	topIngredient = Ingredient.of(getSyringeIngredientItems()),
 	bottomIngredient = OtherUtil.potionIngredient(ModPotions.VIRAL_AGENTS)
 ) {
 
@@ -66,9 +67,19 @@ object BlackDeathRecipe : IncubatorRecipe(
 			.minus(ModGenes.BLACK_DEATH.getHolderOrThrow(lookup))
 	}
 
-	val CODEC: MapCodec<BlackDeathRecipe> = MapCodec.unit(BlackDeathRecipe)
+	companion object {
+		private fun getSyringeIngredientItems(): HolderSet.Named<net.minecraft.world.item.Item> {
+			return BuiltInRegistries.ITEM.get(ModItemTagsProvider.SYRINGES)
+				.orElseGet { HolderSet.emptyNamed(BuiltInRegistries.ITEM, ModItemTagsProvider.SYRINGES) }
+		}
 
-	val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, BlackDeathRecipe> =
-		StreamCodec.unit(BlackDeathRecipe)
+		val CODEC: MapCodec<BlackDeathRecipe> = MapCodec.unit(::BlackDeathRecipe)
+
+		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, BlackDeathRecipe> =
+			StreamCodec.of(
+				{ _, _ -> },
+				{ BlackDeathRecipe() }
+			)
+	}
 
 }

@@ -14,8 +14,8 @@ import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
-object SetPotionEntityRecipe : IncubatorRecipe(
-	topIngredient = Ingredient.of(ModItems.CELL.get()),
+class SetPotionEntityRecipe : IncubatorRecipe(
+	topIngredient = Ingredient.of(ModItems.CELL),
 	bottomIngredient = PotionTagIngredient(ModPotionTagsProvider.CAN_HAVE_ENTITY).toVanilla()
 ) {
 
@@ -51,10 +51,15 @@ object SetPotionEntityRecipe : IncubatorRecipe(
 		return ModRecipeSerializers.SET_POTION_ENTITY.get()
 	}
 
-	val CODEC: MapCodec<SetPotionEntityRecipe> =
-		MapCodec.unit(SetPotionEntityRecipe)
+	companion object {
+		val CODEC: MapCodec<SetPotionEntityRecipe> =
+			MapCodec.unit(::SetPotionEntityRecipe)
 
-	val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> =
-		StreamCodec.unit(SetPotionEntityRecipe)
+		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> =
+			StreamCodec.of(
+				{ _, _ -> },
+				{ SetPotionEntityRecipe() }
+			)
+	}
 
 }
