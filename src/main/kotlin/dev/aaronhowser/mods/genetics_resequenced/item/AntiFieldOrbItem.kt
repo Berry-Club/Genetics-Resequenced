@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.genetics_resequenced.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getFirstItemStack
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.hasItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isServerSide
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
