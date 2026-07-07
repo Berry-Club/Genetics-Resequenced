@@ -8,17 +8,9 @@ import net.minecraft.world.item.crafting.*
 import net.minecraft.world.level.Level
 
 abstract class IncubatorRecipe(
-	topIngredientSupplier: () -> Ingredient,
-	bottomIngredientSupplier: () -> Ingredient
+	val topIngredient: Ingredient,
+	val bottomIngredient: Ingredient
 ) : Recipe<IncubatorRecipe.Input> {
-
-	constructor(
-		topIngredient: Ingredient,
-		bottomIngredient: Ingredient
-	) : this({ topIngredient }, { bottomIngredient })
-
-	val topIngredient: Ingredient by lazy(LazyThreadSafetyMode.NONE) { topIngredientSupplier() }
-	val bottomIngredient: Ingredient by lazy(LazyThreadSafetyMode.NONE) { bottomIngredientSupplier() }
 
 	val ingredients: List<Ingredient>
 		get() = listOf(topIngredient, bottomIngredient)

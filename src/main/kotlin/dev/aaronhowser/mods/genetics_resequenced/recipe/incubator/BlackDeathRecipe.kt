@@ -25,8 +25,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 object BlackDeathRecipe : IncubatorRecipe(
-	topIngredientSupplier = { Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(ModItemTagsProvider.SYRINGES)) },
-	bottomIngredientSupplier = { OtherUtil.potionIngredient(ModPotions.VIRAL_AGENTS) }
+	topIngredient = Ingredient.of(BuiltInRegistries.ITEM.getOrThrow(ModItemTagsProvider.SYRINGES)),
+	bottomIngredient = OtherUtil.potionIngredient(ModPotions.VIRAL_AGENTS)
 ) {
 
 	override fun matches(input: Input, level: Level): Boolean {

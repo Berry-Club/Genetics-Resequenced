@@ -60,9 +60,7 @@ object BrewingRecipes {
 
 	}
 
-	private fun ingredient(potion: Holder<Potion>): Ingredient =
-		OtherUtil.potionIngredient(potion)
-
+	private fun ingredient(potion: Holder<Potion>): Ingredient = OtherUtil.potionIngredient(potion)
 	private fun ingredient(itemLike: ItemLike): Ingredient = Ingredient.of(itemLike)
 
 	val substratePotionStack

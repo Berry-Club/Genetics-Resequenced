@@ -15,8 +15,8 @@ import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
 object SetPotionEntityRecipe : IncubatorRecipe(
-	topIngredientSupplier = { Ingredient.of(ModItems.CELL.get()) },
-	bottomIngredientSupplier = { PotionTagIngredient(ModPotionTagsProvider.CAN_HAVE_ENTITY).toVanilla() }
+	topIngredient = Ingredient.of(ModItems.CELL.get()),
+	bottomIngredient = PotionTagIngredient(ModPotionTagsProvider.CAN_HAVE_ENTITY).toVanilla()
 ) {
 
 	override fun matches(input: Input, level: Level): Boolean {
