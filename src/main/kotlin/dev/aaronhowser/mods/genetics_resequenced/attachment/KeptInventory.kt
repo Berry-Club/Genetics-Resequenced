@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.genetics_resequenced.attachment
 
-import com.mojang.serialization.Codec
 import com.mojang.serialization.MapCodec
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModAttachmentTypes
 import net.minecraft.world.entity.player.Player

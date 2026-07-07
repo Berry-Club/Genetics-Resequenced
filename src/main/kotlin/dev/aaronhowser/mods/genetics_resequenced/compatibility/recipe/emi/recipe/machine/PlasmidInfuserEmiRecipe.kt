@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.emi.recip
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.emi.ModEmiPlugin
-import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModRecipeLang
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
 import dev.aaronhowser.mods.genetics_resequenced.item.DnaHelixItem

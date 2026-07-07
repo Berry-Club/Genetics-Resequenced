@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
-import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene.Companion.getName
@@ -9,7 +8,6 @@ import dev.aaronhowser.mods.genetics_resequenced.item.components.PlasmidProgress
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModGenes
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModItems
-import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.network.chat.Component

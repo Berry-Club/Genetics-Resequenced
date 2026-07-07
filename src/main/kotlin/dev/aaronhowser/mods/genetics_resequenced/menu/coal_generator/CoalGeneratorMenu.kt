@@ -4,7 +4,6 @@ import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.CoalGeneratorBlockEntity
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.CraftingContainerData
-import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.genetics_resequenced.menu.MachineMenu
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModMenuTypes

@@ -3,7 +3,6 @@ package dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.emi.recip
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
-import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModRecipeLang
 import dev.aaronhowser.mods.genetics_resequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.genetics_resequenced.item.SyringeItem
@@ -14,7 +13,6 @@ import dev.aaronhowser.mods.genetics_resequenced.registry.ModItems
 import dev.aaronhowser.mods.genetics_resequenced.util.ClientUtil
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
-import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.Identifier
 import net.minecraft.world.entity.EntityType

@@ -7,7 +7,6 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.AdvancedIncubatorBlockEntity
 import dev.aaronhowser.mods.genetics_resequenced.config.ServerConfig
-import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
 import dev.aaronhowser.mods.genetics_resequenced.menu.CraftingMachineMenu
@@ -17,7 +16,6 @@ import dev.aaronhowser.mods.genetics_resequenced.registry.ModItems
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModMenuTypes
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModPotions
 import dev.aaronhowser.mods.genetics_resequenced.util.OtherUtil
-import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.util.Mth
 import net.minecraft.world.Container

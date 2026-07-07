@@ -1,10 +1,8 @@
 package dev.aaronhowser.mods.genetics_resequenced.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
-import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene.Companion.getName
-import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack

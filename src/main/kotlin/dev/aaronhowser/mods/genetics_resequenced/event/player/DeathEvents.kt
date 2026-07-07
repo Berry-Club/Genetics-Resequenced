@@ -7,12 +7,10 @@ import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.removeAllGenes
 import dev.aaronhowser.mods.genetics_resequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.genetics_resequenced.config.ServerConfig
-import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene.Companion.isNegative
 import dev.aaronhowser.mods.genetics_resequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.genetics_resequenced.gene.behavior.DeathGenes
-import net.minecraft.ChatFormatting
 import net.minecraft.world.entity.player.Player
 import net.neoforged.bus.api.EventPriority
 import net.neoforged.bus.api.SubscribeEvent

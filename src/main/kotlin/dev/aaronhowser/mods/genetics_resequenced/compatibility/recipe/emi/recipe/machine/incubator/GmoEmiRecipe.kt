@@ -84,7 +84,7 @@ class GmoEmiRecipe(
 	private val tooltips: List<Component> = listOf(
 		ModTooltipLang.GMO_TEMPERATURE_REQUIREMENT
 			.toGrayComponent()
-		CommonComponents.EMPTY,
+				CommonComponents . EMPTY,
 		ModTooltipLang.GMO_CHORUS
 			.toGrayComponent()
 	)
