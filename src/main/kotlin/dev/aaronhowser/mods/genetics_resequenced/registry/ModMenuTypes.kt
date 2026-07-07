@@ -1,7 +1,9 @@
 package dev.aaronhowser.mods.genetics_resequenced.registry
 
+import dev.aaronhowser.mods.aaron.menu.textures.ScreenBackground
 import dev.aaronhowser.mods.aaron.registry.AaronMenuTypesRegistry
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
+import dev.aaronhowser.mods.genetics_resequenced.menu.MachineMenu
 import dev.aaronhowser.mods.genetics_resequenced.menu.MachineScreen
 import dev.aaronhowser.mods.genetics_resequenced.menu.advanced_incubator.AdvancedIncubatorMenu
 import dev.aaronhowser.mods.genetics_resequenced.menu.advanced_incubator.AdvancedIncubatorScreen
@@ -56,25 +58,19 @@ object ModMenuTypes : AaronMenuTypesRegistry() {
 		register("advanced_incubator", ::AdvancedIncubatorMenu)
 
 	override fun registerScreens(event: RegisterMenuScreensEvent) {
+		fun <T : MachineMenu> registerMachineScreen(menuType: MenuType<T>, background: ScreenBackground) {
+			event.register(menuType) { menu, playerInventory, title ->
+				MachineScreen(menu, playerInventory, title, background)
+			}
+		}
+
 		event.register(COAL_GENERATOR.get(), ::CoalGeneratorScreen)
-		event.register(CELL_ANALYZER.get()) { menu, playerInventory, title ->
-			MachineScreen(menu, playerInventory, title, MachineScreen.CELL_ANALYZER_BACKGROUND)
-		}
-		event.register(DNA_EXTRACTOR.get()) { menu, playerInventory, title ->
-			MachineScreen(menu, playerInventory, title, MachineScreen.DNA_EXTRACTOR_BACKGROUND)
-		}
-		event.register(DNA_DECRYPTOR.get()) { menu, playerInventory, title ->
-			MachineScreen(menu, playerInventory, title, MachineScreen.DNA_DECRYPTOR_BACKGROUND)
-		}
-		event.register(PLASMID_INFUSER.get()) { menu, playerInventory, title ->
-			MachineScreen(menu, playerInventory, title, MachineScreen.PLASMID_INFUSER_BACKGROUND)
-		}
-		event.register(PLASMID_INJECTOR.get()) { menu, playerInventory, title ->
-			MachineScreen(menu, playerInventory, title, MachineScreen.PLASMID_INJECTOR_BACKGROUND)
-		}
-		event.register(BLOOD_PURIFIER.get()) { menu, playerInventory, title ->
-			MachineScreen(menu, playerInventory, title, MachineScreen.BASIC_BACKGROUND)
-		}
+		registerMachineScreen(CELL_ANALYZER.get(), MachineScreen.CELL_ANALYZER_BACKGROUND)
+		registerMachineScreen(DNA_EXTRACTOR.get(), MachineScreen.DNA_EXTRACTOR_BACKGROUND)
+		registerMachineScreen(DNA_DECRYPTOR.get(), MachineScreen.DNA_DECRYPTOR_BACKGROUND)
+		registerMachineScreen(PLASMID_INFUSER.get(), MachineScreen.PLASMID_INFUSER_BACKGROUND)
+		registerMachineScreen(PLASMID_INJECTOR.get(), MachineScreen.PLASMID_INJECTOR_BACKGROUND)
+		registerMachineScreen(BLOOD_PURIFIER.get(), MachineScreen.BASIC_BACKGROUND)
 		event.register(INCUBATOR.get(), ::IncubatorScreen)
 		event.register(ADVANCED_INCUBATOR.get(), ::AdvancedIncubatorScreen)
 	}
