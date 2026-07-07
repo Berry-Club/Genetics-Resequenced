@@ -21,7 +21,11 @@ data class NarratorPacket(
 		val minecraft = Minecraft.getInstance()
 		minecraft
 			.narrator.narrator
-			.say(message, true, minecraft.options.getFinalSoundSourceVolume(SoundSource.VOICE))
+			.say(
+				message,
+				true,
+				minecraft.options.getFinalSoundSourceVolume(SoundSource.VOICE)
+			)
 	}
 
 	override fun type(): CustomPacketPayload.Type<NarratorPacket> = TYPE

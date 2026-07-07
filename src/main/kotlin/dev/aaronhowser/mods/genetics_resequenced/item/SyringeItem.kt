@@ -218,7 +218,7 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			val genesRemoved = entityGenesBefore - entityGenesAfter
 			val genesNotRemoved = syringeAntigenes - genesRemoved
 
-			if (entity is Player && !entity.level().isClientSide) {
+			if (!entity.level().isClientSide) {
 				for (removedGeneHolder in genesRemoved) {
 					entity.tell(
 						ModMessageLang.SYRINGE_REMOVE_GENES_SUCCESS.toComponent(
