@@ -24,7 +24,12 @@ class CoalGeneratorMenu(
 	playerInventory: Inventory,
 	private val coalGeneratorContainer: Container,
 	private val craftingContainerData: ContainerData
-) : MachineMenu(ModMenuTypes.COAL_GENERATOR.get(), id, playerInventory, craftingContainerData) {
+) : MachineMenu(
+	ModMenuTypes.COAL_GENERATOR.get(),
+	id,
+	playerInventory,
+	craftingContainerData
+) {
 
 	constructor(containerId: Int, playerInventory: Inventory) : this(
 		containerId,
@@ -33,8 +38,6 @@ class CoalGeneratorMenu(
 		SimpleContainerData(CraftingContainerData.CRAFTING_CONTAINER_DATA_SIZE)
 	)
 
-	override val amountSlots: Int = CoalGeneratorBlockEntity.CONTAINER_SIZE
-
 	fun getMaxBurnTime(): Int = craftingContainerData.get(CoalGeneratorBlockEntity.MAX_BURN_TIME_INDEX)
 	fun getBurnTimeRemaining(): Int = craftingContainerData.get(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX)
 
@@ -42,6 +45,7 @@ class CoalGeneratorMenu(
 
 	init {
 		checkContainerSize(coalGeneratorContainer, CoalGeneratorBlockEntity.CONTAINER_SIZE)
+		addMachineSlots()
 	}
 
 	override fun addContainerSlots() {

@@ -33,7 +33,14 @@ class AdvancedIncubatorMenu(
 	playerInventory: Inventory,
 	machineContainer: Container,
 	craftingContainerData: ContainerData,
-) : CraftingMachineMenu(ModMenuTypes.ADVANCED_INCUBATOR.get(), containerId, playerInventory, machineContainer, craftingContainerData), MenuWithButtons {
+) : CraftingMachineMenu(
+	ModMenuTypes.ADVANCED_INCUBATOR.get(),
+	containerId,
+	playerInventory,
+	machineContainer,
+	craftingContainerData,
+	AdvancedIncubatorBlockEntity.INVENTORY_SIZE
+), MenuWithButtons {
 
 	constructor(containerId: Int, playerInventory: Inventory) : this(
 		containerId,
@@ -41,8 +48,6 @@ class AdvancedIncubatorMenu(
 		SimpleContainer(AdvancedIncubatorBlockEntity.INVENTORY_SIZE),
 		SimpleContainerData(AdvancedIncubatorBlockEntity.CONTAINER_DATA_SIZE)
 	)
-
-	override val amountSlots: Int = AdvancedIncubatorBlockEntity.INVENTORY_SIZE
 
 	init {
 		checkContainerDataCount(craftingContainerData, AdvancedIncubatorBlockEntity.CONTAINER_DATA_SIZE)

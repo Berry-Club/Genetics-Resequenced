@@ -18,13 +18,18 @@ abstract class CraftingMachineMenu(
 	id: Int,
 	playerInventory: Inventory,
 	protected val machineContainer: Container,
-	craftingContainerData: ContainerData
-) : MachineMenu(menuType, id, playerInventory, craftingContainerData) {
-
-	override val amountSlots: Int = CraftingMachineBlockEntity.DEFAULT_INVENTORY_SIZE
+	craftingContainerData: ContainerData,
+	amountSlots: Int = CraftingMachineBlockEntity.DEFAULT_INVENTORY_SIZE
+) : MachineMenu(
+	menuType,
+	id,
+	playerInventory,
+	craftingContainerData
+) {
 
 	init {
 		checkContainerSize(machineContainer, amountSlots)
+		addMachineSlots()
 	}
 
 	protected open fun inputFilter(inputStack: ItemStack): Boolean = true

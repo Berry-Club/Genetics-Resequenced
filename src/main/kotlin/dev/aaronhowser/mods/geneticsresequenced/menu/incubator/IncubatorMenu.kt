@@ -16,7 +16,13 @@ class IncubatorMenu(
 	playerInventory: Inventory,
 	machineContainer: Container,
 	craftingContainerData: ContainerData
-) : CraftingMachineMenu(ModMenuTypes.INCUBATOR.get(), containerId, playerInventory, machineContainer, craftingContainerData) {
+) : CraftingMachineMenu(
+	ModMenuTypes.INCUBATOR.get(),
+	containerId, playerInventory,
+	machineContainer,
+	craftingContainerData,
+	IncubatorBlockEntity.INVENTORY_SIZE
+) {
 
 	constructor(containerId: Int, playerInventory: Inventory) : this(
 		containerId,
@@ -24,8 +30,6 @@ class IncubatorMenu(
 		SimpleContainer(IncubatorBlockEntity.INVENTORY_SIZE),
 		SimpleContainerData(CraftingContainerData.CRAFTING_CONTAINER_DATA_SIZE)
 	)
-
-	override val amountSlots: Int = IncubatorBlockEntity.INVENTORY_SIZE
 
 	override fun addContainerSlots() {
 		val topSlot = Slot(

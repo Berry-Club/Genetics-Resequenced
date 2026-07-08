@@ -15,14 +15,12 @@ abstract class MachineMenu(
 ) : MenuWithInventory(menuType, id, playerInventory) {
 
 	protected val level: Level = playerInventory.player.level()
-	protected abstract val amountSlots: Int
 
 	init {
 		addDataSlots(machineContainerData)
-		addSlots()
 	}
 
-	private fun addSlots() {
+	protected fun addMachineSlots() {
 		addSlots(INVENTORY_Y)
 	}
 
