@@ -1,6 +1,19 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei
 
+import dev.aaronhowser.mods.aaron.client.AaronClientUtil
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.cast
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.category.BasicIncubatorJeiCategory
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.category.CellToHelixJeiCategory
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.category.DecryptHelixJeiCategory
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.category.DupeCellJeiCategory
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.category.GmoJeiCategory
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.category.OrganicMatterToCellJeiCategory
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.category.PlasmidInfuserJeiCategory
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.category.PlasmidInjectorJeiCategory
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.category.PurifySyringeJeiCategory
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.category.SetPotionEntityJeiCategory
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.category.VirusJeiCategory
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.ModJeiInformationRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.machine.CellToHelixJeiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.machine.DecryptHelixJeiRecipe
@@ -8,18 +21,18 @@ import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.machine.PlasmidInfuserJeiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.machine.PlasmidInjectorJeiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.machine.PurifySyringeJeiRecipe
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.machine.incubator.BasicIncubatorJeiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.machine.incubator.DupeCellJeiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.machine.incubator.GmoJeiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.machine.incubator.SetPotionEntityJeiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.machine.incubator.VirusJeiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.BasicIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
 import mezz.jei.api.ingredients.subtypes.ISubtypeInterpreter
 import mezz.jei.api.ingredients.subtypes.UidContext
+import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.registration.IRecipeCatalystRegistration
 import mezz.jei.api.registration.IRecipeCategoryRegistration
 import mezz.jei.api.registration.IModInfoRegistration
@@ -27,6 +40,7 @@ import mezz.jei.api.registration.IRecipeRegistration
 import mezz.jei.api.registration.ISubtypeRegistration
 import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.crafting.RecipeHolder
 import net.minecraft.world.level.ItemLike
 import net.neoforged.fml.ModList
 
@@ -37,38 +51,38 @@ class ModJeiPlugin : IModPlugin {
 		val guiHelper = registration.jeiHelpers.guiHelper
 
 		registration.addRecipeCategories(
-			PurifySyringeJeiRecipe.Category(guiHelper),
-			OrganicMatterToCellJeiRecipe.Category(guiHelper),
-			CellToHelixJeiRecipe.Category(guiHelper),
-			DecryptHelixJeiRecipe.Category(guiHelper),
-			PlasmidInfuserJeiRecipe.Category(guiHelper),
-			PlasmidInjectorJeiRecipe.Category(guiHelper),
-			BasicIncubatorJeiRecipe.Category(guiHelper),
-			DupeCellJeiRecipe.Category(guiHelper),
-			SetPotionEntityJeiRecipe.Category(guiHelper),
-			VirusJeiRecipe.Category(guiHelper),
-			GmoJeiRecipe.Category(guiHelper)
+			PurifySyringeJeiCategory(BLOOD_PURIFIER, guiHelper),
+			OrganicMatterToCellJeiCategory(CELL_ANALYZER, guiHelper),
+			CellToHelixJeiCategory(DNA_EXTRACTOR, guiHelper),
+			DecryptHelixJeiCategory(DNA_DECRYPTOR, guiHelper),
+			PlasmidInfuserJeiCategory(PLASMID_INFUSER, guiHelper),
+			PlasmidInjectorJeiCategory(PLASMID_INJECTOR, guiHelper),
+			BasicIncubatorJeiCategory(INCUBATOR, guiHelper),
+			DupeCellJeiCategory(CELL_DUPE, guiHelper),
+			SetPotionEntityJeiCategory(SET_ENTITY, guiHelper),
+			VirusJeiCategory(VIRUS, guiHelper),
+			GmoJeiCategory(GMO, guiHelper)
 		)
 	}
 
 	override fun registerRecipeCatalysts(registration: IRecipeCatalystRegistration) {
-		registration.addRecipeCatalyst(ModBlocks.BLOOD_PURIFIER, PurifySyringeJeiRecipe.TYPE)
-		registration.addRecipeCatalyst(ModBlocks.CELL_ANALYZER, OrganicMatterToCellJeiRecipe.TYPE)
-		registration.addRecipeCatalyst(ModBlocks.DNA_EXTRACTOR, CellToHelixJeiRecipe.TYPE)
-		registration.addRecipeCatalyst(ModBlocks.DNA_DECRYPTOR, DecryptHelixJeiRecipe.TYPE)
-		registration.addRecipeCatalyst(ModBlocks.PLASMID_INFUSER, PlasmidInfuserJeiRecipe.TYPE)
-		registration.addRecipeCatalyst(ModBlocks.PLASMID_INJECTOR, PlasmidInjectorJeiRecipe.TYPE)
+		registration.addRecipeCatalyst(ModBlocks.BLOOD_PURIFIER, BLOOD_PURIFIER)
+		registration.addRecipeCatalyst(ModBlocks.CELL_ANALYZER, CELL_ANALYZER)
+		registration.addRecipeCatalyst(ModBlocks.DNA_EXTRACTOR, DNA_EXTRACTOR)
+		registration.addRecipeCatalyst(ModBlocks.DNA_DECRYPTOR, DNA_DECRYPTOR)
+		registration.addRecipeCatalyst(ModBlocks.PLASMID_INFUSER, PLASMID_INFUSER)
+		registration.addRecipeCatalyst(ModBlocks.PLASMID_INJECTOR, PLASMID_INJECTOR)
 
-		registration.addRecipeCatalyst(ModBlocks.INCUBATOR, BasicIncubatorJeiRecipe.TYPE)
-		registration.addRecipeCatalyst(ModBlocks.INCUBATOR, DupeCellJeiRecipe.TYPE)
-		registration.addRecipeCatalyst(ModBlocks.INCUBATOR, SetPotionEntityJeiRecipe.TYPE)
-		registration.addRecipeCatalyst(ModBlocks.INCUBATOR, VirusJeiRecipe.TYPE)
+		registration.addRecipeCatalyst(ModBlocks.INCUBATOR, INCUBATOR)
+		registration.addRecipeCatalyst(ModBlocks.INCUBATOR, CELL_DUPE)
+		registration.addRecipeCatalyst(ModBlocks.INCUBATOR, SET_ENTITY)
+		registration.addRecipeCatalyst(ModBlocks.INCUBATOR, VIRUS)
 
-		registration.addRecipeCatalyst(ModBlocks.ADVANCED_INCUBATOR, BasicIncubatorJeiRecipe.TYPE)
-		registration.addRecipeCatalyst(ModBlocks.ADVANCED_INCUBATOR, DupeCellJeiRecipe.TYPE)
-		registration.addRecipeCatalyst(ModBlocks.ADVANCED_INCUBATOR, SetPotionEntityJeiRecipe.TYPE)
-		registration.addRecipeCatalyst(ModBlocks.ADVANCED_INCUBATOR, VirusJeiRecipe.TYPE)
-		registration.addRecipeCatalyst(ModBlocks.ADVANCED_INCUBATOR, GmoJeiRecipe.TYPE)
+		registration.addRecipeCatalyst(ModBlocks.ADVANCED_INCUBATOR, INCUBATOR)
+		registration.addRecipeCatalyst(ModBlocks.ADVANCED_INCUBATOR, CELL_DUPE)
+		registration.addRecipeCatalyst(ModBlocks.ADVANCED_INCUBATOR, SET_ENTITY)
+		registration.addRecipeCatalyst(ModBlocks.ADVANCED_INCUBATOR, VIRUS)
+		registration.addRecipeCatalyst(ModBlocks.ADVANCED_INCUBATOR, GMO)
 	}
 
 	override fun registerItemSubtypes(registration: ISubtypeRegistration) {
@@ -116,21 +130,20 @@ class ModJeiPlugin : IModPlugin {
 
 		ModJeiInformationRecipes.addInformationRecipes(registration)
 
-		val recipeManager = ClientUtil.localRegistryAccess
-			?.let { net.minecraft.client.Minecraft.getInstance().level?.recipeManager }
-			?: return
+		val level = AaronClientUtil.localLevel ?: return
+		val recipeManager = level.recipeManager
 
-		registration.addRecipes(PurifySyringeJeiRecipe.TYPE, PurifySyringeJeiRecipe.getAllRecipes())
-		registration.addRecipes(OrganicMatterToCellJeiRecipe.TYPE, OrganicMatterToCellJeiRecipe.getAllRecipes())
-		registration.addRecipes(CellToHelixJeiRecipe.TYPE, CellToHelixJeiRecipe.getAllRecipes(recipeManager))
-		registration.addRecipes(DecryptHelixJeiRecipe.TYPE, DecryptHelixJeiRecipe.getAllRecipes())
-		registration.addRecipes(PlasmidInfuserJeiRecipe.TYPE, PlasmidInfuserJeiRecipe.getAllRecipes())
-		registration.addRecipes(PlasmidInjectorJeiRecipe.TYPE, PlasmidInjectorJeiRecipe.getAllRecipes())
-		registration.addRecipes(BasicIncubatorJeiRecipe.TYPE, BasicIncubatorJeiRecipe.getAllRecipes(recipeManager))
-		registration.addRecipes(DupeCellJeiRecipe.TYPE, DupeCellJeiRecipe.getAllRecipes(recipeManager))
-		registration.addRecipes(SetPotionEntityJeiRecipe.TYPE, SetPotionEntityJeiRecipe.getAllRecipes())
-		registration.addRecipes(VirusJeiRecipe.TYPE, VirusJeiRecipe.getAllRecipes(recipeManager))
-		registration.addRecipes(GmoJeiRecipe.TYPE, GmoJeiRecipe.getAllRecipes(recipeManager))
+		registration.addRecipes(BLOOD_PURIFIER, PurifySyringeJeiRecipe.getAllRecipes())
+		registration.addRecipes(CELL_ANALYZER, OrganicMatterToCellJeiRecipe.getAllRecipes())
+		registration.addRecipes(DNA_EXTRACTOR, CellToHelixJeiRecipe.getAllRecipes(recipeManager))
+		registration.addRecipes(DNA_DECRYPTOR, DecryptHelixJeiRecipe.getAllRecipes())
+		registration.addRecipes(PLASMID_INFUSER, PlasmidInfuserJeiRecipe.getAllRecipes())
+		registration.addRecipes(PLASMID_INJECTOR, PlasmidInjectorJeiRecipe.getAllRecipes())
+		registration.addRecipes(INCUBATOR, BasicIncubatorRecipe.getBasicRecipes(recipeManager))
+		registration.addRecipes(CELL_DUPE, DupeCellJeiRecipe.getAllRecipes(recipeManager))
+		registration.addRecipes(SET_ENTITY, SetPotionEntityJeiRecipe.getAllRecipes())
+		registration.addRecipes(VIRUS, VirusJeiRecipe.getAllRecipes(recipeManager))
+		registration.addRecipes(GMO, GmoJeiRecipe.getAllRecipes(recipeManager))
 	}
 
 	override fun getPluginUid(): ResourceLocation = PLUGIN_UID
@@ -138,7 +151,28 @@ class ModJeiPlugin : IModPlugin {
 	companion object {
 		val PLUGIN_UID = GeneticsResequenced.modResource("jei_plugin")
 
+		val BLOOD_PURIFIER: RecipeType<PurifySyringeJeiRecipe> = makeRecipeType("blood_purifier", PurifySyringeJeiRecipe::class.java)
+		val CELL_ANALYZER: RecipeType<OrganicMatterToCellJeiRecipe> = makeRecipeType("cell_analyzer", OrganicMatterToCellJeiRecipe::class.java)
+		val DNA_EXTRACTOR: RecipeType<CellToHelixJeiRecipe> = makeRecipeType("dna_extractor", CellToHelixJeiRecipe::class.java)
+		val DNA_DECRYPTOR: RecipeType<DecryptHelixJeiRecipe> = makeRecipeType("dna_decryptor", DecryptHelixJeiRecipe::class.java)
+		val PLASMID_INFUSER: RecipeType<PlasmidInfuserJeiRecipe> = makeRecipeType("plasmid_infuser", PlasmidInfuserJeiRecipe::class.java)
+		val PLASMID_INJECTOR: RecipeType<PlasmidInjectorJeiRecipe> = makeRecipeType("plasmid_injector", PlasmidInjectorJeiRecipe::class.java)
+
+		val INCUBATOR: RecipeType<RecipeHolder<BasicIncubatorRecipe>> = makeRecipeHolderType("incubator")
+		val CELL_DUPE: RecipeType<DupeCellJeiRecipe> = makeRecipeType("cell_dupe", DupeCellJeiRecipe::class.java)
+		val SET_ENTITY: RecipeType<SetPotionEntityJeiRecipe> = makeRecipeType("set_entity", SetPotionEntityJeiRecipe::class.java)
+		val VIRUS: RecipeType<VirusJeiRecipe> = makeRecipeType("virus", VirusJeiRecipe::class.java)
+		val GMO: RecipeType<GmoJeiRecipe> = makeRecipeType("gmo", GmoJeiRecipe::class.java)
+
 		val IS_EMI_INSTALLED by lazy { ModList.get().isLoaded("emi") }
+
+		private fun <T> makeRecipeType(id: String, recipeClass: Class<T>): RecipeType<T> {
+			return RecipeType.create(GeneticsResequenced.MOD_ID, id, recipeClass)
+		}
+
+		private fun <T : net.minecraft.world.item.crafting.Recipe<*>> makeRecipeHolderType(id: String): RecipeType<RecipeHolder<T>> {
+			return RecipeType.create(GeneticsResequenced.MOD_ID, id, RecipeHolder::class.java).cast()
+		}
 	}
 
 

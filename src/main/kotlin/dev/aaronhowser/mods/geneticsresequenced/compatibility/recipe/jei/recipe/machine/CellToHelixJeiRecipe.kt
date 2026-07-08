@@ -13,14 +13,6 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
-import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
-import mezz.jei.api.gui.drawable.IDrawable
-import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder
-import mezz.jei.api.helpers.IGuiHelper
-import mezz.jei.api.recipe.IFocusGroup
-import mezz.jei.api.recipe.RecipeIngredientRole
-import mezz.jei.api.recipe.RecipeType
-import mezz.jei.api.recipe.category.IRecipeCategory
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -47,36 +39,7 @@ class CellToHelixJeiRecipe(
 		return GeneticsResequenced.modResource(stringBuilder.toString())
 	}
 
-	class Category(guiHelper: IGuiHelper) : IRecipeCategory<CellToHelixJeiRecipe> {
-		private val icon: IDrawable = guiHelper.createDrawableItemLike(ModBlocks.DNA_EXTRACTOR)
-
-		override fun getRecipeType(): RecipeType<CellToHelixJeiRecipe> = TYPE
-		override fun getTitle(): Component = ModRecipeLang.DNA_EXTRACTOR.toComponent()
-		override fun getIcon(): IDrawable = icon
-		override fun getWidth(): Int = 76
-		override fun getHeight(): Int = 18
-
-		override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: CellToHelixJeiRecipe, focuses: IFocusGroup) {
-			builder.addSlot(RecipeIngredientRole.INPUT, 0, 0)
-				.setStandardSlotBackground()
-				.addItemStack(recipe.cellStack)
-
-			builder.addSlot(RecipeIngredientRole.OUTPUT, 58, 0)
-				.setStandardSlotBackground()
-				.addItemStack(recipe.helixStack)
-		}
-
-		override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: CellToHelixJeiRecipe, focuses: IFocusGroup) {
-			builder.addRecipeArrow().setPosition(26, 1)
-		}
-
-		override fun getRegistryName(recipe: CellToHelixJeiRecipe): ResourceLocation = recipe.getId()
-	}
-
 	companion object {
-		val TYPE: RecipeType<CellToHelixJeiRecipe> =
-			RecipeType.create(GeneticsResequenced.MOD_ID, "dna_extractor", CellToHelixJeiRecipe::class.java)
-
 		fun getAllRecipes(recipeManager: RecipeManager): List<CellToHelixJeiRecipe> {
 			val recipes = mutableListOf<CellToHelixJeiRecipe>()
 

@@ -13,16 +13,6 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.VirusRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
-import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
-import mezz.jei.api.gui.builder.ITooltipBuilder
-import mezz.jei.api.gui.drawable.IDrawable
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView
-import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder
-import mezz.jei.api.helpers.IGuiHelper
-import mezz.jei.api.recipe.IFocusGroup
-import mezz.jei.api.recipe.RecipeIngredientRole
-import mezz.jei.api.recipe.RecipeType
-import mezz.jei.api.recipe.category.IRecipeCategory
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
@@ -41,44 +31,7 @@ class VirusJeiRecipe(
 	val tooltips: List<Component> = emptyList()
 ) {
 
-	class Category(guiHelper: IGuiHelper) : IRecipeCategory<VirusJeiRecipe> {
-		private val icon: IDrawable = guiHelper.createDrawableItemStack(BrewingRecipes.viralAgentsPotionStack)
-
-		override fun getRecipeType(): RecipeType<VirusJeiRecipe> = TYPE
-		override fun getTitle(): Component = ModRecipeLang.VIRUS.toComponent()
-		override fun getIcon(): IDrawable = icon
-		override fun getWidth(): Int = 65
-		override fun getHeight(): Int = 61
-
-		override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: VirusJeiRecipe, focuses: IFocusGroup) {
-			builder.addSlot(RecipeIngredientRole.INPUT, 28, 2).setStandardSlotBackground().addIngredients(recipe.ingredient)
-			builder.addSlot(RecipeIngredientRole.INPUT, 5, 36).setStandardSlotBackground().addIngredients(recipe.input)
-			builder.addSlot(RecipeIngredientRole.OUTPUT, 51, 36).setStandardSlotBackground().addItemStack(recipe.output)
-		}
-
-		override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: VirusJeiRecipe, focuses: IFocusGroup) {
-			builder.addRecipeArrow().setPosition(23, 31)
-		}
-
-		override fun getTooltip(
-			tooltip: ITooltipBuilder,
-			recipe: VirusJeiRecipe,
-			recipeSlotsView: IRecipeSlotsView,
-			mouseX: Double,
-			mouseY: Double
-		) {
-			if (mouseX >= 0 && mouseY >= 0 && mouseX < width && mouseY < height) {
-				tooltip.addAll(recipe.tooltips)
-			}
-		}
-
-		override fun getRegistryName(recipe: VirusJeiRecipe): ResourceLocation = recipe.id
-	}
-
 	companion object {
-		val TYPE: RecipeType<VirusJeiRecipe> =
-			RecipeType.create(GeneticsResequenced.MOD_ID, "virus", VirusJeiRecipe::class.java)
-
 		fun getAllRecipes(recipeManager: RecipeManager): List<VirusJeiRecipe> {
 			val recipes = VirusRecipe.getVirusRecipes(recipeManager)
 				.map {

@@ -11,16 +11,6 @@ import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.GmoRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
-import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
-import mezz.jei.api.gui.builder.ITooltipBuilder
-import mezz.jei.api.gui.drawable.IDrawable
-import mezz.jei.api.gui.ingredient.IRecipeSlotsView
-import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder
-import mezz.jei.api.helpers.IGuiHelper
-import mezz.jei.api.recipe.IFocusGroup
-import mezz.jei.api.recipe.RecipeIngredientRole
-import mezz.jei.api.recipe.RecipeType
-import mezz.jei.api.recipe.category.IRecipeCategory
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceLocation
@@ -54,42 +44,7 @@ class DupeCellJeiRecipe(
 		return GeneticsResequenced.modResource(string)
 	}
 
-	class Category(guiHelper: IGuiHelper) : IRecipeCategory<DupeCellJeiRecipe> {
-		private val icon: IDrawable = guiHelper.createDrawableItemLike(ModItems.CELL)
-
-		override fun getRecipeType(): RecipeType<DupeCellJeiRecipe> = TYPE
-		override fun getTitle(): Component = ModRecipeLang.SUBSTRATE_DUPE.toComponent()
-		override fun getIcon(): IDrawable = icon
-		override fun getWidth(): Int = 65
-		override fun getHeight(): Int = 61
-
-		override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: DupeCellJeiRecipe, focuses: IFocusGroup) {
-			builder.addSlot(RecipeIngredientRole.INPUT, 28, 2).setStandardSlotBackground().addIngredients(recipe.ingredient)
-			builder.addSlot(RecipeIngredientRole.INPUT, 5, 36).setStandardSlotBackground().addIngredients(recipe.input)
-			builder.addSlot(RecipeIngredientRole.OUTPUT, 51, 36).setStandardSlotBackground().addItemStack(recipe.output)
-		}
-
-		override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: DupeCellJeiRecipe, focuses: IFocusGroup) {
-			builder.addRecipeArrow().setPosition(23, 31)
-		}
-
-		override fun getTooltip(
-			tooltip: ITooltipBuilder,
-			recipe: DupeCellJeiRecipe,
-			recipeSlotsView: IRecipeSlotsView,
-			mouseX: Double,
-			mouseY: Double
-		) {
-			if (mouseX >= 0 && mouseY >= 0 && mouseX < width && mouseY < height) tooltip.add(recipe.tooltip)
-		}
-
-		override fun getRegistryName(recipe: DupeCellJeiRecipe): ResourceLocation = recipe.getId()
-	}
-
 	companion object {
-		val TYPE: RecipeType<DupeCellJeiRecipe> =
-			RecipeType.create(GeneticsResequenced.MOD_ID, "cell_dupe", DupeCellJeiRecipe::class.java)
-
 		fun getAllRecipes(recipeManager: RecipeManager): List<DupeCellJeiRecipe> {
 			val recipes = mutableListOf<DupeCellJeiRecipe>()
 
