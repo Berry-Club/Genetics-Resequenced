@@ -21,7 +21,6 @@ import net.minecraft.ChatFormatting
 import net.minecraft.client.resources.language.I18n
 import net.minecraft.network.chat.Component
 import net.minecraft.network.chat.MutableComponent
-import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.SpawnEggItem
 
 object ModJeiInformationRecipes {
