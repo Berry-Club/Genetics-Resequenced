@@ -21,17 +21,18 @@ class VirusJeiCategory(
 	recipeType,
 	ModRecipeLang.VIRUS.toComponent(),
 	guiHelper.createDrawableItemStack(BrewingRecipes.viralAgentsPotionStack),
-	65,
+	72,
 	61
 ) {
+
 	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: VirusJeiRecipe, focuses: IFocusGroup) {
 		builder.addInputSlot(28, 2).setStandardSlotBackground().addIngredients(recipe.ingredient)
 		builder.addInputSlot(5, 36).setStandardSlotBackground().addIngredients(recipe.input)
-		builder.addOutputSlot(51, 36).setStandardSlotBackground().addItemStack(recipe.output)
+		builder.addOutputSlot(51, 36).setOutputSlotBackground().addItemStack(recipe.output)
 	}
 
 	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: VirusJeiRecipe, focuses: IFocusGroup) {
-		builder.addRecipeArrow().setPosition(23, 31)
+		builder.addRecipeArrow().setPosition(23, 34)
 	}
 
 	override fun getTooltip(
