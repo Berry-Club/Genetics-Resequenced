@@ -6,6 +6,10 @@
 	- See https://moddedmc.wiki/en/project/geneticsresequenced/latest/docs/devs/kubejs
 - Gene cooldowns and temporary gene durations can be changed in their events
 
+### Fixed
+
+- Fixed machine inventory labels moving down sometimes
+
 # 1.14.0
 
 ### Changed
