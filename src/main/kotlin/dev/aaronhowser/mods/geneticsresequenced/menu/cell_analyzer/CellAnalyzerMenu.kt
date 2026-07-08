@@ -27,10 +27,6 @@ class CellAnalyzerMenu(
 		SimpleContainerData(CraftingContainerData.CRAFTING_CONTAINER_DATA_SIZE)
 	)
 
-	init {
-		addSlots()
-	}
-
 	override fun inputFilter(inputStack: ItemStack): Boolean = inputStack.isItem(ModItems.ORGANIC_MATTER)
 
 }
