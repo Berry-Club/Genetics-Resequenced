@@ -13,7 +13,7 @@ import net.minecraft.world.item.crafting.CustomRecipe
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
-class UnsetAntiPlasmidRecipe : CustomRecipe() {
+class UnsetAntiPlasmidRecipe private constructor() : CustomRecipe() {
 
 	override fun matches(input: CraftingInput, level: Level): Boolean {
 		var antiPlasmid: ItemStack? = null
@@ -39,10 +39,13 @@ class UnsetAntiPlasmidRecipe : CustomRecipe() {
 	}
 
 	companion object {
-		val CODEC: MapCodec<UnsetAntiPlasmidRecipe> = MapCodec.unit(UnsetAntiPlasmidRecipe())
+		val INSTANCE = UnsetAntiPlasmidRecipe()
+
+		val CODEC: MapCodec<UnsetAntiPlasmidRecipe> =
+			MapCodec.unit(INSTANCE)
 
 		val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, UnsetAntiPlasmidRecipe> =
-			StreamCodec.unit(UnsetAntiPlasmidRecipe())
+			StreamCodec.unit(INSTANCE)
 	}
 
 }

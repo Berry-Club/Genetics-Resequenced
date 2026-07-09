@@ -39,8 +39,8 @@ class ModRecipeProvider(
 	}
 
 	private fun buildSpecialRecipes() {
-		val setAntiPlasmid = SpecialRecipeBuilder.special(::SetAntiPlasmidRecipe)
-		val unsetAntiPlasmid = SpecialRecipeBuilder.special(::UnsetAntiPlasmidRecipe)
+		val setAntiPlasmid = SpecialRecipeBuilder.special { SetAntiPlasmidRecipe.INSTANCE }
+		val unsetAntiPlasmid = SpecialRecipeBuilder.special { UnsetAntiPlasmidRecipe.INSTANCE }
 
 		setAntiPlasmid.save(output, recipeKey("set_anti_plasmid"))
 		unsetAntiPlasmid.save(output, recipeKey("unset_anti_plasmid"))
