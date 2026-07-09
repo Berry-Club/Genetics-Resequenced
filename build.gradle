@@ -208,8 +208,8 @@ dependencies {
 //	compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
 //	runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 
-//	compileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
-//	runtimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
+	compileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
+	runtimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
 
 //	compileOnly "dev.aaronhowser.mods:patchoulidatagen-${pdg_version}"
 	implementation "dev.aaronhowser.mods:aaron-${aaron_lib_minecraft_version}:${aaron_lib_version}"
