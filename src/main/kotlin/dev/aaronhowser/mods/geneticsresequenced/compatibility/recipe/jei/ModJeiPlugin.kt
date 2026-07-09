@@ -77,21 +77,6 @@ class ModJeiPlugin : IModPlugin {
 		registration.registerSubtypeInterpreter(ModItems.ANTI_PLASMID.get(), PlasmidSubtypeInterpreter)
 	}
 
-	// TODO
-//	override fun registerIngredients(registration: IModIngredientRegistration) {
-//
-//		val subtypeManager = registration.subtypeManager
-//		val colorHelper = registration.colorHelper
-//
-//		val stackHelper =
-//
-//			registration.register(
-//				ModIngredientTypes.POTION_TAG.get(),
-//
-//				)
-//
-//	}
-
 	override fun registerModInfo(modAliasRegistration: IModInfoRegistration) {
 		modAliasRegistration.addModAliases(GeneticsResequenced.MOD_ID, "gene", "genetics", "gr")
 	}

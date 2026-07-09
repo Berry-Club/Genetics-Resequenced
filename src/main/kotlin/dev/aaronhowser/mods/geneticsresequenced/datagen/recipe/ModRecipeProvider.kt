@@ -16,11 +16,16 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
+import net.minecraft.advancements.AdvancementRequirements
+import net.minecraft.advancements.AdvancementRewards
+import net.minecraft.advancements.critereon.RecipeUnlockedTrigger
+import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.PackOutput
 import net.minecraft.data.recipes.*
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Items
+import net.minecraft.world.item.alchemy.Potion
 import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 import java.util.concurrent.CompletableFuture
@@ -468,13 +473,6 @@ class ModRecipeProvider(
 			).unlockedBy("has_cell", has(ModItems.CELL.get()))
 		)
 
-		val setPotionEntity =
-			SingletonRecipeBuilder(
-				SetPotionEntityRecipe,
-				Items.POTION,
-				"incubator/set_potion_entity"
-			).unlockedBy("has_cell", has(ModItems.CELL.get()))
-
 		val blackDeath =
 			SingletonRecipeBuilder(
 				BlackDeathRecipe,
@@ -519,7 +517,8 @@ class ModRecipeProvider(
 			recipe.save(recipeOutput)
 		}
 
-		setPotionEntity.save(recipeOutput)
+		buildSetPotionEntityRecipe(recipeOutput, ModPotions.CELL_GROWTH, "cell_growth")
+		buildSetPotionEntityRecipe(recipeOutput, ModPotions.MUTATION, "mutation")
 		blackDeath.save(recipeOutput)
 		dupeCell.save(recipeOutput)
 		dupeGmoCell.save(recipeOutput)
@@ -527,6 +526,22 @@ class ModRecipeProvider(
 		for (recipe in virusRecipes) {
 			recipe.save(recipeOutput)
 		}
+	}
+
+	private fun buildSetPotionEntityRecipe(recipeOutput: RecipeOutput, potion: Holder<Potion>, recipeName: String) {
+		val id = GeneticsResequenced.modResource("incubator/set_potion_entity/$recipeName")
+
+		val advancement = recipeOutput.advancement()
+			.addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
+			.addCriterion("has_cell", has(ModItems.CELL.get()))
+			.rewards(AdvancementRewards.Builder.recipe(id))
+			.requirements(AdvancementRequirements.Strategy.OR)
+
+		val recipe = SetPotionEntityRecipe(
+			DataComponentIngredient.of(false, OtherUtil.getPotionStack(potion))
+		)
+
+		recipeOutput.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))
 	}
 
 }

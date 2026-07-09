@@ -5,6 +5,7 @@
 - Massively improved KubeJS support by making an actual plugin for it
 	- See https://moddedmc.wiki/en/project/geneticsresequenced/latest/docs/devs/kubejs
 - Gene cooldowns and temporary gene durations can be changed in their events
+- Removed PotionTagIngredient, and just made multiple recipes using regular ingredients
 
 ### Fixed
 
