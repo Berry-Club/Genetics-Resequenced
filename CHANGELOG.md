@@ -9,6 +9,7 @@
 ### Fixed
 
 - Fixed machine inventory labels moving down sometimes
+- Fixed an issue where the Coal Generator wasn't properly setting to the off state
 
 # 1.14.0
 

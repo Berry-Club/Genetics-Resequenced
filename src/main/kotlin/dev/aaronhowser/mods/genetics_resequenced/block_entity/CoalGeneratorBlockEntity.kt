@@ -72,23 +72,23 @@ class CoalGeneratorBlockEntity(
 
 		if (hasRoomForEnergy()) {
 			if (burnTimeRemaining > 0) {
+				setBurningBlockState(true)
 				generateEnergy()
 			} else {
 				tryStartBurning()
 			}
+		} else {
+			setBurningBlockState(false)
 		}
 	}
 
 	private fun tryStartBurning() {
-		val level = this.level ?: return
-
 		val inputItem = container.getItem(INPUT_SLOT_INDEX)
 		val fuelTime = getBurnTime(inputItem)
 
 		if (fuelTime <= 0) return
 
-		val newState = blockState.setValue(CoalGeneratorBlock.BURNING, true)
-		level.setBlockAndUpdate(blockPos, newState)
+		setBurningBlockState(true)
 
 		val fuelReplacedItem = inputItem.item.getCraftingRemainder(inputItem)?.create() ?: ItemStack.EMPTY
 
@@ -105,6 +105,20 @@ class CoalGeneratorBlockEntity(
 	private fun generateEnergy() {
 		insertEnergy(getEnergyPerTick())
 		burnTimeRemaining--
+
+		if (burnTimeRemaining == 0) {
+			maxBurnTime = 0
+			setBurningBlockState(false)
+		}
+	}
+
+	private fun setBurningBlockState(isBurning: Boolean) {
+		val level = this.level ?: return
+
+		if (blockState.getValue(CoalGeneratorBlock.BURNING) == isBurning) return
+
+		val newState = blockState.setValue(CoalGeneratorBlock.BURNING, isBurning)
+		level.setBlockAndUpdate(blockPos, newState)
 	}
 
 	private fun hasRoomForEnergy(): Boolean {
@@ -172,9 +186,8 @@ class CoalGeneratorBlockEntity(
 		const val CONTAINER_SIZE = 1
 		const val INPUT_SLOT_INDEX = 0
 
-		const val CONTAINER_DATA_SIZE = 2
-		const val REMAINING_TICKS_INDEX = 0
-		const val MAX_BURN_TIME_INDEX = 1
+		const val REMAINING_TICKS_INDEX = EnergyProgressContainerData.CURRENT_PROGRESS_INDEX
+		const val MAX_BURN_TIME_INDEX = EnergyProgressContainerData.MAX_PROGRESS_INDEX
 
 		fun getEnergyPerTick(): Int = ServerConfig.CONFIG.coalGeneratorEnergyPerTick.get()
 	}
