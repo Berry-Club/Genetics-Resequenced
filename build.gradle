@@ -195,7 +195,7 @@ dependencies {
 
 	implementation("com.klikli_dev:modonomicon-1.21.1-neoforge:${modonomicon_version}") { transitive = false }
 
-	boolean useEmi = true
+	boolean useEmi = false
 
 	compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
 	if (useEmi) {
