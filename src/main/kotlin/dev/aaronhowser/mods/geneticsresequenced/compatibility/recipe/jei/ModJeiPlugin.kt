@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.cast
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.ingredient.PotionTagJeiIngredient
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.category.*
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.ModJeiInformationRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.machine.*
@@ -77,20 +78,9 @@ class ModJeiPlugin : IModPlugin {
 		registration.registerSubtypeInterpreter(ModItems.ANTI_PLASMID.get(), PlasmidSubtypeInterpreter)
 	}
 
-	// TODO
-//	override fun registerIngredients(registration: IModIngredientRegistration) {
-//
-//		val subtypeManager = registration.subtypeManager
-//		val colorHelper = registration.colorHelper
-//
-//		val stackHelper =
-//
-//			registration.register(
-//				ModIngredientTypes.POTION_TAG.get(),
-//
-//				)
-//
-//	}
+	override fun registerIngredients(registration: IModIngredientRegistration) {
+		PotionTagJeiIngredient.register(registration)
+	}
 
 	override fun registerModInfo(modAliasRegistration: IModInfoRegistration) {
 		modAliasRegistration.addModAliases(GeneticsResequenced.MOD_ID, "gene", "genetics", "gr")
