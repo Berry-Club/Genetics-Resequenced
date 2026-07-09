@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.genetics_resequenced.menu.incubator
 
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.IncubatorBlockEntity
-import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.CraftingContainerData
+import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.EnergyProgressContainerData
 import dev.aaronhowser.mods.genetics_resequenced.menu.CraftingMachineMenu
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModMenuTypes
 import net.minecraft.world.Container
@@ -22,7 +22,7 @@ class IncubatorMenu(
 		containerId,
 		playerInventory,
 		SimpleContainer(IncubatorBlockEntity.INVENTORY_SIZE),
-		SimpleContainerData(CraftingContainerData.CRAFTING_CONTAINER_DATA_SIZE)
+		SimpleContainerData(EnergyProgressContainerData.ENERGY_PROGRESS_CONTAINER_DATA_SIZE)
 	)
 
 	override val amountSlots: Int = IncubatorBlockEntity.INVENTORY_SIZE

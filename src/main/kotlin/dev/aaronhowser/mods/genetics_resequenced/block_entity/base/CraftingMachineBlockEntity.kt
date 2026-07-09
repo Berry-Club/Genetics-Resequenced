@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.genetics_resequenced.block_entity.base
 
 import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.genetics_resequenced.block.base.MachineBlock
-import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.CraftingContainerData
+import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.EnergyProgressContainerData
 import net.minecraft.core.BlockPos
 import net.minecraft.core.Direction
 import net.minecraft.util.Mth
@@ -65,7 +65,7 @@ abstract class CraftingMachineBlockEntity(
 		}
 
 	override val containerData: ContainerData by lazy {
-		CraftingContainerData(energyStorage, ::currentProgress, ::maxProgress)
+		EnergyProgressContainerData(energyStorage, ::currentProgress, ::maxProgress)
 	}
 
 	protected abstract fun hasRecipe(): Boolean

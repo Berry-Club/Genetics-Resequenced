@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.genetics_resequenced.block.CoalGeneratorBlock
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.MachineBlockEntity
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.SidedMachineItemHandler
-import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.CraftingContainerData
+import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.EnergyProgressContainerData
 import dev.aaronhowser.mods.genetics_resequenced.config.ServerConfig
 import dev.aaronhowser.mods.genetics_resequenced.menu.coal_generator.CoalGeneratorMenu
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModBlockEntityTypes
@@ -61,7 +61,7 @@ class CoalGeneratorBlockEntity(
 			setChanged()
 		}
 
-	override val containerData: ContainerData = CraftingContainerData(
+	override val containerData: ContainerData = EnergyProgressContainerData(
 		energyStorage,
 		{ burnTimeRemaining },
 		{ maxBurnTime }

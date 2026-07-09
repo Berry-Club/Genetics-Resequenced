@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.genetics_resequenced.menu.coal_generator
 import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.CoalGeneratorBlockEntity
-import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.CraftingContainerData
+import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.EnergyProgressContainerData
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.genetics_resequenced.menu.MachineMenu
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModMenuTypes
@@ -30,7 +30,7 @@ class CoalGeneratorMenu(
 		containerId,
 		playerInventory,
 		SimpleContainer(CoalGeneratorBlockEntity.CONTAINER_SIZE),
-		SimpleContainerData(CraftingContainerData.CRAFTING_CONTAINER_DATA_SIZE)
+		SimpleContainerData(EnergyProgressContainerData.ENERGY_PROGRESS_CONTAINER_DATA_SIZE)
 	)
 
 	override val amountSlots: Int = CoalGeneratorBlockEntity.CONTAINER_SIZE

@@ -3,7 +3,7 @@ package dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_da
 import net.neoforged.neoforge.transfer.energy.EnergyHandler
 import java.util.function.IntSupplier
 
-open class CraftingContainerData(
+open class EnergyProgressContainerData(
 	energyStorage: EnergyHandler,
 	private val currentProgressGetter: IntSupplier,
 	private val maxProgressGetter: IntSupplier,
@@ -21,10 +21,10 @@ open class CraftingContainerData(
 		// Cannot set from container data
 	}
 
-	override fun getCount(): Int = CRAFTING_CONTAINER_DATA_SIZE
+	override fun getCount(): Int = ENERGY_PROGRESS_CONTAINER_DATA_SIZE
 
 	companion object {
-		const val CRAFTING_CONTAINER_DATA_SIZE = 4
+		const val ENERGY_PROGRESS_CONTAINER_DATA_SIZE = 4
 
 		const val CURRENT_PROGRESS_INDEX = 2
 		const val MAX_PROGRESS_INDEX = 3

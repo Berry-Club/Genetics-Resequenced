@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.chance
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.CraftingContainerData
+import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.EnergyProgressContainerData
 import dev.aaronhowser.mods.genetics_resequenced.config.ServerConfig
 import dev.aaronhowser.mods.genetics_resequenced.menu.advanced_incubator.AdvancedIncubatorMenu
 import dev.aaronhowser.mods.genetics_resequenced.recipe.base.IncubatorRecipe
@@ -74,7 +74,7 @@ class AdvancedIncubatorBlockEntity(
 			}
 		}
 
-	override val containerData: ContainerData = object : CraftingContainerData(
+	override val containerData: ContainerData = object : EnergyProgressContainerData(
 		energyStorage, ::currentProgress, ::maxProgress
 	) {
 

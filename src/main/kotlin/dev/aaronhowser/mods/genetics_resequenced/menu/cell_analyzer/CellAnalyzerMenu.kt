@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.genetics_resequenced.menu.cell_analyzer
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.CraftingContainerData
+import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.EnergyProgressContainerData
 import dev.aaronhowser.mods.genetics_resequenced.menu.CraftingMachineMenu
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModItems
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModMenuTypes
@@ -24,7 +24,7 @@ class CellAnalyzerMenu(
 		containerId,
 		playerInventory,
 		SimpleContainer(CraftingMachineBlockEntity.DEFAULT_INVENTORY_SIZE),
-		SimpleContainerData(CraftingContainerData.CRAFTING_CONTAINER_DATA_SIZE)
+		SimpleContainerData(EnergyProgressContainerData.ENERGY_PROGRESS_CONTAINER_DATA_SIZE)
 	)
 
 	init {

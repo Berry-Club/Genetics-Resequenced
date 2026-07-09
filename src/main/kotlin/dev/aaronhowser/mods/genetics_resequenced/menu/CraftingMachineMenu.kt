@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.aaron.menu.components.OutputSlot
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.CraftingMachineBlockEntity
-import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.CraftingContainerData
+import dev.aaronhowser.mods.genetics_resequenced.block_entity.base.container_data.EnergyProgressContainerData
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModItems
 import net.minecraft.world.Container
 import net.minecraft.world.entity.player.Inventory
@@ -39,8 +39,8 @@ abstract class CraftingMachineMenu(
 		this.addSlot(overclockSlot)
 	}
 
-	fun getCurrentProgress(): Int = machineContainerData.get(CraftingContainerData.CURRENT_PROGRESS_INDEX)
-	fun getMaxProgress(): Int = machineContainerData.get(CraftingContainerData.MAX_PROGRESS_INDEX)
+	fun getCurrentProgress(): Int = machineContainerData.get(EnergyProgressContainerData.CURRENT_PROGRESS_INDEX)
+	fun getMaxProgress(): Int = machineContainerData.get(EnergyProgressContainerData.MAX_PROGRESS_INDEX)
 
 	fun isCrafting(): Boolean = getCurrentProgress() > 0
 
