@@ -2,7 +2,6 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.catego
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModRecipeLang
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.ingredient.PotionTagJeiIngredient
 import dev.aaronhowser.mods.geneticsresequenced.recipe.incubator.BasicIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
@@ -27,14 +26,8 @@ class BasicIncubatorJeiCategory(
 	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: RecipeHolder<BasicIncubatorRecipe>, focuses: IFocusGroup) {
 		val recipe = recipe.value()
 
-		PotionTagJeiIngredient.addToSlot(
-			builder.addInputSlot(28, 2).setStandardSlotBackground(),
-			recipe.topIngredient
-		)
-		PotionTagJeiIngredient.addToSlot(
-			builder.addInputSlot(5, 36).setStandardSlotBackground(),
-			recipe.bottomIngredient
-		)
+		builder.addInputSlot(28, 2).setStandardSlotBackground().addIngredients(recipe.topIngredient)
+		builder.addInputSlot(5, 36).setStandardSlotBackground().addIngredients(recipe.bottomIngredient)
 		builder.addOutputSlot(51, 36).setStandardSlotBackground().addItemStack(recipe.outputStack)
 	}
 
