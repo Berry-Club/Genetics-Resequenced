@@ -19,6 +19,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import mezz.jei.api.IModPlugin
 import mezz.jei.api.JeiPlugin
+import mezz.jei.api.constants.RecipeTypes
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.registration.*
 import net.minecraft.resources.ResourceLocation
@@ -56,11 +57,13 @@ class ModJeiPlugin : IModPlugin {
 		registration.addRecipeCatalyst(ModBlocks.PLASMID_INJECTOR, PLASMID_INJECTOR)
 
 		registration.addRecipeCatalyst(ModBlocks.INCUBATOR, INCUBATOR)
+		registration.addRecipeCatalyst(ModBlocks.INCUBATOR, RecipeTypes.BREWING)
 		registration.addRecipeCatalyst(ModBlocks.INCUBATOR, CELL_DUPE)
 		registration.addRecipeCatalyst(ModBlocks.INCUBATOR, SET_ENTITY)
 		registration.addRecipeCatalyst(ModBlocks.INCUBATOR, VIRUS)
 
 		registration.addRecipeCatalyst(ModBlocks.ADVANCED_INCUBATOR, INCUBATOR)
+		registration.addRecipeCatalyst(ModBlocks.ADVANCED_INCUBATOR, RecipeTypes.BREWING)
 		registration.addRecipeCatalyst(ModBlocks.ADVANCED_INCUBATOR, CELL_DUPE)
 		registration.addRecipeCatalyst(ModBlocks.ADVANCED_INCUBATOR, SET_ENTITY)
 		registration.addRecipeCatalyst(ModBlocks.ADVANCED_INCUBATOR, VIRUS)
