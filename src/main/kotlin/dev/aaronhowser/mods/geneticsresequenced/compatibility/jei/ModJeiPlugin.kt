@@ -122,8 +122,6 @@ class ModJeiPlugin : IModPlugin {
 
 		val IS_EMI_INSTALLED by lazy { ModList.get().isLoaded("emi") }
 
-		val INCUBATOR_BACKGROUND: ResourceLocation = GeneticsResequenced.modResource("textures/gui/container/incubator_background.png")
-
 		private fun <T> makeRecipeType(id: String, recipeClass: Class<T>): RecipeType<T> {
 			return RecipeType.create(GeneticsResequenced.MOD_ID, id, recipeClass)
 		}
