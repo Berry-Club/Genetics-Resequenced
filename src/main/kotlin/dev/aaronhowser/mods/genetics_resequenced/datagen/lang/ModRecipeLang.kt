@@ -6,6 +6,8 @@ object ModRecipeLang {
 		provider.add(MOB, "Mob: %1\$s")
 		provider.add(GENE, "Gene: %1\$s")
 		provider.add(CHANCE, "Chance: %d%%")
+		provider.add(GMO_SUCCESS_CHANCE, "Success: %d%%")
+		provider.add(GMO_FAILURE_CHANCE, "Failure: %d%%")
 		provider.add(REQUIRES_POINTS, "%1\$s requires %2\$d points of DNA")
 		provider.add(BASIC_WORTH, "Basic Genes = 1 point")
 		provider.add(MATCHING_WORTH, "Matching Genes = 2 points")
@@ -28,6 +30,7 @@ object ModRecipeLang {
 
 		provider.add(EMI.SYRINGES, "Syringes")
 		provider.add(EMI.DELICATE_TOUCH_TAG, "Delicate Touch Enchantable")
+		provider.add(EMI.SURGICAL_PRECISION_TAG, "Surgical Precision Enchantable")
 		provider.add(EMI.FIREBALL_TAG, "Usable for \"Shoot Fireballs\" Gene")
 		provider.add(EMI.MAGNET_BLACKLIST_TAG, "Blacklisted from \"Item Magnet\" Gene")
 		provider.add(EMI.BLOCKS_MOB_INTERACTION_TAG, "Prevents item interaction with entities that have the #genetics_resequenced:allows_preventing_interaction tag\nUsed for Villagers etc that already have their own interactions")
@@ -48,6 +51,8 @@ object ModRecipeLang {
 	const val MOB = "recipe.genetics_resequenced.mob_gene.mob"
 	const val GENE = "recipe.genetics_resequenced.mob_gene.gene"
 	const val CHANCE = "recipe.genetics_resequenced.mob_gene.chance"
+	const val GMO_SUCCESS_CHANCE = "recipe.genetics_resequenced.gmo.success_chance"
+	const val GMO_FAILURE_CHANCE = "recipe.genetics_resequenced.gmo.failure_chance"
 	const val REQUIRES_POINTS = "recipe.genetics_resequenced.plasmid_infuser.points_required"
 	const val BASIC_WORTH = "recipe.genetics_resequenced.plasmid_infuser.basic"
 	const val MATCHING_WORTH = "recipe.genetics_resequenced.plasmid_infuser.matching"
@@ -72,6 +77,7 @@ object ModRecipeLang {
 	object EMI {
 		const val SYRINGES = "tag.item.genetics_resequenced.syringes"
 		const val DELICATE_TOUCH_TAG = "tag.item.genetics_resequenced.enchantable.delicate_touch"
+		const val SURGICAL_PRECISION_TAG = "tag.item.genetics_resequenced.enchantable.surgical_precision"
 		const val FIREBALL_TAG = "tag.item.genetics_resequenced.activates_shoot_fireball_gene"
 		const val MAGNET_BLACKLIST_TAG = "tag.item.genetics_resequenced.item_magnet_gene_blacklist"
 		const val BLOCKS_MOB_INTERACTION_TAG = "tag.item.genetics_resequenced.prevents_some_mob_interaction"

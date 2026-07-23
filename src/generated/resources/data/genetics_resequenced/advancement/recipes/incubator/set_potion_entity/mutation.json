@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "genetics_resequenced:incubator/set_potion_entity"
+        "recipe": "genetics_resequenced:incubator/set_potion_entity/mutation"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "genetics_resequenced:incubator/set_potion_entity"
+      "genetics_resequenced:incubator/set_potion_entity/mutation"
     ]
   }
 }

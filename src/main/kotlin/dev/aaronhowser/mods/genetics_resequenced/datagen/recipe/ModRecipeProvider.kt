@@ -446,11 +446,18 @@ class ModRecipeProvider(
 			).unlockedBy("has_cell", has(ModItems.CELL.get()))
 		)
 
-		val setPotionEntity =
+		val setCellGrowthEntity =
 			SingletonRecipeBuilder(
-				SetPotionEntityRecipe(),
+				SetPotionEntityRecipe(OtherUtil.potionIngredient(ModPotions.CELL_GROWTH)),
 				Items.POTION,
-				"incubator/set_potion_entity"
+				"incubator/set_potion_entity/cell_growth"
+			).unlockedBy("has_cell", has(ModItems.CELL.get()))
+
+		val setMutationEntity =
+			SingletonRecipeBuilder(
+				SetPotionEntityRecipe(OtherUtil.potionIngredient(ModPotions.MUTATION)),
+				Items.POTION,
+				"incubator/set_potion_entity/mutation"
 			).unlockedBy("has_cell", has(ModItems.CELL.get()))
 
 		val blackDeath =
@@ -497,7 +504,8 @@ class ModRecipeProvider(
 			recipe.save(output)
 		}
 
-		setPotionEntity.save(output)
+		setCellGrowthEntity.save(output)
+		setMutationEntity.save(output)
 		blackDeath.save(output)
 		dupeCell.save(output)
 		dupeGmoCell.save(output)

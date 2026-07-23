@@ -15,7 +15,10 @@ class ModEnchantmentTagsProvider(
 
 	override fun addTags(p0: HolderLookup.Provider) {
 		this.tag(EnchantmentTags.NON_TREASURE)
-			.add(ModEnchantmentProvider.DELICATE_TOUCH)
+			.add(
+				ModEnchantmentProvider.DELICATE_TOUCH,
+				ModEnchantmentProvider.SURGICAL_PRECISION
+			)
 	}
 
 

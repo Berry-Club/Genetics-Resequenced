@@ -1,9 +1,9 @@
 package dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.emi.recipe.machine.incubator
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.emi.ModEmiPlugin
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModRecipeLang
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
 import dev.aaronhowser.mods.genetics_resequenced.item.DnaHelixItem
@@ -24,8 +24,8 @@ import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.CommonComponents
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.Identifier
 import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeManager
@@ -83,17 +83,19 @@ class GmoEmiRecipe(
 
 	private val tooltips: List<Component> = listOf(
 		ModTooltipLang.GMO_TEMPERATURE_REQUIREMENT
-			.toGrayComponent()
-				CommonComponents . EMPTY,
+			.toComponent()
+			.withStyle(ChatFormatting.GRAY),
+		CommonComponents.EMPTY,
 		ModTooltipLang.GMO_CHORUS
-			.toGrayComponent()
+			.toComponent()
+			.withStyle(ChatFormatting.GRAY)
 	)
 
-	override fun getId(): Identifier {
+	override fun getId(): ResourceLocation {
 		val entityTypeString = EntityType.getKey(entityType).toString().replace(':', '/')
-		val geneString = idealResourceKey.identifier().toString().replace(':', '/')
+		val geneString = idealResourceKey.location().toString().replace(':', '/')
 
-		return GeneticsResequenced.modId("/gmo/$entityTypeString/$geneString")
+		return GeneticsResequenced.modResource("/gmo/$entityTypeString/$geneString")
 	}
 
 	override fun addWidgets(widgets: WidgetHolder) {

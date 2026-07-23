@@ -11,6 +11,7 @@ import net.minecraft.world.item.enchantment.Enchantment
 object ModEnchantmentProvider {
 
 	val DELICATE_TOUCH = createRk("delicate_touch")
+	val SURGICAL_PRECISION = createRk("surgical_precision")
 
 	fun bootstrap(context: BootstrapContext<Enchantment>) {
 		val itemGetter = context.lookup(Registries.ITEM)
@@ -28,6 +29,21 @@ object ModEnchantmentProvider {
 					EquipmentSlotGroup.HAND
 				)
 			).build(DELICATE_TOUCH.identifier())
+		)
+
+		context.register(
+			SURGICAL_PRECISION,
+			Enchantment.enchantment(
+				Enchantment.definition(
+					itemGetter.getOrThrow(ModItemTagsProvider.ENCHANTABLE_SURGICAL_PRECISION),
+					2,
+					3,
+					Enchantment.dynamicCost(15, 9),
+					Enchantment.dynamicCost(65, 9),
+					4,
+					EquipmentSlotGroup.HAND
+				)
+			).build(SURGICAL_PRECISION.identifier())
 		)
 	}
 

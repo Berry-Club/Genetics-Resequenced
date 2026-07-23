@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.emi.recipe.machine.incubator
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.emi.ModEmiPlugin
+import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModRecipeLang
 import dev.aaronhowser.mods.genetics_resequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.genetics_resequenced.item.EntityDnaItem
@@ -15,8 +15,9 @@ import dev.aaronhowser.mods.genetics_resequenced.util.ClientUtil
 import dev.emi.emi.api.recipe.EmiRecipeCategory
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.crafting.Ingredient
@@ -68,10 +69,10 @@ class DupeCellEmiRecipe(
 	}
 
 	override val tooltips: List<Component> = listOf(
-		ModRecipeLang.SUBSTRATE.toGrayComponent()
+		ModRecipeLang.SUBSTRATE.toComponent().withStyle(ChatFormatting.GRAY)
 	)
 
-	override fun getId(): Identifier {
+	override fun getId(): ResourceLocation {
 		var string = "/substrate_dupe/"
 
 		val entityType = EntityDnaItem.getEntityType(cellStack) ?: error("Cell stack has no entity type!")
@@ -82,12 +83,12 @@ class DupeCellEmiRecipe(
 		if (cellStack.item == ModItems.GMO_CELL.get()) {
 			val geneHolder = DnaHelixItem.getGeneHolder(cellStack)
 				?: error("GMO Cell stack has no gene!")
-			val geneString = geneHolder.key!!.identifier().toString().replace(':', '/')
+			val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
 			string += "/$geneString"
 		}
 
-		return GeneticsResequenced.modId(string)
+		return GeneticsResequenced.modResource(string)
 	}
 
 }

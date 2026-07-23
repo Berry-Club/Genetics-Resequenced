@@ -24,31 +24,31 @@ class ModEmiPlugin : EmiPlugin {
 	companion object {
 		val BLOOD_PURIFIER_STACK: EmiStack = EmiStack.of(ModBlocks.BLOOD_PURIFIER)
 		val BLOOD_PURIFIER_CATEGORY: EmiRecipeCategory =
-			EmiRecipeCategory(GeneticsResequenced.modId("blood_purifier"), BLOOD_PURIFIER_STACK)
+			EmiRecipeCategory(GeneticsResequenced.modResource("blood_purifier"), BLOOD_PURIFIER_STACK)
 
 		val CELL_ANALYZER_STACK: EmiStack = EmiStack.of(ModBlocks.CELL_ANALYZER)
 		val CELL_ANALYZER_CATEGORY: EmiRecipeCategory =
-			EmiRecipeCategory(GeneticsResequenced.modId("cell_analyzer"), CELL_ANALYZER_STACK)
+			EmiRecipeCategory(GeneticsResequenced.modResource("cell_analyzer"), CELL_ANALYZER_STACK)
 
 		val DNA_EXTRACTOR_STACK: EmiStack = EmiStack.of(ModBlocks.DNA_EXTRACTOR)
 		val DNA_EXTRACTOR_CATEGORY: EmiRecipeCategory =
-			EmiRecipeCategory(GeneticsResequenced.modId("dna_extractor"), DNA_EXTRACTOR_STACK)
+			EmiRecipeCategory(GeneticsResequenced.modResource("dna_extractor"), DNA_EXTRACTOR_STACK)
 
 		val DNA_DECRYPTOR_STACK: EmiStack = EmiStack.of(ModBlocks.DNA_DECRYPTOR)
 		val DNA_DECRYPTOR_CATEGORY: EmiRecipeCategory =
-			EmiRecipeCategory(GeneticsResequenced.modId("dna_decryptor"), DNA_DECRYPTOR_STACK)
+			EmiRecipeCategory(GeneticsResequenced.modResource("dna_decryptor"), DNA_DECRYPTOR_STACK)
 
 		val PLASMID_INFUSER_STACK: EmiStack = EmiStack.of(ModBlocks.PLASMID_INFUSER)
 		val PLASMID_INFUSER_CATEGORY: EmiRecipeCategory =
-			EmiRecipeCategory(GeneticsResequenced.modId("plasmid_infuser"), PLASMID_INFUSER_STACK)
+			EmiRecipeCategory(GeneticsResequenced.modResource("plasmid_infuser"), PLASMID_INFUSER_STACK)
 
 		val PLASMID_INJECTOR_STACK: EmiStack = EmiStack.of(ModBlocks.PLASMID_INJECTOR)
 		val PLASMID_INJECTOR_CATEGORY: EmiRecipeCategory =
-			EmiRecipeCategory(GeneticsResequenced.modId("plasmid_injector"), PLASMID_INJECTOR_STACK)
+			EmiRecipeCategory(GeneticsResequenced.modResource("plasmid_injector"), PLASMID_INJECTOR_STACK)
 
 		val INCUBATOR_STACK: EmiStack = EmiStack.of(ModBlocks.INCUBATOR)
 		val INCUBATOR_CATEGORY: EmiRecipeCategory =
-			EmiRecipeCategory(GeneticsResequenced.modId("incubator"), INCUBATOR_STACK)
+			EmiRecipeCategory(GeneticsResequenced.modResource("incubator"), INCUBATOR_STACK)
 
 		val ADVANCED_INCUBATOR_STACK: EmiStack = EmiStack.of(ModBlocks.ADVANCED_INCUBATOR)
 
@@ -60,13 +60,13 @@ class ModEmiPlugin : EmiPlugin {
 		val ANTI_PLASMID_STACK: EmiStack = EmiStack.of(ModItems.ANTI_PLASMID)
 
 		val GMO_CATEGORY: EmiRecipeCategory =
-			EmiRecipeCategory(GeneticsResequenced.modId("gmo"), GMO_CELL_STACK)
+			EmiRecipeCategory(GeneticsResequenced.modResource("gmo"), GMO_CELL_STACK)
 		val SET_ENTITY_CATEGORY: EmiRecipeCategory =
-			EmiRecipeCategory(GeneticsResequenced.modId("set_entity"), EmiStack.of(BrewingRecipes.cellGrowthPotionStack))
+			EmiRecipeCategory(GeneticsResequenced.modResource("set_entity"), EmiStack.of(BrewingRecipes.cellGrowthPotionStack))
 		val CELL_DUPE_CATEGORY: EmiRecipeCategory =
-			EmiRecipeCategory(GeneticsResequenced.modId("cell_dupe"), CELL_STACK)
+			EmiRecipeCategory(GeneticsResequenced.modResource("cell_dupe"), CELL_STACK)
 		val VIRUS_CATEGORY: EmiRecipeCategory =
-			EmiRecipeCategory(GeneticsResequenced.modId("virus"), EmiStack.of(BrewingRecipes.viralAgentsPotionStack))
+			EmiRecipeCategory(GeneticsResequenced.modResource("virus"), EmiStack.of(BrewingRecipes.viralAgentsPotionStack))
 
 	}
 

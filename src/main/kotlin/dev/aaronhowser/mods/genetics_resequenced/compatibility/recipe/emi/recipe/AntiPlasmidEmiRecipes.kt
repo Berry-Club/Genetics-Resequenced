@@ -26,13 +26,13 @@ object AntiPlasmidEmiRecipes {
 			val setAntiPlasmid = ModItems.ANTI_PLASMID.toStack()
 			PlasmidItem.setGene(setAntiPlasmid, geneHolder, geneHolder.value().dnaPointsRequired)
 
-			val geneString = geneHolder.key!!.identifier().toString().replace(':', '/')
+			val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
 			registry.addRecipe(
 				EmiCraftingRecipe(
 					listOf(emptyAntiPlasmid, EmiIngredient.of(Ingredient.of(plasmidStack))),
 					EmiStack.of(setAntiPlasmid),
-					GeneticsResequenced.modId("/set_anti_plasmid/${geneString}"),
+					GeneticsResequenced.modResource("/set_anti_plasmid/${geneString}"),
 					true
 				)
 			)
@@ -47,13 +47,13 @@ object AntiPlasmidEmiRecipes {
 			val antiPlasmidStack = ModItems.ANTI_PLASMID.toStack()
 			PlasmidItem.setGene(antiPlasmidStack, geneHolder, geneHolder.value().dnaPointsRequired)
 
-			val geneString = geneHolder.key!!.identifier().toString().replace(':', '/')
+			val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
 			registry.addRecipe(
 				EmiCraftingRecipe(
 					listOf(EmiIngredient.of(Ingredient.of(antiPlasmidStack))),
 					EmiStack.of(ModItems.ANTI_PLASMID),
-					GeneticsResequenced.modId("/unset_anti_plasmid/${geneString}"),
+					GeneticsResequenced.modResource("/unset_anti_plasmid/${geneString}"),
 					true
 				)
 			)

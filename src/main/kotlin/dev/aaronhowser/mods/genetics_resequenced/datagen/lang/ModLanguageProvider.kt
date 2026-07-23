@@ -53,6 +53,7 @@ class ModLanguageProvider(
 		add(Keys.TELEPORT, "Teleport")
 
 		add(Other.DELICATE_TOUCH, "Delicate Touch")
+		add(Other.SURGICAL_PRECISION, "Surgical Precision")
 		add(Other.SUPPORT_SLIME, "Support Slime")
 		add(Other.BOOK_LANDING_TEXT, "Welcome to Genetics: Resequenced! This guide book will help you get started with the mod.")
 		add(Other.ORACLE_INDEX_TITLE, "Genetics: Resequenced")
@@ -60,6 +61,7 @@ class ModLanguageProvider(
 
 	object Other {
 		const val DELICATE_TOUCH = "enchantment.genetics_resequenced.delicate_touch"
+		const val SURGICAL_PRECISION = "enchantment.genetics_resequenced.surgical_precision"
 		const val SUPPORT_SLIME = "entity.genetics_resequenced.support_slime"
 
 		const val BOOK_LANDING_TEXT = "book.genetics_resequenced.landing_text"

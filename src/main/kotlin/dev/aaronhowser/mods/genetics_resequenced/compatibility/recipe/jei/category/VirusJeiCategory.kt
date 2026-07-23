@@ -7,32 +7,25 @@ import dev.aaronhowser.mods.genetics_resequenced.recipe.BrewingRecipes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.builder.ITooltipBuilder
 import mezz.jei.api.gui.ingredient.IRecipeSlotsView
-import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder
 import mezz.jei.api.helpers.IGuiHelper
 import mezz.jei.api.recipe.IFocusGroup
 import mezz.jei.api.recipe.RecipeType
-import mezz.jei.api.recipe.category.AbstractRecipeCategory
-import net.minecraft.resources.ResourceLocation
+import net.minecraft.resources.Identifier
 
 class VirusJeiCategory(
 	recipeType: RecipeType<VirusJeiRecipe>,
 	guiHelper: IGuiHelper
-) : AbstractRecipeCategory<VirusJeiRecipe>(
+) : AbstractJeiIncubatorCategory<VirusJeiRecipe>(
 	recipeType,
 	ModRecipeLang.VIRUS.toComponent(),
 	guiHelper.createDrawableItemStack(BrewingRecipes.viralAgentsPotionStack),
-	72,
-	61
+	guiHelper
 ) {
 
 	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: VirusJeiRecipe, focuses: IFocusGroup) {
-		builder.addInputSlot(28, 2).setStandardSlotBackground().addIngredients(recipe.ingredient)
-		builder.addInputSlot(5, 36).setStandardSlotBackground().addIngredients(recipe.input)
-		builder.addOutputSlot(51, 36).setOutputSlotBackground().addItemStack(recipe.output)
-	}
-
-	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: VirusJeiRecipe, focuses: IFocusGroup) {
-		builder.addRecipeArrow().setPosition(23, 34)
+		builder.addInputSlot(29, 3).addItemStack(recipe.ingredient)
+		builder.addInputSlot(6, 37).addItemStack(recipe.input)
+		builder.addOutputSlot(52, 37).addItemStack(recipe.output)
 	}
 
 	override fun getTooltip(
@@ -45,5 +38,5 @@ class VirusJeiCategory(
 		if (mouseX >= 0 && mouseY >= 0 && mouseX < width && mouseY < height) tooltip.addAll(recipe.tooltips)
 	}
 
-	override fun getRegistryName(recipe: VirusJeiRecipe): ResourceLocation = recipe.id
+	override fun getRegistryName(recipe: VirusJeiRecipe): Identifier = recipe.id
 }

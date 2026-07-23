@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.emi.recipe.machine
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.emi.ModEmiPlugin
+import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModRecipeLang
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
 import dev.aaronhowser.mods.genetics_resequenced.item.DnaHelixItem
@@ -20,7 +20,7 @@ import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.crafting.Ingredient
 
 class PlasmidInfuserEmiRecipe(
@@ -74,11 +74,11 @@ class PlasmidInfuserEmiRecipe(
 		return ModEmiPlugin.PLASMID_INFUSER_CATEGORY
 	}
 
-	override fun getId(): Identifier {
-		val geneString = geneHolder.key!!.identifier().toString().replace(':', '/')
+	override fun getId(): ResourceLocation {
+		val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 		val basicString = if (basic) "/basic" else ""
 
-		return GeneticsResequenced.modId("/plasmid_infuser/$geneString$basicString")
+		return GeneticsResequenced.modResource("/plasmid_infuser/$geneString$basicString")
 	}
 
 	override fun getInputs(): List<EmiIngredient> {
@@ -99,16 +99,21 @@ class PlasmidInfuserEmiRecipe(
 
 	private val tooltips: List<Component> = listOf(
 		ModRecipeLang.REQUIRES_POINTS
-			.toGrayComponent(
+			.toComponent(
 				Gene
 					.getNameComponent(geneHolder)
 					.withStyle(ChatFormatting.GRAY),
 				geneHolder
 					.value()
 					.dnaPointsRequired
-			),
-		ModRecipeLang.BASIC_WORTH.toGrayComponent(),
-		ModRecipeLang.MATCHING_WORTH.toGrayComponent()
+			)
+			.withStyle(ChatFormatting.GRAY),
+		ModRecipeLang.BASIC_WORTH
+			.toComponent()
+			.withStyle(ChatFormatting.GRAY),
+		ModRecipeLang.MATCHING_WORTH
+			.toComponent()
+			.withStyle(ChatFormatting.GRAY)
 	)
 
 	override fun addWidgets(widgets: WidgetHolder) {

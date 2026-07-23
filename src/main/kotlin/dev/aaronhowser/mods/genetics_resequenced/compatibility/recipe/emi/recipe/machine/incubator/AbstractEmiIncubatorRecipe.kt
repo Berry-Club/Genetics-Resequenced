@@ -8,7 +8,7 @@ import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceLocation
 
 abstract class AbstractEmiIncubatorRecipe : EmiRecipe {
 
@@ -48,7 +48,7 @@ abstract class AbstractEmiIncubatorRecipe : EmiRecipe {
 	}
 
 	companion object {
-		val BACKGROUND: Identifier = GeneticsResequenced.modId("textures/gui/container/incubator_emi.png")
+		val BACKGROUND: ResourceLocation = GeneticsResequenced.modResource("textures/gui/container/incubator_background.png")
 	}
 
 }

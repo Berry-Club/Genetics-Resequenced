@@ -19,7 +19,6 @@ object ModRegistries {
 		ModPotions.POTION_REGISTRY,
 		ModRecipeTypes.RECIPE_TYPES_REGISTRY,
 		ModRecipeSerializers.RECIPE_SERIALIZERS_REGISTRY,
-		ModIngredientTypes.INGREDIENT_TYPE_REGISTRY,
 		ModItemSubPredicates.DATA_COMPONENT_PREDICATES
 	)
 

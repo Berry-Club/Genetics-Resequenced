@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.emi.recipe.machine.incubator
 
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.toGrayComponent
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
+import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModRecipeLang
 import dev.aaronhowser.mods.genetics_resequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.genetics_resequenced.item.SyringeItem
@@ -13,8 +13,9 @@ import dev.aaronhowser.mods.genetics_resequenced.registry.ModItems
 import dev.aaronhowser.mods.genetics_resequenced.util.ClientUtil
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
+import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.animal.Cow
 import net.minecraft.world.item.crafting.Ingredient
@@ -63,11 +64,11 @@ class BlackDeathEmiRecipe(
 	}
 
 	override val tooltips: List<Component> = listOf(
-		ModRecipeLang.BLACK_DEATH.toGrayComponent()
+		ModRecipeLang.BLACK_DEATH.toComponent().withStyle(ChatFormatting.GRAY)
 	)
 
-	override fun getId(): Identifier {
+	override fun getId(): ResourceLocation {
 		val type = if (isMetal) "/metal" else ""
-		return GeneticsResequenced.modId("/brewing/black_death$type")
+		return GeneticsResequenced.modResource("/brewing/black_death$type")
 	}
 }

@@ -17,7 +17,7 @@ import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.core.Holder
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
@@ -61,12 +61,12 @@ class DecryptHelixEmiRecipe(
 		return ModEmiPlugin.DNA_DECRYPTOR_CATEGORY
 	}
 
-	override fun getId(): Identifier {
+	override fun getId(): ResourceLocation {
 		val entityTypeRl = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
 		val entityString = entityTypeRl.toString().replace(':', '/')
-		val geneString = geneHolder.key!!.identifier().toString().replace(':', '/')
+		val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 
-		return GeneticsResequenced.modId("/dna_extractor/$entityString/to/$geneString")
+		return GeneticsResequenced.modResource("/dna_extractor/$entityString/to/$geneString")
 	}
 
 	override fun getInputs(): List<EmiIngredient> {

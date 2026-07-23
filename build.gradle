@@ -204,17 +204,11 @@ dependencies {
 
 //	implementation("com.klikli_dev:modonomicon-1.21.1-neoforge:${modonomicon_version}") { transitive = false }
 
-	boolean useEmi = true
-
-	compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
-	if (useEmi) {
-		runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
-	}
+//	compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
+//	runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
 
 	compileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
-	if (!useEmi) {
-		runtimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
-	}
+	runtimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
 
 //	compileOnly "dev.aaronhowser.mods:patchoulidatagen-${pdg_version}"
 	implementation "dev.aaronhowser.mods:aaron-${aaron_lib_minecraft_version}:${aaron_lib_version}"

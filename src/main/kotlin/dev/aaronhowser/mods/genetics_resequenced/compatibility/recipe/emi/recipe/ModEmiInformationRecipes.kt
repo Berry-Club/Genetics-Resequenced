@@ -84,7 +84,7 @@ object ModEmiInformationRecipes {
 					)
 				),
 				components.toList(),
-				GeneticsResequenced.modId("/info/gene/${geneHolder.key!!.identifier().toString().replace(':', '/')}")
+				GeneticsResequenced.modResource("/info/gene/${geneHolder.key!!.location().toString().replace(':', '/')}")
 			)
 
 			recipes.add(recipe)
@@ -101,7 +101,7 @@ object ModEmiInformationRecipes {
 				)
 			),
 			listOf(ModInfoLang.ORGANIC_MATTER_EMPTY.toComponent()),
-			GeneticsResequenced.modId("/info/organic_matter/no_entity")
+			GeneticsResequenced.modResource("/info/organic_matter/no_entity")
 		)
 
 		val recipes: MutableList<EmiInfoRecipe> = mutableListOf(noEntityRecipe)
@@ -122,7 +122,7 @@ object ModEmiInformationRecipes {
 					)
 				),
 				listOf(component),
-				GeneticsResequenced.modId("/info/organic_matter/${entityString}")
+				GeneticsResequenced.modResource("/info/organic_matter/${entityString}")
 			)
 
 			recipes.add(recipe)
@@ -183,7 +183,7 @@ object ModEmiInformationRecipes {
 			val recipe = EmiInfoRecipe(
 				list,
 				listOf(informationTextComponent),
-				GeneticsResequenced.modId("/info/mob_genes/$entityString")
+				GeneticsResequenced.modResource("/info/mob_genes/$entityString")
 			)
 
 			recipes.add(recipe)

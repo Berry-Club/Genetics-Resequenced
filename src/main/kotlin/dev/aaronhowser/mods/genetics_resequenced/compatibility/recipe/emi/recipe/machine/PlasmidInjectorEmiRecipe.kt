@@ -18,7 +18,7 @@ import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.core.Holder
-import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.animal.Cow
 import net.minecraft.world.item.crafting.Ingredient
@@ -86,12 +86,12 @@ class PlasmidInjectorEmiRecipe(
 		return ModEmiPlugin.PLASMID_INJECTOR_CATEGORY
 	}
 
-	override fun getId(): Identifier {
-		val geneString = geneHolder.key!!.identifier().toString().replace(':', '/')
+	override fun getId(): ResourceLocation {
+		val geneString = geneHolder.key!!.location().toString().replace(':', '/')
 		val syringeString = if (isMetal) "/metal" else ""
 		val plasmidString = if (isAntiPlasmid) "/anti" else ""
 
-		return GeneticsResequenced.modId("/plasmid_injector/$geneString$syringeString$plasmidString")
+		return GeneticsResequenced.modResource("/plasmid_injector/$geneString$syringeString$plasmidString")
 	}
 
 	override fun getInputs(): List<EmiIngredient> {

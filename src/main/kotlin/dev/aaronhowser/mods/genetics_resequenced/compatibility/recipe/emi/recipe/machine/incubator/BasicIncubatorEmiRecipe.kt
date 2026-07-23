@@ -7,7 +7,7 @@ import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import net.minecraft.core.component.DataComponents
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.crafting.RecipeManager
 
 class BasicIncubatorEmiRecipe(
@@ -28,7 +28,7 @@ class BasicIncubatorEmiRecipe(
 		}
 	}
 
-	override fun getId(): Identifier {
+	override fun getId(): ResourceLocation {
 		val ingredientStack = ingredient.emiStacks.first().itemStack
 		val inputStack = input.emiStacks.first().itemStack
 		val outputStack = output.itemStack
@@ -69,6 +69,6 @@ class BasicIncubatorEmiRecipe(
 				.append(potionId)
 		}
 
-		return GeneticsResequenced.modId(stringBuilder.toString())
+		return GeneticsResequenced.modResource(stringBuilder.toString())
 	}
 }

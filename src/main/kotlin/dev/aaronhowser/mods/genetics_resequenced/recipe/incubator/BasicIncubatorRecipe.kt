@@ -23,6 +23,9 @@ class BasicIncubatorRecipe(
 	val isLowTemp: Boolean
 ) : IncubatorRecipe(topIngredient, bottomIngredient) {
 
+	val outputStack: ItemStack
+		get() = outputTemplate.create()
+
 	override fun matches(input: Input, level: Level): Boolean {
 		val topItem = input.getTopItem()
 		val bottomItem = input.getBottomItem()

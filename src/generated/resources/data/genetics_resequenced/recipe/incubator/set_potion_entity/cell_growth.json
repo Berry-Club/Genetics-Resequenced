@@ -1,0 +1,12 @@
+{
+  "type": "genetics_resequenced:incubator/set_potion_entity",
+  "bottom_slot": {
+    "neoforge:ingredient_type": "neoforge:components",
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "genetics_resequenced:cell_growth"
+      }
+    },
+    "items": "minecraft:potion"
+  }
+}

@@ -8,7 +8,7 @@ import dev.aaronhowser.mods.genetics_resequenced.registry.ModItems
 import dev.emi.emi.api.recipe.EmiRecipeCategory
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
-import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.crafting.Ingredient
 
@@ -59,11 +59,11 @@ class SetPotionEntityEmiRecipe(
 		output = EmiStack.of(outputStack)
 	}
 
-	override fun getId(): Identifier {
+	override fun getId(): ResourceLocation {
 		val potionString = if (isMutation) "mutation" else "pcg"
 		val entityTypeString = EntityType.getKey(entityType).toString().replace(':', '/')
 
-		return GeneticsResequenced.modId("/set_potion_entity/$potionString/$entityTypeString")
+		return GeneticsResequenced.modResource("/set_potion_entity/$potionString/$entityTypeString")
 	}
 
 }

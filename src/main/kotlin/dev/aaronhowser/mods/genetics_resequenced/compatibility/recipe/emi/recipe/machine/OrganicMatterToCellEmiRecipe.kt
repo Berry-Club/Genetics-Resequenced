@@ -11,7 +11,7 @@ import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
 import net.minecraft.core.registries.BuiltInRegistries
-import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 
@@ -50,11 +50,11 @@ class OrganicMatterToCellEmiRecipe(
 		return ModEmiPlugin.CELL_ANALYZER_CATEGORY
 	}
 
-	override fun getId(): Identifier {
+	override fun getId(): ResourceLocation {
 		val entityTypeRl = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
 		val entityString = entityTypeRl.toString().replace(':', '/')
 
-		return GeneticsResequenced.modId("/cell_analyzer/$entityString")
+		return GeneticsResequenced.modResource("/cell_analyzer/$entityString")
 	}
 
 	override fun getInputs(): List<EmiIngredient> {

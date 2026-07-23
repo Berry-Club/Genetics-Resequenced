@@ -11,7 +11,7 @@ import dev.emi.emi.api.render.EmiTexture
 import dev.emi.emi.api.stack.EmiIngredient
 import dev.emi.emi.api.stack.EmiStack
 import dev.emi.emi.api.widget.WidgetHolder
-import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.animal.Cow
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
@@ -49,9 +49,9 @@ class PurifySyringeEmiRecipe(
 		return ModEmiPlugin.BLOOD_PURIFIER_CATEGORY
 	}
 
-	override fun getId(): Identifier {
+	override fun getId(): ResourceLocation {
 		val type = if (isMetal) "metal" else "glass"
-		return GeneticsResequenced.modId("/purify_syringe/$type")
+		return GeneticsResequenced.modResource("/purify_syringe/$type")
 	}
 
 	override fun getInputs(): List<EmiIngredient> {

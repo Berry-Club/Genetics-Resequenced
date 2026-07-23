@@ -1,7 +1,7 @@
 {
   "anvil_cost": 4,
   "description": {
-    "translate": "enchantment.geneticsresequenced.surgical_precision"
+    "translate": "enchantment.genetics_resequenced.surgical_precision"
   },
   "max_cost": {
     "base": 65,
@@ -15,6 +15,6 @@
   "slots": [
     "hand"
   ],
-  "supported_items": "#geneticsresequenced:enchantable/surgical_precision",
+  "supported_items": "#genetics_resequenced:enchantable/surgical_precision",
   "weight": 2
 }

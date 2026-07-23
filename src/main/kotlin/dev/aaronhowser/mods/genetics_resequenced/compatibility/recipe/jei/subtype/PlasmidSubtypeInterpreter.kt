@@ -10,5 +10,4 @@ object PlasmidSubtypeInterpreter : ISubtypeInterpreter<ItemStack> {
 	override fun getSubtypeData(ingredient: ItemStack, context: UidContext): Any? {
 		return ingredient.get(ModDataComponents.PLASMID_PROGRESS)
 	}
-
 }
