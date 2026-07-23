@@ -8,12 +8,12 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder
 import mezz.jei.api.helpers.IGuiHelper
 import mezz.jei.api.recipe.IFocusGroup
-import mezz.jei.api.recipe.RecipeType
+import mezz.jei.api.recipe.types.IRecipeType
 import mezz.jei.api.recipe.category.AbstractRecipeCategory
 import net.minecraft.resources.Identifier
 
 class OrganicMatterToCellJeiCategory(
-	recipeType: RecipeType<OrganicMatterToCellJeiRecipe>,
+	recipeType: IRecipeType<OrganicMatterToCellJeiRecipe>,
 	guiHelper: IGuiHelper
 ) : AbstractRecipeCategory<OrganicMatterToCellJeiRecipe>(
 	recipeType,
@@ -23,13 +23,13 @@ class OrganicMatterToCellJeiCategory(
 	18
 ) {
 	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: OrganicMatterToCellJeiRecipe, focuses: IFocusGroup) {
-		builder.addInputSlot(0, 0).setStandardSlotBackground().addItemStack(recipe.organicMatter)
-		builder.addOutputSlot(58, 0).setStandardSlotBackground().addItemStack(recipe.cell)
+		builder.addInputSlot(0, 0).setStandardSlotBackground().add(recipe.organicMatter)
+		builder.addOutputSlot(58, 0).setStandardSlotBackground().add(recipe.cell)
 	}
 
 	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: OrganicMatterToCellJeiRecipe, focuses: IFocusGroup) {
 		builder.addRecipeArrow().setPosition(26, 1)
 	}
 
-	override fun getRegistryName(recipe: OrganicMatterToCellJeiRecipe): Identifier = recipe.getId()
+	override fun getIdentifier(recipe: OrganicMatterToCellJeiRecipe): Identifier = recipe.getId()
 }

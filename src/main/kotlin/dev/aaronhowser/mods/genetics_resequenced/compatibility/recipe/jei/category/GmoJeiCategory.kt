@@ -11,14 +11,14 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder
 import mezz.jei.api.helpers.IGuiHelper
 import mezz.jei.api.recipe.IFocusGroup
-import mezz.jei.api.recipe.RecipeType
+import mezz.jei.api.recipe.types.IRecipeType
 import mezz.jei.api.recipe.category.AbstractRecipeCategory
 import net.minecraft.ChatFormatting
 import net.minecraft.resources.Identifier
 import net.minecraft.util.Mth
 
 class GmoJeiCategory(
-	recipeType: RecipeType<GmoJeiRecipe>,
+	recipeType: IRecipeType<GmoJeiRecipe>,
 	guiHelper: IGuiHelper
 ) : AbstractRecipeCategory<GmoJeiRecipe>(
 	recipeType,
@@ -28,45 +28,45 @@ class GmoJeiCategory(
 	42
 ) {
 	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: GmoJeiRecipe, focuses: IFocusGroup) {
-		builder.addInputSlot(5, 12).setStandardSlotBackground().addItemStack(recipe.input)
-		builder.addInputSlot(28, 12).setStandardSlotBackground().addIngredients(recipe.ingredient)
-		builder.addOutputSlot(76, 2)
+		builder.addInputSlot(5, 12).setStandardSlotBackground().add(recipe.input)
+		builder.addInputSlot(28, 12).setStandardSlotBackground().add(recipe.ingredient)
+		builder.addOutputSlot(82, 2)
 			.setStandardSlotBackground()
-			.addItemStack(recipe.success)
+			.add(recipe.success)
 			.addRichTooltipCallback { _, tooltip ->
 				tooltip.add(ModTooltipLang.GMO_SUCCESS.toComponent().withStyle(ChatFormatting.GREEN))
 			}
 
-		builder.addOutputSlot(76, 22)
+		builder.addOutputSlot(82, 22)
 			.setStandardSlotBackground()
-			.addItemStack(recipe.failure)
+			.add(recipe.failure)
 			.addRichTooltipCallback { _, tooltip ->
 				tooltip.add(ModTooltipLang.GMO_FAILURE.toComponent().withStyle(ChatFormatting.RED))
 			}
 	}
 
 	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: GmoJeiRecipe, focuses: IFocusGroup) {
-		builder.addRecipeArrow().setPosition(52, 13)
+		builder.addRecipeArrow().setPosition(54, 13)
 
 		val successChance = Mth.ceil(recipe.geneChance * 100)
 		builder.addText(
 			ModRecipeLang.GMO_SUCCESS_CHANCE
 				.toComponent(successChance)
 				.withStyle(ChatFormatting.GREEN),
-			150, 9
+			66, 9
 		)
-			.setPosition(99, 6)
-			.setColor(0x000000)
+			.setPosition(104, 6)
+			.setColor(0xFF000000.toInt())
 			.setShadow(true)
 
 		builder.addText(
 			ModRecipeLang.GMO_FAILURE_CHANCE
 				.toComponent(100 - successChance)
 				.withStyle(ChatFormatting.RED),
-			150, 9
+			66, 9
 		)
-			.setPosition(99, 26)
-			.setColor(0x000000)
+			.setPosition(104, 26)
+			.setColor(0xFF000000.toInt())
 			.setShadow(true)
 	}
 
@@ -82,5 +82,5 @@ class GmoJeiCategory(
 		}
 	}
 
-	override fun getRegistryName(recipe: GmoJeiRecipe): Identifier = recipe.getId()
+	override fun getIdentifier(recipe: GmoJeiRecipe): Identifier = recipe.getId()
 }

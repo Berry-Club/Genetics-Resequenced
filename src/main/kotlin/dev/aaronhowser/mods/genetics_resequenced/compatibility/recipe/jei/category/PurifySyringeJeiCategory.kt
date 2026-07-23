@@ -8,12 +8,12 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder
 import mezz.jei.api.helpers.IGuiHelper
 import mezz.jei.api.recipe.IFocusGroup
-import mezz.jei.api.recipe.RecipeType
+import mezz.jei.api.recipe.types.IRecipeType
 import mezz.jei.api.recipe.category.AbstractRecipeCategory
 import net.minecraft.resources.Identifier
 
 class PurifySyringeJeiCategory(
-	recipeType: RecipeType<PurifySyringeJeiRecipe>,
+	recipeType: IRecipeType<PurifySyringeJeiRecipe>,
 	guiHelper: IGuiHelper
 ) : AbstractRecipeCategory<PurifySyringeJeiRecipe>(
 	recipeType,
@@ -26,16 +26,16 @@ class PurifySyringeJeiCategory(
 	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: PurifySyringeJeiRecipe, focuses: IFocusGroup) {
 		builder.addInputSlot(0, 0)
 			.setStandardSlotBackground()
-			.addItemStack(recipe.contaminatedSyringe)
+			.add(recipe.contaminatedSyringe)
 
 		builder.addOutputSlot(58, 0)
 			.setStandardSlotBackground()
-			.addItemStack(recipe.decontaminatedSyringe)
+			.add(recipe.decontaminatedSyringe)
 	}
 
 	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: PurifySyringeJeiRecipe, focuses: IFocusGroup) {
 		builder.addRecipeArrow().setPosition(26, 1)
 	}
 
-	override fun getRegistryName(recipe: PurifySyringeJeiRecipe): Identifier = recipe.getId()
+	override fun getIdentifier(recipe: PurifySyringeJeiRecipe): Identifier = recipe.getId()
 }

@@ -8,33 +8,33 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder
 import mezz.jei.api.helpers.IGuiHelper
 import mezz.jei.api.recipe.IFocusGroup
-import mezz.jei.api.recipe.RecipeType
+import mezz.jei.api.recipe.types.IRecipeType
 import mezz.jei.api.recipe.category.AbstractRecipeCategory
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.Identifier
 
 class DecryptHelixJeiCategory(
-	recipeType: RecipeType<DecryptHelixJeiRecipe>,
+	recipeType: IRecipeType<DecryptHelixJeiRecipe>,
 	guiHelper: IGuiHelper
 ) : AbstractRecipeCategory<DecryptHelixJeiRecipe>(
 	recipeType,
 	ModRecipeLang.DNA_DECRYPTOR.toComponent(),
 	guiHelper.createDrawableItemLike(ModBlocks.DNA_DECRYPTOR),
-	116,
+	104,
 	18
 ) {
 	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: DecryptHelixJeiRecipe, focuses: IFocusGroup) {
-		builder.addInputSlot(40, 0).setStandardSlotBackground().addItemStack(recipe.encryptedHelix)
-		builder.addOutputSlot(98, 0).setStandardSlotBackground().addItemStack(recipe.decryptedHelix)
+		builder.addInputSlot(34, 0).setStandardSlotBackground().add(recipe.encryptedHelix)
+		builder.addOutputSlot(86, 0).setStandardSlotBackground().add(recipe.decryptedHelix)
 	}
 
 	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: DecryptHelixJeiRecipe, focuses: IFocusGroup) {
-		builder.addText(Component.literal(String.format("%.2f%%", recipe.chance * 100)), 38, 9)
+		builder.addText(Component.literal(String.format("%.2f%%", recipe.chance * 100)), 32, 9)
 			.setPosition(0, 4)
-			.setColor(0x3E3E3E)
+			.setColor(0xFF3E3E3E.toInt())
 
-		builder.addRecipeArrow().setPosition(66, 1)
+		builder.addRecipeArrow().setPosition(57, 1)
 	}
 
-	override fun getRegistryName(recipe: DecryptHelixJeiRecipe): Identifier = recipe.getId()
+	override fun getIdentifier(recipe: DecryptHelixJeiRecipe): Identifier = recipe.getId()
 }

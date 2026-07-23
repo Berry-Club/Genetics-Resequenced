@@ -8,12 +8,12 @@ import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder
 import mezz.jei.api.helpers.IGuiHelper
 import mezz.jei.api.recipe.IFocusGroup
-import mezz.jei.api.recipe.RecipeType
+import mezz.jei.api.recipe.types.IRecipeType
 import mezz.jei.api.recipe.category.AbstractRecipeCategory
 import net.minecraft.resources.Identifier
 
 class CellToHelixJeiCategory(
-	recipeType: RecipeType<CellToHelixJeiRecipe>,
+	recipeType: IRecipeType<CellToHelixJeiRecipe>,
 	guiHelper: IGuiHelper
 ) : AbstractRecipeCategory<CellToHelixJeiRecipe>(
 	recipeType,
@@ -23,13 +23,13 @@ class CellToHelixJeiCategory(
 	18
 ) {
 	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: CellToHelixJeiRecipe, focuses: IFocusGroup) {
-		builder.addInputSlot(0, 0).setStandardSlotBackground().addItemStack(recipe.cellStack)
-		builder.addOutputSlot(58, 0).setStandardSlotBackground().addItemStack(recipe.helixStack)
+		builder.addInputSlot(0, 0).setStandardSlotBackground().add(recipe.cellStack)
+		builder.addOutputSlot(58, 0).setStandardSlotBackground().add(recipe.helixStack)
 	}
 
 	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: CellToHelixJeiRecipe, focuses: IFocusGroup) {
 		builder.addRecipeArrow().setPosition(26, 1)
 	}
 
-	override fun getRegistryName(recipe: CellToHelixJeiRecipe): Identifier = recipe.getId()
+	override fun getIdentifier(recipe: CellToHelixJeiRecipe): Identifier = recipe.getId()
 }

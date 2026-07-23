@@ -10,12 +10,12 @@ import mezz.jei.api.gui.ingredient.IRecipeSlotsView
 import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder
 import mezz.jei.api.helpers.IGuiHelper
 import mezz.jei.api.recipe.IFocusGroup
-import mezz.jei.api.recipe.RecipeType
+import mezz.jei.api.recipe.types.IRecipeType
 import mezz.jei.api.recipe.category.AbstractRecipeCategory
 import net.minecraft.resources.Identifier
 
 class PlasmidInjectorJeiCategory(
-	recipeType: RecipeType<PlasmidInjectorJeiRecipe>,
+	recipeType: IRecipeType<PlasmidInjectorJeiRecipe>,
 	guiHelper: IGuiHelper
 ) : AbstractRecipeCategory<PlasmidInjectorJeiRecipe>(
 	recipeType,
@@ -25,9 +25,9 @@ class PlasmidInjectorJeiCategory(
 	18
 ) {
 	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: PlasmidInjectorJeiRecipe, focuses: IFocusGroup) {
-		builder.addInputSlot(0, 0).setStandardSlotBackground().addItemStack(recipe.plasmid)
-		builder.addInputSlot(24, 0).setStandardSlotBackground().addItemStack(recipe.syringeBefore)
-		builder.addOutputSlot(78, 0).setStandardSlotBackground().addItemStack(recipe.syringeAfter)
+		builder.addInputSlot(0, 0).setStandardSlotBackground().add(recipe.plasmid)
+		builder.addInputSlot(24, 0).setStandardSlotBackground().add(recipe.syringeBefore)
+		builder.addOutputSlot(78, 0).setStandardSlotBackground().add(recipe.syringeAfter)
 	}
 
 	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: PlasmidInjectorJeiRecipe, focuses: IFocusGroup) {
@@ -46,5 +46,5 @@ class PlasmidInjectorJeiCategory(
 		}
 	}
 
-	override fun getRegistryName(recipe: PlasmidInjectorJeiRecipe): Identifier = recipe.getId()
+	override fun getIdentifier(recipe: PlasmidInjectorJeiRecipe): Identifier = recipe.getId()
 }

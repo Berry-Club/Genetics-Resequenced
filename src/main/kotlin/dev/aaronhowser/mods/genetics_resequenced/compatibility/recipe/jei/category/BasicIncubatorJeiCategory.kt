@@ -7,12 +7,12 @@ import dev.aaronhowser.mods.genetics_resequenced.registry.ModBlocks
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.helpers.IGuiHelper
 import mezz.jei.api.recipe.IFocusGroup
-import mezz.jei.api.recipe.RecipeType
+import mezz.jei.api.recipe.types.IRecipeType
 import net.minecraft.resources.Identifier
 import net.minecraft.world.item.crafting.RecipeHolder
 
 class BasicIncubatorJeiCategory(
-	recipeType: RecipeType<RecipeHolder<BasicIncubatorRecipe>>,
+	recipeType: IRecipeType<RecipeHolder<BasicIncubatorRecipe>>,
 	guiHelper: IGuiHelper
 ) : AbstractJeiIncubatorCategory<RecipeHolder<BasicIncubatorRecipe>>(
 	recipeType,
@@ -23,10 +23,10 @@ class BasicIncubatorJeiCategory(
 	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: RecipeHolder<BasicIncubatorRecipe>, focuses: IFocusGroup) {
 		val recipe = recipe.value()
 
-		builder.addInputSlot(29, 3).addIngredients(recipe.topIngredient)
-		builder.addInputSlot(6, 37).addIngredients(recipe.bottomIngredient)
-		builder.addOutputSlot(52, 37).addItemStack(recipe.outputStack)
+		builder.addInputSlot(29, 3).add(recipe.topIngredient)
+		builder.addInputSlot(6, 37).add(recipe.bottomIngredient)
+		builder.addOutputSlot(52, 37).add(recipe.outputStack)
 	}
 
-	override fun getRegistryName(recipe: RecipeHolder<BasicIncubatorRecipe>): Identifier = recipe.id.identifier()
+	override fun getIdentifier(recipe: RecipeHolder<BasicIncubatorRecipe>): Identifier = recipe.id.identifier()
 }

@@ -1,17 +1,17 @@
 package dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.jei.category
 
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
+import mezz.jei.api.gui.ingredient.IRecipeSlotsView
 import mezz.jei.api.gui.drawable.IDrawable
-import mezz.jei.api.gui.widgets.IRecipeExtrasBuilder
 import mezz.jei.api.helpers.IGuiHelper
-import mezz.jei.api.recipe.IFocusGroup
-import mezz.jei.api.recipe.RecipeType
+import mezz.jei.api.recipe.types.IRecipeType
 import mezz.jei.api.recipe.category.AbstractRecipeCategory
+import net.minecraft.client.gui.GuiGraphicsExtractor
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.Identifier
 
 abstract class AbstractJeiIncubatorCategory<T : Any>(
-	recipeType: RecipeType<T>,
+	recipeType: IRecipeType<T>,
 	title: Component,
 	icon: IDrawable,
 	guiHelper: IGuiHelper
@@ -25,8 +25,14 @@ abstract class AbstractJeiIncubatorCategory<T : Any>(
 		61
 	)
 
-	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: T, focuses: IFocusGroup) {
-		builder.addDrawable(background, 5, 0)
+	override fun draw(
+		recipe: T,
+		recipeSlotsView: IRecipeSlotsView,
+		guiGraphics: GuiGraphicsExtractor,
+		mouseX: Double,
+		mouseY: Double
+	) {
+		background.draw(guiGraphics, 5, 0)
 	}
 
 	companion object {

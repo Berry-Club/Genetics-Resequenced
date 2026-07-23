@@ -7,11 +7,11 @@ import dev.aaronhowser.mods.genetics_resequenced.recipe.BrewingRecipes
 import mezz.jei.api.gui.builder.IRecipeLayoutBuilder
 import mezz.jei.api.helpers.IGuiHelper
 import mezz.jei.api.recipe.IFocusGroup
-import mezz.jei.api.recipe.RecipeType
+import mezz.jei.api.recipe.types.IRecipeType
 import net.minecraft.resources.Identifier
 
 class SetPotionEntityJeiCategory(
-	recipeType: RecipeType<SetPotionEntityJeiRecipe>,
+	recipeType: IRecipeType<SetPotionEntityJeiRecipe>,
 	guiHelper: IGuiHelper
 ) : AbstractJeiIncubatorCategory<SetPotionEntityJeiRecipe>(
 	recipeType,
@@ -20,10 +20,10 @@ class SetPotionEntityJeiCategory(
 	guiHelper
 ) {
 	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: SetPotionEntityJeiRecipe, focuses: IFocusGroup) {
-		builder.addInputSlot(29, 3).addItemStack(recipe.ingredient)
-		builder.addInputSlot(6, 37).addItemStack(recipe.input)
-		builder.addOutputSlot(52, 37).addItemStack(recipe.output)
+		builder.addInputSlot(29, 3).add(recipe.ingredient)
+		builder.addInputSlot(6, 37).add(recipe.input)
+		builder.addOutputSlot(52, 37).add(recipe.output)
 	}
 
-	override fun getRegistryName(recipe: SetPotionEntityJeiRecipe): Identifier = recipe.getId()
+	override fun getIdentifier(recipe: SetPotionEntityJeiRecipe): Identifier = recipe.getId()
 }
