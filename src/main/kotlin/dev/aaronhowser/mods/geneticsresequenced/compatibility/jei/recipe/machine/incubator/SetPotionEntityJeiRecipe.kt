@@ -26,8 +26,9 @@ class SetPotionEntityJeiRecipe(
 		val potionStack = if (isMutation) BrewingRecipes.mutationPotionStack else BrewingRecipes.cellGrowthPotionStack
 		input = Ingredient.of(potionStack)
 
-		EntityDnaItem.setEntityType(potionStack, entityType)
-		output = potionStack
+		val outputStack = potionStack.copy()
+		EntityDnaItem.setEntityType(outputStack, entityType)
+		output = outputStack
 	}
 
 	fun getId(): ResourceLocation {

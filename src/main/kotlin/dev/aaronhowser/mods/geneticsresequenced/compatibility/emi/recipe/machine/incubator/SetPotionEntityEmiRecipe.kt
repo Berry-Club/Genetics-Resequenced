@@ -54,8 +54,9 @@ class SetPotionEntityEmiRecipe(
 
 		input = EmiIngredient.of(Ingredient.of(potionStack))
 
-		EntityDnaItem.setEntityType(potionStack, entityType)
-		output = EmiStack.of(potionStack)
+		val outputStack = potionStack.copy()
+		EntityDnaItem.setEntityType(outputStack, entityType)
+		output = EmiStack.of(outputStack)
 	}
 
 	override fun getId(): ResourceLocation {
