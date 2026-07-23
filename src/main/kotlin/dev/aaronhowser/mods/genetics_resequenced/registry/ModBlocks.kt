@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.genetics_resequenced.registry
 
+import dev.aaronhowser.mods.aaron.registry.AaronBlockRegistry
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.block.AntiFieldBlock
 import dev.aaronhowser.mods.genetics_resequenced.block.BioluminescenceBlock
@@ -7,7 +8,6 @@ import dev.aaronhowser.mods.genetics_resequenced.block.CoalGeneratorBlock
 import dev.aaronhowser.mods.genetics_resequenced.block.WebDefenseBlock
 import dev.aaronhowser.mods.genetics_resequenced.block.base.MachineBlock
 import dev.aaronhowser.mods.genetics_resequenced.block_entity.*
-import dev.aaronhowser.mods.aaron.registry.AaronBlockRegistry
 import net.minecraft.core.BlockPos
 import net.minecraft.world.level.block.entity.BlockEntity
 import net.minecraft.world.level.block.state.BlockState

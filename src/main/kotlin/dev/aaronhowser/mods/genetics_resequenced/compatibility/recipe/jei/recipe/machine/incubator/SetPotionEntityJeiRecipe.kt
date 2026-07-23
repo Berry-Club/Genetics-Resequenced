@@ -7,7 +7,6 @@ import dev.aaronhowser.mods.genetics_resequenced.registry.ModItems
 import net.minecraft.resources.Identifier
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.Ingredient
 
 class SetPotionEntityJeiRecipe(
 	val entityType: EntityType<*>,

@@ -18,6 +18,7 @@ object GmoCellSubtypeInterpreter : ISubtypeInterpreter<ItemStack> {
 
 		return SubtypeData(entityType, gene)
 	}
+
 	private data class SubtypeData(
 		val entityType: EntityType<*>?,
 		val gene: ResourceKey<Gene>?

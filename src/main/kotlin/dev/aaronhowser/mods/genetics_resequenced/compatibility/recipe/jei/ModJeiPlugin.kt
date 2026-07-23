@@ -1,6 +1,5 @@
 package dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.jei
 
-import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.cast
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.compatibility.recipe.jei.category.*

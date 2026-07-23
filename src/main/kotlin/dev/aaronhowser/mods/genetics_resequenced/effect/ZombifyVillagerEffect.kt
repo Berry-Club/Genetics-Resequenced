@@ -37,7 +37,7 @@ class ZombifyVillagerEffect : MobEffect(
 				ZombieGroupData(false, true)
 			)
 
-			zombie.setVillagerData(villager.villagerData)
+			zombie.villagerData = villager.villagerData
 			zombie.setGossips(villager.gossips.copy())
 			zombie.setTradeOffers(villager.offers.copy())
 			zombie.villagerXp = villager.villagerXp

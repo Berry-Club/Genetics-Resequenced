@@ -15,12 +15,11 @@ import dev.aaronhowser.mods.genetics_resequenced.registry.ModItems
 import dev.aaronhowser.mods.genetics_resequenced.util.ClientUtil
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
-import net.minecraft.resources.ResourceKey
 import net.minecraft.resources.Identifier
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.animal.cow.Cow
 import net.minecraft.world.item.ItemStack
-import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeManager
 
 class VirusJeiRecipe(
