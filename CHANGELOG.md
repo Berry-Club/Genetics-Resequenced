@@ -1,28 +1,20 @@
-# 1.15.0
-
-### Changed
-
-- Massively improved KubeJS support by making an actual plugin for it
-	- See https://moddedmc.wiki/en/project/geneticsresequenced/latest/docs/devs/kubejs
-- Gene cooldowns and temporary gene durations can be changed in their events
-- Removed PotionTagIngredient, and just made multiple recipes using regular ingredients
-
-### Fixed
-
-- Fixed machine inventory labels moving down sometimes
-- Fixed an issue where the Coal Generator wasn't properly setting to the off state
-
 # 1.14.0
 
 ### Changed
 
 - Accepted a Simplified Chinese translation for the wiki from KronosXup
 - Accepted a Japanese translation from hamu6251ren0725-hue
+- Massively improved KubeJS support by making an actual plugin for it
+	- See https://moddedmc.wiki/en/project/geneticsresequenced/latest/docs/devs/kubejs
+- Gene cooldowns and temporary gene durations can be changed in their events
+- Removed PotionTagIngredient, and just made multiple recipes using regular ingredients
 - Only the first Dragon Health Crystal in your inventory is taken into account
 	- Having more than one doesn't give you more protection
 
 ### Fixed
 
+- Fixed machine inventory labels moving down sometimes
+- Fixed an issue where the Coal Generator wasn't properly setting to the off state
 - Machines accept IO from pipes again (#94)
 - Fixed a lot of issues in the wiki (#92)
 - Compatibility with new version of Aaron
