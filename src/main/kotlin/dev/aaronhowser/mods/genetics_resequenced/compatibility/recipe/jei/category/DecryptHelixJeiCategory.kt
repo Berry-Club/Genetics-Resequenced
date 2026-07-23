@@ -20,20 +20,24 @@ class DecryptHelixJeiCategory(
 	recipeType,
 	ModRecipeLang.DNA_DECRYPTOR.toComponent(),
 	guiHelper.createDrawableItemLike(ModBlocks.DNA_DECRYPTOR),
-	104,
+	108,
 	18
 ) {
 	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: DecryptHelixJeiRecipe, focuses: IFocusGroup) {
-		builder.addInputSlot(34, 0).setStandardSlotBackground().add(recipe.encryptedHelix)
-		builder.addOutputSlot(86, 0).setStandardSlotBackground().add(recipe.decryptedHelix)
+		builder.addInputSlot(38, 0).setStandardSlotBackground().add(recipe.encryptedHelix)
+		builder.addOutputSlot(90, 0).setStandardSlotBackground().add(recipe.decryptedHelix)
 	}
 
 	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: DecryptHelixJeiRecipe, focuses: IFocusGroup) {
-		builder.addText(Component.literal(String.format("%.2f%%", recipe.chance * 100)), 32, 9)
+		val chance = String.format("%.2f", recipe.chance * 100)
+			.trimEnd('0')
+			.trimEnd('.')
+
+		builder.addText(Component.literal("$chance%"), 36, 9)
 			.setPosition(0, 4)
 			.setColor(0xFF3E3E3E.toInt())
 
-		builder.addRecipeArrow().setPosition(57, 1)
+		builder.addRecipeArrow().setPosition(61, 1)
 	}
 
 	override fun getIdentifier(recipe: DecryptHelixJeiRecipe): Identifier = recipe.getId()
