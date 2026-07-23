@@ -95,7 +95,13 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 			}
 		}
 
-		fun getMaxDamage(): Double = ServerConfig.CONFIG.dragonHealthCrystalMaxDamage.get()
+		fun getMaxDamage(): Double {
+			return if (ServerConfig.CONFIG_SPEC.isLoaded) {
+				ServerConfig.CONFIG.dragonHealthCrystalMaxDamage.get()
+			} else {
+				ServerConfig.CONFIG.dragonHealthCrystalMaxDamage.default
+			}
+		}
 	}
 
 }
