@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.category
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.ModJeiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.recipe.machine.incubator.DupeCellJeiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModRecipeLang
@@ -33,7 +34,7 @@ class DupeCellJeiCategory(
 
 	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: DupeCellJeiRecipe, focuses: IFocusGroup) {
 		val background = guiHelper.createDrawable(
-			BACKGROUND,
+			ModJeiPlugin.INCUBATOR_BACKGROUND,
 			55,
 			14,
 			65,
@@ -57,7 +58,4 @@ class DupeCellJeiCategory(
 
 	override fun getRegistryName(recipe: DupeCellJeiRecipe): ResourceLocation = recipe.getId()
 
-	companion object {
-		val BACKGROUND: ResourceLocation = GeneticsResequenced.modResource("textures/gui/container/incubator_background.png")
-	}
 }
