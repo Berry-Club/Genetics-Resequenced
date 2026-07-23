@@ -18,10 +18,9 @@ data class ModifyEntityGenesEvent(
 	fun setWeight(gene: ResourceKey<Gene>, weight: Int) {
 		if (weight <= 0) {
 			geneWeights.remove(gene)
-			return
+		} else {
+			geneWeights[gene] = weight
 		}
-
-		geneWeights[gene] = weight
 	}
 
 	fun remove(gene: ResourceKey<Gene>) = setWeight(gene, 0)

@@ -32,6 +32,7 @@ class ModItemTagsProvider(
 		val ACTIVATES_SHOOT_FIREBALL_GENE: TagKey<Item> = create("activates_shoot_fireball_gene")
 		val MAGNET_ITEM_BLACKLIST: TagKey<Item> = create("item_magnet_gene_blacklist")
 		val ENCHANTABLE_DELICATE_TOUCH: TagKey<Item> = create("enchantable/delicate_touch")
+		val ENCHANTABLE_SURGICAL_PRECISION: TagKey<Item> = create("enchantable/surgical_precision")
 		val PREVENTS_SOME_MOB_INTERACTION: TagKey<Item> = create("prevents_some_mob_interaction")
 	}
 
@@ -50,6 +51,9 @@ class ModItemTagsProvider(
 			.add(Items.BLAZE_ROD)
 
 		this.tag(ENCHANTABLE_DELICATE_TOUCH)
+			.add(ModItems.SCRAPER.get())
+
+		this.tag(ENCHANTABLE_SURGICAL_PRECISION)
 			.add(ModItems.SCRAPER.get())
 
 		this.tag(PREVENTS_SOME_MOB_INTERACTION)

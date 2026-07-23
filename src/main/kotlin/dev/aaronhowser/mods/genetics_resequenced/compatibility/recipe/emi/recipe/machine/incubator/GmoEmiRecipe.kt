@@ -134,7 +134,9 @@ class GmoEmiRecipe(
 		val successChance = (geneChance * 100).toInt()
 
 		widgets.addText(
-			Component.literal("Success: $successChance%").withStyle(ChatFormatting.GREEN),
+			ModRecipeLang.GMO_SUCCESS_CHANCE
+				.toComponent(successChance)
+				.withStyle(ChatFormatting.GREEN),
 			x,
 			6,
 			0x000000,
@@ -144,7 +146,9 @@ class GmoEmiRecipe(
 		val failureChance = 100 - successChance
 
 		widgets.addText(
-			Component.literal("Failure: $failureChance%").withStyle(ChatFormatting.RED),
+			ModRecipeLang.GMO_FAILURE_CHANCE
+				.toComponent(failureChance)
+				.withStyle(ChatFormatting.RED),
 			x,
 			6 + 18 + 2,
 			0x000000,
