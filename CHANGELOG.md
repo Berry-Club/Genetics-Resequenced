@@ -2,6 +2,7 @@
 
 ### Added
 
+- Surgical Precision enchantment, increases the amount of Organic Matter dropped
 - Massively improved KubeJS support by making an actual plugin for it
 	- See https://moddedmc.wiki/en/project/geneticsresequenced/latest/docs/devs/kubejs
 - Added JEI compatibility

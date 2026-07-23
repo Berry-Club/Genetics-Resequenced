@@ -30,6 +30,7 @@ object ModRecipeLang {
 
 		provider.add(EMI.SYRINGES, "Syringes")
 		provider.add(EMI.DELICATE_TOUCH_TAG, "Delicate Touch Enchantable")
+		provider.add(EMI.SURGICAL_PRECISION_TAG, "Surgical Precision Enchantable")
 		provider.add(EMI.FIREBALL_TAG, "Usable for \"Shoot Fireballs\" Gene")
 		provider.add(EMI.MAGNET_BLACKLIST_TAG, "Blacklisted from \"Item Magnet\" Gene")
 		provider.add(EMI.BLOCKS_MOB_INTERACTION_TAG, "Prevents item interaction with entities that have the #geneticsresequenced:allows_preventing_interaction tag\nUsed for Villagers etc that already have their own interactions")
@@ -76,6 +77,7 @@ object ModRecipeLang {
 	object EMI {
 		const val SYRINGES = "tag.item.geneticsresequenced.syringes"
 		const val DELICATE_TOUCH_TAG = "tag.item.geneticsresequenced.enchantable.delicate_touch"
+		const val SURGICAL_PRECISION_TAG = "tag.item.geneticsresequenced.enchantable.surgical_precision"
 		const val FIREBALL_TAG = "tag.item.geneticsresequenced.activates_shoot_fireball_gene"
 		const val MAGNET_BLACKLIST_TAG = "tag.item.geneticsresequenced.item_magnet_gene_blacklist"
 		const val BLOCKS_MOB_INTERACTION_TAG = "tag.item.geneticsresequenced.prevents_some_mob_interaction"
