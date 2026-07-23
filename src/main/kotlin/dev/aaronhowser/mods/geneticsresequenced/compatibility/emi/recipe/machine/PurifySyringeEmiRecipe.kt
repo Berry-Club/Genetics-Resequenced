@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machin
 
 import dev.aaronhowser.mods.aaron.client.AaronClientUtil
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.emi.emi.api.recipe.EmiRecipe

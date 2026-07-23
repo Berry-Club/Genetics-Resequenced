@@ -3,8 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPlasmidEmiRecipes
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.ModEmiInformationRecipes
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine.*
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.recipe.machine.incubator.*
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.*
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.incubator.*
 import dev.aaronhowser.mods.geneticsresequenced.recipe.BrewingRecipes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents

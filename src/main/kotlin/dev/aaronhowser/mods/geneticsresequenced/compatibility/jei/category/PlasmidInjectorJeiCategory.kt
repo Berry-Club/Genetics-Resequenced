@@ -1,6 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.category
 
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.jei.recipe.machine.PlasmidInjectorJeiRecipe
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.recipe.machine.PlasmidInjectorJeiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModRecipeLang
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks

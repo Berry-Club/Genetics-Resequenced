@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine.incubator
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModRecipeLang
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem

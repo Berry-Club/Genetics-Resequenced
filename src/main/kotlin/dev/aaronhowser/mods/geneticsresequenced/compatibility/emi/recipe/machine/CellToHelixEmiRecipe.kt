@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machine
 
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.recipe.emi.ModEmiPlugin
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
