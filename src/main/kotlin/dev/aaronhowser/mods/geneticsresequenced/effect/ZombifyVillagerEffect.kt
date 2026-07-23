@@ -8,6 +8,7 @@ import net.minecraft.world.entity.Entity
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.MobSpawnType
+import net.minecraft.world.entity.monster.Zombie
 import net.minecraft.world.entity.monster.Zombie.ZombieGroupData
 import net.minecraft.world.entity.npc.Villager
 import net.neoforged.neoforge.event.EventHooks
@@ -19,7 +20,7 @@ class ZombifyVillagerEffect : MobEffect(
 
 	override fun isInstantenous(): Boolean = true
 
-	/** @see [net.minecraft.world.entity.monster.Zombie.killedEntity] */
+	/** @see [Zombie.killedEntity] */
 	override fun applyInstantenousEffect(
 		pSource: Entity?,
 		pIndirectSource: Entity?,

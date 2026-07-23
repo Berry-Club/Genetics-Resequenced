@@ -22,6 +22,7 @@ import mezz.jei.api.JeiPlugin
 import mezz.jei.api.recipe.RecipeType
 import mezz.jei.api.registration.*
 import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.item.crafting.Recipe
 import net.minecraft.world.item.crafting.RecipeHolder
 import net.neoforged.fml.ModList
 
@@ -125,7 +126,7 @@ class ModJeiPlugin : IModPlugin {
 			return RecipeType.create(GeneticsResequenced.MOD_ID, id, recipeClass)
 		}
 
-		private fun <T : net.minecraft.world.item.crafting.Recipe<*>> makeRecipeHolderType(id: String): RecipeType<RecipeHolder<T>> {
+		private fun <T : Recipe<*>> makeRecipeHolderType(id: String): RecipeType<RecipeHolder<T>> {
 			return RecipeType.create(GeneticsResequenced.MOD_ID, id, RecipeHolder::class.java).cast()
 		}
 	}

@@ -79,8 +79,8 @@ class ModEmiPlugin : EmiPlugin {
 		plasmidInjector(registry)
 		incubator(registry)
 
-		_root_ide_package_.dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPlasmidEmiRecipes.setAntiPlasmidRecipes(registry)
-		_root_ide_package_.dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.AntiPlasmidEmiRecipes.unsetAntiPlasmidRecipes(registry)
+		AntiPlasmidEmiRecipes.setAntiPlasmidRecipes(registry)
+		AntiPlasmidEmiRecipes.unsetAntiPlasmidRecipes(registry)
 
 		for (infoRecipe in ModEmiInformationRecipes.getInformationRecipes(ClientUtil.localRegistryAccess!!)) {
 			registry.addRecipe(infoRecipe)
