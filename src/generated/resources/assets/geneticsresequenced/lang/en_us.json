@@ -1048,6 +1048,8 @@
   "recipe.category.geneticsresequenced.set_entity": "Set Potion Entity",
   "recipe.category.geneticsresequenced.virus": "Virus Cultivation",
   "recipe.geneticsresequenced.black_death": "Requires all negative Genes",
+  "recipe.geneticsresequenced.gmo.failure_chance": "Failure: %d%%",
+  "recipe.geneticsresequenced.gmo.success_chance": "Success: %d%%",
   "recipe.geneticsresequenced.mob_gene.chance": "Chance: %d%%",
   "recipe.geneticsresequenced.mob_gene.gene": "Gene: %1$s",
   "recipe.geneticsresequenced.mob_gene.mob": "Mob: %1$s",

@@ -3,6 +3,7 @@ package dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.recipe.machin
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.emi.ModEmiPlugin
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModRecipeLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.DnaHelixItem
@@ -135,7 +136,9 @@ class GmoEmiRecipe(
 		val successChance = (geneChance * 100).toInt()
 
 		widgets.addText(
-			Component.literal("Success: $successChance%").withStyle(ChatFormatting.GREEN),
+			ModRecipeLang.GMO_SUCCESS_CHANCE
+				.toComponent(successChance)
+				.withStyle(ChatFormatting.GREEN),
 			x,
 			6,
 			0x000000,
@@ -145,7 +148,9 @@ class GmoEmiRecipe(
 		val failureChance = 100 - successChance
 
 		widgets.addText(
-			Component.literal("Failure: $failureChance%").withStyle(ChatFormatting.RED),
+			ModRecipeLang.GMO_FAILURE_CHANCE
+				.toComponent(failureChance)
+				.withStyle(ChatFormatting.RED),
 			x,
 			6 + 18 + 2,
 			0x000000,

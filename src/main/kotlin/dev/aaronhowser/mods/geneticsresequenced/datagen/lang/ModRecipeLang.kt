@@ -6,6 +6,8 @@ object ModRecipeLang {
 		provider.add(MOB, "Mob: %1\$s")
 		provider.add(GENE, "Gene: %1\$s")
 		provider.add(CHANCE, "Chance: %d%%")
+		provider.add(GMO_SUCCESS_CHANCE, "Success: %d%%")
+		provider.add(GMO_FAILURE_CHANCE, "Failure: %d%%")
 		provider.add(REQUIRES_POINTS, "%1\$s requires %2\$d points of DNA")
 		provider.add(BASIC_WORTH, "Basic Genes = 1 point")
 		provider.add(MATCHING_WORTH, "Matching Genes = 2 points")
@@ -48,6 +50,8 @@ object ModRecipeLang {
 	const val MOB = "recipe.geneticsresequenced.mob_gene.mob"
 	const val GENE = "recipe.geneticsresequenced.mob_gene.gene"
 	const val CHANCE = "recipe.geneticsresequenced.mob_gene.chance"
+	const val GMO_SUCCESS_CHANCE = "recipe.geneticsresequenced.gmo.success_chance"
+	const val GMO_FAILURE_CHANCE = "recipe.geneticsresequenced.gmo.failure_chance"
 	const val REQUIRES_POINTS = "recipe.geneticsresequenced.plasmid_infuser.points_required"
 	const val BASIC_WORTH = "recipe.geneticsresequenced.plasmid_infuser.basic"
 	const val MATCHING_WORTH = "recipe.geneticsresequenced.plasmid_infuser.matching"
