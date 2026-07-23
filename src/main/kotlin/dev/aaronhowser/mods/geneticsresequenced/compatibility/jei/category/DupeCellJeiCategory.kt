@@ -1,5 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.category
 
+import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.jei.recipe.machine.incubator.DupeCellJeiRecipe
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModRecipeLang
@@ -16,22 +17,30 @@ import net.minecraft.resources.ResourceLocation
 
 class DupeCellJeiCategory(
 	recipeType: RecipeType<DupeCellJeiRecipe>,
-	guiHelper: IGuiHelper
+	private val guiHelper: IGuiHelper
 ) : AbstractRecipeCategory<DupeCellJeiRecipe>(
 	recipeType,
 	ModRecipeLang.SUBSTRATE_DUPE.toComponent(),
 	guiHelper.createDrawableItemLike(ModItems.CELL),
-	65,
+	75,
 	61
 ) {
 	override fun setRecipe(builder: IRecipeLayoutBuilder, recipe: DupeCellJeiRecipe, focuses: IFocusGroup) {
-		builder.addInputSlot(28, 2).setStandardSlotBackground().addIngredients(recipe.ingredient)
-		builder.addInputSlot(5, 36).setStandardSlotBackground().addIngredients(recipe.input)
-		builder.addOutputSlot(51, 36).setStandardSlotBackground().addItemStack(recipe.output)
+		builder.addInputSlot(29, 3).addIngredients(recipe.ingredient)
+		builder.addInputSlot(6, 37).addIngredients(recipe.input)
+		builder.addOutputSlot(52, 37).addItemStack(recipe.output)
 	}
 
 	override fun createRecipeExtras(builder: IRecipeExtrasBuilder, recipe: DupeCellJeiRecipe, focuses: IFocusGroup) {
-		builder.addRecipeArrow().setPosition(23, 31)
+		val background = guiHelper.createDrawable(
+			BACKGROUND,
+			55,
+			14,
+			65,
+			61
+		)
+
+		builder.addDrawable(background, 5, 0)
 	}
 
 	override fun getTooltip(
@@ -41,8 +50,14 @@ class DupeCellJeiCategory(
 		mouseX: Double,
 		mouseY: Double
 	) {
-		if (mouseX >= 0 && mouseY >= 0 && mouseX < width && mouseY < height) tooltip.add(recipe.tooltip)
+		if (mouseX >= 0 && mouseY >= 0 && mouseX < width && mouseY < height) {
+			tooltip.add(recipe.tooltip)
+		}
 	}
 
 	override fun getRegistryName(recipe: DupeCellJeiRecipe): ResourceLocation = recipe.getId()
+
+	companion object {
+		val BACKGROUND: ResourceLocation = GeneticsResequenced.modResource("textures/gui/container/incubator_background.png")
+	}
 }

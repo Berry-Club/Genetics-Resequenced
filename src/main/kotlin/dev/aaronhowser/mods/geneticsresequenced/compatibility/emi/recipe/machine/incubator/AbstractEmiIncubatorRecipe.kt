@@ -48,7 +48,7 @@ abstract class AbstractEmiIncubatorRecipe : EmiRecipe {
 	}
 
 	companion object {
-		val BACKGROUND: ResourceLocation = GeneticsResequenced.modResource("textures/gui/container/incubator_emi.png")
+		val BACKGROUND: ResourceLocation = GeneticsResequenced.modResource("textures/gui/container/incubator_background.png")
 	}
 
 }
