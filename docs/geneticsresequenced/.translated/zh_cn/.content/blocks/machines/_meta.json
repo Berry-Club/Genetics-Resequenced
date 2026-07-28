@@ -5,5 +5,7 @@
   "dna_decryptor.mdx": "DNA解码器",
   "dna_extractor.mdx": "DNA提取器",
   "plasmid_infuser.mdx": "质粒注入器",
-  "plasmid_injector.mdx": "质粒注射器"
+  "plasmid_injector.mdx": "质粒注射器",
+  "incubator.mdx": "孵化器",
+  "advanced_incubator.mdx": "高级孵化器"
 }
