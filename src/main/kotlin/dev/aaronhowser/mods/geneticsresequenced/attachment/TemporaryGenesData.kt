@@ -10,15 +10,18 @@ import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneAddedE
 import dev.aaronhowser.mods.geneticsresequenced.event.custom.TemporaryGeneRemovedEvent
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
+import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isHelixOnly
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.TickGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttachmentTypes
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.core.Holder
 import net.minecraft.network.RegistryFriendlyByteBuf
 import net.minecraft.network.chat.Component
 import net.minecraft.network.codec.ByteBufCodecs
 import net.minecraft.network.codec.StreamCodec
+import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import thedarkcolour.kotlinforforge.neoforge.forge.FORGE_BUS
@@ -58,6 +61,17 @@ data class TemporaryGenesData(
 		val LivingEntity.temporaryGeneHolders: List<Holder<Gene>>
 			get() = this.temporaryGenes.map(TemporaryGene::geneHolder)
 
+		@JvmStatic
+		fun LivingEntity.hasTemporaryGene(geneHolder: Holder<Gene>): Boolean {
+			return !geneHolder.isDisabled && this.temporaryGeneHolders.any { it.isGene(geneHolder) }
+		}
+
+		@JvmStatic
+		fun LivingEntity.hasTemporaryGene(geneRk: ResourceKey<Gene>): Boolean {
+			val geneHolder = ModGenes.fromResourceKey(registryAccess(), geneRk) ?: return false
+			return hasTemporaryGene(geneHolder)
+		}
+
 		fun tickTemporaryGenes(entity: LivingEntity) {
 			val toRemove = mutableListOf<TemporaryGene>()
 			val tempGenes = entity.temporaryGenes
@@ -73,21 +87,47 @@ data class TemporaryGenesData(
 			}
 		}
 
+		@JvmStatic
 		fun LivingEntity.removeTemporaryGene(
-			geneHolderToRemove: Holder<Gene>
-		) {
-			val existingList = this.temporaryGenes.toMutableList()
-			val wasRemoved = existingList.removeIf { it.geneHolder.isGene(geneHolderToRemove) }
-			if (!wasRemoved) return
+			geneRk: ResourceKey<Gene>
+		): Boolean {
+			val geneHolder = ModGenes.fromResourceKey(registryAccess(), geneRk) ?: return false
+			return removeTemporaryGene(geneHolder)
+		}
 
-			if (geneHolderToRemove.value().potions.isNotEmpty()) {
-				TickGenes.handlePotionGeneRemoved(this, geneHolderToRemove)
+		@JvmStatic
+		fun LivingEntity.removeTemporaryGene(
+			geneHolder: Holder<Gene>
+		): Boolean {
+			val existingList = this.temporaryGenes.toMutableList()
+			val wasRemoved = existingList.removeIf { it.geneHolder.isGene(geneHolder) }
+			if (!wasRemoved) return false
+
+			val eventPre = TemporaryGeneRemovedEvent.Pre(this, geneHolder)
+			if (FORGE_BUS.post(eventPre).isCanceled) {
+				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
+				return false
 			}
 
-			val event = TemporaryGeneRemovedEvent(this, geneHolderToRemove)
-			FORGE_BUS.post(event)
+			if (geneHolder.value().potions.isNotEmpty()) {
+				TickGenes.handlePotionGeneRemoved(this, geneHolder)
+			}
 
 			this.temporaryGenes = existingList
+
+			val eventPost = TemporaryGeneRemovedEvent.Post(this, geneHolder)
+			FORGE_BUS.post(eventPost)
+
+			return true
+		}
+
+		@JvmStatic
+		fun LivingEntity.addTemporaryGene(
+			newGeneRk: ResourceKey<Gene>,
+			durationTicks: Int
+		): Boolean {
+			val geneHolder = ModGenes.fromResourceKey(registryAccess(), newGeneRk) ?: return false
+			return addTemporaryGene(geneHolder, durationTicks)
 		}
 
 		@JvmStatic
@@ -134,19 +174,20 @@ data class TemporaryGenesData(
 				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
 				return false
 			}
+			val finalDurationTicks = eventPre.durationTicks
 
 			val existingList = this.temporaryGenes.toMutableList()
 
 			val existingTempGene = existingList.find { it.geneHolder.isGene(newGeneHolder) }
 			if (existingTempGene != null) {
-				existingTempGene.ticksRemaining = durationTicks
+				existingTempGene.ticksRemaining = finalDurationTicks
 			} else {
-				existingList.add(TemporaryGene(newGeneHolder, durationTicks))
+				existingList.add(TemporaryGene(newGeneHolder, finalDurationTicks))
 			}
 
 			this.temporaryGenes = existingList
 
-			val eventPost = TemporaryGeneAddedEvent.Post(this, newGeneHolder, durationTicks)
+			val eventPost = TemporaryGeneAddedEvent.Post(this, newGeneHolder, finalDurationTicks)
 			FORGE_BUS.post(eventPost)
 
 			return true

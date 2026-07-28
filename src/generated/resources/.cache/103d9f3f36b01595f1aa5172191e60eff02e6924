@@ -1,10 +1,11 @@
-// 1.21.1	2026-05-05T18:56:32.7172638	Registries
+// 1.21.1	2026-07-23T01:20:34.9974224	Registries
 b3759d1544e562be7cc91a12049f6c5a248cfe52 data/geneticsresequenced/damage_type/bleed.json
 f9cf7d549d0afefd72ab82525c4139c6ee5067aa data/geneticsresequenced/damage_type/step_on_syringe.json
 bf6ec3c91792fe31e5935c5e96630e193beef8e2 data/geneticsresequenced/damage_type/use_scraper.json
 23e7ce19c1aad07c8855a3173e4c5a061771c5c1 data/geneticsresequenced/damage_type/use_syringe.json
 6a9d037337220b50852b69ed65c3d5fc3d78a83b data/geneticsresequenced/damage_type/virus.json
 0386b4bcf1f0a465f39fd23161937bf929601fb6 data/geneticsresequenced/enchantment/delicate_touch.json
+90bfba9306c8839aacc14977e444bc1163ee1978 data/geneticsresequenced/enchantment/surgical_precision.json
 dcee6810945113d3a8d01fa333e0497b6d77ab70 data/geneticsresequenced/geneticsresequenced/gene/basic.json
 d8fc640c6cb7cca84c03fbc0afbd1d9246c59a8a data/geneticsresequenced/geneticsresequenced/gene/bioluminescence.json
 bf21a9e8fbc5a3846fb05b4fa0859e0917b2202f data/geneticsresequenced/geneticsresequenced/gene/black_death.json

@@ -33,7 +33,14 @@ class AdvancedIncubatorMenu(
 	playerInventory: Inventory,
 	machineContainer: Container,
 	craftingContainerData: ContainerData,
-) : CraftingMachineMenu(ModMenuTypes.ADVANCED_INCUBATOR.get(), containerId, playerInventory, machineContainer, craftingContainerData), MenuWithButtons {
+) : CraftingMachineMenu(
+	ModMenuTypes.ADVANCED_INCUBATOR.get(),
+	containerId,
+	playerInventory,
+	machineContainer,
+	craftingContainerData,
+	AdvancedIncubatorBlockEntity.INVENTORY_SIZE
+), MenuWithButtons {
 
 	constructor(containerId: Int, playerInventory: Inventory) : this(
 		containerId,
@@ -42,11 +49,7 @@ class AdvancedIncubatorMenu(
 		SimpleContainerData(AdvancedIncubatorBlockEntity.CONTAINER_DATA_SIZE)
 	)
 
-	override val amountSlots: Int = AdvancedIncubatorBlockEntity.INVENTORY_SIZE
-
 	init {
-		addSlots()
-
 		checkContainerDataCount(craftingContainerData, AdvancedIncubatorBlockEntity.CONTAINER_DATA_SIZE)
 	}
 
@@ -58,21 +61,49 @@ class AdvancedIncubatorMenu(
 		machineContainerData.set(AdvancedIncubatorBlockEntity.IS_HIGH_TEMPERATURE_INDEX, if (value) 1 else 0)
 	}
 
-	override fun addSlots() {
-		val topSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX, 83, 21) { IncubatorRecipe.isValidTopIngredient(level, it) }
-		val leftBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 55) { IncubatorRecipe.isValidBottomIngredient(level, it) }
-		val middleBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX, 83, 62) { IncubatorRecipe.isValidBottomIngredient(level, it) }
-		val rightBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX, 106, 55) { IncubatorRecipe.isValidBottomIngredient(level, it) }
-		val chorusSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.CHORUS_SLOT_INDEX, 141, 38) { it.isItem(Items.CHORUS_FRUIT) }
+	override fun addContainerSlots() {
+		val topSlot = FilteredSlot(
+			machineContainer,
+			AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX,
+			83, 21
+		) { IncubatorRecipe.isValidTopIngredient(level, it) }
 
-		val overclockerSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.OVERCLOCKER_SLOT_INDEX, 141, 60) { it.isItem(ModItems.OVERCLOCKER) }
+		val leftBottleSlot = FilteredSlot(
+			machineContainer,
+			AdvancedIncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX,
+			60, 55
+		) { IncubatorRecipe.isValidBottomIngredient(level, it) }
 
-		this.addSlot(topSlot)
-		this.addSlot(leftBottleSlot)
-		this.addSlot(middleBottleSlot)
-		this.addSlot(rightBottleSlot)
-		this.addSlot(overclockerSlot)
-		this.addSlot(chorusSlot)
+		val middleBottleSlot = FilteredSlot(
+			machineContainer,
+			AdvancedIncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX,
+			83, 62
+		) { IncubatorRecipe.isValidBottomIngredient(level, it) }
+
+		val rightBottleSlot = FilteredSlot(
+			machineContainer,
+			AdvancedIncubatorBlockEntity.RIGHT_BOTTLE_SLOT_INDEX,
+			106, 55
+		) { IncubatorRecipe.isValidBottomIngredient(level, it) }
+
+		val chorusSlot = FilteredSlot(
+			machineContainer,
+			AdvancedIncubatorBlockEntity.CHORUS_SLOT_INDEX,
+			141, 38
+		) { it.isItem(Items.CHORUS_FRUIT) }
+
+		val overclockerSlot = FilteredSlot(
+			machineContainer,
+			AdvancedIncubatorBlockEntity.OVERCLOCKER_SLOT_INDEX,
+			141, 60
+		) { it.isItem(ModItems.OVERCLOCKER) }
+
+		addSlot(topSlot)
+		addSlot(leftBottleSlot)
+		addSlot(middleBottleSlot)
+		addSlot(rightBottleSlot)
+		addSlot(overclockerSlot)
+		addSlot(chorusSlot)
 	}
 
 	override fun handleButtonPressed(buttonId: Int) {

@@ -90,11 +90,6 @@ object ModDataGen {
 
 		generator.addProvider(
 			event.includeServer(),
-			ModPotionTagsProvider(output, lookupProvider, existingFileHelper)
-		)
-
-		generator.addProvider(
-			event.includeServer(),
 			ModDamageTypeTagsProvider(output, lookupWithDatapack, existingFileHelper)
 		)
 

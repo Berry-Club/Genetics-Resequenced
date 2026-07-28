@@ -2,7 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator
 
 import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.CoalGeneratorBlockEntity
-import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.CraftingContainerData
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.EnergyProgressContainerData
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.menu.MachineMenu
@@ -23,30 +23,38 @@ class CoalGeneratorMenu(
 	id: Int,
 	playerInventory: Inventory,
 	private val coalGeneratorContainer: Container,
-	private val craftingContainerData: ContainerData
-) : MachineMenu(ModMenuTypes.COAL_GENERATOR.get(), id, playerInventory, craftingContainerData) {
+	private val generatorContainerData: ContainerData
+) : MachineMenu(
+	ModMenuTypes.COAL_GENERATOR.get(),
+	id,
+	playerInventory,
+	generatorContainerData
+) {
 
 	constructor(containerId: Int, playerInventory: Inventory) : this(
 		containerId,
 		playerInventory,
 		SimpleContainer(CoalGeneratorBlockEntity.CONTAINER_SIZE),
-		SimpleContainerData(CraftingContainerData.CRAFTING_CONTAINER_DATA_SIZE)
+		SimpleContainerData(EnergyProgressContainerData.ENERGY_PROGRESS_CONTAINER_DATA_SIZE)
 	)
 
-	override val amountSlots: Int = CoalGeneratorBlockEntity.CONTAINER_SIZE
-
-	fun getMaxBurnTime(): Int = craftingContainerData.get(CoalGeneratorBlockEntity.MAX_BURN_TIME_INDEX)
-	fun getBurnTimeRemaining(): Int = craftingContainerData.get(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX)
+	fun getMaxBurnTime(): Int = generatorContainerData.get(CoalGeneratorBlockEntity.MAX_BURN_TIME_INDEX)
+	fun getBurnTimeRemaining(): Int = generatorContainerData.get(CoalGeneratorBlockEntity.REMAINING_TICKS_INDEX)
 
 	fun isBurning(): Boolean = getBurnTimeRemaining() > 0
 
 	init {
 		checkContainerSize(coalGeneratorContainer, CoalGeneratorBlockEntity.CONTAINER_SIZE)
-		addSlots()
+		addMachineSlots()
 	}
 
-	override fun addSlots() {
-		val slot = FilteredSlot(coalGeneratorContainer, CoalGeneratorBlockEntity.INPUT_SLOT_INDEX, 52, 40) { it.getBurnTime(RecipeType.SMELTING) > 0 }
+	override fun addContainerSlots() {
+		val slot = FilteredSlot(
+			coalGeneratorContainer,
+			CoalGeneratorBlockEntity.INPUT_SLOT_INDEX,
+			52, 40
+		) { it.getBurnTime(RecipeType.SMELTING) > 0 }
+
 		addSlot(slot)
 	}
 

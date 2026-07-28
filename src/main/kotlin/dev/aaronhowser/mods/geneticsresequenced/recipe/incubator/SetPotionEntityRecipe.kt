@@ -1,10 +1,9 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.incubator
 
 import com.mojang.serialization.MapCodec
-import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModPotionTagsProvider
+import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipe
-import dev.aaronhowser.mods.geneticsresequenced.recipe.base.PotionTagIngredient
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import net.minecraft.core.HolderLookup
@@ -15,9 +14,11 @@ import net.minecraft.world.item.crafting.Ingredient
 import net.minecraft.world.item.crafting.RecipeSerializer
 import net.minecraft.world.level.Level
 
-object SetPotionEntityRecipe : IncubatorRecipe(
+class SetPotionEntityRecipe(
+	bottomIngredient: Ingredient
+) : IncubatorRecipe(
 	topIngredient = Ingredient.of(ModItems.CELL.get()),
-	bottomIngredient = PotionTagIngredient(ModPotionTagsProvider.CAN_HAVE_ENTITY).toVanilla()
+	bottomIngredient = bottomIngredient
 ) {
 
 	override fun matches(input: Input, level: Level): Boolean {
@@ -58,10 +59,19 @@ object SetPotionEntityRecipe : IncubatorRecipe(
 
 		companion object {
 			val CODEC: MapCodec<SetPotionEntityRecipe> =
-				MapCodec.unit(SetPotionEntityRecipe)
+				RecordCodecBuilder.mapCodec { instance ->
+					instance.group(
+						Ingredient.CODEC_NONEMPTY
+							.fieldOf("bottom_slot")
+							.forGetter(SetPotionEntityRecipe::bottomIngredient)
+					).apply(instance, ::SetPotionEntityRecipe)
+				}
 
 			val STREAM_CODEC: StreamCodec<RegistryFriendlyByteBuf, SetPotionEntityRecipe> =
-				StreamCodec.unit(SetPotionEntityRecipe)
+				StreamCodec.composite(
+					Ingredient.CONTENTS_STREAM_CODEC, SetPotionEntityRecipe::bottomIngredient,
+					::SetPotionEntityRecipe
+				)
 		}
 
 	}

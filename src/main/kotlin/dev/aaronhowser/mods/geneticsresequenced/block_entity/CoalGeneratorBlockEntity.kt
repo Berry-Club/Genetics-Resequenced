@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.geneticsresequenced.block.CoalGeneratorBlock
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.MachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.SidedMachineItemHandler
-import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.CraftingContainerData
+import dev.aaronhowser.mods.geneticsresequenced.block_entity.base.container_data.EnergyProgressContainerData
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
 import dev.aaronhowser.mods.geneticsresequenced.menu.coal_generator.CoalGeneratorMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
@@ -58,7 +58,7 @@ class CoalGeneratorBlockEntity(
 			setChanged()
 		}
 
-	override val containerData: ContainerData = CraftingContainerData(
+	override val containerData: ContainerData = EnergyProgressContainerData(
 		energyStorage,
 		{ burnTimeRemaining },
 		{ maxBurnTime }
@@ -69,23 +69,23 @@ class CoalGeneratorBlockEntity(
 
 		if (hasRoomForEnergy()) {
 			if (burnTimeRemaining > 0) {
+				setBurningBlockState(true)
 				generateEnergy()
 			} else {
 				tryStartBurning()
 			}
+		} else {
+			setBurningBlockState(false)
 		}
 	}
 
 	private fun tryStartBurning() {
-		val level = this.level ?: return
-
 		val inputItem = container.getItem(INPUT_SLOT_INDEX)
 		val fuelTime = inputItem.getBurnTime(RecipeType.SMELTING)
 
 		if (fuelTime <= 0) return
 
-		val newState = blockState.setValue(CoalGeneratorBlock.BURNING, true)
-		level.setBlockAndUpdate(blockPos, newState)
+		setBurningBlockState(true)
 
 		val fuelReplacedItem = inputItem.craftingRemainingItem
 
@@ -102,6 +102,20 @@ class CoalGeneratorBlockEntity(
 	private fun generateEnergy() {
 		energyStorage.receiveEnergy(getEnergyPerTick(), false)
 		burnTimeRemaining--
+
+		if (burnTimeRemaining == 0) {
+			maxBurnTime = 0
+			setBurningBlockState(false)
+		}
+	}
+
+	private fun setBurningBlockState(isBurning: Boolean) {
+		val level = this.level ?: return
+
+		if (blockState.getValue(CoalGeneratorBlock.BURNING) == isBurning) return
+
+		val newState = blockState.setValue(CoalGeneratorBlock.BURNING, isBurning)
+		level.setBlockAndUpdate(blockPos, newState)
 	}
 
 	private fun hasRoomForEnergy(): Boolean {
@@ -162,9 +176,8 @@ class CoalGeneratorBlockEntity(
 		const val CONTAINER_SIZE = 1
 		const val INPUT_SLOT_INDEX = 0
 
-		const val CONTAINER_DATA_SIZE = 2
-		const val REMAINING_TICKS_INDEX = 0
-		const val MAX_BURN_TIME_INDEX = 1
+		const val REMAINING_TICKS_INDEX = EnergyProgressContainerData.CURRENT_PROGRESS_INDEX
+		const val MAX_BURN_TIME_INDEX = EnergyProgressContainerData.MAX_PROGRESS_INDEX
 
 		fun getEnergyPerTick(): Int = ServerConfig.CONFIG.coalGeneratorEnergyPerTick.get()
 	}

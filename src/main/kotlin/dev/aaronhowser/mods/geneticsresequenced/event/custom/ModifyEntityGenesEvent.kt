@@ -11,17 +11,15 @@ data class ModifyEntityGenesEvent(
 ) : Event() {
 
 	fun getTotalWeight(): Int = geneWeights.values.sum()
-	fun getEntityTypeString(): String = entityType.location().toString()
 
 	fun getWeight(gene: ResourceKey<Gene>): Int = geneWeights.getOrDefault(gene, 0)
 
 	fun setWeight(gene: ResourceKey<Gene>, weight: Int) {
 		if (weight <= 0) {
 			geneWeights.remove(gene)
-			return
+		} else {
+			geneWeights[gene] = weight
 		}
-
-		geneWeights[gene] = weight
 	}
 
 	fun remove(gene: ResourceKey<Gene>) = setWeight(gene, 0)

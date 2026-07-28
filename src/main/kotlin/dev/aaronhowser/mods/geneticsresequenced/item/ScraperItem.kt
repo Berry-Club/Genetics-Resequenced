@@ -22,6 +22,7 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.enchantment.EnchantmentHelper
 import net.minecraft.world.level.Level
 import net.neoforged.neoforge.common.util.FakePlayer
 
@@ -112,6 +113,8 @@ class ScraperItem(properties: Properties) : Item(properties) {
 				return false
 			}
 
+			val surgicalPrecision = OtherUtil.getEnchantHolder(player, ModEnchantmentProvider.SURGICAL_PRECISION)
+			organicStack.count += EnchantmentHelper.getItemEnchantmentLevel(surgicalPrecision, stack)
 			player.giveOrDropStack(organicStack)
 
 			val delicateTouch = OtherUtil.getEnchantHolder(player, ModEnchantmentProvider.DELICATE_TOUCH)
