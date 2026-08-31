@@ -1,0 +1,17 @@
+---
+title: Placid
+id: geneticsresequenced:placid
+icon: geneticsresequenced:item/dna_helix
+type: gene
+---
+
+The **Placid** Gene makes it so the mob that has it is (usually) incapable of attacking anything.
+
+Specifically, the way it works is that anything that uses the TargetGoal#canContinueToUse method will check for this Gene and return false.
+
+If it *doesn't* use that method (for example, the Creeper's SwellGoal), then it will be unaffected.
+
+## Obtaining
+
+By default, level 1 can be obtained from these sources:
+- Cow: 3/20
