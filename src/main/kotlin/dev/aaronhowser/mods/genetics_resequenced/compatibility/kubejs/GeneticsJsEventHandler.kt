@@ -1,15 +1,12 @@
 package dev.aaronhowser.mods.genetics_resequenced.compatibility.kubejs
 
-import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.compatibility.kubejs.kube_event.*
 import dev.aaronhowser.mods.genetics_resequenced.event.custom.*
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
 import net.minecraft.core.Holder
 import net.minecraft.resources.ResourceKey
 import net.neoforged.bus.api.SubscribeEvent
-import net.neoforged.fml.common.EventBusSubscriber
 
-@EventBusSubscriber(modid = GeneticsResequenced.MOD_ID)
 object GeneticsJsEventHandler {
 
 	@SubscribeEvent
