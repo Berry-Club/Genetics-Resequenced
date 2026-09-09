@@ -1,3 +1,9 @@
+# 1.14.1
+
+### Fixed
+
+- Removed accidental KubeJS dependency
+
 # 1.14.0
 
 ### Added
