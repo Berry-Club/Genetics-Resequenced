@@ -12,6 +12,7 @@ import dev.aaronhowser.mods.geneticsresequenced.menu.components.ProgressArrow
 import dev.aaronhowser.mods.geneticsresequenced.menu.components.TemperatureIndicator
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import net.minecraft.client.gui.components.Button
+import net.minecraft.client.gui.screens.Screen
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.player.Inventory
 
@@ -45,7 +46,10 @@ class AdvancedIncubatorScreen(
 			shouldRenderTooltip = false,
 			isHighTemperature = { menu.isHighTemperature() },
 			onClickFunction = { _, _ ->
-				val packet = ClientClickedMenuButton(AdvancedIncubatorMenu.CYCLE_TEMPERATURE_BUTTON_ID)
+				val packet = ClientClickedMenuButton(
+					AdvancedIncubatorMenu.CYCLE_TEMPERATURE_BUTTON_ID,
+					Screen.hasShiftDown()
+				)
 				ModPacketHandler.messageServer(packet)
 			}
 		)
@@ -70,7 +74,10 @@ class AdvancedIncubatorScreen(
 				}
 			},
 			onPress = {
-				val packet = ClientClickedMenuButton(AdvancedIncubatorMenu.CYCLE_TEMPERATURE_BUTTON_ID)
+				val packet = ClientClickedMenuButton(
+					AdvancedIncubatorMenu.CYCLE_TEMPERATURE_BUTTON_ID,
+					Screen.hasShiftDown()
+				)
 				ModPacketHandler.messageServer(packet)
 			}
 		)

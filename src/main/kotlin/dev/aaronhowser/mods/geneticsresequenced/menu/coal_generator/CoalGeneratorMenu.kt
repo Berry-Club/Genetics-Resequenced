@@ -43,10 +43,10 @@ class CoalGeneratorMenu(
 
 	init {
 		checkContainerSize(coalGeneratorContainer, CoalGeneratorBlockEntity.CONTAINER_SIZE)
-		addSlots()
+		addSlots(inventoryY)
 	}
 
-	override fun addSlots() {
+	override fun addContainerSlots() {
 		val slot = FilteredSlot(coalGeneratorContainer, CoalGeneratorBlockEntity.INPUT_SLOT_INDEX, 52, 40) {
 			ForgeHooks.getBurnTime(it, RecipeType.SMELTING) > 0
 		}

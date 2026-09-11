@@ -8,7 +8,6 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isHolder
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withClickToCopyToClipboard
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withHoverText
-import dev.aaronhowser.mods.aaron.serialization.AaronExtraCodecs
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.gene.ModGeneProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModGeneLang
@@ -18,6 +17,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModGeneTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.ModCodecs
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
@@ -101,7 +101,7 @@ data class Gene(
 					ForgeRegistries.ATTRIBUTES.codec
 						.fieldOf("attribute")
 						.forGetter(AttributeEntry::attribute),
-					AaronExtraCodecs.ATTRIBUTE_MODIFIER_CODEC
+					ModCodecs.ATTRIBUTE_MODIFIER
 						.fieldOf("modifier")
 						.forGetter(AttributeEntry::modifier)
 				).apply(instance, Gene::AttributeEntry)

@@ -24,16 +24,11 @@ abstract class MachineMenu(
 	protected abstract val amountSlots: Int
 
 	init {
-		addPlayerInventorySlots()
 		addDataSlots(machineContainerData)
 	}
 
 	fun getCurrentEnergy(): Int = machineContainerData.get(EnergyContainerData.CURRENT_ENERGY_INDEX)
 	fun getMaxEnergy(): Int = machineContainerData.get(EnergyContainerData.MAX_ENERGY_INDEX)
-
-	fun addPlayerInventorySlots() {
-		addPlayerInventorySlots(inventoryY)
-	}
 
 	abstract fun getPercentDone(): Float
 

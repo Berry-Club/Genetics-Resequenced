@@ -7,6 +7,7 @@
 
 ### Changed
 
+- Updated the 1.20.1 port to Aaron 1.20.0-build.12
 - Improved the message when you get a Gene you're missing the requirements for
   - The red text is now in [brackets], so you know it can be hovered over to see which Genes are missing
 - Gene Requirements are now a datapack registry

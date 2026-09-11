@@ -28,7 +28,7 @@ class DnaExtractorMenu(
 	)
 
 	init {
-		addSlots()
+		addSlots(inventoryY)
 	}
 
 	override fun inputFilter(inputStack: ItemStack): Boolean = inputStack.isItem(ModItems.CELL) || inputStack.isItem(ModItems.GMO_CELL)

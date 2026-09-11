@@ -3,8 +3,8 @@ package dev.aaronhowser.mods.geneticsresequenced.item.components
 import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent
-import dev.aaronhowser.mods.aaron.serialization.AaronExtraCodecs
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.util.ModCodecs
 import net.minecraft.core.UUIDUtil
 import net.minecraft.network.chat.Component
 import net.minecraft.world.entity.LivingEntity
@@ -23,7 +23,7 @@ data class SpecificEntityItemComponent(
 					UUIDUtil.CODEC
 						.fieldOf("uuid")
 						.forGetter(SpecificEntityItemComponent::uuid),
-					AaronExtraCodecs.COMPONENT_CODEC
+					ModCodecs.COMPONENT
 						.fieldOf("name")
 						.forGetter(SpecificEntityItemComponent::name)
 				).apply(instance, ::SpecificEntityItemComponent)

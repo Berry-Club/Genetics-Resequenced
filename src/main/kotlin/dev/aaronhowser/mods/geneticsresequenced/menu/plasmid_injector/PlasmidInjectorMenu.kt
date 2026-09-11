@@ -37,7 +37,7 @@ class PlasmidInjectorMenu(
 	)
 
 	init {
-		addSlots()
+		addSlots(inventoryY)
 	}
 
 	override fun inputFilter(inputStack: ItemStack): Boolean {
@@ -49,7 +49,7 @@ class PlasmidInjectorMenu(
 		return syringeStack.isItem(ModItemTagsProvider.SYRINGES) && !SyringeItem.isContaminated(syringeStack)
 	}
 
-	override fun addSlots() {
+	override fun addContainerSlots() {
 		val plasmidSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42, ::inputFilter)
 		val syringeSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42, ::syringeFilter)
 		val overclockSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54) { it.isItem(ModItems.OVERCLOCKER) }

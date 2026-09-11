@@ -18,6 +18,7 @@ base.archivesName = archiveName
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 compileKotlin {
 	kotlinOptions.jvmTarget = "17"
+	kotlinOptions.freeCompilerArgs += '-Xskip-prerelease-check'
 }
 
 println("Building version: ${version}")
