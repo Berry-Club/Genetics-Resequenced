@@ -1,7 +1,6 @@
 package dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.hasComponent
 import dev.aaronhowser.mods.aaron.menu.components.FilteredSlot
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.block.base.container_data.CraftingContainerData
@@ -9,7 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
-import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.GeneItemData
 import dev.aaronhowser.mods.geneticsresequenced.menu.CraftingMachineMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -42,7 +41,7 @@ class PlasmidInfuserMenu(
 	}
 
 	override fun inputFilter(inputStack: ItemStack): Boolean {
-		return inputStack.isItem(ModItems.DNA_HELIX) && inputStack.hasComponent(GeneDataComponent.Type)
+		return inputStack.isItem(ModItems.DNA_HELIX) && GeneItemData.hasGene(inputStack)
 	}
 
 	override fun addContainerSlots() {
@@ -75,7 +74,7 @@ class PlasmidInfuserMenu(
 
 		private fun addHelixTooltip(event: ItemTooltipEvent) {
 			val hoverStack = event.itemStack
-			val hoveredGeneRk = GeneDataComponent.getGeneRk(hoverStack) ?: return
+			val hoveredGeneRk = GeneItemData.getGeneRk(hoverStack) ?: return
 
 			val slots = event.entity?.containerMenu?.slots ?: return
 			val plasmidSlotId = 37  //Evil magic number that i got by printing whatever slot I was hovering

@@ -1,23 +1,22 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.hasComponent
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.setComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
-import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.ItemStackNbt
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.core.RegistryAccess
 import net.minecraft.network.chat.Component
+import net.minecraft.nbt.CompoundTag
 import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.item.Item
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.TooltipFlag
@@ -70,30 +69,47 @@ class PlasmidItem(properties: Properties) : Item(properties) {
 	}
 
 	companion object {
+		private const val PLASMID_PROGRESS = "geneticsresequenced:plasmid_progress"
+		private const val GENE = "gene"
+		private const val DNA_POINTS = "dna_points"
+
 		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
 
-		fun hasGene(itemStack: ItemStack): Boolean = itemStack.hasComponent(PlasmidProgressItemComponent.Type)
+		fun hasGene(itemStack: ItemStack): Boolean = getProgressTag(itemStack) != null
 
 		fun getGeneRk(itemStack: ItemStack): ResourceKey<Gene>? {
-			return itemStack.getComponent(PlasmidProgressItemComponent.Type)?.geneRK
+			val progressTag = getProgressTag(itemStack) ?: return null
+			val geneId = progressTag.getString(GENE)
+			if (geneId.isEmpty()) return null
+			val geneLocation = ResourceLocation.tryParse(geneId) ?: return null
+
+			return ResourceKey.create(ModGenes.GENE_REGISTRY_KEY, geneLocation)
 		}
 
 		fun setGene(itemStack: ItemStack, geneRk: ResourceKey<Gene>, amount: Int = 0) {
-			val component = PlasmidProgressItemComponent(geneRk, amount)
-			itemStack.setComponent(component)
+			val progressTag = CompoundTag()
+			progressTag.putString(GENE, geneRk.location().toString())
+			progressTag.putInt(DNA_POINTS, amount)
+			ItemStackNbt.put(itemStack, PLASMID_PROGRESS, progressTag)
 		}
 
 		fun getDnaPoints(itemStack: ItemStack): Int {
-			return itemStack.getComponent(PlasmidProgressItemComponent.Type)?.dnaPoints ?: 0
+			return getProgressTag(itemStack)?.getInt(DNA_POINTS) ?: 0
 		}
 
 		fun setDnaPoints(itemStack: ItemStack, amount: Int) {
-			val component = PlasmidProgressItemComponent(
-				getGeneRk(itemStack) ?: return,
-				amount
-			)
+			val progressTag = getProgressTag(itemStack) ?: return
+			progressTag.putInt(DNA_POINTS, amount)
+		}
 
-			itemStack.setComponent(component)
+		fun copyProgress(from: ItemStack, to: ItemStack): Boolean {
+			val progressTag = getProgressTag(from) ?: return false
+			ItemStackNbt.put(to, PLASMID_PROGRESS, progressTag.copy())
+			return true
+		}
+
+		private fun getProgressTag(itemStack: ItemStack): CompoundTag? {
+			return ItemStackNbt.getCompound(itemStack, PLASMID_PROGRESS)
 		}
 
 		fun increaseDnaPoints(itemStack: ItemStack, amount: Int = 1) {

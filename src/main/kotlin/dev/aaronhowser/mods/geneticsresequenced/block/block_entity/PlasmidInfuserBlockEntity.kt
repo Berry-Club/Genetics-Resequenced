@@ -6,7 +6,7 @@ import dev.aaronhowser.mods.aaron.container.ImprovedSimpleContainer
 import dev.aaronhowser.mods.geneticsresequenced.block.base.CraftingMachineBlockEntity
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
-import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.GeneItemData
 import dev.aaronhowser.mods.geneticsresequenced.menu.plasmid_infuser.PlasmidInfuserMenu
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlockEntityTypes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -50,7 +50,7 @@ class PlasmidInfuserBlockEntity(
 		if (PlasmidItem.isComplete(outputPlasmid, registryAccess)) return false
 
 		val plasmidGeneHolder = PlasmidItem.getGeneRk(outputPlasmid)
-		val inputGeneHolder = GeneDataComponent.getGeneRk(inputHelix)
+		val inputGeneHolder = GeneItemData.getGeneRk(inputHelix)
 
 		val helixIsBasic = inputGeneHolder?.isGene(ModGenes.BASIC).isTrue()
 
@@ -71,7 +71,7 @@ class PlasmidInfuserBlockEntity(
 		val outputPlasmid = itemHandler.getStackInSlot(OUTPUT_SLOT_INDEX)
 
 		val plasmidGeneHolder = PlasmidItem.getGeneRk(outputPlasmid)
-		val inputGeneRk = GeneDataComponent.getGeneRk(inputHelix) ?: return
+		val inputGeneRk = GeneItemData.getGeneRk(inputHelix) ?: return
 
 		// If Plasmid is unset, set it to the Helix's gene and initialize the amount
 		if (plasmidGeneHolder == null) {

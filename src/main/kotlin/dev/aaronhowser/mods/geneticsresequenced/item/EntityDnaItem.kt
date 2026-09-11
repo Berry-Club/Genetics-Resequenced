@@ -1,19 +1,17 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.hasComponent
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.setComponent
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
-import dev.aaronhowser.mods.geneticsresequenced.item.components.EntityTypeDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.ClientUtil
+import dev.aaronhowser.mods.geneticsresequenced.util.ItemStackNbt
 import net.minecraft.ChatFormatting
 import net.minecraft.core.registries.BuiltInRegistries
 import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResult
 import net.minecraft.world.entity.EntityType
@@ -88,6 +86,7 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 	}
 
 	companion object {
+		private const val ENTITY_TYPE = "geneticsresequenced:entity_type"
 
 		@JvmField
 		val ADDITIONALLY_INCLUDED_ENTITY_TYPES: MutableSet<EntityType<out LivingEntity>> = mutableSetOf(
@@ -109,7 +108,8 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 				return false
 			}
 
-			itemStack.setComponent(EntityTypeDataComponent(entityType))
+			val entityTypeId = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
+			ItemStackNbt.putString(itemStack, ENTITY_TYPE, entityTypeId.toString())
 
 			return true
 		}
@@ -126,10 +126,14 @@ open class EntityDnaItem(properties: Properties) : Item(properties) {
 			return itemStack
 		}
 
-		fun hasEntity(itemStack: ItemStack): Boolean = itemStack.hasComponent(EntityTypeDataComponent.Type)
+		fun hasEntity(itemStack: ItemStack): Boolean = ItemStackNbt.getString(itemStack, ENTITY_TYPE) != null
 
 		fun getEntityType(itemStack: ItemStack): EntityType<*>? {
-			return itemStack.getComponent(EntityTypeDataComponent.Type)?.entityType
+			val entityTypeId = ItemStackNbt.getString(itemStack, ENTITY_TYPE)
+			if (entityTypeId.isNullOrEmpty()) return null
+			val entityTypeLocation = ResourceLocation.tryParse(entityTypeId) ?: return null
+
+			return BuiltInRegistries.ENTITY_TYPE.getOptional(entityTypeLocation).orElse(null)
 		}
 	}
 }

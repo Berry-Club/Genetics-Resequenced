@@ -3,9 +3,6 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.registryAccess
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.removeComponent
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.setComponent
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.addGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeGene
@@ -17,16 +14,19 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
-import dev.aaronhowser.mods.geneticsresequenced.item.components.AntigeneSetDataComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneSetDataComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.IsContaminatedDataComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.ItemStackNbt
 import net.minecraft.ChatFormatting
 import net.minecraft.core.Holder
 import net.minecraft.network.chat.Component
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.ListTag
+import net.minecraft.nbt.StringTag
+import net.minecraft.nbt.Tag
 import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.world.InteractionHand
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.damagesource.DamageSource
@@ -169,6 +169,11 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 	}
 
 	companion object {
+		private const val ANTIGENES = "geneticsresequenced:antigenes"
+		private const val GENES = "geneticsresequenced:genes"
+		private const val IS_CONTAMINATED = "geneticsresequenced:is_contaminated"
+		private const val SPECIFIC_ENTITY = "geneticsresequenced:specific_entity"
+
 		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
 
 		fun ItemStack.isSyringe(): Boolean = this.isItem(ModItemTagsProvider.SYRINGES)
@@ -179,19 +184,36 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 
 		fun setEntity(stack: ItemStack, entity: LivingEntity?, setContaminated: Boolean = true) {
 			if (entity == null) {
-				stack.removeComponent(SpecificEntityItemComponent.Type)
+				ItemStackNbt.remove(stack, SPECIFIC_ENTITY)
 				return
 			}
 
-			SpecificEntityItemComponent.setEntity(stack, entity)
+			setEntityData(stack, entity.uuid, entity.name)
 
 			if (setContaminated) {
 				setContaminated(stack, true)
 			}
 		}
 
-		private fun getEntityUuid(syringeStack: ItemStack): UUID? = SpecificEntityItemComponent.getEntityUuid(syringeStack)
-		fun getEntityName(syringeStack: ItemStack): Component? = SpecificEntityItemComponent.getEntityName(syringeStack)
+		fun getEntityUuid(syringeStack: ItemStack): UUID? {
+			val entityTag = ItemStackNbt.getCompound(syringeStack, SPECIFIC_ENTITY) ?: return null
+			if (!entityTag.hasUUID("uuid")) return null
+			return entityTag.getUUID("uuid")
+		}
+
+		fun setEntityData(stack: ItemStack, entityUuid: UUID, entityName: Component) {
+			val entityTag = CompoundTag()
+			entityTag.putUUID("uuid", entityUuid)
+			entityTag.putString("name", Component.Serializer.toJson(entityName))
+			ItemStackNbt.put(stack, SPECIFIC_ENTITY, entityTag)
+		}
+
+		fun getEntityName(syringeStack: ItemStack): Component? {
+			val nameJson = ItemStackNbt.getCompound(syringeStack, SPECIFIC_ENTITY)
+				?.getString("name")
+			if (nameJson.isNullOrEmpty()) return null
+			return Component.Serializer.fromJson(nameJson)
+		}
 
 		fun injectEntity(syringeStack: ItemStack, entity: LivingEntity) {
 			val syringeEntityUuid = getEntityUuid(syringeStack) ?: return
@@ -275,10 +297,10 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 
 		}
 
-		fun hasBlood(syringeStack: ItemStack): Boolean = SpecificEntityItemComponent.hasEntity(syringeStack)
+		fun hasBlood(syringeStack: ItemStack): Boolean = ItemStackNbt.getCompound(syringeStack, SPECIFIC_ENTITY) != null
 
 		fun getGeneRks(syringeStack: ItemStack): List<ResourceKey<Gene>> {
-			return syringeStack.getComponent(GeneSetDataComponent.Type)?.genes ?: emptyList()
+			return getGeneList(syringeStack, GENES)
 		}
 
 		fun canAddGene(syringeStack: ItemStack, gene: ResourceKey<Gene>): Boolean {
@@ -291,29 +313,29 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			val currentGenes = getGeneRks(syringeStack)
 			val newGenes = currentGenes + gene
 
-			syringeStack.setComponent(GeneSetDataComponent(newGenes.toList()))
+			putGeneList(syringeStack, GENES, newGenes)
 
 			return true
 		}
 
 		private fun clearGenes(syringeStack: ItemStack) {
-			syringeStack.removeComponent(GeneSetDataComponent.Type)
+			ItemStackNbt.remove(syringeStack, GENES)
 		}
 
 		private fun clearAntigenes(syringeStack: ItemStack) {
-			syringeStack.removeComponent(AntigeneSetDataComponent.Type)
+			ItemStackNbt.remove(syringeStack, ANTIGENES)
 		}
 
 		fun isContaminated(syringeStack: ItemStack): Boolean {
-			return syringeStack.getComponent(IsContaminatedDataComponent.Type)?.isContaminated ?: false
+			return ItemStackNbt.getBoolean(syringeStack, IS_CONTAMINATED, false)
 		}
 
 		fun setContaminated(syringeStack: ItemStack, value: Boolean) {
-			syringeStack.setComponent(IsContaminatedDataComponent(value))
+			ItemStackNbt.putBoolean(syringeStack, IS_CONTAMINATED, value)
 		}
 
 		fun getAntigenes(syringeStack: ItemStack): List<ResourceKey<Gene>> {
-			return syringeStack.getComponent(AntigeneSetDataComponent.Type)?.antigenes ?: emptyList()
+			return getGeneList(syringeStack, ANTIGENES)
 		}
 
 		fun canAddAntigene(syringeStack: ItemStack, gene: ResourceKey<Gene>): Boolean {
@@ -328,9 +350,31 @@ open class SyringeItem(properties: Properties) : Item(properties) {
 			val currentAntigenes = getAntigenes(syringeStack)
 			val newGenes = currentAntigenes + gene
 
-			syringeStack.setComponent(AntigeneSetDataComponent(newGenes.toList()))
+			putGeneList(syringeStack, ANTIGENES, newGenes)
 
 			return true
+		}
+
+		private fun getGeneList(itemStack: ItemStack, key: String): List<ResourceKey<Gene>> {
+			val geneTags = ItemStackNbt.getList(itemStack, key, Tag.TAG_STRING.toInt()) ?: return emptyList()
+			val genes = mutableListOf<ResourceKey<Gene>>()
+
+			for (index in 0 until geneTags.size) {
+				val geneId = ResourceLocation.tryParse(geneTags.getString(index)) ?: continue
+				genes.add(ResourceKey.create(ModGenes.GENE_REGISTRY_KEY, geneId))
+			}
+
+			return genes
+		}
+
+		private fun putGeneList(itemStack: ItemStack, key: String, genes: List<ResourceKey<Gene>>) {
+			val geneTags = ListTag()
+
+			for (gene in genes) {
+				geneTags.add(StringTag.valueOf(gene.location().toString()))
+			}
+
+			ItemStackNbt.put(itemStack, key, geneTags)
 		}
 
 		fun damageSourceStepOnSyringe(level: Level, thrower: LivingEntity?): DamageSource {

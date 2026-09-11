@@ -1,10 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.recipe.crafting
 
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.withComponent
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
-import dev.aaronhowser.mods.geneticsresequenced.item.components.PlasmidProgressItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRecipeSerializers
 import net.minecraft.core.RegistryAccess
@@ -52,8 +49,8 @@ class SetAntiPlasmidRecipe(
 		}
 		if (plasmidStack == null) return ItemStack.EMPTY
 
-		val component = plasmidStack.getComponent(PlasmidProgressItemComponent.Type) ?: return ItemStack.EMPTY
-		val antiPlasmidStack = ModItems.ANTI_PLASMID.withComponent(component)
+		val antiPlasmidStack = ModItems.ANTI_PLASMID.get().defaultInstance
+		if (!PlasmidItem.copyProgress(plasmidStack, antiPlasmidStack)) return ItemStack.EMPTY
 
 		return antiPlasmidStack
 	}

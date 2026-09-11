@@ -1,13 +1,12 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.withComponent
 import dev.aaronhowser.mods.aaron.datagen.AaronAdvancementSubProvider
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.HelixGenePredicate
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModAdvancementLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
-import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.advancements.Advancement
@@ -162,17 +161,17 @@ class ModAdvancementSubProvider(
 			.build(PLASMID_INJECTOR)
 			.save()
 
+		val fullSyringe = ModItems.SYRINGE.getDefaultInstance()
+		SyringeItem.setEntityData(
+			fullSyringe,
+			UUID.fromString("b0aa4edd-29e0-421f-b65c-be90055071b0"),
+			Component.literal("A Fake Mob")
+		)
+
 		val getGene = advancement()
 			.parent(plasmidInjector)
 			.display(
-				ModItems.SYRINGE
-					.getDefaultInstance()
-					.withComponent(
-						SpecificEntityItemComponent(
-							UUID.fromString("b0aa4edd-29e0-421f-b65c-be90055071b0"), //Arbitrary UUID
-							Component.literal("A Fake Mob")
-						)
-					),
+				fullSyringe,
 				ModAdvancementLang.GET_GENE_TITLE.toComponent(),
 				ModAdvancementLang.GET_GENE_DESC.toComponent(),
 				null,

@@ -5,8 +5,6 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.registryAccess
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.setComponent
 import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.removeGene
@@ -15,10 +13,10 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.gene.GeneCooldown
-import dev.aaronhowser.mods.geneticsresequenced.item.components.IsInfinityArrowDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.packet.ModPacketHandler
 import dev.aaronhowser.mods.geneticsresequenced.packet.server_to_client.ShearedPacket
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
+import dev.aaronhowser.mods.geneticsresequenced.util.ItemStackNbt
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import net.minecraft.server.level.ServerPlayer
 import net.minecraft.sounds.SoundEvents
@@ -43,6 +41,7 @@ import net.minecraftforge.event.entity.living.LivingGetProjectileEvent
 import net.minecraftforge.event.entity.player.PlayerInteractEvent
 
 object ClickGenes {
+	private const val IS_INFINITY_ARROW = "geneticsresequenced:is_infinity_arrow"
 
 	val RECENTLY_SHEARED_ENTITIES = GeneCooldown(
 		ModGenes.WOOLY,
@@ -439,7 +438,7 @@ object ClickGenes {
 		event.projectileWeaponItemStack.item as? ProjectileWeaponItem ?: return
 		val defaultAmmo = Items.ARROW.defaultInstance
 
-		defaultAmmo.setComponent(IsInfinityArrowDataComponent(true))
+		ItemStackNbt.putBoolean(defaultAmmo, IS_INFINITY_ARROW, true)
 
 		event.projectileItemStack = defaultAmmo
 	}
@@ -450,7 +449,7 @@ object ClickGenes {
 
 		val arrowStack = arrow.pickupItem
 
-		val isInfinity = arrowStack.getComponent(IsInfinityArrowDataComponent.Type)?.isInfinityArrow ?: false
+		val isInfinity = ItemStackNbt.getBoolean(arrowStack, IS_INFINITY_ARROW, false)
 		if (!isInfinity) return
 
 		arrow.pickup = AbstractArrow.Pickup.DISALLOWED

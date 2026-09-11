@@ -7,7 +7,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isTrue
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.partialNbtIngredient
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
-import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.GeneItemData
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.AbstractIncubatorRecipe
 import dev.aaronhowser.mods.geneticsresequenced.recipe.base.IncubatorRecipeInput
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -41,7 +41,7 @@ class VirusRecipe(
 		if (!this.topIngredient.test(helixStack)) return false
 		if (!this.bottomIngredient.test(potionStack)) return false
 
-		return GeneDataComponent.getGeneRk(helixStack)?.isGene(inputDnaGene).isTrue()
+		return GeneItemData.getGeneRk(helixStack)?.isGene(inputDnaGene).isTrue()
 	}
 
 	override fun assemble(pContainer: IncubatorRecipeInput, pRegistryAccess: RegistryAccess): ItemStack {
@@ -49,7 +49,7 @@ class VirusRecipe(
 	}
 
 	override fun getResultItem(pRegistryAccess: RegistryAccess): ItemStack {
-		val output = GeneDataComponent.setGene(
+		val output = GeneItemData.setGene(
 			ModItems.DNA_HELIX.getDefaultInstance(),
 			this.outputGene
 		)

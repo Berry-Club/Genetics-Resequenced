@@ -1,12 +1,10 @@
 package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.setComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
-import dev.aaronhowser.mods.geneticsresequenced.item.components.IsActiveDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.ItemStackNbt
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
@@ -46,18 +44,20 @@ class AntiFieldOrbItem(properties: Properties) : Item(properties) {
 	}
 
 	companion object {
+		private const val IS_ACTIVE = "geneticsresequenced:is_active"
+
 		val DEFAULT_PROPERTIES: () -> Properties = {
 			Properties()
 				.stacksTo(1)
 		}
 
 		private fun isEnabled(itemStack: ItemStack): Boolean {
-			return itemStack.getComponent(IsActiveDataComponent.Type)?.isActive ?: false
+			return ItemStackNbt.getBoolean(itemStack, IS_ACTIVE, false)
 		}
 
 		private fun toggleEnabled(itemStack: ItemStack) {
 			val wasEnabled = isEnabled(itemStack)
-			itemStack.setComponent(IsActiveDataComponent(!wasEnabled))
+			ItemStackNbt.putBoolean(itemStack, IS_ACTIVE, !wasEnabled)
 		}
 
 		fun isActiveForPlayer(player: Player): Boolean {

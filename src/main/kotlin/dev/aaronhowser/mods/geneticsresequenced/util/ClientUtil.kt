@@ -15,7 +15,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.OtherGenes
-import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.SyringeItem
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -201,14 +201,14 @@ object ClientUtil {
 		val offHandStack = localPlayer.getItemInHand(InteractionHand.OFF_HAND)
 
 		if (mainHandStack.isItem(ModItems.METAL_SYRINGE)) {
-			val syringeUuid = SpecificEntityItemComponent.getEntityUuid(mainHandStack)
+			val syringeUuid = SyringeItem.getEntityUuid(mainHandStack)
 			if (syringeUuid != null && syringeUuid == entityToGlow.uuid) {
 				return true
 			}
 		}
 
 		if (offHandStack.isItem(ModItems.METAL_SYRINGE)) {
-			val syringeUuid = SpecificEntityItemComponent.getEntityUuid(offHandStack)
+			val syringeUuid = SyringeItem.getEntityUuid(offHandStack)
 			if (syringeUuid != null && syringeUuid == entityToGlow.uuid) {
 				return true
 			}

@@ -4,7 +4,7 @@ import com.mojang.serialization.Codec
 import com.mojang.serialization.codecs.RecordCodecBuilder
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isTrue
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isGene
-import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.GeneItemData
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import net.minecraft.advancements.critereon.ItemPredicate
 import net.minecraft.util.StringRepresentable
@@ -28,8 +28,8 @@ data class HelixGenePredicate(
 
 	override fun matches(stack: ItemStack): Boolean {
 		return when (helixType) {
-			HelixType.ANY -> GeneDataComponent.hasGene(stack)
-			HelixType.BLACK_DEATH -> GeneDataComponent.getGeneRk(stack)?.isGene(ModGenes.BLACK_DEATH).isTrue()
+			HelixType.ANY -> GeneItemData.hasGene(stack)
+			HelixType.BLACK_DEATH -> GeneItemData.getGeneRk(stack)?.isGene(ModGenes.BLACK_DEATH).isTrue()
 		}
 	}
 

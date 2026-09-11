@@ -2,12 +2,10 @@ package dev.aaronhowser.mods.geneticsresequenced.item
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isClientSide
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.getComponent
-import dev.aaronhowser.mods.aaron.data_component.PseudoDataComponent.Companion.setComponent
 import dev.aaronhowser.mods.geneticsresequenced.capability.GenesCapability.Companion.hasGene
-import dev.aaronhowser.mods.geneticsresequenced.item.components.DragonHealthCrystalDamageDataComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.ItemStackNbt
 import net.minecraft.ChatFormatting
 import net.minecraft.network.chat.Component
 import net.minecraft.util.Mth
@@ -26,7 +24,7 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 
 	override fun getMaxDamage(stack: ItemStack): Int = Mth.ceil(MAX_DAMAGE)
 	override fun getDamage(stack: ItemStack): Int {
-		val damageRemaining = stack.getComponent(DragonHealthCrystalDamageDataComponent.Type)?.damageRemaining ?: 0f
+		val damageRemaining = ItemStackNbt.getFloat(stack, DAMAGE_REMAINING, 0f)
 		return Mth.ceil(MAX_DAMAGE - damageRemaining)
 	}
 
@@ -41,13 +39,15 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 		pIsAdvanced: TooltipFlag
 	) {
 		val maxDamage = MAX_DAMAGE
-		val damageRemaining = pStack.getComponent(DragonHealthCrystalDamageDataComponent.Type)?.damageRemaining ?: 0f
+		val damageRemaining = ItemStackNbt.getFloat(pStack, DAMAGE_REMAINING, 0f)
 		pTooltipComponents.add(
 			Component.literal("${damageRemaining.toInt()}/${maxDamage.toInt()}").withStyle(ChatFormatting.GRAY)
 		)
 	}
 
 	companion object {
+		private const val DAMAGE_REMAINING = "geneticsresequenced:dragon_health_crystal_damage"
+
 		val DEFAULT_PROPERTIES: () -> Properties = {
 			Properties()
 				.stacksTo(1)
@@ -69,13 +69,13 @@ class DragonHealthCrystal(properties: Properties) : Item(properties) {
 			if (healthCrystals.isEmpty()) return
 
 			for (crystal in healthCrystals) {
-				val damageLeft = crystal.getComponent(DragonHealthCrystalDamageDataComponent.Type)?.damageRemaining ?: 0f
+				val damageLeft = ItemStackNbt.getFloat(crystal, DAMAGE_REMAINING, 0f)
 				val amountToRemove = minOf(event.amount, damageLeft)
 
 				event.amount -= amountToRemove
 
 				val newStackDamage = damageLeft - amountToRemove
-				crystal.setComponent(DragonHealthCrystalDamageDataComponent(newStackDamage))
+				ItemStackNbt.putFloat(crystal, DAMAGE_REMAINING, newStackDamage)
 
 				if (newStackDamage <= 0f) {
 					crystal.shrink(1)

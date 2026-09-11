@@ -5,7 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModTooltipLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.EntityDnaItem
-import dev.aaronhowser.mods.geneticsresequenced.item.components.GeneDataComponent
+import dev.aaronhowser.mods.geneticsresequenced.item.GeneItemData
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
@@ -41,7 +41,7 @@ object BrewingRecipes {
 			)
 		}
 
-		val itemGeneRk = GeneDataComponent.getGeneRk(stack)
+		val itemGeneRk = GeneItemData.getGeneRk(stack)
 		if (itemGeneRk != null) {
 			event.toolTip.add(
 				ModTooltipLang.GENE

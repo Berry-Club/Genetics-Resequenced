@@ -8,7 +8,6 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModItemLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
-import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes.getHolderOrThrow
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.chat.Component
@@ -96,7 +95,7 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 			pPlayer: Player,
 			pTarget: LivingEntity
 		) {
-			val uuid = SpecificEntityItemComponent.getEntityUuid(syringeStack)
+			val uuid = SyringeItem.getEntityUuid(syringeStack)
 			if (pTarget.uuid != uuid) return
 
 			if (isContaminated(syringeStack)) {
@@ -118,7 +117,7 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 			pInteractionTarget: LivingEntity
 		) {
 			if (player.level().isClientSide) return
-			val entityUuid = SpecificEntityItemComponent.getEntityUuid(syringeStack) ?: return
+			val entityUuid = SyringeItem.getEntityUuid(syringeStack) ?: return
 
 			if (entityUuid != pInteractionTarget.uuid) {
 				player.sendSystemMessage(ModMessageLang.METAL_SYRINGE_MISMATCH.toComponent())
@@ -151,7 +150,7 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 			syringeStack: ItemStack,
 			pInteractionTarget: LivingEntity
 		) {
-			SpecificEntityItemComponent.setEntity(syringeStack, pInteractionTarget)
+			SyringeItem.setEntity(syringeStack, pInteractionTarget)
 		}
 
 	}
