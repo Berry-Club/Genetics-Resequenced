@@ -1,3 +1,9 @@
+# 1.14.2
+
+### Fixed
+
+- Fixed a crash when loading Incubator recipes that use item tags
+
 # 1.14.1
 
 ### Fixed
