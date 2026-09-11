@@ -27,7 +27,7 @@ class BloodPurifierMenu(
 	)
 
 	init {
-		addSlots()
+		addContainerSlots()
 	}
 
 	override fun inputFilter(inputStack: ItemStack): Boolean = SyringeItem.isContaminated(inputStack)

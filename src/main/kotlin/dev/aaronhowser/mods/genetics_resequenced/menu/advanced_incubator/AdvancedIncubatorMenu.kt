@@ -44,7 +44,7 @@ class AdvancedIncubatorMenu(
 	override val amountSlots: Int = AdvancedIncubatorBlockEntity.INVENTORY_SIZE
 
 	init {
-		addSlots()
+		addContainerSlots()
 
 		checkContainerDataCount(craftingContainerData, AdvancedIncubatorBlockEntity.CONTAINER_DATA_SIZE)
 	}
@@ -57,7 +57,7 @@ class AdvancedIncubatorMenu(
 		machineContainerData.set(AdvancedIncubatorBlockEntity.IS_HIGH_TEMPERATURE_INDEX, if (value) 1 else 0)
 	}
 
-	override fun addSlots() {
+	override fun addContainerSlots() {
 		val topSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.TOP_SLOT_INDEX, 83, 21) { IncubatorRecipe.isValidTopIngredient(level, it) }
 		val leftBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 55) { IncubatorRecipe.isValidBottomIngredient(level, it) }
 		val middleBottleSlot = FilteredSlot(machineContainer, AdvancedIncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX, 83, 62) { IncubatorRecipe.isValidBottomIngredient(level, it) }
@@ -74,7 +74,7 @@ class AdvancedIncubatorMenu(
 		this.addSlot(chorusSlot)
 	}
 
-	override fun handleButtonPressed(buttonId: Int) {
+	override fun handleButtonPressed(buttonId: Int, isShiftDown: Boolean) {
 		when (buttonId) {
 			CYCLE_TEMPERATURE_BUTTON_ID -> {
 				val newTemperature = !isHighTemperature()

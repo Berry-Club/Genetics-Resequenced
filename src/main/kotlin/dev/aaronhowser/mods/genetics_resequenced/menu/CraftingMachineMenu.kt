@@ -29,7 +29,7 @@ abstract class CraftingMachineMenu(
 
 	protected open fun inputFilter(inputStack: ItemStack): Boolean = true
 
-	override fun addSlots() {
+	override fun addContainerSlots() {
 		val inputSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42, ::inputFilter)
 		val outputSlot = OutputSlot(machineContainer, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42)
 		val overclockSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54) { it.isItem(ModItems.OVERCLOCKER) }

@@ -28,7 +28,7 @@ class CellAnalyzerMenu(
 	)
 
 	init {
-		addSlots()
+		addContainerSlots()
 	}
 
 	override fun inputFilter(inputStack: ItemStack): Boolean = inputStack.isItem(ModItems.ORGANIC_MATTER)

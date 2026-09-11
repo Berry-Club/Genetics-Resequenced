@@ -39,14 +39,14 @@ class PlasmidInfuserMenu(
 	)
 
 	init {
-		addSlots()
+		addContainerSlots()
 	}
 
 	override fun inputFilter(inputStack: ItemStack): Boolean {
 		return inputStack.isItem(ModItems.DNA_HELIX) && inputStack.has(ModDataComponents.GENE)
 	}
 
-	override fun addSlots() {
+	override fun addContainerSlots() {
 		val helixSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.INPUT_SLOT_INDEX, 63, 42, ::inputFilter)
 		val plasmidSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.OUTPUT_SLOT_INDEX, 110, 42) { it.isItem(ModItems.PLASMID) }
 		val overclockSlot = FilteredSlot(machineContainer, CraftingMachineBlockEntity.OVERCLOCK_SLOT_INDEX, 26, 54) { it.isItem(ModItems.OVERCLOCKER) }

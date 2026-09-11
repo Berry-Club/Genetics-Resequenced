@@ -27,7 +27,7 @@ class DnaDecryptorMenu(
 	)
 
 	init {
-		addSlots()
+		addContainerSlots()
 	}
 
 	override fun inputFilter(inputStack: ItemStack): Boolean {

@@ -28,10 +28,10 @@ class IncubatorMenu(
 	override val amountSlots: Int = IncubatorBlockEntity.INVENTORY_SIZE
 
 	init {
-		addSlots()
+		addContainerSlots()
 	}
 
-	override fun addSlots() {
+	override fun addContainerSlots() {
 		val topSlot = Slot(machineContainer, IncubatorBlockEntity.TOP_SLOT_INDEX, 83, 21)
 		val leftBottleSlot = Slot(machineContainer, IncubatorBlockEntity.LEFT_BOTTLE_SLOT_INDEX, 60, 55)
 		val middleBottleSlot = Slot(machineContainer, IncubatorBlockEntity.MIDDLE_BOTTLE_SLOT_INDEX, 83, 62)

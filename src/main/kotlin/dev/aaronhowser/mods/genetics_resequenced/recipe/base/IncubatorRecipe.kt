@@ -14,6 +14,7 @@ abstract class IncubatorRecipe(
 
 	val ingredients: List<Ingredient>
 		get() = listOf(topIngredient, bottomIngredient)
+	private var cachedPlacementInfo: PlacementInfo? = null
 
 	final override fun getType(): RecipeType<out IncubatorRecipe> {
 		return ModRecipeTypes.INCUBATOR.get()
@@ -28,7 +29,14 @@ abstract class IncubatorRecipe(
 	}
 
 	override fun placementInfo(): PlacementInfo {
-		return PlacementInfo.create(ingredients)
+		var placementInfo = cachedPlacementInfo
+
+		if (placementInfo == null) {
+			placementInfo = PlacementInfo.create(ingredients)
+			cachedPlacementInfo = placementInfo
+		}
+
+		return placementInfo
 	}
 
 	override fun recipeBookCategory(): RecipeBookCategory {
