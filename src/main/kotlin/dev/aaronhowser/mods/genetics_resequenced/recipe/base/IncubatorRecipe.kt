@@ -15,10 +15,6 @@ abstract class IncubatorRecipe(
 	val ingredients: List<Ingredient>
 		get() = listOf(topIngredient, bottomIngredient)
 
-	private val lazyPlacement: PlacementInfo by lazy {
-		PlacementInfo.create(ingredients)
-	}
-
 	final override fun getType(): RecipeType<out IncubatorRecipe> {
 		return ModRecipeTypes.INCUBATOR.get()
 	}
@@ -32,7 +28,7 @@ abstract class IncubatorRecipe(
 	}
 
 	override fun placementInfo(): PlacementInfo {
-		return lazyPlacement
+		return PlacementInfo.NOT_PLACEABLE
 	}
 
 	override fun recipeBookCategory(): RecipeBookCategory {
