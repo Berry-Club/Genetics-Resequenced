@@ -14,6 +14,8 @@ import net.minecraft.world.entity.EntityType
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.ai.attributes.Attributes
 import net.minecraft.world.entity.projectile.ProjectileUtil
+import net.minecraft.world.effect.MobEffect
+import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.item.ItemStack
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
@@ -57,6 +59,13 @@ object OtherUtil {
 
 	fun getPotionStack(potion: Holder<Potion>): ItemStack {
 		return PotionContents.createItemStack(Items.POTION, potion)
+	}
+
+	fun getPotionStackForEffect(effect: Holder<MobEffect>): ItemStack {
+		val stack = Items.POTION.defaultInstance
+		val contents = PotionContents.EMPTY.withEffectAdded(MobEffectInstance(effect))
+		stack.set(DataComponents.POTION_CONTENTS, contents)
+		return stack
 	}
 
 	fun getEnchantmentRegistry(entity: Entity): Registry<Enchantment> {

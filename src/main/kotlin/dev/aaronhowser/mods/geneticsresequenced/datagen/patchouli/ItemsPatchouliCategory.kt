@@ -397,7 +397,7 @@ object ItemsPatchouliCategory {
 			saveName = "potion_organic_substrate",
 			category = bookCategory,
 			name = "Organic Substrate",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(ModPotions.SUBSTRATE)
 		) {
 			sortNumber = 11
 
@@ -421,7 +421,7 @@ object ItemsPatchouliCategory {
 			saveName = "potion_of_cell_growth",
 			category = bookCategory,
 			name = "Potion of Cell Growth",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(ModPotions.CELL_GROWTH)
 		) {
 			sortNumber = 12
 
@@ -457,7 +457,7 @@ object ItemsPatchouliCategory {
 			saveName = "potion_mutation",
 			category = bookCategory,
 			name = "Potion of Mutation",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(ModPotions.MUTATION)
 		) {
 			sortNumber = 13
 
@@ -477,7 +477,7 @@ object ItemsPatchouliCategory {
 			saveName = "potion_viral_agents",
 			category = bookCategory,
 			name = "Viral Agents",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(ModPotions.VIRAL_AGENTS)
 		) {
 			sortNumber = 14
 
@@ -497,7 +497,7 @@ object ItemsPatchouliCategory {
 			saveName = "potion_panacea",
 			category = bookCategory,
 			name = "Panacea",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(ModPotions.PANACEA)
 		) {
 			sortNumber = 15
 
@@ -514,7 +514,7 @@ object ItemsPatchouliCategory {
 			saveName = "potion_zombify_villager",
 			category = bookCategory,
 			name = "Potion of Zombify Villager",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(ModPotions.ZOMBIFY_VILLAGER)
 		) {
 			sortNumber = 16
 

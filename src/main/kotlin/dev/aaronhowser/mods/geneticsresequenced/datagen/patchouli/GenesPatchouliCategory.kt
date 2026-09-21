@@ -5,6 +5,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBo
 import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.major
 import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.minor
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.doubleSpacedLines
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBook
 import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.doubleSpacedLines
@@ -15,7 +16,9 @@ import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Comp
 import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.list
 import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.internalLink
 import net.minecraft.core.HolderLookup
+import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.item.Items
+import net.minecraft.world.item.alchemy.Potions
 
 object GenesPatchouliCategory {
 
@@ -369,7 +372,7 @@ object GenesPatchouliCategory {
 			saveName = "haste",
 			category = bookCategory,
 			name = "Haste",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStackForEffect(MobEffects.DIG_SPEED)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -463,7 +466,7 @@ object GenesPatchouliCategory {
 			saveName = "jump_boost",
 			category = bookCategory,
 			name = "Jump Boost",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(Potions.LEAPING)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -546,7 +549,7 @@ object GenesPatchouliCategory {
 			saveName = "luck",
 			category = bookCategory,
 			name = "Luck",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(Potions.LUCK)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -658,7 +661,7 @@ object GenesPatchouliCategory {
 			saveName = "night_vision",
 			category = bookCategory,
 			name = "Night Vision",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(Potions.NIGHT_VISION)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -758,7 +761,7 @@ object GenesPatchouliCategory {
 			saveName = "regeneration",
 			category = bookCategory,
 			name = "Regeneration",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(Potions.REGENERATION)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -777,7 +780,7 @@ object GenesPatchouliCategory {
 			saveName = "resistance",
 			category = bookCategory,
 			name = "Resistance",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStackForEffect(MobEffects.DAMAGE_RESISTANCE)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -912,7 +915,7 @@ object GenesPatchouliCategory {
 			saveName = "speed",
 			category = bookCategory,
 			name = "Speed",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(Potions.SWIFTNESS)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -960,7 +963,7 @@ object GenesPatchouliCategory {
 			saveName = "strength",
 			category = bookCategory,
 			name = "Strength",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(Potions.STRENGTH)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -1020,7 +1023,7 @@ object GenesPatchouliCategory {
 			saveName = "water_breathing",
 			category = bookCategory,
 			name = "Water Breathing",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(Potions.WATER_BREATHING)
 		) {
 			textPage(
 				text = doubleSpacedLines(

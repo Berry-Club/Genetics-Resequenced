@@ -1,6 +1,6 @@
 {
   "category": "geneticsresequenced:genes/negative",
-  "icon": "minecraft:potion",
+  "icon": "minecraft:potion[minecraft:potion_contents={custom_effects:[{id:\"minecraft:hunger\",\"neoforge:cures\":[\"milk\",\"protected_by_totem\"],show_icon:1b}]}]",
   "name": "Hunger",
   "pages": [
     {

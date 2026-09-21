@@ -5,12 +5,15 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBo
 import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.major
 import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.minor
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.doubleSpacedLines
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBook
 import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.doubleSpacedLines
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBookCategory
 import net.minecraft.core.HolderLookup
+import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.item.Items
+import net.minecraft.world.item.alchemy.Potions
 
 object NegativeGenesPatchouliCategory {
 
@@ -42,7 +45,7 @@ object NegativeGenesPatchouliCategory {
 			saveName = "blindness",
 			category = bookCategory,
 			name = "Blindness",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStackForEffect(MobEffects.BLINDNESS)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -77,7 +80,7 @@ object NegativeGenesPatchouliCategory {
 			saveName = "cursed",
 			category = bookCategory,
 			name = "Cursed",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStackForEffect(MobEffects.UNLUCK)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -109,7 +112,7 @@ object NegativeGenesPatchouliCategory {
 			saveName = "hunger",
 			category = bookCategory,
 			name = "Hunger",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStackForEffect(MobEffects.HUNGER)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -125,7 +128,7 @@ object NegativeGenesPatchouliCategory {
 			saveName = "infested",
 			category = bookCategory,
 			name = "Infested",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(Potions.INFESTED)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -143,7 +146,7 @@ object NegativeGenesPatchouliCategory {
 			saveName = "levitation",
 			category = bookCategory,
 			name = "Levitation",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStackForEffect(MobEffects.LEVITATION)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -161,7 +164,7 @@ object NegativeGenesPatchouliCategory {
 			saveName = "mining_fatigue",
 			category = bookCategory,
 			name = "Mining Fatigue",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStackForEffect(MobEffects.DIG_SLOWDOWN)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -177,7 +180,7 @@ object NegativeGenesPatchouliCategory {
 			saveName = "nausea",
 			category = bookCategory,
 			name = "Nausea",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStackForEffect(MobEffects.CONFUSION)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -193,7 +196,7 @@ object NegativeGenesPatchouliCategory {
 			saveName = "oozing",
 			category = bookCategory,
 			name = "Oozing",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(Potions.OOZING)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -211,7 +214,7 @@ object NegativeGenesPatchouliCategory {
 			saveName = "poison",
 			category = bookCategory,
 			name = "Poison",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(Potions.POISON)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -229,7 +232,7 @@ object NegativeGenesPatchouliCategory {
 			saveName = "slowness",
 			category = bookCategory,
 			name = "Slowness",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(Potions.SLOWNESS)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -245,7 +248,7 @@ object NegativeGenesPatchouliCategory {
 			saveName = "weakness",
 			category = bookCategory,
 			name = "Weakness",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(Potions.WEAKNESS)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -261,7 +264,7 @@ object NegativeGenesPatchouliCategory {
 			saveName = "weaving",
 			category = bookCategory,
 			name = "Weaving",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(Potions.WEAVING)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -279,7 +282,7 @@ object NegativeGenesPatchouliCategory {
 			saveName = "wind_charged",
 			category = bookCategory,
 			name = "Wind Charged",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStack(Potions.WIND_CHARGED)
 		) {
 			textPage(
 				text = doubleSpacedLines(
@@ -297,7 +300,7 @@ object NegativeGenesPatchouliCategory {
 			saveName = "wither",
 			category = bookCategory,
 			name = "Wither",
-			icon = Items.POTION
+			icon = OtherUtil.getPotionStackForEffect(MobEffects.WITHER)
 		) {
 			textPage(
 				text = doubleSpacedLines(
