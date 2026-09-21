@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Haste$() Gene gives entities the $(9)Haste effect$().$(br2)Can be mutated into Haste 2.$(br2)This Gene $(c)cannot be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/11 - Silverfish",
+      "title": "Default Weights"
     }
   ]
 }

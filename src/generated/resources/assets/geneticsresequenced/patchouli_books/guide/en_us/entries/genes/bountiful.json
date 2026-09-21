@@ -1,0 +1,16 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:gold_ingot",
+  "name": "Bountiful",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Bountiful$() Gene gives a mob +1 effective Looting when it dies. Bountiful II gives +2. This Gene is for mobs only."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)2/13 - Mooshroom$(br)3/7 - Sniffer (Bountiful II)",
+      "title": "Default Weights"
+    }
+  ]
+}

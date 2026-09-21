@@ -1,0 +1,16 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:poppy",
+  "name": "Placid",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Placid$() Gene prevents most mob targeting behavior. Some special attacks, such as a Creeper swelling, are unaffected. This Gene is for mobs only."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/15 - Cow",
+      "title": "Default Weights"
+    }
+  ]
+}

@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Invisible$() Gene gives entities the $(9)Invisible effect$().$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/11 - Phantom",
+      "title": "Default Weights"
     }
   ]
 }

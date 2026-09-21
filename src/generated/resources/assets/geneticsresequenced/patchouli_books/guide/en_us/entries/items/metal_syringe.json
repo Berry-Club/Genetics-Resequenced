@@ -1,0 +1,17 @@
+{
+  "category": "geneticsresequenced:items",
+  "icon": "geneticsresequenced:metal_syringe",
+  "name": "Metal Syringe",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A $(d)Metal Syringe$() extracts blood from the entity you target instead of yourself.$(br2)Only that blood's owner can receive its Genes. While filled, the owner glows through walls."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:metal_syringe",
+      "link_recipe": true,
+      "text": "Purify contaminated blood, add completed Plasmids in a Plasmid Injector, then hold right-click on the blood's owner to inject it."
+    }
+  ]
+}

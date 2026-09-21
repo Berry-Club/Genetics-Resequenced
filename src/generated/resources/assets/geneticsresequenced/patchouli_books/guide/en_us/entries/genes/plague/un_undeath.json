@@ -6,6 +6,10 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Un-Undeath$() Gene $(c)kills the Undead$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, brew Viral Agents with a Scare Skeletons or Scare Zombies DNA Helix in an Incubator."
     }
   ]
 }

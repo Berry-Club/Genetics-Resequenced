@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Scare Skeletons$() Gene makes it so that $(9)Skeletons will run away from you$().$(br2)This Gene $(9)can be given to mobs$().."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)2/11 - Wolf",
+      "title": "Default Weights"
     }
   ]
 }

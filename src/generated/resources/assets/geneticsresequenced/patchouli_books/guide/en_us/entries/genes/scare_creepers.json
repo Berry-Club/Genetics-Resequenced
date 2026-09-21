@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Scare Creepers$() Gene makes it so that $(9)Creepers will run away from you$().$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)2/7 - Cat$(br)3/10 - Ocelot",
+      "title": "Default Weights"
     }
   ]
 }

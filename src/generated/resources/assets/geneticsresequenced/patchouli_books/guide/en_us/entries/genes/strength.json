@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Strength$() Gene gives entities the $(9)Strength effect$().$(br2)This Gene can be $(9)mutated into Strength 2$().$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/19 - Iron Golem$(br)4/16 - Polar Bear$(br)5/17 - Ravager",
+      "title": "Default Weights"
     }
   ]
 }

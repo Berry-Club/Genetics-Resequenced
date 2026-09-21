@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)More Hearts$() Gene gives entities $(9)10 extra hearts$(). If the Gene is mutated, they instead get $(9)20$().$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)1/9 - Enderman$(br)2/19 - Iron Golem$(br)3/17 - Ravager$(br)5/10 - Warden",
+      "title": "Default Weights"
     }
   ]
 }

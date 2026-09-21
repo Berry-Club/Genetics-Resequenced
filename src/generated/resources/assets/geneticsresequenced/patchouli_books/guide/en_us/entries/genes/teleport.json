@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Teleport$() Gene allows players to $(9)teleport forward$() when the Teleport key (currently bound to $(k:key.geneticsresequenced.teleport)) is used.$(br2)This has a configurable cooldown, with the default being 1 second. The distance is also configurable, defaulting to 10 blocks.$(br2)This Gene $(c)cannot be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/9 - Enderman$(br)3/11 - Phantom",
+      "title": "Default Weights"
     }
   ]
 }

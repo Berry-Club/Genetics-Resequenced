@@ -6,6 +6,10 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Green Death$() Gene $(c)kills Creepers$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, brew Viral Agents with a Scare Creepers DNA Helix in an Incubator."
     }
   ]
 }

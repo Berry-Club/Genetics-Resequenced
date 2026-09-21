@@ -8,6 +8,7 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBook
+import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBookEntry
 import dev.aaronhowser.mods.patchoulidatagen.dsl.patchouliBook
 import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider
 import dev.aaronhowser.mods.patchoulidatagen.provider.TextColor
@@ -109,6 +110,30 @@ class ModPatchouliBookProvider(
 		@JvmStatic
 		fun bad(text: String): String {
 			return colored(TextColor.RED, text)
+		}
+
+		@JvmStatic
+		fun PatchouliBookEntry.defaultWeightPages(vararg weights: String) {
+			var firstWeightOnPage = 0
+			while (firstWeightOnPage < weights.size) {
+				val firstWeightOnNextPage = minOf(firstWeightOnPage + 6, weights.size)
+
+				val pageWeights = weights
+					.slice(firstWeightOnPage until firstWeightOnNextPage)
+					.joinToString("$(br)")
+
+				val note = if (firstWeightOnPage == 0) {
+					"These are the default chances. Modpacks may change them.$(br2)"
+				} else {
+					""
+				}
+
+				textPage(
+					title = "Default Weights",
+					text = note + pageWeights
+				)
+				firstWeightOnPage = firstWeightOnNextPage
+			}
 		}
 
 		private fun geneHolder(

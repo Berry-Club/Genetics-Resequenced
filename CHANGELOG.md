@@ -2,7 +2,8 @@
 
 ### Changed
 
-- Moved the Patchouli book to datagen using PDG
+- Updated the Patchouli book
+	- Also it now uses Patchouli Datagen
 
 # 1.14.1
 

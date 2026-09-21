@@ -1,0 +1,16 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:piston",
+  "name": "Reaching",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Reaching$() Gene increases a player's block and entity reach by $(9)25%$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/19 - Iron Golem",
+      "title": "Default Weights"
+    }
+  ]
+}

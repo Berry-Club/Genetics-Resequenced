@@ -1,11 +1,16 @@
 {
   "category": "geneticsresequenced:genes",
   "icon": "minecraft:iron_ingot",
-  "name": "Item Attraction Field",
+  "name": "Item Magnet",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)Item Attraction Field$() Gene causes players to $(9)grab items from a much larger distance$().$(br2)This Gene is disabled when the player has an active $(l:geneticsresequenced:items/anti_field_orb)Anti-Field Orb$(/l), is near an active $(l:geneticsresequenced:blocks/anti_field_block)Anti-Field Block$(/l), or when sneaking.$(br2)This Gene $(c)cannot be given to mobs$()."
+      "text": "The $(d)Item Magnet$() Gene pulls nearby items toward players. By default it checks an 8-block radius every 10 ticks; both values are configurable.$(br2)This Gene is disabled when the player has an active $(l:geneticsresequenced:items/anti_field_orb)Anti-Field Orb$(/l), is near an active $(l:geneticsresequenced:blocks/anti_field_block)Anti-Field Block$(/l), or when sneaking.$(br2)This Gene $(c)cannot be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)5/8 - Allay$(br)2/6 - Endermite",
+      "title": "Default Weights"
     }
   ]
 }

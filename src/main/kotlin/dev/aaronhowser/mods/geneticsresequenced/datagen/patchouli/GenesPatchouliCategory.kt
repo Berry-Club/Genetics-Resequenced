@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.bad
+import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.defaultWeightPages
 import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.major
 import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.minor
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -73,6 +74,34 @@ object GenesPatchouliCategory {
 
 	private fun addEntries(book: PatchouliBook) {
 		book.entry(
+			saveName = "basic",
+			category = bookCategory,
+			name = "Basic",
+			icon = ModItems.DNA_HELIX.get()
+		) {
+			textPage(
+				text = doubleSpacedLines(
+					"The ${major("Basic")} Gene is filler DNA and ${bad("cannot be injected") }.",
+					"In the ${internalLink(BlocksPatchouliCategory.plasmidInfuser, "Plasmid Infuser")}, Basic Helices contribute 1 DNA Point. Mobs without a listed Gene pool always provide Basic."
+				)
+			)
+
+			defaultWeightPages(
+				"3/8 - Allay", "2/7 - Axolotl", "4/8 - Bat", "5/8 - Bee", "5/12 - Blaze", "2/11 - Breeze",
+				"5/7 - Cat", "7/17 - Cave Spider", "5/10 - Chicken", "5/7 - Cod", "5/15 - Cow", "5/8 - Creeper",
+				"7/11 - Dolphin", "9/18 - Donkey", "5/9 - Drowned", "5/9 - Enderman", "4/7 - Evoker", "5/9 - Fox",
+				"5/8 - Frog", "5/9 - Ghast", "5/13 - Glow Squid", "5/15 - Goat", "5/12 - Guardian", "5/10 - Hoglin",
+				"7/16 - Horse", "5/9 - Husk", "5/19 - Iron Golem", "5/8 - Llama", "5/12 - Magma Cube", "5/10 - Ocelot",
+				"5/17 - Parrot", "5/11 - Phantom", "5/7 - Pig", "5/9 - Piglin Brute", "5/8 - Piglin", "5/7 - Pillager",
+				"5/16 - Polar Bear", "5/16 - Pufferfish", "5/20 - Rabbit", "5/17 - Ravager", "5/8 - Salmon", "5/12 - Sheep",
+				"3/11 - Shulker", "3/11 - Silverfish", "5/6 - Skeleton", "5/16 - Slime", "5/7 - Snow Golem", "4/15 - Spider",
+				"5/7 - Squid", "5/8 - Stray", "5/11 - Strider", "5/9 - Tadpole", "5/7 - Tropical Fish", "5/7 - Turtle",
+				"5/9 - Villager", "5/10 - Vindicator", "5/7 - Witch", "5/7 - Wither Skeleton", "5/15 - Wither", "5/11 - Wolf",
+				"5/12 - Zoglin", "5/9 - Zombie Villager", "7/8 - Zombie", "5/11 - Zombified Piglin"
+			)
+		}
+
+		book.entry(
 			saveName = "bioluminescence",
 			category = bookCategory,
 			name = "Bioluminescence",
@@ -83,6 +112,12 @@ object GenesPatchouliCategory {
 					"The ${major("Bioluminescence")} Gene causes entities to ${minor("spawn light sources")} when in the dark.",
 					"This Gene ${minor("can be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"3/12 - Blaze",
+				"4/13 - Glow Squid",
+				"4/12 - Magma Cube"
 			)
 		}
 
@@ -99,6 +134,10 @@ object GenesPatchouliCategory {
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"6/17 - Parrot"
+			)
 		}
 
 		book.entry(
@@ -113,6 +152,11 @@ object GenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"4/9 - Husk",
+				"2/7 - Snow Golem"
+			)
 		}
 
 		book.entry(
@@ -123,39 +167,52 @@ object GenesPatchouliCategory {
 		) {
 			textPage(
 				text = doubleSpacedLines(
-					"The ${major("Claws")} Gene causes entities to have a chance to ${minor("inflict Bleeding on empty-handed melee attacks")}.",
-					"When mutated into Claws 2, the chance is doubled.",
+					"The ${major("Claws")} Gene adds 4 hearts of unarmed damage and a 33% chance to inflict Bleeding on empty-handed hits.",
+					"Claws II adds another 4 hearts and raises the Bleeding chance to 66%. Bleeding deals half a heart each second.",
 					"This Gene ${minor("can be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"3/16 - Polar Bear"
 			)
 		}
 
 		book.entry(
 			saveName = "climb_walls",
 			category = bookCategory,
-			name = "Climb Walls",
+			name = "Wall Climbing",
 			icon = Items.STRING
 		) {
 			textPage(
 				text = doubleSpacedLines(
-					"The ${major("Climb Walls")} Gene allows players to ${minor("climb walls")}.",
+					"The ${major("Wall Climbing")} Gene lets players climb walls. Sneak to stop rising and cling to ceilings.",
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"2/17 - Cave Spider",
+				"2/15 - Spider"
 			)
 		}
 
 		book.entry(
 			saveName = "dragons_breath",
 			category = bookCategory,
-			name = "Dragon's Breath",
+			name = "Dragon Breath",
 			icon = Items.DRAGON_EGG
 		) {
 			textPage(
 				text = doubleSpacedLines(
-					"The ${major("Dragon's Breath")} Gene allows players to ${minor("shoot a dragon fireball")} when the Dragon's Breath key (currently bound to ${keybind("key.geneticsresequenced.dragons_breath")}) is used.",
+					"The ${major("Dragon Breath")} Gene lets players shoot a Dragon Fireball with its keybind, which is unset by default.",
 					"This has a configurable cooldown, with the default being 15 seconds.",
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"6/11 - Ender Dragon"
 			)
 		}
 
@@ -167,9 +224,16 @@ object GenesPatchouliCategory {
 		) {
 			textPage(
 				text = doubleSpacedLines(
-					"The ${major("Eat Grass")} Gene allows players to ${minor("right-click Grass Blocks to regain hunger")}.",
+					"The ${major("Eat Grass")} Gene lets players eat Grass Blocks with an empty hand, restoring 1 hunger and 1 saturation. Grass and Mycelium become Dirt; Nylium becomes Netherrack.",
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"3/15 - Cow",
+				"3/15 - Goat",
+				"4/13 - Mooshroom",
+				"3/12 - Sheep"
 			)
 		}
 
@@ -186,6 +250,10 @@ object GenesPatchouliCategory {
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"1/11 - Silverfish"
+			)
 		}
 
 		book.entry(
@@ -196,10 +264,18 @@ object GenesPatchouliCategory {
 		) {
 			textPage(
 				text = doubleSpacedLines(
-					"The ${major("Emerald Heart")} Gene causes entities to ${minor("drop an Emerald upon death")}.",
-					"For players, this has a configurable cooldown, with the default being 60 seconds.",
+					"The ${major("Emerald Heart")} Gene causes mobs to ${minor("drop an Emerald upon death")}.",
+					"Players with it may make special sounds when chatting.",
 					"This Gene ${minor("can be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"3/7 - Evoker",
+				"2/7 - Pillager",
+				"2/9 - Villager",
+				"2/10 - Vindicator",
+				"4/9 - Zombie Villager"
 			)
 		}
 
@@ -216,6 +292,10 @@ object GenesPatchouliCategory {
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"3/11 - Ender Dragon"
+			)
 		}
 
 		book.entry(
@@ -231,6 +311,10 @@ object GenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"3/8 - Creeper"
+			)
 		}
 
 		book.entry(
@@ -241,9 +325,16 @@ object GenesPatchouliCategory {
 		) {
 			textPage(
 				text = doubleSpacedLines(
-					"The ${major("Fire Proof")} Gene makes entities ${minor("completely immune to burning damage")}.",
+					"The ${major("Fire Proof")} Gene makes entities ${minor("immune to fire damage")}.",
 					"This Gene ${minor("can be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"1/12 - Blaze",
+				"3/12 - Magma Cube",
+				"4/11 - Strider",
+				"3/11 - Zombified Piglin"
 			)
 		}
 
@@ -267,6 +358,11 @@ object GenesPatchouliCategory {
 					internalLink(noFallDamage, "No Fall Damage")
 				)
 			)
+
+			defaultWeightPages(
+				"2/11 - Ender Dragon",
+				"3/15 - Wither"
+			)
 		}
 
 		book.entry(
@@ -282,6 +378,10 @@ object GenesPatchouliCategory {
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"3/11 - Silverfish"
+			)
 		}
 
 		book.entry(
@@ -292,9 +392,14 @@ object GenesPatchouliCategory {
 		) {
 			textPage(
 				text = doubleSpacedLines(
-					"The ${major("Infinity")} Gene allows players to ${minor("fire Arrows when none are in their inventory")}.",
+					"The ${major("Infinity")} Gene lets players use Bows and Crossbows without carrying Arrows.",
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"1/6 - Skeleton",
+				"3/8 - Stray"
 			)
 		}
 
@@ -310,20 +415,29 @@ object GenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"3/11 - Phantom"
+			)
 		}
 
 		itemAttractionField = book.entry(
 			saveName = "item_attraction_field",
 			category = bookCategory,
-			name = "Item Attraction Field",
+			name = "Item Magnet",
 			icon = Items.IRON_INGOT
 		) {
 			textPage(
 				text = doubleSpacedLines(
-					"The ${major("Item Attraction Field")} Gene causes players to ${minor("grab items from a much larger distance")}.",
+					"The ${major("Item Magnet")} Gene pulls nearby items toward players. By default it checks an 8-block radius every 10 ticks; both values are configurable.",
 					"This Gene is disabled when the player has an active ${internalLink(ItemsPatchouliCategory.antiFieldOrb, "Anti-Field Orb")}, is near an active ${internalLink(BlocksPatchouliCategory.antiFieldBlock, "Anti-Field Block")}, or when sneaking.",
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"5/8 - Allay",
+				"2/6 - Endermite"
 			)
 		}
 
@@ -335,9 +449,13 @@ object GenesPatchouliCategory {
 		) {
 			textPage(
 				text = doubleSpacedLines(
-					"The ${major("Johnny")} Gene ${minor("increases your attack damage when using Axes")}.",
+					"The ${major("Johnny")} Gene increases Axe melee damage by 25% by default. This amount is configurable.",
 					"This gene ${minor("can be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"3/10 - Vindicator"
 			)
 		}
 
@@ -353,6 +471,18 @@ object GenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"5/11 - Breeze",
+				"2/11 - Dolphin",
+				"3/18 - Donkey",
+				"2/9 - Fox",
+				"3/8 - Frog",
+				"3/16 - Horse",
+				"5/20 - Rabbit",
+				"4/12 - Skeleton Horse",
+				"4/12 - Zombie Horse"
+			)
 		}
 
 		book.entry(
@@ -367,6 +497,10 @@ object GenesPatchouliCategory {
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"1/6 - Endermite"
+			)
 		}
 
 		book.entry(
@@ -380,6 +514,11 @@ object GenesPatchouliCategory {
 					"The ${major("Knockback")} Gene ${minor("increases your attack knockback")}.",
 					"This gene ${bad("cannot be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"3/18 - Donkey",
+				"4/15 - Goat"
 			)
 		}
 
@@ -396,6 +535,11 @@ object GenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"4/10 - Chicken",
+				"4/17 - Parrot"
+			)
 		}
 
 		book.entry(
@@ -409,6 +553,10 @@ object GenesPatchouliCategory {
 					"The ${major("Luck")} Gene gives entities the ${minor("Luck effect")}.",
 					"This Gene ${minor("can be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"4/20 - Rabbit"
 			)
 		}
 
@@ -432,6 +580,15 @@ object GenesPatchouliCategory {
 					"Both Meaty and Meaty 2 ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"5/10 - Hoglin",
+				"2/7 - Pig",
+				"4/9 - Piglin Brute",
+				"3/8 - Piglin",
+				"4/12 - Zoglin",
+				"3/11 - Zombified Piglin"
+			)
 		}
 
 		milky = book.entry(
@@ -446,6 +603,11 @@ object GenesPatchouliCategory {
 					"This has a configurable cooldown, with the default being 1 tick.",
 					"This Gene ${minor("can be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"4/15 - Cow",
+				"4/13 - Mooshroom"
 			)
 		}
 
@@ -462,6 +624,13 @@ object GenesPatchouliCategory {
 					"This gene ${bad("cannot be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"3/8 - Bat",
+				"3/7 - Elder Guardian",
+				"3/12 - Guardian",
+				"5/10 - Warden"
+			)
 		}
 
 		book.entry(
@@ -475,6 +644,13 @@ object GenesPatchouliCategory {
 					"The ${major("More Hearts")} Gene gives entities ${minor("10 extra hearts")}. If the Gene is mutated, they instead get ${minor("20")}.",
 					"This Gene ${minor("can be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"1/9 - Enderman",
+				"2/19 - Iron Golem",
+				"3/17 - Ravager",
+				"5/10 - Warden"
 			)
 		}
 
@@ -490,6 +666,13 @@ object GenesPatchouliCategory {
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"1/8 - Bat",
+				"5/17 - Cave Spider",
+				"3/15 - Spider",
+				"3/11 - Wolf"
+			)
 		}
 
 		noFallDamage = book.entry(
@@ -504,6 +687,12 @@ object GenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"1/10 - Chicken",
+				"2/17 - Parrot",
+				"4/16 - Slime"
+			)
 		}
 
 		book.entry(
@@ -517,6 +706,10 @@ object GenesPatchouliCategory {
 					"The ${major("No Hunger")} Gene ${minor("prevents your hunger from draining")} below a configurable point, which defaults to half..",
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"1/11 - Wolf"
 			)
 		}
 
@@ -536,6 +729,10 @@ object GenesPatchouliCategory {
 			textPage(
 				text = "By default, this Gene requires ${internalLink(thorns, "Thorns")}."
 			)
+
+			defaultWeightPages(
+				"3/13 - Mooshroom"
+			)
 		}
 
 		book.entry(
@@ -549,6 +746,11 @@ object GenesPatchouliCategory {
 					"The ${major("Poison Immunity")} Gene makes entities ${minor("immune to Poison")}.",
 					"This Gene ${minor("can be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"1/17 - Cave Spider",
+				"2/7 - Witch"
 			)
 		}
 
@@ -565,6 +767,10 @@ object GenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"2/19 - Iron Golem"
+			)
 		}
 
 		book.entry(
@@ -580,6 +786,14 @@ object GenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"4/9 - Drowned",
+				"4/19 - Iron Golem",
+				"4/17 - Ravager",
+				"4/11 - Shulker",
+				"1/8 - Zombie"
+			)
 		}
 
 		scareCreepers = book.entry(
@@ -594,6 +808,11 @@ object GenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"2/7 - Cat",
+				"3/10 - Ocelot"
+			)
 		}
 
 		scareSkeletons = book.entry(
@@ -607,6 +826,10 @@ object GenesPatchouliCategory {
 					"The ${major("Scare Skeletons")} Gene makes it so that ${minor("Skeletons will run away from you")}.",
 					"This Gene ${minor("can be given to mobs")}.."
 				)
+			)
+
+			defaultWeightPages(
+				"2/11 - Wolf"
 			)
 		}
 
@@ -649,14 +872,19 @@ object GenesPatchouliCategory {
 		book.entry(
 			saveName = "shoot_fireballs",
 			category = bookCategory,
-			name = "Shoot Fireballs",
+			name = "Shoot Fireball",
 			icon = Items.BLAZE_ROD
 		) {
 			textPage(
 				text = doubleSpacedLines(
-					"The ${major("Shoot Fireballs")} Gene allows players to ${minor("shoot small fireballs")} when a Blaze Rod is used.",
+					"The ${major("Shoot Fireball")} Gene lets players fire small Fireballs by using a Blaze Rod or another configured activating item.",
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"3/12 - Blaze",
+				"4/9 - Ghast"
 			)
 		}
 
@@ -673,6 +901,11 @@ object GenesPatchouliCategory {
 					"This Gene ${bad("cannot be given to mobs")}"
 				)
 			)
+
+			defaultWeightPages(
+				"2/16 - Slime",
+				"1/1 - Support Slime"
+			)
 		}
 
 		book.entry(
@@ -688,6 +921,16 @@ object GenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"2/11 - Dolphin",
+				"2/9 - Fox",
+				"3/16 - Horse",
+				"2/10 - Ocelot",
+				"3/20 - Rabbit",
+				"4/12 - Skeleton Horse",
+				"4/12 - Zombie Horse"
+			)
 		}
 
 		stepAssist = book.entry(
@@ -701,6 +944,15 @@ object GenesPatchouliCategory {
 					"The ${major("Step Assist")} Gene allows players to ${minor("walk up single blocks")} as if they were stairs.",
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"3/18 - Donkey",
+				"3/16 - Horse",
+				"3/8 - Llama",
+				"4/16 - Polar Bear",
+				"4/12 - Skeleton Horse",
+				"4/12 - Zombie Horse"
 			)
 		}
 
@@ -717,6 +969,12 @@ object GenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"3/19 - Iron Golem",
+				"4/16 - Polar Bear",
+				"5/17 - Ravager"
+			)
 		}
 
 		teleport = book.entry(
@@ -732,6 +990,11 @@ object GenesPatchouliCategory {
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"3/9 - Enderman",
+				"3/11 - Phantom"
+			)
 		}
 
 		thorns = book.entry(
@@ -742,9 +1005,14 @@ object GenesPatchouliCategory {
 		) {
 			textPage(
 				text = doubleSpacedLines(
-					"The ${major("Thorns")} Gene gives entities a chance to ${minor("damage melee attackers")}. This uses up some hunger.",
+					"The ${major("Thorns")} Gene can reflect melee damage while the chest slot is empty or holds Leather armor. By default, it has a 15% chance to deal 0.75 hearts and costs 1 hunger.",
 					"This Gene ${minor("can be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"3/8 - Bee",
+				"4/16 - Pufferfish"
 			)
 		}
 
@@ -761,6 +1029,20 @@ object GenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"5/7 - Axolotl",
+				"2/7 - Cod",
+				"4/7 - Elder Guardian",
+				"4/13 - Glow Squid",
+				"4/12 - Guardian",
+				"4/16 - Pufferfish",
+				"3/8 - Salmon",
+				"2/7 - Squid",
+				"4/9 - Tadpole",
+				"2/7 - Tropical Fish",
+				"2/7 - Turtle"
+			)
 		}
 
 		book.entry(
@@ -775,6 +1057,11 @@ object GenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"2/7 - Wither Skeleton",
+				"4/15 - Wither"
+			)
 		}
 
 		book.entry(
@@ -788,6 +1075,10 @@ object GenesPatchouliCategory {
 					"The ${major("Wither Proof")} Gene makes entities ${minor("immune to Wither")}.",
 					"This Gene ${minor("can be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"3/15 - Wither"
 			)
 		}
 
@@ -804,21 +1095,120 @@ object GenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"3/15 - Goat",
+				"4/12 - Sheep"
+			)
 		}
 
 		xpAttractionField = book.entry(
 			saveName = "xp_attraction_field",
 			category = bookCategory,
-			name = "XP Attraction Field",
+			name = "XP Magnet",
 			icon = Items.EXPERIENCE_BOTTLE
 		) {
 			textPage(
 				text = doubleSpacedLines(
-					"The ${major("XP Attraction Field")} Gene causes players to ${minor("grab XP Orbs from a much larger distance")}.",
+					"The ${major("XP Magnet")} Gene pulls nearby Experience Orbs toward players. By default it checks an 8-block radius every 10 ticks; both values are configurable.",
 					"This Gene is disabled when the player has an active ${internalLink(ItemsPatchouliCategory.antiFieldOrb, "Anti-Field Orb")}, is near an active ${internalLink(BlocksPatchouliCategory.antiFieldBlock, "Anti-Field Block")}, or when sneaking.",
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"3/6 - Endermite"
+			)
+		}
+
+		book.entry(
+			saveName = "bountiful",
+			category = bookCategory,
+			name = "Bountiful",
+			icon = Items.GOLD_INGOT
+		) {
+			textPage(text = "The ${major("Bountiful")} Gene gives a mob +1 effective Looting when it dies. Bountiful II gives +2. This Gene is for mobs only.")
+			defaultWeightPages("2/13 - Mooshroom", "3/7 - Sniffer (Bountiful II)")
+		}
+
+		book.entry(
+			saveName = "experienced",
+			category = bookCategory,
+			name = "Experienced",
+			icon = Items.EXPERIENCE_BOTTLE
+		) {
+			textPage(text = "The ${major("Experienced")} Gene makes a mob drop ${minor("twice as much experience")} when it dies. This Gene is for mobs only.")
+			defaultWeightPages("2/9 - Villager", "4/7 - Sniffer")
+		}
+
+		book.entry(
+			saveName = "fertile",
+			category = bookCategory,
+			name = "Fertile",
+			icon = Items.EGG
+		) {
+			textPage(text = "Each ${major("Fertile")} parent adds one extra child when breeding. Two Fertile parents produce three children total. This Gene is for mobs only.")
+			defaultWeightPages("3/20 - Rabbit")
+		}
+
+		book.entry(
+			saveName = "frenzied",
+			category = bookCategory,
+			name = "Frenzied",
+			icon = Items.IRON_SWORD
+		) {
+			textPage(text = "The ${major("Frenzied")} Gene makes a mob attack nearby creatures. Normally passive mobs deal 1.5 hearts. This Gene is for mobs only.")
+			defaultWeightPages("3/12 - Zoglin")
+		}
+
+		book.entry(
+			saveName = "placid",
+			category = bookCategory,
+			name = "Placid",
+			icon = Items.POPPY
+		) {
+			textPage(text = "The ${major("Placid")} Gene prevents most mob targeting behavior. Some special attacks, such as a Creeper swelling, are unaffected. This Gene is for mobs only.")
+			defaultWeightPages("3/15 - Cow")
+		}
+
+		book.entry(
+			saveName = "lava_proof",
+			category = bookCategory,
+			name = "Lava Proof",
+			icon = Items.LAVA_BUCKET
+		) {
+			textPage(text = "The ${major("Lava Proof")} Gene makes entities ${minor("immune to lava damage")}.")
+			defaultWeightPages("2/11 - Strider")
+		}
+
+		book.entry(
+			saveName = "reaching",
+			category = bookCategory,
+			name = "Reaching",
+			icon = Items.PISTON
+		) {
+			textPage(text = "The ${major("Reaching")} Gene increases a player's block and entity reach by ${minor("25%")}.")
+			defaultWeightPages("3/19 - Iron Golem")
+		}
+
+		book.entry(
+			saveName = "web_defense",
+			category = bookCategory,
+			name = "Web Defense",
+			icon = Items.COBWEB
+		) {
+			textPage(text = "The ${major("Web Defense")} Gene has a chance to trap attackers in a temporary Cobweb.")
+			defaultWeightPages("1/17 - Cave Spider", "1/15 - Spider")
+		}
+
+		book.entry(
+			saveName = "web_walker",
+			category = bookCategory,
+			name = "Web Walker",
+			icon = Items.COBWEB
+		) {
+			textPage(text = "The ${major("Web Walker")} Gene lets entities move through Cobwebs without being slowed.")
+			defaultWeightPages("1/17 - Cave Spider", "1/15 - Spider")
 		}
 
 

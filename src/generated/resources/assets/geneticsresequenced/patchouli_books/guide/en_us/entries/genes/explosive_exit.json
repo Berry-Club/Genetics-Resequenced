@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Explosive Exit$() Gene causes entities to $(9)explode upon death$().$(br2)If a player has this Gene, they only explode if they have 5 Gunpowder in their inventory, which is removed upon detonation.$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/8 - Creeper",
+      "title": "Default Weights"
     }
   ]
 }

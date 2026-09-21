@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Wooly$() Gene allows the entity to be $(9)sheared for Wool$(). If a player has it, they can $(9)shear themselves$() by sneak right-clicking with Shears.$(br2)This has a configurable cooldown, with the default being 1 minute.$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/15 - Goat$(br)4/12 - Sheep",
+      "title": "Default Weights"
     }
   ]
 }

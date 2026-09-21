@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Step Assist$() Gene allows players to $(9)walk up single blocks$() as if they were stairs.$(br2)This Gene $(c)cannot be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/18 - Donkey$(br)3/16 - Horse$(br)3/8 - Llama$(br)4/16 - Polar Bear$(br)4/12 - Skeleton Horse$(br)4/12 - Zombie Horse",
+      "title": "Default Weights"
     }
   ]
 }

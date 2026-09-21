@@ -6,6 +6,16 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Speed$() Gene gives entities the $(9)Speed effect$().$(br2)This Gene can be $(9)mutated into Speed 2$() and $(9)Speed 4$().$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)2/11 - Dolphin$(br)2/9 - Fox$(br)3/16 - Horse$(br)2/10 - Ocelot$(br)3/20 - Rabbit$(br)4/12 - Skeleton Horse",
+      "title": "Default Weights"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "4/12 - Zombie Horse",
+      "title": "Default Weights"
     }
   ]
 }

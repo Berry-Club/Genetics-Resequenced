@@ -6,6 +6,10 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Gray Death$() Gene $(c)kills any mob that can age$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, brew Viral Agents with a Resistance DNA Helix in an Incubator."
     }
   ]
 }

@@ -5,13 +5,13 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)Incubator$() is effectively a $(9)faster Brewing Stand$(). It runs at $(9)twice the speed$(), but $(c)costs FE$() instead of Blaze Powder."
+      "text": "The $(d)Incubator$() uses FE for brewing and special genetic recipes. Its top ingredient is shared across three bottom slots, allowing up to three items per operation."
     },
     {
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:incubator",
       "link_recipe": true,
-      "text": "It speed can be increased with $(l:geneticsresequenced:items/overclocker)Overclockers$(/l)."
+      "text": "It also accepts normal Brewing Stand recipes. Its speed can be increased with $(l:geneticsresequenced:items/overclocker)Overclockers$(/l)."
     }
   ],
   "sortnum": 8

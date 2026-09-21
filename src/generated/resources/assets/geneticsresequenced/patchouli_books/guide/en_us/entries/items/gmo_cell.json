@@ -1,0 +1,16 @@
+{
+  "category": "geneticsresequenced:items",
+  "icon": "geneticsresequenced:gmo_cell",
+  "name": "GMO Cell",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "A $(d)GMO Cell$() already has a known Gene, skipping random DNA Decryption.$(br2)Make one from a typed Potion of Cell Growth or Mutation in a low-temperature Advanced Incubator. Each recipe has its own success chance."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:gmo_cell",
+      "text": "Process it in a DNA Extractor to get a DNA Helix with its Gene already revealed. Recipe viewers show the available combinations."
+    }
+  ]
+}

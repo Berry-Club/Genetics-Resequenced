@@ -6,6 +6,10 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)White Death$() Gene $(c)kills all Monsters$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, brew Viral Agents with a Dragon Breath DNA Helix in an Incubator."
     }
   ]
 }

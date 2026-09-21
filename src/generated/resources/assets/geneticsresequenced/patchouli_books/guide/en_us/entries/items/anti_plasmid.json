@@ -1,0 +1,17 @@
+{
+  "category": "geneticsresequenced:items",
+  "icon": "geneticsresequenced:anti_plasmid",
+  "name": "Anti-Plasmid",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "An $(d)Anti-Plasmid$() removes one unwanted Gene from its host.$(br2)Craft an empty Anti-Plasmid with a completed Plasmid to copy its Gene."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:anti_plasmid",
+      "link_recipe": true,
+      "text": "Add it to purified blood in the Plasmid Injector, then inject that blood into its owner."
+    }
+  ]
+}

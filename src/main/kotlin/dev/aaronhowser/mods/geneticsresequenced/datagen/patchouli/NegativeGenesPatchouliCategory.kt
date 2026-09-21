@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli
 
 import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.bad
+import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.defaultWeightPages
 import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.major
 import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.minor
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
@@ -38,20 +39,6 @@ object NegativeGenesPatchouliCategory {
 
 	private fun addEntries(book: PatchouliBook) {
 		book.entry(
-			saveName = "bad_omen",
-			category = bookCategory,
-			name = "Bad Omen",
-			icon = Items.POTION
-		) {
-			textPage(
-				text = doubleSpacedLines(
-					"The ${major("Bad Omen")} Gene gives entities the ${bad("Bad Omen")} effect.",
-					"This Gene ${minor("can be given to mobs")}."
-				)
-			)
-		}
-
-		book.entry(
 			saveName = "blindness",
 			category = bookCategory,
 			name = "Blindness",
@@ -63,6 +50,8 @@ object NegativeGenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			textPage(text = "By default, brew Viral Agents with a Night Vision DNA Helix in an Incubator.")
 		}
 
 		book.entry(
@@ -78,6 +67,10 @@ object NegativeGenesPatchouliCategory {
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"1/1 - Player"
+			)
 		}
 
 		book.entry(
@@ -92,6 +85,8 @@ object NegativeGenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			textPage(text = "By default, brew Viral Agents with a Luck DNA Helix in an Incubator.")
 		}
 
 		book.entry(
@@ -106,6 +101,8 @@ object NegativeGenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			textPage(text = "By default, brew Viral Agents with a Fire Proof DNA Helix in an Incubator.")
 		}
 
 		book.entry(
@@ -120,6 +117,8 @@ object NegativeGenesPatchouliCategory {
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
 			)
+
+			textPage(text = "By default, brew Viral Agents with a No Hunger DNA Helix in an Incubator.")
 		}
 
 		book.entry(
@@ -133,6 +132,10 @@ object NegativeGenesPatchouliCategory {
 					"The ${major("Infested")} Gene gives entities the ${bad("Infested")} effect.",
 					"This Gene ${minor("can be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"4/11 - Silverfish"
 			)
 		}
 
@@ -148,6 +151,10 @@ object NegativeGenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"4/11 - Shulker"
+			)
 		}
 
 		book.entry(
@@ -162,6 +169,8 @@ object NegativeGenesPatchouliCategory {
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
 			)
+
+			textPage(text = "By default, brew Viral Agents with a Haste DNA Helix in an Incubator.")
 		}
 
 		book.entry(
@@ -176,6 +185,8 @@ object NegativeGenesPatchouliCategory {
 					"This Gene ${bad("cannot be given to mobs")}."
 				)
 			)
+
+			textPage(text = "By default, brew Viral Agents with a Milky, Meaty, or Lay Egg DNA Helix in an Incubator.")
 		}
 
 		book.entry(
@@ -189,6 +200,10 @@ object NegativeGenesPatchouliCategory {
 					"The ${major("Oozing")} Gene gives entities the ${bad("Oozing")} effect.",
 					"This Gene ${minor("can be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"5/16 - Slime"
 			)
 		}
 
@@ -204,6 +219,10 @@ object NegativeGenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"3/16 - Pufferfish"
+			)
 		}
 
 		book.entry(
@@ -218,6 +237,8 @@ object NegativeGenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			textPage(text = "By default, brew Viral Agents with a Speed DNA Helix. Speed II makes Slowness IV; Speed IV makes Slowness VI.")
 		}
 
 		book.entry(
@@ -232,6 +253,8 @@ object NegativeGenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			textPage(text = "By default, brew Viral Agents with a Strength DNA Helix in an Incubator.")
 		}
 
 		book.entry(
@@ -245,6 +268,10 @@ object NegativeGenesPatchouliCategory {
 					"The ${major("Weaving")} Gene gives entities the ${bad("Weaving")} effect.",
 					"This Gene ${minor("can be given to mobs")}."
 				)
+			)
+
+			defaultWeightPages(
+				"4/15 - Spider"
 			)
 		}
 
@@ -260,6 +287,10 @@ object NegativeGenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			defaultWeightPages(
+				"4/11 - Breeze"
+			)
 		}
 
 		book.entry(
@@ -274,6 +305,8 @@ object NegativeGenesPatchouliCategory {
 					"This Gene ${minor("can be given to mobs")}."
 				)
 			)
+
+			textPage(text = "By default, brew Viral Agents with a Wither Proof DNA Helix in an Incubator.")
 		}
 
 

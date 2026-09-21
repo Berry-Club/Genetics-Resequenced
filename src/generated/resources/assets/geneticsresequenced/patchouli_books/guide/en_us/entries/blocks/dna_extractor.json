@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)DNA Extractor$() uses FE to convert $(l:geneticsresequenced:items/cell)Cells$(/l) into encrypted $(l:geneticsresequenced:items/dna_helix)DNA Helices$(/l)."
+      "text": "The $(d)DNA Extractor$() converts Cells and GMO Cells into DNA Helices. Regular Cells keep their entity type but have an unknown Gene; GMO Cells keep their known Gene."
     },
     {
       "type": "patchouli:spotlight",

@@ -6,6 +6,10 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Cursed$() Gene gives entities the $(c)Bad Luck$() effect.$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, brew Viral Agents with a Luck DNA Helix in an Incubator."
     }
   ]
 }

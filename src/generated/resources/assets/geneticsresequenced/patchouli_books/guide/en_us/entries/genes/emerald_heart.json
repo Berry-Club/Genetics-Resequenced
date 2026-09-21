@@ -5,7 +5,12 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)Emerald Heart$() Gene causes entities to $(9)drop an Emerald upon death$().$(br2)For players, this has a configurable cooldown, with the default being 60 seconds.$(br2)This Gene $(9)can be given to mobs$()."
+      "text": "The $(d)Emerald Heart$() Gene causes mobs to $(9)drop an Emerald upon death$().$(br2)Players with it may make special sounds when chatting.$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/7 - Evoker$(br)2/7 - Pillager$(br)2/9 - Villager$(br)2/10 - Vindicator$(br)4/9 - Zombie Villager",
+      "title": "Default Weights"
     }
   ]
 }

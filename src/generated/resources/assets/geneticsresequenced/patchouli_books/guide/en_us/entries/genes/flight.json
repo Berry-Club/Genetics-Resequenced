@@ -10,6 +10,11 @@
     {
       "type": "patchouli:text",
       "text": "By default, this Gene requires the following other Genes:$(li)$(l:geneticsresequenced:genes/teleport)Teleport$(/l)$(li)$(l:geneticsresequenced:genes/step_assist)Step Assist$(/l)$(li)$(l:geneticsresequenced:genes/no_fall_damage)No Fall Damage$(/l)"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)2/11 - Ender Dragon$(br)3/15 - Wither",
+      "title": "Default Weights"
     }
   ]
 }

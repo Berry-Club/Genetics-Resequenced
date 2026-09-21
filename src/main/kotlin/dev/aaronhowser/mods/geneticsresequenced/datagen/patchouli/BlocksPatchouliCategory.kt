@@ -117,7 +117,7 @@ object BlocksPatchouliCategory {
 			sortNumber = 3
 
 			textPage(
-				text = "The ${major("DNA Extractor")} uses FE to convert ${internalLink(ItemsPatchouliCategory.cell, "Cells")} into encrypted ${internalLink(ItemsPatchouliCategory.dnaHelix, "DNA Helices")}."
+				text = "The ${major("DNA Extractor")} converts Cells and GMO Cells into DNA Helices. Regular Cells keep their entity type but have an unknown Gene; GMO Cells keep their known Gene."
 			)
 
 			spotlightPage(ModBlocks.DNA_EXTRACTOR.get()) {
@@ -226,12 +226,12 @@ object BlocksPatchouliCategory {
 			sortNumber = 8
 
 			textPage(
-				text = "The ${major("Incubator")} is effectively a ${minor("faster Brewing Stand")}. It runs at ${minor("twice the speed")}, but ${bad("costs FE")} instead of Blaze Powder."
+				text = "The ${major("Incubator")} uses FE for brewing and special genetic recipes. Its top ingredient is shared across three bottom slots, allowing up to three items per operation."
 			)
 
 			spotlightPage(ModBlocks.INCUBATOR.get()) {
 				linkRecipe = true
-				text = "It speed can be increased with ${internalLink(ItemsPatchouliCategory.overclocker, "Overclockers")}."
+				text = "It also accepts normal Brewing Stand recipes. Its speed can be increased with ${internalLink(ItemsPatchouliCategory.overclocker, "Overclockers")}."
 			}
 		}
 
@@ -296,7 +296,7 @@ object BlocksPatchouliCategory {
 				linkRecipe = true
 				text = doubleSpacedLines(
 					"The Anti-Field Block is active by default, and can be disabled with a Redstone signal.",
-					"While active, it disables all Fields within a 25 block spherical radius. This amount is configurable."
+					"While active, it disables affected Genes within a 25-block radius by default. This radius is configurable."
 				)
 			}
 		}

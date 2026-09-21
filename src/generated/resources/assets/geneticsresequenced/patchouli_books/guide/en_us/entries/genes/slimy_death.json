@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Slimy Death$() Gene makes it so, $(9)upon the player dying, they are instantly revived and several friendly Support Slimes spawn$().$(br2)This has a configurable cooldown, with the default being 5 minutes.$(br2)This Gene $(c)cannot be given to mobs$()"
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)2/16 - Slime$(br)1/1 - Support Slime",
+      "title": "Default Weights"
     }
   ]
 }

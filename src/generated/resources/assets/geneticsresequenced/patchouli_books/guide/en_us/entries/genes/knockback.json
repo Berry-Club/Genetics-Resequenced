@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Knockback$() Gene $(9)increases your attack knockback$().$(br2)This gene $(c)cannot be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/18 - Donkey$(br)4/15 - Goat",
+      "title": "Default Weights"
     }
   ]
 }

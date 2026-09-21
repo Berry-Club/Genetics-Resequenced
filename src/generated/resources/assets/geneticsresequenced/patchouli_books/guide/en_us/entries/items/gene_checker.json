@@ -11,7 +11,7 @@
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:gene_checker",
       "link_recipe": true,
-      "text": "If you're looking at an entity, its Genes will be listed. Otherwise, it'll list your own Genes instead."
+      "text": "It shows both the target's current Genes and the Genes it can provide with their weights. If no entity is targeted, it checks you."
     }
   ],
   "sortnum": 7

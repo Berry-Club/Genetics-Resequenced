@@ -10,6 +10,11 @@
     {
       "type": "patchouli:text",
       "text": "This can be mutated into Meaty 2, which causes the entity to spawn a Cooked Porkchop once every 5 minutes.$(br2)Both Meaty and Meaty 2 $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)5/10 - Hoglin$(br)2/7 - Pig$(br)4/9 - Piglin Brute$(br)3/8 - Piglin$(br)4/12 - Zoglin$(br)3/11 - Zombified Piglin",
+      "title": "Default Weights"
     }
   ]
 }

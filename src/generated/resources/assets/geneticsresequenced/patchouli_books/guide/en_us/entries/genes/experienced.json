@@ -1,0 +1,16 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:experience_bottle",
+  "name": "Experienced",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Experienced$() Gene makes a mob drop $(9)twice as much experience$() when it dies. This Gene is for mobs only."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)2/9 - Villager$(br)4/7 - Sniffer",
+      "title": "Default Weights"
+    }
+  ]
+}

@@ -5,7 +5,12 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)Thorns$() Gene gives entities a chance to $(9)damage melee attackers$(). This uses up some hunger.$(br2)This Gene $(9)can be given to mobs$()."
+      "text": "The $(d)Thorns$() Gene can reflect melee damage while the chest slot is empty or holds Leather armor. By default, it has a 15% chance to deal 0.75 hearts and costs 1 hunger.$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/8 - Bee$(br)4/16 - Pufferfish",
+      "title": "Default Weights"
     }
   ]
 }

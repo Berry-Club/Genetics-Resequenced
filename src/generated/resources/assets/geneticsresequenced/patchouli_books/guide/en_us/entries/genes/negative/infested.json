@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Infested$() Gene gives entities the $(c)Infested$() effect.$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)4/11 - Silverfish",
+      "title": "Default Weights"
     }
   ]
 }

@@ -1,11 +1,16 @@
 {
   "category": "geneticsresequenced:genes",
   "icon": "minecraft:blaze_rod",
-  "name": "Shoot Fireballs",
+  "name": "Shoot Fireball",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)Shoot Fireballs$() Gene allows players to $(9)shoot small fireballs$() when a Blaze Rod is used.$(br2)This Gene $(c)cannot be given to mobs$()."
+      "text": "The $(d)Shoot Fireball$() Gene lets players fire small Fireballs by using a Blaze Rod or another configured activating item.$(br2)This Gene $(c)cannot be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/12 - Blaze$(br)4/9 - Ghast",
+      "title": "Default Weights"
     }
   ]
 }

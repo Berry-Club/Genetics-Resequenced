@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Resistance$() Gene gives entities the $(9)Resistance effect$().$(br2)This Gene can be $(9)mutated into Resistance 2$().$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)4/9 - Drowned$(br)4/19 - Iron Golem$(br)4/17 - Ravager$(br)4/11 - Shulker$(br)1/8 - Zombie",
+      "title": "Default Weights"
     }
   ]
 }

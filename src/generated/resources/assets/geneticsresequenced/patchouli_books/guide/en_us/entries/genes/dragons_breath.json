@@ -1,11 +1,16 @@
 {
   "category": "geneticsresequenced:genes",
   "icon": "minecraft:dragon_egg",
-  "name": "Dragon's Breath",
+  "name": "Dragon Breath",
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)Dragon's Breath$() Gene allows players to $(9)shoot a dragon fireball$() when the Dragon's Breath key (currently bound to $(k:key.geneticsresequenced.dragons_breath)) is used.$(br2)This has a configurable cooldown, with the default being 15 seconds.$(br2)This Gene $(c)cannot be given to mobs$()."
+      "text": "The $(d)Dragon Breath$() Gene lets players shoot a Dragon Fireball with its keybind, which is unset by default.$(br2)This has a configurable cooldown, with the default being 15 seconds.$(br2)This Gene $(c)cannot be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)6/11 - Ender Dragon",
+      "title": "Default Weights"
     }
   ]
 }

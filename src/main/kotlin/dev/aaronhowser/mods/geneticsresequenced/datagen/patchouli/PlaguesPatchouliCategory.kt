@@ -45,6 +45,8 @@ object PlaguesPatchouliCategory {
 			textPage(
 				text = "The ${major("Gray Death")} Gene ${bad("kills any mob that can age")}."
 			)
+
+			textPage(text = "By default, brew Viral Agents with a Resistance DNA Helix in an Incubator.")
 		}
 
 		book.entry(
@@ -56,6 +58,8 @@ object PlaguesPatchouliCategory {
 			textPage(
 				text = "The ${major("Green Death")} Gene ${bad("kills Creepers")}."
 			)
+
+			textPage(text = "By default, brew Viral Agents with a Scare Creepers DNA Helix in an Incubator.")
 		}
 
 		book.entry(
@@ -67,6 +71,8 @@ object PlaguesPatchouliCategory {
 			textPage(
 				text = "The ${major("Un-Undeath")} Gene ${bad("kills the Undead")}."
 			)
+
+			textPage(text = "By default, brew Viral Agents with a Scare Skeletons or Scare Zombies DNA Helix in an Incubator.")
 		}
 
 		book.entry(
@@ -78,6 +84,8 @@ object PlaguesPatchouliCategory {
 			textPage(
 				text = "The ${major("White Death")} Gene ${bad("kills all Monsters")}."
 			)
+
+			textPage(text = "By default, brew Viral Agents with a Dragon Breath DNA Helix in an Incubator.")
 		}
 
 		book.entry(
@@ -101,6 +109,8 @@ object PlaguesPatchouliCategory {
 					"From there, simply brew that Syringe into a Potion of Viral Agents."
 				)
 			}
+
+			textPage(text = "By default, combine Viral Agents with every enabled negative Gene in an Incubator.")
 		}
 
 

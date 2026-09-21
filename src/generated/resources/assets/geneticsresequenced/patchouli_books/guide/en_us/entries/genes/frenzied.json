@@ -1,0 +1,16 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:iron_sword",
+  "name": "Frenzied",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Frenzied$() Gene makes a mob attack nearby creatures. Normally passive mobs deal 1.5 hearts. This Gene is for mobs only."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/12 - Zoglin",
+      "title": "Default Weights"
+    }
+  ]
+}

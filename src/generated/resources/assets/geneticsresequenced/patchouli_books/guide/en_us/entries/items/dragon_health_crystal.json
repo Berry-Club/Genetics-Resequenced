@@ -11,7 +11,7 @@
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:dragon_health_crystal",
       "link_recipe": true,
-      "text": "A fresh Dragon Health Crystal has $(9)1,000 durability$().$(br2)Each half-heart deals 1 point of durability damage.$(br2)It can be repaired with End Crystals."
+      "text": "A fresh Dragon Health Crystal has $(9)1,000 durability$().$(br2)Each half-heart deals 1 point of durability damage.$(br2)Only the first Crystal in your inventory is used. It can be repaired with Ghast Tears."
     }
   ],
   "sortnum": 10

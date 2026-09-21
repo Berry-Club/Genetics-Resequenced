@@ -11,6 +11,10 @@
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:dna_helix[geneticsresequenced:gene=\"geneticsresequenced:black_death\"]",
       "text": "To craft this DNA Helix, you'll have to get a full Syringe that has $(c)$(l)every other negative Gene$()$() in the game. This includes all the other plagues, but excludes any disabled Genes.$(br2)From there, simply brew that Syringe into a Potion of Viral Agents."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, combine Viral Agents with every enabled negative Gene in an Incubator."
     }
   ],
   "sortnum": 5

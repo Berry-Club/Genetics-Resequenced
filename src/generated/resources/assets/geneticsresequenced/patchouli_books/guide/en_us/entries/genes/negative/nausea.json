@@ -6,6 +6,10 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Nausea$() Gene gives entities the $(c)Nausea$() effect.$(br2)This Gene $(c)cannot be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, brew Viral Agents with a Milky, Meaty, or Lay Egg DNA Helix in an Incubator."
     }
   ]
 }

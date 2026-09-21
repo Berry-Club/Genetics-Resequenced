@@ -1,0 +1,16 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:egg",
+  "name": "Fertile",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "Each $(d)Fertile$() parent adds one extra child when breeding. Two Fertile parents produce three children total. This Gene is for mobs only."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/20 - Rabbit",
+      "title": "Default Weights"
+    }
+  ]
+}

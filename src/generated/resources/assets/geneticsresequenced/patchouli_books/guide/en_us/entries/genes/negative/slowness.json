@@ -6,6 +6,10 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Slowness$() Gene gives entities the $(c)Slowness$() effect.$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, brew Viral Agents with a Speed DNA Helix. Speed II makes Slowness IV; Speed IV makes Slowness VI."
     }
   ]
 }

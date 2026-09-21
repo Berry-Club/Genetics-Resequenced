@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Bioluminescence$() Gene causes entities to $(9)spawn light sources$() when in the dark.$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/12 - Blaze$(br)4/13 - Glow Squid$(br)4/12 - Magma Cube",
+      "title": "Default Weights"
     }
   ]
 }

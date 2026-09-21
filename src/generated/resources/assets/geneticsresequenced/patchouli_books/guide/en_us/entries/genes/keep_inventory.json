@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)Keep Inventory$() Gene causes players to $(9)keep their inventory upon death$().$(br2)This Gene $(c)cannot be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)1/6 - Endermite",
+      "title": "Default Weights"
     }
   ]
 }

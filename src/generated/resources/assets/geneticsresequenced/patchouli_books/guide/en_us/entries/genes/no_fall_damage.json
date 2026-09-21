@@ -6,6 +6,11 @@
     {
       "type": "patchouli:text",
       "text": "The $(d)No Fall Damage$() Gene $(9)negates all fall damage$().$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)1/10 - Chicken$(br)2/17 - Parrot$(br)4/16 - Slime",
+      "title": "Default Weights"
     }
   ]
 }

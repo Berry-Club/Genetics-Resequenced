@@ -10,6 +10,11 @@
     {
       "type": "patchouli:text",
       "text": "By default, this Gene requires $(l:geneticsresequenced:genes/thorns)Thorns$(/l)."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/13 - Mooshroom",
+      "title": "Default Weights"
     }
   ]
 }

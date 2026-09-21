@@ -5,7 +5,12 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)Claws$() Gene causes entities to have a chance to $(9)inflict Bleeding on empty-handed melee attacks$().$(br2)When mutated into Claws 2, the chance is doubled.$(br2)This Gene $(9)can be given to mobs$()."
+      "text": "The $(d)Claws$() Gene adds 4 hearts of unarmed damage and a 33% chance to inflict Bleeding on empty-handed hits.$(br2)Claws II adds another 4 hearts and raises the Bleeding chance to 66%. Bleeding deals half a heart each second.$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/16 - Polar Bear",
+      "title": "Default Weights"
     }
   ]
 }

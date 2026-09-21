@@ -5,7 +5,12 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)Fire Proof$() Gene makes entities $(9)completely immune to burning damage$().$(br2)This Gene $(9)can be given to mobs$()."
+      "text": "The $(d)Fire Proof$() Gene makes entities $(9)immune to fire damage$().$(br2)This Gene $(9)can be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "These are the default chances. Modpacks may change them.$(br2)1/12 - Blaze$(br)3/12 - Magma Cube$(br)4/11 - Strider$(br)3/11 - Zombified Piglin",
+      "title": "Default Weights"
     }
   ]
 }

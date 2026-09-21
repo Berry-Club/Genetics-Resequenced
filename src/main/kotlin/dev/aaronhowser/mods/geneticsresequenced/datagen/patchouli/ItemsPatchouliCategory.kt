@@ -88,7 +88,7 @@ object ItemsPatchouliCategory {
 			textPage(
 				text = doubleSpacedLines(
 					"The ${major("Scraper")} is used to get ${internalLink(organicMatter, "Organic Matter")} from mobs.",
-					"To use it, simply right-click the mob. This damages the mob, which counts as an attack and will anger neutral entities."
+					"Right-click a mob to scrape it, or sneak and right-click empty air to scrape yourself. Scraping damages and may anger the target."
 				)
 			)
 
@@ -252,6 +252,25 @@ object ItemsPatchouliCategory {
 		}
 
 		book.entry(
+			saveName = "metal_syringe",
+			category = bookCategory,
+			name = "Metal Syringe",
+			icon = ModItems.METAL_SYRINGE.get()
+		) {
+			textPage(
+				text = doubleSpacedLines(
+					"A ${major("Metal Syringe")} extracts blood from the entity you target instead of yourself.",
+					"Only that blood's owner can receive its Genes. While filled, the owner glows through walls."
+				)
+			)
+
+			spotlightPage(ModItems.METAL_SYRINGE.get()) {
+				linkRecipe = true
+				text = "Purify contaminated blood, add completed Plasmids in a Plasmid Injector, then hold right-click on the blood's owner to inject it."
+			}
+		}
+
+		book.entry(
 			saveName = "gene_checker",
 			category = bookCategory,
 			name = "Gene Checker",
@@ -265,7 +284,7 @@ object ItemsPatchouliCategory {
 
 			spotlightPage(ModItems.GENE_CHECKER.get()) {
 				linkRecipe = true
-				text = "If you're looking at an entity, its Genes will be listed. Otherwise, it'll list your own Genes instead."
+				text = "It shows both the target's current Genes and the Genes it can provide with their weights. If no entity is targeted, it checks you."
 			}
 		}
 
@@ -332,8 +351,45 @@ object ItemsPatchouliCategory {
 				text = doubleSpacedLines(
 					"A fresh Dragon Health Crystal has ${minor("1,000 durability")}.",
 					"Each half-heart deals 1 point of durability damage.",
-					"It can be repaired with End Crystals."
+					"Only the first Crystal in your inventory is used. It can be repaired with Ghast Tears."
 				)
+			}
+		}
+
+		book.entry(
+			saveName = "anti_plasmid",
+			category = bookCategory,
+			name = "Anti-Plasmid",
+			icon = ModItems.ANTI_PLASMID.get()
+		) {
+			textPage(
+				text = doubleSpacedLines(
+					"An ${major("Anti-Plasmid")} removes one unwanted Gene from its host.",
+					"Craft an empty Anti-Plasmid with a completed Plasmid to copy its Gene."
+				)
+			)
+
+			spotlightPage(ModItems.ANTI_PLASMID.get()) {
+				linkRecipe = true
+				text = "Add it to purified blood in the Plasmid Injector, then inject that blood into its owner."
+			}
+		}
+
+		book.entry(
+			saveName = "gmo_cell",
+			category = bookCategory,
+			name = "GMO Cell",
+			icon = ModItems.GMO_CELL.get()
+		) {
+			textPage(
+				text = doubleSpacedLines(
+					"A ${major("GMO Cell")} already has a known Gene, skipping random DNA Decryption.",
+					"Make one from a typed Potion of Cell Growth or Mutation in a low-temperature Advanced Incubator. Each recipe has its own success chance."
+				)
+			)
+
+			spotlightPage(ModItems.GMO_CELL.get()) {
+				text = "Process it in a DNA Extractor to get a DNA Helix with its Gene already revealed. Recipe viewers show the available combinations."
 			}
 		}
 
