@@ -1,10 +1,10 @@
-// 1.21.1	2026-09-21T10:32:01.2452787	Patchouli Book: guide
-897049de2f7d460fe62de063f8ae1131a7f5d8c6 assets/geneticsresequenced/patchouli_books/guide/en_us/categories/blocks.json
-e830f557301d6f4cc4c5a18d42e24bce26d9809e assets/geneticsresequenced/patchouli_books/guide/en_us/categories/genes.json
-3d9b1ce6f21027e82f88af181703d7e7e72c777d assets/geneticsresequenced/patchouli_books/guide/en_us/categories/genes/negative.json
-afc6734b4a52f0e100aa5be00102aaf9f9b76c2f assets/geneticsresequenced/patchouli_books/guide/en_us/categories/genes/plague.json
-6012f4fdf357ffc004e2377582f0d2adbac8d779 assets/geneticsresequenced/patchouli_books/guide/en_us/categories/intro.json
-f5bc39b48f3eb2c76c27abc3a8a0c5233dcd29ae assets/geneticsresequenced/patchouli_books/guide/en_us/categories/items.json
+// 1.21.1	2026-09-21T10:59:00.8190019	Patchouli Book: guide
+cac9f7a01831f458d1bc244fa3dda60c6fdb83b1 assets/geneticsresequenced/patchouli_books/guide/en_us/categories/blocks.json
+d66fb8b49059aea6c58760b2ae4d4c2719474605 assets/geneticsresequenced/patchouli_books/guide/en_us/categories/genes.json
+08e6b5018a3eda9e1fa6a4392fed66d815888c33 assets/geneticsresequenced/patchouli_books/guide/en_us/categories/genes/negative.json
+92e85defe71529e8efc3946387b4656608fff126 assets/geneticsresequenced/patchouli_books/guide/en_us/categories/genes/plague.json
+7a7ada6f7471e08cc0eb6d7a564795385c30ecbe assets/geneticsresequenced/patchouli_books/guide/en_us/categories/intro.json
+f152b9e59133eb6503380df4f71d6cac7e13f545 assets/geneticsresequenced/patchouli_books/guide/en_us/categories/items.json
 baf26d72b4b9e3af5494847425376348075717f8 assets/geneticsresequenced/patchouli_books/guide/en_us/entries/blocks/anti_field_block.json
 779bd8ceb533cef4c8da48a286fb2a0f768f12f0 assets/geneticsresequenced/patchouli_books/guide/en_us/entries/blocks/blood_purifier.json
 2a931f9207209775f21aeebfda85e14cb3903893 assets/geneticsresequenced/patchouli_books/guide/en_us/entries/blocks/cell_analyzer.json

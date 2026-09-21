@@ -3,5 +3,5 @@
   "description": "Plagues are a special type of negative Gene that $(c)kills$() the host.",
   "icon": "minecraft:wither_skeleton_skull",
   "name": "Plagues",
-  "sort_num": 0
+  "sortnum": 0
 }

@@ -3,5 +3,5 @@
   "description": "All the negative Genes in the mod$(br2)Negative Genes are always lost on death, and there's a config to prevent Players from getting them.",
   "icon": "geneticsresequenced:anti_plasmid",
   "name": "Negative Genes",
-  "sort_num": 0
+  "sortnum": 0
 }

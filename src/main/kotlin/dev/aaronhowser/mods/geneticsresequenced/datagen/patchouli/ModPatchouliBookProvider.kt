@@ -34,14 +34,14 @@ class ModPatchouliBookProvider(
 		version = "2"
 		creativeTab = "geneticsresequenced:creative_tab"
 		showProgress = false
-		bookTexture = ResourceLocation.parse("patchouli:textures/gui/book_gray.png")
+		bookTexture = ResourceLocation.fromNamespaceAndPath("patchouli", "textures/gui/book_gray.png")
 
+		GettingStartedPatchouliCategory.generate(this, registries)
 		BlocksPatchouliCategory.generate(this, registries)
+		ItemsPatchouliCategory.generate(this, registries)
 		GenesPatchouliCategory.generate(this, registries)
 		NegativeGenesPatchouliCategory.generate(this, registries)
 		PlaguesPatchouliCategory.generate(this, registries)
-		GettingStartedPatchouliCategory.generate(this, registries)
-		ItemsPatchouliCategory.generate(this, registries)
 	}
 
 	companion object {
