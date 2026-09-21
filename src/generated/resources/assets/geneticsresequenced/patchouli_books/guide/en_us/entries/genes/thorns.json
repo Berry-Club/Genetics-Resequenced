@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:cactus",
+  "name": "Thorns",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Thorns$() Gene gives entities a chance to $(9)damage melee attackers$(). This uses up some hunger.$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

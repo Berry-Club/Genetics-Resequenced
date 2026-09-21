@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:grass_block",
+  "name": "Eat Grass",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Eat Grass$() Gene allows players to $(9)right-click Grass Blocks to regain hunger$().$(br2)This Gene $(c)cannot be given to mobs$()."
+    }
+  ]
+}

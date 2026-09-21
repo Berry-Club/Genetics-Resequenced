@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:milk_bucket",
+  "name": "Milky",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Milky$() Gene allows the entity to be $(9)milked with a Bucket$(). If a player has it, they can $(9)milk themselves$() by sneak right-clicking with a Bucket.$(br2)This has a configurable cooldown, with the default being 1 tick.$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

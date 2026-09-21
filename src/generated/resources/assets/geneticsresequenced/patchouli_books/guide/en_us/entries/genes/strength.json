@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:potion",
+  "name": "Strength",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Strength$() Gene gives entities the $(9)Strength effect$().$(br2)This Gene can be $(9)mutated into Strength 2$().$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

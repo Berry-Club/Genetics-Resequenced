@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:bread",
+  "name": "No Hunger",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)No Hunger$() Gene $(9)prevents your hunger from draining$() below a configurable point, which defaults to half..$(br2)This Gene $(c)cannot be given to mobs$()."
+    }
+  ]
+}

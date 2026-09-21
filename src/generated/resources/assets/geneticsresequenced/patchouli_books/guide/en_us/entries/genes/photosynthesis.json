@@ -1,0 +1,15 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:sunflower",
+  "name": "Photosynthesis",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Photosynthesis$() Gene $(9)feeds the player when they're in direct sunlight$().$(br2)This Gene $(c)cannot be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, this Gene requires $(l:geneticsresequenced:genes/thorns)Thorns/$."
+    }
+  ]
+}

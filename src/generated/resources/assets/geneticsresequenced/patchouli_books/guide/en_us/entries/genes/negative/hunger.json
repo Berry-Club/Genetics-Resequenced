@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:potion",
+  "name": "Hunger",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Hunger$() Gene gives entities the $(c)Hunger$() effect.$(br2)This Gene $(c)cannot be given to mobs$()."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:potion",
+  "name": "Night Vision",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Night Vision$() Gene gives entities the $(9)Night Vision effect$().$(br2)This Gene $(c)cannot be given to mobs$()."
+    }
+  ]
+}

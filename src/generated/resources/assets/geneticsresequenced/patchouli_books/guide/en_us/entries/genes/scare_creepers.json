@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:creeper_head",
+  "name": "Scare Creepers",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Scare Creepers$() Gene makes it so that $(9)Creepers will run away from you$().$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

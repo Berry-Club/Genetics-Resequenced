@@ -1,0 +1,18 @@
+{
+  "category": "geneticsresequenced:blocks",
+  "icon": "geneticsresequenced:cell_analyzer",
+  "name": "Cell Analyzer",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Cell Analyzer$() uses FE to convert $(l:geneticsresequenced:items/organic_matter)Organic Matter/$ into $(l:geneticsresequenced:items/cell)Cells/$."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:cell_analyzer",
+      "link_recipe": true,
+      "text": ""
+    }
+  ],
+  "sortnum": 2
+}

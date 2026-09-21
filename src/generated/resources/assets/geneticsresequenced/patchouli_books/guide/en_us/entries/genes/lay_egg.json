@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:egg",
+  "name": "Lay Egg",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Lay Egg$() Gene causes entities to $(9)spawn an Egg$() every so often.$(br2)This time is configurable, but defaults to once every 5 minutes. $(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

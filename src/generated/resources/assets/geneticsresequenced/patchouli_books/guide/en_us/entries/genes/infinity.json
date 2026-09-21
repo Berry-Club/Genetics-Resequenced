@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:bow",
+  "name": "Infinity",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Infinity$() Gene allows players to $(9)fire Arrows when none are in their inventory$().$(br2)This Gene $(c)cannot be given to mobs$()."
+    }
+  ]
+}

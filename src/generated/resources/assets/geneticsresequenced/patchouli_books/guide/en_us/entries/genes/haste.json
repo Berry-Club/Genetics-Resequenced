@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:potion",
+  "name": "Haste",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Haste$() Gene gives entities the $(9)Haste effect$().$(br2)Can be mutated into Haste 2.$(br2)This Gene $(c)cannot be given to mobs$()."
+    }
+  ]
+}

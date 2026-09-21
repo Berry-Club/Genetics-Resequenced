@@ -1,0 +1,18 @@
+{
+  "category": "geneticsresequenced:blocks",
+  "icon": "geneticsresequenced:dna_extractor",
+  "name": "DNA Extractor",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)DNA Extractor$() uses FE to convert $(l:geneticsresequenced:items/cell)Cells/$ into encrypted $(l:geneticsresequenced:items/dna_helix)DNA Helices/$."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:dna_extractor",
+      "link_recipe": true,
+      "text": ""
+    }
+  ],
+  "sortnum": 3
+}

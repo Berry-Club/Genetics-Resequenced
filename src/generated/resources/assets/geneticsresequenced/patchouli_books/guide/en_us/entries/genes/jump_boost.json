@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:potion",
+  "name": "Jump Boost",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Jump Boost$() Gene gives entities the $(9)Jump Boost effect$().$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

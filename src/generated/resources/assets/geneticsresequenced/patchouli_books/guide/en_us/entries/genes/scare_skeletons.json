@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:skeleton_skull",
+  "name": "Scare Skeletons",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Scare Skeletons$() Gene makes it so that $(9)Skeletons will run away from you$().$(br2)This Gene $(9)can be given to mobs$().."
+    }
+  ]
+}

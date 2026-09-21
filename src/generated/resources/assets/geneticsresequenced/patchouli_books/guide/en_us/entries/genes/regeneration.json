@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:potion",
+  "name": "Regeneration",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Regeneration$() Gene gives entities the $(9)Regeneration effect$().$(br2)Can be mutated into Regeneration 4.$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:wither_rose",
+  "name": "Wither Hit",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Wither Hit$() Gene causes entities to $(9)inflict Wither when melee attacking$().$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

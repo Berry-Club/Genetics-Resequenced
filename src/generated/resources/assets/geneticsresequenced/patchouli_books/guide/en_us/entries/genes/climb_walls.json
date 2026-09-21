@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:string",
+  "name": "Climb Walls",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Climb Walls$() Gene allows players to $(9)climb walls$().$(br2)This Gene $(c)cannot be given to mobs$()."
+    }
+  ]
+}

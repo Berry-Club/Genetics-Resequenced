@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:iron_axe",
+  "name": "Johnny",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Johnny$() Gene $(9)increases your attack damage when using Axes$().$(br2)This gene $(9)can be given to mobs$()."
+    }
+  ]
+}

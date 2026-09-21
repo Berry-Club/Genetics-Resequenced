@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:cobblestone_stairs",
+  "name": "Step Assist",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Step Assist$() Gene allows players to $(9)walk up single blocks$() as if they were stairs.$(br2)This Gene $(c)cannot be given to mobs$()."
+    }
+  ]
+}

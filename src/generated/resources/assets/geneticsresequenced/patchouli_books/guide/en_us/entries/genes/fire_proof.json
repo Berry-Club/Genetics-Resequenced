@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:flint_and_steel",
+  "name": "Fire Proof",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Fire Proof$() Gene makes entities $(9)completely immune to burning damage$().$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

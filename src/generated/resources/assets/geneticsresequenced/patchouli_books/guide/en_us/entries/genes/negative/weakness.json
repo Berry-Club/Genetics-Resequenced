@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:potion",
+  "name": "Weakness",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Weakness$() Gene gives entities the $(c)Weakness$() effect.$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:powder_snow_bucket",
+  "name": "Chilling",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Chilling$() Gene makes your melee attacks have a chance of $(9)inflicting a buildup of Freezing$().$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

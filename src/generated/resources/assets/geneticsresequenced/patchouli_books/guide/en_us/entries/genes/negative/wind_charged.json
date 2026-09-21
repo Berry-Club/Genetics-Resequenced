@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:potion",
+  "name": "Wind Charged",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Wind Charged$() Gene gives entities the $(c)Wind Charged$() effect.$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

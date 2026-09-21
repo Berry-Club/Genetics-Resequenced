@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes/plague",
+  "icon": "minecraft:zombie_head",
+  "name": "Un-Undeath",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Un-Undeath$() Gene $(c)kills the Undead$()."
+    }
+  ]
+}

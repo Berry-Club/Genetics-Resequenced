@@ -1,0 +1,15 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:porkchop",
+  "name": "Meaty",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Meaty$() Gene allows the entity to be $(9)Sheared for a Raw Porkchop$().$(br2)If a player has it, they can $(9)shear themselves$() by sneak right-clicking with Shears.$(br2)This has a configurable cooldown, with the default being 1 minute."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "This can be mutated into Meaty 2, which causes the entity to spawn a Cooked Porkchop once every 5 minutes.$(br2)Both Meaty and Meaty 2 $(9)can be given to mobs$()."
+    }
+  ]
+}

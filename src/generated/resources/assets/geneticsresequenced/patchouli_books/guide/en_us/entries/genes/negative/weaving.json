@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:potion",
+  "name": "Weaving",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Weaving$() Gene gives entities the $(c)Weaving$() effect.$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:potion",
+  "name": "Water Breathing",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Water Breathing$() Gene gives entities the $(9)Water Breathing effect$().$(br2).$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:potion",
+  "name": "Nausea",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Nausea$() Gene gives entities the $(c)Nausea$() effect.$(br2)This Gene $(c)cannot be given to mobs$()."
+    }
+  ]
+}

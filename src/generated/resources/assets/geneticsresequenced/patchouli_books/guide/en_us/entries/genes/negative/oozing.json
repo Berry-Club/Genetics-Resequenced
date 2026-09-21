@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:potion",
+  "name": "Oozing",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Oozing$() Gene gives entities the $(c)Oozing$() effect.$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

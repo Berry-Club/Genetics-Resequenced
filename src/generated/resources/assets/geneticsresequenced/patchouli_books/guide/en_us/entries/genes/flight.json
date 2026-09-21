@@ -1,0 +1,15 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:elytra",
+  "name": "Flight",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Flight$() Gene $(9)allows players to fly$() by double-tapping jump.$(br2)This Gene $(c)cannot be given to mobs$()."
+    },
+    {
+      "type": "patchouli:text",
+      "text": "By default, this Gene requires the following other Genes:$(li)$(l:geneticsresequenced:genes/teleport)Teleport/$$(li)$(l:geneticsresequenced:genes/step_assist)Step Assist/$$(li)$(l:geneticsresequenced:genes/no_fall_damage)No Fall Damage/$"
+    }
+  ]
+}

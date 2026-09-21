@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:potion",
+  "name": "Blindness",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Blindness$() Gene gives entities the $(c)Blindness$() effect.$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:feather",
+  "name": "No Fall Damage",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)No Fall Damage$() Gene $(9)negates all fall damage$().$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

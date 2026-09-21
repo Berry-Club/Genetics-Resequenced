@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:piston",
+  "name": "Knockback",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Knockback$() Gene $(9)increases your attack knockback$().$(br2)This gene $(c)cannot be given to mobs$()."
+    }
+  ]
+}

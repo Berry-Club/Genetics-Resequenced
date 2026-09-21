@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:stone_sword",
+  "name": "Claws",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Claws$() Gene causes entities to have a chance to $(9)inflict Bleeding on empty-handed melee attacks$().$(br2)When mutated into Claws 2, the chance is doubled.$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

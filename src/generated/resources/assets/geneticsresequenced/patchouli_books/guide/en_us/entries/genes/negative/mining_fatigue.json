@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:potion",
+  "name": "Mining Fatigue",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Mining Fatigue$() Gene gives entities the $(c)Mining Fatigue$() effect.$(br2)This Gene $(c)cannot be given to mobs$()."
+    }
+  ]
+}

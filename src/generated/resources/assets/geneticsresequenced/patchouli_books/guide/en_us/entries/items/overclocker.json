@@ -1,0 +1,18 @@
+{
+  "category": "geneticsresequenced:items",
+  "icon": "geneticsresequenced:overclocker",
+  "name": "Overclocker",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Overclocker$() can be inserted into most of the mod's machines to $(9)massively increase their speed$().$(br2)Each Overclocker doubles the speed, but increases the power draw by a quarter."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:overclocker",
+      "link_recipe": true,
+      "text": "You can have $(9)up to 8 Overclockers$() in a machine."
+    }
+  ],
+  "sortnum": 8
+}

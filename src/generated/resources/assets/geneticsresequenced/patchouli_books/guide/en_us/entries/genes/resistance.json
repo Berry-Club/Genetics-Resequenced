@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:potion",
+  "name": "Resistance",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Resistance$() Gene gives entities the $(9)Resistance effect$().$(br2)This Gene can be $(9)mutated into Resistance 2$().$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

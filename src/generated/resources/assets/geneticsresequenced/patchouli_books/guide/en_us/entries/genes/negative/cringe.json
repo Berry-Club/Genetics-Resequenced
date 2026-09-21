@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:player_head",
+  "name": "Cringe",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Cringe$() Gene $(c)uwufies your chat messages$(), and sets your language to LOLCAT.$(br2)That second feature can be disabled in the client config.$(br2)This Gene $(c)cannot be given to mobs$()."
+    }
+  ]
+}

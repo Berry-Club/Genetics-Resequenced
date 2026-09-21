@@ -1,0 +1,31 @@
+{
+  "category": "geneticsresequenced:items",
+  "icon": "geneticsresequenced:dna_helix",
+  "name": "DNA Helix",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "$(d)DNA Helices$() contain genetic information. This can be either in the form of a $(l:geneticsresequenced:genes)Gene/$, or an $(9)Entity$().$(br2)Freshly crafted, a DNA Helix contains only the Entity that the DNA came from."
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:dna_helix[geneticsresequenced:entity_type=\"minecraft:cow\"]",
+      "link_recipe": true,
+      "text": "This DNA Helix contains the genetic information of a $(9)Cow$(), but the actual Gene it has is $(c)unknown$(). To decrypt it, you'll need to pass it through a $(l:geneticsresequenced:blocks/dna_decryptor)DNA Decryptor/$.",
+      "title": "Encrypted DNA Helix"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:dna_helix[geneticsresequenced:gene=\"geneticsresequenced:milky\"]",
+      "text": "This DNA Helix has been decrypted, and now we can see it contains the $(l:geneticsresequenced:genes/milky)Milky/$ Gene.",
+      "title": "Decrypted DNA Helix"
+    },
+    {
+      "type": "patchouli:spotlight",
+      "item": "geneticsresequenced:dna_helix[geneticsresequenced:gene=\"geneticsresequenced:basic\"]",
+      "text": "DNA Helices have a chance of being $(9)Basic$(). This means that they $(c)don't contain any Gene$(), but they can still contribute to $(l:geneticsresequenced:items/plasmid)Plasmids/$.",
+      "title": "Basic Gene"
+    }
+  ],
+  "sortnum": 4
+}

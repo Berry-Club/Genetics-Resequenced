@@ -1,0 +1,9 @@
+{
+  "book_texture": "patchouli:textures/gui/book_gray.png",
+  "creative_tab": "geneticsresequenced:creative_tab",
+  "landing_text": "book.geneticsresequenced.landing_text",
+  "name": "item.geneticsresequenced.guide_book",
+  "show_progress": false,
+  "use_resource_pack": true,
+  "version": "2"
+}

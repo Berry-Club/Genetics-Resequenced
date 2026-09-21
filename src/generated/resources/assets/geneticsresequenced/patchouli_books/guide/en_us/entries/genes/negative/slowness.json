@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:potion",
+  "name": "Slowness",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Slowness$() Gene gives entities the $(c)Slowness$() effect.$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

@@ -12,6 +12,7 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.loot.ModLootTableProvide
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModBlockStateProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.model.ModItemModelProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.modonomicon.ModModonomiconProvider
+import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.recipe.ModRecipeProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.*
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
@@ -56,6 +57,11 @@ object ModDataGen {
 		generator.addProvider(
 			event.includeClient(),
 			ModBlockStateProvider(output, existingFileHelper)
+		)
+
+		generator.addProvider(
+			event.includeClient(),
+			ModPatchouliBookProvider(generator, lookupWithDatapack.get())
 		)
 
 		generator.addProvider(

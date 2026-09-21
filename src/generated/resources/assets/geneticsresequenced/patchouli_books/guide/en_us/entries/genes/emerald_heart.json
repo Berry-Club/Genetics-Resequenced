@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:emerald",
+  "name": "Emerald Heart",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Emerald Heart$() Gene causes entities to $(9)drop an Emerald upon death$().$(br2)For players, this has a configurable cooldown, with the default being 60 seconds.$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes/negative",
+  "icon": "minecraft:potion",
+  "name": "Poison",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Poison$() Gene gives entities the $(c)Poison$() effect.$(br2)This Gene $(9)can be given to mobs$()."
+    }
+  ]
+}

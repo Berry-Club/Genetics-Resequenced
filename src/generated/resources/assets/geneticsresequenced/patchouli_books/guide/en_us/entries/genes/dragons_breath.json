@@ -1,0 +1,11 @@
+{
+  "category": "geneticsresequenced:genes",
+  "icon": "minecraft:dragon_egg",
+  "name": "Dragon's Breath",
+  "pages": [
+    {
+      "type": "patchouli:text",
+      "text": "The $(d)Dragon's Breath$() Gene allows players to $(9)shoot a dragon fireball$() when the Dragon's Breath key (currently bound to $(k:key.geneticsresequenced.dragons_breath)) is used.$(br2)This has a configurable cooldown, with the default being 15 seconds.$(br2)This Gene $(c)cannot be given to mobs$()."
+    }
+  ]
+}
