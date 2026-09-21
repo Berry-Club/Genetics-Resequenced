@@ -198,16 +198,16 @@ dependencies {
 	boolean useEmi = false
 
 	compileOnly "dev.emi:emi-neoforge:${emi_version}:api"
+	compileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
+
 	if (useEmi) {
 		runtimeOnly "dev.emi:emi-neoforge:${emi_version}"
-	}
-
-	compileOnly("mezz.jei:jei-${mc_version}-neoforge-api:${jei_version}")
-	if (!useEmi) {
+	} else {
 		runtimeOnly("mezz.jei:jei-${mc_version}-neoforge:${jei_version}")
 	}
 
-	compileOnly "dev.aaronhowser.mods:patchoulidatagen-${pdg_version}"
+
+	compileOnly "dev.aaronhowser.mods:patchoulidatagen-1.21.1:${pdg_version}"
 	implementation "dev.aaronhowser.mods:aaron-1.21.1:${aaron_lib_version}"
 
 	runtimeOnly "org.sinytra:item-asset-export-neoforge:1.0.2+1.21"
