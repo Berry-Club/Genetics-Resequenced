@@ -12,17 +12,14 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.doubleSpacedLines
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBook
-import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.doubleSpacedLines
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBookCategory
-import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.doubleSpacedLines
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBookEntry
-import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.italic
+import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.doubleSpacedLines
 import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.internalLink
+import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.italic
 import net.minecraft.core.HolderLookup
 import net.minecraft.world.entity.EntityType
-import net.minecraft.world.item.Items
 
 object ItemsPatchouliCategory {
 

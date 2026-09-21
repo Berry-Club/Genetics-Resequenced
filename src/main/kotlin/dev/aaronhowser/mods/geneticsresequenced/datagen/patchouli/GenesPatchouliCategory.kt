@@ -6,15 +6,13 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBo
 import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.minor
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.doubleSpacedLines
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBook
-import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.doubleSpacedLines
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBookCategory
-import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.doubleSpacedLines
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBookEntry
+import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.doubleSpacedLines
+import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.internalLink
 import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.keybind
 import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.list
-import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.internalLink
 import net.minecraft.core.HolderLookup
 import net.minecraft.world.effect.MobEffects
 import net.minecraft.world.item.Items
@@ -84,7 +82,7 @@ object GenesPatchouliCategory {
 		) {
 			textPage(
 				text = doubleSpacedLines(
-					"The ${major("Basic")} Gene is filler DNA and ${bad("cannot be injected") }.",
+					"The ${major("Basic")} Gene is filler DNA and ${bad("cannot be injected")}.",
 					"In the ${internalLink(BlocksPatchouliCategory.plasmidInfuser, "Plasmid Infuser")}, Basic Helices contribute 1 DNA Point. Mobs without a listed Gene pool always provide Basic."
 				)
 			)

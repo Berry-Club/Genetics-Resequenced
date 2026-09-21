@@ -1,8 +1,8 @@
 package dev.aaronhowser.mods.geneticsresequenced
 
+import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.GeneticsJsEventHandler
 import dev.aaronhowser.mods.geneticsresequenced.config.ClientConfig
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.compatibility.kubejs.GeneticsJsEventHandler
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModRegistries
 import net.minecraft.resources.ResourceLocation
 import net.neoforged.api.distmarker.Dist
