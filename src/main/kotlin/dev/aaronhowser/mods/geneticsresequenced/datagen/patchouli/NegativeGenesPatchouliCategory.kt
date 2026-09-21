@@ -1,257 +1,282 @@
 package dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli
 
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
-import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.activeAntiFieldOrb
 import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.bad
-import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.entityStack
-import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.geneStack
-import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.gmoCellStack
 import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.major
 import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.minor
-import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.pageLink
-import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.plasmidStack
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
+import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.doubleSpacedLines
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBook
+import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.doubleSpacedLines
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBookCategory
 import net.minecraft.core.HolderLookup
-import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Items
 
-class NegativeGenesPatchouliCategory(
-	private val registries: HolderLookup.Provider
-) {
+object NegativeGenesPatchouliCategory {
 
-	private lateinit var category: PatchouliBookCategory
+	private lateinit var registries: HolderLookup.Provider
 
-	fun generate(book: PatchouliBook) {
-		category = book.category(
+	lateinit var bookCategory: PatchouliBookCategory
+		private set
+
+	fun generate(book: PatchouliBook, registries: HolderLookup.Provider) {
+		this.registries = registries
+		bookCategory = book.category(
 			saveName = "genes/negative",
 			name = "Negative Genes",
-			description = "All the negative Genes in the mod\$(br2)Negative Genes are always lost on death, and there's a config to prevent Players from getting them.",
+			description = doubleSpacedLines(
+				"All the negative Genes in the mod",
+				"Negative Genes are always lost on death, and there's a config to prevent Players from getting them."
+			),
 			icon = ModItems.ANTI_PLASMID.get(),
-			parent = GenesPatchouliCategory.BOOK_CATEGORY
+			parent = GenesPatchouliCategory.bookCategory
 		) {
 			sortNumber = 0
 		}
 
-		BOOK_CATEGORY = category
-
-		book.addEntries()
+		addEntries(book)
 	}
 
-	private fun PatchouliBook.addEntries() {
-		entry(
+	private fun addEntries(book: PatchouliBook) {
+		book.entry(
 			saveName = "bad_omen",
-			category = category,
+			category = bookCategory,
 			name = "Bad Omen",
 			icon = Items.POTION
 		) {
 			textPage(
-				text = "The ${major("Bad Omen")} Gene gives entities the ${bad("Bad Omen")} effect.\$(br2)This Gene ${minor("can be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Bad Omen")} Gene gives entities the ${bad("Bad Omen")} effect.",
+					"This Gene ${minor("can be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = BLINDNESS.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "blindness",
+			category = bookCategory,
 			name = "Blindness",
 			icon = Items.POTION
 		) {
 			textPage(
-				text = "The ${major("Blindness")} Gene gives entities the ${bad("Blindness")} effect.\$(br2)This Gene ${minor("can be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Blindness")} Gene gives entities the ${bad("Blindness")} effect.",
+					"This Gene ${minor("can be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = CRINGE.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "cringe",
+			category = bookCategory,
 			name = "Cringe",
 			icon = Items.PLAYER_HEAD
 		) {
 			textPage(
-				text = "The ${major("Cringe")} Gene ${bad("uwufies your chat messages")}, and sets your language to LOLCAT.\$(br2)That second feature can be disabled in the client config.\$(br2)This Gene ${bad("cannot be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Cringe")} Gene ${bad("uwufies your chat messages")}, and sets your language to LOLCAT.",
+					"That second feature can be disabled in the client config.",
+					"This Gene ${bad("cannot be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = CURSED.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "cursed",
+			category = bookCategory,
 			name = "Cursed",
 			icon = Items.POTION
 		) {
 			textPage(
-				text = "The ${major("Cursed")} Gene gives entities the ${bad("Bad Luck")} effect.\$(br2)This Gene ${minor("can be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Cursed")} Gene gives entities the ${bad("Bad Luck")} effect.",
+					"This Gene ${minor("can be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = FLAMBE.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "flambe",
+			category = bookCategory,
 			name = "Flambé",
 			icon = Items.BLAZE_POWDER
 		) {
 			textPage(
-				text = "The ${major("Flambé")} Gene ${bad("constantly lights entities on fire")}.\$(br2)This Gene ${minor("can be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Flambé")} Gene ${bad("constantly lights entities on fire")}.",
+					"This Gene ${minor("can be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = HUNGER.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "hunger",
+			category = bookCategory,
 			name = "Hunger",
 			icon = Items.POTION
 		) {
 			textPage(
-				text = "The ${major("Hunger")} Gene gives entities the ${bad("Hunger")} effect.\$(br2)This Gene ${bad("cannot be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Hunger")} Gene gives entities the ${bad("Hunger")} effect.",
+					"This Gene ${bad("cannot be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = INFESTED.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "infested",
+			category = bookCategory,
 			name = "Infested",
 			icon = Items.POTION
 		) {
 			textPage(
-				text = "The ${major("Infested")} Gene gives entities the ${bad("Infested")} effect.\$(br2)This Gene ${minor("can be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Infested")} Gene gives entities the ${bad("Infested")} effect.",
+					"This Gene ${minor("can be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = LEVITATION.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "levitation",
+			category = bookCategory,
 			name = "Levitation",
 			icon = Items.POTION
 		) {
 			textPage(
-				text = "The ${major("Levitation")} Gene gives entities the ${bad("Levitation")} effect.\$(br2)This Gene ${minor("can be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Levitation")} Gene gives entities the ${bad("Levitation")} effect.",
+					"This Gene ${minor("can be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = MINING_FATIGUE.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "mining_fatigue",
+			category = bookCategory,
 			name = "Mining Fatigue",
 			icon = Items.POTION
 		) {
 			textPage(
-				text = "The ${major("Mining Fatigue")} Gene gives entities the ${bad("Mining Fatigue")} effect.\$(br2)This Gene ${bad("cannot be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Mining Fatigue")} Gene gives entities the ${bad("Mining Fatigue")} effect.",
+					"This Gene ${bad("cannot be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = NAUSEA.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "nausea",
+			category = bookCategory,
 			name = "Nausea",
 			icon = Items.POTION
 		) {
 			textPage(
-				text = "The ${major("Nausea")} Gene gives entities the ${bad("Nausea")} effect.\$(br2)This Gene ${bad("cannot be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Nausea")} Gene gives entities the ${bad("Nausea")} effect.",
+					"This Gene ${bad("cannot be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = OOZING.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "oozing",
+			category = bookCategory,
 			name = "Oozing",
 			icon = Items.POTION
 		) {
 			textPage(
-				text = "The ${major("Oozing")} Gene gives entities the ${bad("Oozing")} effect.\$(br2)This Gene ${minor("can be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Oozing")} Gene gives entities the ${bad("Oozing")} effect.",
+					"This Gene ${minor("can be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = POISON.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "poison",
+			category = bookCategory,
 			name = "Poison",
 			icon = Items.POTION
 		) {
 			textPage(
-				text = "The ${major("Poison")} Gene gives entities the ${bad("Poison")} effect.\$(br2)This Gene ${minor("can be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Poison")} Gene gives entities the ${bad("Poison")} effect.",
+					"This Gene ${minor("can be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = SLOWNESS.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "slowness",
+			category = bookCategory,
 			name = "Slowness",
 			icon = Items.POTION
 		) {
 			textPage(
-				text = "The ${major("Slowness")} Gene gives entities the ${bad("Slowness")} effect.\$(br2)This Gene ${minor("can be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Slowness")} Gene gives entities the ${bad("Slowness")} effect.",
+					"This Gene ${minor("can be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = WEAKNESS.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "weakness",
+			category = bookCategory,
 			name = "Weakness",
 			icon = Items.POTION
 		) {
 			textPage(
-				text = "The ${major("Weakness")} Gene gives entities the ${bad("Weakness")} effect.\$(br2)This Gene ${minor("can be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Weakness")} Gene gives entities the ${bad("Weakness")} effect.",
+					"This Gene ${minor("can be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = WEAVING.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "weaving",
+			category = bookCategory,
 			name = "Weaving",
 			icon = Items.POTION
 		) {
 			textPage(
-				text = "The ${major("Weaving")} Gene gives entities the ${bad("Weaving")} effect.\$(br2)This Gene ${minor("can be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Weaving")} Gene gives entities the ${bad("Weaving")} effect.",
+					"This Gene ${minor("can be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = WIND_CHARGED.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "wind_charged",
+			category = bookCategory,
 			name = "Wind Charged",
 			icon = Items.POTION
 		) {
 			textPage(
-				text = "The ${major("Wind Charged")} Gene gives entities the ${bad("Wind Charged")} effect.\$(br2)This Gene ${minor("can be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Wind Charged")} Gene gives entities the ${bad("Wind Charged")} effect.",
+					"This Gene ${minor("can be given to mobs")}."
+				)
 			)
 		}
 
-		entry(
-			saveName = WITHER.localSaveName,
-			category = category,
+		book.entry(
+			saveName = "wither",
+			category = bookCategory,
 			name = "Wither",
 			icon = Items.POTION
 		) {
 			textPage(
-				text = "The ${major("Wither")} Gene gives entities the ${bad("Wither")} effect.\$(br2)This Gene ${minor("can be given to mobs")}."
+				text = doubleSpacedLines(
+					"The ${major("Wither")} Gene gives entities the ${bad("Wither")} effect.",
+					"This Gene ${minor("can be given to mobs")}."
+				)
 			)
 		}
+
+
 	}
 
-	companion object {
-
-		lateinit var BOOK_CATEGORY: PatchouliBookCategory
-			private set
-
-		val CATEGORY = PatchouliBookReference("genes/negative")
-		val BLINDNESS = PatchouliBookReference("genes/negative/blindness")
-		val CRINGE = PatchouliBookReference("genes/negative/cringe")
-		val CURSED = PatchouliBookReference("genes/negative/cursed")
-		val FLAMBE = PatchouliBookReference("genes/negative/flambe")
-		val HUNGER = PatchouliBookReference("genes/negative/hunger")
-		val INFESTED = PatchouliBookReference("genes/negative/infested")
-		val LEVITATION = PatchouliBookReference("genes/negative/levitation")
-		val MINING_FATIGUE = PatchouliBookReference("genes/negative/mining_fatigue")
-		val NAUSEA = PatchouliBookReference("genes/negative/nausea")
-		val OOZING = PatchouliBookReference("genes/negative/oozing")
-		val POISON = PatchouliBookReference("genes/negative/poison")
-		val SLOWNESS = PatchouliBookReference("genes/negative/slowness")
-		val WEAKNESS = PatchouliBookReference("genes/negative/weakness")
-		val WEAVING = PatchouliBookReference("genes/negative/weaving")
-		val WIND_CHARGED = PatchouliBookReference("genes/negative/wind_charged")
-		val WITHER = PatchouliBookReference("genes/negative/wither")
-	}
 }

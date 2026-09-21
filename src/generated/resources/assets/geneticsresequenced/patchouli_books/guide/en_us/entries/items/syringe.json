@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)Syringe$() is used to $(9)extract and inject blood$(). Simply hold right-click, and the process will end automatically.$(br2)The reason you'd $(o)want/$ to extract blood is that that's what carries completed $(l:geneticsresequenced:items/plasmid)Plasmids$(/l) back into your body."
+      "text": "The $(d)Syringe$() is used to $(9)extract and inject blood$(). Simply hold right-click, and the process will end automatically.$(br2)The reason you'd $(o)want$() to extract blood is that that's what carries completed $(l:geneticsresequenced:items/plasmid)Plasmids$(/l) back into your body."
     },
     {
       "type": "patchouli:spotlight",

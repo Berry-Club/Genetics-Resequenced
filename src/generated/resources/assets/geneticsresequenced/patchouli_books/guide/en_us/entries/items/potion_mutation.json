@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)Potion of Mutation$() is used to craft $(l:geneticsresequenced:items/cell_growth#gmo_cell)Genetically Modified Cells/$ that are set to $(9)mutation Genes$().$(br2)Mutation Genes are effectively just $(9)more powerful$() Genes, and generally $(c)require other Genes$()."
+      "text": "The $(d)Potion of Mutation$() is used to craft $(l:geneticsresequenced:items/potion_of_cell_growth#gmo_cell)Genetically Modified Cells$(/l) that are set to $(9)mutation Genes$().$(br2)Mutation Genes are effectively just $(9)more powerful$() Genes, and generally $(c)require other Genes$()."
     },
     {
       "type": "patchouli:spotlight",

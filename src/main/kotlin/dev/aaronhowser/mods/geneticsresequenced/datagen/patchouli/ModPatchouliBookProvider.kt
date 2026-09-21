@@ -3,24 +3,19 @@ package dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene
 import dev.aaronhowser.mods.geneticsresequenced.item.PlasmidItem
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.geneticsresequenced.registry.ModPotions
-import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
 import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBook
 import dev.aaronhowser.mods.patchoulidatagen.dsl.patchouliBook
 import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider
-import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.colored
-import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.internalLink
 import dev.aaronhowser.mods.patchoulidatagen.provider.TextColor
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.DataGenerator
-import net.minecraft.resources.ResourceLocation
 import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
 import net.minecraft.util.Unit
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.ItemStack
@@ -41,12 +36,12 @@ class ModPatchouliBookProvider(
 		showProgress = false
 		bookTexture = ResourceLocation.parse("patchouli:textures/gui/book_gray.png")
 
-		BlocksPatchouliCategory(registries).generate(this)
-		GenesPatchouliCategory(registries).generate(this)
-		NegativeGenesPatchouliCategory(registries).generate(this)
-		PlaguesPatchouliCategory(registries).generate(this)
-		GettingStartedPatchouliCategory(registries).generate(this)
-		ItemsPatchouliCategory(registries).generate(this)
+		BlocksPatchouliCategory.generate(this, registries)
+		GenesPatchouliCategory.generate(this, registries)
+		NegativeGenesPatchouliCategory.generate(this, registries)
+		PlaguesPatchouliCategory.generate(this, registries)
+		GettingStartedPatchouliCategory.generate(this, registries)
+		ItemsPatchouliCategory.generate(this, registries)
 	}
 
 	companion object {
@@ -99,16 +94,6 @@ class ModPatchouliBookProvider(
 			val stack = ModItems.PLASMID.toStack()
 			PlasmidItem.setGene(stack, geneHolder(registries, geneKey), dnaPoints)
 			return stack
-		}
-
-		@JvmStatic
-		fun pageLink(reference: PatchouliBookReference, text: String): String {
-			return internalLink("${GeneticsResequenced.MOD_ID}:${reference.saveName}", text)
-		}
-
-		@JvmStatic
-		fun pageLink(reference: PatchouliBookReference, anchor: String, text: String): String {
-			return internalLink("${GeneticsResequenced.MOD_ID}:${reference.saveName}", anchor, text)
 		}
 
 		@JvmStatic

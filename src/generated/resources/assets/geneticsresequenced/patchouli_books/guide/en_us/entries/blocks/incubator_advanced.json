@@ -11,12 +11,12 @@
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:advanced_incubator",
       "link_recipe": true,
-      "text": "By default, it's $(c)120 times slower$() at low-temperature. This means a single brew takes a full 20 minutes, excluding Overclockers.$(br2)The reason you'd want to use low temperature mode is that is the only way you can get $(l:geneticsresequenced:items/cell_growth#gmo_cell)Genetically Modified Cells/$."
+      "text": "By default, it's $(c)120 times slower$() at low-temperature. This means a single brew takes a full 20 minutes, excluding Overclockers.$(br2)The reason you'd want to use low temperature mode is that is the only way you can get $(l:geneticsresequenced:items/potion_of_cell_growth#gmo_cell)Genetically Modified Cells$(/l)."
     },
     {
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:gmo_cell[geneticsresequenced:gene=\"geneticsresequenced:regeneration\",geneticsresequenced:entity_type=\"minecraft:iron_golem\"]",
-      "text": "$(l:geneticsresequenced:items/cell_growth#gmo_cell)Genetically Modified Cells/$ are $(9)guaranteed to have a specific Gene$(), if crafted correctly.$(br2)Each GM Cell has its own recipe, with a $(c)chance of failure$().$(br2)The recipe for this GM Cell, for example, has a 30% chance of success, by default."
+      "text": "$(l:geneticsresequenced:items/potion_of_cell_growth#gmo_cell)Genetically Modified Cells$(/l) are $(9)guaranteed to have a specific Gene$(), if crafted correctly.$(br2)Each GM Cell has its own recipe, with a $(c)chance of failure$().$(br2)The recipe for this GM Cell, for example, has a 30% chance of success, by default."
     },
     {
       "type": "patchouli:text",
