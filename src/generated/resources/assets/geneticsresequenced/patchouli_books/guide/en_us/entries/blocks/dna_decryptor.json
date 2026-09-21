@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)DNA Decryptor$() uses FE to decrypt $(l:geneticsresequenced:items/dna_helix)DNA Helices/$.$(br2)Every time DNA is decrypted, it will choose a $(l:geneticsresequenced:genes)Gene/$, based on the Entity the Helix came from.$(br2)This Gene is weighted, some Genes have a higher chance than others. The Gene is chosen at the start of the process."
+      "text": "The $(d)DNA Decryptor$() uses FE to decrypt $(l:geneticsresequenced:items/dna_helix)DNA Helices$(/l).$(br2)Every time DNA is decrypted, it will choose a $(l:geneticsresequenced:genes)Gene$(/l), based on the Entity the Helix came from.$(br2)This Gene is weighted, some Genes have a higher chance than others. The Gene is chosen at the start of the process."
     },
     {
       "type": "patchouli:spotlight",

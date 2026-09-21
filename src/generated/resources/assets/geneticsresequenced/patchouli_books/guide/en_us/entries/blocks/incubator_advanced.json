@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)Advanced Incubator$() is an upgrade to the $(l:geneticsresequenced:blocks/incubator)Incubator/$.$(br2)Like the Incubator, it functions as a Brewing Stand. However, the Advanced Incubator has a $(9)temperature$() mechanic.$(br2)The coil on the left of the GUI can be clicked to toggle between low and high temperatures."
+      "text": "The $(d)Advanced Incubator$() is an upgrade to the $(l:geneticsresequenced:blocks/incubator)Incubator$(/l).$(br2)Like the Incubator, it functions as a Brewing Stand. However, the Advanced Incubator has a $(9)temperature$() mechanic.$(br2)The coil on the left of the GUI can be clicked to toggle between low and high temperatures."
     },
     {
       "type": "patchouli:spotlight",

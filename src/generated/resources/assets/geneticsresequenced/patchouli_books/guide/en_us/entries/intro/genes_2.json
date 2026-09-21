@@ -10,17 +10,17 @@
     {
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:scraper",
-      "text": "First, you'll need the $(l:geneticsresequenced:items/scraper)Scraper/$. This tool can be used on entities to collect $(l:geneticsresequenced:items/organic_matter)Organic Matter/$ from them.$(br2)The Organic Matter will have the entity's type attached. This is what decides what Genes you can get from it."
+      "text": "First, you'll need the $(l:geneticsresequenced:items/scraper)Scraper$(/l). This tool can be used on entities to collect $(l:geneticsresequenced:items/organic_matter)Organic Matter$(/l) from them.$(br2)The Organic Matter will have the entity's type attached. This is what decides what Genes you can get from it."
     },
     {
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:cell[geneticsresequenced:entity_type=\"minecraft:sheep\"]",
-      "text": "Craft a $(l:geneticsresequenced:blocks/cell_analyzer)Cell Analyzer/$, and process the Organic Matter through it. This will create a $(l:geneticsresequenced:items/cell)Cell/$.$(br2)Like the Organic Matter, this has the entity's type attached."
+      "text": "Craft a $(l:geneticsresequenced:blocks/cell_analyzer)Cell Analyzer$(/l), and process the Organic Matter through it. This will create a $(l:geneticsresequenced:items/cell)Cell$(/l).$(br2)Like the Organic Matter, this has the entity's type attached."
     },
     {
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:dna_helix[geneticsresequenced:entity_type=\"minecraft:sheep\"]",
-      "text": "Craft a $(l:geneticsresequenced:blocks/dna_extractor)DNA Extractor/$, and process the Cell through it. This will create a $(l:geneticsresequenced:items/dna_helix)DNA Helix/$, which carries an unknown Gene.$(br2)To find out what Gene it is, you'll need to process it through a $(l:geneticsresequenced:blocks/dna_decryptor)DNA Decryptor/$."
+      "text": "Craft a $(l:geneticsresequenced:blocks/dna_extractor)DNA Extractor$(/l), and process the Cell through it. This will create a $(l:geneticsresequenced:items/dna_helix)DNA Helix$(/l), which carries an unknown Gene.$(br2)To find out what Gene it is, you'll need to process it through a $(l:geneticsresequenced:blocks/dna_decryptor)DNA Decryptor$(/l)."
     },
     {
       "type": "patchouli:spotlight",
@@ -30,12 +30,12 @@
     {
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:plasmid[geneticsresequenced:plasmid_progress={dna_points:300,gene:\"geneticsresequenced:eat_grass\"}]",
-      "text": "Now that you have some decrypted DNA Helices, you have to inject them into a $(l:geneticsresequenced:items/plasmid)Plasmid/$.$(br2)This is done at the $(l:geneticsresequenced:blocks/plasmid_infuser)Plasmid Infuser/$.$(br2)For more information on that, see the Plasmid's page, linked above."
+      "text": "Now that you have some decrypted DNA Helices, you have to inject them into a $(l:geneticsresequenced:items/plasmid)Plasmid$(/l).$(br2)This is done at the $(l:geneticsresequenced:blocks/plasmid_infuser)Plasmid Infuser$(/l).$(br2)For more information on that, see the Plasmid's page, linked above."
     },
     {
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:syringe",
-      "text": "Craft a $(l:geneticsresequenced:items/syringe)Syringe/$, and use it to extract some of your own blood.$(br2)Pass it through a $(l:geneticsresequenced:blocks/blood_purifier)Blood Purifier/$ to decontaminate it.$(br2)Then, you can combine it and the completed Plasmid in a $(l:geneticsresequenced:blocks/plasmid_injector)Plasmid Injector/$ to add the Gene to the Syringe."
+      "text": "Craft a $(l:geneticsresequenced:items/syringe)Syringe$(/l), and use it to extract some of your own blood.$(br2)Pass it through a $(l:geneticsresequenced:blocks/blood_purifier)Blood Purifier$(/l) to decontaminate it.$(br2)Then, you can combine it and the completed Plasmid in a $(l:geneticsresequenced:blocks/plasmid_injector)Plasmid Injector$(/l) to add the Gene to the Syringe."
     },
     {
       "type": "patchouli:text",

@@ -5,12 +5,12 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "$(d)Organic Substrate$() is the first of the mod's potions.$(br2)Organic Substrate has no effect when drunk, but is used in some recipes.$(br2)If a $(l:geneticsresequenced:items/cell)Cell/$ is brewed into Organic Substrate, the Substrate is replaced with a copy of the Cell. Given that you can have 3 Potions in a single brew, this allows you to triple Cells, if needed."
+      "text": "$(d)Organic Substrate$() is the first of the mod's potions.$(br2)Organic Substrate has no effect when drunk, but is used in some recipes.$(br2)If a $(l:geneticsresequenced:items/cell)Cell$(/l) is brewed into Organic Substrate, the Substrate is replaced with a copy of the Cell. Given that you can have 3 Potions in a single brew, this allows you to triple Cells, if needed."
     },
     {
       "type": "patchouli:spotlight",
       "item": "minecraft:potion[minecraft:potion_contents={potion:\"geneticsresequenced:substrate\"}]",
-      "text": "Additionally, Organic Substrate is used to brew $(l:geneticsresequenced:items/cell_growth)Potions of Cell Growth/$.$(br2)You may prefer to use the $(l:geneticsresequenced:blocks/incubator)Incubator/$ to brew these recipes, rather than the Brewing Stand."
+      "text": "Additionally, Organic Substrate is used to brew $(l:geneticsresequenced:items/cell_growth)Potions of Cell Growth/$.$(br2)You may prefer to use the $(l:geneticsresequenced:blocks/incubator)Incubator$(/l) to brew these recipes, rather than the Brewing Stand."
     }
   ],
   "sortnum": 11

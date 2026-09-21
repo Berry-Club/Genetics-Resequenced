@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)Plasmid Infuser$() uses FE to infuse $(l:geneticsresequenced:items/dna_helix)DNA Helices/$ into a $(l:geneticsresequenced:items/plasmid)Plasmid/$.$(br2)Insert an empty Plasmid in the right slot, and a DNA Helix in the left slot.$(br2)The DNA Helix will be used up, and set the Plasmid's Gene to match the Helix's."
+      "text": "The $(d)Plasmid Infuser$() uses FE to infuse $(l:geneticsresequenced:items/dna_helix)DNA Helices$(/l) into a $(l:geneticsresequenced:items/plasmid)Plasmid$(/l).$(br2)Insert an empty Plasmid in the right slot, and a DNA Helix in the left slot.$(br2)The DNA Helix will be used up, and set the Plasmid's Gene to match the Helix's."
     },
     {
       "type": "patchouli:spotlight",

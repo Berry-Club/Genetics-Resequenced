@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)Scraper$() is used to get $(l:geneticsresequenced:items/organic_matter)Organic Matter/$ from mobs.$(br2)To use it, simply right-click the mob. This damages the mob, which counts as an attack and will anger neutral entities."
+      "text": "The $(d)Scraper$() is used to get $(l:geneticsresequenced:items/organic_matter)Organic Matter$(/l) from mobs.$(br2)To use it, simply right-click the mob. This damages the mob, which counts as an attack and will anger neutral entities."
     },
     {
       "type": "patchouli:spotlight",

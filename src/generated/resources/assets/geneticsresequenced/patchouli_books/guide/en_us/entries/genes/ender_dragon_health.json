@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)Ender Dragon Health$() Gene allows players to $(9)completely negate damage$() while a $(l:geneticsresequenced:items/dragon_health_crystal)Dragon Health Crystal/$ is in their inventory.$(br2)Any damage they would take is instead dealt to the Crystal's durability.$(br2)This Gene $(c)cannot be given to mobs$()."
+      "text": "The $(d)Ender Dragon Health$() Gene allows players to $(9)completely negate damage$() while a $(l:geneticsresequenced:items/dragon_health_crystal)Dragon Health Crystal$(/l) is in their inventory.$(br2)Any damage they would take is instead dealt to the Crystal's durability.$(br2)This Gene $(c)cannot be given to mobs$()."
     }
   ]
 }

@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "$(d)Genes$() can be taken from mobs to $(9)harness their abilities$().$(br2)For example, Sheep have the $(l:geneticsresequenced:genes/wooly)Wooly/$ Gene. If you inject this into yourself, you will be able to be sheared for wool!$(br2)To see a full list of Genes, $(l:geneticsresequenced:genes)see here/$."
+      "text": "$(d)Genes$() can be taken from mobs to $(9)harness their abilities$().$(br2)For example, Sheep have the $(l:geneticsresequenced:genes/wooly)Wooly$(/l) Gene. If you inject this into yourself, you will be able to be sheared for wool!$(br2)To see a full list of Genes, $(l:geneticsresequenced:genes)see here$(/l)."
     },
     {
       "type": "patchouli:text",

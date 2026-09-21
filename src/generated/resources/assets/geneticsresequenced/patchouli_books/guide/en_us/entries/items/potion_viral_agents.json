@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "$(d)Viral Agents$() are the final crafting potion of the mod. They are used to craft $(l:geneticsresequenced:genes/negative)negative Genes/$, which are generally just any Gene that's harmful.$(br2)Negative Genes are $(9)always lost on death$(), regardless of config setting. Additionally, there's a config to prevent players from even being able to $(o)get/$ negative Genes in the first place."
+      "text": "$(d)Viral Agents$() are the final crafting potion of the mod. They are used to craft $(l:geneticsresequenced:genes/negative)negative Genes$(/l), which are generally just any Gene that's harmful.$(br2)Negative Genes are $(9)always lost on death$(), regardless of config setting. Additionally, there's a config to prevent players from even being able to $(o)get/$ negative Genes in the first place."
     },
     {
       "type": "patchouli:spotlight",

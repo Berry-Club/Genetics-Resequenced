@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)Anti-Field Orb$() allows you to $(9)temporarily disable certain Genes$().$(br2)Specifically, it disables the $(l:geneticsresequenced:genes/item_attraction_field)Item Attraction Field/$ and $(l:geneticsresequenced:genes/xp_attraction_field)XP Attraction Field/$ when enabled.$(br2)The $(l:geneticsresequenced:blocks/anti_field_block)Anti-Field Block/$ functions similarly, but in block form."
+      "text": "The $(d)Anti-Field Orb$() allows you to $(9)temporarily disable certain Genes$().$(br2)Specifically, it disables the $(l:geneticsresequenced:genes/item_attraction_field)Item Attraction Field$(/l) and $(l:geneticsresequenced:genes/xp_attraction_field)XP Attraction Field$(/l) when enabled.$(br2)The $(l:geneticsresequenced:blocks/anti_field_block)Anti-Field Block$(/l) functions similarly, but in block form."
     },
     {
       "type": "patchouli:spotlight",

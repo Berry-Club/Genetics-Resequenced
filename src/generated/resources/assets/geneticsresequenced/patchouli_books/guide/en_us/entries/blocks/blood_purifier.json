@@ -7,7 +7,7 @@
       "type": "patchouli:spotlight",
       "item": "geneticsresequenced:blood_purifier",
       "link_recipe": true,
-      "text": "The Blood Purifier uses FE to decontaminate $(l:geneticsresequenced:items/syringe)Syringes/$."
+      "text": "The Blood Purifier uses FE to decontaminate $(l:geneticsresequenced:items/syringe)Syringes$(/l)."
     }
   ],
   "sortnum": 7

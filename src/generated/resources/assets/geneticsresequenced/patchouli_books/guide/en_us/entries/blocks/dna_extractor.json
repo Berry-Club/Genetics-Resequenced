@@ -5,7 +5,7 @@
   "pages": [
     {
       "type": "patchouli:text",
-      "text": "The $(d)DNA Extractor$() uses FE to convert $(l:geneticsresequenced:items/cell)Cells/$ into encrypted $(l:geneticsresequenced:items/dna_helix)DNA Helices/$."
+      "text": "The $(d)DNA Extractor$() uses FE to convert $(l:geneticsresequenced:items/cell)Cells$(/l) into encrypted $(l:geneticsresequenced:items/dna_helix)DNA Helices$(/l)."
     },
     {
       "type": "patchouli:spotlight",
