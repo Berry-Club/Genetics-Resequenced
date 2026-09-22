@@ -1,0 +1,132 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "intro",
+  "description": "book.geneticsresequenced.guide.intro.genes_2.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "geneticsresequenced:cell"
+  },
+  "name": "book.geneticsresequenced.guide.intro.genes_2.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.intro.genes_2.page_0.text",
+      "title": "book.geneticsresequenced.guide.intro.genes_2.page_0.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "count": 1,
+        "item": "geneticsresequenced:scraper"
+      },
+      "text": "book.geneticsresequenced.guide.intro.genes_2.page_1.text",
+      "title": "book.geneticsresequenced.guide.intro.genes_2.page_1.title"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "components": {
+          "geneticsresequenced:entity_type": "minecraft:sheep"
+        },
+        "count": 1,
+        "item": "geneticsresequenced:cell"
+      },
+      "text": "book.geneticsresequenced.guide.intro.genes_2.page_2.text",
+      "title": "book.geneticsresequenced.guide.intro.genes_2.page_2.title"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "components": {
+          "geneticsresequenced:entity_type": "minecraft:sheep"
+        },
+        "count": 1,
+        "item": "geneticsresequenced:dna_helix"
+      },
+      "text": "book.geneticsresequenced.guide.intro.genes_2.page_3.text",
+      "title": "book.geneticsresequenced.guide.intro.genes_2.page_3.title"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "components": {
+          "geneticsresequenced:gene": "geneticsresequenced:eat_grass"
+        },
+        "count": 1,
+        "item": "geneticsresequenced:dna_helix"
+      },
+      "text": "book.geneticsresequenced.guide.intro.genes_2.page_4.text",
+      "title": "book.geneticsresequenced.guide.intro.genes_2.page_4.title"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "components": {
+          "geneticsresequenced:plasmid_progress": {
+            "dna_points": 300,
+            "gene": "geneticsresequenced:eat_grass"
+          }
+        },
+        "count": 1,
+        "item": "geneticsresequenced:plasmid"
+      },
+      "text": "book.geneticsresequenced.guide.intro.genes_2.page_5.text",
+      "title": "book.geneticsresequenced.guide.intro.genes_2.page_5.title"
+    },
+    {
+      "type": "modonomicon:spotlight",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "item": {
+        "count": 1,
+        "item": "geneticsresequenced:syringe"
+      },
+      "text": "book.geneticsresequenced.guide.intro.genes_2.page_6.text",
+      "title": "book.geneticsresequenced.guide.intro.genes_2.page_6.title"
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.intro.genes_2.page_7.text",
+      "title": "book.geneticsresequenced.guide.intro.genes_2.page_7.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 1,
+  "x": 0,
+  "y": 0
+}

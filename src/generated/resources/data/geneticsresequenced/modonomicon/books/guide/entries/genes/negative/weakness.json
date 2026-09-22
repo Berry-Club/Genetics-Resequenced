@@ -1,0 +1,44 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "genes/negative",
+  "description": "book.geneticsresequenced.guide.genes/negative.weakness.description",
+  "hide_while_locked": false,
+  "icon": {
+    "components": {
+      "minecraft:potion_contents": {
+        "potion": "minecraft:weakness"
+      }
+    },
+    "item": "minecraft:potion"
+  },
+  "name": "book.geneticsresequenced.guide.genes/negative.weakness.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.genes/negative.weakness.page_0.text",
+      "title": "book.geneticsresequenced.guide.genes/negative.weakness.page_0.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.genes/negative.weakness.page_1.text",
+      "title": "book.geneticsresequenced.guide.genes/negative.weakness.page_1.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 12,
+  "x": 0,
+  "y": 0
+}

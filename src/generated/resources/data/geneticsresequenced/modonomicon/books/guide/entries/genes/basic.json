@@ -1,0 +1,149 @@
+{
+  "background_u_index": 0,
+  "background_v_index": 0,
+  "category": "genes",
+  "description": "book.geneticsresequenced.guide.genes.basic.description",
+  "hide_while_locked": false,
+  "icon": {
+    "item": "geneticsresequenced:dna_helix"
+  },
+  "name": "book.geneticsresequenced.guide.genes.basic.name",
+  "pages": [
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.genes.basic.page_0.text",
+      "title": "book.geneticsresequenced.guide.genes.basic.page_0.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.genes.basic.page_1.text",
+      "title": "book.geneticsresequenced.guide.genes.basic.page_1.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.genes.basic.page_2.text",
+      "title": "book.geneticsresequenced.guide.genes.basic.page_2.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.genes.basic.page_3.text",
+      "title": "book.geneticsresequenced.guide.genes.basic.page_3.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.genes.basic.page_4.text",
+      "title": "book.geneticsresequenced.guide.genes.basic.page_4.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.genes.basic.page_5.text",
+      "title": "book.geneticsresequenced.guide.genes.basic.page_5.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.genes.basic.page_6.text",
+      "title": "book.geneticsresequenced.guide.genes.basic.page_6.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.genes.basic.page_7.text",
+      "title": "book.geneticsresequenced.guide.genes.basic.page_7.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.genes.basic.page_8.text",
+      "title": "book.geneticsresequenced.guide.genes.basic.page_8.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.genes.basic.page_9.text",
+      "title": "book.geneticsresequenced.guide.genes.basic.page_9.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.genes.basic.page_10.text",
+      "title": "book.geneticsresequenced.guide.genes.basic.page_10.title",
+      "use_markdown_in_title": false
+    },
+    {
+      "type": "modonomicon:text",
+      "anchor": "",
+      "condition": {
+        "type": "modonomicon:none"
+      },
+      "show_title_separator": true,
+      "text": "book.geneticsresequenced.guide.genes.basic.page_11.text",
+      "title": "book.geneticsresequenced.guide.genes.basic.page_11.title",
+      "use_markdown_in_title": false
+    }
+  ],
+  "show_when_any_parent_unlocked": false,
+  "sort_number": 0,
+  "x": 0,
+  "y": 0
+}
