@@ -7,11 +7,11 @@ import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil.itemStack
-import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBook
-import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBookEntry
-import dev.aaronhowser.mods.patchoulidatagen.dsl.patchouliBook
-import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider
-import dev.aaronhowser.mods.patchoulidatagen.provider.TextColor
+import dev.aaronhowser.mods.patchoulidatagen.patchouli.book_element.PatchouliBook
+import dev.aaronhowser.mods.patchoulidatagen.patchouli.book_element.PatchouliBookEntry
+import dev.aaronhowser.mods.patchoulidatagen.patchouli.dsl.patchouliBook
+import dev.aaronhowser.mods.patchoulidatagen.patchouli.provider.PatchouliBookProvider
+import dev.aaronhowser.mods.patchoulidatagen.patchouli.provider.TextColor
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
 import net.minecraft.data.DataGenerator
@@ -27,7 +27,11 @@ class ModPatchouliBookProvider(
 	private val registries: HolderLookup.Provider
 ) : PatchouliBookProvider(generator, registries, "guide") {
 
-	override fun buildBook(): PatchouliBook = patchouliBook(
+	override fun buildBook(): PatchouliBook = buildBook(registries)
+
+	companion object {
+
+		fun buildBook(registries: HolderLookup.Provider): PatchouliBook = patchouliBook(
 		namespace = GeneticsResequenced.MOD_ID,
 		name = "item.geneticsresequenced.guide_book",
 		landingText = "book.geneticsresequenced.landing_text"
@@ -44,8 +48,6 @@ class ModPatchouliBookProvider(
 		NegativeGenesPatchouliCategory.generate(this, registries)
 		PlaguesPatchouliCategory.generate(this, registries)
 	}
-
-	companion object {
 
 		@JvmStatic
 		fun activeAntiFieldOrb(): ItemStack {

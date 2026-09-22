@@ -8,10 +8,10 @@ import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBo
 import dev.aaronhowser.mods.geneticsresequenced.datagen.patchouli.ModPatchouliBookProvider.Companion.plasmidStack
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
-import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBook
-import dev.aaronhowser.mods.patchoulidatagen.book_element.PatchouliBookCategory
-import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.doubleSpacedLines
-import dev.aaronhowser.mods.patchoulidatagen.provider.PatchouliBookProvider.Companion.internalLink
+import dev.aaronhowser.mods.patchoulidatagen.patchouli.book_element.PatchouliBook
+import dev.aaronhowser.mods.patchoulidatagen.patchouli.book_element.PatchouliBookCategory
+import dev.aaronhowser.mods.patchoulidatagen.patchouli.provider.PatchouliBookProvider.Companion.doubleSpacedLines
+import dev.aaronhowser.mods.patchoulidatagen.patchouli.provider.PatchouliBookProvider.Companion.internalLink
 import net.minecraft.core.HolderLookup
 import net.minecraft.world.entity.EntityType
 
