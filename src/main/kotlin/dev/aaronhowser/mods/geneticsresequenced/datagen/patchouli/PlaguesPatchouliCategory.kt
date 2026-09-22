@@ -17,7 +17,6 @@ object PlaguesPatchouliCategory {
 	private lateinit var registries: HolderLookup.Provider
 
 	lateinit var bookCategory: PatchouliBookCategory
-		private set
 
 	fun generate(book: PatchouliBook, registries: HolderLookup.Provider) {
 		this.registries = registries

@@ -21,34 +21,15 @@ object BlocksPatchouliCategory {
 	private lateinit var registries: HolderLookup.Provider
 
 	lateinit var bookCategory: PatchouliBookCategory
-		private set
-
 	lateinit var bloodPurifier: PatchouliBookEntry
-		private set
-
 	lateinit var plasmidInfuser: PatchouliBookEntry
-		private set
-
 	lateinit var incubatorAdvanced: PatchouliBookEntry
-		private set
-
 	lateinit var antiFieldBlock: PatchouliBookEntry
-		private set
-
 	lateinit var dnaExtractor: PatchouliBookEntry
-		private set
-
 	lateinit var incubator: PatchouliBookEntry
-		private set
-
 	lateinit var cellAnalyzer: PatchouliBookEntry
-		private set
-
 	lateinit var dnaDecryptor: PatchouliBookEntry
-		private set
-
 	lateinit var plasmidInjector: PatchouliBookEntry
-		private set
 
 	fun generate(book: PatchouliBook, registries: HolderLookup.Provider) {
 		this.registries = registries

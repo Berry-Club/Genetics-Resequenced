@@ -23,40 +23,17 @@ object GenesPatchouliCategory {
 	private lateinit var registries: HolderLookup.Provider
 
 	lateinit var bookCategory: PatchouliBookCategory
-		private set
-
 	lateinit var milky: PatchouliBookEntry
-		private set
-
 	lateinit var itemAttractionField: PatchouliBookEntry
-		private set
-
 	lateinit var noFallDamage: PatchouliBookEntry
-		private set
-
 	lateinit var enderDragonHealth: PatchouliBookEntry
-		private set
-
 	lateinit var scareCreepers: PatchouliBookEntry
-		private set
-
 	lateinit var wooly: PatchouliBookEntry
-		private set
-
 	lateinit var stepAssist: PatchouliBookEntry
-		private set
-
 	lateinit var thorns: PatchouliBookEntry
-		private set
-
 	lateinit var teleport: PatchouliBookEntry
-		private set
-
 	lateinit var xpAttractionField: PatchouliBookEntry
-		private set
-
 	lateinit var scareSkeletons: PatchouliBookEntry
-		private set
 
 	fun generate(book: PatchouliBook, registries: HolderLookup.Provider) {
 		this.registries = registries
