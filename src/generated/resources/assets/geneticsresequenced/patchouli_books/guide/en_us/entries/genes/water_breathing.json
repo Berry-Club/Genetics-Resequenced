@@ -9,12 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "These are the default chances. Modpacks may change them.$(br2)5/7 - Axolotl$(br)2/7 - Cod$(br)4/7 - Elder Guardian$(br)4/13 - Glow Squid$(br)4/12 - Guardian$(br)4/16 - Pufferfish",
-      "title": "Default Weights"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "3/8 - Salmon$(br)2/7 - Squid$(br)4/9 - Tadpole$(br)2/7 - Tropical Fish$(br)2/7 - Turtle",
+      "text": "These are the default chances. Modpacks may change them.$(br2)5/7 - Axolotl$(br)2/7 - Cod$(br)4/7 - Elder Guardian$(br)4/13 - Glow Squid$(br)4/12 - Guardian$(br)4/16 - Pufferfish$(br)3/8 - Salmon$(br)2/7 - Squid$(br)4/9 - Tadpole$(br)2/7 - Tropical Fish$(br)2/7 - Turtle",
       "title": "Default Weights"
     }
   ]

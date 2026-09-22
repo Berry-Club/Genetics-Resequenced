@@ -35,17 +35,6 @@
       "text": "book.geneticsresequenced.guide.genes.speed.page_1.text",
       "title": "book.geneticsresequenced.guide.genes.speed.page_1.title",
       "use_markdown_in_title": false
-    },
-    {
-      "type": "modonomicon:text",
-      "anchor": "",
-      "condition": {
-        "type": "modonomicon:none"
-      },
-      "show_title_separator": true,
-      "text": "book.geneticsresequenced.guide.genes.speed.page_2.text",
-      "title": "book.geneticsresequenced.guide.genes.speed.page_2.title",
-      "use_markdown_in_title": false
     }
   ],
   "show_when_any_parent_unlocked": false,

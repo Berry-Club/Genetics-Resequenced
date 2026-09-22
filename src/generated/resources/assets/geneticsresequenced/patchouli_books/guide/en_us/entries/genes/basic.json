@@ -9,57 +9,27 @@
     },
     {
       "type": "patchouli:text",
-      "text": "These are the default chances. Modpacks may change them.$(br2)3/8 - Allay$(br)2/7 - Axolotl$(br)4/8 - Bat$(br)5/8 - Bee$(br)5/12 - Blaze$(br)2/11 - Breeze",
+      "text": "These are the default chances. Modpacks may change them.$(br2)3/8 - Allay$(br)2/7 - Axolotl$(br)4/8 - Bat$(br)5/8 - Bee$(br)5/12 - Blaze$(br)2/11 - Breeze$(br)5/7 - Cat$(br)7/17 - Cave Spider$(br)5/10 - Chicken$(br)5/7 - Cod$(br)5/15 - Cow$(br)5/8 - Creeper$(br)7/11 - Dolphin",
       "title": "Default Weights"
     },
     {
       "type": "patchouli:text",
-      "text": "5/7 - Cat$(br)7/17 - Cave Spider$(br)5/10 - Chicken$(br)5/7 - Cod$(br)5/15 - Cow$(br)5/8 - Creeper",
+      "text": "9/18 - Donkey$(br)5/9 - Drowned$(br)5/9 - Enderman$(br)4/7 - Evoker$(br)5/9 - Fox$(br)5/8 - Frog$(br)5/9 - Ghast$(br)5/13 - Glow Squid$(br)5/15 - Goat$(br)5/12 - Guardian$(br)5/10 - Hoglin$(br)7/16 - Horse$(br)5/9 - Husk",
       "title": "Default Weights"
     },
     {
       "type": "patchouli:text",
-      "text": "7/11 - Dolphin$(br)9/18 - Donkey$(br)5/9 - Drowned$(br)5/9 - Enderman$(br)4/7 - Evoker$(br)5/9 - Fox",
+      "text": "5/19 - Iron Golem$(br)5/8 - Llama$(br)5/12 - Magma Cube$(br)5/10 - Ocelot$(br)5/17 - Parrot$(br)5/11 - Phantom$(br)5/7 - Pig$(br)5/9 - Piglin Brute$(br)5/8 - Piglin$(br)5/7 - Pillager$(br)5/16 - Polar Bear$(br)5/16 - Pufferfish$(br)5/20 - Rabbit",
       "title": "Default Weights"
     },
     {
       "type": "patchouli:text",
-      "text": "5/8 - Frog$(br)5/9 - Ghast$(br)5/13 - Glow Squid$(br)5/15 - Goat$(br)5/12 - Guardian$(br)5/10 - Hoglin",
+      "text": "5/17 - Ravager$(br)5/8 - Salmon$(br)5/12 - Sheep$(br)3/11 - Shulker$(br)3/11 - Silverfish$(br)5/6 - Skeleton$(br)5/16 - Slime$(br)5/7 - Snow Golem$(br)4/15 - Spider$(br)5/7 - Squid$(br)5/8 - Stray$(br)5/11 - Strider$(br)5/9 - Tadpole",
       "title": "Default Weights"
     },
     {
       "type": "patchouli:text",
-      "text": "7/16 - Horse$(br)5/9 - Husk$(br)5/19 - Iron Golem$(br)5/8 - Llama$(br)5/12 - Magma Cube$(br)5/10 - Ocelot",
-      "title": "Default Weights"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "5/17 - Parrot$(br)5/11 - Phantom$(br)5/7 - Pig$(br)5/9 - Piglin Brute$(br)5/8 - Piglin$(br)5/7 - Pillager",
-      "title": "Default Weights"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "5/16 - Polar Bear$(br)5/16 - Pufferfish$(br)5/20 - Rabbit$(br)5/17 - Ravager$(br)5/8 - Salmon$(br)5/12 - Sheep",
-      "title": "Default Weights"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "3/11 - Shulker$(br)3/11 - Silverfish$(br)5/6 - Skeleton$(br)5/16 - Slime$(br)5/7 - Snow Golem$(br)4/15 - Spider",
-      "title": "Default Weights"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "5/7 - Squid$(br)5/8 - Stray$(br)5/11 - Strider$(br)5/9 - Tadpole$(br)5/7 - Tropical Fish$(br)5/7 - Turtle",
-      "title": "Default Weights"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "5/9 - Villager$(br)5/10 - Vindicator$(br)5/7 - Witch$(br)5/7 - Wither Skeleton$(br)5/15 - Wither$(br)5/11 - Wolf",
-      "title": "Default Weights"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "5/12 - Zoglin$(br)5/9 - Zombie Villager$(br)7/8 - Zombie$(br)5/11 - Zombified Piglin",
+      "text": "5/7 - Tropical Fish$(br)5/7 - Turtle$(br)5/9 - Villager$(br)5/10 - Vindicator$(br)5/7 - Witch$(br)5/7 - Wither Skeleton$(br)5/15 - Wither$(br)5/11 - Wolf$(br)5/12 - Zoglin$(br)5/9 - Zombie Villager$(br)7/8 - Zombie$(br)5/11 - Zombified Piglin",
       "title": "Default Weights"
     }
   ]

@@ -9,12 +9,7 @@
     },
     {
       "type": "patchouli:text",
-      "text": "These are the default chances. Modpacks may change them.$(br2)5/11 - Breeze$(br)2/11 - Dolphin$(br)3/18 - Donkey$(br)2/9 - Fox$(br)3/8 - Frog$(br)3/16 - Horse",
-      "title": "Default Weights"
-    },
-    {
-      "type": "patchouli:text",
-      "text": "5/20 - Rabbit$(br)4/12 - Skeleton Horse$(br)4/12 - Zombie Horse",
+      "text": "These are the default chances. Modpacks may change them.$(br2)5/11 - Breeze$(br)2/11 - Dolphin$(br)3/18 - Donkey$(br)2/9 - Fox$(br)3/8 - Frog$(br)3/16 - Horse$(br)5/20 - Rabbit$(br)4/12 - Skeleton Horse$(br)4/12 - Zombie Horse",
       "title": "Default Weights"
     }
   ]

@@ -41,7 +41,7 @@ object ModonomiconBookText {
 	fun ModonomiconBookEntry.defaultWeightPages(vararg weights: String) {
 		var firstWeightOnPage = 0
 		while (firstWeightOnPage < weights.size) {
-			val firstWeightOnNextPage = minOf(firstWeightOnPage + 6, weights.size)
+			val firstWeightOnNextPage = minOf(firstWeightOnPage + 13, weights.size)
 			val pageWeights = weights
 				.slice(firstWeightOnPage until firstWeightOnNextPage)
 				.toTypedArray()
