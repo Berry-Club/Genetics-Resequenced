@@ -2,7 +2,7 @@
 
 ### Changed
 
-- Updated the Patchouli book
+- Updated the Patchouli and Modonomicon books
 	- Also it now uses Patchouli Datagen
 
 # 1.14.1
