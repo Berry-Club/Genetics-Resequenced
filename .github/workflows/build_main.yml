@@ -1,4 +1,4 @@
-name: Java CI (Main)
+name: Java CI (1.20.1)
 
 on:
     push:
