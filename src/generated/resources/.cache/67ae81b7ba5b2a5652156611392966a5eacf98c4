@@ -1,4 +1,4 @@
-// 1.20.1	2026-01-07T08:52:28.261421	Tags for minecraft:entity_type mod id genetics_resequenced
+// 1.20.1	2026-09-24T06:44:14.6028352	Tags for minecraft:entity_type mod id genetics_resequenced
 19846c9cd994bcc4316f76433d24d0e39ab35d95 data/genetics_resequenced/tags/entity_types/allows_preventing_interaction.json
 da9ec5f7ed64a0d225e00ee60b8e6d6408b431fb data/genetics_resequenced/tags/entity_types/avoids_scare_creeper_gene.json
 e977cfe5879b4afb1071dbc6604ba55cb32da943 data/genetics_resequenced/tags/entity_types/avoids_scare_skeleton_gene.json

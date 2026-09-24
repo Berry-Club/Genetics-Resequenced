@@ -400,7 +400,7 @@
   "message.genetics_resequenced.gene_checker.target.possible_genes": "%s can provide the following Genes:\n%s",
   "message.genetics_resequenced.gene_checker.target.temporary_list": "%s has the following temporary Genes:\n%s",
   "message.genetics_resequenced.gene_checker.temporary_list": "You have the following temporary Genes:\n%s",
-  "message.genetics_resequenced.gene_missing_requirements": "You feel the %s Gene fade away...\nIt seems you §cdo not meet the requirements§r for it.",
+  "message.genetics_resequenced.gene_missing_requirements": "You feel the %s Gene fade away...\nIt seems you §c[do not meet the requirements]§r for it.",
   "message.genetics_resequenced.gene_missing_requirements.list": "Required Genes:\n",
   "message.genetics_resequenced.gene_weight": "%s with weight %d",
   "message.genetics_resequenced.meaty.recent": "This entity has already been meated recently!",

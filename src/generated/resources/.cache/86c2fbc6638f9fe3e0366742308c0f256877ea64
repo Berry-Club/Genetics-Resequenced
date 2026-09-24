@@ -1,0 +1,5 @@
+// 1.20.1	2026-09-24T06:44:14.6016612	Tags for genetics_resequenced:gene mod id genetics_resequenced
+35133e95f1c8fdd7a1c21afcc231fc0bffefb9a8 data/genetics_resequenced/tags/genetics_resequenced/gene/disabled.json
+28aa91c2dd55a5dc1cbc5bc57c3ef4c54162462a data/genetics_resequenced/tags/genetics_resequenced/gene/helix_only.json
+192e08e70e527f7dcbab29768c79948734c0e235 data/genetics_resequenced/tags/genetics_resequenced/gene/mutation.json
+6f0e1a5f8d1c3cba147c7a92a61b66d38d4bd299 data/genetics_resequenced/tags/genetics_resequenced/gene/negative.json
