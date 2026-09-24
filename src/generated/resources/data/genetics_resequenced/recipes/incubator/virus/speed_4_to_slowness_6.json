@@ -1,0 +1,5 @@
+{
+  "type": "genetics_resequenced:incubator/virus",
+  "input_dna_gene": "genetics_resequenced:speed_4",
+  "output_gene": "genetics_resequenced:slowness_6"
+}

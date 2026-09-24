@@ -1,0 +1,7 @@
+{
+  "entity": "minecraft:bee",
+  "gene_weights": {
+    "genetics_resequenced:basic": 5,
+    "genetics_resequenced:thorns": 3
+  }
+}

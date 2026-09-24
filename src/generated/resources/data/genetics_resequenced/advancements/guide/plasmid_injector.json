@@ -1,0 +1,38 @@
+{
+  "parent": "genetics_resequenced:guide/plasmid_infuser",
+  "criteria": {
+    "plasmid_injector": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "genetics_resequenced:plasmid_injector"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.genetics_resequenced.plasmid_injector.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "genetics_resequenced:plasmid_injector"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.genetics_resequenced.plasmid_injector.title"
+    }
+  },
+  "requirements": [
+    [
+      "plasmid_injector"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

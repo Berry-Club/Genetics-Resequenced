@@ -1,0 +1,7 @@
+{
+  "entity": "minecraft:zombie",
+  "gene_weights": {
+    "genetics_resequenced:basic": 7,
+    "genetics_resequenced:resistance": 1
+  }
+}

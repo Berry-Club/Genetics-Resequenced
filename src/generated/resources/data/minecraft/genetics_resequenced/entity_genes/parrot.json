@@ -1,0 +1,9 @@
+{
+  "entity": "minecraft:parrot",
+  "gene_weights": {
+    "genetics_resequenced:basic": 5,
+    "genetics_resequenced:chatterbox": 6,
+    "genetics_resequenced:lay_egg": 4,
+    "genetics_resequenced:no_fall_damage": 2
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "entity": "minecraft:llama",
+  "gene_weights": {
+    "genetics_resequenced:basic": 5,
+    "genetics_resequenced:step_assist": 3
+  }
+}

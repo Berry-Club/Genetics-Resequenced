@@ -40,7 +40,7 @@ ordering = "NONE"
 side = "BOTH"
 
 [[mixins]]
-config = "geneticsresequenced.mixins.json"
+config = "genetics_resequenced.mixins.json"
 
 # Features are specific properties of the game environment, that you may want to declare you require. This example declares
 # that your mod requires GL version 3.2 or higher. Other features will be added. They are side aware so declaring this won't

@@ -1,0 +1,264 @@
+package dev.aaronhowser.mods.genetics_resequenced.capability
+
+import com.mojang.serialization.Codec
+import com.mojang.serialization.codecs.RecordCodecBuilder
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getLocationOrNull
+import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
+import dev.aaronhowser.mods.genetics_resequenced.capability.GenesCapability.Companion.getActiveGenes
+import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider
+import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.genetics_resequenced.event.custom.TemporaryGeneAddedEvent
+import dev.aaronhowser.mods.genetics_resequenced.event.custom.TemporaryGeneRemovedEvent
+import dev.aaronhowser.mods.genetics_resequenced.gene.Gene
+import dev.aaronhowser.mods.genetics_resequenced.gene.Gene.Companion.getName
+import dev.aaronhowser.mods.genetics_resequenced.gene.Gene.Companion.isGene
+import dev.aaronhowser.mods.genetics_resequenced.gene.Gene.Companion.isHelixOnly
+import dev.aaronhowser.mods.genetics_resequenced.gene.behavior.TickGenes
+import dev.aaronhowser.mods.genetics_resequenced.registry.ModGenes
+import net.minecraft.core.Holder
+import net.minecraft.core.HolderLookup
+import net.minecraft.nbt.CompoundTag
+import net.minecraft.nbt.ListTag
+import net.minecraft.nbt.Tag
+import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceKey
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.LivingEntity
+import thedarkcolour.kotlinforforge.forge.FORGE_BUS
+import kotlin.jvm.optionals.getOrNull
+
+class TemporaryGenesCapability() {
+
+	constructor(temporaryGenes: List<TemporaryGene>) : this() {
+		this.temporaryGenes = temporaryGenes
+	}
+
+	private var temporaryGenes: List<TemporaryGene> = listOf()
+
+	fun toTag(registries: HolderLookup.Provider): CompoundTag {
+		val tag = CompoundTag()
+
+		val listTag = ListTag()
+		for (tempGene in temporaryGenes) {
+			val tempGeneTag = tempGene.toTag(registries)
+			listTag.add(tempGeneTag)
+		}
+
+		tag.put(TEMPORARY_GENES_TAG, listTag)
+		return tag
+	}
+
+	fun fromTag(registries: HolderLookup.Provider, tag: CompoundTag) {
+		val listTag = tag.getList(TEMPORARY_GENES_TAG, Tag.TAG_COMPOUND.toInt())
+
+		val newTempGenes = mutableListOf<TemporaryGene>()
+
+		for (i in listTag.indices) {
+			val tempGeneTag = listTag.getCompound(i)
+			try {
+				val tempGene = TemporaryGene.fromTag(registries, tempGeneTag)
+				newTempGenes.add(tempGene)
+			} catch (e: IllegalArgumentException) {
+				GeneticsResequenced.LOGGER.warn("Could not load TemporaryGene from NBT! Skipping...", e)
+			}
+		}
+
+		temporaryGenes = newTempGenes
+	}
+
+	companion object {
+		private const val TEMPORARY_GENES_TAG = "temporary_genes"
+
+		val CODEC: Codec<TemporaryGenesCapability> =
+			RecordCodecBuilder.create { instance ->
+				instance.group(
+					TemporaryGene.CODEC
+						.listOf()
+						.fieldOf("temporary_genes")
+						.forGetter(TemporaryGenesCapability::temporaryGenes)
+				).apply(instance, ::TemporaryGenesCapability)
+			}
+
+		@JvmStatic
+		var LivingEntity.temporaryGenes: List<TemporaryGene>
+			get() {
+				val cap = this.getCapability(TemporaryGenesCapabilityProvider.CAPABILITY)
+					.resolve()
+					.getOrNull()
+
+				if (cap == null) {
+					GeneticsResequenced.LOGGER.warn("Tried to get TemporaryGenesCapability from LivingEntity $this, but it was not present!")
+					return listOf()
+				}
+
+				return cap.temporaryGenes
+			}
+			private set(value) {
+				val cap = this.getCapability(TemporaryGenesCapabilityProvider.CAPABILITY)
+					.resolve()
+					.getOrNull()
+
+				if (cap == null) {
+					GeneticsResequenced.LOGGER.warn("Tried to set TemporaryGenesCapability on LivingEntity $this, but it was not present!")
+					return
+				}
+
+				cap.temporaryGenes = value
+			}
+
+		@JvmStatic
+		val LivingEntity.temporaryGeneHolders: List<Holder<Gene>>
+			get() = this.temporaryGenes.map(TemporaryGene::geneHolder)
+
+		fun tickTemporaryGenes(entity: LivingEntity) {
+			val copy = entity.temporaryGenes.toList()
+			for (tempGene in copy) {
+				if (tempGene.tick()) {
+					entity.removeTemporaryGene(tempGene.geneHolder)
+				}
+			}
+		}
+
+		fun LivingEntity.removeTemporaryGene(
+			geneHolderToRemove: Holder<Gene>
+		) {
+			val existingList = this.temporaryGenes.toMutableList()
+			val wasRemoved = existingList.removeIf { it.geneHolder.isGene(geneHolderToRemove) }
+			if (!wasRemoved) return
+
+			if (geneHolderToRemove.value().potions.isNotEmpty()) {
+				TickGenes.handlePotionGeneRemoved(this, geneHolderToRemove)
+			}
+
+			val event = TemporaryGeneRemovedEvent(this, geneHolderToRemove)
+			FORGE_BUS.post(event)
+
+			this.temporaryGenes = existingList
+		}
+
+		@JvmStatic
+		fun LivingEntity.addTemporaryGene(
+			newGeneHolder: Holder<Gene>,
+			durationTicks: Int
+		): Boolean {
+			if (newGeneHolder.isHelixOnly) {
+				GeneticsResequenced.LOGGER.debug(
+					"Cannot add gene $newGeneHolder to entities, as it has tag `#genetics_resequenced:helix_only`."
+				)
+				return false
+			}
+
+			val allowedTypes = newGeneHolder.value().allowedEntities.map(Holder<EntityType<*>>::value)
+			if (this.type !in allowedTypes) {
+				GeneticsResequenced.LOGGER.debug(
+					StringBuilder()
+						.append("Tried to give temporary gene ")
+						.append(newGeneHolder.getLocationOrNull() ?: newGeneHolder)
+						.append(" to entity ").append(name.string)
+						.append(", but that entity type cannot have that gene!")
+						.toString()
+				)
+				return false
+			}
+
+			val incompatibleGenes = newGeneHolder.value().incompatibleGenes
+
+			val foundIncompatibleGenes = this.getActiveGenes().filter { it.unwrapKey().getOrNull() in incompatibleGenes }
+			if (foundIncompatibleGenes.isNotEmpty()) {
+				GeneticsResequenced.LOGGER.debug(
+					StringBuilder()
+						.append("Tried to give temporary gene ")
+						.append(newGeneHolder.getLocationOrNull() ?: newGeneHolder)
+						.append(" to entity ").append(name.string)
+						.append(", but it is incompatible with the following genes the entity already has: ")
+						.append(foundIncompatibleGenes.joinToString { it.getLocationOrNull().toString() })
+						.toString()
+				)
+				return false
+			}
+
+			val eventPre = TemporaryGeneAddedEvent.Pre(this, newGeneHolder, durationTicks)
+			FORGE_BUS.post(eventPre)
+			if (eventPre.isCanceled) {
+				GeneticsResequenced.LOGGER.debug("Event was canceled: $eventPre")
+				return false
+			}
+
+			val existingList = this.temporaryGenes.toMutableList()
+
+			val existingTempGene = existingList.find { it.geneHolder.isGene(newGeneHolder) }
+			if (existingTempGene != null) {
+				existingTempGene.ticksRemaining = durationTicks
+			} else {
+				existingList.add(TemporaryGene(newGeneHolder, durationTicks))
+			}
+
+			this.temporaryGenes = existingList
+
+			val eventPost = TemporaryGeneAddedEvent.Post(this, newGeneHolder, durationTicks)
+			FORGE_BUS.post(eventPost)
+
+			return true
+		}
+	}
+
+	class TemporaryGene(
+		val geneHolder: Holder<Gene>,
+		var ticksRemaining: Int
+	) {
+
+		fun tick(): Boolean {
+			ticksRemaining--
+			return ticksRemaining <= 0
+		}
+
+		fun getComponent(): Component {
+			return ModLanguageProvider.Commands.TEMPORARY_GENE_WITH_DURATION.toComponent(
+				geneHolder.getName(),
+				ticksRemaining
+			)
+		}
+
+		fun toTag(registries: HolderLookup.Provider): CompoundTag {
+			val tag = CompoundTag()
+			val geneLocation = geneHolder.getLocationOrNull() ?: return tag
+			tag.putString(GENE_TAG, geneLocation.toString())
+			tag.putInt(TICKS_REMAINING_TAG, ticksRemaining)
+			return tag
+		}
+
+		companion object {
+			private const val GENE_TAG = "gene"
+			private const val TICKS_REMAINING_TAG = "ticks_remaining"
+
+			val CODEC: Codec<TemporaryGene> =
+				RecordCodecBuilder.create { instance ->
+					instance.group(
+						Gene.CODEC
+							.fieldOf("gene")
+							.forGetter(TemporaryGene::geneHolder),
+						Codec.INT
+							.fieldOf("ticks_remaining")
+							.forGetter(TemporaryGene::ticksRemaining)
+					).apply(instance, ::TemporaryGene)
+				}
+
+			fun fromTag(registries: HolderLookup.Provider, tag: CompoundTag): TemporaryGene {
+				val registry = registries.lookupOrThrow(ModGenes.GENE_REGISTRY_KEY)
+
+				val geneLocation = ResourceLocation.tryParse(tag.getString(GENE_TAG))
+					?: throw IllegalArgumentException("Invalid gene ResourceLocation in TemporaryGene NBT!")
+
+				val rk = ResourceKey.create(ModGenes.GENE_REGISTRY_KEY, geneLocation)
+				val geneHolder = registry.get(rk).getOrNull()
+					?: throw IllegalArgumentException("Could not find gene with ResourceKey $rk when loading TemporaryGene!")
+
+				val ticksRemaining = tag.getInt(TICKS_REMAINING_TAG)
+
+				return TemporaryGene(geneHolder, ticksRemaining)
+			}
+		}
+	}
+
+}

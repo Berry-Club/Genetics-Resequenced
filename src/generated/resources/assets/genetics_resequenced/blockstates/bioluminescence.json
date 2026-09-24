@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "genetics_resequenced:block/bioluminescence"
+    }
+  }
+}

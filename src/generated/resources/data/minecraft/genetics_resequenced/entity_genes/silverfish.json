@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:silverfish",
+  "gene_weights": {
+    "genetics_resequenced:basic": 3,
+    "genetics_resequenced:efficiency": 1,
+    "genetics_resequenced:haste": 3
+  }
+}

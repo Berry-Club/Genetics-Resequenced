@@ -1,0 +1,6 @@
+{
+  "gene": "genetics_resequenced:haste_2",
+  "requirements": [
+    "genetics_resequenced:haste"
+  ]
+}

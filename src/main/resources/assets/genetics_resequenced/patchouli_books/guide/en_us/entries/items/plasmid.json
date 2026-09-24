@@ -1,0 +1,28 @@
+{
+	"name": "Plasmid",
+	"category": "genetics_resequenced:items",
+	"icon": "genetics_resequenced:plasmid",
+	"sortnum": 5,
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "$(major)Plasmids/$ are the vehicle that carries $(l:genetics_resequenced:genes)Genes/$.$(br2)Plasmids default as $(bad)empty/$, with no genetic information.$(br2)To begin, use a $(l:genetics_resequenced:blocks/plasmid_infuser)Plasmid Infuser/$ to infuse a decrypted DNA Helix into them.$(br2)This will set the Plasmid's Gene."
+		},
+		{
+			"type": "patchouli:spotlight",
+			"item": "genetics_resequenced:plasmid",
+			"link_recipe": true,
+			"text": "Plasmids require a certain amount of $(minor)Gene Points/$ to be complete.$(br2)The amount of Gene Points required depends on the Plasmid's Gene. $(minor)More advanced Genes cost more Points./$"
+		},
+		{
+			"type": "patchouli:spotlight",
+			"item": "genetics_resequenced:plasmid[genetics_resequenced:plasmid_progress={dnaPoints:1, gene:'genetics_resequenced:scare_creepers'}]",
+			"text": "This Plasmid has been infused with the $(l:genetics_resequenced:genes/scare_creepers)Scare Creepers/$ Gene.$(br2)Notice, however, that it $(bad)only contains 1 Gene Point/$.$(br2)Infusing more DNA Helices of the same Gene will add +2 Points each, while Basic Genes will add +1 each."
+		},
+		{
+			"type": "patchouli:spotlight",
+			"item": "genetics_resequenced:plasmid[genetics_resequenced:plasmid_progress={dnaPoints:20000, gene:'genetics_resequenced:scare_creepers'}]",
+			"text": "Once it's reached its maximum Gene Points required, the Plasmid will be marked $(minor)complete/$!$(br2)That means it's ready to be injected into a Syringe at the $(l:genetics_resequenced:blocks/plasmid_injector)Plasmid Injector/$."
+		}
+	]
+}

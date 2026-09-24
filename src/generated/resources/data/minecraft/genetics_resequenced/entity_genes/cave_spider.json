@@ -1,0 +1,11 @@
+{
+  "entity": "minecraft:cave_spider",
+  "gene_weights": {
+    "genetics_resequenced:basic": 7,
+    "genetics_resequenced:night_vision": 5,
+    "genetics_resequenced:poison_immunity": 1,
+    "genetics_resequenced:wall_climbing": 2,
+    "genetics_resequenced:web_defense": 1,
+    "genetics_resequenced:web_walker": 1
+  }
+}

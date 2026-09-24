@@ -1,0 +1,6 @@
+{
+  "gene": "genetics_resequenced:efficiency_4",
+  "requirements": [
+    "genetics_resequenced:efficiency"
+  ]
+}

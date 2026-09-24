@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:endermite",
+  "gene_weights": {
+    "genetics_resequenced:item_magnet": 2,
+    "genetics_resequenced:keep_inventory": 1,
+    "genetics_resequenced:xp_magnet": 3
+  }
+}

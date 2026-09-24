@@ -1,0 +1,10 @@
+{
+  "type": "genetics_resequenced:incubator/gmo",
+  "entity_type": "minecraft:rabbit",
+  "gene_chance": 0.75,
+  "ideal_gene": "genetics_resequenced:luck",
+  "ingredient": {
+    "item": "minecraft:emerald"
+  },
+  "needs_mutation_potion": false
+}

@@ -1,0 +1,139 @@
+package dev.aaronhowser.mods.genetics_resequenced.item
+
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getDefaultInstance
+import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
+import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModMessageLang
+import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModTooltipLang
+import dev.aaronhowser.mods.genetics_resequenced.registry.ModItems
+import dev.aaronhowser.mods.genetics_resequenced.util.ClientUtil
+import dev.aaronhowser.mods.genetics_resequenced.util.ItemStackNbt
+import net.minecraft.ChatFormatting
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.network.chat.Component
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.InteractionHand
+import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.EntityType
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.MobCategory
+import net.minecraft.world.entity.player.Player
+import net.minecraft.world.item.Item
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.item.TooltipFlag
+import net.minecraft.world.level.Level
+
+open class EntityDnaItem(properties: Properties) : Item(properties) {
+
+	override fun interactLivingEntity(
+		pStack: ItemStack,
+		pPlayer: Player,
+		pInteractionTarget: LivingEntity,
+		pUsedHand: InteractionHand
+	): InteractionResult {
+		if (!pPlayer.isCreative) return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand)
+
+		val newStack = pStack.copy()
+		val setWorked = setEntityType(newStack, pInteractionTarget.type)
+
+		if (!setWorked) {
+			pPlayer.displayClientMessage(
+				ModMessageLang.CANT_SET_ENTITY.toComponent(),
+				true
+			)
+
+			return InteractionResult.PASS
+		}
+
+		pPlayer.setItemInHand(pUsedHand, newStack)
+
+		return InteractionResult.SUCCESS
+	}
+
+	override fun appendHoverText(
+		pStack: ItemStack,
+		pLevel: Level?,
+		pTooltipComponents: MutableList<Component>,
+		pIsAdvanced: TooltipFlag
+	) {
+		val entityType = getEntityType(pStack)
+		if (entityType != null) {
+			val component =
+				ModTooltipLang.CELL_MOB
+					.toComponent(entityType.description)
+					.withStyle(ChatFormatting.GRAY)
+			pTooltipComponents.add(component)
+		} else {
+			val component =
+				ModTooltipLang.CELL_NO_MOB
+					.toComponent()
+					.withStyle(ChatFormatting.GRAY)
+			pTooltipComponents.add(component)
+		}
+
+		try {
+			if (ClientUtil.playerIsCreative()) {
+				val component =
+					ModTooltipLang.CELL_CREATIVE
+						.toComponent()
+						.withStyle(ChatFormatting.GRAY)
+
+				pTooltipComponents.add(component)
+			}
+		} catch (e: Exception) {
+			GeneticsResequenced.LOGGER.error("EntityDnaItem isCreative check failed", e)
+		}
+	}
+
+	companion object {
+		private const val ENTITY_TYPE = "genetics_resequenced:entity_type"
+
+		@JvmField
+		val ADDITIONALLY_INCLUDED_ENTITY_TYPES: MutableSet<EntityType<out LivingEntity>> = mutableSetOf(
+			EntityType.PLAYER,
+			EntityType.IRON_GOLEM,
+			EntityType.SNOW_GOLEM,
+			EntityType.VILLAGER
+		)
+
+		@JvmField
+		val VALID_ENTITY_TYPES: MutableSet<EntityType<*>> =
+			BuiltInRegistries.ENTITY_TYPE
+				.filter { it.category != MobCategory.MISC || it in ADDITIONALLY_INCLUDED_ENTITY_TYPES }
+				.toMutableSet()
+
+
+		fun setEntityType(itemStack: ItemStack, entityType: EntityType<*>): Boolean {
+			if (entityType !in VALID_ENTITY_TYPES) {
+				return false
+			}
+
+			val entityTypeId = BuiltInRegistries.ENTITY_TYPE.getKey(entityType)
+			ItemStackNbt.putString(itemStack, ENTITY_TYPE, entityTypeId.toString())
+
+			return true
+		}
+
+		fun getOrganicStack(entityType: EntityType<*>): ItemStack {
+			val itemStack = ModItems.ORGANIC_MATTER.getDefaultInstance()
+			setEntityType(itemStack, entityType)
+			return itemStack
+		}
+
+		fun getCell(entityType: EntityType<*>): ItemStack {
+			val itemStack = ModItems.CELL.getDefaultInstance()
+			setEntityType(itemStack, entityType)
+			return itemStack
+		}
+
+		fun hasEntity(itemStack: ItemStack): Boolean = ItemStackNbt.getString(itemStack, ENTITY_TYPE) != null
+
+		fun getEntityType(itemStack: ItemStack): EntityType<*>? {
+			val entityTypeId = ItemStackNbt.getString(itemStack, ENTITY_TYPE)
+			if (entityTypeId.isNullOrEmpty()) return null
+			val entityTypeLocation = ResourceLocation.tryParse(entityTypeId) ?: return null
+
+			return BuiltInRegistries.ENTITY_TYPE.getOptional(entityTypeLocation).orElse(null)
+		}
+	}
+}

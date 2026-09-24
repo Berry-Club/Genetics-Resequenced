@@ -1,0 +1,12 @@
+{
+  "parent": "minecraft:block/cube",
+  "textures": {
+    "down": "genetics_resequenced:block/machine_bottom",
+    "east": "genetics_resequenced:block/machine_side",
+    "north": "genetics_resequenced:block/dna_extractor_front",
+    "particle": "genetics_resequenced:block/machine_top",
+    "south": "genetics_resequenced:block/machine_side",
+    "up": "genetics_resequenced:block/machine_top",
+    "west": "genetics_resequenced:block/machine_side"
+  }
+}

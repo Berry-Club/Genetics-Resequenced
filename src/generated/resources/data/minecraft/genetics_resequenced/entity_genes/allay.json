@@ -1,0 +1,7 @@
+{
+  "entity": "minecraft:allay",
+  "gene_weights": {
+    "genetics_resequenced:basic": 3,
+    "genetics_resequenced:item_magnet": 5
+  }
+}

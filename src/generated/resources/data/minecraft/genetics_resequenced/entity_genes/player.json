@@ -1,0 +1,6 @@
+{
+  "entity": "minecraft:player",
+  "gene_weights": {
+    "genetics_resequenced:cringe": 1
+  }
+}

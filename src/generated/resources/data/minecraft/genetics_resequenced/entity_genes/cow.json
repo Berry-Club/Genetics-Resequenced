@@ -1,0 +1,9 @@
+{
+  "entity": "minecraft:cow",
+  "gene_weights": {
+    "genetics_resequenced:basic": 5,
+    "genetics_resequenced:eat_grass": 3,
+    "genetics_resequenced:milky": 4,
+    "genetics_resequenced:placid": 3
+  }
+}

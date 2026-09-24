@@ -1,0 +1,11 @@
+{
+	"name": "Invisible",
+	"category": "genetics_resequenced:genes",
+	"icon": "minecraft:golden_apple",
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "The $(major)Invisible/$ Gene gives entities the $(minor)Invisible effect/$.$(br2)This Gene $(minor)can be given to mobs/$."
+		}
+	]
+}

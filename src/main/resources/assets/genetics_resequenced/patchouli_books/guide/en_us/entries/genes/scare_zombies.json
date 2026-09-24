@@ -1,0 +1,15 @@
+{
+	"name": "Scare Zombies",
+	"category": "genetics_resequenced:genes",
+	"icon": "minecraft:zombie_head",
+	"pages": [
+		{
+			"type": "patchouli:text",
+			"text": "The $(major)Scare Zombies/$ Gene makes it so that $(minor)Zombies will run away from you/$.$(br2)This Gene $(minor)can be given to mobs/$."
+		},
+		{
+			"type": "patchouli:text",
+			"text": "By default, this Gene requires $(l:genetics_resequenced:genes/scare_creepers)Scare Creepers/$."
+		}
+	]
+}

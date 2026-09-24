@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:spider",
+  "gene_weights": {
+    "genetics_resequenced:basic": 4,
+    "genetics_resequenced:night_vision": 3,
+    "genetics_resequenced:wall_climbing": 2,
+    "genetics_resequenced:web_defense": 1,
+    "genetics_resequenced:web_walker": 1
+  }
+}

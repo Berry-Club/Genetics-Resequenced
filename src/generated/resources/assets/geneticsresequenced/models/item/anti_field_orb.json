@@ -1,6 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "geneticsresequenced:item/anti_field_orb"
-  }
-}

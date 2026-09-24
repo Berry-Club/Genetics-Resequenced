@@ -1,0 +1,5 @@
+{
+  "type": "genetics_resequenced:incubator/virus",
+  "input_dna_gene": "genetics_resequenced:scare_creepers",
+  "output_gene": "genetics_resequenced:green_death"
+}

@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:guardian",
+  "gene_weights": {
+    "genetics_resequenced:basic": 5,
+    "genetics_resequenced:mob_sight": 3,
+    "genetics_resequenced:water_breathing": 4
+  }
+}

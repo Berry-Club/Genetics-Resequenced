@@ -1,0 +1,10 @@
+{
+  "type": "genetics_resequenced:incubator/gmo",
+  "entity_type": "minecraft:villager",
+  "gene_chance": 0.85,
+  "ideal_gene": "genetics_resequenced:emerald_heart",
+  "ingredient": {
+    "item": "minecraft:emerald"
+  },
+  "needs_mutation_potion": false
+}

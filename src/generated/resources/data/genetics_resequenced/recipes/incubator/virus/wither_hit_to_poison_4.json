@@ -1,0 +1,5 @@
+{
+  "type": "genetics_resequenced:incubator/virus",
+  "input_dna_gene": "genetics_resequenced:wither_hit",
+  "output_gene": "genetics_resequenced:poison_4"
+}

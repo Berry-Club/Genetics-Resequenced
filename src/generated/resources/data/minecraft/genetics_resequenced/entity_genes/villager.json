@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:villager",
+  "gene_weights": {
+    "genetics_resequenced:basic": 5,
+    "genetics_resequenced:emerald_heart": 2,
+    "genetics_resequenced:experienced": 2
+  }
+}

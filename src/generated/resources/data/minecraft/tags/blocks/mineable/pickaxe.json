@@ -1,16 +1,16 @@
 {
   "values": [
-    "geneticsresequenced:anti_field_block",
-    "geneticsresequenced:bioluminescence",
-    "geneticsresequenced:web_defense_block",
-    "geneticsresequenced:coal_generator",
-    "geneticsresequenced:cell_analyzer",
-    "geneticsresequenced:dna_extractor",
-    "geneticsresequenced:dna_decryptor",
-    "geneticsresequenced:blood_purifier",
-    "geneticsresequenced:plasmid_infuser",
-    "geneticsresequenced:plasmid_injector",
-    "geneticsresequenced:incubator",
-    "geneticsresequenced:advanced_incubator"
+    "genetics_resequenced:anti_field_block",
+    "genetics_resequenced:bioluminescence",
+    "genetics_resequenced:web_defense_block",
+    "genetics_resequenced:coal_generator",
+    "genetics_resequenced:cell_analyzer",
+    "genetics_resequenced:dna_extractor",
+    "genetics_resequenced:dna_decryptor",
+    "genetics_resequenced:blood_purifier",
+    "genetics_resequenced:plasmid_infuser",
+    "genetics_resequenced:plasmid_injector",
+    "genetics_resequenced:incubator",
+    "genetics_resequenced:advanced_incubator"
   ]
 }

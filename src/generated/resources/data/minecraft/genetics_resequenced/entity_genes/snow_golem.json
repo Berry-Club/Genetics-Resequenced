@@ -1,0 +1,7 @@
+{
+  "entity": "minecraft:snow_golem",
+  "gene_weights": {
+    "genetics_resequenced:basic": 5,
+    "genetics_resequenced:chilling": 2
+  }
+}

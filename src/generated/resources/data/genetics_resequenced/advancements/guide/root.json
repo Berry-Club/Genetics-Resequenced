@@ -1,0 +1,39 @@
+{
+  "criteria": {
+    "scraper": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "genetics_resequenced:scraper"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "background": "genetics_resequenced:textures/block/machine_bottom.png",
+    "description": {
+      "translate": "advancement.genetics_resequenced.scraper.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "genetics_resequenced:scraper",
+      "nbt": "{Damage:0}"
+    },
+    "show_toast": true,
+    "title": {
+      "text": "Genetics: Resequenced"
+    }
+  },
+  "requirements": [
+    [
+      "scraper"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

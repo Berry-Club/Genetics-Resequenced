@@ -1,0 +1,17 @@
+{
+  "type": "genetics_resequenced:incubator/basic",
+  "bottom_slot": {
+    "type": "forge:partial_nbt",
+    "item": "minecraft:potion",
+    "nbt": "{Potion:\"genetics_resequenced:viral_agents\"}"
+  },
+  "result": {
+    "item": "minecraft:potion",
+    "nbt": "{Potion:\"genetics_resequenced:zombify_villager\"}"
+  },
+  "top_slot": {
+    "type": "forge:partial_nbt",
+    "item": "genetics_resequenced:dna_helix",
+    "nbt": "{\"genetics_resequenced:gene\":\"genetics_resequenced:emerald_heart\"}"
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "genetics_resequenced:incubator/basic",
+  "bottom_slot": {
+    "type": "forge:partial_nbt",
+    "item": "minecraft:potion",
+    "nbt": "{Potion:\"genetics_resequenced:substrate\"}"
+  },
+  "result": {
+    "item": "minecraft:potion",
+    "nbt": "{Potion:\"genetics_resequenced:cell_growth\"}"
+  },
+  "top_slot": {
+    "type": "forge:partial_nbt",
+    "item": "genetics_resequenced:dna_helix",
+    "nbt": "{\"genetics_resequenced:gene\":\"genetics_resequenced:basic\"}"
+  }
+}

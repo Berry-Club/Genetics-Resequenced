@@ -1,0 +1,7 @@
+{
+  "entity": "minecraft:piglin_brute",
+  "gene_weights": {
+    "genetics_resequenced:basic": 5,
+    "genetics_resequenced:meaty": 4
+  }
+}

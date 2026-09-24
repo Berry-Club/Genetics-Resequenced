@@ -1,0 +1,10 @@
+{
+  "type": "genetics_resequenced:incubator/gmo",
+  "entity_type": "minecraft:ender_dragon",
+  "gene_chance": 0.35,
+  "ideal_gene": "genetics_resequenced:regeneration_4",
+  "ingredient": {
+    "item": "minecraft:enchanted_golden_apple"
+  },
+  "needs_mutation_potion": true
+}

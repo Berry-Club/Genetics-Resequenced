@@ -1,0 +1,10 @@
+{
+  "type": "genetics_resequenced:incubator/gmo",
+  "entity_type": "minecraft:pig",
+  "gene_chance": 1.0,
+  "ideal_gene": "genetics_resequenced:meaty",
+  "ingredient": {
+    "item": "minecraft:porkchop"
+  },
+  "needs_mutation_potion": false
+}

@@ -1,0 +1,6 @@
+{
+  "gene": "genetics_resequenced:strength_2",
+  "requirements": [
+    "genetics_resequenced:strength"
+  ]
+}

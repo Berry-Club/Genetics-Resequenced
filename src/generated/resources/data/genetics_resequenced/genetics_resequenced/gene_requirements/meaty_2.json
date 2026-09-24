@@ -1,0 +1,6 @@
+{
+  "gene": "genetics_resequenced:meaty_2",
+  "requirements": [
+    "genetics_resequenced:meaty"
+  ]
+}

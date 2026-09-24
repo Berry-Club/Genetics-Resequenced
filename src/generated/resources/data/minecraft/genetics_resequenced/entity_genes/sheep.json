@@ -1,0 +1,8 @@
+{
+  "entity": "minecraft:sheep",
+  "gene_weights": {
+    "genetics_resequenced:basic": 5,
+    "genetics_resequenced:eat_grass": 3,
+    "genetics_resequenced:wooly": 4
+  }
+}

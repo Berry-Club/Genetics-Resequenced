@@ -1,0 +1,38 @@
+{
+  "parent": "genetics_resequenced:guide/dna_extractor",
+  "criteria": {
+    "plasmid_infuser": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "genetics_resequenced:plasmid_infuser"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancement.genetics_resequenced.plasmid_infuser.desc"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "genetics_resequenced:plasmid_infuser"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancement.genetics_resequenced.plasmid_infuser.title"
+    }
+  },
+  "requirements": [
+    [
+      "plasmid_infuser"
+    ]
+  ],
+  "sends_telemetry_event": true
+}

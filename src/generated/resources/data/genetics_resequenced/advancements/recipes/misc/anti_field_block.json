@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_anti_field_orb": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "genetics_resequenced:anti_field_orb"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "genetics_resequenced:anti_field_block"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_anti_field_orb",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "genetics_resequenced:anti_field_block"
+    ]
+  },
+  "sends_telemetry_event": false
+}

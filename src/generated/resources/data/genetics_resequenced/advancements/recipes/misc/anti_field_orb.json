@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_plasmid": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "genetics_resequenced:plasmid"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "genetics_resequenced:anti_field_orb"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_plasmid",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "genetics_resequenced:anti_field_orb"
+    ]
+  },
+  "sends_telemetry_event": false
+}

@@ -1,0 +1,10 @@
+{
+  "entity": "minecraft:rabbit",
+  "gene_weights": {
+    "genetics_resequenced:basic": 5,
+    "genetics_resequenced:fertile": 3,
+    "genetics_resequenced:jump_boost": 5,
+    "genetics_resequenced:luck": 4,
+    "genetics_resequenced:speed": 3
+  }
+}

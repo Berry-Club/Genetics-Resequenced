@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "genetics_resequenced:dna_helix"
+    },
+    "G": {
+      "tag": "forge:ingots/gold"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "L": {
+      "tag": "forge:glass/colorless"
+    }
+  },
+  "pattern": [
+    "ILI",
+    "DGD",
+    "ILI"
+  ],
+  "result": {
+    "item": "genetics_resequenced:dna_decryptor"
+  },
+  "show_notification": true
+}

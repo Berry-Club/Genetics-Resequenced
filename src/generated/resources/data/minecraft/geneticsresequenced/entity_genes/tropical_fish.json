@@ -1,7 +1,0 @@
-{
-  "entity": "minecraft:tropical_fish",
-  "gene_weights": {
-    "geneticsresequenced:basic": 5,
-    "geneticsresequenced:water_breathing": 2
-  }
-}

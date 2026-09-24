@@ -1,0 +1,10 @@
+{
+  "type": "genetics_resequenced:incubator/gmo",
+  "entity_type": "minecraft:mooshroom",
+  "gene_chance": 0.7,
+  "ideal_gene": "genetics_resequenced:photosynthesis",
+  "ingredient": {
+    "item": "minecraft:mushroom_stem"
+  },
+  "needs_mutation_potion": false
+}

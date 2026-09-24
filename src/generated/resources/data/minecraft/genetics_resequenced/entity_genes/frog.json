@@ -1,0 +1,7 @@
+{
+  "entity": "minecraft:frog",
+  "gene_weights": {
+    "genetics_resequenced:basic": 5,
+    "genetics_resequenced:jump_boost": 3
+  }
+}

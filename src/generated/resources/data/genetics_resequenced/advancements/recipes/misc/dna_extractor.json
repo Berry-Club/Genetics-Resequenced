@@ -1,0 +1,35 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_cell_analyzer": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "genetics_resequenced:cell_analyzer"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "genetics_resequenced:dna_extractor"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_cell_analyzer",
+      "has_the_recipe"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "genetics_resequenced:dna_extractor"
+    ]
+  },
+  "sends_telemetry_event": false
+}

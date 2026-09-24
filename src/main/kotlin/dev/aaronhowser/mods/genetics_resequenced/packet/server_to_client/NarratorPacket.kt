@@ -1,0 +1,29 @@
+package dev.aaronhowser.mods.genetics_resequenced.packet.server_to_client
+
+import dev.aaronhowser.mods.aaron.packet.AaronPacket
+import dev.aaronhowser.mods.genetics_resequenced.config.ClientConfig
+import net.minecraft.client.Minecraft
+import net.minecraft.network.FriendlyByteBuf
+import net.minecraftforge.network.NetworkEvent
+
+data class NarratorPacket(
+	val message: String
+) : AaronPacket() {
+
+	override fun handleOnClient(context: NetworkEvent.Context) {
+		if (ClientConfig.CONFIG.disableParrotNarrator.get()) return
+		Minecraft.getInstance().narrator.narrator.say(this.message, true)
+	}
+
+	override fun encode(buffer: FriendlyByteBuf) {
+		buffer.writeUtf(this.message)
+	}
+
+	companion object {
+		fun decode(buffer: FriendlyByteBuf): NarratorPacket {
+			val message = buffer.readUtf()
+			return NarratorPacket(message)
+		}
+	}
+
+}
