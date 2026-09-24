@@ -14,7 +14,7 @@ object ListAllGenesCommand {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return Commands
-			.literal("list-all-genes")
+			.literal("list-all")
 			.executes { listAllGenes(it) }
 	}
 

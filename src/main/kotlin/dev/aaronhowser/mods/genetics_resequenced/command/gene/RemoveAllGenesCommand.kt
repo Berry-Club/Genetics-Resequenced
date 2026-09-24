@@ -17,7 +17,7 @@ object RemoveAllGenesCommand {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return Commands
-			.literal("remove-all-genes")
+			.literal("remove-all")
 			.requires { it.hasPermission(2) }
 			.then(
 				Commands

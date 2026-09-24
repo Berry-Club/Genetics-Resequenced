@@ -20,7 +20,7 @@ object ListGenesCommand {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return Commands
-			.literal("list-genes")
+			.literal("list")
 			.requires { it.hasPermission(2) }
 			.executes {
 				val target = it.source.entityOrException

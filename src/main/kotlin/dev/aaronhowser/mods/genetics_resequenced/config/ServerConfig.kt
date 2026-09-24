@@ -9,7 +9,7 @@ class ServerConfig(
 
 	lateinit var keepGenesOnDeath: ForgeConfigSpec.BooleanValue
 	lateinit var minimumCooldownForNotification: ForgeConfigSpec.IntValue
-	lateinit var antifieldBlockRadius: ForgeConfigSpec.IntValue
+	lateinit var antifieldBlockRadius: ForgeConfigSpec.DoubleValue
 
 	lateinit var coalGeneratorEnergyCapacity: ForgeConfigSpec.IntValue
 	lateinit var coalGeneratorEnergyTransferRate: ForgeConfigSpec.IntValue
@@ -59,6 +59,7 @@ class ServerConfig(
 	lateinit var woolyCooldown: ForgeConfigSpec.IntValue
 	lateinit var xpMagnetCooldown: ForgeConfigSpec.IntValue
 	lateinit var xpMagnetRadius: ForgeConfigSpec.DoubleValue
+	lateinit var dragonHealthCrystalMaxDamage: ForgeConfigSpec.DoubleValue
 
 	init {
 		generalConfigs()
@@ -79,7 +80,7 @@ class ServerConfig(
 
 		antifieldBlockRadius = builder
 			.comment("How far should the Antifield Block prevent Item/XP Magnet Genes from working (in blocks)")
-			.defineInRange("antifieldBlockRadius", 25, 1, Int.MAX_VALUE)
+			.defineInRange("antifieldBlockRadius", 25.0, 1.0, Double.MAX_VALUE)
 	}
 
 	private fun machineConfigs() {
@@ -109,6 +110,10 @@ class ServerConfig(
 		incubatorChorusFruitChanceIncrease = builder
 			.comment("How much should each Chorus Fruit increase the success rate of GMO recipes? Equation is `finalChance = decreasedChance ")
 			.defineInRange("incubatorChorusFruitChanceIncrease", 0.1, 0.0, 1.0)
+
+		dragonHealthCrystalMaxDamage = builder
+			.comment("How much damage should the Dragon Health Crystal be able to take before it breaks")
+			.defineInRange("dragonHealthCrystalMaxDamage", 1000.0, 1.0, Double.MAX_VALUE)
 
 		// most other machines hold 20_000
 		// but dispersal is 1_000

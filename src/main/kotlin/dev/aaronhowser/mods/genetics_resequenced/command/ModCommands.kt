@@ -25,13 +25,15 @@ object ModCommands {
 			dispatcher.register(
 				Commands.literal(commandBaseString)
 					.then(ClearBioGlowCommand.register())
-					.then(ListGenesCommand.register())
-					.then(ListAllGenesCommand.register())
-					.then(GiveGeneCommand.register())
-					.then(GiveTemporaryGeneCommand.register())
-					.then(GiveAllGenesCommand.register())
-					.then(RemoveGeneCommand.register())
-					.then(RemoveAllGenesCommand.register())
+					.then(
+						Commands.literal("gene")
+							.then(ListGenesCommand.register())
+							.then(ListAllGenesCommand.register())
+							.then(GiveGeneCommand.register())
+							.then(GiveAllGenesCommand.register())
+							.then(RemoveGeneCommand.register())
+							.then(RemoveAllGenesCommand.register())
+					)
 			)
 		}
 	}

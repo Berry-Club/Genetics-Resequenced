@@ -43,7 +43,7 @@ object RemoveGeneCommand {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return Commands
-			.literal("remove-gene")
+			.literal("remove")
 			.requires { it.hasPermission(2) }
 			.then(
 				Commands.argument(TARGETS_ARGUMENT, EntityArgument.entities())

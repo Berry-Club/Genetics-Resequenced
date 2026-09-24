@@ -6,23 +6,20 @@ import net.minecraft.world.entity.LivingEntity
 import net.minecraftforge.eventbus.api.Cancelable
 import net.minecraftforge.eventbus.api.Event
 
-sealed class TemporaryGeneAddedEvent : Event() {
+sealed class GeneCooldownEvent : Event() {
 
 	abstract val entity: LivingEntity
 	abstract val geneHolder: Holder<Gene>
-	abstract val durationTicks: Int
 
 	@Cancelable
-	data class Pre(
+	data class Add(
 		override val entity: LivingEntity,
 		override val geneHolder: Holder<Gene>,
-		override var durationTicks: Int
-	) : TemporaryGeneAddedEvent()
+		var cooldownTicks: Int
+	) : GeneCooldownEvent()
 
-	data class Post(
+	data class Remove(
 		override val entity: LivingEntity,
-		override val geneHolder: Holder<Gene>,
-		override val durationTicks: Int
-	) : TemporaryGeneAddedEvent()
-
+		override val geneHolder: Holder<Gene>
+	) : GeneCooldownEvent()
 }

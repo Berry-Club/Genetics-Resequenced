@@ -12,6 +12,7 @@ import net.minecraft.world.level.block.state.StateDefinition
 import net.minecraft.world.level.block.state.properties.BlockStateProperties
 import net.minecraft.world.level.block.state.properties.BooleanProperty
 import java.util.*
+import java.util.WeakHashMap
 
 class AntiFieldBlock : Block(
 	Properties
@@ -49,19 +50,71 @@ class AntiFieldBlock : Block(
 
 		if (isPowered != wasPowered) {
 			pLevel.setBlock(pPos, pState.setValue(DISABLED, isPowered), 3)
+			updateTrackedState(pLevel, pPos, !isPowered)
 		}
+	}
+
+	override fun onPlace(
+		state: BlockState,
+		level: Level,
+		position: BlockPos,
+		oldState: BlockState,
+		movedByPiston: Boolean
+	) {
+		super.onPlace(state, level, position, oldState, movedByPiston)
+		updateTrackedState(level, position, !state.getValue(DISABLED))
+	}
+
+	override fun onRemove(
+		state: BlockState,
+		level: Level,
+		position: BlockPos,
+		newState: BlockState,
+		movedByPiston: Boolean
+	) {
+		if (!state.`is`(newState.block)) {
+			updateTrackedState(level, position, false)
+		}
+
+		super.onRemove(state, level, position, newState, movedByPiston)
 	}
 
 	companion object {
 		val DISABLED: BooleanProperty = BlockStateProperties.POWERED
+		private val activeAntiFieldsByLevel: MutableMap<Level, MutableSet<BlockPos>> = WeakHashMap()
+
+		private fun updateTrackedState(level: Level, position: BlockPos, isActive: Boolean) {
+			val positions = activeAntiFieldsByLevel.getOrPut(level) { mutableSetOf() }
+			if (isActive) {
+				positions.add(position.immutable())
+			} else {
+				positions.remove(position)
+			}
+		}
 
 		fun getNearestActiveAntifield(level: Level, location: BlockPos): Optional<BlockPos> {
 			val radius = ServerConfig.CONFIG.antifieldBlockRadius.get()
+			val positions = activeAntiFieldsByLevel[level] ?: return Optional.empty()
+			var nearestPosition: BlockPos? = null
+			var nearestDistance = Double.MAX_VALUE
+			val invalidPositions = mutableListOf<BlockPos>()
 
-			return BlockPos.findClosestMatch(location, radius, radius) { pos ->
-				val blockState = level.getBlockState(pos)
-				blockState.block == ModBlocks.ANTI_FIELD_BLOCK.get() && !blockState.getValue(DISABLED)
+			for (position in positions) {
+				val state = level.getBlockState(position)
+				if (state.block != ModBlocks.ANTI_FIELD_BLOCK.get() || state.getValue(DISABLED)) {
+					invalidPositions.add(position)
+					continue
+				}
+
+				val distance = position.distSqr(location)
+				if (distance <= radius * radius && distance < nearestDistance) {
+					nearestPosition = position
+					nearestDistance = distance
+				}
 			}
+
+			positions.removeAll(invalidPositions.toSet())
+			return Optional.ofNullable(nearestPosition)
 		}
 
 		fun isNearActiveAntifield(level: Level, location: BlockPos): Boolean {

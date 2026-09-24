@@ -51,6 +51,7 @@ object MobGenes {
 	// https://github.com/Elenterius/Biomancy/blob/mc1.20.1/prod/src/main/java/com/github/elenterius/biomancy/serum/FrenzySerum.java#L99
 	fun giveFrenzyGoals(mob: Mob) {
 		if (mob !is PathfinderMob) return
+		if (ModGenes.FRENZIED.isDisabled(mob.registryAccess())) return
 
 		val alreadyHasFrenzyTargetGoal = mob.targetSelector.availableGoals.any { it.goal is FrenzyTargetGoal<*> }
 		if (!alreadyHasFrenzyTargetGoal) {

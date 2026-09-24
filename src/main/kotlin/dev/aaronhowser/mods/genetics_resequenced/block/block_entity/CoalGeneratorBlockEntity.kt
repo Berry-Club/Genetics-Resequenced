@@ -87,6 +87,12 @@ class CoalGeneratorBlockEntity(
 	private fun generateEnergy() {
 		energyStorage.receiveEnergy(getEnergyPerTick(), false)
 		burnTimeRemaining--
+
+		if (burnTimeRemaining == 0) {
+			val level = this.level ?: return
+			val newState = blockState.setValue(CoalGeneratorBlock.BURNING, false)
+			level.setBlockAndUpdate(blockPos, newState)
+		}
 	}
 
 	private fun hasRoomForEnergy(): Boolean {

@@ -1,6 +1,7 @@
 package dev.aaronhowser.mods.genetics_resequenced.command.gene
 
 import com.mojang.brigadier.builder.ArgumentBuilder
+import com.mojang.brigadier.arguments.IntegerArgumentType
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.getLocationOrNull
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.capability.GenesCapability.Companion.addGene
@@ -25,10 +26,11 @@ object GiveGeneCommand {
 
 	private const val GENE_ARGUMENT = "gene"
 	private const val TARGETS_ARGUMENT = "targets"
+	private const val DURATION_ARGUMENT = "duration"
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return Commands
-			.literal("give-gene")
+			.literal("give")
 			.requires { it.hasPermission(2) }
 			.then(
 				Commands
@@ -51,6 +53,17 @@ object GiveGeneCommand {
 									EntityArgument.getEntities(cmd, TARGETS_ARGUMENT)
 								)
 							}
+							.then(
+								Commands.argument(DURATION_ARGUMENT, IntegerArgumentType.integer(1))
+									.executes { cmd ->
+										GiveTemporaryGeneCommand.addGene(
+											cmd.source,
+											ResourceLocationArgument.getId(cmd, GENE_ARGUMENT),
+											EntityArgument.getEntities(cmd, TARGETS_ARGUMENT),
+											IntegerArgumentType.getInteger(cmd, DURATION_ARGUMENT)
+										)
+									}
+							)
 					)
 			)
 	}

@@ -65,7 +65,7 @@ object GiveTemporaryGeneCommand {
 			)
 	}
 
-	private fun addGene(
+	fun addGene(
 		source: CommandSourceStack,
 		geneRl: ResourceLocation,
 		entities: Collection<Entity>,

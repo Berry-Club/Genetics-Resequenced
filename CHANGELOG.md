@@ -1,3 +1,31 @@
+# 1.15.0
+
+### Added
+
+- Surgical Precision enchantment, which increases the amount of Organic Matter dropped
+- Gene cooldown events with configurable durations
+
+### Changed
+
+- Updated the Patchouli and Modonomicon book resources
+- Gene cooldowns now notify players in the status bar
+- Temporary Gene durations can be changed in their pre-add event
+- Only the first Dragon Health Crystal in an inventory protects its holder
+- The Dragon Health Crystal now tracks damage taken and has configurable capacity
+- Anti-Field radius is now a double and active Anti-Fields use a cached lookup
+- Gene commands now live under `/gr gene`
+- Support Slimes render their owner's skin with the skull renderer
+
+### Fixed
+
+- Delicate Touch no longer puts the Scraper on cooldown
+- Cell duplication creates 8 Cells or 4 GMO Cells
+- The Cringe shake disable option now works
+- Frenzied goals skip disabled Genes and perform the cheap Gene check first
+- Machines expose their sided inventories to pipes
+- Machine inventory labels no longer drift when screens are initialized repeatedly
+- Coal Generators return to their unlit state after fuel runs out
+
 # 1.12.0
 
 ### Added

@@ -64,6 +64,7 @@ abstract class MachineBlockEntity(
 	}
 
 	protected var lazyItemHandler: LazyOptional<IItemHandler> = LazyOptional.empty()
+	private val sidedItemHandlers: MutableMap<Direction, LazyOptional<IItemHandler>> = mutableMapOf()
 
 	open fun getItemHandler(direction: Direction?): IItemHandler? {
 		return itemHandler
@@ -72,7 +73,15 @@ abstract class MachineBlockEntity(
 	override fun <T : Any?> getCapability(cap: Capability<T>, side: Direction?): LazyOptional<T> {
 		return when (cap) {
 			ForgeCapabilities.ENERGY -> lazyEnergyStorage.cast()
-			ForgeCapabilities.ITEM_HANDLER -> lazyItemHandler.cast()
+			ForgeCapabilities.ITEM_HANDLER -> {
+				if (side == null) {
+					lazyItemHandler.cast()
+				} else {
+					sidedItemHandlers.getOrPut(side) {
+						LazyOptional.of { getItemHandler(side) ?: itemHandler }
+					}.cast()
+				}
+			}
 
 			else -> super.getCapability(cap, side)
 		}
@@ -83,6 +92,10 @@ abstract class MachineBlockEntity(
 
 		lazyEnergyStorage = LazyOptional.of { energyStorage }
 		lazyItemHandler = LazyOptional.of { itemHandler }
+
+		for (direction in Direction.entries) {
+			sidedItemHandlers[direction] = LazyOptional.of { getItemHandler(direction) ?: itemHandler }
+		}
 	}
 
 	override fun invalidateCaps() {
@@ -90,6 +103,12 @@ abstract class MachineBlockEntity(
 
 		lazyEnergyStorage.invalidate()
 		lazyItemHandler.invalidate()
+
+		for (handler in sidedItemHandlers.values) {
+			handler.invalidate()
+		}
+
+		sidedItemHandlers.clear()
 	}
 
 	protected open fun serverTick() {}

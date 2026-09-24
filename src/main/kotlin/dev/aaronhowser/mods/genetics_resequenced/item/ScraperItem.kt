@@ -112,6 +112,9 @@ class ScraperItem(properties: Properties) : Item(properties) {
 				return false
 			}
 
+			val surgicalPrecision = ModEnchantments.getSurgicalPrecisionHolder(player)
+			organicStack.count += stack.getEnchantmentLevel(surgicalPrecision.get())
+
 			if (!player.inventory.add(organicStack)) {
 				player.drop(organicStack, false)
 			}
@@ -120,10 +123,7 @@ class ScraperItem(properties: Properties) : Item(properties) {
 			val hasDelicateTouch =
 				stack.getEnchantmentLevel(ModEnchantments.getDelicateTouchHolder(player).get()) != 0
 
-			// Only put on cooldown if the entity was not damaged
-			if (hasDelicateTouch) {
-				player.cooldowns.addCooldown(ModItems.SCRAPER.get(), 10)
-			} else {
+			if (!hasDelicateTouch) {
 				target.hurt(getDamageSource(player.level(), player), 1f)
 			}
 

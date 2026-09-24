@@ -85,6 +85,7 @@ class ModLanguageProvider(
 		add(Keys.TELEPORT, "Teleport")
 
 		add(Other.DELICATE_TOUCH, "Delicate Touch")
+		add(Other.SURGICAL_PRECISION, "Surgical Precision")
 		add(Other.SUPPORT_SLIME, "Support Slime")
 		add(Other.DEATH_SCRAPER, "%s was scraped to the bone")
 		add(Other.DEATH_SYRINGE, "%s died of blood loss")
@@ -135,6 +136,7 @@ class ModLanguageProvider(
 		const val VIRUS_DEATH = "death.attack.gr_virus"
 
 		const val DELICATE_TOUCH = "enchantment.genetics_resequenced.delicate_touch"
+		const val SURGICAL_PRECISION = "enchantment.genetics_resequenced.surgical_precision"
 		const val SUPPORT_SLIME = "entity.genetics_resequenced.support_slime"
 
 		const val BOOK_LANDING_TEXT = "book.genetics_resequenced.landing_text"

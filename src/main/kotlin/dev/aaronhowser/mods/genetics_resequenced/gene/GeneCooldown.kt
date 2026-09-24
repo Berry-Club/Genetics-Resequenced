@@ -6,12 +6,15 @@ import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.config.ServerConfig
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
+import dev.aaronhowser.mods.genetics_resequenced.event.custom.GeneCooldownEvent
 import dev.aaronhowser.mods.genetics_resequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.genetics_resequenced.registry.ModGenes
 import net.minecraft.network.chat.Component
 import net.minecraft.resources.ResourceKey
 import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.entity.player.Player
 import java.util.*
+import thedarkcolour.kotlinforforge.forge.FORGE_BUS
 
 class GeneCooldown(
 	private val gene: ResourceKey<Gene>,
@@ -27,13 +30,16 @@ class GeneCooldown(
 	val cooldownEndedTasks: MutableSet<() -> Unit> = mutableSetOf()
 
 	fun add(entity: LivingEntity): Boolean {
+		val geneHolder = ModGenes.fromResourceLocation(entity.registryAccess(), gene.location()) ?: return false
+		val event = GeneCooldownEvent.Add(entity, geneHolder, cooldownTicks)
+		if (FORGE_BUS.post(event)) return false
 
 		addedViaEntity = true
 
 		val success = add(entity.uuid)
 
 		if (success) {
-			onAddSucceed(entity)
+			onAddSucceed(entity, event.cooldownTicks)
 		} else {
 			onAddFail(entity)
 		}
@@ -41,10 +47,10 @@ class GeneCooldown(
 		return success
 	}
 
-	private fun onAddSucceed(entity: LivingEntity) {
-		if (this.actuallyNotify) tellCooldownStarted(entity, this.gene, this.cooldownTicks)
+	private fun onAddSucceed(entity: LivingEntity, duration: Int) {
+		if (this.actuallyNotify) tellCooldownStarted(entity, this.gene, duration)
 
-		entity.level().scheduleTaskInTicks(this.cooldownTicks) {
+		entity.level().scheduleTaskInTicks(duration) {
 			remove(entity)
 		}
 	}
@@ -58,7 +64,15 @@ class GeneCooldown(
 			if (this.actuallyNotify) tellCooldownEnded(entity, this.gene)
 		}
 
-		return remove(entity.uuid)
+		val removed = remove(entity.uuid)
+		if (removed) {
+			val geneHolder = ModGenes.fromResourceLocation(entity.registryAccess(), gene.location())
+			if (geneHolder != null) {
+				FORGE_BUS.post(GeneCooldownEvent.Remove(entity, geneHolder))
+			}
+		}
+
+		return removed
 	}
 
 	override fun add(element: UUID): Boolean {
@@ -114,7 +128,7 @@ class GeneCooldown(
 				.append(geneHolder.getName())
 				.append(ModLanguageProvider.Cooldown.STARTED.toComponent(cooldownString))
 
-			player.sendSystemMessage(message)
+			if (player is Player) player.displayClientMessage(message, true)
 		}
 
 		fun tellCooldownEnded(player: LivingEntity, geneRk: ResourceKey<Gene>) {
@@ -123,7 +137,7 @@ class GeneCooldown(
 				ModLanguageProvider.Cooldown.ENDED
 					.toComponent(geneHolder.getName())
 
-			player.sendSystemMessage(message)
+			if (player is Player) player.displayClientMessage(message, true)
 		}
 
 		fun tellOnCooldown(player: LivingEntity, geneRk: ResourceKey<Gene>) {
@@ -131,7 +145,7 @@ class GeneCooldown(
 			val message = ModLanguageProvider.Cooldown.ON_COOLDOWN
 				.toComponent(geneHolder.getName())
 
-			player.sendSystemMessage(message)
+			if (player is Player) player.displayClientMessage(message, true)
 		}
 	}
 

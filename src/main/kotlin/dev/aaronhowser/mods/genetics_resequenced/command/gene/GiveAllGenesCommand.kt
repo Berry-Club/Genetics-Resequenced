@@ -20,7 +20,7 @@ object GiveAllGenesCommand {
 
 	fun register(): ArgumentBuilder<CommandSourceStack, *> {
 		return Commands
-			.literal("give-all-genes")
+			.literal("give-all")
 			.requires { it.hasPermission(2) }
 			.executes { cmd ->
 				giveAllGenes(

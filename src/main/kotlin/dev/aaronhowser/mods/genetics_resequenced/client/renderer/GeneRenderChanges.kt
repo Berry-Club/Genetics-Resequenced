@@ -10,6 +10,8 @@ import org.joml.SimplexNoise
 object GeneRenderChanges {
 
 	fun shakeFromCringe(event: RenderLivingEvent.Pre<*, *>) {
+		if (!ClientConfig.CONFIG.doesCringeShake.get()) return
+
 		val entity = event.entity
 		if (!entity.hasGene(ModGenes.CRINGE)) return
 
@@ -28,6 +30,8 @@ object GeneRenderChanges {
 	}
 
 	fun shakeFromCringePost(event: RenderLivingEvent.Post<*, *>) {
+		if (!ClientConfig.CONFIG.doesCringeShake.get()) return
+
 		val entity = event.entity
 		if (!entity.hasGene(ModGenes.CRINGE)) return
 

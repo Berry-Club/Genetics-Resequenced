@@ -189,14 +189,14 @@ class TemporaryGenesCapability() {
 
 			val existingTempGene = existingList.find { it.geneHolder.isGene(newGeneHolder) }
 			if (existingTempGene != null) {
-				existingTempGene.ticksRemaining = durationTicks
+				existingTempGene.ticksRemaining = eventPre.durationTicks
 			} else {
-				existingList.add(TemporaryGene(newGeneHolder, durationTicks))
+				existingList.add(TemporaryGene(newGeneHolder, eventPre.durationTicks))
 			}
 
 			this.temporaryGenes = existingList
 
-			val eventPost = TemporaryGeneAddedEvent.Post(this, newGeneHolder, durationTicks)
+			val eventPost = TemporaryGeneAddedEvent.Post(this, newGeneHolder, eventPre.durationTicks)
 			FORGE_BUS.post(eventPost)
 
 			return true

@@ -56,6 +56,8 @@ class DupeCellRecipe(
 			EntityDnaItem.setEntityType(outputCell, ingredientEntity)
 		}
 
+		outputCell.count = if (this.isGmoCell) 4 else 8
+
 		return outputCell
 	}
 
