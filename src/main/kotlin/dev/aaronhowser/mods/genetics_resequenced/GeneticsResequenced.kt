@@ -15,8 +15,7 @@ import thedarkcolour.kotlinforforge.forge.MOD_BUS
 class GeneticsResequenced {
 
 	init {
-		// KotlinForForge 4 requires a no-argument constructor, so the context cannot be injected.
-		@Suppress("DEPRECATION")
+		@Suppress("removal")
 		val modLoadingContext = ModLoadingContext.get()
 
 		ModRegistries.register(MOD_BUS)
