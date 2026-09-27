@@ -57,7 +57,7 @@ legacyForge {
 				programArguments.addAll(ENV.MC_CLIENT_ARGS.split(' '))
 			}
 
-			gameDirectory = file 'runs/client'
+			gameDirectory = file 'runs/1-20/client'
 		}
 
 		"Client-Two" {
@@ -65,7 +65,7 @@ legacyForge {
 			ideName = "Client Two"
 			systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
 
-			gameDirectory = file 'runs/client'
+			gameDirectory = file 'runs/1-20/client'
 
 			if (ENV.MC_CLIENT_2_ARGS) {
 				programArguments.addAll(ENV.MC_CLIENT_2_ARGS.split(' '))
@@ -78,13 +78,13 @@ legacyForge {
 			programArgument '--nogui'
 			systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
 
-			gameDirectory = file 'runs/server'
+			gameDirectory = file 'runs/1-20/server'
 		}
 
 		data {
 			data()
 
-			gameDirectory = file 'runs/client'
+			gameDirectory = file 'runs/1-20/client'
 
 			programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
 		}
