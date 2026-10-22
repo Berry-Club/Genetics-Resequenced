@@ -5,6 +5,10 @@
 - Updated the Patchouli and Modonomicon books
 	- Also it now uses Patchouli Datagen
 
+### Fixed
+
+- Compatibility with latest Aaron (#102)
+
 # 1.14.1
 
 ### Fixed
