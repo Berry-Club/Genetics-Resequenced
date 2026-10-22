@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.dna_decryptor.desc"
+      "translate": "advancements.geneticsresequenced.dna_decryptor.desc"
     },
     "icon": {
       "count": 1,
       "id": "geneticsresequenced:dna_decryptor"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.dna_decryptor.title"
+      "translate": "advancements.geneticsresequenced.dna_decryptor.title"
     }
   },
   "requirements": [

@@ -6,12 +6,11 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isNotEmpty
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.setUnit
-import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
+import dev.aaronhowser.mods.geneticsresequenced.advancement.ModAdvancements
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModAdvancementSubProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModMessageLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
@@ -295,7 +294,7 @@ object ClickGenes {
 		)
 
 		if (target is ServerPlayer) {
-			AdvancementTriggers.completeAdvancement(target, ModAdvancementSubProvider.GET_MILKED)
+			ModAdvancements.trigger(target, ModAdvancements.GET_MILKED)
 		}
 	}
 
@@ -336,7 +335,7 @@ object ClickGenes {
 		)
 
 		if (player is ServerPlayer) {
-			AdvancementTriggers.completeAdvancement(player, ModAdvancementSubProvider.GET_MILKED)
+			ModAdvancements.trigger(player, ModAdvancements.GET_MILKED)
 		}
 	}
 

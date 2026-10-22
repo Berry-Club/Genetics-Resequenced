@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.plasmid_infuser.desc"
+      "translate": "advancements.geneticsresequenced.plasmid_infuser.desc"
     },
     "icon": {
       "count": 1,
       "id": "geneticsresequenced:plasmid_infuser"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.plasmid_infuser.title"
+      "translate": "advancements.geneticsresequenced.plasmid_infuser.title"
     }
   },
   "requirements": [

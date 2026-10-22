@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.plasmid_injector.desc"
+      "translate": "advancements.geneticsresequenced.plasmid_injector.desc"
     },
     "icon": {
       "count": 1,
       "id": "geneticsresequenced:plasmid_injector"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.plasmid_injector.title"
+      "translate": "advancements.geneticsresequenced.plasmid_injector.title"
     }
   },
   "requirements": [

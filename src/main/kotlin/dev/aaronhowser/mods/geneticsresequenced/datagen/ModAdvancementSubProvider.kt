@@ -4,15 +4,18 @@ import dev.aaronhowser.mods.aaron.datagen.AaronAdvancementSubProvider
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withComponent
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
 import dev.aaronhowser.mods.geneticsresequenced.advancement.HelixGenePredicate
+import dev.aaronhowser.mods.geneticsresequenced.advancement.ModAdvancements
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModAdvancementLang
 import dev.aaronhowser.mods.geneticsresequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityItemComponent
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModBlocks
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModDataComponents
+import dev.aaronhowser.mods.geneticsresequenced.registry.ModGenes
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItemSubPredicates
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModItems
 import net.minecraft.advancements.Advancement
 import net.minecraft.advancements.AdvancementHolder
+import net.minecraft.advancements.AdvancementRequirements
 import net.minecraft.advancements.AdvancementType
 import net.minecraft.advancements.critereon.InventoryChangeTrigger
 import net.minecraft.advancements.critereon.ItemPredicate
@@ -39,7 +42,7 @@ class ModAdvancementSubProvider(
 		val root = advancement()
 			.display(
 				ModItems.SCRAPER.get(),
-				Component.literal("Genetics: Resequenced"),
+				ModAdvancementLang.ROOT_TITLE.toComponent(),
 				ModAdvancementLang.SCRAPER_DESC.toComponent(),
 				GeneticsResequenced.modResource("textures/block/machine_bottom.png"),
 				AdvancementType.TASK,
@@ -48,7 +51,7 @@ class ModAdvancementSubProvider(
 				false
 			)
 			.has(ModItems.SCRAPER)
-			.save(ROOT)
+			.save(ModAdvancements.ROOT)
 
 		val cellAnalyzer = advancement()
 			.parent(root)
@@ -58,7 +61,7 @@ class ModAdvancementSubProvider(
 				ModAdvancementLang.ANALYZER_DESC.toComponent()
 			)
 			.hasAny(ModBlocks.CELL_ANALYZER, ModItems.CELL)
-			.save(CELL_ANALYZER)
+			.save(ModAdvancements.CELL_ANALYZER)
 
 		val dnaExtractor = advancement()
 			.parent(cellAnalyzer)
@@ -68,7 +71,7 @@ class ModAdvancementSubProvider(
 				ModAdvancementLang.EXTRACTOR_DESC.toComponent(),
 			)
 			.hasAny(ModBlocks.DNA_EXTRACTOR, ModItems.DNA_HELIX)
-			.save(DNA_EXTRACTOR)
+			.save(ModAdvancements.DNA_EXTRACTOR)
 
 		val dnaDecryptor = advancement()
 			.parent(dnaExtractor)
@@ -78,7 +81,7 @@ class ModAdvancementSubProvider(
 				ModAdvancementLang.DECRYPTOR_DESC.toComponent(),
 			)
 			.has(ModBlocks.DNA_DECRYPTOR)
-			.save(DNA_DECRYPTOR)
+			.save(ModAdvancements.DNA_DECRYPTOR)
 
 		val decryptDna = advancement()
 			.parent(dnaDecryptor)
@@ -100,7 +103,7 @@ class ModAdvancementSubProvider(
 						.build()
 				)
 			)
-			.save(DECRYPT_DNA)
+			.save(ModAdvancements.DECRYPT_DNA)
 
 		Advancement.Builder.advancement()
 			.parent(decryptDna)
@@ -125,7 +128,7 @@ class ModAdvancementSubProvider(
 						.build()
 				)
 			)
-			.save(BLACK_DEATH)
+			.save(ModAdvancements.BLACK_DEATH)
 
 		val plasmidInfuser = advancement()
 			.parent(dnaExtractor)
@@ -135,7 +138,7 @@ class ModAdvancementSubProvider(
 				ModAdvancementLang.INFUSER_DESC.toComponent(),
 			)
 			.has(ModBlocks.PLASMID_INFUSER)
-			.save(PLASMID_INFUSER)
+			.save(ModAdvancements.PLASMID_INFUSER)
 
 		val plasmidInjector = advancement()
 			.parent(plasmidInfuser)
@@ -145,7 +148,7 @@ class ModAdvancementSubProvider(
 				ModAdvancementLang.INJECTOR_DESC.toComponent(),
 			)
 			.has(ModBlocks.PLASMID_INJECTOR)
-			.save(PLASMID_INJECTOR)
+			.save(ModAdvancements.PLASMID_INJECTOR)
 
 		val getGene = advancement()
 			.parent(plasmidInjector)
@@ -163,8 +166,12 @@ class ModAdvancementSubProvider(
 				AdvancementType.GOAL,
 				true, true, false
 			)
-			.addImpossibleCriterion()
-			.save(GET_GENE)
+			// Keep the legacy criterion name so completed progress survives upgrades.
+			.addCriterion(
+				"impossible",
+				playerAction(ModAdvancements.GET_GENE)
+			)
+			.save(ModAdvancements.GET_GENE)
 
 		advancement()
 			.parent(getGene)
@@ -174,8 +181,11 @@ class ModAdvancementSubProvider(
 				ModAdvancementLang.FLIGHT_DESC.toComponent(),
 				AdvancementType.CHALLENGE,
 			)
-			.addImpossibleCriterion()
-			.save(GET_FLIGHT)
+			.addCriterion(
+				"impossible",
+				playerAction(ModGenes.FLIGHT.location())
+			)
+			.save(ModAdvancements.GET_FLIGHT)
 
 		advancement()
 			.parent(getGene)
@@ -185,8 +195,35 @@ class ModAdvancementSubProvider(
 				ModAdvancementLang.SCARE_DESC.toComponent(),
 				AdvancementType.CHALLENGE,
 			)
+			.addCriterion(
+				"scare_spiders",
+				playerAction(ModGenes.SCARE_SPIDERS.location())
+			)
+			.addCriterion(
+				"scare_creepers",
+				playerAction(ModGenes.SCARE_CREEPERS.location())
+			)
+			.addCriterion(
+				"scare_skeletons",
+				playerAction(ModGenes.SCARE_SKELETONS.location())
+			)
+			.addCriterion(
+				"scare_zombies",
+				playerAction(ModGenes.SCARE_ZOMBIES.location())
+			)
+			// Legacy completion satisfies every pair; new progress still requires all four genes.
 			.addImpossibleCriterion()
-			.save(GET_ALL_SCARE_GENES)
+			.requirements(
+				AdvancementRequirements(
+					listOf(
+						listOf("impossible", "scare_spiders"),
+						listOf("impossible", "scare_creepers"),
+						listOf("impossible", "scare_skeletons"),
+						listOf("impossible", "scare_zombies")
+					)
+				)
+			)
+			.save(ModAdvancements.GET_ALL_SCARE_GENES)
 
 		advancement()
 			.parent(getGene)
@@ -196,8 +233,11 @@ class ModAdvancementSubProvider(
 				ModAdvancementLang.CRINGE_DESC.toComponent(),
 				AdvancementType.GOAL,
 			)
-			.addImpossibleCriterion()
-			.save(GET_CRINGE)
+			.addCriterion(
+				"impossible",
+				playerAction(ModGenes.CRINGE.location())
+			)
+			.save(ModAdvancements.GET_CRINGE)
 
 		advancement()
 			.parent(getGene)
@@ -207,8 +247,11 @@ class ModAdvancementSubProvider(
 				ModAdvancementLang.GET_MILKED_DESC.toComponent(),
 				AdvancementType.CHALLENGE,
 			)
-			.addImpossibleCriterion()
-			.save(GET_MILKED)
+			.addCriterion(
+				"impossible",
+				playerAction(ModAdvancements.GET_MILKED)
+			)
+			.save(ModAdvancements.GET_MILKED)
 
 		advancement()
 			.parent(getGene)
@@ -218,8 +261,11 @@ class ModAdvancementSubProvider(
 				ModAdvancementLang.SLIMY_DESC.toComponent(),
 				AdvancementType.CHALLENGE,
 			)
-			.addImpossibleCriterion()
-			.save(TRIGGER_SLIMY_DEATH)
+			.addCriterion(
+				"impossible",
+				playerAction(ModAdvancements.TRIGGER_SLIMY_DEATH)
+			)
+			.save(ModAdvancements.TRIGGER_SLIMY_DEATH)
 
 		val syringe = advancement()
 			.parent(root)
@@ -229,7 +275,7 @@ class ModAdvancementSubProvider(
 				ModAdvancementLang.SYRINGE_DESC.toComponent(),
 			)
 			.hasAny(ModItems.SYRINGE, ModItems.METAL_SYRINGE)
-			.save(SYRINGE)
+			.save(ModAdvancements.SYRINGE)
 
 		advancement()
 			.parent(syringe)
@@ -239,29 +285,8 @@ class ModAdvancementSubProvider(
 				ModAdvancementLang.PURIFIER_DESC.toComponent(),
 			)
 			.has(ModBlocks.BLOOD_PURIFIER)
-			.save(BLOOD_PURIFIER)
+			.save(ModAdvancements.BLOOD_PURIFIER)
 
-	}
-
-	companion object {
-		private fun guide(string: String) = GeneticsResequenced.modResource("guide/$string")
-
-		val ROOT = guide("root")
-		val CELL_ANALYZER = guide("cell_analyzer")
-		val DNA_EXTRACTOR = guide("dna_extractor")
-		val DNA_DECRYPTOR = guide("dna_decryptor")
-		val DECRYPT_DNA = guide("decrypt_dna")
-		val BLACK_DEATH = guide("black_death")
-		val PLASMID_INFUSER = guide("plasmid_infuser")
-		val PLASMID_INJECTOR = guide("plasmid_injector")
-		val GET_GENE = guide("get_gene")
-		val GET_FLIGHT = guide("get_flight")
-		val GET_ALL_SCARE_GENES = guide("get_all_scare_genes")
-		val GET_CRINGE = guide("get_cringe")
-		val GET_MILKED = guide("get_milked")
-		val TRIGGER_SLIMY_DEATH = guide("trigger_slimy_death")
-		val SYRINGE = guide("syringe")
-		val BLOOD_PURIFIER = guide("blood_purifier")
 	}
 
 }

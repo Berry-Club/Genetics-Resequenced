@@ -24,14 +24,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.dna_extractor.desc"
+      "translate": "advancements.geneticsresequenced.dna_extractor.desc"
     },
     "icon": {
       "count": 1,
       "id": "geneticsresequenced:dna_extractor"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.dna_extractor.title"
+      "translate": "advancements.geneticsresequenced.dna_extractor.title"
     }
   },
   "requirements": [

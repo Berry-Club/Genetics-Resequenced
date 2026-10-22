@@ -24,14 +24,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.syringe.desc"
+      "translate": "advancements.geneticsresequenced.syringe.desc"
     },
     "icon": {
       "count": 1,
       "id": "geneticsresequenced:syringe"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.syringe.title"
+      "translate": "advancements.geneticsresequenced.syringe.title"
     }
   },
   "requirements": [

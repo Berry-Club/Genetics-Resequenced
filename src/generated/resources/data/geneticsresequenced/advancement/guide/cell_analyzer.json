@@ -24,14 +24,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.cell_analyzer.desc"
+      "translate": "advancements.geneticsresequenced.cell_analyzer.desc"
     },
     "icon": {
       "count": 1,
       "id": "geneticsresequenced:cell_analyzer"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.cell_analyzer.title"
+      "translate": "advancements.geneticsresequenced.cell_analyzer.title"
     }
   },
   "requirements": [

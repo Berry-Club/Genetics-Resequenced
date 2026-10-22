@@ -19,7 +19,7 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.black_death.desc"
+      "translate": "advancements.geneticsresequenced.black_death.desc"
     },
     "frame": "challenge",
     "icon": {
@@ -27,7 +27,7 @@
       "id": "minecraft:wither_rose"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.black_death.title"
+      "translate": "advancements.geneticsresequenced.black_death.title"
     }
   },
   "requirements": [

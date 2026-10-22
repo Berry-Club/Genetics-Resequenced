@@ -1,7 +1,7 @@
 package dev.aaronhowser.mods.geneticsresequenced.gene.behavior
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.nextRange
-import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
+import dev.aaronhowser.mods.geneticsresequenced.advancement.ModAdvancements
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GeneCooldowns
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.hasGene
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.clearSavedInventory
@@ -9,7 +9,6 @@ import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Compani
 import dev.aaronhowser.mods.geneticsresequenced.attachment.KeptInventory.Companion.saveInventory
 import dev.aaronhowser.mods.geneticsresequenced.compatibility.curios.KeepCurioInventory
 import dev.aaronhowser.mods.geneticsresequenced.config.ServerConfig
-import dev.aaronhowser.mods.geneticsresequenced.datagen.ModAdvancementSubProvider
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.isDisabled
 import dev.aaronhowser.mods.geneticsresequenced.registry.ModAttributes
@@ -178,7 +177,7 @@ object DeathGenes {
 		entity.health = entity.maxHealth * ServerConfig.CONFIG.slimyDeathHealthMultiplier.get().toFloat()
 
 		if (entity is ServerPlayer) {
-			AdvancementTriggers.completeAdvancement(entity, ModAdvancementSubProvider.TRIGGER_SLIMY_DEATH)
+			ModAdvancements.trigger(entity, ModAdvancements.TRIGGER_SLIMY_DEATH)
 		}
 	}
 

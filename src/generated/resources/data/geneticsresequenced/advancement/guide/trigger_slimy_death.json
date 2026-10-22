@@ -2,12 +2,15 @@
   "parent": "geneticsresequenced:guide/get_gene",
   "criteria": {
     "impossible": {
-      "trigger": "minecraft:impossible"
+      "conditions": {
+        "action": "geneticsresequenced:guide/trigger_slimy_death"
+      },
+      "trigger": "aaron:player_action"
     }
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.slimy_death.desc"
+      "translate": "advancements.geneticsresequenced.slimy_death.desc"
     },
     "frame": "challenge",
     "icon": {
@@ -15,7 +18,7 @@
       "id": "minecraft:slime_ball"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.slimy_death.title"
+      "translate": "advancements.geneticsresequenced.slimy_death.title"
     }
   },
   "requirements": [

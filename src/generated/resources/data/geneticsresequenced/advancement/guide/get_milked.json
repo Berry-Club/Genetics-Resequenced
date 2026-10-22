@@ -2,12 +2,15 @@
   "parent": "geneticsresequenced:guide/get_gene",
   "criteria": {
     "impossible": {
-      "trigger": "minecraft:impossible"
+      "conditions": {
+        "action": "geneticsresequenced:guide/get_milked"
+      },
+      "trigger": "aaron:player_action"
     }
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.get_milked.desc"
+      "translate": "advancements.geneticsresequenced.get_milked.desc"
     },
     "frame": "challenge",
     "icon": {
@@ -15,7 +18,7 @@
       "id": "minecraft:milk_bucket"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.get_milked.title"
+      "translate": "advancements.geneticsresequenced.get_milked.title"
     }
   },
   "requirements": [

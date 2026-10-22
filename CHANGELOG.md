@@ -11,6 +11,7 @@
 - Compatibility with latest Aaron (#102)
 - Increased the duration of the effect given by the Night Vision Gene so it doesnt flash (#101)
 - Fixed broken entity-based brewing recipes
+- Refactored all advancements to use new Aaron features, which should hopefully fix the Boo advancement (#83)
 
 # 1.14.1
 

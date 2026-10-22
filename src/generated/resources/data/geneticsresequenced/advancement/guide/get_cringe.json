@@ -2,12 +2,15 @@
   "parent": "geneticsresequenced:guide/get_gene",
   "criteria": {
     "impossible": {
-      "trigger": "minecraft:impossible"
+      "conditions": {
+        "action": "geneticsresequenced:cringe"
+      },
+      "trigger": "aaron:player_action"
     }
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.pathowogen.desc"
+      "translate": "advancements.geneticsresequenced.pathowogen.desc"
     },
     "frame": "goal",
     "icon": {
@@ -15,7 +18,7 @@
       "id": "minecraft:skeleton_skull"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.pathowogen.title"
+      "translate": "advancements.geneticsresequenced.pathowogen.title"
     }
   },
   "requirements": [

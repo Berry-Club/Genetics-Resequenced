@@ -14,13 +14,15 @@
   "display": {
     "background": "geneticsresequenced:textures/block/machine_bottom.png",
     "description": {
-      "translate": "advancement.geneticsresequenced.scraper.desc"
+      "translate": "advancements.geneticsresequenced.scraper.desc"
     },
     "icon": {
       "count": 1,
       "id": "geneticsresequenced:scraper"
     },
-    "title": "Genetics: Resequenced"
+    "title": {
+      "translate": "advancements.geneticsresequenced.root.title"
+    }
   },
   "requirements": [
     [

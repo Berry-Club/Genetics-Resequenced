@@ -2,12 +2,15 @@
   "parent": "geneticsresequenced:guide/get_gene",
   "criteria": {
     "impossible": {
-      "trigger": "minecraft:impossible"
+      "conditions": {
+        "action": "geneticsresequenced:flight"
+      },
+      "trigger": "aaron:player_action"
     }
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.flight.desc"
+      "translate": "advancements.geneticsresequenced.flight.desc"
     },
     "frame": "challenge",
     "icon": {
@@ -15,7 +18,7 @@
       "id": "minecraft:elytra"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.flight.title"
+      "translate": "advancements.geneticsresequenced.flight.title"
     }
   },
   "requirements": [

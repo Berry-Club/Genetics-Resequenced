@@ -2,6 +2,7 @@ package dev.aaronhowser.mods.geneticsresequenced.event.player
 
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
+import dev.aaronhowser.mods.geneticsresequenced.advancement.ModAdvancements
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
@@ -43,7 +44,13 @@ object OtherPlayerEvents {
 
 	@SubscribeEvent
 	fun onLogIn(event: PlayerEvent.PlayerLoggedInEvent) {
-		GenesData.syncPlayer(event.entity)
+		val player = event.entity
+
+		GenesData.syncPlayer(player)
+
+		if (player is ServerPlayer) {
+			ModAdvancements.triggerCurrentGenes(player)
+		}
 	}
 
 	@SubscribeEvent

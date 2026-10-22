@@ -2,12 +2,15 @@
   "parent": "geneticsresequenced:guide/plasmid_injector",
   "criteria": {
     "impossible": {
-      "trigger": "minecraft:impossible"
+      "conditions": {
+        "action": "geneticsresequenced:guide/get_gene"
+      },
+      "trigger": "aaron:player_action"
     }
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.get_gene.desc"
+      "translate": "advancements.geneticsresequenced.get_gene.desc"
     },
     "frame": "goal",
     "icon": {
@@ -26,7 +29,7 @@
       "id": "geneticsresequenced:syringe"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.get_gene.title"
+      "translate": "advancements.geneticsresequenced.get_gene.title"
     }
   },
   "requirements": [

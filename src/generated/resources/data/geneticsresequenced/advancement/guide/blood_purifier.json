@@ -14,14 +14,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.blood_purifier.desc"
+      "translate": "advancements.geneticsresequenced.blood_purifier.desc"
     },
     "icon": {
       "count": 1,
       "id": "geneticsresequenced:blood_purifier"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.blood_purifier.title"
+      "translate": "advancements.geneticsresequenced.blood_purifier.title"
     }
   },
   "requirements": [

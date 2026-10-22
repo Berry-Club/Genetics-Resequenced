@@ -4,7 +4,7 @@ import dev.aaronhowser.mods.aaron.misc.AaronExtensions.tell
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.withHoverText
 import dev.aaronhowser.mods.aaron.scheduler.SchedulerExtensions.scheduleTaskInTicks
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.advancement.AdvancementTriggers
+import dev.aaronhowser.mods.geneticsresequenced.advancement.ModAdvancements
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.geneticsresequenced.attachment.GenesData.Companion.removeGene
 import dev.aaronhowser.mods.geneticsresequenced.data.GeneRequirements
@@ -46,7 +46,9 @@ object GeneEvents {
 		}
 
 		if (livingEntity is ServerPlayer) {
-			AdvancementTriggers.geneAdvancements(livingEntity, geneHolder, wasAdded)
+			if (wasAdded) {
+				ModAdvancements.triggerGeneAdded(livingEntity, geneHolder)
+			}
 		}
 
 		livingEntity.level().scheduleTaskInTicks(1) {

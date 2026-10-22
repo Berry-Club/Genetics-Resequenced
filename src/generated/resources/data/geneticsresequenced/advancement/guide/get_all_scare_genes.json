@@ -3,11 +3,35 @@
   "criteria": {
     "impossible": {
       "trigger": "minecraft:impossible"
+    },
+    "scare_creepers": {
+      "conditions": {
+        "action": "geneticsresequenced:scare_creepers"
+      },
+      "trigger": "aaron:player_action"
+    },
+    "scare_skeletons": {
+      "conditions": {
+        "action": "geneticsresequenced:scare_skeletons"
+      },
+      "trigger": "aaron:player_action"
+    },
+    "scare_spiders": {
+      "conditions": {
+        "action": "geneticsresequenced:scare_spiders"
+      },
+      "trigger": "aaron:player_action"
+    },
+    "scare_zombies": {
+      "conditions": {
+        "action": "geneticsresequenced:scare_zombies"
+      },
+      "trigger": "aaron:player_action"
     }
   },
   "display": {
     "description": {
-      "translate": "advancement.geneticsresequenced.scare.desc"
+      "translate": "advancements.geneticsresequenced.scare.desc"
     },
     "frame": "challenge",
     "icon": {
@@ -15,12 +39,25 @@
       "id": "minecraft:jack_o_lantern"
     },
     "title": {
-      "translate": "advancement.geneticsresequenced.scare.title"
+      "translate": "advancements.geneticsresequenced.scare.title"
     }
   },
   "requirements": [
     [
-      "impossible"
+      "impossible",
+      "scare_spiders"
+    ],
+    [
+      "impossible",
+      "scare_creepers"
+    ],
+    [
+      "impossible",
+      "scare_skeletons"
+    ],
+    [
+      "impossible",
+      "scare_zombies"
     ]
   ],
   "sends_telemetry_event": true
