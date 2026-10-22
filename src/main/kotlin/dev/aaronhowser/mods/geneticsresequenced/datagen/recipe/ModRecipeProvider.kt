@@ -21,11 +21,13 @@ import net.minecraft.advancements.AdvancementRewards
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger
 import net.minecraft.core.Holder
 import net.minecraft.core.HolderLookup
+import net.minecraft.core.component.DataComponents
 import net.minecraft.data.PackOutput
 import net.minecraft.data.recipes.*
 import net.minecraft.world.entity.EntityType
 import net.minecraft.world.item.Items
 import net.minecraft.world.item.alchemy.Potion
+import net.minecraft.world.item.alchemy.PotionContents
 import net.neoforged.neoforge.common.Tags
 import net.neoforged.neoforge.common.crafting.DataComponentIngredient
 import java.util.concurrent.CompletableFuture
@@ -538,7 +540,12 @@ class ModRecipeProvider(
 			.requirements(AdvancementRequirements.Strategy.OR)
 
 		val recipe = SetPotionEntityRecipe(
-			DataComponentIngredient.of(false, OtherUtil.getPotionStack(potion))
+			DataComponentIngredient.of(
+				false,
+				DataComponents.POTION_CONTENTS,
+				PotionContents(potion),
+				Items.POTION
+			)
 		)
 
 		recipeOutput.accept(id, recipe, advancement.build(id.withPrefix("recipes/")))

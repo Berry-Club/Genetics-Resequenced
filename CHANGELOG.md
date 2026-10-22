@@ -9,6 +9,7 @@
 
 - Compatibility with latest Aaron (#102)
 - Increased the duration of the effect given by the Night Vision Gene so it doesnt flash (#101)
+- Entity-based recipes were broken
 
 # 1.14.1
 
