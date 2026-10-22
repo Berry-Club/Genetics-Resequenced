@@ -106,7 +106,7 @@ class AdvancedIncubatorMenu(
 		addSlot(chorusSlot)
 	}
 
-	override fun handleButtonPressed(buttonId: Int) {
+	override fun handleButtonPressed(buttonId: Int, isShiftDown: Boolean) {
 		when (buttonId) {
 			CYCLE_TEMPERATURE_BUTTON_ID -> {
 				val newTemperature = !isHighTemperature()
