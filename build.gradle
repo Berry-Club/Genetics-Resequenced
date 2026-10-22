@@ -55,7 +55,7 @@ neoForge {
 				programArguments.addAll(ENV.MC_CLIENT_ARGS.split(' '))
 			}
 
-			gameDirectory = file 'runs/client'
+			gameDirectory = file 'runs/1-21/client'
 		}
 
 		"Client-Two" {
@@ -63,7 +63,7 @@ neoForge {
 			ideName = "Client Two"
 			systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
 
-			gameDirectory = file 'runs/client'
+			gameDirectory = file 'runs/1-21/client'
 
 			if (ENV.MC_CLIENT_2_ARGS) {
 				programArguments.addAll(ENV.MC_CLIENT_2_ARGS.split(' '))
@@ -76,7 +76,7 @@ neoForge {
 			programArgument '--nogui'
 			systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
 
-			gameDirectory = file 'runs/server'
+			gameDirectory = file 'runs/1-21/server'
 		}
 
 		gameTestServer {
@@ -87,14 +87,14 @@ neoForge {
 		data {
 			data()
 
-			gameDirectory = file 'runs/client'
+			gameDirectory = file 'runs/1-21/client'
 
 			programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
 		}
 
 		"Wiki-Export-Client" {
 			client()
-			gameDirectory = file 'runs/wiki_exporter'
+			gameDirectory = file 'runs/1-21/wiki_exporter'
 			systemProperty 'item_asset_export.render.namespaces', 'geneticsresequenced'
 		}
 	}
