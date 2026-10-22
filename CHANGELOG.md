@@ -1,3 +1,9 @@
+# 1.15.1
+
+### Fixed
+
+- Genes are being lost on death
+
 # 1.15.0
 
 ### Added

@@ -1,9 +1,11 @@
 package dev.aaronhowser.mods.genetics_resequenced.event.player
 
+import dev.aaronhowser.mods.aaron.misc.AaronExtensions.registryAccess
 import dev.aaronhowser.mods.genetics_resequenced.GeneticsResequenced
 import dev.aaronhowser.mods.genetics_resequenced.capability.GenesCapability.Companion.permanentGeneHolders
 import dev.aaronhowser.mods.genetics_resequenced.capability.GenesCapability.Companion.removeAllGenes
 import dev.aaronhowser.mods.genetics_resequenced.capability.GenesCapability.Companion.removeGene
+import dev.aaronhowser.mods.genetics_resequenced.capability.GenesCapabilityProvider
 import dev.aaronhowser.mods.genetics_resequenced.config.ServerConfig
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModLanguageProvider.Companion.toComponent
 import dev.aaronhowser.mods.genetics_resequenced.datagen.lang.ModMessageLang
@@ -17,12 +19,40 @@ import net.minecraftforge.event.entity.player.PlayerEvent
 import net.minecraftforge.eventbus.api.EventPriority
 import net.minecraftforge.eventbus.api.SubscribeEvent
 import net.minecraftforge.fml.common.Mod
+import kotlin.jvm.optionals.getOrNull
 
 @Mod.EventBusSubscriber(
 	modid = GeneticsResequenced.MOD_ID,
 	bus = Mod.EventBusSubscriber.Bus.FORGE
 )
 object DeathForgeBusEvents {
+
+	@SubscribeEvent
+	fun onPlayerClone(event: PlayerEvent.Clone) {
+		if (!event.isWasDeath) return
+
+		val originalPlayer = event.original
+		originalPlayer.reviveCaps()
+
+		try {
+			val originalGenes = originalPlayer
+				.getCapability(GenesCapabilityProvider.CAPABILITY)
+				.resolve()
+				.getOrNull()
+				?: return
+
+			val newGenes = event.entity
+				.getCapability(GenesCapabilityProvider.CAPABILITY)
+				.resolve()
+				.getOrNull()
+				?: return
+
+			val genesTag = originalGenes.toTag(originalPlayer.registryAccess())
+			newGenes.fromTag(event.entity.registryAccess(), genesTag)
+		} finally {
+			originalPlayer.invalidateCaps()
+		}
+	}
 
 	@SubscribeEvent(
 		priority = EventPriority.HIGHEST    //So that graves etc don't dupe contents if you have the save inventory gene
