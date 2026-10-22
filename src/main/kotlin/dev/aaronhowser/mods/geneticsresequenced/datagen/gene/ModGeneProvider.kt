@@ -425,7 +425,8 @@ object ModGeneProvider : RegistrySetBuilder() {
 				dnaPointsRequired = 16,
 				potionDetails = listOf(
 					PotionDetails(
-						effect = MobEffects.NIGHT_VISION
+						effect = MobEffects.NIGHT_VISION,
+						duration = 200
 					)
 				)
 			)

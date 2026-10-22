@@ -1,4 +1,4 @@
-// 1.21.1	2026-07-23T01:20:34.9974224	Registries
+// 1.21.1	2026-10-21T19:16:59.3189323	Registries
 b3759d1544e562be7cc91a12049f6c5a248cfe52 data/geneticsresequenced/damage_type/bleed.json
 f9cf7d549d0afefd72ab82525c4139c6ee5067aa data/geneticsresequenced/damage_type/step_on_syringe.json
 bf6ec3c91792fe31e5935c5e96630e193beef8e2 data/geneticsresequenced/damage_type/use_scraper.json
@@ -56,7 +56,7 @@ ffac226f807d680b8b683c8c108ecbc07f2dbc85 data/geneticsresequenced/geneticsresequ
 998218c8a83e0d318759ba29f6a52034c28a4ae9 data/geneticsresequenced/geneticsresequenced/gene/more_hearts.json
 baeb87f517ed926a66cfe24ebb01a4f7f10a27b3 data/geneticsresequenced/geneticsresequenced/gene/more_hearts_2.json
 d14ad9956031c4caf302c65e4e5334985faa4267 data/geneticsresequenced/geneticsresequenced/gene/nausea.json
-f75b31bc3aa8957bd0281920205d0957f282e96c data/geneticsresequenced/geneticsresequenced/gene/night_vision.json
+3892b37ae90c7cf5838fe365784ea9cae9df16f3 data/geneticsresequenced/geneticsresequenced/gene/night_vision.json
 ff7635377d11f58a16e4b8c982932f1c46a25d9c data/geneticsresequenced/geneticsresequenced/gene/no_fall_damage.json
 9cb952b11f9ee6075cfaf79d24b1e565323169f4 data/geneticsresequenced/geneticsresequenced/gene/no_hunger.json
 dfacb778b9a0fdb58ad9657567740d57475323ff data/geneticsresequenced/geneticsresequenced/gene/oozing.json

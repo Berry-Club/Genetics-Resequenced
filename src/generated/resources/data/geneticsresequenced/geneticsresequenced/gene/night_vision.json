@@ -2,6 +2,7 @@
   "dna_points_required": 16,
   "potion_details": [
     {
+      "duration": 200,
       "effect": "minecraft:night_vision"
     }
   ]
