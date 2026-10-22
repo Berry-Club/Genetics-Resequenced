@@ -4,12 +4,13 @@
 
 - Updated the Patchouli and Modonomicon books
 	- Also it now uses Patchouli Datagen
+- Improved the way certain items interact with certain entities (#97)
 
 ### Fixed
 
 - Compatibility with latest Aaron (#102)
 - Increased the duration of the effect given by the Night Vision Gene so it doesnt flash (#101)
-- Entity-based recipes were broken
+- Fixed broken entity-based brewing recipes
 
 # 1.14.1
 

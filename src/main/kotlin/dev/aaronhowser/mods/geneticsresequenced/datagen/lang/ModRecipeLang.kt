@@ -33,7 +33,7 @@ object ModRecipeLang {
 		provider.add(EMI.SURGICAL_PRECISION_TAG, "Surgical Precision Enchantable")
 		provider.add(EMI.FIREBALL_TAG, "Usable for \"Shoot Fireballs\" Gene")
 		provider.add(EMI.MAGNET_BLACKLIST_TAG, "Blacklisted from \"Item Magnet\" Gene")
-		provider.add(EMI.BLOCKS_MOB_INTERACTION_TAG, "Prevents item interaction with entities that have the #geneticsresequenced:allows_preventing_interaction tag\nUsed for Villagers etc that already have their own interactions")
+		provider.add(EMI.OVERRIDES_ENTITY_INTERACTION_TAG, "Uses the item's interaction before the entity's own interaction")
 
 		provider.add(EMI.BLOOD_PURIFIER, "Blood Purifier")
 		provider.add(EMI.CELL_ANALYZER, "Cell Analyzer")
@@ -80,7 +80,7 @@ object ModRecipeLang {
 		const val SURGICAL_PRECISION_TAG = "tag.item.geneticsresequenced.enchantable.surgical_precision"
 		const val FIREBALL_TAG = "tag.item.geneticsresequenced.activates_shoot_fireball_gene"
 		const val MAGNET_BLACKLIST_TAG = "tag.item.geneticsresequenced.item_magnet_gene_blacklist"
-		const val BLOCKS_MOB_INTERACTION_TAG = "tag.item.geneticsresequenced.prevents_some_mob_interaction"
+		const val OVERRIDES_ENTITY_INTERACTION_TAG = "tag.item.geneticsresequenced.overrides_entity_interaction"
 
 		private fun emiCategory(name: String) = "emi.category.geneticsresequenced.$name"
 		val BLOOD_PURIFIER = emiCategory("blood_purifier")

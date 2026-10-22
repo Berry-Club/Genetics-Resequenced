@@ -1,16 +1,19 @@
 package dev.aaronhowser.mods.geneticsresequenced.event.player
 
-import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isEntity
 import dev.aaronhowser.mods.aaron.misc.AaronExtensions.isItem
 import dev.aaronhowser.mods.geneticsresequenced.GeneticsResequenced
-import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModEntityTypeTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.datagen.tag.ModItemTagsProvider
 import dev.aaronhowser.mods.geneticsresequenced.entity.SupportSlime
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.AttributeGenes
 import dev.aaronhowser.mods.geneticsresequenced.gene.behavior.ClickGenes
-import net.minecraft.world.InteractionHand
+import net.minecraft.world.InteractionResult
+import net.minecraft.world.entity.Entity
+import net.minecraft.world.entity.LivingEntity
+import net.minecraft.world.item.ItemStack
+import net.minecraft.world.level.gameevent.GameEvent
 import net.neoforged.bus.api.SubscribeEvent
 import net.neoforged.fml.common.EventBusSubscriber
+import net.neoforged.neoforge.event.EventHooks
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent
 import net.neoforged.neoforge.event.entity.living.LivingGetProjectileEvent
 import net.neoforged.neoforge.event.entity.player.PlayerEvent
@@ -27,22 +30,46 @@ object ClickEvents {
 		ClickGenes.handleMilkyOther(event)
 		ClickGenes.handleMeatyOther(event)
 
-		checkShouldCancel(event)
+		val interactionResult = getItemInteractionOverrideResult(event, event.target) ?: return
+		event.cancellationResult = interactionResult
+		event.isCanceled = true
 	}
 
-	private fun checkShouldCancel(event: PlayerInteractEvent.EntityInteract) {
-		val entity = event.target
-		if (!entity.isEntity(ModEntityTypeTagsProvider.ALLOWS_PREVENTING_INTERACTION)) return
+	@SubscribeEvent
+	fun onInteractEntitySpecific(event: PlayerInteractEvent.EntityInteractSpecific) {
+		val interactionResult = getItemInteractionOverrideResult(event, event.target) ?: return
+		event.cancellationResult = interactionResult
+		event.isCanceled = true
+	}
 
-		val mainHandStack = event.entity.getItemInHand(InteractionHand.MAIN_HAND)
-		val offHandStack = event.entity.getItemInHand(InteractionHand.OFF_HAND)
+	private fun getItemInteractionOverrideResult(
+		event: PlayerInteractEvent,
+		interactionTarget: Entity
+	): InteractionResult? {
+		val livingTarget = interactionTarget as? LivingEntity ?: return null
+		val originalItemStack = event.itemStack
+		if (!originalItemStack.isItem(ModItemTagsProvider.OVERRIDES_ENTITY_INTERACTION)) return null
 
-		if (
-			mainHandStack.isItem(ModItemTagsProvider.PREVENTS_SOME_MOB_INTERACTION)
-			|| offHandStack.isItem(ModItemTagsProvider.PREVENTS_SOME_MOB_INTERACTION)
-		) {
-			event.isCanceled = true
+		val player = event.entity
+		val itemStackCopy = originalItemStack.copy()
+		val interactionStack = if (player.hasInfiniteMaterials()) itemStackCopy else originalItemStack
+		val interactionResult = interactionStack.interactLivingEntity(player, livingTarget, event.hand)
+		if (interactionResult == InteractionResult.PASS) return null
+
+		if (interactionResult.consumesAction()) {
+			player.level().gameEvent(
+				GameEvent.ENTITY_INTERACT,
+				livingTarget.position(),
+				GameEvent.Context.of(player)
+			)
+
+			if (interactionStack.isEmpty && !player.hasInfiniteMaterials()) {
+				EventHooks.onPlayerDestroyItem(player, itemStackCopy, event.hand)
+				player.setItemInHand(event.hand, ItemStack.EMPTY)
+			}
 		}
+
+		return interactionResult
 	}
 
 	@SubscribeEvent

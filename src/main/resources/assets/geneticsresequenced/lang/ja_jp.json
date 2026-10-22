@@ -1060,7 +1060,7 @@
   "tag.item.geneticsresequenced.activates_shoot_fireball_gene": "「ファイヤーショット」遺伝子で使用可能",
   "tag.item.geneticsresequenced.enchantable.delicate_touch": "精密採取のエンチャント対象",
   "tag.item.geneticsresequenced.item_magnet_gene_blacklist": "「アイテム吸引」遺伝子のブラックリスト",
-  "tag.item.geneticsresequenced.prevents_some_mob_interaction": "geneticsresequenced:allows_preventing_interactionタグを持つエンティティとのアイテム操作を無効化します\n村人など、特殊な操作があるエンティティに使用されます",
+  "tag.item.geneticsresequenced.overrides_entity_interaction": "エンティティ自身の操作よりアイテムの操作を優先します",
   "tag.item.geneticsresequenced.syringes": "注射器",
   "tooltip.geneticsresequenced.advanced_incubator.set_high": "温度を高温に設定",
   "tooltip.geneticsresequenced.advanced_incubator.set_low": "温度を低温に設定",

@@ -56,15 +56,17 @@ class ScraperItem(properties: Properties) : Item(properties) {
 		target: LivingEntity,
 		usedHand: InteractionHand
 	): InteractionResult {
-		if (player !is ServerPlayer) return InteractionResult.PASS
-
 		if (target.isEntity(ModEntityTypeTagsProvider.SCRAPER_ENTITY_BLACKLIST)) {
+			if (player !is ServerPlayer) return InteractionResult.SUCCESS
+
 			player.tell(
 				ModMessageLang.SCRAPER_CANT_SCRAPE.toComponent()
 			)
 
 			return InteractionResult.FAIL
 		}
+
+		if (player !is ServerPlayer) return InteractionResult.SUCCESS
 
 		return if (scrapeEntity(player, stack, target)) {
 			InteractionResult.SUCCESS

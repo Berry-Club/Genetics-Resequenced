@@ -1188,7 +1188,7 @@
   "tag.item.geneticsresequenced.enchantable.delicate_touch": "Delicate Touch Enchantable",
   "tag.item.geneticsresequenced.enchantable.surgical_precision": "Surgical Precision Enchantable",
   "tag.item.geneticsresequenced.item_magnet_gene_blacklist": "Blacklisted from \"Item Magnet\" Gene",
-  "tag.item.geneticsresequenced.prevents_some_mob_interaction": "Prevents item interaction with entities that have the #geneticsresequenced:allows_preventing_interaction tag\nUsed for Villagers etc that already have their own interactions",
+  "tag.item.geneticsresequenced.overrides_entity_interaction": "Uses the item's interaction before the entity's own interaction",
   "tag.item.geneticsresequenced.syringes": "Syringes",
   "tooltip.geneticsresequenced.advanced_incubator.set_high": "Set temperature to high",
   "tooltip.geneticsresequenced.advanced_incubator.set_low": "Set temperature to low",

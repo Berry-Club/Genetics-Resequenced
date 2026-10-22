@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.gene.Gene.Companion.getName
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
+import net.minecraft.world.InteractionResult
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.entity.LivingEntity
 import net.minecraft.world.entity.player.Player
@@ -29,16 +30,32 @@ class GeneCheckerItem(properties: Properties) : Item(properties) {
 
 		if (!level.isClientSide) {
 			val targetEntity = OtherUtil.getLookedAtEntity(player) ?: player
-
-			tellHeldGenes(player, targetEntity)
-			tellPossibleGenes(player, targetEntity)
+			checkEntity(player, targetEntity)
 		}
 
 		return InteractionResultHolder.success(usedStack)
 	}
 
+	override fun interactLivingEntity(
+		stack: ItemStack,
+		player: Player,
+		target: LivingEntity,
+		usedHand: InteractionHand
+	): InteractionResult {
+		if (!player.level().isClientSide) {
+			checkEntity(player, target)
+		}
+
+		return InteractionResult.sidedSuccess(player.level().isClientSide)
+	}
+
 	companion object {
 		val DEFAULT_PROPERTIES: Properties = Properties().stacksTo(1)
+
+		private fun checkEntity(player: Player, targetEntity: LivingEntity) {
+			tellHeldGenes(player, targetEntity)
+			tellPossibleGenes(player, targetEntity)
+		}
 
 		private fun tellHeldGenes(player: Player, targetEntity: LivingEntity) {
 			tellPermanentGenes(player, targetEntity)

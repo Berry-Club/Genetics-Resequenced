@@ -490,7 +490,7 @@
   "command.geneticsresequenced.temporary_add_gene.single_target.success": "已为 %2$s 临时添加 %1$s，持续 %3$s tick！",
   "tag.item.geneticsresequenced.activates_shoot_fireball_gene": "可用于「发射火球」基因",
   "tag.item.geneticsresequenced.item_magnet_gene_blacklist": "「物品磁铁」基因黑名单",
-  "tag.item.geneticsresequenced.prevents_some_mob_interaction": "阻止与带有 #geneticsresequenced:allows_preventing_interaction 标签的实体交互物品\n用于村民等已有自身交互的实体",
+  "tag.item.geneticsresequenced.overrides_entity_interaction": "优先处理物品交互，而非实体自身的交互",
   "tag.item.geneticsresequenced.syringes": "注射器",
   "tooltip.geneticsresequenced.plasmid_infuser.anti_plasmid_1": "抗质粒不在质粒注入器中设定！",
   "tooltip.geneticsresequenced.plasmid_infuser.anti_plasmid_2": "将其与完成的质粒合成来设定。"

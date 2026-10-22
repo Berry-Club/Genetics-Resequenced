@@ -30,7 +30,7 @@ class ModItemTagsProvider(
 		val MAGNET_ITEM_BLACKLIST: TagKey<Item> = create("item_magnet_gene_blacklist")
 		val ENCHANTABLE_DELICATE_TOUCH: TagKey<Item> = create("enchantable/delicate_touch")
 		val ENCHANTABLE_SURGICAL_PRECISION: TagKey<Item> = create("enchantable/surgical_precision")
-		val PREVENTS_SOME_MOB_INTERACTION: TagKey<Item> = create("prevents_some_mob_interaction")
+		val OVERRIDES_ENTITY_INTERACTION: TagKey<Item> = create("overrides_entity_interaction")
 	}
 
 	override fun addTags(pProvider: HolderLookup.Provider) {
@@ -53,7 +53,7 @@ class ModItemTagsProvider(
 		this.tag(ENCHANTABLE_SURGICAL_PRECISION)
 			.add(ModItems.SCRAPER.get())
 
-		this.tag(PREVENTS_SOME_MOB_INTERACTION)
+		this.tag(OVERRIDES_ENTITY_INTERACTION)
 			.add(
 				ModItems.METAL_SYRINGE.get(),
 				ModItems.SCRAPER.get(),

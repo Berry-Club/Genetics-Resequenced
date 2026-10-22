@@ -11,6 +11,7 @@ import dev.aaronhowser.mods.geneticsresequenced.item.components.SpecificEntityIt
 import dev.aaronhowser.mods.geneticsresequenced.util.OtherUtil
 import net.minecraft.network.chat.Component
 import net.minecraft.world.InteractionHand
+import net.minecraft.world.InteractionResult
 import net.minecraft.world.InteractionResultHolder
 import net.minecraft.world.effect.MobEffectInstance
 import net.minecraft.world.effect.MobEffects
@@ -38,6 +39,16 @@ class MetalSyringeItem(properties: Properties) : SyringeItem(properties) {
 		val itemStack = player.getItemInHand(usedHand)
 		player.startUsingItem(usedHand)
 		return InteractionResultHolder.consume(itemStack)
+	}
+
+	override fun interactLivingEntity(
+		stack: ItemStack,
+		player: Player,
+		target: LivingEntity,
+		usedHand: InteractionHand
+	): InteractionResult {
+		player.startUsingItem(usedHand)
+		return InteractionResult.sidedSuccess(player.level().isClientSide)
 	}
 
 	override fun releaseUsing(
