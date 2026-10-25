@@ -1,3 +1,7 @@
+# 1.15.2
+
+- Fix crash due to Forge expecting a reobfuscated jar
+
 # 1.15.1
 
 ### Fixed

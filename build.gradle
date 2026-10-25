@@ -182,8 +182,6 @@ processResources {
 	}
 }
 
-jar.finalizedBy('reobfJar')
-
 publishing {
 	publications {
 		register('mavenJava', MavenPublication) {
@@ -221,7 +219,7 @@ java {
 }
 
 publishMods {
-	file = jar.archiveFile
+	file = reobfJar.archiveFile
 	displayName = "Genetics: Resequenced ${project.minecraft_version} ${project.version}"
 	changelog = "https://github.com/Berry-Club/Genetics-Resequenced/blob/Forge-1.20.1/CHANGELOG.md#" + project.mod_version.toString().replace(".", "")
 	modLoaders.add("forge")
